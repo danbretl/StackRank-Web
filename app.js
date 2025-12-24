@@ -314,10 +314,13 @@ const handleSignIn = async () => {
     return;
   }
   authStatus.textContent = "Sending magic link...";
+  const redirectBase = window.location.hostname.includes("github.io")
+    ? `${window.location.origin}/StackRank-Web/`
+    : window.location.origin;
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: window.location.origin,
+      emailRedirectTo: redirectBase,
     },
   });
   if (error) {

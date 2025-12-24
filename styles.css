@@ -330,6 +330,8 @@ body {
   grid-template-columns: 18px 36px 1fr;
   gap: 12px;
   align-items: center;
+  position: relative;
+  transition: transform 0.18s ease;
 }
 
 .ranking__handle {
@@ -344,13 +346,14 @@ body {
 
 .ranking__item.is-dragging {
   opacity: 0.3;
+  z-index: 0;
+}
+
+.ranking__item:not(.is-dragging) {
+  z-index: 1;
 }
 
 .ranking__item.is-shifting {
-  transition: transform 0.18s ease;
-}
-
-.ranking__item {
   transition: transform 0.18s ease;
 }
 

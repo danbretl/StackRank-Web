@@ -41,6 +41,13 @@ let currentSuggestions = [];
 let debounceTimer = null;
 let currentUser = null;
 let statusTimeout = null;
+let dragIndex = null;
+let dragItem = null;
+let dragOverRaf = null;
+let dragTargetIndex = null;
+let dragPointerY = null;
+let dragItems = null;
+let dragItemRects = null;
 
 const storageEnabled = typeof window !== "undefined" && "localStorage" in window;
 const supabaseEnabled =
@@ -90,6 +97,13 @@ const renderRanking = () => {
   ranking.forEach((movie, index) => {
     const item = document.createElement("li");
     item.className = "ranking__item";
+    item.dataset.index = String(index);
+    item.setAttribute("aria-grabbed", "false");
+    const handle = document.createElement("span");
+    handle.className = "ranking__handle";
+    handle.textContent = "≡";
+    handle.draggable = true;
+    handle.setAttribute("aria-hidden", "true");
     const poster = document.createElement("img");
     poster.className = "ranking__poster";
     if (movie.posterPath) {
@@ -111,7 +125,7 @@ const renderRanking = () => {
     meta.textContent = movie.year ? `Released ${movie.year}` : "Year unknown";
 
     text.append(title, meta);
-    item.append(poster, text);
+    item.append(handle, poster, text);
     rankingList.appendChild(item);
   });
 };
@@ -257,6 +271,103 @@ clearButton.addEventListener("click", () => {
   form.reset();
   renderRanking();
   titleInput.focus();
+});
+
+rankingList.addEventListener("dragstart", (event) => {
+  const handle = event.target.closest(".ranking__handle");
+  if (!handle) return;
+  const item = handle.closest(".ranking__item");
+  if (!item) return;
+  dragIndex = Number(item.dataset.index);
+  dragItem = item;
+  item.classList.add("is-dragging");
+  item.setAttribute("aria-grabbed", "true");
+  dragTargetIndex = null;
+  dragItems = Array.from(rankingList.querySelectorAll(".ranking__item")).filter(
+    (el) => el !== dragItem,
+  );
+  dragItemRects = dragItems.map((el) => el.getBoundingClientRect());
+  event.dataTransfer.effectAllowed = "move";
+  if (event.dataTransfer.setDragImage) {
+    event.dataTransfer.setDragImage(item, 20, 20);
+  }
+});
+
+rankingList.addEventListener("dragend", (event) => {
+  const item = event.target.closest(".ranking__item");
+  if (item) {
+    item.classList.remove("is-dragging");
+    item.setAttribute("aria-grabbed", "false");
+  }
+  dragIndex = null;
+  dragItem = null;
+  if (dragOverRaf) {
+    window.cancelAnimationFrame(dragOverRaf);
+    dragOverRaf = null;
+  }
+  dragTargetIndex = null;
+  dragPointerY = null;
+  dragItems = null;
+  dragItemRects = null;
+  rankingList.querySelectorAll(".is-shifting").forEach((el) => {
+    el.classList.remove("is-shifting");
+    el.style.transform = "";
+  });
+});
+
+rankingList.addEventListener("dragover", (event) => {
+  event.preventDefault();
+  if (dragIndex === null || !dragItem || !dragItems || !dragItemRects) return;
+  dragPointerY = event.clientY;
+  if (dragOverRaf) return;
+  dragOverRaf = window.requestAnimationFrame(() => {
+    dragOverRaf = null;
+    if (!dragItem || !dragItems || !dragItemRects) return;
+    const pointerY = dragPointerY;
+    if (pointerY === null) return;
+    const nextIndex = (() => {
+      const found = dragItemRects.findIndex((rect) => pointerY < rect.top + rect.height / 2);
+      return found === -1 ? dragItemRects.length : found;
+    })();
+
+    if (nextIndex === dragTargetIndex) return;
+    dragTargetIndex = nextIndex;
+
+    const originIndex = Math.min(dragIndex, dragItems.length);
+    dragItems.forEach((el) => {
+      el.classList.remove("is-shifting");
+      el.style.transform = "";
+    });
+    dragItems.forEach((el, index) => {
+      const height = dragItemRects[index].height * 0.5;
+      if (nextIndex > originIndex && index >= originIndex && index < nextIndex) {
+        el.classList.add("is-shifting");
+        el.style.transform = `translateY(${-height}px)`;
+      } else if (nextIndex < originIndex && index >= nextIndex && index < originIndex) {
+        el.classList.add("is-shifting");
+        el.style.transform = `translateY(${height}px)`;
+      }
+    });
+  });
+  event.dataTransfer.dropEffect = "move";
+});
+
+rankingList.addEventListener("drop", (event) => {
+  event.preventDefault();
+  if (dragIndex === null) return;
+  const insertIndex = dragTargetIndex ?? (dragItems ? dragItems.length : 0);
+  const currentOrder = (dragItems || []).map((el) => Number(el.dataset.index));
+  if (currentOrder.some((value) => Number.isNaN(value))) return;
+  const updated = currentOrder.map((index) => ranking[index]);
+  const moved = ranking[dragIndex];
+  updated.splice(insertIndex, 0, moved);
+  ranking = updated;
+  rankingList.querySelectorAll(".is-shifting").forEach((el) => {
+    el.classList.remove("is-shifting");
+    el.style.transform = "";
+  });
+  saveRanking();
+  renderRanking();
 });
 
 const updateStatus = () => {

@@ -327,9 +327,31 @@ body {
 
 .ranking__item {
   display: grid;
-  grid-template-columns: 36px 1fr;
+  grid-template-columns: 18px 36px 1fr;
   gap: 12px;
   align-items: center;
+}
+
+.ranking__handle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  cursor: grab;
+  user-select: none;
+}
+
+.ranking__item.is-dragging {
+  opacity: 0.3;
+}
+
+.ranking__item.is-shifting {
+  transition: transform 0.18s ease;
+}
+
+.ranking__item {
+  transition: transform 0.18s ease;
 }
 
 .ranking__poster {

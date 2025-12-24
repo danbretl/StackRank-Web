@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StackRank</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="hero">
+        <div class="hero__badge">StackRank</div>
+        <h1>Rank anything by feel, one comparison at a time.</h1>
+        <p>
+          Start with movies. Add a title, then make quick head-to-head choices to
+          place it exactly where it belongs.
+        </p>
+      </header>
+
+      <section class="panel" aria-live="polite">
+        <div class="panel__header">
+          <h2>Add a movie</h2>
+          <span class="panel__sub" id="api-status">Connects to TMDB for search.</span>
+        </div>
+        <div class="auth" id="auth">
+          <div class="auth__signed-out" id="auth-signed-out">
+            <label class="field">
+              <span>Email for sign in</span>
+              <input id="auth-email" type="email" placeholder="you@email.com" />
+            </label>
+            <button class="ghost" id="auth-sign-in" type="button">Send magic link</button>
+            <span class="auth__note">We’ll email you a sign-in link.</span>
+          </div>
+          <div class="auth__signed-in panel__sub auth__hidden" id="auth-signed-in">
+            <span id="auth-user">Signed in</span>
+            <button class="link" id="auth-sign-out" type="button">Sign out</button>
+          </div>
+          <div class="auth__status panel__sub" id="auth-status"></div>
+        </div>
+        <form id="movie-form" class="form">
+          <label class="field">
+            <span>Title</span>
+            <div class="field__input">
+              <input
+                id="title"
+                name="title"
+                type="text"
+                placeholder="Spirited Away"
+                autocomplete="off"
+                required
+              />
+              <div id="suggestions" class="suggestions" role="listbox" aria-label="Movie suggestions"></div>
+            </div>
+          </label>
+          <label class="field">
+            <span>Year</span>
+            <input id="year" name="year" type="number" placeholder="2001" min="1880" max="2100" />
+          </label>
+          <button class="cta" type="submit">Start ranking</button>
+        </form>
+      </section>
+
+      <section id="compare" class="panel panel--hidden" aria-live="polite">
+        <div class="panel__header">
+          <h2>Quick comparison</h2>
+          <span class="panel__sub" id="compare-sub">Choose the one you like more.</span>
+        </div>
+        <div class="compare">
+          <div class="card card--clickable" id="new-card" role="button" tabindex="0" aria-label="Choose new movie">
+            <div class="card__label">New entry</div>
+            <img class="card__poster" id="new-poster" alt="" />
+            <div class="card__title" id="new-title">Movie</div>
+            <div class="card__meta" id="new-meta">Year</div>
+          </div>
+          <div
+            class="card card--ghost card--clickable"
+            id="existing-card"
+            role="button"
+            tabindex="0"
+            aria-label="Choose existing movie"
+          >
+            <div class="card__label">Existing</div>
+            <img class="card__poster" id="existing-poster" alt="" />
+            <div class="card__title" id="existing-title">Movie</div>
+            <div class="card__meta" id="existing-meta">Year</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel__header">
+          <h2>Current ranking</h2>
+          <div class="panel__actions">
+            <button class="link" id="clear-list" type="button">Clear list</button>
+          </div>
+        </div>
+        <ol id="ranking" class="ranking">
+          <li class="ranking__empty">No movies yet. Add one to begin.</li>
+        </ol>
+      </section>
+    </main>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

@@ -25,8 +25,7 @@ const authSignOutButton = document.getElementById("auth-sign-out");
 const authUserLabel = document.getElementById("auth-user");
 const authStatus = document.getElementById("auth-status");
 
-const TMDB_API_KEY = "YOUR_TMDB_KEY";
-const TMDB_BASE_URL = "https://api.themoviedb.org/3";
+const TMDB_PROXY_PATH = "/functions/v1/tmdb-search";
 const TMDB_POSTER_BASE = "https://image.tmdb.org/t/p/w342";
 const TMDB_POSTER_SMALL = "https://image.tmdb.org/t/p/w92";
 const STORAGE_KEY = "stackrank:movies:v1";
@@ -43,7 +42,6 @@ let currentSuggestions = [];
 let debounceTimer = null;
 let currentUser = null;
 
-const apiEnabled = TMDB_API_KEY && TMDB_API_KEY !== "YOUR_TMDB_KEY";
 const storageEnabled = typeof window !== "undefined" && "localStorage" in window;
 const supabaseEnabled =
   SUPABASE_URL &&
@@ -51,6 +49,8 @@ const supabaseEnabled =
   SUPABASE_URL !== "YOUR_SUPABASE_URL" &&
   SUPABASE_ANON_KEY !== "YOUR_SUPABASE_ANON_KEY";
 const supabase = supabaseEnabled ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+const tmdbProxyEnabled = supabaseEnabled;
+const tmdbProxyUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_PROXY_PATH}` : "";
 
 const normalizeYear = (value) => {
   if (!value) return null;
@@ -276,19 +276,14 @@ clearButton.addEventListener("click", () => {
 });
 
 const updateStatus = () => {
-  if (!apiEnabled) {
-    apiStatus.textContent = "Add your TMDB API key in app.js to enable autocomplete.";
-    return;
-  }
-
   if (!supabaseEnabled) {
-    apiStatus.textContent = "Search powered by TMDB. Add Supabase keys to sync across devices.";
+    apiStatus.textContent = "Add Supabase keys to enable autocomplete and sync.";
     return;
   }
 
   apiStatus.textContent = currentUser
-    ? "Search powered by TMDB. Syncing with Supabase."
-    : "Search powered by TMDB. Sign in to sync across devices.";
+    ? "Search powered by TMDB via Supabase. Syncing enabled."
+    : "Search powered by TMDB via Supabase. Sign in to sync across devices.";
 };
 
 const setAuthUI = () => {
@@ -435,21 +430,22 @@ const renderSuggestions = (movies) => {
 };
 
 const fetchSuggestions = async (query) => {
-  if (!apiEnabled) return;
-  const url = `${TMDB_BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(query)}&include_adult=false`;
+  if (!tmdbProxyEnabled) return;
+  const url = `${tmdbProxyUrl}?q=${encodeURIComponent(query)}`;
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+      },
+    });
     if (!response.ok) {
       hideSuggestions();
       return;
     }
     const data = await response.json();
     if (titleInput.value.trim() !== query) return;
-    const movies = (data.results || []).slice(0, 6).map((movie) => ({
-      title: movie.title,
-      year: movie.release_date ? Number(movie.release_date.slice(0, 4)) : null,
-      posterPath: movie.poster_path,
-    }));
+    const movies = (data.results || []).slice(0, 6);
     renderSuggestions(movies);
   } catch (error) {
     hideSuggestions();
@@ -460,7 +456,7 @@ titleInput.addEventListener("input", (event) => {
   selectedSuggestion = null;
   const value = event.target.value.trim();
 
-  if (!apiEnabled || value.length < 2) {
+  if (!tmdbProxyEnabled || value.length < 2) {
     hideSuggestions();
     return;
   }

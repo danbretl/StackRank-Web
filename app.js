@@ -2,7 +2,6 @@ import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 const form = document.getElementById("movie-form");
 const titleInput = document.getElementById("title");
-const yearInput = document.getElementById("year");
 const suggestions = document.getElementById("suggestions");
 const apiStatus = document.getElementById("api-status");
 const compareSection = document.getElementById("compare");
@@ -41,6 +40,7 @@ let activeSuggestionIndex = -1;
 let currentSuggestions = [];
 let debounceTimer = null;
 let currentUser = null;
+let statusTimeout = null;
 
 const storageEnabled = typeof window !== "undefined" && "localStorage" in window;
 const supabaseEnabled =
@@ -51,13 +51,6 @@ const supabaseEnabled =
 const supabase = supabaseEnabled ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 const tmdbProxyEnabled = supabaseEnabled;
 const tmdbProxyUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_PROXY_PATH}` : "";
-
-const normalizeYear = (value) => {
-  if (!value) return null;
-  const year = Number(value);
-  if (Number.isNaN(year)) return null;
-  return year;
-};
 
 const formatMeta = (movie) => {
   if (!movie.year) return "Year unknown";
@@ -247,21 +240,12 @@ const handleDecision = (isNewBetter, midIndex) => {
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  const title = titleInput.value.trim();
-  const year = normalizeYear(yearInput.value.trim());
-
-  if (!title) return;
-
-  pending = {
-    title,
-    year,
-    posterPath: selectedSuggestion && selectedSuggestion.title === title ? selectedSuggestion.posterPath : null,
-    comparisons: 0,
-  };
-
-  selectedSuggestion = null;
+  if (!selectedSuggestion) {
+    setStatusMessage("Select a movie from the suggestions to add.");
+    return;
+  }
   hideSuggestions();
-  startComparison();
+  startRankingFromSelection();
 });
 
 clearButton.addEventListener("click", () => {
@@ -284,6 +268,16 @@ const updateStatus = () => {
   apiStatus.textContent = currentUser
     ? "Search powered by TMDB via Supabase. Syncing enabled."
     : "Search powered by TMDB via Supabase. Sign in to sync across devices.";
+};
+
+const setStatusMessage = (message, duration = 2200) => {
+  apiStatus.textContent = message;
+  if (statusTimeout) {
+    window.clearTimeout(statusTimeout);
+  }
+  statusTimeout = window.setTimeout(() => {
+    updateStatus();
+  }, duration);
 };
 
 const setAuthUI = () => {
@@ -338,6 +332,11 @@ const handleSignOut = async () => {
     authStatus.textContent = `Sign-out failed: ${error.message}`;
     return;
   }
+  ranking = [];
+  pending = null;
+  searchRange = null;
+  saveRanking();
+  renderRanking();
   authStatus.textContent = "Signed out.";
 };
 
@@ -380,10 +379,28 @@ const setActiveSuggestion = (index) => {
 };
 
 const pickSuggestion = (movie) => {
+  if (pending) return;
   selectedSuggestion = movie;
   titleInput.value = movie.title;
-  yearInput.value = movie.year || "";
   hideSuggestions();
+  startRankingFromSelection();
+};
+
+const startRankingFromSelection = () => {
+  if (!selectedSuggestion) return;
+  const suggestionMatches = selectedSuggestion && selectedSuggestion.title === titleInput.value.trim();
+  if (!suggestionMatches) {
+    setStatusMessage("Select a movie from the suggestions to add.");
+    return;
+  }
+  pending = {
+    title: selectedSuggestion.title,
+    year: selectedSuggestion.year,
+    posterPath: selectedSuggestion.posterPath,
+    comparisons: 0,
+  };
+  selectedSuggestion = null;
+  startComparison();
 };
 
 const renderSuggestions = (movies) => {

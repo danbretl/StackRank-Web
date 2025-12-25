@@ -49,6 +49,8 @@ let dragGhost = null;
 let dragOverRaf = null;
 let dragOffsetX = 0;
 let dragOffsetY = 0;
+let dragPointerId = null;
+let dragCaptureEl = null;
 
 const storageEnabled = typeof window !== "undefined" && "localStorage" in window;
 const supabaseEnabled =
@@ -318,6 +320,13 @@ const onPointerMove = (event) => {
 
 const endDrag = () => {
   if (!dragItem || dragIndex === null) return;
+  if (dragCaptureEl && dragCaptureEl.releasePointerCapture && dragPointerId !== null) {
+    try {
+      dragCaptureEl.releasePointerCapture(dragPointerId);
+    } catch (error) {
+      // Ignore missing pointer capture.
+    }
+  }
   const items = Array.from(rankingList.querySelectorAll(".ranking__item")).filter(
     (el) => el !== dragItem,
   );
@@ -335,6 +344,8 @@ const endDrag = () => {
   dragIndex = null;
   dragTargetIndex = null;
   dragPointerY = null;
+  dragPointerId = null;
+  dragCaptureEl = null;
   if (dragGhost) {
     dragGhost.remove();
     dragGhost = null;
@@ -351,16 +362,21 @@ const endDrag = () => {
   window.removeEventListener("scroll", updateDragLayout, true);
 };
 
-rankingList.addEventListener("pointerdown", (event) => {
-  const handle = event.target.closest(".ranking__handle");
-  if (!handle) return;
-  const item = handle.closest(".ranking__item");
-  if (!item) return;
-  event.preventDefault();
-  dragItem = item;
-  dragIndex = Number(item.dataset.index);
-  dragTargetIndex = dragIndex;
-  dragPointerY = event.clientY;
+rankingList.addEventListener(
+  "pointerdown",
+  (event) => {
+    const item = event.target.closest(".ranking__item");
+    if (!item) return;
+    event.preventDefault();
+    if (item.setPointerCapture) {
+      item.setPointerCapture(event.pointerId);
+    }
+    dragPointerId = event.pointerId;
+    dragCaptureEl = item;
+    dragItem = item;
+    dragIndex = Number(item.dataset.index);
+    dragTargetIndex = dragIndex;
+    dragPointerY = event.clientY;
   const rect = item.getBoundingClientRect();
   dragOffsetX = event.clientX - rect.left;
   dragOffsetY = event.clientY - rect.top;
@@ -375,11 +391,13 @@ rankingList.addEventListener("pointerdown", (event) => {
   item.setAttribute("aria-grabbed", "true");
   document.body.classList.add("is-dragging");
   updateDragLayout();
-  window.addEventListener("pointermove", onPointerMove);
-  window.addEventListener("pointerup", endDrag);
-  window.addEventListener("pointercancel", endDrag);
-  window.addEventListener("scroll", updateDragLayout, true);
-});
+    window.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("pointerup", endDrag);
+    window.addEventListener("pointercancel", endDrag);
+    window.addEventListener("scroll", updateDragLayout, true);
+  },
+  { passive: false },
+);
 
 const updateStatus = () => {
   if (!supabaseEnabled) {

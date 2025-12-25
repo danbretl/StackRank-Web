@@ -24,6 +24,12 @@ body {
   min-height: 100vh;
 }
 
+body.is-dragging {
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grabbing;
+}
+
 .app {
   max-width: 1100px;
   margin: 0 auto;
@@ -332,6 +338,9 @@ body {
   align-items: center;
   position: relative;
   transition: transform 0.18s ease;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .ranking__handle {
@@ -342,6 +351,7 @@ body {
   color: var(--ink-soft);
   cursor: grab;
   user-select: none;
+  -webkit-user-select: none;
 }
 
 .ranking__item.is-dragging {
@@ -355,6 +365,15 @@ body {
 
 .ranking__item.is-shifting {
   transition: transform 0.18s ease;
+}
+
+.drag-ghost {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.9;
+  border-radius: 12px;
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
 }
 
 .ranking__poster {

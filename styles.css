@@ -333,7 +333,7 @@ body.is-dragging {
 
 .ranking__item {
   display: grid;
-  grid-template-columns: 18px 36px 1fr;
+  grid-template-columns: 18px 36px 1fr auto;
   gap: 12px;
   align-items: center;
   position: relative;
@@ -384,6 +384,29 @@ body.is-dragging {
   background: #ededed;
 }
 
+.ranking__delete {
+  border: none;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 1.1rem;
+  line-height: 1;
+  padding: 6px 8px;
+  border-radius: 999px;
+  opacity: 0;
+  pointer-events: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.ranking__item:hover .ranking__delete {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ranking__delete:hover {
+  background: #f0f0f0;
+}
+
 .ranking__text {
   display: grid;
   gap: 4px;
@@ -414,6 +437,22 @@ body.is-dragging {
   color: var(--ink-soft);
   cursor: pointer;
   font-size: 0.95rem;
+}
+
+.debug {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
+    monospace;
+}
+
+.debug--hidden {
+  display: none;
+}
+
+.debug__content {
+  margin: 0;
+  white-space: pre-wrap;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
 }
 
 @keyframes fadeIn {

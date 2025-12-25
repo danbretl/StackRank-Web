@@ -428,6 +428,53 @@ const setStatusMessage = (message, duration = 2200) => {
   }, duration);
 };
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const resolveTmdbMatch = async (movie) => {
+  if (!tmdbProxyEnabled) return null;
+  const query = movie.title;
+  const url = `${tmdbProxyUrl}?q=${encodeURIComponent(query)}`;
+  try {
+    const response = await fetch(url, {
+      headers: {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+      },
+    });
+    if (!response.ok) return null;
+    const data = await response.json();
+    const results = data.results || [];
+    if (!results.length) return null;
+    const byYear =
+      movie.year &&
+      results.find((result) => result.year && Number(result.year) === Number(movie.year));
+    return byYear || results[0];
+  } catch (error) {
+    return null;
+  }
+};
+
+const migrateRanking = async () => {
+  const missing = ranking.filter((movie) => !movie.tmdbId);
+  if (!missing.length) return;
+  setStatusMessage("Updating existing items…", 2400);
+  let updated = false;
+  for (const movie of missing) {
+    const match = await resolveTmdbMatch(movie);
+    if (match && match.tmdbId) {
+      movie.tmdbId = match.tmdbId;
+      if (!movie.posterPath) movie.posterPath = match.posterPath;
+      if (!movie.year && match.year) movie.year = match.year;
+      updated = true;
+    }
+    await sleep(180);
+  }
+  if (updated) {
+    await saveRanking();
+    renderRanking();
+  }
+};
+
 const setAuthUI = () => {
   if (!supabaseEnabled) {
     authSignedOut.classList.add("auth__hidden");
@@ -678,6 +725,7 @@ const init = async () => {
   setAuthUI();
   await initAuth();
   await loadRanking();
+  await migrateRanking();
   renderRanking();
 };
 

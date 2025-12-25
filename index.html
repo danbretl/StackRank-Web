@@ -4,20 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>StackRank</title>
-    <link rel="stylesheet" href="styles.css?v=2" />
+    <link rel="stylesheet" href="styles.css?v=3" />
   </head>
   <body>
     <main class="app">
       <header class="topbar">
         <div class="brand">StackRank</div>
         <div class="topbar__meta">Movies</div>
+        <div class="auth auth--inline" id="auth">
+          <div class="auth__signed-out" id="auth-signed-out">
+            <input id="auth-email" type="email" placeholder="you@email.com" />
+            <button class="ghost" id="auth-sign-in" type="button">Sign in</button>
+          </div>
+          <div class="auth__signed-in panel__sub auth__hidden" id="auth-signed-in">
+            <span id="auth-user">Signed in</span>
+            <button class="link" id="auth-sign-out" type="button">Sign out</button>
+          </div>
+          <div class="auth__status panel__sub" id="auth-status"></div>
+        </div>
       </header>
 
       <div class="stack">
         <section class="panel panel--focus" aria-live="polite">
           <div class="panel__header">
             <h2>Add a movie</h2>
-            <span class="panel__sub" id="api-status">Connects to TMDB for search.</span>
           </div>
           <form id="movie-form" class="form form--center">
             <label class="field field--center">
@@ -35,49 +45,34 @@
               </div>
             </label>
           </form>
-
-          <div class="auth" id="auth">
-            <div class="auth__signed-out" id="auth-signed-out">
-              <label class="field">
-                <span>Email for sign in</span>
-                <input id="auth-email" type="email" placeholder="you@email.com" />
-              </label>
-              <button class="ghost" id="auth-sign-in" type="button">Send magic link</button>
-              <span class="auth__note">We’ll email you a sign-in link.</span>
+          <div class="panel__feedback" id="add-feedback" role="status" aria-live="polite"></div>
+          <div id="compare" class="compare-panel panel--hidden" aria-live="polite">
+            <div class="panel__header">
+              <h2>Pick your favorite</h2>
+              <span class="panel__sub" id="compare-sub">Choose the movie you like more.</span>
             </div>
-            <div class="auth__signed-in panel__sub auth__hidden" id="auth-signed-in">
-              <span id="auth-user">Signed in</span>
-              <button class="link" id="auth-sign-out" type="button">Sign out</button>
-            </div>
-            <div class="auth__status panel__sub" id="auth-status"></div>
-          </div>
-        </section>
-
-        <section id="compare" class="panel panel--hidden" aria-live="polite">
-          <div class="panel__header">
-            <h2>Pick your favorite</h2>
-            <span class="panel__sub" id="compare-sub">Choose the movie you like more.</span>
-          </div>
-          <div class="compare">
-            <div class="card card--clickable" id="new-card" role="button" tabindex="0" aria-label="Choose new movie">
-              <div class="card__label">New entry</div>
-              <img class="card__poster" id="new-poster" alt="" />
-              <div class="card__title" id="new-title">Movie</div>
-              <div class="card__meta" id="new-meta">Year</div>
-            </div>
-            <div
-              class="card card--ghost card--clickable"
-              id="existing-card"
-              role="button"
-              tabindex="0"
-              aria-label="Choose existing movie"
-            >
-              <div class="card__label">Existing</div>
-              <img class="card__poster" id="existing-poster" alt="" />
-              <div class="card__title" id="existing-title">Movie</div>
-              <div class="card__meta" id="existing-meta">Year</div>
+            <div class="compare">
+              <div class="card card--clickable" id="new-card" role="button" tabindex="0" aria-label="Choose new movie">
+                <div class="card__label">New entry</div>
+                <img class="card__poster" id="new-poster" alt="" />
+                <div class="card__title" id="new-title">Movie</div>
+                <div class="card__meta" id="new-meta">Year</div>
+              </div>
+              <div
+                class="card card--ghost card--clickable"
+                id="existing-card"
+                role="button"
+                tabindex="0"
+                aria-label="Choose existing movie"
+              >
+                <div class="card__label">Existing</div>
+                <img class="card__poster" id="existing-poster" alt="" />
+                <div class="card__title" id="existing-title">Movie</div>
+                <div class="card__meta" id="existing-meta">Year</div>
+              </div>
             </div>
           </div>
+          <span class="panel__sub panel__status" id="api-status">Connects to TMDB for search.</span>
         </section>
       </div>
 

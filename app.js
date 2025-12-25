@@ -1,5 +1,7 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
+console.info("StackRank build", "feedback-v1");
+
 const form = document.getElementById("movie-form");
 const titleInput = document.getElementById("title");
 const suggestions = document.getElementById("suggestions");
@@ -25,6 +27,7 @@ const authUserLabel = document.getElementById("auth-user");
 const authStatus = document.getElementById("auth-status");
 const debugPanel = document.getElementById("debug-panel");
 const debugContent = document.getElementById("debug-content");
+const addFeedback = document.getElementById("add-feedback");
 
 const TMDB_PROXY_PATH = "/functions/v1/tmdb-search";
 const TMDB_POSTER_BASE = "https://image.tmdb.org/t/p/w342";
@@ -55,6 +58,7 @@ let dragPointerId = null;
 let dragCaptureEl = null;
 let migrationStats = null;
 const debugEnabled = new URLSearchParams(window.location.search).get("debug") === "1";
+let highlightTimeout = null;
 
 const storageEnabled = typeof window !== "undefined" && "localStorage" in window;
 const supabaseEnabled =
@@ -217,6 +221,8 @@ const startComparison = () => {
     compareSection.classList.add("panel--hidden");
     form.reset();
     renderRanking();
+    setAddFeedback(`"${ranking[0].title}" placed as your top pick.`);
+    highlightRankingItem(0);
     titleInput.focus();
     return;
   }
@@ -266,13 +272,29 @@ const handleDecision = (isNewBetter, midIndex) => {
   }
 
   if (searchRange.low > searchRange.high) {
-    ranking.splice(searchRange.low, 0, pending);
+    const insertIndex = searchRange.low;
+    ranking.splice(insertIndex, 0, pending);
+    const leftNeighbor = ranking[insertIndex - 1];
+    const rightNeighbor = ranking[insertIndex + 1];
     pending = null;
     searchRange = null;
     saveRanking();
     compareSection.classList.add("panel--hidden");
     form.reset();
     renderRanking();
+    const placedTitle = `"${ranking[insertIndex].title}"`;
+    if (leftNeighbor && rightNeighbor) {
+      setAddFeedback(
+        `${placedTitle} placed at #${insertIndex + 1} between "${leftNeighbor.title}" and "${rightNeighbor.title}".`,
+      );
+    } else if (leftNeighbor) {
+      setAddFeedback(`${placedTitle} placed at #${insertIndex + 1} below "${leftNeighbor.title}".`);
+    } else if (rightNeighbor) {
+      setAddFeedback(`${placedTitle} placed at #${insertIndex + 1} above "${rightNeighbor.title}".`);
+    } else {
+      setAddFeedback(`${placedTitle} placed at #${insertIndex + 1}.`);
+    }
+    highlightRankingItem(insertIndex);
     titleInput.focus();
     return;
   }
@@ -465,6 +487,30 @@ const setStatusMessage = (message, duration = 2200) => {
   }, duration);
 };
 
+const setAddFeedback = (message, duration = null) => {
+  addFeedback.textContent = message;
+  if (highlightTimeout) {
+    window.clearTimeout(highlightTimeout);
+    highlightTimeout = null;
+  }
+  if (duration !== null) {
+    highlightTimeout = window.setTimeout(() => {
+      addFeedback.textContent = "";
+    }, duration);
+  }
+};
+
+const highlightRankingItem = (index) => {
+  const items = rankingList.querySelectorAll(".ranking__item");
+  const item = items[index];
+  if (!item) return;
+  item.classList.add("is-highlight");
+  item.scrollIntoView({ behavior: "smooth", block: "center" });
+  window.setTimeout(() => {
+    item.classList.remove("is-highlight");
+  }, 2000);
+};
+
 const updateDebugPanel = (extra = {}) => {
   if (!debugEnabled) return;
   debugPanel.classList.remove("debug--hidden");
@@ -652,6 +698,7 @@ const pickSuggestion = (movie) => {
 
 const startRankingFromSelection = () => {
   if (!selectedSuggestion) return;
+  setAddFeedback("");
   const suggestionMatches = selectedSuggestion && selectedSuggestion.title === titleInput.value.trim();
   if (!suggestionMatches) {
     setStatusMessage("Select a movie from the suggestions to add.");

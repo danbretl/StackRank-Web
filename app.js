@@ -23,6 +23,8 @@ const authSignInButton = document.getElementById("auth-sign-in");
 const authSignOutButton = document.getElementById("auth-sign-out");
 const authUserLabel = document.getElementById("auth-user");
 const authStatus = document.getElementById("auth-status");
+const debugPanel = document.getElementById("debug-panel");
+const debugContent = document.getElementById("debug-content");
 
 const TMDB_PROXY_PATH = "/functions/v1/tmdb-search";
 const TMDB_POSTER_BASE = "https://image.tmdb.org/t/p/w342";
@@ -51,6 +53,8 @@ let dragOffsetX = 0;
 let dragOffsetY = 0;
 let dragPointerId = null;
 let dragCaptureEl = null;
+let migrationStats = null;
+const debugEnabled = new URLSearchParams(window.location.search).get("debug") === "1";
 
 const storageEnabled = typeof window !== "undefined" && "localStorage" in window;
 const supabaseEnabled =
@@ -69,8 +73,20 @@ const formatMeta = (movie) => {
 
 const normalizeTitle = (value) => value.trim().toLowerCase();
 
-const isDuplicateMovie = (movie) =>
-  movie.tmdbId ? ranking.some((existing) => existing.tmdbId === movie.tmdbId) : false;
+const isDuplicateMovie = (movie) => {
+  const title = normalizeTitle(movie.title);
+  return ranking.some((existing) => {
+    if (movie.tmdbId && existing.tmdbId && existing.tmdbId === movie.tmdbId) {
+      return true;
+    }
+    const existingTitle = normalizeTitle(existing.title);
+    if (existingTitle !== title) return false;
+    if (movie.year && existing.year) {
+      return existing.year === movie.year;
+    }
+    return true;
+  });
+};
 
 const setPoster = (imageEl, movie) => {
   if (movie && movie.posterPath) {
@@ -111,6 +127,11 @@ const renderRanking = () => {
     handle.className = "ranking__handle";
     handle.textContent = "≡";
     handle.setAttribute("aria-hidden", "true");
+    const removeButton = document.createElement("button");
+    removeButton.className = "ranking__delete";
+    removeButton.type = "button";
+    removeButton.setAttribute("aria-label", `Remove ${movie.title}`);
+    removeButton.textContent = "×";
     const poster = document.createElement("img");
     poster.className = "ranking__poster";
     if (movie.posterPath) {
@@ -132,7 +153,7 @@ const renderRanking = () => {
     meta.textContent = movie.year ? `Released ${movie.year}` : "Year unknown";
 
     text.append(title, meta);
-    item.append(handle, poster, text);
+    item.append(handle, poster, text, removeButton);
     rankingList.appendChild(item);
   });
 };
@@ -283,6 +304,21 @@ clearButton.addEventListener("click", () => {
   titleInput.focus();
 });
 
+rankingList.addEventListener("click", (event) => {
+  const removeButton = event.target.closest(".ranking__delete");
+  if (!removeButton) return;
+  const item = removeButton.closest(".ranking__item");
+  if (!item) return;
+  const index = Number(item.dataset.index);
+  if (Number.isNaN(index)) return;
+  const movie = ranking[index];
+  if (!movie) return;
+  if (!window.confirm(`Remove "${movie.title}" from the list?`)) return;
+  ranking.splice(index, 1);
+  saveRanking();
+  renderRanking();
+});
+
 const clearDragShifts = () => {
   rankingList.querySelectorAll(".is-shifting").forEach((el) => {
     el.classList.remove("is-shifting");
@@ -373,6 +409,7 @@ const endDrag = () => {
 rankingList.addEventListener(
   "pointerdown",
   (event) => {
+    if (event.target.closest(".ranking__delete")) return;
     const item = event.target.closest(".ranking__item");
     if (!item) return;
     event.preventDefault();
@@ -428,6 +465,30 @@ const setStatusMessage = (message, duration = 2200) => {
   }, duration);
 };
 
+const updateDebugPanel = (extra = {}) => {
+  if (!debugEnabled) return;
+  debugPanel.classList.remove("debug--hidden");
+  const rankingSummary = ranking.map((movie) => ({
+    title: movie.title,
+    year: movie.year || null,
+    tmdbId: movie.tmdbId || null,
+  }));
+  const payload = {
+    migration: migrationStats,
+    rankingCount: ranking.length,
+    rankingSummary,
+    selectedSuggestion: selectedSuggestion
+      ? {
+          title: selectedSuggestion.title,
+          year: selectedSuggestion.year || null,
+          tmdbId: selectedSuggestion.tmdbId || null,
+        }
+      : null,
+    ...extra,
+  };
+  debugContent.textContent = JSON.stringify(payload, null, 2);
+};
+
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const resolveTmdbMatch = async (movie) => {
@@ -456,6 +517,7 @@ const resolveTmdbMatch = async (movie) => {
 
 const migrateRanking = async () => {
   const missing = ranking.filter((movie) => !movie.tmdbId);
+  migrationStats = { missing: missing.length, updated: 0, skipped: 0 };
   if (!missing.length) return;
   setStatusMessage("Updating existing items…", 2400);
   let updated = false;
@@ -466,6 +528,9 @@ const migrateRanking = async () => {
       if (!movie.posterPath) movie.posterPath = match.posterPath;
       if (!movie.year && match.year) movie.year = match.year;
       updated = true;
+      migrationStats.updated += 1;
+    } else {
+      migrationStats.skipped += 1;
     }
     await sleep(180);
   }
@@ -473,6 +538,7 @@ const migrateRanking = async () => {
     await saveRanking();
     renderRanking();
   }
+  updateDebugPanel();
 };
 
 const setAuthUI = () => {
@@ -546,7 +612,10 @@ const initAuth = async () => {
     currentUser = session ? session.user : null;
     setAuthUI();
     updateStatus();
-    loadRanking().then(renderRanking);
+    loadRanking()
+      .then(migrateRanking)
+      .then(renderRanking)
+      .then(updateDebugPanel);
   });
 
   authSignInButton.addEventListener("click", handleSignIn);
@@ -590,6 +659,7 @@ const startRankingFromSelection = () => {
   }
   if (isDuplicateMovie(selectedSuggestion)) {
     setStatusMessage(`"${selectedSuggestion.title}" is already in your list. Add something else.`);
+    updateDebugPanel({ duplicateBlocked: selectedSuggestion.tmdbId || selectedSuggestion.title });
     return;
   }
   pending = {
@@ -601,6 +671,7 @@ const startRankingFromSelection = () => {
   };
   selectedSuggestion = null;
   startComparison();
+  updateDebugPanel({ addedMovie: pending?.tmdbId || pending?.title || null });
 };
 
 const renderSuggestions = (movies) => {
@@ -727,6 +798,7 @@ const init = async () => {
   await loadRanking();
   await migrateRanking();
   renderRanking();
+  updateDebugPanel();
 };
 
 init();

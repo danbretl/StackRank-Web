@@ -41,6 +41,7 @@ serve(async (req) => {
     }
     const data = await response.json();
     const results = (data.results || []).map((movie: any) => ({
+      tmdbId: movie.id,
       title: movie.title,
       year: movie.release_date ? Number(movie.release_date.slice(0, 4)) : null,
       posterPath: movie.poster_path,

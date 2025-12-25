@@ -67,6 +67,11 @@ const formatMeta = (movie) => {
   return `Released ${movie.year}`;
 };
 
+const normalizeTitle = (value) => value.trim().toLowerCase();
+
+const isDuplicateMovie = (movie) =>
+  movie.tmdbId ? ranking.some((existing) => existing.tmdbId === movie.tmdbId) : false;
+
 const setPoster = (imageEl, movie) => {
   if (movie && movie.posterPath) {
     imageEl.src = `${TMDB_POSTER_BASE}${movie.posterPath}`;
@@ -265,6 +270,9 @@ form.addEventListener("submit", (event) => {
 });
 
 clearButton.addEventListener("click", () => {
+  if (!window.confirm("Clear the entire ranking list?")) {
+    return;
+  }
   ranking = [];
   pending = null;
   searchRange = null;
@@ -533,10 +541,15 @@ const startRankingFromSelection = () => {
     setStatusMessage("Select a movie from the suggestions to add.");
     return;
   }
+  if (isDuplicateMovie(selectedSuggestion)) {
+    setStatusMessage(`"${selectedSuggestion.title}" is already in your list. Add something else.`);
+    return;
+  }
   pending = {
     title: selectedSuggestion.title,
     year: selectedSuggestion.year,
     posterPath: selectedSuggestion.posterPath,
+    tmdbId: selectedSuggestion.tmdbId,
     comparisons: 0,
   };
   selectedSuggestion = null;

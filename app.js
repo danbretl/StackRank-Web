@@ -163,6 +163,23 @@ const renderRanking = () => {
   });
 };
 
+const mergeRankings = (baseList, incomingList) => {
+  const keyFor = (movie) => {
+    if (movie.tmdbId) return `tmdb:${movie.tmdbId}`;
+    const title = normalizeTitle(movie.title);
+    return movie.year ? `title:${title}:${movie.year}` : `title:${title}`;
+  };
+
+  const baseKeys = new Set(baseList.map(keyFor));
+  const merged = [...baseList];
+  incomingList.forEach((movie) => {
+    const key = keyFor(movie);
+    if (baseKeys.has(key)) return;
+    merged.push(movie);
+  });
+  return merged;
+};
+
 const saveRanking = async () => {
   const listId = getListId();
   if (supabaseEnabled && supabase && listId) {
@@ -190,11 +207,17 @@ const loadRanking = async () => {
   if (supabaseEnabled && supabase && listId) {
     const { data, error } = await supabase
       .from("rankings")
-      .select("movies")
+      .select("movies, updated_at")
       .eq("list_id", listId)
       .maybeSingle();
     if (!error && data && Array.isArray(data.movies)) {
-      ranking = data.movies;
+      const local = storageEnabled ? JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]") : [];
+      if (Array.isArray(local) && local.length) {
+        ranking = mergeRankings(data.movies, local);
+      } else {
+        ranking = data.movies;
+      }
+      await saveRanking();
       return;
     }
   }

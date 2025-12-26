@@ -134,6 +134,13 @@ const renderRanking = () => {
     handle.className = "ranking__handle";
     handle.textContent = "≡";
     handle.setAttribute("aria-hidden", "true");
+    const actions = document.createElement("div");
+    actions.className = "ranking__actions";
+    const restackButton = document.createElement("button");
+    restackButton.className = "ranking__restack";
+    restackButton.type = "button";
+    restackButton.setAttribute("aria-label", `Re-rank ${movie.title}`);
+    restackButton.textContent = "↻";
     const removeButton = document.createElement("button");
     removeButton.className = "ranking__delete";
     removeButton.type = "button";
@@ -160,7 +167,8 @@ const renderRanking = () => {
     meta.textContent = movie.year ? `Released ${movie.year}` : "Year unknown";
 
     text.append(title, meta);
-    item.append(handle, poster, text, removeButton);
+    actions.append(restackButton, removeButton);
+    item.append(handle, poster, text, actions);
     rankingList.appendChild(item);
   });
 };
@@ -410,6 +418,25 @@ shareButton.addEventListener("click", async () => {
 });
 
 rankingList.addEventListener("click", (event) => {
+  const restackButton = event.target.closest(".ranking__restack");
+  if (restackButton) {
+    const item = restackButton.closest(".ranking__item");
+    if (!item) return;
+    const index = Number(item.dataset.index);
+    if (Number.isNaN(index)) return;
+    const movie = ranking[index];
+    if (!movie) return;
+    if (pending) {
+      setStatusMessage("Finish the current comparison before re-stacking.");
+      return;
+    }
+    ranking.splice(index, 1);
+    pending = { ...movie, comparisons: 0 };
+    saveRanking();
+    renderRanking();
+    startComparison();
+    return;
+  }
   const removeButton = event.target.closest(".ranking__delete");
   if (!removeButton) return;
   const item = removeButton.closest(".ranking__item");
@@ -517,6 +544,9 @@ rankingList.addEventListener(
     if (event.target.closest(".ranking__delete")) return;
     const item = event.target.closest(".ranking__item");
     if (!item) return;
+    if (event.target.closest(".ranking__actions")) {
+      return;
+    }
     if (event.pointerType === "touch" && !event.target.closest(".ranking__handle")) {
       return;
     }

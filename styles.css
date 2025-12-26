@@ -413,6 +413,15 @@ body.is-dragging {
   -webkit-user-select: none;
 }
 
+@media (pointer: coarse) {
+  .ranking__handle {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    background: #f2f2f2;
+  }
+}
+
 .ranking__item.is-dragging {
   opacity: 0.3;
   z-index: 0;

@@ -454,6 +454,9 @@ rankingList.addEventListener(
     if (event.target.closest(".ranking__delete")) return;
     const item = event.target.closest(".ranking__item");
     if (!item) return;
+    if (event.pointerType === "touch" && !event.target.closest(".ranking__handle")) {
+      return;
+    }
     event.preventDefault();
     if (item.setPointerCapture) {
       item.setPointerCapture(event.pointerId);

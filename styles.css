@@ -488,6 +488,7 @@ body.is-dragging {
 .panel__actions {
   display: flex;
   gap: 12px;
+  align-items: center;
 }
 
 .link {
@@ -496,6 +497,31 @@ body.is-dragging {
   color: var(--ink-soft);
   cursor: pointer;
   font-size: 0.95rem;
+}
+
+.icon-button {
+  border: 1px solid var(--border-soft);
+  background: #ffffff;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.icon-button:hover {
+  border-color: var(--border);
+  color: var(--bg-ink);
+  transform: translateY(-1px);
+}
+
+.icon-button svg {
+  width: 18px;
+  height: 18px;
 }
 
 .debug {

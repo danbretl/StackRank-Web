@@ -18,6 +18,7 @@ const existingCard = document.getElementById("existing-card");
 const compareSub = document.getElementById("compare-sub");
 const rankingList = document.getElementById("ranking");
 const clearButton = document.getElementById("clear-list");
+const shareButton = document.getElementById("share-list");
 const authSignedOut = document.getElementById("auth-signed-out");
 const authSignedIn = document.getElementById("auth-signed-in");
 const authEmailInput = document.getElementById("auth-email");
@@ -326,6 +327,25 @@ clearButton.addEventListener("click", () => {
   titleInput.focus();
 });
 
+shareButton.addEventListener("click", async () => {
+  const text = buildExportText();
+  const title = "StackRank — Movies";
+  try {
+    if (navigator.share) {
+      await navigator.share({ title, text });
+      return;
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(text);
+      setAddFeedback("Copied ranking to clipboard.");
+      return;
+    }
+  } catch (error) {
+    // Fall through to prompt.
+  }
+  window.prompt("Copy your ranking:", text);
+});
+
 rankingList.addEventListener("click", (event) => {
   const removeButton = event.target.closest(".ranking__delete");
   if (!removeButton) return;
@@ -509,6 +529,15 @@ const highlightRankingItem = (index) => {
   window.setTimeout(() => {
     item.classList.remove("is-highlight");
   }, 2000);
+};
+
+const buildExportText = () => {
+  if (!ranking.length) return "StackRank — Movies\n\n(No movies ranked yet.)";
+  const lines = ranking.map((movie, index) => {
+    const year = movie.year ? ` (${movie.year})` : "";
+    return `${index + 1}. ${movie.title}${year}`;
+  });
+  return `StackRank — Movies\n\n${lines.join("\n")}`;
 };
 
 const updateDebugPanel = (extra = {}) => {

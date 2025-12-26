@@ -167,6 +167,7 @@ body.is-dragging {
   display: flex;
   flex-direction: column;
   position: relative;
+  padding-bottom: 56px;
 }
 
 .panel--focus .panel__header {
@@ -184,6 +185,12 @@ body.is-dragging {
   bottom: 16px;
 }
 
+.panel__feedback {
+  position: absolute;
+  left: 18px;
+  bottom: 16px;
+  right: 140px;
+}
 .panel__feedback {
   margin-top: 8px;
   font-size: 0.9rem;
@@ -380,6 +387,7 @@ body.is-dragging {
   padding-left: 0;
   display: grid;
   gap: 8px;
+  padding-right: 10px;
 }
 
 .ranking li {
@@ -388,6 +396,17 @@ body.is-dragging {
   border-radius: 12px;
   border: 1px solid var(--border-soft);
   list-style: none;
+  margin-right: 10px;
+}
+
+@media (pointer: coarse) {
+  .ranking {
+    padding-right: 18px;
+  }
+
+  .ranking li {
+    margin-right: 18px;
+  }
 }
 
 .ranking__item {

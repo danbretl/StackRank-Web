@@ -167,7 +167,6 @@ body.is-dragging {
   display: flex;
   flex-direction: column;
   position: relative;
-  padding-bottom: 56px;
 }
 
 .panel--focus .panel__header {
@@ -179,17 +178,11 @@ body.is-dragging {
   margin-bottom: 0;
 }
 
-.panel__status {
-  position: absolute;
-  right: 18px;
-  bottom: 16px;
-}
-
 .panel__feedback {
   position: absolute;
   left: 18px;
   bottom: 16px;
-  right: 140px;
+  right: 18px;
 }
 .panel__feedback {
   margin-top: 8px;
@@ -207,6 +200,12 @@ body.is-dragging {
 .compare-panel {
   margin-top: 12px;
   margin-bottom: 24px;
+}
+
+.footnote {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 6px 8px;
 }
 
 .field {

@@ -180,13 +180,41 @@ const mergeRankings = (baseList, incomingList) => {
   return merged;
 };
 
+const getLocalPayload = () => {
+  if (!storageEnabled) return { movies: [], updated_at: null };
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return { movies: [], updated_at: null };
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) {
+      return { movies: parsed, updated_at: null };
+    }
+    if (parsed && Array.isArray(parsed.movies)) {
+      return { movies: parsed.movies, updated_at: parsed.updated_at || null };
+    }
+  } catch (error) {
+    return { movies: [], updated_at: null };
+  }
+  return { movies: [], updated_at: null };
+};
+
+const saveLocalPayload = (movies, updatedAt) => {
+  if (!storageEnabled) return;
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ movies, updated_at: updatedAt }));
+  } catch (error) {
+    // Ignore write errors (storage full, blocked, etc.).
+  }
+};
+
 const saveRanking = async () => {
   const listId = getListId();
+  const updatedAt = new Date().toISOString();
   if (supabaseEnabled && supabase && listId) {
     const payload = {
       list_id: listId,
       movies: ranking,
-      updated_at: new Date().toISOString(),
+      updated_at: updatedAt,
     };
     const { error } = await supabase
       .from("rankings")
@@ -194,12 +222,7 @@ const saveRanking = async () => {
     if (!error) return;
   }
 
-  if (!storageEnabled) return;
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(ranking));
-  } catch (error) {
-    // Ignore write errors (storage full, blocked, etc.).
-  }
+  saveLocalPayload(ranking, updatedAt);
 };
 
 const loadRanking = async () => {
@@ -211,12 +234,12 @@ const loadRanking = async () => {
       .eq("list_id", listId)
       .maybeSingle();
     if (!error && data && Array.isArray(data.movies)) {
-      const local = storageEnabled ? JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]") : [];
-      if (Array.isArray(local) && local.length) {
-        ranking = mergeRankings(data.movies, local);
-      } else {
-        ranking = data.movies;
-      }
+      const local = getLocalPayload();
+      const serverUpdated = data.updated_at ? new Date(data.updated_at).getTime() : 0;
+      const localUpdated = local.updated_at ? new Date(local.updated_at).getTime() : 0;
+      const serverBase = serverUpdated >= localUpdated ? data.movies : local.movies;
+      const other = serverUpdated >= localUpdated ? local.movies : data.movies;
+      ranking = mergeRankings(serverBase, other);
       await saveRanking();
       return;
     }
@@ -224,11 +247,9 @@ const loadRanking = async () => {
 
   if (!storageEnabled) return;
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return;
-    const stored = JSON.parse(raw);
-    if (Array.isArray(stored)) {
-      ranking = stored;
+    const local = getLocalPayload();
+    if (Array.isArray(local.movies)) {
+      ranking = local.movies;
     }
   } catch (error) {
     // Ignore corrupt storage and continue with an empty list.

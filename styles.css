@@ -202,6 +202,40 @@ body.is-dragging {
   margin-bottom: 24px;
 }
 
+.compare__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.undo-button {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 0.85rem;
+  color: var(--bg-ink);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.undo-button:hover {
+  transform: translateY(-1px);
+}
+
+.undo-button[disabled] {
+  opacity: 0.2;
+  cursor: default;
+  transform: none;
+}
+
+.undo-button__icon {
+  font-size: 0.95rem;
+}
+
 .footnote {
   display: flex;
   justify-content: flex-end;

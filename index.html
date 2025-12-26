@@ -47,10 +47,16 @@
           </form>
           <div class="panel__feedback" id="add-feedback" role="status" aria-live="polite"></div>
           <div id="compare" class="compare-panel panel--hidden" aria-live="polite">
-            <div class="panel__header">
-              <h2>Pick your favorite</h2>
+          <div class="panel__header">
+            <h2>Pick your favorite</h2>
+            <div class="compare__meta">
               <span class="panel__sub" id="compare-sub">Choose the movie you like more.</span>
+              <button class="undo-button" id="undo-choice" type="button">
+                <span class="undo-button__icon" aria-hidden="true">←</span>
+                Undo last choice
+              </button>
             </div>
+          </div>
             <div class="compare">
               <div class="card card--clickable" id="new-card" role="button" tabindex="0" aria-label="Choose new movie">
                 <div class="card__label">New entry</div>

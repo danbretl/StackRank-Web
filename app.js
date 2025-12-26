@@ -16,6 +16,7 @@ const existingMeta = document.getElementById("existing-meta");
 const existingPoster = document.getElementById("existing-poster");
 const existingCard = document.getElementById("existing-card");
 const compareSub = document.getElementById("compare-sub");
+const undoChoiceButton = document.getElementById("undo-choice");
 const rankingList = document.getElementById("ranking");
 const clearButton = document.getElementById("clear-list");
 const shareButton = document.getElementById("share-list");
@@ -60,6 +61,7 @@ let dragCaptureEl = null;
 let migrationStats = null;
 const debugEnabled = new URLSearchParams(window.location.search).get("debug") === "1";
 let highlightTimeout = null;
+let compareHistory = [];
 
 const storageEnabled = typeof window !== "undefined" && "localStorage" in window;
 const supabaseEnabled =
@@ -273,6 +275,7 @@ const startComparison = () => {
   }
 
   searchRange = { low: 0, high: ranking.length - 1 };
+  compareHistory = [];
   showComparison();
 };
 
@@ -291,6 +294,7 @@ const showComparison = () => {
 
   compareSub.textContent = `Comparison ${pending.comparisons + 1} of ~${Math.ceil(Math.log2(ranking.length + 1))}`;
   compareSection.classList.remove("panel--hidden");
+  undoChoiceButton.disabled = compareHistory.length === 0;
 
   newCard.onclick = () => handleDecision(true, mid);
   existingCard.onclick = () => handleDecision(false, mid);
@@ -309,6 +313,11 @@ const showComparison = () => {
 };
 
 const handleDecision = (isNewBetter, midIndex) => {
+  compareHistory.push({
+    low: searchRange.low,
+    high: searchRange.high,
+    comparisons: pending.comparisons,
+  });
   pending.comparisons += 1;
   if (isNewBetter) {
     searchRange.high = midIndex - 1;
@@ -346,6 +355,16 @@ const handleDecision = (isNewBetter, midIndex) => {
 
   showComparison();
 };
+
+undoChoiceButton.addEventListener("click", () => {
+  if (!pending || !compareHistory.length) return;
+  const previous = compareHistory.pop();
+  if (!previous) return;
+  searchRange.low = previous.low;
+  searchRange.high = previous.high;
+  pending.comparisons = previous.comparisons;
+  showComparison();
+});
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();

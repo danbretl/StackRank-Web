@@ -80,6 +80,8 @@ let suggestRelatedCursor = 0;
 let suggestPopularCursor = 0;
 let suggestEssentialsCursor = 0;
 let suggestionsRequestId = 0;
+let placeholderIndex = 0;
+let placeholderTimer = null;
 
 const storageEnabled = typeof window !== "undefined" && "localStorage" in window;
 const supabaseEnabled =
@@ -92,10 +94,46 @@ const tmdbProxyEnabled = supabaseEnabled;
 const tmdbProxyUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_PROXY_PATH}` : "";
 const tmdbSuggestUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_SUGGEST_PATH}` : "";
 const SUGGESTION_PAGE_SIZE = 3;
+const PLACEHOLDER_TITLES = [
+  "The Godfather",
+  "Moonlight",
+  "Paddington 2",
+  "The Matrix",
+  "Casablanca",
+  "Mad Max: Fury Road",
+  "My Neighbor Totoro",
+  "Parasite",
+  "When Harry Met Sally...",
+  "Do the Right Thing",
+  "The Social Network",
+  "Everything Everywhere All at Once",
+  "Before Sunrise",
+  "Alien",
+  "The Princess Bride",
+  "In the Mood for Love",
+];
+const PLACEHOLDER_ROTATION_MS = 3600;
+const PLACEHOLDER_FADE_MS = 180;
 
 const formatMeta = (movie) => {
   if (!movie.year) return "Year unknown";
   return `Released ${movie.year}`;
+};
+
+const rotateTitlePlaceholder = () => {
+  if (titleInput.value.trim()) return;
+  titleInput.classList.add("is-placeholder-fading");
+  window.setTimeout(() => {
+    placeholderIndex = (placeholderIndex + 1) % PLACEHOLDER_TITLES.length;
+    titleInput.placeholder = PLACEHOLDER_TITLES[placeholderIndex];
+    titleInput.classList.remove("is-placeholder-fading");
+  }, PLACEHOLDER_FADE_MS);
+};
+
+const startPlaceholderRotation = () => {
+  titleInput.placeholder = PLACEHOLDER_TITLES[placeholderIndex];
+  if (placeholderTimer) window.clearInterval(placeholderTimer);
+  placeholderTimer = window.setInterval(rotateTitlePlaceholder, PLACEHOLDER_ROTATION_MS);
 };
 
 const normalizeTitle = (value) => value.trim().toLowerCase();
@@ -136,8 +174,11 @@ const getListId = () => {
 
 const renderRanking = () => {
   rankingList.innerHTML = "";
+  const hasRankedMovies = ranking.length > 0;
+  shareButton.disabled = !hasRankedMovies;
+  clearButton.disabled = !hasRankedMovies;
 
-  if (ranking.length === 0) {
+  if (!hasRankedMovies) {
     const empty = document.createElement("li");
     empty.className = "ranking__empty";
     empty.textContent = "No movies yet. Add one to begin.";
@@ -411,6 +452,7 @@ form.addEventListener("submit", (event) => {
 });
 
 clearButton.addEventListener("click", () => {
+  if (!ranking.length) return;
   if (!window.confirm("Clear the entire ranking list?")) {
     return;
   }
@@ -425,6 +467,7 @@ clearButton.addEventListener("click", () => {
 });
 
 shareButton.addEventListener("click", async () => {
+  if (!ranking.length) return;
   const text = buildExportText();
   const title = "StackRank — Movies";
   try {
@@ -1277,6 +1320,7 @@ suggestions.addEventListener("mousemove", (event) => {
 });
 
 const init = async () => {
+  startPlaceholderRotation();
   updateStatus();
   setAuthUI();
   await initAuth();

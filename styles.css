@@ -87,6 +87,7 @@ body.is-dragging {
 .panel--list {
   max-height: 480px;
   overflow: auto;
+  align-content: start;
 }
 
 .panel--hidden {
@@ -427,6 +428,7 @@ body.is-dragging {
 }
 
 .field input {
+  --placeholder-opacity: 1;
   border: 1px solid var(--border);
   border-radius: 999px;
   padding: 16px 18px;
@@ -435,6 +437,15 @@ body.is-dragging {
   background: #ffffff;
   width: 100%;
   text-align: center;
+}
+
+.field input::placeholder {
+  opacity: var(--placeholder-opacity);
+  transition: opacity 0.18s ease;
+}
+
+.field input.is-placeholder-fading {
+  --placeholder-opacity: 0;
 }
 
 .suggestions {
@@ -586,6 +597,7 @@ body.is-dragging {
   display: grid;
   gap: 8px;
   padding-right: 10px;
+  align-content: start;
 }
 
 .ranking li {
@@ -734,6 +746,7 @@ body.is-dragging {
 .ranking__empty {
   color: var(--ink-soft);
   font-style: italic;
+  min-height: 0;
 }
 
 .panel__actions {
@@ -748,6 +761,11 @@ body.is-dragging {
   color: var(--ink-soft);
   cursor: pointer;
   font-size: 0.95rem;
+}
+
+.link:disabled {
+  cursor: default;
+  opacity: 0.35;
 }
 
 .icon-button {
@@ -768,6 +786,17 @@ body.is-dragging {
   border-color: var(--border);
   color: var(--bg-ink);
   transform: translateY(-1px);
+}
+
+.icon-button:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
+.icon-button:disabled:hover {
+  border-color: var(--border-soft);
+  color: var(--ink-soft);
+  transform: none;
 }
 
 .icon-button svg {

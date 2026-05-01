@@ -30,11 +30,23 @@ const authStatus = document.getElementById("auth-status");
 const debugPanel = document.getElementById("debug-panel");
 const debugContent = document.getElementById("debug-content");
 const addFeedback = document.getElementById("add-feedback");
+const suggestPanel = document.getElementById("suggest-panel");
+const suggestRelatedSection = document.getElementById("suggest-related-section");
+const suggestRelatedTitle = document.getElementById("suggest-related-title");
+const suggestRelated = document.getElementById("suggest-related");
+const suggestRelatedEmpty = document.getElementById("suggest-related-empty");
+const suggestPopular = document.getElementById("suggest-popular");
+const suggestEssentials = document.getElementById("suggest-essentials");
+const suggestRelatedMore = document.getElementById("suggest-related-more");
+const suggestPopularMore = document.getElementById("suggest-popular-more");
+const suggestEssentialsMore = document.getElementById("suggest-essentials-more");
 
 const TMDB_PROXY_PATH = "/functions/v1/tmdb-search";
+const TMDB_SUGGEST_PATH = "/functions/v1/tmdb-suggest";
 const TMDB_POSTER_BASE = "https://image.tmdb.org/t/p/w342";
 const TMDB_POSTER_SMALL = "https://image.tmdb.org/t/p/w92";
 const STORAGE_KEY = "stackrank:movies:v1";
+const INSPIRED_SEED_KEY = "stackrank:inspired-seed:v1";
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyZmhha3J4c2xscnFtc2N4eHBiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1MzkzOTYsImV4cCI6MjA4MjExNTM5Nn0.XYeheYWAMNbUC9MUPv1oF7J3-MwxfcBS7-QpxRszrSs";
 
@@ -62,6 +74,12 @@ let migrationStats = null;
 const debugEnabled = new URLSearchParams(window.location.search).get("debug") === "1";
 let highlightTimeout = null;
 let compareHistory = [];
+let lastAddedTmdbId = null;
+let activeSuggestionSeed = null;
+let suggestRelatedCursor = 0;
+let suggestPopularCursor = 0;
+let suggestEssentialsCursor = 0;
+let suggestionsRequestId = 0;
 
 const storageEnabled = typeof window !== "undefined" && "localStorage" in window;
 const supabaseEnabled =
@@ -72,6 +90,8 @@ const supabaseEnabled =
 const supabase = supabaseEnabled ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
 const tmdbProxyEnabled = supabaseEnabled;
 const tmdbProxyUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_PROXY_PATH}` : "";
+const tmdbSuggestUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_SUGGEST_PATH}` : "";
+const SUGGESTION_PAGE_SIZE = 3;
 
 const formatMeta = (movie) => {
   if (!movie.year) return "Year unknown";
@@ -271,6 +291,7 @@ const startComparison = () => {
 
   if (ranking.length === 0) {
     ranking.push(pending);
+    lastAddedTmdbId = pending.tmdbId || null;
     pending = null;
     saveRanking();
     compareSection.classList.add("panel--hidden");
@@ -278,12 +299,15 @@ const startComparison = () => {
     renderRanking();
     setAddFeedback(`"${ranking[0].title}" placed as your top pick.`);
     highlightRankingItem(0);
+    updateSuggestions();
     titleInput.focus();
     return;
   }
 
   searchRange = { low: 0, high: ranking.length - 1 };
   compareHistory = [];
+  suggestionsRequestId += 1;
+  setSuggestionsHidden(true);
   showComparison();
 };
 
@@ -336,6 +360,7 @@ const handleDecision = (isNewBetter, midIndex) => {
   if (searchRange.low > searchRange.high) {
     const insertIndex = searchRange.low;
     ranking.splice(insertIndex, 0, pending);
+    lastAddedTmdbId = pending.tmdbId || null;
     const leftNeighbor = ranking[insertIndex - 1];
     const rightNeighbor = ranking[insertIndex + 1];
     pending = null;
@@ -357,6 +382,7 @@ const handleDecision = (isNewBetter, midIndex) => {
       setAddFeedback(`${placedTitle} placed at #${insertIndex + 1}.`);
     }
     highlightRankingItem(insertIndex);
+    updateSuggestions();
     titleInput.focus();
     return;
   }
@@ -415,6 +441,26 @@ shareButton.addEventListener("click", async () => {
     // Fall through to prompt.
   }
   window.prompt("Copy your ranking:", text);
+});
+
+suggestPopularMore.addEventListener("click", () => {
+  suggestPopularCursor += SUGGESTION_PAGE_SIZE;
+  updatePopularSuggestions();
+});
+
+suggestEssentialsMore.addEventListener("click", () => {
+  suggestEssentialsCursor += SUGGESTION_PAGE_SIZE;
+  updateEssentialsSuggestions();
+});
+
+suggestRelatedMore.addEventListener("click", () => {
+  const currentPersonalSeed = getPersonalSuggestionSeed();
+  if (currentPersonalSeed?.source === "ranking") {
+    activeSuggestionSeed = null;
+  } else {
+    suggestRelatedCursor += SUGGESTION_PAGE_SIZE;
+  }
+  updateRelatedSuggestions();
 });
 
 rankingList.addEventListener("click", (event) => {
@@ -626,6 +672,256 @@ const highlightRankingItem = (index) => {
     item.classList.remove("is-highlight");
   }, 2000);
 };
+
+const setSuggestionsHidden = (hidden) => {
+  suggestPanel.hidden = hidden;
+  suggestPanel.classList.toggle("suggest-panel--hidden", hidden);
+};
+
+const setSuggestionList = (container, items = []) => {
+  container.innerHTML = "";
+  items.forEach((movie) => {
+    const card = document.createElement("div");
+    card.className = "suggest-card";
+    card.title = movie.title;
+    const poster = document.createElement("img");
+    poster.className = "suggest-poster";
+    if (movie.posterPath) {
+      poster.src = `${TMDB_POSTER_SMALL}${movie.posterPath}`;
+      poster.alt = `${movie.title} poster`;
+    } else {
+      poster.alt = "";
+    }
+    const name = document.createElement("div");
+    name.className = "suggest-name";
+    name.textContent = movie.title;
+    name.title = movie.title;
+    const meta = document.createElement("div");
+    meta.className = "suggest-meta";
+    meta.textContent = movie.year ? `Released ${movie.year}` : "Year unknown";
+    card.append(poster, name, meta);
+    card.addEventListener("click", () => startRankingFromSuggestion(movie));
+    container.appendChild(card);
+  });
+};
+
+const setSuggestionLoading = (container) => {
+  container.innerHTML = "";
+  for (let index = 0; index < SUGGESTION_PAGE_SIZE; index += 1) {
+    const card = document.createElement("div");
+    card.className = "suggest-card suggest-card--loading";
+    card.setAttribute("aria-hidden", "true");
+
+    const poster = document.createElement("div");
+    poster.className = "suggest-poster suggest-skeleton";
+    const name = document.createElement("div");
+    name.className = "suggest-name suggest-skeleton";
+    const meta = document.createElement("div");
+    meta.className = "suggest-meta suggest-skeleton";
+
+    card.append(poster, name, meta);
+    container.appendChild(card);
+  }
+};
+
+const fetchSuggestionList = async (type, seedId = null) => {
+  if (!tmdbProxyEnabled) return [];
+  const params = new URLSearchParams({ type });
+  if (seedId) params.set("seed", String(seedId));
+  const url = `${tmdbSuggestUrl}?${params.toString()}`;
+  try {
+    const response = await fetch(url, {
+      headers: {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+      },
+    });
+    if (!response.ok) return [];
+    const data = await response.json();
+    return data.results || [];
+  } catch (error) {
+    return [];
+  }
+};
+
+const rankedTmdbIds = () => new Set(ranking.map((movie) => movie.tmdbId).filter(Boolean));
+
+const titleYearKey = (movie) => {
+  if (!movie.title) return null;
+  const title = normalizeTitle(movie.title);
+  return movie.year ? `${title}:${movie.year}` : title;
+};
+
+const rankedTitleYearKeys = () => new Set(ranking.map(titleYearKey).filter(Boolean));
+
+const filterUnrankedSuggestions = (items) => {
+  const existingIds = rankedTmdbIds();
+  const existingTitleYearKeys = rankedTitleYearKeys();
+  return items.filter((movie) => {
+    if (movie.tmdbId && existingIds.has(movie.tmdbId)) return false;
+    const fallbackKey = titleYearKey(movie);
+    return !fallbackKey || !existingTitleYearKeys.has(fallbackKey);
+  });
+};
+
+const topRankedSeedCandidates = () => ranking.slice(0, 10).filter((movie) => movie.tmdbId);
+
+const getPreviousInspiredSeed = () => {
+  if (!storageEnabled) return null;
+  try {
+    const seed = Number(sessionStorage.getItem(INSPIRED_SEED_KEY));
+    return Number.isFinite(seed) ? seed : null;
+  } catch (error) {
+    return null;
+  }
+};
+
+const setPreviousInspiredSeed = (seedId) => {
+  if (!storageEnabled || !seedId) return;
+  try {
+    sessionStorage.setItem(INSPIRED_SEED_KEY, String(seedId));
+  } catch (error) {
+    // Ignore blocked session storage.
+  }
+};
+
+const pickRankedSuggestionSeed = () => {
+  const candidates = topRankedSeedCandidates();
+  if (!candidates.length) return null;
+  const previousSeed = getPreviousInspiredSeed();
+  const freshCandidates =
+    candidates.length > 1
+      ? candidates.filter(
+          (movie) => movie.tmdbId !== activeSuggestionSeed && movie.tmdbId !== previousSeed,
+        )
+      : candidates;
+  const candidatePool = freshCandidates.length ? freshCandidates : candidates;
+  const index = Math.floor(Math.random() * candidatePool.length);
+  const seed = candidatePool[index];
+  setPreviousInspiredSeed(seed.tmdbId);
+  return seed;
+};
+
+const getPersonalSuggestionSeed = () => {
+  if (lastAddedTmdbId && rankedTmdbIds().has(lastAddedTmdbId)) {
+    const movie = ranking.find((rankedMovie) => rankedMovie.tmdbId === lastAddedTmdbId);
+    return {
+      id: lastAddedTmdbId,
+      source: "recent",
+      label: `Because you just added ${movie?.title || "a movie"}`,
+    };
+  }
+  const topRankedSeed =
+    activeSuggestionSeed && rankedTmdbIds().has(activeSuggestionSeed)
+      ? ranking.find((movie) => movie.tmdbId === activeSuggestionSeed)
+      : pickRankedSuggestionSeed();
+  if (!topRankedSeed) return null;
+  return {
+    id: topRankedSeed.tmdbId,
+    source: "ranking",
+    label: `Inspired by ${topRankedSeed.title}`,
+  };
+};
+
+const sliceSuggestions = (items, cursor, size) => {
+  if (!items.length) return [];
+  const start = cursor % items.length;
+  const end = start + size;
+  const slice = items.slice(start, end);
+  if (slice.length < size) {
+    slice.push(...items.slice(0, size - slice.length));
+  }
+  return slice;
+};
+
+const createSuggestionRequest = () => {
+  if (pending) {
+    setSuggestionsHidden(true);
+    return null;
+  }
+  const requestId = ++suggestionsRequestId;
+  setSuggestionsHidden(false);
+  return requestId;
+};
+
+const isStaleSuggestionRequest = (requestId) => pending || requestId !== suggestionsRequestId;
+
+const updatePopularSuggestions = async (requestId = createSuggestionRequest()) => {
+  if (!requestId) return;
+  suggestPopularMore.disabled = true;
+  setSuggestionLoading(suggestPopular);
+  const popularAll = await fetchSuggestionList("popular");
+  if (isStaleSuggestionRequest(requestId)) {
+    setSuggestionsHidden(true);
+    return;
+  }
+  const popularFiltered = filterUnrankedSuggestions(popularAll);
+  const popular = sliceSuggestions(popularFiltered, suggestPopularCursor, SUGGESTION_PAGE_SIZE);
+  setSuggestionList(suggestPopular, popular);
+  suggestPopularMore.disabled = popularFiltered.length <= SUGGESTION_PAGE_SIZE;
+};
+
+const updateEssentialsSuggestions = async (requestId = createSuggestionRequest()) => {
+  if (!requestId) return;
+  suggestEssentialsMore.disabled = true;
+  setSuggestionLoading(suggestEssentials);
+  const essentialsAll = await fetchSuggestionList("essentials");
+  if (isStaleSuggestionRequest(requestId)) {
+    setSuggestionsHidden(true);
+    return;
+  }
+  const essentialsFiltered = filterUnrankedSuggestions(essentialsAll);
+  const essentials = sliceSuggestions(
+    essentialsFiltered,
+    suggestEssentialsCursor,
+    SUGGESTION_PAGE_SIZE,
+  );
+  setSuggestionList(suggestEssentials, essentials);
+  suggestEssentialsMore.disabled = essentialsFiltered.length <= SUGGESTION_PAGE_SIZE;
+};
+
+const updateRelatedSuggestions = async (requestId = createSuggestionRequest()) => {
+  if (!requestId) return;
+  const personalSeed = getPersonalSuggestionSeed();
+  if (personalSeed) {
+    suggestRelatedMore.disabled = true;
+    suggestRelatedSection.hidden = false;
+    suggestRelatedTitle.textContent = personalSeed.label;
+    suggestRelatedEmpty.style.display = "none";
+    setSuggestionLoading(suggestRelated);
+    if (activeSuggestionSeed !== personalSeed.id) {
+      activeSuggestionSeed = personalSeed.id;
+      suggestRelatedCursor = 0;
+    }
+    const relatedAll = await fetchSuggestionList("recommendations", personalSeed.id);
+    if (isStaleSuggestionRequest(requestId)) {
+      setSuggestionsHidden(true);
+      return;
+    }
+    const relatedFiltered = filterUnrankedSuggestions(relatedAll);
+    const related = sliceSuggestions(relatedFiltered, suggestRelatedCursor, SUGGESTION_PAGE_SIZE);
+    setSuggestionList(suggestRelated, related);
+    suggestRelatedMore.disabled = relatedFiltered.length <= SUGGESTION_PAGE_SIZE;
+    suggestRelatedSection.hidden = related.length === 0;
+    suggestRelatedEmpty.style.display = "none";
+  } else {
+    activeSuggestionSeed = null;
+    suggestRelatedSection.hidden = true;
+    suggestRelated.innerHTML = "";
+    suggestRelatedMore.disabled = true;
+  }
+};
+
+const updateSuggestions = async () => {
+  const requestId = createSuggestionRequest();
+  if (!requestId) return;
+  await Promise.all([
+    updatePopularSuggestions(requestId),
+    updateEssentialsSuggestions(requestId),
+    updateRelatedSuggestions(requestId),
+  ]);
+};
+
 
 const buildExportText = () => {
   if (!ranking.length) return "StackRank — Movies\n\n(No movies ranked yet.)";
@@ -846,6 +1142,23 @@ const startRankingFromSelection = () => {
   updateDebugPanel({ addedMovie: pending?.tmdbId || pending?.title || null });
 };
 
+const startRankingFromSuggestion = (movie) => {
+  if (pending) return;
+  if (isDuplicateMovie(movie)) {
+    setStatusMessage(`"${movie.title}" is already in your list. Add something else.`);
+    updateDebugPanel({ duplicateBlocked: movie.tmdbId || movie.title });
+    return;
+  }
+  pending = {
+    title: movie.title,
+    year: movie.year,
+    posterPath: movie.posterPath,
+    tmdbId: movie.tmdbId,
+    comparisons: 0,
+  };
+  startComparison();
+};
+
 const renderSuggestions = (movies) => {
   suggestions.innerHTML = "";
   suggestionItems = [];
@@ -971,6 +1284,10 @@ const init = async () => {
   await migrateRanking();
   renderRanking();
   updateDebugPanel();
+  suggestPopularCursor = 0;
+  suggestRelatedCursor = 0;
+  suggestEssentialsCursor = 0;
+  updateSuggestions();
 };
 
 init();

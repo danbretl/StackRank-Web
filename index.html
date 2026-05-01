@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>StackRank</title>
-    <link rel="stylesheet" href="styles.css?v=3" />
+    <link rel="stylesheet" href="styles.css?v=6" />
   </head>
   <body>
     <main class="app">
@@ -46,17 +46,61 @@
             </label>
           </form>
           <div class="panel__feedback" id="add-feedback" role="status" aria-live="polite"></div>
-          <div id="compare" class="compare-panel panel--hidden" aria-live="polite">
-          <div class="panel__header">
-            <h2>Pick your favorite</h2>
-            <div class="compare__meta">
-              <span class="panel__sub" id="compare-sub">Choose the movie you like more.</span>
-              <button class="undo-button" id="undo-choice" type="button">
-                <span class="undo-button__icon" aria-hidden="true">←</span>
-                Undo last choice
-              </button>
+          <div class="suggest-panel" id="suggest-panel">
+            <div class="suggest-section" id="suggest-related-section">
+              <div class="suggest-header">
+                <div class="suggest-title" id="suggest-related-title">Inspired by your ranking</div>
+                <button class="suggest-button" id="suggest-related-more" type="button" aria-label="Refresh inspired suggestions">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 6v5h-5" />
+                    <path d="M19 11a7 7 0 1 0-2.05 4.95" />
+                  </svg>
+                </button>
+              </div>
+              <div class="suggest-row" id="suggest-related"></div>
+              <div class="suggest-empty" id="suggest-related-empty">No useful picks found from this movie.</div>
+            </div>
+            <div class="suggest-section">
+              <div class="suggest-header">
+                <div class="suggest-title">All-time essentials</div>
+                <button
+                  class="suggest-button"
+                  id="suggest-essentials-more"
+                  type="button"
+                  aria-label="Refresh all-time essentials"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 6v5h-5" />
+                    <path d="M19 11a7 7 0 1 0-2.05 4.95" />
+                  </svg>
+                </button>
+              </div>
+              <div class="suggest-row" id="suggest-essentials"></div>
+            </div>
+            <div class="suggest-section">
+              <div class="suggest-header">
+                <div class="suggest-title">Popular now</div>
+                <button class="suggest-button" id="suggest-popular-more" type="button" aria-label="Refresh popular suggestions">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20 6v5h-5" />
+                    <path d="M19 11a7 7 0 1 0-2.05 4.95" />
+                  </svg>
+                </button>
+              </div>
+              <div class="suggest-row" id="suggest-popular"></div>
             </div>
           </div>
+          <div id="compare" class="compare-panel panel--hidden" aria-live="polite">
+            <div class="panel__header">
+              <h2>Pick your favorite</h2>
+              <div class="compare__meta">
+                <span class="panel__sub" id="compare-sub">Choose the movie you like more.</span>
+                <button class="undo-button" id="undo-choice" type="button">
+                  <span class="undo-button__icon" aria-hidden="true">←</span>
+                  Undo last choice
+                </button>
+              </div>
+            </div>
             <div class="compare">
               <div class="card card--clickable" id="new-card" role="button" tabindex="0" aria-label="Choose new movie">
                 <div class="card__label">New entry</div>

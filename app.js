@@ -50,6 +50,8 @@ const TMDB_POSTER_BASE = "https://image.tmdb.org/t/p/w342";
 const TMDB_POSTER_SMALL = "https://image.tmdb.org/t/p/w92";
 const STORAGE_KEY = "stackrank:movies:v1";
 const QUEUE_STORAGE_KEY = "stackrank:suggestion-queues:v1";
+const WATCH_LIST_TYPE = "watch";
+const NOT_INTERESTED_LIST_TYPE = "not_interested";
 const INSPIRED_SEED_KEY = "stackrank:inspired-seed:v1";
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyZmhha3J4c2xscnFtc2N4eHBiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1MzkzOTYsImV4cCI6MjA4MjExNTM5Nn0.XYeheYWAMNbUC9MUPv1oF7J3-MwxfcBS7-QpxRszrSs";
@@ -406,9 +408,8 @@ const getQueuePayload = (key) => {
   }
 };
 
-const saveSuggestionQueues = () => {
+const saveLocalQueuePayload = (updatedAt) => {
   if (!storageEnabled) return;
-  const updatedAt = new Date().toISOString();
   const [primaryKey] = getQueueStorageKeys();
   try {
     localStorage.setItem(
@@ -424,33 +425,100 @@ const saveSuggestionQueues = () => {
   }
 };
 
-const removeMovieFromList = (list, movie) => {
-  const key = movieKey(movie);
-  return list.filter((item) => movieKey(item) !== key);
-};
-
-const loadSuggestionQueues = () => {
-  if (!storageEnabled) return;
-  const payloads = getQueueStorageKeys().map(getQueuePayload);
+const getMergedQueuePayload = (payloads) => {
   const sortedPayloads = payloads.sort((a, b) => {
     const aTime = a.updated_at ? new Date(a.updated_at).getTime() : 0;
     const bTime = b.updated_at ? new Date(b.updated_at).getTime() : 0;
     return bTime - aTime;
   });
-  const [newest = { watchList: [], notInterestedList: [] }, ...older] = sortedPayloads;
-  watchList = newest.watchList;
-  notInterestedList = newest.notInterestedList;
+  const [newest = { watchList: [], notInterestedList: [], updated_at: null }, ...older] = sortedPayloads;
+  const merged = {
+    watchList: newest.watchList,
+    notInterestedList: newest.notInterestedList,
+    updated_at: newest.updated_at || null,
+  };
   older.forEach((payload) => {
-    watchList = mergeMovieLists(watchList, payload.watchList);
-    notInterestedList = mergeMovieLists(notInterestedList, payload.notInterestedList);
+    merged.watchList = mergeMovieLists(merged.watchList, payload.watchList);
+    merged.notInterestedList = mergeMovieLists(merged.notInterestedList, payload.notInterestedList);
   });
+  return merged;
+};
+
+const normalizeSuggestionQueues = () => {
   const rankedKeys = new Set(ranking.map(movieKey));
   watchList = watchList.filter((movie) => !rankedKeys.has(movieKey(movie)));
   notInterestedList = notInterestedList.filter((movie) => {
     const key = movieKey(movie);
     return !rankedKeys.has(key) && !watchList.some((watchMovie) => movieKey(watchMovie) === key);
   });
-  saveSuggestionQueues();
+};
+
+const saveSuggestionQueues = async () => {
+  const updatedAt = new Date().toISOString();
+  saveLocalQueuePayload(updatedAt);
+
+  const listId = getListId();
+  if (supabaseEnabled && supabase && listId) {
+    const { error } = await supabase.from("movie_lists").upsert(
+      [
+        {
+          list_id: listId,
+          list_type: WATCH_LIST_TYPE,
+          movies: watchList,
+          updated_at: updatedAt,
+        },
+        {
+          list_id: listId,
+          list_type: NOT_INTERESTED_LIST_TYPE,
+          movies: notInterestedList,
+          updated_at: updatedAt,
+        },
+      ],
+      { onConflict: "list_id,list_type" },
+    );
+    if (error) {
+      console.warn("Could not sync suggestion queues", error);
+    }
+  }
+};
+
+const removeMovieFromList = (list, movie) => {
+  const key = movieKey(movie);
+  return list.filter((item) => movieKey(item) !== key);
+};
+
+const loadSuggestionQueues = async () => {
+  const payloads = storageEnabled ? getQueueStorageKeys().map(getQueuePayload) : [];
+  const listId = getListId();
+
+  if (supabaseEnabled && supabase && listId) {
+    const { data, error } = await supabase
+      .from("movie_lists")
+      .select("list_type, movies, updated_at")
+      .eq("list_id", listId)
+      .in("list_type", [WATCH_LIST_TYPE, NOT_INTERESTED_LIST_TYPE]);
+    if (!error && Array.isArray(data)) {
+      const watchRow = data.find((row) => row.list_type === WATCH_LIST_TYPE);
+      const notInterestedRow = data.find((row) => row.list_type === NOT_INTERESTED_LIST_TYPE);
+      const updatedAts = data
+        .map((row) => row.updated_at)
+        .filter(Boolean)
+        .sort();
+      payloads.unshift({
+        watchList: Array.isArray(watchRow?.movies) ? watchRow.movies : [],
+        notInterestedList: Array.isArray(notInterestedRow?.movies) ? notInterestedRow.movies : [],
+        updated_at: updatedAts[updatedAts.length - 1] || null,
+      });
+    } else if (error) {
+      console.warn("Could not load synced suggestion queues", error);
+    }
+  }
+
+  const merged = getMergedQueuePayload(payloads);
+  watchList = merged.watchList;
+  notInterestedList = merged.notInterestedList;
+  normalizeSuggestionQueues();
+  await saveSuggestionQueues();
 };
 
 const saveRanking = async () => {
@@ -1394,7 +1462,7 @@ const handleSignOut = async () => {
   saveRanking();
   setComparisonMode(false);
   renderRanking();
-  loadSuggestionQueues();
+  await loadSuggestionQueues();
   renderSuggestionQueues();
   updateSuggestions();
   authStatus.textContent = "Signed out.";
@@ -1441,7 +1509,7 @@ const removeMovieFromSuggestionQueues = (movie) => {
 const queueLabel = (source) => (source === "watch" ? "Watch next" : "Not for me");
 
 const persistSuggestionQueues = () => {
-  saveSuggestionQueues();
+  void saveSuggestionQueues();
   renderSuggestionQueues();
   updateDebugPanel();
 };
@@ -1757,7 +1825,7 @@ const init = async () => {
   setAuthUI();
   await initAuth();
   await loadRanking();
-  loadSuggestionQueues();
+  await loadSuggestionQueues();
   await migrateRanking();
   renderRanking();
   renderSuggestionQueues();

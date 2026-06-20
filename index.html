@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>StackRank</title>
-    <link rel="stylesheet" href="styles.css?v=6" />
+    <link rel="stylesheet" href="styles.css?v=7" />
   </head>
   <body>
     <main class="app">
@@ -125,25 +125,47 @@
         </section>
       </div>
 
-      <section class="panel panel--list">
-        <div class="panel__header">
-          <h2>Current ranking</h2>
-          <div class="panel__actions">
-            <button class="icon-button" id="share-list" type="button" aria-label="Share ranking">
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path
-                  d="M12 3l4.5 4.5-1.4 1.4L13 6.8V16h-2V6.8l-2.1 2.1-1.4-1.4L12 3zm-6 14h2v4h8v-4h2v6H6v-6z"
-                  fill="currentColor"
-                />
-              </svg>
-            </button>
-            <button class="link" id="clear-list" type="button">Clear list</button>
+      <div class="side-stack">
+        <section class="panel panel--list">
+          <div class="panel__header">
+            <h2>Current ranking</h2>
+            <div class="panel__actions">
+              <button class="icon-button" id="share-list" type="button" aria-label="Share ranking">
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path
+                    d="M12 3l4.5 4.5-1.4 1.4L13 6.8V16h-2V6.8l-2.1 2.1-1.4-1.4L12 3zm-6 14h2v4h8v-4h2v6H6v-6z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
+              <button class="link" id="clear-list" type="button">Clear list</button>
+            </div>
           </div>
-        </div>
-        <ol id="ranking" class="ranking">
-          <li class="ranking__empty">No movies yet. Add one to begin.</li>
-        </ol>
-      </section>
+          <ol id="ranking" class="ranking">
+            <li class="ranking__empty">No movies yet. Add one to begin.</li>
+          </ol>
+        </section>
+
+        <section class="panel panel--queue">
+          <div class="panel__header">
+            <h2>Watch next</h2>
+            <span class="panel__sub">Saved for later</span>
+          </div>
+          <ul id="watch-list" class="queue-list">
+            <li class="queue-list__empty">No saved movies yet.</li>
+          </ul>
+        </section>
+
+        <section class="panel panel--queue panel--quiet">
+          <div class="panel__header">
+            <h2>Not for me</h2>
+            <span class="panel__sub">Hidden from suggestions</span>
+          </div>
+          <ul id="not-interested-list" class="queue-list queue-list--quiet">
+            <li class="queue-list__empty">Nothing hidden yet.</li>
+          </ul>
+        </section>
+      </div>
 
       <section class="panel debug debug--hidden" id="debug-panel">
         <div class="panel__header">
@@ -158,6 +180,6 @@
       </footer>
     </main>
 
-    <script type="module" src="app.js"></script>
+    <script type="module" src="app.js?v=2"></script>
   </body>
 </html>

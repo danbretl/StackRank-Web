@@ -40,6 +40,7 @@ body.is-dragging {
 }
 
 .stack,
+.side-stack,
 .panel,
 .panel--focus,
 .suggest-panel,
@@ -70,6 +71,12 @@ body.is-dragging {
   gap: 18px;
 }
 
+.side-stack {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+
 .panel {
   background: var(--panel);
   border: 1px solid var(--border-soft);
@@ -88,6 +95,21 @@ body.is-dragging {
   max-height: 480px;
   overflow: auto;
   align-content: start;
+}
+
+.panel--queue {
+  padding: 18px;
+  gap: 12px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+}
+
+.panel--queue h2 {
+  font-size: 1rem;
+}
+
+.panel--quiet {
+  opacity: 0.78;
+  box-shadow: none;
 }
 
 .panel--hidden {
@@ -280,10 +302,11 @@ body.is-dragging {
   grid-template-columns: 46px minmax(0, 1fr);
   grid-template-areas:
     "poster name"
-    "poster meta";
+    "poster meta"
+    "poster actions";
   column-gap: 9px;
   row-gap: 2px;
-  align-items: center;
+  align-items: start;
   cursor: pointer;
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
@@ -329,6 +352,37 @@ body.is-dragging {
   font-size: 0.74rem;
   color: var(--ink-soft);
   line-height: 1.2;
+}
+
+.suggest-actions {
+  grid-area: actions;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 5px;
+}
+
+.suggest-action {
+  border: 1px solid var(--border-soft);
+  background: #ffffff;
+  color: var(--bg-ink);
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-family: inherit;
+  font-size: 0.68rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.suggest-action:hover {
+  border-color: var(--border);
+  background: #f5f5f5;
+  transform: translateY(-1px);
+}
+
+.suggest-action--muted {
+  color: var(--ink-soft);
 }
 
 .suggest-empty {
@@ -749,6 +803,108 @@ body.is-dragging {
   min-height: 0;
 }
 
+.queue-list {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 7px;
+}
+
+.queue-list__item,
+.queue-list__empty {
+  list-style: none;
+}
+
+.queue-list__item {
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 9px;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  grid-template-areas:
+    "poster text"
+    "actions actions";
+  gap: 8px 10px;
+  align-items: center;
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.queue-list__item:hover,
+.queue-list__item:focus-visible {
+  border-color: var(--border);
+  background: #fafafa;
+  transform: translateY(-1px);
+  outline: none;
+}
+
+.queue-list__poster {
+  grid-area: poster;
+  width: 34px;
+  height: 50px;
+  border-radius: 7px;
+  object-fit: cover;
+  background: #ededed;
+}
+
+.queue-list__text {
+  grid-area: text;
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.queue-list__title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.queue-list__meta {
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+}
+
+.queue-list__actions {
+  grid-area: actions;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.queue-action {
+  border: 1px solid var(--border-soft);
+  background: #ffffff;
+  color: var(--bg-ink);
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-family: inherit;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.queue-action:hover {
+  border-color: var(--border);
+  background: #f0f0f0;
+  transform: translateY(-1px);
+}
+
+.queue-action--secondary,
+.queue-action--remove {
+  color: var(--ink-soft);
+}
+
+.queue-list__empty {
+  color: var(--ink-soft);
+  font-size: 0.84rem;
+  font-style: italic;
+  padding: 4px 2px 2px;
+}
+
 .panel__actions {
   display: flex;
   gap: 12px;
@@ -899,12 +1055,20 @@ body.is-dragging {
     grid-area: stack;
   }
 
-  .panel--list {
+  .side-stack {
     grid-area: list;
+  }
+
+  .panel--list {
     max-height: calc(100vh - 180px);
   }
 
   .panel--focus {
     min-height: calc(100vh - 180px);
+  }
+
+  .queue-list__item {
+    grid-template-columns: 34px minmax(0, 1fr) auto;
+    grid-template-areas: "poster text actions";
   }
 }

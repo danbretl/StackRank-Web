@@ -18,6 +18,8 @@ const existingCard = document.getElementById("existing-card");
 const compareSub = document.getElementById("compare-sub");
 const undoChoiceButton = document.getElementById("undo-choice");
 const rankingList = document.getElementById("ranking");
+const watchListEl = document.getElementById("watch-list");
+const notInterestedListEl = document.getElementById("not-interested-list");
 const clearButton = document.getElementById("clear-list");
 const shareButton = document.getElementById("share-list");
 const authSignedOut = document.getElementById("auth-signed-out");
@@ -46,11 +48,14 @@ const TMDB_SUGGEST_PATH = "/functions/v1/tmdb-suggest";
 const TMDB_POSTER_BASE = "https://image.tmdb.org/t/p/w342";
 const TMDB_POSTER_SMALL = "https://image.tmdb.org/t/p/w92";
 const STORAGE_KEY = "stackrank:movies:v1";
+const QUEUE_STORAGE_KEY = "stackrank:suggestion-queues:v1";
 const INSPIRED_SEED_KEY = "stackrank:inspired-seed:v1";
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyZmhha3J4c2xscnFtc2N4eHBiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1MzkzOTYsImV4cCI6MjA4MjExNTM5Nn0.XYeheYWAMNbUC9MUPv1oF7J3-MwxfcBS7-QpxRszrSs";
 
 let ranking = [];
+let watchList = [];
+let notInterestedList = [];
 let pending = null;
 let searchRange = null;
 let selectedSuggestion = null;
@@ -137,6 +142,12 @@ const startPlaceholderRotation = () => {
 };
 
 const normalizeTitle = (value) => value.trim().toLowerCase();
+
+const movieKey = (movie) => {
+  if (movie.tmdbId) return `tmdb:${movie.tmdbId}`;
+  const title = normalizeTitle(movie.title || "");
+  return movie.year ? `title:${title}:${movie.year}` : `title:${title}`;
+};
 
 const isDuplicateMovie = (movie) => {
   const title = normalizeTitle(movie.title);
@@ -234,22 +245,113 @@ const renderRanking = () => {
   });
 };
 
-const mergeRankings = (baseList, incomingList) => {
-  const keyFor = (movie) => {
-    if (movie.tmdbId) return `tmdb:${movie.tmdbId}`;
-    const title = normalizeTitle(movie.title);
-    return movie.year ? `title:${title}:${movie.year}` : `title:${title}`;
-  };
+const createQueueActionButton = (label, ariaLabel, action, className = "") => {
+  const button = document.createElement("button");
+  button.className = `queue-action ${className}`.trim();
+  button.type = "button";
+  button.textContent = label;
+  button.setAttribute("aria-label", ariaLabel);
+  button.dataset.action = action;
+  return button;
+};
 
-  const baseKeys = new Set(baseList.map(keyFor));
+const renderQueueList = (container, list, emptyText, source) => {
+  container.innerHTML = "";
+  if (!list.length) {
+    const empty = document.createElement("li");
+    empty.className = "queue-list__empty";
+    empty.textContent = emptyText;
+    container.appendChild(empty);
+    return;
+  }
+
+  list.forEach((movie, index) => {
+    const item = document.createElement("li");
+    item.className = "queue-list__item";
+    item.dataset.index = String(index);
+    item.dataset.source = source;
+    item.setAttribute("role", "button");
+    item.setAttribute("tabindex", "0");
+    item.setAttribute("aria-label", `Rank ${movie.title}`);
+
+    const poster = document.createElement("img");
+    poster.className = "queue-list__poster";
+    if (movie.posterPath) {
+      poster.src = `${TMDB_POSTER_SMALL}${movie.posterPath}`;
+      poster.alt = `${movie.title} poster`;
+      poster.style.visibility = "visible";
+    } else {
+      poster.alt = "";
+      poster.style.visibility = "hidden";
+    }
+
+    const text = document.createElement("div");
+    text.className = "queue-list__text";
+    const title = document.createElement("div");
+    title.className = "queue-list__title";
+    title.textContent = movie.title;
+    const meta = document.createElement("div");
+    meta.className = "queue-list__meta";
+    meta.textContent = movie.year ? `Released ${movie.year}` : "Year unknown";
+    text.append(title, meta);
+
+    const actions = document.createElement("div");
+    actions.className = "queue-list__actions";
+    if (source === "watch") {
+      actions.append(
+        createQueueActionButton(
+          "Hide",
+          `Move ${movie.title} to Not for me`,
+          "move",
+          "queue-action--secondary",
+        ),
+        createQueueActionButton(
+          "Remove",
+          `Remove ${movie.title} from Watch next`,
+          "remove",
+          "queue-action--remove",
+        ),
+      );
+    } else {
+      actions.append(
+        createQueueActionButton(
+          "Save",
+          `Move ${movie.title} to Watch next`,
+          "move",
+          "queue-action--secondary",
+        ),
+        createQueueActionButton(
+          "Remove",
+          `Remove ${movie.title} from Not for me`,
+          "remove",
+          "queue-action--remove",
+        ),
+      );
+    }
+
+    item.append(poster, text, actions);
+    container.appendChild(item);
+  });
+};
+
+const renderSuggestionQueues = () => {
+  renderQueueList(watchListEl, watchList, "No saved movies yet.", "watch");
+  renderQueueList(notInterestedListEl, notInterestedList, "Nothing hidden yet.", "notInterested");
+};
+
+const mergeRankings = (baseList, incomingList) => {
+  const baseKeys = new Set(baseList.map(movieKey));
   const merged = [...baseList];
   incomingList.forEach((movie) => {
-    const key = keyFor(movie);
+    const key = movieKey(movie);
     if (baseKeys.has(key)) return;
     merged.push(movie);
+    baseKeys.add(key);
   });
   return merged;
 };
+
+const mergeMovieLists = (baseList, incomingList) => mergeRankings(baseList, incomingList);
 
 const getLocalPayload = () => {
   if (!storageEnabled) return { movies: [], updated_at: null };
@@ -276,6 +378,77 @@ const saveLocalPayload = (movies, updatedAt) => {
   } catch (error) {
     // Ignore write errors (storage full, blocked, etc.).
   }
+};
+
+const getQueueStorageKeys = () => {
+  const keys = [QUEUE_STORAGE_KEY];
+  if (currentUser && currentUser.id) {
+    keys.unshift(`${QUEUE_STORAGE_KEY}:user:${currentUser.id}`);
+  }
+  return keys;
+};
+
+const getQueuePayload = (key) => {
+  if (!storageEnabled) return { watchList: [], notInterestedList: [], updated_at: null };
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return { watchList: [], notInterestedList: [], updated_at: null };
+    const parsed = JSON.parse(raw);
+    return {
+      watchList: Array.isArray(parsed.watchList) ? parsed.watchList : [],
+      notInterestedList: Array.isArray(parsed.notInterestedList) ? parsed.notInterestedList : [],
+      updated_at: parsed.updated_at || null,
+    };
+  } catch (error) {
+    return { watchList: [], notInterestedList: [], updated_at: null };
+  }
+};
+
+const saveSuggestionQueues = () => {
+  if (!storageEnabled) return;
+  const updatedAt = new Date().toISOString();
+  const [primaryKey] = getQueueStorageKeys();
+  try {
+    localStorage.setItem(
+      primaryKey,
+      JSON.stringify({
+        watchList,
+        notInterestedList,
+        updated_at: updatedAt,
+      }),
+    );
+  } catch (error) {
+    // Ignore write errors (storage full, blocked, etc.).
+  }
+};
+
+const removeMovieFromList = (list, movie) => {
+  const key = movieKey(movie);
+  return list.filter((item) => movieKey(item) !== key);
+};
+
+const loadSuggestionQueues = () => {
+  if (!storageEnabled) return;
+  const payloads = getQueueStorageKeys().map(getQueuePayload);
+  const sortedPayloads = payloads.sort((a, b) => {
+    const aTime = a.updated_at ? new Date(a.updated_at).getTime() : 0;
+    const bTime = b.updated_at ? new Date(b.updated_at).getTime() : 0;
+    return bTime - aTime;
+  });
+  const [newest = { watchList: [], notInterestedList: [] }, ...older] = sortedPayloads;
+  watchList = newest.watchList;
+  notInterestedList = newest.notInterestedList;
+  older.forEach((payload) => {
+    watchList = mergeMovieLists(watchList, payload.watchList);
+    notInterestedList = mergeMovieLists(notInterestedList, payload.notInterestedList);
+  });
+  const rankedKeys = new Set(ranking.map(movieKey));
+  watchList = watchList.filter((movie) => !rankedKeys.has(movieKey(movie)));
+  notInterestedList = notInterestedList.filter((movie) => {
+    const key = movieKey(movie);
+    return !rankedKeys.has(key) && !watchList.some((watchMovie) => movieKey(watchMovie) === key);
+  });
+  saveSuggestionQueues();
 };
 
 const saveRanking = async () => {
@@ -463,6 +636,7 @@ clearButton.addEventListener("click", () => {
   compareSection.classList.add("panel--hidden");
   form.reset();
   renderRanking();
+  updateSuggestions();
   titleInput.focus();
 });
 
@@ -538,6 +712,7 @@ rankingList.addEventListener("click", (event) => {
   ranking.splice(index, 1);
   saveRanking();
   renderRanking();
+  updateSuggestions();
 });
 
 const clearDragShifts = () => {
@@ -727,6 +902,9 @@ const setSuggestionList = (container, items = []) => {
     const card = document.createElement("div");
     card.className = "suggest-card";
     card.title = movie.title;
+    card.setAttribute("role", "button");
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("aria-label", `Rank ${movie.title}`);
     const poster = document.createElement("img");
     poster.className = "suggest-poster";
     if (movie.posterPath) {
@@ -742,8 +920,37 @@ const setSuggestionList = (container, items = []) => {
     const meta = document.createElement("div");
     meta.className = "suggest-meta";
     meta.textContent = movie.year ? `Released ${movie.year}` : "Year unknown";
-    card.append(poster, name, meta);
+    const actions = document.createElement("div");
+    actions.className = "suggest-actions";
+    const watchButton = document.createElement("button");
+    watchButton.className = "suggest-action";
+    watchButton.type = "button";
+    watchButton.textContent = "Save";
+    watchButton.setAttribute("aria-label", `Add ${movie.title} to Watch next`);
+    const passButton = document.createElement("button");
+    passButton.className = "suggest-action suggest-action--muted";
+    passButton.type = "button";
+    passButton.textContent = "Hide";
+    passButton.setAttribute("aria-label", `Add ${movie.title} to Not for me`);
+    actions.append(watchButton, passButton);
+
+    watchButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      addSuggestionToQueue(movie, "watch");
+    });
+    passButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      addSuggestionToQueue(movie, "notInterested");
+    });
+
+    card.append(poster, name, meta, actions);
     card.addEventListener("click", () => startRankingFromSuggestion(movie));
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        startRankingFromSuggestion(movie);
+      }
+    });
     container.appendChild(card);
   });
 };
@@ -789,6 +996,9 @@ const fetchSuggestionList = async (type, seedId = null) => {
 
 const rankedTmdbIds = () => new Set(ranking.map((movie) => movie.tmdbId).filter(Boolean));
 
+const queuedTmdbIds = () =>
+  new Set([...watchList, ...notInterestedList].map((movie) => movie.tmdbId).filter(Boolean));
+
 const titleYearKey = (movie) => {
   if (!movie.title) return null;
   const title = normalizeTitle(movie.title);
@@ -797,13 +1007,22 @@ const titleYearKey = (movie) => {
 
 const rankedTitleYearKeys = () => new Set(ranking.map(titleYearKey).filter(Boolean));
 
+const queuedTitleYearKeys = () =>
+  new Set([...watchList, ...notInterestedList].map(titleYearKey).filter(Boolean));
+
 const filterUnrankedSuggestions = (items) => {
   const existingIds = rankedTmdbIds();
+  const hiddenIds = queuedTmdbIds();
   const existingTitleYearKeys = rankedTitleYearKeys();
+  const hiddenTitleYearKeys = queuedTitleYearKeys();
   return items.filter((movie) => {
     if (movie.tmdbId && existingIds.has(movie.tmdbId)) return false;
+    if (movie.tmdbId && hiddenIds.has(movie.tmdbId)) return false;
     const fallbackKey = titleYearKey(movie);
-    return !fallbackKey || !existingTitleYearKeys.has(fallbackKey);
+    return (
+      !fallbackKey ||
+      (!existingTitleYearKeys.has(fallbackKey) && !hiddenTitleYearKeys.has(fallbackKey))
+    );
   });
 };
 
@@ -895,7 +1114,6 @@ const updatePopularSuggestions = async (requestId = createSuggestionRequest()) =
   setSuggestionLoading(suggestPopular);
   const popularAll = await fetchSuggestionList("popular");
   if (isStaleSuggestionRequest(requestId)) {
-    setSuggestionsHidden(true);
     return;
   }
   const popularFiltered = filterUnrankedSuggestions(popularAll);
@@ -910,7 +1128,6 @@ const updateEssentialsSuggestions = async (requestId = createSuggestionRequest()
   setSuggestionLoading(suggestEssentials);
   const essentialsAll = await fetchSuggestionList("essentials");
   if (isStaleSuggestionRequest(requestId)) {
-    setSuggestionsHidden(true);
     return;
   }
   const essentialsFiltered = filterUnrankedSuggestions(essentialsAll);
@@ -938,7 +1155,6 @@ const updateRelatedSuggestions = async (requestId = createSuggestionRequest()) =
     }
     const relatedAll = await fetchSuggestionList("recommendations", personalSeed.id);
     if (isStaleSuggestionRequest(requestId)) {
-      setSuggestionsHidden(true);
       return;
     }
     const relatedFiltered = filterUnrankedSuggestions(relatedAll);
@@ -986,6 +1202,8 @@ const updateDebugPanel = (extra = {}) => {
   const payload = {
     migration: migrationStats,
     rankingCount: ranking.length,
+    watchCount: watchList.length,
+    notInterestedCount: notInterestedList.length,
     rankingSummary,
     selectedSuggestion: selectedSuggestion
       ? {
@@ -1108,6 +1326,9 @@ const handleSignOut = async () => {
   searchRange = null;
   saveRanking();
   renderRanking();
+  loadSuggestionQueues();
+  renderSuggestionQueues();
+  updateSuggestions();
   authStatus.textContent = "Signed out.";
 };
 
@@ -1123,14 +1344,159 @@ const initAuth = async () => {
     setAuthUI();
     updateStatus();
     loadRanking()
+      .then(loadSuggestionQueues)
       .then(migrateRanking)
-      .then(renderRanking)
-      .then(updateDebugPanel);
+      .then(() => {
+        renderRanking();
+        renderSuggestionQueues();
+        updateDebugPanel();
+        updateSuggestions();
+      });
   });
 
   authSignInButton.addEventListener("click", handleSignIn);
   authSignOutButton.addEventListener("click", handleSignOut);
 };
+
+const toStoredMovie = (movie) => ({
+  title: movie.title,
+  year: movie.year,
+  posterPath: movie.posterPath,
+  tmdbId: movie.tmdbId,
+});
+
+const removeMovieFromSuggestionQueues = (movie) => {
+  watchList = removeMovieFromList(watchList, movie);
+  notInterestedList = removeMovieFromList(notInterestedList, movie);
+};
+
+const queueLabel = (source) => (source === "watch" ? "Watch next" : "Not for me");
+
+const persistSuggestionQueues = () => {
+  saveSuggestionQueues();
+  renderSuggestionQueues();
+  updateDebugPanel();
+};
+
+const addSuggestionToQueue = (movie, target) => {
+  if (pending) {
+    setStatusMessage("Finish the current comparison before saving suggestions.");
+    return;
+  }
+  if (isDuplicateMovie(movie)) {
+    setStatusMessage(`"${movie.title}" is already in your list. Add something else.`);
+    updateDebugPanel({ duplicateBlocked: movie.tmdbId || movie.title });
+    return;
+  }
+  const storedMovie = toStoredMovie(movie);
+  removeMovieFromSuggestionQueues(storedMovie);
+  if (target === "watch") {
+    watchList.push(storedMovie);
+  } else {
+    notInterestedList.push(storedMovie);
+  }
+  persistSuggestionQueues();
+  setAddFeedback(`"${movie.title}" moved to ${queueLabel(target)}.`, 2600);
+  updateSuggestions();
+};
+
+const startRankingMovie = (movie) => {
+  if (pending) {
+    setStatusMessage("Finish the current comparison before ranking another movie.");
+    return;
+  }
+  if (isDuplicateMovie(movie)) {
+    removeMovieFromSuggestionQueues(movie);
+    persistSuggestionQueues();
+    setStatusMessage(`"${movie.title}" is already in your list. Add something else.`);
+    updateDebugPanel({ duplicateBlocked: movie.tmdbId || movie.title });
+    updateSuggestions();
+    return;
+  }
+  removeMovieFromSuggestionQueues(movie);
+  persistSuggestionQueues();
+  pending = {
+    title: movie.title,
+    year: movie.year,
+    posterPath: movie.posterPath,
+    tmdbId: movie.tmdbId,
+    comparisons: 0,
+  };
+  startComparison();
+  updateDebugPanel({ addedMovie: pending?.tmdbId || pending?.title || null });
+};
+
+const moveQueueMovie = (source, index) => {
+  const fromList = source === "watch" ? watchList : notInterestedList;
+  const movie = fromList[index];
+  if (!movie) return;
+  const target = source === "watch" ? "notInterested" : "watch";
+  removeMovieFromSuggestionQueues(movie);
+  if (target === "watch") {
+    watchList.push(movie);
+  } else {
+    notInterestedList.push(movie);
+  }
+  persistSuggestionQueues();
+  setAddFeedback(`"${movie.title}" moved to ${queueLabel(target)}.`, 2600);
+  updateSuggestions();
+};
+
+const removeQueueMovie = (source, index) => {
+  const list = source === "watch" ? watchList : notInterestedList;
+  const movie = list[index];
+  if (!movie) return;
+  if (source === "watch") {
+    watchList = removeMovieFromList(watchList, movie);
+  } else {
+    notInterestedList = removeMovieFromList(notInterestedList, movie);
+  }
+  persistSuggestionQueues();
+  setAddFeedback(`"${movie.title}" removed from ${queueLabel(source)}.`, 2600);
+  updateSuggestions();
+};
+
+const handleQueueInteraction = (event) => {
+  const item = event.target.closest(".queue-list__item");
+  if (!item) return;
+  const source = item.dataset.source;
+  const index = Number(item.dataset.index);
+  if (Number.isNaN(index)) return;
+
+  const actionButton = event.target.closest(".queue-action");
+  if (actionButton) {
+    event.stopPropagation();
+    const action = actionButton.dataset.action;
+    if (action === "move") {
+      moveQueueMovie(source, index);
+    } else if (action === "remove") {
+      removeQueueMovie(source, index);
+    }
+    return;
+  }
+
+  const list = source === "watch" ? watchList : notInterestedList;
+  const movie = list[index];
+  if (movie) startRankingMovie(movie);
+};
+
+const handleQueueKeydown = (event) => {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  if (event.target.closest(".queue-action")) return;
+  const item = event.target.closest(".queue-list__item");
+  if (!item) return;
+  event.preventDefault();
+  const source = item.dataset.source;
+  const index = Number(item.dataset.index);
+  const list = source === "watch" ? watchList : notInterestedList;
+  const movie = list[index];
+  if (movie) startRankingMovie(movie);
+};
+
+watchListEl.addEventListener("click", handleQueueInteraction);
+notInterestedListEl.addEventListener("click", handleQueueInteraction);
+watchListEl.addEventListener("keydown", handleQueueKeydown);
+notInterestedListEl.addEventListener("keydown", handleQueueKeydown);
 
 const hideSuggestions = () => {
   suggestions.style.display = "none";
@@ -1173,33 +1539,13 @@ const startRankingFromSelection = () => {
     updateDebugPanel({ duplicateBlocked: selectedSuggestion.tmdbId || selectedSuggestion.title });
     return;
   }
-  pending = {
-    title: selectedSuggestion.title,
-    year: selectedSuggestion.year,
-    posterPath: selectedSuggestion.posterPath,
-    tmdbId: selectedSuggestion.tmdbId,
-    comparisons: 0,
-  };
+  const movie = selectedSuggestion;
   selectedSuggestion = null;
-  startComparison();
-  updateDebugPanel({ addedMovie: pending?.tmdbId || pending?.title || null });
+  startRankingMovie(movie);
 };
 
 const startRankingFromSuggestion = (movie) => {
-  if (pending) return;
-  if (isDuplicateMovie(movie)) {
-    setStatusMessage(`"${movie.title}" is already in your list. Add something else.`);
-    updateDebugPanel({ duplicateBlocked: movie.tmdbId || movie.title });
-    return;
-  }
-  pending = {
-    title: movie.title,
-    year: movie.year,
-    posterPath: movie.posterPath,
-    tmdbId: movie.tmdbId,
-    comparisons: 0,
-  };
-  startComparison();
+  startRankingMovie(movie);
 };
 
 const renderSuggestions = (movies) => {
@@ -1325,8 +1671,10 @@ const init = async () => {
   setAuthUI();
   await initAuth();
   await loadRanking();
+  loadSuggestionQueues();
   await migrateRanking();
   renderRanking();
+  renderSuggestionQueues();
   updateDebugPanel();
   suggestPopularCursor = 0;
   suggestRelatedCursor = 0;

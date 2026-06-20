@@ -17,6 +17,7 @@ const existingPoster = document.getElementById("existing-poster");
 const existingCard = document.getElementById("existing-card");
 const compareSub = document.getElementById("compare-sub");
 const undoChoiceButton = document.getElementById("undo-choice");
+const cancelRankingButton = document.getElementById("cancel-ranking");
 const rankingList = document.getElementById("ranking");
 const watchListEl = document.getElementById("watch-list");
 const notInterestedListEl = document.getElementById("not-interested-list");
@@ -57,6 +58,7 @@ let ranking = [];
 let watchList = [];
 let notInterestedList = [];
 let pending = null;
+let pendingOrigin = null;
 let searchRange = null;
 let selectedSuggestion = null;
 let suggestionItems = [];
@@ -507,7 +509,9 @@ const startComparison = () => {
     ranking.push(pending);
     lastAddedTmdbId = pending.tmdbId || null;
     pending = null;
+    pendingOrigin = null;
     saveRanking();
+    form.hidden = false;
     compareSection.classList.add("panel--hidden");
     form.reset();
     renderRanking();
@@ -521,6 +525,8 @@ const startComparison = () => {
   searchRange = { low: 0, high: ranking.length - 1 };
   compareHistory = [];
   suggestionsRequestId += 1;
+  form.hidden = true;
+  hideSuggestions();
   setSuggestionsHidden(true);
   showComparison();
 };
@@ -540,7 +546,10 @@ const showComparison = () => {
 
   compareSub.textContent = `Comparison ${pending.comparisons + 1} of ~${Math.ceil(Math.log2(ranking.length + 1))}`;
   compareSection.classList.remove("panel--hidden");
-  undoChoiceButton.disabled = compareHistory.length === 0;
+  const canUndo = compareHistory.length > 0;
+  undoChoiceButton.disabled = !canUndo;
+  undoChoiceButton.hidden = !canUndo;
+  cancelRankingButton.hidden = canUndo;
 
   newCard.onclick = () => handleDecision(true, mid);
   existingCard.onclick = () => handleDecision(false, mid);
@@ -578,8 +587,10 @@ const handleDecision = (isNewBetter, midIndex) => {
     const leftNeighbor = ranking[insertIndex - 1];
     const rightNeighbor = ranking[insertIndex + 1];
     pending = null;
+    pendingOrigin = null;
     searchRange = null;
     saveRanking();
+    form.hidden = false;
     compareSection.classList.add("panel--hidden");
     form.reset();
     renderRanking();
@@ -614,6 +625,50 @@ undoChoiceButton.addEventListener("click", () => {
   showComparison();
 });
 
+const restorePendingOrigin = () => {
+  if (!pendingOrigin) return;
+  if (pendingOrigin.type === "ranking") {
+    const insertIndex = Math.min(pendingOrigin.index, ranking.length);
+    ranking.splice(insertIndex, 0, pendingOrigin.movie);
+    saveRanking();
+    renderRanking();
+    return;
+  }
+  if (pendingOrigin.type === "watch") {
+    watchList.splice(Math.min(pendingOrigin.index, watchList.length), 0, pendingOrigin.movie);
+    persistSuggestionQueues();
+    return;
+  }
+  if (pendingOrigin.type === "notInterested") {
+    notInterestedList.splice(
+      Math.min(pendingOrigin.index, notInterestedList.length),
+      0,
+      pendingOrigin.movie,
+    );
+    persistSuggestionQueues();
+  }
+};
+
+const cancelComparison = () => {
+  if (!pending) return;
+  const canceledTitle = pending.title;
+  restorePendingOrigin();
+  pending = null;
+  pendingOrigin = null;
+  searchRange = null;
+  compareHistory = [];
+  suggestionsRequestId += 1;
+  form.hidden = false;
+  compareSection.classList.add("panel--hidden");
+  form.reset();
+  setAddFeedback(`Canceled ranking "${canceledTitle}".`, 2600);
+  updateSuggestions();
+  titleInput.blur();
+  updateDebugPanel();
+};
+
+cancelRankingButton.addEventListener("click", cancelComparison);
+
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   if (!selectedSuggestion) {
@@ -631,8 +686,10 @@ clearButton.addEventListener("click", () => {
   }
   ranking = [];
   pending = null;
+  pendingOrigin = null;
   searchRange = null;
   saveRanking();
+  form.hidden = false;
   compareSection.classList.add("panel--hidden");
   form.reset();
   renderRanking();
@@ -694,6 +751,7 @@ rankingList.addEventListener("click", (event) => {
       return;
     }
     ranking.splice(index, 1);
+    pendingOrigin = { type: "ranking", movie: { ...movie }, index };
     pending = { ...movie, comparisons: 0 };
     saveRanking();
     renderRanking();
@@ -1323,8 +1381,10 @@ const handleSignOut = async () => {
   }
   ranking = [];
   pending = null;
+  pendingOrigin = null;
   searchRange = null;
   saveRanking();
+  form.hidden = false;
   renderRanking();
   loadSuggestionQueues();
   renderSuggestionQueues();
@@ -1400,6 +1460,23 @@ const addSuggestionToQueue = (movie, target) => {
   updateSuggestions();
 };
 
+const getQueueOrigin = (movie) => {
+  const key = movieKey(movie);
+  const watchIndex = watchList.findIndex((item) => movieKey(item) === key);
+  if (watchIndex >= 0) {
+    return { type: "watch", movie: { ...watchList[watchIndex] }, index: watchIndex };
+  }
+  const notInterestedIndex = notInterestedList.findIndex((item) => movieKey(item) === key);
+  if (notInterestedIndex >= 0) {
+    return {
+      type: "notInterested",
+      movie: { ...notInterestedList[notInterestedIndex] },
+      index: notInterestedIndex,
+    };
+  }
+  return null;
+};
+
 const startRankingMovie = (movie) => {
   if (pending) {
     setStatusMessage("Finish the current comparison before ranking another movie.");
@@ -1413,6 +1490,7 @@ const startRankingMovie = (movie) => {
     updateSuggestions();
     return;
   }
+  pendingOrigin = getQueueOrigin(movie);
   removeMovieFromSuggestionQueues(movie);
   persistSuggestionQueues();
   pending = {

@@ -16,6 +16,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   font-family: "Space Grotesk", "SF Pro Text", system-ui, sans-serif;
@@ -426,6 +430,13 @@ body.is-dragging {
   gap: 6px;
 }
 
+.compare__controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
 .undo-button {
   border: none;
   background: transparent;
@@ -447,6 +458,14 @@ body.is-dragging {
   opacity: 0.2;
   cursor: default;
   transform: none;
+}
+
+.undo-button[hidden] {
+  display: none;
+}
+
+.undo-button--cancel {
+  color: var(--ink-soft);
 }
 
 .undo-button__icon {

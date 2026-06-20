@@ -472,6 +472,15 @@ body.is-dragging {
   font-size: 0.95rem;
 }
 
+body.is-comparing .panel--focus > .panel__header,
+body.is-comparing .panel__feedback {
+  display: none;
+}
+
+body.is-comparing .compare-panel {
+  margin-top: 0;
+}
+
 .footnote {
   display: flex;
   justify-content: flex-end;
@@ -1055,6 +1064,226 @@ body.is-dragging {
   .panel__feedback {
     right: 16px;
     font-size: 0.8rem;
+  }
+
+  body.is-comparing {
+    min-height: 100dvh;
+  }
+
+  body.is-comparing .app {
+    padding: 12px 10px 14px;
+    gap: 0;
+    min-height: 100dvh;
+    display: block;
+  }
+
+  body.is-comparing .topbar,
+  body.is-comparing .side-stack,
+  body.is-comparing .footnote {
+    display: none;
+  }
+
+  body.is-comparing .stack {
+    min-height: calc(100dvh - 26px);
+  }
+
+  body.is-comparing .panel--focus {
+    min-height: calc(100dvh - 26px);
+    padding: 12px;
+    gap: 10px;
+    border-radius: 16px;
+  }
+
+  body.is-comparing .compare-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 0;
+  }
+
+  body.is-comparing .compare-panel .panel__header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 8px;
+  }
+
+  body.is-comparing .compare-panel h2 {
+    font-size: 1.45rem;
+    line-height: 1.05;
+    margin: 0;
+  }
+
+  body.is-comparing .compare__meta {
+    align-items: flex-end;
+    gap: 4px;
+    text-align: right;
+  }
+
+  body.is-comparing .compare__controls {
+    gap: 0;
+  }
+
+  body.is-comparing .compare {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    align-content: stretch;
+    min-height: 0;
+  }
+
+  body.is-comparing .card {
+    min-height: 0;
+    height: 100%;
+    padding: 18px 16px;
+    border-radius: 16px;
+    display: grid;
+    grid-template-columns: clamp(104px, 31vw, 132px) minmax(0, 1fr);
+    grid-template-areas:
+      "poster label"
+      "poster title"
+      "poster meta";
+    grid-template-rows: auto auto auto;
+    gap: 5px 14px;
+    align-content: center;
+    align-items: center;
+  }
+
+  body.is-comparing .card__label {
+    grid-area: label;
+    align-self: end;
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+  }
+
+  body.is-comparing .card__poster {
+    grid-area: poster;
+    width: clamp(104px, 31vw, 132px);
+    max-width: none;
+    height: auto;
+    aspect-ratio: 2 / 3;
+    border-radius: 10px;
+  }
+
+  body.is-comparing .card__title {
+    grid-area: title;
+    align-self: center;
+    font-size: clamp(1.12rem, 5vw, 1.45rem);
+    line-height: 1.08;
+    overflow-wrap: anywhere;
+  }
+
+  body.is-comparing .card__meta {
+    grid-area: meta;
+    align-self: start;
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+  body.is-comparing .app {
+    padding: 8px 10px;
+    min-height: 100dvh;
+    display: block;
+  }
+
+  body.is-comparing .topbar,
+  body.is-comparing .side-stack,
+  body.is-comparing .footnote {
+    display: none;
+  }
+
+  body.is-comparing .stack,
+  body.is-comparing .panel--focus {
+    min-height: calc(100dvh - 16px);
+  }
+
+  body.is-comparing .panel--focus {
+    padding: 12px;
+    gap: 8px;
+  }
+
+  body.is-comparing .compare-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 0;
+  }
+
+  body.is-comparing .compare-panel .panel__header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 10px;
+  }
+
+  body.is-comparing .compare-panel h2 {
+    font-size: 1.35rem;
+    line-height: 1;
+    margin: 0;
+  }
+
+  body.is-comparing .compare__meta {
+    align-items: flex-end;
+    gap: 3px;
+    text-align: right;
+  }
+
+  body.is-comparing .compare {
+    flex: 1 1 auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: 1fr;
+    gap: 10px;
+    min-height: 0;
+  }
+
+  body.is-comparing .card {
+    min-height: 0;
+    height: 100%;
+    padding: 14px;
+    border-radius: 14px;
+    grid-template-columns: clamp(88px, 17vw, 118px) minmax(0, 1fr);
+    grid-template-areas:
+      "poster label"
+      "poster title"
+      "poster meta";
+    grid-template-rows: auto auto auto;
+    gap: 4px 12px;
+    align-content: center;
+    align-items: center;
+  }
+
+  body.is-comparing .card__label {
+    grid-area: label;
+    align-self: end;
+    font-size: 0.6rem;
+  }
+
+  body.is-comparing .card__poster {
+    grid-area: poster;
+    width: clamp(88px, 17vw, 118px);
+    max-width: none;
+    height: auto;
+    aspect-ratio: 2 / 3;
+    border-radius: 8px;
+  }
+
+  body.is-comparing .card__title {
+    grid-area: title;
+    align-self: center;
+    font-size: clamp(1rem, 2.4vw, 1.28rem);
+    line-height: 1.08;
+    overflow-wrap: anywhere;
+  }
+
+  body.is-comparing .card__meta {
+    grid-area: meta;
+    align-self: start;
+    font-size: 0.78rem;
   }
 }
 

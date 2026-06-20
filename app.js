@@ -502,6 +502,15 @@ const loadRanking = async () => {
   }
 };
 
+const setComparisonMode = (active) => {
+  document.body.classList.toggle("is-comparing", active);
+  form.hidden = active;
+  if (active) {
+    hideSuggestions();
+    setAddFeedback("");
+  }
+};
+
 const startComparison = () => {
   if (!pending) return;
 
@@ -511,7 +520,7 @@ const startComparison = () => {
     pending = null;
     pendingOrigin = null;
     saveRanking();
-    form.hidden = false;
+    setComparisonMode(false);
     compareSection.classList.add("panel--hidden");
     form.reset();
     renderRanking();
@@ -525,8 +534,7 @@ const startComparison = () => {
   searchRange = { low: 0, high: ranking.length - 1 };
   compareHistory = [];
   suggestionsRequestId += 1;
-  form.hidden = true;
-  hideSuggestions();
+  setComparisonMode(true);
   setSuggestionsHidden(true);
   showComparison();
 };
@@ -590,7 +598,7 @@ const handleDecision = (isNewBetter, midIndex) => {
     pendingOrigin = null;
     searchRange = null;
     saveRanking();
-    form.hidden = false;
+    setComparisonMode(false);
     compareSection.classList.add("panel--hidden");
     form.reset();
     renderRanking();
@@ -658,7 +666,7 @@ const cancelComparison = () => {
   searchRange = null;
   compareHistory = [];
   suggestionsRequestId += 1;
-  form.hidden = false;
+  setComparisonMode(false);
   compareSection.classList.add("panel--hidden");
   form.reset();
   setAddFeedback(`Canceled ranking "${canceledTitle}".`, 2600);
@@ -689,7 +697,7 @@ clearButton.addEventListener("click", () => {
   pendingOrigin = null;
   searchRange = null;
   saveRanking();
-  form.hidden = false;
+  setComparisonMode(false);
   compareSection.classList.add("panel--hidden");
   form.reset();
   renderRanking();
@@ -1384,7 +1392,7 @@ const handleSignOut = async () => {
   pendingOrigin = null;
   searchRange = null;
   saveRanking();
-  form.hidden = false;
+  setComparisonMode(false);
   renderRanking();
   loadSuggestionQueues();
   renderSuggestionQueues();

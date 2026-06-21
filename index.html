@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>StackRank</title>
-    <link rel="stylesheet" href="styles.css?v=12" />
+    <link rel="stylesheet" href="styles.css?v=13" />
   </head>
   <body>
     <main class="app">
@@ -180,11 +180,48 @@
         <pre class="debug__content" id="debug-content"></pre>
       </section>
 
+      <div class="detail-overlay" id="movie-detail" hidden>
+        <section
+          class="detail-sheet"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="detail-title"
+          aria-describedby="detail-overview"
+        >
+          <button class="detail-close" id="detail-close" type="button" aria-label="Close movie details">×</button>
+          <div class="detail-main">
+            <img class="detail-poster" id="detail-poster" alt="" />
+            <div class="detail-heading">
+              <h2 id="detail-title">Movie title</h2>
+              <div class="detail-sub" id="detail-sub"></div>
+              <div class="detail-genres" id="detail-genres"></div>
+            </div>
+          </div>
+          <p class="detail-overview" id="detail-overview"></p>
+          <dl class="detail-meta">
+            <div>
+              <dt>Directed by</dt>
+              <dd id="detail-director">Unknown</dd>
+            </div>
+            <div>
+              <dt>Starring</dt>
+              <dd id="detail-cast">Unknown</dd>
+            </div>
+          </dl>
+          <div class="detail-status panel__sub" id="detail-status"></div>
+          <div class="detail-actions">
+            <button class="detail-action detail-action--primary" id="detail-rank" type="button">Rank</button>
+            <button class="detail-action" id="detail-save" type="button">Save</button>
+            <button class="detail-action detail-action--muted" id="detail-hide" type="button">Hide</button>
+          </div>
+        </section>
+      </div>
+
       <footer class="footnote">
         <span class="panel__sub" id="api-status">Connects to TMDB for search.</span>
       </footer>
     </main>
 
-    <script type="module" src="app.js?v=10"></script>
+    <script type="module" src="app.js?v=11"></script>
   </body>
 </html>

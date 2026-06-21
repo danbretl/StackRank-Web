@@ -43,9 +43,23 @@ const suggestEssentials = document.getElementById("suggest-essentials");
 const suggestRelatedMore = document.getElementById("suggest-related-more");
 const suggestPopularMore = document.getElementById("suggest-popular-more");
 const suggestEssentialsMore = document.getElementById("suggest-essentials-more");
+const detailOverlay = document.getElementById("movie-detail");
+const detailClose = document.getElementById("detail-close");
+const detailPoster = document.getElementById("detail-poster");
+const detailTitle = document.getElementById("detail-title");
+const detailSub = document.getElementById("detail-sub");
+const detailGenres = document.getElementById("detail-genres");
+const detailOverview = document.getElementById("detail-overview");
+const detailDirector = document.getElementById("detail-director");
+const detailCast = document.getElementById("detail-cast");
+const detailStatus = document.getElementById("detail-status");
+const detailRank = document.getElementById("detail-rank");
+const detailSave = document.getElementById("detail-save");
+const detailHide = document.getElementById("detail-hide");
 
 const TMDB_PROXY_PATH = "/functions/v1/tmdb-search";
 const TMDB_SUGGEST_PATH = "/functions/v1/tmdb-suggest";
+const TMDB_DETAIL_PATH = "/functions/v1/tmdb-detail";
 const TMDB_POSTER_BASE = "https://image.tmdb.org/t/p/w342";
 const TMDB_POSTER_SMALL = "https://image.tmdb.org/t/p/w92";
 const STORAGE_KEY = "stackrank:movies:v1";
@@ -97,6 +111,10 @@ let suggestionSectionState = {
 };
 let placeholderIndex = 0;
 let placeholderTimer = null;
+let currentDetail = null;
+let detailRequestId = 0;
+let detailTrigger = null;
+const detailCache = new Map();
 
 const storageEnabled = typeof window !== "undefined" && "localStorage" in window;
 const supabaseEnabled =
@@ -186,6 +204,15 @@ const setPoster = (imageEl, movie) => {
     imageEl.alt = "";
     imageEl.style.visibility = "hidden";
   }
+};
+
+const formatRuntime = (runtime) => {
+  if (!runtime) return "";
+  const hours = Math.floor(runtime / 60);
+  const minutes = runtime % 60;
+  if (!hours) return `${minutes}m`;
+  if (!minutes) return `${hours}h`;
+  return `${hours}h ${minutes}m`;
 };
 
 const getListId = () => {
@@ -1073,6 +1100,88 @@ const setSuggestionsHidden = (hidden) => {
   suggestPanel.classList.toggle("suggest-panel--hidden", hidden);
 };
 
+const setDetailActionsDisabled = (disabled) => {
+  detailRank.disabled = disabled;
+  detailSave.disabled = disabled;
+  detailHide.disabled = disabled;
+};
+
+const renderDetailPane = (movie, status = "") => {
+  detailTitle.textContent = movie.title || "Movie";
+  const metaParts = [];
+  if (movie.year) metaParts.push(String(movie.year));
+  const runtime = formatRuntime(movie.runtime);
+  if (runtime) metaParts.push(runtime);
+  detailSub.textContent = metaParts.join(" · ") || "Details unavailable";
+  detailGenres.textContent = Array.isArray(movie.genres) && movie.genres.length ? movie.genres.join(", ") : "";
+  detailOverview.textContent = movie.overview || "No overview available yet.";
+  detailDirector.textContent = movie.director || "Unknown";
+  detailCast.textContent = Array.isArray(movie.cast) && movie.cast.length ? movie.cast.join(", ") : "Unknown";
+  detailStatus.textContent = status;
+  setPoster(detailPoster, movie);
+};
+
+const fetchMovieDetail = async (movie) => {
+  if (!tmdbProxyEnabled || !movie.tmdbId) return null;
+  const cacheKey = String(movie.tmdbId);
+  if (detailCache.has(cacheKey)) return detailCache.get(cacheKey);
+  const url = `${supabaseEnabled ? `${SUPABASE_URL}${TMDB_DETAIL_PATH}` : ""}?id=${encodeURIComponent(
+    movie.tmdbId,
+  )}`;
+  try {
+    const response = await fetch(url, {
+      headers: {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+      },
+    });
+    if (!response.ok) return null;
+    const data = await response.json();
+    if (!data.result) return null;
+    const detail = { ...movie, ...data.result };
+    detailCache.set(cacheKey, detail);
+    return detail;
+  } catch (error) {
+    return null;
+  }
+};
+
+const openMovieDetail = async (movie, sectionKey, triggerEl = null) => {
+  if (pending) {
+    setStatusMessage("Finish the current comparison before opening movie details.");
+    return;
+  }
+  const requestId = ++detailRequestId;
+  currentDetail = { movie, sectionKey };
+  detailTrigger = triggerEl;
+  renderDetailPane(movie, movie.tmdbId ? "Loading details..." : "More details unavailable.");
+  setDetailActionsDisabled(false);
+  detailOverlay.hidden = false;
+  document.body.classList.add("is-detail-open");
+  detailClose.focus();
+
+  const detail = await fetchMovieDetail(movie);
+  if (requestId !== detailRequestId || !currentDetail) return;
+  if (detail) {
+    currentDetail.movie = detail;
+    renderDetailPane(detail);
+  } else if (movie.tmdbId) {
+    renderDetailPane(movie, "Could not load full details.");
+  }
+};
+
+const closeMovieDetail = ({ restoreFocus = true } = {}) => {
+  detailRequestId += 1;
+  currentDetail = null;
+  detailOverlay.hidden = true;
+  document.body.classList.remove("is-detail-open");
+  setDetailActionsDisabled(false);
+  if (restoreFocus && detailTrigger) {
+    detailTrigger.focus();
+  }
+  detailTrigger = null;
+};
+
 const setSuggestionList = (sectionKey, container, items = []) => {
   container.innerHTML = "";
   items.forEach((movie) => {
@@ -1094,6 +1203,17 @@ const setSuggestionList = (sectionKey, container, items = []) => {
     name.className = "suggest-name";
     name.textContent = movie.title;
     name.title = movie.title;
+    const detailButton = document.createElement("button");
+    detailButton.className = "suggest-info";
+    detailButton.type = "button";
+    detailButton.setAttribute("aria-label", `Show details for ${movie.title}`);
+    detailButton.innerHTML = `
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <circle cx="12" cy="12" r="9"></circle>
+        <path d="M12 11v5"></path>
+        <path d="M12 8h.01"></path>
+      </svg>
+    `;
     const meta = document.createElement("div");
     meta.className = "suggest-meta";
     meta.textContent = movie.year ? `Released ${movie.year}` : "Year unknown";
@@ -1121,10 +1241,15 @@ const setSuggestionList = (sectionKey, container, items = []) => {
       passButton.blur();
       addSuggestionToQueue(movie, "notInterested", sectionKey);
     });
+    detailButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      openMovieDetail(movie, sectionKey, detailButton);
+    });
 
-    card.append(poster, name, meta, actions);
+    card.append(poster, name, detailButton, meta, actions);
     card.addEventListener("click", () => startRankingFromSuggestion(movie));
     card.addEventListener("keydown", (event) => {
+      if (event.target.closest("button")) return;
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
         startRankingFromSuggestion(movie);
@@ -1780,6 +1905,41 @@ watchListEl.addEventListener("click", handleQueueInteraction);
 notInterestedListEl.addEventListener("click", handleQueueInteraction);
 watchListEl.addEventListener("keydown", handleQueueKeydown);
 notInterestedListEl.addEventListener("keydown", handleQueueKeydown);
+
+detailClose.addEventListener("click", () => closeMovieDetail());
+
+detailOverlay.addEventListener("click", (event) => {
+  if (event.target === detailOverlay) {
+    closeMovieDetail();
+  }
+});
+
+detailRank.addEventListener("click", () => {
+  if (!currentDetail) return;
+  const { movie } = currentDetail;
+  closeMovieDetail({ restoreFocus: false });
+  startRankingFromSuggestion(movie);
+});
+
+detailSave.addEventListener("click", () => {
+  if (!currentDetail) return;
+  const { movie, sectionKey } = currentDetail;
+  closeMovieDetail({ restoreFocus: false });
+  addSuggestionToQueue(movie, "watch", sectionKey);
+});
+
+detailHide.addEventListener("click", () => {
+  if (!currentDetail) return;
+  const { movie, sectionKey } = currentDetail;
+  closeMovieDetail({ restoreFocus: false });
+  addSuggestionToQueue(movie, "notInterested", sectionKey);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !detailOverlay.hidden) {
+    closeMovieDetail();
+  }
+});
 
 const hideSuggestions = () => {
   suggestions.style.display = "none";

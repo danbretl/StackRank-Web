@@ -89,6 +89,11 @@ let suggestRelatedCursor = 0;
 let suggestPopularCursor = 0;
 let suggestEssentialsCursor = 0;
 let suggestionsRequestId = 0;
+let suggestionSectionState = {
+  popular: { all: [], visible: [] },
+  essentials: { all: [], visible: [] },
+  related: { all: [], visible: [] },
+};
 let placeholderIndex = 0;
 let placeholderTimer = null;
 
@@ -1030,7 +1035,7 @@ const setSuggestionsHidden = (hidden) => {
   suggestPanel.classList.toggle("suggest-panel--hidden", hidden);
 };
 
-const setSuggestionList = (container, items = []) => {
+const setSuggestionList = (sectionKey, container, items = []) => {
   container.innerHTML = "";
   items.forEach((movie) => {
     const card = document.createElement("div");
@@ -1070,11 +1075,13 @@ const setSuggestionList = (container, items = []) => {
 
     watchButton.addEventListener("click", (event) => {
       event.stopPropagation();
-      addSuggestionToQueue(movie, "watch");
+      watchButton.blur();
+      addSuggestionToQueue(movie, "watch", sectionKey);
     });
     passButton.addEventListener("click", (event) => {
       event.stopPropagation();
-      addSuggestionToQueue(movie, "notInterested");
+      passButton.blur();
+      addSuggestionToQueue(movie, "notInterested", sectionKey);
     });
 
     card.append(poster, name, meta, actions);
@@ -1087,6 +1094,81 @@ const setSuggestionList = (container, items = []) => {
     });
     container.appendChild(card);
   });
+};
+
+const setSuggestionSectionState = (sectionKey, all, visible) => {
+  suggestionSectionState = {
+    ...suggestionSectionState,
+    [sectionKey]: { all, visible },
+  };
+};
+
+const getSuggestionSectionConfig = (sectionKey) => {
+  if (sectionKey === "popular") {
+    return { container: suggestPopular, moreButton: suggestPopularMore };
+  }
+  if (sectionKey === "essentials") {
+    return { container: suggestEssentials, moreButton: suggestEssentialsMore };
+  }
+  if (sectionKey === "related") {
+    return {
+      container: suggestRelated,
+      moreButton: suggestRelatedMore,
+      section: suggestRelatedSection,
+    };
+  }
+  return null;
+};
+
+const refreshSuggestionSection = (sectionKey) => {
+  const requestId = createSuggestionRequest();
+  if (!requestId) return;
+  if (sectionKey === "popular") {
+    void updatePopularSuggestions(requestId);
+  } else if (sectionKey === "essentials") {
+    void updateEssentialsSuggestions(requestId);
+  } else if (sectionKey === "related") {
+    void updateRelatedSuggestions(requestId);
+  }
+};
+
+const replaceQueuedSuggestion = (sectionKey, queuedMovie) => {
+  const config = getSuggestionSectionConfig(sectionKey);
+  const state = suggestionSectionState[sectionKey];
+  if (!config || !state) return false;
+
+  const queuedKey = movieKey(queuedMovie);
+  const queuedIndex = state.visible.findIndex((movie) => movieKey(movie) === queuedKey);
+  if (queuedIndex < 0) return false;
+
+  const nextAll = filterUnrankedSuggestions(state.all);
+  const nextVisible = [...state.visible];
+  const keptKeys = new Set(
+    nextVisible
+      .filter((_, index) => index !== queuedIndex)
+      .map(movieKey)
+      .filter(Boolean),
+  );
+  const replacement = nextAll.find((movie) => {
+    const key = movieKey(movie);
+    return key !== queuedKey && !keptKeys.has(key);
+  });
+
+  if (replacement) {
+    nextVisible[queuedIndex] = replacement;
+  } else {
+    nextVisible.splice(queuedIndex, 1);
+  }
+
+  setSuggestionSectionState(sectionKey, nextAll, nextVisible);
+  setSuggestionList(sectionKey, config.container, nextVisible);
+  config.moreButton.disabled = nextAll.length <= SUGGESTION_PAGE_SIZE;
+  if (nextVisible.length === 0) {
+    refreshSuggestionSection(sectionKey);
+  } else if (sectionKey === "related" && config.section) {
+    config.section.hidden = false;
+  }
+  return true;
 };
 
 const setSuggestionLoading = (container) => {
@@ -1252,7 +1334,8 @@ const updatePopularSuggestions = async (requestId = createSuggestionRequest()) =
   }
   const popularFiltered = filterUnrankedSuggestions(popularAll);
   const popular = sliceSuggestions(popularFiltered, suggestPopularCursor, SUGGESTION_PAGE_SIZE);
-  setSuggestionList(suggestPopular, popular);
+  setSuggestionSectionState("popular", popularFiltered, popular);
+  setSuggestionList("popular", suggestPopular, popular);
   suggestPopularMore.disabled = popularFiltered.length <= SUGGESTION_PAGE_SIZE;
 };
 
@@ -1270,7 +1353,8 @@ const updateEssentialsSuggestions = async (requestId = createSuggestionRequest()
     suggestEssentialsCursor,
     SUGGESTION_PAGE_SIZE,
   );
-  setSuggestionList(suggestEssentials, essentials);
+  setSuggestionSectionState("essentials", essentialsFiltered, essentials);
+  setSuggestionList("essentials", suggestEssentials, essentials);
   suggestEssentialsMore.disabled = essentialsFiltered.length <= SUGGESTION_PAGE_SIZE;
 };
 
@@ -1293,12 +1377,14 @@ const updateRelatedSuggestions = async (requestId = createSuggestionRequest()) =
     }
     const relatedFiltered = filterUnrankedSuggestions(relatedAll);
     const related = sliceSuggestions(relatedFiltered, suggestRelatedCursor, SUGGESTION_PAGE_SIZE);
-    setSuggestionList(suggestRelated, related);
+    setSuggestionSectionState("related", relatedFiltered, related);
+    setSuggestionList("related", suggestRelated, related);
     suggestRelatedMore.disabled = relatedFiltered.length <= SUGGESTION_PAGE_SIZE;
     suggestRelatedSection.hidden = related.length === 0;
     suggestRelatedEmpty.style.display = "none";
   } else {
     activeSuggestionSeed = null;
+    setSuggestionSectionState("related", [], []);
     suggestRelatedSection.hidden = true;
     suggestRelated.innerHTML = "";
     suggestRelatedMore.disabled = true;
@@ -1514,7 +1600,7 @@ const persistSuggestionQueues = () => {
   updateDebugPanel();
 };
 
-const addSuggestionToQueue = (movie, target) => {
+const addSuggestionToQueue = (movie, target, sectionKey = null) => {
   if (pending) {
     setStatusMessage("Finish the current comparison before saving suggestions.");
     return;
@@ -1522,6 +1608,9 @@ const addSuggestionToQueue = (movie, target) => {
   if (isDuplicateMovie(movie)) {
     setStatusMessage(`"${movie.title}" is already in your list. Add something else.`);
     updateDebugPanel({ duplicateBlocked: movie.tmdbId || movie.title });
+    if (sectionKey) {
+      replaceQueuedSuggestion(sectionKey, movie);
+    }
     return;
   }
   const storedMovie = toStoredMovie(movie);
@@ -1533,7 +1622,9 @@ const addSuggestionToQueue = (movie, target) => {
   }
   persistSuggestionQueues();
   setAddFeedback(`"${movie.title}" moved to ${queueLabel(target)}.`, 2600);
-  updateSuggestions();
+  if (!sectionKey || !replaceQueuedSuggestion(sectionKey, storedMovie)) {
+    updateSuggestions();
+  }
 };
 
 const getQueueOrigin = (movie) => {

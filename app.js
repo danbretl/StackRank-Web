@@ -115,6 +115,7 @@ let currentDetail = null;
 let detailRequestId = 0;
 let detailTrigger = null;
 const detailCache = new Map();
+let comparisonReturnScroll = null;
 
 const storageEnabled = typeof window !== "undefined" && "localStorage" in window;
 const supabaseEnabled =
@@ -633,6 +634,28 @@ const setComparisonMode = (active) => {
   }
 };
 
+const captureComparisonReturnScroll = () => {
+  comparisonReturnScroll = {
+    left: window.scrollX,
+    top: window.scrollY,
+  };
+};
+
+const clearComparisonReturnScroll = () => {
+  comparisonReturnScroll = null;
+};
+
+const restoreComparisonReturnScroll = () => {
+  const target = comparisonReturnScroll;
+  clearComparisonReturnScroll();
+  if (!target) return;
+  window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ left: target.left, top: target.top, behavior: "auto" });
+    });
+  });
+};
+
 const startComparison = () => {
   if (!pending) return;
 
@@ -649,6 +672,7 @@ const startComparison = () => {
     setAddFeedback(`"${ranking[0].title}" placed as your top pick.`);
     updateSuggestionsThenHighlight(0);
     titleInput.blur();
+    clearComparisonReturnScroll();
     return;
   }
 
@@ -737,6 +761,7 @@ const handleDecision = (isNewBetter, midIndex) => {
     }
     updateSuggestionsThenHighlight(insertIndex);
     titleInput.blur();
+    clearComparisonReturnScroll();
     return;
   }
 
@@ -791,6 +816,7 @@ const cancelComparison = () => {
   form.reset();
   setAddFeedback(`Canceled ranking "${canceledTitle}".`, 2600);
   updateSuggestions();
+  restoreComparisonReturnScroll();
   titleInput.blur();
   updateDebugPanel();
 };
@@ -878,6 +904,7 @@ rankingList.addEventListener("click", (event) => {
       setStatusMessage("Finish the current comparison before re-stacking.");
       return;
     }
+    captureComparisonReturnScroll();
     ranking.splice(index, 1);
     pendingOrigin = { type: "ranking", movie: { ...movie }, index };
     pending = { ...movie, comparisons: 0 };
@@ -1873,6 +1900,7 @@ const startRankingMovie = (movie) => {
     updateSuggestions();
     return;
   }
+  captureComparisonReturnScroll();
   pendingOrigin = getQueueOrigin(movie);
   removeMovieFromSuggestionQueues(movie);
   persistSuggestionQueues();

@@ -294,6 +294,14 @@ const createQueueActionButton = (label, ariaLabel, action, className = "") => {
   return button;
 };
 
+const createInfoIcon = () => `
+  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <circle cx="12" cy="12" r="9"></circle>
+    <path d="M12 11v5"></path>
+    <path d="M12 8h.01"></path>
+  </svg>
+`;
+
 const renderQueueList = (container, list, emptyText, source) => {
   container.innerHTML = "";
   if (!list.length) {
@@ -334,6 +342,12 @@ const renderQueueList = (container, list, emptyText, source) => {
     meta.textContent = movie.year ? `Released ${movie.year}` : "Year unknown";
     text.append(title, meta);
 
+    const infoButton = document.createElement("button");
+    infoButton.className = "queue-info";
+    infoButton.type = "button";
+    infoButton.setAttribute("aria-label", `Show details for ${movie.title}`);
+    infoButton.innerHTML = createInfoIcon();
+
     const actions = document.createElement("div");
     actions.className = "queue-list__actions";
     if (source === "watch") {
@@ -368,7 +382,12 @@ const renderQueueList = (container, list, emptyText, source) => {
       );
     }
 
-    item.append(poster, text, actions);
+    infoButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      openMovieDetail(movie, { type: "queue", source }, infoButton);
+    });
+
+    item.append(poster, text, infoButton, actions);
     container.appendChild(item);
   });
 };
@@ -1128,6 +1147,36 @@ const renderDetailPane = (movie, status = "") => {
   setPoster(detailPoster, movie);
 };
 
+const normalizeDetailContext = (context) => {
+  if (typeof context === "string" || context === null || context === undefined) {
+    return { type: "suggestion", sectionKey: context || null };
+  }
+  return context;
+};
+
+const configureDetailActions = (movie, context) => {
+  detailRank.textContent = "Rank";
+  detailRank.setAttribute("aria-label", `Rank ${movie.title}`);
+  if (context.type === "queue" && context.source === "watch") {
+    detailSave.textContent = "Hide";
+    detailSave.setAttribute("aria-label", `Move ${movie.title} to Not for me`);
+    detailHide.textContent = "Remove";
+    detailHide.setAttribute("aria-label", `Remove ${movie.title} from Watch next`);
+    return;
+  }
+  if (context.type === "queue" && context.source === "notInterested") {
+    detailSave.textContent = "Save";
+    detailSave.setAttribute("aria-label", `Move ${movie.title} to Watch next`);
+    detailHide.textContent = "Remove";
+    detailHide.setAttribute("aria-label", `Remove ${movie.title} from Not for me`);
+    return;
+  }
+  detailSave.textContent = "Save";
+  detailSave.setAttribute("aria-label", `Add ${movie.title} to Watch next`);
+  detailHide.textContent = "Hide";
+  detailHide.setAttribute("aria-label", `Add ${movie.title} to Not for me`);
+};
+
 const fetchMovieDetail = async (movie) => {
   if (!tmdbProxyEnabled || !movie.tmdbId) return null;
   const cacheKey = String(movie.tmdbId);
@@ -1153,14 +1202,16 @@ const fetchMovieDetail = async (movie) => {
   }
 };
 
-const openMovieDetail = async (movie, sectionKey, triggerEl = null) => {
+const openMovieDetail = async (movie, context = null, triggerEl = null) => {
   if (pending) {
     setStatusMessage("Finish the current comparison before opening movie details.");
     return;
   }
+  const detailContext = normalizeDetailContext(context);
   const requestId = ++detailRequestId;
-  currentDetail = { movie, sectionKey };
+  currentDetail = { movie, context: detailContext };
   detailTrigger = triggerEl;
+  configureDetailActions(movie, detailContext);
   renderDetailPane(movie, movie.tmdbId ? "Loading details..." : "More details unavailable.");
   setDetailActionsDisabled(false);
   detailOverlay.hidden = false;
@@ -1171,6 +1222,7 @@ const openMovieDetail = async (movie, sectionKey, triggerEl = null) => {
   if (requestId !== detailRequestId || !currentDetail) return;
   if (detail) {
     currentDetail.movie = detail;
+    configureDetailActions(detail, detailContext);
     renderDetailPane(detail);
   } else if (movie.tmdbId) {
     renderDetailPane(movie, "Could not load full details.");
@@ -1214,13 +1266,7 @@ const setSuggestionList = (sectionKey, container, items = []) => {
     detailButton.className = "suggest-info";
     detailButton.type = "button";
     detailButton.setAttribute("aria-label", `Show details for ${movie.title}`);
-    detailButton.innerHTML = `
-      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        <circle cx="12" cy="12" r="9"></circle>
-        <path d="M12 11v5"></path>
-        <path d="M12 8h.01"></path>
-      </svg>
-    `;
+    detailButton.innerHTML = createInfoIcon();
     const meta = document.createElement("div");
     meta.className = "suggest-meta";
     meta.textContent = movie.year ? `Released ${movie.year}` : "Year unknown";
@@ -1857,6 +1903,18 @@ const moveQueueMovie = (source, index) => {
   updateSuggestions();
 };
 
+const findQueueMovieIndex = (source, movie) => {
+  const list = source === "watch" ? watchList : notInterestedList;
+  const key = movieKey(movie);
+  return list.findIndex((item) => movieKey(item) === key);
+};
+
+const moveQueueMovieByMovie = (source, movie) => {
+  const index = findQueueMovieIndex(source, movie);
+  if (index < 0) return;
+  moveQueueMovie(source, index);
+};
+
 const removeQueueMovie = (source, index) => {
   const list = source === "watch" ? watchList : notInterestedList;
   const movie = list[index];
@@ -1869,6 +1927,12 @@ const removeQueueMovie = (source, index) => {
   persistSuggestionQueues();
   setAddFeedback(`"${movie.title}" removed from ${queueLabel(source)}.`, 2600);
   updateSuggestions();
+};
+
+const removeQueueMovieByMovie = (source, movie) => {
+  const index = findQueueMovieIndex(source, movie);
+  if (index < 0) return;
+  removeQueueMovie(source, index);
 };
 
 const handleQueueInteraction = (event) => {
@@ -1897,7 +1961,7 @@ const handleQueueInteraction = (event) => {
 
 const handleQueueKeydown = (event) => {
   if (event.key !== "Enter" && event.key !== " ") return;
-  if (event.target.closest(".queue-action")) return;
+  if (event.target.closest(".queue-action, .queue-info")) return;
   const item = event.target.closest(".queue-list__item");
   if (!item) return;
   event.preventDefault();
@@ -1930,16 +1994,24 @@ detailRank.addEventListener("click", () => {
 
 detailSave.addEventListener("click", () => {
   if (!currentDetail) return;
-  const { movie, sectionKey } = currentDetail;
+  const { movie, context } = currentDetail;
   closeMovieDetail({ restoreFocus: false });
-  addSuggestionToQueue(movie, "watch", sectionKey);
+  if (context.type === "queue") {
+    moveQueueMovieByMovie(context.source, movie);
+  } else {
+    addSuggestionToQueue(movie, "watch", context.sectionKey);
+  }
 });
 
 detailHide.addEventListener("click", () => {
   if (!currentDetail) return;
-  const { movie, sectionKey } = currentDetail;
+  const { movie, context } = currentDetail;
   closeMovieDetail({ restoreFocus: false });
-  addSuggestionToQueue(movie, "notInterested", sectionKey);
+  if (context.type === "queue") {
+    removeQueueMovieByMovie(context.source, movie);
+  } else {
+    addSuggestionToQueue(movie, "notInterested", context.sectionKey);
+  }
 });
 
 document.addEventListener("keydown", (event) => {

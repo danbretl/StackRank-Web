@@ -628,8 +628,7 @@ const startComparison = () => {
     form.reset();
     renderRanking();
     setAddFeedback(`"${ranking[0].title}" placed as your top pick.`);
-    highlightRankingItem(0);
-    updateSuggestions();
+    updateSuggestionsThenHighlight(0);
     titleInput.blur();
     return;
   }
@@ -717,8 +716,7 @@ const handleDecision = (isNewBetter, midIndex) => {
     } else {
       setAddFeedback(`${placedTitle} placed at #${insertIndex + 1}.`);
     }
-    highlightRankingItem(insertIndex);
-    updateSuggestions();
+    updateSuggestionsThenHighlight(insertIndex);
     titleInput.blur();
     return;
   }
@@ -1093,6 +1091,15 @@ const highlightRankingItem = (index) => {
   window.setTimeout(() => {
     item.classList.remove("is-highlight");
   }, 2000);
+};
+
+const updateSuggestionsThenHighlight = (index) => {
+  void updateSuggestions();
+  window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
+      highlightRankingItem(index);
+    });
+  });
 };
 
 const setSuggestionsHidden = (hidden) => {

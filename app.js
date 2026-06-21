@@ -82,6 +82,7 @@ let dragCaptureEl = null;
 let migrationStats = null;
 const debugEnabled = new URLSearchParams(window.location.search).get("debug") === "1";
 let highlightTimeout = null;
+let feedbackRemovalTimeout = null;
 let compareHistory = [];
 let lastAddedTmdbId = null;
 let activeSuggestionSeed = null;
@@ -108,6 +109,8 @@ const tmdbProxyEnabled = supabaseEnabled;
 const tmdbProxyUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_PROXY_PATH}` : "";
 const tmdbSuggestUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_SUGGEST_PATH}` : "";
 const SUGGESTION_PAGE_SIZE = 3;
+const TOAST_DURATION_MS = 3200;
+const TOAST_EXIT_MS = 240;
 const PLACEHOLDER_TITLES = [
   "The Godfather",
   "Moonlight",
@@ -600,7 +603,7 @@ const startComparison = () => {
     setAddFeedback(`"${ranking[0].title}" placed as your top pick.`);
     highlightRankingItem(0);
     updateSuggestions();
-    titleInput.focus();
+    titleInput.blur();
     return;
   }
 
@@ -689,7 +692,7 @@ const handleDecision = (isNewBetter, midIndex) => {
     }
     highlightRankingItem(insertIndex);
     updateSuggestions();
-    titleInput.focus();
+    titleInput.blur();
     return;
   }
 
@@ -1006,15 +1009,50 @@ const setStatusMessage = (message, duration = 2200) => {
   }, duration);
 };
 
-const setAddFeedback = (message, duration = null) => {
-  addFeedback.textContent = message;
+const hideAddFeedback = ({ immediate = false } = {}) => {
   if (highlightTimeout) {
     window.clearTimeout(highlightTimeout);
     highlightTimeout = null;
   }
+  if (feedbackRemovalTimeout) {
+    window.clearTimeout(feedbackRemovalTimeout);
+    feedbackRemovalTimeout = null;
+  }
+  addFeedback.classList.remove("is-visible");
+  if (immediate) {
+    addFeedback.classList.remove("is-leaving");
+    addFeedback.textContent = "";
+    return;
+  }
+  addFeedback.classList.add("is-leaving");
+  feedbackRemovalTimeout = window.setTimeout(() => {
+    addFeedback.classList.remove("is-leaving");
+    addFeedback.textContent = "";
+    feedbackRemovalTimeout = null;
+  }, TOAST_EXIT_MS);
+};
+
+const setAddFeedback = (message, duration = TOAST_DURATION_MS) => {
+  if (!message) {
+    hideAddFeedback({ immediate: true });
+    return;
+  }
+  if (highlightTimeout) {
+    window.clearTimeout(highlightTimeout);
+    highlightTimeout = null;
+  }
+  if (feedbackRemovalTimeout) {
+    window.clearTimeout(feedbackRemovalTimeout);
+    feedbackRemovalTimeout = null;
+  }
+  addFeedback.textContent = message;
+  addFeedback.classList.remove("is-leaving");
+  window.requestAnimationFrame(() => {
+    addFeedback.classList.add("is-visible");
+  });
   if (duration !== null) {
     highlightTimeout = window.setTimeout(() => {
-      addFeedback.textContent = "";
+      hideAddFeedback();
     }, duration);
   }
 };

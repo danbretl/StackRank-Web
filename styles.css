@@ -214,17 +214,36 @@ body.is-dragging {
 }
 
 .panel__feedback {
-  position: absolute;
-  top: 16px;
-  right: 18px;
-  left: auto;
-  bottom: auto;
-  max-width: 45%;
-  text-align: right;
-  margin-top: 8px;
+  position: fixed;
+  left: clamp(16px, 4vw, 28px);
+  right: auto;
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  z-index: 60;
+  max-width: min(420px, calc(100vw - 32px));
+  padding: 12px 14px;
+  text-align: left;
   font-size: 0.9rem;
-  color: var(--bg-ink);
-  opacity: 0.8;
+  line-height: 1.35;
+  color: #ffffff;
+  background: var(--bg-ink);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(0, 12px, 0) scale(0.98);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  will-change: opacity, transform;
+}
+
+.panel__feedback.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.panel__feedback.is-leaving {
+  opacity: 0;
+  transform: translate3d(0, 8px, 0) scale(0.98);
 }
 
 .suggest-panel {
@@ -478,8 +497,7 @@ body.is-dragging {
   font-size: 0.95rem;
 }
 
-body.is-comparing .panel--focus > .panel__header,
-body.is-comparing .panel__feedback {
+body.is-comparing .panel--focus > .panel__header {
   display: none;
 }
 
@@ -1068,8 +1086,10 @@ body.is-comparing .compare-panel {
   }
 
   .panel__feedback {
-    right: 16px;
-    font-size: 0.8rem;
+    left: 14px;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    max-width: calc(100vw - 28px);
+    font-size: 0.85rem;
   }
 
   body.is-comparing {

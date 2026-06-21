@@ -1,131 +1,179 @@
-# Feature idea: Movie detail decision sheet
+# Feature: Movie detail pane
 
-Status: exploratory
+Status: v1 done
 
 ## Summary
 
-Add a lightweight detail / decision sheet between tapping a movie suggestion and starting the ranking flow. Instead of a suggestion card immediately starting comparison, tapping the card would open a compact movie detail view with clear actions:
+Add an optional movie detail pane for suggestion cards without slowing down the primary ranking flow.
 
-- Rank it
-- Save
-- Hide
-- Close
+The shipped v1 keeps the fast behavior intact:
 
-This is not yet a committed direction. The main question is whether the added interaction cost is worth the clarity and accident prevention.
+- Tapping a suggestion card body still starts ranking immediately.
+- Save and Hide remain inline on suggestion cards.
+- A compact info icon in the title row opens movie details.
+- The detail pane includes Rank, Save, Hide, and Close actions.
 
-## Problem
+This replaces the earlier idea of putting a required detail step between tapping a suggestion and ranking it. That required-step version was rejected because it would make obvious ranking choices take two taps instead of one.
 
-Suggestion cards currently carry too much behavioral weight:
+## Shipped v1
 
-- A tap on the card starts stack ranking immediately.
-- Save and Hide are available as compact inline actions.
-- On mobile, taps are imprecise and it is easy to start ranking unintentionally.
-- Users may not recognize a suggested movie well enough to decide from title/year/poster alone.
+Implemented in commit `64ff621 Add movie detail pane`.
 
-The recent Cancel ranking work makes accidental starts recoverable, but it still means the user temporarily falls into a heavier flow than intended.
+### Card behavior
 
-## Proposed flow
+- Suggestion cards now include a compact info icon in the title row.
+- Card-body tap still calls the existing ranking flow.
+- Inline Save and Hide buttons still perform immediate queue actions.
+- Info icon tap opens the detail pane and stops event propagation so it does not accidentally start ranking.
+- Keyboard handling avoids Enter / Space on the info button bubbling into the card ranking handler.
 
-1. User taps a suggested movie card body.
-2. App opens a detail sheet or modal.
-3. Sheet shows:
-   - Poster
-   - Title
-   - Year
-   - Short overview, if available from TMDB data
-   - Optional metadata if already available or cheap to fetch: runtime, genres, original language
-4. Sheet actions:
-   - Rank it: starts the current comparison flow.
-   - Save: moves the movie to Watch next.
-   - Hide: moves the movie to Not for me.
-   - Close: returns to suggestions with no state change.
+### Detail pane content
 
-Inline Save / Hide buttons on suggestion cards could remain or be removed. If kept, the card body opens details and the buttons remain direct actions. If removed, the sheet becomes the single decision surface.
+The pane shows:
 
-## Why this may be worth doing
+- Poster
+- Title
+- Release year
+- Runtime
+- Genres
+- Overview
+- Director
+- Main cast, first 2-3 names
 
-- Prevents accidental ranking starts by making Rank it an explicit action.
-- Gives users more context before deciding what to do with an unfamiliar title.
-- Makes Save / Hide clearer because they live in a richer decision context.
-- Reduces pressure on suggestion card layout, especially on mobile.
-- Creates a natural future home for explanation text such as "Because you ranked City of God" or richer metadata.
+### Detail pane actions
 
-## Why this may not be worth doing
+- Rank: closes the pane and starts the existing ranking flow.
+- Save: closes the pane and moves the movie to Watch next.
+- Hide: closes the pane and moves the movie to Not for me.
+- Close: dismisses the pane without changing state.
 
-- Adds one more tap for users who already know they want to rank a movie.
-- Could make the app feel heavier if the sheet is too modal or too detailed.
-- Requires either expanding the suggestion payload or fetching details on demand.
-- The current compact cards are fast and direct; this could reduce that speed.
+### Layout
 
-## UX options
+- Mobile uses a bottom sheet with reachable action buttons at the bottom.
+- Desktop uses a compact centered modal.
+- The background is dimmed and blurred.
+- Body scrolling is disabled while the pane is open.
+- Escape and backdrop click close the pane.
 
-### Option A: Card opens sheet, Save / Hide stay inline
+### Data implementation
 
-Suggested first experiment.
+Added a Supabase Edge Function:
 
-- Keeps fast Save / Hide behavior.
-- Makes accidental ranking less likely because ranking is no longer the card default.
-- Slightly more complex because card body and card buttons do different things.
+- `supabase/functions/tmdb-detail/index.ts`
+- Endpoint path: `/functions/v1/tmdb-detail`
+- Input: TMDB movie id
+- Output: normalized movie detail payload with runtime, genres, overview, director, and cast
 
-### Option B: Card opens sheet, all actions move into sheet
+The client fetches details by TMDB id only when the pane opens, then caches details in-memory by TMDB id for the current session.
 
-Cleaner interaction model.
+## Why this version works
 
-- Cards become purely informational.
-- Sheet is the single decision point.
-- Main suggestion rows get visually calmer.
-- Costs an extra tap for Save and Hide.
+- It gives users more context for unfamiliar movies.
+- It preserves one-tap ranking for obvious choices.
+- It keeps Save and Hide quick.
+- It avoids cluttering the poster area.
+- It gives the detail feature a natural place to grow later.
 
-### Option C: Long-press or info icon opens sheet
+## Product decisions made
 
-Probably not ideal.
+- Use Option C: title-row info icon.
+- Do not make details a required step before ranking.
+- Do not include trailers in v1.
+- Include director and 2-3 main cast in v1.
+- Keep ratings out of v1 to avoid over-weighting consensus instead of personal preference.
 
-- Preserves current direct card-to-rank behavior.
-- Does not solve accidental ranking starts well.
-- Info icons add visual clutter and are easy to miss.
+## Validation performed
 
-## Implementation notes
+- `tmdb-detail` deployed and listed as active in Supabase.
+- Direct function call returned expected data for The Godfather.
+- Headless mobile and desktop checks verified:
+  - Detail pane opens from suggestion info icon.
+  - Runtime, genres, director, cast, and overview render.
+  - Close returns to suggestions.
+  - Card-body tap still starts ranking.
+  - Detail Rank starts ranking.
+  - Detail Save moves movie to Watch next.
+  - Detail Hide moves movie to Not for me.
 
-- Add `selectedDetailMovie` state.
-- Render a sheet/modal component near the existing compare panel or at the end of the main app.
-- Reuse existing `startRankingMovie(movie)` for Rank it.
-- Reuse existing `addSuggestionToQueue(movie, "watch")` and `addSuggestionToQueue(movie, "notInterested")`.
-- Close the sheet after any action.
-- If card body opens sheet, stop event propagation from inline Save / Hide buttons.
-- Keep keyboard support:
-  - Escape closes the sheet.
-  - Focus starts on the sheet heading or first action.
-  - Focus returns to the originating card when closed where practical.
+Known unrelated warning during browser checks:
 
-## Data notes
+- Missing favicon 404.
 
-Current suggestion cards appear to have enough data for poster/title/year/TMDB id. Overview, runtime, and genres likely require either:
+## Potential next steps
 
-- Adding fields to the Supabase suggestion function response, or
-- Adding a detail fetch endpoint/call by TMDB id when the sheet opens.
+### Add trailer link
 
-The simplest first version can use poster/title/year only, but that may not justify the sheet. A short overview is probably the minimum useful addition.
+Add a subtle `Watch trailer` link or icon-text button below the metadata.
 
-## Mobile considerations
+Implementation likely needs one of:
 
-- Sheet should feel like a bottom sheet or full-width modal, not a tiny centered dialog.
-- Primary actions should be large enough for thumb taps.
-- Avoid stacking too many controls above the fold.
-- Closing should be obvious and not require browser back.
+- Extend `tmdb-detail` with `append_to_response=videos`.
+- Pick the best YouTube trailer from TMDB video results.
+- Hide the link when no trailer is available.
 
-## Open questions
+Keep this subtle; the pane should remain a decision surface, not a media viewer.
 
-- Does adding a sheet make suggestions feel more deliberate or just slower?
-- Should inline Save / Hide remain on cards?
-- Is "Rank it" the right label, or should it be "Start ranking"?
-- Should the sheet be used for search autocomplete selections too, or only recommendation cards?
-- Should Not for me / Watch next list items also open the same detail sheet, or keep current direct row actions?
+### Reuse details for queue items
 
-## Possible acceptance criteria
+Consider adding the same info icon to Watch next and Not for me items.
 
-- Tapping a suggestion card body does not start ranking immediately.
-- User can start ranking from the detail sheet with one clear action.
-- User can Save or Hide from the sheet.
-- User can close the sheet without changing state.
-- Existing Cancel ranking behavior remains available once ranking starts.
-- Mobile layout has no overlapping controls and does not show the text input during comparison.
+This would let users inspect saved or hidden movies before ranking, moving, or removing them.
+
+### Improve focus management
+
+Current v1 focuses the close button when the pane opens and restores focus to the info icon when closed. Potential improvements:
+
+- Trap focus inside the dialog while open.
+- Move initial focus to the heading or first meaningful action depending on platform.
+- Add stronger automated accessibility checks.
+
+### Add loading and error polish
+
+Current v1 shows simple status text while loading details.
+
+Possible improvements:
+
+- Skeleton state for detail metadata.
+- More graceful error copy if TMDB details fail.
+- Retry control for detail fetch failures.
+
+### Cache detail data more persistently
+
+Current v1 uses in-memory session cache only.
+
+Potential future options:
+
+- Store recent detail payloads in localStorage with a short TTL.
+- Store enriched movie fields when a movie is ranked or saved.
+- Avoid over-storing volatile TMDB data until there is a clear need.
+
+### Enrich suggestion explanations
+
+The detail pane could later include a compact explanation such as:
+
+- `Because you ranked Django Unchained`
+- `Popular among similar picks`
+- `Classic you have not ranked`
+
+This overlaps with the separate Better suggestion explanations feature idea.
+
+### Consider title icon refinements
+
+Watch real usage for whether the info icon is discoverable and easy to tap.
+
+Possible tweaks:
+
+- Slightly larger hit target on mobile.
+- Tooltip on desktop.
+- Different icon treatment if it feels too visually quiet.
+
+## V1 acceptance criteria
+
+- Suggestion card body still starts ranking with one tap. Done.
+- Info icon opens a movie detail pane. Done.
+- Detail pane shows poster, title, year, runtime, genres, director, cast, and overview. Done.
+- Detail pane supports Rank, Save, Hide, and Close. Done.
+- Save and Hide from the pane reuse existing queue behavior. Done.
+- Rank from the pane reuses existing stack ranking behavior. Done.
+- Mobile uses a bottom sheet and desktop uses a compact modal. Done.
+

@@ -42,6 +42,7 @@ const seedMovies = [
     posterPath: "/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
     tmdbId: 496243,
     comparisons: 0,
+    rankedAt: "2026-06-20T18:20:00.000Z",
   },
   {
     title: "My Neighbor Totoro",
@@ -49,6 +50,7 @@ const seedMovies = [
     posterPath: "/rtGDOeG9LzoerkDGZF9dnVeLppL.jpg",
     tmdbId: 8392,
     comparisons: 0,
+    rankedAt: "2026-06-20T18:36:00.000Z",
   },
   {
     title: "Django Unchained",
@@ -56,6 +58,7 @@ const seedMovies = [
     posterPath: "/7oWY8VDWW7thTzWh3OKYRkWUlD5.jpg",
     tmdbId: 68718,
     comparisons: 0,
+    rankedAt: "2026-06-21T02:15:00.000Z",
   },
 ];
 
@@ -67,6 +70,8 @@ const seedQueues = {
       posterPath: "/8SRUfRUi6x4O68n0VCbDNRa6iGL.jpg",
       tmdbId: 11216,
       comparisons: 0,
+      queuedAt: "2026-06-21T04:30:00.000Z",
+      savedAt: "2026-06-21T04:30:00.000Z",
     },
   ],
   notInterestedList: [
@@ -76,6 +81,8 @@ const seedQueues = {
       posterPath: "/4sHeTAp65WrSSuc05nRBKddhBxO.jpg",
       tmdbId: 185,
       comparisons: 0,
+      queuedAt: "2026-06-21T04:45:00.000Z",
+      hiddenAt: "2026-06-21T04:45:00.000Z",
     },
   ],
 };
@@ -94,6 +101,12 @@ const allShots = [
     state: "comparison",
   },
   {
+    name: "desktop-share-studio",
+    width: 1440,
+    height: 1000,
+    state: "share",
+  },
+  {
     name: "mobile-comparison-portrait",
     width: 500,
     height: 757,
@@ -104,6 +117,12 @@ const allShots = [
     width: 844,
     height: 303,
     state: "comparison",
+  },
+  {
+    name: "mobile-share-studio",
+    width: 500,
+    height: 757,
+    state: "share",
   },
 ];
 const shots = onlyNames ? allShots.filter((shot) => onlyNames.has(shot.name)) : allShots;
@@ -285,6 +304,20 @@ const captureShot = async (baseUrl, shot) => {
       ...seedQueues,
       updated_at: new Date().toISOString(),
     };
+    const shareOptions = {
+      version: 5,
+      displayName: "Dan",
+      top: true,
+      bottom: true,
+      eras: true,
+      genres: true,
+      people: true,
+      queues: true,
+      fullList: true,
+      fullListStyle: "mixed",
+      theme: "pop",
+      tone: "neutral",
+    };
 
     await page.send("Page.enable");
     await page.send("Runtime.enable");
@@ -300,6 +333,7 @@ const captureShot = async (baseUrl, shot) => {
       expression: `
         localStorage.setItem('stackrank:movies:v1', ${JSON.stringify(JSON.stringify(payload))});
         localStorage.setItem('stackrank:suggestion-queues:v1', ${JSON.stringify(JSON.stringify(queues))});
+        localStorage.setItem('stackrank:share-options:v1', ${JSON.stringify(JSON.stringify(shareOptions))});
         location.reload();
       `,
       awaitPromise: false,
@@ -325,6 +359,25 @@ const captureShot = async (baseUrl, shot) => {
       await wait(800);
     }
 
+    if (shot.state === "share") {
+      const result = await page.send("Runtime.evaluate", {
+        expression: `
+          (() => {
+            const button = document.querySelector('#share-list');
+            if (!button) return { clicked: false };
+            button.click();
+            return { clicked: true };
+          })()
+        `,
+        awaitPromise: true,
+        returnByValue: true,
+      });
+      if (!result.result.value.clicked) {
+        throw new Error(`Could not open share studio for ${shot.name}`);
+      }
+      await wait(1000);
+    }
+
     const metrics = await page.send("Runtime.evaluate", {
       expression: `
         (() => ({
@@ -337,6 +390,7 @@ const captureShot = async (baseUrl, shot) => {
             height: document.documentElement.scrollHeight
           },
           hasComparison: !document.querySelector('#compare')?.classList.contains('panel--hidden'),
+          hasShareStudio: !document.querySelector('#share-studio')?.hidden,
           visibleText: document.body.innerText.slice(0, 500)
         }))()
       `,
@@ -361,6 +415,7 @@ const captureShot = async (baseUrl, shot) => {
       bodyClass: metrics.result.value.bodyClass,
       scroll: metrics.result.value.scroll,
       hasComparison: metrics.result.value.hasComparison,
+      hasShareStudio: metrics.result.value.hasShareStudio,
     };
   } finally {
     await page.close();

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>StackRank</title>
-    <link rel="stylesheet" href="styles.css?v=15" />
+    <link rel="stylesheet" href="styles.css?v=23" />
   </head>
   <body>
     <main class="app">
@@ -151,6 +151,16 @@
           </ol>
         </section>
 
+        <section class="panel panel--snapshot">
+          <div class="panel__header">
+            <h2>List snapshot</h2>
+            <span class="panel__sub" id="snapshot-sub">Built from your ranking</span>
+          </div>
+          <div class="snapshot" id="snapshot-content">
+            <div class="snapshot__empty">Rank a few movies to see patterns here.</div>
+          </div>
+        </section>
+
         <section class="panel panel--queue">
           <div class="panel__header">
             <h2>Watch next</h2>
@@ -169,6 +179,144 @@
           <ul id="not-interested-list" class="queue-list queue-list--quiet">
             <li class="queue-list__empty">Nothing hidden yet.</li>
           </ul>
+        </section>
+      </div>
+
+      <div class="share-overlay" id="share-studio" hidden>
+        <section
+          class="share-sheet"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="share-title"
+        >
+          <button class="detail-close" id="share-close" type="button" aria-label="Close share studio">×</button>
+          <div class="share-sheet__header">
+            <div>
+              <h2 id="share-title">Share studio</h2>
+              <label class="share-name-field share-name-field--header">
+                <span>Display name</span>
+                <input id="share-display-name" type="text" maxlength="36" placeholder="Optional" />
+              </label>
+            </div>
+          </div>
+          <div class="share-layout">
+            <div class="share-preview-wrap" aria-label="Share preview">
+              <div class="share-preview" id="share-preview"></div>
+            </div>
+            <div class="share-controls">
+              <fieldset class="share-fieldset">
+                <legend>Include</legend>
+                <label class="share-toggle">
+                  <input type="checkbox" id="share-include-top" checked />
+                  <span>Top picks</span>
+                </label>
+                <label class="share-toggle">
+                  <input type="checkbox" id="share-include-bottom" checked />
+                  <span>Bottom picks</span>
+                </label>
+                <label class="share-toggle">
+                  <input type="checkbox" id="share-include-eras" checked />
+                  <span>Movie eras</span>
+                </label>
+                <label class="share-toggle">
+                  <input type="checkbox" id="share-include-genres" checked />
+                  <span>Genres</span>
+                </label>
+                <label class="share-toggle">
+                  <input type="checkbox" id="share-include-people" checked />
+                  <span>Cast + crew</span>
+                </label>
+                <label class="share-toggle">
+                  <input type="checkbox" id="share-include-queues" checked />
+                  <span>Saved / hidden</span>
+                </label>
+                <label class="share-toggle">
+                  <input type="checkbox" id="share-include-full-list" checked />
+                  <span>Whole list</span>
+                </label>
+              </fieldset>
+              <fieldset class="share-fieldset">
+                <legend>Whole list style</legend>
+                <div class="share-theme">
+                  <label>
+                    <input type="radio" name="share-full-list-style" value="posters" />
+                    <span>Posters only</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="share-full-list-style" value="text" />
+                    <span>Text only</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="share-full-list-style" value="mixed" checked />
+                    <span>Posters + text</span>
+                  </label>
+                </div>
+              </fieldset>
+              <fieldset class="share-fieldset">
+                <legend>Look</legend>
+                <div class="share-theme">
+                  <label>
+                    <input type="radio" name="share-theme" value="classic" checked />
+                    <span>Classic</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="share-theme" value="cinema" />
+                    <span>Cinema</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="share-theme" value="marquee" />
+                    <span>Marquee</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="share-theme" value="pop" />
+                    <span>Color pop</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="share-theme" value="warm" />
+                    <span>Warm</span>
+                  </label>
+                </div>
+              </fieldset>
+              <fieldset class="share-fieldset">
+                <legend>Tone</legend>
+                <div class="share-theme">
+                  <label>
+                    <input type="radio" name="share-tone" value="neutral" checked />
+                    <span>Factual</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="share-tone" value="punchy" />
+                    <span>Punchy</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="share-tone" value="funny" />
+                    <span>Funny</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="share-tone" value="extreme" />
+                    <span>Extreme</span>
+                  </label>
+                </div>
+              </fieldset>
+              <div class="share-actions">
+                <button class="detail-action detail-action--primary" id="share-download-png" type="button">
+                  Download PNG
+                </button>
+                <button class="detail-action" id="share-download-svg" type="button">SVG</button>
+              </div>
+              <fieldset class="share-fieldset">
+                <legend>Technical export</legend>
+                <div class="share-actions">
+                  <button class="detail-action detail-action--muted" id="share-copy-markdown" type="button">
+                    Markdown
+                  </button>
+                  <button class="detail-action detail-action--muted" id="share-copy-json" type="button">JSON</button>
+                  <button class="detail-action detail-action--muted" id="share-copy-text" type="button">Text</button>
+                </div>
+                <div class="share-export-status panel__sub" id="share-export-status"></div>
+              </fieldset>
+            </div>
+          </div>
         </section>
       </div>
 
@@ -222,6 +370,6 @@
       </footer>
     </main>
 
-    <script type="module" src="app.js?v=14"></script>
+    <script type="module" src="app.js?v=34"></script>
   </body>
 </html>

@@ -1,6 +1,6 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 
-console.info("StackRank build", "feedback-v1");
+console.info("StackRank build", "share-studio-v3");
 
 const form = document.getElementById("movie-form");
 const titleInput = document.getElementById("title");
@@ -23,6 +23,26 @@ const watchListEl = document.getElementById("watch-list");
 const notInterestedListEl = document.getElementById("not-interested-list");
 const clearButton = document.getElementById("clear-list");
 const shareButton = document.getElementById("share-list");
+const snapshotSub = document.getElementById("snapshot-sub");
+const snapshotContent = document.getElementById("snapshot-content");
+const shareStudio = document.getElementById("share-studio");
+const shareClose = document.getElementById("share-close");
+const sharePreview = document.getElementById("share-preview");
+const shareDisplayName = document.getElementById("share-display-name");
+const shareIncludeTop = document.getElementById("share-include-top");
+const shareIncludeBottom = document.getElementById("share-include-bottom");
+const shareIncludeEras = document.getElementById("share-include-eras");
+const shareIncludeGenres = document.getElementById("share-include-genres");
+const shareIncludePeople = document.getElementById("share-include-people");
+const shareIncludeQueues = document.getElementById("share-include-queues");
+const shareIncludeFullList = document.getElementById("share-include-full-list");
+const shareFullListStyleControls = document.querySelectorAll('input[name="share-full-list-style"]');
+const shareDownloadPng = document.getElementById("share-download-png");
+const shareDownloadSvg = document.getElementById("share-download-svg");
+const shareCopyMarkdown = document.getElementById("share-copy-markdown");
+const shareCopyJson = document.getElementById("share-copy-json");
+const shareCopyText = document.getElementById("share-copy-text");
+const shareExportStatus = document.getElementById("share-export-status");
 const authSignedOut = document.getElementById("auth-signed-out");
 const authSignedIn = document.getElementById("auth-signed-in");
 const authEmailInput = document.getElementById("auth-email");
@@ -60,10 +80,13 @@ const detailHide = document.getElementById("detail-hide");
 const TMDB_PROXY_PATH = "/functions/v1/tmdb-search";
 const TMDB_SUGGEST_PATH = "/functions/v1/tmdb-suggest";
 const TMDB_DETAIL_PATH = "/functions/v1/tmdb-detail";
+const TMDB_IMAGE_PATH = "/functions/v1/tmdb-image";
 const TMDB_POSTER_BASE = "https://image.tmdb.org/t/p/w342";
 const TMDB_POSTER_SMALL = "https://image.tmdb.org/t/p/w92";
 const STORAGE_KEY = "stackrank:movies:v1";
 const QUEUE_STORAGE_KEY = "stackrank:suggestion-queues:v1";
+const SHARE_OPTIONS_KEY = "stackrank:share-options:v1";
+const SHARE_OPTIONS_VERSION = 5;
 const WATCH_LIST_TYPE = "watch";
 const NOT_INTERESTED_LIST_TYPE = "not_interested";
 const INSPIRED_SEED_KEY = "stackrank:inspired-seed:v1";
@@ -116,6 +139,26 @@ let detailRequestId = 0;
 let detailTrigger = null;
 const detailCache = new Map();
 let comparisonReturnScroll = null;
+let shareStudioTrigger = null;
+let shareOptions = {
+  version: SHARE_OPTIONS_VERSION,
+  displayName: "",
+  top: true,
+  bottom: true,
+  eras: true,
+  genres: true,
+  people: true,
+  queues: true,
+  fullList: true,
+  fullListStyle: "mixed",
+  theme: "classic",
+  tone: "neutral",
+};
+let shareDetailRequestId = 0;
+let shareDetailsLoading = false;
+let sharePngPreparing = false;
+let shareScrollLockY = 0;
+const posterDataCache = new Map();
 
 const storageEnabled = typeof window !== "undefined" && "localStorage" in window;
 const supabaseEnabled =
@@ -127,6 +170,7 @@ const supabase = supabaseEnabled ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
 const tmdbProxyEnabled = supabaseEnabled;
 const tmdbProxyUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_PROXY_PATH}` : "";
 const tmdbSuggestUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_SUGGEST_PATH}` : "";
+const tmdbImageUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_IMAGE_PATH}` : "";
 const SUGGESTION_PAGE_SIZE = 3;
 const TOAST_DURATION_MS = 3200;
 const TOAST_EXIT_MS = 240;
@@ -216,6 +260,35 @@ const formatRuntime = (runtime) => {
   return `${hours}h ${minutes}m`;
 };
 
+const formatRuntimeTotal = (minutes) => {
+  if (!minutes) return "--";
+  return formatRuntime(minutes);
+};
+
+const runtimeStatsForMovies = (movies) => {
+  return movies.reduce(
+    (stats, movie) => {
+      const runtime = Number(movieWithDetail(movie)?.runtime || movie?.runtime || 0);
+      if (!runtime) return stats;
+      return {
+        minutes: stats.minutes + runtime,
+        count: stats.count + 1,
+      };
+    },
+    { minutes: 0, count: 0 },
+  );
+};
+
+const hiddenRuntimeLabel = (toneName = shareOptions.tone) => {
+  const labels = {
+    neutral: "Time out of queue",
+    punchy: "Time reclaimed",
+    funny: "Life spared",
+    extreme: "Time rescued",
+  };
+  return labels[toneName] || labels.neutral;
+};
+
 const getListId = () => {
   if (currentUser && currentUser.id) {
     return `user:${currentUser.id}`;
@@ -234,6 +307,8 @@ const renderRanking = () => {
     empty.className = "ranking__empty";
     empty.textContent = "No movies yet. Add one to begin.";
     rankingList.appendChild(empty);
+    renderListSnapshot();
+    if (!shareStudio.hidden) updateShareStudio();
     return;
   }
 
@@ -283,7 +358,245 @@ const renderRanking = () => {
     item.append(handle, poster, text, actions);
     rankingList.appendChild(item);
   });
+  renderListSnapshot();
+  if (!shareStudio.hidden) updateShareStudio();
 };
+
+function movieYear(movie) {
+  const year = Number(movie?.year);
+  return Number.isFinite(year) && year > 1800 ? year : null;
+}
+
+function decadeLabel(decade) {
+  return `${decade}s`;
+}
+
+function dayKey(value) {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  return date.toISOString().slice(0, 10);
+}
+
+function formatShortDate(value) {
+  if (!value) return "Unknown";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "Unknown";
+  return date.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
+}
+
+function movieWithDetail(movie) {
+  if (!movie?.tmdbId) return movie;
+  return detailCache.get(String(movie.tmdbId)) || movie;
+}
+
+function countValues(items) {
+  const counts = new Map();
+  items
+    .filter(Boolean)
+    .forEach((value) => counts.set(value, (counts.get(value) || 0) + 1));
+  return Array.from(counts.entries())
+    .map(([name, count]) => ({ name, count }))
+    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+}
+
+function preferenceWeight(index, total) {
+  if (!total) return 0;
+  return (total - index) / total;
+}
+
+function countPreferenceValues(entries) {
+  const counts = new Map();
+  entries
+    .filter((entry) => entry?.name)
+    .forEach(({ name, weight }) => {
+      const current = counts.get(name) || { name, count: 0, score: 0 };
+      current.count += 1;
+      current.score += weight || 0;
+      counts.set(name, current);
+    });
+  return Array.from(counts.values()).sort((a, b) => b.score - a.score || b.count - a.count || a.name.localeCompare(b.name));
+}
+
+function countPreferenceMany(items, getter) {
+  const entries = [];
+  const total = items.length;
+  items.forEach((item, index) => {
+    const weight = preferenceWeight(index, total);
+    const result = getter(item);
+    if (Array.isArray(result)) {
+      result.filter(Boolean).forEach((name) => entries.push({ name, weight }));
+    } else if (result) {
+      entries.push({ name: result, weight });
+    }
+  });
+  return countPreferenceValues(entries);
+}
+
+function countReversePreferenceMany(items, getter) {
+  const entries = [];
+  const total = items.length;
+  items.forEach((item, index) => {
+    const weight = total ? (index + 1) / total : 0;
+    const result = getter(item);
+    if (Array.isArray(result)) {
+      result.filter(Boolean).forEach((name) => entries.push({ name, weight }));
+    } else if (result) {
+      entries.push({ name: result, weight });
+    }
+  });
+  return countPreferenceValues(entries);
+}
+
+function median(values) {
+  if (!values.length) return null;
+  const sorted = [...values].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 ? sorted[mid] : Math.round((sorted[mid - 1] + sorted[mid]) / 2);
+}
+
+function getRankingInsights() {
+  const enrichedRanking = ranking.map(movieWithDetail);
+  const years = enrichedRanking
+    .map((movie, index) => ({ movie, index, year: movieYear(movie) }))
+    .filter((item) => item.year);
+  const decadeEntries = [];
+  years.forEach(({ year, index }) => {
+    const decade = Math.floor(year / 10) * 10;
+    decadeEntries.push({ name: String(decade), weight: preferenceWeight(index, enrichedRanking.length) });
+  });
+  const decades = countPreferenceValues(decadeEntries).map((item) => ({
+    decade: Number(item.name),
+    count: item.count,
+    score: item.score,
+  }));
+  const sortedByYear = [...years].sort((a, b) => a.year - b.year);
+  const yearValues = years.map((item) => item.year);
+  const averageYear = years.length
+    ? Math.round(years.reduce((sum, item) => sum + item.year, 0) / years.length)
+    : null;
+  const rankedDates = ranking
+    .map((movie) => movie.rankedAt)
+    .filter(Boolean)
+    .sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+  const rankedByDay = countValues(rankedDates.map(dayKey));
+  const genres = countPreferenceMany(enrichedRanking, (movie) => movie.genres || []);
+  const bottomGenres = countReversePreferenceMany(enrichedRanking, (movie) => movie.genres || []);
+  const directors = countPreferenceMany(enrichedRanking, (movie) => movie.director);
+  const cast = countPreferenceMany(enrichedRanking, (movie) => (movie.cast || []).slice(0, 4));
+  const detailCount = enrichedRanking.filter(
+    (movie) =>
+      (Array.isArray(movie.genres) && movie.genres.length) ||
+      movie.director ||
+      (Array.isArray(movie.cast) && movie.cast.length),
+  ).length;
+
+  return {
+    count: ranking.length,
+    enrichedRanking,
+    yearsKnown: years.length,
+    averageYear,
+    medianYear: median(yearValues),
+    topMovie: enrichedRanking[0] || null,
+    topFive: enrichedRanking.slice(0, 5),
+    bottomFive: enrichedRanking.slice(-5),
+    topDecade: decades[0] || null,
+    decades,
+    oldest: sortedByYear[0] || null,
+    newest: sortedByYear[sortedByYear.length - 1] || null,
+    yearSpan:
+      sortedByYear[0] && sortedByYear[sortedByYear.length - 1]
+        ? sortedByYear[sortedByYear.length - 1].year - sortedByYear[0].year
+        : null,
+    firstRankedAt: rankedDates[0] || null,
+    lastRankedAt: rankedDates[rankedDates.length - 1] || null,
+    busiestDay: rankedByDay[0] || null,
+    watchCount: watchList.length,
+    hiddenCount: notInterestedList.length,
+    genres,
+    bottomGenres,
+    directors,
+    cast,
+    detailCount,
+  };
+}
+
+function createSnapshotMetric(label, value, note = "") {
+  const item = document.createElement("div");
+  item.className = "snapshot__metric";
+  const metricValue = document.createElement("div");
+  metricValue.className = "snapshot__value";
+  metricValue.textContent = value;
+  const metricLabel = document.createElement("div");
+  metricLabel.className = "snapshot__label";
+  metricLabel.textContent = label;
+  item.append(metricValue, metricLabel);
+  if (note) {
+    const metricNote = document.createElement("div");
+    metricNote.className = "snapshot__note";
+    metricNote.textContent = note;
+    item.appendChild(metricNote);
+  }
+  return item;
+}
+
+function renderListSnapshot() {
+  const insights = getRankingInsights();
+  snapshotContent.innerHTML = "";
+  snapshotSub.textContent = insights.count ? "Built from your ranking" : "Waiting for ranked movies";
+
+  if (!insights.count) {
+    const empty = document.createElement("div");
+    empty.className = "snapshot__empty";
+    empty.textContent = "Rank a few movies to see patterns here.";
+    snapshotContent.appendChild(empty);
+    return;
+  }
+
+  const metrics = document.createElement("div");
+  metrics.className = "snapshot__metrics";
+  metrics.append(
+    createSnapshotMetric("Ranked", String(insights.count)),
+    createSnapshotMetric(
+      "Top decade",
+      insights.topDecade ? decadeLabel(insights.topDecade.decade) : "Unknown",
+      insights.topDecade ? `${insights.topDecade.count} movie${insights.topDecade.count === 1 ? "" : "s"}` : "",
+    ),
+    createSnapshotMetric("Avg. year", insights.averageYear ? String(insights.averageYear) : "Unknown"),
+  );
+  snapshotContent.appendChild(metrics);
+
+  if (insights.oldest && insights.newest) {
+    const range = document.createElement("div");
+    range.className = "snapshot__range";
+    const span = Math.max(0, insights.newest.year - insights.oldest.year);
+    range.textContent = `${span}-year span, from "${insights.oldest.movie.title}" to "${insights.newest.movie.title}".`;
+    snapshotContent.appendChild(range);
+  }
+
+  if (insights.decades.length) {
+    const bars = document.createElement("div");
+    bars.className = "snapshot__bars";
+    const maxCount = Math.max(...insights.decades.map((item) => item.count));
+    insights.decades.slice(0, 4).forEach((item) => {
+      const row = document.createElement("div");
+      row.className = "snapshot__bar-row";
+      const label = document.createElement("span");
+      label.textContent = decadeLabel(item.decade);
+      const track = document.createElement("span");
+      track.className = "snapshot__bar-track";
+      const bar = document.createElement("span");
+      bar.className = "snapshot__bar";
+      bar.style.width = `${Math.max(12, (item.count / maxCount) * 100)}%`;
+      const value = document.createElement("span");
+      value.textContent = String(item.count);
+      track.appendChild(bar);
+      row.append(label, track, value);
+      bars.appendChild(row);
+    });
+    snapshotContent.appendChild(bars);
+  }
+}
 
 const createQueueActionButton = (label, ariaLabel, action, className = "") => {
   const button = document.createElement("button");
@@ -656,11 +969,16 @@ const restoreComparisonReturnScroll = () => {
   });
 };
 
+const withRankingTimestamp = (movie) => ({
+  ...movie,
+  rankedAt: movie.rankedAt || new Date().toISOString(),
+});
+
 const startComparison = () => {
   if (!pending) return;
 
   if (ranking.length === 0) {
-    ranking.push(pending);
+    ranking.push(withRankingTimestamp(pending));
     lastAddedTmdbId = pending.tmdbId || null;
     pending = null;
     pendingOrigin = null;
@@ -735,8 +1053,9 @@ const handleDecision = (isNewBetter, midIndex) => {
 
   if (searchRange.low > searchRange.high) {
     const insertIndex = searchRange.low;
-    ranking.splice(insertIndex, 0, pending);
-    lastAddedTmdbId = pending.tmdbId || null;
+    const rankedMovie = withRankingTimestamp(pending);
+    ranking.splice(insertIndex, 0, rankedMovie);
+    lastAddedTmdbId = rankedMovie.tmdbId || null;
     const leftNeighbor = ranking[insertIndex - 1];
     const rightNeighbor = ranking[insertIndex + 1];
     pending = null;
@@ -851,25 +1170,33 @@ clearButton.addEventListener("click", () => {
   titleInput.focus();
 });
 
-shareButton.addEventListener("click", async () => {
-  if (!ranking.length) return;
-  const text = buildExportText();
-  const title = "StackRank — Movies";
-  try {
-    if (navigator.share) {
-      await navigator.share({ title, text });
-      return;
-    }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      await navigator.clipboard.writeText(text);
-      setAddFeedback("Copied ranking to clipboard.");
-      return;
-    }
-  } catch (error) {
-    // Fall through to prompt.
-  }
-  window.prompt("Copy your ranking:", text);
+shareButton.addEventListener("click", openShareStudio);
+shareClose.addEventListener("click", () => closeShareStudio());
+shareStudio.addEventListener("click", (event) => {
+  if (event.target === shareStudio) closeShareStudio();
 });
+
+[
+  shareDisplayName,
+  shareIncludeTop,
+  shareIncludeBottom,
+  shareIncludeEras,
+  shareIncludeGenres,
+  shareIncludePeople,
+  shareIncludeQueues,
+  shareIncludeFullList,
+  ...shareFullListStyleControls,
+  ...document.querySelectorAll('input[name="share-theme"]'),
+  ...document.querySelectorAll('input[name="share-tone"]'),
+].forEach((control) => {
+  control.addEventListener("input", updateShareOptionsFromControls);
+});
+
+shareDownloadSvg.addEventListener("click", downloadShareSvg);
+shareDownloadPng.addEventListener("click", downloadSharePng);
+shareCopyMarkdown.addEventListener("click", () => copyShareExport("markdown"));
+shareCopyJson.addEventListener("click", () => copyShareExport("json"));
+shareCopyText.addEventListener("click", () => copyShareExport("text"));
 
 suggestPopularMore.addEventListener("click", () => {
   suggestPopularCursor += SUGGESTION_PAGE_SIZE;
@@ -1647,12 +1974,1316 @@ const updateSuggestions = async () => {
 
 const buildExportText = () => {
   if (!ranking.length) return "StackRank — Movies\n\n(No movies ranked yet.)";
-  const lines = ranking.map((movie, index) => {
-    const year = movie.year ? ` (${movie.year})` : "";
-    return `${index + 1}. ${movie.title}${year}`;
-  });
-  return `StackRank — Movies\n\n${lines.join("\n")}`;
+  return buildShareText();
 };
+
+function getShareDisplayName(options = shareOptions) {
+  return String(options.displayName || "").trim();
+}
+
+function possessiveName(name) {
+  if (!name) return "";
+  return `${name}${name.toLowerCase().endsWith("s") ? "'" : "'s"}`;
+}
+
+function lowercaseFirst(value) {
+  const text = String(value || "");
+  return text ? `${text.charAt(0).toLowerCase()}${text.slice(1)}` : "";
+}
+
+function getSharePickGroups(insights) {
+  const movies = insights.enrichedRanking || [];
+  const bestCount = Math.min(5, Math.ceil(movies.length / 2));
+  const worstCount = Math.min(5, Math.floor(movies.length / 2));
+  return {
+    best: movies.slice(0, bestCount),
+    worst: worstCount ? movies.slice(movies.length - worstCount) : [],
+    worstStartRank: worstCount ? movies.length - worstCount + 1 : 0,
+  };
+}
+
+function movieExportLine(movie, rank = null) {
+  const year = movie.year ? ` (${movie.year})` : "";
+  return `${rank ? `${rank}. ` : ""}${movie.title}${year}`;
+}
+
+function rankedCountLabel(count) {
+  return `${count} ranked`;
+}
+
+function buildShareExportTitle(options = shareOptions) {
+  const tone = getShareTone(options.tone);
+  const displayName = getShareDisplayName(options);
+  return displayName ? `${possessiveName(displayName)} ${lowercaseFirst(tone.heroLead)}` : tone.heroLead;
+}
+
+function buildShareExportSections(insights = getRankingInsights(), options = shareOptions) {
+  const tone = getShareTone(options.tone);
+  const picks = getSharePickGroups(insights);
+  const sections = [];
+
+  if (options.top && picks.best.length) {
+    sections.push({
+      key: "top",
+      title: tone.topTitle,
+      subtitle: tone.topSub,
+      lines: picks.best.map((movie, index) => movieExportLine(movie, index + 1)),
+    });
+  }
+
+  if (options.bottom && picks.worst.length) {
+    sections.push({
+      key: "bottom",
+      title: tone.bottomTitle,
+      subtitle: tone.bottomSub,
+      lines: picks.worst.map((movie, index) => movieExportLine(movie, picks.worstStartRank + index)),
+    });
+  }
+
+  if (options.eras && insights.decades.length) {
+    const topDecade = insights.topDecade ? decadeLabel(insights.topDecade.decade) : "Unknown";
+    const oldest = insights.oldest
+      ? `${insights.oldest.year} - ${insights.oldest.movie.title}`
+      : "Unknown";
+    const newest = insights.newest
+      ? `${insights.newest.year} - ${insights.newest.movie.title}`
+      : "Unknown";
+    sections.push({
+      key: "eras",
+      title: tone.erasTitle,
+      subtitle: "Release years across your ranking",
+      lines: [
+        `Highest ranked decade: ${topDecade}`,
+        `Average release year: ${insights.averageYear ? String(insights.averageYear) : "Unknown"}`,
+        `Oldest ranked movie: ${oldest}`,
+        `Newest ranked movie: ${newest}`,
+        "",
+        "Ranked movies by decade:",
+        ...insights.decades.slice(0, 6).map((item) => `${decadeLabel(item.decade)}: ${rankedCountLabel(item.count)}`),
+      ],
+    });
+  }
+
+  if (options.genres) {
+    const bottomPull = insights.genres.length
+      ? insights.bottomGenres.find((item) => item.name !== insights.genres[0].name) || insights.bottomGenres[0]
+      : null;
+    const lines = insights.genres.length
+      ? [
+          `Highest ranked genre: ${insights.genres[0].name} (${rankedCountLabel(insights.genres[0].count)})`,
+          `Lowest ranked genre: ${bottomPull?.name || "Unknown"}${
+            bottomPull ? ` (${rankedCountLabel(bottomPull.count)})` : ""
+          }`,
+          "",
+          "Ranked movies by genre:",
+          ...insights.genres.slice(0, 6).map((item) => `${item.name}: ${rankedCountLabel(item.count)}`),
+        ]
+      : ["No genre data loaded yet."];
+    sections.push({
+      key: "genres",
+      title: tone.genresTitle,
+      subtitle: "Genres that rise to the top",
+      lines,
+    });
+  }
+
+  if (options.people) {
+    const lines =
+      insights.directors.length || insights.cast.length
+        ? [
+            `Highest ranked director: ${insights.directors[0]?.name || "Unknown"}${
+              insights.directors[0] ? ` (${rankedCountLabel(insights.directors[0].count)})` : ""
+            }`,
+            `Highest ranked cast member: ${insights.cast[0]?.name || "Unknown"}${
+              insights.cast[0] ? ` (${rankedCountLabel(insights.cast[0].count)})` : ""
+            }`,
+            "",
+            "Directors by ranked appearances:",
+            ...insights.directors.slice(0, 8).map((item) => `${item.name}: ${rankedCountLabel(item.count)}`),
+            "",
+            "Cast by ranked appearances:",
+            ...insights.cast.slice(0, 8).map((item) => `${item.name}: ${rankedCountLabel(item.count)}`),
+          ]
+        : ["No cast or crew data loaded yet."];
+    sections.push({
+      key: "people",
+      title: tone.peopleTitle,
+      subtitle: "Directors and cast that rise to the top",
+      lines,
+    });
+  }
+
+  if (options.queues) {
+    const watchRuntime = runtimeStatsForMovies(watchList);
+    const hiddenRuntime = runtimeStatsForMovies(notInterestedList);
+    const watchTitles = watchList.slice(0, 3).map((movie) => movie.title).join(" / ") || "Nothing saved";
+    const hiddenTitles = notInterestedList.slice(0, 3).map((movie) => movie.title).join(" / ") || "Nothing hidden";
+    sections.push({
+      key: "queues",
+      title: tone.queuesTitle,
+      subtitle: "Movies outside the ranked stack",
+      lines: [
+        `Saved for later: ${watchList.length}`,
+        `Pending watch time: ${formatRuntimeTotal(watchRuntime.minutes)}`,
+        watchTitles,
+        `Hidden from suggestions: ${notInterestedList.length}`,
+        `${hiddenRuntimeLabel(options.tone)}: ${formatRuntimeTotal(hiddenRuntime.minutes)}`,
+        hiddenTitles,
+      ],
+    });
+  }
+
+  if (options.fullList && insights.enrichedRanking.length) {
+    sections.push({
+      key: "fullList",
+      title: tone.listTitle,
+      subtitle: "Every movie, top to bottom",
+      lines: [
+        `First movie ranked on: ${formatShortDate(insights.firstRankedAt)}`,
+        `Most recent movie ranked on: ${formatShortDate(insights.lastRankedAt)}`,
+        `Most movies ranked in one day: ${insights.busiestDay ? rankedCountLabel(insights.busiestDay.count) : "Unknown"}`,
+        "",
+        ...insights.enrichedRanking.map((movie, index) => movieExportLine(movie, index + 1)),
+      ],
+    });
+  }
+
+  return sections;
+}
+
+function buildShareMarkdown() {
+  const insights = getRankingInsights();
+  if (!insights.count) return buildExportText();
+  const sections = buildShareExportSections(insights);
+  return [
+    `# ${buildShareExportTitle()}`,
+    "",
+    `Generated ${formatShortDate(new Date().toISOString())}`,
+    ...sections.flatMap((section) => [
+      "",
+      `## ${section.title}`,
+      ...(section.subtitle ? [`_${section.subtitle}_`, ""] : []),
+      ...section.lines,
+    ]),
+  ].join("\n");
+}
+
+function buildShareText() {
+  const insights = getRankingInsights();
+  if (!insights.count) return "StackRank - Movies\n\n(No movies ranked yet.)";
+  const sections = buildShareExportSections(insights);
+  return [
+    buildShareExportTitle(),
+    `Generated ${formatShortDate(new Date().toISOString())}`,
+    ...sections.flatMap((section) => [
+      "",
+      section.title,
+      ...(section.subtitle ? [section.subtitle] : []),
+      ...section.lines,
+    ]),
+  ].join("\n");
+}
+
+function buildShareDataExport() {
+  const insights = getRankingInsights();
+  const watchRuntime = runtimeStatsForMovies(watchList);
+  const hiddenRuntime = runtimeStatsForMovies(notInterestedList);
+  return {
+    generatedAt: new Date().toISOString(),
+    title: buildShareExportTitle(),
+    options: shareOptions,
+    sections: buildShareExportSections(insights).map((section) => ({
+      key: section.key,
+      title: section.title,
+      subtitle: section.subtitle,
+      lines: section.lines,
+    })),
+    ranking: ranking.map((movie, index) => ({ rank: index + 1, ...movie })),
+    watchList,
+    notInterestedList,
+    insights: {
+      rankedCount: insights.count,
+      watchCount: insights.watchCount,
+      hiddenCount: insights.hiddenCount,
+      averageYear: insights.averageYear,
+      medianYear: insights.medianYear,
+      yearSpan: insights.yearSpan,
+      topDecade: insights.topDecade,
+      firstRankedAt: insights.firstRankedAt,
+      lastRankedAt: insights.lastRankedAt,
+      busiestDay: insights.busiestDay,
+      genres: insights.genres,
+      bottomGenres: insights.bottomGenres,
+      directors: insights.directors,
+      cast: insights.cast,
+      queueRuntimeMinutes: {
+        saved: watchRuntime.minutes,
+        hidden: hiddenRuntime.minutes,
+      },
+    },
+  };
+}
+
+function xmlEscape(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function wrapText(value, maxChars, maxLines = 2) {
+  const words = String(value || "").split(/\s+/).filter(Boolean);
+  const lines = [];
+  let current = "";
+  words.forEach((word) => {
+    const next = current ? `${current} ${word}` : word;
+    if (next.length <= maxChars || !current) {
+      current = next;
+      return;
+    }
+    lines.push(current);
+    current = word;
+  });
+  if (current) lines.push(current);
+  if (lines.length <= maxLines) return lines;
+  const clipped = lines.slice(0, maxLines);
+  clipped[maxLines - 1] = `${clipped[maxLines - 1].replace(/[.,;:!?]+$/, "")}...`;
+  return clipped;
+}
+
+function estimateSvgTextWidth(value, fontSize) {
+  return Array.from(String(value || "")).reduce((width, char) => {
+    if (char === " ") return width + fontSize * 0.36;
+    if (/[MW@#%&]/.test(char)) return width + fontSize * 0.88;
+    if (/[A-Z0-9]/.test(char)) return width + fontSize * 0.7;
+    if (/[ilI.,'!:;]/.test(char)) return width + fontSize * 0.34;
+    return width + fontSize * 0.6;
+  }, 0);
+}
+
+function trimTextToSvgWidth(value, maxWidth, fontSize) {
+  const ellipsis = "...";
+  const chars = Array.from(String(value || "").trim());
+  while (chars.length && estimateSvgTextWidth(`${chars.join("").trimEnd()}${ellipsis}`, fontSize) > maxWidth) {
+    chars.pop();
+  }
+  return `${chars.join("").trimEnd().replace(/[.,;:!?]+$/, "")}${ellipsis}`;
+}
+
+function wrapTextToSvgWidth(value, maxWidth, fontSize, maxLines = 2) {
+  const words = String(value || "").split(/\s+/).filter(Boolean);
+  const lines = [];
+  let current = "";
+
+  const pushCurrent = () => {
+    if (!current) return;
+    lines.push(current);
+    current = "";
+  };
+
+  words.forEach((word) => {
+    let remainingWord = word;
+    while (remainingWord) {
+      const candidate = current ? `${current} ${remainingWord}` : remainingWord;
+      if (estimateSvgTextWidth(candidate, fontSize) <= maxWidth) {
+        current = candidate;
+        remainingWord = "";
+        continue;
+      }
+
+      if (current) {
+        pushCurrent();
+        continue;
+      }
+
+      let segment = "";
+      for (const char of Array.from(remainingWord)) {
+        const nextSegment = `${segment}${char}`;
+        if (segment && estimateSvgTextWidth(nextSegment, fontSize) > maxWidth) break;
+        segment = nextSegment;
+      }
+      lines.push(segment || remainingWord[0]);
+      remainingWord = remainingWord.slice(segment.length || 1);
+    }
+  });
+
+  pushCurrent();
+  if (!Number.isFinite(maxLines)) return lines;
+  if (lines.length <= maxLines) return lines;
+  const clipped = lines.slice(0, maxLines);
+  clipped[maxLines - 1] = trimTextToSvgWidth(clipped[maxLines - 1], maxWidth, fontSize);
+  return clipped;
+}
+
+function getShareTheme(themeName = shareOptions.theme) {
+  const themes = {
+    classic: {
+      bg: "#f6f6f2",
+      ink: "#111111",
+      muted: "#6f6f68",
+      line: "#111111",
+      panel: "#ffffff",
+      accent: "#2f6f73",
+      accent2: "#b4432f",
+      faint: "#e4e1d9",
+      danger: "#b4432f",
+      hero: "#111111",
+      section: "#6f6f68",
+      frame: "#111111",
+      panelLine: "#111111",
+    },
+    cinema: {
+      bg: "#0d0d0b",
+      ink: "#fff7e6",
+      muted: "#b8ad98",
+      line: "#e7c65f",
+      panel: "#191815",
+      accent: "#e7c65f",
+      accent2: "#7eb8c4",
+      faint: "#2c2921",
+      danger: "#d46a4c",
+      hero: "#e7c65f",
+      section: "#7eb8c4",
+      frame: "#e7c65f",
+      panelLine: "#4b4332",
+    },
+    marquee: {
+      bg: "#170f0d",
+      ink: "#fff4d4",
+      muted: "#d3b77a",
+      line: "#f0c866",
+      panel: "#261714",
+      accent: "#f0c866",
+      accent2: "#c1352b",
+      faint: "#3a2820",
+      danger: "#f05f45",
+      hero: "#fff4d4",
+      section: "#f0c866",
+      frame: "#f0c866",
+      panelLine: "#7c2c24",
+    },
+    pop: {
+      bg: "#141026",
+      ink: "#fffaf0",
+      muted: "#b9b4ff",
+      line: "#ff4fb8",
+      panel: "#211640",
+      accent: "#18d8ff",
+      accent2: "#ffd23f",
+      faint: "#322050",
+      danger: "#ff5b6e",
+      hero: "#ffd23f",
+      section: "#18d8ff",
+      frame: "#ff4fb8",
+      panelLine: "#8efc6c",
+    },
+    warm: {
+      bg: "#fbf0de",
+      ink: "#24150e",
+      muted: "#8a5841",
+      line: "#7d3a25",
+      panel: "#fff9ed",
+      accent: "#b34a32",
+      accent2: "#26756a",
+      faint: "#efd5b6",
+      danger: "#9f3f35",
+      hero: "#7d3a25",
+      section: "#26756a",
+      frame: "#7d3a25",
+      panelLine: "#d49970",
+    },
+  };
+  return themes[themeName] || themes.classic;
+}
+
+function getShareTone(toneName = shareOptions.tone) {
+  const tones = {
+    neutral: {
+      heroLead: "Movie ranking",
+      topTitle: "The best",
+      topSub: "Top ranked",
+      bottomTitle: "The worst",
+      bottomSub: "Bottom ranked",
+      erasTitle: "Movie eras",
+      genresTitle: "Genre fingerprint",
+      peopleTitle: "Cast + crew pull",
+      queuesTitle: "Still deciding",
+      listTitle: "The whole stack",
+    },
+    punchy: {
+      heroLead: "Definitive movie stack",
+      topTitle: "Certified winners",
+      topSub: "No notes at the top",
+      bottomTitle: "Bottom of the barrel",
+      bottomSub: "A brave little danger zone",
+      erasTitle: "Time machine",
+      genresTitle: "Genre bias",
+      peopleTitle: "Repeat offenders",
+      queuesTitle: "On deck / ruled out",
+      listTitle: "Complete ranking",
+    },
+    funny: {
+      heroLead: "Movie opinions, unfortunately",
+      topTitle: "Would defend these in court",
+      topSub: "The beloved few",
+      bottomTitle: "Questions were raised",
+      bottomSub: "The emotional support villains",
+      erasTitle: "Decades under review",
+      genresTitle: "Genre cravings",
+      peopleTitle: "Suspiciously trusted people",
+      queuesTitle: "Future judgment",
+      listTitle: "The entire situation",
+    },
+    extreme: {
+      heroLead: "Movie verdicts",
+      topTitle: "Masterpieces only",
+      topSub: "The highest conviction picks",
+      bottomTitle: "Hard passes",
+      bottomSub: "The far end of the stack",
+      erasTitle: "Era convictions",
+      genresTitle: "Genre loyalties",
+      peopleTitle: "Repeat power players",
+      queuesTitle: "Still under review",
+      listTitle: "Every placement",
+    },
+  };
+  return tones[toneName] || tones.neutral;
+}
+
+function svgTextLines(lines, x, y, className, lineHeight, extra = "") {
+  return lines
+    .map(
+      (line, index) =>
+        `<text x="${x}" y="${y + index * lineHeight}" class="${className}" ${extra}>${xmlEscape(line)}</text>`,
+    )
+    .join("");
+}
+
+function posterDataFor(movie, allowExternal = true, useProxy = false) {
+  if (!movie?.posterPath) return null;
+  if (posterDataCache.has(movie.posterPath)) return posterDataCache.get(movie.posterPath);
+  if (!allowExternal) return null;
+  if (useProxy && tmdbImageUrl) {
+    return `${tmdbImageUrl}?path=${encodeURIComponent(movie.posterPath)}&size=w342`;
+  }
+  return `${TMDB_POSTER_SMALL}${movie.posterPath}`;
+}
+
+function buildShareSvg(options = shareOptions) {
+  const insights = getRankingInsights();
+  const theme = getShareTheme(options.theme);
+  const tone = getShareTone(options.tone);
+  const width = 1200;
+  const displayName = getShareDisplayName(options);
+  const heroTitle = displayName ? `${possessiveName(displayName)} ${lowercaseFirst(tone.heroLead)}` : tone.heroLead;
+  const topTitleLines = wrapText(heroTitle, 24, 3);
+  const heroFontSize = topTitleLines.length >= 3 ? 58 : topTitleLines.length === 2 ? 68 : 78;
+  const heroLineHeight = Math.round(heroFontSize * 1.08);
+  const dividerY = 286 + (topTitleLines.length - 1) * heroLineHeight + 72;
+  let y = dividerY + 96;
+  const sections = [];
+  const pickGroups = getSharePickGroups(insights);
+  const marginX = 86;
+  const frameStroke = theme.frame || theme.line;
+  const panelStroke = theme.panelLine || theme.line;
+  const heroFill = theme.hero || theme.ink;
+  const sectionFill = theme.section || theme.muted;
+  const allowExternalPosters = options.externalPosters !== false;
+  const usePosterProxy = options.posterProxy === true;
+  const barLabelX = 86;
+  const barTrackX = 398;
+  const barTrackWidth = 520;
+  const barHeight = 28;
+  const barCountPad = 28;
+
+  const sectionTitle = (label, x, titleY) =>
+    `<text x="${x}" y="${titleY}" class="section-title">${xmlEscape(label)}</text>`;
+
+  const sectionSub = (label, x, subY) =>
+    label ? `<text x="${x}" y="${subY}" class="section-sub">${xmlEscape(label)}</text>` : "";
+
+  const addSection = (title, subtitle, body, height) => {
+    if (!body) return "";
+    const startY = y;
+    const bodyOffset = subtitle ? 76 : 58;
+    const bodyY = startY + bodyOffset;
+    y = bodyY + height + 68;
+    return `${sectionTitle(title, marginX, startY)}${sectionSub(subtitle, marginX, startY + 40)}<g transform="translate(0 ${bodyY})">${body}</g>`;
+  };
+
+  const movieRow = (movie, rank, rowY, variant = "top") => {
+    const titleLines = wrapText(movie.title, 34, 2);
+    const fill = variant === "bottom" ? theme.faint : theme.ink;
+    const numberClass = variant === "bottom" ? "deep-rank" : "rank-number";
+    const stroke = variant === "bottom" ? `stroke="${panelStroke}" stroke-width="3"` : "";
+    return `<circle cx="112" cy="${rowY - 10}" r="28" fill="${fill}" ${stroke} />
+      <text x="112" y="${rowY}" class="${numberClass}" text-anchor="middle">${rank}</text>
+      ${svgTextLines(titleLines, 164, rowY - (titleLines.length > 1 ? 12 : 0), "pick-title", 36)}
+      <text x="164" y="${rowY + 42}" class="pick-meta">${xmlEscape(movie.year ? `Released ${movie.year}` : "Year unknown")}</text>`;
+  };
+
+  const countBarRow = (item, index, rowY, maxCount, label) => {
+    const barWidth = Math.max(60, Math.round((item.count / Math.max(1, maxCount)) * barTrackWidth));
+    const countX = barTrackX + barTrackWidth + barCountPad;
+    return `<text x="${barLabelX}" y="${rowY + 20}" class="bar-label">${xmlEscape(label)}</text>
+      <rect x="${barTrackX}" y="${rowY - 4}" width="${barTrackWidth}" height="${barHeight}" rx="14" fill="${theme.faint}" />
+      <rect x="${barTrackX}" y="${rowY - 4}" width="${barWidth}" height="${barHeight}" rx="14" fill="${index % 2 ? theme.accent2 : theme.accent}" />
+      <text x="${countX}" y="${rowY + 20}" class="bar-count">${item.count}</text>`;
+  };
+
+  const topPicks = () => {
+    if (!options.top || !pickGroups.best.length) return "";
+    let block = "";
+    pickGroups.best.forEach((movie, index) => {
+      block += movieRow(movie, index + 1, index * 86 + 22, "top");
+    });
+    return addSection(tone.topTitle, tone.topSub, block, pickGroups.best.length * 86 + 8);
+  };
+
+  const bottomPicks = () => {
+    if (!options.bottom || !pickGroups.worst.length) return "";
+    let block = "";
+    pickGroups.worst.forEach((movie, index) => {
+      const rank = pickGroups.worstStartRank + index;
+      block += movieRow(movie, rank, index * 82 + 22, "bottom");
+    });
+    return addSection(tone.bottomTitle, tone.bottomSub, block, pickGroups.worst.length * 82 + 10);
+  };
+
+  const eras = () => {
+    if (!options.eras || !insights.decades.length) return "";
+    let block = "";
+    const topDecade = insights.topDecade ? decadeLabel(insights.topDecade.decade) : "Unknown";
+    const oldest = insights.oldest
+      ? `${insights.oldest.year} · ${insights.oldest.movie.title}`
+      : "Unknown";
+    const newest = insights.newest
+      ? `${insights.newest.year} · ${insights.newest.movie.title}`
+      : "Unknown";
+    const eraMetrics = [
+      { label: "Highest ranked decade", value: topDecade, emphasis: true },
+      { label: "Avg. release year", value: insights.averageYear ? String(insights.averageYear) : "Unknown", emphasis: true },
+      { label: "Oldest ranked movie", value: oldest },
+      { label: "Newest ranked movie", value: newest },
+    ];
+    eraMetrics.forEach((item, index) => {
+      const col = index % 2;
+      const row = Math.floor(index / 2);
+      const x = marginX + col * 520;
+      const cardY = row * 138;
+      const innerX = x + 24;
+      const innerWidth = 428;
+      const valueClass = item.emphasis ? "stat-card-value-emphasis" : "stat-card-value";
+      const valueFont = item.emphasis ? 30 : 25;
+      const valueLines = wrapTextToSvgWidth(item.value, innerWidth, valueFont, 2);
+      block += `<rect x="${x}" y="${cardY}" width="476" height="118" rx="20" fill="${item.emphasis ? theme.faint : theme.panel}" stroke="${panelStroke}" stroke-width="3" />`;
+      block += `<text x="${innerX}" y="${cardY + 34}" class="stat-card-label">${xmlEscape(item.label)}</text>`;
+      block += svgTextLines(valueLines, innerX, cardY + 78 - (valueLines.length > 1 ? 10 : 0), valueClass, 27);
+    });
+    const chartY = 318;
+    const barsY = chartY + 46;
+    block += `<text x="${barLabelX}" y="${chartY}" class="chart-caption">Ranked movies by decade</text>`;
+    const maxDecadeCount = Math.max(1, ...insights.decades.map((item) => item.count));
+    insights.decades.slice(0, 6).forEach((item, index) => {
+      const rowY = barsY + index * 58 + 10;
+      block += countBarRow(item, index, rowY, maxDecadeCount, decadeLabel(item.decade));
+    });
+    return addSection(
+      tone.erasTitle,
+      "Release years across your ranking",
+      block,
+      barsY + insights.decades.slice(0, 6).length * 58 + 28,
+    );
+  };
+
+  const genres = () => {
+    if (!options.genres) return "";
+    if (!insights.genres.length) {
+      return addSection(
+        tone.genresTitle,
+        "Genres that rise to the top",
+        `<text x="86" y="24" class="pick-meta">No genre data loaded yet.</text>`,
+        62,
+      );
+    }
+    const favorite = insights.genres[0];
+    const bottomPull = insights.bottomGenres.find((item) => item.name !== favorite.name) || insights.bottomGenres[0] || favorite;
+    const maxGenreCount = Math.max(...insights.genres.map((item) => item.count));
+    const genreCards = [
+      { label: "Highest ranked genre", value: favorite.name, count: favorite.count },
+      { label: "Lowest ranked genre", value: bottomPull.name, count: bottomPull.count },
+    ];
+    let block = "";
+    genreCards.forEach((item, index) => {
+      const x = marginX + index * 520;
+      const valueLines = wrapTextToSvgWidth(item.value, 330, 30, 1);
+      block += `<rect x="${x}" y="0" width="476" height="118" rx="24" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="3" />`;
+      block += `<text x="${x + 26}" y="42" class="stat-card-label">${xmlEscape(item.label)}</text>`;
+      block += svgTextLines(valueLines, x + 26, 86, "stat-value-small", 30);
+      block += `<text x="${x + 448}" y="72" class="bar-count" text-anchor="end">${item.count} ranked</text>`;
+    });
+    const chartY = 154;
+    const barsY = chartY + 46;
+    block += `<text x="${barLabelX}" y="${chartY}" class="chart-caption">Ranked movies by genre</text>`;
+    insights.genres.slice(0, 6).forEach((item, index) => {
+      const rowY = barsY + index * 58 + 10;
+      block += countBarRow(item, index, rowY, maxGenreCount, item.name);
+    });
+    return addSection(
+      tone.genresTitle,
+      "Genres that rise to the top",
+      block,
+      barsY + insights.genres.slice(0, 6).length * 58 + 28,
+    );
+  };
+
+  const people = () => {
+    if (!options.people) return "";
+    if (!insights.directors.length && !insights.cast.length) {
+      return addSection(
+        tone.peopleTitle,
+        "Directors and cast that rise to the top",
+        `<text x="86" y="24" class="pick-meta">No cast or crew data loaded yet.</text>`,
+        62,
+      );
+    }
+    const favoriteDirector = insights.directors[0];
+    const favoriteActor = insights.cast[0];
+    const callouts = [
+      { label: "Highest ranked director", value: favoriteDirector?.name || "Unknown", count: favoriteDirector?.count || 0 },
+      { label: "Highest ranked cast", value: favoriteActor?.name || "Unknown", count: favoriteActor?.count || 0 },
+    ];
+    const calloutLineSets = callouts.map((item) => wrapTextToSvgWidth(item.value, 300, 30, Infinity));
+    const calloutHeight = Math.max(118, 80 + Math.max(...calloutLineSets.map((lines) => lines.length)) * 30);
+    let block = "";
+    callouts.forEach((item, index) => {
+      const x = marginX + index * 520;
+      const valueLines = calloutLineSets[index];
+      block += `<rect x="${x}" y="0" width="476" height="${calloutHeight}" rx="24" fill="${theme.panel}" stroke="${theme.panelLine || theme.line}" stroke-width="3" />`;
+      block += `<text x="${x + 26}" y="46" class="stat-card-label">${xmlEscape(item.label)}</text>`;
+      block += svgTextLines(valueLines, x + 26, 86, "stat-value-small", 30);
+      if (item.count) {
+        block += `<text x="${x + 448}" y="72" class="bar-count" text-anchor="end">${item.count} ranked</text>`;
+      }
+    });
+    const renderPeopleColumn = (label, items, x, startY) => {
+      const visibleItems = items.slice(0, 8);
+      const maxCount = Math.max(1, ...visibleItems.map((item) => item.count));
+      let column = `<text x="${x}" y="${startY}" class="people-heading">${xmlEscape(label)}</text>`;
+      if (!visibleItems.length) {
+        return {
+          body: `${column}<text x="${x}" y="${startY + 44}" class="pick-meta">No data loaded.</text>`,
+          height: 82,
+        };
+      }
+      let cursorY = startY + 44;
+      visibleItems.forEach((item, index) => {
+        const trackX = x;
+        const trackWidth = 392;
+        const barWidth = Math.max(52, Math.round((item.count / maxCount) * trackWidth));
+        const labelLines = wrapTextToSvgWidth(item.name, 392, 21, Infinity);
+        const textY = cursorY + 20;
+        const barY = cursorY + labelLines.length * 23 + 14;
+        column += svgTextLines(labelLines, x, textY, "people-label", 23);
+        column += `<rect x="${trackX}" y="${barY}" width="${trackWidth}" height="20" rx="10" fill="${theme.faint}" />`;
+        column += `<rect x="${trackX}" y="${barY}" width="${barWidth}" height="20" rx="10" fill="${index % 2 ? theme.accent2 : theme.accent}" />`;
+        column += `<text x="${x + 448}" y="${barY + 17}" class="bar-count">${item.count}</text>`;
+        cursorY = barY + 42;
+      });
+      return { body: column, height: cursorY - startY };
+    };
+    const columnsY = calloutHeight + 58;
+    const directorColumn = renderPeopleColumn("Directors", insights.directors, marginX, columnsY);
+    const castColumn = renderPeopleColumn("Cast", insights.cast, marginX + 520, columnsY);
+    block += directorColumn.body;
+    block += castColumn.body;
+    return addSection(
+      tone.peopleTitle,
+      "Directors and cast that rise to the top",
+      block,
+      columnsY + Math.max(directorColumn.height, castColumn.height) + 20,
+    );
+  };
+
+  const queues = () => {
+    if (!options.queues) return "";
+    const watchRuntime = runtimeStatsForMovies(watchList);
+    const hiddenRuntime = runtimeStatsForMovies(notInterestedList);
+    const hiddenLabel = hiddenRuntimeLabel(options.tone);
+    const queueCards = [
+      {
+        label: "Saved for later",
+        count: watchList.length,
+        runtime: formatRuntimeTotal(watchRuntime.minutes),
+        runtimeLabel: "Pending watch time",
+        accent: theme.accent,
+      },
+      {
+        label: "Hidden from suggestions",
+        count: notInterestedList.length,
+        runtime: formatRuntimeTotal(hiddenRuntime.minutes),
+        runtimeLabel: hiddenLabel,
+        accent: theme.accent2,
+      },
+    ];
+    let block = "";
+    queueCards.forEach((item, index) => {
+      const x = marginX + index * 520;
+      block += `<rect x="${x}" y="0" width="476" height="150" rx="24" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="3" />`;
+      block += `<text x="${x + 26}" y="44" class="stat-card-label">${xmlEscape(item.label)}</text>`;
+      block += `<text x="${x + 26}" y="102" class="stat-value">${item.count}</text>`;
+      block += `<text x="${x + 226}" y="94" class="queue-runtime" fill="${item.accent}">${xmlEscape(item.runtime)}</text>`;
+      block += `<text x="${x + 226}" y="126" class="stat-card-label">${xmlEscape(item.runtimeLabel)}</text>`;
+    });
+    return addSection(tone.queuesTitle, "Movies outside the ranked stack", block, 170);
+  };
+
+  const fullList = () => {
+    if (!options.fullList || !ranking.length) return "";
+    const listStyle = ["posters", "text", "mixed"].includes(options.fullListStyle) ? options.fullListStyle : "mixed";
+    const posterStartY = 134;
+    let block = "";
+    [
+      { label: "First movie ranked on", value: formatShortDate(insights.firstRankedAt) },
+      { label: "Most recent ranking", value: formatShortDate(insights.lastRankedAt) },
+      { label: "Most ranked in one day", value: insights.busiestDay ? `${insights.busiestDay.count} ranked` : "Unknown" },
+    ].forEach((item, index) => {
+      const x = marginX + index * 342;
+      block += `<rect x="${x}" y="0" width="302" height="96" rx="20" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="3" />`;
+      block += `<text x="${x + 24}" y="42" class="stat-value-small">${xmlEscape(item.value)}</text>`;
+      block += `<text x="${x + 24}" y="76" class="stat-card-label">${xmlEscape(item.label)}</text>`;
+    });
+
+    if (listStyle === "text") {
+      const cols = 2;
+      const colW = 486;
+      const rowH = 64;
+      insights.enrichedRanking.forEach((movie, index) => {
+        const col = index % cols;
+        const row = Math.floor(index / cols);
+        const x = 86 + col * 530;
+        const rowY = posterStartY + row * rowH;
+        const titleLines = wrapText(movie.title, 24, 2);
+        block += `<circle cx="${x + 18}" cy="${rowY + 18}" r="18" fill="${theme.faint}" stroke="${panelStroke}" stroke-width="2" />`;
+        block += `<text x="${x + 18}" y="${rowY + 26}" class="deep-rank" text-anchor="middle">${index + 1}</text>`;
+        block += svgTextLines(titleLines, x + 54, rowY + 18, "poster-title", 25);
+        block += `<text x="${x + 54}" y="${rowY + 48}" class="poster-rank">${xmlEscape(movie.year ? `Released ${movie.year}` : "Year unknown")}</text>`;
+      });
+      return addSection(tone.listTitle, "Every movie, top to bottom", block, posterStartY + Math.ceil(ranking.length / cols) * rowH);
+    }
+
+    const isMixed = listStyle === "mixed";
+    const cellW = isMixed ? 222 : 176;
+    const imageH = isMixed ? 276 : 252;
+    const textAreaH = isMixed ? 96 : 0;
+    const cellH = imageH + 16 + textAreaH;
+    const gap = isMixed ? 24 : 22;
+    const cols = isMixed ? 4 : 5;
+    const tilePad = isMixed ? 16 : 14;
+    insights.enrichedRanking.forEach((movie, index) => {
+      const col = index % cols;
+      const row = Math.floor(index / cols);
+      const x = 86 + col * (cellW + gap);
+      const tileY = posterStartY + row * (cellH + 24);
+      const posterData = posterDataFor(movie, allowExternalPosters, usePosterProxy);
+      const innerX = x + tilePad;
+      const innerWidth = cellW - tilePad * 2;
+      block += `<rect x="${x}" y="${tileY}" width="${cellW}" height="${cellH}" rx="14" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="2" />`;
+      if (posterData) {
+        block += `<image href="${xmlEscape(posterData)}" x="${x + 8}" y="${tileY + 8}" width="${cellW - 16}" height="${imageH}" preserveAspectRatio="xMidYMid slice" />`;
+      } else {
+        const fallbackClipId = `full-list-poster-title-${index}`;
+        const fallbackTextX = x + 18;
+        const fallbackTextWidth = cellW - 36;
+        block += `<rect x="${x + 8}" y="${tileY + 8}" width="${cellW - 16}" height="${imageH}" rx="10" fill="${theme.faint}" />`;
+        block += `<clipPath id="${fallbackClipId}"><rect x="${fallbackTextX}" y="${tileY + 24}" width="${fallbackTextWidth}" height="${imageH - 48}" /></clipPath>`;
+        block += svgTextLines(
+          wrapTextToSvgWidth(movie.title, fallbackTextWidth, 18, isMixed ? 5 : 6),
+          fallbackTextX,
+          tileY + 42,
+          "poster-title-compact",
+          22,
+          `clip-path="url(#${fallbackClipId})"`,
+        );
+      }
+      if (isMixed) {
+        const rankY = tileY + imageH + 42;
+        const titleY = rankY + 28;
+        const titleClipId = `full-list-card-title-${index}`;
+        const titleClipY = titleY - 18;
+        const titleClipHeight = tileY + cellH - tilePad - titleClipY;
+        block += `<clipPath id="${titleClipId}"><rect x="${innerX}" y="${titleClipY}" width="${innerWidth}" height="${titleClipHeight}" /></clipPath>`;
+        block += `<text x="${innerX}" y="${rankY}" class="poster-rank">#${index + 1}</text>`;
+        block += svgTextLines(
+          wrapTextToSvgWidth(movie.title, innerWidth, 18, 2),
+          innerX,
+          titleY,
+          "poster-title-compact",
+          22,
+          `clip-path="url(#${titleClipId})"`,
+        );
+      }
+    });
+    return addSection(
+      tone.listTitle,
+      "Every movie, top to bottom",
+      block,
+      posterStartY + Math.ceil(ranking.length / cols) * (cellH + 24),
+    );
+  };
+
+  sections.push(topPicks(), bottomPicks(), eras(), genres(), people(), queues(), fullList());
+
+  const generated = new Date().toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+  const height = Math.max(1600, y + 200);
+  const borderHeight = height - 88;
+  const footerY = height - 100;
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="StackRank movie list share image">
+  <style>
+    .brand { font: 700 32px Arial, Helvetica, sans-serif; letter-spacing: 7px; text-transform: uppercase; fill: ${theme.ink}; }
+    .kicker { font: 500 24px Arial, Helvetica, sans-serif; letter-spacing: 5px; text-transform: uppercase; fill: ${theme.muted}; }
+    .hero { font: 700 ${heroFontSize}px Arial, Helvetica, sans-serif; fill: ${heroFill}; }
+    .section-title { font: 700 31px Arial, Helvetica, sans-serif; letter-spacing: 4px; text-transform: uppercase; fill: ${sectionFill}; }
+    .section-sub { font: 500 23px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
+    .pick-title { font: 700 36px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .pick-meta, .stat-label, .bar-label, .bar-count, .range-span, .footer { font: 500 25px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
+    .rank-number { font: 700 27px Arial, Helvetica, sans-serif; fill: ${theme.bg}; }
+    .deep-rank { font: 700 24px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .stat-value { font: 700 54px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .stat-value-small { font: 700 30px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .stat-card-label { font: 700 21px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
+    .stat-card-value { font: 700 25px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .stat-card-value-emphasis { font: 700 30px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .chart-caption { font: 700 22px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
+    .queue-runtime { font: 700 40px Arial, Helvetica, sans-serif; }
+    .people-heading { font: 700 27px Arial, Helvetica, sans-serif; fill: ${theme.section || theme.ink}; text-transform: uppercase; letter-spacing: 4px; }
+    .people-label { font: 500 21px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
+    .range-year { font: 700 42px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .range-title { font: 700 31px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .range-title-small { font: 700 25px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .poster-title { font: 700 20px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .poster-title-compact { font: 700 18px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .poster-rank { font: 700 21px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
+  </style>
+  <rect width="${width}" height="${height}" fill="${theme.bg}" />
+  <rect x="44" y="44" width="1112" height="${borderHeight}" rx="38" fill="none" stroke="${frameStroke}" stroke-width="4" />
+  <text x="86" y="122" class="brand">StackRank</text>
+  <text x="86" y="168" class="kicker">Movies</text>
+  ${svgTextLines(topTitleLines, 86, 280, "hero", heroLineHeight)}
+  <path d="M86 ${dividerY}H1114" stroke="${frameStroke}" stroke-width="4" />
+  ${sections.join("")}
+  <text x="86" y="${footerY}" class="footer">Generated ${xmlEscape(generated)}</text>
+  <text x="1114" y="${footerY}" class="footer" text-anchor="end">stackrank movies</text>
+</svg>`;
+}
+
+function updateShareOptionControls() {
+  shareDisplayName.value = shareOptions.displayName || "";
+  shareIncludeTop.checked = shareOptions.top;
+  shareIncludeBottom.checked = shareOptions.bottom;
+  shareIncludeEras.checked = shareOptions.eras;
+  shareIncludeGenres.checked = shareOptions.genres;
+  shareIncludePeople.checked = shareOptions.people;
+  shareIncludeQueues.checked = shareOptions.queues;
+  shareIncludeFullList.checked = shareOptions.fullList;
+  shareFullListStyleControls.forEach((input) => {
+    input.checked = input.value === shareOptions.fullListStyle;
+  });
+  document.querySelectorAll('input[name="share-theme"]').forEach((input) => {
+    input.checked = input.value === shareOptions.theme;
+  });
+  document.querySelectorAll('input[name="share-tone"]').forEach((input) => {
+    input.checked = input.value === shareOptions.tone;
+  });
+}
+
+function saveShareOptions() {
+  if (!storageEnabled) return;
+  try {
+    localStorage.setItem(SHARE_OPTIONS_KEY, JSON.stringify(shareOptions));
+  } catch (error) {
+    // Ignore storage failures.
+  }
+}
+
+function loadShareOptions() {
+  if (!storageEnabled) return;
+  try {
+    const raw = localStorage.getItem(SHARE_OPTIONS_KEY);
+    if (!raw) return;
+    const parsed = JSON.parse(raw);
+    const hasV2 = parsed.version >= 2;
+    const hasV3 = parsed.version >= 3;
+    const hasV5 = parsed.version >= 5;
+    shareOptions = {
+      version: SHARE_OPTIONS_VERSION,
+      displayName: typeof parsed.displayName === "string" ? parsed.displayName.slice(0, 36) : "",
+      top: parsed.top !== false,
+      bottom: hasV2 ? parsed.bottom !== false : true,
+      eras: hasV3 ? parsed.eras !== false : parsed.decades !== false || parsed.range !== false,
+      genres: hasV3 ? parsed.genres !== false : true,
+      people: hasV3 ? parsed.people !== false : true,
+      queues: hasV3 ? parsed.queues !== false : true,
+      fullList: hasV3 ? parsed.fullList !== false : true,
+      fullListStyle: hasV5 && ["posters", "text", "mixed"].includes(parsed.fullListStyle) ? parsed.fullListStyle : "mixed",
+      theme: ["classic", "cinema", "warm", "marquee", "pop"].includes(parsed.theme)
+        ? parsed.theme
+        : "classic",
+      tone: ["neutral", "punchy", "funny", "extreme"].includes(parsed.tone)
+        ? parsed.tone
+        : parsed.tone === "savage"
+          ? "extreme"
+        : "neutral",
+    };
+  } catch (error) {
+    // Ignore storage failures.
+  }
+}
+
+function updateShareStudio() {
+  const insights = getRankingInsights();
+  sharePreview.innerHTML = buildShareSvg();
+  const disabled = !insights.count;
+  shareDownloadPng.disabled = disabled || sharePngPreparing;
+  shareDownloadSvg.disabled = disabled;
+  shareCopyMarkdown.disabled = disabled;
+  shareCopyJson.disabled = disabled;
+  shareCopyText.disabled = disabled;
+  shareExportStatus.textContent = sharePngPreparing
+    ? "Preparing poster images for PNG..."
+    : shareDetailsLoading
+    ? "Loading genres, cast, crew, and poster wall assets..."
+    : insights.detailCount
+      ? `${insights.detailCount} ranked movies enriched with detail data.`
+      : "";
+}
+
+function lockShareScroll() {
+  shareScrollLockY = window.scrollY || document.documentElement.scrollTop || 0;
+  document.body.style.position = "fixed";
+  document.body.style.top = `-${shareScrollLockY}px`;
+  document.body.style.left = "0";
+  document.body.style.right = "0";
+  document.body.style.width = "100%";
+}
+
+function unlockShareScroll() {
+  document.body.style.position = "";
+  document.body.style.top = "";
+  document.body.style.left = "";
+  document.body.style.right = "";
+  document.body.style.width = "";
+  window.scrollTo({ left: 0, top: shareScrollLockY, behavior: "auto" });
+  shareScrollLockY = 0;
+}
+
+function openShareStudio() {
+  if (!ranking.length) return;
+  shareStudioTrigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  updateShareOptionControls();
+  updateShareStudio();
+  lockShareScroll();
+  shareStudio.hidden = false;
+  shareStudio.scrollTop = 0;
+  const shareSheet = shareStudio.querySelector(".share-sheet");
+  if (shareSheet) shareSheet.scrollTop = 0;
+  document.body.classList.add("is-share-open");
+  shareClose.focus({ preventScroll: true });
+  void enrichShareAssets();
+}
+
+function closeShareStudio({ restoreFocus = true } = {}) {
+  shareDetailRequestId += 1;
+  shareDetailsLoading = false;
+  shareStudio.hidden = true;
+  document.body.classList.remove("is-share-open");
+  unlockShareScroll();
+  if (restoreFocus && shareStudioTrigger && document.contains(shareStudioTrigger)) {
+    shareStudioTrigger.focus({ preventScroll: true });
+  }
+  shareStudioTrigger = null;
+}
+
+function updateShareOptionsFromControls() {
+  const selectedTheme = document.querySelector('input[name="share-theme"]:checked');
+  const selectedTone = document.querySelector('input[name="share-tone"]:checked');
+  const selectedFullListStyle = document.querySelector('input[name="share-full-list-style"]:checked');
+  shareOptions = {
+    version: SHARE_OPTIONS_VERSION,
+    displayName: shareDisplayName.value.trim().slice(0, 36),
+    top: shareIncludeTop.checked,
+    bottom: shareIncludeBottom.checked,
+    eras: shareIncludeEras.checked,
+    genres: shareIncludeGenres.checked,
+    people: shareIncludePeople.checked,
+    queues: shareIncludeQueues.checked,
+    fullList: shareIncludeFullList.checked,
+    fullListStyle: ["posters", "text", "mixed"].includes(selectedFullListStyle?.value)
+      ? selectedFullListStyle.value
+      : "mixed",
+    theme: selectedTheme?.value || "classic",
+    tone: selectedTone?.value || "neutral",
+  };
+  if (
+    !shareOptions.top &&
+    !shareOptions.bottom &&
+    !shareOptions.eras &&
+    !shareOptions.genres &&
+    !shareOptions.people &&
+    !shareOptions.queues &&
+    !shareOptions.fullList
+  ) {
+    shareOptions.top = true;
+    shareIncludeTop.checked = true;
+  }
+  saveShareOptions();
+  updateShareStudio();
+}
+
+function readBlobAsDataUrl(blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
+async function loadPosterData(movie) {
+  if (!movie?.posterPath || posterDataCache.has(movie.posterPath)) return;
+  try {
+    const response = await fetch(`${TMDB_POSTER_SMALL}${movie.posterPath}`, { mode: "cors" });
+    if (!response.ok) return;
+    const blob = await response.blob();
+    posterDataCache.set(movie.posterPath, await readBlobAsDataUrl(blob));
+  } catch (error) {
+    // Poster embedding is a best-effort enhancement.
+  }
+}
+
+async function enrichShareAssets() {
+  const requestId = ++shareDetailRequestId;
+  shareDetailsLoading = true;
+  updateShareStudio();
+  const detailMovies = [...ranking, ...watchList, ...notInterestedList].filter((movie) => movie.tmdbId);
+  const seenDetailIds = new Set();
+  const detailTargets = detailMovies
+    .filter((movie) => {
+      const id = String(movie.tmdbId);
+      if (seenDetailIds.has(id) || detailCache.has(id)) return false;
+      seenDetailIds.add(id);
+      return true;
+    })
+    .slice(0, 60);
+  const posterTargets = ranking.filter((movie) => movie.posterPath).slice(0, 70);
+
+  for (let i = 0; i < detailTargets.length; i += 4) {
+    if (requestId !== shareDetailRequestId) return;
+    await Promise.all(detailTargets.slice(i, i + 4).map(fetchMovieDetail));
+    updateShareStudio();
+  }
+
+  for (let i = 0; i < posterTargets.length; i += 8) {
+    if (requestId !== shareDetailRequestId) return;
+    await Promise.all(posterTargets.slice(i, i + 8).map(loadPosterData));
+    updateShareStudio();
+  }
+
+  if (requestId !== shareDetailRequestId) return;
+  shareDetailsLoading = false;
+  updateShareStudio();
+}
+
+async function prepareSharePosterData(limit = 70) {
+  const posterTargets = ranking.filter((movie) => movie.posterPath).slice(0, limit);
+  for (let i = 0; i < posterTargets.length; i += 8) {
+    await Promise.all(posterTargets.slice(i, i + 8).map(loadPosterData));
+  }
+}
+
+function downloadBlob(blob, filename) {
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function downloadShareSvg() {
+  if (!ranking.length) return;
+  const svg = buildShareSvg();
+  downloadBlob(new Blob([svg], { type: "image/svg+xml;charset=utf-8" }), "stackrank-movies.svg");
+  setAddFeedback("Share SVG downloaded.");
+}
+
+function getSvgPosterOverlays(svg) {
+  const documentSvg = new DOMParser().parseFromString(svg, "image/svg+xml");
+  const transformOffset = (node) => {
+    let x = 0;
+    let y = 0;
+    let current = node.parentElement;
+    while (current && current.tagName.toLowerCase() !== "svg") {
+      const transform = current.getAttribute("transform") || "";
+      const match = transform.match(/translate\(\s*([-.\d]+)(?:[\s,]+([-.\d]+))?\s*\)/);
+      if (match) {
+        x += Number(match[1]) || 0;
+        y += Number(match[2]) || 0;
+      }
+      current = current.parentElement;
+    }
+    return { x, y };
+  };
+  return Array.from(documentSvg.querySelectorAll("image"))
+    .map((image) => {
+      const offset = transformOffset(image);
+      return {
+        href: image.getAttribute("href") || image.getAttribute("xlink:href") || "",
+        x: Number(image.getAttribute("x")) + offset.x,
+        y: Number(image.getAttribute("y")) + offset.y,
+        width: Number(image.getAttribute("width")),
+        height: Number(image.getAttribute("height")),
+      };
+    })
+    .filter(
+      (item) =>
+        item.href &&
+        Number.isFinite(item.x) &&
+        Number.isFinite(item.y) &&
+        Number.isFinite(item.width) &&
+        Number.isFinite(item.height),
+    );
+}
+
+function loadCanvasImage(src) {
+  return new Promise((resolve, reject) => {
+    const image = new Image();
+    image.crossOrigin = "anonymous";
+    image.onload = () => resolve(image);
+    image.onerror = reject;
+    image.src = src;
+  });
+}
+
+function drawImageCover(context, image, x, y, width, height) {
+  const sourceRatio = image.naturalWidth / image.naturalHeight;
+  const targetRatio = width / height;
+  let sourceX = 0;
+  let sourceY = 0;
+  let sourceWidth = image.naturalWidth;
+  let sourceHeight = image.naturalHeight;
+  if (sourceRatio > targetRatio) {
+    sourceWidth = image.naturalHeight * targetRatio;
+    sourceX = (image.naturalWidth - sourceWidth) / 2;
+  } else {
+    sourceHeight = image.naturalWidth / targetRatio;
+    sourceY = (image.naturalHeight - sourceHeight) / 2;
+  }
+  context.drawImage(image, sourceX, sourceY, sourceWidth, sourceHeight, x, y, width, height);
+}
+
+async function drawPosterOverlays(context, overlays) {
+  let drawn = 0;
+  for (const overlay of overlays) {
+    try {
+      const image = await loadCanvasImage(overlay.href);
+      drawImageCover(context, image, overlay.x, overlay.y, overlay.width, overlay.height);
+      drawn += 1;
+    } catch (error) {
+      // Keep the SVG fallback tile if an individual poster cannot be drawn.
+    }
+  }
+  return drawn;
+}
+
+async function downloadSharePng() {
+  if (!ranking.length) return;
+  sharePngPreparing = true;
+  updateShareStudio();
+  await prepareSharePosterData();
+  updateShareStudio();
+  const svg = buildShareSvg({ ...shareOptions, externalPosters: false });
+  const posterOverlays = getSvgPosterOverlays(
+    buildShareSvg({ ...shareOptions, externalPosters: true, posterProxy: true }),
+  );
+  const widthMatch = svg.match(/width="(\d+)"/);
+  const heightMatch = svg.match(/height="(\d+)"/);
+  const exportWidth = widthMatch ? Number(widthMatch[1]) : 1200;
+  const exportHeight = heightMatch ? Number(heightMatch[1]) : 1600;
+  const svgUrl = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml;charset=utf-8" }));
+  const image = new Image();
+  image.crossOrigin = "anonymous";
+  image.onload = async () => {
+    const canvas = document.createElement("canvas");
+    canvas.width = exportWidth;
+    canvas.height = exportHeight;
+    const context = canvas.getContext("2d");
+    try {
+      context.drawImage(image, 0, 0);
+      const drawnPosters = await drawPosterOverlays(context, posterOverlays);
+      if (posterOverlays.length && !drawnPosters) {
+        throw new Error("Could not draw poster overlays");
+      }
+      URL.revokeObjectURL(svgUrl);
+      canvas.toBlob((blob) => {
+        sharePngPreparing = false;
+        if (!blob) {
+          setAddFeedback("Could not create PNG.");
+          shareExportStatus.textContent = "Could not create PNG.";
+          updateShareStudio();
+          return;
+        }
+        downloadBlob(blob, "stackrank-movies.png");
+        setAddFeedback("Share PNG downloaded.");
+        shareExportStatus.textContent = "Share PNG downloaded.";
+        shareDownloadPng.disabled = false;
+      }, "image/png");
+    } catch (error) {
+      URL.revokeObjectURL(svgUrl);
+      sharePngPreparing = false;
+      setAddFeedback("Could not create PNG.");
+      shareExportStatus.textContent = "Could not create PNG.";
+      shareDownloadPng.disabled = false;
+    }
+  };
+  image.onerror = () => {
+    URL.revokeObjectURL(svgUrl);
+    sharePngPreparing = false;
+    setAddFeedback("Could not create PNG.");
+    shareExportStatus.textContent = "Could not create PNG.";
+    shareDownloadPng.disabled = false;
+  };
+  image.src = svgUrl;
+}
+
+async function copyShareExport(format) {
+  if (!ranking.length) return;
+  const payload =
+    format === "json"
+      ? JSON.stringify(buildShareDataExport(), null, 2)
+      : format === "markdown"
+        ? buildShareMarkdown()
+        : buildExportText();
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(payload);
+      setAddFeedback(`Copied ${format} export.`);
+      shareExportStatus.textContent = `Copied ${format} export.`;
+      return;
+    }
+  } catch (error) {
+    // Fall through to prompt.
+  }
+  window.prompt(`Copy ${format} export:`, payload);
+}
 
 const updateDebugPanel = (extra = {}) => {
   if (!debugEnabled) return;
@@ -1828,6 +3459,13 @@ const toStoredMovie = (movie) => ({
   year: movie.year,
   posterPath: movie.posterPath,
   tmdbId: movie.tmdbId,
+  rankedAt: movie.rankedAt,
+  queuedAt: movie.queuedAt,
+  savedAt: movie.savedAt,
+  hiddenAt: movie.hiddenAt,
+  genres: movie.genres,
+  director: movie.director,
+  cast: movie.cast,
 });
 
 const removeMovieFromSuggestionQueues = (movie) => {
@@ -1856,7 +3494,13 @@ const addSuggestionToQueue = (movie, target, sectionKey = null) => {
     }
     return;
   }
-  const storedMovie = toStoredMovie(movie);
+  const now = new Date().toISOString();
+  const storedMovie = {
+    ...toStoredMovie(movie),
+    queuedAt: now,
+    savedAt: target === "watch" ? now : movie.savedAt,
+    hiddenAt: target === "notInterested" ? now : movie.hiddenAt,
+  };
   removeMovieFromSuggestionQueues(storedMovie);
   if (target === "watch") {
     watchList.push(storedMovie);
@@ -1905,6 +3549,7 @@ const startRankingMovie = (movie) => {
   removeMovieFromSuggestionQueues(movie);
   persistSuggestionQueues();
   pending = {
+    ...movie,
     title: movie.title,
     year: movie.year,
     posterPath: movie.posterPath,
@@ -1920,11 +3565,18 @@ const moveQueueMovie = (source, index) => {
   const movie = fromList[index];
   if (!movie) return;
   const target = source === "watch" ? "notInterested" : "watch";
+  const now = new Date().toISOString();
+  const movedMovie = {
+    ...movie,
+    queuedAt: movie.queuedAt || now,
+    savedAt: target === "watch" ? now : movie.savedAt,
+    hiddenAt: target === "notInterested" ? now : movie.hiddenAt,
+  };
   removeMovieFromSuggestionQueues(movie);
   if (target === "watch") {
-    watchList.push(movie);
+    watchList.push(movedMovie);
   } else {
-    notInterestedList.push(movie);
+    notInterestedList.push(movedMovie);
   }
   persistSuggestionQueues();
   setAddFeedback(`"${movie.title}" moved to ${queueLabel(target)}.`, 2600);
@@ -2043,7 +3695,12 @@ detailHide.addEventListener("click", () => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && !detailOverlay.hidden) {
+  if (event.key !== "Escape") return;
+  if (!shareStudio.hidden) {
+    closeShareStudio();
+    return;
+  }
+  if (!detailOverlay.hidden) {
     closeMovieDetail();
   }
 });
@@ -2217,6 +3874,8 @@ suggestions.addEventListener("mousemove", (event) => {
 
 const init = async () => {
   startPlaceholderRotation();
+  loadShareOptions();
+  updateShareOptionControls();
   updateStatus();
   setAuthUI();
   await initAuth();

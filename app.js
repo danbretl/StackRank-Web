@@ -815,7 +815,7 @@ const queueCountLabel = (count, suffix) => `${count} movie${count === 1 ? "" : "
 
 const renderSuggestionQueueSubtitles = () => {
   watchListSub.textContent = queueCountLabel(watchList.length, "saved for later");
-  notInterestedSub.textContent = queueCountLabel(notInterestedList.length, "hidden from suggestions");
+  notInterestedSub.textContent = queueCountLabel(notInterestedList.length, "hidden from view");
 };
 
 const renderSuggestionQueues = () => {
@@ -2189,6 +2189,7 @@ function buildShareExportSections(insights = getRankingInsights(), options = sha
     const newest = insights.newest
       ? `${insights.newest.year} - ${insights.newest.movie.title}`
       : "Unknown";
+    const decadeRows = insights.decades.slice(0, 6).sort((a, b) => b.decade - a.decade);
     sections.push({
       key: "eras",
       title: tone.erasTitle,
@@ -2200,7 +2201,7 @@ function buildShareExportSections(insights = getRankingInsights(), options = sha
         `Newest ranked movie: ${newest}`,
         "",
         "Ranked movies by decade:",
-        ...insights.decades.slice(0, 6).map((item) => `${decadeLabel(item.decade)}: ${rankedCountLabel(item.count)}`),
+        ...decadeRows.map((item) => `${decadeLabel(item.decade)}: ${rankedCountLabel(item.count)}`),
       ],
     });
   }
@@ -2269,7 +2270,7 @@ function buildShareExportSections(insights = getRankingInsights(), options = sha
         `Saved for later: ${watchList.length}`,
         `Pending watch time: ${watchRuntimeDisplay.value}`,
         watchTitles,
-        `Hidden from suggestions: ${notInterestedList.length}`,
+        `Hidden from view: ${notInterestedList.length}`,
         `${hiddenRuntimeLabel(options.tone)}: ${hiddenRuntimeDisplay.value}`,
         hiddenTitles,
       ],
@@ -2706,6 +2707,7 @@ function buildShareSvg(options = shareOptions) {
     const newest = insights.newest
       ? `${insights.newest.year} · ${insights.newest.movie.title}`
       : "Unknown";
+    const decadeRows = insights.decades.slice(0, 6).sort((a, b) => b.decade - a.decade);
     const eraMetrics = [
       { label: "Highest ranked decade", value: topDecade, emphasis: true },
       { label: "Avg. release year", value: insights.averageYear ? String(insights.averageYear) : "Unknown", emphasis: true },
@@ -2729,8 +2731,8 @@ function buildShareSvg(options = shareOptions) {
     const chartY = 318;
     const barsY = chartY + 46;
     block += `<text x="${barLabelX}" y="${chartY}" class="chart-caption">Ranked movies by decade</text>`;
-    const maxDecadeCount = Math.max(1, ...insights.decades.map((item) => item.count));
-    insights.decades.slice(0, 6).forEach((item, index) => {
+    const maxDecadeCount = Math.max(1, ...decadeRows.map((item) => item.count));
+    decadeRows.forEach((item, index) => {
       const rowY = barsY + index * 58 + 10;
       block += countBarRow(item, index, rowY, maxDecadeCount, decadeLabel(item.decade));
     });
@@ -2738,7 +2740,7 @@ function buildShareSvg(options = shareOptions) {
       tone.erasTitle,
       "Release years across your ranking",
       block,
-      barsY + insights.decades.slice(0, 6).length * 58 + 28,
+      barsY + decadeRows.length * 58 + 28,
     );
   };
 
@@ -2868,7 +2870,7 @@ function buildShareSvg(options = shareOptions) {
         accent: theme.accent,
       },
       {
-        label: "Hidden from suggestions",
+        label: "Hidden from view",
         count: notInterestedList.length,
         runtime: hiddenRuntimeDisplay.value,
         runtimeClass: hiddenRuntimeDisplay.isDuration ? "queue-runtime" : "queue-runtime-small",

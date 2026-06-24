@@ -538,81 +538,108 @@ function getRankingInsights() {
   };
 }
 
-function createSnapshotMetric(label, value, note = "") {
-  const item = document.createElement("div");
-  item.className = "snapshot__metric";
-  const metricValue = document.createElement("div");
-  metricValue.className = "snapshot__value";
-  metricValue.textContent = value;
-  const metricLabel = document.createElement("div");
-  metricLabel.className = "snapshot__label";
-  metricLabel.textContent = label;
-  item.append(metricValue, metricLabel);
-  if (note) {
-    const metricNote = document.createElement("div");
-    metricNote.className = "snapshot__note";
-    metricNote.textContent = note;
-    item.appendChild(metricNote);
+function rankedTimeValue(movie) {
+  if (!movie?.rankedAt) return null;
+  const time = new Date(movie.rankedAt).getTime();
+  return Number.isNaN(time) ? null : time;
+}
+
+function getRecentRankedItems() {
+  const items = ranking.map((movie, index) => ({
+    movie,
+    rank: index + 1,
+    rankedTime: rankedTimeValue(movie),
+  }));
+  const hasRankedTimes = items.some((item) => item.rankedTime !== null);
+  const sorted = hasRankedTimes
+    ? [...items].sort((a, b) => {
+        const aTime = a.rankedTime ?? 0;
+        const bTime = b.rankedTime ?? 0;
+        return bTime - aTime || a.rank - b.rank;
+      })
+    : items;
+  return {
+    hasRankedTimes,
+    items: sorted.slice(0, 3),
+  };
+}
+
+function createSnapshotMovieRow({ movie, rank, rankedTime }) {
+  const row = document.createElement("li");
+  row.className = "snapshot__movie";
+
+  const poster = document.createElement("img");
+  poster.className = "snapshot__poster";
+  if (movie.posterPath) {
+    poster.src = `${TMDB_POSTER_SMALL}${movie.posterPath}`;
+    poster.alt = `${movie.title} poster`;
+  } else {
+    poster.alt = "";
+    poster.setAttribute("aria-hidden", "true");
   }
-  return item;
+
+  const body = document.createElement("div");
+  body.className = "snapshot__movie-body";
+  const title = document.createElement("div");
+  title.className = "snapshot__movie-title";
+  title.textContent = movie.title;
+  const meta = document.createElement("div");
+  meta.className = "snapshot__movie-meta";
+  meta.textContent = formatMeta(movie);
+  body.append(title, meta);
+
+  const detail = document.createElement("div");
+  detail.className = "snapshot__movie-detail";
+  const rankLabel = document.createElement("span");
+  rankLabel.className = "snapshot__rank";
+  rankLabel.textContent = `#${rank}`;
+  const dateLabel = document.createElement("span");
+  dateLabel.textContent = rankedTime !== null ? formatShortDate(movie.rankedAt) : "Current list";
+  detail.append(rankLabel, dateLabel);
+
+  row.append(poster, body, detail);
+  return row;
+}
+
+function createSnapshotFooter(insights) {
+  const footer = document.createElement("div");
+  footer.className = "snapshot__footer";
+
+  const count = document.createElement("span");
+  count.textContent = `${insights.count} ranked`;
+  footer.appendChild(count);
+
+  if (insights.topMovie) {
+    const leader = document.createElement("span");
+    leader.textContent = `#1 ${insights.topMovie.title}`;
+    footer.appendChild(leader);
+  }
+
+  return footer;
 }
 
 function renderListSnapshot() {
   const insights = getRankingInsights();
   snapshotContent.innerHTML = "";
-  snapshotSub.textContent = insights.count ? "Built from your ranking" : "Waiting for ranked movies";
+  snapshotSub.textContent = insights.count ? "Latest additions" : "Waiting for ranked movies";
 
   if (!insights.count) {
     const empty = document.createElement("div");
     empty.className = "snapshot__empty";
-    empty.textContent = "Rank a few movies to see patterns here.";
+    empty.textContent = "Rank a movie to start a running log here.";
     snapshotContent.appendChild(empty);
     return;
   }
 
-  const metrics = document.createElement("div");
-  metrics.className = "snapshot__metrics";
-  metrics.append(
-    createSnapshotMetric("Ranked", String(insights.count)),
-    createSnapshotMetric(
-      "Top decade",
-      insights.topDecade ? decadeLabel(insights.topDecade.decade) : "Unknown",
-      insights.topDecade ? `${insights.topDecade.count} movie${insights.topDecade.count === 1 ? "" : "s"}` : "",
-    ),
-    createSnapshotMetric("Avg. year", insights.averageYear ? String(insights.averageYear) : "Unknown"),
-  );
-  snapshotContent.appendChild(metrics);
+  const recent = getRecentRankedItems();
+  snapshotSub.textContent = recent.hasRankedTimes ? "Latest additions" : "Current top three";
 
-  if (insights.oldest && insights.newest) {
-    const range = document.createElement("div");
-    range.className = "snapshot__range";
-    const span = Math.max(0, insights.newest.year - insights.oldest.year);
-    range.textContent = `${span}-year span, from "${insights.oldest.movie.title}" to "${insights.newest.movie.title}".`;
-    snapshotContent.appendChild(range);
-  }
-
-  if (insights.decades.length) {
-    const bars = document.createElement("div");
-    bars.className = "snapshot__bars";
-    const maxCount = Math.max(...insights.decades.map((item) => item.count));
-    insights.decades.slice(0, 4).forEach((item) => {
-      const row = document.createElement("div");
-      row.className = "snapshot__bar-row";
-      const label = document.createElement("span");
-      label.textContent = decadeLabel(item.decade);
-      const track = document.createElement("span");
-      track.className = "snapshot__bar-track";
-      const bar = document.createElement("span");
-      bar.className = "snapshot__bar";
-      bar.style.width = `${Math.max(12, (item.count / maxCount) * 100)}%`;
-      const value = document.createElement("span");
-      value.textContent = String(item.count);
-      track.appendChild(bar);
-      row.append(label, track, value);
-      bars.appendChild(row);
-    });
-    snapshotContent.appendChild(bars);
-  }
+  const list = document.createElement("ol");
+  list.className = "snapshot__recent";
+  recent.items.forEach((item) => {
+    list.appendChild(createSnapshotMovieRow(item));
+  });
+  snapshotContent.append(list, createSnapshotFooter(insights));
 }
 
 const createQueueActionButton = (label, ariaLabel, action, className = "") => {

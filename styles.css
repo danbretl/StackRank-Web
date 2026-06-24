@@ -913,69 +913,84 @@ body.is-comparing .compare-panel {
   gap: 12px;
 }
 
-.snapshot__metrics {
+.snapshot__recent {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
+  gap: 10px;
 }
 
-.snapshot__metric {
+.snapshot__movie {
   display: grid;
-  gap: 2px;
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
   min-width: 0;
-  padding: 10px 0;
-  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  border-top: 1px solid var(--border-soft);
 }
 
-.snapshot__value {
-  font-size: 1.05rem;
-  font-weight: 700;
-  line-height: 1.1;
+.snapshot__poster {
+  width: 32px;
+  height: 46px;
+  border-radius: 7px;
+  object-fit: cover;
+  background: #ededed;
 }
 
-.snapshot__label,
-.snapshot__note,
-.snapshot__range {
+.snapshot__movie-body {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.snapshot__movie-title {
+  overflow: hidden;
+  font-size: 0.9rem;
+  font-weight: 650;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.snapshot__movie-meta,
+.snapshot__movie-detail,
+.snapshot__footer {
   color: var(--ink-soft);
   font-size: 0.74rem;
-  line-height: 1.32;
+  line-height: 1.25;
 }
 
-.snapshot__label {
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+.snapshot__movie-detail {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+  white-space: nowrap;
 }
 
-.snapshot__range {
+.snapshot__rank {
+  color: var(--bg-ink);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.snapshot__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
   padding-top: 2px;
 }
 
-.snapshot__bars {
-  display: grid;
-  gap: 7px;
-}
-
-.snapshot__bar-row {
-  display: grid;
-  grid-template-columns: 48px minmax(0, 1fr) 18px;
-  gap: 8px;
-  align-items: center;
-  color: var(--ink-soft);
-  font-size: 0.72rem;
-}
-
-.snapshot__bar-track {
-  height: 6px;
+.snapshot__footer span + span::before {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 3px;
+  margin-right: 10px;
+  vertical-align: middle;
   border-radius: 999px;
-  background: #eeeeee;
-  overflow: hidden;
-}
-
-.snapshot__bar {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  background: var(--bg-ink);
+  background: currentColor;
 }
 
 .snapshot__empty {

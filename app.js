@@ -94,6 +94,7 @@ const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyZmhha3J4c2xscnFtc2N4eHBiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1MzkzOTYsImV4cCI6MjA4MjExNTM5Nn0.XYeheYWAMNbUC9MUPv1oF7J3-MwxfcBS7-QpxRszrSs";
 
 let ranking = [];
+let rankingUpdatedAt = null;
 let watchList = [];
 let notInterestedList = [];
 let pending = null;
@@ -263,6 +264,19 @@ const formatRuntime = (runtime) => {
 const formatRuntimeTotal = (minutes) => {
   if (!minutes) return "--";
   return formatRuntime(minutes);
+};
+
+const formatShareRuntimeTotal = (stats, totalCount, loading = false) => {
+  if (stats.minutes) {
+    return { value: formatRuntime(stats.minutes), isDuration: true };
+  }
+  if (totalCount && loading) {
+    return { value: "Loading", isDuration: false };
+  }
+  if (totalCount) {
+    return { value: "Unavailable", isDuration: false };
+  }
+  return { value: "--", isDuration: false };
 };
 
 const runtimeStatsForMovies = (movies) => {
@@ -479,6 +493,7 @@ function getRankingInsights() {
     .map((movie) => movie.rankedAt)
     .filter(Boolean)
     .sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+  const perMovieRankDatesTracked = rankedDates.length > 0;
   const rankedByDay = countValues(rankedDates.map(dayKey));
   const genres = countPreferenceMany(enrichedRanking, (movie) => movie.genres || []);
   const bottomGenres = countReversePreferenceMany(enrichedRanking, (movie) => movie.genres || []);
@@ -510,6 +525,8 @@ function getRankingInsights() {
         : null,
     firstRankedAt: rankedDates[0] || null,
     lastRankedAt: rankedDates[rankedDates.length - 1] || null,
+    rankingUpdatedAt,
+    perMovieRankDatesTracked,
     busiestDay: rankedByDay[0] || null,
     watchCount: watchList.length,
     hiddenCount: notInterestedList.length,
@@ -892,6 +909,7 @@ const loadSuggestionQueues = async () => {
 const saveRanking = async () => {
   const listId = getListId();
   const updatedAt = new Date().toISOString();
+  rankingUpdatedAt = updatedAt;
   if (supabaseEnabled && supabase && listId) {
     const payload = {
       list_id: listId,
@@ -921,6 +939,7 @@ const loadRanking = async () => {
       const localUpdated = local.updated_at ? new Date(local.updated_at).getTime() : 0;
       const serverBase = serverUpdated >= localUpdated ? data.movies : local.movies;
       const other = serverUpdated >= localUpdated ? local.movies : data.movies;
+      rankingUpdatedAt = serverUpdated >= localUpdated ? data.updated_at || null : local.updated_at || null;
       ranking = mergeRankings(serverBase, other);
       await saveRanking();
       return;
@@ -932,6 +951,7 @@ const loadRanking = async () => {
     const local = getLocalPayload();
     if (Array.isArray(local.movies)) {
       ranking = local.movies;
+      rankingUpdatedAt = local.updated_at || null;
     }
   } catch (error) {
     // Ignore corrupt storage and continue with an empty list.
@@ -2011,6 +2031,22 @@ function rankedCountLabel(count) {
   return `${count} ranked`;
 }
 
+function shareRankingMetaCards(insights) {
+  if (insights.perMovieRankDatesTracked) {
+    return [
+      { label: "First movie ranked on", value: insights.firstRankedAt ? formatShortDate(insights.firstRankedAt) : "Not tracked" },
+      { label: "Most recent movie ranked", value: insights.lastRankedAt ? formatShortDate(insights.lastRankedAt) : "Not tracked" },
+      { label: "Most ranked in one day", value: insights.busiestDay ? rankedCountLabel(insights.busiestDay.count) : "Not tracked" },
+    ];
+  }
+
+  return [
+    { label: "List last updated", value: insights.rankingUpdatedAt ? formatShortDate(insights.rankingUpdatedAt) : "Not tracked" },
+    { label: "Per-movie rank dates", value: "Not tracked" },
+    { label: "Most ranked in one day", value: "Not tracked" },
+  ];
+}
+
 function buildShareExportTitle(options = shareOptions) {
   const tone = getShareTone(options.tone);
   const displayName = getShareDisplayName(options);
@@ -2116,6 +2152,8 @@ function buildShareExportSections(insights = getRankingInsights(), options = sha
   if (options.queues) {
     const watchRuntime = runtimeStatsForMovies(watchList);
     const hiddenRuntime = runtimeStatsForMovies(notInterestedList);
+    const watchRuntimeDisplay = formatShareRuntimeTotal(watchRuntime, watchList.length, shareDetailsLoading);
+    const hiddenRuntimeDisplay = formatShareRuntimeTotal(hiddenRuntime, notInterestedList.length, shareDetailsLoading);
     const watchTitles = watchList.slice(0, 3).map((movie) => movie.title).join(" / ") || "Nothing saved";
     const hiddenTitles = notInterestedList.slice(0, 3).map((movie) => movie.title).join(" / ") || "Nothing hidden";
     sections.push({
@@ -2124,24 +2162,23 @@ function buildShareExportSections(insights = getRankingInsights(), options = sha
       subtitle: "Movies outside the ranked stack",
       lines: [
         `Saved for later: ${watchList.length}`,
-        `Pending watch time: ${formatRuntimeTotal(watchRuntime.minutes)}`,
+        `Pending watch time: ${watchRuntimeDisplay.value}`,
         watchTitles,
         `Hidden from suggestions: ${notInterestedList.length}`,
-        `${hiddenRuntimeLabel(options.tone)}: ${formatRuntimeTotal(hiddenRuntime.minutes)}`,
+        `${hiddenRuntimeLabel(options.tone)}: ${hiddenRuntimeDisplay.value}`,
         hiddenTitles,
       ],
     });
   }
 
   if (options.fullList && insights.enrichedRanking.length) {
+    const metaCards = shareRankingMetaCards(insights);
     sections.push({
       key: "fullList",
       title: tone.listTitle,
       subtitle: "Every movie, top to bottom",
       lines: [
-        `First movie ranked on: ${formatShortDate(insights.firstRankedAt)}`,
-        `Most recent movie ranked on: ${formatShortDate(insights.lastRankedAt)}`,
-        `Most movies ranked in one day: ${insights.busiestDay ? rankedCountLabel(insights.busiestDay.count) : "Unknown"}`,
+        ...metaCards.map((item) => `${item.label}: ${item.value}`),
         "",
         ...insights.enrichedRanking.map((movie, index) => movieExportLine(movie, index + 1)),
       ],
@@ -2211,6 +2248,8 @@ function buildShareDataExport() {
       topDecade: insights.topDecade,
       firstRankedAt: insights.firstRankedAt,
       lastRankedAt: insights.lastRankedAt,
+      rankingUpdatedAt: insights.rankingUpdatedAt,
+      perMovieRankDatesTracked: insights.perMovieRankDatesTracked,
       busiestDay: insights.busiestDay,
       genres: insights.genres,
       bottomGenres: insights.bottomGenres,
@@ -2513,14 +2552,15 @@ function buildShareSvg(options = shareOptions) {
   };
 
   const movieRow = (movie, rank, rowY, variant = "top") => {
-    const titleLines = wrapText(movie.title, 34, 2);
+    const titleLines = wrapTextToSvgWidth(movie.title, 930, 36, 2);
+    const metaY = rowY + (titleLines.length > 1 ? 58 : 42);
     const fill = variant === "bottom" ? theme.faint : theme.ink;
     const numberClass = variant === "bottom" ? "deep-rank" : "rank-number";
     const stroke = variant === "bottom" ? `stroke="${panelStroke}" stroke-width="3"` : "";
     return `<circle cx="112" cy="${rowY - 10}" r="28" fill="${fill}" ${stroke} />
       <text x="112" y="${rowY}" class="${numberClass}" text-anchor="middle">${rank}</text>
       ${svgTextLines(titleLines, 164, rowY - (titleLines.length > 1 ? 12 : 0), "pick-title", 36)}
-      <text x="164" y="${rowY + 42}" class="pick-meta">${xmlEscape(movie.year ? `Released ${movie.year}` : "Year unknown")}</text>`;
+      <text x="164" y="${metaY}" class="pick-meta">${xmlEscape(movie.year ? `Released ${movie.year}` : "Year unknown")}</text>`;
   };
 
   const countBarRow = (item, index, rowY, maxCount, label) => {
@@ -2710,19 +2750,23 @@ function buildShareSvg(options = shareOptions) {
     if (!options.queues) return "";
     const watchRuntime = runtimeStatsForMovies(watchList);
     const hiddenRuntime = runtimeStatsForMovies(notInterestedList);
+    const watchRuntimeDisplay = formatShareRuntimeTotal(watchRuntime, watchList.length, shareDetailsLoading);
+    const hiddenRuntimeDisplay = formatShareRuntimeTotal(hiddenRuntime, notInterestedList.length, shareDetailsLoading);
     const hiddenLabel = hiddenRuntimeLabel(options.tone);
     const queueCards = [
       {
         label: "Saved for later",
         count: watchList.length,
-        runtime: formatRuntimeTotal(watchRuntime.minutes),
+        runtime: watchRuntimeDisplay.value,
+        runtimeClass: watchRuntimeDisplay.isDuration ? "queue-runtime" : "queue-runtime-small",
         runtimeLabel: "Pending watch time",
         accent: theme.accent,
       },
       {
         label: "Hidden from suggestions",
         count: notInterestedList.length,
-        runtime: formatRuntimeTotal(hiddenRuntime.minutes),
+        runtime: hiddenRuntimeDisplay.value,
+        runtimeClass: hiddenRuntimeDisplay.isDuration ? "queue-runtime" : "queue-runtime-small",
         runtimeLabel: hiddenLabel,
         accent: theme.accent2,
       },
@@ -2733,7 +2777,7 @@ function buildShareSvg(options = shareOptions) {
       block += `<rect x="${x}" y="0" width="476" height="150" rx="24" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="3" />`;
       block += `<text x="${x + 26}" y="44" class="stat-card-label">${xmlEscape(item.label)}</text>`;
       block += `<text x="${x + 26}" y="102" class="stat-value">${item.count}</text>`;
-      block += `<text x="${x + 226}" y="94" class="queue-runtime" fill="${item.accent}">${xmlEscape(item.runtime)}</text>`;
+      block += `<text x="${x + 226}" y="94" class="${item.runtimeClass}" fill="${item.accent}">${xmlEscape(item.runtime)}</text>`;
       block += `<text x="${x + 226}" y="126" class="stat-card-label">${xmlEscape(item.runtimeLabel)}</text>`;
     });
     return addSection(tone.queuesTitle, "Movies outside the ranked stack", block, 170);
@@ -2744,11 +2788,7 @@ function buildShareSvg(options = shareOptions) {
     const listStyle = ["posters", "text", "mixed"].includes(options.fullListStyle) ? options.fullListStyle : "mixed";
     const posterStartY = 134;
     let block = "";
-    [
-      { label: "First movie ranked on", value: formatShortDate(insights.firstRankedAt) },
-      { label: "Most recent ranking", value: formatShortDate(insights.lastRankedAt) },
-      { label: "Most ranked in one day", value: insights.busiestDay ? `${insights.busiestDay.count} ranked` : "Unknown" },
-    ].forEach((item, index) => {
+    shareRankingMetaCards(insights).forEach((item, index) => {
       const x = marginX + index * 342;
       block += `<rect x="${x}" y="0" width="302" height="96" rx="20" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="3" />`;
       block += `<text x="${x + 24}" y="42" class="stat-value-small">${xmlEscape(item.value)}</text>`;
@@ -2773,22 +2813,91 @@ function buildShareSvg(options = shareOptions) {
       return addSection(tone.listTitle, "Every movie, top to bottom", block, posterStartY + Math.ceil(ranking.length / cols) * rowH);
     }
 
-    const isMixed = listStyle === "mixed";
-    const cellW = isMixed ? 222 : 176;
-    const imageH = isMixed ? 276 : 252;
-    const textAreaH = isMixed ? 96 : 0;
-    const cellH = imageH + 16 + textAreaH;
-    const gap = isMixed ? 24 : 22;
-    const cols = isMixed ? 4 : 5;
-    const tilePad = isMixed ? 16 : 14;
+    if (listStyle === "mixed") {
+      const cols = 2;
+      const cellGap = 24;
+      const cellW = 502;
+      const cellH = 178;
+      const cellPad = 18;
+      const posterW = 92;
+      const posterH = 138;
+      const posterXOffset = cellPad;
+      const posterYOffset = Math.round((cellH - posterH) / 2);
+      const titleXOffset = cellPad + posterW + 22;
+      const titleW = cellW - titleXOffset - 24;
+      const titleSizes = [30, 28, 26, 24];
+
+      const titleFit = (title) => {
+        for (const fontSize of titleSizes) {
+          const lines = wrapTextToSvgWidth(title, titleW, fontSize, Infinity);
+          if (lines.length <= 2) return { lines, fontSize, lineHeight: Math.round(fontSize * 1.16) };
+        }
+        const fontSize = titleSizes[titleSizes.length - 1];
+        return {
+          lines: wrapTextToSvgWidth(title, titleW, fontSize, 2),
+          fontSize,
+          lineHeight: Math.round(fontSize * 1.16),
+        };
+      };
+
+      insights.enrichedRanking.forEach((movie, index) => {
+        const col = index % cols;
+        const row = Math.floor(index / cols);
+        const x = 86 + col * (cellW + cellGap);
+        const tileY = posterStartY + row * (cellH + 22);
+        const posterData = posterDataFor(movie, allowExternalPosters, usePosterProxy);
+        const title = titleFit(`${index + 1}. ${movie.title}`);
+        const meta = movie.year ? `Released ${movie.year}` : "Year unknown";
+        const metaGap = 24;
+        const titleAscent = Math.round(title.fontSize * 0.76);
+        const metaDescent = 5;
+        const groupHeight = titleAscent + (title.lines.length - 1) * title.lineHeight + metaGap + metaDescent;
+        const titleY = tileY + Math.round((cellH - groupHeight) / 2) + titleAscent;
+        const metaY = titleY + (title.lines.length - 1) * title.lineHeight + metaGap;
+        const posterX = x + posterXOffset;
+        const posterY = tileY + posterYOffset;
+        const titleX = x + titleXOffset;
+
+        block += `<rect x="${x}" y="${tileY}" width="${cellW}" height="${cellH}" rx="18" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="2" />`;
+        if (posterData) {
+          block += `<image href="${xmlEscape(posterData)}" x="${posterX}" y="${posterY}" width="${posterW}" height="${posterH}" preserveAspectRatio="xMidYMid slice" />`;
+        } else {
+          const fallbackClipId = `full-list-row-poster-title-${index}`;
+          const fallbackTextX = posterX + 10;
+          block += `<rect x="${posterX}" y="${posterY}" width="${posterW}" height="${posterH}" rx="10" fill="${theme.faint}" />`;
+          block += `<clipPath id="${fallbackClipId}"><rect x="${fallbackTextX}" y="${posterY + 12}" width="${posterW - 20}" height="${posterH - 24}" /></clipPath>`;
+          block += svgTextLines(
+            wrapTextToSvgWidth(movie.title, posterW - 20, 15, 5),
+            fallbackTextX,
+            posterY + 30,
+            "poster-title-compact",
+            19,
+            `clip-path="url(#${fallbackClipId})"`,
+          );
+        }
+        block += svgTextLines(title.lines, titleX, titleY, `full-list-row-title-${title.fontSize}`, title.lineHeight);
+        block += `<text x="${titleX}" y="${metaY}" class="poster-rank">${xmlEscape(meta)}</text>`;
+      });
+
+      return addSection(
+        tone.listTitle,
+        "Every movie, top to bottom",
+        block,
+        posterStartY + Math.ceil(ranking.length / cols) * (cellH + 22),
+      );
+    }
+
+    const cellW = 176;
+    const imageH = 252;
+    const cellH = imageH;
+    const gap = 22;
+    const cols = 5;
     insights.enrichedRanking.forEach((movie, index) => {
       const col = index % cols;
       const row = Math.floor(index / cols);
       const x = 86 + col * (cellW + gap);
       const tileY = posterStartY + row * (cellH + 24);
       const posterData = posterDataFor(movie, allowExternalPosters, usePosterProxy);
-      const innerX = x + tilePad;
-      const innerWidth = cellW - tilePad * 2;
       block += `<rect x="${x}" y="${tileY}" width="${cellW}" height="${cellH}" rx="14" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="2" />`;
       if (posterData) {
         block += `<image href="${xmlEscape(posterData)}" x="${x + 8}" y="${tileY + 8}" width="${cellW - 16}" height="${imageH}" preserveAspectRatio="xMidYMid slice" />`;
@@ -2805,23 +2914,6 @@ function buildShareSvg(options = shareOptions) {
           "poster-title-compact",
           22,
           `clip-path="url(#${fallbackClipId})"`,
-        );
-      }
-      if (isMixed) {
-        const rankY = tileY + imageH + 42;
-        const titleY = rankY + 28;
-        const titleClipId = `full-list-card-title-${index}`;
-        const titleClipY = titleY - 18;
-        const titleClipHeight = tileY + cellH - tilePad - titleClipY;
-        block += `<clipPath id="${titleClipId}"><rect x="${innerX}" y="${titleClipY}" width="${innerWidth}" height="${titleClipHeight}" /></clipPath>`;
-        block += `<text x="${innerX}" y="${rankY}" class="poster-rank">#${index + 1}</text>`;
-        block += svgTextLines(
-          wrapTextToSvgWidth(movie.title, innerWidth, 18, 2),
-          innerX,
-          titleY,
-          "poster-title-compact",
-          22,
-          `clip-path="url(#${titleClipId})"`,
         );
       }
     });
@@ -2862,6 +2954,7 @@ function buildShareSvg(options = shareOptions) {
     .stat-card-value-emphasis { font: 700 30px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
     .chart-caption { font: 700 22px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
     .queue-runtime { font: 700 40px Arial, Helvetica, sans-serif; }
+    .queue-runtime-small { font: 700 30px Arial, Helvetica, sans-serif; }
     .people-heading { font: 700 27px Arial, Helvetica, sans-serif; fill: ${theme.section || theme.ink}; text-transform: uppercase; letter-spacing: 4px; }
     .people-label { font: 500 21px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
     .range-year { font: 700 42px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
@@ -2869,6 +2962,10 @@ function buildShareSvg(options = shareOptions) {
     .range-title-small { font: 700 25px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
     .poster-title { font: 700 20px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
     .poster-title-compact { font: 700 18px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .full-list-row-title-30 { font: 700 30px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .full-list-row-title-28 { font: 700 28px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .full-list-row-title-26 { font: 700 26px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .full-list-row-title-24 { font: 700 24px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
     .poster-rank { font: 700 21px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
   </style>
   <rect width="${width}" height="${height}" fill="${theme.bg}" />
@@ -3071,7 +3168,7 @@ async function enrichShareAssets() {
   const requestId = ++shareDetailRequestId;
   shareDetailsLoading = true;
   updateShareStudio();
-  const detailMovies = [...ranking, ...watchList, ...notInterestedList].filter((movie) => movie.tmdbId);
+  const detailMovies = [...watchList, ...notInterestedList, ...ranking].filter((movie) => movie.tmdbId);
   const seenDetailIds = new Set();
   const detailTargets = detailMovies
     .filter((movie) => {
@@ -3080,7 +3177,7 @@ async function enrichShareAssets() {
       seenDetailIds.add(id);
       return true;
     })
-    .slice(0, 60);
+    .slice(0, 120);
   const posterTargets = ranking.filter((movie) => movie.posterPath).slice(0, 70);
 
   for (let i = 0; i < detailTargets.length; i += 4) {

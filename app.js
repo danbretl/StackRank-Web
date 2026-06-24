@@ -3046,7 +3046,7 @@ function buildShareSvg(options = shareOptions) {
           `clip-path="url(#${fallbackClipId})"`,
         );
       }
-      block += `<rect x="${badgeX}" y="${badgeY}" width="${badgeW}" height="28" rx="14" fill="${theme.paper}" fill-opacity="0.9" stroke="${panelStroke}" stroke-width="1.5" />`;
+      block += `<rect x="${badgeX}" y="${badgeY}" width="${badgeW}" height="28" rx="14" fill="${theme.panel}" fill-opacity="0.9" stroke="${panelStroke}" stroke-width="1.5" />`;
       block += `<text x="${badgeX + badgeW / 2}" y="${badgeY + 20}" class="poster-number-badge" text-anchor="middle">${badgeLabel}</text>`;
     });
     return addSection(

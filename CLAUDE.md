@@ -1,0 +1,111 @@
+# StackRank
+
+> Shared project brief for AI coding assistants. `AGENTS.md` is a symlink to this file, so Codex and Claude Code read the same context. This was distilled from the original Codex build transcripts (Dec 2025 – Jun 2026) on 2026-06-23; if anything here conflicts with the code, the code wins — fix this file.
+
+## What it is
+
+A web app for **stack-ranking** things — movies first, but meant to generalize. You add a movie and the app slots it into your ordered list via **binary-insertion comparisons** (pick the one you like better, repeatedly, until its exact position is found). Around that core sit suggestions, watch/skip queues, a movie-detail pane, and a rich shareable poster generator.
+
+- **Live:** https://danbretl.github.io/StackRank-Web/ (GitHub Pages)
+- **Repo:** https://github.com/danbretl/StackRank-Web (local dir is `stackrank`, remote repo is `StackRank-Web`)
+- **Design intent (from day one):** simple, clean, slick, **monochrome**, punchy, modern. Minimal header; adding/ranking is front and center.
+
+## Architecture
+
+Plain **static single-page app — no build system, no framework, no bundler, no npm dependencies for the app itself.** Three core files:
+
+- **`index.html`** — markup; loads `app.js` as an ES module (needed for the Supabase client import). References assets with cache-busting query strings (`app.js?v=N`, `styles.css?v=N`).
+- **`app.js`** (~4200 lines) — all application logic.
+- **`styles.css`** — all styling.
+
+**Movie identity is the TMDB id (`tmdbId`)**, with a normalized `title + year` fallback for legacy items that predate id tracking.
+
+**Persistence** (priority: *never lose data*):
+- Signed out → `localStorage`. Signed in → **Supabase**, with localStorage as fallback/merge.
+- On load the app **merges** local + remote by id and keeps the newest (`{ movies, updated_at }` timestamp guard) so an older server snapshot can't shrink a larger local list.
+- localStorage keys: `stackrank:movies:v1` (ranking), `stackrank:suggestion-queues:v1` (watch/skip queues), `stackrank:share-options:v1`, `stackrank:inspired-seed:v1`.
+
+**Supabase** (project ref `hrfhakrxsllrqmscxxpb`, URL + public anon key live in `app.js`):
+- Tables: **`rankings`** (`list_id` PK, `movies` jsonb, `updated_at`) and **`movie_lists`** (one row per `(list_id, list_type)`; `list_type` ∈ `watch` / `not_interested`; upsert `onConflict: "list_id,list_type"`).
+- Per-user list id is `user:<auth.uid()>`. RLS policies are scoped to `list_id = 'user:' || (select auth.uid())` (the `(select …)` wrap is a Supabase RLS perf requirement — keep it). Migrations live in `supabase/migrations/`.
+- **Edge functions** (Deno/TS in `supabase/functions/`), all proxy TMDB so the TMDB key stays server-side (Supabase secret `TMDB_API_KEY`):
+  - `tmdb-search` — autocomplete (returns `tmdbId`, year, poster).
+  - `tmdb-suggest` — `type=popular | recommendations | essentials`.
+  - `tmdb-detail` — runtime/genres/director/cast/overview for the detail pane.
+  - `tmdb-image` — **public, CORS-`*`** poster proxy; exists so PNG export can draw posters onto a `<canvas>` (cross-origin TMDB images can't be rasterized directly).
+- **Auth:** Supabase email **magic link**, delivered via **Resend** SMTP (sender `no-reply@danbretl.com`). Auth is **origin-scoped** — a session on `danbretl.github.io` does *not* exist on `localhost`; you must sign in again on each origin. `file://` breaks magic links entirely. Auth init is guarded by `AUTH_INIT_TIMEOUT_MS` (3200ms) and falls back to the local list if Supabase is unreachable.
+
+## Feature map (what exists)
+
+- **Add a movie:** TMDB autocomplete only (no free-text adds). Clicking a suggestion starts ranking immediately — no confirm button.
+- **Ranking:** binary-insertion comparison; **Undo last choice** / **Cancel ranking** (only one shows at a time; cancel restores the movie + the pre-ranking scroll position). Custom **pointer-based drag** reorder (handle-only on touch, drag-anywhere on desktop).
+- **Suggestions:** three sections — *Inspired by [movie]* (rank-weighted seed from your top 10), *All-time essentials* (TMDB discover, curated filters), *Popular now*. Each card has **Save** (→ Watch next) and **Hide** (→ Not for me) plus an info button. `SUGGESTION_PAGE_SIZE = 3`; per-section refresh; hidden during ranking.
+- **Queues:** *Watch next* and *Not for me* (synced via `movie_lists`). Rows click to rank; move/remove; info button. Subtitles show live counts.
+- **Movie detail pane:** opened by the info icon (card tap still ranks). Actions adapt to source (suggestion: Rank/Save/Hide; Watch next: Rank/Hide/Remove; Not for me: Rank/Save/Remove).
+- **Recently ranked** snapshot panel (front page).
+- **Share Studio** — *the* share flow: a configurable **generated SVG poster → PNG (via canvas)**, plus Markdown/JSON/Text exports (all driven by the same options). Toggleable sections (top/bottom picks, eras, genres, cast & crew, saved/hidden, whole list with posters-only / text-only / posters+text), **tones** (Factual/Punchy/Funny/Extreme) and **looks** (Classic/Cinema/Marquee/Color Pop/Warm). `SHARE_OPTIONS_VERSION = 5` (migrates saved prefs). Stats use passive metadata: `rankedAt` on rank, `savedAt`/`hiddenAt` on queue moves (no DB schema change).
+- **List settings:** a quiet gear icon (next to Share) opens a popover with account status / sign in / sign out / Clear rankings.
+- **Debug panel:** append `?debug=1` to the URL.
+
+## Code map (`app.js` — one ~4,200-line module, no internal imports)
+
+Approximate line ranges (they drift; grep to confirm):
+
+- **1–185** — Supabase-JS import, DOM refs, constants (function paths, storage keys, Supabase URL + anon key, `SHARE_OPTIONS_VERSION`).
+- **186–372** — mutable state, `shareOptions` default, `PLACEHOLDER_TITLES`; helpers (`movieKey`, `isDuplicateMovie`, runtime formatters, `withTimeout`, ranking-settings open/close).
+- **374–704** — `renderRanking`, the **rank-weighted insight engine** (`preferenceWeight`, `countPreference*`, `getRankingInsights`), and the "Recently ranked" snapshot.
+- **706–1003** — queue rendering + all persistence (local payload, `mergeRankings`, `movie_lists` load/save).
+- **1005–1055** — `loadRanking` / `saveRanking` (Supabase upsert + localStorage merge by timestamp).
+- **1057–1204** — comparison flow: `setComparisonMode`, scroll capture/restore, `startComparison`, `showComparison`, `handleDecision` (the binary-insertion search).
+- **1206–1296** — undo / cancel (`restorePendingOrigin`), form submit, clear-list, settings events.
+- **1346–1512** — restack/delete + the custom **pointer-based drag** reorder.
+- **1514–1606** — status line + `setAddFeedback` toast + `highlightRankingItem`.
+- **1608–1721** — movie detail pane (fetch by tmdbId, cache, context-aware actions).
+- **1723–2097** — suggestions engine (`filterUnrankedSuggestions`, seed picking, per-section update + stale-request guard).
+- **2100–2369** — share text/Markdown/JSON exports (shared `buildShareExportSections`).
+- **2371–3115** — SVG text-fit helpers, theme/tone tables, and **`buildShareSvg`** (section builders: `topPicks`/`bottomPicks`/`eras`/`genres`/`people`/`queues`/`fullList`).
+- **3117–3517** — share-options persistence (version migration), studio open/close + scroll lock, PNG/SVG export (canvas poster overlay via `getSvgPosterOverlays`/`drawPosterOverlays`).
+- **3519–3711** — debug panel, `migrateRanking`, auth (`setAuthUI`, `handleSignIn`/`Out`, `initAuth`).
+- **3713–3951** — stored-movie shape (`toStoredMovie`), queue operations, detail-action wiring.
+- **3953–4161** — Escape handler, search autocomplete (debounced 250ms, keyboard nav), `init()`.
+
+## Styling
+
+- **Design tokens** (`:root`): monochrome — `--bg-ink:#111`, `--bg:#f2f2f2`, `--panel:#fff`, `--ink-soft:#6b6b6b`, `--border:#111`, `--border-soft:#e2e2e2`. Font is **Space Grotesk** (Google Fonts); radial-gradient page background; panels are white / 20px radius / soft shadow. `[hidden]{display:none!important}` is a global rule several flows rely on.
+- **Body state classes** drive the major modes: `is-comparing`, `is-detail-open`, `is-share-open`, `is-dragging`.
+- **Responsive breakpoints**: `max-width:720px` (mobile portrait — the comparison "ballot"), `max-width:900px and (orientation:landscape)`, `min-width:721px`/`min-width:900px` (desktop). Hover affordances are gated behind `@media (hover:hover) and (pointer:fine)` and touch sizing behind `@media (pointer:coarse)` — so **don't put tap-critical styling in `:hover`.**
+
+## Running it & dev workflow
+
+- **Local server** (from repo root): `python3 -m http.server 8000` → http://localhost:8000/ . Any port is fine; add the exact local URL to Supabase Auth redirect URLs if you need sign-in to work locally. **`file://` won't work** for auth.
+- **Phone/tablet testing:** `http://<Mac-LAN-IP>:<port>/` (get IP via `ipconfig getifaddr en0`); device on same network.
+- **Validate before committing:** `node --check app.js` for JS; `deno check supabase/functions/<fn>/index.ts` for edge functions.
+- **Deploy an edge function:** `supabase functions deploy <name>` (Supabase CLI via Homebrew; project is linked to ref `hrfhakrxsllrqmscxxpb`). **You must redeploy after changing a function or its response shape.**
+- **Screenshots:** `npm run screenshots` (headless Chrome; flags `--label=`, `--only=desktop-comparison,mobile-comparison-portrait,...`). Archives to `debug/screenshots/runs/<timestamp>/` + `latest/` (both gitignored).
+- **Cache-busting:** when you change JS or CSS, **bump `app.js?v=N` / `styles.css?v=N` in `index.html`** — otherwise GitHub Pages and browsers serve stale assets. Current: `app.js?v=39`, `styles.css?v=23`.
+
+## Conventions
+
+- **Commits:** short, imperative, **single line, no body, no trailer** (e.g. "Replace list snapshot with recent rankings", "Sync suggestion queues with Supabase"). Commit **directly to `main`**. **Only commit/push when explicitly asked.** Stage only the relevant app/function files.
+- **Never commit:** `.DS_Store`, `debug/`, `supabase/.temp/`, `.vscode/`, `package-lock.json` (all gitignored). **Never put secrets in the repo** (TMDB key, Resend key, Supabase service key). The Supabase *anon* key in `app.js` is public-by-design and gated by RLS.
+- **`notes/feature-ideas/`** holds fully-fleshed-out ideas parked before deciding to build them (movie-detail [shipped], ranking-review-mode, better-suggestion-explanations, undo-history-for-list-changes, personal-stats-and-taste-profile). Add to it rather than scattering TODOs.
+
+## Design & product taste (read before touching UI)
+
+- **Mobile is first-class** (it's used heavily on phones): big thumb-friendly tap targets, both comparison choices must fit one screen in **portrait *and* landscape**, don't waste vertical space, keep reachable controls low.
+- **Motion is minimal, consistent, and predictable** — one-shot animations, no jitter.
+- When unsure about a layout/typography choice, **mirror the primary ranking list.**
+- **"Favorite"/taste signals are rank-weighted** (where a movie sits in the list matters), *not* raw frequency. Charts can show counts, but callouts say "highest ranked …".
+- **Don't surface TMDB ratings** — they bias users away from their own taste; StackRank is personal preference, not consensus.
+- After finishing/canceling a ranking, **`blur()` the title input, never `focus()`** — focusing pops the mobile keyboard. (This bug has recurred; watch for it in any "after ranking" path.)
+- In the share poster: titles must keep inner **padding** and never touch borders (width-based wrapping + clip-path backstop); names never truncate.
+
+## Debugging gotchas
+
+- **"My change isn't showing up"** → first suspect (a) uncommitted/unpushed work (GitHub Pages serves the old version) or (b) browser cache (hard-refresh, and check the `?v=` cache key) — *not* a logic bug.
+- **Blank page locally / no data** → usually a JS boot error halting `app.js` before render, or simply being signed out on `localhost` (origin-scoped session). Check the console first.
+- **PNG export has no posters** → must go through the `tmdb-image` proxy and account for SVG group `translate()` transforms when drawing onto canvas.
+
+## History
+
+Built collaboratively with OpenAI Codex across four sessions (Dec 2025 build; Jun 2026 queues/cancel/mobile-ranking/detail-pane; Jun 2026 Share Suite; Jun 2026 snapshot revamp). The full transcripts are on this machine under `~/.codex/sessions/` if deeper history is ever needed.

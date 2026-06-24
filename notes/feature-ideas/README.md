@@ -12,6 +12,7 @@ This folder captures product ideas that are worth revisiting later. They are int
 2. [Better suggestion explanations](better-suggestion-explanations.md)
 3. [Undo history for list changes](undo-history-for-list-changes.md)
 4. [Personal stats and taste profile](personal-stats-and-taste-profile.md)
+5. [Share export sizes and a multi-image image set](share-export-sizes-and-image-set.md)
 
 ## Completed idea with potential follow-ups
 

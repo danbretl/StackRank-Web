@@ -21,6 +21,16 @@ const cancelRankingButton = document.getElementById("cancel-ranking");
 const rankingList = document.getElementById("ranking");
 const watchListEl = document.getElementById("watch-list");
 const notInterestedListEl = document.getElementById("not-interested-list");
+const watchListSub = document.getElementById("watch-list-sub");
+const notInterestedSub = document.getElementById("not-interested-sub");
+const rankingSettingsToggle = document.getElementById("ranking-settings-toggle");
+const rankingSettingsPanel = document.getElementById("ranking-settings-panel");
+const rankingSettingsClose = document.getElementById("ranking-settings-close");
+const settingsAuthState = document.getElementById("settings-auth-state");
+const settingsAuthSignedOut = document.getElementById("settings-auth-signed-out");
+const settingsAuthEmailInput = document.getElementById("settings-auth-email");
+const settingsSignInButton = document.getElementById("settings-sign-in");
+const settingsSignOutButton = document.getElementById("settings-sign-out");
 const clearButton = document.getElementById("clear-list");
 const shareButton = document.getElementById("share-list");
 const snapshotSub = document.getElementById("snapshot-sub");
@@ -106,6 +116,7 @@ let activeSuggestionIndex = -1;
 let currentSuggestions = [];
 let debounceTimer = null;
 let currentUser = null;
+let authNotice = "";
 let statusTimeout = null;
 let dragIndex = null;
 let dragItem = null;
@@ -175,6 +186,7 @@ const tmdbImageUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_IMAGE_PATH}` : "";
 const SUGGESTION_PAGE_SIZE = 3;
 const TOAST_DURATION_MS = 3200;
 const TOAST_EXIT_MS = 240;
+const AUTH_INIT_TIMEOUT_MS = 3200;
 const PLACEHOLDER_TITLES = [
   "The Godfather",
   "Moonlight",
@@ -303,12 +315,61 @@ const hiddenRuntimeLabel = (toneName = shareOptions.tone) => {
   return labels[toneName] || labels.neutral;
 };
 
+const withTimeout = (promise, timeoutMs, message) => {
+  let timeoutId = null;
+  const timeout = new Promise((_, reject) => {
+    timeoutId = window.setTimeout(() => reject(new Error(message)), timeoutMs);
+  });
+  return Promise.race([promise, timeout]).finally(() => {
+    if (timeoutId !== null) window.clearTimeout(timeoutId);
+  });
+};
+
 const getListId = () => {
   if (currentUser && currentUser.id) {
     return `user:${currentUser.id}`;
   }
   return null;
 };
+
+function updateRankingSettingsAuthUI() {
+  if (!supabaseEnabled) {
+    settingsAuthState.textContent = "Sync is not configured.";
+    settingsAuthSignedOut.hidden = true;
+    settingsSignOutButton.hidden = true;
+    return;
+  }
+
+  if (currentUser) {
+    settingsAuthState.textContent = `Signed in as ${currentUser.email || "user"}`;
+    settingsAuthSignedOut.hidden = true;
+    settingsSignOutButton.hidden = false;
+    return;
+  }
+
+  settingsAuthState.textContent = "Not signed in";
+  settingsAuthSignedOut.hidden = false;
+  settingsSignOutButton.hidden = true;
+}
+
+function closeRankingSettings({ restoreFocus = true } = {}) {
+  if (rankingSettingsPanel.hidden) return;
+  rankingSettingsPanel.hidden = true;
+  rankingSettingsToggle.setAttribute("aria-expanded", "false");
+  if (restoreFocus) rankingSettingsToggle.focus({ preventScroll: true });
+}
+
+function openRankingSettings() {
+  updateRankingSettingsAuthUI();
+  rankingSettingsPanel.hidden = false;
+  rankingSettingsToggle.setAttribute("aria-expanded", "true");
+  rankingSettingsClose.focus({ preventScroll: true });
+}
+
+function toggleRankingSettings() {
+  if (rankingSettingsPanel.hidden) openRankingSettings();
+  else closeRankingSettings();
+}
 
 const renderRanking = () => {
   rankingList.innerHTML = "";
@@ -750,7 +811,15 @@ const renderQueueList = (container, list, emptyText, source) => {
   });
 };
 
+const queueCountLabel = (count, suffix) => `${count} movie${count === 1 ? "" : "s"} ${suffix}`;
+
+const renderSuggestionQueueSubtitles = () => {
+  watchListSub.textContent = queueCountLabel(watchList.length, "saved for later");
+  notInterestedSub.textContent = queueCountLabel(notInterestedList.length, "hidden from suggestions");
+};
+
 const renderSuggestionQueues = () => {
+  renderSuggestionQueueSubtitles();
   renderQueueList(watchListEl, watchList, "No saved movies yet.", "watch");
   renderQueueList(notInterestedListEl, notInterestedList, "Nothing hidden yet.", "notInterested");
 };
@@ -1215,7 +1284,16 @@ clearButton.addEventListener("click", () => {
   renderRanking();
   updateSuggestions();
   titleInput.focus();
+  closeRankingSettings({ restoreFocus: false });
 });
+
+rankingSettingsToggle.addEventListener("click", (event) => {
+  event.stopPropagation();
+  toggleRankingSettings();
+});
+rankingSettingsClose.addEventListener("click", () => closeRankingSettings());
+settingsSignInButton.addEventListener("click", () => handleSignIn(settingsAuthEmailInput));
+settingsSignOutButton.addEventListener("click", () => handleSignOut());
 
 shareButton.addEventListener("click", openShareStudio);
 shareClose.addEventListener("click", () => closeShareStudio());
@@ -2580,7 +2658,7 @@ function buildShareSvg(options = shareOptions) {
 
   const movieRow = (movie, rank, rowY, variant = "top") => {
     const titleLines = wrapTextToSvgWidth(movie.title, 930, 36, 2);
-    const metaY = rowY + (titleLines.length > 1 ? 58 : 42);
+    const metaY = rowY + (titleLines.length > 1 ? 50 : 34);
     const fill = variant === "bottom" ? theme.faint : theme.ink;
     const numberClass = variant === "bottom" ? "deep-rank" : "rank-number";
     const stroke = variant === "bottom" ? `stroke="${panelStroke}" stroke-width="3"` : "";
@@ -2824,20 +2902,40 @@ function buildShareSvg(options = shareOptions) {
 
     if (listStyle === "text") {
       const cols = 2;
-      const colW = 486;
-      const rowH = 64;
+      const colW = 488;
+      const colGap = 42;
+      const rankSize = 18;
+      const titleXOffset = 54;
+      const titleWidth = colW - titleXOffset - 8;
+      const titleFontSize = 22;
+      const titleLineHeight = 25;
+      const titleY = 18;
+      const metaGap = 25;
+      const rowPad = 18;
+      const rowHeights = insights.enrichedRanking.map((movie) => {
+        const lines = wrapTextToSvgWidth(movie.title, titleWidth, titleFontSize, 2);
+        return titleY + (lines.length - 1) * titleLineHeight + metaGap + rowPad;
+      });
+      const rowOffsets = [];
+      let runningRowY = posterStartY;
+      for (let row = 0; row < Math.ceil(insights.enrichedRanking.length / cols); row += 1) {
+        const rowHeight = Math.max(...rowHeights.slice(row * cols, row * cols + cols), 0);
+        rowOffsets[row] = runningRowY;
+        runningRowY += rowHeight;
+      }
       insights.enrichedRanking.forEach((movie, index) => {
         const col = index % cols;
         const row = Math.floor(index / cols);
-        const x = 86 + col * 530;
-        const rowY = posterStartY + row * rowH;
-        const titleLines = wrapText(movie.title, 24, 2);
-        block += `<circle cx="${x + 18}" cy="${rowY + 18}" r="18" fill="${theme.faint}" stroke="${panelStroke}" stroke-width="2" />`;
-        block += `<text x="${x + 18}" y="${rowY + 26}" class="deep-rank" text-anchor="middle">${index + 1}</text>`;
-        block += svgTextLines(titleLines, x + 54, rowY + 18, "poster-title", 25);
-        block += `<text x="${x + 54}" y="${rowY + 48}" class="poster-rank">${xmlEscape(movie.year ? `Released ${movie.year}` : "Year unknown")}</text>`;
+        const x = 86 + col * (colW + colGap);
+        const rowY = rowOffsets[row];
+        const titleLines = wrapTextToSvgWidth(movie.title, titleWidth, titleFontSize, 2);
+        const metaY = rowY + titleY + (titleLines.length - 1) * titleLineHeight + metaGap;
+        block += `<circle cx="${x + rankSize}" cy="${rowY + 18}" r="${rankSize}" fill="${theme.faint}" stroke="${panelStroke}" stroke-width="2" />`;
+        block += `<text x="${x + rankSize}" y="${rowY + 26}" class="deep-rank" text-anchor="middle">${index + 1}</text>`;
+        block += svgTextLines(titleLines, x + titleXOffset, rowY + titleY, "full-list-text-title", titleLineHeight);
+        block += `<text x="${x + titleXOffset}" y="${metaY}" class="poster-rank">${xmlEscape(movie.year ? `Released ${movie.year}` : "Year unknown")}</text>`;
       });
-      return addSection(tone.listTitle, "Every movie, top to bottom", block, posterStartY + Math.ceil(ranking.length / cols) * rowH);
+      return addSection(tone.listTitle, "Every movie, top to bottom", block, runningRowY - posterStartY);
     }
 
     if (listStyle === "mixed") {
@@ -2875,7 +2973,7 @@ function buildShareSvg(options = shareOptions) {
         const posterData = posterDataFor(movie, allowExternalPosters, usePosterProxy);
         const title = titleFit(`${index + 1}. ${movie.title}`);
         const meta = movie.year ? `Released ${movie.year}` : "Year unknown";
-        const metaGap = 24;
+        const metaGap = 30;
         const titleAscent = Math.round(title.fontSize * 0.76);
         const metaDescent = 5;
         const groupHeight = titleAscent + (title.lines.length - 1) * title.lineHeight + metaGap + metaDescent;
@@ -2915,8 +3013,9 @@ function buildShareSvg(options = shareOptions) {
     }
 
     const cellW = 176;
-    const imageH = 252;
-    const cellH = imageH;
+    const cellH = 260;
+    const posterInset = 10;
+    const imageH = cellH - posterInset * 2;
     const gap = 22;
     const cols = 5;
     insights.enrichedRanking.forEach((movie, index) => {
@@ -2925,24 +3024,30 @@ function buildShareSvg(options = shareOptions) {
       const x = 86 + col * (cellW + gap);
       const tileY = posterStartY + row * (cellH + 24);
       const posterData = posterDataFor(movie, allowExternalPosters, usePosterProxy);
+      const badgeLabel = String(index + 1);
+      const badgeW = Math.max(34, 20 + badgeLabel.length * 10);
+      const badgeX = x + cellW - posterInset - badgeW - 8;
+      const badgeY = tileY + posterInset + 8;
       block += `<rect x="${x}" y="${tileY}" width="${cellW}" height="${cellH}" rx="14" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="2" />`;
       if (posterData) {
-        block += `<image href="${xmlEscape(posterData)}" x="${x + 8}" y="${tileY + 8}" width="${cellW - 16}" height="${imageH}" preserveAspectRatio="xMidYMid slice" />`;
+        block += `<image href="${xmlEscape(posterData)}" x="${x + posterInset}" y="${tileY + posterInset}" width="${cellW - posterInset * 2}" height="${imageH}" preserveAspectRatio="xMidYMid slice" />`;
       } else {
         const fallbackClipId = `full-list-poster-title-${index}`;
         const fallbackTextX = x + 18;
         const fallbackTextWidth = cellW - 36;
-        block += `<rect x="${x + 8}" y="${tileY + 8}" width="${cellW - 16}" height="${imageH}" rx="10" fill="${theme.faint}" />`;
-        block += `<clipPath id="${fallbackClipId}"><rect x="${fallbackTextX}" y="${tileY + 24}" width="${fallbackTextWidth}" height="${imageH - 48}" /></clipPath>`;
+        block += `<rect x="${x + posterInset}" y="${tileY + posterInset}" width="${cellW - posterInset * 2}" height="${imageH}" rx="10" fill="${theme.faint}" />`;
+        block += `<clipPath id="${fallbackClipId}"><rect x="${fallbackTextX}" y="${tileY + 26}" width="${fallbackTextWidth}" height="${imageH - 52}" /></clipPath>`;
         block += svgTextLines(
-          wrapTextToSvgWidth(movie.title, fallbackTextWidth, 18, isMixed ? 5 : 6),
+          wrapTextToSvgWidth(movie.title, fallbackTextWidth, 18, 6),
           fallbackTextX,
-          tileY + 42,
+          tileY + 44,
           "poster-title-compact",
           22,
           `clip-path="url(#${fallbackClipId})"`,
         );
       }
+      block += `<rect x="${badgeX}" y="${badgeY}" width="${badgeW}" height="28" rx="14" fill="${theme.paper}" fill-opacity="0.9" stroke="${panelStroke}" stroke-width="1.5" />`;
+      block += `<text x="${badgeX + badgeW / 2}" y="${badgeY + 20}" class="poster-number-badge" text-anchor="middle">${badgeLabel}</text>`;
     });
     return addSection(
       tone.listTitle,
@@ -2988,12 +3093,14 @@ function buildShareSvg(options = shareOptions) {
     .range-title { font: 700 31px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
     .range-title-small { font: 700 25px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
     .poster-title { font: 700 20px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .full-list-text-title { font: 700 22px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
     .poster-title-compact { font: 700 18px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
     .full-list-row-title-30 { font: 700 30px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
     .full-list-row-title-28 { font: 700 28px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
     .full-list-row-title-26 { font: 700 26px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
     .full-list-row-title-24 { font: 700 24px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
-    .poster-rank { font: 700 21px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
+    .poster-rank { font: 400 20px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
+    .poster-number-badge { font: 700 15px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
   </style>
   <rect width="${width}" height="${height}" fill="${theme.bg}" />
   <rect x="44" y="44" width="1112" height="${borderHeight}" rx="38" fill="none" stroke="${frameStroke}" stroke-width="4" />
@@ -3492,6 +3599,7 @@ const setAuthUI = () => {
     authSignedOut.classList.add("auth__hidden");
     authSignedIn.classList.add("auth__hidden");
     authStatus.textContent = "Supabase is not configured.";
+    updateRankingSettingsAuthUI();
     return;
   }
 
@@ -3499,19 +3607,22 @@ const setAuthUI = () => {
     authSignedOut.classList.add("auth__hidden");
     authSignedIn.classList.remove("auth__hidden");
     authUserLabel.textContent = `Signed in as ${currentUser.email || "user"}`;
-    authStatus.textContent = "";
+    authStatus.textContent = authNotice;
   } else {
     authSignedOut.classList.remove("auth__hidden");
     authSignedIn.classList.add("auth__hidden");
-    authStatus.textContent = "";
+    authStatus.textContent = authNotice;
   }
+  updateRankingSettingsAuthUI();
 };
 
-const handleSignIn = async () => {
+const handleSignIn = async (sourceInput = authEmailInput) => {
   if (!supabaseEnabled || !supabase) return;
-  const email = authEmailInput.value.trim();
+  authNotice = "";
+  const email = sourceInput.value.trim();
   if (!email) {
     authStatus.textContent = "Add an email address to receive a sign-in link.";
+    sourceInput.focus();
     return;
   }
   authStatus.textContent = "Sending magic link...";
@@ -3529,11 +3640,14 @@ const handleSignIn = async () => {
     return;
   }
   authEmailInput.value = "";
+  settingsAuthEmailInput.value = "";
   authStatus.textContent = "Check your email for the sign-in link.";
+  closeRankingSettings({ restoreFocus: false });
 };
 
 const handleSignOut = async () => {
   if (!supabaseEnabled || !supabase) return;
+  authNotice = "";
   const { error } = await supabase.auth.signOut();
   if (error) {
     authStatus.textContent = `Sign-out failed: ${error.message}`;
@@ -3550,17 +3664,30 @@ const handleSignOut = async () => {
   renderSuggestionQueues();
   updateSuggestions();
   authStatus.textContent = "Signed out.";
+  closeRankingSettings({ restoreFocus: false });
 };
 
 const initAuth = async () => {
   if (!supabaseEnabled || !supabase) return;
-  const { data } = await supabase.auth.getSession();
-  currentUser = data.session ? data.session.user : null;
+  try {
+    const { data } = await withTimeout(
+      supabase.auth.getSession(),
+      AUTH_INIT_TIMEOUT_MS,
+      "Supabase auth initialization timed out.",
+    );
+    currentUser = data.session ? data.session.user : null;
+    authNotice = "";
+  } catch (error) {
+    currentUser = null;
+    authNotice = "Could not reach Supabase. Showing local list.";
+    console.warn("Could not initialize Supabase auth", error);
+  }
   setAuthUI();
   updateStatus();
 
   supabase.auth.onAuthStateChange((_event, session) => {
     currentUser = session ? session.user : null;
+    authNotice = "";
     setAuthUI();
     updateStatus();
     loadRanking()
@@ -3571,10 +3698,15 @@ const initAuth = async () => {
         renderSuggestionQueues();
         updateDebugPanel();
         updateSuggestions();
+      })
+      .catch((error) => {
+        authNotice = "Could not sync with Supabase. Showing local list.";
+        setAuthUI();
+        console.warn("Could not refresh synced list", error);
       });
   });
 
-  authSignInButton.addEventListener("click", handleSignIn);
+  authSignInButton.addEventListener("click", () => handleSignIn(authEmailInput));
   authSignOutButton.addEventListener("click", handleSignOut);
 };
 
@@ -3820,6 +3952,10 @@ detailHide.addEventListener("click", () => {
 
 document.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
+  if (!rankingSettingsPanel.hidden) {
+    closeRankingSettings();
+    return;
+  }
   if (!shareStudio.hidden) {
     closeShareStudio();
     return;
@@ -3984,6 +4120,13 @@ titleInput.addEventListener("keydown", (event) => {
 });
 
 document.addEventListener("click", (event) => {
+  if (
+    !rankingSettingsPanel.hidden &&
+    !rankingSettingsPanel.contains(event.target) &&
+    event.target !== rankingSettingsToggle
+  ) {
+    closeRankingSettings({ restoreFocus: false });
+  }
   if (!suggestions.contains(event.target) && event.target !== titleInput) {
     hideSuggestions();
   }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>StackRank</title>
-    <link rel="stylesheet" href="styles.css?v=23" />
+    <link rel="stylesheet" href="styles.css?v=24" />
   </head>
   <body>
     <main class="app">
@@ -262,6 +262,32 @@
             </div>
             <div class="share-controls">
               <fieldset class="share-fieldset">
+                <legend>Format</legend>
+                <div class="share-theme">
+                  <label>
+                    <input type="radio" name="share-format" value="single" checked />
+                    <span>Single image</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="share-format" value="set" />
+                    <span>Image set</span>
+                  </label>
+                </div>
+              </fieldset>
+              <fieldset class="share-fieldset" id="share-shape-fieldset">
+                <legend>Shape</legend>
+                <div class="share-theme">
+                  <label>
+                    <input type="radio" name="share-shape" value="skinny" checked />
+                    <span>Skinny</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="share-shape" value="wide" />
+                    <span>Wide</span>
+                  </label>
+                </div>
+              </fieldset>
+              <fieldset class="share-fieldset">
                 <legend>Include</legend>
                 <label class="share-toggle">
                   <input type="checkbox" id="share-include-top" checked />
@@ -427,6 +453,6 @@
       </footer>
     </main>
 
-    <script type="module" src="app.js?v=41"></script>
+    <script type="module" src="app.js?v=50"></script>
   </body>
 </html>

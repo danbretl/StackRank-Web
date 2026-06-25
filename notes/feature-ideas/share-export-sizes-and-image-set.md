@@ -1,6 +1,6 @@
 # Feature idea: Share export sizes and a multi-image "image set"
 
-Status: exploratory (parked — larger build; this is the spec to hand a future session)
+Status: **v1 shipped 2026-06-24** — Phase 0 (enabling refactor), Phase 1 (Shape: Portrait/Landscape) and Phase 2 (Image set: 6 groups, saved&hidden 5+5, paginated whole list, sequential downloads) are built. `SHARE_OPTIONS_VERSION` is now 6. Remaining: **Phase 3 polish** (ZIP delivery, iPad page size, in-studio per-card previews/labels beyond the stacked deck). The notes below are the original spec; the "Suggested phasing" and "Acceptance criteria" sections still describe the intended end state.
 
 ## Summary
 

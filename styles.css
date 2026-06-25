@@ -1536,12 +1536,28 @@ body.is-comparing .compare-panel {
 .share-preview {
   display: grid;
   place-items: start center;
+  gap: 18px;
   min-width: 0;
 }
 
 .share-preview svg {
   display: block;
   width: min(100%, 560px);
+  height: auto;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.14);
+}
+
+/* Image-set deck preview: one card per content group, stacked vertically. */
+.share-preview-card {
+  display: grid;
+  place-items: start center;
+  width: 100%;
+  min-width: 0;
+}
+
+.share-preview-card svg {
+  display: block;
+  width: min(100%, 420px);
   height: auto;
   box-shadow: 0 16px 34px rgba(0, 0, 0, 0.14);
 }

@@ -47,6 +47,7 @@ const shareIncludePeople = document.getElementById("share-include-people");
 const shareIncludeQueues = document.getElementById("share-include-queues");
 const shareIncludeFullList = document.getElementById("share-include-full-list");
 const shareFullListStyleControls = document.querySelectorAll('input[name="share-full-list-style"]');
+const shareShapeFieldset = document.getElementById("share-shape-fieldset");
 const shareDownloadPng = document.getElementById("share-download-png");
 const shareDownloadSvg = document.getElementById("share-download-svg");
 const shareCopyMarkdown = document.getElementById("share-copy-markdown");
@@ -96,7 +97,7 @@ const TMDB_POSTER_SMALL = "https://image.tmdb.org/t/p/w92";
 const STORAGE_KEY = "stackrank:movies:v1";
 const QUEUE_STORAGE_KEY = "stackrank:suggestion-queues:v1";
 const SHARE_OPTIONS_KEY = "stackrank:share-options:v1";
-const SHARE_OPTIONS_VERSION = 5;
+const SHARE_OPTIONS_VERSION = 6;
 const WATCH_LIST_TYPE = "watch";
 const NOT_INTERESTED_LIST_TYPE = "not_interested";
 const INSPIRED_SEED_KEY = "stackrank:inspired-seed:v1";
@@ -165,10 +166,15 @@ let shareOptions = {
   fullListStyle: "mixed",
   theme: "classic",
   tone: "neutral",
+  format: "single",
+  shape: "skinny",
 };
 let shareDetailRequestId = 0;
 let shareDetailsLoading = false;
 let sharePngPreparing = false;
+// Last preview markup written to the DOM; lets us skip redundant innerHTML
+// rewrites (which reload poster <image>s and cause a visible flicker).
+let lastSharePreviewMarkup = "";
 let shareScrollLockY = 0;
 const posterDataCache = new Map();
 
@@ -1313,6 +1319,8 @@ shareStudio.addEventListener("click", (event) => {
   ...shareFullListStyleControls,
   ...document.querySelectorAll('input[name="share-theme"]'),
   ...document.querySelectorAll('input[name="share-tone"]'),
+  ...document.querySelectorAll('input[name="share-format"]'),
+  ...document.querySelectorAll('input[name="share-shape"]'),
 ].forEach((control) => {
   control.addEventListener("input", updateShareOptionsFromControls);
 });
@@ -2116,6 +2124,17 @@ function lowercaseFirst(value) {
   return text ? `${text.charAt(0).toLowerCase()}${text.slice(1)}` : "";
 }
 
+// Most-recently-added queue items first. Queue moves stamp savedAt/hiddenAt and
+// push to the end, so we sort by timestamp desc and fall back to array order
+// (newest last) for legacy items that predate the timestamps.
+function recentQueueItems(list, timestampKey, count) {
+  return [...(list || [])]
+    .map((movie, index) => ({ movie, index }))
+    .sort((a, b) => (Number(b.movie[timestampKey] || 0) - Number(a.movie[timestampKey] || 0)) || (b.index - a.index))
+    .slice(0, count)
+    .map((entry) => entry.movie);
+}
+
 function getSharePickGroups(insights) {
   const movies = insights.enrichedRanking || [];
   const bestCount = Math.min(5, Math.ceil(movies.length / 2));
@@ -2615,46 +2634,152 @@ function posterDataFor(movie, allowExternal = true, useProxy = false) {
   return `${TMDB_POSTER_SMALL}${movie.posterPath}`;
 }
 
-function buildShareSvg(options = shareOptions) {
-  const insights = getRankingInsights();
-  const theme = getShareTheme(options.theme);
-  const tone = getShareTone(options.tone);
-  const width = 1200;
+function shareSvgStyles(theme, heroFontSize, heroFill, sectionFill) {
+  return `
+    .brand { font: 700 32px Arial, Helvetica, sans-serif; letter-spacing: 7px; text-transform: uppercase; fill: ${theme.ink}; }
+    .kicker { font: 500 24px Arial, Helvetica, sans-serif; letter-spacing: 5px; text-transform: uppercase; fill: ${theme.muted}; }
+    .hero { font: 700 ${heroFontSize}px Arial, Helvetica, sans-serif; fill: ${heroFill}; }
+    .section-title { font: 700 38px Arial, Helvetica, sans-serif; letter-spacing: 4px; text-transform: uppercase; fill: ${sectionFill}; }
+    .section-sub { font: 500 27px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
+    .pick-title { font: 700 36px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .pick-meta, .stat-label, .bar-label, .bar-count, .range-span, .footer { font: 500 25px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
+    .rank-number { font: 700 27px Arial, Helvetica, sans-serif; fill: ${theme.bg}; }
+    .deep-rank { font: 700 24px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .stat-value { font: 700 54px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .stat-value-small { font: 700 30px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .stat-card-label { font: 700 21px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
+    .stat-card-value { font: 700 25px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .stat-card-value-emphasis { font: 700 30px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .chart-caption { font: 700 22px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
+    .queue-runtime { font: 700 40px Arial, Helvetica, sans-serif; }
+    .queue-runtime-small { font: 700 30px Arial, Helvetica, sans-serif; }
+    .people-heading { font: 700 27px Arial, Helvetica, sans-serif; fill: ${theme.section || theme.ink}; text-transform: uppercase; letter-spacing: 4px; }
+    .people-label { font: 500 21px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
+    .range-year { font: 700 42px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .range-title { font: 700 31px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .range-title-small { font: 700 25px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .poster-title { font: 700 20px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .full-list-text-title { font: 700 22px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .poster-title-compact { font: 700 18px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .full-list-row-title-30 { font: 700 30px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .full-list-row-title-28 { font: 700 28px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .full-list-row-title-26 { font: 700 26px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .full-list-row-title-24 { font: 700 24px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .full-list-row-title-22 { font: 700 22px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .full-list-row-title-20 { font: 700 20px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
+    .poster-rank { font: 400 20px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
+    .poster-number-badge { font: 700 15px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
+  `;
+}
+
+// Wraps composed inner content in the outer SVG frame (background + border).
+// width/height are the page dimensions; the border insets 44px on every side,
+// matching the original single-poster geometry (1112 = 1200 - 88).
+function renderShareSvg({ width, height, theme, heroFontSize, heroFill, sectionFill, inner }) {
+  const frameStroke = theme.frame || theme.line;
+  const borderHeight = height - 88;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="StackRank movie list share image">
+  <style>${shareSvgStyles(theme, heroFontSize, heroFill, sectionFill)}</style>
+  <rect width="${width}" height="${height}" fill="${theme.bg}" />
+  <rect x="44" y="44" width="${width - 88}" height="${borderHeight}" rx="38" fill="none" stroke="${frameStroke}" stroke-width="4" />
+  ${inner}
+</svg>`;
+}
+
+// The shared hero/brand/divider header. `kicker` defaults to "Movies" (the
+// single-poster look); image-set cards pass a group label + counter instead.
+// Returns the header SVG plus the geometry the page composer needs.
+function buildShareHeader(width, theme, tone, options, { kicker = "Movies" } = {}) {
   const displayName = getShareDisplayName(options);
   const heroTitle = displayName ? `${possessiveName(displayName)} ${lowercaseFirst(tone.heroLead)}` : tone.heroLead;
   const topTitleLines = wrapText(heroTitle, 24, 3);
   const heroFontSize = topTitleLines.length >= 3 ? 58 : topTitleLines.length === 2 ? 68 : 78;
   const heroLineHeight = Math.round(heroFontSize * 1.08);
   const dividerY = 286 + (topTitleLines.length - 1) * heroLineHeight + 72;
-  let y = dividerY + 96;
-  const sections = [];
-  const pickGroups = getSharePickGroups(insights);
-  const marginX = 86;
+  const sectionsStartY = dividerY + 96;
   const frameStroke = theme.frame || theme.line;
+  const svg = `<text x="86" y="122" class="brand">StackRank</text>
+  <text x="86" y="168" class="kicker">${xmlEscape(kicker)}</text>
+  ${svgTextLines(topTitleLines, 86, 280, "hero", heroLineHeight)}
+  <path d="M86 ${dividerY}H${width - 86}" stroke="${frameStroke}" stroke-width="4" />`;
+  return {
+    svg,
+    heroFontSize,
+    heroFill: theme.hero || theme.ink,
+    sectionFill: theme.section || theme.muted,
+    dividerY,
+    sectionsStartY,
+  };
+}
+
+// Places a single section descriptor in single-column flow at `startY`.
+// This reproduces the original addSection() math exactly.
+function placeSectionFlow(desc, startY, marginX = 86) {
+  // Roomier offsets to suit the larger section title (38px) and subtitle (27px).
+  const bodyOffset = desc.subtitle ? 88 : 64;
+  const bodyY = startY + bodyOffset;
+  const nextY = bodyY + desc.height + 72;
+  const titleSvg = `<text x="${marginX}" y="${startY}" class="section-title">${xmlEscape(desc.title)}</text>`;
+  const subSvg = desc.subtitle
+    ? `<text x="${marginX}" y="${startY + 44}" class="section-sub">${xmlEscape(desc.subtitle)}</text>`
+    : "";
+  const svg = `${titleSvg}${subSvg}<g transform="translate(0 ${bodyY})">${desc.body}</g>`;
+  return { svg, nextY };
+}
+
+function shareFooterSvg(width, height) {
+  const generated = new Date().toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+  const footerY = height - 100;
+  return `<text x="86" y="${footerY}" class="footer">Generated ${xmlEscape(generated)}</text>
+  <text x="${width - 86}" y="${footerY}" class="footer" text-anchor="end">stackrank movies</text>`;
+}
+
+// Width-agnostic section descriptor builders. Each returns
+// { key, title, subtitle, body, height } positioned for a 1200-wide content
+// column, or null when its toggle is off / there is no data. Whole sections are
+// tiled by the page composers, so the internal geometry never changes between
+// Portrait, Landscape and image-set cards.
+function shareSectionBuilders(insights, theme, tone, options) {
+  const marginX = 86;
+  // Symmetric content box: left and right margins both equal marginX on the
+  // 1200-wide content column, so every section lines up on the right edge
+  // (1114) the same as the left (86). The 2-up cards fill it with one gap.
+  const contentRight = 1200 - marginX; // 1114
+  const colGap = 44;
+  const cardW = Math.round((contentRight - marginX - colGap) / 2); // 492
+  const colUnit = cardW + colGap; // 536 (distance between the two column lefts)
   const panelStroke = theme.panelLine || theme.line;
-  const heroFill = theme.hero || theme.ink;
-  const sectionFill = theme.section || theme.muted;
+  const pickGroups = getSharePickGroups(insights);
   const allowExternalPosters = options.externalPosters !== false;
   const usePosterProxy = options.posterProxy === true;
   const barLabelX = 86;
   const barTrackX = 398;
-  const barTrackWidth = 520;
+  // Track + count extend to the right edge of the cards above, with the count
+  // right-aligned there (like Cast & crew).
+  const barCountRight = contentRight;
+  const barCountPad = 64;
+  const barTrackWidth = barCountRight - barCountPad - barTrackX;
   const barHeight = 28;
-  const barCountPad = 28;
 
-  const sectionTitle = (label, x, titleY) =>
-    `<text x="${x}" y="${titleY}" class="section-title">${xmlEscape(label)}</text>`;
+  const section = (key, title, subtitle, body, height) =>
+    body ? { key, title, subtitle, body, height } : null;
 
-  const sectionSub = (label, x, subY) =>
-    label ? `<text x="${x}" y="${subY}" class="section-sub">${xmlEscape(label)}</text>` : "";
-
-  const addSection = (title, subtitle, body, height) => {
-    if (!body) return "";
-    const startY = y;
-    const bodyOffset = subtitle ? 76 : 58;
-    const bodyY = startY + bodyOffset;
-    y = bodyY + height + 68;
-    return `${sectionTitle(title, marginX, startY)}${sectionSub(subtitle, marginX, startY + 40)}<g transform="translate(0 ${bodyY})">${body}</g>`;
+  // Placeholder body for a section whose data is still being fetched (genres,
+  // cast & crew). A caption plus a few pulsing skeleton bars so the customer
+  // can see content is on the way rather than an empty / "no data" card.
+  const loadingBody = (caption) => {
+    const widths = [620, 520, 700, 460, 580];
+    const bars = widths
+      .map((w, i) => `<rect x="86" y="${64 + i * 46}" width="${w}" height="26" rx="13" fill="${theme.faint}" />`)
+      .join("");
+    const body =
+      `<text x="86" y="30" class="people-heading">${xmlEscape(caption)}</text>` +
+      `<g opacity="0.6"><animate attributeName="opacity" values="0.3;0.85;0.3" dur="1.3s" repeatCount="indefinite" />${bars}</g>`;
+    return { body, height: 64 + widths.length * 46 + 6 };
   };
 
   const movieRow = (movie, rank, rowY, variant = "top") => {
@@ -2671,34 +2796,77 @@ function buildShareSvg(options = shareOptions) {
 
   const countBarRow = (item, index, rowY, maxCount, label) => {
     const barWidth = Math.max(60, Math.round((item.count / Math.max(1, maxCount)) * barTrackWidth));
-    const countX = barTrackX + barTrackWidth + barCountPad;
     return `<text x="${barLabelX}" y="${rowY + 20}" class="bar-label">${xmlEscape(label)}</text>
       <rect x="${barTrackX}" y="${rowY - 4}" width="${barTrackWidth}" height="${barHeight}" rx="14" fill="${theme.faint}" />
       <rect x="${barTrackX}" y="${rowY - 4}" width="${barWidth}" height="${barHeight}" rx="14" fill="${index % 2 ? theme.accent2 : theme.accent}" />
-      <text x="${countX}" y="${rowY + 20}" class="bar-count">${item.count}</text>`;
+      <text x="${barCountRight}" y="${rowY + 20}" class="bar-count" text-anchor="end">${item.count}</text>`;
   };
 
+  // A poster + title cell (the image-set "mixed" row style), reusable across the
+  // saved/hidden sections at different widths. Title font shrinks to fit two
+  // lines; meta sits beneath. The whole group is vertically centered in the cell.
+  const mixedMovieCell = (movie, x, y, cellW, cellH, opts = {}) => {
+    const cellPad = opts.cellPad ?? 18;
+    const posterW = opts.posterW ?? 88;
+    const posterH = opts.posterH ?? 130;
+    const titleSizes = opts.titleSizes ?? [30, 28, 26, 24];
+    const posterYOffset = Math.round((cellH - posterH) / 2);
+    const titleXOffset = cellPad + posterW + 22;
+    const titleW = cellW - titleXOffset - cellPad;
+    const titleFit = (title) => {
+      for (const fontSize of titleSizes) {
+        const lines = wrapTextToSvgWidth(title, titleW, fontSize, Infinity);
+        if (lines.length <= 2) return { lines, fontSize, lineHeight: Math.round(fontSize * 1.16) };
+      }
+      const fontSize = titleSizes[titleSizes.length - 1];
+      return { lines: wrapTextToSvgWidth(title, titleW, fontSize, 2), fontSize, lineHeight: Math.round(fontSize * 1.16) };
+    };
+    const posterData = posterDataFor(movie, allowExternalPosters, usePosterProxy);
+    const title = titleFit(movie.title);
+    const meta = movie.year ? `Released ${movie.year}` : "Year unknown";
+    const metaGap = 26;
+    const titleAscent = Math.round(title.fontSize * 0.76);
+    const groupHeight = titleAscent + (title.lines.length - 1) * title.lineHeight + metaGap + 5;
+    const titleY = y + Math.round((cellH - groupHeight) / 2) + titleAscent;
+    const metaY = titleY + (title.lines.length - 1) * title.lineHeight + metaGap;
+    const posterX = x + cellPad;
+    const posterY = y + posterYOffset;
+    const titleX = x + titleXOffset;
+    let cell = `<rect x="${x}" y="${y}" width="${cellW}" height="${cellH}" rx="16" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="2" />`;
+    if (posterData) {
+      cell += `<image href="${xmlEscape(posterData)}" x="${posterX}" y="${posterY}" width="${posterW}" height="${posterH}" preserveAspectRatio="xMidYMid slice" />`;
+    } else {
+      cell += `<rect x="${posterX}" y="${posterY}" width="${posterW}" height="${posterH}" rx="10" fill="${theme.faint}" />`;
+    }
+    cell += svgTextLines(title.lines, titleX, titleY, `full-list-row-title-${title.fontSize}`, title.lineHeight);
+    cell += `<text x="${titleX}" y="${metaY}" class="poster-rank">${xmlEscape(meta)}</text>`;
+    return cell;
+  };
+
+  // Extra breathing room between the "Top ranked" / "Bottom ranked" subtitle
+  // and the first row of the list.
+  const pickRowTop = 46;
   const topPicks = () => {
-    if (!options.top || !pickGroups.best.length) return "";
+    if (!options.top || !pickGroups.best.length) return null;
     let block = "";
     pickGroups.best.forEach((movie, index) => {
-      block += movieRow(movie, index + 1, index * 86 + 22, "top");
+      block += movieRow(movie, index + 1, index * 86 + pickRowTop, "top");
     });
-    return addSection(tone.topTitle, tone.topSub, block, pickGroups.best.length * 86 + 8);
+    return section("top", tone.topTitle, tone.topSub, block, pickGroups.best.length * 86 + 8 + (pickRowTop - 22));
   };
 
   const bottomPicks = () => {
-    if (!options.bottom || !pickGroups.worst.length) return "";
+    if (!options.bottom || !pickGroups.worst.length) return null;
     let block = "";
     pickGroups.worst.forEach((movie, index) => {
       const rank = pickGroups.worstStartRank + index;
-      block += movieRow(movie, rank, index * 82 + 22, "bottom");
+      block += movieRow(movie, rank, index * 82 + pickRowTop, "bottom");
     });
-    return addSection(tone.bottomTitle, tone.bottomSub, block, pickGroups.worst.length * 82 + 10);
+    return section("bottom", tone.bottomTitle, tone.bottomSub, block, pickGroups.worst.length * 82 + 10 + (pickRowTop - 22));
   };
 
   const eras = () => {
-    if (!options.eras || !insights.decades.length) return "";
+    if (!options.eras || !insights.decades.length) return null;
     let block = "";
     const topDecade = insights.topDecade ? decadeLabel(insights.topDecade.decade) : "Unknown";
     const oldest = insights.oldest
@@ -2717,26 +2885,26 @@ function buildShareSvg(options = shareOptions) {
     eraMetrics.forEach((item, index) => {
       const col = index % 2;
       const row = Math.floor(index / 2);
-      const x = marginX + col * 520;
+      const x = marginX + col * colUnit;
       const cardY = row * 138;
       const innerX = x + 24;
-      const innerWidth = 428;
-      const valueClass = item.emphasis ? "stat-card-value-emphasis" : "stat-card-value";
-      const valueFont = item.emphasis ? 30 : 25;
-      const valueLines = wrapTextToSvgWidth(item.value, innerWidth, valueFont, 2);
-      block += `<rect x="${x}" y="${cardY}" width="476" height="118" rx="20" fill="${item.emphasis ? theme.faint : theme.panel}" stroke="${panelStroke}" stroke-width="3" />`;
+      const innerWidth = cardW - 48;
+      // All era values use the same value size as the genre / cast / director cards.
+      const valueLines = wrapTextToSvgWidth(item.value, innerWidth, 30, 2);
+      block += `<rect x="${x}" y="${cardY}" width="${cardW}" height="118" rx="20" fill="${item.emphasis ? theme.faint : theme.panel}" stroke="${panelStroke}" stroke-width="3" />`;
       block += `<text x="${innerX}" y="${cardY + 34}" class="stat-card-label">${xmlEscape(item.label)}</text>`;
-      block += svgTextLines(valueLines, innerX, cardY + 78 - (valueLines.length > 1 ? 10 : 0), valueClass, 27);
+      block += svgTextLines(valueLines, innerX, cardY + 80 - (valueLines.length > 1 ? 10 : 0), "stat-value-small", 30);
     });
-    const chartY = 318;
-    const barsY = chartY + 46;
-    block += `<text x="${barLabelX}" y="${chartY}" class="chart-caption">Ranked movies by decade</text>`;
+    const chartY = 338;
+    const barsY = chartY + 36;
+    block += `<text x="${barLabelX}" y="${chartY}" class="people-heading">Ranked movies by decade</text>`;
     const maxDecadeCount = Math.max(1, ...decadeRows.map((item) => item.count));
     decadeRows.forEach((item, index) => {
       const rowY = barsY + index * 58 + 10;
       block += countBarRow(item, index, rowY, maxDecadeCount, decadeLabel(item.decade));
     });
-    return addSection(
+    return section(
+      "eras",
       tone.erasTitle,
       "Release years across your ranking",
       block,
@@ -2745,9 +2913,14 @@ function buildShareSvg(options = shareOptions) {
   };
 
   const genres = () => {
-    if (!options.genres) return "";
+    if (!options.genres) return null;
     if (!insights.genres.length) {
-      return addSection(
+      if (shareDetailsLoading) {
+        const sk = loadingBody("Loading genre data…");
+        return section("genres", tone.genresTitle, "Genres that rise to the top", sk.body, sk.height);
+      }
+      return section(
+        "genres",
         tone.genresTitle,
         "Genres that rise to the top",
         `<text x="86" y="24" class="pick-meta">No genre data loaded yet.</text>`,
@@ -2763,21 +2936,25 @@ function buildShareSvg(options = shareOptions) {
     ];
     let block = "";
     genreCards.forEach((item, index) => {
-      const x = marginX + index * 520;
-      const valueLines = wrapTextToSvgWidth(item.value, 330, 30, 1);
-      block += `<rect x="${x}" y="0" width="476" height="118" rx="24" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="3" />`;
+      const x = marginX + index * colUnit;
+      const valueLines = wrapTextToSvgWidth(item.value, cardW - 146, 30, 1);
+      block += `<rect x="${x}" y="0" width="${cardW}" height="118" rx="24" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="3" />`;
       block += `<text x="${x + 26}" y="42" class="stat-card-label">${xmlEscape(item.label)}</text>`;
       block += svgTextLines(valueLines, x + 26, 86, "stat-value-small", 30);
-      block += `<text x="${x + 448}" y="72" class="bar-count" text-anchor="end">${item.count} ranked</text>`;
+      block += `<text x="${x + cardW - 28}" y="72" class="bar-count" text-anchor="end">${item.count} ranked</text>`;
     });
-    const chartY = 154;
-    const barsY = chartY + 46;
-    block += `<text x="${barLabelX}" y="${chartY}" class="chart-caption">Ranked movies by genre</text>`;
-    insights.genres.slice(0, 6).forEach((item, index) => {
+    // Match the gap above "Ranked movies by decade" (82px below the cards).
+    const chartY = 200;
+    const barsY = chartY + 36;
+    block += `<text x="${barLabelX}" y="${chartY}" class="people-heading">Ranked movies by genre</text>`;
+    // Show the 6 most-ranked genres, but list them alphabetically in the chart.
+    const chartGenres = insights.genres.slice(0, 6).slice().sort((a, b) => a.name.localeCompare(b.name));
+    chartGenres.forEach((item, index) => {
       const rowY = barsY + index * 58 + 10;
       block += countBarRow(item, index, rowY, maxGenreCount, item.name);
     });
-    return addSection(
+    return section(
+      "genres",
       tone.genresTitle,
       "Genres that rise to the top",
       block,
@@ -2786,9 +2963,14 @@ function buildShareSvg(options = shareOptions) {
   };
 
   const people = () => {
-    if (!options.people) return "";
+    if (!options.people) return null;
     if (!insights.directors.length && !insights.cast.length) {
-      return addSection(
+      if (shareDetailsLoading) {
+        const sk = loadingBody("Loading cast & crew data…");
+        return section("people", tone.peopleTitle, "Directors and cast that rise to the top", sk.body, sk.height);
+      }
+      return section(
+        "people",
         tone.peopleTitle,
         "Directors and cast that rise to the top",
         `<text x="86" y="24" class="pick-meta">No cast or crew data loaded yet.</text>`,
@@ -2801,19 +2983,20 @@ function buildShareSvg(options = shareOptions) {
       { label: "Highest ranked director", value: favoriteDirector?.name || "Unknown", count: favoriteDirector?.count || 0 },
       { label: "Highest ranked cast", value: favoriteActor?.name || "Unknown", count: favoriteActor?.count || 0 },
     ];
-    const calloutLineSets = callouts.map((item) => wrapTextToSvgWidth(item.value, 300, 30, Infinity));
+    const calloutLineSets = callouts.map((item) => wrapTextToSvgWidth(item.value, cardW - 176, 30, Infinity));
     const calloutHeight = Math.max(118, 80 + Math.max(...calloutLineSets.map((lines) => lines.length)) * 30);
     let block = "";
     callouts.forEach((item, index) => {
-      const x = marginX + index * 520;
+      const x = marginX + index * colUnit;
       const valueLines = calloutLineSets[index];
-      block += `<rect x="${x}" y="0" width="476" height="${calloutHeight}" rx="24" fill="${theme.panel}" stroke="${theme.panelLine || theme.line}" stroke-width="3" />`;
+      block += `<rect x="${x}" y="0" width="${cardW}" height="${calloutHeight}" rx="24" fill="${theme.panel}" stroke="${theme.panelLine || theme.line}" stroke-width="3" />`;
       block += `<text x="${x + 26}" y="46" class="stat-card-label">${xmlEscape(item.label)}</text>`;
       block += svgTextLines(valueLines, x + 26, 86, "stat-value-small", 30);
       if (item.count) {
-        block += `<text x="${x + 448}" y="72" class="bar-count" text-anchor="end">${item.count} ranked</text>`;
+        block += `<text x="${x + cardW - 28}" y="72" class="bar-count" text-anchor="end">${item.count} ranked</text>`;
       }
     });
+    const peopleTrackWidth = cardW - 84;
     const renderPeopleColumn = (label, items, x, startY) => {
       const visibleItems = items.slice(0, 8);
       const maxCount = Math.max(1, ...visibleItems.map((item) => item.count));
@@ -2827,25 +3010,25 @@ function buildShareSvg(options = shareOptions) {
       let cursorY = startY + 44;
       visibleItems.forEach((item, index) => {
         const trackX = x;
-        const trackWidth = 392;
-        const barWidth = Math.max(52, Math.round((item.count / maxCount) * trackWidth));
-        const labelLines = wrapTextToSvgWidth(item.name, 392, 21, Infinity);
+        const barWidth = Math.max(52, Math.round((item.count / maxCount) * peopleTrackWidth));
+        const labelLines = wrapTextToSvgWidth(item.name, peopleTrackWidth, 21, Infinity);
         const textY = cursorY + 20;
         const barY = cursorY + labelLines.length * 23 + 14;
         column += svgTextLines(labelLines, x, textY, "people-label", 23);
-        column += `<rect x="${trackX}" y="${barY}" width="${trackWidth}" height="20" rx="10" fill="${theme.faint}" />`;
+        column += `<rect x="${trackX}" y="${barY}" width="${peopleTrackWidth}" height="20" rx="10" fill="${theme.faint}" />`;
         column += `<rect x="${trackX}" y="${barY}" width="${barWidth}" height="20" rx="10" fill="${index % 2 ? theme.accent2 : theme.accent}" />`;
-        column += `<text x="${x + 448}" y="${barY + 17}" class="bar-count">${item.count}</text>`;
+        column += `<text x="${x + cardW - 28}" y="${barY + 17}" class="bar-count" text-anchor="end">${item.count}</text>`;
         cursorY = barY + 42;
       });
       return { body: column, height: cursorY - startY };
     };
     const columnsY = calloutHeight + 58;
     const directorColumn = renderPeopleColumn("Directors", insights.directors, marginX, columnsY);
-    const castColumn = renderPeopleColumn("Cast", insights.cast, marginX + 520, columnsY);
+    const castColumn = renderPeopleColumn("Cast", insights.cast, marginX + colUnit, columnsY);
     block += directorColumn.body;
     block += castColumn.body;
-    return addSection(
+    return section(
+      "people",
       tone.peopleTitle,
       "Directors and cast that rise to the top",
       block,
@@ -2854,7 +3037,7 @@ function buildShareSvg(options = shareOptions) {
   };
 
   const queues = () => {
-    if (!options.queues) return "";
+    if (!options.queues) return null;
     const watchRuntime = runtimeStatsForMovies(watchList);
     const hiddenRuntime = runtimeStatsForMovies(notInterestedList);
     const watchRuntimeDisplay = formatShareRuntimeTotal(watchRuntime, watchList.length, shareDetailsLoading);
@@ -2880,31 +3063,109 @@ function buildShareSvg(options = shareOptions) {
     ];
     let block = "";
     queueCards.forEach((item, index) => {
-      const x = marginX + index * 520;
-      block += `<rect x="${x}" y="0" width="476" height="150" rx="24" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="3" />`;
+      const x = marginX + index * colUnit;
+      block += `<rect x="${x}" y="0" width="${cardW}" height="150" rx="24" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="3" />`;
       block += `<text x="${x + 26}" y="44" class="stat-card-label">${xmlEscape(item.label)}</text>`;
       block += `<text x="${x + 26}" y="102" class="stat-value">${item.count}</text>`;
-      block += `<text x="${x + 226}" y="94" class="${item.runtimeClass}" fill="${item.accent}">${xmlEscape(item.runtime)}</text>`;
-      block += `<text x="${x + 226}" y="126" class="stat-card-label">${xmlEscape(item.runtimeLabel)}</text>`;
+      block += `<text x="${x + cardW - 28}" y="94" class="${item.runtimeClass}" fill="${item.accent}" text-anchor="end">${xmlEscape(item.runtime)}</text>`;
+      block += `<text x="${x + cardW - 28}" y="126" class="stat-card-label" text-anchor="end">${xmlEscape(item.runtimeLabel)}</text>`;
     });
-    return addSection(tone.queuesTitle, "Movies outside the ranked stack", block, 170);
+    // Beneath each card, the 3 most-recently-added titles as poster + title
+    // cells (two columns: saved on the left, hidden on the right).
+    const recentBlocks = [
+      { list: watchList, key: "savedAt", heading: "Recently saved", empty: "Nothing saved yet" },
+      { list: notInterestedList, key: "hiddenAt", heading: "Recently hidden", empty: "Nothing hidden yet" },
+    ];
+    const recentCellW = cardW;
+    const recentCellH = 132;
+    const recentCellStride = recentCellH + 14;
+    const recentCellOpts = { cellPad: 16, posterW: 76, posterH: 114, titleSizes: [24, 22, 20] };
+    let bottom = 170;
+    recentBlocks.forEach((group, index) => {
+      const x = marginX + index * colUnit;
+      const headingY = 196;
+      block += `<text x="${x}" y="${headingY}" class="people-heading">${xmlEscape(group.heading)}</text>`;
+      const items = recentQueueItems(group.list, group.key, 3);
+      if (!items.length) {
+        block += `<text x="${x}" y="${headingY + 36}" class="poster-rank">${xmlEscape(group.empty)}.</text>`;
+        bottom = Math.max(bottom, headingY + 46);
+        return;
+      }
+      let cellY = headingY + 24;
+      items.forEach((movie) => {
+        block += mixedMovieCell(movie, x, cellY, recentCellW, recentCellH, recentCellOpts);
+        cellY += recentCellStride;
+      });
+      bottom = Math.max(bottom, cellY - recentCellStride + recentCellH + 8);
+    });
+    return section("queues", tone.queuesTitle, "Movies outside the ranked stack", block, bottom);
+  };
+
+  // Expanded saved/hidden card for the image set: up to 5 saved + 5 hidden,
+  // rendered as poster + title rows (the whole-list "mixed" style).
+  const savedHidden = () => {
+    if (!options.queues) return null;
+    if (!watchList.length && !notInterestedList.length) {
+      return section(
+        "saved",
+        tone.queuesTitle,
+        "Saved and hidden picks",
+        `<text x="86" y="24" class="pick-meta">Nothing saved or hidden yet.</text>`,
+        62,
+      );
+    }
+    // Two columns of the whole-list "mixed" poster+title cell, 6 per group
+    // (fits well under the 2600 page max; drop to 4 if that ever overflows).
+    const perGroup = 6;
+    const cols = 2;
+    const cellGap = 24;
+    const cellW = 502;
+    const cellH = 178;
+    const rowStride = cellH + 22;
+    const cellOpts = { cellPad: 18, posterW: 92, posterH: 138, titleSizes: [30, 28, 26, 24] };
+    const blocks = [
+      { label: "Recently saved", movies: recentQueueItems(watchList, "savedAt", perGroup), total: watchList.length },
+      { label: "Recently hidden", movies: recentQueueItems(notInterestedList, "hiddenAt", perGroup), total: notInterestedList.length },
+    ];
+    let block = "";
+    let cursorY = 0;
+    blocks.forEach((group, groupIndex) => {
+      if (groupIndex > 0) cursorY += 32;
+      const shown = group.movies.length;
+      const countLabel = shown && shown < group.total ? `${shown} of ${group.total}` : String(group.total);
+      block += `<text x="86" y="${cursorY + 30}" class="people-heading">${xmlEscape(`${group.label} · ${countLabel}`)}</text>`;
+      cursorY += 60;
+      if (!group.movies.length) {
+        block += `<text x="86" y="${cursorY + 20}" class="pick-meta">Nothing here yet.</text>`;
+        cursorY += 60;
+        return;
+      }
+      group.movies.forEach((movie, i) => {
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        const x = marginX + col * (cellW + cellGap);
+        block += mixedMovieCell(movie, x, cursorY + row * rowStride, cellW, cellH, cellOpts);
+      });
+      cursorY += Math.ceil(group.movies.length / cols) * rowStride;
+    });
+    return section("saved", tone.queuesTitle, "Most recently saved and hidden", block, cursorY);
   };
 
   const fullList = () => {
-    if (!options.fullList || !ranking.length) return "";
+    if (!options.fullList || !ranking.length) return null;
     const listStyle = ["posters", "text", "mixed"].includes(options.fullListStyle) ? options.fullListStyle : "mixed";
     const posterStartY = 134;
     let block = "";
     shareRankingMetaCards(insights).forEach((item, index) => {
-      const x = marginX + index * 342;
-      block += `<rect x="${x}" y="0" width="302" height="96" rx="20" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="3" />`;
+      const x = marginX + index * 356;
+      block += `<rect x="${x}" y="0" width="316" height="96" rx="20" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="3" />`;
       block += `<text x="${x + 24}" y="42" class="stat-value-small">${xmlEscape(item.value)}</text>`;
       block += `<text x="${x + 24}" y="76" class="stat-card-label">${xmlEscape(item.label)}</text>`;
     });
 
     if (listStyle === "text") {
       const cols = 2;
-      const colW = 488;
+      const colW = 493;
       const colGap = 42;
       const rankSize = 18;
       const titleXOffset = 54;
@@ -2937,7 +3198,7 @@ function buildShareSvg(options = shareOptions) {
         block += svgTextLines(titleLines, x + titleXOffset, rowY + titleY, "full-list-text-title", titleLineHeight);
         block += `<text x="${x + titleXOffset}" y="${metaY}" class="poster-rank">${xmlEscape(movie.year ? `Released ${movie.year}` : "Year unknown")}</text>`;
       });
-      return addSection(tone.listTitle, "Every movie, top to bottom", block, runningRowY - posterStartY);
+      return section("list", tone.listTitle, "Every movie, top to bottom", block, runningRowY - posterStartY);
     }
 
     if (listStyle === "mixed") {
@@ -3006,7 +3267,8 @@ function buildShareSvg(options = shareOptions) {
         block += `<text x="${titleX}" y="${metaY}" class="poster-rank">${xmlEscape(meta)}</text>`;
       });
 
-      return addSection(
+      return section(
+        "list",
         tone.listTitle,
         "Every movie, top to bottom",
         block,
@@ -3014,12 +3276,13 @@ function buildShareSvg(options = shareOptions) {
       );
     }
 
-    const cellW = 176;
-    const cellH = 260;
-    const posterInset = 10;
-    const imageH = cellH - posterInset * 2;
-    const gap = 22;
     const cols = 5;
+    const gap = 22;
+    // Fill the symmetric content width (86 .. 1114) with the 5 poster cells.
+    const cellW = Math.floor((contentRight - marginX - (cols - 1) * gap) / cols);
+    const posterInset = 10;
+    const imageH = Math.round((cellW - posterInset * 2) * 1.5);
+    const cellH = imageH + posterInset * 2;
     insights.enrichedRanking.forEach((movie, index) => {
       const col = index % cols;
       const row = Math.floor(index / cols);
@@ -3051,7 +3314,8 @@ function buildShareSvg(options = shareOptions) {
       block += `<rect x="${badgeX}" y="${badgeY}" width="${badgeW}" height="28" rx="14" fill="${theme.panel}" fill-opacity="0.9" stroke="${panelStroke}" stroke-width="1.5" />`;
       block += `<text x="${badgeX + badgeW / 2}" y="${badgeY + 20}" class="poster-number-badge" text-anchor="middle">${badgeLabel}</text>`;
     });
-    return addSection(
+    return section(
+      "list",
       tone.listTitle,
       "Every movie, top to bottom",
       block,
@@ -3059,61 +3323,552 @@ function buildShareSvg(options = shareOptions) {
     );
   };
 
-  sections.push(topPicks(), bottomPicks(), eras(), genres(), people(), queues(), fullList());
+  return { topPicks, bottomPicks, eras, genres, people, queues, savedHidden, fullList };
+}
 
-  const generated = new Date().toLocaleDateString(undefined, {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
+// Single-image Portrait poster (the original output, unchanged).
+function buildShareSvg(options = shareOptions) {
+  const insights = getRankingInsights();
+  const theme = getShareTheme(options.theme);
+  const tone = getShareTone(options.tone);
+  const width = 1200;
+  const header = buildShareHeader(width, theme, tone, options);
+  const builders = shareSectionBuilders(insights, theme, tone, options);
+  const descriptors = [
+    builders.topPicks(),
+    builders.bottomPicks(),
+    builders.eras(),
+    builders.genres(),
+    builders.people(),
+    builders.queues(),
+    builders.fullList(),
+  ].filter(Boolean);
+
+  let y = header.sectionsStartY;
+  let sectionsSvg = "";
+  descriptors.forEach((desc) => {
+    const placed = placeSectionFlow(desc, y);
+    sectionsSvg += placed.svg;
+    y = placed.nextY;
   });
-  const height = Math.max(1600, y + 200);
-  const borderHeight = height - 88;
-  const footerY = height - 100;
 
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" role="img" aria-label="StackRank movie list share image">
-  <style>
-    .brand { font: 700 32px Arial, Helvetica, sans-serif; letter-spacing: 7px; text-transform: uppercase; fill: ${theme.ink}; }
-    .kicker { font: 500 24px Arial, Helvetica, sans-serif; letter-spacing: 5px; text-transform: uppercase; fill: ${theme.muted}; }
-    .hero { font: 700 ${heroFontSize}px Arial, Helvetica, sans-serif; fill: ${heroFill}; }
-    .section-title { font: 700 31px Arial, Helvetica, sans-serif; letter-spacing: 4px; text-transform: uppercase; fill: ${sectionFill}; }
-    .section-sub { font: 500 23px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
-    .pick-title { font: 700 36px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
-    .pick-meta, .stat-label, .bar-label, .bar-count, .range-span, .footer { font: 500 25px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
-    .rank-number { font: 700 27px Arial, Helvetica, sans-serif; fill: ${theme.bg}; }
-    .deep-rank { font: 700 24px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
-    .stat-value { font: 700 54px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
-    .stat-value-small { font: 700 30px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
-    .stat-card-label { font: 700 21px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
-    .stat-card-value { font: 700 25px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
-    .stat-card-value-emphasis { font: 700 30px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
-    .chart-caption { font: 700 22px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
-    .queue-runtime { font: 700 40px Arial, Helvetica, sans-serif; }
-    .queue-runtime-small { font: 700 30px Arial, Helvetica, sans-serif; }
-    .people-heading { font: 700 27px Arial, Helvetica, sans-serif; fill: ${theme.section || theme.ink}; text-transform: uppercase; letter-spacing: 4px; }
-    .people-label { font: 500 21px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
-    .range-year { font: 700 42px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
-    .range-title { font: 700 31px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
-    .range-title-small { font: 700 25px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
-    .poster-title { font: 700 20px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
-    .full-list-text-title { font: 700 22px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
-    .poster-title-compact { font: 700 18px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
-    .full-list-row-title-30 { font: 700 30px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
-    .full-list-row-title-28 { font: 700 28px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
-    .full-list-row-title-26 { font: 700 26px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
-    .full-list-row-title-24 { font: 700 24px Arial, Helvetica, sans-serif; fill: ${theme.ink}; }
-    .poster-rank { font: 400 20px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
-    .poster-number-badge { font: 700 15px Arial, Helvetica, sans-serif; fill: ${theme.muted}; }
-  </style>
-  <rect width="${width}" height="${height}" fill="${theme.bg}" />
-  <rect x="44" y="44" width="1112" height="${borderHeight}" rx="38" fill="none" stroke="${frameStroke}" stroke-width="4" />
-  <text x="86" y="122" class="brand">StackRank</text>
-  <text x="86" y="168" class="kicker">Movies</text>
-  ${svgTextLines(topTitleLines, 86, 280, "hero", heroLineHeight)}
-  <path d="M86 ${dividerY}H1114" stroke="${frameStroke}" stroke-width="4" />
-  ${sections.join("")}
-  <text x="86" y="${footerY}" class="footer">Generated ${xmlEscape(generated)}</text>
-  <text x="1114" y="${footerY}" class="footer" text-anchor="end">stackrank movies</text>
-</svg>`;
+  const height = Math.max(1600, y + 200);
+  const inner = `${header.svg}
+  ${sectionsSvg}
+  ${shareFooterSvg(width, height)}`;
+  return renderShareSvg({
+    width,
+    height,
+    theme,
+    heroFontSize: header.heroFontSize,
+    heroFill: header.heroFill,
+    sectionFill: header.sectionFill,
+    inner,
+  });
+}
+
+// The whole-list section rendered across an arbitrary canvas width with more
+// columns than the 1200 single column (used by Wide mode, below the masonry).
+// Returns a section descriptor positioned for placeSectionFlow.
+function buildWideFullListDescriptor(insights, theme, tone, options, totalWidth) {
+  if (!options.fullList || !ranking.length) return null;
+  const listStyle = ["posters", "text", "mixed"].includes(options.fullListStyle) ? options.fullListStyle : "mixed";
+  const marginX = 86;
+  const contentWidth = totalWidth - marginX * 2;
+  const panelStroke = theme.panelLine || theme.line;
+  const allowExternalPosters = options.externalPosters !== false;
+  const usePosterProxy = options.posterProxy === true;
+  const movies = insights.enrichedRanking;
+  const posterStartY = 158;
+
+  // Meta cards sized to match the genre / cast & crew cells (492 × 118).
+  let block = "";
+  const metaCardW = 492;
+  const metaStride = metaCardW + 44;
+  shareRankingMetaCards(insights).forEach((item, index) => {
+    const x = marginX + index * metaStride;
+    block += `<rect x="${x}" y="0" width="${metaCardW}" height="118" rx="20" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="3" />`;
+    block += `<text x="${x + 26}" y="56" class="stat-value-small">${xmlEscape(item.value)}</text>`;
+    block += `<text x="${x + 26}" y="92" class="stat-card-label">${xmlEscape(item.label)}</text>`;
+  });
+
+  let bodyHeight;
+  if (listStyle === "text") {
+    const cols = 4;
+    const colGap = 42;
+    const colW = Math.floor((contentWidth - (cols - 1) * colGap) / cols);
+    const rankSize = 18;
+    const titleXOffset = 54;
+    const titleWidth = colW - titleXOffset - 8;
+    const titleFontSize = 22;
+    const titleLineHeight = 25;
+    const titleY = 18;
+    const metaGap = 25;
+    const rowPad = 18;
+    const rowHeights = movies.map((movie) => {
+      const lines = wrapTextToSvgWidth(movie.title, titleWidth, titleFontSize, 2);
+      return titleY + (lines.length - 1) * titleLineHeight + metaGap + rowPad;
+    });
+    const rowOffsets = [];
+    let runningRowY = posterStartY;
+    for (let row = 0; row < Math.ceil(movies.length / cols); row += 1) {
+      const rowHeight = Math.max(...rowHeights.slice(row * cols, row * cols + cols), 0);
+      rowOffsets[row] = runningRowY;
+      runningRowY += rowHeight;
+    }
+    movies.forEach((movie, index) => {
+      const col = index % cols;
+      const row = Math.floor(index / cols);
+      const x = marginX + col * (colW + colGap);
+      const rowY = rowOffsets[row];
+      const titleLines = wrapTextToSvgWidth(movie.title, titleWidth, titleFontSize, 2);
+      const metaY = rowY + titleY + (titleLines.length - 1) * titleLineHeight + metaGap;
+      block += `<circle cx="${x + rankSize}" cy="${rowY + 18}" r="${rankSize}" fill="${theme.faint}" stroke="${panelStroke}" stroke-width="2" />`;
+      block += `<text x="${x + rankSize}" y="${rowY + 26}" class="deep-rank" text-anchor="middle">${index + 1}</text>`;
+      block += svgTextLines(titleLines, x + titleXOffset, rowY + titleY, "full-list-text-title", titleLineHeight);
+      block += `<text x="${x + titleXOffset}" y="${metaY}" class="poster-rank">${xmlEscape(movie.year ? `Released ${movie.year}` : "Year unknown")}</text>`;
+    });
+    bodyHeight = runningRowY;
+  } else if (listStyle === "posters") {
+    const cols = 11;
+    const gap = 22;
+    const cellW = Math.floor((contentWidth - (cols - 1) * gap) / cols);
+    const posterInset = 8;
+    const imageW = cellW - posterInset * 2;
+    const imageH = Math.round(imageW * 1.5);
+    const cellH = imageH + posterInset * 2;
+    movies.forEach((movie, index) => {
+      const col = index % cols;
+      const row = Math.floor(index / cols);
+      const x = marginX + col * (cellW + gap);
+      const tileY = posterStartY + row * (cellH + 24);
+      const posterData = posterDataFor(movie, allowExternalPosters, usePosterProxy);
+      const badgeLabel = String(index + 1);
+      const badgeW = Math.max(30, 16 + badgeLabel.length * 9);
+      const badgeX = x + cellW - posterInset - badgeW - 6;
+      const badgeY = tileY + posterInset + 6;
+      block += `<rect x="${x}" y="${tileY}" width="${cellW}" height="${cellH}" rx="12" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="2" />`;
+      if (posterData) {
+        block += `<image href="${xmlEscape(posterData)}" x="${x + posterInset}" y="${tileY + posterInset}" width="${imageW}" height="${imageH}" preserveAspectRatio="xMidYMid slice" />`;
+      } else {
+        const fallbackClipId = `wide-poster-${index}`;
+        const fallbackTextX = x + 14;
+        const fallbackTextWidth = cellW - 28;
+        block += `<rect x="${x + posterInset}" y="${tileY + posterInset}" width="${imageW}" height="${imageH}" rx="8" fill="${theme.faint}" />`;
+        block += `<clipPath id="${fallbackClipId}"><rect x="${fallbackTextX}" y="${tileY + 22}" width="${fallbackTextWidth}" height="${imageH - 44}" /></clipPath>`;
+        block += svgTextLines(
+          wrapTextToSvgWidth(movie.title, fallbackTextWidth, 14, 6),
+          fallbackTextX,
+          tileY + 38,
+          "poster-title-compact",
+          17,
+          `clip-path="url(#${fallbackClipId})"`,
+        );
+      }
+      block += `<rect x="${badgeX}" y="${badgeY}" width="${badgeW}" height="26" rx="13" fill="${theme.panel}" fill-opacity="0.9" stroke="${panelStroke}" stroke-width="1.5" />`;
+      block += `<text x="${badgeX + badgeW / 2}" y="${badgeY + 18}" class="poster-number-badge" text-anchor="middle">${badgeLabel}</text>`;
+    });
+    bodyHeight = posterStartY + Math.ceil(movies.length / cols) * (cellH + 24);
+  } else {
+    const cols = 4;
+    const cellGap = 24;
+    const cellW = Math.floor((contentWidth - (cols - 1) * cellGap) / cols);
+    const cellH = 178;
+    const cellPad = 18;
+    const posterW = 92;
+    const posterH = 138;
+    const posterXOffset = cellPad;
+    const posterYOffset = Math.round((cellH - posterH) / 2);
+    const titleXOffset = cellPad + posterW + 22;
+    const titleW = cellW - titleXOffset - 24;
+    const titleSizes = [30, 28, 26, 24];
+    const titleFit = (title) => {
+      for (const fontSize of titleSizes) {
+        const lines = wrapTextToSvgWidth(title, titleW, fontSize, Infinity);
+        if (lines.length <= 2) return { lines, fontSize, lineHeight: Math.round(fontSize * 1.16) };
+      }
+      const fontSize = titleSizes[titleSizes.length - 1];
+      return { lines: wrapTextToSvgWidth(title, titleW, fontSize, 2), fontSize, lineHeight: Math.round(fontSize * 1.16) };
+    };
+    movies.forEach((movie, index) => {
+      const col = index % cols;
+      const row = Math.floor(index / cols);
+      const x = marginX + col * (cellW + cellGap);
+      const tileY = posterStartY + row * (cellH + 22);
+      const posterData = posterDataFor(movie, allowExternalPosters, usePosterProxy);
+      const title = titleFit(`${index + 1}. ${movie.title}`);
+      const meta = movie.year ? `Released ${movie.year}` : "Year unknown";
+      const metaGap = 30;
+      const titleAscent = Math.round(title.fontSize * 0.76);
+      const metaDescent = 5;
+      const groupHeight = titleAscent + (title.lines.length - 1) * title.lineHeight + metaGap + metaDescent;
+      const titleY = tileY + Math.round((cellH - groupHeight) / 2) + titleAscent;
+      const metaY = titleY + (title.lines.length - 1) * title.lineHeight + metaGap;
+      const posterX = x + posterXOffset;
+      const posterY = tileY + posterYOffset;
+      const titleX = x + titleXOffset;
+      block += `<rect x="${x}" y="${tileY}" width="${cellW}" height="${cellH}" rx="18" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="2" />`;
+      if (posterData) {
+        block += `<image href="${xmlEscape(posterData)}" x="${posterX}" y="${posterY}" width="${posterW}" height="${posterH}" preserveAspectRatio="xMidYMid slice" />`;
+      } else {
+        const fallbackClipId = `wide-row-poster-${index}`;
+        const fallbackTextX = posterX + 10;
+        block += `<rect x="${posterX}" y="${posterY}" width="${posterW}" height="${posterH}" rx="10" fill="${theme.faint}" />`;
+        block += `<clipPath id="${fallbackClipId}"><rect x="${fallbackTextX}" y="${posterY + 12}" width="${posterW - 20}" height="${posterH - 24}" /></clipPath>`;
+        block += svgTextLines(
+          wrapTextToSvgWidth(movie.title, posterW - 20, 15, 5),
+          fallbackTextX,
+          posterY + 30,
+          "poster-title-compact",
+          19,
+          `clip-path="url(#${fallbackClipId})"`,
+        );
+      }
+      block += svgTextLines(title.lines, titleX, titleY, `full-list-row-title-${title.fontSize}`, title.lineHeight);
+      block += `<text x="${titleX}" y="${metaY}" class="poster-rank">${xmlEscape(meta)}</text>`;
+    });
+    bodyHeight = posterStartY + Math.ceil(movies.length / cols) * (cellH + 22);
+  }
+
+  return { key: "list", title: tone.listTitle, subtitle: "Every movie, top to bottom", body: block, height: bodyHeight };
+}
+
+// Single-image Wide poster: the non-list sections tile into a two-column
+// masonry, then the whole list spans the full canvas width beneath them with a
+// denser column count.
+function buildShareWideSvg(options = shareOptions) {
+  const insights = getRankingInsights();
+  const theme = getShareTheme(options.theme);
+  const tone = getShareTone(options.tone);
+  const builders = shareSectionBuilders(insights, theme, tone, options);
+  const sectionDescriptors = [
+    builders.topPicks(),
+    builders.bottomPicks(),
+    builders.eras(),
+    builders.genres(),
+    builders.people(),
+    builders.queues(),
+  ].filter(Boolean);
+
+  // Two columns whose internal content is the 1200 layout (86..1114). The
+  // gutter between columns is set equal to the page padding (86) so all three
+  // gaps — left, middle, right — match.
+  const marginX = 86;
+  const colContentW = 1200 - marginX * 2; // 1028
+  const gutter = marginX; // 86
+  const cols = 2;
+  const colStride = colContentW + gutter; // 1114
+  const width = marginX * 2 + cols * colContentW + (cols - 1) * gutter; // 2314
+  const header = buildShareHeader(width, theme, tone, options);
+
+  const colHeights = new Array(cols).fill(header.sectionsStartY);
+  let sectionsSvg = "";
+  sectionDescriptors.forEach((desc) => {
+    let target = 0;
+    for (let col = 1; col < cols; col += 1) {
+      if (colHeights[col] < colHeights[target]) target = col;
+    }
+    const placed = placeSectionFlow(desc, colHeights[target]);
+    sectionsSvg += `<g transform="translate(${target * colStride} 0)">${placed.svg}</g>`;
+    colHeights[target] = placed.nextY;
+  });
+
+  let contentBottom = sectionDescriptors.length ? Math.max(...colHeights) : header.sectionsStartY;
+  const listDescriptor = buildWideFullListDescriptor(insights, theme, tone, options, width);
+  if (listDescriptor) {
+    const startY = sectionDescriptors.length ? contentBottom + 24 : contentBottom;
+    const placed = placeSectionFlow(listDescriptor, startY);
+    sectionsSvg += placed.svg;
+    contentBottom = placed.nextY;
+  }
+
+  const height = Math.max(1200, contentBottom + 200);
+  const inner = `${header.svg}
+  ${sectionsSvg}
+  ${shareFooterSvg(width, height)}`;
+  return renderShareSvg({
+    width,
+    height,
+    theme,
+    heroFontSize: header.heroFontSize,
+    heroFill: header.heroFill,
+    sectionFill: header.sectionFill,
+    inner,
+  });
+}
+
+const IMAGE_SET_WIDTH = 1200;
+const IMAGE_SET_HEIGHT = 2600;
+
+// Renders one image-set card (fixed width, target-fixed height that grows only
+// if a finite group genuinely overflows) from a label and section descriptors.
+function composeShareCard(theme, tone, options, label, descriptors, counter = "") {
+  const width = IMAGE_SET_WIDTH;
+  const kicker = counter ? `${label} ${counter}` : label;
+  const header = buildShareHeader(width, theme, tone, options, { kicker });
+  let y = header.sectionsStartY;
+  let sectionsSvg = "";
+  descriptors.forEach((desc) => {
+    const placed = placeSectionFlow(desc, y);
+    sectionsSvg += placed.svg;
+    y = placed.nextY;
+  });
+  // Shrink each card to its content; the page height is a maximum, not a floor,
+  // so finite groups and the final list page don't carry blank space. The +120
+  // is a snug footer zone (the footer baseline sits at height - 100).
+  const height = Math.min(IMAGE_SET_HEIGHT, y + 120);
+  const inner = `${header.svg}
+  ${sectionsSvg}
+  ${shareFooterSvg(width, height)}`;
+  return renderShareSvg({
+    width,
+    height,
+    theme,
+    heroFontSize: header.heroFontSize,
+    heroFill: header.heroFill,
+    sectionFill: header.sectionFill,
+    inner,
+  });
+}
+
+// Splits the whole ranking into repeatable single-page tiles for the image set.
+// Returns an array of section descriptors (one per page); page counters are
+// applied by the caller. Designed so every page uses the identical template and
+// nothing is clipped (conservative per-page capacity).
+function buildWholeListPageDescriptors(insights, theme, tone, options, availableHeight) {
+  if (!options.fullList || !ranking.length) return [];
+  const listStyle = ["posters", "text", "mixed"].includes(options.fullListStyle) ? options.fullListStyle : "mixed";
+  const panelStroke = theme.panelLine || theme.line;
+  const allowExternalPosters = options.externalPosters !== false;
+  const usePosterProxy = options.posterProxy === true;
+  const movies = insights.enrichedRanking;
+
+  let cols;
+  let rowStride;
+  let renderPage;
+
+  if (listStyle === "posters") {
+    cols = 5;
+    const gap = 22;
+    // Size the 5 cells to fill the content width (86 .. 1114), matching the page
+    // padding on both sides instead of leaving a gap on the right.
+    const cellW = Math.floor((IMAGE_SET_WIDTH - 86 * 2 - (cols - 1) * gap) / cols);
+    const posterInset = 10;
+    const imageW = cellW - posterInset * 2;
+    const imageH = Math.round(imageW * 1.5);
+    const cellH = imageH + posterInset * 2;
+    rowStride = cellH + 24;
+    renderPage = (slice, startIndex) => {
+      let block = "";
+      slice.forEach((movie, i) => {
+        const index = startIndex + i;
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        const x = 86 + col * (cellW + gap);
+        const tileY = row * rowStride;
+        const posterData = posterDataFor(movie, allowExternalPosters, usePosterProxy);
+        const badgeLabel = String(index + 1);
+        const badgeW = Math.max(34, 20 + badgeLabel.length * 10);
+        const badgeX = x + cellW - posterInset - badgeW - 8;
+        const badgeY = tileY + posterInset + 8;
+        block += `<rect x="${x}" y="${tileY}" width="${cellW}" height="${cellH}" rx="14" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="2" />`;
+        if (posterData) {
+          block += `<image href="${xmlEscape(posterData)}" x="${x + posterInset}" y="${tileY + posterInset}" width="${cellW - posterInset * 2}" height="${imageH}" preserveAspectRatio="xMidYMid slice" />`;
+        } else {
+          const fallbackClipId = `set-poster-${index}`;
+          const fallbackTextX = x + 18;
+          const fallbackTextWidth = cellW - 36;
+          block += `<rect x="${x + posterInset}" y="${tileY + posterInset}" width="${cellW - posterInset * 2}" height="${imageH}" rx="10" fill="${theme.faint}" />`;
+          block += `<clipPath id="${fallbackClipId}"><rect x="${fallbackTextX}" y="${tileY + 26}" width="${fallbackTextWidth}" height="${imageH - 52}" /></clipPath>`;
+          block += svgTextLines(
+            wrapTextToSvgWidth(movie.title, fallbackTextWidth, 18, 6),
+            fallbackTextX,
+            tileY + 44,
+            "poster-title-compact",
+            22,
+            `clip-path="url(#${fallbackClipId})"`,
+          );
+        }
+        block += `<rect x="${badgeX}" y="${badgeY}" width="${badgeW}" height="28" rx="14" fill="${theme.panel}" fill-opacity="0.9" stroke="${panelStroke}" stroke-width="1.5" />`;
+        block += `<text x="${badgeX + badgeW / 2}" y="${badgeY + 20}" class="poster-number-badge" text-anchor="middle">${badgeLabel}</text>`;
+      });
+      const rows = Math.ceil(slice.length / cols);
+      return { body: block, height: rows * rowStride };
+    };
+  } else if (listStyle === "text") {
+    cols = 2;
+    const colGap = 42;
+    const colW = Math.floor((IMAGE_SET_WIDTH - 86 * 2 - (cols - 1) * colGap) / cols);
+    const rankSize = 18;
+    const titleXOffset = 54;
+    const titleWidth = colW - titleXOffset - 8;
+    const titleFontSize = 22;
+    const titleLineHeight = 25;
+    const titleY = 18;
+    const metaGap = 25;
+    const rowPad = 18;
+    // Conservative fixed stride (max two-line row) so pages never overflow.
+    rowStride = titleY + titleLineHeight + metaGap + rowPad;
+    renderPage = (slice, startIndex) => {
+      let block = "";
+      const rows = Math.ceil(slice.length / cols);
+      slice.forEach((movie, i) => {
+        const index = startIndex + i;
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        const x = 86 + col * (colW + colGap);
+        const rowY = row * rowStride;
+        const titleLines = wrapTextToSvgWidth(movie.title, titleWidth, titleFontSize, 2);
+        const metaY = rowY + titleY + (titleLines.length - 1) * titleLineHeight + metaGap;
+        block += `<circle cx="${x + rankSize}" cy="${rowY + 18}" r="${rankSize}" fill="${theme.faint}" stroke="${panelStroke}" stroke-width="2" />`;
+        block += `<text x="${x + rankSize}" y="${rowY + 26}" class="deep-rank" text-anchor="middle">${index + 1}</text>`;
+        block += svgTextLines(titleLines, x + titleXOffset, rowY + titleY, "full-list-text-title", titleLineHeight);
+        block += `<text x="${x + titleXOffset}" y="${metaY}" class="poster-rank">${xmlEscape(movie.year ? `Released ${movie.year}` : "Year unknown")}</text>`;
+      });
+      return { body: block, height: rows * rowStride };
+    };
+  } else {
+    cols = 2;
+    const cellGap = 24;
+    const cellW = 502;
+    const cellH = 178;
+    const cellPad = 18;
+    const posterW = 92;
+    const posterH = 138;
+    const posterXOffset = cellPad;
+    const posterYOffset = Math.round((cellH - posterH) / 2);
+    const titleXOffset = cellPad + posterW + 22;
+    const titleW = cellW - titleXOffset - 24;
+    const titleSizes = [30, 28, 26, 24];
+    rowStride = cellH + 22;
+    const titleFit = (title) => {
+      for (const fontSize of titleSizes) {
+        const lines = wrapTextToSvgWidth(title, titleW, fontSize, Infinity);
+        if (lines.length <= 2) return { lines, fontSize, lineHeight: Math.round(fontSize * 1.16) };
+      }
+      const fontSize = titleSizes[titleSizes.length - 1];
+      return {
+        lines: wrapTextToSvgWidth(title, titleW, fontSize, 2),
+        fontSize,
+        lineHeight: Math.round(fontSize * 1.16),
+      };
+    };
+    renderPage = (slice, startIndex) => {
+      let block = "";
+      const rows = Math.ceil(slice.length / cols);
+      slice.forEach((movie, i) => {
+        const index = startIndex + i;
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        const x = 86 + col * (cellW + cellGap);
+        const tileY = row * rowStride;
+        const posterData = posterDataFor(movie, allowExternalPosters, usePosterProxy);
+        const title = titleFit(`${index + 1}. ${movie.title}`);
+        const meta = movie.year ? `Released ${movie.year}` : "Year unknown";
+        const metaGap = 30;
+        const titleAscent = Math.round(title.fontSize * 0.76);
+        const metaDescent = 5;
+        const groupHeight = titleAscent + (title.lines.length - 1) * title.lineHeight + metaGap + metaDescent;
+        const tY = tileY + Math.round((cellH - groupHeight) / 2) + titleAscent;
+        const metaY = tY + (title.lines.length - 1) * title.lineHeight + metaGap;
+        const posterX = x + posterXOffset;
+        const posterY = tileY + posterYOffset;
+        const titleX = x + titleXOffset;
+        block += `<rect x="${x}" y="${tileY}" width="${cellW}" height="${cellH}" rx="18" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="2" />`;
+        if (posterData) {
+          block += `<image href="${xmlEscape(posterData)}" x="${posterX}" y="${posterY}" width="${posterW}" height="${posterH}" preserveAspectRatio="xMidYMid slice" />`;
+        } else {
+          const fallbackClipId = `set-row-poster-${index}`;
+          const fallbackTextX = posterX + 10;
+          block += `<rect x="${posterX}" y="${posterY}" width="${posterW}" height="${posterH}" rx="10" fill="${theme.faint}" />`;
+          block += `<clipPath id="${fallbackClipId}"><rect x="${fallbackTextX}" y="${posterY + 12}" width="${posterW - 20}" height="${posterH - 24}" /></clipPath>`;
+          block += svgTextLines(
+            wrapTextToSvgWidth(movie.title, posterW - 20, 15, 5),
+            fallbackTextX,
+            posterY + 30,
+            "poster-title-compact",
+            19,
+            `clip-path="url(#${fallbackClipId})"`,
+          );
+        }
+        block += svgTextLines(title.lines, titleX, tY, `full-list-row-title-${title.fontSize}`, title.lineHeight);
+        block += `<text x="${titleX}" y="${metaY}" class="poster-rank">${xmlEscape(meta)}</text>`;
+      });
+      return { body: block, height: rows * rowStride };
+    };
+  }
+
+  const rowsPerPage = Math.max(1, Math.floor(availableHeight / rowStride));
+  const perPage = rowsPerPage * cols;
+  const descriptors = [];
+  for (let start = 0; start < movies.length; start += perPage) {
+    const slice = movies.slice(start, start + perPage);
+    const page = renderPage(slice, start);
+    // Postfix the section title with the rank range shown on this page, e.g.
+    // "The whole stack, Ranks 1-18" (rendered uppercase by the title style).
+    const title = `${tone.listTitle}, Ranks ${start + 1}-${start + slice.length}`;
+    descriptors.push({ key: "list", title, subtitle: "Every movie, top to bottom", body: page.body, height: page.height });
+  }
+  return descriptors;
+}
+
+// Builds the full ordered set of image-set cards. Each entry carries a filename
+// (sequential, group-named) and the card SVG. Groups whose sections are all
+// toggled off are skipped.
+function buildShareImageSetPages(options = shareOptions) {
+  const insights = getRankingInsights();
+  const theme = getShareTheme(options.theme);
+  const tone = getShareTone(options.tone);
+  const builders = shareSectionBuilders(insights, theme, tone, options);
+
+  const groups = [
+    { key: "picks", label: "Top & bottom picks", descriptors: [builders.topPicks(), builders.bottomPicks()] },
+    { key: "eras", label: "Eras", descriptors: [builders.eras()] },
+    { key: "genres", label: "Genres", descriptors: [builders.genres()] },
+    { key: "people", label: "Cast & crew", descriptors: [builders.people()] },
+    { key: "saved", label: "Saved & hidden", descriptors: [builders.savedHidden()] },
+  ];
+
+  const cards = [];
+  groups.forEach((group) => {
+    const descriptors = group.descriptors.filter(Boolean);
+    if (!descriptors.length) return;
+    cards.push({ key: group.key, label: group.label, svg: composeShareCard(theme, tone, options, group.label, descriptors) });
+  });
+
+  // Whole list: paginate across as many cards as needed.
+  if (options.fullList && ranking.length) {
+    // Approximate available body height for a list page (1 hero line, footer zone).
+    const probe = buildShareHeader(IMAGE_SET_WIDTH, theme, tone, options, { kicker: "Whole list" });
+    const bodyOffset = 76;
+    const footerZone = 200;
+    const available = IMAGE_SET_HEIGHT - probe.sectionsStartY - bodyOffset - footerZone;
+    const pages = buildWholeListPageDescriptors(insights, theme, tone, options, available);
+    pages.forEach((desc, index) => {
+      const counter = pages.length > 1 ? `Page ${index + 1}/${pages.length}` : "";
+      cards.push({
+        key: "list",
+        label: "Whole list",
+        svg: composeShareCard(theme, tone, options, "Whole list", [desc], counter),
+      });
+    });
+  }
+
+  cards.forEach((card, index) => {
+    card.filename = `stackrank-${index + 1}-${card.key}.png`;
+    card.svgFilename = `stackrank-${index + 1}-${card.key}.svg`;
+  });
+  return cards;
+}
+
+// Dispatcher used by the preview and download paths. Returns either one SVG
+// (single image, Portrait or Landscape) or an ordered array of image-set cards.
+function buildShareImages(options = shareOptions) {
+  if (options.format === "set") {
+    return { mode: "set", cards: buildShareImageSetPages(options) };
+  }
+  const svg = options.shape === "wide" ? buildShareWideSvg(options) : buildShareSvg(options);
+  return { mode: "single", svg };
 }
 
 function updateShareOptionControls() {
@@ -3134,6 +3889,21 @@ function updateShareOptionControls() {
   document.querySelectorAll('input[name="share-tone"]').forEach((input) => {
     input.checked = input.value === shareOptions.tone;
   });
+  document.querySelectorAll('input[name="share-format"]').forEach((input) => {
+    input.checked = input.value === shareOptions.format;
+  });
+  document.querySelectorAll('input[name="share-shape"]').forEach((input) => {
+    input.checked = input.value === shareOptions.shape;
+  });
+  updateShareModeControls();
+}
+
+// In v1 the Shape control only applies to the single image; every image-set
+// card is phone-portrait, so hide Shape when Format is "set".
+function updateShareModeControls() {
+  if (shareShapeFieldset) {
+    shareShapeFieldset.hidden = shareOptions.format === "set";
+  }
 }
 
 function saveShareOptions() {
@@ -3173,18 +3943,23 @@ function loadShareOptions() {
         : parsed.tone === "savage"
           ? "extreme"
         : "neutral",
+      // v6: image exports gain a Format (single image / image set) and a Shape
+      // (portrait / landscape). Existing users default to today's behavior.
+      format: parsed.format === "set" ? "set" : "single",
+      shape: parsed.shape === "wide" || parsed.shape === "landscape" ? "wide" : "skinny",
     };
   } catch (error) {
     // Ignore storage failures.
   }
 }
 
-function updateShareStudio() {
+// Status text + button states only — cheap, and crucially does NOT touch the
+// preview, so calling it repeatedly (e.g. per enrichment batch) never flickers.
+function updateShareExportControls() {
   const insights = getRankingInsights();
-  sharePreview.innerHTML = buildShareSvg();
   const disabled = !insights.count;
   shareDownloadPng.disabled = disabled || sharePngPreparing;
-  shareDownloadSvg.disabled = disabled;
+  shareDownloadSvg.disabled = disabled || sharePngPreparing;
   shareCopyMarkdown.disabled = disabled;
   shareCopyJson.disabled = disabled;
   shareCopyText.disabled = disabled;
@@ -3195,6 +3970,30 @@ function updateShareStudio() {
     : insights.detailCount
       ? `${insights.detailCount} ranked movies enriched with detail data.`
       : "";
+}
+
+function updateShareStudio() {
+  const images = buildShareImages();
+  if (images.mode === "set") {
+    const markup = images.cards
+      .map((card) => `<div class="share-preview-card">${card.svg}</div>`)
+      .join("");
+    if (markup !== lastSharePreviewMarkup) {
+      sharePreview.innerHTML = markup;
+      lastSharePreviewMarkup = markup;
+    }
+    const count = images.cards.length;
+    shareDownloadPng.textContent = count ? `Download images (${count})` : "Download images";
+    shareDownloadSvg.textContent = "SVG set";
+  } else {
+    if (images.svg !== lastSharePreviewMarkup) {
+      sharePreview.innerHTML = images.svg;
+      lastSharePreviewMarkup = images.svg;
+    }
+    shareDownloadPng.textContent = "Download PNG";
+    shareDownloadSvg.textContent = "SVG";
+  }
+  updateShareExportControls();
 }
 
 function lockShareScroll() {
@@ -3219,6 +4018,10 @@ function unlockShareScroll() {
 function openShareStudio() {
   if (!ranking.length) return;
   shareStudioTrigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  lastSharePreviewMarkup = "";
+  // Reflect loading in the very first render so detail-backed sections (genres,
+  // cast & crew) show a loading skeleton instead of an empty "no data" card.
+  shareDetailsLoading = true;
   updateShareOptionControls();
   updateShareStudio();
   lockShareScroll();
@@ -3235,6 +4038,7 @@ function closeShareStudio({ restoreFocus = true } = {}) {
   shareDetailRequestId += 1;
   shareDetailsLoading = false;
   shareStudio.hidden = true;
+  lastSharePreviewMarkup = "";
   document.body.classList.remove("is-share-open");
   unlockShareScroll();
   if (restoreFocus && shareStudioTrigger && document.contains(shareStudioTrigger)) {
@@ -3247,6 +4051,8 @@ function updateShareOptionsFromControls() {
   const selectedTheme = document.querySelector('input[name="share-theme"]:checked');
   const selectedTone = document.querySelector('input[name="share-tone"]:checked');
   const selectedFullListStyle = document.querySelector('input[name="share-full-list-style"]:checked');
+  const selectedFormat = document.querySelector('input[name="share-format"]:checked');
+  const selectedShape = document.querySelector('input[name="share-shape"]:checked');
   shareOptions = {
     version: SHARE_OPTIONS_VERSION,
     displayName: shareDisplayName.value.trim().slice(0, 36),
@@ -3262,7 +4068,10 @@ function updateShareOptionsFromControls() {
       : "mixed",
     theme: selectedTheme?.value || "classic",
     tone: selectedTone?.value || "neutral",
+    format: selectedFormat?.value === "set" ? "set" : "single",
+    shape: selectedShape?.value === "wide" ? "wide" : "skinny",
   };
+  updateShareModeControls();
   if (
     !shareOptions.top &&
     !shareOptions.bottom &&
@@ -3303,7 +4112,7 @@ async function loadPosterData(movie) {
 async function enrichShareAssets() {
   const requestId = ++shareDetailRequestId;
   shareDetailsLoading = true;
-  updateShareStudio();
+  updateShareExportControls();
   const detailMovies = [...watchList, ...notInterestedList, ...ranking].filter((movie) => movie.tmdbId);
   const seenDetailIds = new Set();
   const detailTargets = detailMovies
@@ -3316,16 +4125,20 @@ async function enrichShareAssets() {
     .slice(0, 120);
   const posterTargets = ranking.filter((movie) => movie.posterPath).slice(0, 70);
 
+  // While batches stream in, only refresh the status line — not the preview.
+  // The preview is rebuilt once per phase so it never flickers per batch.
   for (let i = 0; i < detailTargets.length; i += 4) {
     if (requestId !== shareDetailRequestId) return;
     await Promise.all(detailTargets.slice(i, i + 4).map(fetchMovieDetail));
-    updateShareStudio();
+    updateShareExportControls();
   }
+  if (requestId !== shareDetailRequestId) return;
+  if (detailTargets.length) updateShareStudio();
 
   for (let i = 0; i < posterTargets.length; i += 8) {
     if (requestId !== shareDetailRequestId) return;
     await Promise.all(posterTargets.slice(i, i + 8).map(loadPosterData));
-    updateShareStudio();
+    updateShareExportControls();
   }
 
   if (requestId !== shareDetailRequestId) return;
@@ -3351,10 +4164,20 @@ function downloadBlob(blob, filename) {
   window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-function downloadShareSvg() {
+async function downloadShareSvg() {
   if (!ranking.length) return;
-  const svg = buildShareSvg();
-  downloadBlob(new Blob([svg], { type: "image/svg+xml;charset=utf-8" }), "stackrank-movies.svg");
+  const images = buildShareImages({ ...shareOptions, externalPosters: true });
+  if (images.mode === "set") {
+    for (let i = 0; i < images.cards.length; i += 1) {
+      const card = images.cards[i];
+      downloadBlob(new Blob([card.svg], { type: "image/svg+xml;charset=utf-8" }), card.svgFilename);
+      // Brief stagger so browsers reliably surface each download.
+      if (i < images.cards.length - 1) await new Promise((resolve) => setTimeout(resolve, 350));
+    }
+    setAddFeedback(`Downloaded ${images.cards.length} share SVGs.`);
+    return;
+  }
+  downloadBlob(new Blob([images.svg], { type: "image/svg+xml;charset=utf-8" }), "stackrank-movies.svg");
   setAddFeedback("Share SVG downloaded.");
 }
 
@@ -3437,64 +4260,89 @@ async function drawPosterOverlays(context, overlays) {
   return drawn;
 }
 
+// Rasterizes one share SVG to a PNG blob. `baseSvg` is drawn onto the canvas
+// (posters omitted so cross-origin images don't taint it); `posterSvg` carries
+// the proxied poster <image> tags whose positions are overlaid afterward.
+function renderShareSvgToPngBlob(baseSvg, posterSvg) {
+  return new Promise((resolve, reject) => {
+    const posterOverlays = getSvgPosterOverlays(posterSvg);
+    const widthMatch = baseSvg.match(/width="(\d+)"/);
+    const heightMatch = baseSvg.match(/height="(\d+)"/);
+    const exportWidth = widthMatch ? Number(widthMatch[1]) : 1200;
+    const exportHeight = heightMatch ? Number(heightMatch[1]) : 1600;
+    const svgUrl = URL.createObjectURL(new Blob([baseSvg], { type: "image/svg+xml;charset=utf-8" }));
+    const image = new Image();
+    image.crossOrigin = "anonymous";
+    image.onload = async () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = exportWidth;
+      canvas.height = exportHeight;
+      const context = canvas.getContext("2d");
+      try {
+        context.drawImage(image, 0, 0);
+        const drawnPosters = await drawPosterOverlays(context, posterOverlays);
+        if (posterOverlays.length && !drawnPosters) {
+          throw new Error("Could not draw poster overlays");
+        }
+        URL.revokeObjectURL(svgUrl);
+        canvas.toBlob((blob) => {
+          if (!blob) {
+            reject(new Error("Could not create PNG."));
+            return;
+          }
+          resolve(blob);
+        }, "image/png");
+      } catch (error) {
+        URL.revokeObjectURL(svgUrl);
+        reject(error);
+      }
+    };
+    image.onerror = () => {
+      URL.revokeObjectURL(svgUrl);
+      reject(new Error("Could not load SVG image."));
+    };
+    image.src = svgUrl;
+  });
+}
+
 async function downloadSharePng() {
   if (!ranking.length) return;
   sharePngPreparing = true;
   updateShareStudio();
-  await prepareSharePosterData();
+  await prepareSharePosterData(shareOptions.format === "set" ? Math.max(70, ranking.length) : 70);
   updateShareStudio();
-  const svg = buildShareSvg({ ...shareOptions, externalPosters: false });
-  const posterOverlays = getSvgPosterOverlays(
-    buildShareSvg({ ...shareOptions, externalPosters: true, posterProxy: true }),
-  );
-  const widthMatch = svg.match(/width="(\d+)"/);
-  const heightMatch = svg.match(/height="(\d+)"/);
-  const exportWidth = widthMatch ? Number(widthMatch[1]) : 1200;
-  const exportHeight = heightMatch ? Number(heightMatch[1]) : 1600;
-  const svgUrl = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml;charset=utf-8" }));
-  const image = new Image();
-  image.crossOrigin = "anonymous";
-  image.onload = async () => {
-    const canvas = document.createElement("canvas");
-    canvas.width = exportWidth;
-    canvas.height = exportHeight;
-    const context = canvas.getContext("2d");
-    try {
-      context.drawImage(image, 0, 0);
-      const drawnPosters = await drawPosterOverlays(context, posterOverlays);
-      if (posterOverlays.length && !drawnPosters) {
-        throw new Error("Could not draw poster overlays");
+  try {
+    if (shareOptions.format === "set") {
+      const baseCards = buildShareImageSetPages({ ...shareOptions, externalPosters: false });
+      const proxyCards = buildShareImageSetPages({ ...shareOptions, externalPosters: true, posterProxy: true });
+      for (let i = 0; i < baseCards.length; i += 1) {
+        shareExportStatus.textContent = `Preparing image ${i + 1} of ${baseCards.length}...`;
+        const blob = await renderShareSvgToPngBlob(baseCards[i].svg, (proxyCards[i] || baseCards[i]).svg);
+        downloadBlob(blob, baseCards[i].filename);
+        // Stagger so the browser reliably surfaces each sequential download.
+        if (i < baseCards.length - 1) await new Promise((resolve) => setTimeout(resolve, 400));
       }
-      URL.revokeObjectURL(svgUrl);
-      canvas.toBlob((blob) => {
-        sharePngPreparing = false;
-        if (!blob) {
-          setAddFeedback("Could not create PNG.");
-          shareExportStatus.textContent = "Could not create PNG.";
-          updateShareStudio();
-          return;
-        }
-        downloadBlob(blob, "stackrank-movies.png");
-        setAddFeedback("Share PNG downloaded.");
-        shareExportStatus.textContent = "Share PNG downloaded.";
-        shareDownloadPng.disabled = false;
-      }, "image/png");
-    } catch (error) {
-      URL.revokeObjectURL(svgUrl);
       sharePngPreparing = false;
-      setAddFeedback("Could not create PNG.");
-      shareExportStatus.textContent = "Could not create PNG.";
-      shareDownloadPng.disabled = false;
+      setAddFeedback(`Downloaded ${baseCards.length} share images.`);
+      shareExportStatus.textContent = `Downloaded ${baseCards.length} share images.`;
+      updateShareStudio();
+      return;
     }
-  };
-  image.onerror = () => {
-    URL.revokeObjectURL(svgUrl);
+
+    const base = buildShareImages({ ...shareOptions, externalPosters: false });
+    const proxy = buildShareImages({ ...shareOptions, externalPosters: true, posterProxy: true });
+    const blob = await renderShareSvgToPngBlob(base.svg, proxy.svg);
+    sharePngPreparing = false;
+    downloadBlob(blob, "stackrank-movies.png");
+    setAddFeedback("Share PNG downloaded.");
+    shareExportStatus.textContent = "Share PNG downloaded.";
+    updateShareStudio();
+  } catch (error) {
     sharePngPreparing = false;
     setAddFeedback("Could not create PNG.");
     shareExportStatus.textContent = "Could not create PNG.";
-    shareDownloadPng.disabled = false;
-  };
-  image.src = svgUrl;
+    updateShareStudio();
+  }
 }
 
 async function copyShareExport(format) {

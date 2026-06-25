@@ -1,6 +1,15 @@
 # Feature idea: Share export sizes and a multi-image "image set"
 
-Status: **v1 shipped 2026-06-24** — Phase 0 (enabling refactor), Phase 1 (Shape: Portrait/Landscape) and Phase 2 (Image set: 6 groups, saved&hidden 5+5, paginated whole list, sequential downloads) are built. `SHARE_OPTIONS_VERSION` is now 6. Remaining: **Phase 3 polish** (ZIP delivery, iPad page size, in-studio per-card previews/labels beyond the stacked deck). The notes below are the original spec; the "Suggested phasing" and "Acceptance criteria" sections still describe the intended end state.
+Status: **v1 shipped Jun 2026.** Built and refined across several review rounds:
+
+- Phase 0 enabling refactor — `buildShareImages()` dispatcher, width-agnostic `shareSectionBuilders()`, `buildShareHeader`, `placeSectionFlow`, shared SVG wrapper.
+- **Shape: Skinny / Wide** (renamed from Portrait/Landscape). Wide = 2-col masonry of the non-list sections + the whole list full-width below at 4/4/11 cols (mixed/text/posters), with the inter-column gutter set equal to the page padding.
+- **Image set** — header + grouped cards (top&bottom, eras, genres, cast&crew, saved&hidden = 6 most-recent of each by `savedAt`/`hiddenAt` in a 2-col mixed grid, whole-list paginated). Cards shrink-to-content (max 1200×2600); page kicker shows "… Page X/Y" and the list title postfixes "…, Ranks X–Y". Sequential named downloads.
+- Polish landed: symmetric left/right content padding (86 ↔ 1114), larger section titles/subtitles, blue `people-heading` chart captions, eras values matched to genre/cast size, genre chart ordered alphabetically, animated loading skeletons for detail-backed sections, and a preview-rewrite guard that fixed a per-batch flicker.
+
+`SHARE_OPTIONS_VERSION` is now 6 (migrates `portrait`/`landscape` → `skinny`/`wide`). Cache: `app.js?v=52`, `styles.css?v=25`.
+
+**Remaining — Phase 3 polish (parked):** ZIP delivery instead of sequential downloads; iPad page size (reuses the width parameterization); richer in-studio per-card previews/labels beyond the stacked deck. The original spec below still describes the intended end state.
 
 ## Summary
 

@@ -1,6 +1,23 @@
 # Feature idea: Personal stats and taste profile
 
-Status: exploratory
+Status: exploratory — **but the hard part is already built.**
+
+## Update (Jun 2026): the engine exists
+
+The Share Studio build created the full rank-weighted insight engine. **`getRankingInsights()`** already computes essentially every stat listed below — decades + distribution, top/highest-ranked decade, average year, oldest/newest, genres, directors, cast, "most ranked in one day," first/last ranked dates — using the passive `rankedAt` metadata. The Share poster *is* a taste profile; it's just gated behind the share flow and rendered as an SVG.
+
+So this feature is no longer "build a stats engine," it's **"surface the insights we already calculate on the main page"** as native HTML. That collapses the cost dramatically and removes the "rich stats need new metadata" objection (the enrichment pass already runs). The `getRankingStats(ranking)` helper proposed below is largely subsumed by `getRankingInsights()` — reuse it rather than writing a parallel one. The main new work is an unobtrusive on-page HTML layout + an empty/short-list state; the chart/callout patterns can mirror the share poster's sections.
+
+### Open question that's blocking priority (Dan, Jun 2026)
+
+Because the Share Studio already shows all of this, **what does an on-page stats section show that the Share Studio doesn't?** If it's just the same numbers, why not point people at Share? This is the thing to answer before building. Candidate differentiators worth exploring:
+
+- **Always-on, zero-friction** glance (no opening a modal) — stats as ambient reward, not an export step.
+- **Interactive** in ways the static SVG can't be — tap a decade/genre to filter the list, drill into "your highest-ranked sci-fi", see *which* movies drove a stat.
+- **Progress/streak framing** — momentum and milestones ("you've ranked 3 decades", "5 days in a row") rather than a snapshot.
+- **Actionable hooks** — "you've barely ranked the 2010s — want suggestions?" tying stats back into the add flow (and into [[suggestion-packs]]).
+
+Until there's a crisp answer here, this stays lower priority than the others.
 
 ## Summary
 

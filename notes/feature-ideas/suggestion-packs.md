@@ -18,6 +18,11 @@ Packs are **pre-fabricated** — hand-curated offline (with AI help, using TMDB 
 6. **Auto-mode order = the pack's curated order.** Curation controls the sequence.
 7. **Un-completing is fine.** Because progress is derived, removing a movie from the ranked list flips a completed pack back to in-progress. Expected and acceptable — the customer can re-enter the pack and re-rank or hide it.
 8. **"View all packs" + filtering is a later wave.** The panel shows a relevant subset up front with a **"View all packs"** button that opens a browse window with filters (by category, etc.). The full browse/filter UI does not need to ship in v1.
+9. **Pack size: full set by default, but within reason — break large sets up.** A director pack includes all their films (skip weird shorts); a franchise includes the whole saga. But no packs of hundreds: split broad sets into sensible sub-packs (e.g. award winners by era/period; a prolific actor by decade). **Soft cap ~30 movies/pack; ~50 is a hard guideline.** Broad criteria packs (a single year, a genre) also get a TMDB vote-count floor so they're the recognizable set, not obscurities. This is an authoring-tool knob, not user-facing.
+10. **Cover art = auto 4-mini-poster collage** from the pack's top movies (zero curation overhead). Optional hand-set `cover_path` override available later for special packs.
+11. **Large-pack rendering: render all, lazy-load posters** (reuse the existing `tmdb-image` proxy + the share-enrichment batch pattern). Avoid pagination unless a pack exceeds ~40.
+12. **Signed-out:** packs are public-readable; progress lives in localStorage and merges on sign-in, exactly like rankings/queues.
+13. **Curation autonomy:** the build session owns *both* the authoring tooling *and* the content — generate packs using your own research/intelligence (TMDB + public lists). **Pack ideas/contents do NOT need pre-approval** — fly, ship a strong batch, and Dan gives feedback / prunes afterward if he has strong feelings.
 
 ## Why this is the priority
 
@@ -50,7 +55,7 @@ One row per pack. Read by anyone (anon-readable via RLS); writes restricted to t
 - `movies` (jsonb) — ordered array of `{ tmdbId, title, year, posterPath }` (the same stored-movie shape the app already uses).
 - `version` (int) — bumped whenever `movies` changes; drives resurfacing.
 - `provenance` (jsonb, nullable) — optional authoring notes for re-curation (e.g. `{ source: "tmdb-director", personId: 5655 }` or `{ source: "wikipedia-best-picture" }`). **Informational only** — used by the offline authoring tool when refreshing a pack, never resolved live in production.
-- `active` (bool), `sort_order` (int), `cover_path` (text, optional poster/backdrop), `created_at`, `updated_at`.
+- `active` (bool), `sort_order` (int), `cover_path` (text, optional override; default cover is an auto 4-mini-poster collage of the pack's top movies — decision 10), `created_at`, `updated_at`.
 
 Storing `movies` as jsonb on the row matches the existing `rankings.movies` pattern and keeps reads to a single query. (Alternative: a `suggestion_pack_items` table — only worth it if packs get very large or need per-item metadata.)
 
@@ -81,7 +86,7 @@ The `started` vs `discovered` split is the whole point of the discovery feature:
 All packs are built offline and uploaded — there is **no live generation**. A small authoring tool (Deno/Node script, service-role key in env, **never** in the client):
 
 - Takes a curated list of titles (from anywhere — TMDB discover/credits, Wikipedia award lists, critic canons, hand lists) and resolves each to a TMDB record (`tmdbId`, title, year, posterPath) via the TMDB API.
-- Applies a quality/size pass (popularity / vote-count floor, sensible cap — see open questions) so packs are tight and recognizable, not exhaustive dumps.
+- Applies the size/quality rules from decision 9: full canonical set for finite packs (director, franchise), but split overly-large sets into sub-packs; soft cap ~30 (~50 hard guideline); vote-count floor on broad criteria packs so they're recognizable, not exhaustive dumps.
 - Upserts the `suggestion_packs` row, setting `movies`, `provenance`, and bumping `version` if contents changed.
 
 **Updates / resurfacing** are also offline: when a pack should change (a director's new film, an awards cycle), re-run the authoring tool for that pack and re-upload with a bumped `version`. Clients that had completed it see the new `version` > `packVersionSeen`, with new unhandled movies → it resurfaces. No scheduled jobs required.
@@ -173,15 +178,9 @@ Decision 4 says enumerate categories, then fill them. The `category` column grou
 - **Phase 3 — scale the library + resurfacing.** Curate toward ~50+ across the taxonomy; wire the `version` > `packVersionSeen` resurfacing + "New movies added" badge; offline re-curation workflow for updates.
 - **Phase 4 — "View all packs" + filtering, and polish.** The full browse window with category/progress filters, featured row, search, nicer covers.
 
-## Open questions / decisions to make
+## Open questions
 
-Resolved (see Decisions): fourth panel above the three suggestion sections (permanent coexistence); pre-fabricated/no-live-gen; no skip state; ~50+ target; auto mode unlimited with trivial resume; pack-curated order; un-completing is fine; "view all + filter" is a later wave. Remaining:
-
-1. **Pack size & quality bar** — cap size (e.g. 20–40?) and a popularity/vote-count floor so "Movies from 1999" is the recognizable set, not 800 obscure titles. Decide the default knobs for the authoring tool.
-2. **Signed-out** — packs are public-readable; progress in localStorage and merged on sign-in (same as rankings). Confirm acceptable.
-3. **Pack detail for a large pack** — paginate / lazy-load posters? (Reuse the share enrichment patterns.)
-4. **Cover art** — auto poster-collage from the pack's top movies, or a hand-set `cover_path`?
-5. **Curation pipeline ownership** — how the ~50+ get authored (AI-assisted pass per category) and how often refreshed.
+None outstanding — all product and implementation defaults are settled in the Decisions section above. Use judgement on incidental details and surface anything that genuinely blocks.
 
 ## Acceptance criteria (v1 = Phases 0–2)
 

@@ -102,8 +102,16 @@ The panel shows a **relevant subset** of packs, not the whole library — ordere
 
 A **"View all packs"** button opens a browse window with **filtering** (by category, maybe by progress) to find packs by interest. This full browse/filter UI is a **later wave** — v1 can ship with just the relevant-subset panel and a simple "view all" list.
 
-### Resuming a pack (make it trivial)
-Because auto mode is an open-ended sitting (decision 5), an in-progress pack must be effortless to return to. The packs panel surfaces in-progress packs first, and a persistent affordance — a "Continue [pack] · 12/20" entry (a side panel or a pinned card) — lets the customer drop back in with one tap. State is saved continuously (`startedAt`, `lastIndex`, and the derived handled set), so resume always lands them on the next unhandled movie.
+### "Your packs" surface — one home for unfinished business (resume + discovered + updated)
+Because auto mode is an open-ended sitting (decision 5), packs with unfinished business must be effortless to return to. This is the surface Dan floated as "a side panel or something." It holds **three distinct states, each with its own subtle treatment** — implemented either as a few labeled sub-sections or as one list sorted by state with per-state badges:
+
+1. **In progress — explicitly started** (`startedAt` set, not complete). Primary treatment. "Continue · 12/20", drops you on the next unhandled movie. State saved continuously (`startedAt`, `lastIndex`, derived handled set), so resume is one tap.
+2. **Discovered — you ranked a movie that's in them** (`startedAt` unset, derived `handled > 0` from organic ranking, not dismissed). Softer, quieter treatment — an invitation, not a commitment: "You've already ranked 4 of these · Jump in?". Opening it promotes it to in-progress. (Defined in *Organic pack discovery*.)
+3. **Updated since you finished — resurfaced** (was completed; pack `version` > `packVersionSeen` adds new unhandled movies). Treatment: "★ Updated · 3 new to rank". (Defined in *Completion & resurfacing*.)
+
+Suggested ordering as a single list: in progress → updated/resurfaced → discovered (softest, last). As sub-sections: **"Pick up where you left off"** / **"New in packs you've finished"** / **"You've already started these"**. The three derived statuses (`started` / `discovered` / `completed`-but-resurfaced) come straight from the data-model status logic, so this surface is just presentation over state the client already computes.
+
+This is the same set of states the main packs panel orders to the top; the "Your packs" surface is the focused, always-reachable version of it.
 
 ### Pack detail
 Opens a pack: its movies as suggestion cards, each showing its state (unhandled, or "Ranked #14" / "Saved" / "Hidden"). Per-card actions: **Rank**, **Save**, **Hide**, info → detail pane. Handled movies drop off (or grey out behind a "show handled" toggle); movies the user doesn't act on simply remain. A header progress bar and a prominent **"Auto-rank this pack"** button.

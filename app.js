@@ -2588,7 +2588,7 @@ function getShareTone(toneName = shareOptions.tone) {
       listTitle: "Complete ranking",
     },
     funny: {
-      heroLead: "Movie opinions, unfortunately",
+      heroLead: "Movie opinions nobody asked for",
       topTitle: "Would defend these in court",
       topSub: "The beloved few",
       bottomTitle: "Questions were raised",
@@ -4989,23 +4989,60 @@ suggestions.addEventListener("mousemove", (event) => {
   if (index >= 0) setActiveSuggestion(index);
 });
 
+// Fill the main panels with shimmer placeholders while the list/queues load on
+// boot (the signed-in Supabase fetch can take a second or two). The real
+// renders at the end of init() replace these.
+function renderBootSkeleton() {
+  const rankRow = `
+    <li class="skeleton-item" aria-hidden="true">
+      <span class="skeleton skeleton-handle"></span>
+      <span class="skeleton skeleton-poster"></span>
+      <span class="skeleton-lines">
+        <span class="skeleton skeleton-line skeleton-line--title"></span>
+        <span class="skeleton skeleton-line skeleton-line--meta"></span>
+      </span>
+    </li>`;
+  if (rankingList) rankingList.innerHTML = rankRow.repeat(6);
+
+  if (snapshotContent) {
+    const card = `<span class="skeleton skeleton-card"></span>`;
+    snapshotContent.innerHTML = `<div class="snapshot__skeleton" aria-hidden="true">${card.repeat(3)}</div>`;
+  }
+
+  const queueRow = `
+    <li class="skeleton-queue" aria-hidden="true">
+      <span class="skeleton skeleton-poster"></span>
+      <span class="skeleton-lines">
+        <span class="skeleton skeleton-line skeleton-line--title"></span>
+        <span class="skeleton skeleton-line skeleton-line--meta"></span>
+      </span>
+    </li>`;
+  if (watchListEl) watchListEl.innerHTML = queueRow.repeat(2);
+  if (notInterestedListEl) notInterestedListEl.innerHTML = queueRow.repeat(2);
+}
+
 const init = async () => {
   startPlaceholderRotation();
   loadShareOptions();
   updateShareOptionControls();
   updateStatus();
   setAuthUI();
-  await initAuth();
-  await loadRanking();
-  await loadSuggestionQueues();
-  await migrateRanking();
-  renderRanking();
-  renderSuggestionQueues();
-  updateDebugPanel();
-  suggestPopularCursor = 0;
-  suggestRelatedCursor = 0;
-  suggestEssentialsCursor = 0;
-  updateSuggestions();
+  renderBootSkeleton();
+  try {
+    await initAuth();
+    await loadRanking();
+    await loadSuggestionQueues();
+    await migrateRanking();
+  } finally {
+    // Always swap the skeletons for real content, even if a load step failed.
+    renderRanking();
+    renderSuggestionQueues();
+    updateDebugPanel();
+    suggestPopularCursor = 0;
+    suggestRelatedCursor = 0;
+    suggestEssentialsCursor = 0;
+    updateSuggestions();
+  }
 };
 
 init();

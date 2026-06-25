@@ -2074,3 +2074,94 @@ body.is-comparing .compare-panel {
     padding-right: 0;
   }
 }
+
+/* Boot loading skeletons — shown while the list/queues load (signed-in fetch). */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton {
+  display: block;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #e7e6e2 25%, #f3f2ef 50%, #e7e6e2 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+
+.skeleton-item {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 18px 36px 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 6px 0;
+}
+
+.skeleton-handle {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+}
+
+.skeleton-poster {
+  width: 36px;
+  height: 52px;
+  border-radius: 8px;
+}
+
+.skeleton-lines {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.skeleton-line {
+  height: 13px;
+  border-radius: 6px;
+}
+
+.skeleton-line--title {
+  width: 62%;
+}
+
+.skeleton-line--meta {
+  width: 34%;
+  height: 10px;
+}
+
+.snapshot__skeleton {
+  display: grid;
+  gap: 10px;
+}
+
+.skeleton-card {
+  height: 54px;
+  border-radius: 12px;
+}
+
+.skeleton-queue {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 10px;
+  align-items: center;
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  padding: 9px;
+}
+
+.skeleton-queue .skeleton-poster {
+  width: 40px;
+  height: 58px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}

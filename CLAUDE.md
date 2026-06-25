@@ -82,7 +82,7 @@ Approximate line ranges (they drift; grep to confirm):
 - **Validate before committing:** `node --check app.js` for JS; `deno check supabase/functions/<fn>/index.ts` for edge functions.
 - **Deploy an edge function:** `supabase functions deploy <name>` (Supabase CLI via Homebrew; project is linked to ref `hrfhakrxsllrqmscxxpb`). **You must redeploy after changing a function or its response shape.**
 - **Screenshots:** `npm run screenshots` (headless Chrome; flags `--label=`, `--only=desktop-comparison,mobile-comparison-portrait,...`). Archives to `debug/screenshots/runs/<timestamp>/` + `latest/` (both gitignored).
-- **Cache-busting:** when you change JS or CSS, **bump `app.js?v=N` / `styles.css?v=N` in `index.html`** — otherwise GitHub Pages and browsers serve stale assets. Current: `app.js?v=50`, `styles.css?v=24`.
+- **Cache-busting:** when you change JS or CSS, **bump `app.js?v=N` / `styles.css?v=N` in `index.html`** — otherwise GitHub Pages and browsers serve stale assets. Current: `app.js?v=52`, `styles.css?v=25`.
 
 ## Conventions
 

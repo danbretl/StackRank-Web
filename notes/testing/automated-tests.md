@@ -6,17 +6,19 @@
 
 ## Status at a glance
 
-**Phases 0–5 complete — 76 tests, `npm test` green in ~0.15s.** The entire pure
+**Phases 0–6 complete — 83 tests, `npm test` green in ~0.18s.** The entire pure
 logic core is extracted into `lib/` and covered: ZIP writer, text-fit/SVG-text,
 formatters, movie identity + merge (never-lose-data), the rank-weighted insight
 engine, pack progress + share aggregation, the share text/data export builder +
-serializers, and the binary-insertion ranking search. Every extraction was
-browser-smoke-tested (app boots clean, all surfaces render; the ranking flow was
-exercised live). **Next up: Phase 6 (SVG structural) and Phase 7 (DOM/E2E)** —
-both heavier and specced below for a clean pickup.
+serializers, the binary-insertion ranking search, and the pure Share SVG
+composition layer. Every extraction through Phase 5 was browser-smoke-tested
+(app boots clean, all surfaces render; the ranking flow was exercised live).
+Phase 6 was validated with `node --check app.js`, the full unit suite, and a
+browser smoke of Share Studio's single-image and image-set preview paths.
+**Next up: Phase 7 (DOM/E2E)** — heavier and specced below for a clean pickup.
 
-Modules: `lib/{zip,text,format,movie,insights,packs,share-export,ranking}.js`.
-Tests: `tests/{zip,text,format,movie,insights,packs,share-export,ranking}.test.js`.
+Modules: `lib/{zip,text,format,movie,insights,packs,share-export,share-svg,ranking}.js`.
+Tests: `tests/{zip,text,format,movie,insights,packs,share-export,share-svg,ranking}.test.js`.
 
 ## Goal
 
@@ -71,12 +73,53 @@ The app has no tests yet, so extraction is the risky part. Rules:
 ## Running the tests
 
 ```
-npm test            # the whole suite (node --test tests/)
-npm run test:watch  # re-run on change (node --test --watch tests/)
+npm run verify          # full handoff/CI gate: tests + app syntax + edge function checks
+npm test                # the whole suite + saves reports/runs/<timestamp>/
+npm run test:watch      # re-run on change (node --test --watch tests/)
+npm run check           # node --check app.js
+npm run check:functions # deno check supabase/functions/*/index.ts
 node --test tests/zip.test.js   # one file
 ```
 
 Target: full unit suite < 1s. No network, no DOM, no fixtures larger than needed.
+`npm test` prints the human-readable spec reporter to the terminal and saves a
+timestamped report directory under `reports/runs/<timestamp>/` (gitignored). Each
+run contains:
+
+- `summary.md` — quick human-readable status, counts, command, and failure list.
+- `summary.json` — structured metadata for agents/scripts.
+- `output.log` — full terminal output from the Node test runner.
+- `junit.xml` — machine-readable JUnit XML for CI/test viewers.
+
+`reports/latest` is a symlink to the most recent run, so the fastest follow-up is
+usually `open reports/latest/summary.md` or `sed -n '1,120p' reports/latest/summary.md`.
+CI runs `npm run verify` on pushes to `main` and pull requests via
+`.github/workflows/test.yml`, then uploads `reports/runs/**` as the `test-reports`
+artifact.
+
+## Testing policy for future changes
+
+Every future development effort should leave the suite at least as strong as it
+found it:
+
+- **Run `npm run verify` before handoff** unless the change is explicitly docs-only
+  and does not touch executable code. Report the command and result; inspect
+  `reports/latest/summary.md` after the run when following up on failures.
+- **Add tests with new behavior**, not after a later cleanup. For new pure logic,
+  create or extend a focused `lib/` module and write `tests/<module>.test.js`.
+- **Regression fixes start with a failing test** when the bug is in logic that can
+  be isolated. Add the smallest fixture that would have caught the bug.
+- **Protect high-risk invariants first:** no ranking loss or shrinkage, stable
+  movie identity, binary-insertion placement, rank-weighted taste math, pack
+  derived progress, share empty-section omission, SVG/text padding, ZIP validity,
+  and edge-function response shape.
+- **UI-only work needs a browser smoke** of the affected flow. If layout or mobile
+  behavior is the risk, run targeted screenshots (`npm run screenshots -- --only=…`)
+  and inspect the output.
+- **Do not import `app.js` in Node tests.** It has DOM/Supabase side effects. Move
+  pure logic to `lib/` and keep `app.js` as the thin state/DOM adapter.
+- **Keep tests deterministic:** no network, no wall-clock assertions unless the
+  date/time is injected, no real Supabase/TMDB calls, no reliance on localStorage.
 
 ## What we test, by impact (the priority order)
 
@@ -194,13 +237,23 @@ Legend: [ ] todo · [~] in progress · [x] done
       "existing better" 4×, it landed at #11 (bottom) and ranking grew 10→11, no
       errors. **76 tests green.**
 
-### Phase 6 — SVG structural (next)
-- [ ] Assert `buildShareSvg` / image-set output is well-formed XML, has expected
-      section markers per options, respects content padding (no text x beyond the
-      right margin), and the packs/queue self-hide reflects in the SVG.
-- [ ] `buildShareSvg` is state+theme coupled; either thread a pure SVG-assembly
-      seam (theme table + section descriptors → string) or validate the app's
-      output via a thin DOM-loaded harness. Lower priority than Phase 7.
+### Phase 6 — SVG structural ✅
+- [x] Extracted the pure Share SVG assembly seam to `lib/share-svg.js`:
+      title/name helpers, shared SVG styles, frame rendering, header,
+      single-column section placement, single-image composition, wide masonry
+      composition, and image-set card composition. `app.js` still owns the
+      stateful section descriptor builders and passes their descriptors into the
+      pure composers.
+- [x] `tests/share-svg.test.js` — structural SVG coverage without a DOM harness:
+      balanced tag checks, escaped display names/kickers, deterministic footer
+      dates, section omission/order via descriptor filtering, single-image min
+      height and growth, horizontal text padding for the single-image chrome,
+      wide canvas dimensions + masonry column transforms, and image-set card
+      shrink/cap height behavior. (7 tests)
+- [x] Validation: `npm test` green (**83 tests**, ~0.18s), `node --check app.js`
+      green, and browser smoke on `localhost:8000` confirmed Share Studio opens,
+      renders the single SVG preview, disables empty section toggles, and renders
+      a 7-card Image set preview with ZIP button labels.
 
 ### Phase 7 — DOM / integration / E2E (heavier; spec now, build later)
 - [ ] Decide harness: jsdom (dev-only dep) for wiring vs. browser-driven smoke via

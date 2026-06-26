@@ -15,7 +15,9 @@ A web app for **stack-ranking** things — movies first, but meant to generalize
 Plain **static single-page app — no build system, no framework, no bundler, no npm dependencies for the app itself.** Three core files:
 
 - **`index.html`** — markup; loads `app.js` as an ES module (needed for the Supabase client import). References assets with cache-busting query strings (`app.js?v=N`, `styles.css?v=N`).
-- **`app.js`** (~4200 lines) — all application logic.
+- **`app.js`** (~5600 lines) — application wiring and DOM-bound logic.
+- **`lib/`** — DOM-free ES modules extracted from `app.js` and shared by the browser app plus tests (`zip`, `text`, `format`, `movie`, `insights`, `packs`, `share-export`, `share-svg`, `ranking`).
+- **`tests/`** — zero-dependency Node test suite for the `lib/` modules.
 - **`styles.css`** — all styling.
 
 **Movie identity is the TMDB id (`tmdbId`)**, with a normalized `title + year` fallback for legacy items that predate id tracking.
@@ -47,11 +49,11 @@ Plain **static single-page app — no build system, no framework, no bundler, no
 - **List settings:** a quiet gear icon (next to Share) opens a popover with account status / sign in / sign out / Clear rankings.
 - **Debug panel:** append `?debug=1` to the URL.
 
-## Code map (`app.js` — one ~4,200-line module, no internal imports)
+## Code map (`app.js` — one large ES module plus DOM-free `lib/` modules)
 
 Approximate line ranges (they drift; grep to confirm):
 
-- **1–185** — Supabase-JS import, DOM refs, constants (function paths, storage keys, Supabase URL + anon key, `SHARE_OPTIONS_VERSION`).
+- **1–185** — Supabase-JS import, local `lib/` imports, DOM refs, constants (function paths, storage keys, Supabase URL + anon key, `SHARE_OPTIONS_VERSION`).
 - **186–372** — mutable state, `shareOptions` default, `PLACEHOLDER_TITLES`; helpers (`movieKey`, `isDuplicateMovie`, runtime formatters, `withTimeout`, ranking-settings open/close).
 - **374–704** — `renderRanking`, the **rank-weighted insight engine** (`preferenceWeight`, `countPreference*`, `getRankingInsights`), and the "Recently ranked" snapshot.
 - **706–1003** — queue rendering + all persistence (local payload, `mergeRankings`, `movie_lists` load/save).
@@ -63,7 +65,7 @@ Approximate line ranges (they drift; grep to confirm):
 - **1608–1721** — movie detail pane (fetch by tmdbId, cache, context-aware actions).
 - **1723–2097** — suggestions engine (`filterUnrankedSuggestions`, seed picking, per-section update + stale-request guard).
 - **2100–2369** — share text/Markdown/JSON exports (shared `buildShareExportSections`).
-- **2371–3115** — SVG text-fit helpers, theme/tone tables, and **`buildShareSvg`** (section builders: `topPicks`/`bottomPicks`/`eras`/`genres`/`people`/`queues`/`fullList`).
+- **2371–3115** — Share export helpers, theme/tone tables, and SVG section descriptor builders. Pure SVG composition is in `lib/share-svg.js`.
 - **3117–3517** — share-options persistence (version migration), studio open/close + scroll lock, PNG/SVG export (canvas poster overlay via `getSvgPosterOverlays`/`drawPosterOverlays`).
 - **3519–3711** — debug panel, `migrateRanking`, auth (`setAuthUI`, `handleSignIn`/`Out`, `initAuth`).
 - **3713–3951** — stored-movie shape (`toStoredMovie`), queue operations, detail-action wiring.
@@ -79,11 +81,13 @@ Approximate line ranges (they drift; grep to confirm):
 
 - **Local server** (from repo root): `python3 -m http.server 8000` → http://localhost:8000/ . Any port is fine; add the exact local URL to Supabase Auth redirect URLs if you need sign-in to work locally. **`file://` won't work** for auth.
 - **Phone/tablet testing:** `http://<Mac-LAN-IP>:<port>/` (get IP via `ipconfig getifaddr en0`); device on same network.
-- **Validate before committing:** `node --check app.js` for JS; `deno check supabase/functions/<fn>/index.ts` for edge functions.
-- **Automated tests:** `npm test` (zero-dep, built-in `node --test`; ~0.15s). Pure logic is extracted into native ES modules under **`lib/`** — `zip`, `text`, `format`, `movie` (identity/merge), `insights` (rank-weighted engine), `packs`, `share-export`, `ranking` (binary-insertion) — imported by **both** `app.js` (browser, no build step) and **`tests/*.test.js`**. To make new logic testable, extract it into a DOM-free `lib/` module and have `app.js` import it (keep a thin wrapper that binds live state). Strategy, phases (0–5 done; 6 SVG / 7 DOM-E2E remain) and conventions: **`notes/testing/automated-tests.md`**.
+- **Validate before committing / handing off:** `npm run verify`. This runs `npm test`, `node --check app.js`, and `deno check --no-lock supabase/functions/*/index.ts`.
+- **Automated tests:** `npm test` (zero-dep, built-in `node --test`; ~0.2s). It prints the spec reporter to the terminal and saves a timestamped report under `reports/runs/<timestamp>/` (gitignored) with `junit.xml`, `output.log`, `summary.json`, and `summary.md`; `reports/latest` symlinks to the newest run. CI uploads `reports/runs/**` as an artifact. Pure logic is extracted into native ES modules under **`lib/`** — `zip`, `text`, `format`, `movie` (identity/merge), `insights` (rank-weighted engine), `packs`, `share-export`, `share-svg`, `ranking` (binary-insertion) — imported by **both** `app.js` (browser, no build step) and **`tests/*.test.js`**. To make new logic testable, extract it into a DOM-free `lib/` module and have `app.js` import it (keep a thin wrapper that binds live state). Strategy, phases (0–6 done; 7 DOM/E2E remains) and conventions: **`notes/testing/automated-tests.md`**.
+- **Test expectation for future work:** new functionality should include focused tests for the new pure logic or regression risk before handoff. If a change touches ranking identity/merge, insight scoring, packs, share exports/SVG, ZIP/export behavior, or binary insertion, add or update the relevant `tests/*.test.js` file. If logic is trapped in `app.js`, extract the smallest DOM-free piece to `lib/` rather than testing through globals. UI-only changes still need a browser smoke of the affected flow; use `npm run screenshots` when responsive visual behavior is the risk.
+- **CI:** GitHub Actions runs `npm run verify` on pushes to `main` and on pull requests.
 - **Deploy an edge function:** `supabase functions deploy <name>` (Supabase CLI via Homebrew; project is linked to ref `hrfhakrxsllrqmscxxpb`). **You must redeploy after changing a function or its response shape.**
 - **Screenshots:** `npm run screenshots` (headless Chrome; flags `--label=`, `--only=desktop-comparison,mobile-comparison-portrait,...`). Archives to `debug/screenshots/runs/<timestamp>/` + `latest/` (both gitignored).
-- **Cache-busting:** when you change JS or CSS, **bump `app.js?v=N` / `styles.css?v=N` in `index.html`** — otherwise GitHub Pages and browsers serve stale assets. Current: `app.js?v=83`, `styles.css?v=55`.
+- **Cache-busting:** when you change JS or CSS, **bump `app.js?v=N` / `styles.css?v=N` in `index.html`** — otherwise GitHub Pages and browsers serve stale assets. Current: `app.js?v=84`, `styles.css?v=55`.
 
 ## Conventions
 

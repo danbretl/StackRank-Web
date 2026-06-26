@@ -54,7 +54,7 @@ import {
 } from "./lib/share-svg.js";
 import { comparisonMidIndex, applyComparison, isSearchSettled } from "./lib/ranking.js";
 
-console.info("StackRank build", "share-studio-v3");
+console.info("StackRank build", "share-studio-v4");
 
 const form = document.getElementById("movie-form");
 const titleInput = document.getElementById("title");
@@ -105,6 +105,7 @@ const shareIncludeFullList = document.getElementById("share-include-full-list");
 const shareFullListStyleControls = document.querySelectorAll('input[name="share-full-list-style"]');
 const shareShapeFieldset = document.getElementById("share-shape-fieldset");
 const shareDownloadPng = document.getElementById("share-download-png");
+const shareNativeShare = document.getElementById("share-native-share");
 const shareDownloadSvg = document.getElementById("share-download-svg");
 const shareCopyMarkdown = document.getElementById("share-copy-markdown");
 const shareCopyJson = document.getElementById("share-copy-json");
@@ -259,6 +260,7 @@ let shareOptions = {
 let shareDetailRequestId = 0;
 let shareDetailsLoading = false;
 let sharePngPreparing = false;
+let shareSetPageIndex = 0;
 // Last preview markup written to the DOM; lets us skip redundant innerHTML
 // rewrites (which reload poster <image>s and cause a visible flicker).
 let lastSharePreviewMarkup = "";
@@ -1438,6 +1440,40 @@ shareStudio.addEventListener("click", (event) => {
 
 shareDownloadSvg.addEventListener("click", downloadShareSvg);
 shareDownloadPng.addEventListener("click", downloadSharePng);
+shareNativeShare.addEventListener("click", () => shareNativePng());
+sharePreview.addEventListener("click", (event) => {
+  if (!(event.target instanceof Element)) return;
+  const stepButton = event.target.closest("[data-share-page-step]");
+  if (stepButton) {
+    event.preventDefault();
+    setShareSetPage(shareSetPageIndex + Number(stepButton.dataset.sharePageStep || 0));
+    return;
+  }
+  const downloadButton = event.target.closest("[data-share-page-download]");
+  if (downloadButton) {
+    event.preventDefault();
+    void downloadCurrentShareSetPage();
+    return;
+  }
+  const shareButton = event.target.closest("[data-share-page-share]");
+  if (shareButton) {
+    event.preventDefault();
+    void shareNativePng({ currentPageOnly: true });
+  }
+});
+sharePreview.addEventListener(
+  "scroll",
+  (event) => {
+    const viewport = event.target.closest?.(".share-preview-deck__viewport");
+    if (!viewport) return;
+    const nextIndex = Math.round(viewport.scrollLeft / Math.max(1, viewport.clientWidth));
+    if (nextIndex !== shareSetPageIndex) {
+      shareSetPageIndex = nextIndex;
+      updateShareSetPageChrome();
+    }
+  },
+  true,
+);
 shareCopyMarkdown.addEventListener("click", () => copyShareExport("markdown"));
 shareCopyJson.addEventListener("click", () => copyShareExport("json"));
 shareCopyText.addEventListener("click", () => copyShareExport("text"));
@@ -4453,6 +4489,7 @@ function updateShareExportControls() {
   updateShareIncludeAvailability(insights);
   const disabled = !insights.count;
   shareDownloadPng.disabled = disabled || sharePngPreparing;
+  shareNativeShare.disabled = disabled || sharePngPreparing;
   shareDownloadSvg.disabled = disabled || sharePngPreparing;
   shareCopyMarkdown.disabled = disabled;
   shareCopyJson.disabled = disabled;
@@ -4466,29 +4503,110 @@ function updateShareExportControls() {
       : "";
 }
 
+function canNativeSharePngFiles(fileCount = 1) {
+  if (!navigator.share || typeof File === "undefined") return false;
+  try {
+    const files = Array.from(
+      { length: Math.max(1, fileCount) },
+      (_, index) => new File(["x"], `stackrank-${index + 1}.png`, { type: "image/png" }),
+    );
+    return !navigator.canShare || navigator.canShare({ files });
+  } catch (error) {
+    return false;
+  }
+}
+
+function scrollToShareSetPage({ instant = false } = {}) {
+  const viewport = sharePreview.querySelector(".share-preview-deck__viewport");
+  if (!viewport) return;
+  const left = shareSetPageIndex * viewport.clientWidth;
+  viewport.scrollTo({ left, behavior: instant ? "auto" : "smooth" });
+  updateShareSetPageChrome();
+}
+
+function updateShareSetPageChrome() {
+  const deck = sharePreview.querySelector(".share-preview-deck");
+  if (!deck) return;
+  const total = Number(deck.dataset.total || 0);
+  const current = Math.min(Math.max(shareSetPageIndex, 0), Math.max(0, total - 1));
+  shareSetPageIndex = current;
+  const label = deck.querySelector("[data-share-page-label]");
+  if (label) label.textContent = `${current + 1}/${Math.max(1, total)}`;
+  const activeCaption = deck.querySelectorAll(".share-preview-card")[current]?.dataset.caption || "";
+  const activeName = deck.querySelector("[data-share-active-name]");
+  if (activeName) activeName.textContent = activeCaption;
+  deck.querySelectorAll("[data-share-page-step]").forEach((button) => {
+    const step = Number(button.dataset.sharePageStep || 0);
+    button.disabled = (step < 0 && current <= 0) || (step > 0 && current >= total - 1);
+  });
+}
+
+function setShareSetPage(index) {
+  const deck = sharePreview.querySelector(".share-preview-deck");
+  const total = Number(deck?.dataset.total || 0);
+  if (!total) return;
+  shareSetPageIndex = Math.min(Math.max(index, 0), total - 1);
+  scrollToShareSetPage();
+}
+
 function updateShareStudio() {
   const images = buildShareImages();
   if (images.mode === "set") {
     const total = images.cards.length;
-    const markup = images.cards
+    shareSetPageIndex = Math.min(Math.max(shareSetPageIndex, 0), Math.max(0, total - 1));
+    const canSharePage = canNativeSharePngFiles(1);
+    const figures = images.cards
       .map(
         (card, index) =>
-          `<figure class="share-preview-card">` +
+          `<figure class="share-preview-card" data-page-index="${index}" data-caption="${xmlEscape(card.caption || card.label || "")}">` +
           `<div class="share-preview-card__media">${card.svg}</div>` +
-          `<figcaption class="share-preview-card__label">` +
-          `<span class="share-preview-card__num">${index + 1}/${total}</span>` +
-          `<span class="share-preview-card__name">${xmlEscape(card.caption || card.label || "")}</span>` +
-          `</figcaption></figure>`,
+          `</figure>`,
       )
       .join("");
+    const markup =
+      `<div class="share-preview-deck" data-total="${total}">` +
+      `<div class="share-preview-deck__stage">` +
+      `<button class="share-preview-nav share-preview-nav--prev" type="button" data-share-page-step="-1" aria-label="Previous image page">` +
+      `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7" /></svg>` +
+      `</button>` +
+      `<div class="share-preview-deck__viewport" tabindex="0" role="region" aria-label="Image set pages">` +
+      `<div class="share-preview-deck__track">${figures}</div>` +
+      `</div>` +
+      `<button class="share-preview-nav share-preview-nav--next" type="button" data-share-page-step="1" aria-label="Next image page">` +
+      `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg>` +
+      `</button>` +
+      `</div>` +
+      `<div class="share-preview-deck__footer">` +
+      `<div class="share-preview-card__label share-preview-card__label--active">` +
+      `<span class="share-preview-card__num" data-share-page-label>${shareSetPageIndex + 1}/${Math.max(1, total)}</span>` +
+      `<span class="share-preview-card__name" data-share-active-name>${xmlEscape(images.cards[shareSetPageIndex]?.caption || "Image set")}</span>` +
+      `</div>` +
+      `<div class="share-preview-page-actions">` +
+      `<button class="detail-action detail-action--muted" type="button" data-share-page-download ${sharePngPreparing ? "disabled" : ""}>Download this page</button>` +
+      `<button class="detail-action detail-action--muted" type="button" data-share-page-share ${canSharePage ? "" : "hidden"} ${sharePngPreparing ? "disabled" : ""}>Share page</button>` +
+      `</div>` +
+      `</div>` +
+      `</div>`;
     if (markup !== lastSharePreviewMarkup) {
       sharePreview.innerHTML = markup;
       lastSharePreviewMarkup = markup;
+      requestAnimationFrame(() => scrollToShareSetPage({ instant: true }));
+    } else {
+      updateShareSetPageChrome();
     }
     const count = images.cards.length;
     // 2+ cards ship as a single .zip; a 1-card set is just one plain file.
     shareDownloadPng.textContent =
       count > 1 ? `Download zip (${count})` : count ? "Download image" : "Download images";
+    if (canNativeSharePngFiles(count)) {
+      shareNativeShare.hidden = false;
+      shareNativeShare.textContent = count > 1 ? `Share set (${count})` : "Save / Share";
+    } else if (canNativeSharePngFiles(1)) {
+      shareNativeShare.hidden = false;
+      shareNativeShare.textContent = "Share page";
+    } else {
+      shareNativeShare.hidden = true;
+    }
     shareDownloadSvg.textContent = count > 1 ? "SVG zip" : "SVG";
   } else {
     if (images.svg !== lastSharePreviewMarkup) {
@@ -4496,6 +4614,8 @@ function updateShareStudio() {
       lastSharePreviewMarkup = images.svg;
     }
     shareDownloadPng.textContent = "Download PNG";
+    shareNativeShare.hidden = !canNativeSharePngFiles(1);
+    shareNativeShare.textContent = "Save / Share";
     shareDownloadSvg.textContent = "SVG";
   }
   updateShareExportControls();
@@ -4819,21 +4939,120 @@ function renderShareSvgToPngBlob(baseSvg, posterSvg) {
   });
 }
 
+function pngFileFromBlob(blob, filename) {
+  if (typeof File !== "undefined") {
+    return new File([blob], filename, { type: "image/png" });
+  }
+  return blob;
+}
+
+async function renderShareSinglePngBlob({ preparePosters = true } = {}) {
+  if (preparePosters) {
+    await prepareSharePosterData(70);
+  }
+  const base = buildShareImages({ ...shareOptions, externalPosters: false });
+  const proxy = buildShareImages({ ...shareOptions, externalPosters: true, posterProxy: true });
+  return {
+    blob: await renderShareSvgToPngBlob(base.svg, proxy.svg),
+    filename: "stackrank-movies.png",
+  };
+}
+
+async function renderShareSetPagePngBlob(index, { preparePosters = true } = {}) {
+  if (preparePosters) {
+    await prepareSharePosterData(Math.max(70, ranking.length));
+  }
+  const baseCards = buildShareImageSetPages({ ...shareOptions, externalPosters: false });
+  const proxyCards = buildShareImageSetPages({ ...shareOptions, externalPosters: true, posterProxy: true });
+  if (!baseCards.length) return null;
+  const pageIndex = Math.min(Math.max(index, 0), baseCards.length - 1);
+  shareExportStatus.textContent = `Preparing image ${pageIndex + 1} of ${baseCards.length}...`;
+  return {
+    blob: await renderShareSvgToPngBlob(baseCards[pageIndex].svg, (proxyCards[pageIndex] || baseCards[pageIndex]).svg),
+    filename: baseCards[pageIndex].filename,
+    pageIndex,
+    total: baseCards.length,
+  };
+}
+
+async function downloadCurrentShareSetPage() {
+  if (!ranking.length || shareOptions.format !== "set") return;
+  sharePngPreparing = true;
+  updateShareStudio();
+  try {
+    const page = await renderShareSetPagePngBlob(shareSetPageIndex);
+    sharePngPreparing = false;
+    if (!page) return;
+    downloadBlob(page.blob, page.filename);
+    setAddFeedback(`Downloaded page ${page.pageIndex + 1}.`);
+    shareExportStatus.textContent = `Downloaded page ${page.pageIndex + 1} of ${page.total}.`;
+    updateShareStudio();
+  } catch (error) {
+    sharePngPreparing = false;
+    setAddFeedback("Could not create PNG.");
+    shareExportStatus.textContent = "Could not create PNG.";
+    updateShareStudio();
+  }
+}
+
+async function shareNativePng({ currentPageOnly = false } = {}) {
+  if (!ranking.length || !navigator.share) return;
+  sharePngPreparing = true;
+  updateShareStudio();
+  try {
+    let files = [];
+    if (shareOptions.format === "set") {
+      const cards = buildShareImageSetPages({ ...shareOptions, externalPosters: false });
+      const shareAll = !currentPageOnly && cards.length > 1 && canNativeSharePngFiles(cards.length);
+      const indexes = shareAll ? cards.map((_, index) => index) : [shareSetPageIndex];
+      await prepareSharePosterData(Math.max(70, ranking.length));
+      for (const index of indexes) {
+        const page = await renderShareSetPagePngBlob(index, { preparePosters: false });
+        if (page) files.push(pngFileFromBlob(page.blob, page.filename));
+      }
+    } else {
+      const image = await renderShareSinglePngBlob();
+      files = [pngFileFromBlob(image.blob, image.filename)];
+    }
+
+    if (!files.length || (navigator.canShare && !navigator.canShare({ files }))) {
+      throw new Error("Native file sharing is not available for these images.");
+    }
+    await navigator.share({
+      files,
+      title: "StackRank movie ranking",
+      text: files.length > 1 ? "StackRank share images" : "StackRank share image",
+    });
+    sharePngPreparing = false;
+    setAddFeedback(files.length > 1 ? "Share set opened." : "Share image opened.");
+    shareExportStatus.textContent = files.length > 1 ? "Share set opened." : "Share image opened.";
+    updateShareStudio();
+  } catch (error) {
+    sharePngPreparing = false;
+    if (error?.name === "AbortError") {
+      shareExportStatus.textContent = "Share canceled.";
+    } else {
+      setAddFeedback("Could not open native share.");
+      shareExportStatus.textContent = "Native share is not available here.";
+    }
+    updateShareStudio();
+  }
+}
+
 async function downloadSharePng() {
   if (!ranking.length) return;
   sharePngPreparing = true;
   updateShareStudio();
-  await prepareSharePosterData(shareOptions.format === "set" ? Math.max(70, ranking.length) : 70);
-  updateShareStudio();
   try {
     if (shareOptions.format === "set") {
       const baseCards = buildShareImageSetPages({ ...shareOptions, externalPosters: false });
-      const proxyCards = buildShareImageSetPages({ ...shareOptions, externalPosters: true, posterProxy: true });
       const pngFiles = [];
+      await prepareSharePosterData(Math.max(70, ranking.length));
       for (let i = 0; i < baseCards.length; i += 1) {
-        shareExportStatus.textContent = `Preparing image ${i + 1} of ${baseCards.length}...`;
-        const blob = await renderShareSvgToPngBlob(baseCards[i].svg, (proxyCards[i] || baseCards[i]).svg);
-        pngFiles.push({ name: baseCards[i].filename, bytes: new Uint8Array(await blob.arrayBuffer()) });
+        const page = await renderShareSetPagePngBlob(i, { preparePosters: false });
+        if (page) {
+          pngFiles.push({ name: page.filename, bytes: new Uint8Array(await page.blob.arrayBuffer()) });
+        }
       }
       sharePngPreparing = false;
       if (pngFiles.length === 1) {
@@ -4851,9 +5070,7 @@ async function downloadSharePng() {
       return;
     }
 
-    const base = buildShareImages({ ...shareOptions, externalPosters: false });
-    const proxy = buildShareImages({ ...shareOptions, externalPosters: true, posterProxy: true });
-    const blob = await renderShareSvgToPngBlob(base.svg, proxy.svg);
+    const { blob } = await renderShareSinglePngBlob();
     sharePngPreparing = false;
     downloadBlob(blob, "stackrank-movies.png");
     setAddFeedback("Share PNG downloaded.");

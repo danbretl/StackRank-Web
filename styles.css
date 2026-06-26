@@ -1985,8 +1985,80 @@ body.is-comparing .compare-panel {
   box-shadow: 0 16px 34px rgba(0, 0, 0, 0.14);
 }
 
-/* Image-set deck preview: one card per content group, stacked vertically,
-   each with a numbered caption so the deck reads as an ordered set. */
+/* Image-set deck preview: one card per content group, swiped horizontally. */
+.share-preview-deck {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+}
+
+.share-preview-deck__stage {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) 38px;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+}
+
+.share-preview-deck__viewport {
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.share-preview-deck__viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.share-preview-deck__track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 100%;
+}
+
+.share-preview-nav {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--bg-ink);
+  cursor: pointer;
+  transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.share-preview-nav svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.share-preview-nav:hover:not(:disabled),
+.share-preview-nav:focus-visible {
+  border-color: var(--border);
+  background: #f8f8f8;
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.share-preview-nav:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+
 .share-preview-card {
   display: grid;
   place-items: center;
@@ -1994,6 +2066,8 @@ body.is-comparing .compare-panel {
   width: 100%;
   min-width: 0;
   margin: 0;
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
 }
 
 .share-preview-card__media {
@@ -2019,6 +2093,10 @@ body.is-comparing .compare-panel {
   color: var(--ink-soft);
 }
 
+.share-preview-card__label--active {
+  min-width: 0;
+}
+
 .share-preview-card__num {
   flex: none;
   font-variant-numeric: tabular-nums;
@@ -2039,6 +2117,29 @@ body.is-comparing .compare-panel {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 12px;
+}
+
+.share-preview-deck__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: min(100%, 560px);
+  justify-self: center;
+}
+
+.share-preview-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.share-preview-page-actions .detail-action {
+  min-height: 34px;
+  padding: 8px 10px;
+  font-size: 0.78rem;
+  white-space: nowrap;
 }
 
 .share-controls {
@@ -2372,6 +2473,36 @@ body.is-comparing .compare-panel {
 
   .share-preview svg {
     width: min(100%, 360px);
+  }
+
+  .share-preview-deck__stage {
+    grid-template-columns: 32px minmax(0, 1fr) 32px;
+    gap: 6px;
+  }
+
+  .share-preview-nav {
+    width: 32px;
+    height: 32px;
+  }
+
+  .share-preview-card svg {
+    width: min(100%, 320px);
+    max-height: calc(48dvh - 96px);
+  }
+
+  .share-preview-deck__footer {
+    width: min(100%, 320px);
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .share-preview-page-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .share-preview-page-actions .detail-action {
+    flex: 1 1 auto;
   }
 
   .share-actions .detail-action {

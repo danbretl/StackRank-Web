@@ -42,6 +42,7 @@ import {
   sectionsToMarkdown,
   sectionsToText,
 } from "./lib/share-export.js";
+import { comparisonMidIndex, applyComparison, isSearchSettled } from "./lib/ranking.js";
 
 console.info("StackRank build", "share-studio-v3");
 
@@ -1198,7 +1199,7 @@ const startComparison = () => {
 const showComparison = () => {
   if (!pending || !searchRange) return;
 
-  const mid = Math.floor((searchRange.low + searchRange.high) / 2);
+  const mid = comparisonMidIndex(searchRange);
   const existing = ranking[mid];
 
   newTitle.textContent = pending.title;
@@ -1252,13 +1253,11 @@ const handleDecision = (isNewBetter, midIndex) => {
     comparisons: pending.comparisons,
   });
   pending.comparisons += 1;
-  if (isNewBetter) {
-    searchRange.high = midIndex - 1;
-  } else {
-    searchRange.low = midIndex + 1;
-  }
+  const narrowed = applyComparison(searchRange, isNewBetter, midIndex);
+  searchRange.low = narrowed.low;
+  searchRange.high = narrowed.high;
 
-  if (searchRange.low > searchRange.high) {
+  if (isSearchSettled(searchRange)) {
     const insertIndex = searchRange.low;
     const rankedMovie = withRankingTimestamp(pending);
     const context = pendingPackContext;

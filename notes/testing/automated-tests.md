@@ -6,16 +6,17 @@
 
 ## Status at a glance
 
-**Phases 0–4 complete — 69 tests, `npm test` green in ~0.15s.** The entire pure
+**Phases 0–5 complete — 76 tests, `npm test` green in ~0.15s.** The entire pure
 logic core is extracted into `lib/` and covered: ZIP writer, text-fit/SVG-text,
 formatters, movie identity + merge (never-lose-data), the rank-weighted insight
-engine, pack progress + share aggregation, and the share text/data export builder
-+ serializers. Every extraction was browser-smoke-tested (app boots clean, all
-surfaces render). **Next up: Phase 5 (SVG structural) and Phase 6 (DOM/E2E)** —
+engine, pack progress + share aggregation, the share text/data export builder +
+serializers, and the binary-insertion ranking search. Every extraction was
+browser-smoke-tested (app boots clean, all surfaces render; the ranking flow was
+exercised live). **Next up: Phase 6 (SVG structural) and Phase 7 (DOM/E2E)** —
 both heavier and specced below for a clean pickup.
 
-Modules: `lib/{zip,text,format,movie,insights,packs,share-export}.js`.
-Tests: `tests/{zip,text,format,movie,insights,packs,share-export}.test.js`.
+Modules: `lib/{zip,text,format,movie,insights,packs,share-export,ranking}.js`.
+Tests: `tests/{zip,text,format,movie,insights,packs,share-export,ranking}.test.js`.
 
 ## Goal
 
@@ -180,13 +181,28 @@ Legend: [ ] todo · [~] in progress · [x] done
 - [x] Browser smoke-tested: Markdown export + SVG poster render correctly.
       **69 tests green, ~0.15s.**
 
-### Phase 5 — SVG structural
+### Phase 5 — Ranking algorithm ✅
+- [x] `lib/ranking.js` — `comparisonMidIndex`, `applyComparison`,
+      `isSearchSettled`, plus a test convenience `resolveInsertionIndex(count, fn)`.
+      `app.js`'s `showComparison`/`handleDecision` now call these (identical
+      arithmetic), so the binary-insertion search is unit-testable.
+- [x] `tests/ranking.test.js` — the defining property: against an ordered list,
+      a new value lands at the sorted index for **every slot × every size 0–30**
+      and keeps the list sorted; comparison count bounded by ⌈log₂(n+1)⌉; empty
+      list, always-better/always-worse, a hand-checked size-3 trace. (7 tests)
+- [x] Verified **live in the browser**: added "Inception" via search, chose
+      "existing better" 4×, it landed at #11 (bottom) and ranking grew 10→11, no
+      errors. **76 tests green.**
+
+### Phase 6 — SVG structural (next)
 - [ ] Assert `buildShareSvg` / image-set output is well-formed XML, has expected
       section markers per options, respects content padding (no text x beyond the
       right margin), and the packs/queue self-hide reflects in the SVG.
-- [ ] May need a tiny pure SVG-assembly seam; otherwise validate via string/regex.
+- [ ] `buildShareSvg` is state+theme coupled; either thread a pure SVG-assembly
+      seam (theme table + section descriptors → string) or validate the app's
+      output via a thin DOM-loaded harness. Lower priority than Phase 7.
 
-### Phase 6 — DOM / integration / E2E (heavier; spec now, build later)
+### Phase 7 — DOM / integration / E2E (heavier; spec now, build later)
 - [ ] Decide harness: jsdom (dev-only dep) for wiring vs. browser-driven smoke via
       the existing preview tooling / Playwright.
 - [ ] Persistence round-trip: seed localStorage → load → assert `ranking` state.

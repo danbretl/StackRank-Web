@@ -18,6 +18,7 @@ const existingCard = document.getElementById("existing-card");
 const compareSub = document.getElementById("compare-sub");
 const undoChoiceButton = document.getElementById("undo-choice");
 const cancelRankingButton = document.getElementById("cancel-ranking");
+const skipPackMovieButton = document.getElementById("skip-pack-movie");
 const rankingList = document.getElementById("ranking");
 const watchListEl = document.getElementById("watch-list");
 const notInterestedListEl = document.getElementById("not-interested-list");
@@ -74,6 +75,11 @@ const suggestEssentials = document.getElementById("suggest-essentials");
 const suggestRelatedMore = document.getElementById("suggest-related-more");
 const suggestPopularMore = document.getElementById("suggest-popular-more");
 const suggestEssentialsMore = document.getElementById("suggest-essentials-more");
+const packSection = document.getElementById("pack-section");
+const packSectionSub = document.getElementById("pack-section-sub");
+const packRow = document.getElementById("pack-row");
+const packEmpty = document.getElementById("pack-empty");
+const packViewAll = document.getElementById("pack-view-all");
 const detailOverlay = document.getElementById("movie-detail");
 const detailClose = document.getElementById("detail-close");
 const detailPoster = document.getElementById("detail-poster");
@@ -84,9 +90,23 @@ const detailOverview = document.getElementById("detail-overview");
 const detailDirector = document.getElementById("detail-director");
 const detailCast = document.getElementById("detail-cast");
 const detailStatus = document.getElementById("detail-status");
+const detailActions = detailOverlay.querySelector(".detail-actions");
 const detailRank = document.getElementById("detail-rank");
 const detailSave = document.getElementById("detail-save");
 const detailHide = document.getElementById("detail-hide");
+const packDetailOverlay = document.getElementById("pack-detail");
+const packDetailClose = document.getElementById("pack-detail-close");
+const packDetailCover = document.getElementById("pack-detail-cover");
+const packDetailCategory = document.getElementById("pack-detail-category");
+const packDetailTitle = document.getElementById("pack-detail-title");
+const packDetailSub = document.getElementById("pack-detail-sub");
+const packDetailProgressBar = document.getElementById("pack-detail-progress-bar");
+const packDetailStatus = document.getElementById("pack-detail-status");
+const packAutoStart = document.getElementById("pack-auto-start");
+const packShowHandled = document.getElementById("pack-show-handled");
+const packSaveAll = document.getElementById("pack-save-all");
+const packHideAll = document.getElementById("pack-hide-all");
+const packDetailList = document.getElementById("pack-detail-list");
 
 const TMDB_PROXY_PATH = "/functions/v1/tmdb-search";
 const TMDB_SUGGEST_PATH = "/functions/v1/tmdb-suggest";
@@ -96,6 +116,8 @@ const TMDB_POSTER_BASE = "https://image.tmdb.org/t/p/w342";
 const TMDB_POSTER_SMALL = "https://image.tmdb.org/t/p/w92";
 const STORAGE_KEY = "stackrank:movies:v1";
 const QUEUE_STORAGE_KEY = "stackrank:suggestion-queues:v1";
+const PACK_PROGRESS_STORAGE_KEY = "stackrank:pack-progress:v1";
+const PACK_FALLBACK_PATH = "data/suggestion-packs.json";
 const SHARE_OPTIONS_KEY = "stackrank:share-options:v1";
 const SHARE_OPTIONS_VERSION = 6;
 const WATCH_LIST_TYPE = "watch";
@@ -145,6 +167,15 @@ let suggestionSectionState = {
   essentials: { all: [], visible: [] },
   related: { all: [], visible: [] },
 };
+let suggestionPacks = [];
+let packProgress = {};
+let packIndexByMovieId = new Map();
+let currentPackSlug = null;
+let packDetailTrigger = null;
+let packDetailShowHandled = false;
+let pendingPackContext = null;
+let autoPackSession = null;
+let lastPackDiscoveryNudgeAt = 0;
 let placeholderIndex = 0;
 let placeholderTimer = null;
 let currentDetail = null;
@@ -190,6 +221,8 @@ const tmdbProxyUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_PROXY_PATH}` : "";
 const tmdbSuggestUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_SUGGEST_PATH}` : "";
 const tmdbImageUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_IMAGE_PATH}` : "";
 const SUGGESTION_PAGE_SIZE = 3;
+const PACK_PANEL_SIZE = 3;
+const PACK_DISCOVERY_NUDGE_COOLDOWN_MS = 1000 * 60 * 30;
 const TOAST_DURATION_MS = 3200;
 const TOAST_EXIT_MS = 240;
 const AUTH_INIT_TIMEOUT_MS = 3200;
@@ -668,29 +701,12 @@ function createSnapshotMovieRow({ movie, rank, rankedTime }) {
   return row;
 }
 
-function createSnapshotFooter(insights) {
-  const footer = document.createElement("div");
-  footer.className = "snapshot__footer";
-
-  const count = document.createElement("span");
-  count.textContent = `${insights.count} ranked`;
-  footer.appendChild(count);
-
-  if (insights.topMovie) {
-    const leader = document.createElement("span");
-    leader.textContent = `#1 ${insights.topMovie.title}`;
-    footer.appendChild(leader);
-  }
-
-  return footer;
-}
-
 function renderListSnapshot() {
   const insights = getRankingInsights();
   snapshotContent.innerHTML = "";
-  snapshotSub.textContent = insights.count ? "Latest additions" : "Waiting for ranked movies";
 
   if (!insights.count) {
+    snapshotSub.textContent = "Waiting for ranked movies";
     const empty = document.createElement("div");
     empty.className = "snapshot__empty";
     empty.textContent = "Rank a movie to start a running log here.";
@@ -699,14 +715,15 @@ function renderListSnapshot() {
   }
 
   const recent = getRecentRankedItems();
-  snapshotSub.textContent = recent.hasRankedTimes ? "Latest additions" : "Current top three";
+  const lead = recent.hasRankedTimes ? "Latest additions" : "Current top three";
+  snapshotSub.textContent = `${lead} of ${insights.count} total`;
 
   const list = document.createElement("ol");
   list.className = "snapshot__recent";
   recent.items.forEach((item) => {
     list.appendChild(createSnapshotMovieRow(item));
   });
-  snapshotContent.append(list, createSnapshotFooter(insights));
+  snapshotContent.append(list);
 }
 
 const createQueueActionButton = (label, ariaLabel, action, className = "") => {
@@ -1008,6 +1025,196 @@ const loadSuggestionQueues = async () => {
   await saveSuggestionQueues();
 };
 
+const stripProgressMetadata = (entry = {}) => {
+  const {
+    startedAt = null,
+    packVersionSeen = null,
+    lastIndex = 0,
+    completedAt = null,
+    discoveryDismissedAt = null,
+  } = entry || {};
+  return {
+    startedAt,
+    packVersionSeen,
+    lastIndex: Number.isFinite(Number(lastIndex)) ? Number(lastIndex) : 0,
+    completedAt,
+    discoveryDismissedAt,
+  };
+};
+
+const normalizeProgressEntry = (entry = {}, updatedAt = null) => ({
+  ...stripProgressMetadata(entry),
+  updated_at: entry.updated_at || updatedAt || null,
+});
+
+const getPackProgressStorageKeys = () => {
+  const keys = [PACK_PROGRESS_STORAGE_KEY];
+  if (currentUser && currentUser.id) {
+    keys.unshift(`${PACK_PROGRESS_STORAGE_KEY}:user:${currentUser.id}`);
+  }
+  return keys;
+};
+
+const getPackProgressPayload = (key) => {
+  if (!storageEnabled) return { progress: {} };
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return { progress: {} };
+    const parsed = JSON.parse(raw);
+    const progress = parsed?.progress && typeof parsed.progress === "object" ? parsed.progress : {};
+    return { progress };
+  } catch (error) {
+    return { progress: {} };
+  }
+};
+
+const saveLocalPackProgressPayload = () => {
+  if (!storageEnabled) return;
+  const [primaryKey] = getPackProgressStorageKeys();
+  try {
+    localStorage.setItem(primaryKey, JSON.stringify({ progress: packProgress }));
+  } catch (error) {
+    // Ignore write errors (storage full, blocked, etc.).
+  }
+};
+
+const mergePackProgressPayloads = (payloads) => {
+  const merged = {};
+  payloads.forEach((payload) => {
+    Object.entries(payload.progress || {}).forEach(([slug, entry]) => {
+      const current = merged[slug];
+      const entryTime = entry?.updated_at ? new Date(entry.updated_at).getTime() : 0;
+      const currentTime = current?.updated_at ? new Date(current.updated_at).getTime() : 0;
+      if (!current || entryTime >= currentTime) {
+        merged[slug] = normalizeProgressEntry(entry);
+      }
+    });
+  });
+  return merged;
+};
+
+const savePackProgress = async (slug) => {
+  const entry = packProgress[slug];
+  if (!entry) return;
+  const updatedAt = new Date().toISOString();
+  packProgress = {
+    ...packProgress,
+    [slug]: { ...normalizeProgressEntry(entry), updated_at: updatedAt },
+  };
+  saveLocalPackProgressPayload();
+
+  const listId = getListId();
+  if (supabaseEnabled && supabase && listId) {
+    const { error } = await supabase.from("pack_progress").upsert(
+      {
+        list_id: listId,
+        pack_slug: slug,
+        state: stripProgressMetadata(packProgress[slug]),
+        updated_at: updatedAt,
+      },
+      { onConflict: "list_id,pack_slug" },
+    );
+    if (error) {
+      console.warn("Could not sync pack progress", error);
+    }
+  }
+};
+
+const loadPackProgress = async () => {
+  const payloads = storageEnabled ? getPackProgressStorageKeys().map(getPackProgressPayload) : [];
+  const listId = getListId();
+
+  if (supabaseEnabled && supabase && listId) {
+    const { data, error } = await supabase
+      .from("pack_progress")
+      .select("pack_slug, state, updated_at")
+      .eq("list_id", listId);
+    if (!error && Array.isArray(data)) {
+      const progress = {};
+      data.forEach((row) => {
+        progress[row.pack_slug] = normalizeProgressEntry(row.state || {}, row.updated_at);
+      });
+      payloads.unshift({ progress });
+    } else if (error) {
+      console.warn("Could not load pack progress", error);
+    }
+  }
+
+  packProgress = mergePackProgressPayloads(payloads);
+  saveLocalPackProgressPayload();
+};
+
+const normalizePackMovie = (movie) => ({
+  title: movie.title,
+  year: movie.year || null,
+  posterPath: movie.posterPath || movie.poster_path || null,
+  tmdbId: movie.tmdbId || movie.tmdb_id || movie.id || null,
+});
+
+const normalizeSuggestionPack = (row) => ({
+  slug: row.slug,
+  title: row.title,
+  subtitle: row.subtitle || "",
+  category: row.category || "Pack",
+  movies: Array.isArray(row.movies) ? row.movies.map(normalizePackMovie) : [],
+  version: Number(row.version) || 1,
+  provenance: row.provenance || null,
+  active: row.active !== false,
+  sort_order: Number(row.sort_order ?? row.sortOrder ?? 0) || 0,
+  cover_path: row.cover_path || row.coverPath || null,
+});
+
+const loadFallbackSuggestionPacks = async () => {
+  try {
+    const response = await fetch(PACK_FALLBACK_PATH, { cache: "no-store" });
+    if (!response.ok) return [];
+    const data = await response.json();
+    return Array.isArray(data) ? data.map(normalizeSuggestionPack) : [];
+  } catch (error) {
+    return [];
+  }
+};
+
+const rebuildPackIndex = () => {
+  packIndexByMovieId = new Map();
+  suggestionPacks.forEach((pack) => {
+    pack.movies.forEach((movie) => {
+      if (!movie.tmdbId) return;
+      const slugs = packIndexByMovieId.get(movie.tmdbId) || [];
+      slugs.push(pack.slug);
+      packIndexByMovieId.set(movie.tmdbId, slugs);
+    });
+  });
+};
+
+const loadSuggestionPacks = async () => {
+  let packs = [];
+  let loadError = null;
+  if (supabaseEnabled && supabase) {
+    const { data, error } = await supabase
+      .from("suggestion_packs")
+      .select("slug,title,subtitle,category,movies,version,provenance,active,sort_order,cover_path")
+      .eq("active", true)
+      .order("sort_order", { ascending: true })
+      .order("slug", { ascending: true });
+    if (!error && Array.isArray(data) && data.length) {
+      packs = data.map(normalizeSuggestionPack);
+    } else if (error) {
+      loadError = error;
+    }
+  }
+  if (!packs.length) {
+    packs = await loadFallbackSuggestionPacks();
+  }
+  if (!packs.length && loadError) {
+    console.warn("Could not load suggestion packs", loadError);
+  }
+  suggestionPacks = packs
+    .filter((pack) => pack.active && pack.slug && pack.title && pack.movies.length)
+    .sort((a, b) => a.sort_order - b.sort_order || a.title.localeCompare(b.title));
+  rebuildPackIndex();
+};
+
 const saveRanking = async () => {
   const listId = getListId();
   const updatedAt = new Date().toISOString();
@@ -1065,7 +1272,6 @@ const setComparisonMode = (active) => {
   form.hidden = active;
   if (active) {
     hideSuggestions();
-    setAddFeedback("");
   }
 };
 
@@ -1091,6 +1297,16 @@ const restoreComparisonReturnScroll = () => {
   });
 };
 
+const scrollComparisonIntoView = () => {
+  // Starting a ranking can happen from anywhere on the page (a suggestion lower
+  // down, or a queue item in the right-hand column on desktop), but the compare
+  // panel lives at the top of the focus panel. Scroll it into view so the user
+  // can actually see the comparison they need to make.
+  const target = compareSection.closest(".panel--focus") || compareSection;
+  const top = target.getBoundingClientRect().top + window.scrollY - 16;
+  window.scrollTo({ left: 0, top: Math.max(0, top), behavior: "smooth" });
+};
+
 const withRankingTimestamp = (movie) => ({
   ...movie,
   rankedAt: movie.rankedAt || new Date().toISOString(),
@@ -1100,9 +1316,12 @@ const startComparison = () => {
   if (!pending) return;
 
   if (ranking.length === 0) {
-    ranking.push(withRankingTimestamp(pending));
+    const rankedMovie = withRankingTimestamp(pending);
+    const context = pendingPackContext;
+    ranking.push(rankedMovie);
     lastAddedTmdbId = pending.tmdbId || null;
     pending = null;
+    pendingPackContext = null;
     pendingOrigin = null;
     saveRanking();
     setComparisonMode(false);
@@ -1111,6 +1330,7 @@ const startComparison = () => {
     renderRanking();
     setAddFeedback(`"${ranking[0].title}" placed as your top pick.`);
     updateSuggestionsThenHighlight(0);
+    handleRankingSettled(rankedMovie, 0, context);
     titleInput.blur();
     clearComparisonReturnScroll();
     return;
@@ -1122,6 +1342,7 @@ const startComparison = () => {
   setComparisonMode(true);
   setSuggestionsHidden(true);
   showComparison();
+  scrollComparisonIntoView();
 };
 
 const showComparison = () => {
@@ -1137,12 +1358,26 @@ const showComparison = () => {
   existingMeta.textContent = formatMeta(existing);
   setPoster(existingPoster, existing);
 
-  compareSub.textContent = `Comparison ${pending.comparisons + 1} of ~${Math.ceil(Math.log2(ranking.length + 1))}`;
+  if (isAutoPackComparison()) {
+    const pack = getPackBySlug(pendingPackContext.slug);
+    const stats = pack ? getPackStats(pack) : null;
+    // Count skipped movies toward the position too: skipping still advances you
+    // through the pack's queue, so "x of y" should climb on a skip just like it
+    // does on rank/save/hide. handled + skipped are the movies already moved
+    // past; +1 is the one currently on screen.
+    const skippedCount = autoPackSession?.skippedKeys?.length || 0;
+    compareSub.textContent = stats
+      ? `${pack.title} · ${stats.handled + skippedCount + 1} of ${stats.total}`
+      : `Pack auto · comparison ${pending.comparisons + 1}`;
+  } else {
+    compareSub.textContent = `Comparison ${pending.comparisons + 1} of ~${Math.ceil(Math.log2(ranking.length + 1))}`;
+  }
   compareSection.classList.remove("panel--hidden");
   const canUndo = compareHistory.length > 0;
   undoChoiceButton.disabled = !canUndo;
   undoChoiceButton.hidden = !canUndo;
   cancelRankingButton.hidden = canUndo;
+  skipPackMovieButton.hidden = !isAutoPackComparison();
 
   newCard.onclick = () => handleDecision(true, mid);
   existingCard.onclick = () => handleDecision(false, mid);
@@ -1176,11 +1411,13 @@ const handleDecision = (isNewBetter, midIndex) => {
   if (searchRange.low > searchRange.high) {
     const insertIndex = searchRange.low;
     const rankedMovie = withRankingTimestamp(pending);
+    const context = pendingPackContext;
     ranking.splice(insertIndex, 0, rankedMovie);
     lastAddedTmdbId = rankedMovie.tmdbId || null;
     const leftNeighbor = ranking[insertIndex - 1];
     const rightNeighbor = ranking[insertIndex + 1];
     pending = null;
+    pendingPackContext = null;
     pendingOrigin = null;
     searchRange = null;
     saveRanking();
@@ -1201,6 +1438,7 @@ const handleDecision = (isNewBetter, midIndex) => {
       setAddFeedback(`${placedTitle} placed at #${insertIndex + 1}.`);
     }
     updateSuggestionsThenHighlight(insertIndex);
+    handleRankingSettled(rankedMovie, insertIndex, context);
     titleInput.blur();
     clearComparisonReturnScroll();
     return;
@@ -1246,8 +1484,10 @@ const restorePendingOrigin = () => {
 const cancelComparison = () => {
   if (!pending) return;
   const canceledTitle = pending.title;
+  const context = pendingPackContext;
   restorePendingOrigin();
   pending = null;
+  pendingPackContext = null;
   pendingOrigin = null;
   searchRange = null;
   compareHistory = [];
@@ -1259,6 +1499,15 @@ const cancelComparison = () => {
   updateSuggestions();
   restoreComparisonReturnScroll();
   titleInput.blur();
+  if (context?.type === "pack") {
+    if (context.mode === "auto") {
+      stopAutoPack({ openDetail: true });
+    } else {
+      window.setTimeout(() => openPackDetail(context.slug), 120);
+    }
+  } else {
+    renderPackSurfaces();
+  }
   updateDebugPanel();
 };
 
@@ -1281,6 +1530,7 @@ clearButton.addEventListener("click", () => {
   }
   ranking = [];
   pending = null;
+  pendingPackContext = null;
   pendingOrigin = null;
   searchRange = null;
   saveRanking();
@@ -1289,6 +1539,7 @@ clearButton.addEventListener("click", () => {
   form.reset();
   renderRanking();
   updateSuggestions();
+  renderPackSurfaces();
   titleInput.focus();
   closeRankingSettings({ restoreFocus: false });
 });
@@ -1386,6 +1637,7 @@ rankingList.addEventListener("click", (event) => {
   saveRanking();
   renderRanking();
   updateSuggestions();
+  renderPackSurfaces();
 });
 
 const clearDragShifts = () => {
@@ -1563,7 +1815,7 @@ const hideAddFeedback = ({ immediate = false } = {}) => {
   }, TOAST_EXIT_MS);
 };
 
-const setAddFeedback = (message, duration = TOAST_DURATION_MS) => {
+const setAddFeedback = (message, duration = TOAST_DURATION_MS, actions = []) => {
   if (!message) {
     hideAddFeedback({ immediate: true });
     return;
@@ -1576,7 +1828,30 @@ const setAddFeedback = (message, duration = TOAST_DURATION_MS) => {
     window.clearTimeout(feedbackRemovalTimeout);
     feedbackRemovalTimeout = null;
   }
-  addFeedback.textContent = message;
+  addFeedback.innerHTML = "";
+  if (actions.length) {
+    const toast = document.createElement("div");
+    toast.className = "feedback-toast";
+    const text = document.createElement("div");
+    text.textContent = message;
+    const actionWrap = document.createElement("div");
+    actionWrap.className = "feedback-toast__actions";
+    actions.forEach((action) => {
+      const button = document.createElement("button");
+      button.className = `feedback-toast__action${action.muted ? " feedback-toast__action--muted" : ""}`;
+      button.type = "button";
+      button.textContent = action.label;
+      button.addEventListener("click", () => {
+        hideAddFeedback({ immediate: true });
+        action.onClick();
+      });
+      actionWrap.appendChild(button);
+    });
+    toast.append(text, actionWrap);
+    addFeedback.appendChild(toast);
+  } else {
+    addFeedback.textContent = message;
+  }
   addFeedback.classList.remove("is-leaving");
   window.requestAnimationFrame(() => {
     addFeedback.classList.add("is-visible");
@@ -1589,6 +1864,10 @@ const setAddFeedback = (message, duration = TOAST_DURATION_MS) => {
 };
 
 const highlightRankingItem = (index) => {
+  // Don't scroll-highlight the just-placed item if we've already swapped back
+  // into a comparison (e.g. auto-pack advancing to the next movie) — the smooth
+  // scroll would yank the freshly-shown comparison view.
+  if (document.body.classList.contains("is-comparing")) return;
   const items = rankingList.querySelectorAll(".ranking__item");
   const item = items[index];
   if (!item) return;
@@ -1642,20 +1921,31 @@ const normalizeDetailContext = (context) => {
 };
 
 const configureDetailActions = (movie, context) => {
+  detailActions.hidden = false;
+  detailRank.hidden = false;
+  detailSave.hidden = false;
+  detailHide.hidden = false;
   detailRank.textContent = "Rank";
   detailRank.setAttribute("aria-label", `Rank ${movie.title}`);
+  if (context.type === "ranked") {
+    detailActions.hidden = true;
+    detailRank.hidden = true;
+    detailSave.hidden = true;
+    detailHide.hidden = true;
+    return;
+  }
   if (context.type === "queue" && context.source === "watch") {
     detailSave.textContent = "Hide";
     detailSave.setAttribute("aria-label", `Move ${movie.title} to Not for me`);
-    detailHide.textContent = "Remove";
-    detailHide.setAttribute("aria-label", `Remove ${movie.title} from Watch next`);
+    detailHide.textContent = "Remove from saved";
+    detailHide.setAttribute("aria-label", `Remove ${movie.title} from saved`);
     return;
   }
   if (context.type === "queue" && context.source === "notInterested") {
     detailSave.textContent = "Save";
     detailSave.setAttribute("aria-label", `Move ${movie.title} to Watch next`);
-    detailHide.textContent = "Remove";
-    detailHide.setAttribute("aria-label", `Remove ${movie.title} from Not for me`);
+    detailHide.textContent = "Remove from hidden";
+    detailHide.setAttribute("aria-label", `Remove ${movie.title} from hidden`);
     return;
   }
   detailSave.textContent = "Save";
@@ -1720,7 +2010,9 @@ const closeMovieDetail = ({ restoreFocus = true } = {}) => {
   detailRequestId += 1;
   currentDetail = null;
   detailOverlay.hidden = true;
-  document.body.classList.remove("is-detail-open");
+  if (packDetailOverlay.hidden) {
+    document.body.classList.remove("is-detail-open");
+  }
   setDetailActionsDisabled(false);
   if (restoreFocus && detailTrigger) {
     detailTrigger.focus();
@@ -1943,6 +2235,692 @@ const filterUnrankedSuggestions = (items) => {
       (!existingTitleYearKeys.has(fallbackKey) && !hiddenTitleYearKeys.has(fallbackKey))
     );
   });
+};
+
+const getPackBySlug = (slug) => suggestionPacks.find((pack) => pack.slug === slug) || null;
+
+const getMovieHandledState = (movie) => {
+  const key = movieKey(movie);
+  const rankedIndex = ranking.findIndex((item) => movieKey(item) === key);
+  if (rankedIndex >= 0) {
+    return { type: "ranked", label: `Ranked #${rankedIndex + 1}`, handled: true, index: rankedIndex };
+  }
+  const watchIndex = watchList.findIndex((item) => movieKey(item) === key);
+  if (watchIndex >= 0) {
+    return { type: "watch", label: "Saved", handled: true, index: watchIndex };
+  }
+  const hiddenIndex = notInterestedList.findIndex((item) => movieKey(item) === key);
+  if (hiddenIndex >= 0) {
+    return { type: "hidden", label: "Hidden", handled: true, index: hiddenIndex };
+  }
+  return { type: "unhandled", label: "Ready", handled: false };
+};
+
+const getPackMovieDetailContext = (pack, movieEntry) => {
+  const { state } = movieEntry;
+  if (state.type === "ranked") {
+    return { type: "ranked", source: "ranking", slug: pack.slug, index: state.index };
+  }
+  if (state.type === "watch") {
+    return { type: "queue", source: "watch", slug: pack.slug };
+  }
+  if (state.type === "hidden") {
+    return { type: "queue", source: "notInterested", slug: pack.slug };
+  }
+  return { type: "pack", slug: pack.slug };
+};
+
+const getPackStats = (pack) => {
+  const handledMovies = [];
+  const remainingMovies = [];
+  pack.movies.forEach((movie, index) => {
+    const state = getMovieHandledState(movie);
+    const entry = { movie, index, state };
+    if (state.handled) {
+      handledMovies.push(entry);
+    } else {
+      remainingMovies.push(entry);
+    }
+  });
+  const total = pack.movies.length;
+  const handled = handledMovies.length;
+  const progress = total ? handled / total : 0;
+  const entry = packProgress[pack.slug] || {};
+  const completed = total > 0 && handled === total;
+  const resurfaced = Boolean(entry.completedAt && pack.version > Number(entry.packVersionSeen || 0) && !completed);
+  const discovered = !entry.startedAt && handled > 0 && !completed && !entry.discoveryDismissedAt;
+  const started = Boolean(entry.startedAt && !completed);
+  return {
+    total,
+    handled,
+    progress,
+    handledMovies,
+    remainingMovies,
+    completed,
+    resurfaced,
+    discovered,
+    started,
+    entry,
+  };
+};
+
+const packStatusRank = (pack) => {
+  const stats = getPackStats(pack);
+  if (stats.resurfaced) return 0;
+  if (stats.started) return 1;
+  if (stats.discovered) return 2;
+  if (!stats.completed) return 3;
+  return 4;
+};
+
+const sortedPacksForDisplay = (includeCompleted = false) =>
+  [...suggestionPacks]
+    .filter((pack) => includeCompleted || !getPackStats(pack).completed)
+    .sort((a, b) => {
+      const aStats = getPackStats(a);
+      const bStats = getPackStats(b);
+      const stateDiff = packStatusRank(a) - packStatusRank(b);
+      if (stateDiff) return stateDiff;
+      if (bStats.handled !== aStats.handled) return bStats.handled - aStats.handled;
+      return a.sort_order - b.sort_order || a.title.localeCompare(b.title);
+    });
+
+const packStatusText = (pack, stats = getPackStats(pack)) => {
+  if (stats.resurfaced) return `${stats.remainingMovies.length} new to rank`;
+  if (stats.completed) return "Complete";
+  if (stats.handled > 0) {
+    const left = stats.total - stats.handled;
+    return `${stats.handled} handled, ${left} to go`;
+  }
+  return `${stats.total} movies to rank`;
+};
+
+const packCompactStatusText = (pack, stats = getPackStats(pack)) => packStatusText(pack, stats);
+
+const packActionText = (pack, stats = getPackStats(pack)) => {
+  if (stats.resurfaced) return "Keep going";
+  if (stats.started) return "Keep going";
+  if (stats.discovered) return "Pick up";
+  if (stats.completed) return "View pack";
+  return "Start";
+};
+
+const createPackCover = (pack, className = "pack-cover") => {
+  const cover = document.createElement("div");
+  cover.className = className;
+  const posterMovies = pack.movies.filter((movie) => movie.posterPath).slice(0, 4);
+  const coverMovies = posterMovies.length >= 2 ? posterMovies : pack.movies.slice(0, 4);
+  coverMovies.forEach((movie) => {
+    if (movie.posterPath) {
+      const image = document.createElement("img");
+      image.src = `${TMDB_POSTER_SMALL}${movie.posterPath}`;
+      image.alt = "";
+      cover.appendChild(image);
+    } else {
+      const tile = document.createElement("span");
+      tile.className = "pack-cover__tile";
+      tile.textContent = (movie.title || "?").slice(0, 1).toUpperCase();
+      cover.appendChild(tile);
+    }
+  });
+  while (cover.children.length < 4) {
+    const tile = document.createElement("span");
+    tile.className = "pack-cover__tile";
+    tile.textContent = "SR";
+    cover.appendChild(tile);
+  }
+  return cover;
+};
+
+const createPackCard = (pack, options = {}) => {
+  const stats = getPackStats(pack);
+  const card = document.createElement("button");
+  card.type = "button";
+  const stateClass = stats.resurfaced
+    ? "pack-card--updated"
+    : stats.completed
+      ? "pack-card--completed"
+      : stats.started
+        ? "pack-card--started"
+        : stats.discovered
+          ? "pack-card--discovered"
+          : "";
+  card.className = `pack-card ${stateClass}`.trim();
+  card.dataset.slug = pack.slug;
+  card.setAttribute("aria-label", `Open ${pack.title}`);
+
+  const completeBadge = document.createElement("span");
+  completeBadge.className = "pack-card__complete-badge";
+  completeBadge.textContent = "✓";
+  completeBadge.title = "Complete";
+  completeBadge.setAttribute("aria-hidden", "true");
+
+  const title = document.createElement("div");
+  title.className = "pack-card__title";
+  title.textContent = pack.title;
+
+  const subtitle = document.createElement("div");
+  subtitle.className = "pack-card__subtitle";
+  subtitle.textContent = pack.subtitle;
+
+  const status = document.createElement("div");
+  status.className = "pack-card__status";
+  if (options.showCategory) {
+    const category = document.createElement("span");
+    category.className = "pack-card__category";
+    category.textContent = pack.category;
+    const separator = document.createElement("span");
+    separator.className = "pack-card__status-separator";
+    separator.textContent = " · ";
+    const statusText = document.createElement("span");
+    statusText.textContent = packCompactStatusText(pack, stats);
+    status.append(category, separator, statusText);
+  } else {
+    status.textContent = packStatusText(pack, stats);
+  }
+
+  const progress = document.createElement("div");
+  progress.className = "pack-card__progress";
+  progress.setAttribute("aria-hidden", "true");
+  const progressFill = document.createElement("span");
+  progressFill.style.width = `${Math.round(stats.progress * 100)}%`;
+  progress.appendChild(progressFill);
+
+  const action = document.createElement("span");
+  action.className = "pack-card__action";
+  action.textContent = packActionText(pack, stats);
+
+  const media = document.createElement("div");
+  media.className = "pack-card__media";
+  media.append(createPackCover(pack), action);
+
+  const body = document.createElement("div");
+  body.className = "pack-card__body";
+  body.append(title, subtitle, status, progress);
+
+  if (stats.completed) {
+    card.appendChild(completeBadge);
+  }
+  card.append(media, body);
+  card.addEventListener("click", () => openPackDetail(pack.slug, { trigger: card }));
+  return card;
+};
+
+const formatPackCountsLabel = (short = false) => {
+  const completed = suggestionPacks.filter((pack) => getPackStats(pack).completed).length;
+  const available = suggestionPacks.length - completed;
+  const noun = (count) => (count === 1 ? "pack" : "packs");
+  if (available && completed) {
+    // Only the both-values case shortens on mobile; the single-value cases stay
+    // spelled out either way since they're already brief.
+    return short
+      ? `${available} available, ${completed} completed`
+      : `${available} ${noun(available)} available, ${completed} ${noun(completed)} completed`;
+  }
+  if (completed) return `${completed} ${noun(completed)} completed`;
+  return `${available} ${noun(available)} available`;
+};
+
+const renderPackPanel = () => {
+  if (!packSection) return;
+  packRow.innerHTML = "";
+  const packs = sortedPacksForDisplay(false).slice(0, PACK_PANEL_SIZE);
+  packEmpty.hidden = packs.length > 0;
+  if (!suggestionPacks.length) {
+    packSectionSub.textContent = "Packs to work through.";
+  } else {
+    // Render both the full and shortened labels; CSS shows the right one per
+    // breakpoint (shortened only on mobile to save space).
+    packSectionSub.innerHTML = "";
+    const full = document.createElement("span");
+    full.className = "pack-section-sub__full";
+    full.textContent = formatPackCountsLabel(false);
+    const short = document.createElement("span");
+    short.className = "pack-section-sub__short";
+    short.textContent = formatPackCountsLabel(true);
+    packSectionSub.append(full, short);
+  }
+  packs.forEach((pack) => {
+    packRow.appendChild(createPackCard(pack));
+  });
+};
+
+const syncPackCompletion = (pack) => {
+  const stats = getPackStats(pack);
+  const entry = normalizeProgressEntry(packProgress[pack.slug] || {});
+  let changed = false;
+  if (stats.handled === 0 && (entry.startedAt || entry.completedAt || entry.lastIndex)) {
+    entry.startedAt = null;
+    entry.completedAt = null;
+    entry.lastIndex = 0;
+    changed = true;
+  } else if (stats.completed && !entry.completedAt) {
+    entry.completedAt = new Date().toISOString();
+    entry.packVersionSeen = pack.version;
+    changed = true;
+  } else if (!stats.completed && entry.completedAt) {
+    entry.completedAt = null;
+    changed = true;
+  }
+  if (changed) {
+    packProgress = { ...packProgress, [pack.slug]: entry };
+    void savePackProgress(pack.slug);
+  }
+};
+
+const markPackEngaged = (pack, updates = {}) => {
+  const now = new Date().toISOString();
+  const entry = normalizeProgressEntry(packProgress[pack.slug] || {});
+  const next = {
+    ...entry,
+    startedAt: entry.startedAt || now,
+    packVersionSeen: pack.version,
+    ...updates,
+  };
+  packProgress = { ...packProgress, [pack.slug]: next };
+  void savePackProgress(pack.slug);
+};
+
+const renderPackSurfaces = () => {
+  suggestionPacks.forEach(syncPackCompletion);
+  renderPackPanel();
+  if (currentPackSlug) {
+    renderPackDetail();
+  }
+  updateDebugPanel();
+};
+
+const closePackDetail = ({ restoreFocus = true } = {}) => {
+  currentPackSlug = null;
+  packDetailOverlay.hidden = true;
+  document.body.classList.remove("is-detail-open");
+  if (restoreFocus && packDetailTrigger) {
+    packDetailTrigger.focus();
+  }
+  packDetailTrigger = null;
+};
+
+const openPackDetail = (slug, { trigger = null, showHandled = false } = {}) => {
+  const pack = getPackBySlug(slug);
+  if (!pack) return;
+  packDetailOverlay.classList.remove("is-all-packs");
+  currentPackSlug = slug;
+  packDetailTrigger = trigger || packDetailTrigger;
+  packDetailShowHandled = showHandled;
+  renderPackDetail();
+  packDetailOverlay.hidden = false;
+  document.body.classList.add("is-detail-open");
+};
+
+const startPackMovieRanking = (pack, movie, mode = "browse") => {
+  closePackDetail({ restoreFocus: false });
+  startRankingMovie(movie, { type: "pack", slug: pack.slug, mode });
+};
+
+const addPackMovieToQueue = (pack, movie, target) => {
+  markPackEngaged(pack);
+  addSuggestionToQueue(movie, target, null);
+  syncPackCompletion(pack);
+  renderPackSurfaces();
+};
+
+const addPackRemainingToQueue = (pack, target) => {
+  if (pending) {
+    setStatusMessage("Finish the current comparison before saving pack movies.");
+    return;
+  }
+  const stats = getPackStats(pack);
+  const movies = stats.remainingMovies.map((entry) => entry.movie).filter((movie) => !isDuplicateMovie(movie));
+  if (!movies.length) return;
+  const now = new Date().toISOString();
+  movies.forEach((movie) => {
+    const storedMovie = {
+      ...toStoredMovie(movie),
+      queuedAt: now,
+      savedAt: target === "watch" ? now : movie.savedAt,
+      hiddenAt: target === "notInterested" ? now : movie.hiddenAt,
+    };
+    removeMovieFromSuggestionQueues(storedMovie);
+    if (target === "watch") {
+      watchList.push(storedMovie);
+    } else {
+      notInterestedList.push(storedMovie);
+    }
+  });
+  markPackEngaged(pack);
+  syncPackCompletion(pack);
+  persistSuggestionQueues();
+  updateSuggestions();
+  renderPackSurfaces();
+  setAddFeedback(`${movies.length} ${movies.length === 1 ? "movie" : "movies"} moved to ${queueLabel(target)}.`, 3200);
+};
+
+const dismissPackDiscovery = (slug) => {
+  const pack = getPackBySlug(slug);
+  if (!pack) return;
+  const entry = normalizeProgressEntry(packProgress[slug] || {});
+  packProgress = {
+    ...packProgress,
+    [slug]: {
+      ...entry,
+      discoveryDismissedAt: new Date().toISOString(),
+    },
+  };
+  void savePackProgress(slug);
+  renderPackSurfaces();
+};
+
+const createPackMovieCard = (pack, movieEntry) => {
+  const { movie, state } = movieEntry;
+  const handled = state.handled;
+  const card = document.createElement("div");
+  card.className = `suggest-card pack-movie${handled ? " is-handled" : ""}`;
+  card.title = movie.title;
+  card.setAttribute("role", handled ? "group" : "button");
+  if (!handled) {
+    card.setAttribute("tabindex", "0");
+    card.setAttribute("aria-label", `Rank ${movie.title}`);
+  }
+
+  const poster = document.createElement("img");
+  poster.className = "suggest-poster";
+  if (movie.posterPath) {
+    poster.src = `${TMDB_POSTER_SMALL}${movie.posterPath}`;
+    poster.alt = `${movie.title} poster`;
+  } else {
+    poster.alt = "";
+  }
+
+  const stateBadge = handled ? document.createElement("span") : null;
+  if (stateBadge) {
+    stateBadge.className = "pack-movie__state";
+    stateBadge.textContent = state.label;
+  }
+
+  const name = document.createElement("div");
+  name.className = "suggest-name";
+  name.textContent = movie.title;
+  name.title = movie.title;
+
+  const detailButton = document.createElement("button");
+  detailButton.className = "suggest-info";
+  detailButton.type = "button";
+  detailButton.setAttribute("aria-label", `Show details for ${movie.title}`);
+  detailButton.innerHTML = createInfoIcon();
+
+  const meta = document.createElement("div");
+  meta.className = "suggest-meta";
+  meta.textContent = movie.year ? `Released ${movie.year}` : "Year unknown";
+
+  const actions = document.createElement("div");
+  actions.className = "suggest-actions";
+  if (!handled) {
+    const rankButton = document.createElement("button");
+    rankButton.className = "suggest-action";
+    rankButton.type = "button";
+    rankButton.textContent = "Rank";
+    const saveButton = document.createElement("button");
+    saveButton.className = "suggest-action";
+    saveButton.type = "button";
+    saveButton.textContent = "Save";
+    const hideButton = document.createElement("button");
+    hideButton.className = "suggest-action suggest-action--muted";
+    hideButton.type = "button";
+    hideButton.textContent = "Hide";
+    rankButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      startPackMovieRanking(pack, movie, "browse");
+    });
+    saveButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      addPackMovieToQueue(pack, movie, "watch");
+    });
+    hideButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      addPackMovieToQueue(pack, movie, "notInterested");
+    });
+    actions.append(rankButton, saveButton, hideButton);
+  }
+
+  detailButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+    openMovieDetail(movie, getPackMovieDetailContext(pack, movieEntry), detailButton);
+  });
+
+  const cardChildren = [poster];
+  if (stateBadge) cardChildren.push(stateBadge);
+  cardChildren.push(name, detailButton, meta, actions);
+  card.append(...cardChildren);
+  if (!handled) {
+    card.addEventListener("click", () => startPackMovieRanking(pack, movie, "browse"));
+    card.addEventListener("keydown", (event) => {
+      if (event.target.closest("button")) return;
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        startPackMovieRanking(pack, movie, "browse");
+      }
+    });
+  }
+  return card;
+};
+
+const renderPackDetail = () => {
+  const pack = getPackBySlug(currentPackSlug);
+  if (!pack) return;
+  const stats = getPackStats(pack);
+  packDetailCover.hidden = false;
+  packDetailCover.innerHTML = "";
+  createPackCover(pack).childNodes.forEach((child) => {
+    packDetailCover.appendChild(child.cloneNode(true));
+  });
+  packDetailCategory.textContent = pack.category;
+  packDetailTitle.textContent = pack.title;
+  packDetailSub.textContent = pack.subtitle;
+  packDetailProgressBar.style.width = `${Math.round(stats.progress * 100)}%`;
+  packDetailStatus.textContent = `${stats.handled} handled · ${stats.remainingMovies.length} to go`;
+  packAutoStart.hidden = false;
+  packShowHandled.hidden = false;
+  packSaveAll.hidden = false;
+  packHideAll.hidden = false;
+  packAutoStart.disabled = stats.remainingMovies.length === 0 || Boolean(pending);
+  packSaveAll.disabled = stats.remainingMovies.length === 0 || Boolean(pending);
+  packHideAll.disabled = stats.remainingMovies.length === 0 || Boolean(pending);
+  packAutoStart.textContent = stats.remainingMovies.length ? "Rank all" : "Pack complete";
+  packShowHandled.textContent = packDetailShowHandled ? "Hide handled" : "Show handled";
+
+  packDetailList.innerHTML = "";
+  const entries = packDetailShowHandled ? [...stats.remainingMovies, ...stats.handledMovies] : stats.remainingMovies;
+  if (!entries.length) {
+    const empty = document.createElement("div");
+    empty.className = "suggest-empty";
+    empty.textContent = stats.completed ? "Pack complete." : "No remaining movies to show.";
+    packDetailList.appendChild(empty);
+    return;
+  }
+  entries.forEach((entry) => {
+    packDetailList.appendChild(createPackMovieCard(pack, entry));
+  });
+};
+
+const openAllPacks = () => {
+  currentPackSlug = null;
+  packDetailTrigger = packViewAll;
+  packDetailOverlay.classList.add("is-all-packs");
+  packDetailCover.hidden = true;
+  packDetailCategory.textContent = "Packs";
+  packDetailTitle.textContent = "All suggestion packs";
+  packDetailSub.textContent = "Pick a set to rank, save, or hide through.";
+  packDetailProgressBar.style.width = "0%";
+  packDetailStatus.textContent = formatPackCountsLabel(false);
+  packAutoStart.hidden = true;
+  packShowHandled.hidden = true;
+  packSaveAll.hidden = true;
+  packHideAll.hidden = true;
+  packDetailList.innerHTML = "";
+  sortedPacksForDisplay(true).forEach((pack) => {
+    packDetailList.appendChild(createPackCard(pack, { showCategory: true }));
+  });
+  packDetailOverlay.hidden = false;
+  document.body.classList.add("is-detail-open");
+};
+
+const isAutoPackComparison = () =>
+  pendingPackContext?.type === "pack" &&
+  pendingPackContext.mode === "auto" &&
+  autoPackSession?.slug === pendingPackContext.slug;
+
+const clearActiveComparison = () => {
+  pending = null;
+  pendingPackContext = null;
+  pendingOrigin = null;
+  searchRange = null;
+  compareHistory = [];
+  suggestionsRequestId += 1;
+  setComparisonMode(false);
+  compareSection.classList.add("panel--hidden");
+  form.reset();
+  titleInput.blur();
+};
+
+const stopAutoPack = ({ openDetail = true, message = "" } = {}) => {
+  const slug = autoPackSession?.slug || pendingPackContext?.slug || currentPackSlug;
+  autoPackSession = null;
+  if (message) setAddFeedback(message, 2600);
+  renderPackSurfaces();
+  if (openDetail && slug) {
+    openPackDetail(slug, { showHandled: packDetailShowHandled });
+  }
+};
+
+const nextAutoPackEntry = (pack) => {
+  if (!autoPackSession) return null;
+  const stats = getPackStats(pack);
+  const skipped = new Set(autoPackSession.skippedKeys || []);
+  const remaining = stats.remainingMovies.filter((entry) => !skipped.has(movieKey(entry.movie)));
+  if (!remaining.length) return null;
+  const cursor = Number(autoPackSession.cursor) || 0;
+  return remaining.find((entry) => entry.index >= cursor) || remaining[0];
+};
+
+const advanceAutoPack = () => {
+  if (!autoPackSession) return;
+  const pack = getPackBySlug(autoPackSession.slug);
+  if (!pack) {
+    stopAutoPack({ openDetail: false });
+    return;
+  }
+  const nextEntry = nextAutoPackEntry(pack);
+  if (!nextEntry) {
+    const stats = getPackStats(pack);
+    stopAutoPack({
+      openDetail: true,
+      message: stats.completed ? `"${pack.title}" complete.` : `"${pack.title}" paused.`,
+    });
+    return;
+  }
+  autoPackSession.cursor = nextEntry.index;
+  markPackEngaged(pack, { lastIndex: nextEntry.index });
+  startRankingMovie(nextEntry.movie, {
+    type: "pack",
+    slug: pack.slug,
+    mode: "auto",
+    index: nextEntry.index,
+  });
+};
+
+const startAutoPack = (slug) => {
+  const pack = getPackBySlug(slug);
+  if (!pack || pending) return;
+  const entry = normalizeProgressEntry(packProgress[slug] || {});
+  autoPackSession = {
+    slug,
+    cursor: entry.lastIndex || 0,
+    skippedKeys: [],
+  };
+  markPackEngaged(pack, { lastIndex: autoPackSession.cursor });
+  closePackDetail({ restoreFocus: false });
+  advanceAutoPack();
+};
+
+const skipCurrentPackMovie = () => {
+  if (!pending || !isAutoPackComparison()) return;
+  const pack = getPackBySlug(pendingPackContext.slug);
+  const skippedKey = movieKey(pending);
+  const nextIndex = Number(pendingPackContext.index || 0) + 1;
+  autoPackSession = {
+    ...autoPackSession,
+    cursor: nextIndex,
+    skippedKeys: [...(autoPackSession.skippedKeys || []), skippedKey],
+  };
+  if (pack) {
+    markPackEngaged(pack, { lastIndex: nextIndex });
+  }
+  clearActiveComparison();
+  // Same as the post-placement advance: re-enter the next comparison before
+  // paint so skipping is a clean, gap-free swap.
+  queueMicrotask(advanceAutoPack);
+};
+
+const maybeShowPackDiscoveryNudge = (movie) => {
+  if (!movie?.tmdbId || !suggestionPacks.length) return;
+  const now = Date.now();
+  if (now - lastPackDiscoveryNudgeAt < PACK_DISCOVERY_NUDGE_COOLDOWN_MS) return;
+  const slugs = packIndexByMovieId.get(movie.tmdbId) || [];
+  const candidates = slugs
+    .map(getPackBySlug)
+    .filter(Boolean)
+    .filter((pack) => {
+      const stats = getPackStats(pack);
+      return stats.discovered;
+    })
+    .sort((a, b) => getPackStats(b).handled - getPackStats(a).handled);
+  const [pack] = candidates;
+  if (!pack) return;
+  lastPackDiscoveryNudgeAt = now;
+  const relatedCount = candidates.length;
+  setAddFeedback(
+    `"${movie.title}" is in ${relatedCount === 1 ? pack.title : `${relatedCount} packs`}.`,
+    8000,
+    [
+      {
+        label: "Explore",
+        onClick: () => openPackDetail(pack.slug),
+      },
+      {
+        label: "Dismiss",
+        muted: true,
+        onClick: () => dismissPackDiscovery(pack.slug),
+      },
+    ],
+  );
+};
+
+const handleRankingSettled = (rankedMovie, insertIndex, context) => {
+  if (context?.type === "pack") {
+    const pack = getPackBySlug(context.slug);
+    if (pack) {
+      markPackEngaged(pack, { lastIndex: Number(context.index || 0) + 1 });
+      syncPackCompletion(pack);
+      renderPackSurfaces();
+      if (context.mode === "auto" && autoPackSession?.slug === pack.slug) {
+        autoPackSession = {
+          ...autoPackSession,
+          cursor: Number(context.index || 0) + 1,
+        };
+        // Bring up the next comparison right away. queueMicrotask runs after
+        // handleDecision fully unwinds (so its scroll-capture cleanup lands
+        // first) but before the browser paints, so the panel swaps in with no
+        // gap or flash. The placement toast lives on its own timer, fully
+        // decoupled from the ranking flow.
+        queueMicrotask(advanceAutoPack);
+      } else {
+        window.setTimeout(() => openPackDetail(pack.slug), 180);
+      }
+    }
+    return;
+  }
+  renderPackSurfaces();
+  window.setTimeout(() => maybeShowPackDiscoveryNudge(rankedMovie), 900);
 };
 
 const topRankedSeedCandidates = () => ranking.slice(0, 10).filter((movie) => movie.tmdbId);
@@ -4511,7 +5489,9 @@ const handleSignOut = async () => {
   setComparisonMode(false);
   renderRanking();
   await loadSuggestionQueues();
+  await loadPackProgress();
   renderSuggestionQueues();
+  renderPackSurfaces();
   updateSuggestions();
   authStatus.textContent = "Signed out.";
   closeRankingSettings({ restoreFocus: false });
@@ -4542,10 +5522,12 @@ const initAuth = async () => {
     updateStatus();
     loadRanking()
       .then(loadSuggestionQueues)
+      .then(loadPackProgress)
       .then(migrateRanking)
       .then(() => {
         renderRanking();
         renderSuggestionQueues();
+        renderPackSurfaces();
         updateDebugPanel();
         updateSuggestions();
       })
@@ -4618,6 +5600,7 @@ const addSuggestionToQueue = (movie, target, sectionKey = null) => {
   if (!sectionKey || !replaceQueuedSuggestion(sectionKey, storedMovie)) {
     updateSuggestions();
   }
+  renderPackSurfaces();
 };
 
 const getQueueOrigin = (movie) => {
@@ -4637,7 +5620,7 @@ const getQueueOrigin = (movie) => {
   return null;
 };
 
-const startRankingMovie = (movie) => {
+const startRankingMovie = (movie, context = null) => {
   if (pending) {
     setStatusMessage("Finish the current comparison before ranking another movie.");
     return;
@@ -4648,10 +5631,16 @@ const startRankingMovie = (movie) => {
     setStatusMessage(`"${movie.title}" is already in your list. Add something else.`);
     updateDebugPanel({ duplicateBlocked: movie.tmdbId || movie.title });
     updateSuggestions();
+    renderPackSurfaces();
     return;
+  }
+  if (context?.type === "pack") {
+    const pack = getPackBySlug(context.slug);
+    if (pack) markPackEngaged(pack, { lastIndex: Number(context.index || 0) });
   }
   captureComparisonReturnScroll();
   pendingOrigin = getQueueOrigin(movie);
+  pendingPackContext = context;
   removeMovieFromSuggestionQueues(movie);
   persistSuggestionQueues();
   pending = {
@@ -4687,6 +5676,7 @@ const moveQueueMovie = (source, index) => {
   persistSuggestionQueues();
   setAddFeedback(`"${movie.title}" moved to ${queueLabel(target)}.`, 2600);
   updateSuggestions();
+  renderPackSurfaces();
 };
 
 const findQueueMovieIndex = (source, movie) => {
@@ -4713,6 +5703,7 @@ const removeQueueMovie = (source, index) => {
   persistSuggestionQueues();
   setAddFeedback(`"${movie.title}" removed from ${queueLabel(source)}.`, 2600);
   updateSuggestions();
+  renderPackSurfaces();
 };
 
 const removeQueueMovieByMovie = (source, movie) => {
@@ -4762,6 +5753,29 @@ watchListEl.addEventListener("click", handleQueueInteraction);
 notInterestedListEl.addEventListener("click", handleQueueInteraction);
 watchListEl.addEventListener("keydown", handleQueueKeydown);
 notInterestedListEl.addEventListener("keydown", handleQueueKeydown);
+skipPackMovieButton.addEventListener("click", skipCurrentPackMovie);
+packViewAll.addEventListener("click", openAllPacks);
+packDetailClose.addEventListener("click", () => closePackDetail());
+packDetailOverlay.addEventListener("click", (event) => {
+  if (event.target === packDetailOverlay) {
+    closePackDetail();
+  }
+});
+packAutoStart.addEventListener("click", () => {
+  if (currentPackSlug) startAutoPack(currentPackSlug);
+});
+packShowHandled.addEventListener("click", () => {
+  packDetailShowHandled = !packDetailShowHandled;
+  renderPackDetail();
+});
+packSaveAll.addEventListener("click", () => {
+  const pack = getPackBySlug(currentPackSlug);
+  if (pack) addPackRemainingToQueue(pack, "watch");
+});
+packHideAll.addEventListener("click", () => {
+  const pack = getPackBySlug(currentPackSlug);
+  if (pack) addPackRemainingToQueue(pack, "notInterested");
+});
 
 detailClose.addEventListener("click", () => closeMovieDetail());
 
@@ -4773,17 +5787,28 @@ detailOverlay.addEventListener("click", (event) => {
 
 detailRank.addEventListener("click", () => {
   if (!currentDetail) return;
-  const { movie } = currentDetail;
+  const { movie, context } = currentDetail;
+  if (context.type === "ranked") return;
   closeMovieDetail({ restoreFocus: false });
-  startRankingFromSuggestion(movie);
+  if (context.type === "pack") {
+    const pack = getPackBySlug(context.slug);
+    if (pack) startPackMovieRanking(pack, movie, "browse");
+  } else {
+    if (context.type === "queue" && context.slug) closePackDetail({ restoreFocus: false });
+    startRankingFromSuggestion(movie);
+  }
 });
 
 detailSave.addEventListener("click", () => {
   if (!currentDetail) return;
   const { movie, context } = currentDetail;
+  if (context.type === "ranked") return;
   closeMovieDetail({ restoreFocus: false });
   if (context.type === "queue") {
     moveQueueMovieByMovie(context.source, movie);
+  } else if (context.type === "pack") {
+    const pack = getPackBySlug(context.slug);
+    if (pack) addPackMovieToQueue(pack, movie, "watch");
   } else {
     addSuggestionToQueue(movie, "watch", context.sectionKey);
   }
@@ -4792,9 +5817,13 @@ detailSave.addEventListener("click", () => {
 detailHide.addEventListener("click", () => {
   if (!currentDetail) return;
   const { movie, context } = currentDetail;
+  if (context.type === "ranked") return;
   closeMovieDetail({ restoreFocus: false });
   if (context.type === "queue") {
     removeQueueMovieByMovie(context.source, movie);
+  } else if (context.type === "pack") {
+    const pack = getPackBySlug(context.slug);
+    if (pack) addPackMovieToQueue(pack, movie, "notInterested");
   } else {
     addSuggestionToQueue(movie, "notInterested", context.sectionKey);
   }
@@ -4812,6 +5841,10 @@ document.addEventListener("keydown", (event) => {
   }
   if (!detailOverlay.hidden) {
     closeMovieDetail();
+    return;
+  }
+  if (!packDetailOverlay.hidden) {
+    closePackDetail();
   }
 });
 
@@ -5032,11 +6065,14 @@ const init = async () => {
     await initAuth();
     await loadRanking();
     await loadSuggestionQueues();
+    await loadSuggestionPacks();
+    await loadPackProgress();
     await migrateRanking();
   } finally {
     // Always swap the skeletons for real content, even if a load step failed.
     renderRanking();
     renderSuggestionQueues();
+    renderPackSurfaces();
     updateDebugPanel();
     suggestPopularCursor = 0;
     suggestRelatedCursor = 0;

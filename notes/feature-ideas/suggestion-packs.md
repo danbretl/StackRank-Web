@@ -1,6 +1,37 @@
 # Feature idea: Suggestion packs
 
-Status: **exploratory — top priority (parked spec to hand a future session).** Written Jun 2026; core product decisions settled with Dan (see below). This is the spec to hand a fresh Claude Code or Codex session.
+Status: **built (v1, Jun 2026) — shipped Phases 0–3.** Originally written Jun 2026 as a parked spec; the design record below is preserved. The **Implementation status** section directly under this line records what was actually built and where it diverged from the spec, and **What's left / follow-ups** tracks remaining work (incl. a packs-focused Share Suite section). The rest of the document is the original design intent.
+
+## Implementation status (as built, Jun 2026)
+
+Built across the codebase in `app.js` (pack state/flows), `styles.css` (`.pack-*` UI), `index.html` (panel + two overlays), `supabase/migrations/20260625071336_add_suggestion_packs.sql` (both tables), `scripts/author-suggestion-packs.mjs` (authoring tool), and `data/suggestion-packs.{source,}.json` (the curated library). **Library currently = 50 packs / 578 movies across 19 categories.**
+
+**Matches the spec:**
+- **Two tables** `suggestion_packs` (public-read via RLS `active = true`) and `pack_progress` (per-user, `list_id = user:<uid>`, RLS scoped like rankings/queues). `state` jsonb is exactly `{ startedAt, packVersionSeen, lastIndex, completedAt, discoveryDismissedAt }`.
+- **Derived progress** — handled = movie's `tmdbId` is in ranking / watch / not-interested (`getMovieHandledState`, `getPackStats`). Only `startedAt` / `packVersionSeen` / `lastIndex` / the two timestamps are persisted.
+- **Derived statuses** `completed` / `started` / `discovered` / `resurfaced`, with `packStatusRank` ordering: resurfaced → started → discovered → not-completed.
+- **Fourth panel** above the three suggestion sections (`#pack-section`), showing a relevant subset (`PACK_PANEL_SIZE = 3`) ordered by status, hidden during comparison, with a **"View all packs"** overlay.
+- **Pack detail overlay** with per-card Rank/Save/Hide + info, "show handled" toggle, header progress bar, and **auto mode** ("Rank all").
+- **Auto mode** feeds remaining movies in curated order through the normal comparison flow, no cap, continuous state-save (`lastIndex`), one-tap resume, cancel returns to detail.
+- **Organic discovery** — client-side reverse index (`packIndexByMovieId`), dismissible post-rank nudge (`maybeShowPackDiscoveryNudge`) gated to `discovered` packs and a 30-min cooldown (`PACK_DISCOVERY_NUDGE_COOLDOWN_MS`); opening a pack promotes it to `started`.
+- **Resurfacing** via `version > packVersionSeen` (`getPackStats.resurfaced` / `syncPackCompletion`).
+- **Signed-out** — progress in `stackrank:pack-progress:v1`, merged on sign-in by `updated_at`.
+- **Cover art** — auto 4-mini-poster collage (`createPackCover`) with `cover_path` override supported.
+
+**Diverged from / extended the spec:**
+- **Transient "Skip for now" exists** (the `#skip-pack-movie` button + `autoPackSession.skippedKeys`). This is in-session only and never persisted, so it honors decision 3's "no stored skip state" while implementing the UX section's transient skip. The auto-mode counter ("x of y") counts skipped movies toward position so it climbs on skip too.
+- **Bundled JSON fallback** (`data/suggestion-packs.json`, `PACK_FALLBACK_PATH`) — the client loads packs from Supabase but falls back to the bundled file if Supabase is empty/unreachable. Not in the original spec; it means the feature works even before packs are uploaded.
+- **"Save all" / "Hide all"** bulk actions in pack detail (`addPackRemainingToQueue`) — not in the spec; a convenience for clearing a pack.
+- **No separate "Your packs" side panel.** The spec envisioned a dedicated always-reachable surface with three labeled sub-sections ("Pick up where you left off" / "New in packs you've finished" / "You've already started these"). Instead this is folded into the single main panel's status ordering + the "View all packs" overlay. See follow-ups.
+- **Toast/auto-advance polish** — completing an auto-pack ranking advances to the next comparison immediately (`queueMicrotask`) with the placement toast decoupled (it no longer gets cleared by the next comparison).
+
+## What's left / follow-ups
+
+- **Deploy step (required for cross-device sync):** apply `20260625071336_add_suggestion_packs.sql` to Supabase, and decide whether to **upload the curated packs** (`node scripts/author-suggestion-packs.mjs --upload`, service-role key in env) or keep serving the bundled JSON fallback. Until the tables exist in Supabase, `pack_progress` writes fail silently and progress stays localStorage-only; packs render from the JSON fallback.
+- **Packs-focused Share Suite section (requested follow-up).** Add a packs surface to Share Studio / the share exports — e.g. packs completed and in-progress (with progress), as a toggleable section across the SVG poster, image-set, and Markdown/JSON/Text exports, consistent with the existing `shareSectionBuilders()` pattern. Stats can come from the same derived `getPackStats` data; no schema change needed.
+- **"View all packs" filtering/search (Phase 4).** The overlay currently lists every pack sorted by status with category labels, but has no category/progress filters, search, or featured row.
+- **Dedicated "Your packs" surface** — if the folded-into-panel approach proves insufficient, build the standalone three-state surface the spec describes.
+- **Resurfacing not yet exercised in production** — the `version > packVersionSeen` path is implemented but won't fire until a pack is actually re-curated and re-uploaded with a bumped `version`.
 
 ## Summary
 

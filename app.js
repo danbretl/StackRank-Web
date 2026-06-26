@@ -1,4 +1,30 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+import { createStoredZipBlob } from "./lib/zip.js";
+import {
+  xmlEscape,
+  wrapText,
+  estimateSvgTextWidth,
+  trimTextToSvgWidth,
+  wrapTextToSvgWidth,
+  svgTextLines,
+} from "./lib/text.js";
+import {
+  formatRuntime,
+  formatRuntimeTotal,
+  formatShareRuntimeTotal,
+  decadeLabel,
+  rankedCountLabel,
+  dayKey,
+  formatShortDate,
+} from "./lib/format.js";
+import {
+  normalizeTitle,
+  movieKey,
+  movieYear,
+  isDuplicateMovie as isDuplicateInList,
+  mergeRankings,
+} from "./lib/movie.js";
+import { computeRankingInsights } from "./lib/insights.js";
 
 console.info("StackRank build", "share-studio-v3");
 
@@ -270,28 +296,10 @@ const startPlaceholderRotation = () => {
   placeholderTimer = window.setInterval(rotateTitlePlaceholder, PLACEHOLDER_ROTATION_MS);
 };
 
-const normalizeTitle = (value) => value.trim().toLowerCase();
-
-const movieKey = (movie) => {
-  if (movie.tmdbId) return `tmdb:${movie.tmdbId}`;
-  const title = normalizeTitle(movie.title || "");
-  return movie.year ? `title:${title}:${movie.year}` : `title:${title}`;
-};
-
-const isDuplicateMovie = (movie) => {
-  const title = normalizeTitle(movie.title);
-  return ranking.some((existing) => {
-    if (movie.tmdbId && existing.tmdbId && existing.tmdbId === movie.tmdbId) {
-      return true;
-    }
-    const existingTitle = normalizeTitle(existing.title);
-    if (existingTitle !== title) return false;
-    if (movie.year && existing.year) {
-      return existing.year === movie.year;
-    }
-    return true;
-  });
-};
+// normalizeTitle, movieKey, movieYear, isDuplicateMovie (as isDuplicateInList),
+// and mergeRankings now live in lib/movie.js. This thin wrapper keeps the
+// single-arg call sites (which all dedup against the live `ranking`) unchanged.
+const isDuplicateMovie = (movie) => isDuplicateInList(ranking, movie);
 
 const setPoster = (imageEl, movie) => {
   if (movie && movie.posterPath) {
@@ -305,32 +313,8 @@ const setPoster = (imageEl, movie) => {
   }
 };
 
-const formatRuntime = (runtime) => {
-  if (!runtime) return "";
-  const hours = Math.floor(runtime / 60);
-  const minutes = runtime % 60;
-  if (!hours) return `${minutes}m`;
-  if (!minutes) return `${hours}h`;
-  return `${hours}h ${minutes}m`;
-};
-
-const formatRuntimeTotal = (minutes) => {
-  if (!minutes) return "--";
-  return formatRuntime(minutes);
-};
-
-const formatShareRuntimeTotal = (stats, totalCount, loading = false) => {
-  if (stats.minutes) {
-    return { value: formatRuntime(stats.minutes), isDuration: true };
-  }
-  if (totalCount && loading) {
-    return { value: "Loading", isDuration: false };
-  }
-  if (totalCount) {
-    return { value: "Unavailable", isDuration: false };
-  }
-  return { value: "--", isDuration: false };
-};
+// formatRuntime, formatRuntimeTotal, formatShareRuntimeTotal now live in
+// lib/format.js, imported at the top.
 
 const runtimeStatsForMovies = (movies) => {
   return movies.reduce(
@@ -478,166 +462,24 @@ const renderRanking = () => {
   if (!shareStudio.hidden) updateShareStudio();
 };
 
-function movieYear(movie) {
-  const year = Number(movie?.year);
-  return Number.isFinite(year) && year > 1800 ? year : null;
-}
-
-function decadeLabel(decade) {
-  return `${decade}s`;
-}
-
-function dayKey(value) {
-  if (!value) return null;
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return null;
-  return date.toISOString().slice(0, 10);
-}
-
-function formatShortDate(value) {
-  if (!value) return "Unknown";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "Unknown";
-  return date.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
-}
+// movieYear, decadeLabel, dayKey, formatShortDate now live in lib/movie.js and
+// lib/format.js, imported at the top.
 
 function movieWithDetail(movie) {
   if (!movie?.tmdbId) return movie;
   return detailCache.get(String(movie.tmdbId)) || movie;
 }
 
-function countValues(items) {
-  const counts = new Map();
-  items
-    .filter(Boolean)
-    .forEach((value) => counts.set(value, (counts.get(value) || 0) + 1));
-  return Array.from(counts.entries())
-    .map(([name, count]) => ({ name, count }))
-    .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
-}
-
-function preferenceWeight(index, total) {
-  if (!total) return 0;
-  return (total - index) / total;
-}
-
-function countPreferenceValues(entries) {
-  const counts = new Map();
-  entries
-    .filter((entry) => entry?.name)
-    .forEach(({ name, weight }) => {
-      const current = counts.get(name) || { name, count: 0, score: 0 };
-      current.count += 1;
-      current.score += weight || 0;
-      counts.set(name, current);
-    });
-  return Array.from(counts.values()).sort((a, b) => b.score - a.score || b.count - a.count || a.name.localeCompare(b.name));
-}
-
-function countPreferenceMany(items, getter) {
-  const entries = [];
-  const total = items.length;
-  items.forEach((item, index) => {
-    const weight = preferenceWeight(index, total);
-    const result = getter(item);
-    if (Array.isArray(result)) {
-      result.filter(Boolean).forEach((name) => entries.push({ name, weight }));
-    } else if (result) {
-      entries.push({ name: result, weight });
-    }
-  });
-  return countPreferenceValues(entries);
-}
-
-function countReversePreferenceMany(items, getter) {
-  const entries = [];
-  const total = items.length;
-  items.forEach((item, index) => {
-    const weight = total ? (index + 1) / total : 0;
-    const result = getter(item);
-    if (Array.isArray(result)) {
-      result.filter(Boolean).forEach((name) => entries.push({ name, weight }));
-    } else if (result) {
-      entries.push({ name: result, weight });
-    }
-  });
-  return countPreferenceValues(entries);
-}
-
-function median(values) {
-  if (!values.length) return null;
-  const sorted = [...values].sort((a, b) => a - b);
-  const mid = Math.floor(sorted.length / 2);
-  return sorted.length % 2 ? sorted[mid] : Math.round((sorted[mid - 1] + sorted[mid]) / 2);
-}
-
+// The rank-weighted insight engine now lives in lib/insights.js. This wrapper
+// gathers the live state — the detail-enriched ranking plus queue counts — and
+// hands it to the pure `computeRankingInsights`.
 function getRankingInsights() {
   const enrichedRanking = ranking.map(movieWithDetail);
-  const years = enrichedRanking
-    .map((movie, index) => ({ movie, index, year: movieYear(movie) }))
-    .filter((item) => item.year);
-  const decadeEntries = [];
-  years.forEach(({ year, index }) => {
-    const decade = Math.floor(year / 10) * 10;
-    decadeEntries.push({ name: String(decade), weight: preferenceWeight(index, enrichedRanking.length) });
-  });
-  const decades = countPreferenceValues(decadeEntries).map((item) => ({
-    decade: Number(item.name),
-    count: item.count,
-    score: item.score,
-  }));
-  const sortedByYear = [...years].sort((a, b) => a.year - b.year);
-  const yearValues = years.map((item) => item.year);
-  const averageYear = years.length
-    ? Math.round(years.reduce((sum, item) => sum + item.year, 0) / years.length)
-    : null;
-  const rankedDates = ranking
-    .map((movie) => movie.rankedAt)
-    .filter(Boolean)
-    .sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
-  const perMovieRankDatesTracked = rankedDates.length > 0;
-  const rankedByDay = countValues(rankedDates.map(dayKey));
-  const genres = countPreferenceMany(enrichedRanking, (movie) => movie.genres || []);
-  const bottomGenres = countReversePreferenceMany(enrichedRanking, (movie) => movie.genres || []);
-  const directors = countPreferenceMany(enrichedRanking, (movie) => movie.director);
-  const cast = countPreferenceMany(enrichedRanking, (movie) => (movie.cast || []).slice(0, 4));
-  const detailCount = enrichedRanking.filter(
-    (movie) =>
-      (Array.isArray(movie.genres) && movie.genres.length) ||
-      movie.director ||
-      (Array.isArray(movie.cast) && movie.cast.length),
-  ).length;
-
-  return {
-    count: ranking.length,
-    enrichedRanking,
-    yearsKnown: years.length,
-    averageYear,
-    medianYear: median(yearValues),
-    topMovie: enrichedRanking[0] || null,
-    topFive: enrichedRanking.slice(0, 5),
-    bottomFive: enrichedRanking.slice(-5),
-    topDecade: decades[0] || null,
-    decades,
-    oldest: sortedByYear[0] || null,
-    newest: sortedByYear[sortedByYear.length - 1] || null,
-    yearSpan:
-      sortedByYear[0] && sortedByYear[sortedByYear.length - 1]
-        ? sortedByYear[sortedByYear.length - 1].year - sortedByYear[0].year
-        : null,
-    firstRankedAt: rankedDates[0] || null,
-    lastRankedAt: rankedDates[rankedDates.length - 1] || null,
-    rankingUpdatedAt,
-    perMovieRankDatesTracked,
-    busiestDay: rankedByDay[0] || null,
+  return computeRankingInsights(enrichedRanking, {
     watchCount: watchList.length,
     hiddenCount: notInterestedList.length,
-    genres,
-    bottomGenres,
-    directors,
-    cast,
-    detailCount,
-  };
+    rankingUpdatedAt,
+  });
 }
 
 function rankedTimeValue(movie) {
@@ -849,18 +691,7 @@ const renderSuggestionQueues = () => {
   renderQueueList(notInterestedListEl, notInterestedList, "Nothing hidden yet.", "notInterested");
 };
 
-const mergeRankings = (baseList, incomingList) => {
-  const baseKeys = new Set(baseList.map(movieKey));
-  const merged = [...baseList];
-  incomingList.forEach((movie) => {
-    const key = movieKey(movie);
-    if (baseKeys.has(key)) return;
-    merged.push(movie);
-    baseKeys.add(key);
-  });
-  return merged;
-};
-
+// mergeRankings now lives in lib/movie.js, imported at the top.
 const mergeMovieLists = (baseList, incomingList) => mergeRankings(baseList, incomingList);
 
 const getLocalPayload = () => {
@@ -3212,9 +3043,7 @@ function movieExportLine(movie, rank = null) {
   return `${rank ? `${rank}. ` : ""}${movie.title}${year}`;
 }
 
-function rankedCountLabel(count) {
-  return `${count} ranked`;
-}
+// rankedCountLabel now lives in lib/format.js, imported at the top.
 
 function shareRankingMetaCards(insights) {
   if (insights.perMovieRankDatesTracked) {
@@ -3470,97 +3299,8 @@ function buildShareDataExport() {
   };
 }
 
-function xmlEscape(value) {
-  return String(value ?? "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
-
-function wrapText(value, maxChars, maxLines = 2) {
-  const words = String(value || "").split(/\s+/).filter(Boolean);
-  const lines = [];
-  let current = "";
-  words.forEach((word) => {
-    const next = current ? `${current} ${word}` : word;
-    if (next.length <= maxChars || !current) {
-      current = next;
-      return;
-    }
-    lines.push(current);
-    current = word;
-  });
-  if (current) lines.push(current);
-  if (lines.length <= maxLines) return lines;
-  const clipped = lines.slice(0, maxLines);
-  clipped[maxLines - 1] = `${clipped[maxLines - 1].replace(/[.,;:!?]+$/, "")}...`;
-  return clipped;
-}
-
-function estimateSvgTextWidth(value, fontSize) {
-  return Array.from(String(value || "")).reduce((width, char) => {
-    if (char === " ") return width + fontSize * 0.36;
-    if (/[MW@#%&]/.test(char)) return width + fontSize * 0.88;
-    if (/[A-Z0-9]/.test(char)) return width + fontSize * 0.7;
-    if (/[ilI.,'!:;]/.test(char)) return width + fontSize * 0.34;
-    return width + fontSize * 0.6;
-  }, 0);
-}
-
-function trimTextToSvgWidth(value, maxWidth, fontSize) {
-  const ellipsis = "...";
-  const chars = Array.from(String(value || "").trim());
-  while (chars.length && estimateSvgTextWidth(`${chars.join("").trimEnd()}${ellipsis}`, fontSize) > maxWidth) {
-    chars.pop();
-  }
-  return `${chars.join("").trimEnd().replace(/[.,;:!?]+$/, "")}${ellipsis}`;
-}
-
-function wrapTextToSvgWidth(value, maxWidth, fontSize, maxLines = 2) {
-  const words = String(value || "").split(/\s+/).filter(Boolean);
-  const lines = [];
-  let current = "";
-
-  const pushCurrent = () => {
-    if (!current) return;
-    lines.push(current);
-    current = "";
-  };
-
-  words.forEach((word) => {
-    let remainingWord = word;
-    while (remainingWord) {
-      const candidate = current ? `${current} ${remainingWord}` : remainingWord;
-      if (estimateSvgTextWidth(candidate, fontSize) <= maxWidth) {
-        current = candidate;
-        remainingWord = "";
-        continue;
-      }
-
-      if (current) {
-        pushCurrent();
-        continue;
-      }
-
-      let segment = "";
-      for (const char of Array.from(remainingWord)) {
-        const nextSegment = `${segment}${char}`;
-        if (segment && estimateSvgTextWidth(nextSegment, fontSize) > maxWidth) break;
-        segment = nextSegment;
-      }
-      lines.push(segment || remainingWord[0]);
-      remainingWord = remainingWord.slice(segment.length || 1);
-    }
-  });
-
-  pushCurrent();
-  if (!Number.isFinite(maxLines)) return lines;
-  if (lines.length <= maxLines) return lines;
-  const clipped = lines.slice(0, maxLines);
-  clipped[maxLines - 1] = trimTextToSvgWidth(clipped[maxLines - 1], maxWidth, fontSize);
-  return clipped;
-}
+// Text helpers (xmlEscape, wrapText, estimateSvgTextWidth, trimTextToSvgWidth,
+// wrapTextToSvgWidth) now live in lib/text.js, imported at the top.
 
 function getShareTheme(themeName = shareOptions.theme) {
   const themes = {
@@ -3701,14 +3441,7 @@ function getShareTone(toneName = shareOptions.tone) {
   return tones[toneName] || tones.neutral;
 }
 
-function svgTextLines(lines, x, y, className, lineHeight, extra = "") {
-  return lines
-    .map(
-      (line, index) =>
-        `<text x="${x}" y="${y + index * lineHeight}" class="${className}" ${extra}>${xmlEscape(line)}</text>`,
-    )
-    .join("");
-}
+// svgTextLines now lives in lib/text.js, imported at the top.
 
 function posterDataFor(movie, allowExternal = true, useProxy = false) {
   if (!movie?.posterPath) return null;
@@ -5443,122 +5176,8 @@ function downloadBlob(blob, filename) {
   window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
-// --- Minimal no-dependency ZIP (stored / uncompressed) ----------------------
-// Lets the image-set exports deliver a single .zip instead of N sequential file
-// downloads (which trigger a browser "download multiple files?" prompt and land
-// as scattered files). Stored mode (compression method 0) means no deflate
-// dependency — just a CRC32 and a handful of fixed headers — which keeps us
-// inside the project's no-npm-deps constraint. PNG/SVG cards are a small set, so
-// skipping compression costs little.
-const CRC32_TABLE = (() => {
-  const table = new Uint32Array(256);
-  for (let n = 0; n < 256; n += 1) {
-    let c = n;
-    for (let k = 0; k < 8; k += 1) {
-      c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
-    }
-    table[n] = c >>> 0;
-  }
-  return table;
-})();
-
-function crc32(bytes) {
-  let crc = 0xffffffff;
-  for (let i = 0; i < bytes.length; i += 1) {
-    crc = CRC32_TABLE[(crc ^ bytes[i]) & 0xff] ^ (crc >>> 8);
-  }
-  return (crc ^ 0xffffffff) >>> 0;
-}
-
-function concatBytes(parts) {
-  let length = 0;
-  parts.forEach((part) => {
-    length += part.length;
-  });
-  const out = new Uint8Array(length);
-  let pos = 0;
-  parts.forEach((part) => {
-    out.set(part, pos);
-    pos += part.length;
-  });
-  return out;
-}
-
-function dosDateTime(date = new Date()) {
-  const time = (date.getHours() << 11) | (date.getMinutes() << 5) | Math.floor(date.getSeconds() / 2);
-  const day = ((date.getFullYear() - 1980) << 9) | ((date.getMonth() + 1) << 5) | date.getDate();
-  return { time: time & 0xffff, date: day & 0xffff };
-}
-
-// files: [{ name: string, bytes: Uint8Array }] → a stored (uncompressed) ZIP Blob.
-function createStoredZipBlob(files) {
-  const encoder = new TextEncoder();
-  const { time, date } = dosDateTime();
-  const u16 = (v) => new Uint8Array([v & 0xff, (v >>> 8) & 0xff]);
-  const u32 = (v) => new Uint8Array([v & 0xff, (v >>> 8) & 0xff, (v >>> 16) & 0xff, (v >>> 24) & 0xff]);
-  const localParts = [];
-  const centralParts = [];
-  let offset = 0;
-  files.forEach((file) => {
-    const nameBytes = encoder.encode(file.name);
-    const data = file.bytes;
-    const crc = crc32(data);
-    const localHeader = concatBytes([
-      u32(0x04034b50), // local file header signature
-      u16(20), // version needed to extract
-      u16(0x0800), // general purpose flag: bit 11 = UTF-8 names
-      u16(0), // compression method: 0 = stored
-      u16(time),
-      u16(date),
-      u32(crc),
-      u32(data.length), // compressed size
-      u32(data.length), // uncompressed size
-      u16(nameBytes.length),
-      u16(0), // extra field length
-      nameBytes,
-    ]);
-    localParts.push(localHeader, data);
-    centralParts.push(
-      concatBytes([
-        u32(0x02014b50), // central directory header signature
-        u16(20), // version made by
-        u16(20), // version needed
-        u16(0x0800),
-        u16(0),
-        u16(time),
-        u16(date),
-        u32(crc),
-        u32(data.length),
-        u32(data.length),
-        u16(nameBytes.length),
-        u16(0), // extra length
-        u16(0), // comment length
-        u16(0), // disk number start
-        u16(0), // internal attributes
-        u32(0), // external attributes
-        u32(offset), // relative offset of local header
-        nameBytes,
-      ]),
-    );
-    offset += localHeader.length + data.length;
-  });
-  const centralStart = offset;
-  let centralSize = 0;
-  centralParts.forEach((part) => {
-    centralSize += part.length;
-  });
-  const end = concatBytes([
-    u32(0x06054b50), // end of central directory signature
-    u16(0), // disk number
-    u16(0), // disk with central dir
-    u16(files.length),
-    u16(files.length),
-    u32(centralSize),
-    u32(centralStart),
-    u16(0), // comment length
-  ]);
-  return new Blob([...localParts, ...centralParts, end], { type: "application/zip" });
-}
+// The stored-ZIP writer (`createStoredZipBlob`) now lives in lib/zip.js, imported
+// at the top so both the app and the Node test suite share one implementation.
 
 async function downloadShareSvg() {
   if (!ranking.length) return;

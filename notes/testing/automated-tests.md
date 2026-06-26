@@ -4,6 +4,19 @@
 > **progress tracker** — update the checklists as you go so another agent can pick
 > up mid-stream. If this conflicts with the code, the code wins; fix this doc.
 
+## Status at a glance
+
+**Phases 0–4 complete — 69 tests, `npm test` green in ~0.15s.** The entire pure
+logic core is extracted into `lib/` and covered: ZIP writer, text-fit/SVG-text,
+formatters, movie identity + merge (never-lose-data), the rank-weighted insight
+engine, pack progress + share aggregation, and the share text/data export builder
++ serializers. Every extraction was browser-smoke-tested (app boots clean, all
+surfaces render). **Next up: Phase 5 (SVG structural) and Phase 6 (DOM/E2E)** —
+both heavier and specced below for a clean pickup.
+
+Modules: `lib/{zip,text,format,movie,insights,packs,share-export}.js`.
+Tests: `tests/{zip,text,format,movie,insights,packs,share-export}.test.js`.
+
 ## Goal
 
 Move past "Dan is the manual QA." Build a suite of automated tests that is:
@@ -140,19 +153,32 @@ Legend: [ ] todo · [~] in progress · [x] done
 - [x] Browser smoke-tested: genres/cast/eras/snapshot all render with real
       enriched data, no errors. **47 tests green, ~0.15s.**
 
-### Phase 3 — Packs
-- [ ] `lib/packs.js` — `computePackStats`, `packDerivedStatus`,
-      `getSharePackSummary`, `getSharePackFeatured`, `sharePackCardStatus`,
-      `packStatusText`. State passed in (handled-state fn + progress map).
-- [ ] `tests/packs.test.js` — status transitions, aggregate counts, featured
-      ordering (in-progress before completed), self-hide.
+### Phase 3 — Packs ✅
+- [x] `lib/packs.js` — `computePackStats(pack, handledStateFor, progressEntry)`,
+      `packStatusRank`/`packStatusText`/`packActionText`/`sharePackCardStatus`
+      (all take `stats`), `summarizePacks(entries)`, `featuredPacks(entries,n)`.
+      `app.js` wrappers bind the live `getMovieHandledState` + `packProgress`.
+- [x] `tests/packs.test.js` — every derived status (completed / started /
+      discovered / dismissed / resurfaced / not_started), progress fraction,
+      status/action/card text, aggregate counts + distinct ranked/handled ids +
+      top category, featured ordering (in-progress before completed, by progress
+      then recency), untouched-excluded, limit, engaged self-hide. (11 tests)
+- [x] Browser smoke-tested: main packs panel + share packs section both render
+      with correct derived statuses. **58 tests green.**
 
-### Phase 4 — Share exports
-- [ ] `lib/share-export.js` — pure `buildShareExportSections(insights, options,
-      { watchList, notInterestedList, packSummary, packFeatured, tone })` +
-      Markdown/Text/JSON serializers.
-- [ ] `tests/share-export.test.js` — section presence per option, **empty-section
-      omission**, tone titles, packs block, ordering (packs before whole list).
+### Phase 4 — Share exports ✅
+- [x] `lib/share-export.js` — `getSharePickGroups`, `movieExportLine`,
+      `shareRankingMetaCards`, pure `buildShareExportSections(insights, options,
+      ctx)` (ctx = `{ tone, watchList, notInterestedList, watchRuntimeDisplay,
+      hiddenRuntimeDisplay, hiddenRuntimeLabel, packSummary, packFeatured }`), and
+      `sectionsToMarkdown` / `sectionsToText` serializers. `app.js`'s
+      `buildShareExportSections` is now a wrapper that gathers ctx; `buildShareMarkdown`/`buildShareText` call the serializers.
+- [x] `tests/share-export.test.js` — canonical section order, tone titles,
+      **empty-section omission** (queues/genres/people), toggles-off omission,
+      packs block (engaged-only, before whole list, line content), meta-card
+      provenance vs fallback, Markdown/Text serializer structure. (11 tests)
+- [x] Browser smoke-tested: Markdown export + SVG poster render correctly.
+      **69 tests green, ~0.15s.**
 
 ### Phase 5 — SVG structural
 - [ ] Assert `buildShareSvg` / image-set output is well-formed XML, has expected

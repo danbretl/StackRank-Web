@@ -25,6 +25,23 @@ import {
   mergeRankings,
 } from "./lib/movie.js";
 import { computeRankingInsights } from "./lib/insights.js";
+import {
+  computePackStats,
+  packStatusRank as libPackStatusRank,
+  packStatusText as libPackStatusText,
+  packActionText as libPackActionText,
+  sharePackCardStatus,
+  summarizePacks,
+  featuredPacks,
+} from "./lib/packs.js";
+import {
+  getSharePickGroups,
+  movieExportLine,
+  shareRankingMetaCards,
+  buildShareExportSections as libBuildShareExportSections,
+  sectionsToMarkdown,
+  sectionsToText,
+} from "./lib/share-export.js";
 
 console.info("StackRank build", "share-studio-v3");
 
@@ -2104,48 +2121,12 @@ const getPackMovieDetailContext = (pack, movieEntry) => {
   return { type: "pack", slug: pack.slug };
 };
 
-const getPackStats = (pack) => {
-  const handledMovies = [];
-  const remainingMovies = [];
-  pack.movies.forEach((movie, index) => {
-    const state = getMovieHandledState(movie);
-    const entry = { movie, index, state };
-    if (state.handled) {
-      handledMovies.push(entry);
-    } else {
-      remainingMovies.push(entry);
-    }
-  });
-  const total = pack.movies.length;
-  const handled = handledMovies.length;
-  const progress = total ? handled / total : 0;
-  const entry = packProgress[pack.slug] || {};
-  const completed = total > 0 && handled === total;
-  const resurfaced = Boolean(entry.completedAt && pack.version > Number(entry.packVersionSeen || 0) && !completed);
-  const discovered = !entry.startedAt && handled > 0 && !completed && !entry.discoveryDismissedAt;
-  const started = Boolean(entry.startedAt && !completed);
-  return {
-    total,
-    handled,
-    progress,
-    handledMovies,
-    remainingMovies,
-    completed,
-    resurfaced,
-    discovered,
-    started,
-    entry,
-  };
-};
+// Pack progress + share aggregation now live in lib/packs.js. These wrappers
+// bind the live state — the derived per-movie handled state and the persisted
+// `packProgress` entry — so the rest of app.js calls them unchanged.
+const getPackStats = (pack) => computePackStats(pack, getMovieHandledState, packProgress[pack.slug] || {});
 
-const packStatusRank = (pack) => {
-  const stats = getPackStats(pack);
-  if (stats.resurfaced) return 0;
-  if (stats.started) return 1;
-  if (stats.discovered) return 2;
-  if (!stats.completed) return 3;
-  return 4;
-};
+const packStatusRank = (pack) => libPackStatusRank(getPackStats(pack));
 
 const sortedPacksForDisplay = (includeCompleted = false) =>
   [...suggestionPacks]
@@ -2159,105 +2140,17 @@ const sortedPacksForDisplay = (includeCompleted = false) =>
       return a.sort_order - b.sort_order || a.title.localeCompare(b.title);
     });
 
-const packStatusText = (pack, stats = getPackStats(pack)) => {
-  if (stats.resurfaced) return `${stats.remainingMovies.length} new to rank`;
-  if (stats.completed) return "Complete";
-  if (stats.handled > 0) {
-    const left = stats.total - stats.handled;
-    return `${stats.handled} handled, ${left} to go`;
-  }
-  return `${stats.total} movies to rank`;
-};
+const packStatusText = (pack, stats = getPackStats(pack)) => libPackStatusText(stats);
 
 const packCompactStatusText = (pack, stats = getPackStats(pack)) => packStatusText(pack, stats);
 
-const packActionText = (pack, stats = getPackStats(pack)) => {
-  if (stats.resurfaced) return "Keep going";
-  if (stats.started) return "Keep going";
-  if (stats.discovered) return "Pick up";
-  if (stats.completed) return "View pack";
-  return "Start";
-};
+const packActionText = (pack, stats = getPackStats(pack)) => libPackActionText(stats);
 
-// Aggregate pack engagement for the Share Suite. Derived entirely from
-// getPackStats (no schema/data the app doesn't already compute), so it works
-// for signed-out users and never needs a network call. `rankedCount` counts
-// distinct pack movies that landed in the ranking; `handledCount` counts
-// distinct pack movies the user has ranked/saved/hidden. `topCategory` is the
-// category the user has engaged with most (by handled count) — an engagement
-// signal, not a rank-weighted taste claim, so it is labelled "Most explored".
-const getSharePackSummary = () => {
-  const packs = Array.isArray(suggestionPacks) ? suggestionPacks : [];
-  let completed = 0;
-  let inProgress = 0;
-  const rankedIds = new Set();
-  const handledIds = new Set();
-  const categoryHandled = new Map();
-  packs.forEach((pack) => {
-    const stats = getPackStats(pack);
-    if (stats.completed) completed += 1;
-    else if (stats.started || stats.resurfaced) inProgress += 1;
-    stats.handledMovies.forEach((entry) => {
-      const id = entry.movie.tmdbId != null ? `id:${entry.movie.tmdbId}` : movieKey(entry.movie);
-      handledIds.add(id);
-      if (entry.state.type === "ranked") rankedIds.add(id);
-    });
-    if (stats.handled > 0 || stats.started || stats.completed) {
-      const cat = (pack.category || "").trim();
-      if (cat) categoryHandled.set(cat, (categoryHandled.get(cat) || 0) + stats.handled);
-    }
-  });
-  let topCategory = "";
-  let topCategoryCount = 0;
-  categoryHandled.forEach((count, cat) => {
-    if (count > topCategoryCount) {
-      topCategoryCount = count;
-      topCategory = cat;
-    }
-  });
-  const engaged = completed + inProgress > 0 || handledIds.size > 0;
-  return {
-    totalPacks: packs.length,
-    completed,
-    inProgress,
-    rankedCount: rankedIds.size,
-    handledCount: handledIds.size,
-    topCategory,
-    topCategoryCount,
-    engaged,
-  };
-};
-
-// Packs to feature visually in the Share Suite (up to `limit`). In-progress
-// packs (the active projects) lead by progress, then completed packs as
-// trophies by most-recent completion. Mirrors the app's own ordering instinct
-// of surfacing what you're working on before what you've finished.
-const getSharePackFeatured = (limit = 4) =>
-  suggestionPacks
-    .map((pack) => ({ pack, stats: getPackStats(pack) }))
-    .filter(({ stats }) => stats.completed || stats.started || stats.resurfaced || stats.handled > 0)
-    .sort((a, b) => {
-      const aActive = a.stats.completed ? 0 : 1;
-      const bActive = b.stats.completed ? 0 : 1;
-      if (aActive !== bActive) return bActive - aActive; // in-progress before completed
-      if (a.stats.completed && b.stats.completed) {
-        const aDone = Date.parse(a.stats.entry.completedAt || "") || 0;
-        const bDone = Date.parse(b.stats.entry.completedAt || "") || 0;
-        return bDone - aDone;
-      }
-      if (b.stats.progress !== a.stats.progress) return b.stats.progress - a.stats.progress;
-      if (b.stats.handled !== a.stats.handled) return b.stats.handled - a.stats.handled;
-      return a.pack.sort_order - b.pack.sort_order || a.pack.title.localeCompare(b.pack.title);
-    })
-    .slice(0, limit);
-
-// One-line status used on the Share Suite pack cards (kept terser than the
-// in-app packStatusText so it fits the poster card).
-const sharePackCardStatus = (stats) => {
-  if (stats.completed) return "Complete";
-  if (stats.resurfaced) return `${stats.remainingMovies.length} new to rank`;
-  return `${stats.handled} / ${stats.total} ranked`;
-};
+// Aggregate pack engagement / featured picks for the Share Suite — pure helpers
+// in lib/packs.js fed the live pack list + derived stats.
+const sharePackEntries = () => suggestionPacks.map((pack) => ({ pack, stats: getPackStats(pack) }));
+const getSharePackSummary = () => summarizePacks(sharePackEntries());
+const getSharePackFeatured = (limit = 4) => featuredPacks(sharePackEntries(), limit);
 
 const createPackCover = (pack, className = "pack-cover") => {
   const cover = document.createElement("div");
@@ -3027,39 +2920,8 @@ function recentQueueItems(list, timestampKey, count) {
     .map((entry) => entry.movie);
 }
 
-function getSharePickGroups(insights) {
-  const movies = insights.enrichedRanking || [];
-  const bestCount = Math.min(5, Math.ceil(movies.length / 2));
-  const worstCount = Math.min(5, Math.floor(movies.length / 2));
-  return {
-    best: movies.slice(0, bestCount),
-    worst: worstCount ? movies.slice(movies.length - worstCount) : [],
-    worstStartRank: worstCount ? movies.length - worstCount + 1 : 0,
-  };
-}
-
-function movieExportLine(movie, rank = null) {
-  const year = movie.year ? ` (${movie.year})` : "";
-  return `${rank ? `${rank}. ` : ""}${movie.title}${year}`;
-}
-
-// rankedCountLabel now lives in lib/format.js, imported at the top.
-
-function shareRankingMetaCards(insights) {
-  if (insights.perMovieRankDatesTracked) {
-    return [
-      { label: "First movie ranked on", value: insights.firstRankedAt ? formatShortDate(insights.firstRankedAt) : "Not tracked" },
-      { label: "Most recent movie ranked", value: insights.lastRankedAt ? formatShortDate(insights.lastRankedAt) : "Not tracked" },
-      { label: "Most ranked in one day", value: insights.busiestDay ? rankedCountLabel(insights.busiestDay.count) : "Not tracked" },
-    ];
-  }
-
-  return [
-    { label: "List last updated", value: insights.rankingUpdatedAt ? formatShortDate(insights.rankingUpdatedAt) : "Not tracked" },
-    { label: "Per-movie rank dates", value: "Not tracked" },
-    { label: "Most ranked in one day", value: "Not tracked" },
-  ];
-}
+// getSharePickGroups, movieExportLine, shareRankingMetaCards now live in
+// lib/share-export.js, imported at the top.
 
 function buildShareExportTitle(options = shareOptions) {
   const tone = getShareTone(options.tone);
@@ -3067,194 +2929,36 @@ function buildShareExportTitle(options = shareOptions) {
   return displayName ? `${possessiveName(displayName)} ${lowercaseFirst(tone.heroLead)}` : tone.heroLead;
 }
 
+// The pure section builder lives in lib/share-export.js. This wrapper gathers the
+// state-coupled context (resolved tone, queue lists + runtime displays, pack
+// summary/featured) and calls it.
 function buildShareExportSections(insights = getRankingInsights(), options = shareOptions) {
-  const tone = getShareTone(options.tone);
-  const picks = getSharePickGroups(insights);
-  const sections = [];
-
-  if (options.top && picks.best.length) {
-    sections.push({
-      key: "top",
-      title: tone.topTitle,
-      subtitle: tone.topSub,
-      lines: picks.best.map((movie, index) => movieExportLine(movie, index + 1)),
-    });
-  }
-
-  if (options.bottom && picks.worst.length) {
-    sections.push({
-      key: "bottom",
-      title: tone.bottomTitle,
-      subtitle: tone.bottomSub,
-      lines: picks.worst.map((movie, index) => movieExportLine(movie, picks.worstStartRank + index)),
-    });
-  }
-
-  if (options.eras && insights.decades.length) {
-    const topDecade = insights.topDecade ? decadeLabel(insights.topDecade.decade) : "Unknown";
-    const oldest = insights.oldest
-      ? `${insights.oldest.year} - ${insights.oldest.movie.title}`
-      : "Unknown";
-    const newest = insights.newest
-      ? `${insights.newest.year} - ${insights.newest.movie.title}`
-      : "Unknown";
-    const decadeRows = insights.decades.slice(0, 6).sort((a, b) => b.decade - a.decade);
-    sections.push({
-      key: "eras",
-      title: tone.erasTitle,
-      subtitle: "Release years across your ranking",
-      lines: [
-        `Highest ranked decade: ${topDecade}`,
-        `Average release year: ${insights.averageYear ? String(insights.averageYear) : "Unknown"}`,
-        `Oldest ranked movie: ${oldest}`,
-        `Newest ranked movie: ${newest}`,
-        "",
-        "Ranked movies by decade:",
-        ...decadeRows.map((item) => `${decadeLabel(item.decade)}: ${rankedCountLabel(item.count)}`),
-      ],
-    });
-  }
-
-  if (options.genres && insights.genres.length) {
-    const bottomPull =
-      insights.bottomGenres.find((item) => item.name !== insights.genres[0].name) || insights.bottomGenres[0];
-    const lines = [
-      `Highest ranked genre: ${insights.genres[0].name} (${rankedCountLabel(insights.genres[0].count)})`,
-      `Lowest ranked genre: ${bottomPull?.name || "Unknown"}${
-        bottomPull ? ` (${rankedCountLabel(bottomPull.count)})` : ""
-      }`,
-      "",
-      "Ranked movies by genre:",
-      ...insights.genres.slice(0, 6).map((item) => `${item.name}: ${rankedCountLabel(item.count)}`),
-    ];
-    sections.push({
-      key: "genres",
-      title: tone.genresTitle,
-      subtitle: "Genres that rise to the top",
-      lines,
-    });
-  }
-
-  if (options.people && (insights.directors.length || insights.cast.length)) {
-    const lines = [
-      `Highest ranked director: ${insights.directors[0]?.name || "Unknown"}${
-        insights.directors[0] ? ` (${rankedCountLabel(insights.directors[0].count)})` : ""
-      }`,
-      `Highest ranked cast member: ${insights.cast[0]?.name || "Unknown"}${
-        insights.cast[0] ? ` (${rankedCountLabel(insights.cast[0].count)})` : ""
-      }`,
-      "",
-      "Directors by ranked appearances:",
-      ...insights.directors.slice(0, 8).map((item) => `${item.name}: ${rankedCountLabel(item.count)}`),
-      "",
-      "Cast by ranked appearances:",
-      ...insights.cast.slice(0, 8).map((item) => `${item.name}: ${rankedCountLabel(item.count)}`),
-    ];
-    sections.push({
-      key: "people",
-      title: tone.peopleTitle,
-      subtitle: "Directors and cast that rise to the top",
-      lines,
-    });
-  }
-
-  if (options.queues && (watchList.length || notInterestedList.length)) {
-    const watchRuntime = runtimeStatsForMovies(watchList);
-    const hiddenRuntime = runtimeStatsForMovies(notInterestedList);
-    const watchRuntimeDisplay = formatShareRuntimeTotal(watchRuntime, watchList.length, shareDetailsLoading);
-    const hiddenRuntimeDisplay = formatShareRuntimeTotal(hiddenRuntime, notInterestedList.length, shareDetailsLoading);
-    const watchTitles = watchList.slice(0, 3).map((movie) => movie.title).join(" / ") || "Nothing saved";
-    const hiddenTitles = notInterestedList.slice(0, 3).map((movie) => movie.title).join(" / ") || "Nothing hidden";
-    sections.push({
-      key: "queues",
-      title: tone.queuesTitle,
-      subtitle: "Movies outside the ranked stack",
-      lines: [
-        `Saved for later: ${watchList.length}`,
-        `Pending watch time: ${watchRuntimeDisplay.value}`,
-        watchTitles,
-        `Hidden from view: ${notInterestedList.length}`,
-        `${hiddenRuntimeLabel(options.tone)}: ${hiddenRuntimeDisplay.value}`,
-        hiddenTitles,
-      ],
-    });
-  }
-
-  if (options.packs) {
-    const summary = getSharePackSummary();
-    if (summary.engaged) {
-      const featured = getSharePackFeatured(4);
-      const lines = [
-        `Packs completed: ${summary.completed}`,
-        `Packs in progress: ${summary.inProgress}`,
-        `Pack movies ranked: ${summary.rankedCount}`,
-      ];
-      if (summary.topCategory) {
-        lines.push(`Most explored category: ${summary.topCategory}`);
-      }
-      if (featured.length) {
-        lines.push("", "Packs you're working through:");
-        featured.forEach(({ pack, stats }) => {
-          lines.push(`${pack.title} - ${sharePackCardStatus(stats)}`);
-        });
-      }
-      sections.push({
-        key: "packs",
-        title: tone.packsTitle,
-        subtitle: "Curated sets you're working through",
-        lines,
-      });
-    }
-  }
-
-  if (options.fullList && insights.enrichedRanking.length) {
-    const metaCards = shareRankingMetaCards(insights);
-    sections.push({
-      key: "fullList",
-      title: tone.listTitle,
-      subtitle: "Every movie, top to bottom",
-      lines: [
-        ...metaCards.map((item) => `${item.label}: ${item.value}`),
-        "",
-        ...insights.enrichedRanking.map((movie, index) => movieExportLine(movie, index + 1)),
-      ],
-    });
-  }
-
-  return sections;
+  const watchRuntime = runtimeStatsForMovies(watchList);
+  const hiddenRuntime = runtimeStatsForMovies(notInterestedList);
+  return libBuildShareExportSections(insights, options, {
+    tone: getShareTone(options.tone),
+    watchList,
+    notInterestedList,
+    watchRuntimeDisplay: formatShareRuntimeTotal(watchRuntime, watchList.length, shareDetailsLoading),
+    hiddenRuntimeDisplay: formatShareRuntimeTotal(hiddenRuntime, notInterestedList.length, shareDetailsLoading),
+    hiddenRuntimeLabel: hiddenRuntimeLabel(options.tone),
+    packSummary: getSharePackSummary(),
+    packFeatured: getSharePackFeatured(4),
+  });
 }
 
 function buildShareMarkdown() {
   const insights = getRankingInsights();
   if (!insights.count) return buildExportText();
   const sections = buildShareExportSections(insights);
-  return [
-    `# ${buildShareExportTitle()}`,
-    "",
-    `Generated ${formatShortDate(new Date().toISOString())}`,
-    ...sections.flatMap((section) => [
-      "",
-      `## ${section.title}`,
-      ...(section.subtitle ? [`_${section.subtitle}_`, ""] : []),
-      ...section.lines,
-    ]),
-  ].join("\n");
+  return sectionsToMarkdown(buildShareExportTitle(), formatShortDate(new Date().toISOString()), sections);
 }
 
 function buildShareText() {
   const insights = getRankingInsights();
   if (!insights.count) return "StackRank - Movies\n\n(No movies ranked yet.)";
   const sections = buildShareExportSections(insights);
-  return [
-    buildShareExportTitle(),
-    `Generated ${formatShortDate(new Date().toISOString())}`,
-    ...sections.flatMap((section) => [
-      "",
-      section.title,
-      ...(section.subtitle ? [section.subtitle] : []),
-      ...section.lines,
-    ]),
-  ].join("\n");
+  return sectionsToText(buildShareExportTitle(), formatShortDate(new Date().toISOString()), sections);
 }
 
 function buildShareDataExport() {

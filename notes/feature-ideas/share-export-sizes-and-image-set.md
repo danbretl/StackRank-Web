@@ -7,9 +7,14 @@ Status: **v1 shipped Jun 2026.** Built and refined across several review rounds:
 - **Image set** — header + grouped cards (top&bottom, eras, genres, cast&crew, saved&hidden = 6 most-recent of each by `savedAt`/`hiddenAt` in a 2-col mixed grid, whole-list paginated). Cards shrink-to-content (max 1200×2600); page kicker shows "… Page X/Y" and the list title postfixes "…, Ranks X–Y". Sequential named downloads.
 - Polish landed: symmetric left/right content padding (86 ↔ 1114), larger section titles/subtitles, blue `people-heading` chart captions, eras values matched to genre/cast size, genre chart ordered alphabetically, animated loading skeletons for detail-backed sections, and a preview-rewrite guard that fixed a per-batch flicker.
 
-`SHARE_OPTIONS_VERSION` is now 6 (migrates `portrait`/`landscape` → `skinny`/`wide`). Cache: `app.js?v=52`, `styles.css?v=25`.
+`SHARE_OPTIONS_VERSION` is now 7 (v6 migrated `portrait`/`landscape` → `skinny`/`wide`; v7 added the `packs` toggle). Cache: `app.js?v=82`, `styles.css?v=54`.
 
-**Remaining — Phase 3 polish (parked):** ZIP delivery instead of sequential downloads; iPad page size (reuses the width parameterization); richer in-studio per-card previews/labels beyond the stacked deck. The original spec below still describes the intended end state.
+**Phase 3 polish — partly shipped (Jun 2026):**
+- **ZIP delivery — SHIPPED.** Image-set PNG and SVG exports now bundle into a single `.zip` (`stackrank-share-images.zip` / `stackrank-share-svg.zip`) instead of N staggered downloads (which fired a browser "download multiple files?" prompt and scattered files). Implemented with a hand-rolled, dependency-free **stored (uncompressed) ZIP writer** (`createStoredZipBlob` + `crc32` + `concatBytes` + `dosDateTime`) — no deflate, just CRC32 and fixed headers — staying inside the no-npm-deps constraint. A 1-card set downloads as a single plain file (no pointless zip). The PNG button reads "Download zip (N)" / SVG "SVG zip". Validated against system `unzip -t` and Python `zipfile.testzip()` (CRCs + binary/UTF-8 round-trip).
+- **Richer in-studio per-card previews/labels — SHIPPED.** The image-set studio preview now renders each card as a `<figure>` with a numbered caption pill ("1/7 · Top & bottom picks" … "6/7 · Packs" … "7/7 · Whole list"; whole-list pages show "Whole list · 2/3"), so the deck reads as an ordered, navigable set instead of an anonymous stack. Cards carry a `caption` field; `.share-preview-card__{media,label,num,name}` styles in `styles.css`.
+- **iPad page size — still deferred.** The single-image **Wide** shape already delivers the landscape/iPad-dashboard layout (the width-parameterized half of this item). An iPad-shaped *image-set* (multiple groups packed per landscape page with fixed-height masonry pagination) remains a meaningful redesign of the one-group-per-card model and the carefully-tuned whole-list pagination — kept parked rather than rushed, per this doc's own "defer to a later phase" note and the regression-risk caveat below.
+
+The original spec below still describes the intended end state.
 
 ## Summary
 

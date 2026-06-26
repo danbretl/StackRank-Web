@@ -46,6 +46,7 @@ const shareIncludeEras = document.getElementById("share-include-eras");
 const shareIncludeGenres = document.getElementById("share-include-genres");
 const shareIncludePeople = document.getElementById("share-include-people");
 const shareIncludeQueues = document.getElementById("share-include-queues");
+const shareIncludePacks = document.getElementById("share-include-packs");
 const shareIncludeFullList = document.getElementById("share-include-full-list");
 const shareFullListStyleControls = document.querySelectorAll('input[name="share-full-list-style"]');
 const shareShapeFieldset = document.getElementById("share-shape-fieldset");
@@ -119,7 +120,7 @@ const QUEUE_STORAGE_KEY = "stackrank:suggestion-queues:v1";
 const PACK_PROGRESS_STORAGE_KEY = "stackrank:pack-progress:v1";
 const PACK_FALLBACK_PATH = "data/suggestion-packs.json";
 const SHARE_OPTIONS_KEY = "stackrank:share-options:v1";
-const SHARE_OPTIONS_VERSION = 6;
+const SHARE_OPTIONS_VERSION = 7;
 const WATCH_LIST_TYPE = "watch";
 const NOT_INTERESTED_LIST_TYPE = "not_interested";
 const INSPIRED_SEED_KEY = "stackrank:inspired-seed:v1";
@@ -193,6 +194,7 @@ let shareOptions = {
   genres: true,
   people: true,
   queues: true,
+  packs: true,
   fullList: true,
   fullListStyle: "mixed",
   theme: "classic",
@@ -1566,6 +1568,7 @@ shareStudio.addEventListener("click", (event) => {
   shareIncludeGenres,
   shareIncludePeople,
   shareIncludeQueues,
+  shareIncludePacks,
   shareIncludeFullList,
   ...shareFullListStyleControls,
   ...document.querySelectorAll('input[name="share-theme"]'),
@@ -2343,6 +2346,86 @@ const packActionText = (pack, stats = getPackStats(pack)) => {
   if (stats.discovered) return "Pick up";
   if (stats.completed) return "View pack";
   return "Start";
+};
+
+// Aggregate pack engagement for the Share Suite. Derived entirely from
+// getPackStats (no schema/data the app doesn't already compute), so it works
+// for signed-out users and never needs a network call. `rankedCount` counts
+// distinct pack movies that landed in the ranking; `handledCount` counts
+// distinct pack movies the user has ranked/saved/hidden. `topCategory` is the
+// category the user has engaged with most (by handled count) — an engagement
+// signal, not a rank-weighted taste claim, so it is labelled "Most explored".
+const getSharePackSummary = () => {
+  const packs = Array.isArray(suggestionPacks) ? suggestionPacks : [];
+  let completed = 0;
+  let inProgress = 0;
+  const rankedIds = new Set();
+  const handledIds = new Set();
+  const categoryHandled = new Map();
+  packs.forEach((pack) => {
+    const stats = getPackStats(pack);
+    if (stats.completed) completed += 1;
+    else if (stats.started || stats.resurfaced) inProgress += 1;
+    stats.handledMovies.forEach((entry) => {
+      const id = entry.movie.tmdbId != null ? `id:${entry.movie.tmdbId}` : movieKey(entry.movie);
+      handledIds.add(id);
+      if (entry.state.type === "ranked") rankedIds.add(id);
+    });
+    if (stats.handled > 0 || stats.started || stats.completed) {
+      const cat = (pack.category || "").trim();
+      if (cat) categoryHandled.set(cat, (categoryHandled.get(cat) || 0) + stats.handled);
+    }
+  });
+  let topCategory = "";
+  let topCategoryCount = 0;
+  categoryHandled.forEach((count, cat) => {
+    if (count > topCategoryCount) {
+      topCategoryCount = count;
+      topCategory = cat;
+    }
+  });
+  const engaged = completed + inProgress > 0 || handledIds.size > 0;
+  return {
+    totalPacks: packs.length,
+    completed,
+    inProgress,
+    rankedCount: rankedIds.size,
+    handledCount: handledIds.size,
+    topCategory,
+    topCategoryCount,
+    engaged,
+  };
+};
+
+// Packs to feature visually in the Share Suite (up to `limit`). In-progress
+// packs (the active projects) lead by progress, then completed packs as
+// trophies by most-recent completion. Mirrors the app's own ordering instinct
+// of surfacing what you're working on before what you've finished.
+const getSharePackFeatured = (limit = 4) =>
+  suggestionPacks
+    .map((pack) => ({ pack, stats: getPackStats(pack) }))
+    .filter(({ stats }) => stats.completed || stats.started || stats.resurfaced || stats.handled > 0)
+    .sort((a, b) => {
+      const aActive = a.stats.completed ? 0 : 1;
+      const bActive = b.stats.completed ? 0 : 1;
+      if (aActive !== bActive) return bActive - aActive; // in-progress before completed
+      if (a.stats.completed && b.stats.completed) {
+        const aDone = Date.parse(a.stats.entry.completedAt || "") || 0;
+        const bDone = Date.parse(b.stats.entry.completedAt || "") || 0;
+        return bDone - aDone;
+      }
+      if (b.stats.progress !== a.stats.progress) return b.stats.progress - a.stats.progress;
+      if (b.stats.handled !== a.stats.handled) return b.stats.handled - a.stats.handled;
+      return a.pack.sort_order - b.pack.sort_order || a.pack.title.localeCompare(b.pack.title);
+    })
+    .slice(0, limit);
+
+// One-line status used on the Share Suite pack cards (kept terser than the
+// in-app packStatusText so it fits the poster card).
+const sharePackCardStatus = (stats) => {
+  if (stats.completed) return "Complete";
+  if (stats.resurfaced) return `${stats.remainingMovies.length} new to rank`;
+  return `${stats.handled} / ${stats.total} ranked`;
 };
 
 const createPackCover = (pack, className = "pack-cover") => {
@@ -3203,21 +3286,18 @@ function buildShareExportSections(insights = getRankingInsights(), options = sha
     });
   }
 
-  if (options.genres) {
-    const bottomPull = insights.genres.length
-      ? insights.bottomGenres.find((item) => item.name !== insights.genres[0].name) || insights.bottomGenres[0]
-      : null;
-    const lines = insights.genres.length
-      ? [
-          `Highest ranked genre: ${insights.genres[0].name} (${rankedCountLabel(insights.genres[0].count)})`,
-          `Lowest ranked genre: ${bottomPull?.name || "Unknown"}${
-            bottomPull ? ` (${rankedCountLabel(bottomPull.count)})` : ""
-          }`,
-          "",
-          "Ranked movies by genre:",
-          ...insights.genres.slice(0, 6).map((item) => `${item.name}: ${rankedCountLabel(item.count)}`),
-        ]
-      : ["No genre data loaded yet."];
+  if (options.genres && insights.genres.length) {
+    const bottomPull =
+      insights.bottomGenres.find((item) => item.name !== insights.genres[0].name) || insights.bottomGenres[0];
+    const lines = [
+      `Highest ranked genre: ${insights.genres[0].name} (${rankedCountLabel(insights.genres[0].count)})`,
+      `Lowest ranked genre: ${bottomPull?.name || "Unknown"}${
+        bottomPull ? ` (${rankedCountLabel(bottomPull.count)})` : ""
+      }`,
+      "",
+      "Ranked movies by genre:",
+      ...insights.genres.slice(0, 6).map((item) => `${item.name}: ${rankedCountLabel(item.count)}`),
+    ];
     sections.push({
       key: "genres",
       title: tone.genresTitle,
@@ -3226,24 +3306,21 @@ function buildShareExportSections(insights = getRankingInsights(), options = sha
     });
   }
 
-  if (options.people) {
-    const lines =
-      insights.directors.length || insights.cast.length
-        ? [
-            `Highest ranked director: ${insights.directors[0]?.name || "Unknown"}${
-              insights.directors[0] ? ` (${rankedCountLabel(insights.directors[0].count)})` : ""
-            }`,
-            `Highest ranked cast member: ${insights.cast[0]?.name || "Unknown"}${
-              insights.cast[0] ? ` (${rankedCountLabel(insights.cast[0].count)})` : ""
-            }`,
-            "",
-            "Directors by ranked appearances:",
-            ...insights.directors.slice(0, 8).map((item) => `${item.name}: ${rankedCountLabel(item.count)}`),
-            "",
-            "Cast by ranked appearances:",
-            ...insights.cast.slice(0, 8).map((item) => `${item.name}: ${rankedCountLabel(item.count)}`),
-          ]
-        : ["No cast or crew data loaded yet."];
+  if (options.people && (insights.directors.length || insights.cast.length)) {
+    const lines = [
+      `Highest ranked director: ${insights.directors[0]?.name || "Unknown"}${
+        insights.directors[0] ? ` (${rankedCountLabel(insights.directors[0].count)})` : ""
+      }`,
+      `Highest ranked cast member: ${insights.cast[0]?.name || "Unknown"}${
+        insights.cast[0] ? ` (${rankedCountLabel(insights.cast[0].count)})` : ""
+      }`,
+      "",
+      "Directors by ranked appearances:",
+      ...insights.directors.slice(0, 8).map((item) => `${item.name}: ${rankedCountLabel(item.count)}`),
+      "",
+      "Cast by ranked appearances:",
+      ...insights.cast.slice(0, 8).map((item) => `${item.name}: ${rankedCountLabel(item.count)}`),
+    ];
     sections.push({
       key: "people",
       title: tone.peopleTitle,
@@ -3252,7 +3329,7 @@ function buildShareExportSections(insights = getRankingInsights(), options = sha
     });
   }
 
-  if (options.queues) {
+  if (options.queues && (watchList.length || notInterestedList.length)) {
     const watchRuntime = runtimeStatsForMovies(watchList);
     const hiddenRuntime = runtimeStatsForMovies(notInterestedList);
     const watchRuntimeDisplay = formatShareRuntimeTotal(watchRuntime, watchList.length, shareDetailsLoading);
@@ -3272,6 +3349,33 @@ function buildShareExportSections(insights = getRankingInsights(), options = sha
         hiddenTitles,
       ],
     });
+  }
+
+  if (options.packs) {
+    const summary = getSharePackSummary();
+    if (summary.engaged) {
+      const featured = getSharePackFeatured(4);
+      const lines = [
+        `Packs completed: ${summary.completed}`,
+        `Packs in progress: ${summary.inProgress}`,
+        `Pack movies ranked: ${summary.rankedCount}`,
+      ];
+      if (summary.topCategory) {
+        lines.push(`Most explored category: ${summary.topCategory}`);
+      }
+      if (featured.length) {
+        lines.push("", "Packs you're working through:");
+        featured.forEach(({ pack, stats }) => {
+          lines.push(`${pack.title} - ${sharePackCardStatus(stats)}`);
+        });
+      }
+      sections.push({
+        key: "packs",
+        title: tone.packsTitle,
+        subtitle: "Curated sets you're working through",
+        lines,
+      });
+    }
   }
 
   if (options.fullList && insights.enrichedRanking.length) {
@@ -3551,6 +3655,7 @@ function getShareTone(toneName = shareOptions.tone) {
       genresTitle: "Genre fingerprint",
       peopleTitle: "Cast + crew pull",
       queuesTitle: "Still deciding",
+      packsTitle: "Pack progress",
       listTitle: "The whole stack",
     },
     punchy: {
@@ -3563,6 +3668,7 @@ function getShareTone(toneName = shareOptions.tone) {
       genresTitle: "Genre bias",
       peopleTitle: "Repeat offenders",
       queuesTitle: "On deck / ruled out",
+      packsTitle: "Packs conquered",
       listTitle: "Complete ranking",
     },
     funny: {
@@ -3575,6 +3681,7 @@ function getShareTone(toneName = shareOptions.tone) {
       genresTitle: "Genre cravings",
       peopleTitle: "Suspiciously trusted people",
       queuesTitle: "Future judgment",
+      packsTitle: "Side quests cleared",
       listTitle: "The entire situation",
     },
     extreme: {
@@ -3587,6 +3694,7 @@ function getShareTone(toneName = shareOptions.tone) {
       genresTitle: "Genre loyalties",
       peopleTitle: "Repeat power players",
       queuesTitle: "Still under review",
+      packsTitle: "Pack campaigns",
       listTitle: "Every placement",
     },
   };
@@ -3897,13 +4005,8 @@ function shareSectionBuilders(insights, theme, tone, options) {
         const sk = loadingBody("Loading genre data…");
         return section("genres", tone.genresTitle, "Genres that rise to the top", sk.body, sk.height);
       }
-      return section(
-        "genres",
-        tone.genresTitle,
-        "Genres that rise to the top",
-        `<text x="86" y="24" class="pick-meta">No genre data loaded yet.</text>`,
-        62,
-      );
+      // Loading settled with no genre data — hide the section entirely.
+      return null;
     }
     const favorite = insights.genres[0];
     const bottomPull = insights.bottomGenres.find((item) => item.name !== favorite.name) || insights.bottomGenres[0] || favorite;
@@ -3947,13 +4050,8 @@ function shareSectionBuilders(insights, theme, tone, options) {
         const sk = loadingBody("Loading cast & crew data…");
         return section("people", tone.peopleTitle, "Directors and cast that rise to the top", sk.body, sk.height);
       }
-      return section(
-        "people",
-        tone.peopleTitle,
-        "Directors and cast that rise to the top",
-        `<text x="86" y="24" class="pick-meta">No cast or crew data loaded yet.</text>`,
-        62,
-      );
+      // Loading settled with no cast/crew data — hide the section entirely.
+      return null;
     }
     const favoriteDirector = insights.directors[0];
     const favoriteActor = insights.cast[0];
@@ -4016,6 +4114,8 @@ function shareSectionBuilders(insights, theme, tone, options) {
 
   const queues = () => {
     if (!options.queues) return null;
+    // Nothing saved or hidden — hide the section entirely.
+    if (!watchList.length && !notInterestedList.length) return null;
     const watchRuntime = runtimeStatsForMovies(watchList);
     const hiddenRuntime = runtimeStatsForMovies(notInterestedList);
     const watchRuntimeDisplay = formatShareRuntimeTotal(watchRuntime, watchList.length, shareDetailsLoading);
@@ -4083,15 +4183,8 @@ function shareSectionBuilders(insights, theme, tone, options) {
   // rendered as poster + title rows (the whole-list "mixed" style).
   const savedHidden = () => {
     if (!options.queues) return null;
-    if (!watchList.length && !notInterestedList.length) {
-      return section(
-        "saved",
-        tone.queuesTitle,
-        "Saved and hidden picks",
-        `<text x="86" y="24" class="pick-meta">Nothing saved or hidden yet.</text>`,
-        62,
-      );
-    }
+    // Nothing saved or hidden — hide the section entirely.
+    if (!watchList.length && !notInterestedList.length) return null;
     // Two columns of the whole-list "mixed" poster+title cell, 6 per group
     // (fits well under the 2600 page max; drop to 4 if that ever overflows).
     const perGroup = 6;
@@ -4127,6 +4220,141 @@ function shareSectionBuilders(insights, theme, tone, options) {
       cursorY += Math.ceil(group.movies.length / cols) * rowStride;
     });
     return section("saved", tone.queuesTitle, "Most recently saved and hidden", block, cursorY);
+  };
+
+  // Packs section: a 4-up meta strip (completed / in progress / movies ranked /
+  // most-explored category) above up to four pack cards rendered roughly like
+  // the in-app pack cards — a 2x2 poster collage cover, title, subtitle, status
+  // and a progress bar. Self-hides when the user has no pack engagement.
+  const packs = () => {
+    if (!options.packs) return null;
+    const summary = getSharePackSummary();
+    if (!summary.engaged) return null;
+    const featured = getSharePackFeatured(4);
+
+    // Meta strip — four compact stat cards across the content width.
+    const metaCols = 4;
+    const metaGap = 22;
+    const metaCardW = Math.floor((contentRight - marginX - (metaCols - 1) * metaGap) / metaCols);
+    const metaCardH = 132;
+    const metaCards = [
+      { value: String(summary.completed), label: "Packs completed", big: true },
+      { value: String(summary.inProgress), label: "In progress", big: true },
+      { value: String(summary.rankedCount), label: "Movies ranked", big: true },
+      summary.topCategory
+        ? { value: summary.topCategory, label: "Most explored", big: false }
+        : { value: String(summary.totalPacks), label: "Packs available", big: true },
+    ];
+    let block = "";
+    metaCards.forEach((card, index) => {
+      const x = marginX + index * (metaCardW + metaGap);
+      block += `<rect x="${x}" y="0" width="${metaCardW}" height="${metaCardH}" rx="22" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="3" />`;
+      if (card.big) {
+        block += `<text x="${x + 24}" y="78" class="stat-value">${xmlEscape(card.value)}</text>`;
+      } else {
+        const valueLines = wrapTextToSvgWidth(card.value, metaCardW - 44, 28, 2);
+        block += svgTextLines(valueLines, x + 24, 54, "stat-value-small", 32);
+      }
+      const labelLines = wrapTextToSvgWidth(card.label, metaCardW - 44, 21, 2);
+      block += svgTextLines(
+        labelLines,
+        x + 24,
+        metaCardH - 22 - (labelLines.length - 1) * 24,
+        "stat-card-label",
+        24,
+      );
+    });
+
+    if (!featured.length) {
+      return section("packs", tone.packsTitle, "Curated sets you're working through", block, metaCardH);
+    }
+
+    // Featured pack cards — two columns aligned with the other 2-up sections.
+    const packCardW = cardW;
+    const packCardH = 224;
+    const rowStride = packCardH + 28;
+    const cardsTop = metaCardH + 40;
+    const pad = 22;
+    const tileGap = 6;
+    const tileW = 62;
+    const tileH = 93;
+    const coverW = tileW * 2 + tileGap;
+    const coverH = tileH * 2 + tileGap;
+
+    const packCardCell = (pack, stats, x, y) => {
+      let cell = `<rect x="${x}" y="${y}" width="${packCardW}" height="${packCardH}" rx="22" fill="${theme.panel}" stroke="${panelStroke}" stroke-width="3" />`;
+      const coverX = x + pad;
+      const coverY = y + Math.round((packCardH - coverH) / 2);
+      const posterMovies = pack.movies.filter((m) => m.posterPath).slice(0, 4);
+      const coverMovies = posterMovies.length >= 2 ? posterMovies : pack.movies.slice(0, 4);
+      for (let i = 0; i < 4; i += 1) {
+        const col = i % 2;
+        const row = Math.floor(i / 2);
+        const tx = coverX + col * (tileW + tileGap);
+        const ty = coverY + row * (tileH + tileGap);
+        const movie = coverMovies[i];
+        const posterData = movie ? posterDataFor(movie, allowExternalPosters, usePosterProxy) : null;
+        if (posterData) {
+          cell += `<image href="${xmlEscape(posterData)}" x="${tx}" y="${ty}" width="${tileW}" height="${tileH}" preserveAspectRatio="xMidYMid slice" />`;
+        } else {
+          cell += `<rect x="${tx}" y="${ty}" width="${tileW}" height="${tileH}" rx="8" fill="${theme.faint}" />`;
+          const initial = (movie?.title || "SR").slice(0, 1).toUpperCase();
+          cell += `<text x="${tx + tileW / 2}" y="${ty + Math.round(tileH / 2) + 8}" class="deep-rank" text-anchor="middle">${xmlEscape(initial)}</text>`;
+        }
+      }
+
+      // Text column to the right of the collage.
+      const textX = coverX + coverW + 24;
+      const textW = x + packCardW - pad - textX;
+      const titleSizes = [30, 28, 26, 24];
+      let title = { lines: [pack.title], fontSize: 24, lineHeight: 27 };
+      for (const fs of titleSizes) {
+        const lines = wrapTextToSvgWidth(pack.title, textW, fs, Infinity);
+        if (lines.length <= 2) {
+          title = { lines, fontSize: fs, lineHeight: Math.round(fs * 1.12) };
+          break;
+        }
+        title = { lines: wrapTextToSvgWidth(pack.title, textW, fs, 2), fontSize: fs, lineHeight: Math.round(fs * 1.12) };
+      }
+      const titleTop = y + 50;
+      cell += svgTextLines(title.lines, textX, titleTop, `full-list-row-title-${title.fontSize}`, title.lineHeight);
+      if (pack.subtitle) {
+        const subLines = wrapTextToSvgWidth(pack.subtitle, textW, 21, 2).slice(0, 2);
+        const subTop = titleTop + (title.lines.length - 1) * title.lineHeight + 32;
+        cell += svgTextLines(subLines, textX, subTop, "poster-rank", 26);
+      }
+
+      // Status + progress bar anchored to the bottom of the card.
+      const barY = y + packCardH - 42;
+      const statusY = barY - 16;
+      cell += `<text x="${textX}" y="${statusY}" class="stat-card-label">${xmlEscape(sharePackCardStatus(stats))}</text>`;
+      const barW = textW;
+      const fillW = stats.progress > 0 ? Math.max(16, Math.round(stats.progress * barW)) : 0;
+      const accent = stats.completed ? theme.accent2 : theme.accent;
+      cell += `<rect x="${textX}" y="${barY}" width="${barW}" height="16" rx="8" fill="${theme.faint}" />`;
+      if (fillW > 0) cell += `<rect x="${textX}" y="${barY}" width="${fillW}" height="16" rx="8" fill="${accent}" />`;
+
+      // Completion check over the collage corner (mirrors the in-app badge).
+      if (stats.completed) {
+        const bx = coverX + 4;
+        const by = coverY + 4;
+        cell += `<circle cx="${bx + 16}" cy="${by + 16}" r="18" fill="${theme.accent2}" stroke="${theme.panel}" stroke-width="3" />`;
+        cell += `<text x="${bx + 16}" y="${by + 24}" class="rank-number" text-anchor="middle">✓</text>`;
+      }
+      return cell;
+    };
+
+    featured.forEach(({ pack, stats }, index) => {
+      const col = index % 2;
+      const row = Math.floor(index / 2);
+      const x = marginX + col * colUnit;
+      const y = cardsTop + row * rowStride;
+      block += packCardCell(pack, stats, x, y);
+    });
+
+    const rows = Math.ceil(featured.length / 2);
+    const height = cardsTop + (rows - 1) * rowStride + packCardH + 8;
+    return section("packs", tone.packsTitle, "Curated sets you're working through", block, height);
   };
 
   const fullList = () => {
@@ -4301,7 +4529,7 @@ function shareSectionBuilders(insights, theme, tone, options) {
     );
   };
 
-  return { topPicks, bottomPicks, eras, genres, people, queues, savedHidden, fullList };
+  return { topPicks, bottomPicks, eras, genres, people, queues, savedHidden, packs, fullList };
 }
 
 // Single-image Portrait poster (the original output, unchanged).
@@ -4319,6 +4547,7 @@ function buildShareSvg(options = shareOptions) {
     builders.genres(),
     builders.people(),
     builders.queues(),
+    builders.packs(),
     builders.fullList(),
   ].filter(Boolean);
 
@@ -4526,6 +4755,7 @@ function buildShareWideSvg(options = shareOptions) {
     builders.genres(),
     builders.people(),
     builders.queues(),
+    builders.packs(),
   ].filter(Boolean);
 
   // Two columns whose internal content is the 1200 layout (86..1114). The
@@ -4805,13 +5035,19 @@ function buildShareImageSetPages(options = shareOptions) {
     { key: "genres", label: "Genres", descriptors: [builders.genres()] },
     { key: "people", label: "Cast & crew", descriptors: [builders.people()] },
     { key: "saved", label: "Saved & hidden", descriptors: [builders.savedHidden()] },
+    { key: "packs", label: "Packs", descriptors: [builders.packs()] },
   ];
 
   const cards = [];
   groups.forEach((group) => {
     const descriptors = group.descriptors.filter(Boolean);
     if (!descriptors.length) return;
-    cards.push({ key: group.key, label: group.label, svg: composeShareCard(theme, tone, options, group.label, descriptors) });
+    cards.push({
+      key: group.key,
+      label: group.label,
+      caption: group.label,
+      svg: composeShareCard(theme, tone, options, group.label, descriptors),
+    });
   });
 
   // Whole list: paginate across as many cards as needed.
@@ -4827,6 +5063,7 @@ function buildShareImageSetPages(options = shareOptions) {
       cards.push({
         key: "list",
         label: "Whole list",
+        caption: pages.length > 1 ? `Whole list · ${index + 1}/${pages.length}` : "Whole list",
         svg: composeShareCard(theme, tone, options, "Whole list", [desc], counter),
       });
     });
@@ -4857,6 +5094,7 @@ function updateShareOptionControls() {
   shareIncludeGenres.checked = shareOptions.genres;
   shareIncludePeople.checked = shareOptions.people;
   shareIncludeQueues.checked = shareOptions.queues;
+  shareIncludePacks.checked = shareOptions.packs;
   shareIncludeFullList.checked = shareOptions.fullList;
   shareFullListStyleControls.forEach((input) => {
     input.checked = input.value === shareOptions.fullListStyle;
@@ -4911,6 +5149,8 @@ function loadShareOptions() {
       genres: hasV3 ? parsed.genres !== false : true,
       people: hasV3 ? parsed.people !== false : true,
       queues: hasV3 ? parsed.queues !== false : true,
+      // v7: packs section. Defaults on for everyone (older saves lack the key).
+      packs: parsed.packs !== false,
       fullList: hasV3 ? parsed.fullList !== false : true,
       fullListStyle: hasV5 && ["posters", "text", "mixed"].includes(parsed.fullListStyle) ? parsed.fullListStyle : "mixed",
       theme: ["classic", "cinema", "warm", "marquee", "pop"].includes(parsed.theme)
@@ -4931,10 +5171,58 @@ function loadShareOptions() {
   }
 }
 
+// Per-section content availability for the Share Studio. A section with no
+// content to show (once any async detail loading has settled) is hidden from the
+// exports and its Include toggle is disabled. genres / cast+crew depend on async
+// TMDB detail data, so they stay "available" while that data is still loading
+// (they render a skeleton) and only fall to empty once loading has settled.
+function shareSectionAvailability(insights = getRankingInsights()) {
+  const picks = getSharePickGroups(insights);
+  const detailPending = shareDetailsLoading;
+  return {
+    top: picks.best.length > 0,
+    bottom: picks.worst.length > 0,
+    eras: insights.decades.length > 0,
+    genres: insights.genres.length > 0 || detailPending,
+    people: insights.directors.length > 0 || insights.cast.length > 0 || detailPending,
+    queues: watchList.length > 0 || notInterestedList.length > 0,
+    packs: getSharePackSummary().engaged,
+    fullList: insights.enrichedRanking.length > 0,
+  };
+}
+
+const SHARE_INCLUDE_META = [
+  { key: "top", input: shareIncludeTop, label: "Top picks" },
+  { key: "bottom", input: shareIncludeBottom, label: "Bottom picks" },
+  { key: "eras", input: shareIncludeEras, label: "Movie eras" },
+  { key: "genres", input: shareIncludeGenres, label: "Genres" },
+  { key: "people", input: shareIncludePeople, label: "Cast + crew" },
+  { key: "queues", input: shareIncludeQueues, label: "Saved / hidden" },
+  { key: "packs", input: shareIncludePacks, label: "Movie packs" },
+  { key: "fullList", input: shareIncludeFullList, label: "Whole list" },
+];
+
+// Disables the Include toggle for any section with no content and annotates its
+// label with "(empty)"; re-enables (and restores the plain label) when content
+// appears. Cheap DOM-only work, safe to call on every preview refresh.
+function updateShareIncludeAvailability(insights = getRankingInsights()) {
+  const availability = shareSectionAvailability(insights);
+  SHARE_INCLUDE_META.forEach(({ key, input, label }) => {
+    if (!input) return;
+    const available = availability[key] !== false;
+    input.disabled = !available;
+    const toggle = input.closest(".share-toggle");
+    if (toggle) toggle.classList.toggle("share-toggle--empty", !available);
+    const text = input.nextElementSibling;
+    if (text) text.textContent = available ? label : `${label} (empty)`;
+  });
+}
+
 // Status text + button states only — cheap, and crucially does NOT touch the
 // preview, so calling it repeatedly (e.g. per enrichment batch) never flickers.
 function updateShareExportControls() {
   const insights = getRankingInsights();
+  updateShareIncludeAvailability(insights);
   const disabled = !insights.count;
   shareDownloadPng.disabled = disabled || sharePngPreparing;
   shareDownloadSvg.disabled = disabled || sharePngPreparing;
@@ -4953,16 +5241,27 @@ function updateShareExportControls() {
 function updateShareStudio() {
   const images = buildShareImages();
   if (images.mode === "set") {
+    const total = images.cards.length;
     const markup = images.cards
-      .map((card) => `<div class="share-preview-card">${card.svg}</div>`)
+      .map(
+        (card, index) =>
+          `<figure class="share-preview-card">` +
+          `<div class="share-preview-card__media">${card.svg}</div>` +
+          `<figcaption class="share-preview-card__label">` +
+          `<span class="share-preview-card__num">${index + 1}/${total}</span>` +
+          `<span class="share-preview-card__name">${xmlEscape(card.caption || card.label || "")}</span>` +
+          `</figcaption></figure>`,
+      )
       .join("");
     if (markup !== lastSharePreviewMarkup) {
       sharePreview.innerHTML = markup;
       lastSharePreviewMarkup = markup;
     }
     const count = images.cards.length;
-    shareDownloadPng.textContent = count ? `Download images (${count})` : "Download images";
-    shareDownloadSvg.textContent = "SVG set";
+    // 2+ cards ship as a single .zip; a 1-card set is just one plain file.
+    shareDownloadPng.textContent =
+      count > 1 ? `Download zip (${count})` : count ? "Download image" : "Download images";
+    shareDownloadSvg.textContent = count > 1 ? "SVG zip" : "SVG";
   } else {
     if (images.svg !== lastSharePreviewMarkup) {
       sharePreview.innerHTML = images.svg;
@@ -5040,6 +5339,7 @@ function updateShareOptionsFromControls() {
     genres: shareIncludeGenres.checked,
     people: shareIncludePeople.checked,
     queues: shareIncludeQueues.checked,
+    packs: shareIncludePacks.checked,
     fullList: shareIncludeFullList.checked,
     fullListStyle: ["posters", "text", "mixed"].includes(selectedFullListStyle?.value)
       ? selectedFullListStyle.value
@@ -5057,6 +5357,7 @@ function updateShareOptionsFromControls() {
     !shareOptions.genres &&
     !shareOptions.people &&
     !shareOptions.queues &&
+    !shareOptions.packs &&
     !shareOptions.fullList
   ) {
     shareOptions.top = true;
@@ -5142,17 +5443,138 @@ function downloadBlob(blob, filename) {
   window.setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
+// --- Minimal no-dependency ZIP (stored / uncompressed) ----------------------
+// Lets the image-set exports deliver a single .zip instead of N sequential file
+// downloads (which trigger a browser "download multiple files?" prompt and land
+// as scattered files). Stored mode (compression method 0) means no deflate
+// dependency — just a CRC32 and a handful of fixed headers — which keeps us
+// inside the project's no-npm-deps constraint. PNG/SVG cards are a small set, so
+// skipping compression costs little.
+const CRC32_TABLE = (() => {
+  const table = new Uint32Array(256);
+  for (let n = 0; n < 256; n += 1) {
+    let c = n;
+    for (let k = 0; k < 8; k += 1) {
+      c = c & 1 ? 0xedb88320 ^ (c >>> 1) : c >>> 1;
+    }
+    table[n] = c >>> 0;
+  }
+  return table;
+})();
+
+function crc32(bytes) {
+  let crc = 0xffffffff;
+  for (let i = 0; i < bytes.length; i += 1) {
+    crc = CRC32_TABLE[(crc ^ bytes[i]) & 0xff] ^ (crc >>> 8);
+  }
+  return (crc ^ 0xffffffff) >>> 0;
+}
+
+function concatBytes(parts) {
+  let length = 0;
+  parts.forEach((part) => {
+    length += part.length;
+  });
+  const out = new Uint8Array(length);
+  let pos = 0;
+  parts.forEach((part) => {
+    out.set(part, pos);
+    pos += part.length;
+  });
+  return out;
+}
+
+function dosDateTime(date = new Date()) {
+  const time = (date.getHours() << 11) | (date.getMinutes() << 5) | Math.floor(date.getSeconds() / 2);
+  const day = ((date.getFullYear() - 1980) << 9) | ((date.getMonth() + 1) << 5) | date.getDate();
+  return { time: time & 0xffff, date: day & 0xffff };
+}
+
+// files: [{ name: string, bytes: Uint8Array }] → a stored (uncompressed) ZIP Blob.
+function createStoredZipBlob(files) {
+  const encoder = new TextEncoder();
+  const { time, date } = dosDateTime();
+  const u16 = (v) => new Uint8Array([v & 0xff, (v >>> 8) & 0xff]);
+  const u32 = (v) => new Uint8Array([v & 0xff, (v >>> 8) & 0xff, (v >>> 16) & 0xff, (v >>> 24) & 0xff]);
+  const localParts = [];
+  const centralParts = [];
+  let offset = 0;
+  files.forEach((file) => {
+    const nameBytes = encoder.encode(file.name);
+    const data = file.bytes;
+    const crc = crc32(data);
+    const localHeader = concatBytes([
+      u32(0x04034b50), // local file header signature
+      u16(20), // version needed to extract
+      u16(0x0800), // general purpose flag: bit 11 = UTF-8 names
+      u16(0), // compression method: 0 = stored
+      u16(time),
+      u16(date),
+      u32(crc),
+      u32(data.length), // compressed size
+      u32(data.length), // uncompressed size
+      u16(nameBytes.length),
+      u16(0), // extra field length
+      nameBytes,
+    ]);
+    localParts.push(localHeader, data);
+    centralParts.push(
+      concatBytes([
+        u32(0x02014b50), // central directory header signature
+        u16(20), // version made by
+        u16(20), // version needed
+        u16(0x0800),
+        u16(0),
+        u16(time),
+        u16(date),
+        u32(crc),
+        u32(data.length),
+        u32(data.length),
+        u16(nameBytes.length),
+        u16(0), // extra length
+        u16(0), // comment length
+        u16(0), // disk number start
+        u16(0), // internal attributes
+        u32(0), // external attributes
+        u32(offset), // relative offset of local header
+        nameBytes,
+      ]),
+    );
+    offset += localHeader.length + data.length;
+  });
+  const centralStart = offset;
+  let centralSize = 0;
+  centralParts.forEach((part) => {
+    centralSize += part.length;
+  });
+  const end = concatBytes([
+    u32(0x06054b50), // end of central directory signature
+    u16(0), // disk number
+    u16(0), // disk with central dir
+    u16(files.length),
+    u16(files.length),
+    u32(centralSize),
+    u32(centralStart),
+    u16(0), // comment length
+  ]);
+  return new Blob([...localParts, ...centralParts, end], { type: "application/zip" });
+}
+
 async function downloadShareSvg() {
   if (!ranking.length) return;
   const images = buildShareImages({ ...shareOptions, externalPosters: true });
   if (images.mode === "set") {
-    for (let i = 0; i < images.cards.length; i += 1) {
-      const card = images.cards[i];
-      downloadBlob(new Blob([card.svg], { type: "image/svg+xml;charset=utf-8" }), card.svgFilename);
-      // Brief stagger so browsers reliably surface each download.
-      if (i < images.cards.length - 1) await new Promise((resolve) => setTimeout(resolve, 350));
+    if (!images.cards.length) return;
+    if (images.cards.length === 1) {
+      const only = images.cards[0];
+      downloadBlob(new Blob([only.svg], { type: "image/svg+xml;charset=utf-8" }), only.svgFilename);
+      setAddFeedback("Share SVG downloaded.");
+      return;
     }
-    setAddFeedback(`Downloaded ${images.cards.length} share SVGs.`);
+    const encoder = new TextEncoder();
+    const files = images.cards.map((card) => ({ name: card.svgFilename, bytes: encoder.encode(card.svg) }));
+    downloadBlob(createStoredZipBlob(files), "stackrank-share-svg.zip");
+    setAddFeedback(`Downloaded ${images.cards.length} share SVGs (zip).`);
     return;
   }
   downloadBlob(new Blob([images.svg], { type: "image/svg+xml;charset=utf-8" }), "stackrank-movies.svg");
@@ -5293,16 +5715,24 @@ async function downloadSharePng() {
     if (shareOptions.format === "set") {
       const baseCards = buildShareImageSetPages({ ...shareOptions, externalPosters: false });
       const proxyCards = buildShareImageSetPages({ ...shareOptions, externalPosters: true, posterProxy: true });
+      const pngFiles = [];
       for (let i = 0; i < baseCards.length; i += 1) {
         shareExportStatus.textContent = `Preparing image ${i + 1} of ${baseCards.length}...`;
         const blob = await renderShareSvgToPngBlob(baseCards[i].svg, (proxyCards[i] || baseCards[i]).svg);
-        downloadBlob(blob, baseCards[i].filename);
-        // Stagger so the browser reliably surfaces each sequential download.
-        if (i < baseCards.length - 1) await new Promise((resolve) => setTimeout(resolve, 400));
+        pngFiles.push({ name: baseCards[i].filename, bytes: new Uint8Array(await blob.arrayBuffer()) });
       }
       sharePngPreparing = false;
-      setAddFeedback(`Downloaded ${baseCards.length} share images.`);
-      shareExportStatus.textContent = `Downloaded ${baseCards.length} share images.`;
+      if (pngFiles.length === 1) {
+        // A single-card set is just one image — no point zipping it.
+        downloadBlob(new Blob([pngFiles[0].bytes], { type: "image/png" }), pngFiles[0].name);
+        setAddFeedback("Share image downloaded.");
+        shareExportStatus.textContent = "Share image downloaded.";
+      } else {
+        shareExportStatus.textContent = "Packaging images into a zip...";
+        downloadBlob(createStoredZipBlob(pngFiles), "stackrank-share-images.zip");
+        setAddFeedback(`Downloaded ${pngFiles.length} share images (zip).`);
+        shareExportStatus.textContent = `Downloaded ${pngFiles.length} share images (zip).`;
+      }
       updateShareStudio();
       return;
     }

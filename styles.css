@@ -1985,8 +1985,18 @@ body.is-comparing .compare-panel {
   box-shadow: 0 16px 34px rgba(0, 0, 0, 0.14);
 }
 
-/* Image-set deck preview: one card per content group, stacked vertically. */
+/* Image-set deck preview: one card per content group, stacked vertically,
+   each with a numbered caption so the deck reads as an ordered set. */
 .share-preview-card {
+  display: grid;
+  place-items: center;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+.share-preview-card__media {
   display: grid;
   place-items: start center;
   width: 100%;
@@ -1998,6 +2008,37 @@ body.is-comparing .compare-panel {
   width: min(100%, 420px);
   height: auto;
   box-shadow: 0 16px 34px rgba(0, 0, 0, 0.14);
+}
+
+.share-preview-card__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: min(100%, 420px);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.share-preview-card__num {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--panel);
+  background: var(--bg-ink);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+.share-preview-card__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
 }
 
 .share-controls {
@@ -2063,6 +2104,17 @@ body.is-comparing .compare-panel {
 .share-toggle input,
 .share-theme input {
   accent-color: var(--bg-ink);
+}
+
+/* A section with no content to share: toggle disabled, label reads "(empty)". */
+.share-toggle--empty {
+  color: var(--ink-soft);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.share-toggle--empty input {
+  cursor: not-allowed;
 }
 
 .share-theme {

@@ -2268,7 +2268,7 @@ body.is-comparing .compare-panel {
 
 .import-sheet {
   width: min(780px, 100%);
-  max-height: min(880px, calc(100dvh - 48px));
+  max-height: min(880px, var(--import-vvh, calc(100dvh - 48px)));
 }
 
 .import-entry,
@@ -3208,7 +3208,7 @@ body.is-comparing .compare-panel {
   }
 
   .import-sheet {
-    max-height: min(92dvh, 820px);
+    max-height: min(var(--import-vvh, 92dvh), 820px);
   }
 
   .import-match {

@@ -26,6 +26,33 @@ test("parseRankedTitleList preserves order and strips common list prefixes", () 
   );
 });
 
+test("parseRankedTitleList strips stacked list markers like bullet + task-list checkbox", () => {
+  const parsed = parseRankedTitleList(`
+    - [ ] Lost Highway
+    - [x] Mulholland Drive (2001)
+    1. - [ ] Dune (2021)
+    [ ] Parasite [2019]
+  `);
+  assert.deepEqual(
+    parsed.entries.map(({ title, year }) => ({ title, year })),
+    [
+      { title: "Lost Highway", year: null },
+      { title: "Mulholland Drive", year: 2001 },
+      { title: "Dune", year: 2021 },
+      { title: "Parasite", year: 2019 },
+    ],
+  );
+});
+
+test("parseRankedTitleList does not strip bracketed titles that aren't checkboxes", () => {
+  const parsed = parseRankedTitleList("- [REC] (2007)");
+  assert.deepEqual(parsed.entries[0], {
+    source: "[REC] (2007)",
+    title: "[REC]",
+    year: 2007,
+  });
+});
+
 test("parseRankedTitleList ignores exact duplicate title/year lines", () => {
   const parsed = parseRankedTitleList("1. Heat (1995)\nHeat (1995)\nHeat (1986)");
   assert.equal(parsed.duplicateCount, 1);

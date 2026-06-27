@@ -64,7 +64,7 @@ import {
   chooseAutomaticTmdbMatch,
   parseRankedTitleList,
   parseStackRankBackup,
-} from "./lib/backup.js";
+} from "./lib/backup.js?v=1";
 
 console.info("StackRank build", "share-studio-v4");
 
@@ -1829,6 +1829,40 @@ const matchTitleImportEntries = async (entries) => {
   return rows;
 };
 
+// The import overlay is the only modal with a text field, so it's the only one
+// that opens the on-screen keyboard. On iOS the keyboard shrinks the visual
+// viewport but not the fixed full-screen overlay, which would push the action
+// buttons (anchored to the overlay bottom on mobile) behind the keyboard. Pin
+// the overlay to the visual viewport while it's open so the buttons stay above
+// the keyboard and reachable.
+let titleImportViewportSyncing = false;
+const syncTitleImportViewport = () => {
+  const vv = window.visualViewport;
+  if (!vv || titleImportOverlay.hidden) return;
+  titleImportOverlay.style.top = `${vv.offsetTop}px`;
+  titleImportOverlay.style.bottom = "auto";
+  titleImportOverlay.style.height = `${vv.height}px`;
+  titleImportOverlay.style.setProperty("--import-vvh", `${vv.height}px`);
+};
+const startTitleImportViewportSync = () => {
+  if (!window.visualViewport || titleImportViewportSyncing) return;
+  titleImportViewportSyncing = true;
+  window.visualViewport.addEventListener("resize", syncTitleImportViewport);
+  window.visualViewport.addEventListener("scroll", syncTitleImportViewport);
+  syncTitleImportViewport();
+};
+const stopTitleImportViewportSync = () => {
+  if (window.visualViewport && titleImportViewportSyncing) {
+    window.visualViewport.removeEventListener("resize", syncTitleImportViewport);
+    window.visualViewport.removeEventListener("scroll", syncTitleImportViewport);
+  }
+  titleImportViewportSyncing = false;
+  titleImportOverlay.style.top = "";
+  titleImportOverlay.style.bottom = "";
+  titleImportOverlay.style.height = "";
+  titleImportOverlay.style.removeProperty("--import-vvh");
+};
+
 const showTitleImportEntryStep = () => {
   titleImportReview.hidden = true;
   titleImportEntry.hidden = false;
@@ -1849,9 +1883,11 @@ const openTitleImport = () => {
   titleImportOverlay.hidden = false;
   document.body.classList.add("is-detail-open");
   showTitleImportEntryStep();
+  startTitleImportViewportSync();
 };
 
 const closeTitleImport = ({ restoreFocus = true, reset = false } = {}) => {
+  stopTitleImportViewportSync();
   titleImportOverlay.hidden = true;
   document.body.classList.remove("is-detail-open");
   titleImportMatching = false;

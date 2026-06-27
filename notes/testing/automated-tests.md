@@ -6,19 +6,21 @@
 
 ## Status at a glance
 
-**Phases 0–6 complete; Phase 7 has a first browser-smoke slice.** `npm test`
-runs 83 fast unit/structural tests in ~0.2s. The entire pure logic core is
+**Phases 0–6 complete; Phase 7 has a growing browser-smoke slice.** `npm test`
+runs 104 fast unit/structural tests in ~0.3s. The entire pure logic core is
 extracted into `lib/` and covered: ZIP writer, text-fit/SVG-text, formatters,
 movie identity + merge (never-lose-data), the rank-weighted insight engine, pack
 progress + share aggregation, the share text/data export builder + serializers,
-the binary-insertion ranking search, and the pure Share SVG composition layer.
+the binary-insertion ranking search, the pure Share SVG composition layer, and
+backup/title-import parsing + validation.
 `npm run test:e2e` now drives headless Chrome against the real static app and
 covers localStorage hydration, queue-to-ranking comparison flow, comparison
-undo/cancel restore, and Share Studio preview/empty-toggle wiring. `npm run
+undo/cancel restore, Share Studio preview/empty-toggle wiring, exact backup
+restore, and ordered title-list import with disambiguation/replacement. `npm run
 verify` runs both suites plus syntax/type checks.
 
-Modules: `lib/{zip,text,format,movie,insights,packs,share-export,share-svg,ranking}.js`.
-Tests: `tests/{zip,text,format,movie,insights,packs,share-export,share-svg,ranking}.test.js`.
+Modules: `lib/{zip,text,format,movie,insights,packs,share-export,share-svg,ranking,undo,backup}.js`.
+Tests: `tests/{zip,text,format,movie,insights,packs,share-export,share-svg,ranking,undo,backup}.test.js`.
 
 ## Goal
 
@@ -287,6 +289,9 @@ Legend: [ ] todo · [~] in progress · [x] done
       and the ranking is unchanged.
 - [x] Share Studio: open modal → assert SVG preview, empty-section toggles disabled,
       Image set preview cards render, and shape controls hide for image sets.
+- [x] Backup + import: mock deterministic TMDB search → require disambiguation
+      and replacement consent → preserve ordered matches/remove queue duplicates
+      → restore a complete JSON backup → reload and assert exact persistence.
 - [ ] Extend E2E coverage for drag reorder, autocomplete selection, export
       downloads, and mobile viewport comparison layout.
 

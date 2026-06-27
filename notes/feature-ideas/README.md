@@ -9,6 +9,7 @@ This folder captures product ideas that are worth revisiting later. They are int
 - [Suggestion packs](suggestion-packs.md) — **v1 shipped (Jun 2026).** 100 curated fallback packs, browse/detail/Rank-all flows, text/category/progress filters, derived progress, organic discovery, local/Supabase persistence paths, bulk actions, Share Studio integration, and pack-aware undo.
 - [Undo for list changes](undo-history-for-list-changes.md) — **shipped (Jun 2026).** Single-level toast undo covers queue actions, ranking deletion/clear, completed placements (including pack Rank all), and pack Save all/Hide all.
 - [Website link preview metadata](website-link-preview-metadata.md) — **shipped (Jun 2026).** Open Graph/Twitter metadata plus a reproducible 1200×630 preview card.
+- [Backup, restore, and title-list import](backup-and-import.md) — **shipped (Jun 2026).** Complete versioned JSON backups, exact restore with undo, and TMDB-backed ordered-title import with conservative automatic matching, disambiguation, and replacement consent.
 
 ## Current top candidates (priority order, refreshed 2026-06-27)
 

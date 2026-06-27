@@ -6,16 +6,16 @@
 
 ## Status at a glance
 
-**Phases 0–6 complete — 83 tests, `npm test` green in ~0.18s.** The entire pure
-logic core is extracted into `lib/` and covered: ZIP writer, text-fit/SVG-text,
-formatters, movie identity + merge (never-lose-data), the rank-weighted insight
-engine, pack progress + share aggregation, the share text/data export builder +
-serializers, the binary-insertion ranking search, and the pure Share SVG
-composition layer. Every extraction through Phase 5 was browser-smoke-tested
-(app boots clean, all surfaces render; the ranking flow was exercised live).
-Phase 6 was validated with `node --check app.js`, the full unit suite, and a
-browser smoke of Share Studio's single-image and image-set preview paths.
-**Next up: Phase 7 (DOM/E2E)** — heavier and specced below for a clean pickup.
+**Phases 0–6 complete; Phase 7 has a first browser-smoke slice.** `npm test`
+runs 83 fast unit/structural tests in ~0.2s. The entire pure logic core is
+extracted into `lib/` and covered: ZIP writer, text-fit/SVG-text, formatters,
+movie identity + merge (never-lose-data), the rank-weighted insight engine, pack
+progress + share aggregation, the share text/data export builder + serializers,
+the binary-insertion ranking search, and the pure Share SVG composition layer.
+`npm run test:e2e` now drives headless Chrome against the real static app and
+covers localStorage hydration, queue-to-ranking comparison flow, comparison
+undo/cancel restore, and Share Studio preview/empty-toggle wiring. `npm run
+verify` runs both suites plus syntax/type checks.
 
 Modules: `lib/{zip,text,format,movie,insights,packs,share-export,share-svg,ranking}.js`.
 Tests: `tests/{zip,text,format,movie,insights,packs,share-export,share-svg,ranking}.test.js`.
@@ -30,9 +30,9 @@ Move past "Dan is the manual QA." Build a suite of automated tests that is:
 - **Fast & repeatable** — the core unit suite runs in well under a second so it's
   usable for tight TDD loops and pre-commit checks.
 - **Zero-dependency** — honors the project's "no npm deps" rule. Uses Node's
-  built-in `node --test` runner + `node:assert`. No Jest/Vitest/Playwright in the
-  core suite. (A later, optional E2E phase may add a dev-only browser dep — see
-  Phase 6 — but the bread-and-butter suite stays dep-free.)
+  built-in `node --test` runner + `node:assert`. The E2E smoke harness also uses
+  only Node stdlib plus Chrome's DevTools Protocol via the built-in WebSocket
+  global. No Jest/Vitest/Playwright dependency.
 - **No build step** — same constraint as the app.
 
 ## The core architectural move: `lib/` ES modules
@@ -73,8 +73,9 @@ The app has no tests yet, so extraction is the risky part. Rules:
 ## Running the tests
 
 ```
-npm run verify          # full handoff/CI gate: tests + app syntax + edge function checks
+npm run verify          # full handoff/CI gate: unit reports + syntax + edge checks + E2E
 npm test                # the whole suite + saves reports/runs/<timestamp>/
+npm run test:e2e        # headless Chrome smoke + saves reports/e2e/runs/<timestamp>/
 npm run test:watch      # re-run on change (node --test --watch tests/)
 npm run check           # node --check app.js
 npm run check:functions # deno check supabase/functions/*/index.ts
@@ -93,9 +94,24 @@ run contains:
 
 `reports/latest` is a symlink to the most recent run, so the fastest follow-up is
 usually `open reports/latest/summary.md` or `sed -n '1,120p' reports/latest/summary.md`.
+
+`npm run test:e2e` starts its own no-cache static server, launches a fresh
+headless Chrome profile per flow, seeds localStorage with deterministic data, and
+saves a separate timestamped report under `reports/e2e/runs/<timestamp>/`
+(gitignored). Each E2E run contains:
+
+- `summary.md` — human-readable status, per-flow durations, details, and
+  screenshot paths.
+- `summary.json` — structured metadata for agents/scripts.
+- `junit.xml` — machine-readable JUnit XML.
+- `screenshots/*.png` — state captures for the exercised flows.
+
+`reports/e2e/latest` is a symlink to the most recent E2E run. Set `CHROME_PATH`
+if Chrome/Chromium is installed somewhere nonstandard.
+
 CI runs `npm run verify` on pushes to `main` and pull requests via
-`.github/workflows/test.yml`, then uploads `reports/runs/**` as the `test-reports`
-artifact.
+`.github/workflows/test.yml`, then uploads `reports/runs/**` and
+`reports/e2e/runs/**` as the `test-reports` artifact.
 
 ## Testing policy for future changes
 
@@ -113,9 +129,10 @@ found it:
   movie identity, binary-insertion placement, rank-weighted taste math, pack
   derived progress, share empty-section omission, SVG/text padding, ZIP validity,
   and edge-function response shape.
-- **UI-only work needs a browser smoke** of the affected flow. If layout or mobile
-  behavior is the risk, run targeted screenshots (`npm run screenshots -- --only=…`)
-  and inspect the output.
+- **UI-only work needs a browser smoke** of the affected flow. Start with
+  `npm run test:e2e` when the touched surface is covered there. If layout or
+  mobile behavior is the risk, also run targeted screenshots
+  (`npm run screenshots -- --only=…`) and inspect the output.
 - **Do not import `app.js` in Node tests.** It has DOM/Supabase side effects. Move
   pure logic to `lib/` and keep `app.js` as the thin state/DOM adapter.
 - **Keep tests deterministic:** no network, no wall-clock assertions unless the
@@ -255,13 +272,23 @@ Legend: [ ] todo · [~] in progress · [x] done
       renders the single SVG preview, disables empty section toggles, and renders
       a 7-card Image set preview with ZIP button labels.
 
-### Phase 7 — DOM / integration / E2E (heavier; spec now, build later)
-- [ ] Decide harness: jsdom (dev-only dep) for wiring vs. browser-driven smoke via
-      the existing preview tooling / Playwright.
-- [ ] Persistence round-trip: seed localStorage → load → assert `ranking` state.
-- [ ] Comparison flow: add movie → binary-insertion decisions → correct final
-      order; undo/cancel restore.
-- [ ] Share Studio: toggles → preview/exports; empty-section disabling.
+### Phase 7 — DOM / integration / E2E (initial browser-smoke slice ✅)
+- [x] Chose a browser-driven, zero-dependency harness: `scripts/run-e2e-smoke.cjs`
+      starts a static server and drives headless Chrome/Chromium through CDP.
+- [x] Reports mirror the unit suite shape under `reports/e2e/runs/<timestamp>/`
+      with `reports/e2e/latest` for the newest run.
+- [x] Persistence round-trip: seed localStorage ranking + queues → reload the real
+      app → assert rendered ranking order, queue counts/subtitles, clean runtime.
+- [x] Comparison flow: seed Watch next → click a queue row → complete
+      binary-insertion decisions → assert the movie lands in ranking and leaves
+      the queue.
+- [x] Undo/cancel flow: make one comparison choice → undo back to the initial
+      comparison state → cancel → assert the original Watch next row is restored
+      and the ranking is unchanged.
+- [x] Share Studio: open modal → assert SVG preview, empty-section toggles disabled,
+      Image set preview cards render, and shape controls hide for image sets.
+- [ ] Extend E2E coverage for drag reorder, autocomplete selection, export
+      downloads, and mobile viewport comparison layout.
 
 ## Conventions
 

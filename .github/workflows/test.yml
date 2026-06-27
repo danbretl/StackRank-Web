@@ -36,4 +36,7 @@ jobs:
             reports/runs/**
             reports/latest
             reports/latest.txt
+            reports/e2e/runs/**
+            reports/e2e/latest
+            reports/e2e/latest.txt
           if-no-files-found: warn

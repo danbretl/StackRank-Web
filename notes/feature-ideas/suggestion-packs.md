@@ -24,6 +24,8 @@ Built across the codebase in `app.js` (pack state/flows), `styles.css` (`.pack-*
 - **"Save all" / "Hide all"** bulk actions in pack detail (`addPackRemainingToQueue`) — not in the spec; a convenience for clearing a pack.
 - **No separate "Your packs" side panel.** The spec envisioned a dedicated always-reachable surface with three labeled sub-sections ("Pick up where you left off" / "New in packs you've finished" / "You've already started these"). Instead this is folded into the single main panel's status ordering + the "View all packs" overlay. See follow-ups.
 - **Toast/auto-advance polish** — completing an auto-pack ranking advances to the next comparison immediately (`queueMicrotask`) with the placement toast decoupled (it no longer gets cleared by the next comparison).
+- **Pack-aware post-rank feedback** — organically ranked movies can show the dismissible Explore-pack nudge, and its Explore action opens the referenced pack. Rankings initiated from a pack return through the pack flow and do **not** show the redundant discovery nudge.
+- **Undo integration** — completed placements expose Undo. In Rank-all mode, undo surgically unranks the previous movie while keeping the next comparison active. Pack Save all / Hide all also undo as one bulk operation.
 
 ## What's left / follow-ups
 

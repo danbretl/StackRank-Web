@@ -1,6 +1,21 @@
 # Feature idea: Better suggestion explanations
 
-Status: exploratory
+Status: **partially shipped; per-movie reasons remain exploratory**
+
+## Current implementation
+
+The section-level first version already exists:
+
+- The related row is titled **Inspired by [movie]**, using a rank-weighted seed
+  from the user's top ten.
+- **All-time essentials** and **Popular now** identify their sources directly.
+- Refreshing the related row can select a different eligible seed.
+
+The remaining product opportunity is **movie-level explanation**, or a richer
+section subtitle when it can say something specific and true. Avoid generic
+claims such as "fans also liked" unless the upstream data actually supports
+them. Mobile cards are compact, so any reason should be short, optional, and
+visually subordinate to the title/year/actions.
 
 ## Summary
 
@@ -47,9 +62,10 @@ This would likely require richer TMDB data or a recommendation endpoint that ret
 
 ## Suggested first version
 
-Start with better section-level explanations:
+The original first step was better section-level explanations:
 
-- Make the related section title dynamic and explicit.
+- Make the related section title dynamic and explicit. **Shipped as Inspired by
+  [movie].**
 - Keep `All-time essentials` and `Popular now`, but consider adding subtle subtitles.
 - Do not add extra text to every card yet; mobile cards are already compact.
 
@@ -74,7 +90,7 @@ Example:
 
 ## Implementation notes
 
-- Current related suggestions already know the seed movie in many cases.
+- Current related suggestions know and display the seed movie.
 - Favor section-level copy first.
 - Keep text short enough for mobile:
   - `Because you ranked {movie}`
@@ -89,4 +105,3 @@ Example:
 - Dynamic related sections mention the relevant seed or ranking context when available.
 - Mobile layout remains clean and does not add excessive vertical height.
 - Explanations update when suggestions refresh or when the seed movie changes.
-

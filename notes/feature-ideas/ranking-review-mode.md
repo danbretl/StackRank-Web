@@ -2,6 +2,20 @@
 
 Status: exploratory
 
+## Current implementation leverage (2026-06-27)
+
+This remains unbuilt, but recent work lowered its risk:
+
+- Comparison cards, mobile ballot layouts, and ranking persistence already exist.
+- `rankedAt` and comparison counts can help choose useful review pairs.
+- The new single-level undo controller can make each accepted swap reversible.
+- The E2E harness can seed deterministic rankings and exercise a complete review
+  session.
+
+The product question is now narrower: which pairs produce enough value to avoid
+review feeling like random busywork? Adjacent pairs near recent additions are
+still the safest v1.
+
 ## Summary
 
 Add a lightweight review flow that helps users refine an existing ranking without needing to manually choose individual movies to restack. The app would surface pairs or small local neighborhoods from the current ranking and ask whether the order still feels right.
@@ -106,6 +120,7 @@ This gives the feature a narrow first release while still testing whether list r
 - Disable or hide add/search controls while review mode is active.
 - Reuse the compact comparison card styling if possible.
 - Keep review operations local and save the whole ranking after each swap.
+- Make swaps undoable through the existing action toast.
 - Toast after completion with a concise summary.
 
 ## Acceptance criteria
@@ -116,4 +131,3 @@ This gives the feature a narrow first release while still testing whether list r
 - Swaps persist locally and server-side for signed-in users.
 - User can leave review mode without losing the current ranking.
 - Mobile layout fits the active comparison without requiring unnecessary scrolling.
-

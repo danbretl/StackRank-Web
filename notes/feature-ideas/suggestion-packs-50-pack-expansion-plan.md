@@ -7,7 +7,7 @@ Status: complete, local-only. Created 2026-06-25 so a future session can continu
 - Implemented pack count before this pass: 20.
 - Target after this pass: 50.
 - New packs added: 30.
-- Final generated count: 50 packs, 574 movies.
+- Final generated count: 50 packs, 578 movies across 19 categories.
 - Source file: `data/suggestion-packs.source.json`.
 - Generated file: `data/suggestion-packs.json`.
 - Authoring command: `node scripts/author-suggestion-packs.mjs`.
@@ -85,7 +85,7 @@ No TMDB key is required to continue. The authoring script can resolve through th
 - `node scripts/author-suggestion-packs.mjs` completed and wrote `data/suggestion-packs.json`.
 - Upload was skipped; no Supabase rows were written.
 - Generated count: 50 packs.
-- Generated movie count: 574 movies.
+- Generated movie count: 578 movies.
 - Missing poster paths: 0.
 - Missing TMDB ids: 0.
 - Source/output year mismatches: 0.

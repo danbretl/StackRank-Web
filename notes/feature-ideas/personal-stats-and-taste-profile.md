@@ -15,9 +15,18 @@ Because the Share Studio already shows all of this, **what does an on-page stats
 - **Always-on, zero-friction** glance (no opening a modal) — stats as ambient reward, not an export step.
 - **Interactive** in ways the static SVG can't be — tap a decade/genre to filter the list, drill into "your highest-ranked sci-fi", see *which* movies drove a stat.
 - **Progress/streak framing** — momentum and milestones ("you've ranked 3 decades", "5 days in a row") rather than a snapshot.
-- **Actionable hooks** — "you've barely ranked the 2010s — want suggestions?" tying stats back into the add flow (and into [[suggestion-packs]]).
+- **Actionable hooks** — "you've barely ranked the 2010s — want suggestions?"
+  tying stats back into the add flow (and into
+  [Suggestion packs](suggestion-packs.md)).
 
-Until there's a crisp answer here, this stays lower priority than the others.
+Until there's a crisp answer here, this stays lower priority than Ranking review
+and suggestion improvements.
+
+**Recommended direction if built:** make this an interactive **Taste explorer**,
+not a static stats duplicate. A compact summary could open drill-downs showing
+which ranked movies drove each genre/decade/person result, then offer a relevant
+pack or suggestion refresh. That creates a loop Share Studio cannot provide:
+insight → evidence → action.
 
 ## Summary
 
@@ -25,7 +34,9 @@ Add a quiet stats section that summarizes the user's ranked movie list. This wou
 
 ## Problem
 
-Once a user has built a meaningful list, the app primarily lets them keep adding and rearranging movies. There is not yet much payoff for having created the list beyond the list itself.
+Once a user has built a meaningful list, the main page primarily lets them keep
+adding and rearranging movies. Share Studio provides a rich payoff, but there is
+not yet a native, interactive way to inspect the patterns behind the list.
 
 A taste profile can make the user's work feel more valuable by reflecting patterns back to them.
 
@@ -45,7 +56,7 @@ A taste profile can make the user's work feel more valuable by reflecting patter
 
 ## Suggested first version
 
-Start with stats that can be derived from existing local data:
+If this ships, start with a focused subset of the existing insight engine:
 
 - Total ranked movies
 - Oldest ranked movie
@@ -53,9 +64,9 @@ Start with stats that can be derived from existing local data:
 - Average release year
 - Decade distribution
 
-This avoids needing a new data enrichment pass.
-
-Later versions can fetch richer TMDB details for genres, directors, runtime, and language.
+The existing detail-enrichment and rank-weighted insight paths already provide
+genres, directors, and cast. The main design work is progressive loading and
+drill-down—not a new stats engine.
 
 ## UI placement
 
@@ -79,16 +90,19 @@ The section should feel like a reward, not a dashboard takeover.
 ## Why this may not be worth doing
 
 - Early users with short lists may see sparse or uninteresting stats.
-- Rich stats require richer movie metadata than the app currently stores.
+- Detail-backed stats need a graceful loading/partial-data state because
+  enrichment remains asynchronous and some legacy movies may lack TMDB ids.
 - If overdesigned, it could distract from the core ranking flow.
 
 ## Implementation notes
 
-- Add a derived `getRankingStats(ranking)` helper.
+- Reuse `getRankingInsights()` / the DOM-free insight helpers rather than adding
+  a parallel `getRankingStats()` implementation.
 - Keep calculations defensive around missing years.
 - For decade distribution, group years by floor year / 10.
 - Only show the section once there are enough movies to be meaningful, or show a compact empty state.
-- Avoid storing derived stats initially; compute from ranking state.
+- Avoid storing derived stats; compute from ranking state and the existing detail
+  cache.
 
 ## Acceptance criteria
 
@@ -97,4 +111,3 @@ The section should feel like a reward, not a dashboard takeover.
 - Empty and short-list states do not feel broken.
 - No new server schema is required for the first version.
 - Mobile layout remains secondary and unobtrusive.
-

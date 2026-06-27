@@ -1,17 +1,20 @@
 # Feature: Movie detail pane
 
-Status: v1 done
+Status: **shipped and extended**
 
 ## Summary
 
 Add an optional movie detail pane for suggestion cards without slowing down the primary ranking flow.
 
-The shipped v1 keeps the fast behavior intact:
+The shipped feature keeps the fast behavior intact:
 
 - Tapping a suggestion card body still starts ranking immediately.
 - Save and Hide remain inline on suggestion cards.
 - A compact info icon in the title row opens movie details.
-- The detail pane includes Rank, Save, Hide, and Close actions.
+- Queue rows and pack movies expose the same detail pane.
+- Actions adapt to the source (suggestion, Watch next, Not for me, or pack).
+- Tapping the detail poster opens the original-resolution artwork in the shared
+  lightbox.
 
 This replaces the earlier idea of putting a required detail step between tapping a suggestion and ranking it. That required-step version was rejected because it would make obvious ranking choices take two taps instead of one.
 
@@ -43,8 +46,8 @@ The pane shows:
 ### Detail pane actions
 
 - Rank: closes the pane and starts the existing ranking flow.
-- Save: closes the pane and moves the movie to Watch next.
-- Hide: closes the pane and moves the movie to Not for me.
+- Save / Hide / Remove adapt to the movie's current source so actions remain
+  relevant and do not create duplicates.
 - Close: dismisses the pane without changing state.
 
 ### Layout
@@ -65,6 +68,17 @@ Added a Supabase Edge Function:
 - Output: normalized movie detail payload with runtime, genres, overview, director, and cast
 
 The client fetches details by TMDB id only when the pane opens, then caches details in-memory by TMDB id for the current session.
+
+### Post-v1 extensions
+
+- **Queue and pack reuse:** Watch next, Not for me, and pack movie rows/cards all
+  open the same pane. Context-aware actions preserve the source workflow.
+- **High-resolution poster lightbox:** tapping the pane poster opens the shared
+  lightbox with the TMDB `original` image. Poster mode intentionally has no
+  download/share/navigation bar; it keeps only zoom/pan and dismissal controls.
+- **Shared export lightbox:** the same overlay implementation also powers Share
+  Studio's full-resolution generated-image viewer, reducing duplicate modal and
+  zoom behavior.
 
 ## Why this version works
 
@@ -113,11 +127,16 @@ Implementation likely needs one of:
 
 Keep this subtle; the pane should remain a decision surface, not a media viewer.
 
-### Reuse details for queue items
+### Reuse details for queue items — shipped
 
-Consider adding the same info icon to Watch next and Not for me items.
+Watch next and Not for me rows now use the same detail pane with context-aware
+Rank/Save/Hide/Remove actions.
 
-This would let users inspect saved or hidden movies before ranking, moving, or removing them.
+### High-resolution poster view — shipped
+
+The poster now opens at TMDB's original size in the shared lightbox. No separate
+media-viewer UI remains to build unless later usage calls for explicit download
+or gallery controls.
 
 ### Improve focus management
 
@@ -176,4 +195,3 @@ Possible tweaks:
 - Save and Hide from the pane reuse existing queue behavior. Done.
 - Rank from the pane reuses existing stack ranking behavior. Done.
 - Mobile uses a bottom sheet and desktop uses a compact modal. Done.
-

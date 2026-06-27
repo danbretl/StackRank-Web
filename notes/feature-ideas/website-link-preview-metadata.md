@@ -18,7 +18,7 @@ Crawlers cache aggressively, so confirm after the change is live on GitHub Pages
 
 Original idea below.
 
-Status: wishlist
+Original status: wishlist
 
 ## Summary
 

@@ -5,21 +5,25 @@ This folder captures product ideas that are worth revisiting later. They are int
 ## Implemented
 
 - [Movie detail pane](movie-detail-decision-sheet.md) — v1 done in commit `64ff621`.
-- [Share export sizes and a multi-image image set](share-export-sizes-and-image-set.md) — **v1 shipped (Jun 2026).** Skinny/Wide single-image shapes + the Image set format (grouped, paginated cards). Phase 3 polish (ZIP delivery, iPad page size) still parked — see the note.
+- [Share export sizes and a multi-image image set](share-export-sizes-and-image-set.md) — **shipped (Jun 2026).** Skinny/Wide single-image shapes, grouped/paginated Image sets, ZIP delivery, per-card preview labels, pack exports, empty-section handling, and a full-resolution lightbox with per-image actions/navigation. Only an alternate iPad-shaped Image-set layout remains parked.
+- [Suggestion packs](suggestion-packs.md) — **v1 shipped (Jun 2026).** 50 curated packs, browse/detail/Rank-all flows, derived progress, organic discovery, local/Supabase persistence paths, bulk actions, Share Studio integration, and pack-aware undo.
+- [Undo for list changes](undo-history-for-list-changes.md) — **shipped (Jun 2026).** Single-level toast undo covers queue actions, ranking deletion/clear, completed placements (including pack Rank all), and pack Save all/Hide all.
+- [Website link preview metadata](website-link-preview-metadata.md) — **shipped (Jun 2026).** Open Graph/Twitter metadata plus a reproducible 1200×630 preview card.
 
-## Current top candidates (priority order, set Jun 2026)
+## Current top candidates (priority order, refreshed 2026-06-27)
 
-1. [**Suggestion packs**](suggestion-packs.md) — **new #1.** Curated themed movie sets ("Directed by Wes Anderson", "Movies from 1999", "Best Picture winners") the customer works through via browse or auto-rank mode, with saved progress and resurfacing when a pack changes. Attacks the weakest surface (what to rank next); mostly assembles existing systems. Full spec written; ready to hand to a new session.
-2. [Share export sizes and image set — Phase 3](share-export-sizes-and-image-set.md) — ZIP delivery, iPad page size, richer in-studio per-card previews.
-3. [Undo history for list changes](undo-history-for-list-changes.md) — safety net for destructive actions; toasts already exist to hang it on.
-4. [Ranking review mode](ranking-review-mode.md) — strengthens the core (a list you trust) once it grows large.
-5. [Better suggestion explanations](better-suggestion-explanations.md) — makes the add/save/hide decision easier; small, self-contained.
-6. [Personal stats and taste profile](personal-stats-and-taste-profile.md) — engine already exists (`getRankingInsights()`), but **open question: what does an on-page stats section show that the Share Studio doesn't?** Needs a clear differentiated purpose before it's worth building.
+1. [**Ranking review mode**](ranking-review-mode.md) — strengthens the core promise: a list the user still trusts after it grows. Adjacent-pair review can reuse comparison visuals, persistence, and the new undo safety net.
+2. [**Better suggestion explanations**](better-suggestion-explanations.md) — section-level context already ships; the remaining opportunity is concise, honest per-movie reasons that make Rank/Save/Hide decisions easier without cluttering mobile.
+3. [**Suggestion packs Phase 4**](suggestion-packs.md) — add category/progress filters, search, and a featured row to the 50-pack browser after validating real usage of the shipped pack loop.
+4. [**Personal stats and taste profile**](personal-stats-and-taste-profile.md) — the insight engine already exists, but the native page needs a differentiated purpose: interactive drill-down, progress/milestones, or actionable suggestion hooks rather than a duplicate of Share Studio.
+5. [**Image-set tablet layout**](share-export-sizes-and-image-set.md) — an optional fixed landscape/iPad page system remains parked; lower priority because Wide single-image output already covers the main tablet/dashboard use case.
 
 ## Completed ideas with potential follow-ups
 
-- [Movie detail pane](movie-detail-decision-sheet.md)
-- [Share export sizes and a multi-image image set](share-export-sizes-and-image-set.md) — Phase 3 (ZIP, iPad, richer in-studio previews) is the follow-up.
+- [Movie detail pane](movie-detail-decision-sheet.md) — now also works from queues and packs; tapping its poster opens the shared high-resolution lightbox. Trailer/focus/loading polish remain optional.
+- [Share export sizes and a multi-image image set](share-export-sizes-and-image-set.md) — alternate iPad-shaped Image-set pagination remains the only material parked item.
+- [Suggestion packs](suggestion-packs.md) — Phase 4 browser filters/search and production resurfacing validation remain.
+- [Undo for list changes](undo-history-for-list-changes.md) — intentionally single-level and short-lived; multi-step history remains out of scope unless usage shows a need.
 - [Website link preview metadata](website-link-preview-metadata.md) — Open Graph/Twitter tags + a generated 1200x630 `assets/og-preview.png` now ship; follow-up is post-deploy verification in Apple Messages and favicon/Apple-touch-icon polish.
 
 ## Cross-cutting infrastructure now available
@@ -29,3 +33,6 @@ The Share Suite build left reusable pieces that lower the cost of several ideas 
 - **Rank-weighted insight engine** — `getRankingInsights()` returns decades, genres, directors, cast, average year, oldest/newest, "most ranked in one day," etc. Directly powers Personal stats; useful for Better suggestion explanations.
 - **Passive metadata** — `rankedAt` on rank, `savedAt`/`hiddenAt` on queue moves (no DB schema change). Enables time-based stats and recency ordering.
 - **Loading-skeleton pattern** — both an in-SVG skeleton (share sections) and a DOM shimmer (`renderBootSkeleton()`, main page) now exist to reuse.
+- **Single-level undo controller** — `lib/undo.js` provides tested expiry/token semantics; app-level restore closures cover ranking and queue snapshots.
+- **Shared full-resolution lightbox** — Share Studio images and detail posters share zoom/pan/dismiss behavior; share mode adds download/share actions and Image-set navigation.
+- **Pack-derived progress/indexes** — pack status, membership, featured ordering, and summaries are reusable for filters, discovery explanations, and future stats.

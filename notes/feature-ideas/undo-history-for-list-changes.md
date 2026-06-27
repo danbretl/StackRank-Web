@@ -1,6 +1,33 @@
 # Feature idea: Undo history for list changes
 
-Status: exploratory
+Status: **shipped (2026-06-26; expanded 2026-06-27)**
+
+## What shipped
+
+StackRank now has a **single-level, five-second Undo action** in the existing
+feedback toast. A newer undoable action replaces the older one; consuming or
+expiring the toast invalidates it. The lifecycle lives in the DOM-free
+`lib/undo.js` controller and is covered by `tests/undo.test.js`.
+
+Undo currently covers:
+
+- Save/Hide from suggestions and movie detail.
+- Move/remove in Watch next and Not for me.
+- Remove from the ranking and Clear rankings.
+- A completed movie placement, restoring all three lists to their exact
+  pre-ranking state (fresh add, queue origin, or restack).
+- A completed placement during a pack **Rank all** run: the previous movie is
+  unranked without interrupting the next active comparison.
+- Pack **Save all** / **Hide all** as one bulk action.
+
+The existing in-comparison **Undo last choice** and **Cancel ranking** remain
+separate controls because they reverse an in-progress binary search rather than
+a completed list mutation.
+
+Validated with focused unit tests, the full `npm run verify` pipeline, and
+browser checks of normal, cross-list, bulk-pack, and Rank-all undo paths.
+
+The original proposal and implementation record are preserved below.
 
 ## Summary
 
@@ -18,7 +45,9 @@ The app now has several actions that move or remove movies:
 - Remove from the ranked list
 - Clear the ranking
 
-Some of these actions are easy to tap accidentally on mobile. Current feedback confirms what happened, but it does not offer a direct recovery path.
+Some of these actions are easy to tap accidentally on mobile. Before this
+feature shipped, feedback confirmed what happened but did not offer a direct
+recovery path.
 
 ## Proposed flow
 
@@ -126,20 +155,21 @@ Avoid implementing undo for comparison decisions until the interaction model is 
    `"Change undone."` confirmation toast and a full surface re-render.
 2. **Wire the six actions** — snapshot before mutation; swap the trailing
    `setAddFeedback(...)` for `setUndoableFeedback(...)`. Add a toast to the two
-   actions that currently have none (remove-from-ranking, clear-ranking).
+   actions that had none before implementation (remove-from-ranking,
+   clear-ranking).
 3. **Diligence pass** — verify both-list snapshots for moves; guard restore when
    a comparison is `pending` where it would conflict; confirm no `focus()` on the
    restore path; confirm suggestions/pack surfaces re-render.
 4. **Validate** — `npm run verify` (unit incl. new test, `node --check`, deno,
    e2e) + browser smoke of each undoable action.
 
-### Touch points (line numbers drift — grep to confirm)
+### Pre-implementation touch points (line numbers drift — grep to confirm)
 
 - `addSuggestionToQueue` (~5384) — save/hide.
 - `moveQueueMovie` (~5470) — queue↔queue.
 - `removeQueueMovie` (~5506) — queue remove.
-- ranking delete handler (~1532) — remove from ranking (no toast today).
-- clear handler (~1399) — clear ranking (no toast today).
+- ranking delete handler (~1532) — remove from ranking (had no toast).
+- clear handler (~1399) — clear ranking (had no toast).
 - `setAddFeedback` (~1723) — action-button host (unchanged).
 
 ### Follow-up shipped: undo a completed ranking (2026-06-26)
@@ -154,11 +184,12 @@ the movie is pulled from its queue) and in the restack handler (before the
 splice) into `pendingRankingSnapshot`. Both settle points (the immediate
 top-pick branch in `startComparison` and the binary-search settle in
 `handleDecision`) route their placement toast through `announcePlacement()`,
-which offers undo via `restoreListsTo(snapshot)`. Undo is suppressed during an
-**auto-pack** run (the flow advances to the next comparison immediately, so a
-single-level undo can't apply cleanly). The snapshot is cleared on cancel and on
-each settle. Verified in-browser including the cross-list case (rank a Watch-next
-movie → undo returns it to Watch next and removes it from the ranking).
+which offers undo via `restoreListsTo(snapshot)`. Regular placements use this
+whole-state snapshot. **Auto-pack** placements use the surgical path documented
+in the next section because the flow has already advanced to the next
+comparison. The snapshot is cleared on cancel and on each settle. Verified
+in-browser including the cross-list case (rank a Watch-next movie → undo returns
+it to Watch next and removes it from the ranking).
 
 ### Follow-up shipped: pack-specific undo cases (2026-06-26)
 
@@ -186,4 +217,3 @@ Two cases the whole-list snapshot couldn't cover:
   moved (verified: 11 → undo → 0). `restoreListsTo`'s confirmation toast is the
   neutral "Change undone." since it now serves both completed-ranking and
   bulk-queue undos.
-

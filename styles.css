@@ -47,6 +47,11 @@ body.is-share-open {
   overflow: hidden;
 }
 
+body.is-share-open .suggest-skeleton,
+body.is-share-open .skeleton {
+  animation-play-state: paused;
+}
+
 .app {
   max-width: 1100px;
   margin: 0 auto;
@@ -1989,8 +1994,9 @@ body.is-comparing .compare-panel {
 .share-preview-deck {
   display: grid;
   gap: 12px;
-  width: 100%;
+  width: min(100%, 736px);
   min-width: 0;
+  justify-self: center;
 }
 
 .share-preview-deck__stage {
@@ -2062,6 +2068,7 @@ body.is-comparing .compare-panel {
 .share-preview-card {
   display: grid;
   place-items: center;
+  align-self: start;
   gap: 10px;
   width: 100%;
   min-width: 0;
@@ -2079,7 +2086,7 @@ body.is-comparing .compare-panel {
 
 .share-preview-card svg {
   display: block;
-  width: min(100%, 420px);
+  width: min(100%, 640px);
   height: auto;
   box-shadow: 0 16px 34px rgba(0, 0, 0, 0.14);
 }
@@ -2124,7 +2131,7 @@ body.is-comparing .compare-panel {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  width: min(100%, 560px);
+  width: min(100%, 640px);
   justify-self: center;
 }
 
@@ -2289,6 +2296,36 @@ body.is-comparing .compare-panel {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@media (min-width: 721px) {
+  .share-preview-deck__viewport {
+    height: min(56dvh, 560px);
+  }
+
+  .share-preview-deck__track,
+  .share-preview-card,
+  .share-preview-card__media {
+    height: 100%;
+  }
+
+  .share-preview-deck__track {
+    grid-template-rows: 100%;
+  }
+
+  .share-preview-card {
+    align-self: stretch;
+  }
+
+  .share-preview-card__media {
+    place-items: center;
+  }
+
+  .share-preview-card svg {
+    width: auto;
+    max-width: calc(100% - 28px);
+    max-height: min(calc(56dvh - 28px), 532px);
   }
 }
 
@@ -2480,14 +2517,38 @@ body.is-comparing .compare-panel {
     gap: 6px;
   }
 
+  .share-preview-deck__viewport {
+    height: min(300px, calc(48dvh - 104px));
+  }
+
+  .share-preview-deck__track,
+  .share-preview-card,
+  .share-preview-card__media {
+    height: 100%;
+  }
+
+  .share-preview-deck__track {
+    grid-template-rows: 100%;
+  }
+
+  .share-preview-card {
+    align-self: stretch;
+  }
+
+  .share-preview-card__media {
+    place-items: center;
+  }
+
   .share-preview-nav {
     width: 32px;
     height: 32px;
   }
 
   .share-preview-card svg {
-    width: min(100%, 320px);
-    max-height: calc(48dvh - 96px);
+    width: auto;
+    max-width: 100%;
+    max-height: min(300px, calc(48dvh - 104px));
+    box-shadow: none;
   }
 
   .share-preview-deck__footer {

@@ -4,6 +4,7 @@ import { computeRankingInsights } from "../lib/insights.js";
 import {
   getSharePickGroups,
   movieExportLine,
+  buildNativeImageShareData,
   shareRankingMetaCards,
   buildShareExportSections,
   sectionsToMarkdown,
@@ -60,6 +61,13 @@ test("getSharePickGroups splits top/bottom without overlap", () => {
 test("movieExportLine formats rank + year", () => {
   assert.equal(movieExportLine({ title: "X", year: 2000 }, 1), "1. X (2000)");
   assert.equal(movieExportLine({ title: "X" }), "X");
+});
+
+test("buildNativeImageShareData shares only the image files", () => {
+  const files = [{ name: "page-1.png" }, { name: "page-2.png" }];
+  const shareData = buildNativeImageShareData(files);
+  assert.deepEqual(Object.keys(shareData), ["files"]);
+  assert.equal(shareData.files, files);
 });
 
 test("buildShareExportSections: all-on yields sections in canonical order", () => {

@@ -36,11 +36,12 @@ import {
 import {
   getSharePickGroups,
   movieExportLine,
+  buildNativeImageShareData,
   shareRankingMetaCards,
   buildShareExportSections as libBuildShareExportSections,
   sectionsToMarkdown,
   sectionsToText,
-} from "./lib/share-export.js";
+} from "./lib/share-export.js?v=1";
 import {
   getShareDisplayName,
   possessiveName,
@@ -234,6 +235,7 @@ let autoPackSession = null;
 let lastPackDiscoveryNudgeAt = 0;
 let placeholderIndex = 0;
 let placeholderTimer = null;
+let placeholderFadeTimer = null;
 let currentDetail = null;
 let detailRequestId = 0;
 let detailTrigger = null;
@@ -261,6 +263,7 @@ let shareDetailRequestId = 0;
 let shareDetailsLoading = false;
 let sharePngPreparing = false;
 let shareSetPageIndex = 0;
+let shareSetScrollSyncTimer = null;
 // Last preview markup written to the DOM; lets us skip redundant innerHTML
 // rewrites (which reload poster <image>s and cause a visible flicker).
 let lastSharePreviewMarkup = "";
@@ -313,16 +316,25 @@ const formatMeta = (movie) => {
 const rotateTitlePlaceholder = () => {
   if (titleInput.value.trim()) return;
   titleInput.classList.add("is-placeholder-fading");
-  window.setTimeout(() => {
+  placeholderFadeTimer = window.setTimeout(() => {
     placeholderIndex = (placeholderIndex + 1) % PLACEHOLDER_TITLES.length;
     titleInput.placeholder = PLACEHOLDER_TITLES[placeholderIndex];
     titleInput.classList.remove("is-placeholder-fading");
+    placeholderFadeTimer = null;
   }, PLACEHOLDER_FADE_MS);
 };
 
-const startPlaceholderRotation = () => {
-  titleInput.placeholder = PLACEHOLDER_TITLES[placeholderIndex];
+const stopPlaceholderRotation = () => {
   if (placeholderTimer) window.clearInterval(placeholderTimer);
+  if (placeholderFadeTimer) window.clearTimeout(placeholderFadeTimer);
+  placeholderTimer = null;
+  placeholderFadeTimer = null;
+  titleInput.classList.remove("is-placeholder-fading");
+};
+
+const startPlaceholderRotation = () => {
+  stopPlaceholderRotation();
+  titleInput.placeholder = PLACEHOLDER_TITLES[placeholderIndex];
   placeholderTimer = window.setInterval(rotateTitlePlaceholder, PLACEHOLDER_ROTATION_MS);
 };
 
@@ -1466,14 +1478,11 @@ sharePreview.addEventListener(
   (event) => {
     const viewport = event.target.closest?.(".share-preview-deck__viewport");
     if (!viewport) return;
-    const nextIndex = Math.round(viewport.scrollLeft / Math.max(1, viewport.clientWidth));
-    if (nextIndex !== shareSetPageIndex) {
-      shareSetPageIndex = nextIndex;
-      updateShareSetPageChrome();
-    }
+    scheduleShareSetScrollSync(viewport);
   },
   true,
 );
+window.addEventListener("resize", updateShareSetPageChrome);
 shareCopyMarkdown.addEventListener("click", () => copyShareExport("markdown"));
 shareCopyJson.addEventListener("click", () => copyShareExport("json"));
 shareCopyText.addEventListener("click", () => copyShareExport("text"));
@@ -4488,8 +4497,9 @@ function updateShareExportControls() {
   const insights = getRankingInsights();
   updateShareIncludeAvailability(insights);
   const disabled = !insights.count;
+  const nativeShareAvailable = shareNativeShare.dataset.available === "true";
   shareDownloadPng.disabled = disabled || sharePngPreparing;
-  shareNativeShare.disabled = disabled || sharePngPreparing;
+  shareNativeShare.disabled = disabled || sharePngPreparing || !nativeShareAvailable;
   shareDownloadSvg.disabled = disabled || sharePngPreparing;
   shareCopyMarkdown.disabled = disabled;
   shareCopyJson.disabled = disabled;
@@ -4502,6 +4512,9 @@ function updateShareExportControls() {
       ? `${insights.detailCount} ranked movies enriched with detail data.`
       : "";
 }
+
+const NATIVE_SHARE_UNAVAILABLE_MESSAGE =
+  "Native image sharing needs HTTPS and browser file-sharing support.";
 
 function canNativeSharePngFiles(fileCount = 1) {
   if (!navigator.share || typeof File === "undefined") return false;
@@ -4520,8 +4533,33 @@ function scrollToShareSetPage({ instant = false } = {}) {
   const viewport = sharePreview.querySelector(".share-preview-deck__viewport");
   if (!viewport) return;
   const left = shareSetPageIndex * viewport.clientWidth;
-  viewport.scrollTo({ left, behavior: instant ? "auto" : "smooth" });
+  if (instant) {
+    const previousScrollBehavior = viewport.style.scrollBehavior;
+    viewport.style.scrollBehavior = "auto";
+    viewport.scrollLeft = left;
+    viewport.style.scrollBehavior = previousScrollBehavior;
+  } else {
+    viewport.scrollTo({ left, behavior: "smooth" });
+  }
   updateShareSetPageChrome();
+}
+
+function clearShareSetScrollSync() {
+  if (shareSetScrollSyncTimer) window.clearTimeout(shareSetScrollSyncTimer);
+  shareSetScrollSyncTimer = null;
+}
+
+function scheduleShareSetScrollSync(viewport) {
+  clearShareSetScrollSync();
+  shareSetScrollSyncTimer = window.setTimeout(() => {
+    shareSetScrollSyncTimer = null;
+    if (!viewport.isConnected) return;
+    const nextIndex = Math.round(viewport.scrollLeft / Math.max(1, viewport.clientWidth));
+    if (nextIndex !== shareSetPageIndex) {
+      shareSetPageIndex = nextIndex;
+      updateShareSetPageChrome();
+    }
+  }, 120);
 }
 
 function updateShareSetPageChrome() {
@@ -4545,6 +4583,7 @@ function setShareSetPage(index) {
   const deck = sharePreview.querySelector(".share-preview-deck");
   const total = Number(deck?.dataset.total || 0);
   if (!total) return;
+  clearShareSetScrollSync();
   shareSetPageIndex = Math.min(Math.max(index, 0), total - 1);
   scrollToShareSetPage();
 }
@@ -4555,6 +4594,9 @@ function updateShareStudio() {
     const total = images.cards.length;
     shareSetPageIndex = Math.min(Math.max(shareSetPageIndex, 0), Math.max(0, total - 1));
     const canSharePage = canNativeSharePngFiles(1);
+    const sharePageUnavailable = canSharePage
+      ? ""
+      : ` title="${NATIVE_SHARE_UNAVAILABLE_MESSAGE}" aria-label="Share page unavailable. ${NATIVE_SHARE_UNAVAILABLE_MESSAGE}"`;
     const figures = images.cards
       .map(
         (card, index) =>
@@ -4583,30 +4625,37 @@ function updateShareStudio() {
       `</div>` +
       `<div class="share-preview-page-actions">` +
       `<button class="detail-action detail-action--muted" type="button" data-share-page-download ${sharePngPreparing ? "disabled" : ""}>Download this page</button>` +
-      `<button class="detail-action detail-action--muted" type="button" data-share-page-share ${canSharePage ? "" : "hidden"} ${sharePngPreparing ? "disabled" : ""}>Share page</button>` +
+      `<button class="detail-action detail-action--muted" type="button" data-share-page-share ${sharePngPreparing || !canSharePage ? "disabled" : ""}${sharePageUnavailable}>Share page</button>` +
       `</div>` +
       `</div>` +
       `</div>`;
     if (markup !== lastSharePreviewMarkup) {
+      clearShareSetScrollSync();
       sharePreview.innerHTML = markup;
       lastSharePreviewMarkup = markup;
-      requestAnimationFrame(() => scrollToShareSetPage({ instant: true }));
+      if (shareStudio.hidden) {
+        requestAnimationFrame(() => scrollToShareSetPage({ instant: true }));
+      } else {
+        scrollToShareSetPage({ instant: true });
+      }
     } else {
       updateShareSetPageChrome();
     }
     const count = images.cards.length;
+    const canShareSet = canNativeSharePngFiles(count);
     // 2+ cards ship as a single .zip; a 1-card set is just one plain file.
     shareDownloadPng.textContent =
       count > 1 ? `Download zip (${count})` : count ? "Download image" : "Download images";
-    if (canNativeSharePngFiles(count)) {
-      shareNativeShare.hidden = false;
+    shareNativeShare.hidden = false;
+    if (canShareSet) {
       shareNativeShare.textContent = count > 1 ? `Share set (${count})` : "Save / Share";
-    } else if (canNativeSharePngFiles(1)) {
-      shareNativeShare.hidden = false;
+    } else if (canSharePage) {
       shareNativeShare.textContent = "Share page";
     } else {
-      shareNativeShare.hidden = true;
+      shareNativeShare.textContent = count > 1 ? `Share set (${count})` : "Save / Share";
     }
+    shareNativeShare.dataset.available = String(canShareSet || canSharePage);
+    shareNativeShare.title = canShareSet || canSharePage ? "" : NATIVE_SHARE_UNAVAILABLE_MESSAGE;
     shareDownloadSvg.textContent = count > 1 ? "SVG zip" : "SVG";
   } else {
     if (images.svg !== lastSharePreviewMarkup) {
@@ -4614,7 +4663,10 @@ function updateShareStudio() {
       lastSharePreviewMarkup = images.svg;
     }
     shareDownloadPng.textContent = "Download PNG";
-    shareNativeShare.hidden = !canNativeSharePngFiles(1);
+    const canShareImage = canNativeSharePngFiles(1);
+    shareNativeShare.hidden = false;
+    shareNativeShare.dataset.available = String(canShareImage);
+    shareNativeShare.title = canShareImage ? "" : NATIVE_SHARE_UNAVAILABLE_MESSAGE;
     shareNativeShare.textContent = "Save / Share";
     shareDownloadSvg.textContent = "SVG";
   }
@@ -4642,6 +4694,7 @@ function unlockShareScroll() {
 
 function openShareStudio() {
   if (!ranking.length) return;
+  stopPlaceholderRotation();
   shareStudioTrigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
   lastSharePreviewMarkup = "";
   // Reflect loading in the very first render so detail-backed sections (genres,
@@ -4661,11 +4714,13 @@ function openShareStudio() {
 
 function closeShareStudio({ restoreFocus = true } = {}) {
   shareDetailRequestId += 1;
+  clearShareSetScrollSync();
   shareDetailsLoading = false;
   shareStudio.hidden = true;
   lastSharePreviewMarkup = "";
   document.body.classList.remove("is-share-open");
   unlockShareScroll();
+  startPlaceholderRotation();
   if (restoreFocus && shareStudioTrigger && document.contains(shareStudioTrigger)) {
     shareStudioTrigger.focus({ preventScroll: true });
   }
@@ -5018,11 +5073,7 @@ async function shareNativePng({ currentPageOnly = false } = {}) {
     if (!files.length || (navigator.canShare && !navigator.canShare({ files }))) {
       throw new Error("Native file sharing is not available for these images.");
     }
-    await navigator.share({
-      files,
-      title: "StackRank movie ranking",
-      text: files.length > 1 ? "StackRank share images" : "StackRank share image",
-    });
+    await navigator.share(buildNativeImageShareData(files));
     sharePngPreparing = false;
     setAddFeedback(files.length > 1 ? "Share set opened." : "Share image opened.");
     shareExportStatus.textContent = files.length > 1 ? "Share set opened." : "Share image opened.";

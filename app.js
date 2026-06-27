@@ -178,6 +178,7 @@ const detailRank = document.getElementById("detail-rank");
 const detailSave = document.getElementById("detail-save");
 const detailHide = document.getElementById("detail-hide");
 const packDetailOverlay = document.getElementById("pack-detail");
+const packDetailSheet = packDetailOverlay.querySelector(".pack-sheet");
 const packDetailClose = document.getElementById("pack-detail-close");
 const packDetailCover = document.getElementById("pack-detail-cover");
 const packDetailCategory = document.getElementById("pack-detail-category");
@@ -288,6 +289,10 @@ let packIndexByMovieId = new Map();
 let currentPackSlug = null;
 let packDetailTrigger = null;
 let packDetailShowHandled = false;
+// Whether the current pack detail was opened from the "All packs" browser, so
+// closing it should return there instead of dismissing the whole overlay.
+let packDetailFromAllPacks = false;
+let packBrowserScrollTop = 0;
 let packBrowserFilterValues = { query: "", category: "all", state: "all" };
 let packBrowserFiltersExpanded = false;
 let pendingPackContext = null;
@@ -3323,6 +3328,7 @@ const renderPackSurfaces = () => {
 
 const closePackDetail = ({ restoreFocus = true } = {}) => {
   currentPackSlug = null;
+  packDetailFromAllPacks = false;
   packDetailOverlay.hidden = true;
   document.body.classList.remove("is-detail-open");
   if (restoreFocus && packDetailTrigger) {
@@ -3334,6 +3340,12 @@ const closePackDetail = ({ restoreFocus = true } = {}) => {
 const openPackDetail = (slug, { trigger = null, showHandled = false } = {}) => {
   const pack = getPackBySlug(slug);
   if (!pack) return;
+  // Remember if we're drilling in from the "All packs" browser so the close
+  // button can return there, and stash its scroll position to restore later.
+  const fromAllPacks =
+    !packDetailOverlay.hidden && packDetailOverlay.classList.contains("is-all-packs");
+  if (fromAllPacks) packBrowserScrollTop = packDetailSheet ? packDetailSheet.scrollTop : 0;
+  packDetailFromAllPacks = fromAllPacks;
   packDetailOverlay.classList.remove("is-all-packs");
   packBrowserFilters.hidden = true;
   currentPackSlug = slug;
@@ -3342,6 +3354,9 @@ const openPackDetail = (slug, { trigger = null, showHandled = false } = {}) => {
   renderPackDetail();
   packDetailOverlay.hidden = false;
   document.body.classList.add("is-detail-open");
+  // A specific pack detail should always open scrolled to the top, even when
+  // reusing the overlay that the browser list just scrolled down.
+  if (packDetailSheet) packDetailSheet.scrollTop = 0;
 };
 
 const startPackMovieRanking = (pack, movie, mode = "browse") => {
@@ -3633,8 +3648,9 @@ const renderPackBrowser = () => {
   });
 };
 
-const openAllPacks = () => {
+const openAllPacks = ({ restoreScroll = false } = {}) => {
   currentPackSlug = null;
+  packDetailFromAllPacks = false;
   packDetailTrigger = packViewAll;
   packDetailOverlay.classList.add("is-all-packs");
   packBrowserFilters.hidden = false;
@@ -3654,6 +3670,20 @@ const openAllPacks = () => {
   renderPackBrowser();
   packDetailOverlay.hidden = false;
   document.body.classList.add("is-detail-open");
+  // Returning from a pack detail restores where the user was in the list;
+  // opening fresh from the homepage starts at the top.
+  if (packDetailSheet) packDetailSheet.scrollTop = restoreScroll ? packBrowserScrollTop : 0;
+};
+
+// The pack overlay is reused for both the "All packs" browser and a single
+// pack's detail. Closing a pack that was opened from the browser should step
+// back to the browser rather than dismissing the whole overlay to the homepage.
+const handlePackDetailClose = () => {
+  if (packDetailFromAllPacks && currentPackSlug) {
+    openAllPacks({ restoreScroll: true });
+    return;
+  }
+  closePackDetail();
 };
 
 const isAutoPackComparison = () =>
@@ -6613,7 +6643,7 @@ notInterestedListEl.addEventListener("click", handleQueueInteraction);
 watchListEl.addEventListener("keydown", handleQueueKeydown);
 notInterestedListEl.addEventListener("keydown", handleQueueKeydown);
 skipPackMovieButton.addEventListener("click", skipCurrentPackMovie);
-packViewAll.addEventListener("click", openAllPacks);
+packViewAll.addEventListener("click", () => openAllPacks());
 packBrowserFilterToggle.addEventListener("click", () => {
   setPackBrowserFiltersExpanded(!packBrowserFiltersExpanded);
 });
@@ -6644,10 +6674,10 @@ packBrowserReset.addEventListener("click", () => {
   packBrowserCategory.value = "all";
   renderPackBrowser();
 });
-packDetailClose.addEventListener("click", () => closePackDetail());
+packDetailClose.addEventListener("click", () => handlePackDetailClose());
 packDetailOverlay.addEventListener("click", (event) => {
   if (event.target === packDetailOverlay) {
-    closePackDetail();
+    handlePackDetailClose();
   }
 });
 packAutoStart.addEventListener("click", () => {
@@ -6762,7 +6792,7 @@ document.addEventListener("keydown", (event) => {
     return;
   }
   if (!packDetailOverlay.hidden) {
-    closePackDetail();
+    handlePackDetailClose();
   }
 });
 

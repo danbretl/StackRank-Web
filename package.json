@@ -5,8 +5,9 @@
     "check:functions": "deno check --no-lock supabase/functions/*/index.ts",
     "test": "node scripts/run-tests-with-report.mjs",
     "test:e2e": "node scripts/run-e2e-smoke.cjs",
+    "validate:packs": "node scripts/validate-suggestion-packs.mjs",
     "test:watch": "node --test --watch \"tests/**/*.test.js\"",
-    "verify": "npm test && npm run check && npm run check:functions && npm run test:e2e",
+    "verify": "npm test && npm run check && npm run check:functions && npm run validate:packs && npm run test:e2e",
     "author:packs": "node scripts/author-suggestion-packs.mjs",
     "screenshots": "node scripts/capture-screenshots.cjs",
     "build:og": "node scripts/build-og-image.cjs"

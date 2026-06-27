@@ -6,7 +6,7 @@ This folder captures product ideas that are worth revisiting later. They are int
 
 - [Movie detail pane](movie-detail-decision-sheet.md) — v1 done in commit `64ff621`.
 - [Share export sizes and a multi-image image set](share-export-sizes-and-image-set.md) — **shipped (Jun 2026).** Skinny/Wide single-image shapes, grouped/paginated Image sets, ZIP delivery, per-card preview labels, pack exports, empty-section handling, and a full-resolution lightbox with per-image actions/navigation. Only an alternate iPad-shaped Image-set layout remains parked.
-- [Suggestion packs](suggestion-packs.md) — **v1 shipped (Jun 2026).** 50 curated packs, browse/detail/Rank-all flows, derived progress, organic discovery, local/Supabase persistence paths, bulk actions, Share Studio integration, and pack-aware undo.
+- [Suggestion packs](suggestion-packs.md) — **v1 shipped (Jun 2026).** 100 curated fallback packs, browse/detail/Rank-all flows, text/category/progress filters, derived progress, organic discovery, local/Supabase persistence paths, bulk actions, Share Studio integration, and pack-aware undo.
 - [Undo for list changes](undo-history-for-list-changes.md) — **shipped (Jun 2026).** Single-level toast undo covers queue actions, ranking deletion/clear, completed placements (including pack Rank all), and pack Save all/Hide all.
 - [Website link preview metadata](website-link-preview-metadata.md) — **shipped (Jun 2026).** Open Graph/Twitter metadata plus a reproducible 1200×630 preview card.
 
@@ -14,7 +14,7 @@ This folder captures product ideas that are worth revisiting later. They are int
 
 1. [**Ranking review mode**](ranking-review-mode.md) — strengthens the core promise: a list the user still trusts after it grows. Adjacent-pair review can reuse comparison visuals, persistence, and the new undo safety net.
 2. [**Better suggestion explanations**](better-suggestion-explanations.md) — section-level context already ships; the remaining opportunity is concise, honest per-movie reasons that make Rank/Save/Hide decisions easier without cluttering mobile.
-3. [**Suggestion packs Phase 4**](suggestion-packs.md) — add category/progress filters, search, and a featured row to the 50-pack browser after validating real usage of the shipped pack loop.
+3. [**Suggestion packs Phase 4**](suggestion-packs.md) — filters and the 100-pack expansion now ship; a featured row or alternate sorting should wait for usage evidence.
 4. [**Personal stats and taste profile**](personal-stats-and-taste-profile.md) — the insight engine already exists, but the native page needs a differentiated purpose: interactive drill-down, progress/milestones, or actionable suggestion hooks rather than a duplicate of Share Studio.
 5. [**Image-set tablet layout**](share-export-sizes-and-image-set.md) — an optional fixed landscape/iPad page system remains parked; lower priority because Wide single-image output already covers the main tablet/dashboard use case.
 
@@ -22,7 +22,7 @@ This folder captures product ideas that are worth revisiting later. They are int
 
 - [Movie detail pane](movie-detail-decision-sheet.md) — now also works from queues and packs; tapping its poster opens the shared high-resolution lightbox. Trailer/focus/loading polish remain optional.
 - [Share export sizes and a multi-image image set](share-export-sizes-and-image-set.md) — alternate iPad-shaped Image-set pagination remains the only material parked item.
-- [Suggestion packs](suggestion-packs.md) — Phase 4 browser filters/search and production resurfacing validation remain.
+- [Suggestion packs](suggestion-packs.md) — a featured/sort pass and production resurfacing validation remain; text/category/progress filters now ship.
 - [Undo for list changes](undo-history-for-list-changes.md) — intentionally single-level and short-lived; multi-step history remains out of scope unless usage shows a need.
 - [Website link preview metadata](website-link-preview-metadata.md) — Open Graph/Twitter tags + a generated 1200x630 `assets/og-preview.png` now ship; follow-up is post-deploy verification in Apple Messages and favicon/Apple-touch-icon polish.
 

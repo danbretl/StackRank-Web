@@ -47,7 +47,7 @@
       content="StackRank — build your movie ranking, one comparison at a time"
     />
 
-    <link rel="stylesheet" href="styles.css?v=70" />
+    <link rel="stylesheet" href="styles.css?v=72" />
   </head>
   <body>
     <main class="app">
@@ -536,6 +536,63 @@
             <button class="detail-action detail-action--muted" id="pack-hide-all" type="button">Hide all</button>
             <button class="detail-action" id="pack-show-handled" type="button">Show handled</button>
           </div>
+          <div class="pack-browser-filters" id="pack-browser-filters" hidden>
+            <div class="pack-browser-filter-toolbar">
+              <button
+                class="pack-browser-filter-toggle"
+                id="pack-browser-filter-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="pack-browser-filter-controls"
+              >
+                <svg viewBox="0 0 20 20" aria-hidden="true">
+                  <path d="M3 5h14M5 10h10M8 15h4" />
+                </svg>
+                <span>Search &amp; filters</span>
+                <span class="pack-browser-filter-badge" id="pack-browser-filter-badge" hidden></span>
+                <span class="pack-browser-filter-chevron" aria-hidden="true"></span>
+              </button>
+              <div class="pack-browser-results" id="pack-browser-results" role="status" aria-live="polite"></div>
+            </div>
+            <div class="pack-browser-filter-controls" id="pack-browser-filter-controls" hidden>
+              <div class="pack-browser-filter-row">
+                <div class="pack-browser-field pack-browser-search">
+                  <label for="pack-browser-search">Search</label>
+                  <div class="pack-browser-search-control">
+                    <input
+                      id="pack-browser-search"
+                      type="search"
+                      placeholder="Packs, categories, movies, or years"
+                      autocomplete="off"
+                    />
+                    <button
+                      class="pack-browser-search-clear"
+                      id="pack-browser-search-clear"
+                      type="button"
+                      aria-label="Clear pack search"
+                      hidden
+                    >
+                      ×
+                    </button>
+                  </div>
+                  <span class="pack-browser-search-help">
+                    Matches pack names, descriptions, categories, movie titles, and release years or decades.
+                  </span>
+                </div>
+                <label class="pack-browser-field">
+                  <span>Category</span>
+                  <select id="pack-browser-category">
+                    <option value="all">All categories</option>
+                  </select>
+                </label>
+                <button class="pack-browser-reset" id="pack-browser-reset" type="button" hidden>Reset</button>
+              </div>
+              <fieldset class="pack-browser-state">
+                <legend>Progress</legend>
+                <div class="pack-browser-state-options" id="pack-browser-state-options"></div>
+              </fieldset>
+            </div>
+          </div>
           <div class="pack-detail-list" id="pack-detail-list"></div>
         </section>
       </div>
@@ -592,6 +649,6 @@
       </footer>
     </main>
 
-    <script type="module" src="app.js?v=100"></script>
+    <script type="module" src="app.js?v=105"></script>
   </body>
 </html>

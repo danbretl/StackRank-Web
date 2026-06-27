@@ -4,7 +4,7 @@ Status: **built (v1, Jun 2026) — shipped Phases 0–3 plus Share Suite integra
 
 ## Implementation status (as built, Jun 2026)
 
-Built across the codebase in `app.js` (pack state/flows), `styles.css` (`.pack-*` UI), `index.html` (panel + two overlays), `supabase/migrations/20260625071336_add_suggestion_packs.sql` (both tables), `scripts/author-suggestion-packs.mjs` (authoring tool), and `data/suggestion-packs.{source,}.json` (the curated library). **Library currently = 50 packs / 578 movies across 19 categories.**
+Built across the codebase in `app.js` (pack state/flows), `styles.css` (`.pack-*` UI), `index.html` (panel + two overlays), `supabase/migrations/20260625071336_add_suggestion_packs.sql` (both tables), `scripts/author-suggestion-packs.mjs` (authoring tool), and `data/suggestion-packs.{source,}.json` (the curated library). **Local/fallback library currently = 100 packs / 1,185 movie placements / 937 unique movies across 22 categories.**
 
 **Matches the spec:**
 - **Two tables** `suggestion_packs` (public-read via RLS `active = true`) and `pack_progress` (per-user, `list_id = user:<uid>`, RLS scoped like rankings/queues). `state` jsonb is exactly `{ startedAt, packVersionSeen, lastIndex, completedAt, discoveryDismissedAt }`.
@@ -26,12 +26,14 @@ Built across the codebase in `app.js` (pack state/flows), `styles.css` (`.pack-*
 - **Toast/auto-advance polish** — completing an auto-pack ranking advances to the next comparison immediately (`queueMicrotask`) with the placement toast decoupled (it no longer gets cleared by the next comparison).
 - **Pack-aware post-rank feedback** — organically ranked movies can show the dismissible Explore-pack nudge, and its Explore action opens the referenced pack. Rankings initiated from a pack return through the pack flow and do **not** show the redundant discovery nudge.
 - **Undo integration** — completed placements expose Undo. In Rank-all mode, undo surgically unranks the previous movie while keeping the next comparison active. Pack Save all / Hide all also undo as one bulk operation.
+- **All Packs filters** — a compact, session-sticky expandable panel keeps the 100-pack grid prominent; text search has an inline clear action and covers pack names/descriptions, categories, included movie titles, release years, and decade aliases; category options are generated with counts; progress chips filter Not started / In progress / Head start / Complete / Updated states with live counts, focus-safe reset, result summary, and empty state.
+- **Expansion validation** — `npm run validate:packs` checks duplicate slugs/titles/movies, source/output parity, ids/posters, pairwise overlap, and global movie reuse. The authoring script reuses generated movie metadata by default so ten-pack batches resolve only uncached titles (`--refresh` forces a full refresh).
 
 ## What's left / follow-ups
 
 - **Deploy step (required for cross-device sync):** apply `20260625071336_add_suggestion_packs.sql` to Supabase, and decide whether to **upload the curated packs** (`node scripts/author-suggestion-packs.mjs --upload`, service-role key in env) or keep serving the bundled JSON fallback. Until the tables exist in Supabase, `pack_progress` writes fail silently and progress stays localStorage-only; packs render from the JSON fallback.
 - **Packs-focused Share Suite section — SHIPPED (Jun 2026).** A toggleable `packs` section (labelled "Movie packs", between Saved/hidden and Whole list) across all export surfaces — Skinny SVG, Wide SVG masonry, image-set card, and Markdown/JSON/Text. Content: a 4-up meta strip (`Packs completed` / `In progress` / `Movies ranked` / `Most explored` category) above up to four pack cards rendered roughly like the in-app cards (2×2 poster collage cover, title, subtitle, status, progress bar; completed packs get a ✓ over the collage). All derived from new aggregate helpers `getSharePackSummary()` / `getSharePackFeatured()` / `sharePackCardStatus()` over the existing `getPackStats` (no schema change); featured ordering is in-progress-first by progress, then completed by recency. Self-hides when there is no pack engagement. New share option `packs` (default on), `SHARE_OPTIONS_VERSION` bumped 6 → 7 with a default-on migration.
-- **"View all packs" filtering/search (Phase 4).** The overlay currently lists every pack sorted by status with category labels, but has no category/progress filters, search, or featured row.
+- **"View all packs" featured/sort polish (Phase 4).** Text, category, and progress-state filtering now ship. A curated featured row and alternate sort controls remain optional follow-ups.
 - **Dedicated "Your packs" surface** — if the folded-into-panel approach proves insufficient, build the standalone three-state surface the spec describes.
 - **Resurfacing not yet exercised in production** — the `version > packVersionSeen` path is implemented but won't fire until a pack is actually re-curated and re-uploaded with a bumped `version`.
 

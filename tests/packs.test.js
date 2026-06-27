@@ -1,10 +1,14 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
+  mergePackLibraries,
   computePackStats,
   packStatusRank,
   packStatusText,
   packActionText,
+  packFilterState,
+  filterPacks,
+  countPackFilterStates,
   sharePackCardStatus,
   summarizePacks,
   featuredPacks,
@@ -26,6 +30,22 @@ const handledFrom = ({ ranked = [], watch = [], hidden = [] }) => (movie) => {
   if (hidden.includes(movie.tmdbId)) return { type: "hidden", handled: true };
   return { type: "unhandled", handled: false };
 };
+
+test("mergePackLibraries keeps the bundled baseline and lets remote rows override by slug", () => {
+  const fallback = [
+    { slug: "a", title: "Bundled A" },
+    { slug: "b", title: "Bundled B" },
+  ];
+  const remote = [
+    { slug: "b", title: "Remote B" },
+    { slug: "c", title: "Remote C" },
+  ];
+  assert.deepEqual(mergePackLibraries(fallback, remote), [
+    { slug: "a", title: "Bundled A" },
+    { slug: "b", title: "Remote B" },
+    { slug: "c", title: "Remote C" },
+  ]);
+});
 
 test("computePackStats: progress fraction and handled/remaining split", () => {
   const p = pack("a", [1, 2, 3, 4]);
@@ -111,6 +131,94 @@ test("status / action / card text per state", () => {
   assert.equal(packStatusText(resurfaced), "1 new to rank");
   assert.equal(packActionText(resurfaced), "Keep going");
   assert.equal(sharePackCardStatus(resurfaced), "1 new to rank");
+});
+
+test("pack filter state covers updated, completed, progress, head start, and untouched", () => {
+  const updated = computePackStats(pack("updated", [1, 2], { version: 2 }), handledFrom({ ranked: [1] }), {
+    completedAt: "2026-01-01",
+    packVersionSeen: 1,
+  });
+  const completed = computePackStats(pack("done", [1]), handledFrom({ ranked: [1] }), {});
+  const inProgress = computePackStats(pack("active", [1, 2]), handledFrom({ ranked: [1] }), { startedAt: "x" });
+  const headStart = computePackStats(pack("found", [1, 2]), handledFrom({ ranked: [1] }), {
+    discoveryDismissedAt: "x",
+  });
+  const untouched = computePackStats(pack("new", [1]), handledFrom({}), {});
+
+  assert.equal(packFilterState(updated), "updated");
+  assert.equal(packFilterState(completed), "completed");
+  assert.equal(packFilterState(inProgress), "in_progress");
+  assert.equal(packFilterState(headStart), "head_start");
+  assert.equal(packFilterState(untouched), "not_started");
+});
+
+test("filterPacks searches pack metadata and included movie titles with AND terms", () => {
+  const entries = [
+    {
+      pack: {
+        ...pack("night", [1], { title: "Halloween Night", category: "Seasonal" }),
+        subtitle: "Horror for October",
+        movies: [{ tmdbId: 1, title: "The Thing", year: 1982 }],
+      },
+      stats: computePackStats(pack("night", [1]), handledFrom({}), {}),
+    },
+    {
+      pack: {
+        ...pack("city", [2], { title: "New York Stories", category: "Location" }),
+        subtitle: "The city on film",
+        movies: [{ tmdbId: 2, title: "Taxi Driver", year: 1976 }],
+      },
+      stats: computePackStats(pack("city", [2, 3]), handledFrom({ ranked: [2] }), { startedAt: "x" }),
+    },
+  ];
+
+  assert.deepEqual(filterPacks(entries, { query: "thing 1982" }).map(({ pack: p }) => p.slug), ["night"]);
+  assert.deepEqual(filterPacks(entries, { query: "new york" }).map(({ pack: p }) => p.slug), ["city"]);
+  assert.deepEqual(filterPacks(entries, { category: "Seasonal" }).map(({ pack: p }) => p.slug), ["night"]);
+  assert.deepEqual(filterPacks(entries, { state: "in_progress" }).map(({ pack: p }) => p.slug), ["city"]);
+  assert.equal(filterPacks(entries, { query: "horror", category: "Location" }).length, 0);
+});
+
+test("filterPacks normalizes punctuation and supports movie decades", () => {
+  const entries = [
+    {
+      pack: {
+        ...pack("music", [1], { title: "Rock & Roll Stories", category: "Music" }),
+        subtitle: "Don't stop the music",
+        movies: [{ tmdbId: 1, title: "This Is Spinal Tap", year: 1984 }],
+      },
+      stats: computePackStats(pack("music", [1]), handledFrom({}), {}),
+    },
+  ];
+
+  assert.equal(filterPacks(entries, { query: "rock and roll" }).length, 1);
+  assert.equal(filterPacks(entries, { query: "dont stop" }).length, 1);
+  assert.equal(filterPacks(entries, { query: "1980s" }).length, 1);
+  assert.equal(filterPacks(entries, { query: "80s spinal tap" }).length, 1);
+  assert.equal(filterPacks(entries, { query: "1990s" }).length, 0);
+});
+
+test("countPackFilterStates returns mutually exclusive state totals", () => {
+  const entries = [
+    { pack: pack("new", [1]), stats: computePackStats(pack("new", [1]), handledFrom({}), {}) },
+    {
+      pack: pack("active", [2, 3]),
+      stats: computePackStats(pack("active", [2, 3]), handledFrom({ ranked: [2] }), { startedAt: "x" }),
+    },
+    {
+      pack: pack("found", [4, 5]),
+      stats: computePackStats(pack("found", [4, 5]), handledFrom({ ranked: [4] }), {}),
+    },
+    { pack: pack("done", [6]), stats: computePackStats(pack("done", [6]), handledFrom({ ranked: [6] }), {}) },
+  ];
+  assert.deepEqual(countPackFilterStates(entries), {
+    all: 4,
+    not_started: 1,
+    in_progress: 1,
+    head_start: 1,
+    completed: 1,
+    updated: 0,
+  });
 });
 
 test("summarizePacks: counts, distinct ids, top category, engaged", () => {

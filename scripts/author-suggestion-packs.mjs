@@ -13,6 +13,14 @@ const TMDB_API_BASE = "https://api.themoviedb.org/3";
 const args = new Set(process.argv.slice(2));
 const shouldUpload = args.has("--upload");
 const shouldWrite = !args.has("--dry-run");
+const shouldRefresh = args.has("--refresh");
+const cachedMoviesById = new Map();
+const cachedMoviesByTitleYear = new Map();
+let reusedMovieCount = 0;
+let resolvedMovieCount = 0;
+
+const titleYearKey = (movie) =>
+  `${String(movie.title || "").trim().toLowerCase()}|${Number(movie.year) || ""}`;
 
 const requireEnv = (name) => {
   const value = process.env[name];
@@ -119,6 +127,21 @@ const scoreSearchResult = (candidate, item) => {
 };
 
 const resolveMovie = async (item) => {
+  if (!shouldRefresh) {
+    const cached =
+      (item.tmdbId != null && cachedMoviesById.get(Number(item.tmdbId))) ||
+      cachedMoviesByTitleYear.get(titleYearKey(item));
+    if (cached) {
+      reusedMovieCount += 1;
+      return {
+        tmdbId: cached.tmdbId,
+        title: item.title || cached.title,
+        year: item.year || cached.year || null,
+        posterPath: cached.posterPath || null,
+      };
+    }
+  }
+  resolvedMovieCount += 1;
   if (!process.env.TMDB_API_KEY) {
     if (item.tmdbId) {
       try {
@@ -149,7 +172,12 @@ const resolveMovie = async (item) => {
   if (item.tmdbId) {
     try {
       const movie = await tmdbFetch(`/movie/${item.tmdbId}`);
-      return normalizeMovie(movie);
+      const normalized = normalizeMovie(movie);
+      return {
+        ...normalized,
+        title: item.title || normalized.title,
+        year: item.year || normalized.year,
+      };
     } catch (error) {
       console.warn(`Falling back to search for ${item.title}: ${error.message}`);
     }
@@ -213,6 +241,19 @@ const upsertPackRows = async (rows) => {
 
 const main = async () => {
   const source = JSON.parse(await readFile(SOURCE_PATH, "utf8"));
+  if (!shouldRefresh) {
+    try {
+      const cachedRows = JSON.parse(await readFile(OUTPUT_PATH, "utf8"));
+      cachedRows.forEach((pack) => {
+        (pack.movies || []).forEach((movie) => {
+          if (movie.tmdbId != null) cachedMoviesById.set(Number(movie.tmdbId), movie);
+          cachedMoviesByTitleYear.set(titleYearKey(movie), movie);
+        });
+      });
+    } catch (error) {
+      console.warn(`No reusable generated pack cache: ${error.message}`);
+    }
+  }
   const rows = [];
   for (const pack of source) {
     console.log(`Resolving ${pack.slug}`);
@@ -223,6 +264,7 @@ const main = async () => {
     await writeFile(OUTPUT_PATH, `${JSON.stringify(rows, null, 2)}\n`);
     console.log(`Wrote ${path.relative(ROOT, OUTPUT_PATH)}`);
   }
+  console.log(`Reused ${reusedMovieCount} cached movies; resolved ${resolvedMovieCount}.`);
 
   if (shouldUpload) {
     await upsertPackRows(rows);

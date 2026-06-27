@@ -41,6 +41,7 @@ Plain **static single-page app — no build system, no framework, no bundler, no
 
 - **Add a movie:** TMDB autocomplete only (no free-text adds). Clicking a suggestion starts ranking immediately — no confirm button.
 - **Ranking:** binary-insertion comparison; **Undo last choice** / **Cancel ranking** (only one shows at a time; cancel restores the movie + the pre-ranking scroll position). Custom **pointer-based drag** reorder (handle-only on touch, drag-anywhere on desktop).
+- **Movie packs:** 100 curated fallback packs across 22 categories. The front-page shelf shows three status-prioritized packs; **View all packs** has a compact expandable filter panel with text search (pack metadata, movie titles, years/decades), category selection, and progress-state chips (Not started / In progress / Head start / Complete / Updated). Pack detail supports Rank/Save/Hide, bulk Save all/Hide all, and continuous Rank all mode; progress is derived from ranking/queues and persisted locally/Supabase when available.
 - **Suggestions:** three sections — *Inspired by [movie]* (rank-weighted seed from your top 10), *All-time essentials* (TMDB discover, curated filters), *Popular now*. Each card has **Save** (→ Watch next) and **Hide** (→ Not for me) plus an info button. `SUGGESTION_PAGE_SIZE = 3`; per-section refresh; hidden during ranking.
 - **Queues:** *Watch next* and *Not for me* (synced via `movie_lists`). Rows click to rank; move/remove; info button. Subtitles show live counts.
 - **Movie detail pane:** opened by the info icon (card tap still ranks). Actions adapt to source (suggestion: Rank/Save/Hide; Watch next: Rank/Hide/Remove; Not for me: Rank/Save/Remove). Tapping the poster opens it full-res (TMDB `original`) in the **shared lightbox** (see Share Studio).
@@ -64,6 +65,7 @@ Approximate line ranges (they drift; grep to confirm):
 - **1514–1606** — status line + `setAddFeedback` toast + `highlightRankingItem`.
 - **1608–1721** — movie detail pane (fetch by tmdbId, cache, context-aware actions).
 - **1723–2097** — suggestions engine (`filterUnrankedSuggestions`, seed picking, per-section update + stale-request guard).
+- **~2500–3150** — movie packs: derived state, shelf/cards, All Packs filters, pack detail, bulk actions, Rank all, discovery nudge.
 - **2100–2369** — share text/Markdown/JSON exports (shared `buildShareExportSections`).
 - **2371–3115** — Share export helpers, theme/tone tables, and SVG section descriptor builders. Pure SVG composition is in `lib/share-svg.js`.
 - **3117–3517** — share-options persistence (version migration), studio open/close + scroll lock, PNG/SVG export (canvas poster overlay via `getSvgPosterOverlays`/`drawPosterOverlays`).
@@ -88,7 +90,7 @@ Approximate line ranges (they drift; grep to confirm):
 - **Deploy an edge function:** `supabase functions deploy <name>` (Supabase CLI via Homebrew; project is linked to ref `hrfhakrxsllrqmscxxpb`). **You must redeploy after changing a function or its response shape.**
 - **Screenshots:** `npm run screenshots` (headless Chrome; flags `--label=`, `--only=desktop-comparison,mobile-comparison-portrait,...`). Archives to `debug/screenshots/runs/<timestamp>/` + `latest/` (both gitignored).
 - **Social preview image:** `npm run build:og` regenerates `assets/og-preview.png` (1200×630) from the design embedded in `scripts/build-og-image.cjs` via headless Chrome. After regenerating, bump the `?v=N` on the `og:image`/`twitter:image` meta tags in `index.html` so unfurler caches refresh.
-- **Cache-busting:** when you change JS or CSS, **bump `app.js?v=N` / `styles.css?v=N` in `index.html`** — otherwise GitHub Pages and browsers serve stale assets. Current: `app.js?v=100`, `styles.css?v=70`.
+- **Cache-busting:** when you change JS or CSS, **bump `app.js?v=N` / `styles.css?v=N` in `index.html`** — otherwise GitHub Pages and browsers serve stale assets. Current: `app.js?v=105`, `styles.css?v=72`.
 
 ## Conventions
 

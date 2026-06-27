@@ -25,14 +25,17 @@ import {
 } from "./lib/movie.js";
 import { computeRankingInsights } from "./lib/insights.js";
 import {
+  mergePackLibraries,
   computePackStats,
   packStatusRank as libPackStatusRank,
   packStatusText as libPackStatusText,
   packActionText as libPackActionText,
+  filterPacks,
+  countPackFilterStates,
   sharePackCardStatus,
   summarizePacks,
   featuredPacks,
-} from "./lib/packs.js";
+} from "./lib/packs.js?v=2";
 import {
   getSharePickGroups,
   movieExportLine,
@@ -174,6 +177,16 @@ const packAutoStart = document.getElementById("pack-auto-start");
 const packShowHandled = document.getElementById("pack-show-handled");
 const packSaveAll = document.getElementById("pack-save-all");
 const packHideAll = document.getElementById("pack-hide-all");
+const packBrowserFilters = document.getElementById("pack-browser-filters");
+const packBrowserFilterToggle = document.getElementById("pack-browser-filter-toggle");
+const packBrowserFilterBadge = document.getElementById("pack-browser-filter-badge");
+const packBrowserFilterControls = document.getElementById("pack-browser-filter-controls");
+const packBrowserSearch = document.getElementById("pack-browser-search");
+const packBrowserSearchClear = document.getElementById("pack-browser-search-clear");
+const packBrowserCategory = document.getElementById("pack-browser-category");
+const packBrowserReset = document.getElementById("pack-browser-reset");
+const packBrowserStateOptions = document.getElementById("pack-browser-state-options");
+const packBrowserResults = document.getElementById("pack-browser-results");
 const packDetailList = document.getElementById("pack-detail-list");
 
 const TMDB_PROXY_PATH = "/functions/v1/tmdb-search";
@@ -186,7 +199,7 @@ const TMDB_POSTER_ORIGINAL = "https://image.tmdb.org/t/p/original";
 const STORAGE_KEY = "stackrank:movies:v1";
 const QUEUE_STORAGE_KEY = "stackrank:suggestion-queues:v1";
 const PACK_PROGRESS_STORAGE_KEY = "stackrank:pack-progress:v1";
-const PACK_FALLBACK_PATH = "data/suggestion-packs.json";
+const PACK_FALLBACK_PATH = "data/suggestion-packs.json?v=2";
 const SHARE_OPTIONS_KEY = "stackrank:share-options:v1";
 const SHARE_OPTIONS_VERSION = 7;
 const WATCH_LIST_TYPE = "watch";
@@ -247,6 +260,8 @@ let packIndexByMovieId = new Map();
 let currentPackSlug = null;
 let packDetailTrigger = null;
 let packDetailShowHandled = false;
+let packBrowserFilterValues = { query: "", category: "all", state: "all" };
+let packBrowserFiltersExpanded = false;
 let pendingPackContext = null;
 let autoPackSession = null;
 let lastPackDiscoveryNudgeAt = 0;
@@ -301,6 +316,14 @@ const tmdbImageUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_IMAGE_PATH}` : "";
 const SUGGESTION_PAGE_SIZE = 3;
 const PACK_PANEL_SIZE = 3;
 const PACK_DISCOVERY_NUDGE_COOLDOWN_MS = 1000 * 60 * 30;
+const PACK_BROWSER_STATES = [
+  { value: "all", label: "All" },
+  { value: "not_started", label: "Not started" },
+  { value: "in_progress", label: "In progress" },
+  { value: "head_start", label: "Head start" },
+  { value: "completed", label: "Complete" },
+  { value: "updated", label: "Updated" },
+];
 const TOAST_DURATION_MS = 3200;
 const TOAST_EXIT_MS = 240;
 const AUTH_INIT_TIMEOUT_MS = 3200;
@@ -1080,7 +1103,7 @@ const rebuildPackIndex = () => {
 };
 
 const loadSuggestionPacks = async () => {
-  let packs = [];
+  let remotePacks = [];
   let loadError = null;
   if (supabaseEnabled && supabase) {
     const { data, error } = await supabase
@@ -1090,14 +1113,13 @@ const loadSuggestionPacks = async () => {
       .order("sort_order", { ascending: true })
       .order("slug", { ascending: true });
     if (!error && Array.isArray(data) && data.length) {
-      packs = data.map(normalizeSuggestionPack);
+      remotePacks = data.map(normalizeSuggestionPack);
     } else if (error) {
       loadError = error;
     }
   }
-  if (!packs.length) {
-    packs = await loadFallbackSuggestionPacks();
-  }
+  const fallbackPacks = await loadFallbackSuggestionPacks();
+  const packs = mergePackLibraries(fallbackPacks, remotePacks);
   if (!packs.length && loadError) {
     console.warn("Could not load suggestion packs", loadError);
   }
@@ -2732,7 +2754,9 @@ const markPackEngaged = (pack, updates = {}) => {
 const renderPackSurfaces = () => {
   suggestionPacks.forEach(syncPackCompletion);
   renderPackPanel();
-  if (currentPackSlug) {
+  if (!packDetailOverlay.hidden && packDetailOverlay.classList.contains("is-all-packs")) {
+    renderPackBrowser();
+  } else if (currentPackSlug) {
     renderPackDetail();
   }
   updateDebugPanel();
@@ -2752,6 +2776,7 @@ const openPackDetail = (slug, { trigger = null, showHandled = false } = {}) => {
   const pack = getPackBySlug(slug);
   if (!pack) return;
   packDetailOverlay.classList.remove("is-all-packs");
+  packBrowserFilters.hidden = true;
   currentPackSlug = slug;
   packDetailTrigger = trigger || packDetailTrigger;
   packDetailShowHandled = showHandled;
@@ -2956,10 +2981,104 @@ const renderPackDetail = () => {
   });
 };
 
+const renderPackBrowserCategories = () => {
+  const counts = new Map();
+  suggestionPacks.forEach((pack) => {
+    counts.set(pack.category, (counts.get(pack.category) || 0) + 1);
+  });
+  const categories = [...counts.keys()].sort((a, b) => a.localeCompare(b));
+  packBrowserCategory.innerHTML = "";
+  const all = document.createElement("option");
+  all.value = "all";
+  all.textContent = `All categories (${suggestionPacks.length})`;
+  packBrowserCategory.appendChild(all);
+  categories.forEach((category) => {
+    const option = document.createElement("option");
+    option.value = category;
+    option.textContent = `${category} (${counts.get(category)})`;
+    packBrowserCategory.appendChild(option);
+  });
+  if (counts.has(packBrowserFilterValues.category)) {
+    packBrowserCategory.value = packBrowserFilterValues.category;
+  } else {
+    packBrowserFilterValues.category = "all";
+    packBrowserCategory.value = "all";
+  }
+};
+
+const setPackBrowserFiltersExpanded = (expanded) => {
+  packBrowserFiltersExpanded = Boolean(expanded);
+  packBrowserFilterToggle.setAttribute("aria-expanded", String(packBrowserFiltersExpanded));
+  packBrowserFilterControls.hidden = !packBrowserFiltersExpanded;
+};
+
+const renderPackBrowser = () => {
+  const entries = sortedPacksForDisplay(true).map((pack) => ({ pack, stats: getPackStats(pack) }));
+  const stateCountEntries = filterPacks(entries, {
+    query: packBrowserFilterValues.query,
+    category: packBrowserFilterValues.category,
+    state: "all",
+  });
+  const counts = countPackFilterStates(stateCountEntries);
+  const filtered = filterPacks(entries, packBrowserFilterValues);
+
+  packBrowserStateOptions.innerHTML = "";
+  PACK_BROWSER_STATES.forEach(({ value, label }) => {
+    const button = document.createElement("button");
+    button.className = "pack-browser-state-button";
+    button.type = "button";
+    button.dataset.state = value;
+    button.setAttribute("aria-pressed", String(packBrowserFilterValues.state === value));
+    button.disabled = value !== "all" && counts[value] === 0;
+    const text = document.createElement("span");
+    text.textContent = label;
+    const count = document.createElement("span");
+    count.className = "pack-browser-state-count";
+    count.textContent = counts[value];
+    button.append(text, count);
+    packBrowserStateOptions.appendChild(button);
+  });
+
+  const hasFilters =
+    Boolean(packBrowserFilterValues.query.trim()) ||
+    packBrowserFilterValues.category !== "all" ||
+    packBrowserFilterValues.state !== "all";
+  const activeFilterCount =
+    Number(Boolean(packBrowserFilterValues.query.trim())) +
+    Number(packBrowserFilterValues.category !== "all") +
+    Number(packBrowserFilterValues.state !== "all");
+  packBrowserSearchClear.hidden = !packBrowserFilterValues.query;
+  packBrowserFilterBadge.hidden = activeFilterCount === 0;
+  packBrowserFilterBadge.textContent = `${activeFilterCount} active`;
+  packBrowserReset.hidden = !hasFilters;
+  packBrowserResults.textContent = hasFilters
+    ? `Showing ${filtered.length} of ${entries.length} packs.`
+    : `Showing all ${entries.length} packs.`;
+
+  packDetailList.innerHTML = "";
+  if (!filtered.length) {
+    const empty = document.createElement("div");
+    empty.className = "pack-browser-empty";
+    const message = document.createElement("div");
+    const title = document.createElement("strong");
+    title.textContent = "No packs match those filters.";
+    const detail = document.createElement("span");
+    detail.textContent = "Try another search, category, or progress state.";
+    message.append(title, detail);
+    empty.appendChild(message);
+    packDetailList.appendChild(empty);
+    return;
+  }
+  filtered.forEach(({ pack }) => {
+    packDetailList.appendChild(createPackCard(pack, { showCategory: true }));
+  });
+};
+
 const openAllPacks = () => {
   currentPackSlug = null;
   packDetailTrigger = packViewAll;
   packDetailOverlay.classList.add("is-all-packs");
+  packBrowserFilters.hidden = false;
   packDetailCover.hidden = true;
   packDetailCategory.textContent = "Packs";
   packDetailTitle.textContent = "All suggestion packs";
@@ -2970,10 +3089,10 @@ const openAllPacks = () => {
   packShowHandled.hidden = true;
   packSaveAll.hidden = true;
   packHideAll.hidden = true;
-  packDetailList.innerHTML = "";
-  sortedPacksForDisplay(true).forEach((pack) => {
-    packDetailList.appendChild(createPackCard(pack, { showCategory: true }));
-  });
+  packBrowserSearch.value = packBrowserFilterValues.query;
+  setPackBrowserFiltersExpanded(packBrowserFiltersExpanded);
+  renderPackBrowserCategories();
+  renderPackBrowser();
   packDetailOverlay.hidden = false;
   document.body.classList.add("is-detail-open");
 };
@@ -5936,6 +6055,36 @@ watchListEl.addEventListener("keydown", handleQueueKeydown);
 notInterestedListEl.addEventListener("keydown", handleQueueKeydown);
 skipPackMovieButton.addEventListener("click", skipCurrentPackMovie);
 packViewAll.addEventListener("click", openAllPacks);
+packBrowserFilterToggle.addEventListener("click", () => {
+  setPackBrowserFiltersExpanded(!packBrowserFiltersExpanded);
+});
+packBrowserSearch.addEventListener("input", () => {
+  packBrowserFilterValues.query = packBrowserSearch.value;
+  renderPackBrowser();
+});
+packBrowserSearchClear.addEventListener("click", () => {
+  packBrowserFilterValues.query = "";
+  packBrowserSearch.value = "";
+  renderPackBrowser();
+  packBrowserSearch.focus();
+});
+packBrowserCategory.addEventListener("change", () => {
+  packBrowserFilterValues.category = packBrowserCategory.value;
+  renderPackBrowser();
+});
+packBrowserStateOptions.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-state]");
+  if (!button || button.disabled) return;
+  packBrowserFilterValues.state = button.dataset.state;
+  renderPackBrowser();
+});
+packBrowserReset.addEventListener("click", () => {
+  packBrowserSearch.blur();
+  packBrowserFilterValues = { query: "", category: "all", state: "all" };
+  packBrowserSearch.value = "";
+  packBrowserCategory.value = "all";
+  renderPackBrowser();
+});
 packDetailClose.addEventListener("click", () => closePackDetail());
 packDetailOverlay.addEventListener("click", (event) => {
   if (event.target === packDetailOverlay) {

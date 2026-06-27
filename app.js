@@ -64,7 +64,7 @@ import {
   chooseAutomaticTmdbMatch,
   parseRankedTitleList,
   parseStackRankBackup,
-} from "./lib/backup.js?v=1";
+} from "./lib/backup.js?v=2";
 
 console.info("StackRank build", "share-studio-v4");
 
@@ -181,6 +181,10 @@ const packDetailOverlay = document.getElementById("pack-detail");
 const packDetailSheet = packDetailOverlay.querySelector(".pack-sheet");
 const packDetailClose = document.getElementById("pack-detail-close");
 const packDetailCover = document.getElementById("pack-detail-cover");
+const packDetailPager = document.getElementById("pack-detail-pager");
+const packDetailPrev = document.getElementById("pack-detail-prev");
+const packDetailNext = document.getElementById("pack-detail-next");
+const packDetailPagerCount = document.getElementById("pack-detail-pager-count");
 const packDetailCategory = document.getElementById("pack-detail-category");
 const packDetailTitle = document.getElementById("pack-detail-title");
 const packDetailSub = document.getElementById("pack-detail-sub");
@@ -228,7 +232,7 @@ const TMDB_POSTER_ORIGINAL = "https://image.tmdb.org/t/p/original";
 const STORAGE_KEY = "stackrank:movies:v1";
 const QUEUE_STORAGE_KEY = "stackrank:suggestion-queues:v1";
 const PACK_PROGRESS_STORAGE_KEY = "stackrank:pack-progress:v1";
-const PACK_FALLBACK_PATH = "data/suggestion-packs.json?v=2";
+const PACK_FALLBACK_PATH = "data/suggestion-packs.json?v=3";
 const SHARE_OPTIONS_KEY = "stackrank:share-options:v1";
 const SHARE_OPTIONS_VERSION = 7;
 const WATCH_LIST_TYPE = "watch";
@@ -293,6 +297,9 @@ let packDetailShowHandled = false;
 // closing it should return there instead of dismissing the whole overlay.
 let packDetailFromAllPacks = false;
 let packBrowserScrollTop = 0;
+// Slugs in the order currently shown by the "All packs" browser (current filters
+// + sort), so pack detail prev/next can step through that same sequence.
+let packBrowserOrder = [];
 let packBrowserFilterValues = { query: "", category: "all", state: "all" };
 let packBrowserFiltersExpanded = false;
 let pendingPackContext = null;
@@ -1665,9 +1672,12 @@ const updateTitleImportApplyState = () => {
     titleImportReviewStatus.textContent = "Confirm that this import will replace your current ranking.";
   } else {
     const skipped = titleImportRows.filter((row) => row.skipped).length;
-    titleImportReviewStatus.textContent =
-      `${selectedCount} movie${selectedCount === 1 ? "" : "s"} ready to import` +
-      (skipped ? `; ${skipped} skipped.` : ".");
+    const guesses = titleImportRows.filter((row) => row.guessed && row.selectedMovie).length;
+    titleImportReviewStatus.textContent = guesses
+      ? `${selectedCount} ready to import — double-check ${guesses} best guess${guesses === 1 ? "" : "es"}` +
+        (skipped ? `; ${skipped} skipped.` : ".")
+      : `${selectedCount} movie${selectedCount === 1 ? "" : "s"} ready to import` +
+        (skipped ? `; ${skipped} skipped.` : ".");
   }
   titleImportApply.textContent = selectedCount
     ? `Import ${selectedCount} movie${selectedCount === 1 ? "" : "s"}`
@@ -1724,6 +1734,9 @@ const renderTitleImportMatches = () => {
       state.textContent = row.candidates.length ? "Skipped" : "No TMDB match found — skipped";
     } else if (row.autoMatched) {
       state.textContent = "Exact match";
+    } else if (row.guessed) {
+      state.textContent = "Best guess — review";
+      state.classList.add("is-review");
     } else if (row.selectedMovie) {
       state.textContent = "Match selected";
     } else {
@@ -1759,11 +1772,13 @@ const renderTitleImportMatches = () => {
         row.selectedMovie = null;
         row.skipped = true;
         row.autoMatched = false;
+        row.guessed = false;
       } else {
         row.selectedMovie =
           row.candidates.find((candidate) => String(candidate.tmdbId) === select.value) || null;
         row.skipped = false;
         row.autoMatched = false;
+        row.guessed = false;
       }
       renderTitleImportMatches();
     });
@@ -1773,11 +1788,12 @@ const renderTitleImportMatches = () => {
   });
 
   const exact = titleImportRows.filter((row) => row.autoMatched).length;
+  const guesses = titleImportRows.filter((row) => row.guessed && row.selectedMovie).length;
   const reviewed = titleImportRows.filter(
-    (row) => !row.autoMatched && !row.skipped && row.selectedMovie,
+    (row) => !row.autoMatched && !row.guessed && !row.skipped && row.selectedMovie,
   ).length;
   const unresolved = titleImportRows.filter(
-    (row) => !row.autoMatched && !row.skipped && !row.selectedMovie,
+    (row) => !row.skipped && !row.selectedMovie,
   ).length;
   const skipped = titleImportRows.filter((row) => row.skipped).length;
   const extras = [];
@@ -1785,6 +1801,7 @@ const renderTitleImportMatches = () => {
   if (titleImportMeta.ignoredCount) extras.push(`${titleImportMeta.ignoredCount} invalid line ignored`);
   titleImportSummary.textContent =
     `${titleImportRows.length} titles · ${exact} exact` +
+    (guesses ? ` · ${guesses} best guess${guesses === 1 ? "" : "es"}` : "") +
     (reviewed ? ` · ${reviewed} reviewed` : "") +
     (unresolved ? ` · ${unresolved} to review` : "") +
     ` · ${skipped} skipped` +
@@ -1820,7 +1837,7 @@ const matchTitleImportEntries = async (entries) => {
       const entry = entries[index];
       try {
         const results = await fetchTmdbImportCandidates(entry);
-        const automatic = chooseAutomaticTmdbMatch(entry, results);
+        const { movie: automatic, confidence } = chooseAutomaticTmdbMatch(entry, results);
         const candidates = results.slice(0, 8);
         if (automatic && !candidates.some((movie) => movie.tmdbId === automatic.tmdbId)) {
           candidates.push(automatic);
@@ -1829,8 +1846,9 @@ const matchTitleImportEntries = async (entries) => {
           entry,
           candidates,
           selectedMovie: automatic,
-          skipped: candidates.length === 0,
-          autoMatched: Boolean(automatic),
+          skipped: candidates.length === 0 && !automatic,
+          autoMatched: confidence === "exact",
+          guessed: confidence === "guess",
           searchFailed: false,
         };
       } catch (error) {
@@ -1840,6 +1858,7 @@ const matchTitleImportEntries = async (entries) => {
           selectedMovie: null,
           skipped: false,
           autoMatched: false,
+          guessed: false,
           searchFailed: true,
         };
       }
@@ -3356,15 +3375,37 @@ const closePackDetail = ({ restoreFocus = true } = {}) => {
   packDetailTrigger = null;
 };
 
-const openPackDetail = (slug, { trigger = null, showHandled = false } = {}) => {
+const updatePackDetailPager = () => {
+  const index = packDetailFromAllPacks ? packBrowserOrder.indexOf(currentPackSlug) : -1;
+  const show = index >= 0 && packBrowserOrder.length > 1;
+  packDetailPager.hidden = !show;
+  if (!show) return;
+  packDetailPrev.disabled = index <= 0;
+  packDetailNext.disabled = index >= packBrowserOrder.length - 1;
+  packDetailPagerCount.textContent = `${index + 1} of ${packBrowserOrder.length}`;
+};
+
+const navigatePackDetail = (delta) => {
+  if (!packDetailFromAllPacks) return;
+  const index = packBrowserOrder.indexOf(currentPackSlug);
+  if (index < 0) return;
+  const nextSlug = packBrowserOrder[index + delta];
+  if (!nextSlug) return;
+  openPackDetail(nextSlug, { fromAllPacks: true });
+};
+
+const openPackDetail = (slug, { trigger = null, showHandled = false, fromAllPacks } = {}) => {
   const pack = getPackBySlug(slug);
   if (!pack) return;
   // Remember if we're drilling in from the "All packs" browser so the close
   // button can return there, and stash its scroll position to restore later.
-  const fromAllPacks =
+  // Pager prev/next passes fromAllPacks explicitly to preserve that context as it
+  // hops between packs (the overlay is no longer in the browser view by then).
+  const browserViewOpen =
     !packDetailOverlay.hidden && packDetailOverlay.classList.contains("is-all-packs");
-  if (fromAllPacks) packBrowserScrollTop = packDetailSheet ? packDetailSheet.scrollTop : 0;
-  packDetailFromAllPacks = fromAllPacks;
+  const cameFromAllPacks = fromAllPacks ?? browserViewOpen;
+  if (browserViewOpen) packBrowserScrollTop = packDetailSheet ? packDetailSheet.scrollTop : 0;
+  packDetailFromAllPacks = cameFromAllPacks;
   packDetailOverlay.classList.remove("is-all-packs");
   packBrowserFilters.hidden = true;
   currentPackSlug = slug;
@@ -3539,6 +3580,7 @@ const createPackMovieCard = (pack, movieEntry) => {
 const renderPackDetail = () => {
   const pack = getPackBySlug(currentPackSlug);
   if (!pack) return;
+  updatePackDetailPager();
   const stats = getPackStats(pack);
   packDetailCover.hidden = false;
   packDetailCover.innerHTML = "";
@@ -3614,6 +3656,7 @@ const renderPackBrowser = () => {
   });
   const counts = countPackFilterStates(stateCountEntries);
   const filtered = filterPacks(entries, packBrowserFilterValues);
+  packBrowserOrder = filtered.map(({ pack }) => pack.slug);
 
   packBrowserStateOptions.innerHTML = "";
   PACK_BROWSER_STATES.forEach(({ value, label }) => {
@@ -6699,6 +6742,8 @@ packBrowserReset.addEventListener("click", () => {
   renderPackBrowser();
 });
 packDetailClose.addEventListener("click", () => handlePackDetailClose());
+packDetailPrev.addEventListener("click", () => navigatePackDetail(-1));
+packDetailNext.addEventListener("click", () => navigatePackDetail(1));
 packDetailOverlay.addEventListener("click", (event) => {
   if (event.target === packDetailOverlay) {
     handlePackDetailClose();

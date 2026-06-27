@@ -585,14 +585,23 @@ const testBackupAndImport = async ({ baseUrl }) => {
       confirmHidden: !!document.querySelector('#title-import-confirm-wrap')?.hidden,
       applyDisabled: !!document.querySelector('#title-import-apply')?.disabled
     }))()`);
-    if (reviewState.unresolved !== 1 || reviewState.confirmHidden || !reviewState.applyDisabled) {
-      throw new Error(`Import review did not require disambiguation + replacement consent: ${JSON.stringify(reviewState)}`);
+    // "Heat" (no year, two results) now auto-resolves to the most-popular result as
+    // a flagged "best guess" rather than forcing manual disambiguation, so nothing
+    // is unresolved — but replacing a non-empty ranking still requires consent.
+    if (
+      reviewState.unresolved !== 0 ||
+      !/best guess/i.test(reviewState.summary || "") ||
+      reviewState.confirmHidden ||
+      !reviewState.applyDisabled
+    ) {
+      throw new Error(`Import review state unexpected: ${JSON.stringify(reviewState)}`);
     }
     const reviewShot = await page.screenshot("backup-import-review.png");
 
     await page.evaluate(`(() => {
+      // Override the best guess to the 1986 result to exercise manual selection.
       const heat = document.querySelector('select[aria-label="TMDB match for Heat"]');
-      heat.value = '949';
+      heat.value = '1305';
       heat.dispatchEvent(new Event('change', { bubbles: true }));
       document.querySelector('#title-import-confirm')?.click();
       return true;

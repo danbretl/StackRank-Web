@@ -68,18 +68,62 @@ test("parseRankedTitleList does not mistake a title's leading initial for a list
   });
 });
 
-test("chooseAutomaticTmdbMatch requires one exact title and honors a supplied year", () => {
+test("chooseAutomaticTmdbMatch honors a supplied year and reports confidence", () => {
   const results = [
     { tmdbId: 1, title: "Heat", year: 1995 },
     { tmdbId: 2, title: "Heat", year: 1986 },
     { tmdbId: 3, title: "The Heat", year: 2013 },
   ];
-  assert.equal(chooseAutomaticTmdbMatch({ title: "Heat", year: 1995 }, results)?.tmdbId, 1);
-  assert.equal(chooseAutomaticTmdbMatch({ title: "Heat", year: null }, results), null);
-  assert.equal(
-    chooseAutomaticTmdbMatch({ title: "The Heat", year: null }, results)?.tmdbId,
-    3,
+  // Note: "The Heat" normalizes to "heat", so all three are title matches.
+  const byYear = chooseAutomaticTmdbMatch({ title: "Heat", year: 1995 }, results);
+  assert.equal(byYear.movie.tmdbId, 1);
+  assert.equal(byYear.confidence, "exact");
+});
+
+test("chooseAutomaticTmdbMatch picks the most popular when several titles match and no year", () => {
+  const results = [
+    { tmdbId: 10, title: "Total Recall", year: 1990 },
+    { tmdbId: 11, title: "Total Recall", year: 2012 },
+  ];
+  const chosen = chooseAutomaticTmdbMatch({ title: "Total recall", year: null }, results);
+  assert.equal(chosen.movie.tmdbId, 10); // TMDB returns most popular first
+  assert.equal(chosen.confidence, "guess");
+});
+
+test("chooseAutomaticTmdbMatch ignores leading articles and punctuation", () => {
+  const results = [{ tmdbId: 20, title: "The Death of Stalin", year: 2017 }];
+  const stalin = chooseAutomaticTmdbMatch({ title: "Death of Stalin", year: null }, results);
+  assert.equal(stalin.movie.tmdbId, 20);
+  assert.equal(stalin.confidence, "exact");
+
+  const spider = chooseAutomaticTmdbMatch(
+    { title: "Spider Man", year: null },
+    [{ tmdbId: 21, title: "Spider-Man", year: 2002 }],
   );
+  assert.equal(spider.movie.tmdbId, 21);
+});
+
+test("chooseAutomaticTmdbMatch falls back to a multi-word subset as a guess", () => {
+  const results = [
+    { tmdbId: 30, title: "Sonic the Hedgehog 3", year: 2024 },
+    { tmdbId: 31, title: "Sonic the Hedgehog", year: 2020 },
+  ];
+  const sonic = chooseAutomaticTmdbMatch({ title: "Sonic 3", year: null }, results);
+  assert.equal(sonic.movie.tmdbId, 30);
+  assert.equal(sonic.confidence, "guess");
+});
+
+test("chooseAutomaticTmdbMatch will not subset-match a single common word", () => {
+  const results = [{ tmdbId: 40, title: "Iron Man", year: 2008 }];
+  const man = chooseAutomaticTmdbMatch({ title: "Man", year: null }, results);
+  assert.equal(man.movie, null);
+  assert.equal(man.confidence, null);
+});
+
+test("chooseAutomaticTmdbMatch returns nulls when nothing is close", () => {
+  const none = chooseAutomaticTmdbMatch({ title: "Godfather of Harlem", year: null }, []);
+  assert.equal(none.movie, null);
+  assert.equal(none.confidence, null);
 });
 
 test("backup round-trip keeps list order and removes cross-list duplicates", () => {

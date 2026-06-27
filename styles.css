@@ -656,6 +656,45 @@ body.is-share-open .skeleton {
   flex: 0 0 132px;
 }
 
+.pack-detail-pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-right: 42px; /* clear the absolute × close button */
+}
+
+.pack-pager-btn {
+  border: 1px solid var(--border-soft);
+  background: #ffffff;
+  color: var(--bg-ink);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 650;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.pack-pager-btn:hover:not(:disabled),
+.pack-pager-btn:focus-visible {
+  border-color: var(--border);
+  background: #f6f6f6;
+  outline: none;
+}
+
+.pack-pager-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.pack-pager-count {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
 .pack-detail-head {
   display: flex;
   gap: 16px;

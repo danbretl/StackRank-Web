@@ -8,6 +8,7 @@
     "test:watch": "node --test --watch \"tests/**/*.test.js\"",
     "verify": "npm test && npm run check && npm run check:functions && npm run test:e2e",
     "author:packs": "node scripts/author-suggestion-packs.mjs",
-    "screenshots": "node scripts/capture-screenshots.cjs"
+    "screenshots": "node scripts/capture-screenshots.cjs",
+    "build:og": "node scripts/build-og-image.cjs"
   }
 }

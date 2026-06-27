@@ -20,6 +20,7 @@ This folder captures product ideas that are worth revisiting later. They are int
 
 - [Movie detail pane](movie-detail-decision-sheet.md)
 - [Share export sizes and a multi-image image set](share-export-sizes-and-image-set.md) — Phase 3 (ZIP, iPad, richer in-studio previews) is the follow-up.
+- [Website link preview metadata](website-link-preview-metadata.md) — Open Graph/Twitter tags + a generated 1200x630 `assets/og-preview.png` now ship; follow-up is post-deploy verification in Apple Messages and favicon/Apple-touch-icon polish.
 
 ## Cross-cutting infrastructure now available
 

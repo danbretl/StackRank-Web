@@ -54,6 +54,7 @@ import {
   composeShareCard,
 } from "./lib/share-svg.js";
 import { comparisonMidIndex, applyComparison, isSearchSettled } from "./lib/ranking.js";
+import { createUndoController } from "./lib/undo.js";
 
 console.info("StackRank build", "share-studio-v4");
 
@@ -94,6 +95,16 @@ const snapshotContent = document.getElementById("snapshot-content");
 const shareStudio = document.getElementById("share-studio");
 const shareClose = document.getElementById("share-close");
 const sharePreview = document.getElementById("share-preview");
+const shareLightbox = document.getElementById("share-lightbox");
+const shareLightboxImage = document.getElementById("share-lightbox-image");
+const shareLightboxClose = document.getElementById("share-lightbox-close");
+const shareLightboxStage = document.getElementById("share-lightbox-stage");
+const shareLightboxPrev = document.getElementById("share-lightbox-prev");
+const shareLightboxNext = document.getElementById("share-lightbox-next");
+const shareLightboxBar = document.getElementById("share-lightbox-bar");
+const shareLightboxCaption = document.getElementById("share-lightbox-caption");
+const shareLightboxDownload = document.getElementById("share-lightbox-download");
+const shareLightboxShare = document.getElementById("share-lightbox-share");
 const shareDisplayName = document.getElementById("share-display-name");
 const shareIncludeTop = document.getElementById("share-include-top");
 const shareIncludeBottom = document.getElementById("share-include-bottom");
@@ -171,6 +182,7 @@ const TMDB_DETAIL_PATH = "/functions/v1/tmdb-detail";
 const TMDB_IMAGE_PATH = "/functions/v1/tmdb-image";
 const TMDB_POSTER_BASE = "https://image.tmdb.org/t/p/w342";
 const TMDB_POSTER_SMALL = "https://image.tmdb.org/t/p/w92";
+const TMDB_POSTER_ORIGINAL = "https://image.tmdb.org/t/p/original";
 const STORAGE_KEY = "stackrank:movies:v1";
 const QUEUE_STORAGE_KEY = "stackrank:suggestion-queues:v1";
 const PACK_PROGRESS_STORAGE_KEY = "stackrank:pack-progress:v1";
@@ -189,6 +201,11 @@ let watchList = [];
 let notInterestedList = [];
 let pending = null;
 let pendingOrigin = null;
+// Snapshot of all three lists taken when a ranking starts, so a completed
+// ranking can be undone back to exactly the pre-ranking state (movie removed
+// from the ranking and, if it came from a queue/restack, returned to its
+// origin). Captured at the ranking entry points, consumed at settle.
+let pendingRankingSnapshot = null;
 let searchRange = null;
 let selectedSuggestion = null;
 let suggestionItems = [];
@@ -1193,6 +1210,7 @@ const startComparison = () => {
   if (ranking.length === 0) {
     const rankedMovie = withRankingTimestamp(pending);
     const context = pendingPackContext;
+    const origin = pendingOrigin;
     ranking.push(rankedMovie);
     lastAddedTmdbId = pending.tmdbId || null;
     pending = null;
@@ -1203,7 +1221,7 @@ const startComparison = () => {
     compareSection.classList.add("panel--hidden");
     form.reset();
     renderRanking();
-    setAddFeedback(`"${ranking[0].title}" placed as your top pick.`);
+    announcePlacement(`"${ranking[0].title}" placed as your top pick.`, context, rankedMovie, origin);
     updateSuggestionsThenHighlight(0);
     handleRankingSettled(rankedMovie, 0, context);
     titleInput.blur();
@@ -1285,6 +1303,7 @@ const handleDecision = (isNewBetter, midIndex) => {
     const insertIndex = searchRange.low;
     const rankedMovie = withRankingTimestamp(pending);
     const context = pendingPackContext;
+    const origin = pendingOrigin;
     ranking.splice(insertIndex, 0, rankedMovie);
     lastAddedTmdbId = rankedMovie.tmdbId || null;
     const leftNeighbor = ranking[insertIndex - 1];
@@ -1299,17 +1318,17 @@ const handleDecision = (isNewBetter, midIndex) => {
     form.reset();
     renderRanking();
     const placedTitle = `"${ranking[insertIndex].title}"`;
+    let placementMessage;
     if (leftNeighbor && rightNeighbor) {
-      setAddFeedback(
-        `${placedTitle} placed at #${insertIndex + 1} between "${leftNeighbor.title}" and "${rightNeighbor.title}".`,
-      );
+      placementMessage = `${placedTitle} placed at #${insertIndex + 1} between "${leftNeighbor.title}" and "${rightNeighbor.title}".`;
     } else if (leftNeighbor) {
-      setAddFeedback(`${placedTitle} placed at #${insertIndex + 1} below "${leftNeighbor.title}".`);
+      placementMessage = `${placedTitle} placed at #${insertIndex + 1} below "${leftNeighbor.title}".`;
     } else if (rightNeighbor) {
-      setAddFeedback(`${placedTitle} placed at #${insertIndex + 1} above "${rightNeighbor.title}".`);
+      placementMessage = `${placedTitle} placed at #${insertIndex + 1} above "${rightNeighbor.title}".`;
     } else {
-      setAddFeedback(`${placedTitle} placed at #${insertIndex + 1}.`);
+      placementMessage = `${placedTitle} placed at #${insertIndex + 1}.`;
     }
+    announcePlacement(placementMessage, context, rankedMovie, origin);
     updateSuggestionsThenHighlight(insertIndex);
     handleRankingSettled(rankedMovie, insertIndex, context);
     titleInput.blur();
@@ -1362,6 +1381,7 @@ const cancelComparison = () => {
   pending = null;
   pendingPackContext = null;
   pendingOrigin = null;
+  pendingRankingSnapshot = null;
   searchRange = null;
   compareHistory = [];
   suggestionsRequestId += 1;
@@ -1401,6 +1421,7 @@ clearButton.addEventListener("click", () => {
   if (!window.confirm("Clear the entire ranking list?")) {
     return;
   }
+  const beforeRanking = snapshotRanking();
   ranking = [];
   pending = null;
   pendingPackContext = null;
@@ -1415,6 +1436,7 @@ clearButton.addEventListener("click", () => {
   renderPackSurfaces();
   titleInput.focus();
   closeRankingSettings({ restoreFocus: false });
+  setUndoableFeedback("Ranking cleared.", () => restoreRankingTo(beforeRanking));
 });
 
 rankingSettingsToggle.addEventListener("click", (event) => {
@@ -1471,8 +1493,204 @@ sharePreview.addEventListener("click", (event) => {
   if (shareButton) {
     event.preventDefault();
     void shareNativePng({ currentPageOnly: true });
+    return;
+  }
+  // Any remaining click on a preview image (single-image SVG, or an image-set
+  // card) opens the full-res lightbox in share mode. Nav/action buttons were
+  // handled and returned above, so reaching here means an image was tapped.
+  const cardFigure = event.target.closest(".share-preview-card");
+  if (cardFigure) {
+    const idx = Number(cardFigure.dataset.pageIndex);
+    if (!Number.isNaN(idx)) shareSetPageIndex = idx;
+    openShareLightbox(cardFigure);
+    return;
+  }
+  const svgEl = event.target.closest("svg");
+  if (svgEl && !svgEl.closest("button")) openShareLightbox(svgEl);
+});
+
+// Shared full-res lightbox. Two flavors:
+//   - "poster": the movie-detail artwork — just × + image, no chrome.
+//   - "share":  the Share Studio preview — adds a Download/Share action bar and,
+//     for image sets, prev/next nav + an "i/total CAPTION" counter + swipe.
+// `lightboxTrigger` is the element to return focus to on close.
+let lightboxTrigger = null;
+let lightboxKind = "poster"; // "poster" | "share"
+let lightboxSwiped = false; // suppress the tap-to-zoom click after a swipe-nav
+
+function showLightbox(trigger) {
+  shareLightbox.classList.remove("is-zoomed");
+  shareLightbox.hidden = false;
+  lightboxTrigger = trigger || null;
+  shareLightboxClose.focus();
+}
+
+function closeLightbox({ restoreFocus = true } = {}) {
+  if (shareLightbox.hidden) return;
+  shareLightbox.hidden = true;
+  shareLightbox.classList.remove("is-zoomed");
+  shareLightboxImage.innerHTML = "";
+  // Keep the preview deck aligned with wherever the user navigated in the set.
+  if (lightboxKind === "share" && !shareStudio.hidden) {
+    scrollToShareSetPage({ instant: true });
+    updateShareSetPageChrome();
+  }
+  const trigger = lightboxTrigger;
+  lightboxTrigger = null;
+  if (restoreFocus && trigger && document.contains(trigger)) trigger.focus?.();
+}
+
+// Set the image wrapper's aspect ratio from the current content so CSS can scale
+// it to fill the stage (up or down) without distortion. SVG → viewBox/attrs;
+// <img> → natural size once known (with a 2:3 poster default until it loads).
+function setLightboxAspect() {
+  const svg = shareLightboxImage.querySelector("svg");
+  const img = shareLightboxImage.querySelector("img");
+  let ratio = "2 / 3";
+  if (svg) {
+    const vb = svg.viewBox?.baseVal;
+    const w = (vb && vb.width) || parseFloat(svg.getAttribute("width")) || 0;
+    const h = (vb && vb.height) || parseFloat(svg.getAttribute("height")) || 0;
+    if (w && h) ratio = `${w} / ${h}`;
+  } else if (img) {
+    if (img.naturalWidth && img.naturalHeight) {
+      ratio = `${img.naturalWidth} / ${img.naturalHeight}`;
+    } else {
+      img.addEventListener(
+        "load",
+        () => {
+          if (img.naturalWidth && img.naturalHeight) {
+            shareLightboxImage.style.aspectRatio = `${img.naturalWidth} / ${img.naturalHeight}`;
+          }
+        },
+        { once: true },
+      );
+    }
+  }
+  shareLightboxImage.style.aspectRatio = ratio;
+}
+
+// Open the detail-pane poster at full TMDB resolution (chrome-free).
+function openPosterLightbox(movie, trigger = null) {
+  if (!movie?.posterPath) return;
+  lightboxKind = "poster";
+  shareLightbox.classList.remove("is-share", "is-set");
+  const src = `${TMDB_POSTER_ORIGINAL}${movie.posterPath}`;
+  const alt = xmlEscape(`${movie.title || "Movie"} poster`);
+  shareLightboxImage.innerHTML = `<img src="${xmlEscape(src)}" alt="${alt}" />`;
+  setLightboxAspect();
+  showLightbox(trigger);
+}
+
+// Open the share preview at full size, with the action bar (and set chrome).
+function openShareLightbox(trigger = null) {
+  if (!ranking.length) return;
+  lightboxKind = "share";
+  shareLightbox.classList.add("is-share");
+  renderShareLightbox();
+  showLightbox(trigger);
+}
+
+// (Re)render the share lightbox image + chrome from the current options/page.
+function renderShareLightbox() {
+  if (lightboxKind !== "share") return;
+  const images = buildShareImages();
+  const isSet = images.mode === "set";
+  shareLightbox.classList.toggle("is-set", isSet);
+  if (isSet) {
+    const total = images.cards.length;
+    shareSetPageIndex = Math.min(Math.max(shareSetPageIndex, 0), Math.max(0, total - 1));
+    const card = images.cards[shareSetPageIndex];
+    shareLightboxImage.innerHTML = card?.svg || "";
+    shareLightboxCaption.textContent = `${shareSetPageIndex + 1}/${Math.max(1, total)}  ${(card?.caption || card?.label || "").toUpperCase()}`;
+    shareLightboxPrev.disabled = shareSetPageIndex <= 0;
+    shareLightboxNext.disabled = shareSetPageIndex >= total - 1;
+  } else {
+    shareLightboxImage.innerHTML = images.svg;
+    shareLightboxCaption.textContent = "";
+  }
+  setLightboxAspect();
+  const canShare = canNativeSharePngFiles(1);
+  shareLightboxDownload.disabled = sharePngPreparing;
+  // Native file-share is mobile-mostly; on desktop (no Web Share for files) just
+  // show Download rather than a perpetually-disabled Share button.
+  shareLightboxShare.hidden = !canShare;
+  shareLightboxShare.disabled = sharePngPreparing;
+}
+
+function lightboxStep(step) {
+  if (lightboxKind !== "share" || !shareLightbox.classList.contains("is-set")) return;
+  shareSetPageIndex += step;
+  shareLightbox.classList.remove("is-zoomed");
+  renderShareLightbox();
+}
+
+shareLightboxClose.addEventListener("click", () => closeLightbox());
+shareLightboxPrev.addEventListener("click", (event) => {
+  event.stopPropagation();
+  lightboxStep(-1);
+});
+shareLightboxNext.addEventListener("click", (event) => {
+  event.stopPropagation();
+  lightboxStep(1);
+});
+shareLightboxDownload.addEventListener("click", async (event) => {
+  event.stopPropagation();
+  if (shareLightboxDownload.disabled) return;
+  if (shareOptions.format === "set") await downloadCurrentShareSetPage();
+  else await downloadSharePng();
+  renderShareLightbox();
+});
+shareLightboxShare.addEventListener("click", async (event) => {
+  event.stopPropagation();
+  if (shareLightboxShare.disabled) return;
+  if (shareOptions.format === "set") await shareNativePng({ currentPageOnly: true });
+  else await shareNativePng();
+  renderShareLightbox();
+});
+
+shareLightbox.addEventListener("click", (event) => {
+  // Tapping the image toggles an enlarged (pannable) view — unless that "click"
+  // was actually the tail of a swipe-nav. Taps on chrome (bar/nav/close) do
+  // nothing here; taps on the backdrop dismiss.
+  if (event.target.closest(".share-lightbox__image")) {
+    if (lightboxSwiped) {
+      lightboxSwiped = false;
+      return;
+    }
+    shareLightbox.classList.toggle("is-zoomed");
+    return;
+  }
+  if (event.target.closest(".share-lightbox__bar, .share-lightbox__nav, .share-lightbox__close")) {
+    return;
+  }
+  closeLightbox();
+});
+
+// Horizontal swipe pages an image set — but only when not zoomed (zoomed = pan).
+let lightboxPointer = null;
+shareLightboxStage.addEventListener("pointerdown", (event) => {
+  lightboxSwiped = false;
+  if (shareLightbox.classList.contains("is-zoomed")) {
+    lightboxPointer = null;
+    return;
+  }
+  lightboxPointer = { x: event.clientX, y: event.clientY, id: event.pointerId };
+});
+shareLightboxStage.addEventListener("pointerup", (event) => {
+  const start = lightboxPointer;
+  lightboxPointer = null;
+  if (!start || start.id !== event.pointerId) return;
+  if (lightboxKind !== "share" || !shareLightbox.classList.contains("is-set")) return;
+  if (shareLightbox.classList.contains("is-zoomed")) return;
+  const dx = event.clientX - start.x;
+  const dy = event.clientY - start.y;
+  if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+    lightboxSwiped = true;
+    lightboxStep(dx < 0 ? 1 : -1);
   }
 });
+
 sharePreview.addEventListener(
   "scroll",
   (event) => {
@@ -1520,6 +1738,9 @@ rankingList.addEventListener("click", (event) => {
       setStatusMessage("Finish the current comparison before re-stacking.");
       return;
     }
+    // Snapshot with the movie still at its original ranking position so undo
+    // restores it there.
+    pendingRankingSnapshot = snapshotLists();
     captureComparisonReturnScroll();
     ranking.splice(index, 1);
     pendingOrigin = { type: "ranking", movie: { ...movie }, index };
@@ -1538,11 +1759,13 @@ rankingList.addEventListener("click", (event) => {
   const movie = ranking[index];
   if (!movie) return;
   if (!window.confirm(`Remove "${movie.title}" from the list?`)) return;
+  const beforeRanking = snapshotRanking();
   ranking.splice(index, 1);
   saveRanking();
   renderRanking();
   updateSuggestions();
   renderPackSurfaces();
+  setUndoableFeedback(`"${movie.title}" removed.`, () => restoreRankingTo(beforeRanking));
 });
 
 const clearDragShifts = () => {
@@ -1765,6 +1988,130 @@ const setAddFeedback = (message, duration = TOAST_DURATION_MS, actions = []) => 
     highlightTimeout = window.setTimeout(() => {
       hideAddFeedback();
     }, duration);
+  }
+};
+
+// --- Single-level undo for list changes -----------------------------------
+// Short-lived undo hung off the action-toast: snapshot the affected list(s)
+// before a mutation, then offer "Undo" to swap them back. Only one undo is live
+// at a time (a newer action replaces it); the controller in lib/undo.js owns
+// that lifecycle, while the restore closures here reassign the live arrays.
+const undoController = createUndoController();
+const UNDO_TOAST_MS = 5000;
+
+// Show a toast whose "Undo" button reverses the action via `restore`.
+const setUndoableFeedback = (message, restore, duration = UNDO_TOAST_MS) => {
+  const token = undoController.set({ label: message, restore, ttlMs: duration });
+  setAddFeedback(message, duration, [
+    {
+      label: "Undo",
+      onClick: () => {
+        const run = undoController.consume(token);
+        if (run) run();
+      },
+    },
+  ]);
+};
+
+const snapshotQueues = () => ({
+  watch: watchList.map((movie) => ({ ...movie })),
+  notInterested: notInterestedList.map((movie) => ({ ...movie })),
+});
+
+const restoreQueuesTo = (snap) => {
+  watchList = snap.watch.map((movie) => ({ ...movie }));
+  notInterestedList = snap.notInterested.map((movie) => ({ ...movie }));
+  persistSuggestionQueues();
+  updateSuggestions();
+  renderPackSurfaces();
+  setAddFeedback("Change undone.", 2000);
+};
+
+const snapshotRanking = () => ranking.map((movie) => ({ ...movie }));
+
+const restoreRankingTo = (snap) => {
+  ranking = snap.map((movie) => ({ ...movie }));
+  saveRanking();
+  renderRanking();
+  updateSuggestions();
+  renderPackSurfaces();
+  setAddFeedback("Change undone.", 2000);
+};
+
+// Whole-state snapshot (ranking + both queues) for undoing a completed ranking,
+// where the movie may leave one list and rejoin another.
+const snapshotLists = () => ({
+  ranking: ranking.map((movie) => ({ ...movie })),
+  watch: watchList.map((movie) => ({ ...movie })),
+  notInterested: notInterestedList.map((movie) => ({ ...movie })),
+});
+
+const restoreListsTo = (snap) => {
+  ranking = snap.ranking.map((movie) => ({ ...movie }));
+  watchList = snap.watch.map((movie) => ({ ...movie }));
+  notInterestedList = snap.notInterested.map((movie) => ({ ...movie }));
+  saveRanking();
+  persistSuggestionQueues();
+  renderRanking();
+  updateSuggestions();
+  renderPackSurfaces();
+  setAddFeedback("Change undone.", 2000);
+};
+
+// Undo a placement made during an auto-pack ("rank all") run. The flow has
+// already advanced to the NEXT movie's comparison, so we can't restore a
+// whole-list snapshot (it would clobber that in-progress movie, which may have
+// been pulled from a queue). Instead we surgically unrank just this movie and
+// return it to its origin queue if it had one, leaving the auto-pack session and
+// the current comparison intact. Because removing a movie shifts the ranking the
+// in-progress comparison is searching, we restart that movie's binary search
+// against the corrected list (a no-op cost when undo is tapped right after a
+// placement, before any new comparisons are answered). Pack completion state
+// self-heals via syncPackCompletion on the re-render below.
+const undoAutoPackPlacement = (movie, origin) => {
+  const key = movieKey(movie);
+  const ri = ranking.findIndex((item) => movieKey(item) === key);
+  if (ri >= 0) ranking.splice(ri, 1);
+  if (origin?.type === "watch") {
+    watchList.splice(Math.min(origin.index, watchList.length), 0, { ...origin.movie });
+  } else if (origin?.type === "notInterested") {
+    notInterestedList.splice(Math.min(origin.index, notInterestedList.length), 0, { ...origin.movie });
+  }
+  saveRanking();
+  persistSuggestionQueues();
+  renderRanking();
+  updateSuggestions();
+  renderPackSurfaces();
+  if (pending && searchRange) {
+    compareHistory = [];
+    if (ranking.length === 0) {
+      // The list emptied under the in-progress movie — let the empty-list path
+      // re-place it (it becomes the new top pick); that flow owns its messaging.
+      searchRange = null;
+      startComparison();
+      return;
+    }
+    searchRange = { low: 0, high: ranking.length - 1 };
+    showComparison();
+  }
+  setAddFeedback(`"${movie.title}" unranked.`, 2000);
+};
+
+// Announce where a movie landed after ranking, with an Undo. During an auto-pack
+// run undo unranks just this movie (the flow has moved on); otherwise it
+// restores the whole pre-ranking snapshot (handles the queue/restack origins).
+const announcePlacement = (message, context, rankedMovie, origin) => {
+  const snap = pendingRankingSnapshot;
+  pendingRankingSnapshot = null;
+  const isAutoPack = context?.type === "pack" && context.mode === "auto";
+  if (isAutoPack) {
+    const movieRef = { ...rankedMovie };
+    const originRef = origin ? { ...origin, movie: { ...origin.movie } } : null;
+    setUndoableFeedback(message, () => undoAutoPackPlacement(movieRef, originRef));
+  } else if (snap) {
+    setUndoableFeedback(message, () => restoreListsTo(snap));
+  } else {
+    setAddFeedback(message);
   }
 };
 
@@ -2433,6 +2780,9 @@ const addPackRemainingToQueue = (pack, target) => {
   const stats = getPackStats(pack);
   const movies = stats.remainingMovies.map((entry) => entry.movie).filter((movie) => !isDuplicateMovie(movie));
   if (!movies.length) return;
+  // Snapshot before the bulk move so a single Undo reverts every save/hide this
+  // action made — back to exactly the prior queue state, however many moved.
+  const beforeLists = snapshotLists();
   const now = new Date().toISOString();
   movies.forEach((movie) => {
     const storedMovie = {
@@ -2453,7 +2803,10 @@ const addPackRemainingToQueue = (pack, target) => {
   persistSuggestionQueues();
   updateSuggestions();
   renderPackSurfaces();
-  setAddFeedback(`${movies.length} ${movies.length === 1 ? "movie" : "movies"} moved to ${queueLabel(target)}.`, 3200);
+  setUndoableFeedback(
+    `${movies.length} ${movies.length === 1 ? "movie" : "movies"} moved to ${queueLabel(target)}.`,
+    () => restoreListsTo(beforeLists),
+  );
 };
 
 const dismissPackDiscovery = (slug) => {
@@ -4715,6 +5068,7 @@ function openShareStudio() {
 function closeShareStudio({ restoreFocus = true } = {}) {
   shareDetailRequestId += 1;
   clearShareSetScrollSync();
+  closeLightbox({ restoreFocus: false });
   shareDetailsLoading = false;
   shareStudio.hidden = true;
   lastSharePreviewMarkup = "";
@@ -5401,6 +5755,7 @@ const addSuggestionToQueue = (movie, target, sectionKey = null) => {
     savedAt: target === "watch" ? now : movie.savedAt,
     hiddenAt: target === "notInterested" ? now : movie.hiddenAt,
   };
+  const beforeQueues = snapshotQueues();
   removeMovieFromSuggestionQueues(storedMovie);
   if (target === "watch") {
     watchList.push(storedMovie);
@@ -5408,7 +5763,10 @@ const addSuggestionToQueue = (movie, target, sectionKey = null) => {
     notInterestedList.push(storedMovie);
   }
   persistSuggestionQueues();
-  setAddFeedback(`"${movie.title}" moved to ${queueLabel(target)}.`, 2600);
+  setUndoableFeedback(
+    `"${movie.title}" moved to ${queueLabel(target)}.`,
+    () => restoreQueuesTo(beforeQueues),
+  );
   if (!sectionKey || !replaceQueuedSuggestion(sectionKey, storedMovie)) {
     updateSuggestions();
   }
@@ -5450,6 +5808,9 @@ const startRankingMovie = (movie, context = null) => {
     const pack = getPackBySlug(context.slug);
     if (pack) markPackEngaged(pack, { lastIndex: Number(context.index || 0) });
   }
+  // Snapshot before the movie is pulled from its origin queue, so undo can put
+  // it back exactly where it was.
+  pendingRankingSnapshot = snapshotLists();
   captureComparisonReturnScroll();
   pendingOrigin = getQueueOrigin(movie);
   pendingPackContext = context;
@@ -5479,6 +5840,7 @@ const moveQueueMovie = (source, index) => {
     savedAt: target === "watch" ? now : movie.savedAt,
     hiddenAt: target === "notInterested" ? now : movie.hiddenAt,
   };
+  const beforeQueues = snapshotQueues();
   removeMovieFromSuggestionQueues(movie);
   if (target === "watch") {
     watchList.push(movedMovie);
@@ -5486,7 +5848,10 @@ const moveQueueMovie = (source, index) => {
     notInterestedList.push(movedMovie);
   }
   persistSuggestionQueues();
-  setAddFeedback(`"${movie.title}" moved to ${queueLabel(target)}.`, 2600);
+  setUndoableFeedback(
+    `"${movie.title}" moved to ${queueLabel(target)}.`,
+    () => restoreQueuesTo(beforeQueues),
+  );
   updateSuggestions();
   renderPackSurfaces();
 };
@@ -5507,13 +5872,17 @@ const removeQueueMovie = (source, index) => {
   const list = source === "watch" ? watchList : notInterestedList;
   const movie = list[index];
   if (!movie) return;
+  const beforeQueues = snapshotQueues();
   if (source === "watch") {
     watchList = removeMovieFromList(watchList, movie);
   } else {
     notInterestedList = removeMovieFromList(notInterestedList, movie);
   }
   persistSuggestionQueues();
-  setAddFeedback(`"${movie.title}" removed from ${queueLabel(source)}.`, 2600);
+  setUndoableFeedback(
+    `"${movie.title}" removed from ${queueLabel(source)}.`,
+    () => restoreQueuesTo(beforeQueues),
+  );
   updateSuggestions();
   renderPackSurfaces();
 };
@@ -5591,6 +5960,11 @@ packHideAll.addEventListener("click", () => {
 
 detailClose.addEventListener("click", () => closeMovieDetail());
 
+// Tap the detail-pane poster to view the artwork full-res in the shared lightbox.
+detailPoster.addEventListener("click", () => {
+  if (currentDetail?.movie?.posterPath) openPosterLightbox(currentDetail.movie, detailPoster);
+});
+
 detailOverlay.addEventListener("click", (event) => {
   if (event.target === detailOverlay) {
     closeMovieDetail();
@@ -5642,6 +6016,26 @@ detailHide.addEventListener("click", () => {
 });
 
 document.addEventListener("keydown", (event) => {
+  // The lightbox is modal while open: Escape closes it, arrows page an image set.
+  if (!shareLightbox.hidden) {
+    if (event.key === "Escape") {
+      closeLightbox();
+      return;
+    }
+    if (shareLightbox.classList.contains("is-set")) {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        lightboxStep(-1);
+        return;
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        lightboxStep(1);
+        return;
+      }
+    }
+    return;
+  }
   if (event.key !== "Escape") return;
   if (!rankingSettingsPanel.hidden) {
     closeRankingSettings();

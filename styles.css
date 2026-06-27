@@ -285,6 +285,9 @@ body.is-share-open .skeleton {
 }
 
 .feedback-toast__action {
+  /* The toast container is pointer-events:none so plain status toasts never
+     block clicks beneath them; the action buttons must opt back in. */
+  pointer-events: auto;
   border: 1px solid rgba(255, 255, 255, 0.32);
   border-radius: 999px;
   background: #ffffff;
@@ -1808,6 +1811,7 @@ body.is-comparing .compare-panel {
   object-fit: cover;
   border-radius: 12px;
   background: #ededed;
+  cursor: zoom-in;
 }
 
 .detail-heading {
@@ -1923,6 +1927,221 @@ body.is-comparing .compare-panel {
 
 .share-overlay[hidden] {
   display: none;
+}
+
+/* Full-res lightbox. Opens above everything; the stage allows native pinch-zoom
+   + pan on touch, and a tap toggles an enlarged size for pointer devices.
+   Tapping the backdrop (anywhere outside the image/chrome) dismisses. Two flavors:
+   the movie-detail poster is chrome-free (just × + image); the share preview adds
+   `.is-share` (a Download/Share action bar) and, for image sets, `.is-set` (prev/
+   next nav + an "i/total CAPTION" counter, with swipe between pages). */
+.share-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1300;
+  /* Column layout: the stage flexes to fill all available height; the action
+     bar (share mode only) sits in-flow beneath it, so they never overlap and
+     the image gets the full remaining height. */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(10, 10, 10, 0.94);
+  overscroll-behavior: contain;
+  animation: shareLightboxFade 0.16s ease-out;
+}
+
+.share-lightbox[hidden] {
+  display: none;
+}
+
+@keyframes shareLightboxFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.share-lightbox__stage {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  /* Not zoomed: allow native pinch-zoom but leave single-finger drags to the JS
+     swipe-nav (nothing to pan anyway). Zoomed: enable native pan + pinch. */
+  touch-action: pinch-zoom;
+  display: flex;
+  /* `safe` so an enlarged (overflowing) image can still be scrolled to its
+     top-left edge instead of being clipped by centering. */
+  align-items: safe center;
+  justify-content: safe center;
+}
+
+.share-lightbox.is-zoomed .share-lightbox__stage {
+  touch-action: pan-x pan-y pinch-zoom;
+}
+
+.share-lightbox__stage::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* The image wrapper carries the artwork's aspect ratio (set in JS from the
+   SVG viewBox / image dimensions), so `height: 100%` + `max-width: 100%` scales
+   it to fill the stage — up or down — without distortion for either a tall
+   skinny card or a wide one. The SVG/img just fills the wrapper. */
+.share-lightbox__image {
+  aspect-ratio: var(--lightbox-ar, 2 / 3);
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  flex: none;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
+  cursor: zoom-in;
+}
+
+.share-lightbox__image svg,
+.share-lightbox__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Tap/click to enlarge beyond the viewport; the stage then scrolls to pan. */
+.share-lightbox.is-zoomed .share-lightbox__image {
+  height: auto;
+  width: min(1400px, 200vw);
+  max-width: none;
+  max-height: none;
+  cursor: zoom-out;
+}
+
+.share-lightbox__close {
+  position: fixed;
+  top: 14px;
+  right: 16px;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.32);
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.72);
+  color: #ffffff;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.share-lightbox__close:hover,
+.share-lightbox__close:focus-visible {
+  background: rgba(17, 17, 17, 0.92);
+}
+
+/* Prev/next nav — only for image sets. */
+.share-lightbox__nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 46px;
+  height: 46px;
+  display: none;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.66);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.share-lightbox.is-share.is-set:not(.is-zoomed) .share-lightbox__nav {
+  display: grid;
+}
+
+.share-lightbox__nav--prev {
+  left: 14px;
+}
+
+.share-lightbox__nav--next {
+  right: 14px;
+}
+
+.share-lightbox__nav svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.share-lightbox__nav:hover:not(:disabled),
+.share-lightbox__nav:focus-visible {
+  background: rgba(17, 17, 17, 0.92);
+}
+
+.share-lightbox__nav:disabled {
+  opacity: 0.34;
+  cursor: default;
+}
+
+/* Action bar (Download/Share) + caption — only in share mode. In-flow at the
+   bottom of the column so it reserves its own space (no overlap with the image). */
+.share-lightbox__bar {
+  flex: none;
+  z-index: 2;
+  display: none;
+  align-items: center;
+  gap: 16px;
+  max-width: calc(100vw - 24px);
+  padding: 8px 10px 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.82);
+  backdrop-filter: blur(6px);
+}
+
+.share-lightbox.is-share .share-lightbox__bar {
+  display: flex;
+}
+
+.share-lightbox__caption {
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* No counter/caption for a single composite image. */
+.share-lightbox:not(.is-set) .share-lightbox__caption {
+  display: none;
+}
+
+.share-lightbox__actions {
+  display: flex;
+  gap: 8px;
+  flex: none;
+}
+
+/* Signal that previews are tappable to open the lightbox. */
+.share-preview svg,
+.share-preview-card__media {
+  cursor: zoom-in;
 }
 
 .share-sheet {

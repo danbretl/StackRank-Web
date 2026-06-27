@@ -83,3 +83,107 @@ Avoid implementing undo for comparison decisions until the interaction model is 
 - A second action replaces the previous undo rather than creating a complex history.
 - Signed-in users get the restored state synced server-side.
 
+---
+
+## Implementation plan (2026-06-26)
+
+### Design decisions
+
+- **Single-level, snapshot-based.** Before any undoable mutation, snapshot the
+  affected module arrays (`ranking`, and/or `watchList` + `notInterestedList`).
+  Undo = reassign the array(s) to the snapshot, persist, re-render. Snapshotting
+  the *whole* affected list (not a diff) makes position-restore free and keeps the
+  restore closures dead simple. Lists are small; the cost is negligible.
+- **Reuse the existing action-toast.** `setAddFeedback(msg, duration, actions)`
+  already renders action buttons (the pack-discovery nudge proves it, and the
+  click bug there is now fixed). Undo is just an `actions: [{label:"Undo", …}]`
+  entry — no new toast system, no focus trap.
+- **Lifecycle lives in a pure `lib/` module.** `lib/undo.js` exports
+  `createUndoController()` — a DOM-free single-level store of
+  `{ label, restore, expiresAt, token }` with `set / peek / consume / clear`.
+  Token + expiry guard against double-consume and stale clicks. The *restore
+  closures* stay in `app.js` (they reassign module-level `ranking` /
+  `watchList` / `notInterestedList`, which a `lib/` module can't reach).
+- **Restore re-saves.** Restore calls the same `saveRanking()` /
+  `saveSuggestionQueues()` paths, which stamp a fresh `updated_at`. Because the
+  merge-on-load keeps the newest snapshot, the restored state wins on next load
+  for signed-in users — no special server ordering needed.
+- **Scope:** save suggestion, hide suggestion, move between queues, remove from a
+  queue, remove from ranking, clear ranking. **Not** comparison decisions — the
+  ranking flow already owns *Undo last choice* / *Cancel ranking*.
+- **Mobile:** restore must never `focus()` the title input (keyboard-pop bug);
+  `blur()` only.
+
+### Phases
+
+0. **`lib/undo.js` + `tests/undo.test.js`** — pure controller; invariants:
+   set→consume returns the fn; second consume is null; expired returns null; a
+   new `set` invalidates the old token; `peek` reflects active/expired.
+1. **app.js plumbing** — import controller, add `UNDO_TOAST_MS` (5000), a
+   `setUndoableFeedback(message, restore, duration?)` helper, and two snapshot
+   helpers (`snapshotQueues()`/`restoreQueuesTo(snap)`,
+   `snapshotRanking()`/`restoreRankingTo(snap)`), each ending in a
+   `"Change undone."` confirmation toast and a full surface re-render.
+2. **Wire the six actions** — snapshot before mutation; swap the trailing
+   `setAddFeedback(...)` for `setUndoableFeedback(...)`. Add a toast to the two
+   actions that currently have none (remove-from-ranking, clear-ranking).
+3. **Diligence pass** — verify both-list snapshots for moves; guard restore when
+   a comparison is `pending` where it would conflict; confirm no `focus()` on the
+   restore path; confirm suggestions/pack surfaces re-render.
+4. **Validate** — `npm run verify` (unit incl. new test, `node --check`, deno,
+   e2e) + browser smoke of each undoable action.
+
+### Touch points (line numbers drift — grep to confirm)
+
+- `addSuggestionToQueue` (~5384) — save/hide.
+- `moveQueueMovie` (~5470) — queue↔queue.
+- `removeQueueMovie` (~5506) — queue remove.
+- ranking delete handler (~1532) — remove from ranking (no toast today).
+- clear handler (~1399) — clear ranking (no toast today).
+- `setAddFeedback` (~1723) — action-button host (unchanged).
+
+### Follow-up shipped: undo a completed ranking (2026-06-26)
+
+The original note deferred undo for the ranking flow. We added it for the
+**completed placement** (not single comparison choices — those keep *Undo last
+choice* / *Cancel ranking*). A completed ranking's "before" state depends on the
+movie's origin (fresh add vs. a queue row vs. a restack), so instead of
+reconstructing the origin we snapshot **all three lists** (`ranking` + both
+queues) at the moment ranking *starts* — captured in `startRankingMovie` (before
+the movie is pulled from its queue) and in the restack handler (before the
+splice) into `pendingRankingSnapshot`. Both settle points (the immediate
+top-pick branch in `startComparison` and the binary-search settle in
+`handleDecision`) route their placement toast through `announcePlacement()`,
+which offers undo via `restoreListsTo(snapshot)`. Undo is suppressed during an
+**auto-pack** run (the flow advances to the next comparison immediately, so a
+single-level undo can't apply cleanly). The snapshot is cleared on cancel and on
+each settle. Verified in-browser including the cross-list case (rank a Watch-next
+movie → undo returns it to Watch next and removes it from the ranking).
+
+### Follow-up shipped: pack-specific undo cases (2026-06-26)
+
+Two cases the whole-list snapshot couldn't cover:
+
+- **Auto-pack ("rank all") placement.** By the time the placement toast is
+  tappable the flow has already advanced to the NEXT movie's comparison (which
+  may itself have been pulled from a queue), so restoring a whole-list snapshot
+  would clobber it. Instead `announcePlacement` routes auto-pack placements to
+  `undoAutoPackPlacement(movie, origin)`, which surgically unranks just that
+  movie (and returns it to its origin queue if it had one), leaving
+  `autoPackSession` and the in-progress comparison intact — the user keeps
+  ranking the next movie. Because removing a movie shifts the ranking the active
+  comparison is binary-searching, we restart that movie's search against the
+  corrected list (free in the common case: undo is tapped right after placement,
+  before any new comparisons are answered). If the list empties under the
+  in-progress movie, the empty-list path re-places it as the new top pick. Pack
+  completion self-heals via `syncPackCompletion` on re-render, so pack progress
+  doesn't need snapshotting. Verified: rank pack movies via Rank all → undo the
+  prior one → it leaves the ranking, the next movie keeps comparing and then
+  settles correctly via a fresh multi-step search; no errors.
+- **Bulk "Save all" / "Hide all"** (`addPackRemainingToQueue`). Snapshots all
+  lists before the bulk move and offers undo via `restoreListsTo`, reverting
+  every save/hide the action made back to the prior queue state — however many
+  moved (verified: 11 → undo → 0). `restoreListsTo`'s confirmation toast is the
+  neutral "Change undone." since it now serves both completed-ranking and
+  bulk-queue undos.
+

@@ -306,6 +306,12 @@ let detailRequestId = 0;
 let detailTrigger = null;
 const detailCache = new Map();
 let comparisonReturnScroll = null;
+// When a ranking settles, decide whether to scroll the page to the freshly
+// placed item (true — used for homepage ingresses like the add form / restack)
+// or to restore the scroll position the ranking was started from (false — used
+// when ranking from an overlay, suggestion, or queue, so closing it returns the
+// user to where they were rather than yanking them to the ranking list).
+let scrollToPlacementOnSettle = true;
 let shareStudioTrigger = null;
 let shareOptions = {
   version: SHARE_OPTIONS_VERSION,
@@ -1282,6 +1288,19 @@ const restoreComparisonReturnScroll = () => {
   });
 };
 
+const settleRankingScroll = (insertIndex) => {
+  if (scrollToPlacementOnSettle) {
+    // Homepage ingress (add form / restack): surface where the movie landed.
+    updateSuggestionsThenHighlight(insertIndex);
+    clearComparisonReturnScroll();
+  } else {
+    // Off-homepage ingress (overlay / suggestion / queue): refresh suggestions
+    // but leave the page where the user was so closing the ingress returns there.
+    void updateSuggestions();
+    restoreComparisonReturnScroll();
+  }
+};
+
 const scrollComparisonIntoView = () => {
   // Starting a ranking can happen from anywhere on the page (a suggestion lower
   // down, or a queue item in the right-hand column on desktop), but the compare
@@ -1315,10 +1334,9 @@ const startComparison = () => {
     form.reset();
     renderRanking();
     announcePlacement(`"${ranking[0].title}" placed as your top pick.`, context, rankedMovie, origin);
-    updateSuggestionsThenHighlight(0);
+    settleRankingScroll(0);
     handleRankingSettled(rankedMovie, 0, context);
     titleInput.blur();
-    clearComparisonReturnScroll();
     return;
   }
 
@@ -1422,10 +1440,9 @@ const handleDecision = (isNewBetter, midIndex) => {
       placementMessage = `${placedTitle} placed at #${insertIndex + 1}.`;
     }
     announcePlacement(placementMessage, context, rankedMovie, origin);
-    updateSuggestionsThenHighlight(insertIndex);
+    settleRankingScroll(insertIndex);
     handleRankingSettled(rankedMovie, insertIndex, context);
     titleInput.blur();
-    clearComparisonReturnScroll();
     return;
   }
 
@@ -2328,6 +2345,8 @@ rankingList.addEventListener("click", (event) => {
     // restores it there.
     pendingRankingSnapshot = snapshotLists();
     captureComparisonReturnScroll();
+    // Restacking works directly with the ranking list, so reveal the new spot.
+    scrollToPlacementOnSettle = true;
     ranking.splice(index, 1);
     pendingOrigin = { type: "ranking", movie: { ...movie }, index };
     pending = { ...movie, comparisons: 0 };
@@ -6498,7 +6517,7 @@ const getQueueOrigin = (movie) => {
   return null;
 };
 
-const startRankingMovie = (movie, context = null) => {
+const startRankingMovie = (movie, context = null, { scrollToPlacement } = {}) => {
   if (pending) {
     setStatusMessage("Finish the current comparison before ranking another movie.");
     return;
@@ -6520,6 +6539,11 @@ const startRankingMovie = (movie, context = null) => {
   // it back exactly where it was.
   pendingRankingSnapshot = snapshotLists();
   captureComparisonReturnScroll();
+  // Default to restoring the ingress scroll on settle; only an auto-pack run
+  // (which immediately advances to the next comparison) or an explicit
+  // scrollToPlacement caller (the homepage add form) wants the placement view.
+  const isAutoPack = context?.type === "pack" && context.mode === "auto";
+  scrollToPlacementOnSettle = scrollToPlacement ?? isAutoPack;
   pendingOrigin = getQueueOrigin(movie);
   pendingPackContext = context;
   removeMovieFromSuggestionQueues(movie);
@@ -6839,7 +6863,8 @@ const startRankingFromSelection = () => {
   }
   const movie = selectedSuggestion;
   selectedSuggestion = null;
-  startRankingMovie(movie);
+  // Adding from the homepage form: scroll to where the movie lands in the list.
+  startRankingMovie(movie, null, { scrollToPlacement: true });
 };
 
 const startRankingFromSuggestion = (movie) => {

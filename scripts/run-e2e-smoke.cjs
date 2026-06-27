@@ -535,11 +535,163 @@ const testShareStudio = async ({ baseUrl }) => {
   }
 };
 
+const testBackupAndImport = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "backup-import" });
+  try {
+    await seedPage(page, baseUrl, "backup-import", {
+      ranking: [movie("Alpha", 1990, 1301), movie("Beta", 2000, 1302)],
+      watchList: [
+        queueMovie("Spirited Away", 2001, 129),
+        queueMovie("Delta", 2020, 1304),
+      ],
+    });
+    await page.evaluate(`(() => {
+      const realFetch = window.fetch.bind(window);
+      const fixtures = {
+        "The Godfather": [
+          { tmdbId: 238, title: "The Godfather", year: 1972, posterPath: "" }
+        ],
+        "Heat": [
+          { tmdbId: 949, title: "Heat", year: 1995, posterPath: "" },
+          { tmdbId: 1305, title: "Heat", year: 1986, posterPath: "" }
+        ],
+        "Spirited Away": [
+          { tmdbId: 129, title: "Spirited Away", year: 2001, posterPath: "" }
+        ]
+      };
+      window.fetch = (input, options) => {
+        const url = String(input);
+        if (url.includes('/functions/v1/tmdb-search')) {
+          const query = new URL(url).searchParams.get('q') || '';
+          return Promise.resolve(new Response(JSON.stringify({ results: fixtures[query] || [] }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+          }));
+        }
+        return realFetch(input, options);
+      };
+      document.querySelector('#ranking-settings-toggle')?.click();
+      document.querySelector('#open-title-import')?.click();
+      const input = document.querySelector('#title-import-input');
+      input.value = '1. The Godfather (1972)\\n2. Heat\\n3. Spirited Away (2001)';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      document.querySelector('#title-import-match')?.click();
+      return true;
+    })()`);
+    await waitFor(page, `!document.querySelector('#title-import-review')?.hidden`, 5000);
+    const reviewState = await page.evaluate(`(() => ({
+      summary: document.querySelector('#title-import-summary')?.textContent.trim(),
+      unresolved: document.querySelectorAll('#title-import-matches .is-unresolved').length,
+      confirmHidden: !!document.querySelector('#title-import-confirm-wrap')?.hidden,
+      applyDisabled: !!document.querySelector('#title-import-apply')?.disabled
+    }))()`);
+    if (reviewState.unresolved !== 1 || reviewState.confirmHidden || !reviewState.applyDisabled) {
+      throw new Error(`Import review did not require disambiguation + replacement consent: ${JSON.stringify(reviewState)}`);
+    }
+    const reviewShot = await page.screenshot("backup-import-review.png");
+
+    await page.evaluate(`(() => {
+      const heat = document.querySelector('select[aria-label="TMDB match for Heat"]');
+      heat.value = '949';
+      heat.dispatchEvent(new Event('change', { bubbles: true }));
+      document.querySelector('#title-import-confirm')?.click();
+      return true;
+    })()`);
+    await waitFor(page, `!document.querySelector('#title-import-apply')?.disabled`, 3000);
+    await page.evaluate(`document.querySelector('#title-import-apply')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#title-import')?.hidden`, 5000);
+    const imported = await page.evaluate(`(() => ({
+      rankingTitles: [...document.querySelectorAll('#ranking .ranking__title')].map((el) => el.textContent.trim()),
+      watchTitles: [...document.querySelectorAll('#watch-list .queue-list__title')].map((el) => el.textContent.trim()),
+      storedTitles: JSON.parse(localStorage.getItem('stackrank:movies:v1') || '{}').movies?.map((movie) => movie.title) || []
+    }))()`);
+    if (imported.rankingTitles.join("|") !== "1. The Godfather|2. Heat|3. Spirited Away") {
+      throw new Error(`Imported ranking order is wrong: ${imported.rankingTitles.join(", ")}`);
+    }
+    if (imported.watchTitles.join("|") !== "Delta") {
+      throw new Error(`Imported ranked movies were not removed from Watch next: ${imported.watchTitles.join(", ")}`);
+    }
+    if (imported.storedTitles.join("|") !== "The Godfather|Heat|Spirited Away") {
+      throw new Error(`Exact imported ranking was not saved locally: ${imported.storedTitles.join(", ")}`);
+    }
+
+    const backup = {
+      kind: "stackrank-backup",
+      version: 1,
+      exportedAt: "2026-06-27T15:00:00.000Z",
+      ranking: [movie("Restored One", 1988, 1310)],
+      queues: {
+        watch: [queueMovie("Restored Watch", 1999, 1311)],
+        notInterested: [{ ...queueMovie("Restored Hidden", 2009, 1312), hiddenAt: "2026-06-20T13:30:00.000Z" }]
+      },
+      packProgress: {},
+      shareOptions: { version: 7, theme: "cinema", tone: "punchy" }
+    };
+    await page.evaluate(`(() => {
+      window.confirm = () => true;
+      document.querySelector('#ranking-settings-toggle')?.click();
+      const file = new File([${JSON.stringify(JSON.stringify(backup))}], 'stackrank-backup.json', {
+        type: 'application/json'
+      });
+      const transfer = new DataTransfer();
+      transfer.items.add(file);
+      const input = document.querySelector('#backup-file-input');
+      input.files = transfer.files;
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `document.querySelector('#ranking .ranking__title')?.textContent.includes('Restored One')`,
+      5000,
+    );
+    const restored = await page.evaluate(`(() => ({
+      rankingTitles: [...document.querySelectorAll('#ranking .ranking__title')].map((el) => el.textContent.trim()),
+      watchTitles: [...document.querySelectorAll('#watch-list .queue-list__title')].map((el) => el.textContent.trim()),
+      hiddenTitles: [...document.querySelectorAll('#not-interested-list .queue-list__title')].map((el) => el.textContent.trim()),
+      shareTheme: JSON.parse(localStorage.getItem('stackrank:share-options:v1') || '{}').theme
+    }))()`);
+    if (restored.rankingTitles.join("|") !== "1. Restored One") {
+      throw new Error(`Backup ranking did not restore exactly: ${restored.rankingTitles.join(", ")}`);
+    }
+    if (restored.watchTitles.join("|") !== "Restored Watch" || restored.hiddenTitles.join("|") !== "Restored Hidden") {
+      throw new Error(`Backup queues did not restore: ${JSON.stringify(restored)}`);
+    }
+    if (restored.shareTheme !== "cinema") {
+      throw new Error(`Backup Share Studio settings did not restore: ${restored.shareTheme}`);
+    }
+
+    await page.send("Page.reload", { ignoreCache: true });
+    await waitFor(
+      page,
+      `document.querySelector('#ranking .ranking__title')?.textContent.includes('Restored One')`,
+      10000,
+    );
+    const afterReload = await page.evaluate(`(() => ({
+      rankingTitles: [...document.querySelectorAll('#ranking .ranking__title')].map((el) => el.textContent.trim()),
+      watchRows: document.querySelectorAll('#watch-list .queue-list__item').length,
+      hiddenRows: document.querySelectorAll('#not-interested-list .queue-list__item').length
+    }))()`);
+    if (afterReload.rankingTitles.join("|") !== "1. Restored One" || afterReload.watchRows !== 1 || afterReload.hiddenRows !== 1) {
+      throw new Error(`Restored backup did not persist through reload: ${JSON.stringify(afterReload)}`);
+    }
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { reviewState, imported, restored, afterReload },
+      screenshots: [reviewShot, await page.screenshot("backup-restore-complete.png")],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
 const tests = [
   { name: "localStorage persistence round-trip", run: testLoadPersistence },
   { name: "watch queue comparison flow", run: testQueueComparison },
   { name: "comparison undo and cancel restore origin", run: testComparisonUndoCancel },
   { name: "Share Studio preview and empty toggles", run: testShareStudio },
+  { name: "backup restore and title-list import", run: testBackupAndImport },
 ];
 
 const writeReports = async ({ startedAt, completedAt, baseUrl, results }) => {

@@ -47,7 +47,7 @@
       content="StackRank — build your movie ranking, one comparison at a time"
     />
 
-    <link rel="stylesheet" href="styles.css?v=72" />
+    <link rel="stylesheet" href="styles.css?v=73" />
   </head>
   <body>
     <main class="app">
@@ -246,6 +246,25 @@
                     <button class="detail-action detail-action--muted" id="settings-sign-out" type="button" hidden>
                       Sign out
                     </button>
+                  </div>
+                  <div class="ranking-settings__section">
+                    <div>
+                      <div class="ranking-settings__label">Backup &amp; import</div>
+                      <div class="ranking-settings__value">
+                        Download or restore all StackRank data, or replace this ranking from an ordered title list.
+                      </div>
+                    </div>
+                    <div class="ranking-settings__data-actions">
+                      <button class="detail-action detail-action--muted" id="download-backup" type="button">
+                        Download backup
+                      </button>
+                      <button class="detail-action detail-action--muted" id="restore-backup" type="button">
+                        Restore backup
+                      </button>
+                      <button class="detail-action" id="open-title-import" type="button">Import titles</button>
+                    </div>
+                    <input id="backup-file-input" type="file" accept="application/json,.json" hidden />
+                    <div class="ranking-settings__status" id="backup-status" role="status" aria-live="polite"></div>
                   </div>
                   <div class="ranking-settings__section ranking-settings__section--danger">
                     <div>
@@ -597,6 +616,61 @@
         </section>
       </div>
 
+      <div class="detail-overlay import-overlay" id="title-import" hidden>
+        <section
+          class="detail-sheet import-sheet"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="title-import-heading"
+          aria-describedby="title-import-description"
+        >
+          <button class="detail-close" id="title-import-close" type="button" aria-label="Close title import">×</button>
+          <div class="import-entry" id="title-import-entry">
+            <div class="suggest-title">Import ranked list</div>
+            <h2 id="title-import-heading">Start from movie titles</h2>
+            <p class="detail-sub" id="title-import-description">
+              Paste one title per line, best movie first. Years are optional but help match remakes and movies with
+              the same title.
+            </p>
+            <label class="import-input">
+              <span>Ordered movie titles</span>
+              <textarea
+                id="title-import-input"
+                rows="12"
+                placeholder="1. The Godfather (1972)&#10;2. Spirited Away (2001)&#10;3. Parasite (2019)"
+              ></textarea>
+            </label>
+            <div class="import-status panel__sub" id="title-import-status" role="status" aria-live="polite"></div>
+            <div class="detail-actions import-actions">
+              <button class="detail-action detail-action--muted" id="title-import-cancel" type="button">Cancel</button>
+              <button class="detail-action detail-action--primary" id="title-import-match" type="button">
+                Match titles
+              </button>
+            </div>
+          </div>
+          <div class="import-review" id="title-import-review" hidden>
+            <div class="suggest-title">Review matches</div>
+            <h2>Confirm your ranked list</h2>
+            <p class="detail-sub">
+              StackRank selected exact TMDB matches where possible. Review every title marked “Choose a match.”
+            </p>
+            <div class="import-summary panel__sub" id="title-import-summary"></div>
+            <div class="import-match-list" id="title-import-matches"></div>
+            <label class="import-confirm" id="title-import-confirm-wrap" hidden>
+              <input id="title-import-confirm" type="checkbox" />
+              <span id="title-import-confirm-text">Replace my current ranking.</span>
+            </label>
+            <div class="import-status panel__sub" id="title-import-review-status" role="status" aria-live="polite"></div>
+            <div class="detail-actions import-actions">
+              <button class="detail-action detail-action--muted" id="title-import-back" type="button">Back</button>
+              <button class="detail-action detail-action--primary" id="title-import-apply" type="button" disabled>
+                Import ranking
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
       <div class="share-lightbox" id="share-lightbox" hidden>
         <button
           class="share-lightbox__close"
@@ -649,6 +723,6 @@
       </footer>
     </main>
 
-    <script type="module" src="app.js?v=105"></script>
+    <script type="module" src="app.js?v=108"></script>
   </body>
 </html>

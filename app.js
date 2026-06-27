@@ -58,6 +58,13 @@ import {
 } from "./lib/share-svg.js";
 import { comparisonMidIndex, applyComparison, isSearchSettled } from "./lib/ranking.js";
 import { createUndoController } from "./lib/undo.js";
+import {
+  buildImportedRanking,
+  buildStackRankBackup,
+  chooseAutomaticTmdbMatch,
+  parseRankedTitleList,
+  parseStackRankBackup,
+} from "./lib/backup.js";
 
 console.info("StackRank build", "share-studio-v4");
 
@@ -91,6 +98,11 @@ const settingsAuthSignedOut = document.getElementById("settings-auth-signed-out"
 const settingsAuthEmailInput = document.getElementById("settings-auth-email");
 const settingsSignInButton = document.getElementById("settings-sign-in");
 const settingsSignOutButton = document.getElementById("settings-sign-out");
+const downloadBackupButton = document.getElementById("download-backup");
+const restoreBackupButton = document.getElementById("restore-backup");
+const backupFileInput = document.getElementById("backup-file-input");
+const backupStatus = document.getElementById("backup-status");
+const openTitleImportButton = document.getElementById("open-title-import");
 const clearButton = document.getElementById("clear-list");
 const shareButton = document.getElementById("share-list");
 const snapshotSub = document.getElementById("snapshot-sub");
@@ -188,6 +200,22 @@ const packBrowserReset = document.getElementById("pack-browser-reset");
 const packBrowserStateOptions = document.getElementById("pack-browser-state-options");
 const packBrowserResults = document.getElementById("pack-browser-results");
 const packDetailList = document.getElementById("pack-detail-list");
+const titleImportOverlay = document.getElementById("title-import");
+const titleImportClose = document.getElementById("title-import-close");
+const titleImportEntry = document.getElementById("title-import-entry");
+const titleImportReview = document.getElementById("title-import-review");
+const titleImportInput = document.getElementById("title-import-input");
+const titleImportStatus = document.getElementById("title-import-status");
+const titleImportCancel = document.getElementById("title-import-cancel");
+const titleImportMatch = document.getElementById("title-import-match");
+const titleImportSummary = document.getElementById("title-import-summary");
+const titleImportMatches = document.getElementById("title-import-matches");
+const titleImportConfirmWrap = document.getElementById("title-import-confirm-wrap");
+const titleImportConfirm = document.getElementById("title-import-confirm");
+const titleImportConfirmText = document.getElementById("title-import-confirm-text");
+const titleImportReviewStatus = document.getElementById("title-import-review-status");
+const titleImportBack = document.getElementById("title-import-back");
+const titleImportApply = document.getElementById("title-import-apply");
 
 const TMDB_PROXY_PATH = "/functions/v1/tmdb-search";
 const TMDB_SUGGEST_PATH = "/functions/v1/tmdb-suggest";
@@ -301,6 +329,10 @@ let shareSetScrollSyncTimer = null;
 let lastSharePreviewMarkup = "";
 let shareScrollLockY = 0;
 const posterDataCache = new Map();
+let titleImportRows = [];
+let titleImportMeta = { duplicateCount: 0, ignoredCount: 0 };
+let titleImportTrigger = null;
+let titleImportMatching = false;
 
 const storageEnabled = typeof window !== "undefined" && "localStorage" in window;
 const supabaseEnabled =
@@ -1035,6 +1067,38 @@ const savePackProgress = async (slug) => {
   }
 };
 
+const savePackProgressSnapshot = async () => {
+  saveLocalPackProgressPayload();
+  const listId = getListId();
+  if (!supabaseEnabled || !supabase || !listId) return;
+
+  const { error: deleteError } = await supabase
+    .from("pack_progress")
+    .delete()
+    .eq("list_id", listId);
+  if (deleteError) {
+    console.warn("Could not replace synced pack progress", deleteError);
+    return;
+  }
+
+  const knownSlugs = new Set(suggestionPacks.map((pack) => pack.slug));
+  const rows = Object.entries(packProgress)
+    .filter(([slug]) => knownSlugs.has(slug))
+    .map(([slug, entry]) => ({
+      list_id: listId,
+      pack_slug: slug,
+      state: stripProgressMetadata(entry),
+      updated_at: entry.updated_at || new Date().toISOString(),
+    }));
+  if (!rows.length) return;
+  const { error } = await supabase
+    .from("pack_progress")
+    .upsert(rows, { onConflict: "list_id,pack_slug" });
+  if (error) {
+    console.warn("Could not restore synced pack progress", error);
+  }
+};
+
 const loadPackProgress = async () => {
   const payloads = storageEnabled ? getPackProgressStorageKeys().map(getPackProgressPayload) : [];
   const listId = getListId();
@@ -1133,6 +1197,10 @@ const saveRanking = async () => {
   const listId = getListId();
   const updatedAt = new Date().toISOString();
   rankingUpdatedAt = updatedAt;
+  // Keep the local snapshot current even when the remote write succeeds.
+  // Exact replacement flows (clear/import/restore) must not leave an older
+  // local list behind for merge-on-load to resurrect.
+  saveLocalPayload(ranking, updatedAt);
   if (supabaseEnabled && supabase && listId) {
     const payload = {
       list_id: listId,
@@ -1144,8 +1212,6 @@ const saveRanking = async () => {
       .upsert(payload, { onConflict: "list_id" });
     if (!error) return;
   }
-
-  saveLocalPayload(ranking, updatedAt);
 };
 
 const loadRanking = async () => {
@@ -1438,6 +1504,447 @@ form.addEventListener("submit", (event) => {
   startRankingFromSelection();
 });
 
+const snapshotAllData = () => ({
+  ranking: ranking.map((movie) => ({ ...movie })),
+  watchList: watchList.map((movie) => ({ ...movie })),
+  notInterestedList: notInterestedList.map((movie) => ({ ...movie })),
+  packProgress: JSON.parse(JSON.stringify(packProgress)),
+  shareOptions: { ...shareOptions },
+});
+
+const setStoredShareOptions = (options) => {
+  if (storageEnabled) {
+    try {
+      localStorage.setItem(SHARE_OPTIONS_KEY, JSON.stringify(options || {}));
+      loadShareOptions();
+      updateShareOptionControls();
+      return;
+    } catch (error) {
+      // Fall through to the in-memory defaults.
+    }
+  }
+  shareOptions = { ...shareOptions, ...(options || {}), version: SHARE_OPTIONS_VERSION };
+  updateShareOptionControls();
+};
+
+const applyExactDataSnapshot = async (snapshot) => {
+  ranking = snapshot.ranking.map((movie) => ({ ...movie }));
+  watchList = snapshot.watchList.map((movie) => ({ ...movie }));
+  notInterestedList = snapshot.notInterestedList.map((movie) => ({ ...movie }));
+  packProgress = JSON.parse(JSON.stringify(snapshot.packProgress || {}));
+  setStoredShareOptions(snapshot.shareOptions || {});
+  normalizeSuggestionQueues();
+  pending = null;
+  pendingPackContext = null;
+  pendingOrigin = null;
+  pendingRankingSnapshot = null;
+  searchRange = null;
+  compareHistory = [];
+  setComparisonMode(false);
+  compareSection.classList.add("panel--hidden");
+  form.reset();
+
+  await Promise.all([
+    saveRanking(),
+    saveSuggestionQueues(),
+    savePackProgressSnapshot(),
+  ]);
+  renderRanking();
+  renderSuggestionQueues();
+  renderPackSurfaces();
+  updateSuggestions();
+  updateDebugPanel();
+  titleInput.blur();
+};
+
+const downloadStackRankBackup = () => {
+  const backup = buildStackRankBackup({
+    ranking,
+    watchList,
+    notInterestedList,
+    packProgress,
+    shareOptions,
+  });
+  const date = new Date().toISOString().slice(0, 10);
+  downloadBlob(
+    new Blob([`${JSON.stringify(backup, null, 2)}\n`], { type: "application/json;charset=utf-8" }),
+    `stackrank-backup-${date}.json`,
+  );
+  backupStatus.textContent = `Backup downloaded: ${ranking.length} ranked movie${ranking.length === 1 ? "" : "s"}.`;
+  setAddFeedback("StackRank backup downloaded.", 2400);
+};
+
+const restoreStackRankBackup = async (file) => {
+  backupStatus.textContent = "Reading backup…";
+  try {
+    const restored = parseStackRankBackup(await file.text());
+    const summary = [
+      `${restored.ranking.length} ranked`,
+      `${restored.watchList.length} saved`,
+      `${restored.notInterestedList.length} hidden`,
+    ].join(", ");
+    const confirmed = window.confirm(
+      `Restore this StackRank backup (${summary})?\n\nThis replaces your current ranking, queues, pack progress, and Share Studio settings.`,
+    );
+    if (!confirmed) {
+      backupStatus.textContent = "Restore canceled.";
+      return;
+    }
+    const beforeRestore = snapshotAllData();
+    await applyExactDataSnapshot(restored);
+    closeRankingSettings({ restoreFocus: false });
+    backupStatus.textContent = "";
+    setUndoableFeedback(
+      `Backup restored: ${restored.ranking.length} ranked movie${restored.ranking.length === 1 ? "" : "s"}.`,
+      () => {
+        void applyExactDataSnapshot(beforeRestore).then(() => {
+          setAddFeedback("Backup restore undone.", 2200);
+        });
+      },
+      7000,
+    );
+  } catch (error) {
+    backupStatus.textContent = error?.message || "Could not restore this backup.";
+  } finally {
+    backupFileInput.value = "";
+  }
+};
+
+const importDuplicateSelectionCount = () => {
+  const counts = new Map();
+  titleImportRows.forEach((row) => {
+    if (!row.selectedMovie) return;
+    const key = movieKey(row.selectedMovie);
+    counts.set(key, (counts.get(key) || 0) + 1);
+  });
+  return [...counts.values()].filter((count) => count > 1).reduce((sum, count) => sum + count - 1, 0);
+};
+
+const updateTitleImportApplyState = () => {
+  const unresolved = titleImportRows.filter((row) => !row.skipped && !row.selectedMovie).length;
+  const duplicateSelections = importDuplicateSelectionCount();
+  const selectedCount = titleImportRows.filter((row) => row.selectedMovie).length;
+  const replacementConfirmed = !ranking.length || titleImportConfirm.checked;
+  titleImportApply.disabled =
+    titleImportMatching ||
+    unresolved > 0 ||
+    duplicateSelections > 0 ||
+    selectedCount === 0 ||
+    !replacementConfirmed;
+
+  if (unresolved) {
+    titleImportReviewStatus.textContent = `Choose or skip ${unresolved} unresolved title${unresolved === 1 ? "" : "s"}.`;
+  } else if (duplicateSelections) {
+    titleImportReviewStatus.textContent =
+      `Choose different matches for ${duplicateSelections} duplicate selection${duplicateSelections === 1 ? "" : "s"}.`;
+  } else if (!selectedCount) {
+    titleImportReviewStatus.textContent = "Choose at least one movie to import.";
+  } else if (!replacementConfirmed) {
+    titleImportReviewStatus.textContent = "Confirm that this import will replace your current ranking.";
+  } else {
+    const skipped = titleImportRows.filter((row) => row.skipped).length;
+    titleImportReviewStatus.textContent =
+      `${selectedCount} movie${selectedCount === 1 ? "" : "s"} ready to import` +
+      (skipped ? `; ${skipped} skipped.` : ".");
+  }
+  titleImportApply.textContent = selectedCount
+    ? `Import ${selectedCount} movie${selectedCount === 1 ? "" : "s"}`
+    : "Import ranking";
+};
+
+const renderTitleImportMatches = () => {
+  titleImportMatches.innerHTML = "";
+  const selectedCounts = new Map();
+  titleImportRows.forEach((row) => {
+    if (!row.selectedMovie) return;
+    const key = movieKey(row.selectedMovie);
+    selectedCounts.set(key, (selectedCounts.get(key) || 0) + 1);
+  });
+
+  titleImportRows.forEach((row, index) => {
+    const item = document.createElement("div");
+    item.className = "import-match";
+
+    const rank = document.createElement("div");
+    rank.className = "import-match__rank";
+    rank.textContent = `${index + 1}.`;
+
+    const poster = document.createElement("img");
+    poster.className = "import-match__poster";
+    if (row.selectedMovie?.posterPath) {
+      poster.src = `${TMDB_POSTER_SMALL}${row.selectedMovie.posterPath}`;
+      poster.alt = `${row.selectedMovie.title} poster`;
+    } else {
+      poster.alt = "";
+      poster.style.visibility = "hidden";
+    }
+
+    const copy = document.createElement("div");
+    copy.className = "import-match__copy";
+    const source = document.createElement("div");
+    source.className = "import-match__source";
+    source.textContent = row.entry.source;
+    source.title = row.entry.source;
+    const state = document.createElement("div");
+    state.className = "import-match__state";
+    const selectedIsDuplicate =
+      row.selectedMovie && (selectedCounts.get(movieKey(row.selectedMovie)) || 0) > 1;
+    if (selectedIsDuplicate) {
+      state.textContent = "Duplicate selection";
+      state.classList.add("is-review");
+    } else if (row.skipped && row.searchFailed) {
+      state.textContent = "TMDB search failed — skipped";
+      state.classList.add("is-review");
+    } else if (row.searchFailed) {
+      state.textContent = "TMDB search failed — go back to retry or skip";
+      state.classList.add("is-review");
+    } else if (row.skipped) {
+      state.textContent = row.candidates.length ? "Skipped" : "No TMDB match found — skipped";
+    } else if (row.autoMatched) {
+      state.textContent = "Exact match";
+    } else if (row.selectedMovie) {
+      state.textContent = "Match selected";
+    } else {
+      state.textContent = "Choose a match";
+      state.classList.add("is-review");
+    }
+    copy.append(source, state);
+
+    const select = document.createElement("select");
+    select.className = "import-match-select";
+    select.setAttribute("aria-label", `TMDB match for ${row.entry.title}`);
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = row.candidates.length ? "Choose a match…" : "No match found";
+    placeholder.disabled = true;
+    placeholder.selected = !row.selectedMovie && !row.skipped;
+    select.appendChild(placeholder);
+    row.candidates.forEach((candidate) => {
+      const option = document.createElement("option");
+      option.value = String(candidate.tmdbId);
+      option.textContent = `${candidate.title}${candidate.year ? ` (${candidate.year})` : ""}`;
+      option.selected = row.selectedMovie?.tmdbId === candidate.tmdbId;
+      select.appendChild(option);
+    });
+    const skip = document.createElement("option");
+    skip.value = "__skip";
+    skip.textContent = "Skip this title";
+    skip.selected = row.skipped;
+    select.appendChild(skip);
+    select.classList.toggle("is-unresolved", !row.skipped && !row.selectedMovie);
+    select.addEventListener("change", () => {
+      if (select.value === "__skip") {
+        row.selectedMovie = null;
+        row.skipped = true;
+        row.autoMatched = false;
+      } else {
+        row.selectedMovie =
+          row.candidates.find((candidate) => String(candidate.tmdbId) === select.value) || null;
+        row.skipped = false;
+        row.autoMatched = false;
+      }
+      renderTitleImportMatches();
+    });
+
+    item.append(rank, poster, copy, select);
+    titleImportMatches.appendChild(item);
+  });
+
+  const exact = titleImportRows.filter((row) => row.autoMatched).length;
+  const reviewed = titleImportRows.filter(
+    (row) => !row.autoMatched && !row.skipped && row.selectedMovie,
+  ).length;
+  const unresolved = titleImportRows.filter(
+    (row) => !row.autoMatched && !row.skipped && !row.selectedMovie,
+  ).length;
+  const skipped = titleImportRows.filter((row) => row.skipped).length;
+  const extras = [];
+  if (titleImportMeta.duplicateCount) extras.push(`${titleImportMeta.duplicateCount} duplicate line ignored`);
+  if (titleImportMeta.ignoredCount) extras.push(`${titleImportMeta.ignoredCount} invalid line ignored`);
+  titleImportSummary.textContent =
+    `${titleImportRows.length} titles · ${exact} exact` +
+    (reviewed ? ` · ${reviewed} reviewed` : "") +
+    (unresolved ? ` · ${unresolved} to review` : "") +
+    ` · ${skipped} skipped` +
+    (extras.length ? ` · ${extras.join(" · ")}` : "");
+  titleImportConfirmWrap.hidden = !ranking.length;
+  titleImportConfirmText.textContent =
+    `Replace my current ranking of ${ranking.length} movie${ranking.length === 1 ? "" : "s"}.`;
+  updateTitleImportApplyState();
+};
+
+const fetchTmdbImportCandidates = async (entry) => {
+  const url = `${tmdbProxyUrl}?q=${encodeURIComponent(entry.title)}`;
+  const response = await fetch(url, {
+    headers: {
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+    },
+  });
+  if (!response.ok) throw new Error(`TMDB search returned ${response.status}`);
+  const data = await response.json();
+  return (Array.isArray(data.results) ? data.results : [])
+    .filter((movie) => movie?.tmdbId && movie?.title);
+};
+
+const matchTitleImportEntries = async (entries) => {
+  const rows = new Array(entries.length);
+  let cursor = 0;
+  let completed = 0;
+  const worker = async () => {
+    while (cursor < entries.length) {
+      const index = cursor;
+      cursor += 1;
+      const entry = entries[index];
+      try {
+        const results = await fetchTmdbImportCandidates(entry);
+        const automatic = chooseAutomaticTmdbMatch(entry, results);
+        const candidates = results.slice(0, 8);
+        if (automatic && !candidates.some((movie) => movie.tmdbId === automatic.tmdbId)) {
+          candidates.push(automatic);
+        }
+        rows[index] = {
+          entry,
+          candidates,
+          selectedMovie: automatic,
+          skipped: candidates.length === 0,
+          autoMatched: Boolean(automatic),
+          searchFailed: false,
+        };
+      } catch (error) {
+        rows[index] = {
+          entry,
+          candidates: [],
+          selectedMovie: null,
+          skipped: false,
+          autoMatched: false,
+          searchFailed: true,
+        };
+      }
+      completed += 1;
+      titleImportStatus.textContent = `Matching ${completed} of ${entries.length}…`;
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(3, entries.length) }, () => worker()));
+  return rows;
+};
+
+const showTitleImportEntryStep = () => {
+  titleImportReview.hidden = true;
+  titleImportEntry.hidden = false;
+  titleImportStatus.textContent = "";
+  titleImportInput.disabled = false;
+  titleImportMatch.disabled = false;
+  titleImportInput.focus({ preventScroll: true });
+};
+
+const openTitleImport = () => {
+  if (pending) {
+    setStatusMessage("Finish the current comparison before importing a ranking.");
+    closeRankingSettings({ restoreFocus: false });
+    return;
+  }
+  titleImportTrigger = openTitleImportButton;
+  closeRankingSettings({ restoreFocus: false });
+  titleImportOverlay.hidden = false;
+  document.body.classList.add("is-detail-open");
+  showTitleImportEntryStep();
+};
+
+const closeTitleImport = ({ restoreFocus = true, reset = false } = {}) => {
+  titleImportOverlay.hidden = true;
+  document.body.classList.remove("is-detail-open");
+  titleImportMatching = false;
+  titleImportInput.disabled = false;
+  titleImportMatch.disabled = false;
+  if (reset) {
+    titleImportInput.value = "";
+    titleImportRows = [];
+    titleImportMeta = { duplicateCount: 0, ignoredCount: 0 };
+    titleImportConfirm.checked = false;
+  }
+  if (restoreFocus && titleImportTrigger && document.contains(titleImportTrigger)) {
+    titleImportTrigger.focus({ preventScroll: true });
+  }
+  titleImportTrigger = null;
+};
+
+const beginTitleImportMatching = async () => {
+  if (!tmdbProxyEnabled) {
+    titleImportStatus.textContent = "TMDB matching is not configured.";
+    return;
+  }
+  const parsed = parseRankedTitleList(titleImportInput.value);
+  if (!parsed.entries.length) {
+    titleImportStatus.textContent = "Add at least one movie title.";
+    titleImportInput.focus();
+    return;
+  }
+  if (parsed.entries.length > 100) {
+    titleImportStatus.textContent = "Import up to 100 movie titles at a time.";
+    return;
+  }
+
+  titleImportMatching = true;
+  titleImportMeta = {
+    duplicateCount: parsed.duplicateCount,
+    ignoredCount: parsed.ignoredCount,
+  };
+  titleImportInput.disabled = true;
+  titleImportMatch.disabled = true;
+  titleImportMatch.textContent = "Matching…";
+  titleImportStatus.textContent = `Matching 0 of ${parsed.entries.length}…`;
+  try {
+    titleImportRows = await matchTitleImportEntries(parsed.entries);
+    titleImportConfirm.checked = false;
+    titleImportEntry.hidden = true;
+    titleImportReview.hidden = false;
+    renderTitleImportMatches();
+    titleImportReview.scrollIntoView({ block: "start" });
+    titleImportBack.focus({ preventScroll: true });
+  } finally {
+    titleImportMatching = false;
+    titleImportInput.disabled = false;
+    titleImportMatch.disabled = false;
+    titleImportMatch.textContent = "Match titles";
+    if (!titleImportReview.hidden) updateTitleImportApplyState();
+  }
+};
+
+const applyTitleImport = async () => {
+  updateTitleImportApplyState();
+  if (titleImportApply.disabled) return;
+  const importedRanking = buildImportedRanking(titleImportRows);
+  if (!importedRanking.length) return;
+  const beforeImport = snapshotLists();
+  ranking = importedRanking;
+  normalizeSuggestionQueues();
+  pending = null;
+  pendingPackContext = null;
+  pendingOrigin = null;
+  pendingRankingSnapshot = null;
+  searchRange = null;
+  compareHistory = [];
+  titleImportApply.disabled = true;
+  titleImportApply.textContent = "Importing…";
+  await Promise.all([saveRanking(), saveSuggestionQueues()]);
+  setComparisonMode(false);
+  compareSection.classList.add("panel--hidden");
+  form.reset();
+  renderRanking();
+  renderSuggestionQueues();
+  renderPackSurfaces();
+  updateSuggestions();
+  updateDebugPanel();
+  titleInput.blur();
+  closeTitleImport({ restoreFocus: false, reset: true });
+  setUndoableFeedback(
+    `Imported ${ranking.length} ranked movie${ranking.length === 1 ? "" : "s"}.`,
+    () => restoreListsTo(beforeImport),
+    7000,
+  );
+};
+
 clearButton.addEventListener("click", () => {
   if (!ranking.length) return;
   if (!window.confirm("Clear the entire ranking list?")) {
@@ -1468,6 +1975,22 @@ rankingSettingsToggle.addEventListener("click", (event) => {
 rankingSettingsClose.addEventListener("click", () => closeRankingSettings());
 settingsSignInButton.addEventListener("click", () => handleSignIn(settingsAuthEmailInput));
 settingsSignOutButton.addEventListener("click", () => handleSignOut());
+downloadBackupButton.addEventListener("click", downloadStackRankBackup);
+restoreBackupButton.addEventListener("click", () => backupFileInput.click());
+backupFileInput.addEventListener("change", () => {
+  const [file] = backupFileInput.files || [];
+  if (file) void restoreStackRankBackup(file);
+});
+openTitleImportButton.addEventListener("click", openTitleImport);
+titleImportClose.addEventListener("click", () => closeTitleImport());
+titleImportCancel.addEventListener("click", () => closeTitleImport());
+titleImportMatch.addEventListener("click", () => void beginTitleImportMatching());
+titleImportBack.addEventListener("click", showTitleImportEntryStep);
+titleImportConfirm.addEventListener("change", updateTitleImportApplyState);
+titleImportApply.addEventListener("click", () => void applyTitleImport());
+titleImportOverlay.addEventListener("click", (event) => {
+  if (event.target === titleImportOverlay) closeTitleImport();
+});
 
 shareButton.addEventListener("click", openShareStudio);
 shareClose.addEventListener("click", () => closeShareStudio());
@@ -6186,6 +6709,10 @@ document.addEventListener("keydown", (event) => {
     return;
   }
   if (event.key !== "Escape") return;
+  if (!titleImportOverlay.hidden) {
+    closeTitleImport();
+    return;
+  }
   if (!rankingSettingsPanel.hidden) {
     closeRankingSettings();
     return;

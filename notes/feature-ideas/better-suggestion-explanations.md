@@ -1,21 +1,29 @@
 # Feature idea: Better suggestion explanations
 
-Status: **partially shipped; per-movie reasons remain exploratory**
+Status: **shipped (2026-06-27)**
 
-## Current implementation
+## What shipped
 
-The section-level first version already exists:
+Suggestion sources are explained at both the section and movie level:
 
 - The related row is titled **Inspired by [movie]**, using a rank-weighted seed
-  from the user's top ten.
-- **All-time essentials** and **Popular now** identify their sources directly.
-- Refreshing the related row can select a different eligible seed.
+  from the user's top ten or the movie they just ranked. Its subtitle identifies
+  that movie's current rank and whether it was just added.
+- Each related card prefers a distinctive shared genre (`Shares science fiction
+  with The Matrix`) and otherwise uses the honest TMDB recommendation source
+  (`Recommended from The Matrix, your #1`).
+- Each essential card combines its release decade and a useful genre when
+  available (`A 1970s crime essential`), with truthful decade/genre/source
+  fallbacks.
+- Each popular card identifies the TMDB source and adds genre context when
+  available (`Popular now · Horror`).
+- Reason lines remain hidden while `tmdb-detail` genre enrichment is pending, so
+  users never see a generic fallback flash and then change underneath them.
+- Reasons refresh with their cards and never expose TMDB ratings.
 
-The remaining product opportunity is **movie-level explanation**, or a richer
-section subtitle when it can say something specific and true. Avoid generic
-claims such as "fans also liked" unless the upstream data actually supports
-them. Mobile cards are compact, so any reason should be short, optional, and
-visually subordinate to the title/year/actions.
+The pure policy lives in `lib/suggestions.js`; focused unit coverage is in
+`tests/suggestions.test.js`, and the E2E smoke verifies pending, enriched, and
+refreshed card states.
 
 ## Summary
 
@@ -34,7 +42,7 @@ That ambiguity matters because the user is being asked to make a decision:
 
 Better explanation text can make those choices easier.
 
-## Proposed improvements
+## Original proposed improvements
 
 ### Section-level explanations
 
@@ -58,16 +66,19 @@ Add a short reason on individual suggestion cards:
 - `Trending this week`
 - `Animated favorite you have not ranked`
 
-This would likely require richer TMDB data or a recommendation endpoint that returns reason metadata.
+The shipped version uses data the app can state truthfully: TMDB recommendation
+provenance plus detail-backed genre overlap. It does not invent collaborative
+filtering claims such as "fans also liked."
 
-## Suggested first version
+## Shipped first version
 
 The original first step was better section-level explanations:
 
-- Make the related section title dynamic and explicit. **Shipped as Inspired by
-  [movie].**
-- Keep `All-time essentials` and `Popular now`, but consider adding subtle subtitles.
-- Do not add extra text to every card yet; mobile cards are already compact.
+- Make the related section title dynamic and explicit.
+- Give all three sections plain-language source subtitles.
+- Add one visually subordinate reason line to every movie card.
+- Enrich asynchronously, holding the line hidden until its final metadata is
+  ready.
 
 Example:
 
@@ -82,26 +93,26 @@ Example:
 - Helps users understand what feedback they are giving the recommendation system.
 - Can improve the perceived intelligence of the app without major new interaction design.
 
-## Why this may not be worth doing
+## Guardrails retained
 
-- Too much explanatory text can clutter mobile suggestion rows.
-- Weak or generic explanations may be worse than no explanations.
-- Movie-level explanations may require more data modeling and API work than expected.
+- Keep each reason to one concise line on mobile.
+- Prefer a truthful source fallback over a weak causal claim.
+- Do not claim director, cast, audience, or behavioral similarity unless the
+  upstream data actually proves it.
+- Do not surface TMDB ratings.
 
-## Implementation notes
+## Potential follow-ups
 
-- Current related suggestions know and display the seed movie.
-- Favor section-level copy first.
-- Keep text short enough for mobile:
-  - `Because you ranked {movie}`
-  - `More like your top picks`
-  - `Classics you have not ranked`
-- Avoid wrapping long titles into huge section headers if possible.
-- Consider truncating long seed movie titles.
+- Director/cast overlap could produce more specific reasons using the existing
+  detail payload, but only if mobile cards remain uncluttered.
+- Better upstream provenance could support stronger recommendation explanations;
+  do not add "fans also liked" language without that evidence.
 
 ## Acceptance criteria
 
 - Each suggestion section has a clear, user-facing reason for existing.
 - Dynamic related sections mention the relevant seed or ranking context when available.
+- Each rendered movie card receives a concise source/context reason once
+  enrichment settles.
 - Mobile layout remains clean and does not add excessive vertical height.
 - Explanations update when suggestions refresh or when the seed movie changes.

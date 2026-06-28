@@ -166,15 +166,11 @@ Potential future options:
 - Store enriched movie fields when a movie is ranked or saved.
 - Avoid over-storing volatile TMDB data until there is a clear need.
 
-### Enrich suggestion explanations
+### Enrich suggestion explanations — shipped
 
-The detail pane could later include a compact explanation such as:
-
-- `Because you ranked Django Unchained`
-- `Popular among similar picks`
-- `Classic you have not ranked`
-
-This overlaps with the separate Better suggestion explanations feature idea.
+Suggestion cards now use the detail endpoint's genre metadata for concise
+per-movie reasons, with source-level fallbacks that do not overstate what TMDB
+proves. See the shipped Better suggestion explanations feature note.
 
 ### Consider title icon refinements
 

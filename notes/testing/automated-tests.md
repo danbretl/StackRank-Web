@@ -7,22 +7,25 @@
 ## Status at a glance
 
 **Phases 0–6 plus persistence hardening complete; Phase 7 has a growing
-browser-smoke slice.** `npm test` runs 119 fast unit/structural tests in ~0.3s.
+browser-smoke slice.** `npm test` runs 132 fast unit/structural tests in ~0.3s.
 The entire pure logic core is
 extracted into `lib/` and covered: ZIP writer, text-fit/SVG-text, formatters,
 movie identity + merge, persistence payload parsing + timestamp/no-loss merge
 rules, the rank-weighted insight engine, pack progress + share aggregation, the
-share text/data export builder + serializers, the binary-insertion ranking
-search, the pure Share SVG composition layer, and backup/title-import parsing +
-validation.
+share text/data export builder + serializers, suggestion-reason policy,
+full-screen ranking filter/navigation/2-D reorder math, the binary-insertion
+ranking search, the pure Share SVG composition layer, and backup/title-import
+parsing + validation.
 `npm run test:e2e` now drives headless Chrome against the real static app and
 covers localStorage hydration, queue-to-ranking comparison flow, comparison
 undo/cancel restore, Share Studio preview/empty-toggle wiring, exact backup
-restore, and ordered title-list import with disambiguation/replacement. `npm run
-verify` runs both suites plus syntax/type checks.
+restore, ordered title-list import with disambiguation/replacement, async
+suggestion reasons, full-screen ranking interactions including 2-D drag, and a
+mobile pack-layout regression. `npm run verify` runs both suites plus
+syntax/type checks.
 
-Modules: `lib/{zip,text,format,movie,persistence,insights,packs,share-export,share-svg,ranking,undo,backup}.js`.
-Tests: `tests/{zip,text,format,movie,persistence,insights,packs,share-export,share-svg,ranking,undo,backup}.test.js`.
+Modules: `lib/{zip,text,format,movie,persistence,insights,packs,suggestions,fullscreen-ranking,share-export,share-svg,ranking,undo,backup}.js`.
+Tests: `tests/{zip,text,format,movie,persistence,insights,packs,suggestions,fullscreen-ranking,share-export,share-svg,ranking,undo,backup}.test.js`.
 
 ## Goal
 

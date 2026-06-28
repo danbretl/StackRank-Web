@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
+import { hasValidPublishableKey } from "../_shared/publishable-key.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -14,6 +15,9 @@ const jsonResponse = (body: Record<string, unknown>, status = 200) =>
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
+  }
+  if (!hasValidPublishableKey(req)) {
+    return jsonResponse({ error: "Valid publishable API key required" }, 401);
   }
 
   const url = new URL(req.url);

@@ -30,10 +30,10 @@ const requireEnv = (name) => {
   return value;
 };
 
-const readPublicAnonKey = async () => {
-  if (process.env.SUPABASE_ANON_KEY) return process.env.SUPABASE_ANON_KEY;
+const readPublicKey = async () => {
+  if (process.env.SUPABASE_PUBLISHABLE_KEY) return process.env.SUPABASE_PUBLISHABLE_KEY;
   const appJs = await readFile(path.join(ROOT, "app.js"), "utf8");
-  return appJs.match(/SUPABASE_ANON_KEY\s*=\s*"([^"]+)"/)?.[1] || "";
+  return appJs.match(/SUPABASE_PUBLISHABLE_KEY\s*=\s*"([^"]+)"/)?.[1] || "";
 };
 
 const tmdbFetch = async (pathName, params = {}) => {
@@ -59,16 +59,15 @@ const tmdbFetch = async (pathName, params = {}) => {
 };
 
 const tmdbProxySearch = async (query) => {
-  const anonKey = await readPublicAnonKey();
-  if (!anonKey) {
-    throw new Error("SUPABASE_ANON_KEY or TMDB_API_KEY is required");
+  const publicKey = await readPublicKey();
+  if (!publicKey) {
+    throw new Error("SUPABASE_PUBLISHABLE_KEY or TMDB_API_KEY is required");
   }
   const url = new URL(`${SUPABASE_URL}/functions/v1/tmdb-search`);
   url.searchParams.set("q", query);
   const response = await fetch(url, {
     headers: {
-      apikey: anonKey,
-      Authorization: `Bearer ${anonKey}`,
+      apikey: publicKey,
     },
   });
   if (!response.ok) {
@@ -80,16 +79,15 @@ const tmdbProxySearch = async (query) => {
 };
 
 const tmdbProxyDetail = async (tmdbId) => {
-  const anonKey = await readPublicAnonKey();
-  if (!anonKey) {
-    throw new Error("SUPABASE_ANON_KEY or TMDB_API_KEY is required");
+  const publicKey = await readPublicKey();
+  if (!publicKey) {
+    throw new Error("SUPABASE_PUBLISHABLE_KEY or TMDB_API_KEY is required");
   }
   const url = new URL(`${SUPABASE_URL}/functions/v1/tmdb-detail`);
   url.searchParams.set("id", String(tmdbId));
   const response = await fetch(url, {
     headers: {
-      apikey: anonKey,
-      Authorization: `Bearer ${anonKey}`,
+      apikey: publicKey,
     },
   });
   if (!response.ok) {
@@ -217,12 +215,14 @@ const toPackRow = async (pack) => {
 };
 
 const upsertPackRows = async (rows) => {
-  const serviceRoleKey = requireEnv("SUPABASE_SERVICE_ROLE_KEY");
+  const serviceKey = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!serviceKey) {
+    throw new Error("SUPABASE_SECRET_KEY is required for --upload");
+  }
   const response = await fetch(`${SUPABASE_URL}/rest/v1/suggestion_packs?on_conflict=slug`, {
     method: "POST",
     headers: {
-      apikey: serviceRoleKey,
-      Authorization: `Bearer ${serviceRoleKey}`,
+      apikey: serviceKey,
       "Content-Type": "application/json",
       Prefer: "resolution=merge-duplicates",
     },
@@ -270,7 +270,7 @@ const main = async () => {
     await upsertPackRows(rows);
     console.log(`Uploaded ${rows.length} suggestion packs`);
   } else {
-    console.log("Skipped upload. Pass --upload with SUPABASE_SERVICE_ROLE_KEY to upsert packs.");
+    console.log("Skipped upload. Pass --upload with SUPABASE_SECRET_KEY to upsert packs.");
   }
 };
 

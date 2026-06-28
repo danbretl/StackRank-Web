@@ -1,4 +1,4 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
+import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2/+esm";
 import { createStoredZipBlob } from "./lib/zip.js";
 import {
   mergeQueuePayloads,
@@ -275,7 +275,7 @@ const WATCH_LIST_TYPE = "watch";
 const NOT_INTERESTED_LIST_TYPE = "not_interested";
 const INSPIRED_SEED_KEY = "stackrank:inspired-seed:v1";
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhyZmhha3J4c2xscnFtc2N4eHBiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjY1MzkzOTYsImV4cCI6MjA4MjExNTM5Nn0.XYeheYWAMNbUC9MUPv1oF7J3-MwxfcBS7-QpxRszrSs";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl";
 
 let ranking = [];
 let rankingUpdatedAt = null;
@@ -401,10 +401,10 @@ let titleImportMatching = false;
 const storageEnabled = typeof window !== "undefined" && "localStorage" in window;
 const supabaseEnabled =
   SUPABASE_URL &&
-  SUPABASE_ANON_KEY &&
+  SUPABASE_PUBLISHABLE_KEY &&
   SUPABASE_URL !== "YOUR_SUPABASE_URL" &&
-  SUPABASE_ANON_KEY !== "YOUR_SUPABASE_ANON_KEY";
-const supabase = supabaseEnabled ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+  SUPABASE_PUBLISHABLE_KEY !== "YOUR_SUPABASE_PUBLISHABLE_KEY";
+const supabase = supabaseEnabled ? createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY) : null;
 const tmdbProxyEnabled = supabaseEnabled;
 const tmdbProxyUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_PROXY_PATH}` : "";
 const tmdbSuggestUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_SUGGEST_PATH}` : "";
@@ -2373,8 +2373,7 @@ const fetchTmdbImportCandidates = async (entry) => {
   const url = `${tmdbProxyUrl}?q=${encodeURIComponent(entry.title)}`;
   const response = await fetch(url, {
     headers: {
-      apikey: SUPABASE_ANON_KEY,
-      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+      apikey: SUPABASE_PUBLISHABLE_KEY,
     },
   });
   if (!response.ok) throw new Error(`TMDB search returned ${response.status}`);
@@ -3421,8 +3420,7 @@ const fetchMovieDetail = async (movie) => {
   try {
     const response = await fetch(url, {
       headers: {
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        apikey: SUPABASE_PUBLISHABLE_KEY,
       },
     });
     if (!response.ok) return null;
@@ -3726,8 +3724,7 @@ const fetchSuggestionList = async (type, seedId = null) => {
   try {
     const response = await fetch(url, {
       headers: {
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        apikey: SUPABASE_PUBLISHABLE_KEY,
       },
     });
     if (!response.ok) return [];
@@ -7470,8 +7467,7 @@ const resolveTmdbMatch = async (movie) => {
   try {
     const response = await fetch(url, {
       headers: {
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        apikey: SUPABASE_PUBLISHABLE_KEY,
       },
     });
     if (!response.ok) return null;
@@ -8142,8 +8138,7 @@ const fetchSuggestions = async (query) => {
   try {
     const response = await fetch(url, {
       headers: {
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        apikey: SUPABASE_PUBLISHABLE_KEY,
       },
     });
     if (!response.ok) {

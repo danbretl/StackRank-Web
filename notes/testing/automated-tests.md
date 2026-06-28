@@ -7,7 +7,7 @@
 ## Status at a glance
 
 **Phases 0–6 plus persistence hardening complete; Phase 7 has a growing
-browser-smoke slice.** `npm test` runs 132 fast unit/structural tests in ~0.3s.
+browser-smoke slice.** `npm test` runs 143 fast unit/structural tests in ~0.3s.
 The entire pure logic core is
 extracted into `lib/` and covered: ZIP writer, text-fit/SVG-text, formatters,
 movie identity + merge, persistence payload parsing + timestamp/no-loss merge
@@ -23,6 +23,8 @@ restore, ordered title-list import with disambiguation/replacement, async
 suggestion reasons, full-screen ranking interactions including 2-D drag, and a
 mobile pack-layout regression. `npm run verify` runs both suites plus
 syntax/type checks.
+The shared Edge Function publishable-key gate also has three focused Deno tests
+covering configuration parsing and exact-key authorization.
 
 Modules: `lib/{zip,text,format,movie,persistence,insights,packs,suggestions,fullscreen-ranking,share-export,share-svg,ranking,undo,backup}.js`.
 Tests: `tests/{zip,text,format,movie,persistence,insights,packs,suggestions,fullscreen-ranking,share-export,share-svg,ranking,undo,backup}.test.js`.
@@ -85,7 +87,8 @@ npm test                # the whole suite + saves reports/runs/<timestamp>/
 npm run test:e2e        # headless Chrome smoke + saves reports/e2e/runs/<timestamp>/
 npm run test:watch      # re-run on change (node --test --watch tests/)
 npm run check           # node --check app.js
-npm run check:functions # deno check supabase/functions/*/index.ts
+npm run check:functions # deno check functions plus shared helpers/tests
+npm run test:functions  # Deno tests for shared Edge Function policy
 node --test tests/zip.test.js   # one file
 ```
 

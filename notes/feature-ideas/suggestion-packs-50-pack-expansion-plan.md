@@ -19,7 +19,7 @@ Status: complete, local-only. Created 2026-06-25 so a future session can continu
 
 ## API key note
 
-No TMDB key is required to continue. The authoring script can resolve through the existing Supabase TMDB proxy using the public anon key from `app.js`. If `TMDB_API_KEY` is provided in the shell, the script uses TMDB directly; otherwise it falls back to the proxy. In both cases, service-role writes only happen when `--upload` is passed.
+No TMDB key is required to continue. The authoring script can resolve through the existing Supabase TMDB proxy using the public publishable key from `app.js`. If `TMDB_API_KEY` is provided in the shell, the script uses TMDB directly; otherwise it falls back to the proxy. In both cases, secret/service-role writes only happen when `--upload` is passed.
 
 ## Curation principles for this pass
 

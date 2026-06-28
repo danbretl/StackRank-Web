@@ -3335,7 +3335,8 @@ body.is-comparing .compare-panel {
 
 @media (max-width: 720px) {
   .app {
-    padding: 32px 16px 56px;
+    padding: 12px 12px 48px;
+    gap: 12px;
   }
 
   .panel {
@@ -3464,8 +3465,68 @@ body.is-comparing .compare-panel {
   }
 
   .topbar {
-    flex-direction: column;
-    gap: 6px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    align-content: center;
+    min-height: 44px;
+    column-gap: 8px;
+    row-gap: 1px;
+  }
+
+  .brand {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .topbar__meta {
+    grid-column: 1;
+    grid-row: 2;
+    font-size: 0.65rem;
+  }
+
+  .topbar__actions {
+    grid-column: 3;
+    grid-row: 1 / -1;
+    min-width: 0;
+    margin-left: auto;
+    gap: 8px;
+  }
+
+  .topbar__actions .auth__status {
+    max-width: min(42vw, 160px);
+    font-size: 0.72rem;
+    line-height: 1.15;
+    text-align: right;
+  }
+
+  .topbar__actions .ghost {
+    min-height: 44px;
+    padding: 8px 12px;
+  }
+
+  .topbar .icon-button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .topbar .icon-button--quiet {
+    border-color: var(--border-soft);
+    background: #ffffff;
+  }
+
+  .topbar .icon-button svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .ranking-settings {
+    position: fixed;
+    top: 64px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+    max-height: calc(100dvh - 76px);
   }
 
   .detail-overlay {

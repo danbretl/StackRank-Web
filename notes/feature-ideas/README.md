@@ -10,6 +10,7 @@ This folder captures product ideas that are worth revisiting later. They are int
 - [Undo for list changes](undo-history-for-list-changes.md) — **shipped (Jun 2026).** Single-level toast undo covers queue actions, ranking deletion/clear, completed placements (including pack Rank all), and pack Save all/Hide all.
 - [Website link preview metadata](website-link-preview-metadata.md) — **shipped (Jun 2026).** Open Graph/Twitter metadata plus a reproducible 1200×630 preview card.
 - [Backup, restore, and title-list import](backup-and-import.md) — **shipped (Jun 2026).** Complete versioned JSON backups, exact restore with undo, and TMDB-backed ordered-title import with conservative automatic matching, disambiguation, and replacement consent.
+- [Full-screen ranking view](ranking-fullscreen-view.md) — **v1 shipped (Jun 2026, read-only).** Expand button opens a roomy multi-column poster grid of the whole list. Interaction (detail/re-rank/drag) is a documented follow-up.
 
 ## Current top candidates (priority order, refreshed 2026-06-27)
 
@@ -17,7 +18,12 @@ This folder captures product ideas that are worth revisiting later. They are int
 2. [**Better suggestion explanations**](better-suggestion-explanations.md) — section-level context already ships; the remaining opportunity is concise, honest per-movie reasons that make Rank/Save/Hide decisions easier without cluttering mobile.
 3. [**Suggestion packs Phase 4**](suggestion-packs.md) — filters and the 100-pack expansion now ship; a featured row or alternate sorting should wait for usage evidence.
 4. [**Personal stats and taste profile**](personal-stats-and-taste-profile.md) — the insight engine already exists, but the native page needs a differentiated purpose: interactive drill-down, progress/milestones, or actionable suggestion hooks rather than a duplicate of Share Studio.
-5. [**Image-set tablet layout**](share-export-sizes-and-image-set.md) — an optional fixed landscape/iPad page system remains parked; lower priority because Wide single-image output already covers the main tablet/dashboard use case.
+5. [**Suggestion packs: broaden representation**](suggestion-packs-diversity.md) — concrete, build-ready pack proposals (Black cinema, queer cinema, women directors, Latin American voices, more) so a diverse audience feels seen. Pipeline-bound: add to the source file and run the author script.
+6. [**Image-set tablet layout**](share-export-sizes-and-image-set.md) — an optional fixed landscape/iPad page system remains parked; lower priority because Wide single-image output already covers the main tablet/dashboard use case.
+
+## Parked (bigger bets)
+
+- [**Social features**](social-features.md) — friends, viewing friends' rankings, per-title rank comparison, and an auto "friend pack" per friend. Explicitly later: needs a profiles/friendship/privacy model and new (deliberately non-owner) RLS policies. Captured so current work stays compatible.
 
 ## Completed ideas with potential follow-ups
 

@@ -3382,7 +3382,7 @@ const updatePackDetailPager = () => {
   if (!show) return;
   packDetailPrev.disabled = index <= 0;
   packDetailNext.disabled = index >= packBrowserOrder.length - 1;
-  packDetailPagerCount.textContent = `${index + 1} of ${packBrowserOrder.length}`;
+  packDetailPagerCount.textContent = `Pack ${index + 1} of ${packBrowserOrder.length}`;
 };
 
 const navigatePackDetail = (delta) => {
@@ -3714,6 +3714,7 @@ const openAllPacks = ({ restoreScroll = false } = {}) => {
   currentPackSlug = null;
   packDetailFromAllPacks = false;
   packDetailTrigger = packViewAll;
+  packDetailPager.hidden = true;
   packDetailOverlay.classList.add("is-all-packs");
   packBrowserFilters.hidden = false;
   packDetailCover.hidden = true;
@@ -6744,6 +6745,18 @@ packBrowserReset.addEventListener("click", () => {
 packDetailClose.addEventListener("click", () => handlePackDetailClose());
 packDetailPrev.addEventListener("click", () => navigatePackDetail(-1));
 packDetailNext.addEventListener("click", () => navigatePackDetail(1));
+// Left/right arrows step through packs while viewing a pack detail opened from the
+// All packs browser (mirrors the prev/next buttons).
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+  if (event.metaKey || event.ctrlKey || event.altKey) return;
+  if (packDetailOverlay.hidden || !packDetailFromAllPacks) return;
+  if (packDetailOverlay.classList.contains("is-all-packs")) return;
+  const tag = event.target?.tagName;
+  if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA") return;
+  event.preventDefault();
+  navigatePackDetail(event.key === "ArrowRight" ? 1 : -1);
+});
 packDetailOverlay.addEventListener("click", (event) => {
   if (event.target === packDetailOverlay) {
     handlePackDetailClose();

@@ -79,7 +79,7 @@ This should be mostly wiring:
 - existing title-import overlay and matching logic;
 - existing empty-ranking state;
 - existing suggestion-card and button styles;
-- the product instrumentation layer proposed for the next infrastructure pass.
+- the shipped privacy-bounded product instrumentation layer.
 
 No schema or persistence changes should be required.
 
@@ -131,4 +131,3 @@ demote them rather than expanding onboarding.
   focus traps.
 - Instrumentation measures the activation funnel without collecting movie or
   identity data.
-

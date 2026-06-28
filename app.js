@@ -83,6 +83,11 @@ import {
   gridNavigationTarget,
   moveRankingItem,
 } from "./lib/fullscreen-ranking.js?v=1";
+import {
+  buildProductEvent,
+  countBucket,
+  shouldCollectProductTelemetry,
+} from "./lib/telemetry.js?v=1";
 
 console.info("StackRank build", "share-studio-v4");
 
@@ -283,6 +288,7 @@ let watchList = [];
 let notInterestedList = [];
 let pending = null;
 let pendingOrigin = null;
+let pendingTelemetry = null;
 // Snapshot of all three lists taken when a ranking starts, so a completed
 // ranking can be undone back to exactly the pre-ranking state (movie removed
 // from the ranking and, if it came from a queue/restack, returned to its
@@ -405,6 +411,52 @@ const supabaseEnabled =
   SUPABASE_URL !== "YOUR_SUPABASE_URL" &&
   SUPABASE_PUBLISHABLE_KEY !== "YOUR_SUPABASE_PUBLISHABLE_KEY";
 const supabase = supabaseEnabled ? createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY) : null;
+const productTelemetryEnabled =
+  supabaseEnabled &&
+  shouldCollectProductTelemetry({
+    hostname: window.location.hostname,
+    doNotTrack: navigator.doNotTrack || window.doNotTrack || "",
+    globalPrivacyControl: navigator.globalPrivacyControl === true,
+  });
+const productTelemetrySessionId =
+  productTelemetryEnabled && typeof crypto.randomUUID === "function" ? crypto.randomUUID() : null;
+let productTelemetryEventCount = 0;
+
+const trackProductEvent = (eventName, properties = {}) => {
+  if (!productTelemetryEnabled || !supabase || !productTelemetrySessionId) return;
+  if (productTelemetryEventCount >= 80) return;
+  const payload = buildProductEvent({
+    eventName,
+    sessionId: productTelemetrySessionId,
+    properties: {
+      ...properties,
+      signed_in: Boolean(currentUser),
+    },
+  });
+  if (!payload) return;
+  productTelemetryEventCount += 1;
+  void supabase
+    .from("product_events")
+    .insert(payload)
+    .then(({ error }) => {
+      if (error && debugEnabled) console.warn("Could not record product event", eventName, error);
+    });
+};
+
+const initVercelWebAnalytics = () => {
+  if (!productTelemetryEnabled || document.querySelector('script[data-stackrank-analytics="vercel"]')) return;
+  window.va =
+    window.va ||
+    function queueVercelAnalytics() {
+      (window.vaq = window.vaq || []).push(arguments);
+    };
+  const script = document.createElement("script");
+  script.defer = true;
+  script.src = "/_vercel/insights/script.js";
+  script.dataset.stackrankAnalytics = "vercel";
+  document.head.appendChild(script);
+};
+
 const tmdbProxyEnabled = supabaseEnabled;
 const tmdbProxyUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_PROXY_PATH}` : "";
 const tmdbSuggestUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_SUGGEST_PATH}` : "";
@@ -1709,11 +1761,23 @@ const withRankingTimestamp = (movie) => ({
   rankedAt: movie.rankedAt || new Date().toISOString(),
 });
 
+const rankingTelemetrySource = (context, origin) => {
+  if (context?.type === "pack") return context.mode === "auto" ? "pack_auto" : "pack_browse";
+  if (context?.type === "suggestion") return `suggestion_${context.section || "unknown"}`;
+  if (context?.type === "queue") return context.source === "watch" ? "watch_queue" : "hidden_queue";
+  if (context?.type === "search") return "search";
+  if (origin?.type === "ranking") return "restack";
+  if (origin?.type === "watch") return "watch_queue";
+  if (origin?.type === "notInterested") return "hidden_queue";
+  return "unknown";
+};
+
 const startComparison = () => {
   if (!pending) return;
 
   if (ranking.length === 0) {
     const rankedMovie = withRankingTimestamp(pending);
+    const telemetry = pendingTelemetry;
     const context = pendingPackContext;
     const origin = pendingOrigin;
     ranking.push(rankedMovie);
@@ -1721,6 +1785,7 @@ const startComparison = () => {
     pending = null;
     pendingPackContext = null;
     pendingOrigin = null;
+    pendingTelemetry = null;
     saveRanking();
     setComparisonMode(false);
     compareSection.classList.add("panel--hidden");
@@ -1729,6 +1794,11 @@ const startComparison = () => {
     announcePlacement(`"${ranking[0].title}" placed as your top pick.`, context, rankedMovie, origin);
     settleRankingScroll(0);
     handleRankingSettled(rankedMovie, 0, context);
+    trackProductEvent("ranking_completed", {
+      source: telemetry?.source || "unknown",
+      list_size: countBucket(ranking.length),
+      count: countBucket(0),
+    });
     titleInput.blur();
     return;
   }
@@ -1813,6 +1883,8 @@ const handleDecision = (isNewBetter, midIndex) => {
   if (isSearchSettled(searchRange)) {
     const insertIndex = searchRange.low;
     const rankedMovie = withRankingTimestamp(pending);
+    const comparisonCount = pending.comparisons;
+    const telemetry = pendingTelemetry;
     const context = pendingPackContext;
     const origin = pendingOrigin;
     ranking.splice(insertIndex, 0, rankedMovie);
@@ -1822,6 +1894,7 @@ const handleDecision = (isNewBetter, midIndex) => {
     pending = null;
     pendingPackContext = null;
     pendingOrigin = null;
+    pendingTelemetry = null;
     searchRange = null;
     saveRanking();
     setComparisonMode(false);
@@ -1842,6 +1915,11 @@ const handleDecision = (isNewBetter, midIndex) => {
     announcePlacement(placementMessage, context, rankedMovie, origin);
     settleRankingScroll(insertIndex);
     handleRankingSettled(rankedMovie, insertIndex, context);
+    trackProductEvent("ranking_completed", {
+      source: telemetry?.source || "unknown",
+      list_size: countBucket(ranking.length),
+      count: countBucket(comparisonCount),
+    });
     titleInput.blur();
     return;
   }
@@ -1886,11 +1964,14 @@ const restorePendingOrigin = () => {
 const cancelComparison = () => {
   if (!pending) return;
   const canceledTitle = pending.title;
+  const comparisonCount = pending.comparisons;
+  const telemetry = pendingTelemetry;
   const context = pendingPackContext;
   restorePendingOrigin();
   pending = null;
   pendingPackContext = null;
   pendingOrigin = null;
+  pendingTelemetry = null;
   pendingRankingSnapshot = null;
   searchRange = null;
   compareHistory = [];
@@ -1902,9 +1983,14 @@ const cancelComparison = () => {
   updateSuggestions();
   restoreComparisonReturnScroll();
   titleInput.blur();
+  trackProductEvent("ranking_canceled", {
+    source: telemetry?.source || "unknown",
+    list_size: countBucket(ranking.length),
+    count: countBucket(comparisonCount),
+  });
   if (context?.type === "pack") {
     if (context.mode === "auto") {
-      stopAutoPack({ openDetail: true });
+      stopAutoPack({ openDetail: true, outcome: "canceled" });
     } else {
       window.setTimeout(() => openPackDetail(context.slug, { fromAllPacks: context.fromAllPacks }), 120);
     }
@@ -2043,6 +2129,10 @@ const startReview = () => {
   reviewStats = { reviewed: 0, changed: 0 };
   reviewSnapshot = snapshotRanking();
   reviewPairIndex = reviewQueue[0];
+  trackProductEvent("review_started", {
+    list_size: countBucket(ranking.length),
+    count: countBucket(reviewTotal),
+  });
   captureComparisonReturnScroll();
   setReviewMode(true);
   showReviewPair();
@@ -2062,6 +2152,11 @@ const finishReview = (completed) => {
   renderRanking();
   restoreComparisonReturnScroll();
   titleInput.blur();
+  trackProductEvent("review_completed", {
+    list_size: countBucket(ranking.length),
+    count: countBucket(stats.changed),
+    outcome: completed ? "completed" : "ended",
+  });
   if (stats.changed > 0) {
     const label = completed ? "Review complete" : "Review ended";
     const message = `${label} · ${stats.changed} swap${stats.changed === 1 ? "" : "s"}.`;
@@ -2123,6 +2218,7 @@ const applyExactDataSnapshot = async (snapshot) => {
   pending = null;
   pendingPackContext = null;
   pendingOrigin = null;
+  pendingTelemetry = null;
   pendingRankingSnapshot = null;
   searchRange = null;
   compareHistory = [];
@@ -2479,6 +2575,10 @@ const openTitleImport = () => {
   closeRankingSettings({ restoreFocus: false });
   titleImportOverlay.hidden = false;
   document.body.classList.add("is-detail-open");
+  trackProductEvent("import_opened", {
+    list_size: countBucket(ranking.length),
+    source: "settings",
+  });
   showTitleImportEntryStep();
   startTitleImportViewportSync();
 };
@@ -2555,6 +2655,7 @@ const applyTitleImport = async () => {
   pending = null;
   pendingPackContext = null;
   pendingOrigin = null;
+  pendingTelemetry = null;
   pendingRankingSnapshot = null;
   searchRange = null;
   compareHistory = [];
@@ -2576,6 +2677,11 @@ const applyTitleImport = async () => {
     () => restoreListsTo(beforeImport),
     7000,
   );
+  trackProductEvent("import_completed", {
+    list_size: countBucket(ranking.length),
+    count: countBucket(ranking.length),
+    outcome: "completed",
+  });
 };
 
 clearButton.addEventListener("click", () => {
@@ -2588,6 +2694,7 @@ clearButton.addEventListener("click", () => {
   pending = null;
   pendingPackContext = null;
   pendingOrigin = null;
+  pendingTelemetry = null;
   searchRange = null;
   saveRanking();
   setComparisonMode(false);
@@ -2915,6 +3022,11 @@ const beginRankingRestack = (index, { fromFullscreen = false } = {}) => {
   // Full-screen is an overlay ingress, so completing or cancelling should
   // restore the page instead of scrolling the underlying ranking panel.
   scrollToPlacementOnSettle = !fromFullscreen;
+  pendingTelemetry = { source: fromFullscreen ? "fullscreen_restack" : "restack" };
+  trackProductEvent("ranking_started", {
+    source: pendingTelemetry.source,
+    list_size: countBucket(ranking.length),
+  });
   ranking.splice(index, 1);
   pendingOrigin = { type: "ranking", movie: { ...movie }, index };
   pending = { ...movie, comparisons: 0 };
@@ -3609,12 +3721,12 @@ const setSuggestionList = (sectionKey, container, items = [], reasonContext = nu
     });
 
     card.append(poster, name, detailButton, meta, reason, actions);
-    card.addEventListener("click", () => startRankingFromSuggestion(movie));
+    card.addEventListener("click", () => startRankingFromSuggestion(movie, sectionKey));
     card.addEventListener("keydown", (event) => {
       if (event.target.closest("button")) return;
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        startRankingFromSuggestion(movie);
+        startRankingFromSuggestion(movie, sectionKey);
       }
     });
     container.appendChild(card);
@@ -3928,7 +4040,13 @@ const createPackCard = (pack, options = {}) => {
     card.appendChild(completeBadge);
   }
   card.append(media, body);
-  card.addEventListener("click", () => openPackDetail(pack.slug, { trigger: card }));
+  card.addEventListener("click", () => {
+    trackProductEvent("pack_opened", {
+      source: "pack_card",
+      list_size: countBucket(ranking.length),
+    });
+    openPackDetail(pack.slug, { trigger: card });
+  });
   return card;
 };
 
@@ -4368,6 +4486,12 @@ const renderPackBrowser = () => {
 };
 
 const openAllPacks = ({ restoreScroll = false } = {}) => {
+  if (!restoreScroll) {
+    trackProductEvent("pack_browser_opened", {
+      list_size: countBucket(ranking.length),
+      source: "home",
+    });
+  }
   currentPackSlug = null;
   packDetailFromAllPacks = false;
   packDetailTrigger = packViewAll;
@@ -4415,6 +4539,7 @@ const clearActiveComparison = () => {
   pending = null;
   pendingPackContext = null;
   pendingOrigin = null;
+  pendingTelemetry = null;
   searchRange = null;
   compareHistory = [];
   suggestionsRequestId += 1;
@@ -4424,10 +4549,17 @@ const clearActiveComparison = () => {
   titleInput.blur();
 };
 
-const stopAutoPack = ({ openDetail = true, message = "" } = {}) => {
+const stopAutoPack = ({ openDetail = true, message = "", outcome = "ended" } = {}) => {
   const slug = autoPackSession?.slug || pendingPackContext?.slug || currentPackSlug;
   const fromAllPacks = autoPackSession?.fromAllPacks ?? pendingPackContext?.fromAllPacks;
+  const hadSession = Boolean(autoPackSession);
   autoPackSession = null;
+  if (hadSession) {
+    trackProductEvent("pack_rank_all_stopped", {
+      outcome,
+      list_size: countBucket(ranking.length),
+    });
+  }
   if (message) setAddFeedback(message, 2600);
   renderPackSurfaces();
   if (openDetail && slug) {
@@ -4449,7 +4581,7 @@ const advanceAutoPack = () => {
   if (!autoPackSession) return;
   const pack = getPackBySlug(autoPackSession.slug);
   if (!pack) {
-    stopAutoPack({ openDetail: false });
+    stopAutoPack({ openDetail: false, outcome: "failed" });
     return;
   }
   const nextEntry = nextAutoPackEntry(pack);
@@ -4458,6 +4590,7 @@ const advanceAutoPack = () => {
     stopAutoPack({
       openDetail: true,
       message: stats.completed ? `"${pack.title}" complete.` : `"${pack.title}" paused.`,
+      outcome: stats.completed ? "completed" : "ended",
     });
     return;
   }
@@ -4482,6 +4615,10 @@ const startAutoPack = (slug) => {
     fromAllPacks: packDetailFromAllPacks,
   };
   markPackEngaged(pack, { lastIndex: autoPackSession.cursor });
+  trackProductEvent("pack_rank_all_started", {
+    list_size: countBucket(ranking.length),
+    count: countBucket(getPackStats(pack).remainingMovies.length),
+  });
   closePackDetail({ restoreFocus: false });
   advanceAutoPack();
 };
@@ -4528,7 +4665,13 @@ const maybeShowPackDiscoveryNudge = (movie) => {
     [
       {
         label: "Explore",
-        onClick: () => openPackDetail(pack.slug),
+        onClick: () => {
+          trackProductEvent("pack_opened", {
+            source: "discovery",
+            list_size: countBucket(ranking.length),
+          });
+          openPackDetail(pack.slug);
+        },
       },
       {
         label: "Dismiss",
@@ -6512,6 +6655,10 @@ function unlockShareScroll() {
 
 function openShareStudio() {
   if (!ranking.length) return;
+  trackProductEvent("share_opened", {
+    list_size: countBucket(ranking.length),
+    format: shareOptions.format,
+  });
   stopPlaceholderRotation();
   shareStudioTrigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
   lastSharePreviewMarkup = "";
@@ -7048,6 +7195,13 @@ function downloadBlob(blob, filename) {
 // The stored-ZIP writer (`createStoredZipBlob`) now lives in lib/zip.js, imported
 // at the top so both the app and the Node test suite share one implementation.
 
+const trackShareExport = (format) => {
+  trackProductEvent("share_exported", {
+    format,
+    list_size: countBucket(ranking.length),
+  });
+};
+
 async function downloadShareSvg() {
   if (!ranking.length) return;
   const images = buildShareImages({ ...shareOptions, externalPosters: true });
@@ -7057,16 +7211,19 @@ async function downloadShareSvg() {
       const only = images.cards[0];
       downloadBlob(new Blob([only.svg], { type: "image/svg+xml;charset=utf-8" }), only.svgFilename);
       setAddFeedback("Share SVG downloaded.");
+      trackShareExport("svg_single");
       return;
     }
     const encoder = new TextEncoder();
     const files = images.cards.map((card) => ({ name: card.svgFilename, bytes: encoder.encode(card.svg) }));
     downloadBlob(createStoredZipBlob(files), "stackrank-share-svg.zip");
     setAddFeedback(`Downloaded ${images.cards.length} share SVGs (zip).`);
+    trackShareExport("svg_zip");
     return;
   }
   downloadBlob(new Blob([images.svg], { type: "image/svg+xml;charset=utf-8" }), "stackrank-movies.svg");
   setAddFeedback("Share SVG downloaded.");
+  trackShareExport("svg");
 }
 
 function getSvgPosterOverlays(svg) {
@@ -7317,6 +7474,7 @@ async function downloadCurrentShareSetPage() {
     downloadBlob(page.blob, page.filename);
     setAddFeedback(`Downloaded page ${page.pageIndex + 1}.`);
     shareExportStatus.textContent = `Downloaded page ${page.pageIndex + 1} of ${page.total}.`;
+    trackShareExport("png_page");
     updateShareStudio();
   } catch (error) {
     sharePngPreparing = false;
@@ -7353,6 +7511,7 @@ async function shareNativePng({ currentPageOnly = false } = {}) {
     sharePngPreparing = false;
     setAddFeedback(files.length > 1 ? "Share set opened." : "Share image opened.");
     shareExportStatus.textContent = files.length > 1 ? "Share set opened." : "Share image opened.";
+    trackShareExport(files.length > 1 ? "native_set" : "native_single");
     updateShareStudio();
   } catch (error) {
     sharePngPreparing = false;
@@ -7393,6 +7552,7 @@ async function downloadSharePng() {
         setAddFeedback(`Downloaded ${pngFiles.length} share images (zip).`);
         shareExportStatus.textContent = `Downloaded ${pngFiles.length} share images (zip).`;
       }
+      trackShareExport(pngFiles.length > 1 ? "png_zip" : "png_single");
       updateShareStudio();
       return;
     }
@@ -7402,6 +7562,7 @@ async function downloadSharePng() {
     downloadBlob(blob, "stackrank-movies.png");
     setAddFeedback("Share PNG downloaded.");
     shareExportStatus.textContent = "Share PNG downloaded.";
+    trackShareExport("png");
     updateShareStudio();
   } catch (error) {
     sharePngPreparing = false;
@@ -7424,12 +7585,14 @@ async function copyShareExport(format) {
       await navigator.clipboard.writeText(payload);
       setAddFeedback(`Copied ${format} export.`);
       shareExportStatus.textContent = `Copied ${format} export.`;
+      trackShareExport(format);
       return;
     }
   } catch (error) {
     // Fall through to prompt.
   }
   window.prompt(`Copy ${format} export:`, payload);
+  trackShareExport(format);
 }
 
 const updateDebugPanel = (extra = {}) => {
@@ -7563,6 +7726,7 @@ const handleSignOut = async () => {
   ranking = [];
   pending = null;
   pendingOrigin = null;
+  pendingTelemetry = null;
   searchRange = null;
   saveRanking();
   setComparisonMode(false);
@@ -7738,6 +7902,13 @@ const startRankingMovie = (movie, context = null, { scrollToPlacement } = {}) =>
   const isAutoPack = context?.type === "pack" && context.mode === "auto";
   scrollToPlacementOnSettle = scrollToPlacement ?? isAutoPack;
   pendingOrigin = getQueueOrigin(movie);
+  pendingTelemetry = {
+    source: rankingTelemetrySource(context, pendingOrigin),
+  };
+  trackProductEvent("ranking_started", {
+    source: pendingTelemetry.source,
+    list_size: countBucket(ranking.length),
+  });
   pendingPackContext = context;
   removeMovieFromSuggestionQueues(movie);
   persistSuggestionQueues();
@@ -7839,7 +8010,7 @@ const handleQueueInteraction = (event) => {
 
   const list = source === "watch" ? watchList : notInterestedList;
   const movie = list[index];
-  if (movie) startRankingMovie(movie);
+  if (movie) startRankingMovie(movie, { type: "queue", source });
 };
 
 const handleQueueKeydown = (event) => {
@@ -7852,7 +8023,7 @@ const handleQueueKeydown = (event) => {
   const index = Number(item.dataset.index);
   const list = source === "watch" ? watchList : notInterestedList;
   const movie = list[index];
-  if (movie) startRankingMovie(movie);
+  if (movie) startRankingMovie(movie, { type: "queue", source });
 };
 
 watchListEl.addEventListener("click", handleQueueInteraction);
@@ -7950,7 +8121,11 @@ detailRank.addEventListener("click", () => {
     if (pack) startPackMovieRanking(pack, movie, "browse");
   } else {
     if (context.type === "queue" && context.slug) closePackDetail({ restoreFocus: false });
-    startRankingFromSuggestion(movie);
+    if (context.type === "queue") {
+      startRankingMovie(movie, { type: "queue", source: context.source });
+    } else {
+      startRankingFromSuggestion(movie, context.sectionKey || "unknown");
+    }
   }
 });
 
@@ -8079,11 +8254,11 @@ const startRankingFromSelection = () => {
   const movie = selectedSuggestion;
   selectedSuggestion = null;
   // Adding from the homepage form: scroll to where the movie lands in the list.
-  startRankingMovie(movie, null, { scrollToPlacement: true });
+  startRankingMovie(movie, { type: "search" }, { scrollToPlacement: true });
 };
 
-const startRankingFromSuggestion = (movie) => {
-  startRankingMovie(movie);
+const startRankingFromSuggestion = (movie, section = "unknown") => {
+  startRankingMovie(movie, { type: "suggestion", section });
 };
 
 const renderSuggestions = (movies) => {
@@ -8265,7 +8440,12 @@ const init = async () => {
     suggestRelatedCursor = 0;
     suggestEssentialsCursor = 0;
     updateSuggestions();
+    trackProductEvent("session_started", {
+      list_size: countBucket(ranking.length),
+      source: ranking.length ? "returning" : "empty",
+    });
   }
 };
 
+initVercelWebAnalytics();
 init();

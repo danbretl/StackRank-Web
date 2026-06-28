@@ -17,10 +17,11 @@ This folder captures product ideas that are worth revisiting later. They are int
 
 ## Current top candidates (priority order, refreshed 2026-06-28)
 
-1. [**Personal stats and taste profile**](personal-stats-and-taste-profile.md) — the insight engine already exists, but the native page needs a differentiated purpose: interactive drill-down, progress/milestones, or actionable suggestion hooks rather than a duplicate of Share Studio.
-2. [**Suggestion packs Phase 4**](suggestion-packs.md) — filters and the 100-pack expansion now ship; a featured row or alternate sorting should wait for usage evidence.
-3. [**Ranking review mode follow-ups**](ranking-review-mode.md) — adjacent-pair v1 shipped; per-swap undo or confidence-gap/section strategies can wait for usage evidence that deepening review is worth it.
-4. [**Image-set tablet layout**](share-export-sizes-and-image-set.md) — an optional fixed landscape/iPad page system remains parked; lower priority because Wide single-image output already covers the main tablet/dashboard use case.
+1. [**First-run quick start**](first-run-quick-start.md) — expose starter packs and title import in the empty state, with one sentence explaining that comparisons begin after the second movie. Instrument the activation funnel before expanding it into broader onboarding.
+2. [**Personal stats and taste profile**](personal-stats-and-taste-profile.md) — the insight engine already exists, but the native page needs a differentiated purpose: interactive drill-down, progress/milestones, or actionable suggestion hooks rather than a duplicate of Share Studio.
+3. [**Suggestion packs Phase 4**](suggestion-packs.md) — filters and the 100-pack expansion now ship; a featured row or alternate sorting should wait for usage evidence.
+4. [**Ranking review mode follow-ups**](ranking-review-mode.md) — adjacent-pair v1 shipped; per-swap undo or confidence-gap/section strategies can wait for usage evidence that deepening review is worth it.
+5. [**Image-set tablet layout**](share-export-sizes-and-image-set.md) — an optional fixed landscape/iPad page system remains parked; lower priority because Wide single-image output already covers the main tablet/dashboard use case.
 
 ## Parked (bigger bets)
 

@@ -1,6 +1,13 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm";
 import { createStoredZipBlob } from "./lib/zip.js";
 import {
+  mergeQueuePayloads,
+  mergeRankingPayloads,
+  normalizeSuggestionQueueLists,
+  parseQueuePayload,
+  parseRankingPayload,
+} from "./lib/persistence.js?v=1";
+import {
   xmlEscape,
   estimateSvgTextWidth,
   trimTextToSvgWidth,
@@ -21,7 +28,6 @@ import {
   movieKey,
   movieYear,
   isDuplicateMovie as isDuplicateInList,
-  mergeRankings,
 } from "./lib/movie.js";
 import { computeRankingInsights } from "./lib/insights.js";
 import {
@@ -823,25 +829,13 @@ const renderSuggestionQueues = () => {
   renderQueueList(notInterestedListEl, notInterestedList, "Nothing hidden yet.", "notInterested");
 };
 
-// mergeRankings now lives in lib/movie.js, imported at the top.
-const mergeMovieLists = (baseList, incomingList) => mergeRankings(baseList, incomingList);
-
 const getLocalPayload = () => {
   if (!storageEnabled) return { movies: [], updated_at: null };
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return { movies: [], updated_at: null };
-    const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed)) {
-      return { movies: parsed, updated_at: null };
-    }
-    if (parsed && Array.isArray(parsed.movies)) {
-      return { movies: parsed.movies, updated_at: parsed.updated_at || null };
-    }
-  } catch (error) {
+    return parseRankingPayload(localStorage.getItem(STORAGE_KEY));
+  } catch (_error) {
     return { movies: [], updated_at: null };
   }
-  return { movies: [], updated_at: null };
 };
 
 const saveLocalPayload = (movies, updatedAt) => {
@@ -864,15 +858,8 @@ const getQueueStorageKeys = () => {
 const getQueuePayload = (key) => {
   if (!storageEnabled) return { watchList: [], notInterestedList: [], updated_at: null };
   try {
-    const raw = localStorage.getItem(key);
-    if (!raw) return { watchList: [], notInterestedList: [], updated_at: null };
-    const parsed = JSON.parse(raw);
-    return {
-      watchList: Array.isArray(parsed.watchList) ? parsed.watchList : [],
-      notInterestedList: Array.isArray(parsed.notInterestedList) ? parsed.notInterestedList : [],
-      updated_at: parsed.updated_at || null,
-    };
-  } catch (error) {
+    return parseQueuePayload(localStorage.getItem(key));
+  } catch (_error) {
     return { watchList: [], notInterestedList: [], updated_at: null };
   }
 };
@@ -894,32 +881,14 @@ const saveLocalQueuePayload = (updatedAt) => {
   }
 };
 
-const getMergedQueuePayload = (payloads) => {
-  const sortedPayloads = payloads.sort((a, b) => {
-    const aTime = a.updated_at ? new Date(a.updated_at).getTime() : 0;
-    const bTime = b.updated_at ? new Date(b.updated_at).getTime() : 0;
-    return bTime - aTime;
-  });
-  const [newest = { watchList: [], notInterestedList: [], updated_at: null }, ...older] = sortedPayloads;
-  const merged = {
-    watchList: newest.watchList,
-    notInterestedList: newest.notInterestedList,
-    updated_at: newest.updated_at || null,
-  };
-  older.forEach((payload) => {
-    merged.watchList = mergeMovieLists(merged.watchList, payload.watchList);
-    merged.notInterestedList = mergeMovieLists(merged.notInterestedList, payload.notInterestedList);
-  });
-  return merged;
-};
-
 const normalizeSuggestionQueues = () => {
-  const rankedKeys = new Set(ranking.map(movieKey));
-  watchList = watchList.filter((movie) => !rankedKeys.has(movieKey(movie)));
-  notInterestedList = notInterestedList.filter((movie) => {
-    const key = movieKey(movie);
-    return !rankedKeys.has(key) && !watchList.some((watchMovie) => movieKey(watchMovie) === key);
+  const normalized = normalizeSuggestionQueueLists({
+    ranking,
+    watchList,
+    notInterestedList,
   });
+  watchList = normalized.watchList;
+  notInterestedList = normalized.notInterestedList;
 };
 
 const saveSuggestionQueues = async () => {
@@ -983,7 +952,7 @@ const loadSuggestionQueues = async () => {
     }
   }
 
-  const merged = getMergedQueuePayload(payloads);
+  const merged = mergeQueuePayloads(payloads);
   watchList = merged.watchList;
   notInterestedList = merged.notInterestedList;
   normalizeSuggestionQueues();
@@ -1242,12 +1211,12 @@ const loadRanking = async () => {
       .maybeSingle();
     if (!error && data && Array.isArray(data.movies)) {
       const local = getLocalPayload();
-      const serverUpdated = data.updated_at ? new Date(data.updated_at).getTime() : 0;
-      const localUpdated = local.updated_at ? new Date(local.updated_at).getTime() : 0;
-      const serverBase = serverUpdated >= localUpdated ? data.movies : local.movies;
-      const other = serverUpdated >= localUpdated ? local.movies : data.movies;
-      rankingUpdatedAt = serverUpdated >= localUpdated ? data.updated_at || null : local.updated_at || null;
-      ranking = mergeRankings(serverBase, other);
+      const merged = mergeRankingPayloads([
+        { movies: data.movies, updated_at: data.updated_at || null },
+        local,
+      ]);
+      ranking = merged.movies;
+      rankingUpdatedAt = merged.updated_at;
       await saveRanking();
       return;
     }

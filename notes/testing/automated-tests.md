@@ -6,21 +6,23 @@
 
 ## Status at a glance
 
-**Phases 0–6 complete; Phase 7 has a growing browser-smoke slice.** `npm test`
-runs 104 fast unit/structural tests in ~0.3s. The entire pure logic core is
+**Phases 0–6 plus persistence hardening complete; Phase 7 has a growing
+browser-smoke slice.** `npm test` runs 119 fast unit/structural tests in ~0.3s.
+The entire pure logic core is
 extracted into `lib/` and covered: ZIP writer, text-fit/SVG-text, formatters,
-movie identity + merge (never-lose-data), the rank-weighted insight engine, pack
-progress + share aggregation, the share text/data export builder + serializers,
-the binary-insertion ranking search, the pure Share SVG composition layer, and
-backup/title-import parsing + validation.
+movie identity + merge, persistence payload parsing + timestamp/no-loss merge
+rules, the rank-weighted insight engine, pack progress + share aggregation, the
+share text/data export builder + serializers, the binary-insertion ranking
+search, the pure Share SVG composition layer, and backup/title-import parsing +
+validation.
 `npm run test:e2e` now drives headless Chrome against the real static app and
 covers localStorage hydration, queue-to-ranking comparison flow, comparison
 undo/cancel restore, Share Studio preview/empty-toggle wiring, exact backup
 restore, and ordered title-list import with disambiguation/replacement. `npm run
 verify` runs both suites plus syntax/type checks.
 
-Modules: `lib/{zip,text,format,movie,insights,packs,share-export,share-svg,ranking,undo,backup}.js`.
-Tests: `tests/{zip,text,format,movie,insights,packs,share-export,share-svg,ranking,undo,backup}.test.js`.
+Modules: `lib/{zip,text,format,movie,persistence,insights,packs,share-export,share-svg,ranking,undo,backup}.js`.
+Tests: `tests/{zip,text,format,movie,persistence,insights,packs,share-export,share-svg,ranking,undo,backup}.test.js`.
 
 ## Goal
 
@@ -273,6 +275,17 @@ Legend: [ ] todo · [~] in progress · [x] done
       green, and browser smoke on `localhost:8000` confirmed Share Studio opens,
       renders the single SVG preview, disables empty section toggles, and renders
       a 7-card Image set preview with ZIP button labels.
+
+### Persistence data-integrity hardening ✅
+- [x] Extracted `lib/persistence.js`: legacy/current local ranking payload parsing,
+      queue payload parsing, timestamp-ordered ranking and queue merges, and
+      ranked/watch/hidden queue normalization.
+- [x] `tests/persistence.test.js` covers corrupt/wrong-shaped storage, invalid
+      timestamps, stable tie precedence, caller-input immutability, newest-order
+      preservation, queue conflict priority, and a permutation invariant proving
+      unique movies cannot disappear across snapshots. (8 tests)
+- [x] Browser adapters in `app.js` now only read/write storage and bind live state;
+      merge policy is shared with the Node suite.
 
 ### Phase 7 — DOM / integration / E2E (initial browser-smoke slice ✅)
 - [x] Chose a browser-driven, zero-dependency harness: `scripts/run-e2e-smoke.cjs`

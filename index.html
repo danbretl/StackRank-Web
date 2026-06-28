@@ -50,7 +50,7 @@
       content="StackRank — build your movie ranking, one comparison at a time"
     />
 
-    <link rel="stylesheet" href="styles.css?v=75" />
+    <link rel="stylesheet" href="styles.css?v=78" />
   </head>
   <body>
     <main class="app">
@@ -106,7 +106,12 @@
             </div>
             <div class="suggest-section" id="suggest-related-section">
               <div class="suggest-header">
-                <div class="suggest-title" id="suggest-related-title">Inspired by your ranking</div>
+                <div class="suggest-copy">
+                  <div class="suggest-title" id="suggest-related-title">Inspired by your ranking</div>
+                  <div class="suggest-subtitle" id="suggest-related-sub">
+                    Recommendations connected to your highest-ranked movies.
+                  </div>
+                </div>
                 <button class="suggest-button" id="suggest-related-more" type="button" aria-label="Refresh inspired suggestions">
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M20 6v5h-5" />
@@ -119,7 +124,10 @@
             </div>
             <div class="suggest-section">
               <div class="suggest-header">
-                <div class="suggest-title">All-time essentials</div>
+                <div class="suggest-copy">
+                  <div class="suggest-title">All-time essentials</div>
+                  <div class="suggest-subtitle">Recognized favorites released before 2016.</div>
+                </div>
                 <button
                   class="suggest-button"
                   id="suggest-essentials-more"
@@ -136,7 +144,10 @@
             </div>
             <div class="suggest-section">
               <div class="suggest-header">
-                <div class="suggest-title">Popular now</div>
+                <div class="suggest-copy">
+                  <div class="suggest-title">Popular now</div>
+                  <div class="suggest-subtitle">Movies currently popular on TMDB.</div>
+                </div>
                 <button class="suggest-button" id="suggest-popular-more" type="button" aria-label="Refresh popular suggestions">
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M20 6v5h-5" />
@@ -731,6 +742,6 @@
       </footer>
     </main>
 
-    <script type="module" src="app.js?v=115"></script>
+    <script type="module" src="app.js?v=116"></script>
   </body>
 </html>

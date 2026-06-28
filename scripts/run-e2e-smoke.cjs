@@ -695,12 +695,235 @@ const testBackupAndImport = async ({ baseUrl }) => {
   }
 };
 
+const testSuggestionExplanations = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "suggestion-explanations", width: 1280, height: 1000 });
+  try {
+    await page.send("Page.addScriptToEvaluateOnNewDocument", {
+      source: `
+        (() => {
+          const realFetch = window.fetch.bind(window);
+          const fixtures = {
+            recommendations: [
+              { tmdbId: 2101, title: 'Future Signal', year: 2018, posterPath: '' },
+              { tmdbId: 2102, title: 'Neon Chase', year: 2020, posterPath: '' },
+              { tmdbId: 2103, title: 'Quiet Machine', year: 2016, posterPath: '' }
+            ],
+            essentials: [
+              { tmdbId: 2201, title: 'Classic One', year: 1974, posterPath: '' },
+              { tmdbId: 2202, title: 'Classic Two', year: 1982, posterPath: '' },
+              { tmdbId: 2203, title: 'Classic Three', year: 1995, posterPath: '' }
+            ],
+            popular: [
+              { tmdbId: 2301, title: 'Popular One', year: 2026, posterPath: '' },
+              { tmdbId: 2302, title: 'Popular Two', year: 2026, posterPath: '' },
+              { tmdbId: 2303, title: 'Popular Three', year: 2026, posterPath: '' },
+              { tmdbId: 2304, title: 'Popular Four', year: 2026, posterPath: '' },
+              { tmdbId: 2305, title: 'Popular Five', year: 2026, posterPath: '' },
+              { tmdbId: 2306, title: 'Popular Six', year: 2026, posterPath: '' }
+            ]
+          };
+          const detailGenres = {
+            2101: ['Drama', 'Science Fiction'],
+            2102: ['Action', 'Science Fiction'],
+            2103: ['Science Fiction'],
+            2201: ['Drama', 'Crime'],
+            2202: ['Science Fiction'],
+            2203: ['Animation'],
+            2301: ['Action'],
+            2302: ['Comedy'],
+            2303: ['Horror'],
+            2304: ['Mystery'],
+            2305: ['Romance'],
+            2306: ['Adventure']
+          };
+          window.fetch = (input, options) => {
+            const url = typeof input === 'string' ? input : input?.url || '';
+            if (url.includes('/functions/v1/tmdb-suggest')) {
+              const type = new URL(url).searchParams.get('type') || 'popular';
+              const results = type === 'recommendations' ? fixtures.recommendations : fixtures[type] || fixtures.popular;
+              return Promise.resolve(new Response(JSON.stringify({ results }), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' }
+              }));
+            }
+            if (url.includes('/functions/v1/tmdb-detail')) {
+              const id = Number(new URL(url).searchParams.get('id'));
+              return new Promise((resolve) => setTimeout(() => resolve(new Response(JSON.stringify({
+                result: { tmdbId: id, genres: detailGenres[id] || [] }
+              }), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' }
+              })), 1500));
+            }
+            return realFetch(input, options);
+          };
+        })();
+      `,
+    });
+    await seedPage(page, baseUrl, "suggestion-explanations", {
+      ranking: [
+        {
+          ...movie("The Matrix", 1999, 603),
+          genres: ["Action", "Science Fiction"],
+        },
+      ],
+    });
+    await waitFor(page, `document.querySelectorAll('.suggest-name').length === 9`, 5000);
+    const pending = await page.evaluate(`(() => ({
+      count: document.querySelectorAll('.suggest-reason').length,
+      pendingCount: document.querySelectorAll('.suggest-reason.is-pending').length,
+      text: [...document.querySelectorAll('.suggest-reason__text')].map((el) => el.textContent.trim()),
+      visibility: [...document.querySelectorAll('.suggest-reason')].map((el) => getComputedStyle(el).visibility)
+    }))()`);
+    if (
+      pending.count !== 9 ||
+      pending.pendingCount !== 9 ||
+      pending.text.some(Boolean) ||
+      pending.visibility.some((value) => value !== "hidden")
+    ) {
+      throw new Error(`Pending reasons exposed fallback content: ${JSON.stringify(pending)}`);
+    }
+    await waitFor(
+      page,
+      `(() => document.querySelectorAll('.suggest-reason__text').length === 9 &&
+        document.querySelector('#suggest-related .suggest-reason__text')?.textContent.includes('science fiction'))()`,
+      10000,
+    );
+    const initial = await page.evaluate(`(() => ({
+      relatedTitle: document.querySelector('#suggest-related-title')?.textContent.trim(),
+      relatedSub: document.querySelector('#suggest-related-sub')?.textContent.trim(),
+      relatedReasons: [...document.querySelectorAll('#suggest-related .suggest-reason__text')].map((el) => el.textContent.trim()),
+      essentialReasons: [...document.querySelectorAll('#suggest-essentials .suggest-reason__text')].map((el) => el.textContent.trim()),
+      popularReasons: [...document.querySelectorAll('#suggest-popular .suggest-reason__text')].map((el) => el.textContent.trim())
+    }))()`);
+    if (initial.relatedTitle !== "Inspired by The Matrix" || initial.relatedSub !== "Because it's #1 on your list.") {
+      throw new Error(`Related explanation source is wrong: ${JSON.stringify(initial)}`);
+    }
+    if (initial.relatedReasons.some((reason) => !/Shares science fiction with The Matrix/.test(reason))) {
+      throw new Error(`Related reasons are not specific and truthful: ${JSON.stringify(initial.relatedReasons)}`);
+    }
+    if (!initial.essentialReasons.includes("A 1970s crime essential")) {
+      throw new Error(`Essential explanation is missing era/genre context: ${JSON.stringify(initial.essentialReasons)}`);
+    }
+    if (!initial.popularReasons.includes("Popular now · Horror")) {
+      throw new Error(`Popular explanation is missing source/genre context: ${JSON.stringify(initial.popularReasons)}`);
+    }
+
+    await page.evaluate(`document.querySelector('#suggest-popular-more')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#suggest-popular .suggest-name')?.textContent.trim() === 'Popular Four'`,
+      5000,
+    );
+    const refreshedPending = await page.evaluate(`(() => ({
+      pendingCount: document.querySelectorAll('#suggest-popular .suggest-reason.is-pending').length,
+      text: [...document.querySelectorAll('#suggest-popular .suggest-reason__text')].map((el) => el.textContent.trim())
+    }))()`);
+    if (refreshedPending.pendingCount !== 3 || refreshedPending.text.some(Boolean)) {
+      throw new Error(`Refreshed reasons exposed fallback content: ${JSON.stringify(refreshedPending)}`);
+    }
+    await waitFor(
+      page,
+      `document.querySelector('#suggest-popular .suggest-reason__text')?.textContent.trim() === 'Popular now · Mystery'`,
+      5000,
+    );
+    const refreshed = await page.evaluate(`(() => ({
+      titles: [...document.querySelectorAll('#suggest-popular .suggest-name')].map((el) => el.textContent.trim()),
+      reasons: [...document.querySelectorAll('#suggest-popular .suggest-reason__text')].map((el) => el.textContent.trim())
+    }))()`);
+    if (refreshed.titles[0] !== "Popular Four" || refreshed.reasons[0] !== "Popular now · Mystery") {
+      throw new Error(`Refreshed cards did not receive refreshed explanations: ${JSON.stringify(refreshed)}`);
+    }
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { pending, initial, refreshedPending, refreshed },
+      screenshots: [await page.screenshot("suggestion-explanations.png")],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
+const testMobilePackTitleClearance = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "mobile-pack-title-clearance", width: 440, height: 956 });
+  try {
+    await seedPage(page, baseUrl, "mobile-pack-title-clearance", { ranking: [] });
+    await waitFor(page, `document.querySelectorAll('#pack-row .pack-card').length === 3`, 10000);
+    await page.evaluate(`document.querySelector('#pack-view-all')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#pack-detail')?.hidden && document.querySelector('#pack-detail')?.classList.contains('is-all-packs')`, 5000);
+    await page.evaluate(`document.querySelector('#pack-browser-filter-toggle')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#pack-browser-filter-controls')?.hidden`, 5000);
+
+    const openPack = async (slug, query, title) => {
+      await page.evaluate(`(() => {
+        const input = document.querySelector('#pack-browser-search');
+        if (!input) return false;
+        input.value = ${JSON.stringify(query)};
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        return true;
+      })()`);
+      await waitFor(page, `!!document.querySelector('.pack-card[data-slug="${slug}"]')`, 5000);
+      await page.evaluate(`document.querySelector('.pack-card[data-slug="${slug}"]')?.click(); true;`);
+      await waitFor(page, `document.querySelector('#pack-detail-title')?.textContent.trim() === ${JSON.stringify(title)} && !document.querySelector('#pack-detail')?.classList.contains('is-all-packs')`, 5000);
+      await wait(300);
+      return page.evaluate(`(() => {
+        const titleRect = document.querySelector('#pack-detail-title')?.getBoundingClientRect();
+        const closeRect = document.querySelector('#pack-detail-close')?.getBoundingClientRect();
+        const subRect = document.querySelector('#pack-detail-sub')?.getBoundingClientRect();
+        const overlaps = (a, b) => !!a && !!b &&
+          a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+        return {
+          title: document.querySelector('#pack-detail-title')?.textContent.trim(),
+          titleCloseOverlap: overlaps(titleRect, closeRect),
+          titleSubOverlap: overlaps(titleRect, subRect),
+          closeClearance: Math.round((closeRect?.left || 0) - (titleRect?.right || 0)),
+          titleHeight: Math.round(titleRect?.height || 0)
+        };
+      })()`);
+    };
+
+    const blockbuster = await openPack(
+      "decade-1980s-blockbuster-dna",
+      "1980s Blockbuster DNA",
+      "1980s Blockbuster DNA",
+    );
+    const blockbusterShot = await page.screenshot("mobile-pack-title-blockbuster.png");
+    if (blockbuster.titleCloseOverlap || blockbuster.titleSubOverlap || blockbuster.closeClearance < 8) {
+      throw new Error(`Blockbuster pack title overlaps header controls: ${JSON.stringify(blockbuster)}`);
+    }
+
+    await page.evaluate(`document.querySelector('#pack-detail-close')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#pack-detail')?.classList.contains('is-all-packs')`, 5000);
+    const tomHanks = await openPack(
+      "actor-tom-hanks-comfort-canon",
+      "Tom Hanks Comfort Canon",
+      "Tom Hanks Comfort Canon",
+    );
+    const tomHanksShot = await page.screenshot("mobile-pack-title-tom-hanks.png");
+    if (tomHanks.titleCloseOverlap || tomHanks.titleSubOverlap || tomHanks.closeClearance < 8) {
+      throw new Error(`Tom Hanks pack title overlaps header controls: ${JSON.stringify(tomHanks)}`);
+    }
+
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { blockbuster, tomHanks },
+      screenshots: [blockbusterShot, tomHanksShot],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
 const tests = [
   { name: "localStorage persistence round-trip", run: testLoadPersistence },
   { name: "watch queue comparison flow", run: testQueueComparison },
   { name: "comparison undo and cancel restore origin", run: testComparisonUndoCancel },
   { name: "Share Studio preview and empty toggles", run: testShareStudio },
   { name: "backup restore and title-list import", run: testBackupAndImport },
+  { name: "suggestion explanations and refresh", run: testSuggestionExplanations },
+  { name: "mobile pack title clearance", run: testMobilePackTitleClearance },
 ];
 
 const writeReports = async ({ startedAt, completedAt, baseUrl, results }) => {

@@ -71,6 +71,11 @@ import {
   parseRankedTitleList,
   parseStackRankBackup,
 } from "./lib/backup.js?v=2";
+import {
+  buildSuggestionReason,
+  buildSuggestionSectionSubtitle,
+  isSuggestionReasonReady,
+} from "./lib/suggestions.js?v=4";
 
 console.info("StackRank build", "share-studio-v4");
 
@@ -157,6 +162,7 @@ const addFeedback = document.getElementById("add-feedback");
 const suggestPanel = document.getElementById("suggest-panel");
 const suggestRelatedSection = document.getElementById("suggest-related-section");
 const suggestRelatedTitle = document.getElementById("suggest-related-title");
+const suggestRelatedSub = document.getElementById("suggest-related-sub");
 const suggestRelated = document.getElementById("suggest-related");
 const suggestRelatedEmpty = document.getElementById("suggest-related-empty");
 const suggestPopular = document.getElementById("suggest-popular");
@@ -289,9 +295,9 @@ let suggestPopularCursor = 0;
 let suggestEssentialsCursor = 0;
 let suggestionsRequestId = 0;
 let suggestionSectionState = {
-  popular: { all: [], visible: [] },
-  essentials: { all: [], visible: [] },
-  related: { all: [], visible: [] },
+  popular: { all: [], visible: [], reasonContext: null },
+  essentials: { all: [], visible: [], reasonContext: null },
+  related: { all: [], visible: [], reasonContext: null },
 };
 let suggestionPacks = [];
 let packProgress = {};
@@ -723,6 +729,13 @@ const createInfoIcon = () => `
     <circle cx="12" cy="12" r="9"></circle>
     <path d="M12 11v5"></path>
     <path d="M12 8h.01"></path>
+  </svg>
+`;
+
+const createSuggestionReasonIcon = () => `
+  <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+    <path d="M3 3v4a3 3 0 0 0 3 3h7"></path>
+    <path d="m10.5 7.5 2.5 2.5-2.5 2.5"></path>
   </svg>
 `;
 
@@ -2865,8 +2878,66 @@ const closeMovieDetail = ({ restoreFocus = true } = {}) => {
   detailTrigger = null;
 };
 
-const setSuggestionList = (sectionKey, container, items = []) => {
+const setSuggestionReasonText = (element, text) => {
+  if (!element || !text) return;
+  const textElement = element.querySelector(".suggest-reason__text");
+  if (!textElement) return;
+  textElement.textContent = text;
+  element.classList.remove("is-pending");
+  element.removeAttribute("aria-hidden");
+  element.setAttribute("aria-label", `Why this pick: ${text}`);
+  element.title = text;
+};
+
+const setSuggestionReasonPending = (element) => {
+  if (!element) return;
+  const textElement = element.querySelector(".suggest-reason__text");
+  if (textElement) textElement.textContent = "";
+  element.classList.add("is-pending");
+  element.setAttribute("aria-hidden", "true");
+  element.removeAttribute("aria-label");
+  element.removeAttribute("title");
+};
+
+const suggestionReasonSeed = (reasonContext) => {
+  const seed = reasonContext?.seed || null;
+  return seed ? { ...(seed.movie || {}), ...seed } : null;
+};
+
+const hydrateSuggestionReasons = async (sectionKey, entries, reasonContext = null) => {
+  const seed = reasonContext?.seed || null;
+  const seedMovie = seed?.movie || seed;
+  const seedDetailPromise =
+    sectionKey === "related" && seedMovie?.tmdbId && !Array.isArray(seedMovie.genres)
+      ? fetchMovieDetail(seedMovie)
+      : Promise.resolve(seedMovie);
+  const detailPromises = entries.map(({ movie }) =>
+    movie?.tmdbId && !Array.isArray(movie.genres) ? fetchMovieDetail(movie) : Promise.resolve(movie),
+  );
+  const [seedDetail, details] = await Promise.all([
+    seedDetailPromise,
+    Promise.all(detailPromises),
+  ]);
+  const enrichedSeed = seed ? { ...seed, ...(seedDetail || {}) } : null;
+
+  entries.forEach(({ movie, reasonElement }, index) => {
+    if (!reasonElement.isConnected) return;
+    const enrichedMovie = details[index] || movie;
+    if (!isSuggestionReasonReady({ sectionKey, movie: enrichedMovie, seed: enrichedSeed })) {
+      return;
+    }
+    const reason = buildSuggestionReason({
+      sectionKey,
+      movie: enrichedMovie,
+      seed: enrichedSeed,
+    });
+    setSuggestionReasonText(reasonElement, reason);
+  });
+};
+
+const setSuggestionList = (sectionKey, container, items = [], reasonContext = null) => {
   container.innerHTML = "";
+  const reasonEntries = [];
   items.forEach((movie) => {
     const card = document.createElement("div");
     card.className = "suggest-card";
@@ -2894,6 +2965,23 @@ const setSuggestionList = (sectionKey, container, items = []) => {
     const meta = document.createElement("div");
     meta.className = "suggest-meta";
     meta.textContent = movie.year ? `Released ${movie.year}` : "Year unknown";
+    const reason = document.createElement("div");
+    reason.className = "suggest-reason";
+    reason.innerHTML = `${createSuggestionReasonIcon()}<span class="suggest-reason__text"></span>`;
+    const seed = suggestionReasonSeed(reasonContext);
+    if (isSuggestionReasonReady({ sectionKey, movie, seed })) {
+      setSuggestionReasonText(
+        reason,
+        buildSuggestionReason({
+          sectionKey,
+          movie,
+          seed,
+        }),
+      );
+    } else {
+      setSuggestionReasonPending(reason);
+    }
+    reasonEntries.push({ movie, reasonElement: reason });
     const actions = document.createElement("div");
     actions.className = "suggest-actions";
     const watchButton = document.createElement("button");
@@ -2923,7 +3011,7 @@ const setSuggestionList = (sectionKey, container, items = []) => {
       openMovieDetail(movie, sectionKey, detailButton);
     });
 
-    card.append(poster, name, detailButton, meta, actions);
+    card.append(poster, name, detailButton, meta, reason, actions);
     card.addEventListener("click", () => startRankingFromSuggestion(movie));
     card.addEventListener("keydown", (event) => {
       if (event.target.closest("button")) return;
@@ -2934,12 +3022,13 @@ const setSuggestionList = (sectionKey, container, items = []) => {
     });
     container.appendChild(card);
   });
+  void hydrateSuggestionReasons(sectionKey, reasonEntries, reasonContext);
 };
 
-const setSuggestionSectionState = (sectionKey, all, visible) => {
+const setSuggestionSectionState = (sectionKey, all, visible, reasonContext = null) => {
   suggestionSectionState = {
     ...suggestionSectionState,
-    [sectionKey]: { all, visible },
+    [sectionKey]: { all, visible, reasonContext },
   };
 };
 
@@ -3000,8 +3089,8 @@ const replaceQueuedSuggestion = (sectionKey, queuedMovie) => {
     nextVisible.splice(queuedIndex, 1);
   }
 
-  setSuggestionSectionState(sectionKey, nextAll, nextVisible);
-  setSuggestionList(sectionKey, config.container, nextVisible);
+  setSuggestionSectionState(sectionKey, nextAll, nextVisible, state.reasonContext);
+  setSuggestionList(sectionKey, config.container, nextVisible, state.reasonContext);
   config.moreButton.disabled = nextAll.length <= SUGGESTION_PAGE_SIZE;
   if (nextVisible.length === 0) {
     refreshSuggestionSection(sectionKey);
@@ -3917,11 +4006,15 @@ const pickRankedSuggestionSeed = () => {
 
 const getPersonalSuggestionSeed = () => {
   if (lastAddedTmdbId && rankedTmdbIds().has(lastAddedTmdbId)) {
-    const movie = ranking.find((rankedMovie) => rankedMovie.tmdbId === lastAddedTmdbId);
+    const rankIndex = ranking.findIndex((rankedMovie) => rankedMovie.tmdbId === lastAddedTmdbId);
+    const movie = ranking[rankIndex];
     return {
       id: lastAddedTmdbId,
       source: "recent",
-      label: `Because you just added ${movie?.title || "a movie"}`,
+      label: `Inspired by ${movie?.title || "your latest movie"}`,
+      title: movie?.title || "your latest movie",
+      rank: rankIndex >= 0 ? rankIndex + 1 : null,
+      movie,
     };
   }
   const topRankedSeed =
@@ -3933,6 +4026,9 @@ const getPersonalSuggestionSeed = () => {
     id: topRankedSeed.tmdbId,
     source: "ranking",
     label: `Inspired by ${topRankedSeed.title}`,
+    title: topRankedSeed.title,
+    rank: ranking.indexOf(topRankedSeed) + 1,
+    movie: topRankedSeed,
   };
 };
 
@@ -3969,8 +4065,8 @@ const updatePopularSuggestions = async (requestId = createSuggestionRequest()) =
   }
   const popularFiltered = filterUnrankedSuggestions(popularAll);
   const popular = sliceSuggestions(popularFiltered, suggestPopularCursor, SUGGESTION_PAGE_SIZE);
-  setSuggestionSectionState("popular", popularFiltered, popular);
-  setSuggestionList("popular", suggestPopular, popular);
+  setSuggestionSectionState("popular", popularFiltered, popular, null);
+  setSuggestionList("popular", suggestPopular, popular, null);
   suggestPopularMore.disabled = popularFiltered.length <= SUGGESTION_PAGE_SIZE;
 };
 
@@ -3988,8 +4084,8 @@ const updateEssentialsSuggestions = async (requestId = createSuggestionRequest()
     suggestEssentialsCursor,
     SUGGESTION_PAGE_SIZE,
   );
-  setSuggestionSectionState("essentials", essentialsFiltered, essentials);
-  setSuggestionList("essentials", suggestEssentials, essentials);
+  setSuggestionSectionState("essentials", essentialsFiltered, essentials, null);
+  setSuggestionList("essentials", suggestEssentials, essentials, null);
   suggestEssentialsMore.disabled = essentialsFiltered.length <= SUGGESTION_PAGE_SIZE;
 };
 
@@ -4000,6 +4096,8 @@ const updateRelatedSuggestions = async (requestId = createSuggestionRequest()) =
     suggestRelatedMore.disabled = true;
     suggestRelatedSection.hidden = false;
     suggestRelatedTitle.textContent = personalSeed.label;
+    const reasonContext = { seed: personalSeed };
+    suggestRelatedSub.textContent = buildSuggestionSectionSubtitle("related", reasonContext);
     suggestRelatedEmpty.style.display = "none";
     setSuggestionLoading(suggestRelated);
     if (activeSuggestionSeed !== personalSeed.id) {
@@ -4012,16 +4110,17 @@ const updateRelatedSuggestions = async (requestId = createSuggestionRequest()) =
     }
     const relatedFiltered = filterUnrankedSuggestions(relatedAll);
     const related = sliceSuggestions(relatedFiltered, suggestRelatedCursor, SUGGESTION_PAGE_SIZE);
-    setSuggestionSectionState("related", relatedFiltered, related);
-    setSuggestionList("related", suggestRelated, related);
+    setSuggestionSectionState("related", relatedFiltered, related, reasonContext);
+    setSuggestionList("related", suggestRelated, related, reasonContext);
     suggestRelatedMore.disabled = relatedFiltered.length <= SUGGESTION_PAGE_SIZE;
     suggestRelatedSection.hidden = related.length === 0;
     suggestRelatedEmpty.style.display = "none";
   } else {
     activeSuggestionSeed = null;
-    setSuggestionSectionState("related", [], []);
+    setSuggestionSectionState("related", [], [], null);
     suggestRelatedSection.hidden = true;
     suggestRelated.innerHTML = "";
+    suggestRelatedSub.textContent = buildSuggestionSectionSubtitle("related");
     suggestRelatedMore.disabled = true;
   }
 };

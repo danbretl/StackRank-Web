@@ -62,6 +62,21 @@ test("buildProductEvent returns the storage row shape", () => {
   );
 });
 
+test("quick-start events accept only the bounded quick-start source", () => {
+  assert.deepEqual(
+    buildProductEvent({
+      eventName: "quick_start_pack_opened",
+      sessionId,
+      properties: { source: "quick_start", list_size: "0", pack_slug: "private-pack" },
+    }),
+    {
+      event_name: "quick_start_pack_opened",
+      session_id: sessionId,
+      properties: { source: "quick_start", list_size: "0" },
+    },
+  );
+});
+
 test("telemetry runs only on production and honors DNT/GPC", () => {
   assert.equal(shouldCollectProductTelemetry({ hostname: "www.stackrankapp.com" }), true);
   assert.equal(shouldCollectProductTelemetry({ hostname: "localhost" }), false);

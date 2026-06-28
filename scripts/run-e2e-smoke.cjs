@@ -447,6 +447,266 @@ const testLoadPersistence = async ({ baseUrl }) => {
   }
 };
 
+const testFirstRunQuickStart = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "first-run-quick-start", width: 1280, height: 900 });
+  try {
+    await page.send("Page.addScriptToEvaluateOnNewDocument", {
+      source: `
+        (() => {
+          const realFetch = window.fetch.bind(window);
+          window.fetch = (input, options) => {
+            const url = typeof input === 'string' ? input : input?.url || '';
+            if (url.includes('/functions/v1/tmdb-search')) {
+              const query = new URL(url).searchParams.get('q') || '';
+              const second = /second/i.test(query);
+              return Promise.resolve(new Response(JSON.stringify({
+                results: [{
+                  tmdbId: second ? 1902 : 1901,
+                  title: second ? 'Second Pick' : 'First Pick',
+                  year: second ? 2002 : 2001,
+                  posterPath: ''
+                }]
+              }), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+            }
+            if (url.includes('/functions/v1/tmdb-suggest')) {
+              return Promise.resolve(new Response(JSON.stringify({ results: [] }), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' }
+              }));
+            }
+            return realFetch(input, options);
+          };
+        })();
+      `,
+    });
+    await seedPage(page, baseUrl, "first-run-quick-start", { ranking: [] });
+    await waitFor(
+      page,
+      `!document.querySelector('#first-run')?.hidden &&
+        document.querySelector('#first-run')?.dataset.state === 'empty' &&
+        document.querySelectorAll('#pack-row .pack-card').length === 3`,
+      10000,
+    );
+
+    const empty = await page.evaluate(`(() => ({
+      state: document.querySelector('#first-run')?.dataset.state,
+      title: document.querySelector('#first-run-title')?.textContent.trim(),
+      body: document.querySelector('#first-run-body')?.textContent.trim(),
+      importHidden: !!document.querySelector('#quick-start-import')?.hidden,
+      packTitle: document.querySelector('#pack-section-title')?.textContent.trim(),
+      starterSlugs: [...document.querySelectorAll('#pack-row .pack-card')].map((card) => card.dataset.slug),
+      moduleSrc: document.querySelector('script[type="module"]')?.getAttribute('src'),
+      cssHref: document.querySelector('link[rel="stylesheet"]')?.getAttribute('href')
+    }))()`);
+    const expectedStarterSlugs = [
+      "fan-favorites-letterboxd-core",
+      "studio-ghibli-gateways",
+      "black-cinema-essentials",
+    ];
+    if (
+      empty.state !== "empty" ||
+      empty.title !== "Add two movies. Pick the one you prefer." ||
+      !/exact rank/.test(empty.body || "") ||
+      empty.importHidden ||
+      empty.packTitle !== "Start with a movie pack" ||
+      empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
+      empty.moduleSrc !== "app.js?v=126" ||
+      empty.cssHref !== "styles.css?v=83"
+    ) {
+      throw new Error(`Empty first-run state is wrong: ${JSON.stringify(empty)}`);
+    }
+    const emptyShot = await page.screenshot("first-run-empty.png");
+
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 390,
+      height: 844,
+      deviceScaleFactor: 1,
+      mobile: false,
+      screenWidth: 390,
+      screenHeight: 844,
+    });
+    await wait(200);
+    const mobile = await page.evaluate(`(() => {
+      const rect = (selector) => {
+        const bounds = document.querySelector(selector)?.getBoundingClientRect();
+        return bounds ? {
+          left: bounds.left,
+          right: bounds.right,
+          top: bounds.top,
+          bottom: bounds.bottom,
+          width: bounds.width,
+          height: bounds.height
+        } : null;
+      };
+      return {
+        innerWidth,
+        innerHeight,
+        scrollWidth: document.documentElement.scrollWidth,
+        input: rect('#title'),
+        firstRun: rect('#first-run'),
+        importButton: rect('#quick-start-import'),
+        packSection: rect('#pack-section'),
+        firstPack: rect('#pack-row .pack-card')
+      };
+    })()`);
+    if (
+      mobile.scrollWidth > mobile.innerWidth ||
+      mobile.input?.left < 0 ||
+      mobile.input?.right > mobile.innerWidth ||
+      mobile.firstRun?.left < 0 ||
+      mobile.firstRun?.right > mobile.innerWidth ||
+      mobile.importButton?.height < 44 ||
+      mobile.firstPack?.top >= mobile.innerHeight
+    ) {
+      throw new Error(`Mobile first-run layout is clipped or unreachable: ${JSON.stringify(mobile)}`);
+    }
+    const mobileShot = await page.screenshot("first-run-empty-mobile.png");
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 1280,
+      height: 900,
+      deviceScaleFactor: 1,
+      mobile: false,
+      screenWidth: 1280,
+      screenHeight: 900,
+    });
+    await wait(200);
+
+    await page.evaluate(`document.querySelector('#quick-start-import')?.click(); true;`);
+    await waitFor(
+      page,
+      `!document.querySelector('#title-import')?.hidden &&
+        document.activeElement === document.querySelector('#title-import-input')`,
+      3000,
+    );
+    await page.evaluate(`document.querySelector('#title-import-close')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#title-import')?.hidden &&
+        document.activeElement === document.querySelector('#quick-start-import')`,
+      3000,
+    );
+
+    await page.evaluate(`document.querySelector('#pack-row .pack-card')?.click(); true;`);
+    await waitFor(
+      page,
+      `!document.querySelector('#pack-detail')?.hidden &&
+        document.querySelector('#pack-detail-title')?.textContent.trim() === 'Fan Favorite Core'`,
+      3000,
+    );
+    await page.evaluate(`document.querySelector('#pack-detail-close')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#pack-detail')?.hidden &&
+        document.activeElement?.dataset.slug === 'fan-favorites-letterboxd-core'`,
+      3000,
+    );
+
+    await page.evaluate(`(() => {
+      const input = document.querySelector('#title');
+      input.focus();
+      input.value = 'First';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      return true;
+    })()`);
+    await waitFor(page, `document.querySelectorAll('#suggestions .suggestions__item').length === 1`, 3000);
+    await page.evaluate(`document.querySelector('#suggestions .suggestions__item')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelectorAll('#ranking .ranking__item').length === 1 &&
+        document.querySelector('#first-run')?.dataset.state === 'one' &&
+        document.activeElement !== document.querySelector('#title')`,
+      5000,
+    );
+    const one = await page.evaluate(`(() => ({
+      state: document.querySelector('#first-run')?.dataset.state,
+      title: document.querySelector('#first-run-title')?.textContent.trim(),
+      importHidden: !!document.querySelector('#quick-start-import')?.hidden,
+      inputBlurred: document.activeElement !== document.querySelector('#title'),
+      rankingTitle: document.querySelector('#ranking .ranking__title')?.textContent.trim(),
+      packTitle: document.querySelector('#pack-section-title')?.textContent.trim()
+    }))()`);
+    if (
+      one.state !== "one" ||
+      one.title !== "Add one more to start comparing." ||
+      !one.importHidden ||
+      !one.inputBlurred ||
+      one.rankingTitle !== "1. First Pick" ||
+      one.packTitle !== "Suggested movie packs"
+    ) {
+      throw new Error(`One-movie first-run state is wrong: ${JSON.stringify(one)}`);
+    }
+    await wait(650);
+    const oneShot = await page.screenshot("first-run-one-movie.png");
+
+    await page.evaluate(`(() => {
+      const input = document.querySelector('#title');
+      input.focus();
+      input.value = 'Second';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      return true;
+    })()`);
+    await waitFor(page, `document.querySelectorAll('#suggestions .suggestions__item').length === 1`, 3000);
+    await page.evaluate(`document.querySelector('#suggestions .suggestions__item')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.body.classList.contains('is-comparing') &&
+        !document.querySelector('#compare')?.classList.contains('panel--hidden')`,
+      3000,
+    );
+    const comparing = await page.evaluate(`(() => ({
+      firstRunRendered: document.querySelector('#first-run')?.getBoundingClientRect().height > 0,
+      newTitle: document.querySelector('#new-title')?.textContent.trim(),
+      existingTitle: document.querySelector('#existing-title')?.textContent.trim()
+    }))()`);
+    if (
+      comparing.firstRunRendered ||
+      comparing.newTitle !== "Second Pick" ||
+      comparing.existingTitle !== "First Pick"
+    ) {
+      throw new Error(`First comparison state is wrong: ${JSON.stringify(comparing)}`);
+    }
+    await wait(800);
+    const comparisonShot = await page.screenshot("first-run-first-comparison.png");
+
+    await page.evaluate(`document.querySelector('#new-card')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelectorAll('#ranking .ranking__item').length === 2 &&
+        document.querySelector('#first-run')?.hidden &&
+        !document.body.classList.contains('is-comparing')`,
+      5000,
+    );
+    const activated = await page.evaluate(`(() => ({
+      rankingTitles: [...document.querySelectorAll('#ranking .ranking__title')].map((el) => el.textContent.trim()),
+      firstRunHidden: !!document.querySelector('#first-run')?.hidden,
+      inputBlurred: document.activeElement !== document.querySelector('#title'),
+      packTitle: document.querySelector('#pack-section-title')?.textContent.trim()
+    }))()`);
+    if (
+      activated.rankingTitles.join("|") !== "1. Second Pick|2. First Pick" ||
+      !activated.firstRunHidden ||
+      !activated.inputBlurred ||
+      activated.packTitle !== "Suggested movie packs"
+    ) {
+      throw new Error(`Activated first-run state is wrong: ${JSON.stringify(activated)}`);
+    }
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { empty, mobile, one, comparing, activated },
+      screenshots: [
+        emptyShot,
+        mobileShot,
+        oneShot,
+        comparisonShot,
+        await page.screenshot("first-run-activated.png"),
+      ],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
 const testQueueComparison = async ({ baseUrl }) => {
   const page = await openChromePage({ name: "queue-comparison" });
   try {
@@ -1716,6 +1976,7 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
 
 const tests = [
   { name: "localStorage persistence round-trip", run: testLoadPersistence },
+  { name: "first-run quick start activation flow", run: testFirstRunQuickStart },
   { name: "watch queue comparison flow", run: testQueueComparison },
   { name: "comparison undo and cancel restore origin", run: testComparisonUndoCancel },
   { name: "ranking review swap, Escape, and session undo", run: testRankingReviewSession },

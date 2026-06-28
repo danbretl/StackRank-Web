@@ -50,7 +50,7 @@
       content="StackRank — build your movie ranking, one comparison at a time"
     />
 
-    <link rel="stylesheet" href="styles.css?v=82" />
+    <link rel="stylesheet" href="styles.css?v=83" />
   </head>
   <body>
     <main class="app">
@@ -161,12 +161,27 @@
               </div>
             </label>
           </form>
+          <section class="first-run" id="first-run" aria-labelledby="first-run-title" hidden>
+            <div class="first-run__copy">
+              <div class="first-run__eyebrow" id="first-run-eyebrow">How StackRank works</div>
+              <strong class="first-run__title" id="first-run-title">
+                Add two movies. Pick the one you prefer.
+              </strong>
+              <p class="first-run__body" id="first-run-body">
+                Each choice narrows the list until every movie has an exact rank.
+              </p>
+            </div>
+            <button class="first-run__import" id="quick-start-import" type="button">
+              <span>Already have a list?</span>
+              <strong>Import a ranking</strong>
+            </button>
+          </section>
           <div class="panel__feedback" id="add-feedback" role="status" aria-live="polite"></div>
           <div class="suggest-panel" id="suggest-panel">
             <div class="suggest-section suggest-section--packs" id="pack-section">
               <div class="suggest-header suggest-header--packs">
                 <div>
-                  <div class="suggest-title">Suggested movie packs</div>
+                  <div class="suggest-title" id="pack-section-title">Suggested movie packs</div>
                   <div class="pack-section-sub" id="pack-section-sub">Packs to work through.</div>
                 </div>
                 <button class="pack-view-all" id="pack-view-all" type="button">View all packs</button>
@@ -855,6 +870,6 @@
       </footer>
     </main>
 
-    <script type="module" src="app.js?v=125"></script>
+    <script type="module" src="app.js?v=126"></script>
   </body>
 </html>

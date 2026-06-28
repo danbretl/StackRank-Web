@@ -211,6 +211,84 @@ body.is-share-open .skeleton {
   margin-bottom: 0;
 }
 
+.first-run {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 16px;
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  background: #f8f8f8;
+}
+
+.first-run__copy {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+
+.first-run__eyebrow {
+  color: var(--ink-soft);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.first-run__title {
+  font-size: 0.95rem;
+  line-height: 1.25;
+}
+
+.first-run__body {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.79rem;
+  line-height: 1.4;
+}
+
+.first-run__import {
+  min-height: 44px;
+  display: grid;
+  justify-items: start;
+  gap: 1px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--bg-ink);
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.first-run__import span {
+  color: var(--ink-soft);
+  font-size: 0.65rem;
+}
+
+.first-run__import strong {
+  font-size: 0.76rem;
+}
+
+.first-run__import:focus-visible {
+  outline: 2px solid var(--border);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .first-run__import:hover {
+    background: #f0f0f0;
+    transform: translateY(-1px);
+  }
+}
+
+body.is-comparing .first-run {
+  display: none;
+}
+
 .panel__feedback {
   position: fixed;
   left: clamp(16px, 4vw, 28px);
@@ -3632,6 +3710,16 @@ body.is-comparing .compare-panel {
 
   .form {
     grid-template-columns: 1fr;
+  }
+
+  .first-run {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 13px 14px;
+  }
+
+  .first-run__import {
+    width: 100%;
   }
 
   .suggest-row {

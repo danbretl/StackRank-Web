@@ -87,7 +87,11 @@ import {
   buildProductEvent,
   countBucket,
   shouldCollectProductTelemetry,
-} from "./lib/telemetry.js?v=1";
+} from "./lib/telemetry.js?v=2";
+import {
+  getFirstRunExperience,
+  selectStarterPacks,
+} from "./lib/ftue.js?v=1";
 
 console.info("StackRank build", "share-studio-v4");
 
@@ -146,6 +150,11 @@ const restoreBackupButton = document.getElementById("restore-backup");
 const backupFileInput = document.getElementById("backup-file-input");
 const backupStatus = document.getElementById("backup-status");
 const openTitleImportButton = document.getElementById("open-title-import");
+const firstRun = document.getElementById("first-run");
+const firstRunEyebrow = document.getElementById("first-run-eyebrow");
+const firstRunTitle = document.getElementById("first-run-title");
+const firstRunBody = document.getElementById("first-run-body");
+const quickStartImportButton = document.getElementById("quick-start-import");
 const clearButton = document.getElementById("clear-list");
 const shareButton = document.getElementById("share-list");
 const snapshotSub = document.getElementById("snapshot-sub");
@@ -200,6 +209,7 @@ const suggestRelatedMore = document.getElementById("suggest-related-more");
 const suggestPopularMore = document.getElementById("suggest-popular-more");
 const suggestEssentialsMore = document.getElementById("suggest-essentials-more");
 const packSection = document.getElementById("pack-section");
+const packSectionTitle = document.getElementById("pack-section-title");
 const packSectionSub = document.getElementById("pack-section-sub");
 const packRow = document.getElementById("pack-row");
 const packEmpty = document.getElementById("pack-empty");
@@ -924,9 +934,21 @@ function toggleRankingSettings() {
   else closeRankingSettings();
 }
 
+const renderFirstRunExperience = () => {
+  if (!firstRun) return;
+  const experience = getFirstRunExperience(ranking.length);
+  firstRun.hidden = !experience.visible;
+  firstRun.dataset.state = experience.state;
+  firstRunEyebrow.textContent = experience.eyebrow;
+  firstRunTitle.textContent = experience.title;
+  firstRunBody.textContent = experience.body;
+  quickStartImportButton.hidden = !experience.showImport;
+};
+
 const renderRanking = () => {
   rankingList.innerHTML = "";
   const hasRankedMovies = ranking.length > 0;
+  renderFirstRunExperience();
   shareButton.disabled = !hasRankedMovies;
   clearButton.disabled = !hasRankedMovies;
   if (rankingFilterToggle) rankingFilterToggle.disabled = !hasRankedMovies;
@@ -2565,20 +2587,26 @@ const showTitleImportEntryStep = () => {
   titleImportInput.focus({ preventScroll: true });
 };
 
-const openTitleImport = () => {
+const openTitleImport = ({ trigger = openTitleImportButton, source = "settings" } = {}) => {
   if (pending) {
     setStatusMessage("Finish the current comparison before importing a ranking.");
     closeRankingSettings({ restoreFocus: false });
     return;
   }
-  titleImportTrigger = openTitleImportButton;
+  titleImportTrigger = trigger;
   closeRankingSettings({ restoreFocus: false });
   titleImportOverlay.hidden = false;
   document.body.classList.add("is-detail-open");
   trackProductEvent("import_opened", {
     list_size: countBucket(ranking.length),
-    source: "settings",
+    source,
   });
+  if (source === "quick_start") {
+    trackProductEvent("quick_start_import_opened", {
+      list_size: countBucket(ranking.length),
+      source,
+    });
+  }
   showTitleImportEntryStep();
   startTitleImportViewportSync();
 };
@@ -2721,7 +2749,10 @@ backupFileInput.addEventListener("change", () => {
   const [file] = backupFileInput.files || [];
   if (file) void restoreStackRankBackup(file);
 });
-openTitleImportButton.addEventListener("click", openTitleImport);
+openTitleImportButton.addEventListener("click", () => openTitleImport());
+quickStartImportButton.addEventListener("click", () =>
+  openTitleImport({ trigger: quickStartImportButton, source: "quick_start" }),
+);
 titleImportClose.addEventListener("click", () => closeTitleImport());
 titleImportCancel.addEventListener("click", () => closeTitleImport());
 titleImportMatch.addEventListener("click", () => void beginTitleImportMatching());
@@ -4042,9 +4073,15 @@ const createPackCard = (pack, options = {}) => {
   card.append(media, body);
   card.addEventListener("click", () => {
     trackProductEvent("pack_opened", {
-      source: "pack_card",
+      source: options.quickStart ? "quick_start" : "pack_card",
       list_size: countBucket(ranking.length),
     });
+    if (options.quickStart) {
+      trackProductEvent("quick_start_pack_opened", {
+        source: "quick_start",
+        list_size: countBucket(ranking.length),
+      });
+    }
     openPackDetail(pack.slug, { trigger: card });
   });
   return card;
@@ -4068,10 +4105,19 @@ const formatPackCountsLabel = (short = false) => {
 const renderPackPanel = () => {
   if (!packSection) return;
   packRow.innerHTML = "";
-  const packs = sortedPacksForDisplay(false).slice(0, PACK_PANEL_SIZE);
+  const isEmptyFirstRun = getFirstRunExperience(ranking.length).state === "empty";
+  const packs = isEmptyFirstRun
+    ? selectStarterPacks(suggestionPacks, { limit: PACK_PANEL_SIZE })
+    : sortedPacksForDisplay(false).slice(0, PACK_PANEL_SIZE);
   packEmpty.hidden = packs.length > 0;
+  packSection.classList.toggle("is-first-run", isEmptyFirstRun);
+  packSectionTitle.textContent = isEmptyFirstRun ? "Start with a movie pack" : "Suggested movie packs";
   if (!suggestionPacks.length) {
-    packSectionSub.textContent = "Packs to work through.";
+    packSectionSub.textContent = isEmptyFirstRun
+      ? "Starter packs will appear here after they load."
+      : "Packs to work through.";
+  } else if (isEmptyFirstRun) {
+    packSectionSub.textContent = "Pick a ready-made set and rank only the movies you know.";
   } else {
     // Render both the full and shortened labels; CSS shows the right one per
     // breakpoint (shortened only on mobile to save space).
@@ -4085,7 +4131,7 @@ const renderPackPanel = () => {
     packSectionSub.append(full, short);
   }
   packs.forEach((pack) => {
-    packRow.appendChild(createPackCard(pack));
+    packRow.appendChild(createPackCard(pack, { quickStart: isEmptyFirstRun }));
   });
 };
 
@@ -8235,6 +8281,11 @@ const pickSuggestion = (movie) => {
   selectedSuggestion = movie;
   titleInput.value = movie.title;
   hideSuggestions();
+  // Release the autocomplete field before ranking starts. Waiting until the
+  // placement handler is too late on some mobile/browser click sequences: the
+  // suggestion activation can leave the field focused and reopen the keyboard.
+  titleInput.blur();
+  window.setTimeout(() => titleInput.blur(), 0);
   startRankingFromSelection();
 };
 
@@ -8440,6 +8491,12 @@ const init = async () => {
     suggestRelatedCursor = 0;
     suggestEssentialsCursor = 0;
     updateSuggestions();
+    if (!ranking.length) {
+      trackProductEvent("quick_start_shown", {
+        list_size: countBucket(ranking.length),
+        source: "quick_start",
+      });
+    }
     trackProductEvent("session_started", {
       list_size: countBucket(ranking.length),
       source: ranking.length ? "returning" : "empty",

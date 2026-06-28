@@ -62,7 +62,7 @@ import {
   composeShareWideSvg,
   composeShareCard,
 } from "./lib/share-svg.js";
-import { comparisonMidIndex, applyComparison, isSearchSettled } from "./lib/ranking.js";
+import { comparisonMidIndex, firstComparisonIndex, applyComparison, isSearchSettled } from "./lib/ranking.js?v=2";
 import { buildReviewQueue } from "./lib/review.js?v=1";
 import { createUndoController } from "./lib/undo.js";
 import {
@@ -289,6 +289,10 @@ let pendingOrigin = null;
 // origin). Captured at the ranking entry points, consumed at settle.
 let pendingRankingSnapshot = null;
 let searchRange = null;
+// The jittered index the first comparison opens on (see firstComparisonIndex).
+// Set whenever a search starts from the full list range; reused for the opening
+// turn even after an undo back to it, so the starter movie stays stable.
+let firstComparisonMid = null;
 let selectedSuggestion = null;
 let suggestionItems = [];
 let activeSuggestionIndex = -1;
@@ -1730,6 +1734,7 @@ const startComparison = () => {
   }
 
   searchRange = { low: 0, high: ranking.length - 1 };
+  firstComparisonMid = firstComparisonIndex(ranking.length);
   compareHistory = [];
   suggestionsRequestId += 1;
   setComparisonMode(true);
@@ -1741,7 +1746,13 @@ const startComparison = () => {
 const showComparison = () => {
   if (!pending || !searchRange) return;
 
-  const mid = comparisonMidIndex(searchRange);
+  // Opening turn (full list range, incl. after undoing back to it): use the
+  // jittered starter so consecutive rankings don't always lead with the middle
+  // movie. Every narrowed range falls back to the exact midpoint.
+  const atFullRange = searchRange.low === 0 && searchRange.high === ranking.length - 1;
+  const mid = atFullRange && firstComparisonMid !== null
+    ? firstComparisonMid
+    : comparisonMidIndex(searchRange);
   const existing = ranking[mid];
 
   newTitle.textContent = pending.title;
@@ -3285,6 +3296,7 @@ const undoAutoPackPlacement = (movie, origin) => {
       return;
     }
     searchRange = { low: 0, high: ranking.length - 1 };
+    firstComparisonMid = firstComparisonIndex(ranking.length);
     showComparison();
   }
   setAddFeedback(`"${movie.title}" unranked.`, 2000);

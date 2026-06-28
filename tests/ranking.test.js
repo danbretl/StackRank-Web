@@ -1,11 +1,47 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { comparisonMidIndex, applyComparison, isSearchSettled, resolveInsertionIndex } from "../lib/ranking.js";
+import { comparisonMidIndex, firstComparisonIndex, applyComparison, isSearchSettled, resolveInsertionIndex } from "../lib/ranking.js";
 
 test("comparisonMidIndex floors the midpoint", () => {
   assert.equal(comparisonMidIndex({ low: 0, high: 0 }), 0);
   assert.equal(comparisonMidIndex({ low: 0, high: 9 }), 4);
   assert.equal(comparisonMidIndex({ low: 3, high: 6 }), 4);
+});
+
+test("firstComparisonIndex degenerate cases collapse to the midpoint", () => {
+  assert.equal(firstComparisonIndex(0), 0);
+  assert.equal(firstComparisonIndex(1), 0);
+  // count=2 → spread = round(0.36) = 0, so no jitter possible.
+  assert.equal(firstComparisonIndex(2), comparisonMidIndex({ low: 0, high: 1 }));
+});
+
+test("firstComparisonIndex centers on the midpoint and clamps to bounds", () => {
+  const count = 20;
+  const mid = comparisonMidIndex({ low: 0, high: count - 1 });
+  // randomFn 0 → most-negative offset, 1-eps → most-positive offset.
+  assert.equal(firstComparisonIndex(count, () => 0.5), mid, "centered random → midpoint");
+  const low = firstComparisonIndex(count, () => 0);
+  const high = firstComparisonIndex(count, () => 0.999999);
+  assert.ok(low < mid && low >= 0, "min random sits below the midpoint, in bounds");
+  assert.ok(high > mid && high <= count - 1, "max random sits above the midpoint, in bounds");
+});
+
+test("firstComparisonIndex spread grows with list size and stays in bounds", () => {
+  for (const count of [5, 10, 50, 200]) {
+    const mid = comparisonMidIndex({ low: 0, high: count - 1 });
+    const expectedSpread = Math.round(count * 0.18);
+    let min = Infinity;
+    let max = -Infinity;
+    // Sweep the random domain so every reachable index is observed.
+    for (let r = 0; r < 1; r += 0.001) {
+      const idx = firstComparisonIndex(count, () => r);
+      assert.ok(idx >= 0 && idx <= count - 1, `in bounds count=${count} r=${r}`);
+      min = Math.min(min, idx);
+      max = Math.max(max, idx);
+    }
+    assert.equal(max - mid, expectedSpread, `+spread reachable for count=${count}`);
+    assert.equal(mid - min, expectedSpread, `-spread reachable for count=${count}`);
+  }
 });
 
 test("applyComparison narrows to the correct half", () => {

@@ -1,12 +1,12 @@
 # Suggestion packs: broaden representation
 
-**Status: proposed (not built).** Feedback from Catie: the suggestion packs skew toward what mostly appeals to white and/or male audiences. We want a diverse audience to feel seen and engaged — more racial diversity, more LGBTQ+ stories, more women behind the camera, more global voices framed as essentials rather than "foreign gateways."
+**Status: v1 shipped (2026-06-28).** Six representation packs were added to address Catie's feedback that the packs skewed toward white and/or male audiences: **Black Cinema Essentials**, **Queer Cinema Essentials**, **Women Behind the Camera**, **Latino & Latin American Voices**, **Trans & Nonbinary Stories**, and **African Cinema Gateways**. They were authored into `data/suggestion-packs.source.json` and built into `data/suggestion-packs.json` via the normal pipeline (resolved through the public `tmdb-search` proxy — no TMDB key needed). The remaining creator filmography packs and the other gaps below are still open follow-ups.
 
-This is intentionally a **write-up, not a code change**, because packs are built through a TMDB-resolving pipeline, not hand-edited output. See "How to build" below.
+> **Build note (resolved):** an earlier draft of this note worried we'd need a `TMDB_API_KEY`. We don't — `scripts/author-suggestion-packs.mjs` has a key-free path that resolves `tmdbId`/`posterPath` through the **public** `tmdb-search`/`tmdb-detail` edge functions using the anon key baked into `app.js`. So `node scripts/author-suggestion-packs.mjs` (no env) regenerates the JSON. The only thing that needs a key is the optional `--upload` to the Supabase `suggestion_packs` table (`SUPABASE_SERVICE_ROLE_KEY`); it's not required because `mergePackLibraries` makes new fallback-JSON slugs appear for signed-in users too.
 
 ## Why not just edit the JSON
 
-`data/suggestion-packs.json` (what the app loads) is **generated** from `data/suggestion-packs.source.json` by `scripts/author-suggestion-packs.mjs`, which resolves each movie's `tmdbId` + `posterPath` from TMDB (needs `TMDB_API_KEY`). Hand-writing ids/posters is error-prone. So the right move is: add packs to the **source** file with `title` + `year` (+ optional `tmdbId` when known), then run the author script and validate.
+`data/suggestion-packs.json` (what the app loads) is **generated** from `data/suggestion-packs.source.json` by `scripts/author-suggestion-packs.mjs`, which resolves each movie's `tmdbId` + `posterPath` from TMDB. Hand-writing ids/posters is error-prone. So the right move is: add packs to the **source** file with `title` + `year` (+ optional `tmdbId` when known), then run the author script and validate.
 
 ## What already exists (don't duplicate)
 

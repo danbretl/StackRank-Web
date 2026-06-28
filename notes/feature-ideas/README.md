@@ -12,13 +12,14 @@ This folder captures product ideas that are worth revisiting later. They are int
 - [Backup, restore, and title-list import](backup-and-import.md) — **shipped (Jun 2026).** Complete versioned JSON backups, exact restore with undo, and TMDB-backed ordered-title import with conservative automatic matching, disambiguation, and replacement consent.
 - [Better suggestion explanations](better-suggestion-explanations.md) — **shipped (Jun 2026).** All three suggestion sources have plain-language section context and every movie card gets an async-enriched, truthful source/genre reason without exposing TMDB ratings.
 - [Full-screen ranking view](ranking-fullscreen-view.md) — **v2 shipped (Jun 2026, interactive).** Roomy responsive poster grid with detail, re-rank/remove, filtering, density, jump-to, keyboard navigation, and undoable 2-D pointer drag.
+- [Ranking review mode](ranking-review-mode.md) — **v1 shipped (Jun 2026).** Adjacent-pair audit pass: a Review button surfaces pairs (favoring recent additions, via `lib/review.js`), Keep/Swap/End in the reused comparison panel, immediate persistence, and a session-level undo.
 - [Suggestion packs: broaden representation](suggestion-packs-diversity.md) — **shipped (Jun 2026).** 14 representation packs added (114 total): 6 thematic (Black, Queer, Trans & Nonbinary, Women Behind the Camera, Latino & Latin American, African) + 6 creator filmographies (Peele, Coogler, DuVernay, Nair, Sciamma, Cuarón) + Indigenous and Southeast Asian gateways. Note: the `suggestion_packs` Supabase table was never created, so the app runs on the JSON fallback.
 
 ## Current top candidates (priority order, refreshed 2026-06-28)
 
-1. [**Ranking review mode**](ranking-review-mode.md) — strengthens the core promise: a list the user still trusts after it grows. Adjacent-pair review can reuse comparison visuals, persistence, and the new undo safety net.
+1. [**Personal stats and taste profile**](personal-stats-and-taste-profile.md) — the insight engine already exists, but the native page needs a differentiated purpose: interactive drill-down, progress/milestones, or actionable suggestion hooks rather than a duplicate of Share Studio.
 2. [**Suggestion packs Phase 4**](suggestion-packs.md) — filters and the 100-pack expansion now ship; a featured row or alternate sorting should wait for usage evidence.
-3. [**Personal stats and taste profile**](personal-stats-and-taste-profile.md) — the insight engine already exists, but the native page needs a differentiated purpose: interactive drill-down, progress/milestones, or actionable suggestion hooks rather than a duplicate of Share Studio.
+3. [**Ranking review mode follow-ups**](ranking-review-mode.md) — adjacent-pair v1 shipped; per-swap undo or confidence-gap/section strategies can wait for usage evidence that deepening review is worth it.
 4. [**Image-set tablet layout**](share-export-sizes-and-image-set.md) — an optional fixed landscape/iPad page system remains parked; lower priority because Wide single-image output already covers the main tablet/dashboard use case.
 
 ## Parked (bigger bets)

@@ -1,20 +1,45 @@
 # Feature idea: Ranking review mode
 
-Status: exploratory
+Status: **v1 shipped (Jun 2026).**
 
-## Current implementation leverage (2026-06-27)
+## Shipped v1 (2026-06-28)
 
-This remains unbuilt, but recent work lowered its risk:
+Adjacent-pair review, the safest first cut from this note, now ships:
+
+- A quiet **Review** icon button in the Current ranking panel header (disabled
+  with fewer than two movies) starts a session.
+- Pair selection lives in DOM-free **`lib/review.js`** (`buildReviewQueue`):
+  adjacent pairs prioritized by the just-added movie, then most-recently-ranked
+  movies (by `rankedAt`), then an even spread for coverage, capped at 8. Covered
+  by `tests/review.test.js`.
+- The session reuses the comparison panel's cards and the `is-comparing` layout
+  for portrait/landscape parity; an added `is-reviewing` class only swaps the
+  controls (**Keep order / Swap / End review**) and copy ("Review your ranking",
+  "Still prefer #N over #N+1? · Pair x of y"). Tapping the higher card keeps the
+  order, the lower card swaps — the established "pick the one you like more"
+  gesture.
+- Swaps mutate in place and persist immediately (`saveRanking`), so signed-in
+  users sync. The whole session is reversible via one undo toast at the end
+  ("Review complete/ended · N swaps") restoring the pre-review snapshot; Escape
+  ends the session.
+
+### Possible follow-ups (not built)
+
+- Per-swap undo within the session (currently session-level only).
+- Confidence-gap or section-scoped review strategies (below) once usage shows
+  adjacent-pair review is worth deepening.
+
+## Original notes
+
+The product question was: which pairs produce enough value to avoid review
+feeling like random busywork? Adjacent pairs near recent additions were the
+chosen v1. Reusable leverage that lowered the risk:
 
 - Comparison cards, mobile ballot layouts, and ranking persistence already exist.
 - `rankedAt` and comparison counts can help choose useful review pairs.
-- The new single-level undo controller can make each accepted swap reversible.
+- The single-level undo controller makes the session reversible.
 - The E2E harness can seed deterministic rankings and exercise a complete review
   session.
-
-The product question is now narrower: which pairs produce enough value to avoid
-review feeling like random busywork? Adjacent pairs near recent additions are
-still the safest v1.
 
 ## Summary
 

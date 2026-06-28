@@ -159,12 +159,9 @@ const shareCopyMarkdown = document.getElementById("share-copy-markdown");
 const shareCopyJson = document.getElementById("share-copy-json");
 const shareCopyText = document.getElementById("share-copy-text");
 const shareExportStatus = document.getElementById("share-export-status");
-const authSignedOut = document.getElementById("auth-signed-out");
-const authSignedIn = document.getElementById("auth-signed-in");
-const authEmailInput = document.getElementById("auth-email");
+// The header now exposes only a "Sign in" affordance (signed-out) and the
+// settings gear; account details and Sign out live inside the settings popover.
 const authSignInButton = document.getElementById("auth-sign-in");
-const authSignOutButton = document.getElementById("auth-sign-out");
-const authUserLabel = document.getElementById("auth-user");
 const authStatus = document.getElementById("auth-status");
 const debugPanel = document.getElementById("debug-panel");
 const debugContent = document.getElementById("debug-content");
@@ -6695,27 +6692,20 @@ const migrateRanking = async () => {
 
 const setAuthUI = () => {
   if (!supabaseEnabled) {
-    authSignedOut.classList.add("auth__hidden");
-    authSignedIn.classList.add("auth__hidden");
+    authSignInButton.hidden = true;
     authStatus.textContent = "Supabase is not configured.";
     updateRankingSettingsAuthUI();
     return;
   }
 
-  if (currentUser) {
-    authSignedOut.classList.add("auth__hidden");
-    authSignedIn.classList.remove("auth__hidden");
-    authUserLabel.textContent = `Signed in as ${currentUser.email || "user"}`;
-    authStatus.textContent = authNotice;
-  } else {
-    authSignedOut.classList.remove("auth__hidden");
-    authSignedIn.classList.add("auth__hidden");
-    authStatus.textContent = authNotice;
-  }
+  // The only top-level auth control is "Sign in" when signed out; signed-in
+  // account state and Sign out live in the settings popover.
+  authSignInButton.hidden = Boolean(currentUser);
+  authStatus.textContent = authNotice;
   updateRankingSettingsAuthUI();
 };
 
-const handleSignIn = async (sourceInput = authEmailInput) => {
+const handleSignIn = async (sourceInput = settingsAuthEmailInput) => {
   if (!supabaseEnabled || !supabase) return;
   authNotice = "";
   const email = sourceInput.value.trim();
@@ -6738,7 +6728,6 @@ const handleSignIn = async (sourceInput = authEmailInput) => {
     authStatus.textContent = `Sign-in failed: ${error.message}`;
     return;
   }
-  authEmailInput.value = "";
   settingsAuthEmailInput.value = "";
   authStatus.textContent = "Check your email for the sign-in link.";
   closeRankingSettings({ restoreFocus: false });
@@ -6809,8 +6798,15 @@ const initAuth = async () => {
       });
   });
 
-  authSignInButton.addEventListener("click", () => handleSignIn(authEmailInput));
-  authSignOutButton.addEventListener("click", handleSignOut);
+  // The header "Sign in" opens the settings popover and focuses its email field
+  // (the actual magic-link send is wired to the popover's own Sign in button).
+  authSignInButton.addEventListener("click", (event) => {
+    // Stop the bubble so the document outside-click handler doesn't immediately
+    // re-close the popover we're opening.
+    event.stopPropagation();
+    openRankingSettings();
+    settingsAuthEmailInput.focus({ preventScroll: true });
+  });
 };
 
 const toStoredMovie = (movie) => ({

@@ -88,6 +88,25 @@ body.is-share-open .skeleton {
   color: var(--ink-soft);
 }
 
+.topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* The topbar is uppercase/tracked; reset so the settings popover and its form
+     controls (which live inside the gear) render as normal text. */
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.topbar__actions .auth__status:empty {
+  display: none;
+}
+
+.topbar__actions .ghost {
+  padding: 7px 14px;
+  font-size: 0.82rem;
+}
+
 .stack {
   display: grid;
   gap: 18px;
@@ -161,57 +180,9 @@ body.is-share-open .skeleton {
   opacity: 0.65;
 }
 
-.auth {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid var(--border-soft);
-  border-radius: 16px;
-  padding: 12px 14px;
-  background: #fafafa;
-}
-
-.auth--inline {
-  border: 1px solid transparent;
-  padding: 0;
-  background: transparent;
-  gap: 8px;
-  text-transform: none;
-  letter-spacing: normal;
-  font-size: 0.85rem;
-}
-
-.auth__signed-out,
-.auth__signed-in {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.auth__signed-in {
-  justify-content: space-between;
-  width: 100%;
-}
-
-.auth__note,
 .auth__status {
   font-size: 0.85rem;
   color: var(--ink-soft);
-}
-
-.auth--inline input {
-  border: 1px solid var(--border-soft);
-  border-radius: 999px;
-  padding: 8px 12px;
-  font-size: 0.85rem;
-  font-family: inherit;
-}
-
-.auth__hidden {
-  display: none;
 }
 
 .form {

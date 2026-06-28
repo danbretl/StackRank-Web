@@ -50,23 +50,93 @@
       content="StackRank — build your movie ranking, one comparison at a time"
     />
 
-    <link rel="stylesheet" href="styles.css?v=79" />
+    <link rel="stylesheet" href="styles.css?v=80" />
   </head>
   <body>
     <main class="app">
       <header class="topbar">
         <div class="brand">StackRank</div>
         <div class="topbar__meta">Movies</div>
-        <div class="auth auth--inline" id="auth">
-          <div class="auth__signed-out" id="auth-signed-out">
-            <input id="auth-email" type="email" placeholder="you@email.com" />
-            <button class="ghost" id="auth-sign-in" type="button">Sign in</button>
+        <div class="topbar__actions">
+          <span class="auth__status panel__sub" id="auth-status" role="status" aria-live="polite"></span>
+          <button class="ghost" id="auth-sign-in" type="button" hidden>Sign in</button>
+          <div class="ranking-settings-wrap">
+            <button
+              class="icon-button icon-button--quiet"
+              id="ranking-settings-toggle"
+              type="button"
+              aria-label="Settings"
+              aria-expanded="false"
+              aria-controls="ranking-settings-panel"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                  d="M19.4 13.5c.1-.5.1-1 .1-1.5s0-1-.1-1.5l2-1.5-2-3.5-2.4 1a8 8 0 0 0-2.6-1.5L14 2.5h-4l-.4 2.5A8 8 0 0 0 7 6.5l-2.4-1-2 3.5 2 1.5A8.7 8.7 0 0 0 4.5 12c0 .5 0 1 .1 1.5l-2 1.5 2 3.5 2.4-1a8 8 0 0 0 2.6 1.5l.4 2.5h4l.4-2.5a8 8 0 0 0 2.6-1.5l2.4 1 2-3.5-2-1.5zM12 15.5A3.5 3.5 0 1 1 12 8a3.5 3.5 0 0 1 0 7.5z"
+                  fill="currentColor"
+                />
+              </svg>
+            </button>
+            <div
+              class="ranking-settings"
+              id="ranking-settings-panel"
+              role="dialog"
+              aria-label="Settings"
+              hidden
+            >
+              <div class="ranking-settings__header">
+                <h3>List settings</h3>
+                <button
+                  class="ranking-settings__close"
+                  id="ranking-settings-close"
+                  type="button"
+                  aria-label="Close settings"
+                >
+                  ×
+                </button>
+              </div>
+              <div class="ranking-settings__section">
+                <div>
+                  <div class="ranking-settings__label">Account</div>
+                  <div class="ranking-settings__value" id="settings-auth-state">Not signed in</div>
+                </div>
+                <div class="ranking-settings__auth" id="settings-auth-signed-out">
+                  <input id="settings-auth-email" type="email" placeholder="you@email.com" />
+                  <button class="detail-action" id="settings-sign-in" type="button">Sign in</button>
+                </div>
+                <button class="detail-action detail-action--muted" id="settings-sign-out" type="button" hidden>
+                  Sign out
+                </button>
+              </div>
+              <div class="ranking-settings__section">
+                <div>
+                  <div class="ranking-settings__label">Backup &amp; import</div>
+                  <div class="ranking-settings__value">
+                    Download or restore all StackRank data, or replace this ranking from an ordered title list.
+                  </div>
+                </div>
+                <div class="ranking-settings__data-actions">
+                  <button class="detail-action detail-action--muted" id="download-backup" type="button">
+                    Download backup
+                  </button>
+                  <button class="detail-action detail-action--muted" id="restore-backup" type="button">
+                    Restore backup
+                  </button>
+                  <button class="detail-action" id="open-title-import" type="button">Import titles</button>
+                </div>
+                <input id="backup-file-input" type="file" accept="application/json,.json" hidden />
+                <div class="ranking-settings__status" id="backup-status" role="status" aria-live="polite"></div>
+              </div>
+              <div class="ranking-settings__section ranking-settings__section--danger">
+                <div>
+                  <div class="ranking-settings__label">Clear rankings</div>
+                  <div class="ranking-settings__value">Remove every movie from the current ranking.</div>
+                </div>
+                <button class="detail-action detail-action--muted" id="clear-list" type="button">
+                  Clear rankings
+                </button>
+              </div>
+            </div>
           </div>
-          <div class="auth__signed-in panel__sub auth__hidden" id="auth-signed-in">
-            <span id="auth-user">Signed in</span>
-            <button class="link" id="auth-sign-out" type="button">Sign out</button>
-          </div>
-          <div class="auth__status panel__sub" id="auth-status"></div>
         </div>
       </header>
 
@@ -232,7 +302,7 @@
                   />
                 </svg>
               </button>
-              <button class="icon-button" id="share-list" type="button" aria-label="Share ranking">
+              <button class="icon-button icon-button--quiet" id="share-list" type="button" aria-label="Share ranking">
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                   <path
                     d="M12 3l4.5 4.5-1.4 1.4L13 6.8V16h-2V6.8l-2.1 2.1-1.4-1.4L12 3zm-6 14h2v4h8v-4h2v6H6v-6z"
@@ -240,83 +310,6 @@
                   />
                 </svg>
               </button>
-              <div class="ranking-settings-wrap">
-                <button
-                  class="icon-button icon-button--quiet"
-                  id="ranking-settings-toggle"
-                  type="button"
-                  aria-label="Ranking settings"
-                  aria-expanded="false"
-                  aria-controls="ranking-settings-panel"
-                >
-                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                    <path
-                      d="M19.4 13.5c.1-.5.1-1 .1-1.5s0-1-.1-1.5l2-1.5-2-3.5-2.4 1a8 8 0 0 0-2.6-1.5L14 2.5h-4l-.4 2.5A8 8 0 0 0 7 6.5l-2.4-1-2 3.5 2 1.5A8.7 8.7 0 0 0 4.5 12c0 .5 0 1 .1 1.5l-2 1.5 2 3.5 2.4-1a8 8 0 0 0 2.6 1.5l.4 2.5h4l.4-2.5a8 8 0 0 0 2.6-1.5l2.4 1 2-3.5-2-1.5zM12 15.5A3.5 3.5 0 1 1 12 8a3.5 3.5 0 0 1 0 7.5z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </button>
-                <div
-                  class="ranking-settings"
-                  id="ranking-settings-panel"
-                  role="dialog"
-                  aria-label="Ranking settings"
-                  hidden
-                >
-                  <div class="ranking-settings__header">
-                    <h3>List settings</h3>
-                    <button
-                      class="ranking-settings__close"
-                      id="ranking-settings-close"
-                      type="button"
-                      aria-label="Close ranking settings"
-                    >
-                      ×
-                    </button>
-                  </div>
-                  <div class="ranking-settings__section">
-                    <div>
-                      <div class="ranking-settings__label">Account</div>
-                      <div class="ranking-settings__value" id="settings-auth-state">Not signed in</div>
-                    </div>
-                    <div class="ranking-settings__auth" id="settings-auth-signed-out">
-                      <input id="settings-auth-email" type="email" placeholder="you@email.com" />
-                      <button class="detail-action" id="settings-sign-in" type="button">Sign in</button>
-                    </div>
-                    <button class="detail-action detail-action--muted" id="settings-sign-out" type="button" hidden>
-                      Sign out
-                    </button>
-                  </div>
-                  <div class="ranking-settings__section">
-                    <div>
-                      <div class="ranking-settings__label">Backup &amp; import</div>
-                      <div class="ranking-settings__value">
-                        Download or restore all StackRank data, or replace this ranking from an ordered title list.
-                      </div>
-                    </div>
-                    <div class="ranking-settings__data-actions">
-                      <button class="detail-action detail-action--muted" id="download-backup" type="button">
-                        Download backup
-                      </button>
-                      <button class="detail-action detail-action--muted" id="restore-backup" type="button">
-                        Restore backup
-                      </button>
-                      <button class="detail-action" id="open-title-import" type="button">Import titles</button>
-                    </div>
-                    <input id="backup-file-input" type="file" accept="application/json,.json" hidden />
-                    <div class="ranking-settings__status" id="backup-status" role="status" aria-live="polite"></div>
-                  </div>
-                  <div class="ranking-settings__section ranking-settings__section--danger">
-                    <div>
-                      <div class="ranking-settings__label">Clear rankings</div>
-                      <div class="ranking-settings__value">Remove every movie from the current ranking.</div>
-                    </div>
-                    <button class="detail-action detail-action--muted" id="clear-list" type="button">
-                      Clear rankings
-                    </button>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
           <div class="ranking-filter" id="ranking-filter" hidden>
@@ -820,6 +813,6 @@
       </footer>
     </main>
 
-    <script type="module" src="app.js?v=117"></script>
+    <script type="module" src="app.js?v=118"></script>
   </body>
 </html>

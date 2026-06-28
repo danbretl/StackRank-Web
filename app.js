@@ -251,7 +251,7 @@ const TMDB_POSTER_ORIGINAL = "https://image.tmdb.org/t/p/original";
 const STORAGE_KEY = "stackrank:movies:v1";
 const QUEUE_STORAGE_KEY = "stackrank:suggestion-queues:v1";
 const PACK_PROGRESS_STORAGE_KEY = "stackrank:pack-progress:v1";
-const PACK_FALLBACK_PATH = "data/suggestion-packs.json?v=3";
+const PACK_FALLBACK_PATH = "data/suggestion-packs.json?v=4";
 const SHARE_OPTIONS_KEY = "stackrank:share-options:v1";
 const SHARE_OPTIONS_VERSION = 7;
 const WATCH_LIST_TYPE = "watch";
@@ -327,7 +327,7 @@ let rankingFilterQuery = "";
 let rankingFilterExpanded = false;
 let fullscreenTrigger = null;
 let lastPackDiscoveryNudgeAt = 0;
-let placeholderIndex = 0;
+let currentPlaceholderTitle = "";
 let placeholderTimer = null;
 let placeholderFadeTimer = null;
 let currentDetail = null;
@@ -399,23 +399,115 @@ const PACK_BROWSER_STATES = [
 const TOAST_DURATION_MS = 3200;
 const TOAST_EXIT_MS = 240;
 const AUTH_INIT_TIMEOUT_MS = 3200;
+// One-time gather (2026-06-28) of widely-seen, well-regarded movies from the
+// last ~30 years, drawn from TMDB acclaim/popularity data (the tmdb-suggest
+// proxy's "essentials" pool for 1996–2015, plus TMDB-verified 2016–2025 hits).
+// Deliberately broad across eras, genres, international cinema, and audiences.
+// Static is fine — `pickPlaceholderTitle()` chooses randomly each rotation and
+// skips anything the customer has already ranked, so it always feels fresh.
 const PLACEHOLDER_TITLES = [
-  "The Godfather",
-  "Moonlight",
-  "Paddington 2",
   "The Matrix",
-  "Casablanca",
-  "Mad Max: Fury Road",
-  "My Neighbor Totoro",
   "Parasite",
-  "When Harry Met Sally...",
-  "Do the Right Thing",
-  "The Social Network",
-  "Everything Everywhere All at Once",
-  "Before Sunrise",
-  "Alien",
-  "The Princess Bride",
+  "Spirited Away",
+  "The Dark Knight",
+  "Moonlight",
+  "Amélie",
+  "Get Out",
   "In the Mood for Love",
+  "Interstellar",
+  "City of God",
+  "Everything Everywhere All at Once",
+  "Pride & Prejudice",
+  "Black Panther",
+  "Oldboy",
+  "WALL·E",
+  "La La Land",
+  "The Lord of the Rings: The Fellowship of the Ring",
+  "Whiplash",
+  "Your Name.",
+  "No Country for Old Men",
+  "Spider-Man: Into the Spider-Verse",
+  "Eternal Sunshine of the Spotless Mind",
+  "RRR",
+  "Fight Club",
+  "Coco",
+  "Memories of Murder",
+  "Inception",
+  "Portrait of a Lady on Fire",
+  "The Grand Budapest Hotel",
+  "3 Idiots",
+  "Top Gun: Maverick",
+  "There Will Be Blood",
+  "Princess Mononoke",
+  "Knives Out",
+  "12 Years a Slave",
+  "Life Is Beautiful",
+  "Dune",
+  "The Departed",
+  "Roma",
+  "Gladiator",
+  "Past Lives",
+  "The Truman Show",
+  "Oppenheimer",
+  "Howl's Moving Castle",
+  "The Lives of Others",
+  "Arrival",
+  "Good Will Hunting",
+  "Django Unchained",
+  "Lady Bird",
+  "Memento",
+  "The Sixth Sense",
+  "Call Me by Your Name",
+  "Saving Private Ryan",
+  "Soul",
+  "The Lord of the Rings: The Return of the King",
+  "Hidden Figures",
+  "Requiem for a Dream",
+  "The Banshees of Inisherin",
+  "American Beauty",
+  "If Beale Street Could Talk",
+  "Kill Bill: Vol. 1",
+  "Nomadland",
+  "The Prestige",
+  "Encanto",
+  "Trainspotting",
+  "Joker",
+  "The Wolf of Wall Street",
+  "Blade Runner 2049",
+  "Up",
+  "Barbie",
+  "The Pianist",
+  "Spider-Man: Across the Spider-Verse",
+  "Million Dollar Baby",
+  "CODA",
+  "Inglourious Basterds",
+  "Dune: Part Two",
+  "The Green Mile",
+  "Little Women",
+  "Gran Torino",
+  "Poor Things",
+  "The Lord of the Rings: The Two Towers",
+  "Dunkirk",
+  "The Imitation Game",
+  "The Wild Robot",
+  "American History X",
+  "1917",
+  "Catch Me If You Can",
+  "Sinners",
+  "Coraline",
+  "The Power of the Dog",
+  "Shutter Island",
+  "Killers of the Flower Moon",
+  "The Help",
+  "The Iron Giant",
+  "The Avengers",
+  "Incendies",
+  "Inside Out",
+  "Anora",
+  "Room",
+  "Harry Potter and the Prisoner of Azkaban",
+  "Mad Max: Fury Road",
+  "The Intouchables",
 ];
 const PLACEHOLDER_ROTATION_MS = 3600;
 const PLACEHOLDER_FADE_MS = 180;
@@ -425,12 +517,24 @@ const formatMeta = (movie) => {
   return `Released ${movie.year}`;
 };
 
+// Pick a random placeholder, skipping titles the customer has already ranked
+// (never tease a movie they've placed) and avoiding an immediate repeat. Falls
+// back gracefully if the pool empties out.
+const pickPlaceholderTitle = () => {
+  const ranked = new Set(ranking.map((movie) => normalizeTitle(movie.title)));
+  const unranked = PLACEHOLDER_TITLES.filter((title) => !ranked.has(normalizeTitle(title)));
+  const base = unranked.length ? unranked : PLACEHOLDER_TITLES;
+  const fresh = base.filter((title) => title !== currentPlaceholderTitle);
+  const pool = fresh.length ? fresh : base;
+  currentPlaceholderTitle = pool[Math.floor(Math.random() * pool.length)];
+  return currentPlaceholderTitle;
+};
+
 const rotateTitlePlaceholder = () => {
   if (titleInput.value.trim()) return;
   titleInput.classList.add("is-placeholder-fading");
   placeholderFadeTimer = window.setTimeout(() => {
-    placeholderIndex = (placeholderIndex + 1) % PLACEHOLDER_TITLES.length;
-    titleInput.placeholder = PLACEHOLDER_TITLES[placeholderIndex];
+    titleInput.placeholder = pickPlaceholderTitle();
     titleInput.classList.remove("is-placeholder-fading");
     placeholderFadeTimer = null;
   }, PLACEHOLDER_FADE_MS);
@@ -446,7 +550,7 @@ const stopPlaceholderRotation = () => {
 
 const startPlaceholderRotation = () => {
   stopPlaceholderRotation();
-  titleInput.placeholder = PLACEHOLDER_TITLES[placeholderIndex];
+  titleInput.placeholder = pickPlaceholderTitle();
   placeholderTimer = window.setInterval(rotateTitlePlaceholder, PLACEHOLDER_ROTATION_MS);
 };
 

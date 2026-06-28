@@ -244,6 +244,14 @@
                   <button class="undo-button undo-button--cancel" id="skip-pack-movie" type="button" hidden>
                     Skip for now
                   </button>
+                  <button class="undo-button" id="review-keep" type="button" hidden>Keep order</button>
+                  <button class="undo-button" id="review-swap" type="button" hidden>
+                    <span class="undo-button__icon" aria-hidden="true">↕</span>
+                    Swap
+                  </button>
+                  <button class="undo-button undo-button--cancel" id="review-end" type="button" hidden>
+                    End review
+                  </button>
                 </div>
               </div>
             </div>
@@ -276,6 +284,19 @@
           <div class="panel__header">
             <h2>Current ranking</h2>
             <div class="panel__actions">
+              <button
+                class="icon-button icon-button--quiet"
+                id="ranking-review"
+                type="button"
+                aria-label="Review ranking order"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path
+                    d="M8 4l3 3H9v10H7V7H5l3-3zm8 16l-3-3h2V7h2v10h2l-3 3z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
               <button
                 class="icon-button icon-button--quiet"
                 id="ranking-filter-toggle"
@@ -834,6 +855,6 @@
       </footer>
     </main>
 
-    <script type="module" src="app.js?v=121"></script>
+    <script type="module" src="app.js?v=122"></script>
   </body>
 </html>

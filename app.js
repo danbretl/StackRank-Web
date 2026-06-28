@@ -63,6 +63,7 @@ import {
   composeShareCard,
 } from "./lib/share-svg.js";
 import { comparisonMidIndex, applyComparison, isSearchSettled } from "./lib/ranking.js";
+import { buildReviewQueue } from "./lib/review.js?v=1";
 import { createUndoController } from "./lib/undo.js";
 import {
   buildImportedRanking,
@@ -102,6 +103,11 @@ const compareSub = document.getElementById("compare-sub");
 const undoChoiceButton = document.getElementById("undo-choice");
 const cancelRankingButton = document.getElementById("cancel-ranking");
 const skipPackMovieButton = document.getElementById("skip-pack-movie");
+const reviewKeepButton = document.getElementById("review-keep");
+const reviewSwapButton = document.getElementById("review-swap");
+const reviewEndButton = document.getElementById("review-end");
+const rankingReviewButton = document.getElementById("ranking-review");
+const compareHeading = compareSection.querySelector(".panel__header h2");
 const rankingList = document.getElementById("ranking");
 const rankingFilter = document.getElementById("ranking-filter");
 const rankingFilterToggle = document.getElementById("ranking-filter-toggle");
@@ -869,6 +875,7 @@ const renderRanking = () => {
   clearButton.disabled = !hasRankedMovies;
   if (rankingFilterToggle) rankingFilterToggle.disabled = !hasRankedMovies;
   if (rankingExpand) rankingExpand.disabled = !hasRankedMovies;
+  if (rankingReviewButton) rankingReviewButton.disabled = ranking.length < 2;
 
   if (!hasRankedMovies) {
     if (rankingFilterExpanded) setRankingFilterExpanded(false);
@@ -1897,6 +1904,170 @@ const cancelComparison = () => {
 };
 
 cancelRankingButton.addEventListener("click", cancelComparison);
+
+// --- Ranking review mode --------------------------------------------------
+// A lightweight audit pass over an existing ranking: surface adjacent pairs
+// (favoring recent additions, via lib/review.js) and ask whether each order
+// still holds, swapping neighbors in place. Distinct from the binary-insertion
+// comparison flow — it never inserts a `pending` movie. It reuses the comparison
+// panel's cards and the `is-comparing` layout so portrait/landscape parity comes
+// for free; `is-reviewing` only swaps which controls and copy are shown.
+const REVIEW_PAIR_LIMIT = 8;
+const COMPARE_HEADING = compareHeading ? compareHeading.textContent : "Pick your favorite";
+let reviewQueue = null; // remaining pair indices (incl. the current one)
+let reviewPairIndex = null; // current pair's lower index, or null when idle
+let reviewTotal = 0; // pairs in the session, for "Pair x of y"
+let reviewStats = null; // { reviewed, changed }
+let reviewSnapshot = null; // ranking snapshot at session start, for undo
+
+const isReviewing = () => reviewPairIndex != null;
+
+const setReviewCardLabel = (card, text) => {
+  const label = card.querySelector(".card__label");
+  if (label) label.textContent = text;
+};
+
+const setReviewMode = (active) => {
+  document.body.classList.toggle("is-comparing", active);
+  document.body.classList.toggle("is-reviewing", active);
+  form.hidden = active;
+  reviewKeepButton.hidden = !active;
+  reviewSwapButton.hidden = !active;
+  reviewEndButton.hidden = !active;
+  if (compareHeading) {
+    compareHeading.textContent = active ? "Review your ranking" : COMPARE_HEADING;
+  }
+  if (active) {
+    undoChoiceButton.hidden = true;
+    cancelRankingButton.hidden = true;
+    skipPackMovieButton.hidden = true;
+    hideSuggestions();
+    setSuggestionsHidden(true);
+  } else {
+    // Restore the insertion-flow card labels so the next comparison reads right.
+    setReviewCardLabel(newCard, "New entry");
+    setReviewCardLabel(existingCard, "Existing");
+    setSuggestionsHidden(false);
+  }
+};
+
+const showReviewPair = () => {
+  if (reviewPairIndex == null) return;
+  const i = reviewPairIndex;
+  const higher = ranking[i];
+  const lower = ranking[i + 1];
+  if (!higher || !lower) {
+    advanceReview();
+    return;
+  }
+
+  setReviewCardLabel(newCard, `Currently #${i + 1}`);
+  setReviewCardLabel(existingCard, `Currently #${i + 2}`);
+  newTitle.textContent = higher.title;
+  newMeta.textContent = formatMeta(higher);
+  setPoster(newPoster, higher);
+  existingTitle.textContent = lower.title;
+  existingMeta.textContent = formatMeta(lower);
+  setPoster(existingPoster, lower);
+
+  const position = reviewTotal - reviewQueue.length + 1;
+  compareSub.textContent = `Still prefer #${i + 1} over #${i + 2}? · Pair ${position} of ${reviewTotal}`;
+  compareSection.classList.remove("panel--hidden");
+
+  // Tapping a card keeps the established "pick the one you like more" gesture:
+  // the higher card keeps the order, the lower card swaps (promotes it).
+  newCard.onclick = () => reviewDecision(false);
+  existingCard.onclick = () => reviewDecision(true);
+  newCard.onkeydown = reviewCardKey(false);
+  existingCard.onkeydown = reviewCardKey(true);
+};
+
+const reviewCardKey = (swap) => (event) => {
+  if (event.key === "Enter" || event.key === " ") {
+    event.preventDefault();
+    reviewDecision(swap);
+  }
+};
+
+const advanceReview = () => {
+  if (!reviewQueue) return;
+  reviewQueue.shift();
+  if (!reviewQueue.length) {
+    finishReview(true);
+    return;
+  }
+  reviewPairIndex = reviewQueue[0];
+  showReviewPair();
+};
+
+const reviewDecision = (swap) => {
+  if (reviewPairIndex == null) return;
+  const i = reviewPairIndex;
+  reviewStats.reviewed += 1;
+  if (swap && ranking[i] && ranking[i + 1]) {
+    const temp = ranking[i];
+    ranking[i] = ranking[i + 1];
+    ranking[i + 1] = temp;
+    reviewStats.changed += 1;
+    saveRanking();
+    renderRanking();
+    if (fullscreenOverlay && !fullscreenOverlay.hidden) renderFullscreenRanking();
+  }
+  advanceReview();
+};
+
+const startReview = () => {
+  if (pending || isReviewing()) return;
+  if (ranking.length < 2) {
+    setAddFeedback("Add at least two movies to review your ranking.", 2600);
+    return;
+  }
+  const queue = buildReviewQueue(ranking, { focusTmdbId: lastAddedTmdbId, max: REVIEW_PAIR_LIMIT });
+  if (!queue.length) {
+    setAddFeedback("Nothing to review right now.", 2600);
+    return;
+  }
+  reviewQueue = queue;
+  reviewTotal = queue.length;
+  reviewStats = { reviewed: 0, changed: 0 };
+  reviewSnapshot = snapshotRanking();
+  reviewPairIndex = reviewQueue[0];
+  captureComparisonReturnScroll();
+  setReviewMode(true);
+  showReviewPair();
+  scrollComparisonIntoView();
+};
+
+const finishReview = (completed) => {
+  const stats = reviewStats || { reviewed: 0, changed: 0 };
+  const snapshot = reviewSnapshot;
+  reviewQueue = null;
+  reviewPairIndex = null;
+  reviewTotal = 0;
+  reviewStats = null;
+  reviewSnapshot = null;
+  setReviewMode(false);
+  compareSection.classList.add("panel--hidden");
+  renderRanking();
+  restoreComparisonReturnScroll();
+  titleInput.blur();
+  if (stats.changed > 0) {
+    const label = completed ? "Review complete" : "Review ended";
+    const message = `${label} · ${stats.changed} swap${stats.changed === 1 ? "" : "s"}.`;
+    setUndoableFeedback(message, () => {
+      if (snapshot) restoreRankingTo(snapshot);
+    });
+  } else {
+    setAddFeedback(`${completed ? "Review complete" : "Review ended"} · no changes.`, 2600);
+  }
+  updateSuggestions();
+  renderPackSurfaces();
+};
+
+reviewKeepButton.addEventListener("click", () => reviewDecision(false));
+reviewSwapButton.addEventListener("click", () => reviewDecision(true));
+reviewEndButton.addEventListener("click", () => finishReview(false));
+if (rankingReviewButton) rankingReviewButton.addEventListener("click", startReview);
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -7827,6 +7998,10 @@ document.addEventListener("keydown", (event) => {
     return;
   }
   if (event.key !== "Escape") return;
+  if (isReviewing()) {
+    finishReview(false);
+    return;
+  }
   if (!titleImportOverlay.hidden) {
     closeTitleImport();
     return;

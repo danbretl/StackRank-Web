@@ -50,7 +50,7 @@
       content="StackRank — build your movie ranking, one comparison at a time"
     />
 
-    <link rel="stylesheet" href="styles.css?v=81" />
+    <link rel="stylesheet" href="styles.css?v=82" />
   </head>
   <body>
     <main class="app">
@@ -378,25 +378,46 @@
           aria-labelledby="fullscreen-title"
         >
           <header class="fullscreen-header">
-            <div>
-              <h2 id="fullscreen-title">Current ranking</h2>
-              <p class="fullscreen-sub" id="fullscreen-sub"></p>
+            <div class="fullscreen-header__top">
+              <div>
+                <h2 id="fullscreen-title">Current ranking</h2>
+                <p class="fullscreen-sub" id="fullscreen-sub"></p>
+              </div>
+              <button
+                class="icon-button icon-button--quiet"
+                id="fullscreen-close"
+                type="button"
+                aria-label="Close full-screen view"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path
+                    d="M18.3 5.7L12 12l6.3 6.3-1.4 1.4L10.6 13.4 5.7 18.3 4.3 16.9 9.2 12 4.3 7.1 5.7 5.7l4.9 4.9 6.3-6.3z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
             </div>
-            <button
-              class="icon-button icon-button--quiet"
-              id="fullscreen-close"
-              type="button"
-              aria-label="Close full-screen view"
-            >
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path
-                  d="M18.3 5.7L12 12l6.3 6.3-1.4 1.4L10.6 13.4 5.7 18.3 4.3 16.9 9.2 12 4.3 7.1 5.7 5.7l4.9 4.9 6.3-6.3z"
-                  fill="currentColor"
-                />
-              </svg>
-            </button>
+            <div class="fullscreen-toolbar">
+              <label class="fullscreen-search">
+                <span class="sr-only">Filter ranking</span>
+                <input id="fullscreen-search" type="search" placeholder="Filter titles or years" autocomplete="off" />
+                <button id="fullscreen-search-clear" type="button" aria-label="Clear full-screen filter" hidden>×</button>
+              </label>
+              <label class="fullscreen-control">
+                <span>Size</span>
+                <select id="fullscreen-density">
+                  <option value="comfortable">Comfortable</option>
+                  <option value="compact">Compact</option>
+                </select>
+              </label>
+              <form class="fullscreen-jump" id="fullscreen-jump-form">
+                <label for="fullscreen-jump">Jump to</label>
+                <input id="fullscreen-jump" type="number" min="1" inputmode="numeric" placeholder="#" />
+                <button id="fullscreen-jump-button" type="submit">Go</button>
+              </form>
+            </div>
           </header>
-          <div class="fullscreen-grid" id="fullscreen-grid"></div>
+          <div class="fullscreen-grid" id="fullscreen-grid" aria-live="polite"></div>
         </section>
       </div>
 
@@ -813,6 +834,6 @@
       </footer>
     </main>
 
-    <script type="module" src="app.js?v=120"></script>
+    <script type="module" src="app.js?v=121"></script>
   </body>
 </html>

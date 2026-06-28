@@ -76,6 +76,12 @@ import {
   buildSuggestionSectionSubtitle,
   isSuggestionReasonReady,
 } from "./lib/suggestions.js?v=4";
+import {
+  filterFullscreenRanking,
+  gridDropIndex,
+  gridNavigationTarget,
+  moveRankingItem,
+} from "./lib/fullscreen-ranking.js?v=1";
 
 console.info("StackRank build", "share-studio-v4");
 
@@ -107,6 +113,11 @@ const fullscreenOverlay = document.getElementById("ranking-fullscreen");
 const fullscreenClose = document.getElementById("fullscreen-close");
 const fullscreenGrid = document.getElementById("fullscreen-grid");
 const fullscreenSub = document.getElementById("fullscreen-sub");
+const fullscreenSearch = document.getElementById("fullscreen-search");
+const fullscreenSearchClear = document.getElementById("fullscreen-search-clear");
+const fullscreenJump = document.getElementById("fullscreen-jump");
+const fullscreenJumpForm = document.getElementById("fullscreen-jump-form");
+const fullscreenDensity = document.getElementById("fullscreen-density");
 const watchListEl = document.getElementById("watch-list");
 const notInterestedListEl = document.getElementById("not-interested-list");
 const watchListSub = document.getElementById("watch-list-sub");
@@ -326,6 +337,9 @@ let autoPackSession = null;
 let rankingFilterQuery = "";
 let rankingFilterExpanded = false;
 let fullscreenTrigger = null;
+let fullscreenFilterQuery = "";
+let fullscreenDensityMode = "comfortable";
+let fullscreenDrag = null;
 let lastPackDiscoveryNudgeAt = 0;
 let currentPlaceholderTitle = "";
 let placeholderTimer = null;
@@ -2708,6 +2722,49 @@ suggestRelatedMore.addEventListener("click", () => {
   updateRelatedSuggestions();
 });
 
+const beginRankingRestack = (index, { fromFullscreen = false } = {}) => {
+  const movie = ranking[index];
+  if (!movie) return false;
+  if (pending) {
+    setStatusMessage("Finish the current comparison before re-stacking.");
+    return false;
+  }
+  pendingRankingSnapshot = snapshotLists();
+  captureComparisonReturnScroll();
+  // Full-screen is an overlay ingress, so completing or cancelling should
+  // restore the page instead of scrolling the underlying ranking panel.
+  scrollToPlacementOnSettle = !fromFullscreen;
+  ranking.splice(index, 1);
+  pendingOrigin = { type: "ranking", movie: { ...movie }, index };
+  pending = { ...movie, comparisons: 0 };
+  if (fromFullscreen) closeFullscreenRanking({ restoreFocus: false });
+  saveRanking();
+  renderRanking();
+  startComparison();
+  return true;
+};
+
+const removeRankedMovie = (index, { fromFullscreen = false } = {}) => {
+  const movie = ranking[index];
+  if (!movie) return false;
+  if (!window.confirm(`Remove "${movie.title}" from the list?`)) return false;
+  const beforeRanking = snapshotRanking();
+  ranking.splice(index, 1);
+  saveRanking();
+  renderRanking();
+  if (fromFullscreen) {
+    if (ranking.length) {
+      renderFullscreenRanking({ focusRankingIndex: Math.min(index, ranking.length - 1) });
+    } else {
+      closeFullscreenRanking({ restoreFocus: false });
+    }
+  }
+  updateSuggestions();
+  renderPackSurfaces();
+  setUndoableFeedback(`"${movie.title}" removed.`, () => restoreRankingTo(beforeRanking));
+  return true;
+};
+
 rankingList.addEventListener("click", (event) => {
   const restackButton = event.target.closest(".ranking__restack");
   if (restackButton) {
@@ -2715,24 +2772,7 @@ rankingList.addEventListener("click", (event) => {
     if (!item) return;
     const index = Number(item.dataset.index);
     if (Number.isNaN(index)) return;
-    const movie = ranking[index];
-    if (!movie) return;
-    if (pending) {
-      setStatusMessage("Finish the current comparison before re-stacking.");
-      return;
-    }
-    // Snapshot with the movie still at its original ranking position so undo
-    // restores it there.
-    pendingRankingSnapshot = snapshotLists();
-    captureComparisonReturnScroll();
-    // Restacking works directly with the ranking list, so reveal the new spot.
-    scrollToPlacementOnSettle = true;
-    ranking.splice(index, 1);
-    pendingOrigin = { type: "ranking", movie: { ...movie }, index };
-    pending = { ...movie, comparisons: 0 };
-    saveRanking();
-    renderRanking();
-    startComparison();
+    beginRankingRestack(index);
     return;
   }
   const removeButton = event.target.closest(".ranking__delete");
@@ -2741,16 +2781,7 @@ rankingList.addEventListener("click", (event) => {
   if (!item) return;
   const index = Number(item.dataset.index);
   if (Number.isNaN(index)) return;
-  const movie = ranking[index];
-  if (!movie) return;
-  if (!window.confirm(`Remove "${movie.title}" from the list?`)) return;
-  const beforeRanking = snapshotRanking();
-  ranking.splice(index, 1);
-  saveRanking();
-  renderRanking();
-  updateSuggestions();
-  renderPackSurfaces();
-  setUndoableFeedback(`"${movie.title}" removed.`, () => restoreRankingTo(beforeRanking));
+  removeRankedMovie(index);
 });
 
 const clearDragShifts = () => {
@@ -3021,6 +3052,9 @@ const restoreRankingTo = (snap) => {
   ranking = snap.map((movie) => ({ ...movie }));
   saveRanking();
   renderRanking();
+  if (fullscreenOverlay && !fullscreenOverlay.hidden) {
+    renderFullscreenRanking();
+  }
   updateSuggestions();
   renderPackSurfaces();
   setAddFeedback("Change undone.", 2000);
@@ -6332,21 +6366,50 @@ function closeShareStudio({ restoreFocus = true } = {}) {
   shareStudioTrigger = null;
 }
 
-// Read-only full-screen grid of the whole ranking — a roomy "all at once" view
-// (interaction/reorder are intentionally out of scope for now; see the feature
-// note ranking-fullscreen-view.md for the planned follow-ups).
-function renderFullscreenRanking() {
+const fullscreenCards = () =>
+  Array.from(fullscreenGrid?.querySelectorAll(".fullscreen-card") || []);
+
+const fullscreenColumnCount = () => {
+  if (!fullscreenGrid) return 1;
+  const template = window.getComputedStyle(fullscreenGrid).gridTemplateColumns;
+  return Math.max(1, template.split(" ").filter(Boolean).length);
+};
+
+function renderFullscreenRanking({ focusRankingIndex = null } = {}) {
   if (!fullscreenGrid) return;
   fullscreenGrid.innerHTML = "";
   const count = ranking.length;
+  const entries = filterFullscreenRanking(ranking, fullscreenFilterQuery);
+  const isFiltered = Boolean(fullscreenFilterQuery.trim());
+  fullscreenGrid.classList.toggle("is-compact", fullscreenDensityMode === "compact");
+  fullscreenGrid.classList.toggle("is-filtered", isFiltered);
   if (fullscreenSub) {
-    fullscreenSub.textContent = count
-      ? `${count} ${count === 1 ? "movie" : "movies"}, top to bottom`
-      : "No movies yet.";
+    fullscreenSub.textContent = isFiltered
+      ? `${entries.length} of ${count} ${count === 1 ? "movie" : "movies"}`
+      : count
+        ? `${count} ${count === 1 ? "movie" : "movies"}, top to bottom`
+        : "No movies yet.";
   }
-  ranking.forEach((movie, index) => {
+  if (fullscreenJump) {
+    fullscreenJump.max = String(Math.max(1, count));
+  }
+  if (!entries.length) {
+    const empty = document.createElement("div");
+    empty.className = "fullscreen-empty";
+    empty.textContent = isFiltered
+      ? "No movies match that filter."
+      : "No movies yet.";
+    fullscreenGrid.appendChild(empty);
+    return;
+  }
+  entries.forEach(({ movie, index }) => {
     const card = document.createElement("div");
     card.className = "fullscreen-card";
+    card.dataset.index = String(index);
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-label", `Open details for #${index + 1}, ${movie.title}`);
+    card.setAttribute("aria-grabbed", "false");
     const poster = document.createElement("div");
     poster.className = "fullscreen-card__poster";
     if (movie.posterPath) {
@@ -6365,15 +6428,44 @@ function renderFullscreenRanking() {
     rank.className = "fullscreen-card__rank";
     rank.textContent = String(index + 1);
     poster.appendChild(rank);
+    const handle = document.createElement("span");
+    handle.className = "fullscreen-card__drag-handle";
+    handle.textContent = "≡";
+    handle.setAttribute("aria-hidden", "true");
+    poster.appendChild(handle);
     const title = document.createElement("div");
     title.className = "fullscreen-card__title";
     title.textContent = movie.title;
     const meta = document.createElement("div");
     meta.className = "fullscreen-card__meta";
     meta.textContent = movie.year ? String(movie.year) : "Year unknown";
-    card.append(poster, title, meta);
+    const actions = document.createElement("div");
+    actions.className = "fullscreen-card__actions";
+    const restack = document.createElement("button");
+    restack.className = "fullscreen-card__action";
+    restack.type = "button";
+    restack.dataset.action = "restack";
+    restack.textContent = "Re-rank";
+    restack.setAttribute("aria-label", `Re-rank ${movie.title}`);
+    const remove = document.createElement("button");
+    remove.className = "fullscreen-card__action fullscreen-card__action--muted";
+    remove.type = "button";
+    remove.dataset.action = "remove";
+    remove.textContent = "Remove";
+    remove.setAttribute("aria-label", `Remove ${movie.title}`);
+    actions.append(restack, remove);
+    card.append(poster, title, meta, actions);
     fullscreenGrid.appendChild(card);
   });
+  if (focusRankingIndex !== null) {
+    const focusCard = fullscreenGrid.querySelector(
+      `.fullscreen-card[data-index="${focusRankingIndex}"]`,
+    );
+    if (focusCard) {
+      focusCard.focus({ preventScroll: true });
+      focusCard.scrollIntoView({ block: "nearest", inline: "nearest" });
+    }
+  }
 }
 
 function openFullscreenRanking() {
@@ -6383,11 +6475,15 @@ function openFullscreenRanking() {
   lockShareScroll();
   fullscreenOverlay.hidden = false;
   if (fullscreenGrid) fullscreenGrid.scrollTop = 0;
+  if (fullscreenSearch) fullscreenSearch.value = fullscreenFilterQuery;
+  if (fullscreenSearchClear) fullscreenSearchClear.hidden = !fullscreenFilterQuery;
+  if (fullscreenDensity) fullscreenDensity.value = fullscreenDensityMode;
   if (fullscreenClose) fullscreenClose.focus({ preventScroll: true });
 }
 
 function closeFullscreenRanking({ restoreFocus = true } = {}) {
   if (!fullscreenOverlay || fullscreenOverlay.hidden) return;
+  cancelFullscreenDrag();
   fullscreenOverlay.hidden = true;
   unlockShareScroll();
   if (restoreFocus && fullscreenTrigger && document.contains(fullscreenTrigger)) {
@@ -6401,6 +6497,252 @@ if (fullscreenClose) fullscreenClose.addEventListener("click", () => closeFullsc
 if (fullscreenOverlay) {
   fullscreenOverlay.addEventListener("click", (event) => {
     if (event.target === fullscreenOverlay) closeFullscreenRanking();
+  });
+}
+
+if (fullscreenSearch) {
+  fullscreenSearch.addEventListener("input", () => {
+    fullscreenFilterQuery = fullscreenSearch.value;
+    fullscreenSearchClear.hidden = !fullscreenFilterQuery;
+    renderFullscreenRanking();
+  });
+  fullscreenSearch.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape" || !fullscreenFilterQuery) return;
+    event.preventDefault();
+    event.stopPropagation();
+    fullscreenFilterQuery = "";
+    fullscreenSearch.value = "";
+    fullscreenSearchClear.hidden = true;
+    renderFullscreenRanking();
+  });
+}
+
+if (fullscreenSearchClear) {
+  fullscreenSearchClear.addEventListener("click", () => {
+    fullscreenFilterQuery = "";
+    fullscreenSearch.value = "";
+    fullscreenSearchClear.hidden = true;
+    renderFullscreenRanking();
+    fullscreenSearch.focus();
+  });
+}
+
+if (fullscreenDensity) {
+  fullscreenDensity.addEventListener("change", () => {
+    fullscreenDensityMode = fullscreenDensity.value === "compact" ? "compact" : "comfortable";
+    renderFullscreenRanking();
+  });
+}
+
+if (fullscreenJumpForm) {
+  fullscreenJumpForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const rank = Number(fullscreenJump.value);
+    if (!Number.isInteger(rank) || rank < 1 || rank > ranking.length) {
+      fullscreenJump.setCustomValidity(`Enter a rank from 1 to ${ranking.length}.`);
+      fullscreenJump.reportValidity();
+      return;
+    }
+    fullscreenJump.setCustomValidity("");
+    if (fullscreenFilterQuery) {
+      fullscreenFilterQuery = "";
+      fullscreenSearch.value = "";
+      fullscreenSearchClear.hidden = true;
+      renderFullscreenRanking();
+    }
+    const card = fullscreenGrid.querySelector(`.fullscreen-card[data-index="${rank - 1}"]`);
+    if (card) {
+      card.focus({ preventScroll: true });
+      card.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+    }
+  });
+}
+
+if (fullscreenJump) {
+  fullscreenJump.addEventListener("input", () => fullscreenJump.setCustomValidity(""));
+}
+
+const clearFullscreenDropMarker = () => {
+  fullscreenCards().forEach((card) => {
+    card.classList.remove("is-drop-before", "is-drop-after");
+  });
+};
+
+function cancelFullscreenDrag() {
+  const drag = fullscreenDrag;
+  if (!drag) return;
+  if (drag.captureEl?.releasePointerCapture && drag.pointerId !== null) {
+    try {
+      drag.captureEl.releasePointerCapture(drag.pointerId);
+    } catch (error) {
+      // Ignore missing pointer capture.
+    }
+  }
+  drag.card?.classList.remove("is-dragging");
+  drag.card?.setAttribute("aria-grabbed", "false");
+  drag.ghost?.remove();
+  clearFullscreenDropMarker();
+  document.body.classList.remove("is-fullscreen-dragging");
+  fullscreenDrag = null;
+}
+
+const startFullscreenDrag = (event) => {
+  const drag = fullscreenDrag;
+  if (!drag || drag.started) return;
+  drag.started = true;
+  const rect = drag.card.getBoundingClientRect();
+  drag.offsetX = event.clientX - rect.left;
+  drag.offsetY = event.clientY - rect.top;
+  drag.ghost = drag.card.cloneNode(true);
+  drag.ghost.classList.add("fullscreen-drag-ghost");
+  drag.ghost.removeAttribute("tabindex");
+  drag.ghost.style.width = `${rect.width}px`;
+  drag.ghost.style.height = `${rect.height}px`;
+  document.body.appendChild(drag.ghost);
+  drag.card.classList.add("is-dragging");
+  drag.card.setAttribute("aria-grabbed", "true");
+  document.body.classList.add("is-fullscreen-dragging");
+};
+
+const updateFullscreenDrag = (event) => {
+  const drag = fullscreenDrag;
+  if (!drag || drag.pointerId !== event.pointerId) return;
+  const distance = Math.hypot(event.clientX - drag.startX, event.clientY - drag.startY);
+  if (!drag.started && distance < 6) return;
+  event.preventDefault();
+  startFullscreenDrag(event);
+  drag.ghost.style.left = `${event.clientX - drag.offsetX}px`;
+  drag.ghost.style.top = `${event.clientY - drag.offsetY}px`;
+
+  const cards = fullscreenCards().filter((card) => card !== drag.card);
+  const rects = cards.map((card) => card.getBoundingClientRect());
+  drag.targetIndex = gridDropIndex(rects, event.clientX, event.clientY);
+  clearFullscreenDropMarker();
+  if (cards.length) {
+    if (drag.targetIndex <= 0) cards[0].classList.add("is-drop-before");
+    else if (drag.targetIndex >= cards.length) cards.at(-1).classList.add("is-drop-after");
+    else cards[drag.targetIndex].classList.add("is-drop-before");
+  }
+
+  const gridRect = fullscreenGrid.getBoundingClientRect();
+  if (event.clientY < gridRect.top + 50) fullscreenGrid.scrollBy({ top: -16 });
+  else if (event.clientY > gridRect.bottom - 50) fullscreenGrid.scrollBy({ top: 16 });
+};
+
+const finishFullscreenDrag = (event) => {
+  const drag = fullscreenDrag;
+  if (!drag || drag.pointerId !== event.pointerId) return;
+  const wasStarted = drag.started;
+  const fromIndex = drag.fromIndex;
+  const targetIndex = drag.targetIndex;
+  const movedMovie = ranking[fromIndex];
+  if (wasStarted) {
+    drag.card.dataset.dragged = "true";
+    window.requestAnimationFrame(() => delete drag.card.dataset.dragged);
+  }
+  cancelFullscreenDrag();
+  if (!wasStarted || !movedMovie || targetIndex === fromIndex) return;
+  const beforeRanking = snapshotRanking();
+  ranking = moveRankingItem(ranking, fromIndex, targetIndex);
+  const nextIndex = ranking.findIndex((movie) => movieKey(movie) === movieKey(movedMovie));
+  saveRanking();
+  renderRanking();
+  renderFullscreenRanking({ focusRankingIndex: nextIndex });
+  updateSuggestions();
+  renderPackSurfaces();
+  setUndoableFeedback(`"${movedMovie.title}" moved to #${nextIndex + 1}.`, () =>
+    restoreRankingTo(beforeRanking),
+  );
+};
+
+if (fullscreenGrid) {
+  fullscreenGrid.addEventListener("click", (event) => {
+    const card = event.target.closest(".fullscreen-card");
+    if (!card || card.dataset.dragged === "true") return;
+    const index = Number(card.dataset.index);
+    if (!Number.isInteger(index) || !ranking[index]) return;
+    const action = event.target.closest("[data-action]")?.dataset.action;
+    if (action === "restack") {
+      beginRankingRestack(index, { fromFullscreen: true });
+      return;
+    }
+    if (action === "remove") {
+      removeRankedMovie(index, { fromFullscreen: true });
+      return;
+    }
+    openMovieDetail(ranking[index], { type: "ranked" }, card);
+  });
+
+  fullscreenGrid.addEventListener("keydown", (event) => {
+    const card = event.target.closest(".fullscreen-card");
+    if (!card || event.target.closest("button")) return;
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      const index = Number(card.dataset.index);
+      if (ranking[index]) openMovieDetail(ranking[index], { type: "ranked" }, card);
+      return;
+    }
+    if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) {
+      return;
+    }
+    event.preventDefault();
+    const cards = fullscreenCards();
+    const currentIndex = cards.indexOf(card);
+    const targetIndex = gridNavigationTarget({
+      currentIndex,
+      key: event.key,
+      columnCount: fullscreenColumnCount(),
+      itemCount: cards.length,
+    });
+    cards[targetIndex]?.focus({ preventScroll: true });
+    cards[targetIndex]?.scrollIntoView({ block: "nearest", inline: "nearest" });
+  });
+
+  fullscreenGrid.addEventListener("pointerdown", (event) => {
+    if (event.button !== 0 || fullscreenFilterQuery.trim()) return;
+    if (event.target.closest("button")) return;
+    const card = event.target.closest(".fullscreen-card");
+    if (!card) return;
+    if (event.pointerType === "touch" && !event.target.closest(".fullscreen-card__drag-handle")) {
+      return;
+    }
+    if (event.target.closest(".fullscreen-card__drag-handle")) event.preventDefault();
+    card.setPointerCapture?.(event.pointerId);
+    fullscreenDrag = {
+      pointerId: event.pointerId,
+      captureEl: card,
+      card,
+      fromIndex: Number(card.dataset.index),
+      targetIndex: Number(card.dataset.index),
+      startX: event.clientX,
+      startY: event.clientY,
+      started: false,
+      ghost: null,
+    };
+  });
+  fullscreenGrid.addEventListener("pointermove", updateFullscreenDrag, { passive: false });
+  fullscreenGrid.addEventListener("pointerup", finishFullscreenDrag);
+  fullscreenGrid.addEventListener("pointercancel", cancelFullscreenDrag);
+}
+
+if (fullscreenOverlay) {
+  fullscreenOverlay.addEventListener("keydown", (event) => {
+    if (event.key !== "Tab" || !detailOverlay.hidden) return;
+    const focusable = Array.from(
+      fullscreenOverlay.querySelectorAll(
+        'button:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex="0"]',
+      ),
+    ).filter((element) => !element.hidden && element.offsetParent !== null);
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable.at(-1);
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
   });
 }
 
@@ -7485,10 +7827,6 @@ document.addEventListener("keydown", (event) => {
     return;
   }
   if (event.key !== "Escape") return;
-  if (fullscreenOverlay && !fullscreenOverlay.hidden) {
-    closeFullscreenRanking();
-    return;
-  }
   if (!titleImportOverlay.hidden) {
     closeTitleImport();
     return;
@@ -7503,6 +7841,10 @@ document.addEventListener("keydown", (event) => {
   }
   if (!detailOverlay.hidden) {
     closeMovieDetail();
+    return;
+  }
+  if (fullscreenOverlay && !fullscreenOverlay.hidden) {
+    closeFullscreenRanking();
     return;
   }
   if (!packDetailOverlay.hidden) {

@@ -6,7 +6,8 @@
 
 A web app for **stack-ranking** things — movies first, but meant to generalize. You add a movie and the app slots it into your ordered list via **binary-insertion comparisons** (pick the one you like better, repeatedly, until its exact position is found). Around that core sit suggestions, watch/skip queues, a movie-detail pane, and a rich shareable poster generator.
 
-- **Live:** https://danbretl.github.io/StackRank-Web/ (GitHub Pages)
+- **Live:** https://www.stackrankapp.com/ (Vercel; `stackrankapp.com` redirects here)
+- **Legacy host:** https://danbretl.github.io/StackRank-Web/ remains available during the origin migration so users can recover any browser-local data.
 - **Repo:** https://github.com/danbretl/StackRank-Web (local dir is `stackrank`, remote repo is `StackRank-Web`)
 - **Design intent (from day one):** simple, clean, slick, **monochrome**, punchy, modern. Minimal header; adding/ranking is front and center.
 
@@ -36,7 +37,7 @@ Plain **static single-page app — no build system, no framework, no bundler, no
   - `tmdb-suggest` — `type=popular | recommendations | essentials`.
   - `tmdb-detail` — runtime/genres/director/cast/overview for the detail pane.
   - `tmdb-image` — **public, CORS-`*`** poster proxy; exists so PNG export can draw posters onto a `<canvas>` (cross-origin TMDB images can't be rasterized directly).
-- **Auth:** Supabase email **magic link**, delivered via **Resend** SMTP (sender `no-reply@danbretl.com`). Auth is **origin-scoped** — a session on `danbretl.github.io` does *not* exist on `localhost`; you must sign in again on each origin. `file://` breaks magic links entirely. Auth init is guarded by `AUTH_INIT_TIMEOUT_MS` (3200ms) and falls back to the local list if Supabase is unreachable.
+- **Auth:** Supabase email **magic link**, delivered via **Resend** SMTP (sender `no-reply@danbretl.com`). Auth is **origin-scoped** — sessions and localStorage on `danbretl.github.io`, `stackrankapp.com`, and `localhost` are separate; users must sign in again on each origin. `file://` breaks magic links entirely. The Supabase Site URL is `https://www.stackrankapp.com/`; the apex domain, legacy GitHub Pages URL, and local development URLs remain in the redirect allowlist. Auth init is guarded by `AUTH_INIT_TIMEOUT_MS` (3200ms) and falls back to the local list if Supabase is unreachable.
 
 ## Feature map (what exists)
 
@@ -91,7 +92,8 @@ Approximate line ranges (they drift; grep to confirm):
 - **Deploy an edge function:** `supabase functions deploy <name>` (Supabase CLI via Homebrew; project is linked to ref `hrfhakrxsllrqmscxxpb`). **You must redeploy after changing a function or its response shape.**
 - **Screenshots:** `npm run screenshots` (headless Chrome; flags `--label=`, `--only=desktop-comparison,mobile-comparison-portrait,...`). Archives to `debug/screenshots/runs/<timestamp>/` + `latest/` (both gitignored).
 - **Social preview image:** `npm run build:og` regenerates `assets/og-preview.png` (1200×630) from the design embedded in `scripts/build-og-image.cjs` via headless Chrome. After regenerating, bump the `?v=N` on the `og:image`/`twitter:image` meta tags in `index.html` so unfurler caches refresh.
-- **Cache-busting:** when you change JS or CSS, **bump `app.js?v=N` / `styles.css?v=N` in `index.html`** — otherwise GitHub Pages and browsers serve stale assets. Current: `app.js?v=115`, `styles.css?v=75`. **Note:** `app.js` imports some `lib/` modules with their own `?v=N` (e.g. `lib/backup.js?v=2`, `lib/packs.js?v=2`, `lib/persistence.js?v=1`), and fetches `data/suggestion-packs.json?v=N` (constant `PACK_FALLBACK_PATH`) — bump that query too when you change one of those files, since bumping only `app.js?v=` won't refresh a cached `lib/` import or data file.
+- **Hosting:** Vercel project `stackrank` is connected to the GitHub repo and deploys `main` to production. Cloudflare Registrar/DNS owns `stackrankapp.com`; both apex and `www` use DNS-only CNAME records to Vercel, with Vercel issuing the apex → `www` 308 redirect and TLS certificates. GitHub Pages remains enabled temporarily as a browser-local-data recovery path.
+- **Cache-busting:** when you change JS or CSS, **bump `app.js?v=N` / `styles.css?v=N` in `index.html`** — otherwise browsers or an edge cache can serve stale assets. Current: `app.js?v=120`, `styles.css?v=81`. **Note:** `app.js` imports some `lib/` modules with their own `?v=N` (e.g. `lib/backup.js?v=2`, `lib/packs.js?v=2`, `lib/persistence.js?v=1`), and fetches `data/suggestion-packs.json?v=N` (constant `PACK_FALLBACK_PATH`) — bump that query too when you change one of those files, since bumping only `app.js?v=` won't refresh a cached `lib/` import or data file.
 
 ## Conventions
 
@@ -113,7 +115,7 @@ Approximate line ranges (they drift; grep to confirm):
 
 ## Debugging gotchas
 
-- **"My change isn't showing up"** → first suspect (a) uncommitted/unpushed work (GitHub Pages serves the old version) or (b) browser cache (hard-refresh, and check the `?v=` cache key) — *not* a logic bug.
+- **"My change isn't showing up"** → first suspect (a) uncommitted/unpushed work (Vercel deploys from GitHub `main`) or (b) browser/edge cache (hard-refresh, and check the `?v=` cache key) — *not* a logic bug.
 - **Blank page locally / no data** → usually a JS boot error halting `app.js` before render, or simply being signed out on `localhost` (origin-scoped session). Check the console first.
 - **PNG export has no posters** → must go through the `tmdb-image` proxy and account for SVG group `translate()` transforms when drawing onto canvas.
 

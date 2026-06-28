@@ -17,13 +17,14 @@ full-screen ranking filter/navigation/2-D reorder math, the binary-insertion
 ranking search, the pure Share SVG composition layer, and backup/title-import
 parsing + validation. Product telemetry tests cover production/DNT gating,
 ephemeral payload validation, property allowlisting, and count bucketing.
-`npm run test:e2e` now drives headless Chrome against the real static app and
-covers localStorage hydration, queue-to-ranking comparison flow, comparison
-undo/cancel restore, Share Studio preview/empty-toggle wiring, exact backup
-restore, ordered title-list import with disambiguation/replacement, async
-suggestion reasons, full-screen ranking interactions including 2-D drag, and a
-mobile pack-layout regression. `npm run verify` runs both suites plus
-syntax/type checks.
+`npm run test:e2e` now drives 13 headless-Chrome flows against the real static
+app. Coverage includes localStorage hydration; queue ranking and comparison
+undo/cancel; review swap/Escape/session undo; keyboard autocomplete; exact
+portrait and landscape comparison viewports; Share Studio preview and real
+PNG/ZIP downloads; backup download/restore and title import; a mocked signed-in
+Supabase load/no-loss merge/write round trip; async suggestion reasons;
+full-screen interactions including 2-D drag; and a mobile pack-layout
+regression. `npm run verify` runs both suites plus syntax/type checks.
 The shared Edge Function publishable-key gate also has three focused Deno tests
 covering configuration parsing and exact-key authorization.
 
@@ -107,15 +108,17 @@ run contains:
 usually `open reports/latest/summary.md` or `sed -n '1,120p' reports/latest/summary.md`.
 
 `npm run test:e2e` starts its own no-cache static server, launches a fresh
-headless Chrome profile per flow, seeds localStorage with deterministic data, and
-saves a separate timestamped report under `reports/e2e/runs/<timestamp>/`
-(gitignored). Each E2E run contains:
+headless Chrome profile per flow, applies exact CDP viewport dimensions, seeds
+localStorage with deterministic data, and saves a separate timestamped report
+under `reports/e2e/runs/<timestamp>/` (gitignored). Each E2E run contains:
 
 - `summary.md` — human-readable status, per-flow durations, details, and
   screenshot paths.
 - `summary.json` — structured metadata for agents/scripts.
 - `junit.xml` — machine-readable JUnit XML.
 - `screenshots/*.png` — state captures for the exercised flows.
+- `downloads/*` — real backup/image artifacts captured for signature, contents,
+  and archive-entry validation.
 
 `reports/e2e/latest` is a symlink to the most recent E2E run. Set `CHROME_PATH`
 if Chrome/Chromium is installed somewhere nonstandard.

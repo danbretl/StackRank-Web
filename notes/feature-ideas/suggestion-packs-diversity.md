@@ -1,6 +1,17 @@
 # Suggestion packs: broaden representation
 
-**Status: v1 shipped (2026-06-28).** Six representation packs were added to address Catie's feedback that the packs skewed toward white and/or male audiences: **Black Cinema Essentials**, **Queer Cinema Essentials**, **Women Behind the Camera**, **Latino & Latin American Voices**, **Trans & Nonbinary Stories**, and **African Cinema Gateways**. They were authored into `data/suggestion-packs.source.json` and built into `data/suggestion-packs.json` via the normal pipeline (resolved through the public `tmdb-search` proxy — no TMDB key needed). The remaining creator filmography packs and the other gaps below are still open follow-ups.
+**Status: shipped (2026-06-28).** Fourteen representation packs were added across two passes to address Catie's feedback that the packs skewed toward white and/or male audiences.
+
+- **Pass 1 — thematic (6):** Black Cinema Essentials, Queer Cinema Essentials, Women Behind the Camera, Latino & Latin American Voices, Trans & Nonbinary Stories, African Cinema Gateways.
+- **Pass 2 — creators + gaps (8):** director filmographies for **Jordan Peele, Ryan Coogler, Ava DuVernay, Mira Nair, Céline Sciamma, Alfonso Cuarón**, plus **Indigenous Cinema Gateways** and **Southeast Asian Cinema Gateways**.
+
+All authored into `data/suggestion-packs.source.json` and built into `data/suggestion-packs.json` via the normal pipeline (resolved through the public `tmdb-search` proxy — no TMDB key needed). Total pack count is now 114.
+
+**Deliberately skipped: Barry Jenkins.** His complete filmography is only 3 features (Medicine for Melancholy, Moonlight, If Beale Street Could Talk), two of which are already in the thematic packs — so a Jenkins pack overlaps Black Cinema Essentials at 67%, well over the validator's 35% `MAX_PAIR_SHARE`. His films are already surfaced via the Black/Queer/Women packs. Same caution applies to any other ultra-thin filmography that duplicates a thematic pack.
+
+**Validator gotcha:** `scripts/validate-suggestion-packs.mjs` flags any pair (where either pack has `sort_order >= 520`) exceeding 4 shared movies or 35% share of the smaller pack. New packs are all `>= 1020`, so they're checked against everything. Keep small packs' overlap to a single shared film, or grow them (e.g. the Trans pack was grown 8→11 so its 3-film overlap with the Queer pack dropped under 35%).
+
+**Supabase note (important):** the `suggestion_packs` table **does not exist in the live database** — the migration `supabase/migrations/20260625071336_add_suggestion_packs.sql` was authored but never applied to production. So `loadSuggestionPacks` always 404s on the remote query and the app runs entirely on the `data/suggestion-packs.json` fallback. That's why no DB upload is needed for packs to appear. To ever use the remote table, apply that migration first, then `… --upload`. Remaining creator filmography packs and other gaps (Disability on screen, broader African/Asian coverage) are still open follow-ups.
 
 > **Build note (resolved):** an earlier draft of this note worried we'd need a `TMDB_API_KEY`. We don't — `scripts/author-suggestion-packs.mjs` has a key-free path that resolves `tmdbId`/`posterPath` through the **public** `tmdb-search`/`tmdb-detail` edge functions using the anon key baked into `app.js`. So `node scripts/author-suggestion-packs.mjs` (no env) regenerates the JSON. The only thing that needs a key is the optional `--upload` to the Supabase `suggestion_packs` table (`SUPABASE_SERVICE_ROLE_KEY`); it's not required because `mergePackLibraries` makes new fallback-JSON slugs appear for signed-in users too.
 

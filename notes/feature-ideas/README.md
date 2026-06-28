@@ -11,7 +11,7 @@ This folder captures product ideas that are worth revisiting later. They are int
 - [Website link preview metadata](website-link-preview-metadata.md) — **shipped (Jun 2026).** Open Graph/Twitter metadata plus a reproducible 1200×630 preview card.
 - [Backup, restore, and title-list import](backup-and-import.md) — **shipped (Jun 2026).** Complete versioned JSON backups, exact restore with undo, and TMDB-backed ordered-title import with conservative automatic matching, disambiguation, and replacement consent.
 - [Full-screen ranking view](ranking-fullscreen-view.md) — **v1 shipped (Jun 2026, read-only).** Expand button opens a roomy multi-column poster grid of the whole list. Interaction (detail/re-rank/drag) is a documented follow-up.
-- [Suggestion packs: broaden representation](suggestion-packs-diversity.md) — **v1 shipped (Jun 2026).** Six representation packs added (Black, Queer, Trans & Nonbinary, Women Behind the Camera, Latino & Latin American, African cinema). Creator filmography packs and other gaps remain follow-ups.
+- [Suggestion packs: broaden representation](suggestion-packs-diversity.md) — **shipped (Jun 2026).** 14 representation packs added (114 total): 6 thematic (Black, Queer, Trans & Nonbinary, Women Behind the Camera, Latino & Latin American, African) + 6 creator filmographies (Peele, Coogler, DuVernay, Nair, Sciamma, Cuarón) + Indigenous and Southeast Asian gateways. Note: the `suggestion_packs` Supabase table was never created, so the app runs on the JSON fallback.
 
 ## Current top candidates (priority order, refreshed 2026-06-27)
 

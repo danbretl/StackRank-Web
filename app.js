@@ -97,6 +97,16 @@ const undoChoiceButton = document.getElementById("undo-choice");
 const cancelRankingButton = document.getElementById("cancel-ranking");
 const skipPackMovieButton = document.getElementById("skip-pack-movie");
 const rankingList = document.getElementById("ranking");
+const rankingFilter = document.getElementById("ranking-filter");
+const rankingFilterToggle = document.getElementById("ranking-filter-toggle");
+const rankingFilterInput = document.getElementById("ranking-filter-input");
+const rankingFilterClear = document.getElementById("ranking-filter-clear");
+const rankingFilterCount = document.getElementById("ranking-filter-count");
+const rankingExpand = document.getElementById("ranking-expand");
+const fullscreenOverlay = document.getElementById("ranking-fullscreen");
+const fullscreenClose = document.getElementById("fullscreen-close");
+const fullscreenGrid = document.getElementById("fullscreen-grid");
+const fullscreenSub = document.getElementById("fullscreen-sub");
 const watchListEl = document.getElementById("watch-list");
 const notInterestedListEl = document.getElementById("not-interested-list");
 const watchListSub = document.getElementById("watch-list-sub");
@@ -316,6 +326,9 @@ let packBrowserFilterValues = { query: "", category: "all", state: "all" };
 let packBrowserFiltersExpanded = false;
 let pendingPackContext = null;
 let autoPackSession = null;
+let rankingFilterQuery = "";
+let rankingFilterExpanded = false;
+let fullscreenTrigger = null;
 let lastPackDiscoveryNudgeAt = 0;
 let placeholderIndex = 0;
 let placeholderTimer = null;
@@ -545,8 +558,11 @@ const renderRanking = () => {
   const hasRankedMovies = ranking.length > 0;
   shareButton.disabled = !hasRankedMovies;
   clearButton.disabled = !hasRankedMovies;
+  if (rankingFilterToggle) rankingFilterToggle.disabled = !hasRankedMovies;
+  if (rankingExpand) rankingExpand.disabled = !hasRankedMovies;
 
   if (!hasRankedMovies) {
+    if (rankingFilterExpanded) setRankingFilterExpanded(false);
     const empty = document.createElement("li");
     empty.className = "ranking__empty";
     empty.textContent = "No movies yet. Add one to begin.";
@@ -556,7 +572,15 @@ const renderRanking = () => {
     return;
   }
 
+  const query = rankingFilterQuery.trim().toLowerCase();
+  rankingList.classList.toggle("ranking--filtered", Boolean(query));
+  let visibleCount = 0;
   ranking.forEach((movie, index) => {
+    if (query) {
+      const haystack = `${movie.title} ${movie.year || ""}`.toLowerCase();
+      if (!haystack.includes(query)) return;
+    }
+    visibleCount += 1;
     const item = document.createElement("li");
     item.className = "ranking__item";
     item.dataset.index = String(index);
@@ -602,9 +626,69 @@ const renderRanking = () => {
     item.append(handle, poster, text, actions);
     rankingList.appendChild(item);
   });
+
+  if (query && visibleCount === 0) {
+    const empty = document.createElement("li");
+    empty.className = "ranking__empty";
+    empty.textContent = "No movies match that filter.";
+    rankingList.appendChild(empty);
+  }
+  if (rankingFilterCount) {
+    rankingFilterCount.textContent = query ? `${visibleCount} of ${ranking.length}` : "";
+  }
+
   renderListSnapshot();
   if (!shareStudio.hidden) updateShareStudio();
 };
+
+function setRankingFilterExpanded(expanded) {
+  rankingFilterExpanded = expanded;
+  if (rankingFilter) rankingFilter.hidden = !expanded;
+  if (rankingFilterToggle) {
+    rankingFilterToggle.setAttribute("aria-expanded", expanded ? "true" : "false");
+    rankingFilterToggle.classList.toggle("is-active", expanded);
+  }
+  if (!expanded && rankingFilterQuery) {
+    // Collapsing clears the filter so the full list is never hidden behind a
+    // closed control.
+    rankingFilterQuery = "";
+    if (rankingFilterInput) rankingFilterInput.value = "";
+    if (rankingFilterClear) rankingFilterClear.hidden = true;
+    renderRanking();
+  }
+  if (expanded && rankingFilterInput) rankingFilterInput.focus();
+}
+
+if (rankingFilterToggle) {
+  rankingFilterToggle.addEventListener("click", () => {
+    setRankingFilterExpanded(!rankingFilterExpanded);
+  });
+}
+if (rankingFilterInput) {
+  rankingFilterInput.addEventListener("input", () => {
+    rankingFilterQuery = rankingFilterInput.value;
+    if (rankingFilterClear) rankingFilterClear.hidden = !rankingFilterQuery;
+    renderRanking();
+  });
+  rankingFilterInput.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && rankingFilterQuery) {
+      event.stopPropagation();
+      rankingFilterQuery = "";
+      rankingFilterInput.value = "";
+      if (rankingFilterClear) rankingFilterClear.hidden = true;
+      renderRanking();
+    }
+  });
+}
+if (rankingFilterClear) {
+  rankingFilterClear.addEventListener("click", () => {
+    rankingFilterQuery = "";
+    rankingFilterInput.value = "";
+    rankingFilterClear.hidden = true;
+    rankingFilterInput.focus();
+    renderRanking();
+  });
+}
 
 // movieYear, decadeLabel, dayKey, formatShortDate now live in lib/movie.js and
 // lib/format.js, imported at the top.
@@ -1495,7 +1579,7 @@ const cancelComparison = () => {
     if (context.mode === "auto") {
       stopAutoPack({ openDetail: true });
     } else {
-      window.setTimeout(() => openPackDetail(context.slug), 120);
+      window.setTimeout(() => openPackDetail(context.slug, { fromAllPacks: context.fromAllPacks }), 120);
     }
   } else {
     renderPackSurfaces();
@@ -2465,6 +2549,9 @@ rankingList.addEventListener(
   "pointerdown",
   (event) => {
     if (event.target.closest(".ranking__delete")) return;
+    // Reordering a filtered subset is ambiguous (hidden items break the drop
+    // math), so dragging is disabled while a filter is active.
+    if (rankingFilterQuery.trim()) return;
     const item = event.target.closest(".ranking__item");
     if (!item) return;
     if (event.target.closest(".ranking__actions")) {
@@ -3478,8 +3565,11 @@ const openPackDetail = (slug, { trigger = null, showHandled = false, fromAllPack
 };
 
 const startPackMovieRanking = (pack, movie, mode = "browse") => {
+  // Capture whether we drilled in from "All packs" before closePackDetail clears
+  // it, so reopening the detail after this ranking can return there (not home).
+  const fromAllPacks = packDetailFromAllPacks;
   closePackDetail({ restoreFocus: false });
-  startRankingMovie(movie, { type: "pack", slug: pack.slug, mode });
+  startRankingMovie(movie, { type: "pack", slug: pack.slug, mode, fromAllPacks });
 };
 
 const addPackMovieToQueue = (pack, movie, target) => {
@@ -3827,11 +3917,12 @@ const clearActiveComparison = () => {
 
 const stopAutoPack = ({ openDetail = true, message = "" } = {}) => {
   const slug = autoPackSession?.slug || pendingPackContext?.slug || currentPackSlug;
+  const fromAllPacks = autoPackSession?.fromAllPacks ?? pendingPackContext?.fromAllPacks;
   autoPackSession = null;
   if (message) setAddFeedback(message, 2600);
   renderPackSurfaces();
   if (openDetail && slug) {
-    openPackDetail(slug, { showHandled: packDetailShowHandled });
+    openPackDetail(slug, { showHandled: packDetailShowHandled, fromAllPacks });
   }
 };
 
@@ -3879,6 +3970,7 @@ const startAutoPack = (slug) => {
     slug,
     cursor: entry.lastIndex || 0,
     skippedKeys: [],
+    fromAllPacks: packDetailFromAllPacks,
   };
   markPackEngaged(pack, { lastIndex: autoPackSession.cursor });
   closePackDetail({ restoreFocus: false });
@@ -3957,7 +4049,7 @@ const handleRankingSettled = (rankedMovie, insertIndex, context) => {
         // decoupled from the ranking flow.
         queueMicrotask(advanceAutoPack);
       } else {
-        window.setTimeout(() => openPackDetail(pack.slug), 180);
+        window.setTimeout(() => openPackDetail(pack.slug, { fromAllPacks: context.fromAllPacks }), 180);
       }
     }
     return;
@@ -5082,8 +5174,11 @@ function shareSectionBuilders(insights, theme, tone, options) {
           `clip-path="url(#${fallbackClipId})"`,
         );
       }
-      block += `<rect x="${badgeX}" y="${badgeY}" width="${badgeW}" height="28" rx="14" fill="${theme.panel}" fill-opacity="0.9" stroke="${panelStroke}" stroke-width="1.5" />`;
-      block += `<text x="${badgeX + badgeW / 2}" y="${badgeY + 20}" class="poster-number-badge" text-anchor="middle">${badgeLabel}</text>`;
+      block += shareRankBadgeSvg(badgeLabel, {
+        x: badgeX, y: badgeY, w: badgeW, h: 28, rx: 14,
+        textX: badgeX + badgeW / 2, textY: badgeY + 20, fontSize: 15,
+        fill: theme.panel, fillOpacity: 0.9, stroke: panelStroke, textFill: theme.muted,
+      });
     });
     return section(
       "list",
@@ -5095,6 +5190,22 @@ function shareSectionBuilders(insights, theme, tone, options) {
   };
 
   return { topPicks, bottomPicks, eras, genres, people, queues, savedHidden, packs, fullList };
+}
+
+// A rank badge that overlays a poster in the whole-list "posters" style. The
+// rect+text render in the SVG (and the studio preview), and the data-* metadata
+// lets the PNG export redraw the badge on the canvas *after* the poster overlays
+// are painted — otherwise the poster image is drawn on top and hides it. See
+// getSvgBadgeOverlays / drawBadgeOverlays.
+function shareRankBadgeSvg(label, geo) {
+  const { x, y, w, h, rx, textX, textY, fontSize, fill, fillOpacity, stroke, textFill } = geo;
+  return (
+    `<g class="share-rank-badge" data-bx="${x}" data-by="${y}" data-bw="${w}" data-bh="${h}" data-brx="${rx}"` +
+    ` data-tx="${textX}" data-ty="${textY}" data-fs="${fontSize}" data-fill="${fill}" data-fo="${fillOpacity}"` +
+    ` data-stroke="${stroke}" data-text="${textFill}" data-label="${xmlEscape(label)}">` +
+    `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" fill="${fill}" fill-opacity="${fillOpacity}" stroke="${stroke}" stroke-width="1.5" />` +
+    `<text x="${textX}" y="${textY}" class="poster-number-badge" text-anchor="middle">${xmlEscape(label)}</text></g>`
+  );
 }
 
 // Single-image Portrait poster (the original output, unchanged).
@@ -5214,8 +5325,11 @@ function buildWideFullListDescriptor(insights, theme, tone, options, totalWidth)
           `clip-path="url(#${fallbackClipId})"`,
         );
       }
-      block += `<rect x="${badgeX}" y="${badgeY}" width="${badgeW}" height="26" rx="13" fill="${theme.panel}" fill-opacity="0.9" stroke="${panelStroke}" stroke-width="1.5" />`;
-      block += `<text x="${badgeX + badgeW / 2}" y="${badgeY + 18}" class="poster-number-badge" text-anchor="middle">${badgeLabel}</text>`;
+      block += shareRankBadgeSvg(badgeLabel, {
+        x: badgeX, y: badgeY, w: badgeW, h: 26, rx: 13,
+        textX: badgeX + badgeW / 2, textY: badgeY + 18, fontSize: 15,
+        fill: theme.panel, fillOpacity: 0.9, stroke: panelStroke, textFill: theme.muted,
+      });
     });
     bodyHeight = posterStartY + Math.ceil(movies.length / cols) * (cellH + 24);
   } else {
@@ -5362,8 +5476,11 @@ function buildWholeListPageDescriptors(insights, theme, tone, options, available
             `clip-path="url(#${fallbackClipId})"`,
           );
         }
-        block += `<rect x="${badgeX}" y="${badgeY}" width="${badgeW}" height="28" rx="14" fill="${theme.panel}" fill-opacity="0.9" stroke="${panelStroke}" stroke-width="1.5" />`;
-        block += `<text x="${badgeX + badgeW / 2}" y="${badgeY + 20}" class="poster-number-badge" text-anchor="middle">${badgeLabel}</text>`;
+        block += shareRankBadgeSvg(badgeLabel, {
+          x: badgeX, y: badgeY, w: badgeW, h: 28, rx: 14,
+          textX: badgeX + badgeW / 2, textY: badgeY + 20, fontSize: 15,
+          fill: theme.panel, fillOpacity: 0.9, stroke: panelStroke, textFill: theme.muted,
+        });
       });
       const rows = Math.ceil(slice.length / cols);
       return { body: block, height: rows * rowStride };
@@ -5920,6 +6037,78 @@ function closeShareStudio({ restoreFocus = true } = {}) {
   shareStudioTrigger = null;
 }
 
+// Read-only full-screen grid of the whole ranking — a roomy "all at once" view
+// (interaction/reorder are intentionally out of scope for now; see the feature
+// note ranking-fullscreen-view.md for the planned follow-ups).
+function renderFullscreenRanking() {
+  if (!fullscreenGrid) return;
+  fullscreenGrid.innerHTML = "";
+  const count = ranking.length;
+  if (fullscreenSub) {
+    fullscreenSub.textContent = count
+      ? `${count} ${count === 1 ? "movie" : "movies"}, top to bottom`
+      : "No movies yet.";
+  }
+  ranking.forEach((movie, index) => {
+    const card = document.createElement("div");
+    card.className = "fullscreen-card";
+    const poster = document.createElement("div");
+    poster.className = "fullscreen-card__poster";
+    if (movie.posterPath) {
+      const img = document.createElement("img");
+      img.src = `${TMDB_POSTER_SMALL}${movie.posterPath}`;
+      img.alt = `${movie.title} poster`;
+      img.loading = "lazy";
+      poster.appendChild(img);
+    } else {
+      poster.classList.add("fullscreen-card__poster--empty");
+      const label = document.createElement("span");
+      label.textContent = movie.title;
+      poster.appendChild(label);
+    }
+    const rank = document.createElement("span");
+    rank.className = "fullscreen-card__rank";
+    rank.textContent = String(index + 1);
+    poster.appendChild(rank);
+    const title = document.createElement("div");
+    title.className = "fullscreen-card__title";
+    title.textContent = movie.title;
+    const meta = document.createElement("div");
+    meta.className = "fullscreen-card__meta";
+    meta.textContent = movie.year ? String(movie.year) : "Year unknown";
+    card.append(poster, title, meta);
+    fullscreenGrid.appendChild(card);
+  });
+}
+
+function openFullscreenRanking() {
+  if (!ranking.length || !fullscreenOverlay) return;
+  fullscreenTrigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  renderFullscreenRanking();
+  lockShareScroll();
+  fullscreenOverlay.hidden = false;
+  if (fullscreenGrid) fullscreenGrid.scrollTop = 0;
+  if (fullscreenClose) fullscreenClose.focus({ preventScroll: true });
+}
+
+function closeFullscreenRanking({ restoreFocus = true } = {}) {
+  if (!fullscreenOverlay || fullscreenOverlay.hidden) return;
+  fullscreenOverlay.hidden = true;
+  unlockShareScroll();
+  if (restoreFocus && fullscreenTrigger && document.contains(fullscreenTrigger)) {
+    fullscreenTrigger.focus({ preventScroll: true });
+  }
+  fullscreenTrigger = null;
+}
+
+if (rankingExpand) rankingExpand.addEventListener("click", openFullscreenRanking);
+if (fullscreenClose) fullscreenClose.addEventListener("click", () => closeFullscreenRanking());
+if (fullscreenOverlay) {
+  fullscreenOverlay.addEventListener("click", (event) => {
+    if (event.target === fullscreenOverlay) closeFullscreenRanking();
+  });
+}
+
 function updateShareOptionsFromControls() {
   const selectedTheme = document.querySelector('input[name="share-theme"]:checked');
   const selectedTone = document.querySelector('input[name="share-tone"]:checked');
@@ -6101,6 +6290,81 @@ function getSvgPosterOverlays(svg) {
     );
 }
 
+// Whole-list "posters" rank badges are part of the base SVG, but the poster
+// overlays are painted onto the canvas afterward and would cover them. Extract
+// the badge geometry (translated by any ancestor <g transform>) so the PNG
+// export can redraw them on top of the posters. Mirrors getSvgPosterOverlays.
+function getSvgBadgeOverlays(svg) {
+  const documentSvg = new DOMParser().parseFromString(svg, "image/svg+xml");
+  const transformOffset = (node) => {
+    let x = 0;
+    let y = 0;
+    let current = node.parentElement;
+    while (current && current.tagName.toLowerCase() !== "svg") {
+      const transform = current.getAttribute("transform") || "";
+      const match = transform.match(/translate\(\s*([-.\d]+)(?:[\s,]+([-.\d]+))?\s*\)/);
+      if (match) {
+        x += Number(match[1]) || 0;
+        y += Number(match[2]) || 0;
+      }
+      current = current.parentElement;
+    }
+    return { x, y };
+  };
+  return Array.from(documentSvg.querySelectorAll(".share-rank-badge"))
+    .map((node) => {
+      const offset = transformOffset(node);
+      const num = (name) => Number(node.getAttribute(name));
+      return {
+        x: num("data-bx") + offset.x,
+        y: num("data-by") + offset.y,
+        width: num("data-bw"),
+        height: num("data-bh"),
+        rx: num("data-brx"),
+        textX: num("data-tx") + offset.x,
+        textY: num("data-ty") + offset.y,
+        fontSize: num("data-fs"),
+        fill: node.getAttribute("data-fill") || "#ffffff",
+        fillOpacity: Number(node.getAttribute("data-fo")) || 1,
+        stroke: node.getAttribute("data-stroke") || "#111111",
+        textFill: node.getAttribute("data-text") || "#6b6b6b",
+        label: node.getAttribute("data-label") || "",
+      };
+    })
+    .filter((item) => item.label && Number.isFinite(item.x) && Number.isFinite(item.y));
+}
+
+function drawRoundedRectPath(context, x, y, width, height, radius) {
+  const r = Math.min(radius, width / 2, height / 2);
+  context.beginPath();
+  context.moveTo(x + r, y);
+  context.arcTo(x + width, y, x + width, y + height, r);
+  context.arcTo(x + width, y + height, x, y + height, r);
+  context.arcTo(x, y + height, x, y, r);
+  context.arcTo(x, y, x + width, y, r);
+  context.closePath();
+}
+
+function drawBadgeOverlays(context, badges) {
+  badges.forEach((badge) => {
+    context.save();
+    drawRoundedRectPath(context, badge.x, badge.y, badge.width, badge.height, badge.rx);
+    context.globalAlpha = badge.fillOpacity;
+    context.fillStyle = badge.fill;
+    context.fill();
+    context.globalAlpha = 1;
+    context.lineWidth = 1.5;
+    context.strokeStyle = badge.stroke;
+    context.stroke();
+    context.fillStyle = badge.textFill;
+    context.font = `700 ${badge.fontSize}px Arial, Helvetica, sans-serif`;
+    context.textAlign = "center";
+    context.textBaseline = "alphabetic";
+    context.fillText(badge.label, badge.textX, badge.textY);
+    context.restore();
+  });
+}
+
 function loadCanvasImage(src) {
   return new Promise((resolve, reject) => {
     const image = new Image();
@@ -6166,6 +6430,8 @@ function renderShareSvgToPngBlob(baseSvg, posterSvg) {
         if (posterOverlays.length && !drawnPosters) {
           throw new Error("Could not draw poster overlays");
         }
+        // Redraw whole-list rank badges on top of the posters we just painted.
+        drawBadgeOverlays(context, getSvgBadgeOverlays(baseSvg));
         URL.revokeObjectURL(svgUrl);
         canvas.toBlob((blob) => {
           if (!blob) {
@@ -6925,6 +7191,10 @@ document.addEventListener("keydown", (event) => {
     return;
   }
   if (event.key !== "Escape") return;
+  if (fullscreenOverlay && !fullscreenOverlay.hidden) {
+    closeFullscreenRanking();
+    return;
+  }
   if (!titleImportOverlay.hidden) {
     closeTitleImport();
     return;

@@ -50,7 +50,7 @@
       content="StackRank — build your movie ranking, one comparison at a time"
     />
 
-    <link rel="stylesheet" href="styles.css?v=78" />
+    <link rel="stylesheet" href="styles.css?v=79" />
   </head>
   <body>
     <main class="app">
@@ -206,6 +206,32 @@
           <div class="panel__header">
             <h2>Current ranking</h2>
             <div class="panel__actions">
+              <button
+                class="icon-button icon-button--quiet"
+                id="ranking-filter-toggle"
+                type="button"
+                aria-label="Filter ranking"
+                aria-expanded="false"
+                aria-controls="ranking-filter"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path d="M3 5h18v2l-7 7v5l-4 2v-7L3 7V5z" fill="currentColor" />
+                </svg>
+              </button>
+              <button
+                class="icon-button icon-button--quiet"
+                id="ranking-expand"
+                type="button"
+                aria-label="Open full-screen view"
+                aria-haspopup="dialog"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path
+                    d="M4 9V4h5v2H6v3H4zm0 6h2v3h3v2H4v-5zm16 0v5h-5v-2h3v-3h2zM20 9h-2V6h-3V4h5v5z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
               <button class="icon-button" id="share-list" type="button" aria-label="Share ranking">
                 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                   <path
@@ -293,6 +319,28 @@
               </div>
             </div>
           </div>
+          <div class="ranking-filter" id="ranking-filter" hidden>
+            <div class="ranking-filter__control">
+              <input
+                id="ranking-filter-input"
+                class="ranking-filter__input"
+                type="text"
+                placeholder="Filter by title or year"
+                autocomplete="off"
+                aria-label="Filter ranking by title or year"
+              />
+              <button
+                class="ranking-filter__clear"
+                id="ranking-filter-clear"
+                type="button"
+                aria-label="Clear filter"
+                hidden
+              >
+                ×
+              </button>
+            </div>
+            <span class="ranking-filter__count" id="ranking-filter-count" role="status" aria-live="polite"></span>
+          </div>
           <ol id="ranking" class="ranking">
             <li class="ranking__empty">No movies yet. Add one to begin.</li>
           </ol>
@@ -326,6 +374,36 @@
           <ul id="not-interested-list" class="queue-list queue-list--quiet">
             <li class="queue-list__empty">Nothing hidden yet.</li>
           </ul>
+        </section>
+      </div>
+
+      <div class="fullscreen-overlay" id="ranking-fullscreen" hidden>
+        <section
+          class="fullscreen-sheet"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="fullscreen-title"
+        >
+          <header class="fullscreen-header">
+            <div>
+              <h2 id="fullscreen-title">Current ranking</h2>
+              <p class="fullscreen-sub" id="fullscreen-sub"></p>
+            </div>
+            <button
+              class="icon-button icon-button--quiet"
+              id="fullscreen-close"
+              type="button"
+              aria-label="Close full-screen view"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path
+                  d="M18.3 5.7L12 12l6.3 6.3-1.4 1.4L10.6 13.4 5.7 18.3 4.3 16.9 9.2 12 4.3 7.1 5.7 5.7l4.9 4.9 6.3-6.3z"
+                  fill="currentColor"
+                />
+              </svg>
+            </button>
+          </header>
+          <div class="fullscreen-grid" id="fullscreen-grid"></div>
         </section>
       </div>
 
@@ -742,6 +820,6 @@
       </footer>
     </main>
 
-    <script type="module" src="app.js?v=116"></script>
+    <script type="module" src="app.js?v=117"></script>
   </body>
 </html>

@@ -510,8 +510,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=127" ||
-      empty.cssHref !== "styles.css?v=84"
+      empty.moduleSrc !== "app.js?v=128" ||
+      empty.cssHref !== "styles.css?v=85"
     ) {
       throw new Error(`Empty first-run state is wrong: ${JSON.stringify(empty)}`);
     }
@@ -701,6 +701,161 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
         comparisonShot,
         await page.screenshot("first-run-activated.png"),
       ],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
+const testSignInExperience = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "sign-in-experience", width: 1280, height: 900 });
+  try {
+    await page.send("Page.addScriptToEvaluateOnNewDocument", {
+      source: `
+        (() => {
+          const realFetch = window.fetch.bind(window);
+          window.fetch = (input, options) => {
+            const url = typeof input === 'string' ? input : input?.url || '';
+            if (url.includes('/auth/v1/settings')) {
+              return Promise.resolve(new Response(JSON.stringify({
+                external: { email: true, google: true, apple: false }
+              }), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+            }
+            return realFetch(input, options);
+          };
+        })();
+      `,
+    });
+    await seedPage(page, baseUrl, "sign-in-experience", {
+      ranking: [movie("Alpha", 1990, 1701)],
+    });
+
+    await page.evaluate(`document.querySelector('#auth-sign-in')?.click(); true;`);
+    await waitFor(
+      page,
+      `!document.querySelector('#signin-overlay')?.hidden &&
+        !document.querySelector('#signin-google')?.hidden &&
+        document.querySelector('#signin-apple')?.hidden`,
+      3000,
+    );
+    const opened = await page.evaluate(`(() => ({
+      activeId: document.activeElement?.id,
+      googleHidden: document.querySelector('#signin-google')?.hidden,
+      appleHidden: document.querySelector('#signin-apple')?.hidden,
+      emailDisabled: document.querySelector('#signin-email')?.disabled,
+      bodyOverflow: getComputedStyle(document.body).overflow
+    }))()`);
+    if (
+      opened.activeId !== "signin-close" ||
+      opened.googleHidden ||
+      !opened.appleHidden ||
+      opened.emailDisabled ||
+      opened.bodyOverflow !== "hidden"
+    ) {
+      throw new Error(`Sign-in opening state is wrong: ${JSON.stringify(opened)}`);
+    }
+
+    await page.evaluate(`(() => {
+      const input = document.querySelector('#signin-email');
+      input.value = 'not-an-email';
+      document.querySelector('#signin-magic-send')?.click();
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `document.querySelector('#signin-status')?.classList.contains('is-error')`,
+      1000,
+    );
+    const invalid = await page.evaluate(`(() => ({
+      status: document.querySelector('#signin-status')?.textContent.trim(),
+      activeId: document.activeElement?.id
+    }))()`);
+    if (!/valid email address/.test(invalid.status || "") || invalid.activeId !== "signin-email") {
+      throw new Error(`Magic-link validation is wrong: ${JSON.stringify(invalid)}`);
+    }
+
+    const desktopShot = await page.screenshot("sign-in-desktop.png");
+    await page.evaluate(`(() => {
+      const submit = document.querySelector('#signin-magic-send');
+      submit.focus();
+      submit.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab', bubbles: true }));
+      return true;
+    })()`);
+    const trappedFocus = await page.evaluate(`document.activeElement?.id`);
+    if (trappedFocus !== "signin-close") {
+      throw new Error(`Sign-in focus did not wrap: ${trappedFocus}`);
+    }
+
+    await page.evaluate(
+      `document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); true;`,
+    );
+    await waitFor(
+      page,
+      `document.querySelector('#signin-overlay')?.hidden &&
+        document.activeElement === document.querySelector('#auth-sign-in')`,
+      1000,
+    );
+
+    await page.evaluate(`document.querySelector('#ranking-settings-toggle')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#ranking-settings-panel')?.hidden`, 1000);
+    await page.evaluate(`document.querySelector('#settings-sign-in')?.click(); true;`);
+    await waitFor(
+      page,
+      `!document.querySelector('#signin-overlay')?.hidden &&
+        document.querySelector('#ranking-settings-panel')?.hidden`,
+      1000,
+    );
+    await page.evaluate(
+      `document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true })); true;`,
+    );
+    await waitFor(
+      page,
+      `document.querySelector('#signin-overlay')?.hidden &&
+        document.activeElement === document.querySelector('#ranking-settings-toggle')`,
+      1000,
+    );
+
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 390,
+      height: 844,
+      deviceScaleFactor: 1,
+      mobile: false,
+      screenWidth: 390,
+      screenHeight: 844,
+    });
+    await page.evaluate(`document.querySelector('#auth-sign-in')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#signin-overlay')?.hidden`, 1000);
+    const mobile = await page.evaluate(`(() => {
+      const sheet = document.querySelector('#signin-overlay .signin-sheet')?.getBoundingClientRect();
+      const input = document.querySelector('#signin-email')?.getBoundingClientRect();
+      const submit = document.querySelector('#signin-magic-send')?.getBoundingClientRect();
+      return {
+        innerWidth,
+        innerHeight,
+        scrollWidth: document.documentElement.scrollWidth,
+        sheet: sheet ? { left: sheet.left, right: sheet.right, top: sheet.top, bottom: sheet.bottom } : null,
+        inputHeight: input?.height,
+        submitHeight: submit?.height
+      };
+    })()`);
+    if (
+      mobile.scrollWidth > mobile.innerWidth ||
+      mobile.sheet?.left < 0 ||
+      mobile.sheet?.right > mobile.innerWidth ||
+      mobile.sheet?.top < 0 ||
+      mobile.sheet?.bottom > mobile.innerHeight ||
+      mobile.inputHeight < 44 ||
+      mobile.submitHeight < 44
+    ) {
+      throw new Error(`Mobile sign-in layout is clipped or too small: ${JSON.stringify(mobile)}`);
+    }
+    const mobileShot = await page.screenshot("sign-in-mobile.png");
+
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { opened, invalid, trappedFocus, mobile },
+      screenshots: [desktopShot, mobileShot],
     };
   } finally {
     await page.close();
@@ -2114,6 +2269,7 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
 const tests = [
   { name: "localStorage persistence round-trip", run: testLoadPersistence },
   { name: "first-run quick start activation flow", run: testFirstRunQuickStart },
+  { name: "dedicated sign-in view and provider availability", run: testSignInExperience },
   { name: "watch queue comparison flow", run: testQueueComparison },
   { name: "comparison undo and cancel restore origin", run: testComparisonUndoCancel },
   { name: "ranking review swap, Escape, and session undo", run: testRankingReviewSession },

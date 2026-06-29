@@ -99,6 +99,13 @@ import {
   tasteSignalEntries,
   tasteSignalPackQuery,
 } from "./lib/taste.js?v=3";
+import {
+  AUTH_PROVIDERS,
+  enabledOAuthProviders,
+  signInRedirectUrl,
+  isLikelyEmail,
+  normalizeAuthEmail,
+} from "./lib/auth.js?v=1";
 
 console.info("StackRank build", "taste-explorer-v1");
 
@@ -150,9 +157,18 @@ const rankingSettingsPanel = document.getElementById("ranking-settings-panel");
 const rankingSettingsClose = document.getElementById("ranking-settings-close");
 const settingsAuthState = document.getElementById("settings-auth-state");
 const settingsAuthSignedOut = document.getElementById("settings-auth-signed-out");
-const settingsAuthEmailInput = document.getElementById("settings-auth-email");
 const settingsSignInButton = document.getElementById("settings-sign-in");
 const settingsSignOutButton = document.getElementById("settings-sign-out");
+const signinOverlay = document.getElementById("signin-overlay");
+const signinClose = document.getElementById("signin-close");
+const signinProviders = document.getElementById("signin-providers");
+const signinGoogleButton = document.getElementById("signin-google");
+const signinAppleButton = document.getElementById("signin-apple");
+const signinDivider = document.getElementById("signin-divider");
+const signinMagicForm = document.getElementById("signin-magic-form");
+const signinEmailInput = document.getElementById("signin-email");
+const signinMagicSend = document.getElementById("signin-magic-send");
+const signinStatus = document.getElementById("signin-status");
 const downloadBackupButton = document.getElementById("download-backup");
 const restoreBackupButton = document.getElementById("restore-backup");
 const backupFileInput = document.getElementById("backup-file-input");
@@ -2996,7 +3012,7 @@ rankingSettingsToggle.addEventListener("click", (event) => {
   toggleRankingSettings();
 });
 rankingSettingsClose.addEventListener("click", () => closeRankingSettings());
-settingsSignInButton.addEventListener("click", () => handleSignIn(settingsAuthEmailInput));
+settingsSignInButton.addEventListener("click", () => openSignIn({ trigger: rankingSettingsToggle }));
 settingsSignOutButton.addEventListener("click", () => handleSignOut());
 downloadBackupButton.addEventListener("click", downloadStackRankBackup);
 restoreBackupButton.addEventListener("click", () => backupFileInput.click());
@@ -8021,35 +8037,136 @@ const setAuthUI = () => {
   // account state and Sign out live in the settings popover.
   authSignInButton.hidden = Boolean(currentUser);
   authStatus.textContent = authNotice;
+  // A fresh session means a sign-in just completed — dismiss the sign-in view.
+  if (currentUser && signinOverlay && !signinOverlay.hidden) {
+    closeSignIn({ restoreFocus: false });
+  }
   updateRankingSettingsAuthUI();
 };
 
-const handleSignIn = async (sourceInput = settingsAuthEmailInput) => {
+// The element to refocus when the sign-in view closes (header or settings
+// button), so keyboard users land back where they opened it from.
+let signinReturnFocus = null;
+let signinProviderSettingsPromise = null;
+
+const setSignInStatus = (message, tone = "") => {
+  signinStatus.textContent = message;
+  signinStatus.classList.toggle("is-error", tone === "error");
+};
+
+const setSignInBusy = (busy) => {
+  signinGoogleButton.disabled = busy;
+  signinAppleButton.disabled = busy;
+  signinMagicSend.disabled = busy;
+  signinEmailInput.disabled = busy;
+};
+
+const setSignInProviderAvailability = (enabledProviders) => {
+  const enabledIds = new Set(enabledProviders.map(({ provider }) => provider));
+  signinGoogleButton.hidden = !enabledIds.has("google");
+  signinAppleButton.hidden = !enabledIds.has("apple");
+  const hasOAuthProvider = enabledIds.size > 0;
+  signinProviders.hidden = !hasOAuthProvider;
+  signinDivider.hidden = !hasOAuthProvider;
+};
+
+const loadSignInProviderAvailability = async () => {
+  if (signinProviderSettingsPromise) return signinProviderSettingsPromise;
+  signinProviderSettingsPromise = fetch(`${SUPABASE_URL}/auth/v1/settings`, {
+    headers: { apikey: SUPABASE_PUBLISHABLE_KEY },
+  })
+    .then((response) => {
+      if (!response.ok) throw new Error(`Supabase Auth settings returned ${response.status}.`);
+      return response.json();
+    })
+    .then((settings) => {
+      setSignInProviderAvailability(enabledOAuthProviders(settings));
+    })
+    .catch((error) => {
+      // Magic-link sign-in remains fully usable if this optional discovery
+      // request fails. Retry the next time the view opens.
+      signinProviderSettingsPromise = null;
+      setSignInProviderAvailability([]);
+      console.warn("Could not load Supabase OAuth provider settings", error);
+    });
+  return signinProviderSettingsPromise;
+};
+
+function openSignIn({ trigger = authSignInButton } = {}) {
+  if (!supabaseEnabled || !supabase) return;
+  signinReturnFocus = trigger || authSignInButton;
+  // Opening from the settings popover would otherwise leave it dangling behind
+  // the modal.
+  closeRankingSettings({ restoreFocus: false });
+  setSignInStatus("");
+  setSignInBusy(false);
+  signinOverlay.hidden = false;
+  document.body.classList.add("is-detail-open");
+  const initialFocus = signinGoogleButton.hidden ? signinClose : signinGoogleButton;
+  initialFocus.focus({ preventScroll: true });
+  void loadSignInProviderAvailability();
+}
+
+function closeSignIn({ restoreFocus = true } = {}) {
+  if (signinOverlay.hidden) return;
+  signinOverlay.hidden = true;
+  document.body.classList.remove("is-detail-open");
+  setSignInBusy(false);
+  if (restoreFocus && signinReturnFocus && !signinReturnFocus.hidden) {
+    signinReturnFocus.focus({ preventScroll: true });
+  }
+  signinReturnFocus = null;
+}
+
+const handleMagicLinkSignIn = async () => {
   if (!supabaseEnabled || !supabase) return;
   authNotice = "";
-  const email = sourceInput.value.trim();
-  if (!email) {
-    authStatus.textContent = "Add an email address to receive a sign-in link.";
-    sourceInput.focus();
+  const email = normalizeAuthEmail(signinEmailInput.value);
+  if (!isLikelyEmail(email)) {
+    setSignInStatus("Enter a valid email address to receive a sign-in link.", "error");
+    signinEmailInput.focus();
     return;
   }
-  authStatus.textContent = "Sending magic link...";
-  const redirectBase = window.location.hostname.includes("github.io")
-    ? `${window.location.origin}/StackRank-Web/`
-    : window.location.origin;
+  setSignInBusy(true);
+  setSignInStatus("Sending your sign-in link...");
   const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
-      emailRedirectTo: redirectBase,
+      emailRedirectTo: signInRedirectUrl(window.location),
     },
   });
   if (error) {
-    authStatus.textContent = `Sign-in failed: ${error.message}`;
+    setSignInBusy(false);
+    setSignInStatus(`Sign-in failed: ${error.message}`, "error");
     return;
   }
-  settingsAuthEmailInput.value = "";
-  authStatus.textContent = "Check your email for the sign-in link.";
-  closeRankingSettings({ restoreFocus: false });
+  signinEmailInput.value = "";
+  setSignInBusy(false);
+  setSignInStatus(`Check ${email} for your sign-in link.`);
+};
+
+const handleOAuthSignIn = async (provider) => {
+  if (!supabaseEnabled || !supabase) return;
+  authNotice = "";
+  const config = AUTH_PROVIDERS.find((entry) => entry.provider === provider);
+  const providerButton =
+    provider === "google" ? signinGoogleButton : provider === "apple" ? signinAppleButton : null;
+  if (!config || !providerButton || providerButton.hidden) return;
+  setSignInBusy(true);
+  setSignInStatus(`Redirecting to ${config.label.replace(/^Continue with /, "")}...`);
+  // signInWithOAuth navigates the whole page to the provider, so a resolved
+  // promise without an error simply means the redirect is underway. Only a
+  // pre-redirect failure (misconfigured provider, network) comes back here.
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider,
+    options: {
+      redirectTo: signInRedirectUrl(window.location),
+    },
+  });
+  if (error) {
+    setSignInBusy(false);
+    setSignInStatus(`Sign-in failed: ${error.message}`, "error");
+  }
 };
 
 const handleSignOut = async () => {
@@ -8118,16 +8235,39 @@ const initAuth = async () => {
       });
   });
 
-  // The header "Sign in" opens the settings popover and focuses its email field
-  // (the actual magic-link send is wired to the popover's own Sign in button).
+  // The header "Sign in" opens the dedicated sign-in view (OAuth + magic link).
   authSignInButton.addEventListener("click", (event) => {
-    // Stop the bubble so the document outside-click handler doesn't immediately
-    // re-close the popover we're opening.
     event.stopPropagation();
-    openRankingSettings();
-    settingsAuthEmailInput.focus({ preventScroll: true });
+    openSignIn({ trigger: authSignInButton });
   });
 };
+
+// Sign-in view controls.
+signinClose.addEventListener("click", () => closeSignIn());
+signinOverlay.addEventListener("click", (event) => {
+  // Click on the dimmed backdrop (not the sheet) dismisses the view.
+  if (event.target === signinOverlay) closeSignIn();
+});
+signinOverlay.addEventListener("keydown", (event) => {
+  if (event.key !== "Tab") return;
+  const focusable = [...signinOverlay.querySelectorAll("button:not([hidden]):not(:disabled), input:not(:disabled)")];
+  if (!focusable.length) return;
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
+});
+signinGoogleButton.addEventListener("click", () => handleOAuthSignIn("google"));
+signinAppleButton.addEventListener("click", () => handleOAuthSignIn("apple"));
+signinMagicForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  void handleMagicLinkSignIn();
+});
 
 const toStoredMovie = (movie) => ({
   title: movie.title,
@@ -8518,6 +8658,10 @@ document.addEventListener("keydown", (event) => {
     return;
   }
   if (event.key !== "Escape") return;
+  if (!signinOverlay.hidden) {
+    closeSignIn();
+    return;
+  }
   if (isReviewing()) {
     finishReview(false);
     return;

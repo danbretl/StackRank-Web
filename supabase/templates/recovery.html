@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light only" />
+    <title>Reset your StackRank password</title>
+  </head>
+  <body style="margin:0;padding:0;background:#f2f2f2;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f2f2f2;padding:32px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;width:100%;background:#ffffff;border:1px solid #111111;border-radius:20px;overflow:hidden;font-family:'Space Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
+            <tr>
+              <td style="padding:28px 32px 8px 32px;">
+                <div style="font-size:22px;font-weight:700;letter-spacing:-0.02em;color:#111111;">StackRank</div>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:8px 32px 0 32px;">
+                <h1 style="margin:0 0 12px 0;font-size:24px;line-height:1.15;color:#111111;font-weight:700;">Reset your password</h1>
+                <p style="margin:0 0 24px 0;font-size:15px;line-height:1.55;color:#3a3a3a;">
+                  Tap below to choose a new password for your StackRank account.
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td align="center" style="padding:0 32px 8px 32px;">
+                <a href="{{ .ConfirmationURL }}" style="display:inline-block;background:#111111;color:#ffffff;text-decoration:none;font-size:15px;font-weight:650;padding:14px 28px;border-radius:999px;">
+                  Reset password
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:16px 32px 0 32px;">
+                <p style="margin:0 0 6px 0;font-size:12px;line-height:1.5;color:#6b6b6b;">
+                  Button not working? Copy and paste this link into your browser:
+                </p>
+                <p style="margin:0;font-size:12px;line-height:1.5;word-break:break-all;">
+                  <a href="{{ .ConfirmationURL }}" style="color:#111111;">{{ .ConfirmationURL }}</a>
+                </p>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:24px 32px 28px 32px;border-top:1px solid #e2e2e2;">
+                <p style="margin:24px 0 0 0;font-size:12px;line-height:1.5;color:#6b6b6b;">
+                  This reset was requested for {{ .Email }} and expires in one hour. If you didn't request it, you can safely ignore this email.
+                </p>
+              </td>
+            </tr>
+          </table>
+          <p style="max-width:480px;margin:16px auto 0 auto;font-size:11px;color:#9a9a9a;font-family:'Space Grotesk',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;">
+            StackRank — rank movies one comparison at a time.
+          </p>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

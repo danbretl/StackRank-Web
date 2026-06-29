@@ -50,7 +50,7 @@
       content="StackRank — build your movie ranking, one comparison at a time"
     />
 
-    <link rel="stylesheet" href="styles.css?v=84" />
+    <link rel="stylesheet" href="styles.css?v=85" />
   </head>
   <body>
     <main class="app">
@@ -100,7 +100,6 @@
                   <div class="ranking-settings__value" id="settings-auth-state">Not signed in</div>
                 </div>
                 <div class="ranking-settings__auth" id="settings-auth-signed-out">
-                  <input id="settings-auth-email" type="email" placeholder="you@email.com" />
                   <button class="detail-action" id="settings-sign-in" type="button">Sign in</button>
                 </div>
                 <button class="detail-action detail-action--muted" id="settings-sign-out" type="button" hidden>
@@ -848,6 +847,81 @@
         </section>
       </div>
 
+      <div class="detail-overlay signin-overlay" id="signin-overlay" hidden>
+        <div
+          class="detail-sheet signin-sheet"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="signin-title"
+        >
+          <button class="detail-close" id="signin-close" type="button" aria-label="Close sign in">×</button>
+          <div class="signin-head">
+            <div class="signin-eyebrow">StackRank</div>
+            <h2 id="signin-title">Sign in to sync your ranking</h2>
+            <p class="detail-sub">
+              Keep your ranking, queues, and packs on your account and pick up on any device.
+              No passwords — just one tap or a one-time email link.
+            </p>
+          </div>
+          <div class="signin-providers" id="signin-providers" hidden>
+            <button
+              class="signin-provider signin-provider--google"
+              id="signin-google"
+              type="button"
+              hidden
+            >
+              <span class="signin-provider__icon" aria-hidden="true">
+                <svg viewBox="0 0 48 48" focusable="false">
+                  <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                  <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                  <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                  <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                </svg>
+              </span>
+              <span class="signin-provider__label">Continue with Google</span>
+            </button>
+            <button
+              class="signin-provider signin-provider--apple"
+              id="signin-apple"
+              type="button"
+              hidden
+            >
+              <span class="signin-provider__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                  <path fill="currentColor" d="M16.36 12.78c.02 2.6 2.28 3.46 2.3 3.47-.02.06-.36 1.24-1.19 2.46-.72 1.06-1.46 2.11-2.64 2.13-1.15.02-1.52-.68-2.84-.68-1.32 0-1.73.66-2.82.7-1.13.04-2-.94-2.72-2-1.48-2.13-2.6-6.03-1.09-8.66.75-1.31 2.1-2.14 3.56-2.16 1.11-.02 2.16.75 2.84.75.68 0 1.95-.93 3.29-.79.56.02 2.13.23 3.14 1.7-.08.05-1.88 1.1-1.86 3.28M14.2 5.38c.6-.73 1.01-1.74.9-2.75-.87.04-1.92.58-2.54 1.31-.56.65-1.05 1.68-.92 2.67.97.08 1.96-.49 2.56-1.23"/>
+                </svg>
+              </span>
+              <span class="signin-provider__label">Continue with Apple</span>
+            </button>
+          </div>
+          <div class="signin-divider" id="signin-divider" hidden><span>or use email</span></div>
+          <form class="signin-magic" id="signin-magic-form" novalidate>
+            <label class="signin-field">
+              <span class="field__label">Email address</span>
+              <input
+                id="signin-email"
+                type="email"
+                inputmode="email"
+                autocomplete="email"
+                placeholder="you@email.com"
+              />
+            </label>
+            <button
+              class="detail-action detail-action--primary signin-magic__submit"
+              id="signin-magic-send"
+              type="submit"
+            >
+              Email me a sign-in link
+            </button>
+          </form>
+          <p class="signin-status panel__sub" id="signin-status" role="status" aria-live="polite"></p>
+          <p class="signin-fineprint">
+            Sign-in is handled securely by Supabase. StackRank never sees a password, and your
+            email is used only to sign you in.
+          </p>
+        </div>
+      </div>
+
       <div class="share-lightbox" id="share-lightbox" hidden>
         <button
           class="share-lightbox__close"
@@ -900,6 +974,6 @@
       </footer>
     </main>
 
-    <script type="module" src="app.js?v=127"></script>
+    <script type="module" src="app.js?v=128"></script>
   </body>
 </html>

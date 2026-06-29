@@ -37,6 +37,10 @@ error message, or durable device identifier. Counts are bucketed (`2_4`,
 Collection only runs on `www.stackrankapp.com`, honors browser Do Not Track and
 Global Privacy Control, and stops after 80 events in one page lifetime.
 Localhost, previews, and the legacy GitHub Pages origin do not write events.
+Production visits with `?debug=1` and browsers reporting
+`navigator.webdriver === true` are also excluded so developer QA and automation
+do not contaminate product decisions. Use `?debug=1` for every manual
+production smoke.
 
 Clients can insert rows through a tightly bounded RLS policy but cannot select,
 update, or delete telemetry. The table and policy both restrict event names,
@@ -186,7 +190,8 @@ with session_rollup as (
       )
     ) as meaningful_actions
   from public.product_events
-  where occurred_at >= timestamptz '2026-06-28 00:00:00+00'
+  -- Earlier events include developer QA before explicit QA exclusion shipped.
+  where occurred_at >= timestamptz '2026-06-29 18:44:36+00'
   group by session_id
 ),
 exposed as (
@@ -226,7 +231,7 @@ from exposed;
 ## Follow-ups
 
 - Review FTUE activation on 2026-07-12; extend to 2026-07-28 if fewer than 50
-  exposed sessions. Use the decision thresholds in
+  post-cutover exposed sessions. Use the decision thresholds in
   `first-run-quick-start.md`.
 - Review event volume after 60–90 days and add a retention job if traffic makes
   indefinite raw-event storage unnecessary.

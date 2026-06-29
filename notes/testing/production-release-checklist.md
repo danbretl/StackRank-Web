@@ -13,6 +13,8 @@ npm run test:production
 `test:production` checks the apex/`www` redirect chain, clean routes, security
 headers, canonical/social metadata, cache-busted assets, app icons, the
 1200×630 OG image, privacy/TMDB credits, `robots.txt`, and `sitemap.xml`.
+For rendered manual QA, use `https://www.stackrankapp.com/movies?debug=1` so
+the visit does not enter either product telemetry stream.
 
 ## Current production state
 

@@ -221,10 +221,25 @@ Status: **pending until the initial telemetry window matures.**
 
 - Inventory every home-page surface and its entry conditions.
 - Review activation and feature adoption on 2026-07-12; extend to 2026-07-28
-  if fewer than 50 first-run exposures exist.
+  if fewer than 50 post-cutover first-run exposures exist.
 - Prefer hiding, collapsing, or removing weak surfaces over adding new ones.
 - Record recommendations separately from implementation so pruning remains an
   explicit product decision.
+
+Measurement readiness (2026-06-29):
+
+- The stream contained 52 bounded events across 26 ephemeral page sessions.
+  Every row used only the six allowed property keys, no property payload was
+  oversized, and the live RLS policy remains insert-only with database-side
+  name/key/value/type limits.
+- The first 18 `quick_start_shown` sessions are not a valid product sample:
+  production QA visits could previously count as exposures.
+- Commit `75304ec` excludes `?debug=1` and `navigator.webdriver` visits. The
+  deployed fix was verified by loading the full production app in debug mode:
+  neither custom telemetry nor Vercel Analytics initialized, and the database
+  stayed at exactly 52 events.
+- Treat `2026-06-29 18:44:36+00` as the clean measurement cutoff. Do not blend
+  earlier rows into the Area 5 decision.
 
 ## Progress log
 
@@ -237,3 +252,5 @@ Status: **pending until the initial telemetry window matures.**
   public policy, TMDB attribution, and live CSP validation are in place.
 - **2026-06-29:** Completed autonomous Area 4 rollout checks; a repeatable
   20-check production smoke passes and external evidence has an exact checklist.
+- **2026-06-29:** Audited Area 5 measurement readiness and excluded debug/
+  automated QA from telemetry; the pruning decision remains date/sample gated.

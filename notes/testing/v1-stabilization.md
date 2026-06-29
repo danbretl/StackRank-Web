@@ -178,7 +178,8 @@ Shipped implementation:
 
 ## Area 4 — production rollout closeout
 
-Status: **pending; some checks require account/device access.**
+Status: **autonomous checks complete (2026-06-29); controlled
+inbox/device checks remain.**
 
 Autonomous checks:
 
@@ -195,6 +196,24 @@ External checks:
 - Link preview in Apple Messages.
 - iPhone Safari ranking, canvas PNG, ZIP download, native share, and lightbox.
 - Decide when the legacy GitHub Pages recovery origin can be retired.
+
+Shipped implementation and evidence:
+
+- Added `npm run test:production`, a zero-dependency live smoke that checks the
+  apex/`www` redirect chain, canonical routes, repository-matched security
+  headers and asset versions, icons, social metadata, the actual 1200×630 PNG,
+  privacy/TMDB credits, and search-engine discovery files.
+- Added `robots.txt` and `sitemap.xml` for the two canonical public routes.
+- Deployment `ebf3f76` reached READY and the production smoke passed all 20
+  checks against `www.stackrankapp.com`.
+- Live rendered checks loaded `/movies`, a real TMDB autocomplete result and
+  poster, `/privacy`, fonts, analytics, and the Supabase client under the CSP
+  with no console errors.
+- Production Auth settings currently expose email magic link and leave Google
+  and Apple hidden; neither OAuth provider is enabled.
+- Exact controlled-inbox, signed-in recovery, Messages preview, physical
+  iPhone Safari, and legacy-origin retirement steps live in
+  `notes/testing/production-release-checklist.md`.
 
 ## Area 5 — surface simplification review
 
@@ -216,3 +235,5 @@ Status: **pending until the initial telemetry window matures.**
   TMDB/auth, and rejected Supabase write recovery are covered by browser tests.
 - **2026-06-29:** Completed Area 3 security/privacy; production headers, the
   public policy, TMDB attribution, and live CSP validation are in place.
+- **2026-06-29:** Completed autonomous Area 4 rollout checks; a repeatable
+  20-check production smoke passes and external evidence has an exact checklist.

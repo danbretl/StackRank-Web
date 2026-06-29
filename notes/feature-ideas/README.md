@@ -15,14 +15,14 @@ This folder captures product ideas that are worth revisiting later. They are int
 - [Ranking review mode](ranking-review-mode.md) — **v1 shipped (Jun 2026).** Adjacent-pair audit pass: a Review button surfaces pairs (favoring recent additions, via `lib/review.js`), Keep/Swap/End in the reused comparison panel, immediate persistence, and a session-level undo.
 - [Suggestion packs: broaden representation](suggestion-packs-diversity.md) — **shipped (Jun 2026).** 14 representation packs added (114 total): 6 thematic (Black, Queer, Trans & Nonbinary, Women Behind the Camera, Latino & Latin American, African) + 6 creator filmographies (Peele, Coogler, DuVernay, Nair, Sciamma, Cuarón) + Indigenous and Southeast Asian gateways. Production tables, pack upload, and cross-device progress sync are active.
 - [Product instrumentation](product-instrumentation.md) — **shipped (Jun 2026).** Vercel Web Analytics pageviews plus a privacy-bounded Supabase event stream for ranking, review, packs, sharing, import, and future activation funnels.
+- [First-run quick start](first-run-quick-start.md) — **shipped (Jun 2026).** Contextual zero/one-movie guidance, three varied starter packs, direct title import, activation telemetry, and a tested desktop/mobile empty→comparison flow.
 
 ## Current top candidates (priority order, refreshed 2026-06-28)
 
-1. [**First-run quick start**](first-run-quick-start.md) — expose starter packs and title import in the empty state, with one sentence explaining that comparisons begin after the second movie. Use the shipped activation funnel to evaluate it before expanding into broader onboarding.
-2. [**Personal stats and taste profile**](personal-stats-and-taste-profile.md) — the insight engine already exists, but the native page needs a differentiated purpose: interactive drill-down, progress/milestones, or actionable suggestion hooks rather than a duplicate of Share Studio.
-3. [**Suggestion packs Phase 4**](suggestion-packs.md) — filters and the 100-pack expansion now ship; a featured row or alternate sorting should wait for usage evidence.
-4. [**Ranking review mode follow-ups**](ranking-review-mode.md) — adjacent-pair v1 shipped; per-swap undo or confidence-gap/section strategies can wait for usage evidence that deepening review is worth it.
-5. [**Image-set tablet layout**](share-export-sizes-and-image-set.md) — an optional fixed landscape/iPad page system remains parked; lower priority because Wide single-image output already covers the main tablet/dashboard use case.
+1. [**Personal stats and taste profile**](personal-stats-and-taste-profile.md) — the insight engine already exists, but the native page needs a differentiated purpose: interactive drill-down, progress/milestones, or actionable suggestion hooks rather than a duplicate of Share Studio.
+2. [**Suggestion packs Phase 4**](suggestion-packs.md) — filters and the 100-pack expansion now ship; a featured row or alternate sorting should wait for usage evidence.
+3. [**Ranking review mode follow-ups**](ranking-review-mode.md) — adjacent-pair v1 shipped; per-swap undo or confidence-gap/section strategies can wait for usage evidence that deepening review is worth it.
+4. [**Image-set tablet layout**](share-export-sizes-and-image-set.md) — an optional fixed landscape/iPad page system remains parked; lower priority because Wide single-image output already covers the main tablet/dashboard use case.
 
 ## Parked (bigger bets)
 
@@ -36,6 +36,7 @@ This folder captures product ideas that are worth revisiting later. They are int
 - [Undo for list changes](undo-history-for-list-changes.md) — intentionally single-level and short-lived; multi-step history remains out of scope unless usage shows a need.
 - [Website link preview metadata](website-link-preview-metadata.md) — Open Graph/Twitter tags + a generated 1200x630 `assets/og-preview.png` now ship; follow-up is post-deploy verification in Apple Messages and favicon/Apple-touch-icon polish.
 - [Full-screen ranking view](ranking-fullscreen-view.md) — interaction parity and 2-D drag now ship; keyboard reordering and persisted density remain optional.
+- [First-run quick start](first-run-quick-start.md) — evaluate the recorded activation funnel after 14 days (or 30 days with low traffic) before adding more onboarding UI.
 
 ## Cross-cutting infrastructure now available
 

@@ -59,6 +59,9 @@ authoritative.
 - `share_opened` / `share_exported` — list-size bucket and export format.
 - `import_opened` / `import_completed` — settings entry and bucketed imported
   list size.
+- `quick_start_shown` / `quick_start_pack_opened` /
+  `quick_start_import_opened` — first-run exposure and path adoption without
+  recording titles, pack slugs, or a durable user identity.
 
 Allowed property keys are `source`, `list_size`, `count`, `format`, `outcome`,
 and `signed_in`. String values must be short machine tokens; `signed_in` is
@@ -71,6 +74,8 @@ joined to an auth identity.
 - Unit coverage: `tests/telemetry.test.js`
 - Browser adapter and event call sites: `app.js`
 - Schema/RLS: `supabase/migrations/20260628171913_add_product_events.sql`
+- FTUE allowlist/RLS extension:
+  `supabase/migrations/20260628225636_add_quick_start_events.sql`
 - Vercel pageview injection: `initVercelWebAnalytics()` in `app.js`
 
 Telemetry failures are non-blocking and only log in `?debug=1`; product actions
@@ -115,11 +120,109 @@ select
 from sessions;
 ```
 
+First-run decision dashboard:
+
+```sql
+with session_rollup as (
+  select
+    session_id,
+    min(occurred_at) filter (
+      where event_name = 'quick_start_shown'
+    ) as exposed_at,
+    min(occurred_at) filter (
+      where (
+        event_name = 'ranking_started'
+        and properties->>'list_size' = '0'
+      )
+      or event_name in (
+        'quick_start_pack_opened',
+        'quick_start_import_opened'
+      )
+    ) as first_action_at,
+    min(occurred_at) filter (
+      where event_name = 'ranking_completed'
+      and properties->>'list_size' = '1'
+    ) as first_movie_at,
+    min(occurred_at) filter (
+      where event_name = 'ranking_started'
+      and properties->>'list_size' = '1'
+    ) as first_comparison_at,
+    min(occurred_at) filter (
+      where event_name = 'ranking_completed'
+      and properties->>'list_size' = '2_4'
+    ) as core_aha_at,
+    min(occurred_at) filter (
+      where (
+        event_name = 'ranking_completed'
+        and properties->>'list_size' = '2_4'
+      )
+      or (
+        event_name = 'import_completed'
+        and properties->>'count' not in ('0', '1')
+      )
+    ) as useful_list_at,
+    min(occurred_at) filter (
+      where (
+        event_name = 'ranking_completed'
+        and properties->>'list_size' = '5_9'
+      )
+      or (
+        event_name = 'import_completed'
+        and properties->>'count' in (
+          '5_9', '10_24', '25_49', '50_99', '100_plus'
+        )
+      )
+    ) as five_movies_at,
+    bool_or(event_name = 'quick_start_pack_opened') as used_starter_pack,
+    bool_or(event_name = 'quick_start_import_opened') as used_quick_import,
+    count(*) filter (
+      where event_name in (
+        'ranking_completed', 'pack_opened', 'import_completed'
+      )
+    ) as meaningful_actions
+  from public.product_events
+  where occurred_at >= timestamptz '2026-06-28 00:00:00+00'
+  group by session_id
+),
+exposed as (
+  select *
+  from session_rollup
+  where exposed_at is not null
+)
+select
+  count(*) as exposed_sessions,
+  round(100.0 * count(*) filter (where first_action_at is not null)
+    / nullif(count(*), 0), 1) as first_action_pct,
+  round(100.0 * count(*) filter (where first_movie_at is not null)
+    / nullif(count(*), 0), 1) as first_movie_pct,
+  round(100.0 * count(*) filter (where first_comparison_at is not null)
+    / nullif(count(*), 0), 1) as comparison_started_pct,
+  round(100.0 * count(*) filter (where core_aha_at is not null)
+    / nullif(count(*), 0), 1) as core_aha_pct,
+  round(100.0 * count(*) filter (where useful_list_at is not null)
+    / nullif(count(*), 0), 1) as useful_list_pct,
+  round(100.0 * count(*) filter (where five_movies_at is not null)
+    / nullif(count(*), 0), 1) as five_movies_pct,
+  round(100.0 * count(*) filter (where used_starter_pack)
+    / nullif(count(*), 0), 1) as starter_pack_pct,
+  round(100.0 * count(*) filter (where used_quick_import)
+    / nullif(count(*), 0), 1) as quick_import_pct,
+  round((
+    percentile_cont(0.5) within group (
+      order by extract(epoch from (useful_list_at - exposed_at)) / 60
+    ) filter (where useful_list_at is not null)
+  )::numeric, 1) as median_minutes_to_useful,
+  percentile_cont(0.5) within group (
+    order by meaningful_actions
+  ) as median_meaningful_actions
+from exposed;
+```
+
 ## Follow-ups
 
-- The first-run quick-start feature should add explicit `quick_start_shown`,
-  `quick_start_pack_opened`, and `quick_start_import_opened` events to the
-  allowlists when it is implemented.
+- Review FTUE activation on 2026-07-12; extend to 2026-07-28 if fewer than 50
+  exposed sessions. Use the decision thresholds in
+  `first-run-quick-start.md`.
 - Review event volume after 60–90 days and add a retention job if traffic makes
   indefinite raw-event storage unnecessary.
 - Only add events that answer a named product decision. Do not turn this into

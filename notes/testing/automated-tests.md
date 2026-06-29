@@ -28,7 +28,7 @@ regression. `npm run verify` runs both suites plus syntax/type checks.
 The shared Edge Function publishable-key gate also has three focused Deno tests
 covering configuration parsing and exact-key authorization.
 
-Modules: `lib/{zip,text,format,movie,persistence,insights,packs,suggestions,fullscreen-ranking,share-export,share-svg,ranking,undo,backup,telemetry}.js`.
+Modules: `lib/{zip,text,format,movie,persistence,insights,packs,suggestions,fullscreen-ranking,share-export,share-svg,ranking,undo,backup,telemetry,ftue}.js`.
 Tests: `tests/{zip,text,format,movie,persistence,insights,packs,suggestions,fullscreen-ranking,share-export,share-svg,ranking,undo,backup,telemetry}.test.js`.
 
 ## Goal
@@ -315,8 +315,11 @@ Legend: [ ] todo · [~] in progress · [x] done
 - [x] Backup + import: mock deterministic TMDB search → require disambiguation
       and replacement consent → preserve ordered matches/remove queue duplicates
       → restore a complete JSON backup → reload and assert exact persistence.
-- [ ] Extend E2E coverage for drag reorder, autocomplete selection, export
-      downloads, and mobile viewport comparison layout.
+- [x] First-run activation: verify empty guidance, curated starter packs, import
+      focus return, first movie, first comparison, second placement, input blur,
+      cache keys, and 390×844 geometry.
+- [x] Extended coverage now includes 2-D drag reorder, keyboard autocomplete,
+      real backup/PNG/ZIP downloads, and portrait/landscape comparison geometry.
 
 ## Conventions
 

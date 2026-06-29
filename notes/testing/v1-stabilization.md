@@ -132,7 +132,7 @@ Shipped implementation:
 
 ## Area 3 — security and privacy
 
-Status: **pending.**
+Status: **complete (2026-06-29).**
 
 Scope:
 
@@ -149,6 +149,32 @@ Acceptance:
 - Auth, posters, fonts, analytics, and export continue to work under the policy.
 - Public privacy copy matches the implementation.
 - `npm run verify` passes.
+
+Shipped implementation:
+
+- Vercel applies one production policy to every route: a source-specific CSP,
+  `Permissions-Policy`, `Referrer-Policy`, `X-Content-Type-Options`, and
+  `X-Frame-Options`. The CSP denies frames, objects, media, workers, inline
+  script attributes, and unexpected origins while allowing the app's exact
+  Supabase, jsDelivr, Google Fonts, TMDB image, blob, and data requirements.
+- `/privacy` is a standalone, responsive policy explaining browser-local data,
+  optional Supabase identity/sync, the external services contacted, bounded
+  product measurement, DNT/GPC behavior, retention, user controls, and the
+  account-deletion contact.
+- The privacy page includes a dedicated Credits section with an unmodified
+  approved TMDB logo, the required non-endorsement notice, and a TMDB link.
+- Footer and sign-in links expose the policy without adding a primary product
+  surface. Touch targets and desktop/mobile layouts are covered by rendered
+  browser checks.
+- Route/config tests lock the `/privacy` rewrite and security headers. The E2E
+  harness serves the clean route and verifies policy content, credits, assets,
+  canonical identity, and responsive geometry.
+- Production deployment `7529e7a` reached READY. Live response inspection
+  confirmed every header on `/movies` and `/privacy`; live browser checks
+  loaded the app, Google font, Supabase client, TMDB search/posters, analytics,
+  and privacy assets with no CSP or console errors.
+- `npm run verify` passed with 172 unit/config tests, all function
+  checks/tests, pack validation, and 19 browser flows.
 
 ## Area 4 — production rollout closeout
 
@@ -188,3 +214,5 @@ Status: **pending until the initial telemetry window matures.**
   full verification and rendered desktop/mobile QA passed.
 - **2026-06-29:** Completed Area 2 service/network resilience; storage,
   TMDB/auth, and rejected Supabase write recovery are covered by browser tests.
+- **2026-06-29:** Completed Area 3 security/privacy; production headers, the
+  public policy, TMDB attribution, and live CSP validation are in place.

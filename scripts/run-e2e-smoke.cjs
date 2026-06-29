@@ -94,7 +94,12 @@ const serveStatic = async () => {
       response.end();
       return;
     }
-    const relativePath = pathname === "/movies" ? "index.html" : pathname.replace(/^\/+/, "");
+    const relativePath =
+      pathname === "/movies"
+        ? "index.html"
+        : pathname === "/privacy"
+          ? "privacy.html"
+          : pathname.replace(/^\/+/, "");
     const filePath = path.resolve(rootDir, relativePath);
 
     if (!filePath.startsWith(rootDir) || !fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
@@ -468,6 +473,86 @@ const testLoadPersistence = async ({ baseUrl }) => {
   }
 };
 
+const testPrivacyAndCredits = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "privacy-and-credits", width: 1000, height: 900 });
+  try {
+    await page.send("Page.navigate", { url: `${baseUrl}/privacy` });
+    await waitFor(
+      page,
+      `document.readyState === 'complete' &&
+        document.querySelector('main.legal-shell') &&
+        document.querySelector('#credits img[alt="TMDB"]')?.complete`,
+      10000,
+    );
+
+    const desktop = await page.evaluate(`(() => ({
+      pathname: location.pathname,
+      title: document.title,
+      canonicalHref: document.querySelector('link[rel="canonical"]')?.href,
+      heading: document.querySelector('h1')?.textContent.trim(),
+      tmdbNotice: document.querySelector('#credits')?.textContent.includes(
+        'This product uses the TMDB API but is not endorsed or certified by TMDB.'
+      ),
+      tmdbLogoSrc: document.querySelector('#credits img[alt="TMDB"]')?.getAttribute('src'),
+      deletionContact: document.querySelector('a[href="mailto:stackrank@danbretl.com"]')?.textContent.trim(),
+      cssHref: document.querySelector('link[rel="stylesheet"]')?.getAttribute('href'),
+      scrollWidth: document.documentElement.scrollWidth,
+      innerWidth
+    }))()`);
+    if (
+      desktop.pathname !== "/privacy" ||
+      desktop.title !== "Privacy & Credits · StackRank" ||
+      desktop.canonicalHref !== "https://www.stackrankapp.com/privacy" ||
+      desktop.heading !== "Privacy" ||
+      !desktop.tmdbNotice ||
+      desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
+      desktop.deletionContact !== "stackrank@danbretl.com" ||
+      desktop.cssHref !== "styles.css?v=88" ||
+      desktop.scrollWidth > desktop.innerWidth
+    ) {
+      throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
+    }
+    const desktopShot = await page.screenshot("privacy-desktop.png");
+
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 390,
+      height: 844,
+      deviceScaleFactor: 1,
+      mobile: false,
+      screenWidth: 390,
+      screenHeight: 844,
+    });
+    await wait(200);
+    const mobile = await page.evaluate(`(() => {
+      const card = document.querySelector('.legal-card')?.getBoundingClientRect();
+      const back = document.querySelector('.legal-back')?.getBoundingClientRect();
+      return {
+        innerWidth,
+        scrollWidth: document.documentElement.scrollWidth,
+        card: card ? { left: card.left, right: card.right, width: card.width } : null,
+        back: back ? { height: back.height, right: back.right } : null
+      };
+    })()`);
+    if (
+      mobile.scrollWidth > mobile.innerWidth ||
+      mobile.card?.left < 0 ||
+      mobile.card?.right > mobile.innerWidth ||
+      mobile.back?.right > mobile.innerWidth
+    ) {
+      throw new Error(`Mobile privacy page is clipped: ${JSON.stringify(mobile)}`);
+    }
+
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Privacy browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { desktop, mobile },
+      screenshots: [desktopShot, await page.screenshot("privacy-mobile.png")],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
 const testFirstRunQuickStart = async ({ baseUrl }) => {
   const page = await openChromePage({ name: "first-run-quick-start", width: 1280, height: 900 });
   try {
@@ -522,6 +607,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       h1Count: document.querySelectorAll('h1').length,
       suggestionCardCount: document.querySelectorAll('.suggest-card').length,
       suggestionPrimaryCount: document.querySelectorAll('.suggest-card > .suggest-primary').length,
+      privacyHref: document.querySelector('.footnote a[href="/privacy"]')?.getAttribute('href'),
+      creditsHref: document.querySelector('.footnote a[href="/privacy#credits"]')?.getAttribute('href'),
       nestedSuggestionControls: [...document.querySelectorAll('.suggest-card')].filter((card) =>
         card.matches('[role="button"], [tabindex]') && card.querySelector('button')
       ).length
@@ -539,10 +626,12 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
       empty.moduleSrc !== "app.js?v=131" ||
-      empty.cssHref !== "styles.css?v=87" ||
+      empty.cssHref !== "styles.css?v=88" ||
       empty.h1Text !== "StackRank" ||
       empty.h1Count !== 1 ||
       empty.suggestionPrimaryCount !== empty.suggestionCardCount ||
+      empty.privacyHref !== "/privacy" ||
+      empty.creditsHref !== "/privacy#credits" ||
       empty.nestedSuggestionControls !== 0
     ) {
       throw new Error(`Empty first-run state is wrong: ${JSON.stringify(empty)}`);
@@ -840,9 +929,9 @@ const testSignInExperience = async ({ baseUrl }) => {
 
     const desktopShot = await page.screenshot("sign-in-desktop.png");
     await page.evaluate(`(() => {
-      const submit = document.querySelector('#signin-magic-send');
-      submit.focus();
-      submit.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab', bubbles: true }));
+      const privacy = document.querySelector('.signin-fineprint a[href="/privacy"]');
+      privacy.focus();
+      privacy.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab', bubbles: true }));
       return true;
     })()`);
     const trappedFocus = await page.evaluate(`document.activeElement?.id`);
@@ -2709,6 +2798,7 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
 
 const tests = [
   { name: "localStorage persistence round-trip", run: testLoadPersistence },
+  { name: "privacy page and TMDB credits", run: testPrivacyAndCredits },
   { name: "first-run quick start activation flow", run: testFirstRunQuickStart },
   { name: "dedicated sign-in view and provider availability", run: testSignInExperience },
   { name: "watch queue comparison flow", run: testQueueComparison },

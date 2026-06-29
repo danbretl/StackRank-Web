@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f2f2f2" />
+    <meta
+      name="description"
+      content="How StackRank stores and processes your ranking data, plus service credits."
+    />
+    <link rel="canonical" href="https://www.stackrankapp.com/privacy" />
+    <title>Privacy &amp; Credits · StackRank</title>
+    <link rel="stylesheet" href="styles.css?v=88" />
+  </head>
+  <body class="legal-page">
+    <main class="legal-shell">
+      <header class="legal-header">
+        <a class="legal-brand" href="/movies" aria-label="Back to StackRank movies">StackRank</a>
+        <a class="legal-back" href="/movies">Back to movies</a>
+      </header>
+
+      <article class="legal-card">
+        <div class="legal-intro">
+          <p class="legal-eyebrow">Plain-language policy</p>
+          <h1>Privacy</h1>
+          <p>
+            StackRank is designed to work without an account. Your movie ranking stays in this
+            browser unless you choose to sign in and sync it.
+          </p>
+          <p class="legal-updated">Effective June 29, 2026</p>
+        </div>
+
+        <section class="legal-section" aria-labelledby="privacy-stored">
+          <h2 id="privacy-stored">What is stored</h2>
+          <p>
+            While signed out, StackRank stores your ranking, watch and skip queues, pack progress,
+            and Share Studio preferences in your browser’s local storage. This data does not leave
+            your device except when a feature needs movie data or you intentionally download,
+            share, or import something.
+          </p>
+          <p>
+            If you sign in, Supabase stores your account identity and syncs your ranking, queues,
+            and pack progress so they are available on your other devices. StackRank does not
+            receive or store a password.
+          </p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="privacy-services">
+          <h2 id="privacy-services">Services the app contacts</h2>
+          <ul>
+            <li>
+              <strong>TMDB</strong> supplies movie search results, details, suggestions, and
+              artwork. Those requests are proxied through StackRank’s Supabase functions.
+            </li>
+            <li>
+              <strong>Supabase</strong> provides optional account sign-in, cross-device sync,
+              server functions, and privacy-bounded product events.
+            </li>
+            <li>
+              <strong>Vercel</strong> hosts the site and provides aggregate Web Analytics
+              pageviews.
+            </li>
+            <li>
+              <strong>Google Fonts and jsDelivr</strong> deliver the site font and the Supabase
+              browser library.
+            </li>
+          </ul>
+          <p>
+            Like most internet services, these providers may receive normal connection metadata
+            such as an IP address and browser information when your device contacts them. Their
+            handling of that data is governed by their own policies.
+          </p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="privacy-measurement">
+          <h2 id="privacy-measurement">Product measurement</h2>
+          <p>
+            StackRank measures whether core flows work and get used. Custom product events use a
+            temporary per-page identifier, accept only an allowlist of coarse properties, and
+            never include movie titles, movie IDs, email addresses, or account IDs. StackRank also
+            uses Vercel Web Analytics for aggregate pageviews.
+          </p>
+          <p>
+            “Do Not Track” and Global Privacy Control signals disable StackRank’s custom product
+            events. StackRank does not sell personal information, run behavioral advertising, or
+            use advertising cookies.
+          </p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="privacy-controls">
+          <h2 id="privacy-controls">Your controls</h2>
+          <p>
+            You can download a full backup, clear your ranking, restore or import a list, and sign
+            out from the settings menu. Clearing browser storage removes signed-out data from that
+            browser. To request deletion of a signed-in account and its server data, email
+            <a href="mailto:stackrank@danbretl.com">stackrank@danbretl.com</a>.
+          </p>
+          <p>
+            Ranking and account data is kept while you use the service or until it is deleted.
+            Limited operational and product-measurement records are retained only as needed to
+            operate and evaluate StackRank.
+          </p>
+        </section>
+
+        <section class="legal-section" aria-labelledby="privacy-links">
+          <h2 id="privacy-links">Provider policies</h2>
+          <div class="legal-link-list">
+            <a href="https://supabase.com/privacy" rel="noreferrer">Supabase privacy policy</a>
+            <a href="https://vercel.com/legal/privacy-policy" rel="noreferrer">Vercel privacy policy</a>
+            <a href="https://policies.google.com/privacy" rel="noreferrer">Google privacy policy</a>
+            <a href="https://www.jsdelivr.com/terms/privacy-policy-jsdelivr-net" rel="noreferrer">
+              jsDelivr privacy policy
+            </a>
+          </div>
+        </section>
+
+        <section class="legal-section legal-credits" id="credits" aria-labelledby="credits-title">
+          <p class="legal-eyebrow">Service credits</p>
+          <h2 id="credits-title">Movie data &amp; artwork</h2>
+          <a
+            class="tmdb-credit"
+            href="https://www.themoviedb.org"
+            rel="noreferrer"
+            aria-label="Visit The Movie Database"
+          >
+            <img src="assets/tmdb-logo.svg" width="112" height="15" alt="TMDB" />
+          </a>
+          <p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+          <p>
+            Movie metadata and images are provided by
+            <a href="https://www.themoviedb.org" rel="noreferrer">The Movie Database</a>.
+          </p>
+        </section>
+
+        <footer class="legal-footer">
+          <a href="/movies">Return to StackRank</a>
+          <a href="mailto:stackrank@danbretl.com">Contact</a>
+        </footer>
+      </article>
+    </main>
+  </body>
+</html>

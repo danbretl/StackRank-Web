@@ -23,5 +23,27 @@ test("Vercel serves the static SPA at /movies without changing the visible URL",
       source: "/movies",
       destination: "/index.html",
     },
+    {
+      source: "/privacy",
+      destination: "/privacy.html",
+    },
   ]);
+});
+
+test("Vercel applies the production browser security policy to every route", () => {
+  assert.equal(vercelConfig.headers.length, 1);
+  assert.equal(vercelConfig.headers[0].source, "/(.*)");
+
+  const headers = Object.fromEntries(
+    vercelConfig.headers[0].headers.map(({ key, value }) => [key, value]),
+  );
+  assert.match(headers["Content-Security-Policy"], /default-src 'self'/);
+  assert.match(headers["Content-Security-Policy"], /frame-ancestors 'none'/);
+  assert.match(headers["Content-Security-Policy"], /object-src 'none'/);
+  assert.match(headers["Content-Security-Policy"], /https:\/\/cdn\.jsdelivr\.net/);
+  assert.match(headers["Content-Security-Policy"], /https:\/\/hrfhakrxsllrqmscxxpb\.supabase\.co/);
+  assert.equal(headers["Permissions-Policy"], "browsing-topics=(), camera=(), geolocation=(), microphone=(), payment=(), usb=()");
+  assert.equal(headers["Referrer-Policy"], "strict-origin-when-cross-origin");
+  assert.equal(headers["X-Content-Type-Options"], "nosniff");
+  assert.equal(headers["X-Frame-Options"], "DENY");
 });

@@ -87,7 +87,7 @@ import {
   buildProductEvent,
   countBucket,
   shouldCollectProductTelemetry,
-} from "./lib/telemetry.js?v=3";
+} from "./lib/telemetry.js?v=4";
 import {
   getFirstRunExperience,
   selectStarterPacks,
@@ -541,6 +541,8 @@ const productTelemetryEnabled =
     hostname: window.location.hostname,
     doNotTrack: navigator.doNotTrack || window.doNotTrack || "",
     globalPrivacyControl: navigator.globalPrivacyControl === true,
+    debug: debugEnabled,
+    automated: navigator.webdriver === true,
   });
 const productTelemetrySessionId =
   productTelemetryEnabled && typeof crypto.randomUUID === "function" ? crypto.randomUUID() : null;

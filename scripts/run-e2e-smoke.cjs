@@ -625,7 +625,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=131" ||
+      empty.moduleSrc !== "app.js?v=132" ||
       empty.cssHref !== "styles.css?v=88" ||
       empty.h1Text !== "StackRank" ||
       empty.h1Count !== 1 ||

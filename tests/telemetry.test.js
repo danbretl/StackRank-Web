@@ -92,7 +92,7 @@ test("taste explorer events retain only bounded context", () => {
   );
 });
 
-test("telemetry runs only on production and honors DNT/GPC", () => {
+test("telemetry runs only for real production visits and honors privacy controls", () => {
   assert.equal(shouldCollectProductTelemetry({ hostname: "www.stackrankapp.com" }), true);
   assert.equal(shouldCollectProductTelemetry({ hostname: "localhost" }), false);
   assert.equal(
@@ -101,6 +101,14 @@ test("telemetry runs only on production and honors DNT/GPC", () => {
   );
   assert.equal(
     shouldCollectProductTelemetry({ hostname: "www.stackrankapp.com", globalPrivacyControl: true }),
+    false,
+  );
+  assert.equal(
+    shouldCollectProductTelemetry({ hostname: "www.stackrankapp.com", debug: true }),
+    false,
+  );
+  assert.equal(
+    shouldCollectProductTelemetry({ hostname: "www.stackrankapp.com", automated: true }),
     false,
   );
 });

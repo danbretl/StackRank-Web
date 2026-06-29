@@ -389,9 +389,12 @@ const seedPage = async (page, baseUrl, name, { ranking, watchList = [], notInter
     localStorage.setItem('stackrank:movies:v1', ${JSON.stringify(JSON.stringify(rankingPayload))});
     localStorage.setItem('stackrank:suggestion-queues:v1', ${JSON.stringify(JSON.stringify(queuesPayload))});
     localStorage.setItem('stackrank:share-options:v1', ${JSON.stringify(JSON.stringify(optionsPayload))});
-    location.reload();
     true;
   `);
+  // Reload as a separate CDP command. Triggering location.reload() from inside
+  // Runtime.evaluate can destroy the inspected execution context before the
+  // evaluate response arrives, producing a nondeterministic harness failure.
+  await page.send("Page.reload", { ignoreCache: true });
   await waitFor(
     page,
     `(() => document.querySelectorAll('#ranking .ranking__item').length === ${ranking.length})()`,
@@ -535,8 +538,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=130" ||
-      empty.cssHref !== "styles.css?v=86" ||
+      empty.moduleSrc !== "app.js?v=131" ||
+      empty.cssHref !== "styles.css?v=87" ||
       empty.h1Text !== "StackRank" ||
       empty.h1Count !== 1 ||
       empty.suggestionPrimaryCount !== empty.suggestionCardCount ||
@@ -750,6 +753,9 @@ const testSignInExperience = async ({ baseUrl }) => {
                 external: { email: true, google: true, apple: false }
               }), { status: 200, headers: { 'Content-Type': 'application/json' } }));
             }
+            if (url.includes('/auth/v1/otp')) {
+              return Promise.reject(new TypeError('Simulated sign-in network failure'));
+            }
             return realFetch(input, options);
           };
         })();
@@ -805,6 +811,31 @@ const testSignInExperience = async ({ baseUrl }) => {
     }))()`);
     if (!/valid email address/.test(invalid.status || "") || invalid.activeId !== "signin-email") {
       throw new Error(`Magic-link validation is wrong: ${JSON.stringify(invalid)}`);
+    }
+
+    await page.evaluate(`(() => {
+      const input = document.querySelector('#signin-email');
+      input.value = 'valid@example.test';
+      document.querySelector('#signin-magic-send')?.click();
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `document.querySelector('#signin-status')?.classList.contains('is-error') &&
+        !document.querySelector('#signin-magic-send')?.disabled`,
+      3000,
+    );
+    const networkFailure = await page.evaluate(`(() => ({
+      status: document.querySelector('#signin-status')?.textContent.trim(),
+      submitDisabled: document.querySelector('#signin-magic-send')?.disabled,
+      inputDisabled: document.querySelector('#signin-email')?.disabled
+    }))()`);
+    if (
+      !/sign-in failed/i.test(networkFailure.status || "") ||
+      networkFailure.submitDisabled ||
+      networkFailure.inputDisabled
+    ) {
+      throw new Error(`Magic-link network recovery is wrong: ${JSON.stringify(networkFailure)}`);
     }
 
     const desktopShot = await page.screenshot("sign-in-desktop.png");
@@ -888,7 +919,7 @@ const testSignInExperience = async ({ baseUrl }) => {
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { opened, invalid, trappedFocus, mobile },
+      details: { opened, invalid, networkFailure, trappedFocus, mobile },
       screenshots: [desktopShot, mobileShot],
     };
   } finally {
@@ -952,6 +983,204 @@ const testQueueComparison = async ({ baseUrl }) => {
     return {
       details: { queueSemantics, state },
       screenshots: [comparisonShot, await page.screenshot("queue-comparison-settled.png")],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
+const testStorageFailureWarning = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "storage-failure-warning" });
+  try {
+    await seedPage(page, baseUrl, "storage-failure-warning", {
+      ranking: [movie("Alpha", 1990, 1121), movie("Beta", 2000, 1122), movie("Gamma", 2010, 1123)],
+      watchList: [queueMovie("Offline Pick", 2022, 1124)],
+    });
+    await page.evaluate(`(() => {
+      Math.random = () => 0.5;
+      Storage.prototype.setItem = function setItemFailure() {
+        throw new DOMException('Storage quota exceeded', 'QuotaExceededError');
+      };
+      document.querySelector('#watch-list .queue-list__primary')?.click();
+      return true;
+    })()`);
+    await waitFor(page, `!document.querySelector('#compare')?.classList.contains('panel--hidden')`, 3000);
+    for (let index = 0; index < 6; index += 1) {
+      const hidden = await page.evaluate(`document.querySelector('#compare')?.classList.contains('panel--hidden')`);
+      if (hidden) break;
+      await page.evaluate(`document.querySelector('#existing-card')?.click(); true;`);
+      await wait(120);
+    }
+    await waitFor(page, `document.querySelector('#compare')?.classList.contains('panel--hidden')`, 5000);
+    const state = await page.evaluate(`(() => ({
+      rankingCount: document.querySelectorAll('#ranking .ranking__item').length,
+      storedCount: JSON.parse(localStorage.getItem('stackrank:movies:v1') || '{}').movies?.length || 0,
+      status: document.querySelector('#api-status')?.textContent.trim(),
+      backupEnabled: !document.querySelector('#download-backup')?.disabled
+    }))()`);
+    await page.evaluate(`(() => {
+      document.querySelector('#ranking-settings-toggle')?.click();
+      document.querySelector('#download-backup')?.click();
+      return true;
+    })()`);
+    const backupName = `stackrank-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    const backupPath = await waitForDownload(page, backupName);
+    const backup = JSON.parse(fs.readFileSync(backupPath, "utf8"));
+    state.backupRankingCount = backup.ranking?.length || 0;
+    if (
+      state.rankingCount !== 4 ||
+      state.storedCount !== 3 ||
+      !/could not save in this browser/i.test(state.status || "") ||
+      !state.backupEnabled ||
+      state.backupRankingCount !== 4
+    ) {
+      throw new Error(`Storage failure was not surfaced safely: ${JSON.stringify(state)}`);
+    }
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: state,
+      screenshots: [await page.screenshot("storage-failure-warning.png")],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
+const testTmdbFailureRecovery = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "tmdb-failure-recovery" });
+  try {
+    await page.send("Page.addScriptToEvaluateOnNewDocument", {
+      source: `
+        (() => {
+          const realFetch = window.fetch.bind(window);
+          window.__e2eTmdbRecovered = false;
+          window.__e2eDetailRecovered = false;
+          const response = (value, status = 200) => Promise.resolve(new Response(
+            JSON.stringify(value),
+            { status, headers: { 'Content-Type': 'application/json' } }
+          ));
+          window.fetch = (input, options) => {
+            const url = typeof input === 'string' ? input : input?.url || '';
+            if (url.includes('/functions/v1/tmdb-suggest')) {
+              if (!window.__e2eTmdbRecovered) return response({ message: 'unavailable' }, 503);
+              const type = new URL(url).searchParams.get('type') || 'popular';
+              const title = type === 'recommendations' ? 'Recovered Related' :
+                type === 'essentials' ? 'Recovered Essential' : 'Recovered Popular';
+              const id = type === 'recommendations' ? 1141 : type === 'essentials' ? 1142 : 1143;
+              return response({ results: [{ tmdbId: id, title, year: 2020, posterPath: '' }] });
+            }
+            if (url.includes('/functions/v1/tmdb-search')) {
+              if (!window.__e2eTmdbRecovered) return response({ message: 'unavailable' }, 503);
+              return response({
+                results: [{ tmdbId: 1144, title: 'Recovered Search', year: 2021, posterPath: '' }]
+              });
+            }
+            if (url.includes('/functions/v1/tmdb-detail')) {
+              if (!window.__e2eDetailRecovered) return response({ message: 'unavailable' }, 503);
+              const id = Number(new URL(url).searchParams.get('id'));
+              return response({
+                result: { tmdbId: id, runtime: 111, genres: ['Drama'], director: 'Recovered Director', cast: ['Recovered Actor'] }
+              });
+            }
+            return realFetch(input, options);
+          };
+        })();
+      `,
+    });
+    await seedPage(page, baseUrl, "tmdb-failure-recovery", {
+      ranking: [movie("Alpha", 1990, 1131)],
+    });
+    await waitFor(
+      page,
+      `document.querySelectorAll('.suggest-load-error').length === 3 &&
+        !document.querySelector('#suggest-related-more')?.disabled &&
+        !document.querySelector('#suggest-essentials-more')?.disabled &&
+        !document.querySelector('#suggest-popular-more')?.disabled`,
+      5000,
+    );
+    await page.evaluate(`(() => {
+      const input = document.querySelector('#title');
+      input.value = 'Retry search';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `document.querySelector('#suggestions .suggestions__status')?.textContent.includes('Search is unavailable')`,
+      3000,
+    );
+    const failed = await page.evaluate(`(() => ({
+      sectionErrors: [...document.querySelectorAll('.suggest-load-error')].map((element) => element.textContent.trim()),
+      searchStatus: document.querySelector('#suggestions .suggestions__status')?.textContent.trim(),
+      refreshEnabled: [
+        '#suggest-related-more',
+        '#suggest-essentials-more',
+        '#suggest-popular-more'
+      ].every((selector) => !document.querySelector(selector)?.disabled)
+    }))()`);
+    const failedShot = await page.screenshot("tmdb-failure-state.png");
+
+    await page.evaluate(`(() => {
+      window.__e2eTmdbRecovered = true;
+      document.querySelector('#suggest-popular-more')?.click();
+      const input = document.querySelector('#title');
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.value = 'Retry search';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `document.querySelector('#suggest-popular .suggest-name')?.textContent.trim() === 'Recovered Popular' &&
+        document.querySelector('#suggestions .suggestions__title')?.textContent.trim() === 'Recovered Search'`,
+      5000,
+    );
+    const recoveredSearchTitle = await page.evaluate(
+      `document.querySelector('#suggestions .suggestions__title')?.textContent.trim()`,
+    );
+    await page.evaluate(`document.querySelector('#suggest-popular .suggest-info')?.click(); true;`);
+    await waitFor(
+      page,
+      `!document.querySelector('#movie-detail')?.hidden &&
+        !document.querySelector('#detail-retry')?.hidden`,
+      3000,
+    );
+    await page.evaluate(`(() => {
+      window.__e2eDetailRecovered = true;
+      document.querySelector('#detail-retry')?.click();
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `document.querySelector('#detail-sub')?.textContent.includes('1h 51m') &&
+        document.querySelector('#detail-status')?.textContent.trim() === ''`,
+      5000,
+    );
+    const recovered = await page.evaluate(`(() => ({
+      popularTitle: document.querySelector('#suggest-popular .suggest-name')?.textContent.trim(),
+      detailSub: document.querySelector('#detail-sub')?.textContent.trim(),
+      detailStatus: document.querySelector('#detail-status')?.textContent.trim(),
+      detailRetryHidden: document.querySelector('#detail-retry')?.hidden
+    }))()`);
+    if (
+      failed.sectionErrors.length !== 3 ||
+      !failed.searchStatus?.includes("Search is unavailable") ||
+      !failed.refreshEnabled ||
+      recovered.popularTitle !== "Recovered Popular" ||
+      recoveredSearchTitle !== "Recovered Search" ||
+      !recovered.detailSub?.includes("1h 51m") ||
+      recovered.detailStatus ||
+      !recovered.detailRetryHidden
+    ) {
+      throw new Error(`TMDB failure recovery is wrong: ${JSON.stringify({ failed, recovered })}`);
+    }
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { failed, recoveredSearchTitle, recovered },
+      screenshots: [failedShot, await page.screenshot("tmdb-failure-recovered.png")],
     };
   } finally {
     await page.close();
@@ -1668,6 +1897,7 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
     movie("Shared", 1995, 1502),
     movie("Local Only", 2005, 1503),
   ];
+  const localQueue = [queueMovie("Remote Retry", 2015, 1504)];
   try {
     await page.send("Page.addScriptToEvaluateOnNewDocument", {
       source: `
@@ -1679,6 +1909,7 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
           }
           const realFetch = window.fetch.bind(window);
           window.__e2eSupabaseRequests = [];
+          window.__e2eRejectRemoteWrites = false;
           const jsonResponse = (value, status = 200, extraHeaders = {}) =>
             new Response(JSON.stringify(value), {
               status,
@@ -1701,6 +1932,9 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
               body,
               authorization: request.headers.get('authorization') || ''
             });
+            if (window.__e2eRejectRemoteWrites && method !== 'GET') {
+              return Promise.reject(new TypeError('Simulated offline write'));
+            }
             if (url.includes('/auth/v1/user')) return jsonResponse(${JSON.stringify(user)});
             if (url.includes('/auth/v1/token')) return jsonResponse(${JSON.stringify(authSession)});
             if (url.includes('/rest/v1/rankings')) {
@@ -1750,6 +1984,16 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
         ${JSON.stringify(
           JSON.stringify({
             movies: localRanking,
+            updated_at: "2026-06-20T14:00:00.000Z",
+          }),
+        )}
+      );
+      localStorage.setItem(
+        'stackrank:suggestion-queues:v1',
+        ${JSON.stringify(
+          JSON.stringify({
+            watchList: localQueue,
+            notInterestedList: [],
             updated_at: "2026-06-20T14:00:00.000Z",
           }),
         )}
@@ -1810,10 +2054,69 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
     ) {
       throw new Error(`Signed-in merge/save adapter failed: ${JSON.stringify(state)}`);
     }
+
+    await page.evaluate(`(() => {
+      window.__e2eRejectRemoteWrites = true;
+      document.querySelector('#watch-list .queue-action[data-action="move"]')?.click();
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `(() => {
+        const payload = JSON.parse(localStorage.getItem(
+          'stackrank:suggestion-queues:v1:user:${userId}'
+        ) || '{}');
+        return payload.watchList?.length === 0 &&
+          payload.notInterestedList?.[0]?.title === 'Remote Retry' &&
+          document.querySelector('#api-status')?.textContent.includes('Sync is temporarily unavailable');
+      })()`,
+      5000,
+    );
+    const offlineWrite = await page.evaluate(`(() => {
+      const payload = JSON.parse(localStorage.getItem(
+        'stackrank:suggestion-queues:v1:user:${userId}'
+      ) || '{}');
+      return {
+        watchTitles: payload.watchList?.map((entry) => entry.title) || [],
+        hiddenTitles: payload.notInterestedList?.map((entry) => entry.title) || [],
+        status: document.querySelector('#api-status')?.textContent.trim(),
+        hiddenRows: document.querySelectorAll('#not-interested-list .queue-list__item').length
+      };
+    })()`);
+
+    await page.evaluate(`(() => {
+      window.__e2eRejectRemoteWrites = false;
+      document.querySelector('#not-interested-list .queue-action[data-action="move"]')?.click();
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `document.querySelector('#api-status')?.textContent.includes('Syncing enabled') &&
+        document.querySelectorAll('#watch-list .queue-list__item').length === 1`,
+      5000,
+    );
+    const recoveredWrite = await page.evaluate(`(() => ({
+      status: document.querySelector('#api-status')?.textContent.trim(),
+      watchRows: document.querySelectorAll('#watch-list .queue-list__item').length,
+      hiddenRows: document.querySelectorAll('#not-interested-list .queue-list__item').length
+    }))()`);
+    if (
+      offlineWrite.watchTitles.length ||
+      offlineWrite.hiddenTitles.join("|") !== "Remote Retry" ||
+      offlineWrite.hiddenRows !== 1 ||
+      !offlineWrite.status.includes("saved on this device") ||
+      recoveredWrite.watchRows !== 1 ||
+      recoveredWrite.hiddenRows !== 0 ||
+      !recoveredWrite.status.includes("Syncing enabled")
+    ) {
+      throw new Error(
+        `Signed-in offline write recovery failed: ${JSON.stringify({ offlineWrite, recoveredWrite })}`,
+      );
+    }
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: state,
+      details: { state, offlineWrite, recoveredWrite },
       screenshots: [await page.screenshot("supabase-merge-save.png")],
     };
   } finally {
@@ -2053,6 +2356,7 @@ const testSuggestionExplanations = async ({ baseUrl }) => {
             2305: ['Romance'],
             2306: ['Adventure']
           };
+          window.__e2eSuggestionDetailCalls = [];
           window.fetch = (input, options) => {
             const url = typeof input === 'string' ? input : input?.url || '';
             if (url.includes('/functions/v1/tmdb-suggest')) {
@@ -2065,6 +2369,7 @@ const testSuggestionExplanations = async ({ baseUrl }) => {
             }
             if (url.includes('/functions/v1/tmdb-detail')) {
               const id = Number(new URL(url).searchParams.get('id'));
+              window.__e2eSuggestionDetailCalls.push(id);
               return new Promise((resolve) => setTimeout(() => resolve(new Response(JSON.stringify({
                 result: { tmdbId: id, genres: detailGenres[id] || [] }
               }), {
@@ -2147,11 +2452,21 @@ const testSuggestionExplanations = async ({ baseUrl }) => {
     if (refreshedPending.pendingCount !== 3 || refreshedPending.text.some(Boolean)) {
       throw new Error(`Refreshed reasons exposed fallback content: ${JSON.stringify(refreshedPending)}`);
     }
-    await waitFor(
-      page,
-      `document.querySelector('#suggest-popular .suggest-reason__text')?.textContent.trim() === 'Popular now · Mystery'`,
-      5000,
-    );
+    try {
+      await waitFor(
+        page,
+        `document.querySelector('#suggest-popular .suggest-reason__text')?.textContent.trim() === 'Popular now · Mystery'`,
+        12000,
+      );
+    } catch (error) {
+      const diagnostic = await page.evaluate(`(() => ({
+        titles: [...document.querySelectorAll('#suggest-popular .suggest-name')].map((el) => el.textContent.trim()),
+        reasons: [...document.querySelectorAll('#suggest-popular .suggest-reason__text')].map((el) => el.textContent.trim()),
+        pending: document.querySelectorAll('#suggest-popular .suggest-reason.is-pending').length,
+        detailCalls: window.__e2eSuggestionDetailCalls || []
+      }))()`);
+      throw new Error(`Refreshed suggestion reasons timed out: ${JSON.stringify(diagnostic)}\\n${error.message}`);
+    }
     const refreshed = await page.evaluate(`(() => ({
       titles: [...document.querySelectorAll('#suggest-popular .suggest-name')].map((el) => el.textContent.trim()),
       reasons: [...document.querySelectorAll('#suggest-popular .suggest-reason__text')].map((el) => el.textContent.trim())
@@ -2397,6 +2712,8 @@ const tests = [
   { name: "first-run quick start activation flow", run: testFirstRunQuickStart },
   { name: "dedicated sign-in view and provider availability", run: testSignInExperience },
   { name: "watch queue comparison flow", run: testQueueComparison },
+  { name: "browser storage failure warning", run: testStorageFailureWarning },
+  { name: "TMDB failure and recovery", run: testTmdbFailureRecovery },
   { name: "comparison undo and cancel restore origin", run: testComparisonUndoCancel },
   { name: "ranking review swap, Escape, and session undo", run: testRankingReviewSession },
   { name: "autocomplete keyboard selection", run: testAutocompleteKeyboardSelection },

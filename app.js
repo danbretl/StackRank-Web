@@ -255,6 +255,7 @@ const detailOverview = document.getElementById("detail-overview");
 const detailDirector = document.getElementById("detail-director");
 const detailCast = document.getElementById("detail-cast");
 const detailStatus = document.getElementById("detail-status");
+const detailRetry = document.getElementById("detail-retry");
 const detailActions = detailOverlay.querySelector(".detail-actions");
 const detailRank = document.getElementById("detail-rank");
 const detailSave = document.getElementById("detail-save");
@@ -418,6 +419,9 @@ let currentSuggestions = [];
 let debounceTimer = null;
 let currentUser = null;
 let authNotice = "";
+let localPersistenceUnavailable = false;
+const localPersistenceFailures = new Set();
+let remoteSyncUnavailable = false;
 let statusTimeout = null;
 let dragIndex = null;
 let dragItem = null;
@@ -560,6 +564,9 @@ const trackProductEvent = (eventName, properties = {}) => {
     .insert(payload)
     .then(({ error }) => {
       if (error && debugEnabled) console.warn("Could not record product event", eventName, error);
+    })
+    .catch((error) => {
+      if (debugEnabled) console.warn("Could not record product event", eventName, error);
     });
 };
 
@@ -998,6 +1005,23 @@ const withTimeout = (promise, timeoutMs, message) => {
   });
 };
 
+const runSupabaseRequest = async (request, warning, { affectsSync = true } = {}) => {
+  try {
+    const result = await request;
+    if (result?.error) {
+      if (affectsSync) setRemoteSyncAvailability(false);
+      console.warn(warning, result.error);
+    } else if (affectsSync) {
+      setRemoteSyncAvailability(true);
+    }
+    return result || { data: null, error: null };
+  } catch (error) {
+    if (affectsSync) setRemoteSyncAvailability(false);
+    console.warn(warning, error);
+    return { data: null, error };
+  }
+};
+
 const getListId = () => {
   if (currentUser && currentUser.id) {
     return `user:${currentUser.id}`;
@@ -1014,13 +1038,18 @@ function updateRankingSettingsAuthUI() {
   }
 
   if (currentUser) {
-    settingsAuthState.textContent = `Signed in as ${currentUser.email || "user"}`;
+    const syncState = remoteSyncUnavailable ? " · sync retrying" : "";
+    const storageState = localPersistenceUnavailable ? " · browser storage unavailable" : "";
+    settingsAuthState.textContent =
+      `Signed in as ${currentUser.email || "user"}${syncState}${storageState}`;
     settingsAuthSignedOut.hidden = true;
     settingsSignOutButton.hidden = false;
     return;
   }
 
-  settingsAuthState.textContent = "Not signed in";
+  settingsAuthState.textContent = localPersistenceUnavailable
+    ? "Not signed in · browser storage unavailable"
+    : "Not signed in";
   settingsAuthSignedOut.hidden = false;
   settingsSignOutButton.hidden = true;
 }
@@ -1665,20 +1694,32 @@ const renderSuggestionQueues = () => {
 };
 
 const getLocalPayload = () => {
-  if (!storageEnabled) return { movies: [], updated_at: null };
+  if (!storageEnabled) {
+    setLocalPersistenceAvailability(false, "ranking");
+    return { movies: [], updated_at: null };
+  }
   try {
-    return parseRankingPayload(localStorage.getItem(STORAGE_KEY));
+    const payload = parseRankingPayload(localStorage.getItem(STORAGE_KEY));
+    setLocalPersistenceAvailability(true, "ranking");
+    return payload;
   } catch (_error) {
+    setLocalPersistenceAvailability(false, "ranking");
     return { movies: [], updated_at: null };
   }
 };
 
 const saveLocalPayload = (movies, updatedAt) => {
-  if (!storageEnabled) return;
+  if (!storageEnabled) {
+    setLocalPersistenceAvailability(false, "ranking");
+    return false;
+  }
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({ movies, updated_at: updatedAt }));
+    setLocalPersistenceAvailability(true, "ranking");
+    return true;
   } catch (error) {
-    // Ignore write errors (storage full, blocked, etc.).
+    setLocalPersistenceAvailability(false, "ranking");
+    return false;
   }
 };
 
@@ -1691,16 +1732,25 @@ const getQueueStorageKeys = () => {
 };
 
 const getQueuePayload = (key) => {
-  if (!storageEnabled) return { watchList: [], notInterestedList: [], updated_at: null };
+  if (!storageEnabled) {
+    setLocalPersistenceAvailability(false, "queues");
+    return { watchList: [], notInterestedList: [], updated_at: null };
+  }
   try {
-    return parseQueuePayload(localStorage.getItem(key));
+    const payload = parseQueuePayload(localStorage.getItem(key));
+    setLocalPersistenceAvailability(true, "queues");
+    return payload;
   } catch (_error) {
+    setLocalPersistenceAvailability(false, "queues");
     return { watchList: [], notInterestedList: [], updated_at: null };
   }
 };
 
 const saveLocalQueuePayload = (updatedAt) => {
-  if (!storageEnabled) return;
+  if (!storageEnabled) {
+    setLocalPersistenceAvailability(false, "queues");
+    return false;
+  }
   const [primaryKey] = getQueueStorageKeys();
   try {
     localStorage.setItem(
@@ -1711,8 +1761,11 @@ const saveLocalQueuePayload = (updatedAt) => {
         updated_at: updatedAt,
       }),
     );
+    setLocalPersistenceAvailability(true, "queues");
+    return true;
   } catch (error) {
-    // Ignore write errors (storage full, blocked, etc.).
+    setLocalPersistenceAvailability(false, "queues");
+    return false;
   }
 };
 
@@ -1732,26 +1785,26 @@ const saveSuggestionQueues = async () => {
 
   const listId = getListId();
   if (supabaseEnabled && supabase && listId) {
-    const { error } = await supabase.from("movie_lists").upsert(
-      [
-        {
-          list_id: listId,
-          list_type: WATCH_LIST_TYPE,
-          movies: watchList,
-          updated_at: updatedAt,
-        },
-        {
-          list_id: listId,
-          list_type: NOT_INTERESTED_LIST_TYPE,
-          movies: notInterestedList,
-          updated_at: updatedAt,
-        },
-      ],
-      { onConflict: "list_id,list_type" },
+    await runSupabaseRequest(
+      supabase.from("movie_lists").upsert(
+        [
+          {
+            list_id: listId,
+            list_type: WATCH_LIST_TYPE,
+            movies: watchList,
+            updated_at: updatedAt,
+          },
+          {
+            list_id: listId,
+            list_type: NOT_INTERESTED_LIST_TYPE,
+            movies: notInterestedList,
+            updated_at: updatedAt,
+          },
+        ],
+        { onConflict: "list_id,list_type" },
+      ),
+      "Could not sync suggestion queues",
     );
-    if (error) {
-      console.warn("Could not sync suggestion queues", error);
-    }
   }
 };
 
@@ -1765,11 +1818,14 @@ const loadSuggestionQueues = async () => {
   const listId = getListId();
 
   if (supabaseEnabled && supabase && listId) {
-    const { data, error } = await supabase
-      .from("movie_lists")
-      .select("list_type, movies, updated_at")
-      .eq("list_id", listId)
-      .in("list_type", [WATCH_LIST_TYPE, NOT_INTERESTED_LIST_TYPE]);
+    const { data, error } = await runSupabaseRequest(
+      supabase
+        .from("movie_lists")
+        .select("list_type, movies, updated_at")
+        .eq("list_id", listId)
+        .in("list_type", [WATCH_LIST_TYPE, NOT_INTERESTED_LIST_TYPE]),
+      "Could not load synced suggestion queues",
+    );
     if (!error && Array.isArray(data)) {
       const watchRow = data.find((row) => row.list_type === WATCH_LIST_TYPE);
       const notInterestedRow = data.find((row) => row.list_type === NOT_INTERESTED_LIST_TYPE);
@@ -1782,8 +1838,6 @@ const loadSuggestionQueues = async () => {
         notInterestedList: Array.isArray(notInterestedRow?.movies) ? notInterestedRow.movies : [],
         updated_at: updatedAts[updatedAts.length - 1] || null,
       });
-    } else if (error) {
-      console.warn("Could not load synced suggestion queues", error);
     }
   }
 
@@ -1825,25 +1879,39 @@ const getPackProgressStorageKeys = () => {
 };
 
 const getPackProgressPayload = (key) => {
-  if (!storageEnabled) return { progress: {} };
+  if (!storageEnabled) {
+    setLocalPersistenceAvailability(false, "packs");
+    return { progress: {} };
+  }
   try {
     const raw = localStorage.getItem(key);
-    if (!raw) return { progress: {} };
+    if (!raw) {
+      setLocalPersistenceAvailability(true, "packs");
+      return { progress: {} };
+    }
     const parsed = JSON.parse(raw);
     const progress = parsed?.progress && typeof parsed.progress === "object" ? parsed.progress : {};
+    setLocalPersistenceAvailability(true, "packs");
     return { progress };
   } catch (error) {
+    setLocalPersistenceAvailability(false, "packs");
     return { progress: {} };
   }
 };
 
 const saveLocalPackProgressPayload = () => {
-  if (!storageEnabled) return;
+  if (!storageEnabled) {
+    setLocalPersistenceAvailability(false, "packs");
+    return false;
+  }
   const [primaryKey] = getPackProgressStorageKeys();
   try {
     localStorage.setItem(primaryKey, JSON.stringify({ progress: packProgress }));
+    setLocalPersistenceAvailability(true, "packs");
+    return true;
   } catch (error) {
-    // Ignore write errors (storage full, blocked, etc.).
+    setLocalPersistenceAvailability(false, "packs");
+    return false;
   }
 };
 
@@ -1874,18 +1942,18 @@ const savePackProgress = async (slug) => {
 
   const listId = getListId();
   if (supabaseEnabled && supabase && listId) {
-    const { error } = await supabase.from("pack_progress").upsert(
-      {
-        list_id: listId,
-        pack_slug: slug,
-        state: stripProgressMetadata(packProgress[slug]),
-        updated_at: updatedAt,
-      },
-      { onConflict: "list_id,pack_slug" },
+    await runSupabaseRequest(
+      supabase.from("pack_progress").upsert(
+        {
+          list_id: listId,
+          pack_slug: slug,
+          state: stripProgressMetadata(packProgress[slug]),
+          updated_at: updatedAt,
+        },
+        { onConflict: "list_id,pack_slug" },
+      ),
+      "Could not sync pack progress",
     );
-    if (error) {
-      console.warn("Could not sync pack progress", error);
-    }
   }
 };
 
@@ -1894,12 +1962,11 @@ const savePackProgressSnapshot = async () => {
   const listId = getListId();
   if (!supabaseEnabled || !supabase || !listId) return;
 
-  const { error: deleteError } = await supabase
-    .from("pack_progress")
-    .delete()
-    .eq("list_id", listId);
+  const { error: deleteError } = await runSupabaseRequest(
+    supabase.from("pack_progress").delete().eq("list_id", listId),
+    "Could not replace synced pack progress",
+  );
   if (deleteError) {
-    console.warn("Could not replace synced pack progress", deleteError);
     return;
   }
 
@@ -1913,12 +1980,10 @@ const savePackProgressSnapshot = async () => {
       updated_at: entry.updated_at || new Date().toISOString(),
     }));
   if (!rows.length) return;
-  const { error } = await supabase
-    .from("pack_progress")
-    .upsert(rows, { onConflict: "list_id,pack_slug" });
-  if (error) {
-    console.warn("Could not restore synced pack progress", error);
-  }
+  await runSupabaseRequest(
+    supabase.from("pack_progress").upsert(rows, { onConflict: "list_id,pack_slug" }),
+    "Could not restore synced pack progress",
+  );
 };
 
 const loadPackProgress = async () => {
@@ -1926,18 +1991,19 @@ const loadPackProgress = async () => {
   const listId = getListId();
 
   if (supabaseEnabled && supabase && listId) {
-    const { data, error } = await supabase
-      .from("pack_progress")
-      .select("pack_slug, state, updated_at")
-      .eq("list_id", listId);
+    const { data, error } = await runSupabaseRequest(
+      supabase
+        .from("pack_progress")
+        .select("pack_slug, state, updated_at")
+        .eq("list_id", listId),
+      "Could not load pack progress",
+    );
     if (!error && Array.isArray(data)) {
       const progress = {};
       data.forEach((row) => {
         progress[row.pack_slug] = normalizeProgressEntry(row.state || {}, row.updated_at);
       });
       payloads.unshift({ progress });
-    } else if (error) {
-      console.warn("Could not load pack progress", error);
     }
   }
 
@@ -1992,12 +2058,16 @@ const loadSuggestionPacks = async () => {
   let remotePacks = [];
   let loadError = null;
   if (supabaseEnabled && supabase) {
-    const { data, error } = await supabase
-      .from("suggestion_packs")
-      .select("slug,title,subtitle,category,movies,version,provenance,active,sort_order,cover_path")
-      .eq("active", true)
-      .order("sort_order", { ascending: true })
-      .order("slug", { ascending: true });
+    const { data, error } = await runSupabaseRequest(
+      supabase
+        .from("suggestion_packs")
+        .select("slug,title,subtitle,category,movies,version,provenance,active,sort_order,cover_path")
+        .eq("active", true)
+        .order("sort_order", { ascending: true })
+        .order("slug", { ascending: true }),
+      "Could not load remote suggestion packs",
+      { affectsSync: false },
+    );
     if (!error && Array.isArray(data) && data.length) {
       remotePacks = data.map(normalizeSuggestionPack);
     } else if (error) {
@@ -2029,21 +2099,24 @@ const saveRanking = async () => {
       movies: ranking,
       updated_at: updatedAt,
     };
-    const { error } = await supabase
-      .from("rankings")
-      .upsert(payload, { onConflict: "list_id" });
-    if (!error) return;
+    await runSupabaseRequest(
+      supabase.from("rankings").upsert(payload, { onConflict: "list_id" }),
+      "Could not sync ranking",
+    );
   }
 };
 
 const loadRanking = async () => {
   const listId = getListId();
   if (supabaseEnabled && supabase && listId) {
-    const { data, error } = await supabase
-      .from("rankings")
-      .select("movies, updated_at")
-      .eq("list_id", listId)
-      .maybeSingle();
+    const { data, error } = await runSupabaseRequest(
+      supabase
+        .from("rankings")
+        .select("movies, updated_at")
+        .eq("list_id", listId)
+        .maybeSingle(),
+      "Could not load synced ranking",
+    );
     if (!error && data && Array.isArray(data.movies)) {
       const local = getLocalPayload();
       const merged = mergeRankingPayloads([
@@ -2563,12 +2636,15 @@ const setStoredShareOptions = (options) => {
   if (storageEnabled) {
     try {
       localStorage.setItem(SHARE_OPTIONS_KEY, JSON.stringify(options || {}));
+      setLocalPersistenceAvailability(true, "share");
       loadShareOptions();
       updateShareOptionControls();
       return;
     } catch (error) {
-      // Fall through to the in-memory defaults.
+      setLocalPersistenceAvailability(false, "share");
     }
+  } else {
+    setLocalPersistenceAvailability(false, "share");
   }
   shareOptions = { ...shareOptions, ...(options || {}), version: SHARE_OPTIONS_VERSION };
   updateShareOptionControls();
@@ -3590,7 +3666,40 @@ rankingList.addEventListener(
   { passive: false },
 );
 
+const refreshPersistenceStatus = () => {
+  updateStatus();
+  if (rankingSettingsPanel && !rankingSettingsPanel.hidden) {
+    updateRankingSettingsAuthUI();
+  }
+};
+
+const setLocalPersistenceAvailability = (available, surface = "browser") => {
+  if (available) localPersistenceFailures.delete(surface);
+  else localPersistenceFailures.add(surface);
+  const nextUnavailable = localPersistenceFailures.size > 0;
+  if (localPersistenceUnavailable === nextUnavailable) return;
+  localPersistenceUnavailable = nextUnavailable;
+  refreshPersistenceStatus();
+};
+
+const setRemoteSyncAvailability = (available) => {
+  const nextUnavailable = !available;
+  if (remoteSyncUnavailable === nextUnavailable) return;
+  remoteSyncUnavailable = nextUnavailable;
+  refreshPersistenceStatus();
+};
+
 const updateStatus = () => {
+  if (localPersistenceUnavailable) {
+    apiStatus.textContent = "Could not save in this browser. Download a backup before leaving.";
+    return;
+  }
+
+  if (currentUser && remoteSyncUnavailable) {
+    apiStatus.textContent = "Sync is temporarily unavailable. Changes are saved on this device.";
+    return;
+  }
+
   if (!supabaseEnabled) {
     apiStatus.textContent = "Add Supabase keys to enable autocomplete and sync.";
     return;
@@ -3857,6 +3966,7 @@ const renderDetailPane = (movie, status = "") => {
   detailDirector.textContent = movie.director || "Unknown";
   detailCast.textContent = Array.isArray(movie.cast) && movie.cast.length ? movie.cast.join(", ") : "Unknown";
   detailStatus.textContent = status;
+  detailRetry.hidden = true;
   setPoster(detailPoster, movie);
 };
 
@@ -3932,6 +4042,19 @@ const fetchMovieDetail = async (movie) => {
   return request;
 };
 
+const hydrateOpenMovieDetail = async (movie, detailContext, requestId) => {
+  const detail = await fetchMovieDetail(movie);
+  if (requestId !== detailRequestId || !currentDetail) return;
+  if (detail) {
+    currentDetail.movie = detail;
+    configureDetailActions(detail, detailContext);
+    renderDetailPane(detail);
+  } else if (movie.tmdbId) {
+    renderDetailPane(movie, "Could not load full details.");
+    detailRetry.hidden = false;
+  }
+};
+
 const openMovieDetail = async (movie, context = null, triggerEl = null) => {
   if (pending) {
     setStatusMessage("Finish the current comparison before opening movie details.");
@@ -3948,16 +4071,7 @@ const openMovieDetail = async (movie, context = null, triggerEl = null) => {
   syncModalIsolation();
   document.body.classList.add("is-detail-open");
   detailClose.focus();
-
-  const detail = await fetchMovieDetail(movie);
-  if (requestId !== detailRequestId || !currentDetail) return;
-  if (detail) {
-    currentDetail.movie = detail;
-    configureDetailActions(detail, detailContext);
-    renderDetailPane(detail);
-  } else if (movie.tmdbId) {
-    renderDetailPane(movie, "Could not load full details.");
-  }
+  await hydrateOpenMovieDetail(movie, detailContext, requestId);
 };
 
 const closeMovieDetail = ({ restoreFocus = true } = {}) => {
@@ -4207,14 +4321,26 @@ const setSuggestionLoading = (container) => {
     name.className = "suggest-name suggest-skeleton";
     const meta = document.createElement("div");
     meta.className = "suggest-meta suggest-skeleton";
+    const primary = document.createElement("div");
+    primary.className = "suggest-primary";
 
-    card.append(poster, name, meta);
+    primary.append(poster, name, meta);
+    card.append(primary);
     container.appendChild(card);
   }
 };
 
+const setSuggestionLoadError = (container) => {
+  container.innerHTML = "";
+  const error = document.createElement("div");
+  error.className = "suggest-load-error";
+  error.setAttribute("role", "status");
+  error.textContent = "Couldn’t load suggestions. Use refresh to try again.";
+  container.appendChild(error);
+};
+
 const fetchSuggestionList = async (type, seedId = null) => {
-  if (!tmdbProxyEnabled) return [];
+  if (!tmdbProxyEnabled) return { items: [], failed: true };
   const params = new URLSearchParams({ type });
   if (seedId) params.set("seed", String(seedId));
   const url = `${tmdbSuggestUrl}?${params.toString()}`;
@@ -4224,11 +4350,12 @@ const fetchSuggestionList = async (type, seedId = null) => {
         apikey: SUPABASE_PUBLISHABLE_KEY,
       },
     });
-    if (!response.ok) return [];
+    if (!response.ok) return { items: [], failed: true };
     const data = await response.json();
-    return data.results || [];
+    if (!Array.isArray(data.results)) return { items: [], failed: true };
+    return { items: data.results, failed: false };
   } catch (error) {
-    return [];
+    return { items: [], failed: true };
   }
 };
 
@@ -5207,8 +5334,14 @@ const updatePopularSuggestions = async (requestId = createSuggestionRequest()) =
   if (!requestId) return;
   suggestPopularMore.disabled = true;
   setSuggestionLoading(suggestPopular);
-  const popularAll = await fetchSuggestionList("popular");
+  const { items: popularAll, failed } = await fetchSuggestionList("popular");
   if (isStaleSuggestionRequest(requestId)) {
+    return;
+  }
+  if (failed) {
+    setSuggestionSectionState("popular", [], [], null);
+    setSuggestionLoadError(suggestPopular);
+    suggestPopularMore.disabled = false;
     return;
   }
   const popularFiltered = filterUnrankedSuggestions(popularAll);
@@ -5222,8 +5355,14 @@ const updateEssentialsSuggestions = async (requestId = createSuggestionRequest()
   if (!requestId) return;
   suggestEssentialsMore.disabled = true;
   setSuggestionLoading(suggestEssentials);
-  const essentialsAll = await fetchSuggestionList("essentials");
+  const { items: essentialsAll, failed } = await fetchSuggestionList("essentials");
   if (isStaleSuggestionRequest(requestId)) {
+    return;
+  }
+  if (failed) {
+    setSuggestionSectionState("essentials", [], [], null);
+    setSuggestionLoadError(suggestEssentials);
+    suggestEssentialsMore.disabled = false;
     return;
   }
   const essentialsFiltered = filterUnrankedSuggestions(essentialsAll);
@@ -5252,8 +5391,18 @@ const updateRelatedSuggestions = async (requestId = createSuggestionRequest()) =
       activeSuggestionSeed = personalSeed.id;
       suggestRelatedCursor = 0;
     }
-    const relatedAll = await fetchSuggestionList("recommendations", personalSeed.id);
+    const { items: relatedAll, failed } = await fetchSuggestionList(
+      "recommendations",
+      personalSeed.id,
+    );
     if (isStaleSuggestionRequest(requestId)) {
+      return;
+    }
+    if (failed) {
+      setSuggestionSectionState("related", [], [], reasonContext);
+      setSuggestionLoadError(suggestRelated);
+      suggestRelatedMore.disabled = false;
+      suggestRelatedSection.hidden = false;
       return;
     }
     const relatedFiltered = filterUnrankedSuggestions(relatedAll);
@@ -6761,19 +6910,29 @@ function updateShareModeControls() {
 }
 
 function saveShareOptions() {
-  if (!storageEnabled) return;
+  if (!storageEnabled) {
+    setLocalPersistenceAvailability(false, "share");
+    return;
+  }
   try {
     localStorage.setItem(SHARE_OPTIONS_KEY, JSON.stringify(shareOptions));
+    setLocalPersistenceAvailability(true, "share");
   } catch (error) {
-    // Ignore storage failures.
+    setLocalPersistenceAvailability(false, "share");
   }
 }
 
 function loadShareOptions() {
-  if (!storageEnabled) return;
+  if (!storageEnabled) {
+    setLocalPersistenceAvailability(false, "share");
+    return;
+  }
   try {
     const raw = localStorage.getItem(SHARE_OPTIONS_KEY);
-    if (!raw) return;
+    if (!raw) {
+      setLocalPersistenceAvailability(true, "share");
+      return;
+    }
     const parsed = JSON.parse(raw);
     const hasV2 = parsed.version >= 2;
     const hasV3 = parsed.version >= 3;
@@ -6804,8 +6963,9 @@ function loadShareOptions() {
       format: parsed.format === "set" ? "set" : "single",
       shape: parsed.shape === "wide" || parsed.shape === "landscape" ? "wide" : "skinny",
     };
+    setLocalPersistenceAvailability(true, "share");
   } catch (error) {
-    // Ignore storage failures.
+    setLocalPersistenceAvailability(false, "share");
   }
 }
 
@@ -8192,20 +8352,21 @@ const handleMagicLinkSignIn = async () => {
   }
   setSignInBusy(true);
   setSignInStatus("Sending your sign-in link...");
-  const { error } = await supabase.auth.signInWithOtp({
-    email,
-    options: {
-      emailRedirectTo: signInRedirectUrl(window.location),
-    },
-  });
-  if (error) {
+  try {
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: signInRedirectUrl(window.location),
+      },
+    });
+    if (error) throw error;
+    signinEmailInput.value = "";
     setSignInBusy(false);
-    setSignInStatus(`Sign-in failed: ${error.message}`, "error");
-    return;
+    setSignInStatus(`Check ${email} for your sign-in link.`);
+  } catch (error) {
+    setSignInBusy(false);
+    setSignInStatus(`Sign-in failed: ${error?.message || "Could not reach the sign-in service."}`, "error");
   }
-  signinEmailInput.value = "";
-  setSignInBusy(false);
-  setSignInStatus(`Check ${email} for your sign-in link.`);
 };
 
 const handleOAuthSignIn = async (provider) => {
@@ -8220,24 +8381,31 @@ const handleOAuthSignIn = async (provider) => {
   // signInWithOAuth navigates the whole page to the provider, so a resolved
   // promise without an error simply means the redirect is underway. Only a
   // pre-redirect failure (misconfigured provider, network) comes back here.
-  const { error } = await supabase.auth.signInWithOAuth({
-    provider,
-    options: {
-      redirectTo: signInRedirectUrl(window.location),
-    },
-  });
-  if (error) {
+  try {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: signInRedirectUrl(window.location),
+      },
+    });
+    if (error) throw error;
+  } catch (error) {
     setSignInBusy(false);
-    setSignInStatus(`Sign-in failed: ${error.message}`, "error");
+    setSignInStatus(`Sign-in failed: ${error?.message || "Could not reach the sign-in service."}`, "error");
   }
 };
 
 const handleSignOut = async () => {
   if (!supabaseEnabled || !supabase) return;
   authNotice = "";
-  const { error } = await supabase.auth.signOut();
+  let error = null;
+  try {
+    ({ error } = await supabase.auth.signOut());
+  } catch (caughtError) {
+    error = caughtError;
+  }
   if (error) {
-    authStatus.textContent = `Sign-out failed: ${error.message}`;
+    authStatus.textContent = `Sign-out failed: ${error?.message || "Could not reach the sign-in service."}`;
     return;
   }
   ranking = [];
@@ -8610,6 +8778,14 @@ packHideAll.addEventListener("click", () => {
 });
 
 detailClose.addEventListener("click", () => closeMovieDetail());
+detailRetry.addEventListener("click", () => {
+  if (!currentDetail) return;
+  const { movie, context } = currentDetail;
+  const requestId = ++detailRequestId;
+  detailClose.focus({ preventScroll: true });
+  renderDetailPane(movie, "Loading details...");
+  void hydrateOpenMovieDetail(movie, context, requestId);
+});
 
 // Tap the detail-pane poster to view the artwork full-res in the shared lightbox.
 detailPoster.addEventListener("click", () => {
@@ -8827,6 +9003,19 @@ const renderSuggestions = (movies) => {
   suggestions.style.display = "block";
 };
 
+const renderSuggestionSearchStatus = (message) => {
+  suggestions.innerHTML = "";
+  suggestionItems = [];
+  activeSuggestionIndex = -1;
+  currentSuggestions = [];
+  const status = document.createElement("div");
+  status.className = "suggestions__status";
+  status.setAttribute("role", "status");
+  status.textContent = message;
+  suggestions.appendChild(status);
+  suggestions.style.display = "block";
+};
+
 const fetchSuggestions = async (query) => {
   if (!tmdbProxyEnabled) return;
   const url = `${tmdbProxyUrl}?q=${encodeURIComponent(query)}`;
@@ -8837,15 +9026,23 @@ const fetchSuggestions = async (query) => {
       },
     });
     if (!response.ok) {
-      hideSuggestions();
+      if (titleInput.value.trim() === query) {
+        renderSuggestionSearchStatus("Search is unavailable. Edit the title to try again.");
+      }
       return;
     }
     const data = await response.json();
     if (titleInput.value.trim() !== query) return;
-    const movies = (data.results || []).slice(0, 6);
+    if (!Array.isArray(data.results)) {
+      renderSuggestionSearchStatus("Search is unavailable. Edit the title to try again.");
+      return;
+    }
+    const movies = data.results.slice(0, 6);
     renderSuggestions(movies);
   } catch (error) {
-    hideSuggestions();
+    if (titleInput.value.trim() === query) {
+      renderSuggestionSearchStatus("Search is unavailable. Edit the title to try again.");
+    }
   }
 };
 

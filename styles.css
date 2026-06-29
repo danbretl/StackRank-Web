@@ -1717,6 +1717,20 @@ button.suggest-primary {
   color: var(--ink-soft);
 }
 
+.suggest-load-error {
+  grid-column: 1 / -1;
+  min-height: 88px;
+  display: grid;
+  place-items: center;
+  padding: 14px;
+  border: 1px dashed var(--border-soft);
+  border-radius: 12px;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
 .suggest-skeleton {
   color: transparent;
   border-radius: 8px;
@@ -1902,6 +1916,13 @@ body.is-comparing .compare-panel {
 .suggestions__meta {
   font-size: 0.85rem;
   color: var(--ink-soft);
+}
+
+.suggestions__status {
+  padding: 12px 14px;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+  line-height: 1.4;
 }
 
 .cta {
@@ -2739,6 +2760,23 @@ body.is-comparing .compare-panel {
 
 .detail-genres {
   line-height: 1.35;
+}
+
+.detail-retry {
+  justify-self: start;
+  min-height: 36px;
+  padding: 7px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--bg-ink);
+  font: 700 0.76rem/1 inherit;
+  cursor: pointer;
+}
+
+.detail-retry:focus-visible {
+  outline: 2px solid var(--border);
+  outline-offset: 2px;
 }
 
 .detail-overview {

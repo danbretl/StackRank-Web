@@ -87,7 +87,7 @@ Shipped implementation:
 
 ## Area 2 — service and network resilience
 
-Status: **pending.**
+Status: **complete (2026-06-29).**
 
 Scope:
 
@@ -103,6 +103,32 @@ Acceptance:
 - Search/detail/suggestion failures are honest, bounded, and recoverable.
 - Failed remote writes cannot silently discard a local change.
 - `npm run verify` passes.
+
+Shipped implementation:
+
+- Browser-storage reads/writes are tracked by surface (ranking, queues, packs,
+  Share options). A failed core write keeps the in-memory app usable and shows
+  `Could not save in this browser. Download a backup before leaving.` until
+  that surface successfully persists again.
+- The storage-failure E2E forces `QuotaExceededError`, completes a ranking,
+  proves the older local snapshot was not overwritten, and validates that the
+  downloadable in-memory backup contains the new movie.
+- User-data Supabase reads/writes share a rejection-safe wrapper. Network
+  rejection or API errors cannot escape as unhandled promises; the UI says
+  changes are saved locally, and a later successful write clears the warning.
+- Signed-in E2E now moves a queue item while remote writes reject, verifies the
+  user-scoped local snapshot, then restores the connection and proves the next
+  write resyncs.
+- TMDB suggestion sections replace failed skeletons with an honest error state
+  and leave the existing refresh control enabled. Autocomplete shows a bounded
+  unavailable message, and movie details expose a Retry action.
+- Magic-link/OAuth/sign-out network calls and anonymous telemetry writes now
+  catch thrown network failures and reset their busy/error UI safely.
+- The E2E seeding reload is issued as a separate CDP command, removing a
+  nondeterministic execution-context teardown race.
+- Rendered failure/normal-state QA passed with clean console output.
+  `npm run verify` passed with 171 unit tests, all function checks/tests, pack
+  validation, and 18 browser flows.
 
 ## Area 3 — security and privacy
 
@@ -160,3 +186,5 @@ Status: **pending until the initial telemetry window matures.**
 - **2026-06-29:** Created the stabilization plan and production baseline.
 - **2026-06-29:** Completed Area 1 accessibility and interaction correctness;
   full verification and rendered desktop/mobile QA passed.
+- **2026-06-29:** Completed Area 2 service/network resilience; storage,
+  TMDB/auth, and rejected Supabase write recovery are covered by browser tests.

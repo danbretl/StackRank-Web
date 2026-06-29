@@ -241,6 +241,27 @@ Measurement readiness (2026-06-29):
 - Treat `2026-06-29 18:44:36+00` as the clean measurement cutoff. Do not blend
   earlier rows into the Area 5 decision.
 
+## Area 6 — production performance and delivery
+
+Status: **blocked on trace tooling (2026-06-29).**
+
+Planned scope:
+
+- Capture cold desktop and mobile production traces with LCP, CLS, FCP, TBT,
+  document latency, render-blocking, and network dependency evidence.
+- Inspect response compression, caching, font loading, the Supabase ESM graph,
+  and initial image requests.
+- Fix only measured bottlenecks with material impact; do not add a build system
+  merely to improve a synthetic score.
+- Re-run `npm run verify`, `npm run test:production`, and the same trace profile.
+
+Resume condition:
+
+- Configure the `chrome-devtools` MCP server (`npx -y
+  chrome-devtools-mcp@latest`). The required trace and insight tools are not
+  available in the current workspace, so this audit cannot produce defensible
+  Core Web Vitals or savings estimates yet.
+
 ## Progress log
 
 - **2026-06-29:** Created the stabilization plan and production baseline.
@@ -254,3 +275,5 @@ Measurement readiness (2026-06-29):
   20-check production smoke passes and external evidence has an exact checklist.
 - **2026-06-29:** Audited Area 5 measurement readiness and excluded debug/
   automated QA from telemetry; the pruning decision remains date/sample gated.
+- **2026-06-29:** Added Area 6 performance/delivery scope; paused before
+  measurement because Chrome DevTools trace tooling is not configured.

@@ -87,13 +87,20 @@ import {
   buildProductEvent,
   countBucket,
   shouldCollectProductTelemetry,
-} from "./lib/telemetry.js?v=2";
+} from "./lib/telemetry.js?v=3";
 import {
   getFirstRunExperience,
   selectStarterPacks,
 } from "./lib/ftue.js?v=1";
+import {
+  TASTE_EXPLORER_MIN_MOVIES,
+  buildTasteSignals,
+  tasteMatchingPacks,
+  tasteSignalEntries,
+  tasteSignalPackQuery,
+} from "./lib/taste.js?v=3";
 
-console.info("StackRank build", "share-studio-v4");
+console.info("StackRank build", "taste-explorer-v1");
 
 const form = document.getElementById("movie-form");
 const titleInput = document.getElementById("title");
@@ -126,6 +133,7 @@ const rankingFilterCount = document.getElementById("ranking-filter-count");
 const rankingExpand = document.getElementById("ranking-expand");
 const fullscreenOverlay = document.getElementById("ranking-fullscreen");
 const fullscreenClose = document.getElementById("fullscreen-close");
+const fullscreenTitle = document.getElementById("fullscreen-title");
 const fullscreenGrid = document.getElementById("fullscreen-grid");
 const fullscreenSub = document.getElementById("fullscreen-sub");
 const fullscreenSearch = document.getElementById("fullscreen-search");
@@ -159,6 +167,13 @@ const clearButton = document.getElementById("clear-list");
 const shareButton = document.getElementById("share-list");
 const snapshotSub = document.getElementById("snapshot-sub");
 const snapshotContent = document.getElementById("snapshot-content");
+const tasteExplorer = document.getElementById("taste-explorer");
+const tasteToggle = document.getElementById("taste-toggle");
+const tasteContent = document.getElementById("taste-content");
+const tasteIntro = document.getElementById("taste-intro");
+const tasteSignals = document.getElementById("taste-signals");
+const tasteStatus = document.getElementById("taste-status");
+const tasteDetail = document.getElementById("taste-detail");
 const shareStudio = document.getElementById("share-studio");
 const shareClose = document.getElementById("share-close");
 const sharePreview = document.getElementById("share-preview");
@@ -366,6 +381,7 @@ let fullscreenTrigger = null;
 let fullscreenFilterQuery = "";
 let fullscreenDensityMode = "comfortable";
 let fullscreenDrag = null;
+let fullscreenTasteSignal = null;
 let lastPackDiscoveryNudgeAt = 0;
 let currentPlaceholderTitle = "";
 let placeholderTimer = null;
@@ -374,6 +390,13 @@ let currentDetail = null;
 let detailRequestId = 0;
 let detailTrigger = null;
 const detailCache = new Map();
+const detailRequests = new Map();
+let tasteExplorerExpanded = false;
+let tasteExplorerLoading = false;
+let tasteExplorerRequestId = 0;
+let activeTasteSignalId = null;
+const tasteDetailAttemptedIds = new Set();
+let tasteExplorerEnrichmentQueued = false;
 let comparisonReturnScroll = null;
 // When a ranking settles, decide whether to scroll the page to the freshly
 // placed item (true — used for homepage ingresses like the add form / restack)
@@ -962,6 +985,7 @@ const renderRanking = () => {
     empty.textContent = "No movies yet. Add one to begin.";
     rankingList.appendChild(empty);
     renderListSnapshot();
+    renderTasteExplorer();
     if (!shareStudio.hidden) updateShareStudio();
     return;
   }
@@ -1032,6 +1056,7 @@ const renderRanking = () => {
   }
 
   renderListSnapshot();
+  renderTasteExplorer();
   if (!shareStudio.hidden) updateShareStudio();
 };
 
@@ -1190,6 +1215,236 @@ function renderListSnapshot() {
     list.appendChild(createSnapshotMovieRow(item));
   });
   snapshotContent.append(list);
+}
+
+const getTasteMatchingPacks = (signal) => {
+  return tasteMatchingPacks(suggestionPacks, signal);
+};
+
+const createTasteMovieRow = ({ movie, index }) => {
+  const button = document.createElement("button");
+  button.className = "taste__movie";
+  button.type = "button";
+  button.setAttribute("aria-label", `Open details for #${index + 1}, ${movie.title}`);
+
+  const rank = document.createElement("span");
+  rank.className = "taste__movie-rank";
+  rank.textContent = `#${index + 1}`;
+
+  const poster = document.createElement("span");
+  poster.className = "taste__movie-poster";
+  if (movie.posterPath) {
+    const image = document.createElement("img");
+    image.src = `${TMDB_POSTER_SMALL}${movie.posterPath}`;
+    image.alt = "";
+    image.loading = "lazy";
+    poster.appendChild(image);
+  }
+
+  const copy = document.createElement("span");
+  copy.className = "taste__movie-copy";
+  const title = document.createElement("strong");
+  title.textContent = movie.title;
+  const meta = document.createElement("span");
+  meta.textContent = movie.year ? String(movie.year) : "Year unknown";
+  copy.append(title, meta);
+
+  const arrow = document.createElement("span");
+  arrow.className = "taste__movie-arrow";
+  arrow.textContent = "›";
+  arrow.setAttribute("aria-hidden", "true");
+
+  button.append(rank, poster, copy, arrow);
+  button.addEventListener("click", () => {
+    openMovieDetail(ranking[index], { type: "ranked", source: "taste" }, button);
+  });
+  return button;
+};
+
+const renderTasteDetail = (signal, insights) => {
+  tasteDetail.innerHTML = "";
+  if (!signal) return;
+
+  const entries = tasteSignalEntries(insights.enrichedRanking, signal);
+  const header = document.createElement("div");
+  header.className = "taste__detail-header";
+  const heading = document.createElement("h3");
+  heading.textContent = `${signal.value} in your ranking`;
+  const count = document.createElement("span");
+  count.textContent = `${entries.length} ${entries.length === 1 ? "movie" : "movies"}`;
+  header.append(heading, count);
+
+  const movies = document.createElement("div");
+  movies.className = "taste__movies";
+  entries.slice(0, 5).forEach((entry) => movies.appendChild(createTasteMovieRow(entry)));
+
+  const actions = document.createElement("div");
+  actions.className = "taste__actions";
+  const lensButton = document.createElement("button");
+  lensButton.className = "taste__action";
+  lensButton.type = "button";
+  lensButton.textContent = entries.length > 5 ? `See all ${entries.length} ranked movies` : "Open this ranking lens";
+  lensButton.disabled = !entries.length;
+  lensButton.addEventListener("click", () => {
+    fullscreenTasteSignal = signal;
+    fullscreenFilterQuery = "";
+    trackProductEvent("taste_lens_opened", {
+      source: "home",
+      list_size: countBucket(ranking.length),
+    });
+    openFullscreenRanking({ trigger: lensButton });
+  });
+  actions.appendChild(lensButton);
+
+  const matchingPacks = getTasteMatchingPacks(signal);
+  if (matchingPacks.length) {
+    const packsButton = document.createElement("button");
+    packsButton.className = "taste__action taste__action--muted";
+    packsButton.type = "button";
+    packsButton.textContent = `Explore ${matchingPacks.length} matching ${matchingPacks.length === 1 ? "pack" : "packs"}`;
+    packsButton.addEventListener("click", () => {
+      packBrowserFilterValues = {
+        query: tasteSignalPackQuery(signal),
+        category: "all",
+        state: "all",
+      };
+      packBrowserFiltersExpanded = true;
+      openAllPacks({ trigger: packsButton, source: "taste" });
+    });
+    actions.appendChild(packsButton);
+  }
+
+  tasteDetail.append(header, movies, actions);
+};
+
+const renderTasteExplorer = () => {
+  if (!tasteExplorer) return;
+  const available = ranking.length >= TASTE_EXPLORER_MIN_MOVIES;
+  tasteExplorer.hidden = !available;
+  if (!available) {
+    tasteExplorerExpanded = false;
+    activeTasteSignalId = null;
+    return;
+  }
+
+  tasteToggle.setAttribute("aria-expanded", String(tasteExplorerExpanded));
+  tasteToggle.classList.toggle("is-expanded", tasteExplorerExpanded);
+  tasteToggle.firstChild.textContent = tasteExplorerExpanded ? "Close " : "Explore ";
+  tasteContent.hidden = !tasteExplorerExpanded;
+  tasteIntro.hidden = tasteExplorerExpanded;
+  if (!tasteExplorerExpanded) return;
+
+  const insights = getRankingInsights();
+  const signals = buildTasteSignals(insights);
+  if (!signals.some((signal) => signal.id === activeTasteSignalId)) {
+    activeTasteSignalId = signals[0]?.id || null;
+  }
+  tasteSignals.innerHTML = "";
+
+  signals.forEach((signal) => {
+    const button = document.createElement("button");
+    button.className = "taste__signal";
+    button.type = "button";
+    button.setAttribute("aria-pressed", String(signal.id === activeTasteSignalId));
+    const eyebrow = document.createElement("span");
+    eyebrow.className = "taste__signal-eyebrow";
+    eyebrow.textContent = signal.eyebrow;
+    const value = document.createElement("strong");
+    value.textContent = signal.value;
+    const detail = document.createElement("span");
+    detail.className = "taste__signal-detail";
+    detail.textContent = signal.description;
+    button.append(eyebrow, value, detail);
+    button.addEventListener("click", () => {
+      activeTasteSignalId = signal.id;
+      renderTasteExplorer();
+    });
+    tasteSignals.appendChild(button);
+  });
+
+  if (tasteExplorerLoading) {
+    const placeholders = Math.max(1, 3 - signals.length);
+    for (let index = 0; index < placeholders; index += 1) {
+      const skeleton = document.createElement("div");
+      skeleton.className = "taste__signal taste__signal--loading";
+      skeleton.setAttribute("aria-hidden", "true");
+      skeleton.innerHTML = `
+        <span class="skeleton taste__skeleton-label"></span>
+        <span class="skeleton taste__skeleton-value"></span>
+        <span class="skeleton taste__skeleton-detail"></span>`;
+      tasteSignals.appendChild(skeleton);
+    }
+  }
+
+  if (tasteExplorerLoading) {
+    tasteStatus.textContent = "Analyzing movie details…";
+  } else if (insights.detailCount < Math.min(ranking.length, 120)) {
+    tasteStatus.textContent = insights.detailCount
+      ? `Based on details available for ${insights.detailCount} of ${ranking.length} ranked movies.`
+      : "Genre and people signals are unavailable right now.";
+  } else {
+    tasteStatus.textContent = "";
+  }
+
+  const activeSignal = signals.find((signal) => signal.id === activeTasteSignalId) || null;
+  if (activeSignal) {
+    renderTasteDetail(activeSignal, insights);
+  } else {
+    tasteDetail.innerHTML = "";
+    const empty = document.createElement("p");
+    empty.className = "taste__empty";
+    empty.textContent = tasteExplorerLoading
+      ? "Looking for repeated patterns near the top of your list."
+      : "No repeated patterns yet. Rank a few more varied movies and check back.";
+    tasteDetail.appendChild(empty);
+  }
+
+  const hasUnattemptedDetails = ranking.slice(0, 120).some((movie) => {
+    if (!movie.tmdbId) return false;
+    const id = String(movie.tmdbId);
+    return !detailCache.has(id) && !tasteDetailAttemptedIds.has(id);
+  });
+  if (!tasteExplorerLoading && !tasteExplorerEnrichmentQueued && hasUnattemptedDetails) {
+    tasteExplorerEnrichmentQueued = true;
+    window.queueMicrotask(() => {
+      tasteExplorerEnrichmentQueued = false;
+      void enrichTasteExplorer();
+    });
+  }
+};
+
+const enrichTasteExplorer = async () => {
+  const targets = ranking
+    .slice(0, 120)
+    .filter((movie) => movie.tmdbId)
+    .filter((movie) => {
+      const id = String(movie.tmdbId);
+      return !detailCache.has(id) && !tasteDetailAttemptedIds.has(id);
+    });
+  if (!targets.length) return;
+  const requestId = ++tasteExplorerRequestId;
+  targets.forEach((movie) => tasteDetailAttemptedIds.add(String(movie.tmdbId)));
+  tasteExplorerLoading = true;
+  renderTasteExplorer();
+  for (let index = 0; index < targets.length; index += 4) {
+    await Promise.all(targets.slice(index, index + 4).map(fetchMovieDetail));
+    if (requestId !== tasteExplorerRequestId) return;
+  }
+  tasteExplorerLoading = false;
+  renderTasteExplorer();
+};
+
+if (tasteToggle) {
+  tasteToggle.addEventListener("click", () => {
+    tasteExplorerExpanded = !tasteExplorerExpanded;
+    if (tasteExplorerExpanded) {
+      trackProductEvent("taste_explorer_opened", {
+        source: "home",
+        list_size: countBucket(ranking.length),
+      });
+    }
+    renderTasteExplorer();
+  });
 }
 
 const createQueueActionButton = (label, ariaLabel, action, className = "") => {
@@ -3557,24 +3812,31 @@ const fetchMovieDetail = async (movie) => {
   if (!tmdbProxyEnabled || !movie.tmdbId) return null;
   const cacheKey = String(movie.tmdbId);
   if (detailCache.has(cacheKey)) return detailCache.get(cacheKey);
-  const url = `${supabaseEnabled ? `${SUPABASE_URL}${TMDB_DETAIL_PATH}` : ""}?id=${encodeURIComponent(
-    movie.tmdbId,
-  )}`;
-  try {
-    const response = await fetch(url, {
-      headers: {
-        apikey: SUPABASE_PUBLISHABLE_KEY,
-      },
-    });
-    if (!response.ok) return null;
-    const data = await response.json();
-    if (!data.result) return null;
-    const detail = { ...movie, ...data.result };
-    detailCache.set(cacheKey, detail);
-    return detail;
-  } catch (error) {
-    return null;
-  }
+  if (detailRequests.has(cacheKey)) return detailRequests.get(cacheKey);
+  const request = (async () => {
+    const url = `${supabaseEnabled ? `${SUPABASE_URL}${TMDB_DETAIL_PATH}` : ""}?id=${encodeURIComponent(
+      movie.tmdbId,
+    )}`;
+    try {
+      const response = await fetch(url, {
+        headers: {
+          apikey: SUPABASE_PUBLISHABLE_KEY,
+        },
+      });
+      if (!response.ok) return null;
+      const data = await response.json();
+      if (!data.result) return null;
+      const detail = { ...movie, ...data.result };
+      detailCache.set(cacheKey, detail);
+      return detail;
+    } catch (error) {
+      return null;
+    } finally {
+      detailRequests.delete(cacheKey);
+    }
+  })();
+  detailRequests.set(cacheKey, request);
+  return request;
 };
 
 const openMovieDetail = async (movie, context = null, triggerEl = null) => {
@@ -4531,16 +4793,16 @@ const renderPackBrowser = () => {
   });
 };
 
-const openAllPacks = ({ restoreScroll = false } = {}) => {
+const openAllPacks = ({ restoreScroll = false, trigger = null, source = "home" } = {}) => {
   if (!restoreScroll) {
     trackProductEvent("pack_browser_opened", {
       list_size: countBucket(ranking.length),
-      source: "home",
+      source,
     });
   }
   currentPackSlug = null;
   packDetailFromAllPacks = false;
-  packDetailTrigger = packViewAll;
+  if (!restoreScroll || !packDetailTrigger) packDetailTrigger = trigger || packViewAll;
   packDetailPager.hidden = true;
   packDetailOverlay.classList.add("is-all-packs");
   packBrowserFilters.hidden = false;
@@ -6752,13 +7014,33 @@ function renderFullscreenRanking({ focusRankingIndex = null } = {}) {
   if (!fullscreenGrid) return;
   fullscreenGrid.innerHTML = "";
   const count = ranking.length;
-  const entries = filterFullscreenRanking(ranking, fullscreenFilterQuery);
-  const isFiltered = Boolean(fullscreenFilterQuery.trim());
+  const lensEntries = fullscreenTasteSignal
+    ? tasteSignalEntries(ranking.map(movieWithDetail), fullscreenTasteSignal)
+    : null;
+  const query = fullscreenFilterQuery.trim().toLocaleLowerCase();
+  const entries = (lensEntries || filterFullscreenRanking(ranking)).filter(({ movie }) => {
+    if (!query) return true;
+    return `${movie?.title || ""} ${movie?.year || ""}`.toLocaleLowerCase().includes(query);
+  });
+  const isFiltered = Boolean(query || fullscreenTasteSignal);
   fullscreenGrid.classList.toggle("is-compact", fullscreenDensityMode === "compact");
   fullscreenGrid.classList.toggle("is-filtered", isFiltered);
+  if (fullscreenTitle) {
+    fullscreenTitle.textContent = fullscreenTasteSignal
+      ? `${fullscreenTasteSignal.value} in your ranking`
+      : "Current ranking";
+  }
+  if (fullscreenSearch) {
+    fullscreenSearch.placeholder = fullscreenTasteSignal
+      ? `Filter within ${fullscreenTasteSignal.value}`
+      : "Filter titles or years";
+  }
+  if (fullscreenJumpForm) fullscreenJumpForm.hidden = Boolean(fullscreenTasteSignal);
   if (fullscreenSub) {
-    fullscreenSub.textContent = isFiltered
-      ? `${entries.length} of ${count} ${count === 1 ? "movie" : "movies"}`
+    fullscreenSub.textContent = fullscreenTasteSignal
+      ? `${entries.length} ${entries.length === 1 ? "movie" : "movies"}, preserving your overall order`
+      : isFiltered
+        ? `${entries.length} of ${count} ${count === 1 ? "movie" : "movies"}`
       : count
         ? `${count} ${count === 1 ? "movie" : "movies"}, top to bottom`
         : "No movies yet.";
@@ -6770,7 +7052,9 @@ function renderFullscreenRanking({ focusRankingIndex = null } = {}) {
     const empty = document.createElement("div");
     empty.className = "fullscreen-empty";
     empty.textContent = isFiltered
-      ? "No movies match that filter."
+      ? fullscreenTasteSignal
+        ? "No movies in this lens match that filter."
+        : "No movies match that filter."
       : "No movies yet.";
     fullscreenGrid.appendChild(empty);
     return;
@@ -6841,9 +7125,10 @@ function renderFullscreenRanking({ focusRankingIndex = null } = {}) {
   }
 }
 
-function openFullscreenRanking() {
+function openFullscreenRanking({ trigger = null } = {}) {
   if (!ranking.length || !fullscreenOverlay) return;
-  fullscreenTrigger = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+  fullscreenTrigger =
+    trigger || (document.activeElement instanceof HTMLElement ? document.activeElement : null);
   renderFullscreenRanking();
   lockShareScroll();
   fullscreenOverlay.hidden = false;
@@ -6863,9 +7148,15 @@ function closeFullscreenRanking({ restoreFocus = true } = {}) {
     fullscreenTrigger.focus({ preventScroll: true });
   }
   fullscreenTrigger = null;
+  fullscreenTasteSignal = null;
 }
 
-if (rankingExpand) rankingExpand.addEventListener("click", openFullscreenRanking);
+if (rankingExpand) {
+  rankingExpand.addEventListener("click", () => {
+    fullscreenTasteSignal = null;
+    openFullscreenRanking({ trigger: rankingExpand });
+  });
+}
 if (fullscreenClose) fullscreenClose.addEventListener("click", () => closeFullscreenRanking());
 if (fullscreenOverlay) {
   fullscreenOverlay.addEventListener("click", (event) => {
@@ -7072,7 +7363,7 @@ if (fullscreenGrid) {
   });
 
   fullscreenGrid.addEventListener("pointerdown", (event) => {
-    if (event.button !== 0 || fullscreenFilterQuery.trim()) return;
+    if (event.button !== 0 || fullscreenFilterQuery.trim() || fullscreenTasteSignal) return;
     if (event.target.closest("button")) return;
     const card = event.target.closest(".fullscreen-card");
     if (!card) return;

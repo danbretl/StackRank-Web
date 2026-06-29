@@ -77,6 +77,21 @@ test("quick-start events accept only the bounded quick-start source", () => {
   );
 });
 
+test("taste explorer events retain only bounded context", () => {
+  assert.deepEqual(
+    buildProductEvent({
+      eventName: "taste_lens_opened",
+      sessionId,
+      properties: { source: "home", list_size: "25_49", signal: "Drama" },
+    }),
+    {
+      event_name: "taste_lens_opened",
+      session_id: sessionId,
+      properties: { source: "home", list_size: "25_49" },
+    },
+  );
+});
+
 test("telemetry runs only on production and honors DNT/GPC", () => {
   assert.equal(shouldCollectProductTelemetry({ hostname: "www.stackrankapp.com" }), true);
   assert.equal(shouldCollectProductTelemetry({ hostname: "localhost" }), false);

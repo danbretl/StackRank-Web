@@ -510,8 +510,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=126" ||
-      empty.cssHref !== "styles.css?v=83"
+      empty.moduleSrc !== "app.js?v=127" ||
+      empty.cssHref !== "styles.css?v=84"
     ) {
       throw new Error(`Empty first-run state is wrong: ${JSON.stringify(empty)}`);
     }
@@ -1903,6 +1903,143 @@ const testSuggestionExplanations = async ({ baseUrl }) => {
   }
 };
 
+const testTasteExplorer = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "taste-explorer", width: 1280, height: 900 });
+  try {
+    await page.send("Page.addScriptToEvaluateOnNewDocument", {
+      source: `
+        (() => {
+          const details = {
+            3001: { genres: ['Drama'], director: 'Director One', cast: ['Actor One'] },
+            3002: { genres: ['Crime'], director: 'Director Two', cast: ['Actor Two'] },
+            3003: { genres: ['Drama'], director: 'Director One', cast: ['Actor Three'] },
+            3004: { genres: ['Drama'], director: 'Director Three', cast: ['Actor One'] },
+            3005: { genres: ['Drama'], director: 'Director Four', cast: ['Actor Four'] }
+          };
+          const realFetch = window.fetch.bind(window);
+          window.fetch = (input, options) => {
+            const url = typeof input === 'string' ? input : input?.url || '';
+            if (url.includes('/functions/v1/tmdb-detail')) {
+              const id = Number(new URL(url).searchParams.get('id'));
+              return Promise.resolve(new Response(JSON.stringify({
+                result: { tmdbId: id, runtime: 110, ...(details[id] || {}) }
+              }), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+            }
+            return realFetch(input, options);
+          };
+        })();
+      `,
+    });
+    await seedPage(page, baseUrl, "taste-explorer", {
+      ranking: [
+        { ...movie("Alpha", 1960, 3001), genres: ["Drama"], director: "Director One", cast: ["Actor One"] },
+        { ...movie("Beta", 1971, 3002), genres: ["Crime"], director: "Director Two", cast: ["Actor Two"] },
+        { ...movie("Gamma", 2012, 3003), genres: ["Drama"], director: "Director One", cast: ["Actor Three"] },
+        { ...movie("Delta", 2002, 3004), genres: ["Drama"], director: "Director Three", cast: ["Actor One"] },
+        { ...movie("Epsilon", 2012, 3005), genres: ["Drama"], director: "Director Four", cast: ["Actor Four"] },
+      ],
+    });
+    const collapsed = await page.evaluate(`(() => ({
+      hidden: document.querySelector('#taste-explorer')?.hidden,
+      contentHidden: document.querySelector('#taste-content')?.hidden,
+      expanded: document.querySelector('#taste-toggle')?.getAttribute('aria-expanded')
+    }))()`);
+    if (collapsed.hidden || !collapsed.contentHidden || collapsed.expanded !== "false") {
+      throw new Error(`Taste Explorer collapsed state is wrong: ${JSON.stringify(collapsed)}`);
+    }
+
+    await page.evaluate(`document.querySelector('#taste-toggle')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelectorAll('#taste-signals .taste__signal:not(.taste__signal--loading)').length === 3`,
+      5000,
+    );
+    const open = await page.evaluate(`(() => ({
+      signals: [...document.querySelectorAll('#taste-signals .taste__signal:not(.taste__signal--loading) strong')]
+        .map((el) => el.textContent.trim()),
+      selected: document.querySelector('#taste-signals [aria-pressed="true"] strong')?.textContent.trim(),
+      detailTitle: document.querySelector('#taste-detail h3')?.textContent.trim(),
+      evidence: [...document.querySelectorAll('#taste-detail .taste__movie-copy strong')]
+        .map((el) => el.textContent.trim()),
+      lensText: document.querySelector('#taste-detail .taste__action')?.textContent.trim()
+    }))()`);
+    if (
+      open.signals.join("|") !== "Drama|2010s|Director One" ||
+      open.selected !== "Drama" ||
+      open.detailTitle !== "Drama in your ranking" ||
+      open.evidence.join("|") !== "Alpha|Gamma|Delta|Epsilon" ||
+      open.lensText !== "Open this ranking lens"
+    ) {
+      throw new Error(`Taste Explorer open state is wrong: ${JSON.stringify(open)}`);
+    }
+
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 390,
+      height: 844,
+      deviceScaleFactor: 1,
+      mobile: false,
+      screenWidth: 390,
+      screenHeight: 844,
+    });
+    const mobile = await page.evaluate(`(() => {
+      const panel = document.querySelector('#taste-explorer')?.getBoundingClientRect();
+      const signals = [...document.querySelectorAll('#taste-signals .taste__signal:not(.taste__signal--loading)')]
+        .map((el) => el.getBoundingClientRect());
+      return {
+        viewport: innerWidth,
+        pageScrollWidth: document.documentElement.scrollWidth,
+        panelLeft: panel?.left,
+        panelRight: panel?.right,
+        signalWidths: signals.map((rect) => Math.round(rect.width))
+      };
+    })()`);
+    if (
+      mobile.pageScrollWidth !== mobile.viewport ||
+      mobile.panelLeft < 0 ||
+      mobile.panelRight > mobile.viewport ||
+      mobile.signalWidths.some((width) => width < 90)
+    ) {
+      throw new Error(`Taste Explorer mobile layout overflowed: ${JSON.stringify(mobile)}`);
+    }
+    const mobileShot = await page.screenshot("taste-explorer-mobile.png");
+
+    await page.evaluate(`document.querySelector('#taste-detail .taste__action')?.click(); true;`);
+    await waitFor(
+      page,
+      `!document.querySelector('#ranking-fullscreen')?.hidden &&
+        document.querySelector('#fullscreen-title')?.textContent.trim() === 'Drama in your ranking' &&
+        document.querySelectorAll('#fullscreen-grid .fullscreen-card').length === 4`,
+      5000,
+    );
+    const lens = await page.evaluate(`(() => ({
+      title: document.querySelector('#fullscreen-title')?.textContent.trim(),
+      subtitle: document.querySelector('#fullscreen-sub')?.textContent.trim(),
+      ranks: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__rank')]
+        .map((el) => el.textContent.trim()),
+      jumpHidden: document.querySelector('#fullscreen-jump-form')?.hidden,
+      filtered: document.querySelector('#fullscreen-grid')?.classList.contains('is-filtered')
+    }))()`);
+    if (
+      lens.title !== "Drama in your ranking" ||
+      lens.subtitle !== "4 movies, preserving your overall order" ||
+      lens.ranks.join("|") !== "1|3|4|5" ||
+      !lens.jumpHidden ||
+      !lens.filtered
+    ) {
+      throw new Error(`Taste ranking lens is wrong: ${JSON.stringify(lens)}`);
+    }
+    const lensShot = await page.screenshot("taste-explorer-lens-mobile.png");
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { collapsed, open, mobile, lens },
+      screenshots: [mobileShot, lensShot],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
 const testMobilePackTitleClearance = async ({ baseUrl }) => {
   const page = await openChromePage({ name: "mobile-pack-title-clearance", width: 440, height: 956 });
   try {
@@ -1987,6 +2124,7 @@ const tests = [
   { name: "backup, PNG, and ZIP downloads", run: testBackupAndImageDownloads },
   { name: "signed-in Supabase merge and save", run: testSignedInSupabaseMergeAndSave },
   { name: "full-screen ranking interactions", run: testFullscreenRankingInteractions },
+  { name: "Taste Explorer evidence and ranking lens", run: testTasteExplorer },
   { name: "suggestion explanations and refresh", run: testSuggestionExplanations },
   { name: "mobile pack title clearance", run: testMobilePackTitleClearance },
 ];

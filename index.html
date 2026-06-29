@@ -50,7 +50,7 @@
       content="StackRank — build your movie ranking, one comparison at a time"
     />
 
-    <link rel="stylesheet" href="styles.css?v=83" />
+    <link rel="stylesheet" href="styles.css?v=84" />
   </head>
   <body>
     <main class="app">
@@ -382,6 +382,36 @@
           </div>
           <div class="snapshot" id="snapshot-content">
             <div class="snapshot__empty">Rank a movie to start a running log here.</div>
+          </div>
+        </section>
+
+        <section class="panel panel--taste" id="taste-explorer" hidden>
+          <div class="taste__header">
+            <div>
+              <div class="taste__eyebrow">Rank-weighted insights</div>
+              <h2>Taste explorer</h2>
+            </div>
+            <button
+              class="taste__toggle"
+              id="taste-toggle"
+              type="button"
+              aria-expanded="false"
+              aria-controls="taste-content"
+            >
+              Explore
+              <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                <path d="m6 8 4 4 4-4" />
+              </svg>
+            </button>
+          </div>
+          <p class="taste__intro" id="taste-intro">
+            See which eras, genres, and people shape the top of your ranking.
+          </p>
+          <div class="taste__content" id="taste-content" hidden>
+            <p class="taste__method">Higher-ranked movies count more. Tap a signal to see the evidence.</p>
+            <div class="taste__signals" id="taste-signals" aria-label="Taste signals"></div>
+            <div class="taste__status" id="taste-status" role="status" aria-live="polite"></div>
+            <div class="taste__detail" id="taste-detail"></div>
           </div>
         </section>
 
@@ -870,6 +900,6 @@
       </footer>
     </main>
 
-    <script type="module" src="app.js?v=126"></script>
+    <script type="module" src="app.js?v=127"></script>
   </body>
 </html>

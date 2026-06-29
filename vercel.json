@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/movies",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/movies",
+      "destination": "/index.html"
+    }
+  ]
+}

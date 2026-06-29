@@ -34,20 +34,62 @@ test("enabledOAuthProviders follows the hosted Supabase provider settings", () =
   assert.deepEqual(enabledOAuthProviders(null), []);
 });
 
-test("signInRedirectUrl returns origin for the canonical and local hosts", () => {
+test("signInRedirectUrl returns the movies path for canonical production hosts", () => {
   assert.equal(
-    signInRedirectUrl({ hostname: "www.stackrankapp.com", origin: "https://www.stackrankapp.com" }),
-    "https://www.stackrankapp.com",
+    signInRedirectUrl({
+      hostname: "www.stackrankapp.com",
+      origin: "https://www.stackrankapp.com",
+      pathname: "/movies",
+    }),
+    "https://www.stackrankapp.com/movies",
   );
   assert.equal(
-    signInRedirectUrl({ hostname: "localhost", origin: "http://localhost:8000" }),
+    signInRedirectUrl({
+      hostname: "stackrankapp.com",
+      origin: "https://stackrankapp.com",
+      pathname: "/",
+    }),
+    "https://stackrankapp.com/movies",
+  );
+});
+
+test("signInRedirectUrl preserves root-based local development", () => {
+  assert.equal(
+    signInRedirectUrl({
+      hostname: "localhost",
+      origin: "http://localhost:8000",
+      pathname: "/",
+    }),
     "http://localhost:8000",
+  );
+});
+
+test("signInRedirectUrl keeps /movies on previews and local route-aware servers", () => {
+  assert.equal(
+    signInRedirectUrl({
+      hostname: "stackrank-git-feature-danbretl-2590s-projects.vercel.app",
+      origin: "https://stackrank-git-feature-danbretl-2590s-projects.vercel.app",
+      pathname: "/movies",
+    }),
+    "https://stackrank-git-feature-danbretl-2590s-projects.vercel.app/movies",
+  );
+  assert.equal(
+    signInRedirectUrl({
+      hostname: "localhost",
+      origin: "http://localhost:8000",
+      pathname: "/movies",
+    }),
+    "http://localhost:8000/movies",
   );
 });
 
 test("signInRedirectUrl keeps the legacy GitHub Pages sub-path", () => {
   assert.equal(
-    signInRedirectUrl({ hostname: "danbretl.github.io", origin: "https://danbretl.github.io" }),
+    signInRedirectUrl({
+      hostname: "danbretl.github.io",
+      origin: "https://danbretl.github.io",
+      pathname: "/StackRank-Web/",
+    }),
     "https://danbretl.github.io/StackRank-Web/",
   );
 });
@@ -57,6 +99,7 @@ test("signInRedirectUrl does not treat lookalike hosts as GitHub Pages", () => {
     signInRedirectUrl({
       hostname: "danbretl.github.io.example.com",
       origin: "https://danbretl.github.io.example.com",
+      pathname: "/",
     }),
     "https://danbretl.github.io.example.com",
   );

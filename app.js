@@ -105,7 +105,7 @@ import {
   signInRedirectUrl,
   isLikelyEmail,
   normalizeAuthEmail,
-} from "./lib/auth.js?v=1";
+} from "./lib/auth.js?v=2";
 
 console.info("StackRank build", "taste-explorer-v1");
 

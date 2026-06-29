@@ -20,8 +20,9 @@ Google/Apple OAuth credentials remain to be configured (checklist below).**
   are wired into `supabase/config.toml` with branded subject lines. The four
   exact template bodies, subjects, and `StackRank` sender name are live in the
   hosted project through the Supabase Management API.
-- **Pure logic + tests.** `lib/auth.js` owns the redirect-URL rule (origin, with
-  the exact legacy GitHub Pages host exception), email validation, and hosted
+- **Pure logic + tests.** `lib/auth.js` owns the redirect-URL rule (`/movies` on
+  production and route-aware previews, root-based localhost support, and the
+  exact legacy GitHub Pages host exception), email validation, and hosted
   provider availability; `tests/auth.test.js` covers them. The browser smoke
   also covers modal entry/exit, provider visibility, validation, focus return,
   focus wrapping, and mobile geometry. Auth init, `getSession` timeout fallback,
@@ -36,8 +37,10 @@ Google/Apple OAuth credentials remain to be configured (checklist below).**
   production.
 - RLS still scopes every row to `list_id = 'user:' || auth.uid()`. New providers
   produce the same `auth.uid()` shape, so no policy changes are needed.
-- `redirectTo` is the current origin, except for the exact known GitHub Pages
-  host; Supabase applies the hosted redirect allowlist.
+- `redirectTo` is the canonical `/movies` path on production and route-aware
+  previews, the current origin for root-based local development, and the known
+  repository path on the exact GitHub Pages recovery host; Supabase applies the
+  hosted redirect allowlist.
 
 ## Production rollout checklist
 
@@ -55,10 +58,11 @@ Supabase dashboard for project `hrfhakrxsllrqmscxxpb`.
    a Sign in with Apple key (.p8), and generate the client secret JWT. Paste
    Services ID + secret into Supabase dashboard → Authentication → Providers →
    Apple. (Apple secrets expire ≤6 months — set a reminder to rotate.)
-- [x] **Redirect URLs.** The hosted Site URL is
-   `https://www.stackrankapp.com/` and the additional redirect URLs include the
-   apex, the legacy GitHub Pages URL, localhost:8000, and the current LAN test
-   URL. `supabase/config.toml` mirrors these plus localhost:3000.
+- [ ] **Movies URL cutover.** After Vercel serves `/movies`, set the hosted Site
+   URL to `https://www.stackrankapp.com/movies`. The additional redirect URLs
+   should retain the old production roots during transition and include apex
+   `/movies`, the Vercel preview wildcard, the legacy GitHub Pages URL,
+   localhost:8000/3000, and the current LAN test URL.
 - [x] **Email templates.** Applied via the Management API and verified
    byte-for-byte against `supabase/templates/*.html`; subjects and sender name
    were also verified.

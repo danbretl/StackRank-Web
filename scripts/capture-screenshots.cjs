@@ -172,7 +172,7 @@ const contentTypeFor = (filePath) => {
 
 const serveStatic = async (preferredPort = 4173) => {
   try {
-    const existing = await requestText(`http://127.0.0.1:${preferredPort}/`, 500);
+    const existing = await requestText(`http://127.0.0.1:${preferredPort}/movies`, 500);
     if (existing.data.includes("StackRank")) {
       return { url: `http://127.0.0.1:${preferredPort}`, close: async () => {} };
     }
@@ -183,7 +183,17 @@ const serveStatic = async (preferredPort = 4173) => {
   const server = http.createServer((request, response) => {
     const url = new URL(request.url, `http://${request.headers.host || "127.0.0.1"}`);
     const pathname = decodeURIComponent(url.pathname);
-    const relativePath = pathname === "/" ? "index.html" : pathname.replace(/^\/+/, "");
+    if (pathname === "/") {
+      response.writeHead(307, { location: `/movies${url.search}` });
+      response.end();
+      return;
+    }
+    if (pathname === "/movies/") {
+      response.writeHead(308, { location: `/movies${url.search}` });
+      response.end();
+      return;
+    }
+    const relativePath = pathname === "/movies" ? "index.html" : pathname.replace(/^\/+/, "");
     const filePath = path.resolve(rootDir, relativePath);
 
     if (!filePath.startsWith(rootDir) || !fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {

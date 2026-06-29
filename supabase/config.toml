@@ -1,15 +1,21 @@
 project_id = "hrfhakrxsllrqmscxxpb"
 
 [auth]
-# Where users are sent back after a magic link / OAuth round trip. Auth is
-# origin-scoped, so every origin that serves the app must be allow-listed here
-# (and in the dashboard for the hosted project).
-site_url = "https://www.stackrankapp.com/"
+# Where users are sent back after a magic link / OAuth round trip. The canonical
+# production app lives at /movies. Every origin/path that serves the app must be
+# allow-listed here (and in the dashboard for the hosted project).
+site_url = "https://www.stackrankapp.com/movies"
 additional_redirect_urls = [
+  "https://www.stackrankapp.com/",
+  "https://stackrankapp.com/movies",
   "https://stackrankapp.com/",
+  "https://stackrank-*-danbretl-2590s-projects.vercel.app/**",
   "https://danbretl.github.io/StackRank-Web/",
+  "http://localhost:8000/movies",
   "http://localhost:8000/",
+  "http://localhost:3000/movies",
   "http://localhost:3000/",
+  "http://192.168.4.31:8000/movies",
   "http://192.168.4.31:8000/",
 ]
 jwt_expiry = 3600

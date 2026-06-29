@@ -4,7 +4,7 @@ Status: shipped (2026-06-27)
 
 ## What shipped
 
-- Static metadata added to `index.html` `<head>`: page `description`, `link rel="canonical"`, Open Graph (`og:type`/`og:site_name`/`og:url`/`og:title`/`og:description`/`og:image` plus `og:image:type`/`width`/`height`/`alt`), and a `summary_large_image` Twitter/X card fallback. All URLs are absolute HTTPS under `https://www.stackrankapp.com/`.
+- Static metadata added to `index.html` `<head>`: page `description`, `link rel="canonical"`, Open Graph (`og:type`/`og:site_name`/`og:url`/`og:title`/`og:description`/`og:image` plus `og:image:type`/`width`/`height`/`alt`), and a `summary_large_image` Twitter/X card fallback. The page canonical and `og:url` are `https://www.stackrankapp.com/movies`; image URLs remain absolute HTTPS assets on the `www` origin.
 - A 1200x630 preview image at `assets/og-preview.png` in the monochrome StackRank system (wordmark + tagline + a numbered ranking-list illustration; no copyrighted posters). It is generated reproducibly by `scripts/build-og-image.cjs` (`npm run build:og`), which rasterizes the design with headless Chrome and downsamples a 2x capture to exactly 1200x630.
 - The `og:image`/`twitter:image` URLs carry a `?v=N` query so the design can be re-rendered and unfurler caches busted by bumping `N`.
 

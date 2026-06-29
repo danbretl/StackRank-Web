@@ -84,7 +84,17 @@ const serveStatic = async () => {
   const server = http.createServer((request, response) => {
     const url = new URL(request.url, `http://${request.headers.host || "127.0.0.1"}`);
     const pathname = decodeURIComponent(url.pathname);
-    const relativePath = pathname === "/" ? "index.html" : pathname.replace(/^\/+/, "");
+    if (pathname === "/") {
+      response.writeHead(307, { location: `/movies${url.search}` });
+      response.end();
+      return;
+    }
+    if (pathname === "/movies/") {
+      response.writeHead(308, { location: `/movies${url.search}` });
+      response.end();
+      return;
+    }
+    const relativePath = pathname === "/movies" ? "index.html" : pathname.replace(/^\/+/, "");
     const filePath = path.resolve(rootDir, relativePath);
 
     if (!filePath.startsWith(rootDir) || !fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
@@ -428,8 +438,16 @@ const testLoadPersistence = async ({ baseUrl }) => {
       hiddenSub: document.querySelector('#not-interested-sub')?.textContent.trim(),
       watchRows: document.querySelectorAll('#watch-list .queue-list__item').length,
       hiddenRows: document.querySelectorAll('#not-interested-list .queue-list__item').length,
-      scriptSrc: document.querySelector('script[type="module"]')?.getAttribute('src')
+      scriptSrc: document.querySelector('script[type="module"]')?.getAttribute('src'),
+      pathname: location.pathname,
+      canonicalHref: document.querySelector('link[rel="canonical"]')?.href
     }))()`);
+    if (
+      state.pathname !== "/movies" ||
+      state.canonicalHref !== "https://www.stackrankapp.com/movies"
+    ) {
+      throw new Error(`Movie route identity is wrong: ${JSON.stringify(state)}`);
+    }
     if (state.titles.join("|") !== "1. Alpha|2. Beta|3. Gamma") {
       throw new Error(`Ranking did not hydrate in order: ${state.titles.join(", ")}`);
     }
@@ -510,7 +528,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=128" ||
+      empty.moduleSrc !== "app.js?v=129" ||
       empty.cssHref !== "styles.css?v=85"
     ) {
       throw new Error(`Empty first-run state is wrong: ${JSON.stringify(empty)}`);

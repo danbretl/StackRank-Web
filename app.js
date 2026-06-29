@@ -304,6 +304,77 @@ const titleImportReviewStatus = document.getElementById("title-import-review-sta
 const titleImportBack = document.getElementById("title-import-back");
 const titleImportApply = document.getElementById("title-import-apply");
 
+const MODAL_FOCUSABLE_SELECTOR = [
+  "a[href]",
+  "button:not([disabled])",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  "textarea:not([disabled])",
+  '[contenteditable="true"]',
+  '[tabindex]:not([tabindex="-1"])',
+].join(",");
+
+// Ordered from the topmost nested surface to the base modal. Movie details can
+// open over packs/full-screen ranking, and the lightbox can open over details
+// or Share Studio, so the first visible layer is the only active one.
+const modalLayers = [
+  shareLightbox,
+  detailOverlay,
+  signinOverlay,
+  titleImportOverlay,
+  shareStudio,
+  packDetailOverlay,
+  fullscreenOverlay,
+].filter(Boolean);
+
+const activeModalLayer = () => modalLayers.find((layer) => !layer.hidden) || null;
+
+const modalFocusableElements = (layer) =>
+  Array.from(layer?.querySelectorAll(MODAL_FOCUSABLE_SELECTOR) || []).filter((element) => {
+    if (!(element instanceof HTMLElement) || element.hidden || element.closest("[hidden]")) {
+      return false;
+    }
+    const style = window.getComputedStyle(element);
+    return style.display !== "none" && style.visibility !== "hidden" && element.getClientRects().length > 0;
+  });
+
+// `aria-modal` tells assistive technology what the active surface is; `inert`
+// also enforces it for keyboard focus and pointer interaction. Because every
+// full-screen modal is a direct child of `.app`, nested modal flows can switch
+// isolation cleanly without restructuring the page.
+const syncModalIsolation = () => {
+  const activeLayer = activeModalLayer();
+  const app = document.querySelector("main.app");
+  if (!app) return;
+  Array.from(app.children).forEach((child) => {
+    if (!(child instanceof HTMLElement)) return;
+    child.inert = Boolean(activeLayer && child !== activeLayer);
+  });
+};
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Tab") return;
+  const layer = activeModalLayer();
+  if (!layer) return;
+  const focusable = modalFocusableElements(layer);
+  if (!focusable.length) {
+    event.preventDefault();
+    return;
+  }
+  const first = focusable[0];
+  const last = focusable.at(-1);
+  if (!layer.contains(document.activeElement)) {
+    event.preventDefault();
+    (event.shiftKey ? last : first).focus();
+  } else if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
+});
+
 const TMDB_PROXY_PATH = "/functions/v1/tmdb-search";
 const TMDB_SUGGEST_PATH = "/functions/v1/tmdb-suggest";
 const TMDB_DETAIL_PATH = "/functions/v1/tmdb-detail";
@@ -1503,9 +1574,10 @@ const renderQueueList = (container, list, emptyText, source) => {
     item.className = "queue-list__item";
     item.dataset.index = String(index);
     item.dataset.source = source;
-    item.setAttribute("role", "button");
-    item.setAttribute("tabindex", "0");
-    item.setAttribute("aria-label", `Rank ${movie.title}`);
+    const primary = document.createElement("button");
+    primary.className = "queue-list__primary";
+    primary.type = "button";
+    primary.setAttribute("aria-label", `Rank ${movie.title}`);
 
     const poster = document.createElement("img");
     poster.className = "queue-list__poster";
@@ -1573,7 +1645,8 @@ const renderQueueList = (container, list, emptyText, source) => {
       openMovieDetail(movie, { type: "queue", source }, infoButton);
     });
 
-    item.append(poster, text, infoButton, actions);
+    primary.append(poster, text);
+    item.append(primary, infoButton, actions);
     container.appendChild(item);
   });
 };
@@ -2867,6 +2940,7 @@ const openTitleImport = ({ trigger = openTitleImportButton, source = "settings" 
   titleImportTrigger = trigger;
   closeRankingSettings({ restoreFocus: false });
   titleImportOverlay.hidden = false;
+  syncModalIsolation();
   document.body.classList.add("is-detail-open");
   trackProductEvent("import_opened", {
     list_size: countBucket(ranking.length),
@@ -2885,6 +2959,7 @@ const openTitleImport = ({ trigger = openTitleImportButton, source = "settings" 
 const closeTitleImport = ({ restoreFocus = true, reset = false } = {}) => {
   stopTitleImportViewportSync();
   titleImportOverlay.hidden = true;
+  syncModalIsolation();
   document.body.classList.remove("is-detail-open");
   titleImportMatching = false;
   titleImportInput.disabled = false;
@@ -3108,6 +3183,7 @@ let lightboxSwiped = false; // suppress the tap-to-zoom click after a swipe-nav
 function showLightbox(trigger) {
   shareLightbox.classList.remove("is-zoomed");
   shareLightbox.hidden = false;
+  syncModalIsolation();
   lightboxTrigger = trigger || null;
   shareLightboxClose.focus();
 }
@@ -3115,6 +3191,7 @@ function showLightbox(trigger) {
 function closeLightbox({ restoreFocus = true } = {}) {
   if (shareLightbox.hidden) return;
   shareLightbox.hidden = true;
+  syncModalIsolation();
   shareLightbox.classList.remove("is-zoomed");
   shareLightboxImage.innerHTML = "";
   // Keep the preview deck aligned with wherever the user navigated in the set.
@@ -3868,6 +3945,7 @@ const openMovieDetail = async (movie, context = null, triggerEl = null) => {
   renderDetailPane(movie, movie.tmdbId ? "Loading details..." : "More details unavailable.");
   setDetailActionsDisabled(false);
   detailOverlay.hidden = false;
+  syncModalIsolation();
   document.body.classList.add("is-detail-open");
   detailClose.focus();
 
@@ -3886,6 +3964,7 @@ const closeMovieDetail = ({ restoreFocus = true } = {}) => {
   detailRequestId += 1;
   currentDetail = null;
   detailOverlay.hidden = true;
+  syncModalIsolation();
   if (packDetailOverlay.hidden) {
     document.body.classList.remove("is-detail-open");
   }
@@ -3960,9 +4039,10 @@ const setSuggestionList = (sectionKey, container, items = [], reasonContext = nu
     const card = document.createElement("div");
     card.className = "suggest-card";
     card.title = movie.title;
-    card.setAttribute("role", "button");
-    card.setAttribute("tabindex", "0");
-    card.setAttribute("aria-label", `Rank ${movie.title}`);
+    const primary = document.createElement("button");
+    primary.className = "suggest-primary";
+    primary.type = "button";
+    primary.setAttribute("aria-label", `Rank ${movie.title}`);
     const poster = document.createElement("img");
     poster.className = "suggest-poster";
     if (movie.posterPath) {
@@ -4029,14 +4109,10 @@ const setSuggestionList = (sectionKey, container, items = [], reasonContext = nu
       openMovieDetail(movie, sectionKey, detailButton);
     });
 
-    card.append(poster, name, detailButton, meta, reason, actions);
-    card.addEventListener("click", () => startRankingFromSuggestion(movie, sectionKey));
-    card.addEventListener("keydown", (event) => {
-      if (event.target.closest("button")) return;
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        startRankingFromSuggestion(movie, sectionKey);
-      }
+    primary.append(poster, name, meta, reason);
+    card.append(primary, detailButton, actions);
+    primary.addEventListener("click", () => {
+      startRankingFromSuggestion(movie, sectionKey);
     });
     container.appendChild(card);
   });
@@ -4464,6 +4540,7 @@ const closePackDetail = ({ restoreFocus = true } = {}) => {
   currentPackSlug = null;
   packDetailFromAllPacks = false;
   packDetailOverlay.hidden = true;
+  syncModalIsolation();
   document.body.classList.remove("is-detail-open");
   if (restoreFocus && packDetailTrigger) {
     packDetailTrigger.focus();
@@ -4509,10 +4586,12 @@ const openPackDetail = (slug, { trigger = null, showHandled = false, fromAllPack
   packDetailShowHandled = showHandled;
   renderPackDetail();
   packDetailOverlay.hidden = false;
+  syncModalIsolation();
   document.body.classList.add("is-detail-open");
   // A specific pack detail should always open scrolled to the top, even when
   // reusing the overlay that the browser list just scrolled down.
   if (packDetailSheet) packDetailSheet.scrollTop = 0;
+  packDetailClose.focus({ preventScroll: true });
 };
 
 const startPackMovieRanking = (pack, movie, mode = "browse") => {
@@ -4588,11 +4667,10 @@ const createPackMovieCard = (pack, movieEntry) => {
   const card = document.createElement("div");
   card.className = `suggest-card pack-movie${handled ? " is-handled" : ""}`;
   card.title = movie.title;
-  card.setAttribute("role", handled ? "group" : "button");
-  if (!handled) {
-    card.setAttribute("tabindex", "0");
-    card.setAttribute("aria-label", `Rank ${movie.title}`);
-  }
+  card.setAttribute("role", "group");
+  card.setAttribute("aria-label", movie.title);
+  const primary = document.createElement("div");
+  primary.className = "suggest-primary";
 
   const poster = document.createElement("img");
   poster.className = "suggest-poster";
@@ -4631,14 +4709,17 @@ const createPackMovieCard = (pack, movieEntry) => {
     rankButton.className = "suggest-action";
     rankButton.type = "button";
     rankButton.textContent = "Rank";
+    rankButton.setAttribute("aria-label", `Rank ${movie.title}`);
     const saveButton = document.createElement("button");
     saveButton.className = "suggest-action";
     saveButton.type = "button";
     saveButton.textContent = "Save";
+    saveButton.setAttribute("aria-label", `Add ${movie.title} to Watch next`);
     const hideButton = document.createElement("button");
     hideButton.className = "suggest-action suggest-action--muted";
     hideButton.type = "button";
     hideButton.textContent = "Hide";
+    hideButton.setAttribute("aria-label", `Add ${movie.title} to Not for me`);
     rankButton.addEventListener("click", (event) => {
       event.stopPropagation();
       startPackMovieRanking(pack, movie, "browse");
@@ -4659,18 +4740,15 @@ const createPackMovieCard = (pack, movieEntry) => {
     openMovieDetail(movie, getPackMovieDetailContext(pack, movieEntry), detailButton);
   });
 
-  const cardChildren = [poster];
+  primary.append(poster, name, meta);
+  const cardChildren = [primary];
   if (stateBadge) cardChildren.push(stateBadge);
-  cardChildren.push(name, detailButton, meta, actions);
+  cardChildren.push(detailButton, actions);
   card.append(...cardChildren);
   if (!handled) {
-    card.addEventListener("click", () => startPackMovieRanking(pack, movie, "browse"));
-    card.addEventListener("keydown", (event) => {
+    card.addEventListener("click", (event) => {
       if (event.target.closest("button")) return;
-      if (event.key === "Enter" || event.key === " ") {
-        event.preventDefault();
-        startPackMovieRanking(pack, movie, "browse");
-      }
+      startPackMovieRanking(pack, movie, "browse");
     });
   }
   return card;
@@ -4837,10 +4915,12 @@ const openAllPacks = ({ restoreScroll = false, trigger = null, source = "home" }
   renderPackBrowserCategories();
   renderPackBrowser();
   packDetailOverlay.hidden = false;
+  syncModalIsolation();
   document.body.classList.add("is-detail-open");
   // Returning from a pack detail restores where the user was in the list;
   // opening fresh from the homepage starts at the top.
   if (packDetailSheet) packDetailSheet.scrollTop = restoreScroll ? packBrowserScrollTop : 0;
+  packDetailClose.focus({ preventScroll: true });
 };
 
 // The pack overlay is reused for both the "All packs" browser and a single
@@ -6997,6 +7077,7 @@ function openShareStudio() {
   const shareSheet = shareStudio.querySelector(".share-sheet");
   if (shareSheet) shareSheet.scrollTop = 0;
   document.body.classList.add("is-share-open");
+  syncModalIsolation();
   shareClose.focus({ preventScroll: true });
   void enrichShareAssets();
 }
@@ -7007,6 +7088,7 @@ function closeShareStudio({ restoreFocus = true } = {}) {
   closeLightbox({ restoreFocus: false });
   shareDetailsLoading = false;
   shareStudio.hidden = true;
+  syncModalIsolation();
   lastSharePreviewMarkup = "";
   document.body.classList.remove("is-share-open");
   unlockShareScroll();
@@ -7079,10 +7161,10 @@ function renderFullscreenRanking({ focusRankingIndex = null } = {}) {
     const card = document.createElement("div");
     card.className = "fullscreen-card";
     card.dataset.index = String(index);
-    card.tabIndex = 0;
-    card.setAttribute("role", "button");
-    card.setAttribute("aria-label", `Open details for #${index + 1}, ${movie.title}`);
-    card.setAttribute("aria-grabbed", "false");
+    const primary = document.createElement("button");
+    primary.className = "fullscreen-card__primary";
+    primary.type = "button";
+    primary.setAttribute("aria-label", `Open details for #${index + 1}, ${movie.title}`);
     const poster = document.createElement("div");
     poster.className = "fullscreen-card__poster";
     if (movie.posterPath) {
@@ -7127,7 +7209,8 @@ function renderFullscreenRanking({ focusRankingIndex = null } = {}) {
     remove.textContent = "Remove";
     remove.setAttribute("aria-label", `Remove ${movie.title}`);
     actions.append(restack, remove);
-    card.append(poster, title, meta, actions);
+    primary.append(poster, title, meta);
+    card.append(primary, actions);
     fullscreenGrid.appendChild(card);
   });
   if (focusRankingIndex !== null) {
@@ -7135,7 +7218,7 @@ function renderFullscreenRanking({ focusRankingIndex = null } = {}) {
       `.fullscreen-card[data-index="${focusRankingIndex}"]`,
     );
     if (focusCard) {
-      focusCard.focus({ preventScroll: true });
+      focusCard.querySelector(".fullscreen-card__primary")?.focus({ preventScroll: true });
       focusCard.scrollIntoView({ block: "nearest", inline: "nearest" });
     }
   }
@@ -7148,6 +7231,7 @@ function openFullscreenRanking({ trigger = null } = {}) {
   renderFullscreenRanking();
   lockShareScroll();
   fullscreenOverlay.hidden = false;
+  syncModalIsolation();
   if (fullscreenGrid) fullscreenGrid.scrollTop = 0;
   if (fullscreenSearch) fullscreenSearch.value = fullscreenFilterQuery;
   if (fullscreenSearchClear) fullscreenSearchClear.hidden = !fullscreenFilterQuery;
@@ -7159,6 +7243,7 @@ function closeFullscreenRanking({ restoreFocus = true } = {}) {
   if (!fullscreenOverlay || fullscreenOverlay.hidden) return;
   cancelFullscreenDrag();
   fullscreenOverlay.hidden = true;
+  syncModalIsolation();
   unlockShareScroll();
   if (restoreFocus && fullscreenTrigger && document.contains(fullscreenTrigger)) {
     fullscreenTrigger.focus({ preventScroll: true });
@@ -7232,7 +7317,7 @@ if (fullscreenJumpForm) {
     }
     const card = fullscreenGrid.querySelector(`.fullscreen-card[data-index="${rank - 1}"]`);
     if (card) {
-      card.focus({ preventScroll: true });
+      card.querySelector(".fullscreen-card__primary")?.focus({ preventScroll: true });
       card.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
     }
   });
@@ -7259,7 +7344,6 @@ function cancelFullscreenDrag() {
     }
   }
   drag.card?.classList.remove("is-dragging");
-  drag.card?.setAttribute("aria-grabbed", "false");
   drag.ghost?.remove();
   clearFullscreenDropMarker();
   document.body.classList.remove("is-fullscreen-dragging");
@@ -7275,12 +7359,12 @@ const startFullscreenDrag = (event) => {
   drag.offsetY = event.clientY - rect.top;
   drag.ghost = drag.card.cloneNode(true);
   drag.ghost.classList.add("fullscreen-drag-ghost");
-  drag.ghost.removeAttribute("tabindex");
+  drag.ghost.setAttribute("aria-hidden", "true");
+  drag.ghost.inert = true;
   drag.ghost.style.width = `${rect.width}px`;
   drag.ghost.style.height = `${rect.height}px`;
   document.body.appendChild(drag.ghost);
   drag.card.classList.add("is-dragging");
-  drag.card.setAttribute("aria-grabbed", "true");
   document.body.classList.add("is-fullscreen-dragging");
 };
 
@@ -7350,18 +7434,14 @@ if (fullscreenGrid) {
       removeRankedMovie(index, { fromFullscreen: true });
       return;
     }
-    openMovieDetail(ranking[index], { type: "ranked" }, card);
+    const trigger = event.target.closest(".fullscreen-card__primary") || card;
+    openMovieDetail(ranking[index], { type: "ranked" }, trigger);
   });
 
   fullscreenGrid.addEventListener("keydown", (event) => {
     const card = event.target.closest(".fullscreen-card");
-    if (!card || event.target.closest("button")) return;
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      const index = Number(card.dataset.index);
-      if (ranking[index]) openMovieDetail(ranking[index], { type: "ranked" }, card);
-      return;
-    }
+    const primary = event.target.closest(".fullscreen-card__primary");
+    if (!card || !primary) return;
     if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) {
       return;
     }
@@ -7374,13 +7454,15 @@ if (fullscreenGrid) {
       columnCount: fullscreenColumnCount(),
       itemCount: cards.length,
     });
-    cards[targetIndex]?.focus({ preventScroll: true });
+    cards[targetIndex]
+      ?.querySelector(".fullscreen-card__primary")
+      ?.focus({ preventScroll: true });
     cards[targetIndex]?.scrollIntoView({ block: "nearest", inline: "nearest" });
   });
 
   fullscreenGrid.addEventListener("pointerdown", (event) => {
     if (event.button !== 0 || fullscreenFilterQuery.trim() || fullscreenTasteSignal) return;
-    if (event.target.closest("button")) return;
+    if (event.target.closest(".fullscreen-card__action")) return;
     const card = event.target.closest(".fullscreen-card");
     if (!card) return;
     if (event.pointerType === "touch" && !event.target.closest(".fullscreen-card__drag-handle")) {
@@ -7403,27 +7485,6 @@ if (fullscreenGrid) {
   fullscreenGrid.addEventListener("pointermove", updateFullscreenDrag, { passive: false });
   fullscreenGrid.addEventListener("pointerup", finishFullscreenDrag);
   fullscreenGrid.addEventListener("pointercancel", cancelFullscreenDrag);
-}
-
-if (fullscreenOverlay) {
-  fullscreenOverlay.addEventListener("keydown", (event) => {
-    if (event.key !== "Tab" || !detailOverlay.hidden) return;
-    const focusable = Array.from(
-      fullscreenOverlay.querySelectorAll(
-        'button:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex="0"]',
-      ),
-    ).filter((element) => !element.hidden && element.offsetParent !== null);
-    if (!focusable.length) return;
-    const first = focusable[0];
-    const last = focusable.at(-1);
-    if (event.shiftKey && document.activeElement === first) {
-      event.preventDefault();
-      last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-      event.preventDefault();
-      first.focus();
-    }
-  });
 }
 
 function updateShareOptionsFromControls() {
@@ -8101,6 +8162,7 @@ function openSignIn({ trigger = authSignInButton } = {}) {
   setSignInStatus("");
   setSignInBusy(false);
   signinOverlay.hidden = false;
+  syncModalIsolation();
   document.body.classList.add("is-detail-open");
   const initialFocus = signinGoogleButton.hidden ? signinClose : signinGoogleButton;
   initialFocus.focus({ preventScroll: true });
@@ -8110,6 +8172,7 @@ function openSignIn({ trigger = authSignInButton } = {}) {
 function closeSignIn({ restoreFocus = true } = {}) {
   if (signinOverlay.hidden) return;
   signinOverlay.hidden = true;
+  syncModalIsolation();
   document.body.classList.remove("is-detail-open");
   setSignInBusy(false);
   if (restoreFocus && signinReturnFocus && !signinReturnFocus.hidden) {
@@ -8247,20 +8310,6 @@ signinClose.addEventListener("click", () => closeSignIn());
 signinOverlay.addEventListener("click", (event) => {
   // Click on the dimmed backdrop (not the sheet) dismisses the view.
   if (event.target === signinOverlay) closeSignIn();
-});
-signinOverlay.addEventListener("keydown", (event) => {
-  if (event.key !== "Tab") return;
-  const focusable = [...signinOverlay.querySelectorAll("button:not([hidden]):not(:disabled), input:not(:disabled)")];
-  if (!focusable.length) return;
-  const first = focusable[0];
-  const last = focusable[focusable.length - 1];
-  if (event.shiftKey && document.activeElement === first) {
-    event.preventDefault();
-    last.focus();
-  } else if (!event.shiftKey && document.activeElement === last) {
-    event.preventDefault();
-    first.focus();
-  }
 });
 signinGoogleButton.addEventListener("click", () => handleOAuthSignIn("google"));
 signinAppleButton.addEventListener("click", () => handleOAuthSignIn("apple"));
@@ -8490,23 +8539,8 @@ const handleQueueInteraction = (event) => {
   if (movie) startRankingMovie(movie, { type: "queue", source });
 };
 
-const handleQueueKeydown = (event) => {
-  if (event.key !== "Enter" && event.key !== " ") return;
-  if (event.target.closest(".queue-action, .queue-info")) return;
-  const item = event.target.closest(".queue-list__item");
-  if (!item) return;
-  event.preventDefault();
-  const source = item.dataset.source;
-  const index = Number(item.dataset.index);
-  const list = source === "watch" ? watchList : notInterestedList;
-  const movie = list[index];
-  if (movie) startRankingMovie(movie, { type: "queue", source });
-};
-
 watchListEl.addEventListener("click", handleQueueInteraction);
 notInterestedListEl.addEventListener("click", handleQueueInteraction);
-watchListEl.addEventListener("keydown", handleQueueKeydown);
-notInterestedListEl.addEventListener("keydown", handleQueueKeydown);
 skipPackMovieButton.addEventListener("click", skipCurrentPackMovie);
 packViewAll.addEventListener("click", () => openAllPacks());
 packBrowserFilterToggle.addEventListener("click", () => {

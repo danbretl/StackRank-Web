@@ -514,7 +514,14 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       packTitle: document.querySelector('#pack-section-title')?.textContent.trim(),
       starterSlugs: [...document.querySelectorAll('#pack-row .pack-card')].map((card) => card.dataset.slug),
       moduleSrc: document.querySelector('script[type="module"]')?.getAttribute('src'),
-      cssHref: document.querySelector('link[rel="stylesheet"]')?.getAttribute('href')
+      cssHref: document.querySelector('link[rel="stylesheet"]')?.getAttribute('href'),
+      h1Text: document.querySelector('h1')?.textContent.trim(),
+      h1Count: document.querySelectorAll('h1').length,
+      suggestionCardCount: document.querySelectorAll('.suggest-card').length,
+      suggestionPrimaryCount: document.querySelectorAll('.suggest-card > .suggest-primary').length,
+      nestedSuggestionControls: [...document.querySelectorAll('.suggest-card')].filter((card) =>
+        card.matches('[role="button"], [tabindex]') && card.querySelector('button')
+      ).length
     }))()`);
     const expectedStarterSlugs = [
       "fan-favorites-letterboxd-core",
@@ -528,8 +535,12 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=129" ||
-      empty.cssHref !== "styles.css?v=85"
+      empty.moduleSrc !== "app.js?v=130" ||
+      empty.cssHref !== "styles.css?v=86" ||
+      empty.h1Text !== "StackRank" ||
+      empty.h1Count !== 1 ||
+      empty.suggestionPrimaryCount !== empty.suggestionCardCount ||
+      empty.nestedSuggestionControls !== 0
     ) {
       throw new Error(`Empty first-run state is wrong: ${JSON.stringify(empty)}`);
     }
@@ -761,14 +772,18 @@ const testSignInExperience = async ({ baseUrl }) => {
       googleHidden: document.querySelector('#signin-google')?.hidden,
       appleHidden: document.querySelector('#signin-apple')?.hidden,
       emailDisabled: document.querySelector('#signin-email')?.disabled,
-      bodyOverflow: getComputedStyle(document.body).overflow
+      bodyOverflow: getComputedStyle(document.body).overflow,
+      backgroundInert: document.querySelector('.topbar')?.inert,
+      modalInert: document.querySelector('#signin-overlay')?.inert
     }))()`);
     if (
       opened.activeId !== "signin-close" ||
       opened.googleHidden ||
       !opened.appleHidden ||
       opened.emailDisabled ||
-      opened.bodyOverflow !== "hidden"
+      opened.bodyOverflow !== "hidden" ||
+      !opened.backgroundInert ||
+      opened.modalInert
     ) {
       throw new Error(`Sign-in opening state is wrong: ${JSON.stringify(opened)}`);
     }
@@ -810,7 +825,8 @@ const testSignInExperience = async ({ baseUrl }) => {
     await waitFor(
       page,
       `document.querySelector('#signin-overlay')?.hidden &&
-        document.activeElement === document.querySelector('#auth-sign-in')`,
+        document.activeElement === document.querySelector('#auth-sign-in') &&
+        !document.querySelector('.topbar')?.inert`,
       1000,
     );
 
@@ -887,9 +903,29 @@ const testQueueComparison = async ({ baseUrl }) => {
       ranking: [movie("Alpha", 1990, 1101), movie("Beta", 2000, 1102), movie("Gamma", 2010, 1103)],
       watchList: [queueMovie("Omega", 2022, 1104)],
     });
+    const queueSemantics = await page.evaluate(`(() => {
+      const item = document.querySelector('#watch-list .queue-list__item');
+      const primary = item?.querySelector('.queue-list__primary');
+      return {
+        itemRole: item?.getAttribute('role'),
+        itemTabIndex: item?.getAttribute('tabindex'),
+        primaryTag: primary?.tagName,
+        primaryLabel: primary?.getAttribute('aria-label'),
+        nestedControls: item?.matches('[role="button"], [tabindex]') && !!item?.querySelector('button')
+      };
+    })()`);
+    if (
+      queueSemantics.itemRole ||
+      queueSemantics.itemTabIndex ||
+      queueSemantics.primaryTag !== "BUTTON" ||
+      queueSemantics.primaryLabel !== "Rank Omega" ||
+      queueSemantics.nestedControls
+    ) {
+      throw new Error(`Queue semantics are wrong: ${JSON.stringify(queueSemantics)}`);
+    }
     const started = await page.evaluate(`(() => {
       Math.random = () => 0.5;
-      document.querySelector('#watch-list .queue-list__item')?.click();
+      document.querySelector('#watch-list .queue-list__primary')?.click();
       return !document.querySelector('#compare')?.classList.contains('panel--hidden');
     })()`);
     if (!started) throw new Error("Clicking a watch-list row did not open comparison mode");
@@ -913,7 +949,10 @@ const testQueueComparison = async ({ baseUrl }) => {
     if (state.watchRows !== 0) throw new Error(`Watch queue should be empty after ranking; got ${state.watchRows}`);
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
-    return { details: state, screenshots: [comparisonShot, await page.screenshot("queue-comparison-settled.png")] };
+    return {
+      details: { queueSemantics, state },
+      screenshots: [comparisonShot, await page.screenshot("queue-comparison-settled.png")],
+    };
   } finally {
     await page.close();
   }
@@ -1812,6 +1851,30 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
       return true;
     })()`);
     await waitFor(page, `!document.querySelector('#ranking-fullscreen')?.hidden && document.querySelectorAll('#fullscreen-grid .fullscreen-card').length === 6`, 5000);
+    const semantics = await page.evaluate(`(() => {
+      const card = document.querySelector('#fullscreen-grid .fullscreen-card');
+      const primary = card?.querySelector('.fullscreen-card__primary');
+      return {
+        cardRole: card?.getAttribute('role'),
+        cardTabIndex: card?.getAttribute('tabindex'),
+        primaryTag: primary?.tagName,
+        primaryLabel: primary?.getAttribute('aria-label'),
+        nestedControls: !!primary?.querySelector('button, [role="button"], [tabindex]'),
+        backgroundInert: document.querySelector('.topbar')?.inert,
+        fullscreenInert: document.querySelector('#ranking-fullscreen')?.inert
+      };
+    })()`);
+    if (
+      semantics.cardRole ||
+      semantics.cardTabIndex ||
+      semantics.primaryTag !== "BUTTON" ||
+      !/^Open details for #1, Alpha$/.test(semantics.primaryLabel || "") ||
+      semantics.nestedControls ||
+      !semantics.backgroundInert ||
+      semantics.fullscreenInert
+    ) {
+      throw new Error(`Full-screen semantics are wrong: ${JSON.stringify(semantics)}`);
+    }
 
     await page.evaluate(`(() => {
       const input = document.querySelector('#fullscreen-search');
@@ -1838,10 +1901,33 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     })()`);
     await waitFor(page, `document.querySelector('#fullscreen-grid')?.classList.contains('is-compact') && document.querySelectorAll('#fullscreen-grid .fullscreen-card').length === 6`, 3000);
 
-    await page.evaluate(`document.querySelector('#fullscreen-grid .fullscreen-card')?.click(); true;`);
+    await page.evaluate(`document.querySelector('#fullscreen-grid .fullscreen-card__primary')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#movie-detail')?.hidden && document.querySelector('#detail-title')?.textContent.trim() === 'Alpha'`, 3000);
+    const nestedModal = await page.evaluate(`(() => {
+      const layer = document.querySelector('#movie-detail');
+      const focusable = [...layer.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )].filter((element) => !element.hidden && !element.closest('[hidden]') && element.getClientRects().length);
+      const last = focusable.at(-1);
+      last.focus();
+      last.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab', bubbles: true }));
+      return {
+        fullscreenInert: document.querySelector('#ranking-fullscreen')?.inert,
+        detailInert: document.querySelector('#movie-detail')?.inert,
+        activeId: document.activeElement?.id
+      };
+    })()`);
+    if (!nestedModal.fullscreenInert || nestedModal.detailInert || nestedModal.activeId !== "detail-close") {
+      throw new Error(`Nested detail modal isolation is wrong: ${JSON.stringify(nestedModal)}`);
+    }
     await page.evaluate(`document.querySelector('#detail-close')?.click(); true;`);
-    await waitFor(page, `document.querySelector('#movie-detail')?.hidden`, 3000);
+    await waitFor(
+      page,
+      `document.querySelector('#movie-detail')?.hidden &&
+        !document.querySelector('#ranking-fullscreen')?.inert &&
+        document.activeElement?.classList.contains('fullscreen-card__primary')`,
+      3000,
+    );
 
     await page.evaluate(`document.querySelector('.fullscreen-card[data-index="2"] [data-action="remove"]')?.click(); true;`);
     await waitFor(page, `document.querySelectorAll('#fullscreen-grid .fullscreen-card').length === 5`, 3000);
@@ -1918,7 +2004,7 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { filtered, state },
+      details: { semantics, nestedModal, filtered, state },
       screenshots: [await page.screenshot("fullscreen-ranking-interactions.png")],
     };
   } finally {
@@ -2004,13 +2090,21 @@ const testSuggestionExplanations = async ({ baseUrl }) => {
       count: document.querySelectorAll('.suggest-reason').length,
       pendingCount: document.querySelectorAll('.suggest-reason.is-pending').length,
       text: [...document.querySelectorAll('.suggest-reason__text')].map((el) => el.textContent.trim()),
-      visibility: [...document.querySelectorAll('.suggest-reason')].map((el) => getComputedStyle(el).visibility)
+      visibility: [...document.querySelectorAll('.suggest-reason')].map((el) => getComputedStyle(el).visibility),
+      primaryCount: document.querySelectorAll('.suggest-card > button.suggest-primary').length,
+      compositeCardCount: document.querySelectorAll('.suggest-card[role="button"], .suggest-card[tabindex]').length,
+      nestedPrimaryCount: [...document.querySelectorAll('.suggest-primary')].filter((primary) =>
+        primary.querySelector('button, [role="button"], [tabindex]')
+      ).length
     }))()`);
     if (
       pending.count !== 9 ||
       pending.pendingCount !== 9 ||
       pending.text.some(Boolean) ||
-      pending.visibility.some((value) => value !== "hidden")
+      pending.visibility.some((value) => value !== "hidden") ||
+      pending.primaryCount !== 9 ||
+      pending.compositeCardCount !== 0 ||
+      pending.nestedPrimaryCount !== 0
     ) {
       throw new Error(`Pending reasons exposed fallback content: ${JSON.stringify(pending)}`);
     }
@@ -2246,7 +2340,12 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
           titleCloseOverlap: overlaps(titleRect, closeRect),
           titleSubOverlap: overlaps(titleRect, subRect),
           closeClearance: Math.round((closeRect?.left || 0) - (titleRect?.right || 0)),
-          titleHeight: Math.round(titleRect?.height || 0)
+          titleHeight: Math.round(titleRect?.height || 0),
+          movieRole: document.querySelector('.pack-movie')?.getAttribute('role'),
+          movieTabIndex: document.querySelector('.pack-movie')?.getAttribute('tabindex'),
+          movieRankLabel: document.querySelector('.pack-movie .suggest-action')?.getAttribute('aria-label'),
+          backgroundInert: document.querySelector('.topbar')?.inert,
+          packInert: document.querySelector('#pack-detail')?.inert
         };
       })()`);
     };
@@ -2257,7 +2356,16 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
       "1980s Blockbuster DNA",
     );
     const blockbusterShot = await page.screenshot("mobile-pack-title-blockbuster.png");
-    if (blockbuster.titleCloseOverlap || blockbuster.titleSubOverlap || blockbuster.closeClearance < 8) {
+    if (
+      blockbuster.titleCloseOverlap ||
+      blockbuster.titleSubOverlap ||
+      blockbuster.closeClearance < 8 ||
+      blockbuster.movieRole !== "group" ||
+      blockbuster.movieTabIndex ||
+      !/^Rank /.test(blockbuster.movieRankLabel || "") ||
+      !blockbuster.backgroundInert ||
+      blockbuster.packInert
+    ) {
       throw new Error(`Blockbuster pack title overlaps header controls: ${JSON.stringify(blockbuster)}`);
     }
 

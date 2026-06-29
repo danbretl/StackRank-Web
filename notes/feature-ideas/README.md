@@ -16,13 +16,17 @@ This folder captures product ideas that are worth revisiting later. They are int
 - [Suggestion packs: broaden representation](suggestion-packs-diversity.md) — **shipped (Jun 2026).** 14 representation packs added (114 total): 6 thematic (Black, Queer, Trans & Nonbinary, Women Behind the Camera, Latino & Latin American, African) + 6 creator filmographies (Peele, Coogler, DuVernay, Nair, Sciamma, Cuarón) + Indigenous and Southeast Asian gateways. Production tables, pack upload, and cross-device progress sync are active.
 - [Product instrumentation](product-instrumentation.md) — **shipped (Jun 2026).** Vercel Web Analytics pageviews plus a privacy-bounded Supabase event stream for ranking, review, packs, sharing, import, and future activation funnels.
 - [First-run quick start](first-run-quick-start.md) — **shipped (Jun 2026).** Contextual zero/one-movie guidance, three varied starter packs, direct title import, activation telemetry, and a tested desktop/mobile empty→comparison flow.
+- [Personal stats and taste profile](personal-stats-and-taste-profile.md) — **interactive Taste Explorer v1 shipped (Jun 2026).** A collapsed five-movie reward surface turns rank-weighted genre/era/person signals into evidence rows, full-screen ranking lenses, and focused pack searches.
 
 ## Current top candidates (priority order, refreshed 2026-06-28)
 
-1. [**Personal stats and taste profile**](personal-stats-and-taste-profile.md) — the insight engine already exists, but the native page needs a differentiated purpose: interactive drill-down, progress/milestones, or actionable suggestion hooks rather than a duplicate of Share Studio.
-2. [**Suggestion packs Phase 4**](suggestion-packs.md) — filters and the 100-pack expansion now ship; a featured row or alternate sorting should wait for usage evidence.
-3. [**Ranking review mode follow-ups**](ranking-review-mode.md) — adjacent-pair v1 shipped; per-swap undo or confidence-gap/section strategies can wait for usage evidence that deepening review is worth it.
-4. [**Image-set tablet layout**](share-export-sizes-and-image-set.md) — an optional fixed landscape/iPad page system remains parked; lower priority because Wide single-image output already covers the main tablet/dashboard use case.
+1. [**Suggestion packs Phase 4**](suggestion-packs.md) — filters and the 100-pack expansion now ship; a featured row or alternate sorting should wait for usage evidence.
+2. [**Ranking review mode follow-ups**](ranking-review-mode.md) — adjacent-pair v1 shipped; per-swap undo or confidence-gap/section strategies can wait for usage evidence that deepening review is worth it.
+3. [**Image-set tablet layout**](share-export-sizes-and-image-set.md) — an optional fixed landscape/iPad page system remains parked; lower priority because Wide single-image output already covers the main tablet/dashboard use case.
+
+## New exploratory concepts
+
+- [**Three product ideas to revisit**](next-product-ideas.md) — a Watch-next “pick something for tonight” tool, automatic list lenses, and a comparison-trail placement receipt. Briefly captured, not yet prioritized.
 
 ## Parked (bigger bets)
 
@@ -42,7 +46,8 @@ This folder captures product ideas that are worth revisiting later. They are int
 
 The Share Suite build left reusable pieces that lower the cost of several ideas above:
 
-- **Rank-weighted insight engine** — `getRankingInsights()` returns decades, genres, directors, cast, average year, oldest/newest, "most ranked in one day," etc. Directly powers Share Studio and lowers the cost of a future Taste Explorer.
+- **Rank-weighted insight engine** — `getRankingInsights()` returns decades, genres, directors, cast, average year, oldest/newest, "most ranked in one day," etc. Directly powers Share Studio and the shipped interactive Taste Explorer.
+- **Taste lenses** — `lib/taste.js` derives recurring signals and rank-preserving movie subsets; the full-screen ranking can now present those subsets without creating separate lists.
 - **Passive metadata** — `rankedAt` on rank, `savedAt`/`hiddenAt` on queue moves (no DB schema change). Enables time-based stats and recency ordering.
 - **Loading-skeleton pattern** — both an in-SVG skeleton (share sections) and a DOM shimmer (`renderBootSkeleton()`, main page) now exist to reuse.
 - **Single-level undo controller** — `lib/undo.js` provides tested expiry/token semantics; app-level restore closures cover ranking and queue snapshots.

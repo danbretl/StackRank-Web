@@ -1,14 +1,37 @@
 # Feature idea: Personal stats and taste profile
 
-Status: exploratory — **but the hard part is already built.**
+Status: **interactive Taste Explorer v1 shipped (2026-06-28, commit `202e4fc`).**
 
-## Update (Jun 2026): the engine exists
+## What shipped
+
+- A compact **Taste explorer** panel appears after five movies and stays
+  collapsed until requested.
+- Opening it lazily enriches up to the first 120 ranked movies, then derives
+  rank-weighted recurring signals for genre, era, and director/cast. Higher
+  ranks count more, and one-off coincidences are not presented as patterns.
+- Selecting a signal lists the ranked movies that produced it, preserving their
+  actual ranks; each evidence row opens the existing movie-detail pane.
+- **Open this ranking lens** reuses the full-screen ranking to show only those
+  movies in master-list order. Search and keyboard navigation remain available;
+  jump/reorder are disabled because the lens is a filtered subset.
+- When pack title/subtitle/category metadata genuinely matches a signal, an
+  action opens the existing pack browser with that focused query.
+- Detail requests are deduplicated, partial-data states remain honest, and no
+  new stored state or server schema was required.
+- `lib/taste.js` owns the pure signal/lens/pack-match rules. Unit coverage and a
+  deterministic desktop/mobile E2E flow ship with it. Privacy-bounded events
+  measure explorer and lens opens without recording the selected signal.
+
+This resolves the original differentiation question: Share Studio is the static
+profile/export; Taste Explorer is **insight → evidence → action**.
+
+## Original enabling context
 
 The Share Studio build created the full rank-weighted insight engine. **`getRankingInsights()`** already computes essentially every stat listed below — decades + distribution, top/highest-ranked decade, average year, oldest/newest, genres, directors, cast, "most ranked in one day," first/last ranked dates — using the passive `rankedAt` metadata. The Share poster *is* a taste profile; it's just gated behind the share flow and rendered as an SVG.
 
 So this feature is no longer "build a stats engine," it's **"surface the insights we already calculate on the main page"** as native HTML. That collapses the cost dramatically and removes the "rich stats need new metadata" objection (the enrichment pass already runs). The `getRankingStats(ranking)` helper proposed below is largely subsumed by `getRankingInsights()` — reuse it rather than writing a parallel one. The main new work is an unobtrusive on-page HTML layout + an empty/short-list state; the chart/callout patterns can mirror the share poster's sections.
 
-### Open question that's blocking priority (Dan, Jun 2026)
+### Product question that v1 needed to resolve
 
 Because the Share Studio already shows all of this, **what does an on-page stats section show that the Share Studio doesn't?** If it's just the same numbers, why not point people at Share? This is the thing to answer before building. Candidate differentiators worth exploring:
 
@@ -19,10 +42,7 @@ Because the Share Studio already shows all of this, **what does an on-page stats
   tying stats back into the add flow (and into
   [Suggestion packs](suggestion-packs.md)).
 
-Until there's a crisp answer here, this stays lower priority than Ranking review
-and suggestion improvements.
-
-**Recommended direction if built:** make this an interactive **Taste explorer**,
+**Direction chosen:** make this an interactive **Taste explorer**,
 not a static stats duplicate. A compact summary could open drill-downs showing
 which ranked movies drove each genre/decade/person result, then offer a relevant
 pack or suggestion refresh. That creates a loop Share Studio cannot provide:

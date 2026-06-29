@@ -62,6 +62,9 @@ authoritative.
 - `quick_start_shown` / `quick_start_pack_opened` /
   `quick_start_import_opened` — first-run exposure and path adoption without
   recording titles, pack slugs, or a durable user identity.
+- `taste_explorer_opened` / `taste_lens_opened` — adoption of the native
+  explorer and its evidence-to-ranking loop without recording which genre,
+  decade, director, or cast member was selected.
 
 Allowed property keys are `source`, `list_size`, `count`, `format`, `outcome`,
 and `signed_in`. String values must be short machine tokens; `signed_in` is
@@ -76,6 +79,8 @@ joined to an auth identity.
 - Schema/RLS: `supabase/migrations/20260628171913_add_product_events.sql`
 - FTUE allowlist/RLS extension:
   `supabase/migrations/20260628225636_add_quick_start_events.sql`
+- Taste Explorer allowlist/RLS extension:
+  `supabase/migrations/20260629012754_add_taste_explorer_events.sql`
 - Vercel pageview injection: `initVercelWebAnalytics()` in `app.js`
 
 Telemetry failures are non-blocking and only log in `?debug=1`; product actions

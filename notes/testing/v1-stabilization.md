@@ -42,7 +42,7 @@ Initial gaps found:
 
 ## Area 1 — accessibility and interaction correctness
 
-Status: **in progress.**
+Status: **complete (2026-06-29).**
 
 Scope:
 
@@ -64,6 +64,26 @@ Acceptance:
 - Every modal wraps Tab/Shift+Tab and returns focus to its opener.
 - Core Rank, Details, Save/Hide, Re-rank, and Remove actions remain operable.
 - `npm run verify` passes.
+
+Shipped implementation:
+
+- The StackRank brand is the document's single `h1`.
+- Suggestions and queue rows expose a native primary Rank button; full-screen
+  cards expose a native primary Details button; pack movie groups keep their
+  explicit Rank/Save/Hide buttons with movie-specific accessible names.
+- Whole-card pointer affordances remain, without placing real buttons inside a
+  focusable `role="button"` container.
+- One focus-trap/isolation path now covers every modal layer. Background
+  siblings become `inert`, nested detail/lightbox flows isolate the top layer,
+  and closing restores focus after removing inertness.
+- Full-screen arrow navigation and pointer drag now target the native primary
+  control; drag ghosts are inert and hidden from assistive technology.
+- E2E assertions cover the heading, suggestion/queue/pack/full-screen
+  semantics, sign-in isolation, nested detail focus wrapping/restoration,
+  desktop/mobile geometry, and clean runtime health.
+- Rendered QA passed at 1280×720 and 390×844 with no overflow or console
+  warnings/errors. `npm run verify` passed with 171 unit tests, all function
+  checks/tests, pack validation, and 16 browser flows.
 
 ## Area 2 — service and network resilience
 
@@ -138,3 +158,5 @@ Status: **pending until the initial telemetry window matures.**
 ## Progress log
 
 - **2026-06-29:** Created the stabilization plan and production baseline.
+- **2026-06-29:** Completed Area 1 accessibility and interaction correctness;
+  full verification and rendered desktop/mobile QA passed.

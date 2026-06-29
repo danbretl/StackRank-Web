@@ -6,6 +6,7 @@
     "test:functions": "deno test --no-lock supabase/functions/_shared/*_test.ts",
     "test": "node scripts/run-tests-with-report.mjs",
     "test:e2e": "node scripts/run-e2e-smoke.cjs",
+    "test:production": "node scripts/check-production.mjs",
     "validate:packs": "node scripts/validate-suggestion-packs.mjs",
     "test:watch": "node --test --watch \"tests/**/*.test.js\"",
     "verify": "npm test && npm run check && npm run check:functions && npm run test:functions && npm run validate:packs && npm run test:e2e",

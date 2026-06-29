@@ -58,10 +58,10 @@ Supabase dashboard for project `hrfhakrxsllrqmscxxpb`.
    a Sign in with Apple key (.p8), and generate the client secret JWT. Paste
    Services ID + secret into Supabase dashboard → Authentication → Providers →
    Apple. (Apple secrets expire ≤6 months — set a reminder to rotate.)
-- [ ] **Movies URL cutover.** After Vercel serves `/movies`, set the hosted Site
-   URL to `https://www.stackrankapp.com/movies`. The additional redirect URLs
-   should retain the old production roots during transition and include apex
-   `/movies`, the Vercel preview wildcard, the legacy GitHub Pages URL,
+- [x] **Movies URL cutover.** The hosted Site URL is
+   `https://www.stackrankapp.com/movies`. The additional redirect URLs retain
+   the old production roots during transition and include apex `/movies`, the
+   StackRank Vercel preview wildcard, the legacy GitHub Pages URL,
    localhost:8000/3000, and the current LAN test URL.
 - [x] **Email templates.** Applied via the Management API and verified
    byte-for-byte against `supabase/templates/*.html`; subjects and sender name

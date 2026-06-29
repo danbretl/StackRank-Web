@@ -1,7 +1,6 @@
 # Multi-domain URL architecture
 
-Status: **Movies implementation prepared; production cutover pending deployment
-and hosted Supabase configuration (2026-06-29).**
+Status: **Movies URL shipped to production (2026-06-29).**
 
 ## Decision
 
@@ -66,6 +65,25 @@ If the production route fails, revert the Vercel deployment and restore the
 hosted Supabase Site URL to `https://www.stackrankapp.com/`. The old root
 redirect entries remain allow-listed during the migration, and no local or
 remote ranking records are rewritten, so rollback is data-neutral.
+
+## Production verification
+
+The cutover shipped in commit `d0e7299` and Vercel production deployment
+`dpl_88KyxfjDnxUwH9AY4FQCae4TDKku`.
+
+- `https://www.stackrankapp.com/` returns HTTP 307 with `Location: /movies`.
+- `https://www.stackrankapp.com/movies` returns HTTP 200 with the static app.
+- `https://www.stackrankapp.com/movies/` returns HTTP 308 to `/movies`.
+- Initial HTML declares `/movies` as both canonical and Open Graph URL and loads
+  `app.js?v=129`.
+- Headless Chrome rendered the complete empty-list Movies UI from the root
+  entry URL with no page-load errors.
+- The hosted Supabase Auth config was read back after a targeted Management API
+  update: Site URL is `/movies`, the repository allowlist is live, and the
+  unrelated Google/Apple provider flags remain disabled.
+- `npm run verify` passed before deployment: 171 unit tests, all function
+  checks/tests, pack validation, and all 16 browser flows running through the
+  root-to-`/movies` route.
 
 ## Requirements before a second category
 

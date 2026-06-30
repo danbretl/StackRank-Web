@@ -125,6 +125,23 @@ import {
 
 console.info("StackRank build", "taste-explorer-v1");
 
+const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
+
+const createUiIcon = (name, className = "") => {
+  const icon = document.createElementNS(SVG_NAMESPACE, "svg");
+  icon.setAttribute("class", `ui-icon${className ? ` ${className}` : ""}`);
+  icon.setAttribute("aria-hidden", "true");
+  icon.setAttribute("focusable", "false");
+  const use = document.createElementNS(SVG_NAMESPACE, "use");
+  use.setAttribute("href", `#icon-${name}`);
+  icon.appendChild(use);
+  return icon;
+};
+
+const uiIconMarkup = (name, className = "") =>
+  `<svg class="ui-icon${className ? ` ${className}` : ""}" aria-hidden="true" focusable="false">` +
+  `<use href="#icon-${name}"></use></svg>`;
+
 const form = document.getElementById("movie-form");
 const titleInput = document.getElementById("title");
 const suggestions = document.getElementById("suggestions");
@@ -1122,7 +1139,7 @@ const renderRanking = () => {
     item.setAttribute("aria-grabbed", "false");
     const handle = document.createElement("span");
     handle.className = "ranking__handle";
-    handle.textContent = "≡";
+    handle.appendChild(createUiIcon("drag"));
     handle.setAttribute("aria-hidden", "true");
     const actions = document.createElement("div");
     actions.className = "ranking__actions";
@@ -1130,12 +1147,12 @@ const renderRanking = () => {
     restackButton.className = "ranking__restack";
     restackButton.type = "button";
     restackButton.setAttribute("aria-label", `Re-rank ${movie.title}`);
-    restackButton.textContent = "↻";
+    restackButton.appendChild(createUiIcon("refresh"));
     const removeButton = document.createElement("button");
     removeButton.className = "ranking__delete";
     removeButton.type = "button";
     removeButton.setAttribute("aria-label", `Remove ${movie.title}`);
-    removeButton.textContent = "×";
+    removeButton.appendChild(createUiIcon("remove"));
     const poster = document.createElement("img");
     poster.className = "ranking__poster";
     if (movie.posterPath) {
@@ -1368,7 +1385,7 @@ const createTasteMovieRow = ({ movie, index }) => {
 
   const arrow = document.createElement("span");
   arrow.className = "taste__movie-arrow";
-  arrow.textContent = "›";
+  arrow.appendChild(createUiIcon("next"));
   arrow.setAttribute("aria-hidden", "true");
 
   button.append(rank, poster, copy, arrow);
@@ -1574,13 +1591,7 @@ const createQueueActionButton = (label, ariaLabel, action, className = "") => {
   return button;
 };
 
-const createInfoIcon = () => `
-  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-    <circle cx="12" cy="12" r="9"></circle>
-    <path d="M12 11v5"></path>
-    <path d="M12 8h.01"></path>
-  </svg>
-`;
+const createInfoIcon = () => uiIconMarkup("info");
 
 const createSuggestionReasonIcon = () => `
   <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
@@ -4476,7 +4487,7 @@ const createPackCard = (pack, options = {}) => {
 
   const completeBadge = document.createElement("span");
   completeBadge.className = "pack-card__complete-badge";
-  completeBadge.textContent = "✓";
+  completeBadge.appendChild(createUiIcon("check"));
   completeBadge.title = "Complete";
   completeBadge.setAttribute("aria-hidden", "true");
 
@@ -7039,13 +7050,13 @@ function updateShareStudio() {
       `<div class="share-preview-deck" data-total="${total}">` +
       `<div class="share-preview-deck__stage">` +
       `<button class="share-preview-nav share-preview-nav--prev" type="button" data-share-page-step="-1" aria-label="Previous image page">` +
-      `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7" /></svg>` +
+      uiIconMarkup("previous") +
       `</button>` +
       `<div class="share-preview-deck__viewport" tabindex="0" role="region" aria-label="Image set pages">` +
       `<div class="share-preview-deck__track">${figures}</div>` +
       `</div>` +
       `<button class="share-preview-nav share-preview-nav--next" type="button" data-share-page-step="1" aria-label="Next image page">` +
-      `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7" /></svg>` +
+      uiIconMarkup("next") +
       `</button>` +
       `</div>` +
       `<div class="share-preview-deck__footer">` +
@@ -7250,7 +7261,7 @@ function renderFullscreenRanking({ focusRankingIndex = null } = {}) {
     poster.appendChild(rank);
     const handle = document.createElement("span");
     handle.className = "fullscreen-card__drag-handle";
-    handle.textContent = "≡";
+    handle.appendChild(createUiIcon("drag"));
     handle.setAttribute("aria-hidden", "true");
     poster.appendChild(handle);
     const title = document.createElement("div");

@@ -5,6 +5,7 @@ import {
   mergePackProgressPayloads,
   normalizePackProgressEntry,
   parsePackProgressPayload,
+  reconcilePackProgressCompletion,
   stripPackProgressMetadata,
 } from "../lib/pack-progress.js";
 
@@ -139,4 +140,50 @@ test("pack progress merge ignores malformed payloads and entries", () => {
     ]),
     {},
   );
+});
+
+test("incomplete pack reconciliation preserves explicit start and resume cursor", () => {
+  const original = {
+    startedAt: "2026-06-01T00:00:00.000Z",
+    packVersionSeen: 2,
+    lastIndex: 7,
+    completedAt: null,
+    updated_at: "2026-06-02T00:00:00.000Z",
+  };
+  const result = reconcilePackProgressCompletion(original, {
+    completed: false,
+    packVersion: 2,
+    completedAt: "2026-06-03T00:00:00.000Z",
+  });
+
+  assert.equal(result.changed, false);
+  assert.equal(result.entry.startedAt, original.startedAt);
+  assert.equal(result.entry.lastIndex, 7);
+});
+
+test("completion reconciliation records and clears completion without losing resume state", () => {
+  const started = {
+    startedAt: "2026-06-01T00:00:00.000Z",
+    packVersionSeen: 1,
+    lastIndex: 4,
+  };
+  const completed = reconcilePackProgressCompletion(started, {
+    completed: true,
+    packVersion: 2,
+    completedAt: "2026-06-03T00:00:00.000Z",
+  });
+  assert.equal(completed.changed, true);
+  assert.equal(completed.entry.completedAt, "2026-06-03T00:00:00.000Z");
+  assert.equal(completed.entry.packVersionSeen, 2);
+  assert.equal(completed.entry.startedAt, started.startedAt);
+  assert.equal(completed.entry.lastIndex, 4);
+
+  const reopened = reconcilePackProgressCompletion(completed.entry, {
+    completed: false,
+    packVersion: 2,
+  });
+  assert.equal(reopened.changed, true);
+  assert.equal(reopened.entry.completedAt, null);
+  assert.equal(reopened.entry.startedAt, started.startedAt);
+  assert.equal(reopened.entry.lastIndex, 4);
 });

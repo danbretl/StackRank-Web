@@ -358,7 +358,50 @@ const queueMovie = (title, year, tmdbId) => ({
   savedAt: "2026-06-20T13:00:00.000Z",
 });
 
-const seedPage = async (page, baseUrl, name, { ranking, watchList = [], notInterestedList = [], shareOptions = {} }) => {
+const installPackFixtures = async (page, packs) => {
+  await page.send("Page.addScriptToEvaluateOnNewDocument", {
+    source: `
+      (() => {
+        const packs = ${JSON.stringify(packs)};
+        const realFetch = window.fetch.bind(window);
+        const jsonResponse = (value, extraHeaders = {}) =>
+          new Response(JSON.stringify(value), {
+            status: 200,
+            headers: {
+              'Content-Type': 'application/json',
+              ...extraHeaders
+            }
+          });
+        window.fetch = (input, options) => {
+          const url = input instanceof Request ? input.url : String(input);
+          if (url.includes('/rest/v1/suggestion_packs')) {
+            return Promise.resolve(jsonResponse([], { 'Content-Range': '*/0' }));
+          }
+          if (url.includes('data/suggestion-packs.json')) {
+            return Promise.resolve(jsonResponse(packs));
+          }
+          if (url.includes('/functions/v1/tmdb-suggest')) {
+            return Promise.resolve(jsonResponse({ results: [] }));
+          }
+          return realFetch(input, options);
+        };
+      })();
+    `,
+  });
+};
+
+const seedPage = async (
+  page,
+  baseUrl,
+  name,
+  {
+    ranking,
+    watchList = [],
+    notInterestedList = [],
+    packProgress = {},
+    shareOptions = {},
+  },
+) => {
   const rankingPayload = {
     movies: ranking,
     updated_at: "2026-06-20T14:00:00.000Z",
@@ -393,6 +436,10 @@ const seedPage = async (page, baseUrl, name, { ranking, watchList = [], notInter
     localStorage.clear();
     localStorage.setItem('stackrank:movies:v1', ${JSON.stringify(JSON.stringify(rankingPayload))});
     localStorage.setItem('stackrank:suggestion-queues:v1', ${JSON.stringify(JSON.stringify(queuesPayload))});
+    localStorage.setItem(
+      'stackrank:pack-progress:v1',
+      ${JSON.stringify(JSON.stringify({ progress: packProgress }))}
+    );
     localStorage.setItem('stackrank:share-options:v1', ${JSON.stringify(JSON.stringify(optionsPayload))});
     true;
   `);
@@ -774,7 +821,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=136" ||
+      empty.moduleSrc !== "app.js?v=137" ||
       empty.cssHref !== "styles.css?v=90" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
@@ -1805,6 +1852,37 @@ const testShareStudio = async ({ baseUrl }) => {
     if (!singleState.bottomDisabled || !singleState.queuesDisabled || !singleState.packsDisabled) {
       throw new Error(`Expected empty include toggles to be disabled: ${JSON.stringify(singleState)}`);
     }
+    await page.evaluate(`document.querySelector('#share-preview svg')?.dispatchEvent(
+      new MouseEvent('click', { bubbles: true })
+    ); true;`);
+    await waitFor(page, `!document.querySelector('#share-lightbox')?.hidden`, 3000);
+    const singleLightbox = await page.evaluate(`(() => ({
+      shareMode: document.querySelector('#share-lightbox')?.classList.contains('is-share'),
+      setMode: document.querySelector('#share-lightbox')?.classList.contains('is-set'),
+      imageSvg: !!document.querySelector('#share-lightbox-image svg'),
+      caption: document.querySelector('#share-lightbox-caption')?.textContent.trim(),
+      downloadHidden: document.querySelector('#share-lightbox-download')?.hidden,
+      backgroundInert: document.querySelector('#share-studio')?.inert
+    }))()`);
+    if (
+      !singleLightbox.shareMode ||
+      singleLightbox.setMode ||
+      !singleLightbox.imageSvg ||
+      singleLightbox.caption ||
+      singleLightbox.downloadHidden ||
+      !singleLightbox.backgroundInert
+    ) {
+      throw new Error(`Single-image lightbox state is wrong: ${JSON.stringify(singleLightbox)}`);
+    }
+    await page.evaluate(`document.querySelector('#share-lightbox-image')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#share-lightbox')?.classList.contains('is-zoomed')`, 2000);
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyDown",
+      key: "Escape",
+      code: "Escape",
+    });
+    await waitFor(page, `document.querySelector('#share-lightbox')?.hidden`, 2000);
+
     await page.evaluate(`document.querySelector('input[name="share-format"][value="set"]')?.click(); true;`);
     await waitFor(page, `document.querySelectorAll('#share-preview figure svg').length >= 1`, 5000);
     const setState = await page.evaluate(`(() => ({
@@ -1815,9 +1893,157 @@ const testShareStudio = async ({ baseUrl }) => {
     }))()`);
     if (!setState.shapeHidden) throw new Error("Shape controls should hide for Image set format");
     if (setState.cardCount < 1) throw new Error("Image set preview did not render cards");
+    await page.evaluate(`document.querySelector('#share-preview .share-preview-card')?.click(); true;`);
+    await waitFor(
+      page,
+      `!document.querySelector('#share-lightbox')?.hidden &&
+        document.querySelector('#share-lightbox')?.classList.contains('is-set')`,
+      3000,
+    );
+    const setLightboxStart = await page.evaluate(`(() => ({
+      caption: document.querySelector('#share-lightbox-caption')?.textContent.trim(),
+      prevDisabled: document.querySelector('#share-lightbox-prev')?.disabled,
+      nextDisabled: document.querySelector('#share-lightbox-next')?.disabled,
+      imageSvg: !!document.querySelector('#share-lightbox-image svg')
+    }))()`);
+    if (
+      !setLightboxStart.caption.startsWith(`1/${setState.cardCount}`) ||
+      !setLightboxStart.prevDisabled ||
+      setLightboxStart.nextDisabled ||
+      !setLightboxStart.imageSvg
+    ) {
+      throw new Error(`Image-set lightbox did not open on page 1: ${JSON.stringify(setLightboxStart)}`);
+    }
+    await page.evaluate(`document.querySelector('#share-lightbox-next')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#share-lightbox-caption')?.textContent.trim().startsWith('2/${setState.cardCount}')`,
+      2000,
+    );
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyDown",
+      key: "ArrowRight",
+      code: "ArrowRight",
+    });
+    await waitFor(
+      page,
+      `document.querySelector('#share-lightbox-caption')?.textContent.trim().startsWith('3/${setState.cardCount}')`,
+      2000,
+    );
+    if (setState.cardCount >= 4) {
+      await page.evaluate(`(() => {
+        const stage = document.querySelector('#share-lightbox-stage');
+        stage.dispatchEvent(new PointerEvent('pointerdown', {
+          bubbles: true,
+          pointerId: 17,
+          clientX: 320,
+          clientY: 300
+        }));
+        stage.dispatchEvent(new PointerEvent('pointerup', {
+          bubbles: true,
+          pointerId: 17,
+          clientX: 180,
+          clientY: 305
+        }));
+        return true;
+      })()`);
+      await waitFor(
+        page,
+        `document.querySelector('#share-lightbox-caption')?.textContent.trim().startsWith('4/${setState.cardCount}')`,
+        2000,
+      );
+      // Pointer-event injection does not synthesize the trailing click a real
+      // swipe produces. Send it explicitly so the lightbox clears its
+      // post-swipe tap suppression before testing zoom.
+      await page.evaluate(`document.querySelector('#share-lightbox-image')?.click(); true;`);
+    }
+    await page.evaluate(`document.querySelector('#share-lightbox-image')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#share-lightbox')?.classList.contains('is-zoomed')`, 2000);
+    const zoomedCaption = await page.evaluate(
+      `document.querySelector('#share-lightbox-caption')?.textContent.trim()`,
+    );
+    await page.evaluate(`(() => {
+      const stage = document.querySelector('#share-lightbox-stage');
+      stage.dispatchEvent(new PointerEvent('pointerdown', {
+        bubbles: true,
+        pointerId: 18,
+        clientX: 320,
+        clientY: 300
+      }));
+      stage.dispatchEvent(new PointerEvent('pointerup', {
+        bubbles: true,
+        pointerId: 18,
+        clientX: 180,
+        clientY: 305
+      }));
+      return true;
+    })()`);
+    const captionAfterZoomedSwipe = await page.evaluate(
+      `document.querySelector('#share-lightbox-caption')?.textContent.trim()`,
+    );
+    if (captionAfterZoomedSwipe !== zoomedCaption) {
+      throw new Error(
+        `Zoomed lightbox should pan instead of paging: ${zoomedCaption} -> ${captionAfterZoomedSwipe}`,
+      );
+    }
+    await page.evaluate(`document.querySelector('#share-lightbox-image')?.click(); true;`);
+    await waitFor(
+      page,
+      `!document.querySelector('#share-lightbox')?.classList.contains('is-zoomed')`,
+      2000,
+    );
+    const lightboxShot = await page.screenshot("share-lightbox-set.png");
+    await page.evaluate(`document.querySelector('#share-lightbox-download')?.click(); true;`);
+    let pageDownload = null;
+    for (let attempt = 0; attempt < 600; attempt += 1) {
+      const files = fs.existsSync(page.downloadDir)
+        ? fs.readdirSync(page.downloadDir).filter((name) => name.endsWith(".png") && !name.endsWith(".crdownload"))
+        : [];
+      if (files.length && fs.statSync(path.join(page.downloadDir, files[0])).size > 1000) {
+        pageDownload = files[0];
+        break;
+      }
+      await wait(100);
+    }
+    if (!pageDownload || fs.statSync(path.join(page.downloadDir, pageDownload)).size < 1000) {
+      throw new Error(`Lightbox page download was not created: ${pageDownload || "missing"}`);
+    }
+    const setLightboxEnd = await page.evaluate(`(() => ({
+      caption: document.querySelector('#share-lightbox-caption')?.textContent.trim(),
+      status: document.querySelector('#share-export-status')?.textContent.trim(),
+      feedback: document.querySelector('#add-feedback')?.textContent.trim(),
+      zoomed: document.querySelector('#share-lightbox')?.classList.contains('is-zoomed')
+    }))()`);
+    if (
+      !setLightboxEnd.status.includes("Downloaded page") &&
+      !setLightboxEnd.feedback.includes("Downloaded page")
+    ) {
+      throw new Error(`Lightbox page download gave no success feedback: ${JSON.stringify(setLightboxEnd)}`);
+    }
+    await page.evaluate(`document.querySelector('#share-lightbox-close')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#share-lightbox')?.hidden`, 2000);
+    const previewSync = await page.evaluate(`(() => ({
+      page: document.querySelector('[data-share-page-label]')?.textContent.trim(),
+      caption: document.querySelector('[data-share-active-name]')?.textContent.trim()
+    }))()`);
+    const expectedPage = setLightboxEnd.caption.split("/")[0];
+    if (!previewSync.page.startsWith(`${expectedPage}/`) || !previewSync.caption) {
+      throw new Error(`Closing the lightbox did not sync the preview deck: ${JSON.stringify(previewSync)}`);
+    }
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
-    return { details: { singleState, setState }, screenshots: [singleShot, await page.screenshot("share-studio-set.png")] };
+    return {
+      details: {
+        singleState,
+        singleLightbox,
+        setState,
+        setLightboxStart,
+        setLightboxEnd,
+        pageDownload,
+        previewSync,
+      },
+      screenshots: [singleShot, await page.screenshot("share-studio-set.png"), lightboxShot],
+    };
   } finally {
     await page.close();
   }
@@ -2138,6 +2364,19 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
     movie("Local Only", 2005, 1503),
   ];
   const localQueue = [queueMovie("Remote Retry", 2015, 1504)];
+  const localPackProgress = {
+    "year-1999": {
+      startedAt: "2026-06-20T10:00:00.000Z",
+      packVersionSeen: 1,
+      lastIndex: 1,
+      updated_at: "2026-06-20T10:00:00.000Z",
+    },
+  };
+  const remotePackProgress = {
+    startedAt: "2026-06-21T10:00:00.000Z",
+    packVersionSeen: 1,
+    lastIndex: 4,
+  };
   try {
     await page.send("Page.addScriptToEvaluateOnNewDocument", {
       source: `
@@ -2190,9 +2429,18 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
               }
               return new Response(null, { status: 201 });
             }
+            if (url.includes('/rest/v1/pack_progress')) {
+              if (method === 'GET') {
+                return jsonResponse([{
+                  pack_slug: 'director-wes-anderson',
+                  state: ${JSON.stringify(remotePackProgress)},
+                  updated_at: '2026-06-21T14:00:00.000Z'
+                }], 200, { 'Content-Range': '0-0/1' });
+              }
+              return new Response(null, { status: 201 });
+            }
             if (
               url.includes('/rest/v1/movie_lists') ||
-              url.includes('/rest/v1/pack_progress') ||
               url.includes('/rest/v1/suggestion_packs')
             ) {
               if (method === 'GET') {
@@ -2238,6 +2486,10 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
           }),
         )}
       );
+      localStorage.setItem(
+        'stackrank:pack-progress:v1:user:${userId}',
+        ${JSON.stringify(JSON.stringify({ progress: localPackProgress }))}
+      );
       true;
     `);
     page.events.length = 0;
@@ -2279,7 +2531,13 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
         rankingWriteCount: rankingWrites.length,
         writeListId: payload?.list_id || null,
         writeTitles: payload?.movies?.map((entry) => entry.title) || [],
-        writeAuthorized: !!lastWrite?.authorization?.startsWith('Bearer ')
+        writeAuthorized: !!lastWrite?.authorization?.startsWith('Bearer '),
+        packProgress: JSON.parse(localStorage.getItem(
+          'stackrank:pack-progress:v1:user:${userId}'
+        ) || '{}').progress || {},
+        packProgressGetCount: (window.__e2eSupabaseRequests || []).filter((request) =>
+          request.method === 'GET' && request.url.includes('/rest/v1/pack_progress')
+        ).length
       };
     })()`);
     const expectedTitles = "Remote First|Shared|Local Only";
@@ -2290,10 +2548,69 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
       state.rankingWriteCount < 1 ||
       state.writeListId !== `user:${userId}` ||
       state.writeTitles.join("|") !== expectedTitles ||
-      !state.writeAuthorized
+      !state.writeAuthorized ||
+      state.packProgressGetCount < 1 ||
+      state.packProgress["director-wes-anderson"]?.lastIndex !== 4 ||
+      state.packProgress["year-1999"]?.lastIndex !== 1
     ) {
       throw new Error(`Signed-in merge/save adapter failed: ${JSON.stringify(state)}`);
     }
+
+    await page.evaluate(`(() => {
+      Math.random = () => 0.5;
+      document.querySelector('#pack-row [data-slug="director-wes-anderson"]')?.click();
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `document.querySelector('#pack-detail-title')?.textContent.trim() === 'Wes Anderson Filmography'`,
+      5000,
+    );
+    await page.evaluate(`document.querySelector('#pack-auto-start')?.click(); true;`);
+    await waitFor(
+      page,
+      `!document.querySelector('#compare')?.classList.contains('panel--hidden')`,
+      3000,
+    );
+    await page.evaluate(`document.querySelector('#cancel-ranking')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#pack-detail-title')?.textContent.trim() === 'Wes Anderson Filmography'`,
+      3000,
+    );
+    await waitFor(
+      page,
+      `window.__e2eSupabaseRequests?.some((request) =>
+        request.method === 'POST' && request.url.includes('/rest/v1/pack_progress')
+      )`,
+      3000,
+    );
+    const packWrite = await page.evaluate(`(() => {
+      const writes = (window.__e2eSupabaseRequests || []).filter((request) =>
+        request.method === 'POST' && request.url.includes('/rest/v1/pack_progress')
+      );
+      const last = writes.at(-1) || null;
+      const parsed = last?.body ? JSON.parse(last.body) : null;
+      const payload = Array.isArray(parsed) ? parsed[0] : parsed;
+      return {
+        count: writes.length,
+        listId: payload?.list_id || null,
+        slug: payload?.pack_slug || null,
+        lastIndex: payload?.state?.lastIndex,
+        authorized: !!last?.authorization?.startsWith('Bearer ')
+      };
+    })()`);
+    if (
+      packWrite.count < 1 ||
+      packWrite.listId !== `user:${userId}` ||
+      packWrite.slug !== "director-wes-anderson" ||
+      packWrite.lastIndex !== 4 ||
+      !packWrite.authorized
+    ) {
+      throw new Error(`Signed-in pack progress write failed: ${JSON.stringify(packWrite)}`);
+    }
+    await page.evaluate(`document.querySelector('#pack-detail-close')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#pack-detail')?.hidden`, 3000);
 
     await page.evaluate(`(() => {
       window.__e2eRejectRemoteWrites = true;
@@ -2356,7 +2673,7 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { state, offlineWrite, recoveredWrite },
+      details: { state, packWrite, offlineWrite, recoveredWrite },
       screenshots: [await page.screenshot("supabase-merge-save.png")],
     };
   } finally {
@@ -2862,6 +3179,399 @@ const testTasteExplorer = async ({ baseUrl }) => {
   }
 };
 
+const testPackBrowserAndActions = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "pack-browser-actions", width: 1280, height: 900 });
+  const packs = [
+    {
+      slug: "e2e-director-head-start",
+      title: "E2E Director Head Start",
+      subtitle: "A discovered director pack",
+      category: "Director",
+      version: 1,
+      sort_order: 1,
+      movies: [
+        movie("E2E A One", 1988, 4101),
+        movie("E2E A Two", 1991, 4102),
+        movie("E2E A Three", 1996, 4103),
+      ],
+    },
+    {
+      slug: "e2e-decade-progress",
+      title: "E2E Decade Progress",
+      subtitle: "A started decade pack",
+      category: "Decade",
+      version: 1,
+      sort_order: 2,
+      movies: [
+        movie("E2E B One", 1990, 4201),
+        movie("E2E B Two", 1994, 4202),
+        movie("E2E B Three", 1999, 4203),
+      ],
+    },
+    {
+      slug: "e2e-director-fresh",
+      title: "E2E Director Fresh",
+      subtitle: "An untouched director pack",
+      category: "Director",
+      version: 1,
+      sort_order: 3,
+      movies: [
+        movie("E2E C One", 2001, 4301),
+        movie("E2E C Two", 2002, 4302),
+        movie("E2E C Three", 2003, 4303),
+      ],
+    },
+  ];
+  try {
+    await installPackFixtures(page, packs);
+    await seedPage(page, baseUrl, "pack-browser-actions", {
+      ranking: [movie("E2E A One", 1988, 4101), movie("Anchor", 2020, 4000)],
+      watchList: [queueMovie("E2E B One", 1990, 4201)],
+      packProgress: {
+        "e2e-decade-progress": {
+          startedAt: "2026-06-20T10:00:00.000Z",
+          packVersionSeen: 1,
+          lastIndex: 1,
+          updated_at: "2026-06-20T10:00:00.000Z",
+        },
+      },
+    });
+    await waitFor(page, `document.querySelectorAll('#pack-row .pack-card').length === 3`, 5000);
+    await page.evaluate(`document.querySelector('#pack-view-all')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelectorAll('#pack-detail-list .pack-card').length === 3 &&
+        document.querySelector('#pack-detail')?.classList.contains('is-all-packs')`,
+      5000,
+    );
+    await page.evaluate(`document.querySelector('#pack-browser-filter-toggle')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#pack-browser-filter-controls')?.hidden`, 3000);
+
+    await page.evaluate(`(() => {
+      const input = document.querySelector('#pack-browser-search');
+      input.value = '1994';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `document.querySelectorAll('#pack-detail-list .pack-card').length === 1 &&
+        !!document.querySelector('[data-slug="e2e-decade-progress"]')`,
+      3000,
+    );
+    const search = await page.evaluate(`(() => ({
+      results: document.querySelector('#pack-browser-results')?.textContent.trim(),
+      slugs: [...document.querySelectorAll('#pack-detail-list .pack-card')].map((card) => card.dataset.slug),
+      badge: document.querySelector('#pack-browser-filter-badge')?.textContent.trim()
+    }))()`);
+    if (
+      search.results !== "Showing 1 of 3 packs." ||
+      search.slugs.join("|") !== "e2e-decade-progress" ||
+      search.badge !== "1 active"
+    ) {
+      throw new Error(`Pack year search is wrong: ${JSON.stringify(search)}`);
+    }
+
+    await page.evaluate(`document.querySelector('#pack-browser-search-clear')?.click(); true;`);
+    await page.evaluate(`(() => {
+      const select = document.querySelector('#pack-browser-category');
+      select.value = 'Director';
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+      return true;
+    })()`);
+    await waitFor(page, `document.querySelectorAll('#pack-detail-list .pack-card').length === 2`, 3000);
+    await page.evaluate(
+      `document.querySelector('#pack-browser-state-options [data-state="head_start"]')?.click(); true;`,
+    );
+    await waitFor(
+      page,
+      `document.querySelectorAll('#pack-detail-list .pack-card').length === 1 &&
+        !!document.querySelector('[data-slug="e2e-director-head-start"]')`,
+      3000,
+    );
+    const headStart = await page.evaluate(`(() => ({
+      results: document.querySelector('#pack-browser-results')?.textContent.trim(),
+      badge: document.querySelector('#pack-browser-filter-badge')?.textContent.trim(),
+      selected: document.querySelector('#pack-browser-state-options [aria-pressed="true"]')?.dataset.state,
+      slug: document.querySelector('#pack-detail-list .pack-card')?.dataset.slug
+    }))()`);
+    if (
+      headStart.results !== "Showing 1 of 3 packs." ||
+      headStart.badge !== "2 active" ||
+      headStart.selected !== "head_start" ||
+      headStart.slug !== "e2e-director-head-start"
+    ) {
+      throw new Error(`Combined pack filters are wrong: ${JSON.stringify(headStart)}`);
+    }
+
+    await page.evaluate(`document.querySelector('#pack-browser-reset')?.click(); true;`);
+    await waitFor(page, `document.querySelectorAll('#pack-detail-list .pack-card').length === 3`, 3000);
+    await page.evaluate(
+      `document.querySelector('#pack-detail-list [data-slug="e2e-director-head-start"]')?.click(); true;`,
+    );
+    await waitFor(
+      page,
+      `document.querySelector('#pack-detail-title')?.textContent.trim() === 'E2E Director Head Start'`,
+      3000,
+    );
+    const pagerBefore = await page.evaluate(`(() => ({
+      hidden: document.querySelector('#pack-detail-pager')?.hidden,
+      count: document.querySelector('#pack-detail-pager-count')?.textContent.trim(),
+      prevDisabled: document.querySelector('#pack-detail-prev')?.disabled,
+      nextDisabled: document.querySelector('#pack-detail-next')?.disabled
+    }))()`);
+    if (pagerBefore.hidden || pagerBefore.count !== "Pack 2 of 3" || pagerBefore.nextDisabled) {
+      throw new Error(`Pack detail pager state is wrong: ${JSON.stringify(pagerBefore)}`);
+    }
+    await page.evaluate(`document.querySelector('#pack-detail-next')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#pack-detail-title')?.textContent.trim() === 'E2E Director Fresh'`,
+      3000,
+    );
+
+    await page.evaluate(
+      `document.querySelector('[aria-label="Save E2E C One to Watch next"]')?.click(); true;`,
+    );
+    await waitFor(
+      page,
+      `document.querySelector('#pack-detail-status')?.textContent.trim() === '1 handled · 2 to go'`,
+      3000,
+    );
+    await page.evaluate(
+      `document.querySelector('[aria-label="Hide E2E C Two in Not for me"]')?.click(); true;`,
+    );
+    await waitFor(
+      page,
+      `document.querySelector('#pack-detail-status')?.textContent.trim() === '2 handled · 1 to go'`,
+      3000,
+    );
+    await page.evaluate(`document.querySelector('#pack-save-all')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#pack-detail-status')?.textContent.trim() === '3 handled · 0 to go'`,
+      3000,
+    );
+    await page.evaluate(
+      `document.querySelector('#add-feedback .feedback-toast__action')?.click(); true;`,
+    );
+    await waitFor(
+      page,
+      `document.querySelector('#pack-detail-status')?.textContent.trim() === '2 handled · 1 to go'`,
+      3000,
+    );
+    await page.evaluate(`document.querySelector('#pack-hide-all')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#pack-detail-status')?.textContent.trim() === '3 handled · 0 to go' &&
+        document.querySelector('#pack-detail-list')?.textContent.includes('Pack complete.')`,
+      3000,
+    );
+    const actions = await page.evaluate(`(() => {
+      const queues = JSON.parse(localStorage.getItem('stackrank:suggestion-queues:v1') || '{}');
+      const progress = JSON.parse(localStorage.getItem('stackrank:pack-progress:v1') || '{}').progress || {};
+      return {
+        status: document.querySelector('#pack-detail-status')?.textContent.trim(),
+        watch: queues.watchList?.map((entry) => entry.title) || [],
+        hidden: queues.notInterestedList?.map((entry) => entry.title) || [],
+        completedAt: progress['e2e-director-fresh']?.completedAt || null,
+        autoDisabled: document.querySelector('#pack-auto-start')?.disabled
+      };
+    })()`);
+    if (
+      actions.watch.join("|") !== "E2E B One|E2E C One" ||
+      actions.hidden.join("|") !== "E2E C Two|E2E C Three" ||
+      !actions.completedAt ||
+      !actions.autoDisabled
+    ) {
+      throw new Error(`Pack actions or completion persistence failed: ${JSON.stringify(actions)}`);
+    }
+
+    const completedShot = await page.screenshot("pack-actions-complete.png");
+    await page.send("Page.reload", { ignoreCache: true });
+    await waitFor(page, `document.querySelectorAll('#ranking .ranking__item').length === 2`, 10000);
+    await waitFor(page, `document.querySelectorAll('#pack-row .pack-card').length === 2`, 5000);
+    await page.evaluate(`document.querySelector('#pack-view-all')?.click(); true;`);
+    await waitFor(page, `document.querySelectorAll('#pack-detail-list .pack-card').length === 3`, 5000);
+    await page.evaluate(`document.querySelector('#pack-browser-filter-toggle')?.click(); true;`);
+    await page.evaluate(
+      `document.querySelector('#pack-browser-state-options [data-state="completed"]')?.click(); true;`,
+    );
+    await waitFor(
+      page,
+      `document.querySelectorAll('#pack-detail-list .pack-card').length === 1 &&
+        !!document.querySelector('[data-slug="e2e-director-fresh"]')`,
+      3000,
+    );
+    const persisted = await page.evaluate(`(() => ({
+      results: document.querySelector('#pack-browser-results')?.textContent.trim(),
+      slug: document.querySelector('#pack-detail-list .pack-card')?.dataset.slug,
+      watchRows: document.querySelectorAll('#watch-list .queue-list__item').length,
+      hiddenRows: document.querySelectorAll('#not-interested-list .queue-list__item').length
+    }))()`);
+    if (
+      persisted.results !== "Showing 1 of 3 packs." ||
+      persisted.slug !== "e2e-director-fresh" ||
+      persisted.watchRows !== 2 ||
+      persisted.hiddenRows !== 2
+    ) {
+      throw new Error(`Completed pack did not survive reload: ${JSON.stringify(persisted)}`);
+    }
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { search, headStart, pagerBefore, actions, persisted },
+      screenshots: [completedShot, await page.screenshot("pack-completed-filter.png")],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
+const testPackRankAllResumeAndCompletion = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "pack-rank-all", width: 1280, height: 900 });
+  const packs = [
+    {
+      slug: "e2e-auto-pack",
+      title: "E2E Auto Pack",
+      subtitle: "Rank-all persistence fixture",
+      category: "Test",
+      version: 1,
+      sort_order: 1,
+      movies: [
+        movie("Auto One", 2001, 4401),
+        movie("Auto Two", 2002, 4402),
+        movie("Auto Three", 2003, 4403),
+      ],
+    },
+  ];
+  try {
+    await installPackFixtures(page, packs);
+    await seedPage(page, baseUrl, "pack-rank-all", {
+      ranking: [movie("Anchor", 2000, 4400)],
+    });
+    await waitFor(page, `!!document.querySelector('#pack-row [data-slug="e2e-auto-pack"]')`, 5000);
+    await page.evaluate(`(() => {
+      Math.random = () => 0.5;
+      document.querySelector('#pack-row [data-slug="e2e-auto-pack"]')?.click();
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `document.querySelector('#pack-detail-title')?.textContent.trim() === 'E2E Auto Pack'`,
+      3000,
+    );
+    await page.evaluate(`document.querySelector('#pack-auto-start')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#new-title')?.textContent.trim() === 'Auto One' &&
+        !document.querySelector('#skip-pack-movie')?.hidden`,
+      3000,
+    );
+    await page.evaluate(`document.querySelector('#existing-card')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#new-title')?.textContent.trim() === 'Auto Two' &&
+        document.querySelector('#compare-sub')?.textContent.includes('2 of 3')`,
+      3000,
+    );
+    await page.evaluate(`document.querySelector('#cancel-ranking')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#pack-detail-title')?.textContent.trim() === 'E2E Auto Pack' &&
+        document.querySelector('#pack-detail-status')?.textContent.trim() === '1 handled · 2 to go'`,
+      3000,
+    );
+    const canceled = await page.evaluate(`(() => {
+      const progress = JSON.parse(localStorage.getItem('stackrank:pack-progress:v1') || '{}').progress || {};
+      return {
+        status: document.querySelector('#pack-detail-status')?.textContent.trim(),
+        ranking: [...document.querySelectorAll('#ranking .ranking__title')].map((el) => el.textContent.trim()),
+        lastIndex: progress['e2e-auto-pack']?.lastIndex,
+        startedAt: progress['e2e-auto-pack']?.startedAt || null,
+        inputBlurred: document.activeElement !== document.querySelector('#title')
+      };
+    })()`);
+    if (
+      canceled.ranking.join("|") !== "1. Anchor|2. Auto One" ||
+      canceled.lastIndex !== 1 ||
+      !canceled.startedAt ||
+      !canceled.inputBlurred
+    ) {
+      throw new Error(`Canceling Rank all did not preserve resumable progress: ${JSON.stringify(canceled)}`);
+    }
+    const canceledShot = await page.screenshot("pack-rank-all-canceled.png");
+
+    await page.send("Page.reload", { ignoreCache: true });
+    await waitFor(page, `document.querySelectorAll('#ranking .ranking__item').length === 2`, 10000);
+    await waitFor(page, `!!document.querySelector('#pack-row [data-slug="e2e-auto-pack"]')`, 5000);
+    await page.evaluate(`(() => {
+      Math.random = () => 0.5;
+      document.querySelector('#pack-row [data-slug="e2e-auto-pack"]')?.click();
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `document.querySelector('#pack-detail-status')?.textContent.trim() === '1 handled · 2 to go'`,
+      3000,
+    );
+    await page.evaluate(`document.querySelector('#pack-auto-start')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#new-title')?.textContent.trim() === 'Auto Two'`, 3000);
+    for (let attempt = 0; attempt < 12; attempt += 1) {
+      const complete = await page.evaluate(
+        `!document.querySelector('#pack-detail')?.hidden &&
+          document.querySelector('#pack-detail-status')?.textContent.trim() === '3 handled · 0 to go'`,
+      );
+      if (complete) break;
+      const comparing = await page.evaluate(
+        `!document.querySelector('#compare')?.classList.contains('panel--hidden')`,
+      );
+      if (!comparing) {
+        await wait(100);
+        continue;
+      }
+      await page.evaluate(`document.querySelector('#existing-card')?.click(); true;`);
+      await wait(120);
+    }
+    await waitFor(
+      page,
+      `!document.querySelector('#pack-detail')?.hidden &&
+        document.querySelector('#pack-detail-status')?.textContent.trim() === '3 handled · 0 to go'`,
+      5000,
+    );
+    const completed = await page.evaluate(`(() => {
+      const progress = JSON.parse(localStorage.getItem('stackrank:pack-progress:v1') || '{}').progress || {};
+      return {
+        status: document.querySelector('#pack-detail-status')?.textContent.trim(),
+        ranking: [...document.querySelectorAll('#ranking .ranking__title')].map((el) => el.textContent.trim()),
+        completedAt: progress['e2e-auto-pack']?.completedAt || null,
+        lastIndex: progress['e2e-auto-pack']?.lastIndex,
+        autoText: document.querySelector('#pack-auto-start')?.textContent.trim(),
+        autoDisabled: document.querySelector('#pack-auto-start')?.disabled,
+        inputBlurred: document.activeElement !== document.querySelector('#title')
+      };
+    })()`);
+    if (
+      completed.ranking.join("|") !== "1. Anchor|2. Auto One|3. Auto Two|4. Auto Three" ||
+      !completed.completedAt ||
+      completed.lastIndex !== 3 ||
+      completed.autoText !== "Pack complete" ||
+      !completed.autoDisabled ||
+      !completed.inputBlurred
+    ) {
+      throw new Error(`Resumed Rank all did not complete cleanly: ${JSON.stringify(completed)}`);
+    }
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { canceled, completed },
+      screenshots: [canceledShot, await page.screenshot("pack-rank-all-complete.png")],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
 const testMobilePackTitleClearance = async ({ baseUrl }) => {
   const page = await openChromePage({ name: "mobile-pack-title-clearance", width: 440, height: 956 });
   try {
@@ -2967,6 +3677,8 @@ const tests = [
   { name: "full-screen ranking interactions", run: testFullscreenRankingInteractions },
   { name: "Taste Explorer evidence and ranking lens", run: testTasteExplorer },
   { name: "suggestion explanations and refresh", run: testSuggestionExplanations },
+  { name: "pack browser filters, paging, actions, and persistence", run: testPackBrowserAndActions },
+  { name: "pack Rank all cancel, resume, and completion", run: testPackRankAllResumeAndCompletion },
   { name: "mobile pack title clearance", run: testMobilePackTitleClearance },
 ];
 
@@ -3037,10 +3749,17 @@ const main = async () => {
   fs.mkdirSync(screenshotsDir, { recursive: true });
   fs.mkdirSync(downloadsRoot, { recursive: true });
   const startedAt = timestampForFile();
+  const only = String(process.env.E2E_ONLY || "").trim().toLowerCase();
+  const selectedTests = only
+    ? tests.filter((test) => test.name.toLowerCase().includes(only))
+    : tests;
+  if (!selectedTests.length) {
+    throw new Error(`No E2E tests matched E2E_ONLY=${JSON.stringify(process.env.E2E_ONLY)}`);
+  }
   const server = await serveStatic();
   const results = [];
   try {
-    for (const test of tests) {
+    for (const test of selectedTests) {
       const result = { name: test.name, status: "passed", details: null, screenshots: [], durationMs: 0 };
       const testStarted = Date.now();
       process.stdout.write(`E2E ${test.name} ... `);

@@ -11,8 +11,9 @@ import {
   mergePackProgressPayloads,
   normalizePackProgressEntry,
   parsePackProgressPayload,
+  reconcilePackProgressCompletion,
   stripPackProgressMetadata,
-} from "./lib/pack-progress.js?v=1";
+} from "./lib/pack-progress.js?v=2";
 import {
   xmlEscape,
   estimateSvgTextWidth,
@@ -4592,21 +4593,11 @@ const renderPackPanel = () => {
 
 const syncPackCompletion = (pack) => {
   const stats = getPackStats(pack);
-  const entry = normalizePackProgressEntry(packProgress[pack.slug] || {});
-  let changed = false;
-  if (stats.handled === 0 && (entry.startedAt || entry.completedAt || entry.lastIndex)) {
-    entry.startedAt = null;
-    entry.completedAt = null;
-    entry.lastIndex = 0;
-    changed = true;
-  } else if (stats.completed && !entry.completedAt) {
-    entry.completedAt = new Date().toISOString();
-    entry.packVersionSeen = pack.version;
-    changed = true;
-  } else if (!stats.completed && entry.completedAt) {
-    entry.completedAt = null;
-    changed = true;
-  }
+  const { entry, changed } = reconcilePackProgressCompletion(packProgress[pack.slug] || {}, {
+    completed: stats.completed,
+    packVersion: pack.version,
+    completedAt: new Date().toISOString(),
+  });
   if (changed) {
     packProgress = { ...packProgress, [pack.slug]: entry };
     void savePackProgress(pack.slug);

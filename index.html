@@ -58,7 +58,7 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="styles.css?v=97" />
+    <link rel="stylesheet" href="styles.css?v=98" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -150,14 +150,26 @@
         <rect x="3" y="12" width="5" height="5" rx="1"></rect>
         <rect x="12" y="12" width="5" height="5" rx="1"></rect>
       </symbol>
+      <symbol id="icon-lists" viewBox="0 0 20 20">
+        <path d="M7 5h10M7 10h10M7 15h10"></path>
+        <circle cx="3.5" cy="5" r=".8" fill="currentColor" stroke="none"></circle>
+        <circle cx="3.5" cy="10" r=".8" fill="currentColor" stroke="none"></circle>
+        <circle cx="3.5" cy="15" r=".8" fill="currentColor" stroke="none"></circle>
+      </symbol>
       <symbol id="icon-check" viewBox="0 0 20 20">
         <path d="m4.5 10.5 3.5 3.5 7.5-8"></path>
       </symbol>
     </svg>
-    <main class="app">
+    <main class="app" data-app-destination="rank">
       <header class="topbar">
         <h1 class="brand">StackRank</h1>
-        <div class="topbar__meta">Movies</div>
+        <nav class="app-nav app-nav--top" aria-label="Primary">
+          <button class="app-nav__item is-active" type="button" data-app-destination-target="rank" aria-current="page">
+            Rank
+          </button>
+          <button class="app-nav__item" type="button" data-app-destination-target="discover">Discover</button>
+          <button class="app-nav__item" type="button" data-app-destination-target="lists">Lists</button>
+        </nav>
         <div class="topbar__actions">
           <span class="auth__status panel__sub" id="auth-status" role="status" aria-live="polite"></span>
           <button class="ghost" id="auth-sign-in" type="button" hidden>Sign in</button>
@@ -240,19 +252,22 @@
       </header>
 
       <div class="stack">
-        <section class="panel panel--focus" aria-live="polite">
+        <section class="panel panel--focus panel--add" aria-live="polite">
           <div class="panel__header">
-            <h2>Add a movie</h2>
+            <h2>Add to your ranking</h2>
           </div>
           <form id="movie-form" class="form form--center">
             <label class="field field--center">
-              <span class="field__label">Type a title</span>
+              <span class="field__label sr-only">Search</span>
               <div class="field__input">
+                <svg class="ui-icon field__search-icon" aria-hidden="true" focusable="false">
+                  <use href="#icon-search"></use>
+                </svg>
                 <input
                   id="title"
                   name="title"
                   type="text"
-                  placeholder="Spirited Away"
+                  placeholder="Search for a movie"
                   autocomplete="off"
                   required
                 />
@@ -281,6 +296,64 @@
             </button>
           </section>
           <div class="panel__feedback" id="add-feedback" role="status" aria-live="polite"></div>
+          <div id="compare" class="compare-panel panel--hidden" aria-live="polite">
+            <div class="panel__header">
+              <h2>Pick your favorite</h2>
+              <div class="compare__meta">
+                <span class="panel__sub" id="compare-sub">Choose the movie you like more.</span>
+                <div class="compare__controls">
+                  <button class="undo-button" id="undo-choice" type="button">
+                    <svg class="ui-icon" aria-hidden="true" focusable="false">
+                      <use href="#icon-undo"></use>
+                    </svg>
+                    Undo last choice
+                  </button>
+                  <button class="undo-button undo-button--cancel" id="cancel-ranking" type="button">
+                    Cancel ranking
+                  </button>
+                  <button class="undo-button undo-button--cancel" id="skip-pack-movie" type="button" hidden>
+                    Skip for now
+                  </button>
+                  <button class="undo-button" id="review-keep" type="button" hidden>Keep order</button>
+                  <button class="undo-button" id="review-swap" type="button" hidden>
+                    <svg class="ui-icon" aria-hidden="true" focusable="false">
+                      <use href="#icon-swap"></use>
+                    </svg>
+                    Swap
+                  </button>
+                  <button class="undo-button undo-button--cancel" id="review-end" type="button" hidden>
+                    End review
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="compare">
+              <div class="card card--clickable" id="new-card" role="button" tabindex="0" aria-label="Choose new movie">
+                <div class="card__label">New entry</div>
+                <img class="card__poster" id="new-poster" alt="" />
+                <div class="card__title" id="new-title">Movie</div>
+                <div class="card__meta" id="new-meta">Year</div>
+              </div>
+              <div
+                class="card card--ghost card--clickable"
+                id="existing-card"
+                role="button"
+                tabindex="0"
+                aria-label="Choose existing movie"
+              >
+                <div class="card__label">Existing</div>
+                <img class="card__poster" id="existing-poster" alt="" />
+                <div class="card__title" id="existing-title">Movie</div>
+                <div class="card__meta" id="existing-meta">Year</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel panel--discovery" id="discover-panel" aria-labelledby="discover-title">
+          <div class="panel__header panel__header--discovery">
+            <h2 id="discover-title">Continue ranking</h2>
+          </div>
           <div class="suggest-panel" id="suggest-panel">
             <div class="suggest-section suggest-section--packs" id="pack-section">
               <div class="suggest-header suggest-header--packs">
@@ -389,58 +462,6 @@
                     <div class="suggest-meta suggest-skeleton"></div>
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div id="compare" class="compare-panel panel--hidden" aria-live="polite">
-            <div class="panel__header">
-              <h2>Pick your favorite</h2>
-              <div class="compare__meta">
-                <span class="panel__sub" id="compare-sub">Choose the movie you like more.</span>
-                <div class="compare__controls">
-                  <button class="undo-button" id="undo-choice" type="button">
-                    <svg class="ui-icon" aria-hidden="true" focusable="false">
-                      <use href="#icon-undo"></use>
-                    </svg>
-                    Undo last choice
-                  </button>
-                  <button class="undo-button undo-button--cancel" id="cancel-ranking" type="button">
-                    Cancel ranking
-                  </button>
-                  <button class="undo-button undo-button--cancel" id="skip-pack-movie" type="button" hidden>
-                    Skip for now
-                  </button>
-                  <button class="undo-button" id="review-keep" type="button" hidden>Keep order</button>
-                  <button class="undo-button" id="review-swap" type="button" hidden>
-                    <svg class="ui-icon" aria-hidden="true" focusable="false">
-                      <use href="#icon-swap"></use>
-                    </svg>
-                    Swap
-                  </button>
-                  <button class="undo-button undo-button--cancel" id="review-end" type="button" hidden>
-                    End review
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div class="compare">
-              <div class="card card--clickable" id="new-card" role="button" tabindex="0" aria-label="Choose new movie">
-                <div class="card__label">New entry</div>
-                <img class="card__poster" id="new-poster" alt="" />
-                <div class="card__title" id="new-title">Movie</div>
-                <div class="card__meta" id="new-meta">Year</div>
-              </div>
-              <div
-                class="card card--ghost card--clickable"
-                id="existing-card"
-                role="button"
-                tabindex="0"
-                aria-label="Choose existing movie"
-              >
-                <div class="card__label">Existing</div>
-                <img class="card__poster" id="existing-poster" alt="" />
-                <div class="card__title" id="existing-title">Movie</div>
-                <div class="card__meta" id="existing-meta">Year</div>
               </div>
             </div>
           </div>
@@ -1163,8 +1184,28 @@
           <a href="/privacy#credits">Credits</a>
         </nav>
       </footer>
+      <nav class="app-nav app-nav--mobile" aria-label="Primary">
+        <button class="app-nav__item is-active" type="button" data-app-destination-target="rank" aria-current="page">
+          <svg class="ui-icon" aria-hidden="true" focusable="false">
+            <use href="#icon-rank"></use>
+          </svg>
+          <span>Rank</span>
+        </button>
+        <button class="app-nav__item" type="button" data-app-destination-target="discover">
+          <svg class="ui-icon" aria-hidden="true" focusable="false">
+            <use href="#icon-search"></use>
+          </svg>
+          <span>Discover</span>
+        </button>
+        <button class="app-nav__item" type="button" data-app-destination-target="lists">
+          <svg class="ui-icon" aria-hidden="true" focusable="false">
+            <use href="#icon-lists"></use>
+          </svg>
+          <span>Lists</span>
+        </button>
+      </nav>
     </main>
 
-    <script type="module" src="app.js?v=138"></script>
+    <script type="module" src="app.js?v=139"></script>
   </body>
 </html>

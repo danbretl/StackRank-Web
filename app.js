@@ -122,6 +122,10 @@ import {
   isLikelyEmail,
   normalizeAuthEmail,
 } from "./lib/auth.js?v=2";
+import {
+  createAppShellState,
+  switchAppDestination,
+} from "./lib/app-shell.js?v=1";
 
 console.info("StackRank build", "taste-explorer-v1");
 
@@ -142,6 +146,8 @@ const uiIconMarkup = (name, className = "") =>
   `<svg class="ui-icon${className ? ` ${className}` : ""}" aria-hidden="true" focusable="false">` +
   `<use href="#icon-${name}"></use></svg>`;
 
+const appShell = document.querySelector("main.app");
+const appDestinationButtons = Array.from(document.querySelectorAll("[data-app-destination-target]"));
 const form = document.getElementById("movie-form");
 const titleInput = document.getElementById("title");
 const suggestions = document.getElementById("suggestions");
@@ -409,6 +415,33 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
+const applyAppDestination = (destination, { restoreScroll = true } = {}) => {
+  if (!appShell) return;
+  const currentScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+  const next = switchAppDestination(appShellState, destination, currentScrollY);
+  appShellState = next.state;
+  const active = appShellState.destination;
+  appShell.dataset.appDestination = active;
+  appDestinationButtons.forEach((button) => {
+    const selected = button.dataset.appDestinationTarget === active;
+    button.classList.toggle("is-active", selected);
+    if (selected) button.setAttribute("aria-current", "page");
+    else button.removeAttribute("aria-current");
+  });
+  if (restoreScroll) {
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ left: 0, top: next.scrollY, behavior: "auto" });
+    });
+  }
+};
+
+appDestinationButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    closeRankingSettings({ restoreFocus: false });
+    applyAppDestination(button.dataset.appDestinationTarget || "rank");
+  });
+});
+
 const TMDB_PROXY_PATH = "/functions/v1/tmdb-search";
 const TMDB_SUGGEST_PATH = "/functions/v1/tmdb-suggest";
 const TMDB_DETAIL_PATH = "/functions/v1/tmdb-detail";
@@ -427,6 +460,7 @@ const INSPIRED_SEED_KEY = "stackrank:inspired-seed:v1";
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl";
 
+let appShellState = createAppShellState();
 let ranking = [];
 let rankingUpdatedAt = null;
 let watchList = [];
@@ -965,8 +999,8 @@ const stopPlaceholderRotation = () => {
 
 const startPlaceholderRotation = () => {
   stopPlaceholderRotation();
-  titleInput.placeholder = pickPlaceholderTitle();
-  placeholderTimer = window.setInterval(rotateTitlePlaceholder, PLACEHOLDER_ROTATION_MS);
+  currentPlaceholderTitle = "";
+  titleInput.placeholder = "Search for a movie";
 };
 
 // normalizeTitle, movieKey, movieYear, isDuplicateMovie (as isDuplicateInList),

@@ -744,6 +744,210 @@ const testBootLayoutStability = async ({ baseUrl }) => {
   }
 };
 
+const testAppShellNavigation = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "app-shell-navigation", width: 1440, height: 900 });
+  try {
+    await seedPage(page, baseUrl, "app-shell-navigation", {
+      ranking: [
+        movie("Alpha", 1990, 2001),
+        movie("Beta", 1995, 2002),
+        movie("Gamma", 2000, 2003),
+        movie("Delta", 2005, 2004),
+        movie("Epsilon", 2010, 2005),
+      ],
+      watchList: [queueMovie("Saved", 2020, 2006)],
+      notInterestedList: [{ ...queueMovie("Hidden", 2021, 2007), hiddenAt: "2026-06-20T13:30:00.000Z" }],
+    });
+
+    const desktop = await page.evaluate(`(() => {
+      const rect = (selector) => {
+        const bounds = document.querySelector(selector)?.getBoundingClientRect();
+        return bounds ? {
+          left: bounds.left,
+          right: bounds.right,
+          top: bounds.top,
+          bottom: bounds.bottom,
+          width: bounds.width,
+          height: bounds.height
+        } : null;
+      };
+      const rank = rect('.side-stack');
+      const rail = rect('.stack');
+      const total = (rank?.width || 0) + (rail?.width || 0);
+      return {
+        destination: document.querySelector('main.app')?.dataset.appDestination,
+        currentNav: document.querySelector('.app-nav--top .app-nav__item[aria-current="page"]')?.textContent.trim(),
+        rank,
+        rail,
+        ratio: total ? rank.width / total : 0,
+        rankingLeftOfRail: rank && rail ? rank.left < rail.left : false,
+        addVisible: !!rect('.panel--add'),
+        continueVisible: !!rect('.panel--discovery'),
+        visibleQueuePanels: [...document.querySelectorAll('.panel--queue')].filter((panel) => {
+          const bounds = panel.getBoundingClientRect();
+          return bounds.width > 0 && bounds.height > 0;
+        }).length,
+        scrollWidth: document.documentElement.scrollWidth,
+        innerWidth
+      };
+    })()`);
+    if (
+      desktop.destination !== "rank" ||
+      desktop.currentNav !== "Rank" ||
+      desktop.ratio < 0.61 ||
+      desktop.ratio > 0.67 ||
+      !desktop.rankingLeftOfRail ||
+      !desktop.addVisible ||
+      !desktop.continueVisible ||
+      desktop.visibleQueuePanels !== 0 ||
+      desktop.scrollWidth > desktop.innerWidth
+    ) {
+      throw new Error(`Desktop app shell layout is wrong: ${JSON.stringify(desktop)}`);
+    }
+    const desktopShot = await page.screenshot("app-shell-desktop-rank.png");
+
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 390,
+      height: 844,
+      deviceScaleFactor: 1,
+      mobile: false,
+      screenWidth: 390,
+      screenHeight: 844,
+    });
+    await wait(250);
+    const mobileRank = await page.evaluate(`(() => {
+      const rect = (selector) => {
+        const bounds = document.querySelector(selector)?.getBoundingClientRect();
+        return bounds ? {
+          top: bounds.top,
+          bottom: bounds.bottom,
+          width: bounds.width,
+          height: bounds.height
+        } : null;
+      };
+      const inFlow = (selector) => {
+        const bounds = document.querySelector(selector)?.getBoundingClientRect();
+        return !!bounds && bounds.width > 0 && bounds.height > 0;
+      };
+      return {
+        destination: document.querySelector('main.app')?.dataset.appDestination,
+        add: rect('.panel--add'),
+        ranking: rect('.panel--list'),
+        discoveryVisible: inFlow('.panel--discovery'),
+        queueVisible: [...document.querySelectorAll('.panel--queue')].some((panel) => {
+          const bounds = panel.getBoundingClientRect();
+          return bounds.width > 0 && bounds.height > 0;
+        }),
+        mobileNav: rect('.app-nav--mobile'),
+        topNavVisible: inFlow('.app-nav--top'),
+        scrollWidth: document.documentElement.scrollWidth,
+        innerWidth,
+        innerHeight
+      };
+    })()`);
+    if (
+      mobileRank.destination !== "rank" ||
+      !mobileRank.add ||
+      !mobileRank.ranking ||
+      mobileRank.ranking.top >= mobileRank.innerHeight ||
+      mobileRank.discoveryVisible ||
+      mobileRank.queueVisible ||
+      !mobileRank.mobileNav ||
+      mobileRank.mobileNav.height < 68 ||
+      mobileRank.topNavVisible ||
+      mobileRank.scrollWidth > mobileRank.innerWidth
+    ) {
+      throw new Error(`Mobile Rank shell is wrong: ${JSON.stringify(mobileRank)}`);
+    }
+
+    await page.evaluate(`document.querySelector('.app-nav--mobile [data-app-destination-target="discover"]')?.click(); true;`);
+    await wait(100);
+    await page.evaluate(`window.scrollTo(0, 520); true;`);
+    await wait(50);
+    const mobileDiscover = await page.evaluate(`(() => {
+      const rect = (selector) => {
+        const bounds = document.querySelector(selector)?.getBoundingClientRect();
+        return bounds ? { top: bounds.top, bottom: bounds.bottom, width: bounds.width, height: bounds.height } : null;
+      };
+      const inFlow = (selector) => {
+        const bounds = document.querySelector(selector)?.getBoundingClientRect();
+        return !!bounds && bounds.width > 0 && bounds.height > 0;
+      };
+      return {
+        destination: document.querySelector('main.app')?.dataset.appDestination,
+        currentNav: document.querySelector('.app-nav--mobile .app-nav__item[aria-current="page"]')?.textContent.trim(),
+        pack: rect('#pack-section'),
+        addVisible: inFlow('.panel--add'),
+        rankingVisible: inFlow('.panel--list'),
+        scrollY: window.scrollY,
+        scrollWidth: document.documentElement.scrollWidth,
+        innerWidth
+      };
+    })()`);
+    if (
+      mobileDiscover.destination !== "discover" ||
+      mobileDiscover.currentNav !== "Discover" ||
+      !mobileDiscover.pack ||
+      mobileDiscover.addVisible ||
+      mobileDiscover.rankingVisible ||
+      mobileDiscover.scrollY < 400 ||
+      mobileDiscover.scrollWidth > mobileDiscover.innerWidth
+    ) {
+      throw new Error(`Mobile Discover shell is wrong: ${JSON.stringify(mobileDiscover)}`);
+    }
+    const discoverShot = await page.screenshot("app-shell-mobile-discover.png");
+
+    await page.evaluate(`document.querySelector('.app-nav--mobile [data-app-destination-target="lists"]')?.click(); true;`);
+    await wait(100);
+    const mobileLists = await page.evaluate(`(() => {
+      const inFlow = (selector) => {
+        const bounds = document.querySelector(selector)?.getBoundingClientRect();
+        return !!bounds && bounds.width > 0 && bounds.height > 0;
+      };
+      return {
+        destination: document.querySelector('main.app')?.dataset.appDestination,
+        currentNav: document.querySelector('.app-nav--mobile .app-nav__item[aria-current="page"]')?.textContent.trim(),
+        watchVisible: inFlow('#watch-list'),
+        hiddenVisible: inFlow('#not-interested-list'),
+        addVisible: inFlow('.panel--add'),
+        rankingVisible: inFlow('.panel--list'),
+        discoveryVisible: inFlow('.panel--discovery'),
+        scrollY: window.scrollY,
+        scrollWidth: document.documentElement.scrollWidth,
+        innerWidth
+      };
+    })()`);
+    if (
+      mobileLists.destination !== "lists" ||
+      mobileLists.currentNav !== "Lists" ||
+      !mobileLists.watchVisible ||
+      !mobileLists.hiddenVisible ||
+      mobileLists.addVisible ||
+      mobileLists.rankingVisible ||
+      mobileLists.discoveryVisible ||
+      mobileLists.scrollWidth > mobileLists.innerWidth
+    ) {
+      throw new Error(`Mobile Lists shell is wrong: ${JSON.stringify(mobileLists)}`);
+    }
+
+    await page.evaluate(`document.querySelector('.app-nav--mobile [data-app-destination-target="discover"]')?.click(); true;`);
+    await wait(100);
+    const restored = await page.evaluate(`window.scrollY`);
+    if (Math.abs(restored - mobileDiscover.scrollY) > 8) {
+      throw new Error(`Discover scroll was not restored: ${JSON.stringify({ before: mobileDiscover.scrollY, restored })}`);
+    }
+
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { desktop, mobileRank, mobileDiscover, mobileLists, restored },
+      screenshots: [desktopShot, discoverShot],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
 const testFirstRunQuickStart = async ({ baseUrl }) => {
   const page = await openChromePage({ name: "first-run-quick-start", width: 1280, height: 900 });
   try {
@@ -821,8 +1025,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=138" ||
-      empty.cssHref !== "styles.css?v=97" ||
+      empty.moduleSrc !== "app.js?v=139" ||
+      empty.cssHref !== "styles.css?v=98" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -3577,6 +3781,8 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
   try {
     await seedPage(page, baseUrl, "mobile-pack-title-clearance", { ranking: [] });
     await waitFor(page, `document.querySelectorAll('#pack-row .pack-card').length === 3`, 10000);
+    await page.evaluate(`document.querySelector('.app-nav--mobile [data-app-destination-target="discover"]')?.click(); true;`);
+    await waitFor(page, `document.querySelector('main.app')?.dataset.appDestination === 'discover'`, 5000);
     await page.evaluate(`document.querySelector('#pack-view-all')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#pack-detail')?.hidden && document.querySelector('#pack-detail')?.classList.contains('is-all-packs')`, 5000);
     await page.evaluate(`document.querySelector('#pack-browser-filter-toggle')?.click(); true;`);
@@ -3661,6 +3867,7 @@ const tests = [
   { name: "localStorage persistence round-trip", run: testLoadPersistence },
   { name: "privacy page and TMDB credits", run: testPrivacyAndCredits },
   { name: "mobile and desktop boot layout stability", run: testBootLayoutStability },
+  { name: "app shell destination navigation", run: testAppShellNavigation },
   { name: "first-run quick start activation flow", run: testFirstRunQuickStart },
   { name: "dedicated sign-in view and provider availability", run: testSignInExperience },
   { name: "watch queue comparison flow", run: testQueueComparison },

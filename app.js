@@ -48,7 +48,7 @@ import {
   sharePackCardStatus,
   summarizePacks,
   featuredPacks,
-} from "./lib/packs.js?v=2";
+} from "./lib/packs.js?v=3";
 import {
   getSharePickGroups,
   movieExportLine,
@@ -966,6 +966,140 @@ const formatMeta = (movie) => {
   return `Released ${movie.year}`;
 };
 
+const movieYearLabel = (movie) => (movie?.year ? String(movie.year) : "Year unknown");
+
+const twoDigitRank = (rank) => String(rank).padStart(2, "0");
+
+const createMoviePoster = (movie, className = "") => {
+  const poster = document.createElement("img");
+  poster.className = `movie-item__poster${className ? ` ${className}` : ""}`;
+  if (movie?.posterPath) {
+    poster.src = `${TMDB_POSTER_SMALL}${movie.posterPath}`;
+    poster.alt = `${movie.title} poster`;
+    poster.style.visibility = "visible";
+  } else {
+    poster.alt = "";
+    poster.style.visibility = "hidden";
+  }
+  return poster;
+};
+
+const createMovieActionButton = ({
+  label,
+  icon = null,
+  ariaLabel,
+  className = "",
+  action = "",
+  kind = "secondary",
+}) => {
+  const button = document.createElement("button");
+  button.className = `movie-item__action movie-item__action--${kind} ${className}`.trim();
+  button.type = "button";
+  if (ariaLabel) button.setAttribute("aria-label", ariaLabel);
+  if (action) button.dataset.action = action;
+  if (icon) button.appendChild(createUiIcon(icon));
+  const text = document.createElement("span");
+  text.textContent = label;
+  button.appendChild(text);
+  return button;
+};
+
+const createMovieInfoButton = (movie, className = "") => {
+  const button = document.createElement("button");
+  button.className = `movie-item__detail ${className}`.trim();
+  button.type = "button";
+  button.setAttribute("aria-label", `Show details for ${movie.title}`);
+  button.appendChild(createUiIcon("info"));
+  return button;
+};
+
+const createMovieOverflow = (label, actions = []) => {
+  const overflow = document.createElement("details");
+  overflow.className = "movie-item__overflow";
+  const summary = document.createElement("summary");
+  summary.className = "movie-item__overflow-toggle";
+  summary.setAttribute("aria-label", label);
+  summary.appendChild(createUiIcon("overflow"));
+  const menu = document.createElement("div");
+  menu.className = "movie-item__overflow-menu";
+  actions.forEach((action) => menu.appendChild(action));
+  overflow.append(summary, menu);
+  overflow.addEventListener("toggle", () => {
+    if (!overflow.open) return;
+    document.querySelectorAll(".movie-item__overflow[open]").forEach((other) => {
+      if (other !== overflow) other.removeAttribute("open");
+    });
+  });
+  return overflow;
+};
+
+const createMovieItem = ({
+  element = "div",
+  variant,
+  movie,
+  rank = null,
+  metadata = "",
+  metadataNode = null,
+  statusNode = null,
+  actions = [],
+  detailButton = null,
+  leadingNode = null,
+  className = "",
+  legacyPosterClass = "",
+}) => {
+  const legacyClasses = {
+    ranking: { body: "ranking__text", title: "ranking__title", year: "ranking__meta" },
+    discovery: { title: "suggest-name", year: "suggest-meta" },
+    pack: { title: "suggest-name", year: "suggest-meta" },
+    queue: { body: "queue-list__text", title: "queue-list__title", year: "queue-list__meta" },
+    recent: { body: "snapshot__movie-body", title: "snapshot__movie-title", year: "snapshot__movie-meta" },
+    taste: { body: "taste__movie-copy", title: "", year: "" },
+  }[variant] || {};
+  const item = document.createElement(element);
+  item.className = `movie-item movie-item--${variant}${className ? ` ${className}` : ""}`;
+
+  if (leadingNode) item.appendChild(leadingNode);
+
+  if (rank !== null) {
+    const rankEl = document.createElement("span");
+    rankEl.className = "movie-item__rank";
+    rankEl.textContent = typeof rank === "number" ? twoDigitRank(rank) : rank;
+    item.appendChild(rankEl);
+  }
+
+  item.appendChild(createMoviePoster(movie, legacyPosterClass));
+
+  const body = document.createElement("div");
+  body.className = `movie-item__body${legacyClasses.body ? ` ${legacyClasses.body}` : ""}`;
+  const title = document.createElement("div");
+  title.className = `movie-item__title${legacyClasses.title ? ` ${legacyClasses.title}` : ""}`;
+  title.textContent = movie.title;
+  title.title = movie.title;
+  const year = document.createElement("div");
+  year.className = `movie-item__year${legacyClasses.year ? ` ${legacyClasses.year}` : ""}`;
+  year.textContent = movieYearLabel(movie);
+  body.append(title, year);
+  if (metadataNode) {
+    body.appendChild(metadataNode);
+  } else if (metadata) {
+    const meta = document.createElement("div");
+    meta.className = `movie-item__meta${legacyClasses.year ? ` ${legacyClasses.year}` : ""}`;
+    meta.textContent = metadata;
+    body.appendChild(meta);
+  }
+  if (statusNode) body.appendChild(statusNode);
+  item.appendChild(body);
+
+  if (detailButton) item.appendChild(detailButton);
+  if (actions.length) {
+    const actionWrap = document.createElement("div");
+    actionWrap.className = "movie-item__actions";
+    actions.forEach((action) => actionWrap.appendChild(action));
+    item.appendChild(actionWrap);
+  }
+  return item;
+};
+
 // Pick a random placeholder, skipping titles the customer has already ranked
 // (never tease a movie they've placed) and avoiding an immediate repeat. Falls
 // back gracefully if the pool empties out.
@@ -1167,49 +1301,37 @@ const renderRanking = () => {
       if (!haystack.includes(query)) return;
     }
     visibleCount += 1;
-    const item = document.createElement("li");
-    item.className = "ranking__item";
-    item.dataset.index = String(index);
-    item.setAttribute("aria-grabbed", "false");
     const handle = document.createElement("span");
-    handle.className = "ranking__handle";
+    handle.className = "ranking__handle movie-item__handle";
     handle.appendChild(createUiIcon("drag"));
     handle.setAttribute("aria-hidden", "true");
-    const actions = document.createElement("div");
-    actions.className = "ranking__actions";
     const restackButton = document.createElement("button");
-    restackButton.className = "ranking__restack";
+    restackButton.className = "ranking__restack movie-item__icon-action";
     restackButton.type = "button";
     restackButton.setAttribute("aria-label", `Re-rank ${movie.title}`);
     restackButton.appendChild(createUiIcon("refresh"));
     const removeButton = document.createElement("button");
-    removeButton.className = "ranking__delete";
+    removeButton.className = "ranking__delete movie-item__overflow-action movie-item__overflow-action--danger";
     removeButton.type = "button";
     removeButton.setAttribute("aria-label", `Remove ${movie.title}`);
-    removeButton.appendChild(createUiIcon("remove"));
-    const poster = document.createElement("img");
-    poster.className = "ranking__poster";
-    if (movie.posterPath) {
-      poster.src = `${TMDB_POSTER_SMALL}${movie.posterPath}`;
-      poster.alt = `${movie.title} poster`;
-      poster.style.visibility = "visible";
-    } else {
-      poster.alt = "";
-      poster.style.visibility = "hidden";
-    }
-
-    const text = document.createElement("div");
-    text.className = "ranking__text";
-    const title = document.createElement("div");
-    title.className = "ranking__title";
-    title.textContent = `${index + 1}. ${movie.title}`;
-    const meta = document.createElement("div");
-    meta.className = "ranking__meta";
-    meta.textContent = movie.year ? `Released ${movie.year}` : "Year unknown";
-
-    text.append(title, meta);
-    actions.append(restackButton, removeButton);
-    item.append(handle, poster, text, actions);
+    removeButton.textContent = "Remove";
+    const infoButton = createMovieInfoButton(movie, "ranking__info");
+    const overflow = createMovieOverflow(`More actions for ${movie.title}`, [removeButton]);
+    overflow.classList.add("ranking__overflow");
+    const item = createMovieItem({
+      element: "li",
+      variant: "ranking",
+      movie,
+      rank: index + 1,
+      metadata: "Current ranking",
+      leadingNode: handle,
+      detailButton: infoButton,
+      actions: [restackButton, overflow],
+      className: "ranking__item",
+      legacyPosterClass: "ranking__poster",
+    });
+    item.dataset.index = String(index);
+    item.setAttribute("aria-grabbed", "false");
     rankingList.appendChild(item);
   });
 
@@ -1324,39 +1446,19 @@ function getRecentRankedItems() {
 }
 
 function createSnapshotMovieRow({ movie, rank, rankedTime }) {
-  const row = document.createElement("li");
-  row.className = "snapshot__movie";
-
-  const poster = document.createElement("img");
-  poster.className = "snapshot__poster";
-  if (movie.posterPath) {
-    poster.src = `${TMDB_POSTER_SMALL}${movie.posterPath}`;
-    poster.alt = `${movie.title} poster`;
-  } else {
-    poster.alt = "";
-    poster.setAttribute("aria-hidden", "true");
-  }
-
-  const body = document.createElement("div");
-  body.className = "snapshot__movie-body";
-  const title = document.createElement("div");
-  title.className = "snapshot__movie-title";
-  title.textContent = movie.title;
-  const meta = document.createElement("div");
-  meta.className = "snapshot__movie-meta";
-  meta.textContent = formatMeta(movie);
-  body.append(title, meta);
-
-  const detail = document.createElement("div");
-  detail.className = "snapshot__movie-detail";
-  const rankLabel = document.createElement("span");
-  rankLabel.className = "snapshot__rank";
-  rankLabel.textContent = `#${rank}`;
-  const dateLabel = document.createElement("span");
-  dateLabel.textContent = rankedTime !== null ? formatShortDate(movie.rankedAt) : "Current list";
-  detail.append(rankLabel, dateLabel);
-
-  row.append(poster, body, detail);
+  const status = document.createElement("div");
+  status.className = "movie-item__status snapshot__movie-detail";
+  status.textContent = rankedTime !== null ? formatShortDate(movie.rankedAt) : "Current list";
+  const row = createMovieItem({
+    element: "li",
+    variant: "recent",
+    movie,
+    rank: `#${rank}`,
+    metadata: "Recently ranked",
+    statusNode: status,
+    className: "snapshot__movie",
+    legacyPosterClass: "snapshot__poster",
+  });
   return row;
 }
 
@@ -1391,34 +1493,29 @@ const getTasteMatchingPacks = (signal) => {
 
 const createTasteMovieRow = ({ movie, index }) => {
   const button = document.createElement("button");
-  button.className = "taste__movie";
+  button.className = "taste__movie movie-item movie-item--taste";
   button.type = "button";
   button.setAttribute("aria-label", `Open details for #${index + 1}, ${movie.title}`);
 
   const rank = document.createElement("span");
-  rank.className = "taste__movie-rank";
-  rank.textContent = `#${index + 1}`;
+  rank.className = "taste__movie-rank movie-item__rank";
+  rank.textContent = twoDigitRank(index + 1);
 
-  const poster = document.createElement("span");
-  poster.className = "taste__movie-poster";
-  if (movie.posterPath) {
-    const image = document.createElement("img");
-    image.src = `${TMDB_POSTER_SMALL}${movie.posterPath}`;
-    image.alt = "";
-    image.loading = "lazy";
-    poster.appendChild(image);
-  }
+  const poster = createMoviePoster(movie, "taste__movie-poster");
+  poster.loading = "lazy";
 
   const copy = document.createElement("span");
-  copy.className = "taste__movie-copy";
+  copy.className = "taste__movie-copy movie-item__body";
   const title = document.createElement("strong");
+  title.className = "movie-item__title";
   title.textContent = movie.title;
   const meta = document.createElement("span");
-  meta.textContent = movie.year ? String(movie.year) : "Year unknown";
+  meta.className = "movie-item__year";
+  meta.textContent = movieYearLabel(movie);
   copy.append(title, meta);
 
   const arrow = document.createElement("span");
-  arrow.className = "taste__movie-arrow";
+  arrow.className = "taste__movie-arrow movie-item__detail";
   arrow.appendChild(createUiIcon("next"));
   arrow.setAttribute("aria-hidden", "true");
 
@@ -1616,16 +1713,17 @@ if (tasteToggle) {
 }
 
 const createQueueActionButton = (label, ariaLabel, action, className = "") => {
-  const button = document.createElement("button");
-  button.className = `queue-action ${className}`.trim();
-  button.type = "button";
-  button.textContent = label;
-  button.setAttribute("aria-label", ariaLabel);
-  button.dataset.action = action;
-  return button;
+  const kind = className.includes("remove") ? "danger" : className.includes("secondary") ? "secondary" : "primary";
+  const icon = label === "Rank" ? "rank" : label === "Save" ? "bookmark" : label === "Hide" ? "hide" : label === "Remove" ? "remove" : null;
+  return createMovieActionButton({
+    label,
+    icon,
+    ariaLabel,
+    action,
+    kind,
+    className: `queue-action ${className}`.trim(),
+  });
 };
-
-const createInfoIcon = () => uiIconMarkup("info");
 
 const createSuggestionReasonIcon = () => `
   <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
@@ -1645,76 +1743,42 @@ const renderQueueList = (container, list, emptyText, source) => {
   }
 
   list.forEach((movie, index) => {
-    const item = document.createElement("li");
-    item.className = "queue-list__item";
-    item.dataset.index = String(index);
-    item.dataset.source = source;
-    const primary = document.createElement("button");
-    primary.className = "queue-list__primary";
-    primary.type = "button";
-    primary.setAttribute(
-      "aria-label",
-      `Rank ${movie.title}. ${movie.year ? `Released ${movie.year}` : "Year unknown"}`,
-    );
-
-    const poster = document.createElement("img");
-    poster.className = "queue-list__poster";
-    if (movie.posterPath) {
-      poster.src = `${TMDB_POSTER_SMALL}${movie.posterPath}`;
-      poster.alt = `${movie.title} poster`;
-      poster.style.visibility = "visible";
-    } else {
-      poster.alt = "";
-      poster.style.visibility = "hidden";
-    }
-
-    const text = document.createElement("div");
-    text.className = "queue-list__text";
-    const title = document.createElement("div");
-    title.className = "queue-list__title";
-    title.textContent = movie.title;
-    const meta = document.createElement("div");
-    meta.className = "queue-list__meta";
-    meta.textContent = movie.year ? `Released ${movie.year}` : "Year unknown";
-    text.append(title, meta);
-
-    const infoButton = document.createElement("button");
-    infoButton.className = "queue-info";
-    infoButton.type = "button";
-    infoButton.setAttribute("aria-label", `Show details for ${movie.title}`);
-    infoButton.innerHTML = createInfoIcon();
+    const infoButton = createMovieInfoButton(movie, "queue-info");
 
     const actions = document.createElement("div");
-    actions.className = "queue-list__actions";
+    actions.className = "queue-list__actions movie-item__actions";
+    const rankButton = createQueueActionButton("Rank", `Rank ${movie.title}. ${formatMeta(movie)}`, "rank", "queue-list__primary");
+    const removeButton = createQueueActionButton(
+      "Remove",
+      source === "watch"
+        ? `Remove ${movie.title} from Watch next`
+        : `Remove ${movie.title} from Not for me`,
+      "remove",
+      "queue-action--remove",
+    );
+    const overflow = createMovieOverflow(`More actions for ${movie.title}`, [removeButton]);
+    overflow.classList.add("queue-list__overflow");
     if (source === "watch") {
       actions.append(
+        rankButton,
         createQueueActionButton(
           "Hide",
           `Hide ${movie.title} in Not for me`,
           "move",
           "queue-action--secondary",
         ),
-        createQueueActionButton(
-          "Remove",
-          `Remove ${movie.title} from Watch next`,
-          "remove",
-          "queue-action--remove",
-        ),
+        overflow,
       );
     } else {
       actions.append(
+        rankButton,
         createQueueActionButton(
           "Save",
           `Save ${movie.title} to Watch next`,
           "move",
           "queue-action--secondary",
         ),
-        createQueueActionButton(
-          "Remove",
-          `Remove ${movie.title} from Not for me`,
-          "remove",
-          "queue-action--remove",
-        ),
+        overflow,
       );
     }
 
@@ -1723,8 +1787,18 @@ const renderQueueList = (container, list, emptyText, source) => {
       openMovieDetail(movie, { type: "queue", source }, infoButton);
     });
 
-    primary.append(poster, text);
-    item.append(primary, infoButton, actions);
+    const item = createMovieItem({
+      element: "li",
+      variant: "queue",
+      movie,
+      metadata: source === "watch" ? "Watch next" : "Hidden",
+      detailButton: infoButton,
+      className: "queue-list__item",
+      legacyPosterClass: "queue-list__poster",
+    });
+    item.dataset.index = String(index);
+    item.dataset.source = source;
+    item.appendChild(actions);
     container.appendChild(item);
   });
 };
@@ -3529,6 +3603,17 @@ const removeRankedMovie = (index, { fromFullscreen = false } = {}) => {
 };
 
 rankingList.addEventListener("click", (event) => {
+  const infoButton = event.target.closest(".ranking__info");
+  if (infoButton) {
+    const item = infoButton.closest(".ranking__item");
+    if (!item) return;
+    const index = Number(item.dataset.index);
+    if (Number.isNaN(index)) return;
+    const movie = ranking[index];
+    if (movie) openMovieDetail(movie, { type: "ranked", source: "ranking", index }, infoButton);
+    return;
+  }
+
   const restackButton = event.target.closest(".ranking__restack");
   if (restackButton) {
     const item = restackButton.closest(".ranking__item");
@@ -3643,7 +3728,7 @@ rankingList.addEventListener(
     if (rankingFilterQuery.trim()) return;
     const item = event.target.closest(".ranking__item");
     if (!item) return;
-    if (event.target.closest(".ranking__actions")) {
+    if (event.target.closest(".ranking__actions, .movie-item__actions, .movie-item__detail, .movie-item__overflow")) {
       return;
     }
     if (event.pointerType === "touch" && !event.target.closest(".ranking__handle")) {
@@ -4166,36 +4251,11 @@ const setSuggestionList = (sectionKey, container, items = [], reasonContext = nu
   const reasonEntries = [];
   items.forEach((movie) => {
     const card = document.createElement("div");
-    card.className = "suggest-card";
+    card.className = "suggest-card movie-item-card";
     card.title = movie.title;
-    const primary = document.createElement("button");
-    primary.className = "suggest-primary";
-    primary.type = "button";
-    const primaryAction = document.createElement("span");
-    primaryAction.className = "sr-only";
-    primaryAction.textContent = "Rank ";
-    const poster = document.createElement("img");
-    poster.className = "suggest-poster";
-    if (movie.posterPath) {
-      poster.src = `${TMDB_POSTER_SMALL}${movie.posterPath}`;
-      poster.alt = `${movie.title} poster`;
-    } else {
-      poster.alt = "";
-    }
-    const name = document.createElement("div");
-    name.className = "suggest-name";
-    name.textContent = movie.title;
-    name.title = movie.title;
-    const detailButton = document.createElement("button");
-    detailButton.className = "suggest-info";
-    detailButton.type = "button";
-    detailButton.setAttribute("aria-label", `Show details for ${movie.title}`);
-    detailButton.innerHTML = createInfoIcon();
-    const meta = document.createElement("div");
-    meta.className = "suggest-meta";
-    meta.textContent = movie.year ? `Released ${movie.year}` : "Year unknown";
+    const detailButton = createMovieInfoButton(movie, "suggest-info");
     const reason = document.createElement("div");
-    reason.className = "suggest-reason";
+    reason.className = "suggest-reason movie-item__meta";
     reason.innerHTML = `${createSuggestionReasonIcon()}<span class="suggest-reason__text"></span>`;
     const seed = suggestionReasonSeed(reasonContext);
     if (isSuggestionReasonReady({ sectionKey, movie, seed })) {
@@ -4212,19 +4272,34 @@ const setSuggestionList = (sectionKey, container, items = [], reasonContext = nu
     }
     reasonEntries.push({ movie, reasonElement: reason });
     const actions = document.createElement("div");
-    actions.className = "suggest-actions";
-    const watchButton = document.createElement("button");
-    watchButton.className = "suggest-action";
-    watchButton.type = "button";
-    watchButton.textContent = "Save";
-    watchButton.setAttribute("aria-label", `Save ${movie.title} to Watch next`);
-    const passButton = document.createElement("button");
-    passButton.className = "suggest-action suggest-action--muted";
-    passButton.type = "button";
-    passButton.textContent = "Hide";
-    passButton.setAttribute("aria-label", `Hide ${movie.title} in Not for me`);
-    actions.append(watchButton, passButton);
+    actions.className = "suggest-actions movie-item__actions";
+    const rankButton = createMovieActionButton({
+      label: "Rank",
+      icon: "rank",
+      ariaLabel: `Rank ${movie.title}`,
+      kind: "primary",
+      className: "suggest-action",
+    });
+    const watchButton = createMovieActionButton({
+      label: "Save",
+      icon: "bookmark",
+      ariaLabel: `Save ${movie.title} to Watch next`,
+      kind: "secondary",
+      className: "suggest-action",
+    });
+    const passButton = createMovieActionButton({
+      label: "Hide",
+      icon: "hide",
+      ariaLabel: `Hide ${movie.title} in Not for me`,
+      kind: "tertiary",
+      className: "suggest-action suggest-action--muted",
+    });
+    actions.append(rankButton, watchButton, passButton);
 
+    rankButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      startRankingFromSuggestion(movie, sectionKey);
+    });
     watchButton.addEventListener("click", (event) => {
       event.stopPropagation();
       watchButton.blur();
@@ -4240,9 +4315,17 @@ const setSuggestionList = (sectionKey, container, items = [], reasonContext = nu
       openMovieDetail(movie, sectionKey, detailButton);
     });
 
-    primary.append(primaryAction, poster, name, meta, reason);
-    card.append(primary, detailButton, actions);
-    primary.addEventListener("click", () => {
+    const item = createMovieItem({
+      variant: "discovery",
+      movie,
+      metadataNode: reason,
+      detailButton,
+      className: "suggest-primary",
+      legacyPosterClass: "suggest-poster",
+    });
+    card.append(item, actions);
+    card.addEventListener("click", (event) => {
+      if (event.target.closest("button, summary, .movie-item__overflow")) return;
       startRankingFromSuggestion(movie, sectionKey);
     });
     container.appendChild(card);
@@ -4462,8 +4545,6 @@ const sortedPacksForDisplay = (includeCompleted = false) =>
 
 const packStatusText = (pack, stats = getPackStats(pack)) => libPackStatusText(stats);
 
-const packCompactStatusText = (pack, stats = getPackStats(pack)) => packStatusText(pack, stats);
-
 const packActionText = (pack, stats = getPackStats(pack)) => libPackActionText(stats);
 
 // Aggregate pack engagement / featured picks for the Share Suite — pure helpers
@@ -4535,6 +4616,12 @@ const createPackCard = (pack, options = {}) => {
 
   const status = document.createElement("div");
   status.className = "pack-card__status";
+  const stateLabel = document.createElement("span");
+  stateLabel.className = "pack-card__state";
+  stateLabel.textContent = packActionText(pack, stats);
+  const progressText = document.createElement("span");
+  progressText.className = "pack-card__progress-text";
+  progressText.textContent = `${stats.handled} of ${stats.total} ranked`;
   if (options.showCategory) {
     const category = document.createElement("span");
     category.className = "pack-card__category";
@@ -4542,11 +4629,9 @@ const createPackCard = (pack, options = {}) => {
     const separator = document.createElement("span");
     separator.className = "pack-card__status-separator";
     separator.textContent = " · ";
-    const statusText = document.createElement("span");
-    statusText.textContent = packCompactStatusText(pack, stats);
-    status.append(category, separator, statusText);
+    status.append(category, separator, stateLabel, progressText);
   } else {
-    status.textContent = packStatusText(pack, stats);
+    status.append(stateLabel, progressText);
   }
 
   const progress = document.createElement("div");
@@ -4558,7 +4643,7 @@ const createPackCard = (pack, options = {}) => {
 
   const action = document.createElement("span");
   action.className = "pack-card__action";
-  action.textContent = packActionText(pack, stats);
+  action.append(createUiIcon("next"), document.createTextNode(packActionText(pack, stats)));
 
   const media = document.createElement("div");
   media.className = "pack-card__media";
@@ -4802,61 +4887,43 @@ const createPackMovieCard = (pack, movieEntry) => {
   const { movie, state } = movieEntry;
   const handled = state.handled;
   const card = document.createElement("div");
-  card.className = `suggest-card pack-movie${handled ? " is-handled" : ""}`;
+  card.className = `suggest-card pack-movie movie-item-card${handled ? " is-handled" : ""}`;
   card.title = movie.title;
   card.setAttribute("role", "group");
   card.setAttribute("aria-label", movie.title);
-  const primary = document.createElement("div");
-  primary.className = "suggest-primary";
-
-  const poster = document.createElement("img");
-  poster.className = "suggest-poster";
-  if (movie.posterPath) {
-    poster.src = `${TMDB_POSTER_SMALL}${movie.posterPath}`;
-    poster.alt = `${movie.title} poster`;
-  } else {
-    poster.alt = "";
-  }
 
   const stateBadge = handled ? document.createElement("span") : null;
   if (stateBadge) {
-    stateBadge.className = "pack-movie__state";
+    stateBadge.className = "pack-movie__state movie-item__status";
     stateBadge.textContent = state.label;
   }
 
-  const name = document.createElement("div");
-  name.className = "suggest-name";
-  name.textContent = movie.title;
-  name.title = movie.title;
-
-  const detailButton = document.createElement("button");
-  detailButton.className = "suggest-info";
-  detailButton.type = "button";
-  detailButton.setAttribute("aria-label", `Show details for ${movie.title}`);
-  detailButton.innerHTML = createInfoIcon();
-
-  const meta = document.createElement("div");
-  meta.className = "suggest-meta";
-  meta.textContent = movie.year ? `Released ${movie.year}` : "Year unknown";
+  const detailButton = createMovieInfoButton(movie, "suggest-info");
 
   const actions = document.createElement("div");
-  actions.className = "suggest-actions";
+  actions.className = "suggest-actions movie-item__actions";
   if (!handled) {
-    const rankButton = document.createElement("button");
-    rankButton.className = "suggest-action";
-    rankButton.type = "button";
-    rankButton.textContent = "Rank";
-    rankButton.setAttribute("aria-label", `Rank ${movie.title}`);
-    const saveButton = document.createElement("button");
-    saveButton.className = "suggest-action";
-    saveButton.type = "button";
-    saveButton.textContent = "Save";
-    saveButton.setAttribute("aria-label", `Save ${movie.title} to Watch next`);
-    const hideButton = document.createElement("button");
-    hideButton.className = "suggest-action suggest-action--muted";
-    hideButton.type = "button";
-    hideButton.textContent = "Hide";
-    hideButton.setAttribute("aria-label", `Hide ${movie.title} in Not for me`);
+    const rankButton = createMovieActionButton({
+      label: "Rank",
+      icon: "rank",
+      ariaLabel: `Rank ${movie.title}`,
+      kind: "primary",
+      className: "suggest-action",
+    });
+    const saveButton = createMovieActionButton({
+      label: "Save",
+      icon: "bookmark",
+      ariaLabel: `Save ${movie.title} to Watch next`,
+      kind: "secondary",
+      className: "suggest-action",
+    });
+    const hideButton = createMovieActionButton({
+      label: "Hide",
+      icon: "hide",
+      ariaLabel: `Hide ${movie.title} in Not for me`,
+      kind: "tertiary",
+      className: "suggest-action suggest-action--muted",
+    });
     rankButton.addEventListener("click", (event) => {
       event.stopPropagation();
       startPackMovieRanking(pack, movie, "browse");
@@ -4877,14 +4944,19 @@ const createPackMovieCard = (pack, movieEntry) => {
     openMovieDetail(movie, getPackMovieDetailContext(pack, movieEntry), detailButton);
   });
 
-  primary.append(poster, name, meta);
-  const cardChildren = [primary];
-  if (stateBadge) cardChildren.push(stateBadge);
-  cardChildren.push(detailButton, actions);
-  card.append(...cardChildren);
+  const item = createMovieItem({
+    variant: "pack",
+    movie,
+    metadata: pack.title,
+    statusNode: stateBadge,
+    detailButton,
+    className: "suggest-primary",
+    legacyPosterClass: "suggest-poster",
+  });
+  card.append(item, actions);
   if (!handled) {
     card.addEventListener("click", (event) => {
-      if (event.target.closest("button")) return;
+      if (event.target.closest("button, summary, .movie-item__overflow")) return;
       startPackMovieRanking(pack, movie, "browse");
     });
   }
@@ -8653,9 +8725,15 @@ const handleQueueInteraction = (event) => {
       moveQueueMovie(source, index);
     } else if (action === "remove") {
       removeQueueMovie(source, index);
+    } else if (action === "rank") {
+      const list = source === "watch" ? watchList : notInterestedList;
+      const movie = list[index];
+      if (movie) startRankingMovie(movie, { type: "queue", source });
     }
     return;
   }
+
+  if (event.target.closest(".movie-item__overflow")) return;
 
   const list = source === "watch" ? watchList : notInterestedList;
   const movie = list[index];

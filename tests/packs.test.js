@@ -112,13 +112,16 @@ test("not_started pack: nothing handled, no progress entry", () => {
 test("status / action / card text per state", () => {
   const completed = computePackStats(pack("a", [1]), handledFrom({ ranked: [1] }), {});
   assert.equal(packStatusText(completed), "Complete");
-  assert.equal(packActionText(completed), "View pack");
+  assert.equal(packActionText(completed), "Complete");
   assert.equal(sharePackCardStatus(completed), "Complete");
 
   const started = computePackStats(pack("b", [1, 2, 3]), handledFrom({ ranked: [1] }), { startedAt: "x" });
   assert.equal(packStatusText(started), "1 handled, 2 to go");
-  assert.equal(packActionText(started), "Keep going");
+  assert.equal(packActionText(started), "Continue");
   assert.equal(sharePackCardStatus(started), "1 / 3 ranked");
+
+  const discovered = computePackStats(pack("b2", [1, 2, 3]), handledFrom({ ranked: [1] }), {});
+  assert.equal(packActionText(discovered), "Continue");
 
   const fresh = computePackStats(pack("c", [1, 2]), handledFrom({}), {});
   assert.equal(packStatusText(fresh), "2 movies to rank");
@@ -129,7 +132,7 @@ test("status / action / card text per state", () => {
     packVersionSeen: 1,
   });
   assert.equal(packStatusText(resurfaced), "1 new to rank");
-  assert.equal(packActionText(resurfaced), "Keep going");
+  assert.equal(packActionText(resurfaced), "Updated");
   assert.equal(sharePackCardStatus(resurfaced), "1 new to rank");
 });
 

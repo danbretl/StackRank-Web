@@ -503,7 +503,7 @@ const testLoadPersistence = async ({ baseUrl }) => {
     ) {
       throw new Error(`Movie route identity is wrong: ${JSON.stringify(state)}`);
     }
-    if (state.titles.join("|") !== "1. Alpha|2. Beta|3. Gamma") {
+    if (state.titles.join("|") !== "Alpha|Beta|Gamma") {
       throw new Error(`Ranking did not hydrate in order: ${state.titles.join(", ")}`);
     }
     if (state.watchRows !== 1 || state.hiddenRows !== 1) {
@@ -860,7 +860,10 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       throw new Error(`Mobile Rank shell is wrong: ${JSON.stringify(mobileRank)}`);
     }
 
-    await page.evaluate(`document.querySelector('.app-nav--mobile [data-app-destination-target="discover"]')?.click(); true;`);
+    await page.evaluate(`(() => {
+      document.querySelectorAll('[data-app-destination-target="discover"]').forEach((button) => button.click());
+      return true;
+    })()`);
     await wait(100);
     await page.evaluate(`window.scrollTo(0, 520); true;`);
     await wait(50);
@@ -1025,8 +1028,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=139" ||
-      empty.cssHref !== "styles.css?v=98" ||
+      empty.moduleSrc !== "app.js?v=140" ||
+      empty.cssHref !== "styles.css?v=99" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -1153,7 +1156,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       one.title !== "Add one more to start comparing." ||
       !one.importHidden ||
       !one.inputBlurred ||
-      one.rankingTitle !== "1. First Pick" ||
+      one.rankingTitle !== "First Pick" ||
       one.packTitle !== "Suggested movie packs"
     ) {
       throw new Error(`One-movie first-run state is wrong: ${JSON.stringify(one)}`);
@@ -1206,7 +1209,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       packTitle: document.querySelector('#pack-section-title')?.textContent.trim()
     }))()`);
     if (
-      activated.rankingTitles.join("|") !== "1. Second Pick|2. First Pick" ||
+      activated.rankingTitles.join("|") !== "Second Pick|First Pick" ||
       !activated.firstRunHidden ||
       !activated.inputBlurred ||
       activated.packTitle !== "Suggested movie packs"
@@ -1465,7 +1468,7 @@ const testQueueComparison = async ({ baseUrl }) => {
       watchRows: document.querySelectorAll('#watch-list .queue-list__item').length,
       feedback: document.querySelector('#add-feedback')?.textContent.trim() || ''
     }))()`);
-    if (state.rankingTitles.length !== 4 || state.rankingTitles[3] !== "4. Omega") {
+    if (state.rankingTitles.length !== 4 || state.rankingTitles[3] !== "Omega") {
       throw new Error(`Queue movie did not settle at bottom: ${state.rankingTitles.join(", ")}`);
     }
     if (state.watchRows !== 0) throw new Error(`Watch queue should be empty after ranking; got ${state.watchRows}`);
@@ -2332,7 +2335,7 @@ const testBackupAndImport = async ({ baseUrl }) => {
       watchTitles: [...document.querySelectorAll('#watch-list .queue-list__title')].map((el) => el.textContent.trim()),
       storedTitles: JSON.parse(localStorage.getItem('stackrank:movies:v1') || '{}').movies?.map((movie) => movie.title) || []
     }))()`);
-    if (imported.rankingTitles.join("|") !== "1. The Godfather|2. Heat|3. Spirited Away") {
+    if (imported.rankingTitles.join("|") !== "The Godfather|Heat|Spirited Away") {
       throw new Error(`Imported ranking order is wrong: ${imported.rankingTitles.join(", ")}`);
     }
     if (imported.watchTitles.join("|") !== "Delta") {
@@ -2378,7 +2381,7 @@ const testBackupAndImport = async ({ baseUrl }) => {
       hiddenTitles: [...document.querySelectorAll('#not-interested-list .queue-list__title')].map((el) => el.textContent.trim()),
       shareTheme: JSON.parse(localStorage.getItem('stackrank:share-options:v1') || '{}').theme
     }))()`);
-    if (restored.rankingTitles.join("|") !== "1. Restored One") {
+    if (restored.rankingTitles.join("|") !== "Restored One") {
       throw new Error(`Backup ranking did not restore exactly: ${restored.rankingTitles.join(", ")}`);
     }
     if (restored.watchTitles.join("|") !== "Restored Watch" || restored.hiddenTitles.join("|") !== "Restored Hidden") {
@@ -2399,7 +2402,7 @@ const testBackupAndImport = async ({ baseUrl }) => {
       watchRows: document.querySelectorAll('#watch-list .queue-list__item').length,
       hiddenRows: document.querySelectorAll('#not-interested-list .queue-list__item').length
     }))()`);
-    if (afterReload.rankingTitles.join("|") !== "1. Restored One" || afterReload.watchRows !== 1 || afterReload.hiddenRows !== 1) {
+    if (afterReload.rankingTitles.join("|") !== "Restored One" || afterReload.watchRows !== 1 || afterReload.hiddenRows !== 1) {
       throw new Error(`Restored backup did not persist through reload: ${JSON.stringify(afterReload)}`);
     }
     const health = await pageHealth(page);
@@ -2702,7 +2705,7 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
       page,
       `(() => {
         const titles = [...document.querySelectorAll('#ranking .ranking__title')].map((el) => el.textContent.trim());
-        return titles.join('|') === '1. Remote First|2. Shared|3. Local Only' &&
+        return titles.join('|') === 'Remote First|Shared|Local Only' &&
           document.querySelector('#settings-auth-state')?.textContent.includes('e2e@example.test');
       })()`,
       12000,
@@ -3060,7 +3063,7 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     if (
       !state.overlayOpen ||
       state.gridTitles.at(-1) !== "Alpha" ||
-      state.rankingTitles.at(-1) !== "6. Alpha" ||
+      state.rankingTitles.at(-1) !== "Alpha" ||
       !state.compact
     ) {
       throw new Error(`Full-screen drag did not persist the new order: ${JSON.stringify(state)}`);
@@ -3157,11 +3160,12 @@ const testSuggestionExplanations = async ({ baseUrl }) => {
       pendingCount: document.querySelectorAll('.suggest-reason.is-pending').length,
       text: [...document.querySelectorAll('.suggest-reason__text')].map((el) => el.textContent.trim()),
       visibility: [...document.querySelectorAll('.suggest-reason')].map((el) => getComputedStyle(el).visibility),
-      primaryCount: document.querySelectorAll('.suggest-card > button.suggest-primary').length,
+      primaryCount: document.querySelectorAll('.suggest-card > .suggest-primary').length,
+      rankActionCount: [...document.querySelectorAll('.suggest-card .movie-item__action')].filter((button) =>
+        button.textContent.trim() === 'Rank'
+      ).length,
       compositeCardCount: document.querySelectorAll('.suggest-card[role="button"], .suggest-card[tabindex]').length,
-      nestedPrimaryCount: [...document.querySelectorAll('.suggest-primary')].filter((primary) =>
-        primary.querySelector('button, [role="button"], [tabindex]')
-      ).length
+      detailCount: document.querySelectorAll('.suggest-card .suggest-info').length
     }))()`);
     if (
       pending.count !== 9 ||
@@ -3169,8 +3173,9 @@ const testSuggestionExplanations = async ({ baseUrl }) => {
       pending.text.some(Boolean) ||
       pending.visibility.some((value) => value !== "hidden") ||
       pending.primaryCount !== 9 ||
+      pending.rankActionCount !== 9 ||
       pending.compositeCardCount !== 0 ||
-      pending.nestedPrimaryCount !== 0
+      pending.detailCount !== 9
     ) {
       throw new Error(`Pending reasons exposed fallback content: ${JSON.stringify(pending)}`);
     }
@@ -3697,7 +3702,7 @@ const testPackRankAllResumeAndCompletion = async ({ baseUrl }) => {
       };
     })()`);
     if (
-      canceled.ranking.join("|") !== "1. Anchor|2. Auto One" ||
+      canceled.ranking.join("|") !== "Anchor|Auto One" ||
       canceled.lastIndex !== 1 ||
       !canceled.startedAt ||
       !canceled.inputBlurred
@@ -3756,7 +3761,7 @@ const testPackRankAllResumeAndCompletion = async ({ baseUrl }) => {
       };
     })()`);
     if (
-      completed.ranking.join("|") !== "1. Anchor|2. Auto One|3. Auto Two|4. Auto Three" ||
+      completed.ranking.join("|") !== "Anchor|Auto One|Auto Two|Auto Three" ||
       !completed.completedAt ||
       completed.lastIndex !== 3 ||
       completed.autoText !== "Pack complete" ||
@@ -3781,8 +3786,6 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
   try {
     await seedPage(page, baseUrl, "mobile-pack-title-clearance", { ranking: [] });
     await waitFor(page, `document.querySelectorAll('#pack-row .pack-card').length === 3`, 10000);
-    await page.evaluate(`document.querySelector('.app-nav--mobile [data-app-destination-target="discover"]')?.click(); true;`);
-    await waitFor(page, `document.querySelector('main.app')?.dataset.appDestination === 'discover'`, 5000);
     await page.evaluate(`document.querySelector('#pack-view-all')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#pack-detail')?.hidden && document.querySelector('#pack-detail')?.classList.contains('is-all-packs')`, 5000);
     await page.evaluate(`document.querySelector('#pack-browser-filter-toggle')?.click(); true;`);

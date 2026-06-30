@@ -50,7 +50,15 @@
       content="StackRank — build your movie ranking, one comparison at a time"
     />
 
-    <link rel="stylesheet" href="styles.css?v=89" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      href="https://fonts.gstatic.com/s/spacegrotesk/v22/V8mDoQDjQSkFtoMM3T6r8E7mPbF4C_k3HqU.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="styles.css?v=90" />
   </head>
   <body>
     <main class="app">
@@ -160,7 +168,12 @@
               </div>
             </label>
           </form>
-          <section class="first-run" id="first-run" aria-labelledby="first-run-title" hidden>
+          <section
+            class="first-run"
+            id="first-run"
+            data-state="empty"
+            aria-labelledby="first-run-title"
+          >
             <div class="first-run__copy">
               <div class="first-run__eyebrow" id="first-run-eyebrow">How StackRank works</div>
               <strong class="first-run__title" id="first-run-title">
@@ -185,10 +198,14 @@
                 </div>
                 <button class="pack-view-all" id="pack-view-all" type="button">View all packs</button>
               </div>
-              <div class="pack-row" id="pack-row"></div>
+              <div class="pack-row" id="pack-row">
+                <div class="pack-card pack-card--loading" aria-hidden="true"></div>
+                <div class="pack-card pack-card--loading" aria-hidden="true"></div>
+                <div class="pack-card pack-card--loading" aria-hidden="true"></div>
+              </div>
               <div class="suggest-empty" id="pack-empty" hidden>Packs will appear here after they load.</div>
             </div>
-            <div class="suggest-section" id="suggest-related-section">
+            <div class="suggest-section" id="suggest-related-section" hidden>
               <div class="suggest-header">
                 <div class="suggest-copy">
                   <div class="suggest-title" id="suggest-related-title">Inspired by your ranking</div>
@@ -224,7 +241,29 @@
                   </svg>
                 </button>
               </div>
-              <div class="suggest-row" id="suggest-essentials"></div>
+              <div class="suggest-row" id="suggest-essentials">
+                <div class="suggest-card suggest-card--loading" aria-hidden="true">
+                  <div class="suggest-primary">
+                    <div class="suggest-poster suggest-skeleton"></div>
+                    <div class="suggest-name suggest-skeleton"></div>
+                    <div class="suggest-meta suggest-skeleton"></div>
+                  </div>
+                </div>
+                <div class="suggest-card suggest-card--loading" aria-hidden="true">
+                  <div class="suggest-primary">
+                    <div class="suggest-poster suggest-skeleton"></div>
+                    <div class="suggest-name suggest-skeleton"></div>
+                    <div class="suggest-meta suggest-skeleton"></div>
+                  </div>
+                </div>
+                <div class="suggest-card suggest-card--loading" aria-hidden="true">
+                  <div class="suggest-primary">
+                    <div class="suggest-poster suggest-skeleton"></div>
+                    <div class="suggest-name suggest-skeleton"></div>
+                    <div class="suggest-meta suggest-skeleton"></div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="suggest-section">
               <div class="suggest-header">
@@ -239,7 +278,29 @@
                   </svg>
                 </button>
               </div>
-              <div class="suggest-row" id="suggest-popular"></div>
+              <div class="suggest-row" id="suggest-popular">
+                <div class="suggest-card suggest-card--loading" aria-hidden="true">
+                  <div class="suggest-primary">
+                    <div class="suggest-poster suggest-skeleton"></div>
+                    <div class="suggest-name suggest-skeleton"></div>
+                    <div class="suggest-meta suggest-skeleton"></div>
+                  </div>
+                </div>
+                <div class="suggest-card suggest-card--loading" aria-hidden="true">
+                  <div class="suggest-primary">
+                    <div class="suggest-poster suggest-skeleton"></div>
+                    <div class="suggest-name suggest-skeleton"></div>
+                    <div class="suggest-meta suggest-skeleton"></div>
+                  </div>
+                </div>
+                <div class="suggest-card suggest-card--loading" aria-hidden="true">
+                  <div class="suggest-primary">
+                    <div class="suggest-poster suggest-skeleton"></div>
+                    <div class="suggest-name suggest-skeleton"></div>
+                    <div class="suggest-meta suggest-skeleton"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div id="compare" class="compare-panel panel--hidden" aria-live="polite">
@@ -979,6 +1040,6 @@
       </footer>
     </main>
 
-    <script type="module" src="app.js?v=133"></script>
+    <script type="module" src="app.js?v=134"></script>
   </body>
 </html>

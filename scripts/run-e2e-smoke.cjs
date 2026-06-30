@@ -507,7 +507,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=89" ||
+      desktop.cssHref !== "styles.css?v=90" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -547,6 +547,116 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
     return {
       details: { desktop, mobile },
       screenshots: [desktopShot, await page.screenshot("privacy-mobile.png")],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
+const testBootLayoutStability = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "boot-layout-stability", width: 390, height: 844 });
+  try {
+    await page.send("Page.addScriptToEvaluateOnNewDocument", {
+      source: `
+        (() => {
+          window.__e2eLayoutShifts = [];
+          new PerformanceObserver((list) => {
+            list.getEntries().forEach((entry) => {
+              if (entry.hadRecentInput) return;
+              window.__e2eLayoutShifts.push({
+                value: entry.value,
+                sources: entry.sources.map((source) => {
+                  const node = source.node;
+                  return {
+                    node: node
+                      ? \`\${node.tagName?.toLowerCase() || 'node'}\${node.id ? \`#\${node.id}\` : ''}\${node.classList?.length ? \`.\${[...node.classList].join('.')}\` : ''}\`
+                      : 'unknown',
+                    previousRect: source.previousRect,
+                    currentRect: source.currentRect
+                  };
+                })
+              });
+            });
+          }).observe({ type: 'layout-shift', buffered: true });
+
+          const realFetch = window.fetch.bind(window);
+          window.fetch = async (input, options) => {
+            const url = typeof input === 'string' ? input : input?.url || '';
+            if (url.includes('/rest/v1/suggestion_packs')) {
+              await new Promise((resolve) => setTimeout(resolve, 900));
+              return new Response(JSON.stringify([]), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' }
+              });
+            }
+            if (url.includes('/functions/v1/tmdb-suggest')) {
+              await new Promise((resolve) => setTimeout(resolve, 500));
+              const type = new URL(url).searchParams.get('type') || 'popular';
+              const start = type === 'essentials' ? 3100 : 3200;
+              return new Response(JSON.stringify({
+                results: [0, 1, 2].map((offset) => ({
+                  tmdbId: start + offset,
+                  title: type === 'essentials' ? \`Essential \${offset + 1}\` : \`Popular \${offset + 1}\`,
+                  year: 2000 + offset,
+                  posterPath: '',
+                  genres: ['Drama']
+                }))
+              }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+            }
+            return realFetch(input, options);
+          };
+        })();
+      `,
+    });
+    await page.send("Page.navigate", { url: `${baseUrl}/?e2e=boot-layout-stability` });
+    await waitFor(page, "document.readyState === 'complete' || document.readyState === 'interactive'", 10000);
+    await page.evaluate(`localStorage.clear(); true;`);
+    await page.send("Page.reload", { ignoreCache: true });
+    await waitFor(
+      page,
+      `document.querySelectorAll('#pack-row .pack-card--loading').length === 3 &&
+        document.querySelectorAll('.suggest-card--loading').length === 6`,
+      5000,
+    );
+    const boot = await page.evaluate(`(() => ({
+      discoveryHeight: document.querySelector('#suggest-panel')?.getBoundingClientRect().height,
+      packHeight: document.querySelector('#pack-row')?.getBoundingClientRect().height,
+      essentialsHeight: document.querySelector('#suggest-essentials')?.getBoundingClientRect().height,
+      popularHeight: document.querySelector('#suggest-popular')?.getBoundingClientRect().height
+    }))()`);
+
+    await waitFor(
+      page,
+      `document.querySelectorAll('#pack-row button.pack-card').length === 3 &&
+        document.querySelectorAll('.suggest-card:not(.suggest-card--loading)').length === 6`,
+      10000,
+    );
+    await wait(250);
+    const settled = await page.evaluate(`(() => ({
+      discoveryHeight: document.querySelector('#suggest-panel')?.getBoundingClientRect().height,
+      packHeight: document.querySelector('#pack-row')?.getBoundingClientRect().height,
+      essentialsHeight: document.querySelector('#suggest-essentials')?.getBoundingClientRect().height,
+      popularHeight: document.querySelector('#suggest-popular')?.getBoundingClientRect().height,
+      layoutShifts: window.__e2eLayoutShifts || [],
+      cls: (window.__e2eLayoutShifts || []).reduce((sum, entry) => sum + entry.value, 0),
+      scrollWidth: document.documentElement.scrollWidth,
+      innerWidth
+    }))()`);
+    if (
+      Math.abs(settled.discoveryHeight - boot.discoveryHeight) > 40 ||
+      Math.abs(settled.packHeight - boot.packHeight) > 4 ||
+      Math.abs(settled.essentialsHeight - boot.essentialsHeight) > 4 ||
+      Math.abs(settled.popularHeight - boot.popularHeight) > 4 ||
+      settled.cls >= 0.1 ||
+      settled.scrollWidth > settled.innerWidth
+    ) {
+      throw new Error(`Boot layout is unstable: ${JSON.stringify({ boot, settled })}`);
+    }
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Boot layout browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { boot, settled },
+      screenshots: [await page.screenshot("boot-layout-stable-mobile.png")],
     };
   } finally {
     await page.close();
@@ -593,7 +703,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       page,
       `!document.querySelector('#first-run')?.hidden &&
         document.querySelector('#first-run')?.dataset.state === 'empty' &&
-        document.querySelectorAll('#pack-row .pack-card').length === 3`,
+        document.querySelectorAll('#pack-row .pack-card:not(.pack-card--loading)').length === 3 &&
+        document.querySelectorAll('.suggest-card--loading').length === 0`,
       10000,
     );
 
@@ -629,8 +740,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=133" ||
-      empty.cssHref !== "styles.css?v=89" ||
+      empty.moduleSrc !== "app.js?v=134" ||
+      empty.cssHref !== "styles.css?v=90" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -2805,6 +2916,7 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
 const tests = [
   { name: "localStorage persistence round-trip", run: testLoadPersistence },
   { name: "privacy page and TMDB credits", run: testPrivacyAndCredits },
+  { name: "mobile boot layout stability", run: testBootLayoutStability },
   { name: "first-run quick start activation flow", run: testFirstRunQuickStart },
   { name: "dedicated sign-in view and provider availability", run: testSignInExperience },
   { name: "watch queue comparison flow", run: testQueueComparison },

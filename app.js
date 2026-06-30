@@ -1075,9 +1075,9 @@ function toggleRankingSettings() {
   else closeRankingSettings();
 }
 
-const renderFirstRunExperience = () => {
+const renderFirstRunExperience = (rankingLength = ranking.length) => {
   if (!firstRun) return;
-  const experience = getFirstRunExperience(ranking.length);
+  const experience = getFirstRunExperience(rankingLength);
   firstRun.hidden = !experience.visible;
   firstRun.dataset.state = experience.state;
   firstRunEyebrow.textContent = experience.eyebrow;
@@ -9146,6 +9146,15 @@ function renderBootSkeleton() {
     </li>`;
   if (watchListEl) watchListEl.innerHTML = queueRow.repeat(2);
   if (notInterestedListEl) notInterestedListEl.innerHTML = queueRow.repeat(2);
+
+  // Reserve the discovery region before async pack/auth work starts. On a
+  // phone, leaving these rows empty puts the side stack near the viewport and
+  // then pushes it down by more than a screen when discovery content arrives.
+  const packCard = `<div class="pack-card pack-card--loading" aria-hidden="true"></div>`;
+  if (packRow) packRow.innerHTML = packCard.repeat(3);
+  if (suggestRelatedSection) suggestRelatedSection.hidden = true;
+  if (suggestEssentials) setSuggestionLoading(suggestEssentials);
+  if (suggestPopular) setSuggestionLoading(suggestPopular);
 }
 
 const init = async () => {
@@ -9154,6 +9163,7 @@ const init = async () => {
   updateShareOptionControls();
   updateStatus();
   setAuthUI();
+  renderFirstRunExperience(getLocalPayload().movies.length);
   renderBootSkeleton();
   try {
     await initAuth();

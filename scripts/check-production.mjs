@@ -115,6 +115,17 @@ for (const asset of [
   assert.ok(response.headers.get("content-type"), `${asset} should have a content type`);
 }
 
+for (const asset of [expectedCss, expectedModule, "data/suggestion-packs.json?v=5"]) {
+  const response = await request(`${productionOrigin}/${asset}`);
+  assert.equal(response.status, 200, `${asset} should return 200`);
+  assert.equal(
+    response.headers.get("cache-control"),
+    "public, max-age=31536000, immutable",
+    `${asset} should be immutable`,
+  );
+}
+record("cache-busted app, CSS, and pack data are immutable");
+
 const ogResponse = await request(expectedOgImage);
 assert.equal(ogResponse.status, 200, "Open Graph image should return 200");
 assert.match(ogResponse.headers.get("content-type") || "", /^image\/png\b/);

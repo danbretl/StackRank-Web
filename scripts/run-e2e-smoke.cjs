@@ -507,7 +507,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=88" ||
+      desktop.cssHref !== "styles.css?v=89" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -560,6 +560,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       source: `
         (() => {
           const realFetch = window.fetch.bind(window);
+          window.__e2eSuggestRequests = {};
           window.fetch = (input, options) => {
             const url = typeof input === 'string' ? input : input?.url || '';
             if (url.includes('/functions/v1/tmdb-search')) {
@@ -575,6 +576,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
               }), { status: 200, headers: { 'Content-Type': 'application/json' } }));
             }
             if (url.includes('/functions/v1/tmdb-suggest')) {
+              const type = new URL(url).searchParams.get('type') || 'unknown';
+              window.__e2eSuggestRequests[type] = (window.__e2eSuggestRequests[type] || 0) + 1;
               return Promise.resolve(new Response(JSON.stringify({ results: [] }), {
                 status: 200,
                 headers: { 'Content-Type': 'application/json' }
@@ -603,6 +606,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       starterSlugs: [...document.querySelectorAll('#pack-row .pack-card')].map((card) => card.dataset.slug),
       moduleSrc: document.querySelector('script[type="module"]')?.getAttribute('src'),
       cssHref: document.querySelector('link[rel="stylesheet"]')?.getAttribute('href'),
+      suggestRequests: window.__e2eSuggestRequests,
       h1Text: document.querySelector('h1')?.textContent.trim(),
       h1Count: document.querySelectorAll('h1').length,
       suggestionCardCount: document.querySelectorAll('.suggest-card').length,
@@ -625,8 +629,10 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=132" ||
-      empty.cssHref !== "styles.css?v=88" ||
+      empty.moduleSrc !== "app.js?v=133" ||
+      empty.cssHref !== "styles.css?v=89" ||
+      empty.suggestRequests?.popular !== 1 ||
+      empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
       empty.h1Count !== 1 ||
       empty.suggestionPrimaryCount !== empty.suggestionCardCount ||
@@ -1038,7 +1044,7 @@ const testQueueComparison = async ({ baseUrl }) => {
       queueSemantics.itemRole ||
       queueSemantics.itemTabIndex ||
       queueSemantics.primaryTag !== "BUTTON" ||
-      queueSemantics.primaryLabel !== "Rank Omega" ||
+      queueSemantics.primaryLabel !== "Rank Omega. Released 2022" ||
       queueSemantics.nestedControls
     ) {
       throw new Error(`Queue semantics are wrong: ${JSON.stringify(queueSemantics)}`);

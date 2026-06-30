@@ -1,4 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/spacegrotesk/v22/V8mDoQDjQSkFtoMM3T6r8E7mPbF4C_k3HqU.woff2")
+    format("woff2");
+}
 
 :root {
   color-scheme: light;
@@ -466,7 +473,6 @@ body.is-share-open .skeleton {
 .panel__sub {
   font-size: 0.8rem;
   color: var(--ink-soft);
-  opacity: 0.65;
 }
 
 .auth__status {
@@ -1572,6 +1578,7 @@ button.suggest-primary {
 }
 
 .suggest-card--loading {
+  min-height: 176px;
   cursor: default;
   pointer-events: none;
 }
@@ -4480,6 +4487,10 @@ body.is-comparing .compare-panel {
 
   .suggest-row {
     grid-template-columns: 1fr;
+  }
+
+  .suggest-card--loading {
+    min-height: 118px;
   }
 
   .pack-row,

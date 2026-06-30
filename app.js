@@ -1608,7 +1608,10 @@ const renderQueueList = (container, list, emptyText, source) => {
     const primary = document.createElement("button");
     primary.className = "queue-list__primary";
     primary.type = "button";
-    primary.setAttribute("aria-label", `Rank ${movie.title}`);
+    primary.setAttribute(
+      "aria-label",
+      `Rank ${movie.title}. ${movie.year ? `Released ${movie.year}` : "Year unknown"}`,
+    );
 
     const poster = document.createElement("img");
     poster.className = "queue-list__poster";
@@ -1643,7 +1646,7 @@ const renderQueueList = (container, list, emptyText, source) => {
       actions.append(
         createQueueActionButton(
           "Hide",
-          `Move ${movie.title} to Not for me`,
+          `Hide ${movie.title} in Not for me`,
           "move",
           "queue-action--secondary",
         ),
@@ -1658,7 +1661,7 @@ const renderQueueList = (container, list, emptyText, source) => {
       actions.append(
         createQueueActionButton(
           "Save",
-          `Move ${movie.title} to Watch next`,
+          `Save ${movie.title} to Watch next`,
           "move",
           "queue-action--secondary",
         ),
@@ -2035,7 +2038,7 @@ const normalizeSuggestionPack = (row) => ({
 
 const loadFallbackSuggestionPacks = async () => {
   try {
-    const response = await fetch(PACK_FALLBACK_PATH, { cache: "no-store" });
+    const response = await fetch(PACK_FALLBACK_PATH);
     if (!response.ok) return [];
     const data = await response.json();
     return Array.isArray(data) ? data.map(normalizeSuggestionPack) : [];
@@ -4158,7 +4161,9 @@ const setSuggestionList = (sectionKey, container, items = [], reasonContext = nu
     const primary = document.createElement("button");
     primary.className = "suggest-primary";
     primary.type = "button";
-    primary.setAttribute("aria-label", `Rank ${movie.title}`);
+    const primaryAction = document.createElement("span");
+    primaryAction.className = "sr-only";
+    primaryAction.textContent = "Rank ";
     const poster = document.createElement("img");
     poster.className = "suggest-poster";
     if (movie.posterPath) {
@@ -4202,12 +4207,12 @@ const setSuggestionList = (sectionKey, container, items = [], reasonContext = nu
     watchButton.className = "suggest-action";
     watchButton.type = "button";
     watchButton.textContent = "Save";
-    watchButton.setAttribute("aria-label", `Add ${movie.title} to Watch next`);
+    watchButton.setAttribute("aria-label", `Save ${movie.title} to Watch next`);
     const passButton = document.createElement("button");
     passButton.className = "suggest-action suggest-action--muted";
     passButton.type = "button";
     passButton.textContent = "Hide";
-    passButton.setAttribute("aria-label", `Add ${movie.title} to Not for me`);
+    passButton.setAttribute("aria-label", `Hide ${movie.title} in Not for me`);
     actions.append(watchButton, passButton);
 
     watchButton.addEventListener("click", (event) => {
@@ -4225,7 +4230,7 @@ const setSuggestionList = (sectionKey, container, items = [], reasonContext = nu
       openMovieDetail(movie, sectionKey, detailButton);
     });
 
-    primary.append(poster, name, meta, reason);
+    primary.append(primaryAction, poster, name, meta, reason);
     card.append(primary, detailButton, actions);
     primary.addEventListener("click", () => {
       startRankingFromSuggestion(movie, sectionKey);
@@ -4499,7 +4504,10 @@ const createPackCard = (pack, options = {}) => {
           : "";
   card.className = `pack-card ${stateClass}`.trim();
   card.dataset.slug = pack.slug;
-  card.setAttribute("aria-label", `Open ${pack.title}`);
+  const cardAction = document.createElement("span");
+  cardAction.className = "sr-only";
+  cardAction.textContent = "Open ";
+  card.appendChild(cardAction);
 
   const completeBadge = document.createElement("span");
   completeBadge.className = "pack-card__complete-badge";
@@ -4843,12 +4851,12 @@ const createPackMovieCard = (pack, movieEntry) => {
     saveButton.className = "suggest-action";
     saveButton.type = "button";
     saveButton.textContent = "Save";
-    saveButton.setAttribute("aria-label", `Add ${movie.title} to Watch next`);
+    saveButton.setAttribute("aria-label", `Save ${movie.title} to Watch next`);
     const hideButton = document.createElement("button");
     hideButton.className = "suggest-action suggest-action--muted";
     hideButton.type = "button";
     hideButton.textContent = "Hide";
-    hideButton.setAttribute("aria-label", `Add ${movie.title} to Not for me`);
+    hideButton.setAttribute("aria-label", `Hide ${movie.title} in Not for me`);
     rankButton.addEventListener("click", (event) => {
       event.stopPropagation();
       startPackMovieRanking(pack, movie, "browse");
@@ -8445,7 +8453,12 @@ const initAuth = async () => {
   setAuthUI();
   updateStatus();
 
-  supabase.auth.onAuthStateChange((_event, session) => {
+  supabase.auth.onAuthStateChange((event, session) => {
+    // getSession() above already resolves and renders the initial state.
+    // Supabase then emits INITIAL_SESSION when this listener is registered;
+    // reloading on that event duplicates ranking/queue reads and suggestion
+    // requests during every boot.
+    if (event === "INITIAL_SESSION") return;
     currentUser = session ? session.user : null;
     authNotice = "";
     setAuthUI();

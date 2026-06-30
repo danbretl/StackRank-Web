@@ -9119,7 +9119,7 @@ suggestions.addEventListener("mousemove", (event) => {
 // Fill the main panels with shimmer placeholders while the list/queues load on
 // boot (the signed-in Supabase fetch can take a second or two). The real
 // renders at the end of init() replace these.
-function renderBootSkeleton() {
+function renderBootSkeleton({ hasLocalRanking = false } = {}) {
   const rankRow = `
     <li class="skeleton-item" aria-hidden="true">
       <span class="skeleton skeleton-handle"></span>
@@ -9129,9 +9129,9 @@ function renderBootSkeleton() {
         <span class="skeleton skeleton-line skeleton-line--meta"></span>
       </span>
     </li>`;
-  if (rankingList) rankingList.innerHTML = rankRow.repeat(6);
+  if (hasLocalRanking && rankingList) rankingList.innerHTML = rankRow.repeat(6);
 
-  if (snapshotContent) {
+  if (hasLocalRanking && snapshotContent) {
     const card = `<span class="skeleton skeleton-card"></span>`;
     snapshotContent.innerHTML = `<div class="snapshot__skeleton" aria-hidden="true">${card.repeat(3)}</div>`;
   }
@@ -9144,8 +9144,8 @@ function renderBootSkeleton() {
         <span class="skeleton skeleton-line skeleton-line--meta"></span>
       </span>
     </li>`;
-  if (watchListEl) watchListEl.innerHTML = queueRow.repeat(2);
-  if (notInterestedListEl) notInterestedListEl.innerHTML = queueRow.repeat(2);
+  if (hasLocalRanking && watchListEl) watchListEl.innerHTML = queueRow.repeat(2);
+  if (hasLocalRanking && notInterestedListEl) notInterestedListEl.innerHTML = queueRow.repeat(2);
 
   // Reserve the discovery region before async pack/auth work starts. On a
   // phone, leaving these rows empty puts the side stack near the viewport and
@@ -9163,8 +9163,9 @@ const init = async () => {
   updateShareOptionControls();
   updateStatus();
   setAuthUI();
-  renderFirstRunExperience(getLocalPayload().movies.length);
-  renderBootSkeleton();
+  const localBootPayload = getLocalPayload();
+  renderFirstRunExperience(localBootPayload.movies.length);
+  renderBootSkeleton({ hasLocalRanking: localBootPayload.movies.length > 0 });
   try {
     await initAuth();
     await loadRanking();

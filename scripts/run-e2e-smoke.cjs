@@ -652,11 +652,45 @@ const testBootLayoutStability = async ({ baseUrl }) => {
     ) {
       throw new Error(`Boot layout is unstable: ${JSON.stringify({ boot, settled })}`);
     }
+
+    const mobileShot = await page.screenshot("boot-layout-stable-mobile.png");
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 1280,
+      height: 900,
+      deviceScaleFactor: 1,
+      mobile: false,
+      screenWidth: 1280,
+      screenHeight: 900,
+    });
+    await page.send("Page.reload", { ignoreCache: true });
+    await waitFor(
+      page,
+      `document.querySelectorAll('#pack-row button.pack-card').length === 3 &&
+        document.querySelectorAll('.suggest-card:not(.suggest-card--loading)').length === 6`,
+      10000,
+    );
+    await wait(250);
+    const desktop = await page.evaluate(`(() => ({
+      cls: (window.__e2eLayoutShifts || []).reduce((sum, entry) => sum + entry.value, 0),
+      layoutShifts: window.__e2eLayoutShifts || [],
+      rankingSkeletons: document.querySelectorAll('#ranking .skeleton-item').length,
+      queueSkeletons: document.querySelectorAll('.queue-list .skeleton-queue').length,
+      scrollWidth: document.documentElement.scrollWidth,
+      innerWidth
+    }))()`);
+    if (
+      desktop.cls >= 0.1 ||
+      desktop.rankingSkeletons !== 0 ||
+      desktop.queueSkeletons !== 0 ||
+      desktop.scrollWidth > desktop.innerWidth
+    ) {
+      throw new Error(`Desktop boot layout is unstable: ${JSON.stringify(desktop)}`);
+    }
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Boot layout browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { boot, settled },
-      screenshots: [await page.screenshot("boot-layout-stable-mobile.png")],
+      details: { mobile: { boot, settled }, desktop },
+      screenshots: [mobileShot, await page.screenshot("boot-layout-stable-desktop.png")],
     };
   } finally {
     await page.close();
@@ -740,7 +774,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=134" ||
+      empty.moduleSrc !== "app.js?v=135" ||
       empty.cssHref !== "styles.css?v=90" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
@@ -2916,7 +2950,7 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
 const tests = [
   { name: "localStorage persistence round-trip", run: testLoadPersistence },
   { name: "privacy page and TMDB credits", run: testPrivacyAndCredits },
-  { name: "mobile boot layout stability", run: testBootLayoutStability },
+  { name: "mobile and desktop boot layout stability", run: testBootLayoutStability },
   { name: "first-run quick start activation flow", run: testFirstRunQuickStart },
   { name: "dedicated sign-in view and provider availability", run: testSignInExperience },
   { name: "watch queue comparison flow", run: testQueueComparison },

@@ -304,3 +304,8 @@ Shipped implementation and evidence:
 - **2026-06-30:** Completed Area 6 performance/delivery; production traces,
   Lighthouse audits, immutable cache checks, and desktop/mobile layout-shift
   regression coverage are green.
+- **2026-06-30:** Extended Phase 7 browser coverage across pack filters,
+  detail paging, individual/bulk actions, Rank All resume/completion,
+  signed-in pack-progress merge/write, and Share lightbox navigation/download.
+  Fixed a reproduced no-loss bug where an incomplete pack with no handled
+  movies could erase its explicit start state and resume cursor.

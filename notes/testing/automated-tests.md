@@ -322,6 +322,11 @@ Legend: [ ] todo · [~] in progress · [x] done
       cache keys, and 390×844 geometry.
 - [x] Extended coverage now includes 2-D drag reorder, keyboard autocomplete,
       real backup/PNG/ZIP downloads, and portrait/landscape comparison geometry.
+- [x] Pack workflows: search/category/progress filters, filtered-detail paging,
+      individual and bulk Save/Hide with undo, completed-state reload,
+      Rank All cancel/resume/completion, and local/remote progress merge/write.
+- [x] Share lightbox: single/set mode, zoom, button/keyboard/swipe paging,
+      zoomed-swipe suppression, per-page PNG download, and preview-deck sync.
 
 ## Conventions
 

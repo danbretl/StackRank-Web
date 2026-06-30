@@ -5,6 +5,7 @@ import {
   getSharePickGroups,
   movieExportLine,
   buildNativeImageShareData,
+  recentQueueItems,
   shareRankingMetaCards,
   buildShareExportSections,
   sectionsToMarkdown,
@@ -68,6 +69,26 @@ test("buildNativeImageShareData shares only the image files", () => {
   const shareData = buildNativeImageShareData(files);
   assert.deepEqual(Object.keys(shareData), ["files"]);
   assert.equal(shareData.files, files);
+});
+
+test("recentQueueItems uses timestamps, then legacy queue order", () => {
+  const list = [
+    { title: "Legacy older" },
+    { title: "Newest timestamp", savedAt: 30 },
+    { title: "Older timestamp", savedAt: 20 },
+    { title: "Legacy newer" },
+  ];
+  assert.deepEqual(
+    recentQueueItems(list, "savedAt", 3).map((movie) => movie.title),
+    ["Newest timestamp", "Older timestamp", "Legacy newer"],
+  );
+  assert.deepEqual(list.map((movie) => movie.title), [
+    "Legacy older",
+    "Newest timestamp",
+    "Older timestamp",
+    "Legacy newer",
+  ]);
+  assert.deepEqual(recentQueueItems(null, "savedAt", 3), []);
 });
 
 test("buildShareExportSections: all-on yields sections in canonical order", () => {

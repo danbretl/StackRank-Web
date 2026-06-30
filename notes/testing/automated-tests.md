@@ -7,17 +7,19 @@
 ## Status at a glance
 
 **Phases 0–6 plus persistence hardening complete; Phase 7 has a growing
-browser-smoke slice.** `npm test` runs 148 fast unit/structural tests in ~0.3s.
+browser-smoke slice.** `npm test` runs 188 fast unit/structural tests.
 The entire pure logic core is
 extracted into `lib/` and covered: ZIP writer, text-fit/SVG-text, formatters,
 movie identity + merge, persistence payload parsing + timestamp/no-loss merge
-rules, the rank-weighted insight engine, pack progress + share aggregation, the
-share text/data export builder + serializers, suggestion-reason policy,
+rules, pack-progress state normalization/merge, Share Studio preference
+defaults/migrations, the rank-weighted insight engine, pack progress + share
+aggregation, the share text/data export builder + serializers, suggestion
+rotation/reason policy,
 full-screen ranking filter/navigation/2-D reorder math, the binary-insertion
 ranking search, the pure Share SVG composition layer, and backup/title-import
 parsing + validation. Product telemetry tests cover production/DNT gating,
 ephemeral payload validation, property allowlisting, and count bucketing.
-`npm run test:e2e` now drives 13 headless-Chrome flows against the real static
+`npm run test:e2e` now drives 20 headless-Chrome flows against the real static
 app. Coverage includes localStorage hydration; queue ranking and comparison
 undo/cancel; review swap/Escape/session undo; keyboard autocomplete; exact
 portrait and landscape comparison viewports; Share Studio preview and real
@@ -28,8 +30,8 @@ regression. `npm run verify` runs both suites plus syntax/type checks.
 The shared Edge Function publishable-key gate also has three focused Deno tests
 covering configuration parsing and exact-key authorization.
 
-Modules: `lib/{zip,text,format,movie,persistence,insights,packs,suggestions,fullscreen-ranking,share-export,share-svg,ranking,undo,backup,telemetry,ftue}.js`.
-Tests: `tests/{zip,text,format,movie,persistence,insights,packs,suggestions,fullscreen-ranking,share-export,share-svg,ranking,undo,backup,telemetry}.test.js`.
+Modules: `lib/{zip,text,format,movie,persistence,pack-progress,insights,packs,suggestions,fullscreen-ranking,share-options,share-export,share-svg,ranking,review,undo,backup,telemetry,ftue,taste,auth}.js`.
+Tests: matching focused files under `tests/`.
 
 ## Goal
 
@@ -48,7 +50,7 @@ Move past "Dan is the manual QA." Build a suite of automated tests that is:
 
 ## The core architectural move: `lib/` ES modules
 
-`app.js` is one ~4,800-line ES module with **no exports** and lots of top-level
+`app.js` is one ~9,100-line ES module with **no exports** and lots of top-level
 DOM/Supabase side effects, so it can't be imported into Node as-is. Instead of
 mocking a whole DOM to import it, we **extract pure logic into small native ES
 modules under `lib/`** that *both* the browser app and the Node tests import:

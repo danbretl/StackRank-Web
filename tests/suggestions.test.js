@@ -5,7 +5,48 @@ import {
   buildSuggestionReason,
   buildSuggestionSectionSubtitle,
   isSuggestionReasonReady,
+  selectRankedSuggestionSeed,
+  sliceSuggestions,
 } from "../lib/suggestions.js";
+
+test("suggestion pages wrap from the cursor without mutating the source", () => {
+  const items = ["a", "b", "c", "d"];
+  assert.deepEqual(sliceSuggestions(items, 3, 3), ["d", "a", "b"]);
+  assert.deepEqual(sliceSuggestions(items, -1, 2), ["d", "a"]);
+  assert.deepEqual(items, ["a", "b", "c", "d"]);
+  assert.deepEqual(sliceSuggestions([], 0, 3), []);
+});
+
+test("ranked suggestion seeds use only the top ten and avoid recent seeds when possible", () => {
+  const ranking = Array.from({ length: 12 }, (_, index) => ({
+    title: `Movie ${index + 1}`,
+    tmdbId: index + 1,
+  }));
+  const seed = selectRankedSuggestionSeed(ranking, {
+    activeSeedId: 1,
+    previousSeedId: 2,
+    random: () => 0,
+  });
+  assert.equal(seed.tmdbId, 3);
+
+  const lastFresh = selectRankedSuggestionSeed(ranking, {
+    activeSeedId: 1,
+    previousSeedId: 2,
+    random: () => 1,
+  });
+  assert.equal(lastFresh.tmdbId, 10);
+});
+
+test("ranked suggestion seed selection falls back safely for sparse rankings", () => {
+  assert.equal(selectRankedSuggestionSeed([], { random: () => 0 }), null);
+  assert.equal(
+    selectRankedSuggestionSeed(
+      [{ title: "Legacy" }, { title: "Ranked", tmdbId: 7 }],
+      { activeSeedId: 7, previousSeedId: 7, random: () => Number.NaN },
+    ).tmdbId,
+    7,
+  );
+});
 
 test("related reasons prefer a distinctive shared genre", () => {
   assert.equal(

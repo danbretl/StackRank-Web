@@ -774,7 +774,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=135" ||
+      empty.moduleSrc !== "app.js?v=136" ||
       empty.cssHref !== "styles.css?v=90" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||

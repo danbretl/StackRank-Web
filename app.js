@@ -8,6 +8,12 @@ import {
   parseRankingPayload,
 } from "./lib/persistence.js?v=1";
 import {
+  mergePackProgressPayloads,
+  normalizePackProgressEntry,
+  parsePackProgressPayload,
+  stripPackProgressMetadata,
+} from "./lib/pack-progress.js?v=1";
+import {
   xmlEscape,
   estimateSvgTextWidth,
   trimTextToSvgWidth,
@@ -46,11 +52,12 @@ import {
   getSharePickGroups,
   movieExportLine,
   buildNativeImageShareData,
+  recentQueueItems,
   shareRankingMetaCards,
   buildShareExportSections as libBuildShareExportSections,
   sectionsToMarkdown,
   sectionsToText,
-} from "./lib/share-export.js?v=1";
+} from "./lib/share-export.js?v=2";
 import {
   getShareDisplayName,
   possessiveName,
@@ -76,7 +83,15 @@ import {
   buildSuggestionReason,
   buildSuggestionSectionSubtitle,
   isSuggestionReasonReady,
-} from "./lib/suggestions.js?v=4";
+  selectRankedSuggestionSeed,
+  sliceSuggestions,
+} from "./lib/suggestions.js?v=5";
+import {
+  SHARE_OPTIONS_VERSION,
+  createDefaultShareOptions,
+  normalizeShareOptions,
+  parseShareOptions,
+} from "./lib/share-options.js?v=1";
 import {
   filterFullscreenRanking,
   gridDropIndex,
@@ -388,7 +403,6 @@ const QUEUE_STORAGE_KEY = "stackrank:suggestion-queues:v1";
 const PACK_PROGRESS_STORAGE_KEY = "stackrank:pack-progress:v1";
 const PACK_FALLBACK_PATH = "data/suggestion-packs.json?v=5";
 const SHARE_OPTIONS_KEY = "stackrank:share-options:v1";
-const SHARE_OPTIONS_VERSION = 7;
 const WATCH_LIST_TYPE = "watch";
 const NOT_INTERESTED_LIST_TYPE = "not_interested";
 const INSPIRED_SEED_KEY = "stackrank:inspired-seed:v1";
@@ -496,23 +510,7 @@ let comparisonReturnScroll = null;
 // user to where they were rather than yanking them to the ranking list).
 let scrollToPlacementOnSettle = true;
 let shareStudioTrigger = null;
-let shareOptions = {
-  version: SHARE_OPTIONS_VERSION,
-  displayName: "",
-  top: true,
-  bottom: true,
-  eras: true,
-  genres: true,
-  people: true,
-  queues: true,
-  packs: true,
-  fullList: true,
-  fullListStyle: "mixed",
-  theme: "classic",
-  tone: "neutral",
-  format: "single",
-  shape: "skinny",
-};
+let shareOptions = createDefaultShareOptions();
 let shareDetailRequestId = 0;
 let shareDetailsLoading = false;
 let sharePngPreparing = false;
@@ -1853,28 +1851,6 @@ const loadSuggestionQueues = async () => {
   await saveSuggestionQueues();
 };
 
-const stripProgressMetadata = (entry = {}) => {
-  const {
-    startedAt = null,
-    packVersionSeen = null,
-    lastIndex = 0,
-    completedAt = null,
-    discoveryDismissedAt = null,
-  } = entry || {};
-  return {
-    startedAt,
-    packVersionSeen,
-    lastIndex: Number.isFinite(Number(lastIndex)) ? Number(lastIndex) : 0,
-    completedAt,
-    discoveryDismissedAt,
-  };
-};
-
-const normalizeProgressEntry = (entry = {}, updatedAt = null) => ({
-  ...stripProgressMetadata(entry),
-  updated_at: entry.updated_at || updatedAt || null,
-});
-
 const getPackProgressStorageKeys = () => {
   const keys = [PACK_PROGRESS_STORAGE_KEY];
   if (currentUser && currentUser.id) {
@@ -1894,8 +1870,7 @@ const getPackProgressPayload = (key) => {
       setLocalPersistenceAvailability(true, "packs");
       return { progress: {} };
     }
-    const parsed = JSON.parse(raw);
-    const progress = parsed?.progress && typeof parsed.progress === "object" ? parsed.progress : {};
+    const { progress } = parsePackProgressPayload(raw);
     setLocalPersistenceAvailability(true, "packs");
     return { progress };
   } catch (error) {
@@ -1920,28 +1895,13 @@ const saveLocalPackProgressPayload = () => {
   }
 };
 
-const mergePackProgressPayloads = (payloads) => {
-  const merged = {};
-  payloads.forEach((payload) => {
-    Object.entries(payload.progress || {}).forEach(([slug, entry]) => {
-      const current = merged[slug];
-      const entryTime = entry?.updated_at ? new Date(entry.updated_at).getTime() : 0;
-      const currentTime = current?.updated_at ? new Date(current.updated_at).getTime() : 0;
-      if (!current || entryTime >= currentTime) {
-        merged[slug] = normalizeProgressEntry(entry);
-      }
-    });
-  });
-  return merged;
-};
-
 const savePackProgress = async (slug) => {
   const entry = packProgress[slug];
   if (!entry) return;
   const updatedAt = new Date().toISOString();
   packProgress = {
     ...packProgress,
-    [slug]: { ...normalizeProgressEntry(entry), updated_at: updatedAt },
+    [slug]: { ...normalizePackProgressEntry(entry), updated_at: updatedAt },
   };
   saveLocalPackProgressPayload();
 
@@ -1952,7 +1912,7 @@ const savePackProgress = async (slug) => {
         {
           list_id: listId,
           pack_slug: slug,
-          state: stripProgressMetadata(packProgress[slug]),
+          state: stripPackProgressMetadata(packProgress[slug]),
           updated_at: updatedAt,
         },
         { onConflict: "list_id,pack_slug" },
@@ -1981,7 +1941,7 @@ const savePackProgressSnapshot = async () => {
     .map(([slug, entry]) => ({
       list_id: listId,
       pack_slug: slug,
-      state: stripProgressMetadata(entry),
+      state: stripPackProgressMetadata(entry),
       updated_at: entry.updated_at || new Date().toISOString(),
     }));
   if (!rows.length) return;
@@ -2006,7 +1966,7 @@ const loadPackProgress = async () => {
     if (!error && Array.isArray(data)) {
       const progress = {};
       data.forEach((row) => {
-        progress[row.pack_slug] = normalizeProgressEntry(row.state || {}, row.updated_at);
+        progress[row.pack_slug] = normalizePackProgressEntry(row.state || {}, row.updated_at);
       });
       payloads.unshift({ progress });
     }
@@ -2651,7 +2611,11 @@ const setStoredShareOptions = (options) => {
   } else {
     setLocalPersistenceAvailability(false, "share");
   }
-  shareOptions = { ...shareOptions, ...(options || {}), version: SHARE_OPTIONS_VERSION };
+  shareOptions = normalizeShareOptions({
+    ...shareOptions,
+    ...(options || {}),
+    version: SHARE_OPTIONS_VERSION,
+  });
   updateShareOptionControls();
 };
 
@@ -4628,7 +4592,7 @@ const renderPackPanel = () => {
 
 const syncPackCompletion = (pack) => {
   const stats = getPackStats(pack);
-  const entry = normalizeProgressEntry(packProgress[pack.slug] || {});
+  const entry = normalizePackProgressEntry(packProgress[pack.slug] || {});
   let changed = false;
   if (stats.handled === 0 && (entry.startedAt || entry.completedAt || entry.lastIndex)) {
     entry.startedAt = null;
@@ -4651,7 +4615,7 @@ const syncPackCompletion = (pack) => {
 
 const markPackEngaged = (pack, updates = {}) => {
   const now = new Date().toISOString();
-  const entry = normalizeProgressEntry(packProgress[pack.slug] || {});
+  const entry = normalizePackProgressEntry(packProgress[pack.slug] || {});
   const next = {
     ...entry,
     startedAt: entry.startedAt || now,
@@ -4786,7 +4750,7 @@ const addPackRemainingToQueue = (pack, target) => {
 const dismissPackDiscovery = (slug) => {
   const pack = getPackBySlug(slug);
   if (!pack) return;
-  const entry = normalizeProgressEntry(packProgress[slug] || {});
+  const entry = normalizePackProgressEntry(packProgress[slug] || {});
   packProgress = {
     ...packProgress,
     [slug]: {
@@ -5148,7 +5112,7 @@ const advanceAutoPack = () => {
 const startAutoPack = (slug) => {
   const pack = getPackBySlug(slug);
   if (!pack || pending) return;
-  const entry = normalizeProgressEntry(packProgress[slug] || {});
+  const entry = normalizePackProgressEntry(packProgress[slug] || {});
   autoPackSession = {
     slug,
     cursor: entry.lastIndex || 0,
@@ -5251,8 +5215,6 @@ const handleRankingSettled = (rankedMovie, insertIndex, context) => {
   window.setTimeout(() => maybeShowPackDiscoveryNudge(rankedMovie), 900);
 };
 
-const topRankedSeedCandidates = () => ranking.slice(0, 10).filter((movie) => movie.tmdbId);
-
 const getPreviousInspiredSeed = () => {
   if (!storageEnabled) return null;
   try {
@@ -5273,18 +5235,11 @@ const setPreviousInspiredSeed = (seedId) => {
 };
 
 const pickRankedSuggestionSeed = () => {
-  const candidates = topRankedSeedCandidates();
-  if (!candidates.length) return null;
-  const previousSeed = getPreviousInspiredSeed();
-  const freshCandidates =
-    candidates.length > 1
-      ? candidates.filter(
-          (movie) => movie.tmdbId !== activeSuggestionSeed && movie.tmdbId !== previousSeed,
-        )
-      : candidates;
-  const candidatePool = freshCandidates.length ? freshCandidates : candidates;
-  const index = Math.floor(Math.random() * candidatePool.length);
-  const seed = candidatePool[index];
+  const seed = selectRankedSuggestionSeed(ranking, {
+    activeSeedId: activeSuggestionSeed,
+    previousSeedId: getPreviousInspiredSeed(),
+  });
+  if (!seed) return null;
   setPreviousInspiredSeed(seed.tmdbId);
   return seed;
 };
@@ -5315,17 +5270,6 @@ const getPersonalSuggestionSeed = () => {
     rank: ranking.indexOf(topRankedSeed) + 1,
     movie: topRankedSeed,
   };
-};
-
-const sliceSuggestions = (items, cursor, size) => {
-  if (!items.length) return [];
-  const start = cursor % items.length;
-  const end = start + size;
-  const slice = items.slice(start, end);
-  if (slice.length < size) {
-    slice.push(...items.slice(0, size - slice.length));
-  }
-  return slice;
 };
 
 const createSuggestionRequest = () => {
@@ -5447,17 +5391,6 @@ const buildExportText = () => {
   if (!ranking.length) return "StackRank — Movies\n\n(No movies ranked yet.)";
   return buildShareText();
 };
-
-// Most-recently-added queue items first. Queue moves stamp savedAt/hiddenAt and
-// push to the end, so we sort by timestamp desc and fall back to array order
-// (newest last) for legacy items that predate the timestamps.
-function recentQueueItems(list, timestampKey, count) {
-  return [...(list || [])]
-    .map((movie, index) => ({ movie, index }))
-    .sort((a, b) => (Number(b.movie[timestampKey] || 0) - Number(a.movie[timestampKey] || 0)) || (b.index - a.index))
-    .slice(0, count)
-    .map((entry) => entry.movie);
-}
 
 // getSharePickGroups, movieExportLine, shareRankingMetaCards now live in
 // lib/share-export.js, imported at the top.
@@ -6943,36 +6876,7 @@ function loadShareOptions() {
       setLocalPersistenceAvailability(true, "share");
       return;
     }
-    const parsed = JSON.parse(raw);
-    const hasV2 = parsed.version >= 2;
-    const hasV3 = parsed.version >= 3;
-    const hasV5 = parsed.version >= 5;
-    shareOptions = {
-      version: SHARE_OPTIONS_VERSION,
-      displayName: typeof parsed.displayName === "string" ? parsed.displayName.slice(0, 36) : "",
-      top: parsed.top !== false,
-      bottom: hasV2 ? parsed.bottom !== false : true,
-      eras: hasV3 ? parsed.eras !== false : parsed.decades !== false || parsed.range !== false,
-      genres: hasV3 ? parsed.genres !== false : true,
-      people: hasV3 ? parsed.people !== false : true,
-      queues: hasV3 ? parsed.queues !== false : true,
-      // v7: packs section. Defaults on for everyone (older saves lack the key).
-      packs: parsed.packs !== false,
-      fullList: hasV3 ? parsed.fullList !== false : true,
-      fullListStyle: hasV5 && ["posters", "text", "mixed"].includes(parsed.fullListStyle) ? parsed.fullListStyle : "mixed",
-      theme: ["classic", "cinema", "warm", "marquee", "pop"].includes(parsed.theme)
-        ? parsed.theme
-        : "classic",
-      tone: ["neutral", "punchy", "funny", "extreme"].includes(parsed.tone)
-        ? parsed.tone
-        : parsed.tone === "savage"
-          ? "extreme"
-        : "neutral",
-      // v6: image exports gain a Format (single image / image set) and a Shape
-      // (portrait / landscape). Existing users default to today's behavior.
-      format: parsed.format === "set" ? "set" : "single",
-      shape: parsed.shape === "wide" || parsed.shape === "landscape" ? "wide" : "skinny",
-    };
+    shareOptions = parseShareOptions(raw);
     setLocalPersistenceAvailability(true, "share");
   } catch (error) {
     setLocalPersistenceAvailability(false, "share");

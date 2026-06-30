@@ -5,8 +5,8 @@
 - **Initiative:** Core product design-system and experience redesign
 - **Priority:** Critical
 - **Product owner approval:** Approved in principle on 2026-06-30; minor adjustments may be made during implementation
-- **Implementation status:** Phase 2 complete; ranking-first app shell and destination navigation established
-- **Current phase:** Phase 3 — shared content components (ready, not started)
+- **Implementation status:** Phase 3 complete; shared movie and pack component grammar established
+- **Current phase:** Phase 4 — core ranking flows (ready, not started)
 - **Last updated:** 2026-06-30
 - **Source of truth:** This document governs the redesign unless a later product decision is recorded in the decision log
 
@@ -19,7 +19,7 @@
 - [x] Generate and approve desktop/mobile visual reference concepts
 - [x] Phase 1 — design foundations
 - [x] Phase 2 — information architecture and app shell
-- [ ] Phase 3 — shared movie and pack components
+- [x] Phase 3 — shared movie and pack components
 - [ ] Phase 4 — core ranking flows
 - [ ] Phase 5 — discovery, lists, and Taste Explorer
 - [ ] Phase 6 — overlay and workspace system
@@ -855,7 +855,7 @@ This ledger evaluates the approved concepts only for the foundations in Phase 1.
 | --- | --- | --- |
 | Desktop primary workspace | Warm canvas; white/ink surfaces; Space Grotesk hierarchy; 10/16/24 px radius grammar; restrained raised elevation | Matched in the live desktop shell; ranking dominance and app-bar destinations remain Phase 2 |
 | Mobile Rank view | Warm canvas; compact app-bar type; 44 px touch targets; ink/white control hierarchy; poster-led color | Matched in the current mobile shell; first-viewport ranking and bottom navigation remain Phase 2 |
-| Shared MovieItem anatomy | 20 px outline icon canvas; 1.8 px stroke; explicit primary/secondary/tertiary semantics; metadata type role; flat row treatment | Shared rules are established and high-visibility glyphs are migrated; full MovieItem unification remains Phase 3 |
+| Shared MovieItem anatomy | 20 px outline icon canvas; 1.8 px stroke; explicit primary/secondary/tertiary semantics; metadata type role; flat row treatment | Shared rules are established and high-visibility glyphs are migrated; full MovieItem unification completed in Phase 3 |
 | Responsive comparison | Neutral monochrome surfaces; strong page-heading role; consistent card radius/rules; restrained feedback motion; scroll-free 390×844 and 844×390 geometry | Matched without changing comparison semantics; prompt/labels/action-bar migration remains Phase 4 |
 | Mobile All Packs workspace | Major-surface radius; consistent close icon; muted metadata role; focus treatment; 44 px pack/filter targets | Matched within the existing modal; edge-to-edge workspace and card restructuring remain Phases 3 and 6 |
 | Mobile movie-detail sheet | Overlay scrim/elevation; 24 px major radius; clear title/body/eyebrow roles; semantic action hierarchy; touch-safe close/actions | Matched within the existing sheet; immersive poster composition and sticky footer remain Phase 6 |
@@ -911,7 +911,7 @@ This ledger evaluates the approved concepts only for the foundations in Phase 1.
 | Reference | Phase 2 comparison points | Phase 2 result |
 | --- | --- | --- |
 | Desktop primary workspace | App-bar Rank / Discover / Lists destinations; ranking left of the rail; ranking owns roughly 60–65% of the workspace; Add/Search and continuation support live in the secondary column | Matched structurally. E2E measures the ranking workspace at ~64% of the combined primary/rail width, hides queues from Rank, and keeps Add plus Continue ranking in the rail. Full MovieItem rank numerals remain Phase 4. |
-| Mobile Rank view | Header with account/settings access; Add to your ranking first; Current ranking visible in the first viewport; fixed labeled Rank / Discover / Lists bottom navigation; discovery and queues removed from Rank | Matched structurally. The app-shell E2E verifies Add and Current ranking appear in the 390×844 first viewport, bottom navigation is safe-area-aware, and no horizontal overflow occurs. Full row anatomy remains Phase 3/4. |
+| Mobile Rank view | Header with account/settings access; Add to your ranking first; Current ranking visible in the first viewport; fixed labeled Rank / Discover / Lists bottom navigation; discovery and queues removed from Rank | Matched structurally. The app-shell E2E verifies Add and Current ranking appear in the 390×844 first viewport, bottom navigation is safe-area-aware, and no horizontal overflow occurs. Shared row anatomy completed in Phase 3; deeper ranking-flow polish remains Phase 4. |
 | Shared MovieItem anatomy | Shell should not add new row semantics before the shared component phase | Preserved. Ranking, suggestion, queue, pack, recent, and Taste row internals remain governed by existing behavior; Phase 2 only relocates surfaces and adds navigation. |
 | Responsive comparison | Focused takeover hides app navigation and preserves 390×844 portrait and 844×390 landscape geometry | Matched. Screenshot harness reports exact viewport scroll dimensions for desktop, mobile portrait, and mobile landscape comparison captures after the shell change. |
 | Mobile All Packs / detail / Share references | Existing workspaces, sheets, and lightboxes should still open and close from the new shell, with mobile navigation hidden under true takeovers | Matched at the app-shell level. Focused and full E2E cover packs, detail, full-screen ranking, sign-in/import/settings, and Share Studio opening/closing without changing those Phase 6/7 presentations. |
@@ -922,40 +922,50 @@ This ledger evaluates the approved concepts only for the foundations in Phase 1.
 
 ### MovieItem
 
-- [ ] Define variants: ranking, discovery, queue, pack, recent, Taste evidence.
+- [x] Define variants: ranking, discovery, queue, pack, recent, Taste evidence.
 - [ ] Consistent slots:
-  - [ ] Rank number where applicable
-  - [ ] Poster
-  - [ ] Title
-  - [ ] Year
-  - [ ] Source/reason metadata
-  - [ ] Detail affordance
-  - [ ] Primary and secondary actions
-- [ ] Make Rank visible wherever tapping the item ranks it.
-- [ ] Use Rank as primary, Save as secondary, and Hide/Remove as tertiary or overflow.
-- [ ] Add touch-safe overflow behavior for rare/destructive actions.
+  - [x] Rank number where applicable
+  - [x] Poster
+  - [x] Title
+  - [x] Year
+  - [x] Source/reason metadata
+  - [x] Detail affordance
+  - [x] Primary and secondary actions
+- [x] Make Rank visible wherever tapping the item ranks it.
+- [x] Use Rank as primary, Save as secondary, and Hide/Remove as tertiary or overflow.
+- [x] Add touch-safe overflow behavior for rare/destructive actions.
 
 ### PackCard
 
-- [ ] Standardize Start / Continue / Updated / Complete.
-- [ ] Use explicit status text rather than border-weight differences.
-- [ ] Increase progress-bar clarity and include textual progress.
-- [ ] Define shelf, browser, and compact variants from one component grammar.
+- [x] Standardize Start / Continue / Updated / Complete.
+- [x] Use explicit status text rather than border-weight differences.
+- [x] Increase progress-bar clarity and include textual progress.
+- [x] Define shelf, browser, and compact variants from one component grammar.
 
 ### Supporting primitives
 
-- [ ] SectionHeader
-- [ ] Progress
-- [ ] Status/metadata line
-- [ ] Empty state
-- [ ] Action footer
-- [ ] Toast
+- [x] SectionHeader
+- [x] Progress
+- [x] Status/metadata line
+- [x] Empty state
+- [x] Action footer
+- [x] Toast
 
 ### Acceptance gate
 
 - A user can recognize how to rank, save, inspect, hide, or remove a movie without relearning each surface.
 - Common actions have consistent labels, ordering, size, and pressed/disabled states.
 - Pack progress remains accurate and persists.
+
+### Phase 3 fidelity ledger
+
+| Reference | Phase 3 comparison points | Phase 3 result |
+| --- | --- | --- |
+| Shared MovieItem anatomy | Consistent poster/title/year/meta/detail/action slots; visible Rank on rankable discovery, queue, and pack rows; Save secondary and Hide tertiary; Remove in overflow where destructive | Matched on migrated surfaces. Discovery and pack rows show Rank / Save / Hide in one touch-safe action row; queues show Rank plus source-specific Save/Hide and move Remove into overflow; ranking/recent/Taste rows share poster/title/year/meta/detail slots without adding unrelated queue actions. |
+| Desktop primary workspace | Compact continuation rail should use readable PackCards with explicit status/progress and one next action | Matched for Phase 3. Shelf cards now use a horizontal compact grammar with poster collage, title/subtitle, Start/Continue/Updated/Complete status, explicit `x of y ranked` text, clearer progress bar, and right-side action affordance. |
+| Mobile Rank view | Current ranking remains visible in the Rank destination; shared row anatomy must not reintroduce horizontal overflow or unsafe touch targets | Matched. Browser inspection at 390×844 shows no horizontal overflow and preserves the first-viewport ranking placement from Phase 2; ranking rows expose detail/re-rank/overflow without changing add/search or comparison behavior. |
+| Mobile All Packs workspace | Pack browser cards should be progress-led and readable, while full-screen workspace conversion remains later scope | Partially matched by design. Phase 3 keeps the existing sheet taxonomy from Phase 2/6, but mobile All Packs cards now use the same horizontal progress-led PackCard grammar instead of cramped two-column mini cards. Full-screen mobile workspace remains Phase 5/6 scope. |
+| Mobile pack/detail/discovery rows | Movie rows should match the shared anatomy and touch-safe action order | Matched. Pack detail and suggestions render 48×72 poster slots, title/year, source/reason metadata, detail affordance, and Rank / Save / Hide rows with 44 px coarse-pointer targets. |
 
 ## Phase 4 — core ranking flows
 
@@ -1210,6 +1220,8 @@ Record material product, interaction, or visual decisions here. Minor CSS adjust
 | 2026-06-30 | Build Phase 1 as a compatibility-first semantic layer with an internal SVG symbol sprite | Existing behavior and selectors must remain stable while later phases migrate surfaces incrementally | Tokens and semantic primitives govern legacy controls now; high-visibility glyphs share one bundled icon grammar without a runtime dependency |
 | 2026-06-30 | Implement Phase 2 as a CSS-gated destination shell over the existing static DOM | The large `app.js` surface makes behavior regressions more likely than relocating every feature renderer at once | Existing ranking, suggestions, queues, packs, auth, import, and export handlers keep their IDs and semantics while Rank / Discover / Lists own the visible IA |
 | 2026-06-30 | Stabilize the add/search placeholder during Phase 2 | The approved app-shell specification requires “Search for a movie” and the rotating title examples could read like prefilled values | Placeholder rotation calls remain no-ops around overlays; no ranking or search behavior changes |
+| 2026-06-30 | Build Phase 3 as shared DOM/CSS primitives over existing event hooks | The app remains a plain static module and existing E2E selectors/behaviors are valuable regression guards | MovieItem and PackCard grammar is shared across surfaces while legacy selectors such as `.ranking__restack`, `.queue-action`, and `.suggest-action` remain wired |
+| 2026-06-30 | Keep All Packs in its current overlay during Phase 3 while changing mobile cards to the shared PackCard grammar | Full-screen mobile workspace is later scope, but the browser card anatomy belongs to Phase 3 | Mobile All Packs cards become horizontal, progress-led rows without changing pack browser navigation or overlay taxonomy |
 
 ## Progress log
 
@@ -1221,11 +1233,12 @@ Add one concise entry after each completed implementation phase.
 | 2026-06-30 | Phase 0 | Preserved 13 baseline states, approved seven coordinated references, and locked the visual/component/responsive specification and copy list | In-app browser at 1440×900 and 390×844; full-resolution `view_image` inspection; `npm run verify` passed | Begin Phase 1 design foundations without changing information architecture yet |
 | 2026-06-30 | Phase 1 | Added the exact token/type/spacing/radius/elevation/motion system, semantic controls and states, unified focus/touch behavior, bundled icon grammar, reduced-motion coverage, and layout-stable loading geometry | In-app and deterministic browser inspection at desktop, mobile portrait, and mobile landscape; touch emulation found zero visible sub-44 px targets across main/settings/packs/detail/share/sign-in; `npm run verify` passed (190 Node, 3 Deno, 22 E2E) | Begin Phase 2 with desktop ranking ownership at approximately 60–65% of the primary workspace |
 | 2026-06-30 | Phase 2 | Rebuilt the app shell around Rank / Discover / Lists destinations, made the ranking the desktop primary workspace, moved Add/Search and continuation support into the rail, separated mobile discovery and lists, and added tested per-destination scroll restoration | In-app browser at desktop and mobile widths; deterministic screenshots for desktop/mobile main and comparison geometry; `npm run verify` passed (194 Node, 3 Deno, 23 E2E) | Begin Phase 3 shared MovieItem and PackCard anatomy without changing ranking/search/persistence semantics |
+| 2026-06-30 | Phase 3 | Added shared MovieItem grammar for ranking, discovery, queue, pack, recent, and Taste evidence rows; made Rank visible on rankable items; moved rare queue removal into overflow; standardized PackCard status/action language and explicit progress text across shelf/browser/compact variants | In-app browser at desktop 1440×900, mobile 390×844, and landscape 844×390; focused interaction smoke for suggestion Rank/Cancel and queue overflow; `npm run verify` passed (194 Node, 3 Deno, 23 E2E) | Begin Phase 4 core ranking flows without revisiting Phase 1–3 structure |
 
 ## Fresh-session handoff
 
 Start a new implementation session with this instruction:
 
-> Read `AGENTS.md` and `notes/feature-ideas/design-audit.md` in full. Treat the approved Phase 0 references and exact written specification as the source of truth. Phase 2 is complete and shipped locally; begin at the first unchecked task in Phase 3, preserve product behavior, and do not start Phase 4 until the shared content component acceptance gate passes rendered desktop/mobile verification and `npm run verify`. Update the checklist, decision log, and progress log; bump every relevant cache key. Do not commit or push unless I explicitly ask.
+> Read `AGENTS.md` and `notes/feature-ideas/design-audit.md` in full. Treat the approved Phase 0 references, exact written visual specification, decisions, constraints, phase gates, fidelity ledger, and progress checklist as the source of truth. Phase 3 is complete and pushed; begin at the first unchecked task in Phase 4, preserve product behavior, and do not start Phase 5 until the core ranking flow acceptance gate passes rendered desktop/mobile verification and `npm run verify`. Update the checklist, decision log, fidelity/progress notes, and shared brief cache-key notes as needed; bump every relevant CSS, JavaScript, library, or data cache key. Do not commit or push unless I explicitly ask.
 
-The audit, reference assets, and baseline capture changes remain uncommitted. Preserve them and include them only if the product owner later requests a commit.
+The audit, reference assets, and baseline captures are the governing design record. Preserve them and do not reinterpret the approved concepts unless a new decision-log entry explicitly changes direction.

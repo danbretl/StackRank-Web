@@ -5,8 +5,8 @@
 - **Initiative:** Core product design-system and experience redesign
 - **Priority:** Critical
 - **Product owner approval:** Approved in principle on 2026-06-30; minor adjustments may be made during implementation
-- **Implementation status:** Phase 1 complete; semantic design foundations established without feature changes
-- **Current phase:** Phase 2 — information architecture and app shell (ready, not started)
+- **Implementation status:** Phase 2 complete; ranking-first app shell and destination navigation established
+- **Current phase:** Phase 3 — shared content components (ready, not started)
 - **Last updated:** 2026-06-30
 - **Source of truth:** This document governs the redesign unless a later product decision is recorded in the decision log
 
@@ -18,7 +18,7 @@
 - [x] Create a phased implementation and verification plan
 - [x] Generate and approve desktop/mobile visual reference concepts
 - [x] Phase 1 — design foundations
-- [ ] Phase 2 — information architecture and app shell
+- [x] Phase 2 — information architecture and app shell
 - [ ] Phase 3 — shared movie and pack components
 - [ ] Phase 4 — core ranking flows
 - [ ] Phase 5 — discovery, lists, and Taste Explorer
@@ -867,37 +867,37 @@ This ledger evaluates the approved concepts only for the foundations in Phase 1.
 
 ### Desktop structure
 
-- [ ] Ranking owns approximately 60–65% of the primary workspace.
-- [ ] Add/search and a compact continuation/discovery rail occupy the secondary column.
-- [ ] Recently ranked and Taste Explorer become supporting ranking content rather than equal standalone panels.
-- [ ] Discovery sections no longer live inside one enormous Add panel.
-- [ ] Lists are accessible without competing with the ranking in the first viewport.
+- [x] Ranking owns approximately 60–65% of the primary workspace.
+- [x] Add/search and a compact continuation/discovery rail occupy the secondary column.
+- [x] Recently ranked and Taste Explorer become supporting ranking content rather than equal standalone panels.
+- [x] Discovery sections no longer live inside one enormous Add panel.
+- [x] Lists are accessible without competing with the ranking in the first viewport.
 
 ### Mobile structure
 
-- [ ] Add stable Rank / Discover / Lists navigation.
-- [ ] Rank contains:
-  - [ ] Add/search
-  - [ ] Current ranking
-  - [ ] Relevant recent activity
-  - [ ] Taste Explorer when available
-- [ ] Discover contains:
-  - [ ] Suggested packs
-  - [ ] Inspired
-  - [ ] Essentials
-  - [ ] Popular
-- [ ] Lists contains:
-  - [ ] Watch next
-  - [ ] Hidden
-- [ ] Preserve each destination’s state and scroll position when switching.
-- [ ] Keep navigation reachable, safe-area aware, and hidden only during true focused takeovers.
+- [x] Add stable Rank / Discover / Lists navigation.
+- [x] Rank contains:
+  - [x] Add/search
+  - [x] Current ranking
+  - [x] Relevant recent activity
+  - [x] Taste Explorer when available
+- [x] Discover contains:
+  - [x] Suggested packs
+  - [x] Inspired
+  - [x] Essentials
+  - [x] Popular
+- [x] Lists contains:
+  - [x] Watch next
+  - [x] Hidden
+- [x] Preserve each destination’s state and scroll position when switching.
+- [x] Keep navigation reachable, safe-area aware, and hidden only during true focused takeovers.
 
 ### App bar
 
-- [ ] Keep StackRank left aligned.
-- [ ] Remove the nonfunctional floating “Movies” treatment.
-- [ ] Maintain clear account/settings access.
-- [ ] Ensure the app bar and mobile navigation share one icon and typography system.
+- [x] Keep StackRank left aligned.
+- [x] Remove the nonfunctional floating “Movies” treatment.
+- [x] Maintain clear account/settings access.
+- [x] Ensure the app bar and mobile navigation share one icon and typography system.
 
 ### Acceptance gate
 
@@ -905,6 +905,16 @@ This ledger evaluates the approved concepts only for the foundations in Phase 1.
 - Desktop ranking is visually and structurally dominant.
 - Rank / Discover / Lists switching is keyboard and screen-reader operable.
 - Comparison, full-screen ranking, detail, settings, sign-in, packs, and Share Studio open and close correctly from the new shell.
+
+### Phase 2 fidelity ledger
+
+| Reference | Phase 2 comparison points | Phase 2 result |
+| --- | --- | --- |
+| Desktop primary workspace | App-bar Rank / Discover / Lists destinations; ranking left of the rail; ranking owns roughly 60–65% of the workspace; Add/Search and continuation support live in the secondary column | Matched structurally. E2E measures the ranking workspace at ~64% of the combined primary/rail width, hides queues from Rank, and keeps Add plus Continue ranking in the rail. Full MovieItem rank numerals remain Phase 4. |
+| Mobile Rank view | Header with account/settings access; Add to your ranking first; Current ranking visible in the first viewport; fixed labeled Rank / Discover / Lists bottom navigation; discovery and queues removed from Rank | Matched structurally. The app-shell E2E verifies Add and Current ranking appear in the 390×844 first viewport, bottom navigation is safe-area-aware, and no horizontal overflow occurs. Full row anatomy remains Phase 3/4. |
+| Shared MovieItem anatomy | Shell should not add new row semantics before the shared component phase | Preserved. Ranking, suggestion, queue, pack, recent, and Taste row internals remain governed by existing behavior; Phase 2 only relocates surfaces and adds navigation. |
+| Responsive comparison | Focused takeover hides app navigation and preserves 390×844 portrait and 844×390 landscape geometry | Matched. Screenshot harness reports exact viewport scroll dimensions for desktop, mobile portrait, and mobile landscape comparison captures after the shell change. |
+| Mobile All Packs / detail / Share references | Existing workspaces, sheets, and lightboxes should still open and close from the new shell, with mobile navigation hidden under true takeovers | Matched at the app-shell level. Focused and full E2E cover packs, detail, full-screen ranking, sign-in/import/settings, and Share Studio opening/closing without changing those Phase 6/7 presentations. |
 
 ## Phase 3 — shared content components
 
@@ -1198,6 +1208,8 @@ Record material product, interaction, or visual decisions here. Minor CSS adjust
 | 2026-06-30 | Preserve existing action semantics when a generated component sheet is broader than the live context | Ranking rows should not gain Save, and comparison should not show Undo and Cancel simultaneously | Shared components normalize visuals without changing feature behavior |
 | 2026-06-30 | Lock the Phase 1 token targets to the exact values in the visual specification | A precise palette, type scale, spacing system, and motion scale are required before surface migration | Phase 1 can be implemented and reviewed without subjective token drift |
 | 2026-06-30 | Build Phase 1 as a compatibility-first semantic layer with an internal SVG symbol sprite | Existing behavior and selectors must remain stable while later phases migrate surfaces incrementally | Tokens and semantic primitives govern legacy controls now; high-visibility glyphs share one bundled icon grammar without a runtime dependency |
+| 2026-06-30 | Implement Phase 2 as a CSS-gated destination shell over the existing static DOM | The large `app.js` surface makes behavior regressions more likely than relocating every feature renderer at once | Existing ranking, suggestions, queues, packs, auth, import, and export handlers keep their IDs and semantics while Rank / Discover / Lists own the visible IA |
+| 2026-06-30 | Stabilize the add/search placeholder during Phase 2 | The approved app-shell specification requires “Search for a movie” and the rotating title examples could read like prefilled values | Placeholder rotation calls remain no-ops around overlays; no ranking or search behavior changes |
 
 ## Progress log
 
@@ -1208,11 +1220,12 @@ Add one concise entry after each completed implementation phase.
 | 2026-06-30 | Audit and planning | Completed full UX audit, approved direction, and durable implementation plan | Read-only browser audit; no product files changed | Begin Phase 0 in a fresh session |
 | 2026-06-30 | Phase 0 | Preserved 13 baseline states, approved seven coordinated references, and locked the visual/component/responsive specification and copy list | In-app browser at 1440×900 and 390×844; full-resolution `view_image` inspection; `npm run verify` passed | Begin Phase 1 design foundations without changing information architecture yet |
 | 2026-06-30 | Phase 1 | Added the exact token/type/spacing/radius/elevation/motion system, semantic controls and states, unified focus/touch behavior, bundled icon grammar, reduced-motion coverage, and layout-stable loading geometry | In-app and deterministic browser inspection at desktop, mobile portrait, and mobile landscape; touch emulation found zero visible sub-44 px targets across main/settings/packs/detail/share/sign-in; `npm run verify` passed (190 Node, 3 Deno, 22 E2E) | Begin Phase 2 with desktop ranking ownership at approximately 60–65% of the primary workspace |
+| 2026-06-30 | Phase 2 | Rebuilt the app shell around Rank / Discover / Lists destinations, made the ranking the desktop primary workspace, moved Add/Search and continuation support into the rail, separated mobile discovery and lists, and added tested per-destination scroll restoration | In-app browser at desktop and mobile widths; deterministic screenshots for desktop/mobile main and comparison geometry; `npm run verify` passed (194 Node, 3 Deno, 23 E2E) | Begin Phase 3 shared MovieItem and PackCard anatomy without changing ranking/search/persistence semantics |
 
 ## Fresh-session handoff
 
 Start a new implementation session with this instruction:
 
-> Read `AGENTS.md` and `notes/feature-ideas/design-audit.md` in full. Treat the approved Phase 0 references and exact written specification as the source of truth. Begin at the first unchecked task in Phase 2, preserve product behavior, and do not start Phase 3 until the information-architecture acceptance gate passes rendered desktop/mobile verification and `npm run verify`. Update the checklist, decision log, and progress log; bump every relevant cache key. Do not commit or push unless I explicitly ask.
+> Read `AGENTS.md` and `notes/feature-ideas/design-audit.md` in full. Treat the approved Phase 0 references and exact written specification as the source of truth. Phase 2 is complete and shipped locally; begin at the first unchecked task in Phase 3, preserve product behavior, and do not start Phase 4 until the shared content component acceptance gate passes rendered desktop/mobile verification and `npm run verify`. Update the checklist, decision log, and progress log; bump every relevant cache key. Do not commit or push unless I explicitly ask.
 
 The audit, reference assets, and baseline capture changes remain uncommitted. Preserve them and include them only if the product owner later requests a commit.

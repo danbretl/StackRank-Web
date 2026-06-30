@@ -1,6 +1,6 @@
 # Production release checklist
 
-Last autonomous pass: **2026-06-29**
+Last autonomous pass: **2026-06-30**
 
 Use this checklist for checks that cannot be made authoritative from a local
 browser or unauthenticated production session. The automated baseline is:
@@ -22,6 +22,11 @@ the visit does not enter either product telemetry stream.
   `READY` with the expected production aliases.
 - `/movies` and `/privacy` load under the enforced CSP without console errors.
 - A real TMDB autocomplete request and poster load succeed under that policy.
+- Cold production traces are within the v1 target: desktop LCP 465 ms / CLS
+  0.00, and mobile Fast 4G with 4× CPU LCP 1.334 s / CLS 0.01.
+- Desktop and mobile Lighthouse audits score 100 for accessibility, best
+  practices, SEO, and agentic browsing.
+- Cache-busted app JS, CSS, and bundled pack data are served immutable.
 - The production sign-in sheet exposes email magic link.
 - Google and Apple OAuth are both disabled in Supabase and therefore correctly
   hidden. Google still needs provider credentials before it can be tested;

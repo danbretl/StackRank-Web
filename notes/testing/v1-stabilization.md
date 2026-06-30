@@ -243,7 +243,7 @@ Measurement readiness (2026-06-29):
 
 ## Area 6 — production performance and delivery
 
-Status: **tooling installed; pending Codex restart (2026-06-29).**
+Status: **complete (2026-06-30).**
 
 Planned scope:
 
@@ -255,12 +255,34 @@ Planned scope:
   merely to improve a synthetic score.
 - Re-run `npm run verify`, `npm run test:production`, and the same trace profile.
 
-Resume condition:
+Shipped implementation and evidence:
 
-- Restart Codex so this thread's tool registry discovers the newly installed
-  global `chrome-devtools` MCP server. The official package is cached,
-  registered through `codex mcp add`, and passed a direct startup test in
-  isolated headless mode with usage statistics disabled.
+- Replaced the Google Fonts stylesheet hop with a direct variable-font
+  declaration, preconnect, and preload. The font remains a 22.3 kB third-party
+  transfer, but it no longer adds a stylesheet dependency chain.
+- Removed a duplicate Supabase `INITIAL_SESSION` boot callback and stopped
+  forcing a network revalidation of versioned pack fallback data.
+- Added year-long immutable caching for cache-busted app JS, CSS, and pack JSON;
+  the live production smoke now verifies those headers.
+- Reserved the first-run, pack, and suggestion geometry in the initial
+  document. Empty rankings keep their correct static empty states instead of
+  expanding into account-data skeletons and collapsing after async startup.
+- Added a deterministic desktop/mobile boot-layout browser flow. It delays pack
+  and suggestion responses, checks replacement geometry and horizontal
+  overflow, and fails at CLS 0.1 or above. The suite now has 20 browser flows.
+- Fixed the contrast/name issues and source-map CSP noise found in the same
+  audit. Final desktop and mobile Lighthouse navigation audits both scored 100
+  for accessibility, best practices, SEO, and agentic browsing.
+- Cold mobile production trace (390×844, Fast 4G, 4× CPU) improved from FCP
+  1.20 s / LCP 1.421 s / CLS 0.11 to FCP 1.132 s / LCP 1.334 s / CLS 0.01,
+  with no observed long-task blocking time. Final unthrottled desktop measured
+  FCP 468 ms / LCP 465 ms / CLS 0.00, also with no observed long tasks.
+- The remaining dependency cost is principally the no-build Supabase ESM graph
+  from jsDelivr. Its measured main-thread execution was only 17 ms, so vendoring
+  or introducing a build pipeline was rejected for v1.
+- Deployments `c502dfc` and `3805515` reached READY. `npm run verify` passed
+  with 173 unit/config tests, all function checks/tests, pack validation, and
+  20 browser flows; the live production smoke passed all 21 checks.
 
 ## Progress log
 
@@ -279,3 +301,6 @@ Resume condition:
   measurement because Chrome DevTools trace tooling is not configured.
 - **2026-06-29:** Installed and startup-tested the global Chrome DevTools MCP;
   the performance audit can resume after Codex reloads its tool registry.
+- **2026-06-30:** Completed Area 6 performance/delivery; production traces,
+  Lighthouse audits, immutable cache checks, and desktop/mobile layout-shift
+  regression coverage are green.

@@ -5,7 +5,10 @@ const path = require("path");
 const { spawn } = require("child_process");
 
 const rootDir = path.resolve(__dirname, "..");
-const screenshotRoot = path.join(rootDir, "debug", "screenshots");
+const outputDirArg = process.argv.find((arg) => arg.startsWith("--output-dir="));
+const screenshotRoot = outputDirArg
+  ? path.resolve(rootDir, outputDirArg.slice("--output-dir=".length))
+  : path.join(rootDir, "debug", "screenshots");
 const runLabelArg = process.argv.find((arg) => arg.startsWith("--label="));
 const runLabel = runLabelArg ? runLabelArg.slice("--label=".length) : "";
 const onlyArg = process.argv.find((arg) => arg.startsWith("--only="));
@@ -30,8 +33,8 @@ const slug = (value) =>
     .replace(/^-|-$/g, "");
 const runStamp = timestampForPath();
 const runName = runLabel ? `${runStamp}-${slug(runLabel)}` : runStamp;
-const archiveDir = path.join(screenshotRoot, "runs", runName);
-const latestDir = path.join(screenshotRoot, "latest");
+const archiveDir = outputDirArg ? screenshotRoot : path.join(screenshotRoot, "runs", runName);
+const latestDir = outputDirArg ? screenshotRoot : path.join(screenshotRoot, "latest");
 const chromePath =
   process.env.CHROME_PATH || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
@@ -91,37 +94,79 @@ const allShots = [
   {
     name: "desktop-main",
     width: 1440,
-    height: 1000,
+    height: 900,
+    state: "main",
+  },
+  {
+    name: "mobile-main",
+    width: 390,
+    height: 844,
     state: "main",
   },
   {
     name: "desktop-comparison",
     width: 1440,
-    height: 1000,
+    height: 900,
     state: "comparison",
   },
   {
-    name: "desktop-share-studio",
-    width: 1440,
-    height: 1000,
-    state: "share",
-  },
-  {
     name: "mobile-comparison-portrait",
-    width: 500,
-    height: 757,
+    width: 390,
+    height: 844,
     state: "comparison",
   },
   {
     name: "mobile-comparison-landscape",
     width: 844,
-    height: 303,
+    height: 390,
     state: "comparison",
   },
   {
+    name: "desktop-all-packs",
+    width: 1440,
+    height: 900,
+    state: "all-packs",
+  },
+  {
+    name: "mobile-all-packs",
+    width: 390,
+    height: 844,
+    state: "all-packs",
+  },
+  {
+    name: "desktop-pack-detail",
+    width: 1440,
+    height: 900,
+    state: "pack-detail",
+  },
+  {
+    name: "mobile-pack-detail",
+    width: 390,
+    height: 844,
+    state: "pack-detail",
+  },
+  {
+    name: "desktop-movie-detail",
+    width: 1440,
+    height: 900,
+    state: "movie-detail",
+  },
+  {
+    name: "mobile-movie-detail",
+    width: 390,
+    height: 844,
+    state: "movie-detail",
+  },
+  {
+    name: "desktop-share-studio",
+    width: 1440,
+    height: 900,
+    state: "share",
+  },
+  {
     name: "mobile-share-studio",
-    width: 500,
-    height: 757,
+    width: 390,
+    height: 844,
     state: "share",
   },
 ];
@@ -388,6 +433,63 @@ const captureShot = async (baseUrl, shot) => {
       await wait(1000);
     }
 
+    if (shot.state === "all-packs" || shot.state === "pack-detail") {
+      const result = await page.send("Runtime.evaluate", {
+        expression: `
+          (() => {
+            const button = document.querySelector('#pack-view-all');
+            if (!button) return { clicked: false };
+            button.click();
+            return { clicked: true };
+          })()
+        `,
+        awaitPromise: true,
+        returnByValue: true,
+      });
+      if (!result.result.value.clicked) {
+        throw new Error(`Could not open all packs for ${shot.name}`);
+      }
+      await wait(800);
+    }
+
+    if (shot.state === "pack-detail") {
+      const result = await page.send("Runtime.evaluate", {
+        expression: `
+          (() => {
+            const card = document.querySelector('#pack-detail-list .pack-card');
+            if (!card) return { clicked: false };
+            card.click();
+            return { clicked: true };
+          })()
+        `,
+        awaitPromise: true,
+        returnByValue: true,
+      });
+      if (!result.result.value.clicked) {
+        throw new Error(`Could not open a pack detail for ${shot.name}`);
+      }
+      await wait(800);
+    }
+
+    if (shot.state === "movie-detail") {
+      const result = await page.send("Runtime.evaluate", {
+        expression: `
+          (() => {
+            const button = document.querySelector('.queue-info');
+            if (!button) return { clicked: false };
+            button.click();
+            return { clicked: true };
+          })()
+        `,
+        awaitPromise: true,
+        returnByValue: true,
+      });
+      if (!result.result.value.clicked) {
+        throw new Error(`Could not open movie details for ${shot.name}`);
+      }
+      await wait(1000);
+    }
+
     const metrics = await page.send("Runtime.evaluate", {
       expression: `
         (() => ({
@@ -401,6 +503,10 @@ const captureShot = async (baseUrl, shot) => {
           },
           hasComparison: !document.querySelector('#compare')?.classList.contains('panel--hidden'),
           hasShareStudio: !document.querySelector('#share-studio')?.hidden,
+          hasPackBrowser: document.querySelector('#pack-detail')?.classList.contains('is-all-packs'),
+          hasPackDetail: !document.querySelector('#pack-detail')?.hidden &&
+            !document.querySelector('#pack-detail')?.classList.contains('is-all-packs'),
+          hasMovieDetail: !document.querySelector('#movie-detail')?.hidden,
           visibleText: document.body.innerText.slice(0, 500)
         }))()
       `,
@@ -426,6 +532,9 @@ const captureShot = async (baseUrl, shot) => {
       scroll: metrics.result.value.scroll,
       hasComparison: metrics.result.value.hasComparison,
       hasShareStudio: metrics.result.value.hasShareStudio,
+      hasPackBrowser: metrics.result.value.hasPackBrowser,
+      hasPackDetail: metrics.result.value.hasPackDetail,
+      hasMovieDetail: metrics.result.value.hasMovieDetail,
     };
   } finally {
     await page.close();

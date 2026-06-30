@@ -243,7 +243,7 @@ Measurement readiness (2026-06-29):
 
 ## Area 6 — production performance and delivery
 
-Status: **blocked on trace tooling (2026-06-29).**
+Status: **tooling installed; pending Codex restart (2026-06-29).**
 
 Planned scope:
 
@@ -257,10 +257,10 @@ Planned scope:
 
 Resume condition:
 
-- Configure the `chrome-devtools` MCP server (`npx -y
-  chrome-devtools-mcp@latest`). The required trace and insight tools are not
-  available in the current workspace, so this audit cannot produce defensible
-  Core Web Vitals or savings estimates yet.
+- Restart Codex so this thread's tool registry discovers the newly installed
+  global `chrome-devtools` MCP server. The official package is cached,
+  registered through `codex mcp add`, and passed a direct startup test in
+  isolated headless mode with usage statistics disabled.
 
 ## Progress log
 
@@ -277,3 +277,5 @@ Resume condition:
   automated QA from telemetry; the pruning decision remains date/sample gated.
 - **2026-06-29:** Added Area 6 performance/delivery scope; paused before
   measurement because Chrome DevTools trace tooling is not configured.
+- **2026-06-29:** Installed and startup-tested the global Chrome DevTools MCP;
+  the performance audit can resume after Codex reloads its tool registry.

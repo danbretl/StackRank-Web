@@ -1244,6 +1244,7 @@ The post-release review began from the deployed production app, local rendered a
 ### Production release verification
 
 - **Deployment:** `dpl_3Ek33jwjLN7caL3BxFwNZziQfyvD`, production URL `https://stackrank-a96s8tipx-danbretl-2590s-projects.vercel.app`, GitHub commit `f03431450817499a592cce478e1e67b9877c2abe`.
+- **Latest post-release action-row deployment:** `dpl_EHiuX8Eww8CPWHzmMekUAuABpbaA`, production URL `https://stackrank-56n8jhm7p-danbretl-2590s-projects.vercel.app`, GitHub commit `6276778`. Production smoke passed against `app.js?v=146` and `styles.css?v=108`; Vercel reported no runtime error clusters and no warning/error/fatal logs in the deployment window.
 - **Production smoke:** `npm run test:production` passed 21 checks after deployment, including redirect chain, security headers, metadata, immutable cache-busted assets, OG image dimensions, privacy/TMDB credits, robots, and sitemap.
 - **Full local verification:** `npm run verify` passed after the post-release fixes. Earlier full-run E2E attempts had transient waits in the full-screen drag and TMDB failure/recovery flows; both focused reruns passed, and the final full verify passed.
 - **Rendered local screenshots inspected:** `debug/screenshots/runs/2026-07-01T05-17-04Z-release-review-full-local`. Coverage included desktop/mobile main, comparison, All Packs, detail, Share Studio, and supporting states.

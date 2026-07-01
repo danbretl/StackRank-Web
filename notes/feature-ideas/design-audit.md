@@ -5,9 +5,9 @@
 - **Initiative:** Core product design-system and experience redesign
 - **Priority:** Critical
 - **Product owner approval:** Approved in principle on 2026-06-30; minor adjustments may be made during implementation
-- **Implementation status:** Phase 3 complete; shared movie and pack component grammar established
-- **Current phase:** Phase 4 — core ranking flows (ready, not started)
-- **Last updated:** 2026-06-30
+- **Implementation status:** Phase 4 complete; core ranking flows migrated to the approved ranking-first grammar
+- **Current phase:** Phase 5 — discovery, lists, and Taste Explorer (ready, not started)
+- **Last updated:** 2026-07-01
 - **Source of truth:** This document governs the redesign unless a later product decision is recorded in the decision log
 
 ### Progress at a glance
@@ -20,7 +20,7 @@
 - [x] Phase 1 — design foundations
 - [x] Phase 2 — information architecture and app shell
 - [x] Phase 3 — shared movie and pack components
-- [ ] Phase 4 — core ranking flows
+- [x] Phase 4 — core ranking flows
 - [ ] Phase 5 — discovery, lists, and Taste Explorer
 - [ ] Phase 6 — overlay and workspace system
 - [ ] Phase 7 — Share Studio controls
@@ -973,29 +973,29 @@ This ledger evaluates the approved concepts only for the foundations in Phase 1.
 
 ### Add/search
 
-- [ ] Rename to “Add to your ranking.”
-- [ ] Use a stable “Search for a movie” placeholder.
-- [ ] Add a consistent search icon.
-- [ ] Preserve autocomplete, keyboard navigation, TMDB-only selection, and immediate ranking.
-- [ ] Tighten first-run content while preserving search, packs, and import paths.
+- [x] Rename to “Add to your ranking.”
+- [x] Use a stable “Search for a movie” placeholder.
+- [x] Add a consistent search icon.
+- [x] Preserve autocomplete, keyboard navigation, TMDB-only selection, and immediate ranking.
+- [x] Tighten first-run content while preserving search, packs, and import paths.
 
 ### Current ranking
 
-- [ ] Introduce deliberate `01`, `02`, `03` rank numerals.
-- [ ] Establish clear poster/title/year alignment.
-- [ ] Make filter, review, full screen, and share understandable at narrow widths.
-- [ ] Use contextual re-rank/remove controls.
-- [ ] Ensure drag behavior remains correct on desktop and touch.
+- [x] Introduce deliberate `01`, `02`, `03` rank numerals.
+- [x] Establish clear poster/title/year alignment.
+- [x] Make filter, review, full screen, and share understandable at narrow widths.
+- [x] Use contextual re-rank/remove controls.
+- [x] Ensure drag behavior remains correct on desktop and touch.
 
 ### Comparison and review
 
-- [ ] Use equal visual surfaces for both choices.
-- [ ] Remove or reduce “New entry” / “Existing” system-language bias.
-- [ ] Consolidate comparison actions into one action bar.
-- [ ] Add consistent pressed feedback before advancing.
-- [ ] Preserve one-screen mobile portrait and landscape layouts.
-- [ ] Preserve Undo, Cancel, Rank all skip, review Keep/Swap/End, Escape behavior, and scroll restoration.
-- [ ] Keep the title input blurred after finish/cancel.
+- [x] Use equal visual surfaces for both choices.
+- [x] Remove or reduce “New entry” / “Existing” system-language bias.
+- [x] Consolidate comparison actions into one action bar.
+- [x] Add consistent pressed feedback before advancing.
+- [x] Preserve one-screen mobile portrait and landscape layouts.
+- [x] Preserve Undo, Cancel, Rank all skip, review Keep/Swap/End, Escape behavior, and scroll restoration.
+- [x] Keep the title input blurred after finish/cancel.
 
 ### Acceptance gate
 
@@ -1003,6 +1003,16 @@ This ledger evaluates the approved concepts only for the foundations in Phase 1.
 - Both mobile comparison choices and necessary controls fit without scrolling in portrait and landscape target viewports.
 - The ranking is the strongest visual artifact in the core app.
 - Drag, filter, share, full-screen, re-rank, remove, undo, and cancel remain functional.
+
+### Phase 4 fidelity ledger
+
+| Reference | Phase 4 comparison points | Phase 4 result |
+| --- | --- | --- |
+| Desktop primary workspace | Ranking rows carry oversized two-digit rank numerals, larger poster slots, clear title/year alignment, visible toolbar labels, and contextual row actions while Add/Search remains in the rail | Matched for Phase 4. Desktop in-app browser inspection at 1440×900 showed `01` rank numerals, poster/title/year alignment, Review/Filter/Full screen/Share labels, contextual row controls, no horizontal overflow, and the comparison panel hidden until a ranking flow starts. |
+| Mobile Rank view | Add/Search remains first, Current ranking appears in the first viewport, mobile toolbar keeps Review/Share understandable, and rank numerals remain visible on rows | Matched with one recorded compromise from the live behavior: ranking rows retain persistent detail plus touch drag/overflow affordances, so only the first two populated rows fit in the 390×844 first viewport. The ranking still starts in the first viewport, shows `01`/`02`, and has no horizontal overflow. |
+| Shared MovieItem anatomy | Ranking variant should use deliberate rank/poster/title/year slots while rare destructive actions move behind contextual overflow | Matched. Ranking rows now use the same rank/poster/body/action slots as the shared grammar, with re-rank shown on hover/focus, remove in overflow, and touch drag preserved via the handle. |
+| Responsive comparison | Prompt reads `Which belongs higher?`; both choices use identical neutral surfaces; New/Existing labels are hidden; actions sit in one bottom bar; 390×844 portrait and 844×390 landscape are scroll-free | Matched. Normal add/search comparisons rendered with equal white card surfaces, hidden system labels, a bottom action bar, no horizontal or vertical overflow, and debug-only panels hidden during focused comparison mode. |
+| Ranking review mode | Review should feel like the same comparison system with Keep/Swap/End in the shared action bar and scroll restoration/input blur preserved | Matched. Review uses the same neutral cards and bottom action bar, advances after Keep/Swap, ends through End review, restores out of comparison mode, and leaves the title input unfocused. |
 
 ## Phase 5 — discovery, lists, and Taste Explorer
 
@@ -1222,6 +1232,9 @@ Record material product, interaction, or visual decisions here. Minor CSS adjust
 | 2026-06-30 | Stabilize the add/search placeholder during Phase 2 | The approved app-shell specification requires “Search for a movie” and the rotating title examples could read like prefilled values | Placeholder rotation calls remain no-ops around overlays; no ranking or search behavior changes |
 | 2026-06-30 | Build Phase 3 as shared DOM/CSS primitives over existing event hooks | The app remains a plain static module and existing E2E selectors/behaviors are valuable regression guards | MovieItem and PackCard grammar is shared across surfaces while legacy selectors such as `.ranking__restack`, `.queue-action`, and `.suggest-action` remain wired |
 | 2026-06-30 | Keep All Packs in its current overlay during Phase 3 while changing mobile cards to the shared PackCard grammar | Full-screen mobile workspace is later scope, but the browser card anatomy belongs to Phase 3 | Mobile All Packs cards become horizontal, progress-led rows without changing pack browser navigation or overlay taxonomy |
+| 2026-07-01 | Implement Phase 4 ranking rows by moving the drag handle into the contextual action cluster | The approved ranking artifact needs the rank numeral to lead the row, but touch drag must remain available without changing ranking behavior | Ranking rows now read rank → poster → title/year while detail, drag, re-rank, and overflow remain wired through existing handlers |
+| 2026-07-01 | Hide debug-only panels during focused comparison mode | Production QA uses `?debug=1`, and the debug panel was adding document height during otherwise scroll-free mobile comparison checks | Comparison geometry now remains scroll-free in debug visits as well as normal visits |
+| 2026-07-01 | Keep mobile ranking detail and drag affordances visible instead of collapsing them into a new overflow menu | Phase 4 must not invent a new menu behavior or risk breaking detail/removal/drag access before the broader overlay/workspace phase | Mobile rows are taller than the illustrative concept, but preserve all existing ranking actions and touch drag behavior |
 
 ## Progress log
 
@@ -1234,11 +1247,12 @@ Add one concise entry after each completed implementation phase.
 | 2026-06-30 | Phase 1 | Added the exact token/type/spacing/radius/elevation/motion system, semantic controls and states, unified focus/touch behavior, bundled icon grammar, reduced-motion coverage, and layout-stable loading geometry | In-app and deterministic browser inspection at desktop, mobile portrait, and mobile landscape; touch emulation found zero visible sub-44 px targets across main/settings/packs/detail/share/sign-in; `npm run verify` passed (190 Node, 3 Deno, 22 E2E) | Begin Phase 2 with desktop ranking ownership at approximately 60–65% of the primary workspace |
 | 2026-06-30 | Phase 2 | Rebuilt the app shell around Rank / Discover / Lists destinations, made the ranking the desktop primary workspace, moved Add/Search and continuation support into the rail, separated mobile discovery and lists, and added tested per-destination scroll restoration | In-app browser at desktop and mobile widths; deterministic screenshots for desktop/mobile main and comparison geometry; `npm run verify` passed (194 Node, 3 Deno, 23 E2E) | Begin Phase 3 shared MovieItem and PackCard anatomy without changing ranking/search/persistence semantics |
 | 2026-06-30 | Phase 3 | Added shared MovieItem grammar for ranking, discovery, queue, pack, recent, and Taste evidence rows; made Rank visible on rankable items; moved rare queue removal into overflow; standardized PackCard status/action language and explicit progress text across shelf/browser/compact variants | In-app browser at desktop 1440×900, mobile 390×844, and landscape 844×390; focused interaction smoke for suggestion Rank/Cancel and queue overflow; `npm run verify` passed (194 Node, 3 Deno, 23 E2E) | Begin Phase 4 core ranking flows without revisiting Phase 1–3 structure |
+| 2026-07-01 | Phase 4 | Migrated core ranking flows: stable Add/Search and tighter first-run copy, artifact-style ranking rows with `01` numerals and contextual row actions, equal comparison surfaces, shared comparison/review action bar, and pressed feedback before decisions advance | Focused unit checks passed; in-app browser at desktop 1440×900, mobile 390×844, and mobile landscape 844×390; normal comparison and review were scroll-free with no console errors; `npm run verify` passed | Begin Phase 5 discovery, lists, and Taste Explorer without revisiting the approved Phase 4 comparison/ranking concepts |
 
 ## Fresh-session handoff
 
 Start a new implementation session with this instruction:
 
-> Read `AGENTS.md` and `notes/feature-ideas/design-audit.md` in full. Treat the approved Phase 0 references, exact written visual specification, decisions, constraints, phase gates, fidelity ledger, and progress checklist as the source of truth. Phase 3 is complete and pushed; begin at the first unchecked task in Phase 4, preserve product behavior, and do not start Phase 5 until the core ranking flow acceptance gate passes rendered desktop/mobile verification and `npm run verify`. Update the checklist, decision log, fidelity/progress notes, and shared brief cache-key notes as needed; bump every relevant CSS, JavaScript, library, or data cache key. Do not commit or push unless I explicitly ask.
+> Read `AGENTS.md` and `notes/feature-ideas/design-audit.md` in full. Treat the approved Phase 0 references, exact written visual specification, decisions, constraints, phase gates, fidelity ledger, and progress checklist as the source of truth. Phase 4 is complete locally; begin at the first unchecked task in Phase 5, preserve product behavior, and do not start Phase 6 until the discovery/list/Taste acceptance gate passes rendered desktop/mobile verification and `npm run verify`. Update the checklist, decision log, fidelity/progress notes, and shared brief cache-key notes as needed; bump every relevant CSS, JavaScript, library, or data cache key. Do not commit or push unless I explicitly ask.
 
 The audit, reference assets, and baseline captures are the governing design record. Preserve them and do not reinterpret the approved concepts unless a new decision-log entry explicitly changes direction.

@@ -5,8 +5,8 @@
 - **Initiative:** Core product design-system and experience redesign
 - **Priority:** Critical
 - **Product owner approval:** Approved in principle on 2026-06-30; minor adjustments may be made during implementation
-- **Implementation status:** Phase 8 complete; comprehensive responsive and regression QA passed
-- **Current phase:** Production release and post-release review
+- **Implementation status:** Production release/post-release review complete; post-release layout fixes shipped
+- **Current phase:** Post-release monitoring
 - **Last updated:** 2026-07-01
 - **Source of truth:** This document governs the redesign unless a later product decision is recorded in the decision log
 
@@ -25,7 +25,7 @@
 - [x] Phase 6 — overlay and workspace system
 - [x] Phase 7 — Share Studio controls
 - [x] Phase 8 — comprehensive responsive and regression QA
-- [ ] Production release and post-release review
+- [x] Production release and post-release review
 
 ## Executive assessment
 
@@ -1228,6 +1228,32 @@ Before final handoff:
 | Mobile Share Studio controls | Compact preview; segmented Format/Shape; Look swatches; Tone chips; Content/Advanced disclosures; sticky Download PNG / Share actions | Matched. Final mobile and desktop Share Studio screenshots preserve the control hierarchy and sticky actions, while E2E verifies empty-section disabling, single image, image set, ZIP, per-page download, native share, and lightbox behavior. |
 | Tablet/small landscape responsive behavior | Tablet 721–899 px keeps ranking first and full width; small landscape has no horizontal overflow | Fixed during Phase 8. The initial 768×1024/844×390 audit showed ranking below Add/Discover; a scoped CSS order rule now keeps the app bar first, Current ranking at 88 px from the top, Add/Search later, and scroll width equal to client width. |
 
+### Production release review ledger
+
+The post-release review began from the deployed production app, local rendered app, the approved Phase 0 references, and the supplied bug screenshot at `/Users/danbretl/Desktop/Screenshot 2026-06-30 at 10.08.23 PM.png`.
+
+| Issue | Evidence | Fix | Verification |
+| --- | --- | --- | --- |
+| Desktop rail panels stretched into a large mostly empty bordered surface when the ranking was populated and only Add/Search was visible in the rail | Supplied production screenshot and local seeded desktop screenshots showed the right rail violating the approved desktop-primary reference, which uses content-sized support panels beside the ranking | Scoped desktop grid alignment so `.side-stack` and `.stack` size to content instead of stretching, while keeping long ranking/support content naturally scrollable | Local slice screenshots at 1440x900, production screenshot-sized capture, and final production desktop captures show Add/Search and Continue ranking as compact secondary panels |
+| Short populated rankings created a large blank list panel below the last row | Local seeded desktop screenshots showed `Current ranking` occupying viewport height even with only a few rows | Removed the viewport-derived desktop minimum height from `.panel--list` so short lists are content-sized | Local final screenshots at desktop/tablet/mobile show the ranking artifact owns the workspace without accidental empty body space |
+| Mobile detail footer could wrap queue removal labels awkwardly and fall below the 44 px touch target | Local mobile detail screenshot showed "Remove from saved" wrapping into multiple lines | Shortened visible queue removal labels to `Remove`, preserved specific aria-labels, and made coarse-pointer detail footer buttons 44 px minimum with no wrapping | Local mobile detail screenshot and E2E detail/queue flows passed; semantics and source-specific actions are unchanged |
+| Cache-busted production checks would reject the shipped assets after the fix | `scripts/run-e2e-smoke.cjs` still expected `app.js?v=143`, `styles.css?v=104`, and the old privacy CSS key | Bumped app/cache keys and updated production-smoke assertions | `npm run test:production` passed 21 checks against `app.js?v=144` and `styles.css?v=105` |
+
+### Production release verification
+
+- **Deployment:** `dpl_3Ek33jwjLN7caL3BxFwNZziQfyvD`, production URL `https://stackrank-a96s8tipx-danbretl-2590s-projects.vercel.app`, GitHub commit `f03431450817499a592cce478e1e67b9877c2abe`.
+- **Production smoke:** `npm run test:production` passed 21 checks after deployment, including redirect chain, security headers, metadata, immutable cache-busted assets, OG image dimensions, privacy/TMDB credits, robots, and sitemap.
+- **Full local verification:** `npm run verify` passed after the post-release fixes. Earlier full-run E2E attempts had transient waits in the full-screen drag and TMDB failure/recovery flows; both focused reruns passed, and the final full verify passed.
+- **Rendered local screenshots inspected:** `debug/screenshots/runs/2026-07-01T05-17-04Z-release-review-full-local`. Coverage included desktop/mobile main, comparison, All Packs, detail, Share Studio, and supporting states.
+- **Production screenshots inspected:** `debug/screenshots/runs/2026-07-01T-release-review-production-final`. Captures include screenshot-sized desktop, 1440x900 desktop, 390x844 mobile portrait, and 844x390 mobile landscape with seeded local-only browser data.
+- **Runtime/log checks:** Vercel runtime logs for the production deployment returned no error or fatal entries in the review window. Chrome DevTools showed the expected live `app.js?v=144` and `styles.css?v=105` requests, no horizontal overflow, and no console errors/warnings; two Chrome CORB issue entries were observed during third-party/TMDB loading without render failure.
+- **State matrix:** The Phase 8 matrix remains valid after the scoped fixes. Post-release visual smoke rechecked the supplied screenshot class, desktop first viewport, tablet/mobile responsive order, mobile detail footer actions, Share Studio, comparison geometry, All Packs, settings/sign-in, lists, and production/local cache behavior.
+
+Known remaining risks:
+
+- A seeded test poster path can still show the browser image fallback if the stored poster path is invalid; this is data-quality fallback behavior and was not part of the shipped product fix.
+- The post-release fix intentionally did not change ranking algorithms, persistence formats, Supabase function response shapes, telemetry definitions, auth flows, Share Studio schemas, or export semantics.
+
 ## Success measures
 
 The redesign is successful when:
@@ -1290,6 +1316,7 @@ Record material product, interaction, or visual decisions here. Minor CSS adjust
 | 2026-07-01 | Move Share Studio display name into the Content disclosure | The approved Share Studio reference keeps the header focused on title/preview and mobile export actions reachable | Display name remains available and persisted, but no longer pushes the primary preview/configuration stack down on mobile |
 | 2026-07-01 | Put SVG with Advanced exports while keeping PNG and Share as the primary footer actions | SVG is a technical export and competed with the common image actions | Primary image actions stay in the sticky footer; SVG, Markdown, JSON, and Text live under Advanced exports |
 | 2026-07-01 | Keep tablet Rank layouts ranking-first in the single-column shell | Phase 8 responsive QA found 721–899 px viewports still followed DOM order, placing Add/Discover before Current ranking | A scoped CSS order rule keeps the app bar first, Current ranking second, and Add/Discover support below without changing desktop or mobile destination behavior |
+| 2026-07-01 | Size short desktop ranking/support panels to content during production review | The supplied production screenshot showed a right-rail Add/Search panel stretching into a large empty bordered surface, and short ranking lists had the same accidental blank-panel failure mode | Desktop support panels and short ranking lists now keep the approved content-sized hierarchy without changing the long-list, comparison, or mobile destination behavior |
 
 ## Progress log
 
@@ -1307,11 +1334,12 @@ Add one concise entry after each completed implementation phase.
 | 2026-07-01 | Phase 6 | Migrated overlay taxonomy and workspace chrome: settings popover, detail/sign-in/import sheets, All Packs/full-screen/Share workspaces, lightbox continuity, cinematic detail header, shared close controls, sticky action footers, safe-area mobile workspaces, contextual full-screen ranking cards, and readable pack detail rows | In-app browser at desktop, mobile portrait, and mobile landscape; deterministic screenshots for main, comparison landscape, all-packs, pack detail, movie detail, and Share Studio; focused E2E passed for sign-in, backup/import, Share Studio, full-screen ranking, pack browser, Rank all, and mobile pack title clearance | Begin Phase 7 Share Studio controls only after explicit authorization; do not revisit Phase 1-6 concepts unless a new decision is recorded |
 | 2026-07-01 | Phase 7 | Migrated Share Studio controls: segmented Format/Shape, visual Look swatches, Tone chips, collapsible Content and Advanced exports, and a sticky PNG/Share footer while preserving all export semantics | Focused Share unit tests passed; deterministic screenshots at desktop 1440×900, mobile 390×844, and mobile landscape comparison; in-app Browser smoke covered live search → Share on mobile/desktop/landscape; focused Share and download E2E passed; `npm run verify` passed | Begin Phase 8 comprehensive responsive and regression QA only after explicit authorization; do not revisit Phase 1-7 concepts unless a new decision is recorded |
 | 2026-07-01 | Phase 8 | Completed comprehensive responsive and regression QA, fixed tablet/small-landscape Rank ordering, regenerated final reference-size screenshots, and verified the redesign against the approved references and state matrix | `npm test`, `node --check app.js`, Deno function checks/tests, `npm run test:e2e`, `npm run verify`, deterministic screenshots, in-app Browser live checks, and `npm run test:production` passed 21 checks after deployment | Production release review remains after observing the deployed build and any telemetry/readiness follow-up |
+| 2026-07-01 | Production release review | Fixed post-release home-screen layout defects from the supplied screenshot and seeded local/production visual review: content-sized desktop Add/Search rail, content-sized short ranking panel, and non-wrapping mobile detail footer actions; updated cache keys and production smoke expectations | Supplied screenshot class reproduced and fixed; local screenshots inspected; `npm run verify` passed; production deployment `dpl_3Ek33jwjLN7caL3BxFwNZziQfyvD` reached READY; `npm run test:production` passed; final production screenshots and runtime logs were inspected | Monitor production for real-user visual reports; no unrelated product work started |
 
 ## Fresh-session handoff
 
 Start a new implementation session with this instruction:
 
-> Read `AGENTS.md` and `notes/feature-ideas/design-audit.md` in full. Treat the approved Phase 0 references, exact written visual specification, decisions, constraints, phase gates, fidelity ledger, and progress checklist as the source of truth. Phase 8 is complete; begin production release review only if explicitly authorized, preserve product behavior, and do not revisit Phases 1-8 unless a new decision is recorded. Update the checklist, decision log, fidelity/progress notes, and shared brief cache-key notes as needed; bump every relevant CSS, JavaScript, library, or data cache key. Do not commit or push unless I explicitly ask.
+> Read `AGENTS.md` and `notes/feature-ideas/design-audit.md` in full. Treat the approved Phase 0 references, exact written visual specification, decisions, constraints, phase gates, fidelity ledger, production release ledger, and progress checklist as the source of truth. Production release/post-release review is complete; preserve product behavior, monitor for release regressions, and do not revisit Phases 1-8 unless a new decision is recorded. Update the checklist, decision log, fidelity/progress notes, and shared brief cache-key notes as needed; bump every relevant CSS, JavaScript, library, or data cache key. Do not commit or push unless I explicitly ask.
 
 The audit, reference assets, and baseline captures are the governing design record. Preserve them and do not reinterpret the approved concepts unless a new decision-log entry explicitly changes direction.

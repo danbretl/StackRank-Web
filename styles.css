@@ -17,7 +17,7 @@
   --ink-muted: #666662;
   --rule: #d8d7d3;
   --rule-strong: #111111;
-  --focus: #0b63ce;
+  --focus: #111111;
   --danger: #b42318;
   --warning: #8a5a00;
   --success: #187243;
@@ -3868,17 +3868,23 @@ body.is-comparing .compare-panel {
   cursor: pointer;
 }
 
+.fullscreen-card__primary:focus,
 .fullscreen-card__primary:focus-visible {
   border-radius: 10px;
-  outline: 2px solid var(--border);
-  outline-offset: 2px;
+  outline: none !important;
 }
 
-.fullscreen-card:hover,
-.fullscreen-card:focus-within {
+.fullscreen-card:hover {
   border-color: transparent;
   background: transparent;
   outline: none;
+}
+
+.fullscreen-card:focus-within {
+  border-color: var(--border);
+  background: transparent;
+  outline: none;
+  box-shadow: 0 0 0 1px var(--border);
 }
 
 @media (hover: hover) and (pointer: fine) {

@@ -1024,12 +1024,12 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
     if (
       empty.state !== "empty" ||
       empty.title !== "Add two movies. Pick the one you prefer." ||
-      !/exact rank/.test(empty.body || "") ||
+      empty.body !== "Search above, start a pack below, or import an ordered list." ||
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=140" ||
-      empty.cssHref !== "styles.css?v=99" ||
+      empty.moduleSrc !== "app.js?v=141" ||
+      empty.cssHref !== "styles.css?v=100" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||

@@ -58,7 +58,7 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="styles.css?v=99" />
+    <link rel="stylesheet" href="styles.css?v=100" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -298,33 +298,9 @@
           <div class="panel__feedback" id="add-feedback" role="status" aria-live="polite"></div>
           <div id="compare" class="compare-panel panel--hidden" aria-live="polite">
             <div class="panel__header">
-              <h2>Pick your favorite</h2>
+              <h2>Which belongs higher?</h2>
               <div class="compare__meta">
                 <span class="panel__sub" id="compare-sub">Choose the movie you like more.</span>
-                <div class="compare__controls">
-                  <button class="undo-button" id="undo-choice" type="button">
-                    <svg class="ui-icon" aria-hidden="true" focusable="false">
-                      <use href="#icon-undo"></use>
-                    </svg>
-                    Undo last choice
-                  </button>
-                  <button class="undo-button undo-button--cancel" id="cancel-ranking" type="button">
-                    Cancel ranking
-                  </button>
-                  <button class="undo-button undo-button--cancel" id="skip-pack-movie" type="button" hidden>
-                    Skip for now
-                  </button>
-                  <button class="undo-button" id="review-keep" type="button" hidden>Keep order</button>
-                  <button class="undo-button" id="review-swap" type="button" hidden>
-                    <svg class="ui-icon" aria-hidden="true" focusable="false">
-                      <use href="#icon-swap"></use>
-                    </svg>
-                    Swap
-                  </button>
-                  <button class="undo-button undo-button--cancel" id="review-end" type="button" hidden>
-                    End review
-                  </button>
-                </div>
               </div>
             </div>
             <div class="compare">
@@ -346,6 +322,33 @@
                 <div class="card__title" id="existing-title">Movie</div>
                 <div class="card__meta" id="existing-meta">Year</div>
               </div>
+            </div>
+            <div class="compare__controls" aria-label="Comparison actions">
+              <button class="undo-button" id="undo-choice" type="button">
+                <svg class="ui-icon" aria-hidden="true" focusable="false">
+                  <use href="#icon-undo"></use>
+                </svg>
+                Undo last choice
+              </button>
+              <button class="undo-button undo-button--cancel" id="cancel-ranking" type="button">
+                <svg class="ui-icon" aria-hidden="true" focusable="false">
+                  <use href="#icon-close"></use>
+                </svg>
+                Cancel ranking
+              </button>
+              <button class="undo-button undo-button--cancel" id="skip-pack-movie" type="button" hidden>
+                Skip for now
+              </button>
+              <button class="undo-button" id="review-keep" type="button" hidden>Keep order</button>
+              <button class="undo-button" id="review-swap" type="button" hidden>
+                <svg class="ui-icon" aria-hidden="true" focusable="false">
+                  <use href="#icon-swap"></use>
+                </svg>
+                Swap
+              </button>
+              <button class="undo-button undo-button--cancel" id="review-end" type="button" hidden>
+                End review
+              </button>
             </div>
           </div>
         </section>
@@ -482,6 +485,7 @@
                 <svg class="ui-icon" aria-hidden="true" focusable="false">
                   <use href="#icon-review"></use>
                 </svg>
+                <span class="icon-button__label">Review</span>
               </button>
               <button
                 class="icon-button icon-button--quiet"
@@ -494,6 +498,7 @@
                 <svg class="ui-icon" aria-hidden="true" focusable="false">
                   <use href="#icon-filter"></use>
                 </svg>
+                <span class="icon-button__label">Filter</span>
               </button>
               <button
                 class="icon-button icon-button--quiet"
@@ -505,11 +510,13 @@
                 <svg class="ui-icon" aria-hidden="true" focusable="false">
                   <use href="#icon-fullscreen"></use>
                 </svg>
+                <span class="icon-button__label">Full screen</span>
               </button>
               <button class="icon-button icon-button--quiet" id="share-list" type="button" aria-label="Share ranking">
                 <svg class="ui-icon" aria-hidden="true" focusable="false">
                   <use href="#icon-share"></use>
                 </svg>
+                <span class="icon-button__label">Share</span>
               </button>
             </div>
           </div>
@@ -1206,6 +1213,6 @@
       </nav>
     </main>
 
-    <script type="module" src="app.js?v=140"></script>
+    <script type="module" src="app.js?v=141"></script>
   </body>
 </html>

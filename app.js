@@ -107,7 +107,7 @@ import {
 import {
   getFirstRunExperience,
   selectStarterPacks,
-} from "./lib/ftue.js?v=1";
+} from "./lib/ftue.js?v=2";
 import {
   TASTE_EXPLORER_MIN_MOVIES,
   buildTasteSignals,
@@ -504,6 +504,8 @@ const debugEnabled = new URLSearchParams(window.location.search).get("debug") ==
 let highlightTimeout = null;
 let feedbackRemovalTimeout = null;
 let compareHistory = [];
+let comparisonChoiceLocked = false;
+let reviewChoiceLocked = false;
 let lastAddedTmdbId = null;
 let activeSuggestionSeed = null;
 let suggestRelatedCursor = 0;
@@ -1137,6 +1139,15 @@ const startPlaceholderRotation = () => {
   titleInput.placeholder = "Search for a movie";
 };
 
+const clearComparisonPressedState = () => {
+  comparisonChoiceLocked = false;
+  reviewChoiceLocked = false;
+  [newCard, existingCard].forEach((card) => {
+    card.classList.remove("is-pressed");
+    card.removeAttribute("aria-disabled");
+  });
+};
+
 // normalizeTitle, movieKey, movieYear, isDuplicateMovie (as isDuplicateInList),
 // and mergeRankings now live in lib/movie.js. This thin wrapper keeps the
 // single-arg call sites (which all dedup against the live `ranking`) unchanged.
@@ -1324,9 +1335,8 @@ const renderRanking = () => {
       movie,
       rank: index + 1,
       metadata: "Current ranking",
-      leadingNode: handle,
       detailButton: infoButton,
-      actions: [restackButton, overflow],
+      actions: [handle, restackButton, overflow],
       className: "ranking__item",
       legacyPosterClass: "ranking__poster",
     });
@@ -2339,6 +2349,7 @@ const startComparison = () => {
 
 const showComparison = () => {
   if (!pending || !searchRange) return;
+  clearComparisonPressedState();
 
   // Opening turn (full list range, incl. after undoing back to it): use the
   // jittered starter so consecutive rankings don't always lead with the middle
@@ -2355,6 +2366,8 @@ const showComparison = () => {
   existingTitle.textContent = existing.title;
   existingMeta.textContent = formatMeta(existing);
   setPoster(existingPoster, existing);
+  newCard.setAttribute("aria-label", `Choose ${pending.title}`);
+  existingCard.setAttribute("aria-label", `Choose ${existing.title}`);
 
   if (isAutoPackComparison()) {
     const pack = getPackBySlug(pendingPackContext.slug);
@@ -2377,23 +2390,36 @@ const showComparison = () => {
   cancelRankingButton.hidden = canUndo;
   skipPackMovieButton.hidden = !isAutoPackComparison();
 
-  newCard.onclick = () => handleDecision(true, mid);
-  existingCard.onclick = () => handleDecision(false, mid);
+  newCard.onclick = () => chooseComparisonCard(true, mid);
+  existingCard.onclick = () => chooseComparisonCard(false, mid);
   newCard.onkeydown = (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      handleDecision(true, mid);
+      chooseComparisonCard(true, mid);
     }
   };
   existingCard.onkeydown = (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
-      handleDecision(false, mid);
+      chooseComparisonCard(false, mid);
     }
   };
 };
 
+const chooseComparisonCard = (isNewBetter, midIndex) => {
+  if (!pending || comparisonChoiceLocked) return;
+  comparisonChoiceLocked = true;
+  const chosenCard = isNewBetter ? newCard : existingCard;
+  chosenCard.classList.add("is-pressed");
+  [newCard, existingCard].forEach((card) => card.setAttribute("aria-disabled", "true"));
+  window.setTimeout(() => {
+    if (!pending || !searchRange) return;
+    handleDecision(isNewBetter, midIndex);
+  }, 120);
+};
+
 const handleDecision = (isNewBetter, midIndex) => {
+  comparisonChoiceLocked = false;
   compareHistory.push({
     low: searchRange.low,
     high: searchRange.high,
@@ -2534,7 +2560,7 @@ cancelRankingButton.addEventListener("click", cancelComparison);
 // panel's cards and the `is-comparing` layout so portrait/landscape parity comes
 // for free; `is-reviewing` only swaps which controls and copy are shown.
 const REVIEW_PAIR_LIMIT = 8;
-const COMPARE_HEADING = compareHeading ? compareHeading.textContent : "Pick your favorite";
+const COMPARE_HEADING = compareHeading ? compareHeading.textContent : "Which belongs higher?";
 let reviewQueue = null; // remaining pair indices (incl. the current one)
 let reviewPairIndex = null; // current pair's lower index, or null when idle
 let reviewTotal = 0; // pairs in the session, for "Pair x of y"
@@ -2565,15 +2591,15 @@ const setReviewMode = (active) => {
     hideSuggestions();
     setSuggestionsHidden(true);
   } else {
-    // Restore the insertion-flow card labels so the next comparison reads right.
-    setReviewCardLabel(newCard, "New entry");
-    setReviewCardLabel(existingCard, "Existing");
+    setReviewCardLabel(newCard, "");
+    setReviewCardLabel(existingCard, "");
     setSuggestionsHidden(false);
   }
 };
 
 const showReviewPair = () => {
   if (reviewPairIndex == null) return;
+  clearComparisonPressedState();
   const i = reviewPairIndex;
   const higher = ranking[i];
   const lower = ranking[i + 1];
@@ -2597,8 +2623,10 @@ const showReviewPair = () => {
 
   // Tapping a card keeps the established "pick the one you like more" gesture:
   // the higher card keeps the order, the lower card swaps (promotes it).
-  newCard.onclick = () => reviewDecision(false);
-  existingCard.onclick = () => reviewDecision(true);
+  newCard.setAttribute("aria-label", `Keep ${higher.title} above ${lower.title}`);
+  existingCard.setAttribute("aria-label", `Move ${lower.title} above ${higher.title}`);
+  newCard.onclick = () => chooseReviewCard(false);
+  existingCard.onclick = () => chooseReviewCard(true);
   newCard.onkeydown = reviewCardKey(false);
   existingCard.onkeydown = reviewCardKey(true);
 };
@@ -2606,8 +2634,20 @@ const showReviewPair = () => {
 const reviewCardKey = (swap) => (event) => {
   if (event.key === "Enter" || event.key === " ") {
     event.preventDefault();
-    reviewDecision(swap);
+    chooseReviewCard(swap);
   }
+};
+
+const chooseReviewCard = (swap) => {
+  if (reviewPairIndex == null || reviewChoiceLocked) return;
+  reviewChoiceLocked = true;
+  const chosenCard = swap ? existingCard : newCard;
+  chosenCard.classList.add("is-pressed");
+  [newCard, existingCard].forEach((card) => card.setAttribute("aria-disabled", "true"));
+  window.setTimeout(() => {
+    if (reviewPairIndex == null) return;
+    reviewDecision(swap);
+  }, 120);
 };
 
 const advanceReview = () => {
@@ -2623,6 +2663,7 @@ const advanceReview = () => {
 
 const reviewDecision = (swap) => {
   if (reviewPairIndex == null) return;
+  reviewChoiceLocked = false;
   const i = reviewPairIndex;
   reviewStats.reviewed += 1;
   if (swap && ranking[i] && ranking[i + 1]) {
@@ -2694,8 +2735,8 @@ const finishReview = (completed) => {
   renderPackSurfaces();
 };
 
-reviewKeepButton.addEventListener("click", () => reviewDecision(false));
-reviewSwapButton.addEventListener("click", () => reviewDecision(true));
+reviewKeepButton.addEventListener("click", () => chooseReviewCard(false));
+reviewSwapButton.addEventListener("click", () => chooseReviewCard(true));
 reviewEndButton.addEventListener("click", () => finishReview(false));
 if (rankingReviewButton) rankingReviewButton.addEventListener("click", startReview);
 
@@ -3728,10 +3769,14 @@ rankingList.addEventListener(
     if (rankingFilterQuery.trim()) return;
     const item = event.target.closest(".ranking__item");
     if (!item) return;
-    if (event.target.closest(".ranking__actions, .movie-item__actions, .movie-item__detail, .movie-item__overflow")) {
+    const handleTarget = event.target.closest(".ranking__handle");
+    if (
+      !handleTarget &&
+      event.target.closest(".ranking__actions, .movie-item__actions, .movie-item__detail, .movie-item__overflow")
+    ) {
       return;
     }
-    if (event.pointerType === "touch" && !event.target.closest(".ranking__handle")) {
+    if (event.pointerType === "touch" && !handleTarget) {
       return;
     }
     event.preventDefault();

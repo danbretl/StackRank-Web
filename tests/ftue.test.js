@@ -21,7 +21,7 @@ test("first-run experience progressively reveals only the next useful instructio
     visible: true,
     eyebrow: "How StackRank works",
     title: "Add two movies. Pick the one you prefer.",
-    body: "Each choice narrows the list until every movie has an exact rank.",
+    body: "Search above, start a pack below, or import an ordered list.",
     showImport: true,
   });
   assert.deepEqual(getFirstRunExperience(1), {
@@ -29,7 +29,7 @@ test("first-run experience progressively reveals only the next useful instructio
     visible: true,
     eyebrow: "First movie ranked",
     title: "Add one more to start comparing.",
-    body: "Choose any movie above or pick one from a pack below.",
+    body: "Search above or pick one from a pack below.",
     showImport: false,
   });
   assert.equal(getFirstRunExperience(2).visible, false);

@@ -1326,6 +1326,7 @@ const renderRanking = () => {
     handle.className = "ranking__handle movie-item__handle";
     handle.appendChild(createUiIcon("drag"));
     handle.setAttribute("aria-hidden", "true");
+    handle.setAttribute("title", "Drag to reorder");
     const restackButton = document.createElement("button");
     restackButton.className = "ranking__restack movie-item__icon-action";
     restackButton.type = "button";
@@ -1345,8 +1346,7 @@ const renderRanking = () => {
       movie,
       rank: index + 1,
       metadata: "Current ranking",
-      detailButton: infoButton,
-      actions: [handle, restackButton, overflow],
+      actions: [infoButton, restackButton, handle, overflow],
       className: "ranking__item",
       legacyPosterClass: "ranking__poster",
     });

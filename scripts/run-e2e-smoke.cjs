@@ -554,7 +554,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=105" ||
+      desktop.cssHref !== "styles.css?v=106" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -842,7 +842,40 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         topNavVisible: inFlow('.app-nav--top'),
         scrollWidth: document.documentElement.scrollWidth,
         innerWidth,
-        innerHeight
+        innerHeight,
+        rowControls: (() => {
+          const first = document.querySelector('#ranking .ranking__item');
+          const visible = (selector) => {
+            const element = first?.querySelector(selector);
+            const bounds = element?.getBoundingClientRect();
+            const style = element ? getComputedStyle(element) : null;
+            return !!bounds &&
+              bounds.width >= 44 &&
+              bounds.height >= 44 &&
+              style.display !== 'none' &&
+              style.visibility !== 'hidden' &&
+              style.opacity !== '0' &&
+              style.pointerEvents !== 'none';
+          };
+          const rank = first?.querySelector('.movie-item__rank');
+          const poster = first?.querySelector('.movie-item__poster');
+          const originalRank = rank?.textContent || '';
+          if (rank) rank.textContent = '113';
+          const rankRect = rank?.getBoundingClientRect();
+          const posterRect = poster?.getBoundingClientRect();
+          if (rank) rank.textContent = originalRank;
+          return {
+            rowTouchAction: first ? getComputedStyle(first).touchAction : '',
+            handleTouchAction: first?.querySelector('.ranking__handle')
+              ? getComputedStyle(first.querySelector('.ranking__handle')).touchAction
+              : '',
+            infoVisible: visible('.ranking__info'),
+            restackVisible: visible('.ranking__restack'),
+            handleVisible: visible('.ranking__handle'),
+            overflowVisible: visible('.movie-item__overflow-toggle'),
+            tripleRankClearance: rankRect && posterRect ? posterRect.left - rankRect.right : null
+          };
+        })()
       };
     })()`);
     if (
@@ -855,7 +888,14 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       !mobileRank.mobileNav ||
       mobileRank.mobileNav.height < 68 ||
       mobileRank.topNavVisible ||
-      mobileRank.scrollWidth > mobileRank.innerWidth
+      mobileRank.scrollWidth > mobileRank.innerWidth ||
+      mobileRank.rowControls.rowTouchAction !== "pan-y" ||
+      mobileRank.rowControls.handleTouchAction !== "none" ||
+      !mobileRank.rowControls.infoVisible ||
+      !mobileRank.rowControls.restackVisible ||
+      !mobileRank.rowControls.handleVisible ||
+      !mobileRank.rowControls.overflowVisible ||
+      mobileRank.rowControls.tripleRankClearance < 4
     ) {
       throw new Error(`Mobile Rank shell is wrong: ${JSON.stringify(mobileRank)}`);
     }
@@ -1032,8 +1072,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=144" ||
-      empty.cssHref !== "styles.css?v=105" ||
+      empty.moduleSrc !== "app.js?v=145" ||
+      empty.cssHref !== "styles.css?v=106" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -3208,6 +3248,96 @@ const testSuggestionExplanations = async ({ baseUrl }) => {
     if (!initial.popularReasons.includes("Popular now · Horror")) {
       throw new Error(`Popular explanation is missing source/genre context: ${JSON.stringify(initial.popularReasons)}`);
     }
+
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 390,
+      height: 844,
+      deviceScaleFactor: 1,
+      mobile: false,
+      screenWidth: 390,
+      screenHeight: 844,
+    });
+    await wait(250);
+    const mobileLayout = await page.evaluate(`(() => {
+      const rect = (element) => {
+        const bounds = element?.getBoundingClientRect();
+        return bounds ? {
+          top: bounds.top,
+          right: bounds.right,
+          bottom: bounds.bottom,
+          left: bounds.left,
+          width: bounds.width,
+          height: bounds.height
+        } : null;
+      };
+      const overlaps = (a, b) => !!a && !!b &&
+        a.left < b.right - 1 &&
+        a.right > b.left + 1 &&
+        a.top < b.bottom - 1 &&
+        a.bottom > b.top + 1;
+      const cards = [...document.querySelectorAll('.suggest-card:not(.suggest-card--loading)')]
+        .slice(0, 9)
+        .map((card) => {
+          const cardRect = rect(card);
+          const title = rect(card.querySelector('.suggest-name'));
+          const year = rect(card.querySelector('.suggest-meta'));
+          const reason = rect(card.querySelector('.suggest-reason'));
+          const poster = rect(card.querySelector('.suggest-poster'));
+          const detail = rect(card.querySelector('.suggest-info'));
+          const actions = rect(card.querySelector('.suggest-actions'));
+          return {
+            titleText: card.querySelector('.suggest-name')?.textContent.trim(),
+            card: cardRect,
+            title,
+            year,
+            reason,
+            poster,
+            detail,
+            actions,
+            titleOverlapsReason: overlaps(title, reason),
+            titleOverlapsPoster: overlaps(title, poster),
+            reasonOverlapsPoster: overlaps(reason, poster),
+            detailOverlapsTitle: overlaps(detail, title),
+            actionsOverlapsContent: overlaps(actions, title) || overlaps(actions, year) || overlaps(actions, reason) || overlaps(actions, poster),
+            actionsBelowReason: actions && reason ? actions.top >= reason.bottom - 1 : false,
+            titleWithinCard: cardRect && title ? title.left >= cardRect.left && title.right <= cardRect.right : false,
+            reasonWithinCard: cardRect && reason ? reason.left >= cardRect.left && reason.right <= cardRect.right : false
+          };
+        });
+      return {
+        scrollWidth: document.documentElement.scrollWidth,
+        innerWidth,
+        cardCount: cards.length,
+        cards
+      };
+    })()`);
+    const brokenMobileCards = mobileLayout.cards.filter((card) =>
+      card.titleOverlapsReason ||
+      card.titleOverlapsPoster ||
+      card.reasonOverlapsPoster ||
+      card.detailOverlapsTitle ||
+      card.actionsOverlapsContent ||
+      !card.actionsBelowReason ||
+      !card.titleWithinCard ||
+      !card.reasonWithinCard
+    );
+    if (
+      mobileLayout.scrollWidth > mobileLayout.innerWidth ||
+      mobileLayout.cardCount !== 9 ||
+      brokenMobileCards.length
+    ) {
+      throw new Error(`Mobile suggestion card layout is broken: ${JSON.stringify({ ...mobileLayout, brokenMobileCards })}`);
+    }
+
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 1280,
+      height: 1000,
+      deviceScaleFactor: 1,
+      mobile: false,
+      screenWidth: 1280,
+      screenHeight: 1000,
+    });
+    await wait(250);
 
     await page.evaluate(`document.querySelector('#suggest-popular-more')?.click(); true;`);
     await waitFor(

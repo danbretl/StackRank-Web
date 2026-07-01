@@ -5,8 +5,8 @@
 - **Initiative:** Core product design-system and experience redesign
 - **Priority:** Critical
 - **Product owner approval:** Approved in principle on 2026-06-30; minor adjustments may be made during implementation
-- **Implementation status:** Phase 4 complete; core ranking flows migrated to the approved ranking-first grammar
-- **Current phase:** Phase 5 — discovery, lists, and Taste Explorer (ready, not started)
+- **Implementation status:** Phase 5 complete and pushed; discovery, lists, packs, and Taste support surfaces migrated to the approved ranking-first grammar
+- **Current phase:** Phase 6 — overlay and workspace system (ready, not started)
 - **Last updated:** 2026-07-01
 - **Source of truth:** This document governs the redesign unless a later product decision is recorded in the decision log
 
@@ -21,7 +21,7 @@
 - [x] Phase 2 — information architecture and app shell
 - [x] Phase 3 — shared movie and pack components
 - [x] Phase 4 — core ranking flows
-- [ ] Phase 5 — discovery, lists, and Taste Explorer
+- [x] Phase 5 — discovery, lists, and Taste Explorer
 - [ ] Phase 6 — overlay and workspace system
 - [ ] Phase 7 — Share Studio controls
 - [ ] Phase 8 — comprehensive responsive and regression QA
@@ -1020,40 +1020,51 @@ This ledger evaluates the approved concepts only for the foundations in Phase 1.
 
 ### Discovery
 
-- [ ] Apply shared MovieItem patterns to Inspired, Essentials, and Popular.
-- [ ] Preserve reason enrichment and stale-request protection.
-- [ ] Keep per-section refresh clear and touch-safe.
-- [ ] Ensure suggestion cards never imply TMDB ratings.
+- [x] Apply shared MovieItem patterns to Inspired, Essentials, and Popular.
+- [x] Preserve reason enrichment and stale-request protection.
+- [x] Keep per-section refresh clear and touch-safe.
+- [x] Ensure suggestion cards never imply TMDB ratings.
 
 ### Packs
 
-- [ ] Redesign the shelf around progress and next action.
-- [ ] Make All Packs a full-screen mobile workspace.
-- [ ] Use sticky search/filter controls.
-- [ ] Prioritize In progress and Updated states.
-- [ ] Use one-column or appropriately simplified two-column mobile cards.
-- [ ] Make Rank all primary; move bulk Save all/Hide all to secondary treatment.
-- [ ] Preserve filtered prev/next pack paging and keyboard arrows.
+- [x] Redesign the shelf around progress and next action.
+- [x] Make All Packs a full-screen mobile workspace.
+- [x] Use sticky search/filter controls.
+- [x] Prioritize In progress and Updated states.
+- [x] Use one-column or appropriately simplified two-column mobile cards.
+- [x] Make Rank all primary; move bulk Save all/Hide all to secondary treatment.
+- [x] Preserve filtered prev/next pack paging and keyboard arrows.
 
 ### Lists
 
-- [ ] Use Watch next / Hidden segmented navigation.
-- [ ] Keep Watch next primary.
-- [ ] Use compact empty states.
-- [ ] Apply shared movie actions and terminology.
+- [x] Use Watch next / Hidden segmented navigation.
+- [x] Keep Watch next primary.
+- [x] Use compact empty states.
+- [x] Apply shared movie actions and terminology.
 
 ### Taste Explorer and recent activity
 
-- [ ] Present Taste Explorer as a reward within Rank.
-- [ ] Keep rank-weighted language precise.
-- [ ] Preserve lazy enrichment, evidence, ranking lens, and pack links.
-- [ ] Collapse or integrate Recently ranked so it does not duplicate the list.
+- [x] Present Taste Explorer as a reward within Rank.
+- [x] Keep rank-weighted language precise.
+- [x] Preserve lazy enrichment, evidence, ranking lens, and pack links.
+- [x] Collapse or integrate Recently ranked so it does not duplicate the list.
 
 ### Acceptance gate
 
 - Discovery remains easy to browse but cannot visually outrank the ranking workspace.
 - All pack, suggestion, queue, and Taste interactions pass focused browser QA.
 - Queue and pack persistence behavior remains unchanged.
+
+### Phase 5 fidelity ledger
+
+| Reference | Phase 5 comparison points | Phase 5 result |
+| --- | --- | --- |
+| Desktop primary workspace | Continue ranking remains secondary to the ranking artifact; pack cards communicate explicit progress and next action without expanding the rail into the product focus | Matched. Desktop 1440×900 captures keep Current ranking as the dominant workspace and show the rail as Add/Search plus compact progress-led packs with clear Continue actions. |
+| Mobile Rank view | Rank still opens with Add/Search and Current ranking; Taste is the rank reward, and recent activity should not duplicate one- or two-item rankings | Matched. Mobile 390×844 captures preserve the first-viewport ranking from Phase 4; the recent panel now hides for one/two movie lists and Taste is labelled `Your taste` with rank-weighted copy after five movies. |
+| Shared MovieItem anatomy | Suggestions, pack movies, and queues should preserve poster/title/year/meta/detail/action slots and make Rank/Save/Hide visible with touch-safe targets | Matched. Discovery actions, queue actions, and pack rows retain the shared MovieItem slots while refresh/detail/action targets use the established 44 px coarse-pointer pattern. |
+| Mobile All Packs workspace | All Packs should be edge-to-edge on mobile, use sticky search/filter controls, and render one-column progress-led cards | Matched. Mobile All Packs renders as a full-height workspace with sticky Search & filters, one-column horizontal cards, visible progress text/bars, and icon-only next actions. |
+| Lists destination | Lists should use Watch next / Hidden segmented navigation, keep Watch next primary, and avoid equal first-viewport weight for hidden movies | Matched. Lists now has a tested segmented tab state, Watch next is the default visible pane, Hidden is compact until selected, and queue persistence/action wiring is unchanged. |
+| Responsive comparison | Phase 5 must not regress the protected comparison geometry | Matched. Mobile landscape comparison remains scroll-free at 844×390 in the Phase 5 screenshot pass. |
 
 ## Phase 6 — overlay and workspace system
 
@@ -1235,6 +1246,9 @@ Record material product, interaction, or visual decisions here. Minor CSS adjust
 | 2026-07-01 | Implement Phase 4 ranking rows by moving the drag handle into the contextual action cluster | The approved ranking artifact needs the rank numeral to lead the row, but touch drag must remain available without changing ranking behavior | Ranking rows now read rank → poster → title/year while detail, drag, re-rank, and overflow remain wired through existing handlers |
 | 2026-07-01 | Hide debug-only panels during focused comparison mode | Production QA uses `?debug=1`, and the debug panel was adding document height during otherwise scroll-free mobile comparison checks | Comparison geometry now remains scroll-free in debug visits as well as normal visits |
 | 2026-07-01 | Keep mobile ranking detail and drag affordances visible instead of collapsing them into a new overflow menu | Phase 4 must not invent a new menu behavior or risk breaking detail/removal/drag access before the broader overlay/workspace phase | Mobile rows are taller than the illustrative concept, but preserve all existing ranking actions and touch drag behavior |
+| 2026-07-01 | Implement Lists as a Watch next / Hidden segmented destination instead of two equal queue panels | Watch next is the primary list workflow and Hidden should remain available without competing for equal first-viewport weight | A tested `lib/lists.js` state helper drives the tabs; queue data, persistence, and movie actions remain unchanged |
+| 2026-07-01 | Make All Packs edge-to-edge on mobile during Phase 5 while leaving broader overlay taxonomy to Phase 6 | Phase 5 explicitly owns the mobile All Packs workspace and sticky filter/card behavior, while Phase 6 still owns shared overlay headers/focus/footer taxonomy | Mobile All Packs is full-height with sticky filters and one-column progress-led cards; pack detail sheets and shared overlay structure remain Phase 6 scope |
+| 2026-07-01 | Hide recent activity for one- and two-movie rankings | In those states the panel only duplicates the current ranking and weakens the ranking-first hierarchy | Recently ranked remains for empty/three-plus lists, while Taste becomes the stronger reward surface after five movies |
 
 ## Progress log
 
@@ -1248,11 +1262,12 @@ Add one concise entry after each completed implementation phase.
 | 2026-06-30 | Phase 2 | Rebuilt the app shell around Rank / Discover / Lists destinations, made the ranking the desktop primary workspace, moved Add/Search and continuation support into the rail, separated mobile discovery and lists, and added tested per-destination scroll restoration | In-app browser at desktop and mobile widths; deterministic screenshots for desktop/mobile main and comparison geometry; `npm run verify` passed (194 Node, 3 Deno, 23 E2E) | Begin Phase 3 shared MovieItem and PackCard anatomy without changing ranking/search/persistence semantics |
 | 2026-06-30 | Phase 3 | Added shared MovieItem grammar for ranking, discovery, queue, pack, recent, and Taste evidence rows; made Rank visible on rankable items; moved rare queue removal into overflow; standardized PackCard status/action language and explicit progress text across shelf/browser/compact variants | In-app browser at desktop 1440×900, mobile 390×844, and landscape 844×390; focused interaction smoke for suggestion Rank/Cancel and queue overflow; `npm run verify` passed (194 Node, 3 Deno, 23 E2E) | Begin Phase 4 core ranking flows without revisiting Phase 1–3 structure |
 | 2026-07-01 | Phase 4 | Migrated core ranking flows: stable Add/Search and tighter first-run copy, artifact-style ranking rows with `01` numerals and contextual row actions, equal comparison surfaces, shared comparison/review action bar, and pressed feedback before decisions advance | Focused unit checks passed; in-app browser at desktop 1440×900, mobile 390×844, and mobile landscape 844×390; normal comparison and review were scroll-free with no console errors; `npm run verify` passed | Begin Phase 5 discovery, lists, and Taste Explorer without revisiting the approved Phase 4 comparison/ranking concepts |
+| 2026-07-01 | Phase 5 | Migrated discovery, lists, packs, and Taste support surfaces: touch-safe suggestion controls, progress-led pack cards and full-screen mobile All Packs, segmented Watch next / Hidden lists, and `Your taste` reward treatment with compact recent activity | In-app browser page health plus desktop/mobile Lists interaction; populated screenshots at desktop 1440×900, mobile 390×844, mobile All Packs, desktop All Packs, and mobile landscape comparison; focused E2E passed; `npm run verify` passed (197 Node, 3 Deno, 23 E2E) | Begin Phase 6 overlay and workspace system only after explicit authorization |
 
 ## Fresh-session handoff
 
 Start a new implementation session with this instruction:
 
-> Read `AGENTS.md` and `notes/feature-ideas/design-audit.md` in full. Treat the approved Phase 0 references, exact written visual specification, decisions, constraints, phase gates, fidelity ledger, and progress checklist as the source of truth. Phase 4 is complete locally; begin at the first unchecked task in Phase 5, preserve product behavior, and do not start Phase 6 until the discovery/list/Taste acceptance gate passes rendered desktop/mobile verification and `npm run verify`. Update the checklist, decision log, fidelity/progress notes, and shared brief cache-key notes as needed; bump every relevant CSS, JavaScript, library, or data cache key. Do not commit or push unless I explicitly ask.
+> Read `AGENTS.md` and `notes/feature-ideas/design-audit.md` in full. Treat the approved Phase 0 references, exact written visual specification, decisions, constraints, phase gates, fidelity ledger, and progress checklist as the source of truth. Phase 5 is complete and pushed; begin at the first unchecked task in Phase 6 only if explicitly authorized, preserve product behavior, and do not start Phase 7 until the overlay/workspace acceptance gate passes rendered desktop/mobile verification and `npm run verify`. Update the checklist, decision log, fidelity/progress notes, and shared brief cache-key notes as needed; bump every relevant CSS, JavaScript, library, or data cache key. Do not commit or push unless I explicitly ask.
 
 The audit, reference assets, and baseline captures are the governing design record. Preserve them and do not reinterpret the approved concepts unless a new decision-log entry explicitly changes direction.

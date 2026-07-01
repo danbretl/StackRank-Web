@@ -2081,6 +2081,7 @@ const testRankingReviewSession = async ({ baseUrl }) => {
       lower: document.querySelector('#existing-title')?.textContent.trim(),
       keepVisible: !document.querySelector('#review-keep')?.hidden,
       swapVisible: !document.querySelector('#review-swap')?.hidden,
+      swapHasIcon: !!document.querySelector('#review-swap svg, #review-swap .ui-icon'),
       endVisible: !document.querySelector('#review-end')?.hidden
     }))()`);
     if (
@@ -2090,6 +2091,7 @@ const testRankingReviewSession = async ({ baseUrl }) => {
       !opened.lower ||
       !opened.keepVisible ||
       !opened.swapVisible ||
+      opened.swapHasIcon ||
       !opened.endVisible
     ) {
       throw new Error(`Review mode did not expose the expected controls: ${JSON.stringify(opened)}`);

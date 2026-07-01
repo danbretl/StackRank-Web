@@ -126,6 +126,11 @@ import {
   createAppShellState,
   switchAppDestination,
 } from "./lib/app-shell.js?v=1";
+import {
+  DEFAULT_LIST_DESTINATION,
+  createListDestinationState,
+  switchListDestination,
+} from "./lib/lists.js?v=1";
 
 console.info("StackRank build", "taste-explorer-v1");
 
@@ -191,6 +196,8 @@ const watchListEl = document.getElementById("watch-list");
 const notInterestedListEl = document.getElementById("not-interested-list");
 const watchListSub = document.getElementById("watch-list-sub");
 const notInterestedSub = document.getElementById("not-interested-sub");
+const listTabs = Array.from(document.querySelectorAll("[data-list-destination-target]"));
+const listPanes = Array.from(document.querySelectorAll("[data-list-destination]"));
 const rankingSettingsToggle = document.getElementById("ranking-settings-toggle");
 const rankingSettingsPanel = document.getElementById("ranking-settings-panel");
 const rankingSettingsClose = document.getElementById("ranking-settings-close");
@@ -220,6 +227,7 @@ const firstRunBody = document.getElementById("first-run-body");
 const quickStartImportButton = document.getElementById("quick-start-import");
 const clearButton = document.getElementById("clear-list");
 const shareButton = document.getElementById("share-list");
+const snapshotPanel = document.getElementById("snapshot-panel");
 const snapshotSub = document.getElementById("snapshot-sub");
 const snapshotContent = document.getElementById("snapshot-content");
 const tasteExplorer = document.getElementById("taste-explorer");
@@ -461,6 +469,7 @@ const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl";
 
 let appShellState = createAppShellState();
+let listDestinationState = createListDestinationState(DEFAULT_LIST_DESTINATION);
 let ranking = [];
 let rankingUpdatedAt = null;
 let watchList = [];
@@ -647,11 +656,11 @@ const PACK_PANEL_SIZE = 3;
 const PACK_DISCOVERY_NUDGE_COOLDOWN_MS = 1000 * 60 * 30;
 const PACK_BROWSER_STATES = [
   { value: "all", label: "All" },
-  { value: "not_started", label: "Not started" },
+  { value: "updated", label: "Updated" },
   { value: "in_progress", label: "In progress" },
   { value: "head_start", label: "Head start" },
+  { value: "not_started", label: "Not started" },
   { value: "completed", label: "Complete" },
-  { value: "updated", label: "Updated" },
 ];
 const TOAST_DURATION_MS = 3200;
 const TOAST_EXIT_MS = 240;
@@ -1475,8 +1484,10 @@ function createSnapshotMovieRow({ movie, rank, rankedTime }) {
 function renderListSnapshot() {
   const insights = getRankingInsights();
   snapshotContent.innerHTML = "";
+  if (snapshotPanel) snapshotPanel.hidden = insights.count > 0 && insights.count < 3;
 
   if (!insights.count) {
+    if (snapshotPanel) snapshotPanel.hidden = false;
     snapshotSub.textContent = "Waiting for ranked movies";
     const empty = document.createElement("div");
     empty.className = "snapshot__empty";
@@ -1722,6 +1733,31 @@ if (tasteToggle) {
   });
 }
 
+listTabs.forEach((button) => {
+  button.addEventListener("click", () => {
+    const result = switchListDestination(listDestinationState, button.dataset.listDestinationTarget);
+    listDestinationState = result.state;
+    if (result.changed) renderListDestination();
+  });
+  button.addEventListener("keydown", (event) => {
+    if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+    event.preventDefault();
+    const currentIndex = listTabs.indexOf(button);
+    const nextIndex =
+      event.key === "Home"
+        ? 0
+        : event.key === "End"
+          ? listTabs.length - 1
+          : (currentIndex + (event.key === "ArrowRight" ? 1 : -1) + listTabs.length) %
+            listTabs.length;
+    const nextButton = listTabs[nextIndex];
+    const result = switchListDestination(listDestinationState, nextButton.dataset.listDestinationTarget);
+    listDestinationState = result.state;
+    renderListDestination();
+    nextButton.focus();
+  });
+});
+
 const createQueueActionButton = (label, ariaLabel, action, className = "") => {
   const kind = className.includes("remove") ? "danger" : className.includes("secondary") ? "secondary" : "primary";
   const icon = label === "Rank" ? "rank" : label === "Save" ? "bookmark" : label === "Hide" ? "hide" : label === "Remove" ? "remove" : null;
@@ -1820,10 +1856,25 @@ const renderSuggestionQueueSubtitles = () => {
   notInterestedSub.textContent = queueCountLabel(notInterestedList.length, "hidden from view");
 };
 
+const renderListDestination = () => {
+  const destination = listDestinationState.destination;
+  listTabs.forEach((button) => {
+    const selected = button.dataset.listDestinationTarget === destination;
+    button.classList.toggle("is-active", selected);
+    button.setAttribute("aria-selected", String(selected));
+    button.setAttribute("tabindex", selected ? "0" : "-1");
+  });
+  listPanes.forEach((pane) => {
+    const selected = pane.dataset.listDestination === destination;
+    pane.hidden = !selected;
+  });
+};
+
 const renderSuggestionQueues = () => {
   renderSuggestionQueueSubtitles();
   renderQueueList(watchListEl, watchList, "No saved movies yet.", "watch");
   renderQueueList(notInterestedListEl, notInterestedList, "Nothing hidden yet.", "notInterested");
+  renderListDestination();
 };
 
 const getLocalPayload = () => {

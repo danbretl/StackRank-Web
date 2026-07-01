@@ -783,7 +783,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         rankingLeftOfRail: rank && rail ? rank.left < rail.left : false,
         addVisible: !!rect('.panel--add'),
         continueVisible: !!rect('.panel--discovery'),
-        visibleQueuePanels: [...document.querySelectorAll('.panel--queue')].filter((panel) => {
+        visibleQueuePanels: [...document.querySelectorAll('.panel--queues')].filter((panel) => {
           const bounds = panel.getBoundingClientRect();
           return bounds.width > 0 && bounds.height > 0;
         }).length,
@@ -834,7 +834,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         add: rect('.panel--add'),
         ranking: rect('.panel--list'),
         discoveryVisible: inFlow('.panel--discovery'),
-        queueVisible: [...document.querySelectorAll('.panel--queue')].some((panel) => {
+        queueVisible: [...document.querySelectorAll('.panel--queues')].some((panel) => {
           const bounds = panel.getBoundingClientRect();
           return bounds.width > 0 && bounds.height > 0;
         }),
@@ -912,6 +912,8 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         currentNav: document.querySelector('.app-nav--mobile .app-nav__item[aria-current="page"]')?.textContent.trim(),
         watchVisible: inFlow('#watch-list'),
         hiddenVisible: inFlow('#not-interested-list'),
+        watchSelected: document.querySelector('#watch-list-tab')?.getAttribute('aria-selected'),
+        hiddenSelected: document.querySelector('#hidden-list-tab')?.getAttribute('aria-selected'),
         addVisible: inFlow('.panel--add'),
         rankingVisible: inFlow('.panel--list'),
         discoveryVisible: inFlow('.panel--discovery'),
@@ -924,7 +926,9 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       mobileLists.destination !== "lists" ||
       mobileLists.currentNav !== "Lists" ||
       !mobileLists.watchVisible ||
-      !mobileLists.hiddenVisible ||
+      mobileLists.hiddenVisible ||
+      mobileLists.watchSelected !== "true" ||
+      mobileLists.hiddenSelected !== "false" ||
       mobileLists.addVisible ||
       mobileLists.rankingVisible ||
       mobileLists.discoveryVisible ||
@@ -1028,8 +1032,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=141" ||
-      empty.cssHref !== "styles.css?v=100" ||
+      empty.moduleSrc !== "app.js?v=142" ||
+      empty.cssHref !== "styles.css?v=101" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -3786,6 +3790,8 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
   try {
     await seedPage(page, baseUrl, "mobile-pack-title-clearance", { ranking: [] });
     await waitFor(page, `document.querySelectorAll('#pack-row .pack-card').length === 3`, 10000);
+    await page.evaluate(`document.querySelector('.app-nav--mobile [data-app-destination-target="discover"]')?.click(); true;`);
+    await waitFor(page, `document.querySelector('main.app')?.dataset.appDestination === 'discover'`, 5000);
     await page.evaluate(`document.querySelector('#pack-view-all')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#pack-detail')?.hidden && document.querySelector('#pack-detail')?.classList.contains('is-all-packs')`, 5000);
     await page.evaluate(`document.querySelector('#pack-browser-filter-toggle')?.click(); true;`);

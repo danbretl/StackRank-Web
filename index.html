@@ -58,7 +58,7 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="styles.css?v=100" />
+    <link rel="stylesheet" href="styles.css?v=101" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -549,7 +549,7 @@
           </ol>
         </section>
 
-        <section class="panel panel--snapshot">
+        <section class="panel panel--snapshot" id="snapshot-panel">
           <div class="panel__header">
             <h2>Recently ranked</h2>
             <span class="panel__sub" id="snapshot-sub">Latest additions</span>
@@ -563,7 +563,7 @@
           <div class="taste__header">
             <div>
               <div class="taste__eyebrow">Rank-weighted insights</div>
-              <h2>Taste explorer</h2>
+              <h2>Your taste</h2>
             </div>
             <button
               class="taste__toggle"
@@ -589,24 +589,69 @@
           </div>
         </section>
 
-        <section class="panel panel--queue">
-          <div class="panel__header">
-            <h2>Watch next</h2>
-            <span class="panel__sub" id="watch-list-sub">0 movies saved for later</span>
+        <section class="panel panel--queues" aria-labelledby="lists-title">
+          <div class="panel__header panel__header--lists">
+            <div>
+              <h2 id="lists-title">Lists</h2>
+              <span class="panel__sub">Saved and hidden movies</span>
+            </div>
           </div>
-          <ul id="watch-list" class="queue-list">
-            <li class="queue-list__empty">No saved movies yet.</li>
-          </ul>
-        </section>
-
-        <section class="panel panel--queue panel--quiet">
-          <div class="panel__header">
-            <h2>Not for me</h2>
-            <span class="panel__sub" id="not-interested-sub">0 movies hidden from view</span>
+          <div class="list-tabs" role="tablist" aria-label="Movie lists">
+            <button
+              class="list-tabs__button is-active"
+              id="watch-list-tab"
+              type="button"
+              role="tab"
+              aria-selected="true"
+              aria-controls="watch-list-pane"
+              data-list-destination-target="watch"
+            >
+              Watch next
+            </button>
+            <button
+              class="list-tabs__button"
+              id="hidden-list-tab"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="hidden-list-pane"
+              tabindex="-1"
+              data-list-destination-target="hidden"
+            >
+              Hidden
+            </button>
           </div>
-          <ul id="not-interested-list" class="queue-list queue-list--quiet">
-            <li class="queue-list__empty">Nothing hidden yet.</li>
-          </ul>
+          <section
+            class="queue-pane"
+            id="watch-list-pane"
+            role="tabpanel"
+            aria-labelledby="watch-list-tab"
+            data-list-destination="watch"
+          >
+            <div class="queue-pane__header">
+              <h3>Watch next</h3>
+              <span class="panel__sub" id="watch-list-sub">0 movies saved for later</span>
+            </div>
+            <ul id="watch-list" class="queue-list">
+              <li class="queue-list__empty">No saved movies yet.</li>
+            </ul>
+          </section>
+          <section
+            class="queue-pane"
+            id="hidden-list-pane"
+            role="tabpanel"
+            aria-labelledby="hidden-list-tab"
+            data-list-destination="hidden"
+            hidden
+          >
+            <div class="queue-pane__header">
+              <h3>Hidden</h3>
+              <span class="panel__sub" id="not-interested-sub">0 movies hidden from view</span>
+            </div>
+            <ul id="not-interested-list" class="queue-list queue-list--quiet">
+              <li class="queue-list__empty">Nothing hidden yet.</li>
+            </ul>
+          </section>
         </section>
       </div>
 
@@ -1213,6 +1258,6 @@
       </nav>
     </main>
 
-    <script type="module" src="app.js?v=141"></script>
+    <script type="module" src="app.js?v=142"></script>
   </body>
 </html>

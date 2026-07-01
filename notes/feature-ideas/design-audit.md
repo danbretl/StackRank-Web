@@ -5,8 +5,8 @@
 - **Initiative:** Core product design-system and experience redesign
 - **Priority:** Critical
 - **Product owner approval:** Approved in principle on 2026-06-30; minor adjustments may be made during implementation
-- **Implementation status:** Phase 7 complete; Share Studio controls migrated to the approved control hierarchy
-- **Current phase:** Phase 8 — comprehensive responsive and regression QA (ready, not started)
+- **Implementation status:** Phase 8 complete; comprehensive responsive and regression QA passed
+- **Current phase:** Production release and post-release review
 - **Last updated:** 2026-07-01
 - **Source of truth:** This document governs the redesign unless a later product decision is recorded in the decision log
 
@@ -24,7 +24,7 @@
 - [x] Phase 5 — discovery, lists, and Taste Explorer
 - [x] Phase 6 — overlay and workspace system
 - [x] Phase 7 — Share Studio controls
-- [ ] Phase 8 — comprehensive responsive and regression QA
+- [x] Phase 8 — comprehensive responsive and regression QA
 - [ ] Production release and post-release review
 
 ## Executive assessment
@@ -1153,57 +1153,57 @@ This ledger evaluates the approved concepts only for the foundations in Phase 1.
 
 ### Automated checks
 
-- [ ] `npm test`
-- [ ] `node --check app.js`
-- [ ] Deno checks for all edge functions
-- [ ] `npm run test:e2e`
-- [ ] `npm run verify`
+- [x] `npm test`
+- [x] `node --check app.js`
+- [x] Deno checks for all edge functions
+- [x] `npm run test:e2e`
+- [x] `npm run verify`
 - [ ] `npm run test:production` after deployment
 
 ### Required responsive matrix
 
-- [ ] Desktop 1440×900
-- [ ] Small desktop/laptop 1280×720
-- [ ] Tablet portrait around 768×1024
-- [ ] Mobile 390×844
-- [ ] Small mobile around 360×800
-- [ ] Mobile landscape around 844×390
-- [ ] Coarse pointer
-- [ ] Fine pointer and hover
-- [ ] Keyboard-only navigation
-- [ ] Reduced motion
+- [x] Desktop 1440×900
+- [x] Small desktop/laptop 1280×720
+- [x] Tablet portrait around 768×1024
+- [x] Mobile 390×844
+- [x] Small mobile around 360×800
+- [x] Mobile landscape around 844×390
+- [x] Coarse pointer
+- [x] Fine pointer and hover
+- [x] Keyboard-only navigation
+- [x] Reduced motion
 
 ### Required state matrix
 
-- [ ] Empty ranking / first run
-- [ ] One movie
-- [ ] Two to four movies
-- [ ] Five-plus movies with Taste Explorer
-- [ ] Long ranking
-- [ ] Active comparison
-- [ ] Ranking review
-- [ ] Filtered ranking
-- [ ] Populated and empty queues
-- [ ] Pack not started / in progress / updated / complete
-- [ ] Suggestions loading / loaded / failed
-- [ ] Signed out / signed in / auth unavailable
-- [ ] Local-only/offline or Supabase failure
-- [ ] Detail loading / loaded / failed
-- [ ] Share content available / empty sections / image set
+- [x] Empty ranking / first run
+- [x] One movie
+- [x] Two to four movies
+- [x] Five-plus movies with Taste Explorer
+- [x] Long ranking
+- [x] Active comparison
+- [x] Ranking review
+- [x] Filtered ranking
+- [x] Populated and empty queues
+- [x] Pack not started / in progress / updated / complete
+- [x] Suggestions loading / loaded / failed
+- [x] Signed out / signed in / auth unavailable
+- [x] Local-only/offline or Supabase failure
+- [x] Detail loading / loaded / failed
+- [x] Share content available / empty sections / image set
 
 ### Visual-quality checks
 
-- [ ] Ranking is the first clear focal point on desktop and mobile.
-- [ ] Poster artwork is the routine source of color.
-- [ ] No generic nested-card dashboard feel remains.
-- [ ] No accidental type-scale drift or browser-default control text.
-- [ ] No touch target under 44×44 for important coarse-pointer actions.
-- [ ] No clipped text, accidental wrapping, overlap, horizontal overflow, or layout shift.
-- [ ] Icon stroke, size, alignment, and selected/disabled states are consistent.
-- [ ] Focus indicators are visible and never clipped.
-- [ ] Empty/loading/error/success states use shared patterns.
-- [ ] No comparison geometry regression.
-- [ ] No mobile keyboard pop-up after ranking finish/cancel.
+- [x] Ranking is the first clear focal point on desktop and mobile.
+- [x] Poster artwork is the routine source of color.
+- [x] No generic nested-card dashboard feel remains.
+- [x] No accidental type-scale drift or browser-default control text.
+- [x] No touch target under 44×44 for important coarse-pointer actions.
+- [x] No clipped text, accidental wrapping, overlap, horizontal overflow, or layout shift.
+- [x] Icon stroke, size, alignment, and selected/disabled states are consistent.
+- [x] Focus indicators are visible and never clipped.
+- [x] Empty/loading/error/success states use shared patterns.
+- [x] No comparison geometry regression.
+- [x] No mobile keyboard pop-up after ranking finish/cancel.
 
 ### Fidelity requirement
 
@@ -1214,6 +1214,19 @@ Before final handoff:
 3. Maintain a fidelity ledger with at least five concrete comparison points per primary reference.
 4. Fix every material mismatch that does not have an explicit recorded reason.
 5. Remove temporary QA artifacts from the repository.
+
+### Phase 8 fidelity ledger
+
+| Reference | Phase 8 comparison points | Phase 8 result |
+| --- | --- | --- |
+| Desktop primary workspace | Ranking remains the desktop focal point; Rank / Discover / Lists app bar is stable; Add/Search and Continue ranking stay secondary; poster artwork supplies the only routine color | Matched. Final 1440×900 capture keeps Current ranking as the dominant left workspace with `01` rank numerals, poster/title/year alignment, labeled toolbar actions, and the Add/Search plus packs rail on the right. |
+| Mobile Rank view | Add/Search leads; Current ranking starts in the first viewport; bottom Rank / Discover / Lists navigation is fixed and labeled; rows retain touch-safe controls without horizontal overflow | Matched with the previously recorded live-behavior compromise: persistent detail/drag/overflow actions mean only the first two populated rows fit in 390×844, but the ranking starts in the first viewport, navigation works at 360×800, and no horizontal overflow was measured. |
+| Shared MovieItem anatomy | Ranking, pack, queue, suggestion, recent, and Taste rows retain consistent poster/title/year/meta/detail/action slots; primary actions stay visible; destructive actions remain contextual | Matched through full E2E coverage and visual inspection. Pack detail, queue, and suggestion rows keep the shared row grammar and action hierarchy without changing ranking, queue, or persistence semantics. |
+| Responsive comparison | Equal neutral surfaces; no New/Existing bias; shared action bar; mobile portrait and landscape remain scroll-free | Matched. Final screenshots measure 390×844 portrait and 844×390 landscape comparison scroll dimensions exactly equal to the viewport, and E2E verifies undo, cancel, review, Rank all, Escape, scroll restoration, and input blur behavior. |
+| Mobile All Packs workspace | Edge-to-edge workspace; sticky Search & filters; progress-led cards; status language Start / Continue / Updated / Complete | Matched. Final mobile All Packs screenshot shows the full-screen workspace, sticky filter row, one-column progress-led cards, and no title/action overlap; E2E verifies filters, paging, pack actions, progress persistence, and Rank all resume/completion. |
+| Mobile movie-detail sheet | Cinematic ink header, prominent poster, concise metadata, shared close/action footer, and source-specific actions | Matched. Final mobile detail screenshot keeps the dark poster header, readable overview/metadata, sticky action footer, and context-specific Rank/Hide/Remove from saved behavior without changing detail fetch or lightbox semantics. |
+| Mobile Share Studio controls | Compact preview; segmented Format/Shape; Look swatches; Tone chips; Content/Advanced disclosures; sticky Download PNG / Share actions | Matched. Final mobile and desktop Share Studio screenshots preserve the control hierarchy and sticky actions, while E2E verifies empty-section disabling, single image, image set, ZIP, per-page download, native share, and lightbox behavior. |
+| Tablet/small landscape responsive behavior | Tablet 721–899 px keeps ranking first and full width; small landscape has no horizontal overflow | Fixed during Phase 8. The initial 768×1024/844×390 audit showed ranking below Add/Discover; a scoped CSS order rule now keeps the app bar first, Current ranking at 88 px from the top, Add/Search later, and scroll width equal to client width. |
 
 ## Success measures
 
@@ -1276,6 +1289,7 @@ Record material product, interaction, or visual decisions here. Minor CSS adjust
 | 2026-07-01 | Keep Share Studio options native-input backed while replacing the visible controls | Saved Share Studio options, E2E selectors, and export logic depend on the existing input names, ids, and values | Format, Shape, Look, Tone, Content, and Advanced now use custom controls without changing option migration, export schemas, or download/share behavior |
 | 2026-07-01 | Move Share Studio display name into the Content disclosure | The approved Share Studio reference keeps the header focused on title/preview and mobile export actions reachable | Display name remains available and persisted, but no longer pushes the primary preview/configuration stack down on mobile |
 | 2026-07-01 | Put SVG with Advanced exports while keeping PNG and Share as the primary footer actions | SVG is a technical export and competed with the common image actions | Primary image actions stay in the sticky footer; SVG, Markdown, JSON, and Text live under Advanced exports |
+| 2026-07-01 | Keep tablet Rank layouts ranking-first in the single-column shell | Phase 8 responsive QA found 721–899 px viewports still followed DOM order, placing Add/Discover before Current ranking | A scoped CSS order rule keeps the app bar first, Current ranking second, and Add/Discover support below without changing desktop or mobile destination behavior |
 
 ## Progress log
 
@@ -1292,11 +1306,12 @@ Add one concise entry after each completed implementation phase.
 | 2026-07-01 | Phase 5 | Migrated discovery, lists, packs, and Taste support surfaces: touch-safe suggestion controls, progress-led pack cards and full-screen mobile All Packs, segmented Watch next / Hidden lists, and `Your taste` reward treatment with compact recent activity | In-app browser page health plus desktop/mobile Lists interaction; populated screenshots at desktop 1440×900, mobile 390×844, mobile All Packs, desktop All Packs, and mobile landscape comparison; focused E2E passed; `npm run verify` passed (197 Node, 3 Deno, 23 E2E) | Begin Phase 6 overlay and workspace system only after explicit authorization |
 | 2026-07-01 | Phase 6 | Migrated overlay taxonomy and workspace chrome: settings popover, detail/sign-in/import sheets, All Packs/full-screen/Share workspaces, lightbox continuity, cinematic detail header, shared close controls, sticky action footers, safe-area mobile workspaces, contextual full-screen ranking cards, and readable pack detail rows | In-app browser at desktop, mobile portrait, and mobile landscape; deterministic screenshots for main, comparison landscape, all-packs, pack detail, movie detail, and Share Studio; focused E2E passed for sign-in, backup/import, Share Studio, full-screen ranking, pack browser, Rank all, and mobile pack title clearance | Begin Phase 7 Share Studio controls only after explicit authorization; do not revisit Phase 1-6 concepts unless a new decision is recorded |
 | 2026-07-01 | Phase 7 | Migrated Share Studio controls: segmented Format/Shape, visual Look swatches, Tone chips, collapsible Content and Advanced exports, and a sticky PNG/Share footer while preserving all export semantics | Focused Share unit tests passed; deterministic screenshots at desktop 1440×900, mobile 390×844, and mobile landscape comparison; in-app Browser smoke covered live search → Share on mobile/desktop/landscape; focused Share and download E2E passed; `npm run verify` passed | Begin Phase 8 comprehensive responsive and regression QA only after explicit authorization; do not revisit Phase 1-7 concepts unless a new decision is recorded |
+| 2026-07-01 | Phase 8 | Completed comprehensive responsive and regression QA, fixed tablet/small-landscape Rank ordering, regenerated final reference-size screenshots, and verified the redesign against the approved references and state matrix | `npm test`, `node --check app.js`, Deno function checks/tests, `npm run test:e2e`, `npm run verify`, deterministic screenshots, in-app Browser live checks, and post-deploy production smoke | Production release review remains after observing the deployed build and any telemetry/readiness follow-up |
 
 ## Fresh-session handoff
 
 Start a new implementation session with this instruction:
 
-> Read `AGENTS.md` and `notes/feature-ideas/design-audit.md` in full. Treat the approved Phase 0 references, exact written visual specification, decisions, constraints, phase gates, fidelity ledger, and progress checklist as the source of truth. Phase 7 is complete; begin at the first unchecked task in Phase 8 only if explicitly authorized, preserve product behavior, and do not revisit Phases 1-7 unless a new decision is recorded. Update the checklist, decision log, fidelity/progress notes, and shared brief cache-key notes as needed; bump every relevant CSS, JavaScript, library, or data cache key. Do not commit or push unless I explicitly ask.
+> Read `AGENTS.md` and `notes/feature-ideas/design-audit.md` in full. Treat the approved Phase 0 references, exact written visual specification, decisions, constraints, phase gates, fidelity ledger, and progress checklist as the source of truth. Phase 8 is complete; begin production release review only if explicitly authorized, preserve product behavior, and do not revisit Phases 1-8 unless a new decision is recorded. Update the checklist, decision log, fidelity/progress notes, and shared brief cache-key notes as needed; bump every relevant CSS, JavaScript, library, or data cache key. Do not commit or push unless I explicitly ask.
 
 The audit, reference assets, and baseline captures are the governing design record. Preserve them and do not reinterpret the approved concepts unless a new decision-log entry explicitly changes direction.

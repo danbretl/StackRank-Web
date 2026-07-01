@@ -58,7 +58,7 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="styles.css?v=101" />
+    <link rel="stylesheet" href="styles.css?v=102" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -655,21 +655,21 @@
         </section>
       </div>
 
-      <div class="fullscreen-overlay" id="ranking-fullscreen" hidden>
+      <div class="overlay overlay--workspace fullscreen-overlay" id="ranking-fullscreen" hidden>
         <section
-          class="fullscreen-sheet"
+          class="overlay-shell workspace-shell fullscreen-sheet"
           role="dialog"
           aria-modal="true"
           aria-labelledby="fullscreen-title"
         >
-          <header class="fullscreen-header">
+          <header class="overlay-header workspace-header fullscreen-header">
             <div class="fullscreen-header__top">
               <div>
                 <h2 id="fullscreen-title">Current ranking</h2>
                 <p class="fullscreen-sub" id="fullscreen-sub"></p>
               </div>
               <button
-                class="icon-button icon-button--quiet"
+                class="icon-button icon-button--quiet overlay-close"
                 id="fullscreen-close"
                 type="button"
                 aria-label="Close full-screen view"
@@ -707,19 +707,19 @@
         </section>
       </div>
 
-      <div class="share-overlay" id="share-studio" hidden>
+      <div class="overlay overlay--workspace share-overlay" id="share-studio" hidden>
         <section
-          class="share-sheet"
+          class="overlay-shell workspace-shell share-sheet"
           role="dialog"
           aria-modal="true"
           aria-labelledby="share-title"
         >
-          <button class="detail-close" id="share-close" type="button" aria-label="Close share studio">
+          <button class="detail-close overlay-close" id="share-close" type="button" aria-label="Close share studio">
             <svg class="ui-icon" aria-hidden="true" focusable="false">
               <use href="#icon-close"></use>
             </svg>
           </button>
-          <div class="share-sheet__header">
+          <header class="overlay-header share-sheet__header">
             <div>
               <h2 id="share-title">Share studio</h2>
               <label class="share-name-field share-name-field--header">
@@ -727,7 +727,7 @@
                 <input id="share-display-name" type="text" maxlength="36" placeholder="Optional" />
               </label>
             </div>
-          </div>
+          </header>
           <div class="share-layout">
             <div class="share-preview-wrap" aria-label="Share preview">
               <div class="share-preview" id="share-preview"></div>
@@ -888,27 +888,27 @@
         <pre class="debug__content" id="debug-content"></pre>
       </section>
 
-      <div class="detail-overlay" id="movie-detail" hidden>
+      <div class="overlay overlay--sheet detail-overlay" id="movie-detail" hidden>
         <section
-          class="detail-sheet"
+          class="overlay-shell sheet-shell detail-sheet"
           role="dialog"
           aria-modal="true"
           aria-labelledby="detail-title"
           aria-describedby="detail-overview"
         >
-          <button class="detail-close" id="detail-close" type="button" aria-label="Close movie details">
+          <button class="detail-close overlay-close" id="detail-close" type="button" aria-label="Close movie details">
             <svg class="ui-icon" aria-hidden="true" focusable="false">
               <use href="#icon-close"></use>
             </svg>
           </button>
-          <div class="detail-main">
+          <header class="overlay-header detail-main detail-hero">
             <img class="detail-poster" id="detail-poster" alt="" />
             <div class="detail-heading">
               <h2 id="detail-title">Movie title</h2>
               <div class="detail-sub" id="detail-sub"></div>
               <div class="detail-genres" id="detail-genres"></div>
             </div>
-          </div>
+          </header>
           <p class="detail-overview" id="detail-overview"></p>
           <dl class="detail-meta">
             <div>
@@ -922,7 +922,7 @@
           </dl>
           <div class="detail-status panel__sub" id="detail-status"></div>
           <button class="detail-retry" id="detail-retry" type="button" hidden>Retry details</button>
-          <div class="detail-actions">
+          <div class="detail-actions overlay-action-footer">
             <button class="detail-action detail-action--primary" id="detail-rank" type="button">Rank</button>
             <button class="detail-action" id="detail-save" type="button">Save</button>
             <button class="detail-action detail-action--muted" id="detail-hide" type="button">Hide</button>
@@ -930,14 +930,14 @@
         </section>
       </div>
 
-      <div class="detail-overlay pack-overlay" id="pack-detail" hidden>
+      <div class="overlay overlay--sheet detail-overlay pack-overlay" id="pack-detail" hidden>
         <section
-          class="detail-sheet pack-sheet"
+          class="overlay-shell sheet-shell detail-sheet pack-sheet"
           role="dialog"
           aria-modal="true"
           aria-labelledby="pack-detail-title"
         >
-          <button class="detail-close" id="pack-detail-close" type="button" aria-label="Close suggestion pack">
+          <button class="detail-close overlay-close" id="pack-detail-close" type="button" aria-label="Close suggestion pack">
             <svg class="ui-icon" aria-hidden="true" focusable="false">
               <use href="#icon-close"></use>
             </svg>
@@ -957,7 +957,7 @@
               </svg>
             </button>
           </div>
-          <div class="pack-detail-head">
+          <header class="overlay-header pack-detail-head">
             <div class="pack-cover pack-cover--large" id="pack-detail-cover" aria-hidden="true"></div>
             <div class="pack-detail-copy">
               <div class="suggest-title" id="pack-detail-category">Pack</div>
@@ -968,13 +968,7 @@
               </div>
               <div class="detail-status" id="pack-detail-status"></div>
             </div>
-          </div>
-          <div class="pack-detail-actions">
-            <button class="detail-action detail-action--primary" id="pack-auto-start" type="button">Rank all</button>
-            <button class="detail-action" id="pack-save-all" type="button">Save all</button>
-            <button class="detail-action detail-action--muted" id="pack-hide-all" type="button">Hide all</button>
-            <button class="detail-action" id="pack-show-handled" type="button">Show handled</button>
-          </div>
+          </header>
           <div class="pack-browser-filters" id="pack-browser-filters" hidden>
             <div class="pack-browser-filter-toolbar">
               <button
@@ -1035,18 +1029,24 @@
             </div>
           </div>
           <div class="pack-detail-list" id="pack-detail-list"></div>
+          <div class="pack-detail-actions overlay-action-footer">
+            <button class="detail-action detail-action--primary" id="pack-auto-start" type="button">Rank all</button>
+            <button class="detail-action" id="pack-show-handled" type="button">Show handled</button>
+            <button class="detail-action" id="pack-save-all" type="button">Save all</button>
+            <button class="detail-action detail-action--muted" id="pack-hide-all" type="button">Hide all</button>
+          </div>
         </section>
       </div>
 
-      <div class="detail-overlay import-overlay" id="title-import" hidden>
+      <div class="overlay overlay--sheet detail-overlay import-overlay" id="title-import" hidden>
         <section
-          class="detail-sheet import-sheet"
+          class="overlay-shell sheet-shell import-sheet"
           role="dialog"
           aria-modal="true"
           aria-labelledby="title-import-heading"
           aria-describedby="title-import-description"
         >
-          <button class="detail-close" id="title-import-close" type="button" aria-label="Close title import">
+          <button class="detail-close overlay-close" id="title-import-close" type="button" aria-label="Close title import">
             <svg class="ui-icon" aria-hidden="true" focusable="false">
               <use href="#icon-close"></use>
             </svg>
@@ -1067,7 +1067,7 @@
               ></textarea>
             </label>
             <div class="import-status panel__sub" id="title-import-status" role="status" aria-live="polite"></div>
-            <div class="detail-actions import-actions">
+            <div class="detail-actions import-actions overlay-action-footer">
               <button class="detail-action detail-action--muted" id="title-import-cancel" type="button">Cancel</button>
               <button class="detail-action detail-action--primary" id="title-import-match" type="button">
                 Match titles
@@ -1087,7 +1087,7 @@
               <span id="title-import-confirm-text">Replace my current ranking.</span>
             </label>
             <div class="import-status panel__sub" id="title-import-review-status" role="status" aria-live="polite"></div>
-            <div class="detail-actions import-actions">
+            <div class="detail-actions import-actions overlay-action-footer">
               <button class="detail-action detail-action--muted" id="title-import-back" type="button">Back</button>
               <button class="detail-action detail-action--primary" id="title-import-apply" type="button" disabled>
                 Import ranking
@@ -1097,14 +1097,14 @@
         </section>
       </div>
 
-      <div class="detail-overlay signin-overlay" id="signin-overlay" hidden>
+      <div class="overlay overlay--sheet detail-overlay signin-overlay" id="signin-overlay" hidden>
         <div
-          class="detail-sheet signin-sheet"
+          class="overlay-shell sheet-shell detail-sheet signin-sheet"
           role="dialog"
           aria-modal="true"
           aria-labelledby="signin-title"
         >
-          <button class="detail-close" id="signin-close" type="button" aria-label="Close sign in">
+          <button class="detail-close overlay-close" id="signin-close" type="button" aria-label="Close sign in">
             <svg class="ui-icon" aria-hidden="true" focusable="false">
               <use href="#icon-close"></use>
             </svg>

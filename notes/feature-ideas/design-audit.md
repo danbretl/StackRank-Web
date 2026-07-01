@@ -5,8 +5,8 @@
 - **Initiative:** Core product design-system and experience redesign
 - **Priority:** Critical
 - **Product owner approval:** Approved in principle on 2026-06-30; minor adjustments may be made during implementation
-- **Implementation status:** Phase 5 complete and pushed; discovery, lists, packs, and Taste support surfaces migrated to the approved ranking-first grammar
-- **Current phase:** Phase 6 — overlay and workspace system (ready, not started)
+- **Implementation status:** Phase 6 complete; overlay and workspace system migrated to the approved taxonomy
+- **Current phase:** Phase 7 — Share Studio controls (ready, not started)
 - **Last updated:** 2026-07-01
 - **Source of truth:** This document governs the redesign unless a later product decision is recorded in the decision log
 
@@ -22,7 +22,7 @@
 - [x] Phase 3 — shared movie and pack components
 - [x] Phase 4 — core ranking flows
 - [x] Phase 5 — discovery, lists, and Taste Explorer
-- [ ] Phase 6 — overlay and workspace system
+- [x] Phase 6 — overlay and workspace system
 - [ ] Phase 7 — Share Studio controls
 - [ ] Phase 8 — comprehensive responsive and regression QA
 - [ ] Production release and post-release review
@@ -1072,28 +1072,28 @@ This ledger evaluates the approved concepts only for the foundations in Phase 1.
 
 ### Taxonomy
 
-- [ ] Popover: Settings
-- [ ] Sheet: Detail, Sign in, Import
-- [ ] Workspace: All Packs, Full-screen ranking, Share Studio
-- [ ] Lightbox: Artwork/image preview
+- [x] Popover: Settings
+- [x] Sheet: Detail, Sign in, Import
+- [x] Workspace: All Packs, Full-screen ranking, Share Studio
+- [x] Lightbox: Artwork/image preview
 
 ### Shared behavior
 
-- [ ] One dialog/workspace header pattern.
-- [ ] One close-control treatment and placement.
-- [ ] One sticky action-footer pattern.
-- [ ] Correct focus entry, focus containment where appropriate, Escape, backdrop, and focus return.
-- [ ] Safe-area-aware mobile full-screen layouts.
-- [ ] No nested scroll traps.
+- [x] One dialog/workspace header pattern.
+- [x] One close-control treatment and placement.
+- [x] One sticky action-footer pattern.
+- [x] Correct focus entry, focus containment where appropriate, Escape, backdrop, and focus return.
+- [x] Safe-area-aware mobile full-screen layouts.
+- [x] No nested scroll traps.
 
 ### Surface work
 
-- [ ] Movie detail: stronger poster treatment, concise metadata, shared action footer.
-- [ ] Settings: prevent wrapped backup/import actions and separate destructive controls.
-- [ ] Import: primary Match titles / Import ranking hierarchy.
-- [ ] Sign in: preserve concise passwordless framing and provider availability behavior.
-- [ ] Full-screen ranking: reduce card chrome and use contextual actions.
-- [ ] Pack browser/detail: apply workspace and sheet rules consistently.
+- [x] Movie detail: stronger poster treatment, concise metadata, shared action footer.
+- [x] Settings: prevent wrapped backup/import actions and separate destructive controls.
+- [x] Import: primary Match titles / Import ranking hierarchy.
+- [x] Sign in: preserve concise passwordless framing and provider availability behavior.
+- [x] Full-screen ranking: reduce card chrome and use contextual actions.
+- [x] Pack browser/detail: apply workspace and sheet rules consistently.
 
 ### Acceptance gate
 
@@ -1101,6 +1101,17 @@ This ledger evaluates the approved concepts only for the foundations in Phase 1.
 - Keyboard focus and dismissal are correct.
 - Returning from a nested detail/lightbox restores the right parent surface and state.
 - Auth, backup, restore, import, detail, full-screen ranking, and packs pass E2E coverage.
+
+### Phase 6 fidelity ledger
+
+| Reference | Phase 6 comparison points | Phase 6 result |
+| --- | --- | --- |
+| Mobile movie-detail sheet | Dark cinematic header, larger poster, concise metadata, one close control, sticky action footer, sheet behavior over a scrim | Matched while preserving source-specific action semantics. Mobile/desktop detail now uses an ink hero with a larger poster, compact metadata, 44 px close, and sticky action footer; the screenshot harness verified `mobile-movie-detail` and `desktop-movie-detail` with no horizontal overflow. |
+| Mobile All Packs workspace | Edge-to-edge mobile workspace, sticky search/filter controls, safe-area close placement, one-column progress-led cards | Matched. All Packs is bounded and scrollable on desktop, edge-to-edge at 390×844 and 844×390, hides detail-only pack actions, and keeps sticky filters plus progress-led cards. |
+| Desktop primary workspace | Overlays should read as deliberate transient surfaces without weakening ranking-first hierarchy underneath | Matched. Settings remains a popover; sheets/workspaces use consistent scrim, radius, shadow, close treatment, and focus entry while preserving the ranking-first shell under the scrim. |
+| Shared MovieItem anatomy | Pack detail movie rows should keep poster/title/year/meta/detail/action slots without text collisions | Matched. Pack detail rows are one-column in sheets with explicit pack MovieItem placement; focused E2E verified mobile title clearance, pack browser actions, and Rank all resume/completion. |
+| Mobile Share Studio controls | Phase 6 owns workspace chrome only; Phase 7 owns control redesign | Matched by scope. Share Studio now uses the shared workspace shell and full-height mobile layout, with existing controls/export behavior unchanged for Phase 7. |
+| Responsive comparison | Overlay work must not regress protected mobile landscape comparison geometry | Matched. `mobile-comparison-landscape` remained 844×390 with no document overflow in the Phase 6 screenshot pass. |
 
 ## Phase 7 — Share Studio controls
 
@@ -1249,6 +1260,8 @@ Record material product, interaction, or visual decisions here. Minor CSS adjust
 | 2026-07-01 | Implement Lists as a Watch next / Hidden segmented destination instead of two equal queue panels | Watch next is the primary list workflow and Hidden should remain available without competing for equal first-viewport weight | A tested `lib/lists.js` state helper drives the tabs; queue data, persistence, and movie actions remain unchanged |
 | 2026-07-01 | Make All Packs edge-to-edge on mobile during Phase 5 while leaving broader overlay taxonomy to Phase 6 | Phase 5 explicitly owns the mobile All Packs workspace and sticky filter/card behavior, while Phase 6 still owns shared overlay headers/focus/footer taxonomy | Mobile All Packs is full-height with sticky filters and one-column progress-led cards; pack detail sheets and shared overlay structure remain Phase 6 scope |
 | 2026-07-01 | Hide recent activity for one- and two-movie rankings | In those states the panel only duplicates the current ranking and weakens the ranking-first hierarchy | Recently ranked remains for empty/three-plus lists, while Taste becomes the stronger reward surface after five movies |
+| 2026-07-01 | Keep Share Studio control semantics unchanged during Phase 6 | Phase 6 owns workspace taxonomy and chrome, while Format/Shape/Look/Tone/Content/Advanced controls are explicitly Phase 7 | Share Studio now uses the shared workspace shell and mobile full-height layout without changing saved options, exports, empty-section behavior, or control structure |
+| 2026-07-01 | Render pack detail movie rows as one-column sheet rows | The previous two-column sheet layout became too narrow once actions moved into the shared footer model and could collide with movie text | Pack browser cards remain multi-column/one-column by breakpoint, while individual pack detail sheets use readable MovieItem rows with a sticky action footer |
 
 ## Progress log
 
@@ -1263,11 +1276,12 @@ Add one concise entry after each completed implementation phase.
 | 2026-06-30 | Phase 3 | Added shared MovieItem grammar for ranking, discovery, queue, pack, recent, and Taste evidence rows; made Rank visible on rankable items; moved rare queue removal into overflow; standardized PackCard status/action language and explicit progress text across shelf/browser/compact variants | In-app browser at desktop 1440×900, mobile 390×844, and landscape 844×390; focused interaction smoke for suggestion Rank/Cancel and queue overflow; `npm run verify` passed (194 Node, 3 Deno, 23 E2E) | Begin Phase 4 core ranking flows without revisiting Phase 1–3 structure |
 | 2026-07-01 | Phase 4 | Migrated core ranking flows: stable Add/Search and tighter first-run copy, artifact-style ranking rows with `01` numerals and contextual row actions, equal comparison surfaces, shared comparison/review action bar, and pressed feedback before decisions advance | Focused unit checks passed; in-app browser at desktop 1440×900, mobile 390×844, and mobile landscape 844×390; normal comparison and review were scroll-free with no console errors; `npm run verify` passed | Begin Phase 5 discovery, lists, and Taste Explorer without revisiting the approved Phase 4 comparison/ranking concepts |
 | 2026-07-01 | Phase 5 | Migrated discovery, lists, packs, and Taste support surfaces: touch-safe suggestion controls, progress-led pack cards and full-screen mobile All Packs, segmented Watch next / Hidden lists, and `Your taste` reward treatment with compact recent activity | In-app browser page health plus desktop/mobile Lists interaction; populated screenshots at desktop 1440×900, mobile 390×844, mobile All Packs, desktop All Packs, and mobile landscape comparison; focused E2E passed; `npm run verify` passed (197 Node, 3 Deno, 23 E2E) | Begin Phase 6 overlay and workspace system only after explicit authorization |
+| 2026-07-01 | Phase 6 | Migrated overlay taxonomy and workspace chrome: settings popover, detail/sign-in/import sheets, All Packs/full-screen/Share workspaces, lightbox continuity, cinematic detail header, shared close controls, sticky action footers, safe-area mobile workspaces, contextual full-screen ranking cards, and readable pack detail rows | In-app browser at desktop, mobile portrait, and mobile landscape; deterministic screenshots for main, comparison landscape, all-packs, pack detail, movie detail, and Share Studio; focused E2E passed for sign-in, backup/import, Share Studio, full-screen ranking, pack browser, Rank all, and mobile pack title clearance | Begin Phase 7 Share Studio controls only after explicit authorization; do not revisit Phase 1-6 concepts unless a new decision is recorded |
 
 ## Fresh-session handoff
 
 Start a new implementation session with this instruction:
 
-> Read `AGENTS.md` and `notes/feature-ideas/design-audit.md` in full. Treat the approved Phase 0 references, exact written visual specification, decisions, constraints, phase gates, fidelity ledger, and progress checklist as the source of truth. Phase 5 is complete and pushed; begin at the first unchecked task in Phase 6 only if explicitly authorized, preserve product behavior, and do not start Phase 7 until the overlay/workspace acceptance gate passes rendered desktop/mobile verification and `npm run verify`. Update the checklist, decision log, fidelity/progress notes, and shared brief cache-key notes as needed; bump every relevant CSS, JavaScript, library, or data cache key. Do not commit or push unless I explicitly ask.
+> Read `AGENTS.md` and `notes/feature-ideas/design-audit.md` in full. Treat the approved Phase 0 references, exact written visual specification, decisions, constraints, phase gates, fidelity ledger, and progress checklist as the source of truth. Phase 6 is complete; begin at the first unchecked task in Phase 7 only if explicitly authorized, preserve product behavior, and do not revisit Phases 1-6 unless a new decision is recorded. Update the checklist, decision log, fidelity/progress notes, and shared brief cache-key notes as needed; bump every relevant CSS, JavaScript, library, or data cache key. Do not commit or push unless I explicitly ask.
 
 The audit, reference assets, and baseline captures are the governing design record. Preserve them and do not reinterpret the approved concepts unless a new decision-log entry explicitly changes direction.

@@ -6776,6 +6776,13 @@ textarea,
 }
 
 @media (hover: hover) and (pointer: fine) {
+  .movie-item--ranking .movie-item__action:hover:not(:disabled) {
+    border-color: var(--rule-strong);
+    background: var(--surface-subtle);
+    color: var(--ink);
+    transform: translateY(-1px);
+  }
+
   .movie-item--ranking .ranking__delete:hover:not(:disabled) {
     color: var(--danger);
   }

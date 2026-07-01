@@ -554,7 +554,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=109" ||
+      desktop.cssHref !== "styles.css?v=110" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -803,6 +803,59 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Desktop app shell layout is wrong: ${JSON.stringify(desktop)}`);
+    }
+
+    const readRankingActionStyle = async (selector) =>
+      page.evaluate(`(() => {
+        const button = document.querySelector('#ranking .ranking__item ${selector}');
+        if (!button) return null;
+        const bounds = button.getBoundingClientRect();
+        const style = getComputedStyle(button);
+        return {
+          selector: ${JSON.stringify(selector)},
+          centerX: bounds.left + bounds.width / 2,
+          centerY: bounds.top + bounds.height / 2,
+          width: bounds.width,
+          height: bounds.height,
+          borderTopColor: style.borderTopColor,
+          backgroundColor: style.backgroundColor,
+          color: style.color,
+          transform: style.transform
+      };
+    })()`);
+    const desktopActionHoverStates = [];
+    let desktopInfoHoverShot = null;
+    for (const selector of [".ranking__info", ".ranking__restack", ".ranking__handle", ".ranking__delete"]) {
+      await page.send("Input.dispatchMouseEvent", { type: "mouseMoved", x: 1, y: 1, button: "none" });
+      await wait(30);
+      const before = await readRankingActionStyle(selector);
+      if (!before) throw new Error(`Missing ranking action for hover check: ${selector}`);
+      await page.send("Input.dispatchMouseEvent", {
+        type: "mouseMoved",
+        x: Math.round(before.centerX),
+        y: Math.round(before.centerY),
+        button: "none",
+      });
+      await wait(180);
+      const hover = await readRankingActionStyle(selector);
+      if (selector === ".ranking__info") {
+        desktopInfoHoverShot = await page.screenshot("app-shell-desktop-ranking-info-hover.png");
+      }
+      desktopActionHoverStates.push({ selector, before, hover });
+    }
+    await page.send("Input.dispatchMouseEvent", { type: "mouseMoved", x: 1, y: 1, button: "none" });
+    const missingHoverState = desktopActionHoverStates.filter(({ before, hover }) =>
+      !hover ||
+      hover.width < 35.5 ||
+      hover.height < 35.5 ||
+      hover.borderTopColor === before.borderTopColor ||
+      hover.backgroundColor === before.backgroundColor ||
+      hover.borderTopColor === "rgba(0, 0, 0, 0)" ||
+      hover.backgroundColor === "rgba(0, 0, 0, 0)" ||
+      hover.transform === "none"
+    );
+    if (missingHoverState.length) {
+      throw new Error(`Desktop ranking action hover state is inconsistent: ${JSON.stringify(desktopActionHoverStates)}`);
     }
     const desktopShot = await page.screenshot("app-shell-desktop-rank.png");
 
@@ -1062,7 +1115,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
     return {
       details: { desktop, mobileRank, mobileDiscover, mobileLists, restored },
-      screenshots: [desktopShot, discoverShot],
+      screenshots: [desktopShot, desktopInfoHoverShot, discoverShot].filter(Boolean),
     };
   } finally {
     await page.close();
@@ -1147,7 +1200,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
       empty.moduleSrc !== "app.js?v=146" ||
-      empty.cssHref !== "styles.css?v=109" ||
+      empty.cssHref !== "styles.css?v=110" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||

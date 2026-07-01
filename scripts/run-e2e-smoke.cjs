@@ -554,7 +554,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=114" ||
+      desktop.cssHref !== "styles.css?v=115" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -1199,8 +1199,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=149" ||
-      empty.cssHref !== "styles.css?v=114" ||
+      empty.moduleSrc !== "app.js?v=150" ||
+      empty.cssHref !== "styles.css?v=115" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -3512,6 +3512,58 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
       `[...document.querySelectorAll('#ranking .ranking__title')].at(-1)?.textContent.includes('Alpha')`,
       5000,
     );
+    const undoHit = await page.evaluate(`(() => {
+      const button = document.querySelector('#add-feedback .feedback-toast__action');
+      if (!button) return { found: false };
+      const rect = button.getBoundingClientRect();
+      const center = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+      const hit = document.elementFromPoint(center.x, center.y);
+      return {
+        found: true,
+        text: button.textContent.trim(),
+        center,
+        hitMatches: hit === button || hit?.closest?.('.feedback-toast__action') === button,
+        hitText: hit?.textContent?.trim() || '',
+        toastPointerEvents: getComputedStyle(document.querySelector('#add-feedback')).pointerEvents,
+        actionPointerEvents: getComputedStyle(button).pointerEvents,
+        rect: {
+          width: Math.round(rect.width),
+          height: Math.round(rect.height)
+        }
+      };
+    })()`);
+    if (
+      !undoHit.found ||
+      undoHit.text !== "Undo" ||
+      !undoHit.hitMatches ||
+      undoHit.toastPointerEvents !== "auto" ||
+      undoHit.actionPointerEvents !== "auto" ||
+      undoHit.rect.width < 44 ||
+      undoHit.rect.height < 28
+    ) {
+      throw new Error(`Full-screen drag undo toast is not click-safe: ${JSON.stringify(undoHit)}`);
+    }
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mousePressed",
+      x: undoHit.center.x,
+      y: undoHit.center.y,
+      button: "left",
+      buttons: 1,
+      clickCount: 1,
+    });
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mouseReleased",
+      x: undoHit.center.x,
+      y: undoHit.center.y,
+      button: "left",
+      buttons: 0,
+      clickCount: 1,
+    });
+    await waitFor(
+      page,
+      `[...document.querySelectorAll('#ranking .ranking__title')][0]?.textContent.includes('Alpha')`,
+      5000,
+    );
 
     const state = await page.evaluate(`(() => ({
       overlayOpen: !document.querySelector('#ranking-fullscreen')?.hidden,
@@ -3532,15 +3584,15 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     }))()`);
     if (
       !state.overlayOpen ||
-      state.gridTitles.at(-1) !== "Alpha" ||
-      state.rankingTitles.at(-1) !== "Alpha" ||
+      state.gridTitles[0] !== "Alpha" ||
+      state.rankingTitles[0] !== "Alpha" ||
       !state.compact ||
       state.draggingCards ||
       state.staleDraggedCards ||
       !state.actionRowsVisible ||
       state.handleInsidePosters
     ) {
-      throw new Error(`Full-screen drag did not persist the new order: ${JSON.stringify(state)}`);
+      throw new Error(`Full-screen drag undo did not restore the original order: ${JSON.stringify(state)}`);
     }
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);

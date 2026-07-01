@@ -3949,6 +3949,7 @@ const hideAddFeedback = ({ immediate = false } = {}) => {
     feedbackRemovalTimeout = null;
   }
   addFeedback.classList.remove("is-visible");
+  addFeedback.classList.remove("panel__feedback--actionable");
   if (immediate) {
     addFeedback.classList.remove("is-leaving");
     addFeedback.textContent = "";
@@ -3965,8 +3966,10 @@ const hideAddFeedback = ({ immediate = false } = {}) => {
 const setAddFeedback = (message, duration = TOAST_DURATION_MS, actions = []) => {
   if (!message) {
     hideAddFeedback({ immediate: true });
+    addFeedback.classList.remove("panel__feedback--actionable");
     return;
   }
+  const hasActions = actions.length > 0;
   if (highlightTimeout) {
     window.clearTimeout(highlightTimeout);
     highlightTimeout = null;
@@ -3976,9 +3979,10 @@ const setAddFeedback = (message, duration = TOAST_DURATION_MS, actions = []) => 
     feedbackRemovalTimeout = null;
   }
   addFeedback.innerHTML = "";
-  if (actions.length) {
+  addFeedback.classList.toggle("panel__feedback--actionable", hasActions);
+  if (hasActions) {
     const toast = document.createElement("div");
-    toast.className = "feedback-toast";
+    toast.className = "feedback-toast feedback-toast--actionable";
     const text = document.createElement("div");
     text.textContent = message;
     const actionWrap = document.createElement("div");

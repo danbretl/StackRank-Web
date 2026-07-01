@@ -791,6 +791,11 @@ body.is-comparing .first-run {
   transform: translate3d(0, 0, 0) scale(1);
 }
 
+.panel__feedback--actionable,
+.feedback-toast--actionable {
+  pointer-events: auto;
+}
+
 .panel__feedback.is-leaving {
   opacity: 0;
   transform: translate3d(0, 8px, 0) scale(0.98);

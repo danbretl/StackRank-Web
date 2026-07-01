@@ -2986,6 +2986,28 @@ body.is-comparing .compare-panel {
   animation: detailRise var(--motion-overlay) var(--motion-ease);
 }
 
+.detail-sheet.is-loading {
+  background: var(--surface-inverted);
+}
+
+.detail-sheet.is-loading .detail-main {
+  grid-template-columns: minmax(0, 1fr);
+  min-height: 220px;
+  place-items: center;
+  text-align: center;
+}
+
+.detail-sheet.is-loading .detail-poster,
+.detail-sheet.is-loading .detail-overview,
+.detail-sheet.is-loading .detail-meta,
+.detail-sheet.is-loading .detail-status {
+  display: none;
+}
+
+.detail-sheet.is-loading .detail-heading {
+  justify-items: center;
+}
+
 .detail-close {
   position: absolute;
   top: 12px;

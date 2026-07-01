@@ -554,7 +554,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=110" ||
+      desktop.cssHref !== "styles.css?v=111" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -1199,8 +1199,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=146" ||
-      empty.cssHref !== "styles.css?v=110" ||
+      empty.moduleSrc !== "app.js?v=147" ||
+      empty.cssHref !== "styles.css?v=111" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -1873,6 +1873,130 @@ const testTmdbFailureRecovery = async ({ baseUrl }) => {
     return {
       details: { failed, recoveredSearchTitle, recovered, mobileDetail },
       screenshots: [failedShot, await page.screenshot("tmdb-failure-recovered-mobile-detail.png")],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
+const testMovieDetailClearsBetweenRankedMovies = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "movie-detail-clears-between-ranked-movies" });
+  try {
+    await page.send("Page.addScriptToEvaluateOnNewDocument", {
+      source: `
+        (() => {
+          const realFetch = window.fetch.bind(window);
+          const response = (value, status = 200) => Promise.resolve(new Response(
+            JSON.stringify(value),
+            { status, headers: { 'Content-Type': 'application/json' } }
+          ));
+          window.__e2eSecondDetailRequested = false;
+          window.__e2eResolveSecondDetail = null;
+          window.fetch = (input, options) => {
+            const url = typeof input === 'string' ? input : input?.url || '';
+            if (url.includes('/functions/v1/tmdb-detail')) {
+              const id = Number(new URL(url).searchParams.get('id'));
+              if (id === 2131) {
+                return response({
+                  result: {
+                    tmdbId: id,
+                    runtime: 101,
+                    genres: ['Drama'],
+                    overview: 'First detail overview must not linger.',
+                    director: 'First Director',
+                    cast: ['First Actor']
+                  }
+                });
+              }
+              if (id === 2132) {
+                window.__e2eSecondDetailRequested = true;
+                return new Promise((resolve) => {
+                  window.__e2eResolveSecondDetail = () => resolve(new Response(JSON.stringify({
+                    result: {
+                      tmdbId: id,
+                      runtime: 102,
+                      genres: ['Comedy'],
+                      overview: 'Second detail overview loaded.',
+                      director: 'Second Director',
+                      cast: ['Second Actor']
+                    }
+                  }), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+                });
+              }
+            }
+            return realFetch(input, options);
+          };
+        })();
+      `,
+    });
+    await seedPage(page, baseUrl, "movie-detail-clears-between-ranked-movies", {
+      ranking: [movie("First Detail", 2001, 2131), movie("Second Detail", 2002, 2132)],
+    });
+    await page.evaluate(`document.querySelector('#ranking .ranking__item:first-child .ranking__info')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#detail-director')?.textContent.trim() === 'First Director'`,
+      5000,
+    );
+    const firstLoaded = await page.evaluate(`(() => ({
+      title: document.querySelector('#detail-title')?.textContent.trim(),
+      director: document.querySelector('#detail-director')?.textContent.trim(),
+      overview: document.querySelector('#detail-overview')?.textContent.trim()
+    }))()`);
+    const firstShot = await page.screenshot("movie-detail-first-loaded.png");
+    await page.evaluate(`document.querySelector('#detail-close')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#movie-detail')?.hidden`, 3000);
+    await page.evaluate(`document.querySelectorAll('#ranking .ranking__item')[1]?.querySelector('.ranking__info')?.click(); true;`);
+    await waitFor(
+      page,
+      `!document.querySelector('#movie-detail')?.hidden && window.__e2eSecondDetailRequested === true`,
+      3000,
+    );
+    const secondLoading = await page.evaluate(`(() => ({
+      title: document.querySelector('#detail-title')?.textContent.trim(),
+      sub: document.querySelector('#detail-sub')?.textContent.trim(),
+      genres: document.querySelector('#detail-genres')?.textContent.trim(),
+      overview: document.querySelector('#detail-overview')?.textContent.trim(),
+      director: document.querySelector('#detail-director')?.textContent.trim(),
+      cast: document.querySelector('#detail-cast')?.textContent.trim(),
+      status: document.querySelector('#detail-status')?.textContent.trim(),
+      retryHidden: document.querySelector('#detail-retry')?.hidden
+    }))()`);
+    const loadingShot = await page.screenshot("movie-detail-second-loading-cleared.png");
+    await page.evaluate(`window.__e2eResolveSecondDetail?.(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#detail-director')?.textContent.trim() === 'Second Director'`,
+      5000,
+    );
+    const secondLoaded = await page.evaluate(`(() => ({
+      title: document.querySelector('#detail-title')?.textContent.trim(),
+      director: document.querySelector('#detail-director')?.textContent.trim(),
+      overview: document.querySelector('#detail-overview')?.textContent.trim()
+    }))()`);
+    if (
+      firstLoaded.title !== "First Detail" ||
+      firstLoaded.director !== "First Director" ||
+      secondLoading.title !== "Loading details" ||
+      secondLoading.sub ||
+      secondLoading.genres ||
+      secondLoading.overview ||
+      secondLoading.director ||
+      secondLoading.cast ||
+      secondLoading.status !== "Loading details..." ||
+      !secondLoading.retryHidden ||
+      JSON.stringify(secondLoading).includes("First") ||
+      secondLoaded.title !== "Second Detail" ||
+      secondLoaded.director !== "Second Director" ||
+      !secondLoaded.overview?.includes("Second detail")
+    ) {
+      throw new Error(`Movie detail stale state was not cleared: ${JSON.stringify({ firstLoaded, secondLoading, secondLoaded })}`);
+    }
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { firstLoaded, secondLoading, secondLoaded },
+      screenshots: [firstShot, loadingShot, await page.screenshot("movie-detail-second-loaded.png")],
     };
   } finally {
     await page.close();
@@ -4182,6 +4306,7 @@ const tests = [
   { name: "watch queue comparison flow", run: testQueueComparison },
   { name: "browser storage failure warning", run: testStorageFailureWarning },
   { name: "TMDB failure and recovery", run: testTmdbFailureRecovery },
+  { name: "movie detail clears between ranked movies", run: testMovieDetailClearsBetweenRankedMovies },
   { name: "comparison undo and cancel restore origin", run: testComparisonUndoCancel },
   { name: "ranking review swap, Escape, and session undo", run: testRankingReviewSession },
   { name: "autocomplete keyboard selection", run: testAutocompleteKeyboardSelection },

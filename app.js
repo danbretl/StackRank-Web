@@ -304,6 +304,7 @@ const detailDirector = document.getElementById("detail-director");
 const detailCast = document.getElementById("detail-cast");
 const detailStatus = document.getElementById("detail-status");
 const detailRetry = document.getElementById("detail-retry");
+const detailSheet = detailOverlay.querySelector(".detail-sheet");
 const detailActions = detailOverlay.querySelector(".detail-actions");
 const detailRank = document.getElementById("detail-rank");
 const detailSave = document.getElementById("detail-save");
@@ -558,6 +559,7 @@ let placeholderFadeTimer = null;
 let currentDetail = null;
 let detailRequestId = 0;
 let detailTrigger = null;
+let lastRenderedDetailKey = null;
 const detailCache = new Map();
 const detailRequests = new Map();
 let tasteExplorerExpanded = false;
@@ -4160,7 +4162,27 @@ const setDetailActionsDisabled = (disabled) => {
   detailHide.disabled = disabled;
 };
 
+const detailIdentityKey = (movie) => {
+  if (!movie) return "";
+  return movie.tmdbId ? `tmdb:${movie.tmdbId}` : movieKey(movie);
+};
+
+const renderDetailLoadingPane = (status = "Loading details...") => {
+  detailSheet.classList.add("is-loading");
+  detailTitle.textContent = "Loading details";
+  detailSub.textContent = "";
+  detailGenres.textContent = "";
+  detailOverview.textContent = "";
+  detailDirector.textContent = "";
+  detailCast.textContent = "";
+  detailStatus.textContent = status;
+  detailRetry.hidden = true;
+  setPoster(detailPoster, null);
+};
+
 const renderDetailPane = (movie, status = "") => {
+  detailSheet.classList.remove("is-loading");
+  lastRenderedDetailKey = detailIdentityKey(movie);
   detailTitle.textContent = movie.title || "Movie";
   const metaParts = [];
   if (movie.year) metaParts.push(String(movie.year));
@@ -4267,11 +4289,20 @@ const openMovieDetail = async (movie, context = null, triggerEl = null) => {
     return;
   }
   const detailContext = normalizeDetailContext(context);
+  const detailKey = detailIdentityKey(movie);
+  const cachedDetail = movie?.tmdbId ? detailCache.get(String(movie.tmdbId)) : null;
+  const canReuseRenderedDetail = Boolean(detailKey && detailKey === lastRenderedDetailKey && cachedDetail);
   const requestId = ++detailRequestId;
-  currentDetail = { movie, context: detailContext };
+  currentDetail = { movie: cachedDetail || movie, context: detailContext };
   detailTrigger = triggerEl;
-  configureDetailActions(movie, detailContext);
-  renderDetailPane(movie, movie.tmdbId ? "Loading details..." : "More details unavailable.");
+  configureDetailActions(cachedDetail || movie, detailContext);
+  if (canReuseRenderedDetail) {
+    renderDetailPane(cachedDetail);
+  } else if (movie.tmdbId) {
+    renderDetailLoadingPane("Loading details...");
+  } else {
+    renderDetailPane(movie, "More details unavailable.");
+  }
   setDetailActionsDisabled(false);
   detailOverlay.hidden = false;
   syncModalIsolation();

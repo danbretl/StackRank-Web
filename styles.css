@@ -7819,18 +7819,26 @@ body.is-comparing .card--clickable.is-pressed {
 
 @media (max-width: 720px) {
   .panel--list .panel__actions {
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: stretch;
     gap: var(--space-1);
+    width: 100%;
   }
 
   .panel--list .panel__actions .icon-button {
-    min-height: var(--icon-target-coarse);
-    padding: 0 var(--space-2);
+    width: 100%;
+    min-width: 0;
+    min-height: 56px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    padding: var(--space-1) 0;
   }
 
-  #ranking-review .icon-button__label,
-  #share-list .icon-button__label {
+  .panel--list .panel__actions .icon-button__label {
     display: block;
+    white-space: nowrap;
   }
 
   .ranking li {

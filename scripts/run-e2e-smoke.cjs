@@ -554,7 +554,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=108" ||
+      desktop.cssHref !== "styles.css?v=109" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -843,6 +843,32 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         scrollWidth: document.documentElement.scrollWidth,
         innerWidth,
         innerHeight,
+        toolbarControls: (() => {
+          const expectedIds = ['ranking-review', 'ranking-filter-toggle', 'ranking-expand', 'share-list'];
+          return expectedIds.map((id) => {
+            const button = document.getElementById(id);
+            const label = button?.querySelector('.icon-button__label');
+            const bounds = button?.getBoundingClientRect();
+            const labelBounds = label?.getBoundingClientRect();
+            const style = label ? getComputedStyle(label) : null;
+            return {
+              id,
+              label: label?.textContent.trim() || '',
+              buttonWidth: bounds?.width || 0,
+              buttonHeight: bounds?.height || 0,
+              labelWidth: labelBounds?.width || 0,
+              labelHeight: labelBounds?.height || 0,
+              display: style?.display || '',
+              visibility: style?.visibility || '',
+              opacity: style?.opacity || '',
+              scrollWidth: button?.scrollWidth || 0
+            };
+          });
+        })(),
+        toolbarRows: (() => {
+          const controls = [...document.querySelectorAll('.panel--list .panel__actions .icon-button')];
+          return [...new Set(controls.map((button) => Math.round(button.getBoundingClientRect().top)))];
+        })(),
         rowControls: (() => {
           const first = document.querySelector('#ranking .ranking__item');
           const visible = (selector) => {
@@ -905,6 +931,18 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       mobileRank.mobileNav.height < 68 ||
       mobileRank.topNavVisible ||
       mobileRank.scrollWidth > mobileRank.innerWidth ||
+      mobileRank.toolbarControls.map((control) => control.label).join("|") !== "Review|Filter|Full screen|Share" ||
+      mobileRank.toolbarRows.length !== 1 ||
+      mobileRank.toolbarControls.some((control) =>
+        control.buttonWidth < 44 ||
+        control.buttonHeight < 44 ||
+        control.labelWidth <= 0 ||
+        control.labelHeight <= 0 ||
+        control.display === "none" ||
+        control.visibility === "hidden" ||
+        control.opacity === "0" ||
+        control.scrollWidth > Math.ceil(control.buttonWidth)
+      ) ||
       mobileRank.rowControls.rowTouchAction !== "pan-y" ||
       mobileRank.rowControls.handleTouchAction !== "none" ||
       !mobileRank.rowControls.infoVisible ||
@@ -1109,7 +1147,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
       empty.moduleSrc !== "app.js?v=146" ||
-      empty.cssHref !== "styles.css?v=108" ||
+      empty.cssHref !== "styles.css?v=109" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||

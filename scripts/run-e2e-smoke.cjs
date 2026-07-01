@@ -554,7 +554,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=106" ||
+      desktop.cssHref !== "styles.css?v=107" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -1073,7 +1073,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
       empty.moduleSrc !== "app.js?v=145" ||
-      empty.cssHref !== "styles.css?v=106" ||
+      empty.cssHref !== "styles.css?v=107" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -1702,6 +1702,28 @@ const testTmdbFailureRecovery = async ({ baseUrl }) => {
       detailStatus: document.querySelector('#detail-status')?.textContent.trim(),
       detailRetryHidden: document.querySelector('#detail-retry')?.hidden
     }))()`);
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 390,
+      height: 844,
+      deviceScaleFactor: 1,
+      mobile: false,
+      screenWidth: 390,
+      screenHeight: 844,
+    });
+    await wait(250);
+    const mobileDetail = await page.evaluate(`(() => {
+      const rows = [...document.querySelectorAll('#movie-detail .detail-meta > div')];
+      const lastRow = rows.at(-1);
+      const sheet = document.querySelector('#movie-detail .detail-sheet');
+      return {
+        rowCount: rows.length,
+        lastRowBorderBottom: lastRow ? getComputedStyle(lastRow).borderBottomWidth : null,
+        detailHidden: document.querySelector('#movie-detail')?.hidden,
+        scrollWidth: document.documentElement.scrollWidth,
+        innerWidth,
+        sheetRight: sheet?.getBoundingClientRect().right ?? null
+      };
+    })()`);
     if (
       failed.sectionErrors.length !== 3 ||
       !failed.searchStatus?.includes("Search is unavailable") ||
@@ -1710,15 +1732,20 @@ const testTmdbFailureRecovery = async ({ baseUrl }) => {
       recoveredSearchTitle !== "Recovered Search" ||
       !recovered.detailSub?.includes("1h 51m") ||
       recovered.detailStatus ||
-      !recovered.detailRetryHidden
+      !recovered.detailRetryHidden ||
+      mobileDetail.detailHidden ||
+      mobileDetail.rowCount < 2 ||
+      mobileDetail.lastRowBorderBottom !== "0px" ||
+      mobileDetail.scrollWidth > mobileDetail.innerWidth ||
+      mobileDetail.sheetRight > mobileDetail.innerWidth
     ) {
-      throw new Error(`TMDB failure recovery is wrong: ${JSON.stringify({ failed, recovered })}`);
+      throw new Error(`TMDB failure recovery is wrong: ${JSON.stringify({ failed, recovered, mobileDetail })}`);
     }
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { failed, recoveredSearchTitle, recovered },
-      screenshots: [failedShot, await page.screenshot("tmdb-failure-recovered.png")],
+      details: { failed, recoveredSearchTitle, recovered, mobileDetail },
+      screenshots: [failedShot, await page.screenshot("tmdb-failure-recovered-mobile-detail.png")],
     };
   } finally {
     await page.close();

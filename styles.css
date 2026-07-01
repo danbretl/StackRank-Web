@@ -3102,6 +3102,10 @@ body.is-comparing .compare-panel {
   border-bottom: 1px solid var(--rule);
 }
 
+.detail-meta div:last-child {
+  border-bottom: 0;
+}
+
 .detail-meta dt {
   color: var(--ink-soft);
   text-transform: uppercase;

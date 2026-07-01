@@ -261,6 +261,7 @@ const shareIncludePacks = document.getElementById("share-include-packs");
 const shareIncludeFullList = document.getElementById("share-include-full-list");
 const shareFullListStyleControls = document.querySelectorAll('input[name="share-full-list-style"]');
 const shareShapeFieldset = document.getElementById("share-shape-fieldset");
+const shareContentCount = document.getElementById("share-content-count");
 const shareDownloadPng = document.getElementById("share-download-png");
 const shareNativeShare = document.getElementById("share-native-share");
 const shareDownloadSvg = document.getElementById("share-download-svg");
@@ -7056,6 +7057,15 @@ function updateShareModeControls() {
   }
 }
 
+function setShareButtonLabel(button, label) {
+  const labelEl = button?.querySelector?.("[data-share-button-label]");
+  if (labelEl) {
+    labelEl.textContent = label;
+  } else if (button) {
+    button.textContent = label;
+  }
+}
+
 function saveShareOptions() {
   if (!storageEnabled) {
     setLocalPersistenceAvailability(false, "share");
@@ -7123,15 +7133,20 @@ const SHARE_INCLUDE_META = [
 // appears. Cheap DOM-only work, safe to call on every preview refresh.
 function updateShareIncludeAvailability(insights = getRankingInsights()) {
   const availability = shareSectionAvailability(insights);
+  let includedCount = 0;
   SHARE_INCLUDE_META.forEach(({ key, input, label }) => {
     if (!input) return;
     const available = availability[key] !== false;
     input.disabled = !available;
+    if (available && input.checked) includedCount += 1;
     const toggle = input.closest(".share-toggle");
     if (toggle) toggle.classList.toggle("share-toggle--empty", !available);
     const text = input.nextElementSibling;
     if (text) text.textContent = available ? label : `${label} (empty)`;
   });
+  if (shareContentCount) {
+    shareContentCount.textContent = `${includedCount} section${includedCount === 1 ? "" : "s"} included`;
+  }
 }
 
 // Status text + button states only — cheap, and crucially does NOT touch the
@@ -7287,15 +7302,17 @@ function updateShareStudio() {
     const count = images.cards.length;
     const canShareSet = canNativeSharePngFiles(count);
     // 2+ cards ship as a single .zip; a 1-card set is just one plain file.
-    shareDownloadPng.textContent =
-      count > 1 ? `Download zip (${count})` : count ? "Download image" : "Download images";
+    setShareButtonLabel(
+      shareDownloadPng,
+      count > 1 ? `Download zip (${count})` : count ? "Download image" : "Download images",
+    );
     shareNativeShare.hidden = false;
     if (canShareSet) {
-      shareNativeShare.textContent = count > 1 ? `Share set (${count})` : "Save / Share";
+      setShareButtonLabel(shareNativeShare, count > 1 ? `Share set (${count})` : "Share");
     } else if (canSharePage) {
-      shareNativeShare.textContent = "Share page";
+      setShareButtonLabel(shareNativeShare, "Share page");
     } else {
-      shareNativeShare.textContent = count > 1 ? `Share set (${count})` : "Save / Share";
+      setShareButtonLabel(shareNativeShare, count > 1 ? `Share set (${count})` : "Share");
     }
     shareNativeShare.dataset.available = String(canShareSet || canSharePage);
     shareNativeShare.title = canShareSet || canSharePage ? "" : NATIVE_SHARE_UNAVAILABLE_MESSAGE;
@@ -7305,12 +7322,12 @@ function updateShareStudio() {
       sharePreview.innerHTML = images.svg;
       lastSharePreviewMarkup = images.svg;
     }
-    shareDownloadPng.textContent = "Download PNG";
+    setShareButtonLabel(shareDownloadPng, "Download PNG");
     const canShareImage = canNativeSharePngFiles(1);
     shareNativeShare.hidden = false;
     shareNativeShare.dataset.available = String(canShareImage);
     shareNativeShare.title = canShareImage ? "" : NATIVE_SHARE_UNAVAILABLE_MESSAGE;
-    shareNativeShare.textContent = "Save / Share";
+    setShareButtonLabel(shareNativeShare, "Share");
     shareDownloadSvg.textContent = "SVG";
   }
   updateShareExportControls();

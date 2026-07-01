@@ -1032,8 +1032,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=142" ||
-      empty.cssHref !== "styles.css?v=102" ||
+      empty.moduleSrc !== "app.js?v=143" ||
+      empty.cssHref !== "styles.css?v=103" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -3790,7 +3790,23 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
   try {
     await seedPage(page, baseUrl, "mobile-pack-title-clearance", { ranking: [] });
     await waitFor(page, `document.querySelectorAll('#pack-row .pack-card').length === 3`, 10000);
-    await page.evaluate(`document.querySelector('.app-nav--mobile [data-app-destination-target="discover"]')?.click(); true;`);
+    const navClickState = await page.evaluate(`(() => {
+      const button = document.querySelector('.app-nav--mobile [data-app-destination-target="discover"]');
+      const topButton = document.querySelector('.app-nav--top [data-app-destination-target="discover"]');
+      button?.click();
+      return {
+        found: Boolean(button),
+        topFound: Boolean(topButton),
+        destination: document.querySelector('main.app')?.dataset.appDestination,
+        mobileDisplay: button ? getComputedStyle(button.closest('.app-nav--mobile')).display : null,
+        inert: document.querySelector('main.app')?.inert,
+        bodyClass: document.body.className,
+        buttonText: button?.textContent.trim() || null,
+      };
+    })()`);
+    if (navClickState.destination !== "discover") {
+      throw new Error(`Mobile Discover nav did not activate: ${JSON.stringify(navClickState)}`);
+    }
     await waitFor(page, `document.querySelector('main.app')?.dataset.appDestination === 'discover'`, 5000);
     await page.evaluate(`document.querySelector('#pack-view-all')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#pack-detail')?.hidden && document.querySelector('#pack-detail')?.classList.contains('is-all-packs')`, 5000);

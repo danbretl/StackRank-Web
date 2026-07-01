@@ -5,8 +5,8 @@
 - **Initiative:** Core product design-system and experience redesign
 - **Priority:** Critical
 - **Product owner approval:** Approved in principle on 2026-06-30; minor adjustments may be made during implementation
-- **Implementation status:** Phase 6 complete; overlay and workspace system migrated to the approved taxonomy
-- **Current phase:** Phase 7 — Share Studio controls (ready, not started)
+- **Implementation status:** Phase 7 complete; Share Studio controls migrated to the approved control hierarchy
+- **Current phase:** Phase 8 — comprehensive responsive and regression QA (ready, not started)
 - **Last updated:** 2026-07-01
 - **Source of truth:** This document governs the redesign unless a later product decision is recorded in the decision log
 
@@ -23,7 +23,7 @@
 - [x] Phase 4 — core ranking flows
 - [x] Phase 5 — discovery, lists, and Taste Explorer
 - [x] Phase 6 — overlay and workspace system
-- [ ] Phase 7 — Share Studio controls
+- [x] Phase 7 — Share Studio controls
 - [ ] Phase 8 — comprehensive responsive and regression QA
 - [ ] Production release and post-release review
 
@@ -1119,22 +1119,33 @@ This ledger evaluates the approved concepts only for the foundations in Phase 1.
 
 ### Tasks
 
-- [ ] Use segmented controls for Format and Shape.
-- [ ] Present Look as visual swatches/cards.
-- [ ] Present Tone as clear selectable chips.
-- [ ] Group Include options under collapsible Content.
-- [ ] Move Markdown, JSON, and Text under Advanced exports.
-- [ ] Add a sticky Download PNG / Share action footer.
-- [ ] Keep mobile preview and primary export actions reachable.
-- [ ] Preserve empty-section disabling and labels.
-- [ ] Preserve single-image, image-set, ZIP, per-page, native share, and lightbox behavior.
-- [ ] Preserve saved Share options and migrations.
+- [x] Use segmented controls for Format and Shape.
+- [x] Present Look as visual swatches/cards.
+- [x] Present Tone as clear selectable chips.
+- [x] Group Include options under collapsible Content.
+- [x] Move Markdown, JSON, and Text under Advanced exports.
+- [x] Add a sticky Download PNG / Share action footer.
+- [x] Keep mobile preview and primary export actions reachable.
+- [x] Preserve empty-section disabling and labels.
+- [x] Preserve single-image, image-set, ZIP, per-page, native share, and lightbox behavior.
+- [x] Preserve saved Share options and migrations.
 
 ### Acceptance gate
 
 - Existing export fixtures and E2E downloads remain valid.
 - Common image export actions are visible without traversing the entire mobile configuration form.
 - Control selection, disabled states, and focus treatment match the main design system.
+
+### Phase 7 fidelity ledger
+
+| Reference | Phase 7 comparison points | Phase 7 result |
+| --- | --- | --- |
+| Mobile Share Studio controls | Format and Shape should render as segmented controls with filled ink selected states and code-native labels/icons | Matched. Format and Shape now use native radio inputs inside custom segmented controls; selected state is ink-filled, disabled Shape still hides for Image set, and saved option values remain `single`/`set` and `skinny`/`wide`. |
+| Mobile Share Studio controls | Look should be a visual swatch/card row and Tone should be selectable chips rather than native radio rows | Matched with code-native thumbnail swatches. The five looks use compact poster-like swatches with theme accents and clear selected outlines; Tone uses pill chips with the shared filled selected state. |
+| Mobile Share Studio controls | Include options should be grouped under Content and technical exports should move under Advanced exports | Matched. Content is collapsed by default with a live included-section count, contains Display name, Include toggles, and whole-list style; Advanced exports contains SVG, Markdown, JSON, and Text. Empty-section disabling and `(empty)` labels are preserved on the original checkboxes. |
+| Mobile Share Studio controls | Download PNG and Share should be reachable from a sticky action footer without covering controls | Matched after rendered correction. The export footer is now a workspace footer row, not an overlay inside the controls column; mobile portrait and landscape screenshots show no horizontal overflow and no control overlap. |
+| Mobile Share Studio controls | Existing single-image, image-set, ZIP, per-page, native share, and lightbox behavior must remain intact | Matched. Focused E2E passed for Share Studio preview/empty toggles/lightbox/page download/set navigation, and the PNG/ZIP download flow passed without changing export schemas, saved option semantics, or poster/SVG generation. |
+| Responsive comparison | Phase 7 control work must not regress protected comparison geometry | Matched. Deterministic `mobile-comparison-landscape` remained exactly 844×390 with no document overflow after the Share Studio changes. |
 
 ## Phase 8 — comprehensive verification and release readiness
 
@@ -1262,6 +1273,9 @@ Record material product, interaction, or visual decisions here. Minor CSS adjust
 | 2026-07-01 | Hide recent activity for one- and two-movie rankings | In those states the panel only duplicates the current ranking and weakens the ranking-first hierarchy | Recently ranked remains for empty/three-plus lists, while Taste becomes the stronger reward surface after five movies |
 | 2026-07-01 | Keep Share Studio control semantics unchanged during Phase 6 | Phase 6 owns workspace taxonomy and chrome, while Format/Shape/Look/Tone/Content/Advanced controls are explicitly Phase 7 | Share Studio now uses the shared workspace shell and mobile full-height layout without changing saved options, exports, empty-section behavior, or control structure |
 | 2026-07-01 | Render pack detail movie rows as one-column sheet rows | The previous two-column sheet layout became too narrow once actions moved into the shared footer model and could collide with movie text | Pack browser cards remain multi-column/one-column by breakpoint, while individual pack detail sheets use readable MovieItem rows with a sticky action footer |
+| 2026-07-01 | Keep Share Studio options native-input backed while replacing the visible controls | Saved Share Studio options, E2E selectors, and export logic depend on the existing input names, ids, and values | Format, Shape, Look, Tone, Content, and Advanced now use custom controls without changing option migration, export schemas, or download/share behavior |
+| 2026-07-01 | Move Share Studio display name into the Content disclosure | The approved Share Studio reference keeps the header focused on title/preview and mobile export actions reachable | Display name remains available and persisted, but no longer pushes the primary preview/configuration stack down on mobile |
+| 2026-07-01 | Put SVG with Advanced exports while keeping PNG and Share as the primary footer actions | SVG is a technical export and competed with the common image actions | Primary image actions stay in the sticky footer; SVG, Markdown, JSON, and Text live under Advanced exports |
 
 ## Progress log
 
@@ -1277,11 +1291,12 @@ Add one concise entry after each completed implementation phase.
 | 2026-07-01 | Phase 4 | Migrated core ranking flows: stable Add/Search and tighter first-run copy, artifact-style ranking rows with `01` numerals and contextual row actions, equal comparison surfaces, shared comparison/review action bar, and pressed feedback before decisions advance | Focused unit checks passed; in-app browser at desktop 1440×900, mobile 390×844, and mobile landscape 844×390; normal comparison and review were scroll-free with no console errors; `npm run verify` passed | Begin Phase 5 discovery, lists, and Taste Explorer without revisiting the approved Phase 4 comparison/ranking concepts |
 | 2026-07-01 | Phase 5 | Migrated discovery, lists, packs, and Taste support surfaces: touch-safe suggestion controls, progress-led pack cards and full-screen mobile All Packs, segmented Watch next / Hidden lists, and `Your taste` reward treatment with compact recent activity | In-app browser page health plus desktop/mobile Lists interaction; populated screenshots at desktop 1440×900, mobile 390×844, mobile All Packs, desktop All Packs, and mobile landscape comparison; focused E2E passed; `npm run verify` passed (197 Node, 3 Deno, 23 E2E) | Begin Phase 6 overlay and workspace system only after explicit authorization |
 | 2026-07-01 | Phase 6 | Migrated overlay taxonomy and workspace chrome: settings popover, detail/sign-in/import sheets, All Packs/full-screen/Share workspaces, lightbox continuity, cinematic detail header, shared close controls, sticky action footers, safe-area mobile workspaces, contextual full-screen ranking cards, and readable pack detail rows | In-app browser at desktop, mobile portrait, and mobile landscape; deterministic screenshots for main, comparison landscape, all-packs, pack detail, movie detail, and Share Studio; focused E2E passed for sign-in, backup/import, Share Studio, full-screen ranking, pack browser, Rank all, and mobile pack title clearance | Begin Phase 7 Share Studio controls only after explicit authorization; do not revisit Phase 1-6 concepts unless a new decision is recorded |
+| 2026-07-01 | Phase 7 | Migrated Share Studio controls: segmented Format/Shape, visual Look swatches, Tone chips, collapsible Content and Advanced exports, and a sticky PNG/Share footer while preserving all export semantics | Focused Share unit tests passed; deterministic screenshots at desktop 1440×900, mobile 390×844, and mobile landscape comparison; in-app Browser smoke covered live search → Share on mobile/desktop/landscape; focused Share and download E2E passed; `npm run verify` passed | Begin Phase 8 comprehensive responsive and regression QA only after explicit authorization; do not revisit Phase 1-7 concepts unless a new decision is recorded |
 
 ## Fresh-session handoff
 
 Start a new implementation session with this instruction:
 
-> Read `AGENTS.md` and `notes/feature-ideas/design-audit.md` in full. Treat the approved Phase 0 references, exact written visual specification, decisions, constraints, phase gates, fidelity ledger, and progress checklist as the source of truth. Phase 6 is complete; begin at the first unchecked task in Phase 7 only if explicitly authorized, preserve product behavior, and do not revisit Phases 1-6 unless a new decision is recorded. Update the checklist, decision log, fidelity/progress notes, and shared brief cache-key notes as needed; bump every relevant CSS, JavaScript, library, or data cache key. Do not commit or push unless I explicitly ask.
+> Read `AGENTS.md` and `notes/feature-ideas/design-audit.md` in full. Treat the approved Phase 0 references, exact written visual specification, decisions, constraints, phase gates, fidelity ledger, and progress checklist as the source of truth. Phase 7 is complete; begin at the first unchecked task in Phase 8 only if explicitly authorized, preserve product behavior, and do not revisit Phases 1-7 unless a new decision is recorded. Update the checklist, decision log, fidelity/progress notes, and shared brief cache-key notes as needed; bump every relevant CSS, JavaScript, library, or data cache key. Do not commit or push unless I explicitly ask.
 
 The audit, reference assets, and baseline captures are the governing design record. Preserve them and do not reinterpret the approved concepts unless a new decision-log entry explicitly changes direction.

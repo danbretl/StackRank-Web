@@ -554,7 +554,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=107" ||
+      desktop.cssHref !== "styles.css?v=108" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -859,11 +859,24 @@ const testAppShellNavigation = async ({ baseUrl }) => {
           };
           const rank = first?.querySelector('.movie-item__rank');
           const poster = first?.querySelector('.movie-item__poster');
+          const actions = first?.querySelector('.movie-item__actions');
           const originalRank = rank?.textContent || '';
           if (rank) rank.textContent = '113';
           const rankRect = rank?.getBoundingClientRect();
           const posterRect = poster?.getBoundingClientRect();
           if (rank) rank.textContent = originalRank;
+          const actionRects = [...(actions?.querySelectorAll('.movie-item__action') || [])].map((button) => {
+            const bounds = button.getBoundingClientRect();
+            const style = getComputedStyle(button);
+            return {
+              text: button.textContent.trim(),
+              width: bounds.width,
+              height: bounds.height,
+              display: style.display,
+              visibility: style.visibility,
+              pointerEvents: style.pointerEvents
+            };
+          });
           return {
             rowTouchAction: first ? getComputedStyle(first).touchAction : '',
             handleTouchAction: first?.querySelector('.ranking__handle')
@@ -872,7 +885,10 @@ const testAppShellNavigation = async ({ baseUrl }) => {
             infoVisible: visible('.ranking__info'),
             restackVisible: visible('.ranking__restack'),
             handleVisible: visible('.ranking__handle'),
-            overflowVisible: visible('.movie-item__overflow-toggle'),
+            removeVisible: visible('.ranking__delete'),
+            overflowCount: first?.querySelectorAll('.movie-item__overflow-toggle').length ?? 0,
+            actionLabels: actionRects.map((action) => action.text),
+            actionRects,
             tripleRankClearance: rankRect && posterRect ? posterRect.left - rankRect.right : null
           };
         })()
@@ -894,7 +910,16 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       !mobileRank.rowControls.infoVisible ||
       !mobileRank.rowControls.restackVisible ||
       !mobileRank.rowControls.handleVisible ||
-      !mobileRank.rowControls.overflowVisible ||
+      !mobileRank.rowControls.removeVisible ||
+      mobileRank.rowControls.overflowCount !== 0 ||
+      mobileRank.rowControls.actionLabels.join("|") !== "Info|Re-rank|Move|Remove" ||
+      mobileRank.rowControls.actionRects.some((action) =>
+        action.width < 44 ||
+        action.height < 44 ||
+        action.display === "none" ||
+        action.visibility === "hidden" ||
+        action.pointerEvents === "none"
+      ) ||
       mobileRank.rowControls.tripleRankClearance < 4
     ) {
       throw new Error(`Mobile Rank shell is wrong: ${JSON.stringify(mobileRank)}`);
@@ -954,6 +979,14 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         hiddenVisible: inFlow('#not-interested-list'),
         watchSelected: document.querySelector('#watch-list-tab')?.getAttribute('aria-selected'),
         hiddenSelected: document.querySelector('#hidden-list-tab')?.getAttribute('aria-selected'),
+        firstActionLabels: [...document.querySelectorAll('#watch-list .queue-list__item:first-child .movie-item__action')]
+          .map((button) => button.textContent.trim()),
+        overflowCount: document.querySelectorAll('#watch-list .queue-list__item:first-child .movie-item__overflow-toggle').length,
+        firstActionRects: [...document.querySelectorAll('#watch-list .queue-list__item:first-child .movie-item__action')]
+          .map((button) => {
+            const bounds = button.getBoundingClientRect();
+            return { text: button.textContent.trim(), width: bounds.width, height: bounds.height };
+          }),
         addVisible: inFlow('.panel--add'),
         rankingVisible: inFlow('.panel--list'),
         discoveryVisible: inFlow('.panel--discovery'),
@@ -969,6 +1002,9 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       mobileLists.hiddenVisible ||
       mobileLists.watchSelected !== "true" ||
       mobileLists.hiddenSelected !== "false" ||
+      mobileLists.firstActionLabels.join("|") !== "Rank|Hide|Remove" ||
+      mobileLists.overflowCount !== 0 ||
+      mobileLists.firstActionRects.some((action) => action.width < 44 || action.height < 44) ||
       mobileLists.addVisible ||
       mobileLists.rankingVisible ||
       mobileLists.discoveryVisible ||
@@ -1072,8 +1108,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=145" ||
-      empty.cssHref !== "styles.css?v=107" ||
+      empty.moduleSrc !== "app.js?v=146" ||
+      empty.cssHref !== "styles.css?v=108" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||

@@ -1322,31 +1322,42 @@ const renderRanking = () => {
       if (!haystack.includes(query)) return;
     }
     visibleCount += 1;
-    const handle = document.createElement("span");
-    handle.className = "ranking__handle movie-item__handle";
-    handle.appendChild(createUiIcon("drag"));
-    handle.setAttribute("aria-hidden", "true");
-    handle.setAttribute("title", "Drag to reorder");
-    const restackButton = document.createElement("button");
-    restackButton.className = "ranking__restack movie-item__icon-action";
-    restackButton.type = "button";
-    restackButton.setAttribute("aria-label", `Re-rank ${movie.title}`);
-    restackButton.appendChild(createUiIcon("refresh"));
-    const removeButton = document.createElement("button");
-    removeButton.className = "ranking__delete movie-item__overflow-action movie-item__overflow-action--danger";
-    removeButton.type = "button";
-    removeButton.setAttribute("aria-label", `Remove ${movie.title}`);
-    removeButton.textContent = "Remove";
-    const infoButton = createMovieInfoButton(movie, "ranking__info");
-    const overflow = createMovieOverflow(`More actions for ${movie.title}`, [removeButton]);
-    overflow.classList.add("ranking__overflow");
+    const infoButton = createMovieActionButton({
+      label: "Info",
+      icon: "info",
+      ariaLabel: `Show details for ${movie.title}`,
+      kind: "secondary",
+      className: "ranking__info",
+    });
+    const restackButton = createMovieActionButton({
+      label: "Re-rank",
+      icon: "refresh",
+      ariaLabel: `Re-rank ${movie.title}`,
+      kind: "secondary",
+      className: "ranking__restack",
+    });
+    const handle = createMovieActionButton({
+      label: "Move",
+      icon: "drag",
+      ariaLabel: `Drag to reorder ${movie.title}`,
+      kind: "tertiary",
+      className: "ranking__handle movie-item__handle",
+    });
+    handle.title = "Drag to reorder";
+    const removeButton = createMovieActionButton({
+      label: "Remove",
+      icon: "remove",
+      ariaLabel: `Remove ${movie.title}`,
+      kind: "danger",
+      className: "ranking__delete",
+    });
     const item = createMovieItem({
       element: "li",
       variant: "ranking",
       movie,
       rank: index + 1,
       metadata: "Current ranking",
-      actions: [infoButton, restackButton, handle, overflow],
+      actions: [infoButton, restackButton, handle, removeButton],
       className: "ranking__item",
       legacyPosterClass: "ranking__poster",
     });
@@ -1803,8 +1814,6 @@ const renderQueueList = (container, list, emptyText, source) => {
       "remove",
       "queue-action--remove",
     );
-    const overflow = createMovieOverflow(`More actions for ${movie.title}`, [removeButton]);
-    overflow.classList.add("queue-list__overflow");
     if (source === "watch") {
       actions.append(
         rankButton,
@@ -1814,7 +1823,7 @@ const renderQueueList = (container, list, emptyText, source) => {
           "move",
           "queue-action--secondary",
         ),
-        overflow,
+        removeButton,
       );
     } else {
       actions.append(
@@ -1825,7 +1834,7 @@ const renderQueueList = (container, list, emptyText, source) => {
           "move",
           "queue-action--secondary",
         ),
-        overflow,
+        removeButton,
       );
     }
 

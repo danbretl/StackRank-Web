@@ -1177,6 +1177,17 @@ const setPoster = (imageEl, movie) => {
   }
 };
 
+const setComparisonPoster = (cardEl, imageEl, movie) => {
+  setPoster(imageEl, movie);
+  if (movie?.posterPath) {
+    cardEl.style.setProperty("--compare-poster", `url("${TMDB_POSTER_BASE}${movie.posterPath}")`);
+    cardEl.classList.add("has-poster");
+  } else {
+    cardEl.style.removeProperty("--compare-poster");
+    cardEl.classList.remove("has-poster");
+  }
+};
+
 // formatRuntime, formatRuntimeTotal, formatShareRuntimeTotal now live in
 // lib/format.js, imported at the top.
 
@@ -2425,10 +2436,10 @@ const showComparison = () => {
 
   newTitle.textContent = pending.title;
   newMeta.textContent = formatMeta(pending);
-  setPoster(newPoster, pending);
+  setComparisonPoster(newCard, newPoster, pending);
   existingTitle.textContent = existing.title;
   existingMeta.textContent = formatMeta(existing);
-  setPoster(existingPoster, existing);
+  setComparisonPoster(existingCard, existingPoster, existing);
   newCard.setAttribute("aria-label", `Choose ${pending.title}`);
   existingCard.setAttribute("aria-label", `Choose ${existing.title}`);
 

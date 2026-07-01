@@ -554,7 +554,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=111" ||
+      desktop.cssHref !== "styles.css?v=112" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -1199,8 +1199,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=147" ||
-      empty.cssHref !== "styles.css?v=111" ||
+      empty.moduleSrc !== "app.js?v=148" ||
+      empty.cssHref !== "styles.css?v=112" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -2276,13 +2276,41 @@ const testComparisonResponsiveLayouts = async ({ baseUrl }) => {
   const runViewport = async ({ name, width, height, orientation }) => {
     const page = await openChromePage({ name, width, height });
     try {
+      await page.send("Page.addScriptToEvaluateOnNewDocument", {
+        source: `
+          (() => {
+            const realFetch = window.fetch.bind(window);
+            const jsonResponse = (value) => Promise.resolve(new Response(JSON.stringify(value), {
+              status: 200,
+              headers: { 'Content-Type': 'application/json' }
+            }));
+            window.fetch = (input, options) => {
+              const url = typeof input === 'string' ? input : input?.url || '';
+              if (url.includes('/functions/v1/tmdb-suggest')) {
+                return jsonResponse({ results: [] });
+              }
+              return realFetch(input, options);
+            };
+          })();
+        `,
+      });
+      const withPoster = (base, posterPath) => ({ ...base, posterPath });
       await seedPage(page, baseUrl, name, {
-        ranking: [movie("Alpha", 1990, 1190), movie("Beta", 2000, 1191), movie("Gamma", 2010, 1192)],
-        watchList: [queueMovie("Responsive Choice", 2024, 1193)],
+        ranking: [
+          withPoster(movie("Alpha", 1990, 1190), "/wby9315QzVKdW9BonAefg8jGTTb.jpg"),
+          withPoster(movie("Beta", 2000, 1191), "/5MwkWH9tYHv3mV9OdYTMR5qreIz.jpg"),
+          withPoster(movie("Gamma", 2010, 1192), "/8OKmBV5BUFzmozIC3pPWKHy17kx.jpg"),
+        ],
+        watchList: [withPoster(queueMovie("Responsive Choice", 2024, 1193), "/15uOEfqBNTVtDUT7hGBVCka0rZz.jpg")],
       });
       await page.evaluate(`document.querySelector('#watch-list .queue-list__item')?.click(); true;`);
       await waitFor(page, `document.body.classList.contains('is-comparing')`, 3000);
-      await wait(450);
+      await waitFor(
+        page,
+        `Array.from(document.querySelectorAll('#compare .card__poster')).every((img) => img.complete && img.naturalWidth > 0)`,
+        5000,
+      );
+      await wait(200);
       const layout = await page.evaluate(`(() => {
         const rect = (selector) => {
           const value = document.querySelector(selector)?.getBoundingClientRect();
@@ -2297,6 +2325,12 @@ const testComparisonResponsiveLayouts = async ({ baseUrl }) => {
         };
         const first = rect('#new-card');
         const second = rect('#existing-card');
+        const firstPoster = rect('#new-poster');
+        const secondPoster = rect('#existing-poster');
+        const firstTitle = rect('#new-title');
+        const firstMeta = rect('#new-meta');
+        const secondTitle = rect('#existing-title');
+        const secondMeta = rect('#existing-meta');
         const controls = rect('.compare__controls');
         const within = (value) => !!value &&
           value.left >= -1 && value.top >= -1 &&
@@ -2309,6 +2343,18 @@ const testComparisonResponsiveLayouts = async ({ baseUrl }) => {
           innerHeight,
           first,
           second,
+          firstPoster,
+          secondPoster,
+          firstTitle,
+          firstMeta,
+          secondTitle,
+          secondMeta,
+          firstHasPoster: document.querySelector('#new-card')?.classList.contains('has-poster'),
+          secondHasPoster: document.querySelector('#existing-card')?.classList.contains('has-poster'),
+          firstPosterShare: first && firstPoster ? firstPoster.height / first.height : 0,
+          secondPosterShare: second && secondPoster ? secondPoster.height / second.height : 0,
+          firstTitleMetaGap: firstTitle && firstMeta ? firstMeta.top - firstTitle.bottom : null,
+          secondTitleMetaGap: secondTitle && secondMeta ? secondMeta.top - secondTitle.bottom : null,
           controls,
           allWithinViewport: within(first) && within(second) && within(controls),
           overlap,
@@ -2323,6 +2369,12 @@ const testComparisonResponsiveLayouts = async ({ baseUrl }) => {
         !layout.allWithinViewport ||
         layout.overlap ||
         !isExpectedArrangement ||
+        !layout.firstHasPoster ||
+        !layout.secondHasPoster ||
+        layout.firstPosterShare < 0.68 ||
+        layout.secondPosterShare < 0.68 ||
+        Math.abs(layout.firstTitleMetaGap ?? 999) > 8 ||
+        Math.abs(layout.secondTitleMetaGap ?? 999) > 8 ||
         layout.first?.width < 140 ||
         layout.first?.height < 100
       ) {

@@ -5611,7 +5611,9 @@ body.is-comparing .compare-panel {
 
   .detail-action {
     flex: 1 1 0;
-    min-height: 40px;
+    min-height: var(--icon-target-coarse);
+    min-width: 0;
+    white-space: nowrap;
   }
 
   .panel__feedback {
@@ -7268,11 +7270,14 @@ body.is-share-open .app-nav--mobile {
   .side-stack {
     grid-area: list;
     gap: var(--space-4);
+    align-self: start;
   }
 
   .stack {
     grid-area: stack;
     gap: var(--space-4);
+    align-self: start;
+    align-content: start;
   }
 
   .footnote {
@@ -7280,7 +7285,7 @@ body.is-share-open .app-nav--mobile {
   }
 
   .panel--list {
-    min-height: calc(100dvh - 156px);
+    min-height: 0;
     max-height: none;
     border-color: transparent;
     box-shadow: none;

@@ -4191,14 +4191,14 @@ const configureDetailActions = (movie, context) => {
   if (context.type === "queue" && context.source === "watch") {
     detailSave.textContent = "Hide";
     detailSave.setAttribute("aria-label", `Move ${movie.title} to Not for me`);
-    detailHide.textContent = "Remove from saved";
+    detailHide.textContent = "Remove";
     detailHide.setAttribute("aria-label", `Remove ${movie.title} from saved`);
     return;
   }
   if (context.type === "queue" && context.source === "notInterested") {
     detailSave.textContent = "Save";
     detailSave.setAttribute("aria-label", `Move ${movie.title} to Watch next`);
-    detailHide.textContent = "Remove from hidden";
+    detailHide.textContent = "Remove";
     detailHide.setAttribute("aria-label", `Remove ${movie.title} from hidden`);
     return;
   }

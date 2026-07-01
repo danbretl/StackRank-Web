@@ -3830,14 +3830,14 @@ body.is-comparing .compare-panel {
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(144px, 1fr));
   gap: 18px;
   align-content: start;
   padding: 22px 24px 28px;
 }
 
 .fullscreen-grid.is-compact {
-  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
   gap: 12px;
 }
 
@@ -3920,18 +3920,6 @@ body.is-comparing .compare-panel {
 }
 
 .fullscreen-card__drag-handle {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 26px;
-  height: 26px;
-  display: inline-grid;
-  place-items: center;
-  border-radius: var(--radius-control);
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--bg-ink);
-  font-size: 0.88rem;
-  font-weight: 700;
   cursor: grab;
   user-select: none;
   -webkit-user-select: none;
@@ -3966,41 +3954,67 @@ body.is-comparing .compare-panel {
 }
 
 .fullscreen-card__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
   margin-top: auto;
-  opacity: 0;
-  transform: translateY(-2px);
-  transition:
-    opacity var(--motion-feedback) var(--motion-ease),
-    transform var(--motion-feedback) var(--motion-ease);
-}
-
-.fullscreen-card:hover .fullscreen-card__actions,
-.fullscreen-card:focus-within .fullscreen-card__actions {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-control);
 }
 
 .fullscreen-card__action {
-  min-height: 32px;
-  padding: 5px 8px;
-  border: 1px solid var(--border-soft);
-  border-radius: 999px;
-  background: #ffffff;
+  min-width: 0;
+  min-height: 36px;
+  padding: 5px 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   color: var(--bg-ink);
   font: 700 0.66rem/1 inherit;
   cursor: pointer;
 }
 
-.fullscreen-card__action--muted {
-  color: var(--ink-soft);
+.fullscreen-card__action + .fullscreen-card__action {
+  border-left: 1px solid var(--rule);
+}
+
+.fullscreen-card__action:nth-child(odd) {
+  border-left: 0;
+}
+
+.fullscreen-card__action:nth-child(n + 3) {
+  border-top: 1px solid var(--rule);
+}
+
+.fullscreen-card__action span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fullscreen-card__action--danger {
+  color: var(--danger);
+}
+
+.fullscreen-card__action:hover,
+.fullscreen-card__action:focus-visible {
+  background: var(--surface-muted);
 }
 
 .fullscreen-grid.is-filtered .fullscreen-card__drag-handle {
   display: none;
+}
+
+.fullscreen-grid.is-filtered .fullscreen-card__action--danger {
+  grid-column: 1 / -1;
+  border-left: 0;
+  border-top: 1px solid var(--rule);
 }
 
 .fullscreen-card.is-dragging {
@@ -4070,13 +4084,13 @@ body.is-comparing .compare-panel {
   }
 
   .fullscreen-grid {
-    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(138px, 1fr));
     gap: 14px;
     padding: 16px 16px 22px;
   }
 
   .fullscreen-grid.is-compact {
-    grid-template-columns: repeat(auto-fill, minmax(76px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(138px, 1fr));
     gap: 8px;
     padding: 12px;
   }
@@ -4120,24 +4134,25 @@ body.is-comparing .compare-panel {
   }
 
   .fullscreen-card__actions {
-    gap: 4px;
+    margin-top: 2px;
   }
 
   .fullscreen-card__action {
-    min-height: 36px;
-    padding: 6px 7px;
+    min-height: var(--icon-target-coarse);
+    padding: 0 3px;
+    font-size: 0.61rem;
+  }
+
+  .fullscreen-card__action .ui-icon {
+    width: 13px;
+    height: 13px;
+    flex-basis: 13px;
   }
 }
 
 @media (pointer: coarse) {
-  .fullscreen-card__actions {
-    opacity: 1;
-    transform: none;
-  }
-
-  .fullscreen-card__drag-handle {
-    width: 38px;
-    height: 38px;
+  .fullscreen-card__action {
+    min-height: var(--icon-target-coarse);
   }
 }
 
@@ -7168,8 +7183,7 @@ textarea,
   .share-lightbox__nav,
   .ranking__restack,
   .ranking__delete,
-  .ranking__handle,
-  .fullscreen-card__drag-handle {
+  .ranking__handle {
     width: var(--icon-target-coarse);
     height: var(--icon-target-coarse);
     min-width: var(--icon-target-coarse);

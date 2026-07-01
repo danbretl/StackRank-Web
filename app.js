@@ -7454,6 +7454,25 @@ const fullscreenColumnCount = () => {
   return Math.max(1, template.split(" ").filter(Boolean).length);
 };
 
+const createFullscreenActionButton = ({
+  label,
+  icon,
+  action = "",
+  ariaLabel,
+  className = "",
+}) => {
+  const button = document.createElement("button");
+  button.className = `fullscreen-card__action ${className}`.trim();
+  button.type = "button";
+  if (action) button.dataset.action = action;
+  if (ariaLabel) button.setAttribute("aria-label", ariaLabel);
+  if (icon) button.appendChild(createUiIcon(icon));
+  const text = document.createElement("span");
+  text.textContent = label;
+  button.appendChild(text);
+  return button;
+};
+
 function renderFullscreenRanking({ focusRankingIndex = null } = {}) {
   if (!fullscreenGrid) return;
   fullscreenGrid.innerHTML = "";
@@ -7529,11 +7548,6 @@ function renderFullscreenRanking({ focusRankingIndex = null } = {}) {
     rank.className = "fullscreen-card__rank";
     rank.textContent = String(index + 1);
     poster.appendChild(rank);
-    const handle = document.createElement("span");
-    handle.className = "fullscreen-card__drag-handle";
-    handle.appendChild(createUiIcon("drag"));
-    handle.setAttribute("aria-hidden", "true");
-    poster.appendChild(handle);
     const title = document.createElement("div");
     title.className = "fullscreen-card__title";
     title.textContent = movie.title;
@@ -7542,19 +7556,29 @@ function renderFullscreenRanking({ focusRankingIndex = null } = {}) {
     meta.textContent = movie.year ? String(movie.year) : "Year unknown";
     const actions = document.createElement("div");
     actions.className = "fullscreen-card__actions";
-    const restack = document.createElement("button");
-    restack.className = "fullscreen-card__action";
-    restack.type = "button";
-    restack.dataset.action = "restack";
-    restack.textContent = "Re-rank";
-    restack.setAttribute("aria-label", `Re-rank ${movie.title}`);
-    const remove = document.createElement("button");
-    remove.className = "fullscreen-card__action fullscreen-card__action--muted";
-    remove.type = "button";
-    remove.dataset.action = "remove";
-    remove.textContent = "Remove";
-    remove.setAttribute("aria-label", `Remove ${movie.title}`);
-    actions.append(restack, remove);
+    const info = createFullscreenActionButton({
+      label: "Info",
+      action: "detail",
+      ariaLabel: `Show details for ${movie.title}`,
+    });
+    const restack = createFullscreenActionButton({
+      label: "Re-rank",
+      action: "restack",
+      ariaLabel: `Re-rank ${movie.title}`,
+    });
+    const handle = createFullscreenActionButton({
+      label: "Move",
+      ariaLabel: `Drag to reorder ${movie.title}`,
+      className: "fullscreen-card__drag-handle",
+    });
+    handle.title = "Drag to reorder";
+    const remove = createFullscreenActionButton({
+      label: "Remove",
+      action: "remove",
+      ariaLabel: `Remove ${movie.title}`,
+      className: "fullscreen-card__action--danger",
+    });
+    actions.append(info, restack, handle, remove);
     primary.append(poster, title, meta);
     card.append(primary, actions);
     fullscreenGrid.appendChild(card);
@@ -7771,7 +7795,12 @@ if (fullscreenGrid) {
     if (!card || card.dataset.dragged === "true") return;
     const index = Number(card.dataset.index);
     if (!Number.isInteger(index) || !ranking[index]) return;
+    if (event.target.closest(".fullscreen-card__drag-handle")) return;
     const action = event.target.closest("[data-action]")?.dataset.action;
+    if (action === "detail") {
+      openMovieDetail(ranking[index], { type: "ranked" }, event.target.closest("button") || card);
+      return;
+    }
     if (action === "restack") {
       beginRankingRestack(index, { fromFullscreen: true });
       return;
@@ -7808,13 +7837,14 @@ if (fullscreenGrid) {
 
   fullscreenGrid.addEventListener("pointerdown", (event) => {
     if (event.button !== 0 || fullscreenFilterQuery.trim() || fullscreenTasteSignal) return;
-    if (event.target.closest(".fullscreen-card__action")) return;
+    const handleTarget = event.target.closest(".fullscreen-card__drag-handle");
+    if (event.target.closest(".fullscreen-card__action") && !handleTarget) return;
     const card = event.target.closest(".fullscreen-card");
     if (!card) return;
-    if (event.pointerType === "touch" && !event.target.closest(".fullscreen-card__drag-handle")) {
+    if (event.pointerType === "touch" && !handleTarget) {
       return;
     }
-    if (event.target.closest(".fullscreen-card__drag-handle")) event.preventDefault();
+    if (handleTarget) event.preventDefault();
     card.setPointerCapture?.(event.pointerId);
     fullscreenDrag = {
       pointerId: event.pointerId,

@@ -554,7 +554,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=112" ||
+      desktop.cssHref !== "styles.css?v=113" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -1199,8 +1199,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=148" ||
-      empty.cssHref !== "styles.css?v=112" ||
+      empty.moduleSrc !== "app.js?v=149" ||
+      empty.cssHref !== "styles.css?v=113" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -3318,6 +3318,47 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     ) {
       throw new Error(`Full-screen semantics are wrong: ${JSON.stringify(semantics)}`);
     }
+    const actionState = await page.evaluate(`(() => {
+      const card = document.querySelector('#fullscreen-grid .fullscreen-card');
+      const actions = [...card.querySelectorAll('.fullscreen-card__action')];
+      return {
+        labels: actions.map((button) => button.textContent.trim().replace(/\\s+/g, ' ')),
+        visible: actions.map((button) => {
+          const style = getComputedStyle(button);
+          const rect = button.getBoundingClientRect();
+          const label = button.querySelector('span');
+          return {
+            display: style.display,
+            visibility: style.visibility,
+            opacity: style.opacity,
+            width: Math.round(rect.width),
+            height: Math.round(rect.height),
+            labelWidth: Math.round(label?.getBoundingClientRect().width || 0),
+            labelFits: label ? label.scrollWidth <= label.clientWidth + 1 : false
+          };
+        }),
+        handleInsidePoster: !!card.querySelector('.fullscreen-card__poster .fullscreen-card__drag-handle'),
+        handleInsideActions: !!card.querySelector('.fullscreen-card__actions .fullscreen-card__drag-handle'),
+        handlePosition: getComputedStyle(card.querySelector('.fullscreen-card__drag-handle')).position
+      };
+    })()`);
+    if (
+      actionState.labels.join("|") !== "Info|Re-rank|Move|Remove" ||
+      !actionState.visible.every((item) =>
+        item.display !== "none" &&
+        item.visibility === "visible" &&
+        Number(item.opacity) === 1 &&
+        item.width > 0 &&
+        item.height >= 32 &&
+        item.labelWidth > 0 &&
+        item.labelFits
+      ) ||
+      actionState.handleInsidePoster ||
+      !actionState.handleInsideActions ||
+      actionState.handlePosition === "absolute"
+    ) {
+      throw new Error(`Full-screen action row is wrong: ${JSON.stringify(actionState)}`);
+    }
 
     await page.evaluate(`(() => {
       const input = document.querySelector('#fullscreen-search');
@@ -3329,9 +3370,17 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     const filtered = await page.evaluate(`(() => ({
       title: document.querySelector('.fullscreen-card__title')?.textContent.trim(),
       subtitle: document.querySelector('#fullscreen-sub')?.textContent.trim(),
-      dragHandleVisible: getComputedStyle(document.querySelector('.fullscreen-card__drag-handle')).display !== 'none'
+      dragHandleVisible: getComputedStyle(document.querySelector('.fullscreen-card__drag-handle')).display !== 'none',
+      actionLabels: [...document.querySelectorAll('.fullscreen-card__action')]
+        .filter((button) => getComputedStyle(button).display !== 'none')
+        .map((button) => button.textContent.trim().replace(/\\s+/g, ' '))
     }))()`);
-    if (filtered.title !== "Gamma" || filtered.subtitle !== "1 of 6 movies" || filtered.dragHandleVisible) {
+    if (
+      filtered.title !== "Gamma" ||
+      filtered.subtitle !== "1 of 6 movies" ||
+      filtered.dragHandleVisible ||
+      filtered.actionLabels.join("|") !== "Info|Re-rank|Remove"
+    ) {
       throw new Error(`Full-screen filtering state is wrong: ${JSON.stringify(filtered)}`);
     }
 
@@ -3344,7 +3393,7 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     })()`);
     await waitFor(page, `document.querySelector('#fullscreen-grid')?.classList.contains('is-compact') && document.querySelectorAll('#fullscreen-grid .fullscreen-card').length === 6`, 3000);
 
-    await page.evaluate(`document.querySelector('#fullscreen-grid .fullscreen-card__primary')?.click(); true;`);
+    await page.evaluate(`document.querySelector('#fullscreen-grid .fullscreen-card [data-action="detail"]')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#movie-detail')?.hidden && document.querySelector('#detail-title')?.textContent.trim() === 'Alpha'`, 3000);
     const nestedModal = await page.evaluate(`(() => {
       const layer = document.querySelector('#movie-detail');
@@ -3368,7 +3417,7 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
       page,
       `document.querySelector('#movie-detail')?.hidden &&
         !document.querySelector('#ranking-fullscreen')?.inert &&
-        document.activeElement?.classList.contains('fullscreen-card__primary')`,
+        document.activeElement?.matches('.fullscreen-card__primary, [data-action="detail"]')`,
       3000,
     );
 
@@ -3390,7 +3439,7 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
       const last = cards.at(-1).getBoundingClientRect();
       return {
         from: { x: first.left + first.width / 2, y: first.top + first.height / 2 },
-        to: { x: last.left + last.width / 2, y: last.top + last.height / 2 }
+        to: { x: last.right - 2, y: last.top + last.height / 2 }
       };
     })()`);
     await page.send("Input.dispatchMouseEvent", {
@@ -3434,13 +3483,27 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
       gridTitles: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__title')].map((el) => el.textContent.trim()),
       rankingTitles: [...document.querySelectorAll('#ranking .ranking__title')].map((el) => el.textContent.trim()),
       compact: document.querySelector('#fullscreen-grid')?.classList.contains('is-compact'),
-      focusedTitle: document.activeElement?.querySelector?.('.fullscreen-card__title')?.textContent.trim() || ''
+      focusedTitle: document.activeElement?.querySelector?.('.fullscreen-card__title')?.textContent.trim() || '',
+      draggingCards: document.querySelectorAll('#fullscreen-grid .fullscreen-card.is-dragging').length,
+      staleDraggedCards: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card')]
+        .filter((card) => card.dataset.dragged === 'true').length,
+      actionRowsVisible: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__actions')]
+        .every((actions) => {
+          const style = getComputedStyle(actions);
+          const rect = actions.getBoundingClientRect();
+          return style.display !== 'none' && style.visibility === 'visible' && Number(style.opacity || 1) === 1 && rect.height >= 32;
+        }),
+      handleInsidePosters: document.querySelectorAll('#fullscreen-grid .fullscreen-card__poster .fullscreen-card__drag-handle').length
     }))()`);
     if (
       !state.overlayOpen ||
       state.gridTitles.at(-1) !== "Alpha" ||
       state.rankingTitles.at(-1) !== "Alpha" ||
-      !state.compact
+      !state.compact ||
+      state.draggingCards ||
+      state.staleDraggedCards ||
+      !state.actionRowsVisible ||
+      state.handleInsidePosters
     ) {
       throw new Error(`Full-screen drag did not persist the new order: ${JSON.stringify(state)}`);
     }

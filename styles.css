@@ -7335,6 +7335,16 @@ body.is-share-open .app-nav--mobile {
   }
 }
 
+@media (min-width: 721px) and (max-width: 899px) {
+  .topbar {
+    order: -2;
+  }
+
+  .app[data-app-destination="rank"] .side-stack {
+    order: -1;
+  }
+}
+
 @media (max-width: 720px) {
   .app {
     padding: 0 12px calc(96px + env(safe-area-inset-bottom));

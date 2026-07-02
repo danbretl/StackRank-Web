@@ -554,7 +554,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=118" ||
+      desktop.cssHref !== "styles.css?v=119" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -1290,8 +1290,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=153" ||
-      empty.cssHref !== "styles.css?v=118" ||
+      empty.moduleSrc !== "app.js?v=154" ||
+      empty.cssHref !== "styles.css?v=119" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -3492,7 +3492,13 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
       const grid = document.querySelector('#fullscreen-grid');
       const card = document.querySelector('#fullscreen-grid .fullscreen-card');
       const title = card?.querySelector('.fullscreen-card__title');
+      const overlay = document.querySelector('#ranking-fullscreen');
+      const mobileNav = document.querySelector('.app-nav--mobile');
       return {
+        bodyFullscreenOpen: document.body.classList.contains('is-fullscreen-open'),
+        mobileNavDisplay: mobileNav ? getComputedStyle(mobileNav).display : null,
+        overlayZ: Number(getComputedStyle(overlay).zIndex),
+        mobileNavZ: mobileNav ? Number(getComputedStyle(mobileNav).zIndex) : null,
         compact: grid?.classList.contains('is-compact'),
         columns: getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length,
         cardHeight: Math.round(card?.getBoundingClientRect().height || 0),
@@ -3510,18 +3516,24 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
       const grid = document.querySelector('#fullscreen-grid');
       const card = document.querySelector('#fullscreen-grid .fullscreen-card');
       const title = card?.querySelector('.fullscreen-card__title');
+      const header = document.querySelector('.fullscreen-header');
       return {
         compact: grid?.classList.contains('is-compact'),
         columns: getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length,
+        headerHeight: Math.round(header?.getBoundingClientRect().height || 0),
         cardHeight: Math.round(card?.getBoundingClientRect().height || 0),
         titleDisplay: title ? getComputedStyle(title).display : ''
       };
     })()`);
     if (
+      !mobileComfortable.bodyFullscreenOpen ||
+      mobileComfortable.mobileNavDisplay !== "none" ||
+      mobileComfortable.overlayZ <= mobileComfortable.mobileNavZ ||
       mobileComfortable.compact ||
       !mobileCompact.compact ||
       mobileComfortable.columns < 3 ||
       mobileCompact.columns <= mobileComfortable.columns ||
+      mobileCompact.headerHeight > 150 ||
       mobileCompact.cardHeight >= mobileComfortable.cardHeight ||
       mobileCompact.titleDisplay !== "none"
     ) {
@@ -3614,8 +3626,32 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     }
     const jumpFocusShot = await page.screenshot("fullscreen-ranking-jump-focus.png");
 
-    await page.evaluate(`document.querySelector('#fullscreen-grid .fullscreen-card .fullscreen-card__primary')?.click(); true;`);
-    await waitFor(page, `!document.querySelector('#movie-detail')?.hidden && document.querySelector('#detail-title')?.textContent.trim() === 'Alpha'`, 3000);
+    const detailClickTarget = await page.evaluate(`(() => {
+      const card = document.querySelector('#fullscreen-grid .fullscreen-card[data-index="0"]');
+      card?.querySelector('.fullscreen-card__primary')?.click();
+      return {
+        clickedIndex: card?.dataset.index,
+        clickedTitle: card?.querySelector('.fullscreen-card__title')?.textContent.trim(),
+        gridTitles: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__title')]
+          .map((title) => title.textContent.trim())
+      };
+    })()`);
+    await waitFor(page, `!document.querySelector('#movie-detail')?.hidden`, 8000);
+    try {
+      await waitFor(page, `document.querySelector('#detail-title')?.textContent.trim() === 'Alpha'`, 8000);
+    } catch (error) {
+      const detailState = await page.evaluate(`(() => ({
+        hidden: document.querySelector('#movie-detail')?.hidden,
+        title: document.querySelector('#detail-title')?.textContent.trim(),
+        sub: document.querySelector('#detail-sub')?.textContent.trim(),
+        status: document.querySelector('#detail-status')?.textContent.trim(),
+        fullscreenHidden: document.querySelector('#ranking-fullscreen')?.hidden
+      }))()`);
+      throw new Error(
+        `Full-screen detail did not open Alpha: ${JSON.stringify({ detailClickTarget, detailState })}`,
+        { cause: error },
+      );
+    }
     const nestedModal = await page.evaluate(`(() => {
       const layer = document.querySelector('#movie-detail');
       const focusable = [...layer.querySelectorAll(

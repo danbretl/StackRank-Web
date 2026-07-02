@@ -7748,6 +7748,7 @@ function openFullscreenRanking({ trigger = null } = {}) {
     trigger || (document.activeElement instanceof HTMLElement ? document.activeElement : null);
   renderFullscreenRanking();
   lockShareScroll();
+  document.body.classList.add("is-fullscreen-open");
   fullscreenOverlay.hidden = false;
   syncModalIsolation();
   if (fullscreenGrid) fullscreenGrid.scrollTop = 0;
@@ -7761,6 +7762,7 @@ function closeFullscreenRanking({ restoreFocus = true } = {}) {
   if (!fullscreenOverlay || fullscreenOverlay.hidden) return;
   cancelFullscreenDrag();
   fullscreenOverlay.hidden = true;
+  document.body.classList.remove("is-fullscreen-open");
   syncModalIsolation();
   unlockShareScroll();
   if (restoreFocus && fullscreenTrigger && document.contains(fullscreenTrigger)) {

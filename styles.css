@@ -2972,7 +2972,7 @@ body.is-comparing .compare-panel {
 }
 
 #movie-detail {
-  z-index: 1120;
+  z-index: 1500;
 }
 
 .detail-overlay[hidden] {
@@ -4354,7 +4354,7 @@ body.is-comparing .compare-panel {
 .share-lightbox {
   position: fixed;
   inset: 0;
-  z-index: 1300;
+  z-index: 1600;
   /* Column layout: the stage flexes to fill all available height; the action
      bar (share mode only) sits in-flow beneath it, so they never overlap and
      the image gets the full remaining height. */

@@ -4465,18 +4465,26 @@ const hydrateOpenMovieDetail = async (movie, detailContext, requestId) => {
   }
 };
 
+const movieDetailTriggerElement = (triggerEl) => {
+  const trigger = triggerEl instanceof Element ? triggerEl : null;
+  if (!trigger?.closest(".movie-item__overflow-menu")) return trigger;
+  return trigger.closest(".movie-item__overflow")?.querySelector("summary") || trigger;
+};
+
 const openMovieDetail = async (movie, context = null, triggerEl = null) => {
   if (pending) {
     setStatusMessage("Finish the current comparison before opening movie details.");
     return;
   }
+  const returnTrigger = movieDetailTriggerElement(triggerEl);
+  closeMovieOverflowMenus();
   const detailContext = normalizeDetailContext(context);
   const detailKey = detailIdentityKey(movie);
   const cachedDetail = movie?.tmdbId ? detailCache.get(String(movie.tmdbId)) : null;
   const canReuseRenderedDetail = Boolean(detailKey && detailKey === lastRenderedDetailKey && cachedDetail);
   const requestId = ++detailRequestId;
   currentDetail = { movie: cachedDetail || movie, context: detailContext };
-  detailTrigger = triggerEl;
+  detailTrigger = returnTrigger;
   configureDetailActions(cachedDetail || movie, detailContext);
   if (canReuseRenderedDetail) {
     renderDetailPane(cachedDetail);

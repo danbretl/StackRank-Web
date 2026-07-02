@@ -314,6 +314,25 @@ const waitFor = async (page, expression, timeoutMs = 8000) => {
   throw new Error(`Timed out waiting for: ${expression}\nLast value: ${JSON.stringify(lastValue)}`);
 };
 
+const clickAt = async (page, x, y) => {
+  await page.send("Input.dispatchMouseEvent", {
+    type: "mousePressed",
+    x,
+    y,
+    button: "left",
+    buttons: 1,
+    clickCount: 1,
+  });
+  await page.send("Input.dispatchMouseEvent", {
+    type: "mouseReleased",
+    x,
+    y,
+    button: "left",
+    buttons: 0,
+    clickCount: 1,
+  });
+};
+
 const waitForDownload = async (page, fileName, timeoutMs = 30000) => {
   const filePath = path.join(page.downloadDir, fileName);
   const partialPath = `${filePath}.crdownload`;
@@ -1115,6 +1134,46 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       throw new Error(`Mobile Rank overflow menu is wrong: ${JSON.stringify(mobileRankOverflow)}`);
     }
     const mobileRankOverflowShot = await page.screenshot("app-shell-mobile-ranking-overflow.png");
+    const mobileRankOutsideTap = await page.evaluate(`(() => {
+      const rows = [...document.querySelectorAll('#ranking .ranking__item')].slice(1);
+      for (const row of rows) {
+        const targets = [
+          row.querySelector('.movie-item__poster'),
+          row.querySelector('.movie-item__rank'),
+          row.querySelector('.movie-item__body')
+        ].filter(Boolean);
+        for (const target of targets) {
+          const rect = target.getBoundingClientRect();
+          const points = [
+            { x: Math.round(rect.left + rect.width / 2), y: Math.round(rect.top + rect.height / 2) },
+            { x: Math.round(rect.left + Math.min(rect.width - 4, 12)), y: Math.round(rect.top + rect.height / 2) }
+          ];
+          for (const point of points) {
+            const hit = document.elementFromPoint(point.x, point.y);
+            if (
+              hit?.closest('.ranking__item') === row &&
+              !hit.closest('.movie-item__overflow') &&
+              point.y > 0 &&
+              point.y < window.innerHeight - 80
+            ) {
+              return point;
+            }
+          }
+        }
+      }
+      return null;
+    })()`);
+    if (!mobileRankOutsideTap) throw new Error("Missing mobile ranking outside-tap target");
+    await clickAt(page, mobileRankOutsideTap.x, mobileRankOutsideTap.y);
+    await waitFor(page, `!document.querySelector('.movie-item__overflow[open]')`, 3000);
+    const mobileRankDismissState = await page.evaluate(`(() => ({
+      detailHidden: document.querySelector('#movie-detail')?.hidden,
+      detailTitle: document.querySelector('#detail-title')?.textContent.trim(),
+      openMenus: document.querySelectorAll('.movie-item__overflow[open]').length
+    }))()`);
+    if (!mobileRankDismissState.detailHidden || mobileRankDismissState.openMenus !== 0) {
+      throw new Error(`Mobile Rank outside-tap dismissal opened detail: ${JSON.stringify(mobileRankDismissState)}`);
+    }
     await page.evaluate(`document.querySelector('#ranking .ranking__item .ranking__overflow')?.removeAttribute('open'); true;`);
 
     await page.evaluate(`document.querySelector('#ranking-move-toggle')?.click(); true;`);
@@ -1323,7 +1382,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=156" ||
+      empty.moduleSrc !== "app.js?v=157" ||
       empty.cssHref !== "styles.css?v=122" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
@@ -3573,6 +3632,60 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
       `!document.querySelector('.fullscreen-card[data-index="2"] .fullscreen-card__overflow')?.open`,
       3000,
     );
+
+    await page.evaluate(`document.querySelector('.fullscreen-card[data-index="2"] .fullscreen-card__overflow > summary')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('.fullscreen-card[data-index="2"] .fullscreen-card__overflow')?.open`,
+      3000,
+    );
+    const fullscreenOutsideTap = await page.evaluate(`(() => {
+      const cards = [...document.querySelectorAll('#fullscreen-grid .fullscreen-card')]
+        .filter((card) => card.dataset.index !== '2');
+      for (const card of cards) {
+        const targets = [
+          card.querySelector('.fullscreen-card__primary'),
+          card.querySelector('.fullscreen-card__poster')
+        ].filter(Boolean);
+        for (const target of targets) {
+          const rect = target.getBoundingClientRect();
+          const points = [
+            { x: Math.round(rect.left + rect.width / 2), y: Math.round(rect.top + Math.min(rect.height / 2, 96)) },
+            { x: Math.round(rect.left + 14), y: Math.round(rect.top + 14) }
+          ];
+          for (const point of points) {
+            const hit = document.elementFromPoint(point.x, point.y);
+            if (
+              hit?.closest('.fullscreen-card') === card &&
+              !hit.closest('.movie-item__overflow') &&
+              point.y > 0 &&
+              point.y < window.innerHeight - 80
+            ) {
+              return point;
+            }
+          }
+        }
+      }
+      return null;
+    })()`);
+    if (!fullscreenOutsideTap) throw new Error("Missing fullscreen outside-tap target");
+    await clickAt(page, fullscreenOutsideTap.x, fullscreenOutsideTap.y);
+    await waitFor(page, `!document.querySelector('.movie-item__overflow[open]')`, 3000);
+    const fullscreenDismissState = await page.evaluate(`(() => ({
+      detailHidden: document.querySelector('#movie-detail')?.hidden,
+      detailTitle: document.querySelector('#detail-title')?.textContent.trim(),
+      fullscreenHidden: document.querySelector('#ranking-fullscreen')?.hidden,
+      cardCount: document.querySelectorAll('#fullscreen-grid .fullscreen-card').length,
+      openMenus: document.querySelectorAll('.movie-item__overflow[open]').length
+    }))()`);
+    if (
+      !fullscreenDismissState.detailHidden ||
+      fullscreenDismissState.fullscreenHidden ||
+      fullscreenDismissState.cardCount !== 6 ||
+      fullscreenDismissState.openMenus !== 0
+    ) {
+      throw new Error(`Full-screen outside-tap dismissal opened detail: ${JSON.stringify(fullscreenDismissState)}`);
+    }
 
     await page.evaluate(`document.querySelector('#fullscreen-move-toggle')?.click(); true;`);
     await waitFor(page, `document.querySelector('#fullscreen-grid')?.classList.contains('is-move-mode')`, 3000);

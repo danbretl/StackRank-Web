@@ -1049,6 +1049,10 @@ const createMovieOverflow = (label, actions = []) => {
   menu.className = "movie-item__overflow-menu";
   actions.forEach((action) => menu.appendChild(action));
   overflow.append(summary, menu);
+  menu.addEventListener("click", (event) => {
+    const target = event.target instanceof Element ? event.target : null;
+    if (target?.closest(".movie-item__overflow-action")) closeMovieOverflowMenus();
+  });
   overflow.addEventListener("toggle", () => {
     setMovieOverflowLayerState(overflow, overflow.open);
     if (!overflow.open) return;
@@ -1068,6 +1072,15 @@ const closeMovieOverflowMenus = () => {
     setMovieOverflowLayerState(overflow, false);
     overflow.removeAttribute("open");
   });
+};
+
+const dismissMovieOverflowOnOutsideClick = (event) => {
+  const target = event.target instanceof Element ? event.target : null;
+  if (target?.closest(".movie-item__overflow")) return;
+  if (!document.querySelector(".movie-item__overflow[open]")) return;
+  closeMovieOverflowMenus();
+  event.preventDefault();
+  event.stopPropagation();
 };
 
 const positionMovieOverflowMenu = (overflow) => {
@@ -9509,8 +9522,9 @@ titleInput.addEventListener("keydown", (event) => {
   }
 });
 
+document.addEventListener("click", dismissMovieOverflowOnOutsideClick, true);
+
 document.addEventListener("click", (event) => {
-  if (!event.target.closest(".movie-item__overflow")) closeMovieOverflowMenus();
   if (
     !rankingSettingsPanel.hidden &&
     !rankingSettingsPanel.contains(event.target) &&

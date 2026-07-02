@@ -1050,11 +1050,12 @@ const createMovieOverflow = (label, actions = []) => {
   return overflow;
 };
 
-const createMovieOverflowActionButton = ({ label, ariaLabel, className = "", kind = "secondary" }) => {
+const createMovieOverflowActionButton = ({ label, ariaLabel, className = "", kind = "secondary", action = "" }) => {
   const button = document.createElement("button");
   button.className = `movie-item__overflow-action movie-item__overflow-action--${kind} ${className}`.trim();
   button.type = "button";
   if (ariaLabel) button.setAttribute("aria-label", ariaLabel);
+  if (action) button.dataset.action = action;
   button.textContent = label;
   return button;
 };
@@ -1890,6 +1891,38 @@ const renderQueueList = (container, list, emptyText, source) => {
       "remove",
       "queue-action--remove",
     );
+    const overflowInfoButton = createMovieOverflowActionButton({
+      label: "Info",
+      ariaLabel: `Show details for ${movie.title}`,
+      className: "queue-info-action",
+    });
+    overflowInfoButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      openMovieDetail(movie, { type: "queue", source }, overflowInfoButton);
+      overflowInfoButton.closest(".movie-item__overflow")?.removeAttribute("open");
+    });
+    const overflowMoveButton = createMovieOverflowActionButton({
+      label: source === "watch" ? "Hide" : "Save",
+      ariaLabel: source === "watch" ? `Hide ${movie.title} in Not for me` : `Save ${movie.title} to Watch next`,
+      className: "queue-action",
+      action: "move",
+    });
+    const overflowRemoveButton = createMovieOverflowActionButton({
+      label: "Remove",
+      ariaLabel:
+        source === "watch"
+          ? `Remove ${movie.title} from Watch next`
+          : `Remove ${movie.title} from Not for me`,
+      kind: "danger",
+      className: "queue-action",
+      action: "remove",
+    });
+    const overflow = createMovieOverflow(`More actions for ${movie.title}`, [
+      overflowInfoButton,
+      overflowMoveButton,
+      overflowRemoveButton,
+    ]);
+    overflow.classList.add("queue-list__overflow");
     if (source === "watch") {
       actions.append(
         rankButton,
@@ -1900,6 +1933,7 @@ const renderQueueList = (container, list, emptyText, source) => {
           "queue-action--secondary",
         ),
         removeButton,
+        overflow,
       );
     } else {
       actions.append(
@@ -1911,6 +1945,7 @@ const renderQueueList = (container, list, emptyText, source) => {
           "queue-action--secondary",
         ),
         removeButton,
+        overflow,
       );
     }
 

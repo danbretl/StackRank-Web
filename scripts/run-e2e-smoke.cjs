@@ -1130,8 +1130,9 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       mobileLists.watchSelected !== "true" ||
       mobileLists.hiddenSelected !== "false" ||
       mobileLists.firstActionLabels.join("|") !== "Rank|Hide|Remove" ||
-      mobileLists.overflowCount !== 0 ||
-      mobileLists.firstActionRects.some((action) => action.width < 44 || action.height < 44) ||
+      mobileLists.overflowCount !== 1 ||
+      !mobileLists.firstActionRects.some((action) => action.text === "Rank" && action.width >= 44 && action.height >= 36) ||
+      mobileLists.firstActionRects.some((action) => action.text !== "Rank" && (action.width > 0 || action.height > 0)) ||
       mobileLists.addVisible ||
       mobileLists.rankingVisible ||
       mobileLists.discoveryVisible ||

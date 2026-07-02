@@ -1032,9 +1032,13 @@ const createMovieInfoButton = (movie, className = "") => {
   return button;
 };
 
+const MOVIE_OVERFLOW_LAYER_SELECTOR = ".ranking__item, .queue-list__item, .fullscreen-card, .movie-item";
+const MOVIE_OVERFLOW_RAISED_SELECTOR =
+  ".ranking__item.is-overflow-open, .queue-list__item.is-overflow-open, .fullscreen-card.is-overflow-open, .movie-item.is-overflow-open";
+
 const setMovieOverflowLayerState = (overflow, open) => {
   overflow
-    ?.closest(".ranking__item, .queue-list__item, .fullscreen-card, .movie-item")
+    ?.closest(MOVIE_OVERFLOW_LAYER_SELECTOR)
     ?.classList.toggle("is-overflow-open", Boolean(open));
 };
 
@@ -1049,10 +1053,14 @@ const createMovieOverflow = (label, actions = []) => {
   menu.className = "movie-item__overflow-menu";
   actions.forEach((action) => menu.appendChild(action));
   overflow.append(summary, menu);
-  menu.addEventListener("click", (event) => {
-    const target = event.target instanceof Element ? event.target : null;
-    if (target?.closest(".movie-item__overflow-action")) closeMovieOverflowMenus();
-  });
+  menu.addEventListener(
+    "click",
+    (event) => {
+      const target = event.target instanceof Element ? event.target : null;
+      if (target?.closest(".movie-item__overflow-action")) closeMovieOverflowMenus();
+    },
+    { capture: true },
+  );
   overflow.addEventListener("toggle", () => {
     setMovieOverflowLayerState(overflow, overflow.open);
     if (!overflow.open) return;
@@ -1072,6 +1080,9 @@ const closeMovieOverflowMenus = () => {
     setMovieOverflowLayerState(overflow, false);
     overflow.removeAttribute("open");
   });
+  document
+    .querySelectorAll(MOVIE_OVERFLOW_RAISED_SELECTOR)
+    .forEach((element) => element.classList.remove("is-overflow-open"));
 };
 
 const dismissMovieOverflowOnOutsideClick = (event) => {

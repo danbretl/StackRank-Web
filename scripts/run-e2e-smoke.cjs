@@ -573,7 +573,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=123" ||
+      desktop.cssHref !== "styles.css?v=124" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -1162,21 +1162,36 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       const action = document.querySelector('#ranking .ranking__item .ranking__overflow .movie-item__overflow-action.ranking__info');
       const rect = action?.getBoundingClientRect();
       if (!rect) return null;
-      return { x: Math.round(rect.left + rect.width / 2), y: Math.round(rect.top + rect.height / 2) };
+      const point = { x: Math.round(rect.left + rect.width / 2), y: Math.round(rect.top + rect.height / 2) };
+      const hit = document.elementFromPoint(point.x, point.y);
+      return {
+        ...point,
+        hitInfo: hit === action || hit?.closest('.movie-item__overflow-action.ranking__info') === action,
+        hitText: hit?.textContent?.trim() || '',
+        hitClass: hit?.className || ''
+      };
     })()`);
-    if (!mobileRankInfoTap) throw new Error("Missing mobile ranking overflow Info target");
-    await page.evaluate(`document.querySelector('#ranking .ranking__item .ranking__overflow .movie-item__overflow-action.ranking__info')?.click(); true;`);
+    if (!mobileRankInfoTap?.hitInfo) {
+      throw new Error(`Missing mobile ranking overflow Info target: ${JSON.stringify(mobileRankInfoTap)}`);
+    }
+    await clickAt(page, mobileRankInfoTap.x, mobileRankInfoTap.y);
     await waitFor(page, `!document.querySelector('#movie-detail')?.hidden`, 3000);
     const mobileRankDetailLayer = await page.evaluate(`(() => {
       const point = ${JSON.stringify(mobileRankInfoTap)};
       const target = document.elementFromPoint(point.x, point.y);
       const detail = document.querySelector('#movie-detail');
       const overflowZ = getComputedStyle(document.querySelector('.movie-item__overflow-menu')).zIndex;
+      const visibleMenus = [...document.querySelectorAll('.movie-item__overflow-menu')].filter((menu) => {
+        const style = getComputedStyle(menu);
+        const rect = menu.getBoundingClientRect();
+        return style.display !== 'none' && style.visibility !== 'hidden' && rect.width > 0 && rect.height > 0;
+      });
       return {
         detailHidden: detail?.hidden,
         detailZ: Number(getComputedStyle(detail).zIndex),
         overflowZ: Number(overflowZ),
         openMenus: document.querySelectorAll('.movie-item__overflow[open]').length,
+        visibleMenus: visibleMenus.length,
         raisedRows: document.querySelectorAll('.ranking__item.is-overflow-open, .queue-list__item.is-overflow-open, .fullscreen-card.is-overflow-open').length,
         topInDetail: !!target?.closest('#movie-detail'),
         topClass: target?.className || '',
@@ -1188,6 +1203,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       mobileRankDetailLayer.detailZ <= 1250 ||
       mobileRankDetailLayer.overflowZ >= mobileRankDetailLayer.detailZ ||
       mobileRankDetailLayer.openMenus !== 0 ||
+      mobileRankDetailLayer.visibleMenus !== 0 ||
       mobileRankDetailLayer.raisedRows !== 0 ||
       !mobileRankDetailLayer.topInDetail
     ) {
@@ -1507,8 +1523,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=158" ||
-      empty.cssHref !== "styles.css?v=123" ||
+      empty.moduleSrc !== "app.js?v=159" ||
+      empty.cssHref !== "styles.css?v=124" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||

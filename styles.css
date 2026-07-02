@@ -6931,6 +6931,10 @@ textarea,
   display: none;
 }
 
+body.is-detail-open .movie-item__overflow-menu {
+  display: none;
+}
+
 .movie-item__overflow-action {
   appearance: none;
   min-height: 36px;

@@ -554,7 +554,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=120" ||
+      desktop.cssHref !== "styles.css?v=121" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -1308,8 +1308,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=155" ||
-      empty.cssHref !== "styles.css?v=120" ||
+      empty.moduleSrc !== "app.js?v=156" ||
+      empty.cssHref !== "styles.css?v=121" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -3432,22 +3432,28 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
       const actions = [...card.querySelectorAll('.fullscreen-card__action')];
       const overflow = card.querySelector('.fullscreen-card__overflow');
       const overflowToggle = overflow?.querySelector('.movie-item__overflow-toggle');
+      const moveToggle = document.querySelector('#fullscreen-move-toggle');
       return {
+        gridMoveMode: document.querySelector('#fullscreen-grid')?.classList.contains('is-move-mode'),
+        moveTogglePressed: moveToggle?.getAttribute('aria-pressed'),
+        moveToggleDisabled: moveToggle?.disabled,
+        moveToggleLabel: moveToggle?.textContent.trim().replace(/\\s+/g, ' '),
         labels: actions.map((button) => button.textContent.trim().replace(/\\s+/g, ' ')),
+        visibleLabels: actions
+          .filter((button) => getComputedStyle(button).display !== 'none')
+          .map((button) => button.textContent.trim().replace(/\\s+/g, ' ')),
         overflowLabels: [...card.querySelectorAll('.fullscreen-card__overflow .movie-item__overflow-action')]
           .map((button) => button.textContent.trim().replace(/\\s+/g, ' ')),
-        visible: actions.map((button) => {
+        handles: actions.map((button) => {
           const style = getComputedStyle(button);
           const rect = button.getBoundingClientRect();
-          const label = button.querySelector('span');
           return {
+            hasIcon: !!button.querySelector('.ui-icon'),
             display: style.display,
             visibility: style.visibility,
             opacity: style.opacity,
             width: Math.round(rect.width),
-            height: Math.round(rect.height),
-            labelWidth: Math.round(label?.getBoundingClientRect().width || 0),
-            labelFits: label ? label.scrollWidth <= label.clientWidth + 1 : false
+            height: Math.round(rect.height)
           };
         }),
         overflowVisible: (() => {
@@ -3467,16 +3473,20 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
       };
     })()`);
     if (
+      actionState.gridMoveMode ||
+      actionState.moveTogglePressed !== "false" ||
+      actionState.moveToggleDisabled ||
+      actionState.moveToggleLabel !== "Move" ||
       actionState.labels.join("|") !== "Move" ||
+      actionState.visibleLabels.join("|") !== "" ||
       actionState.overflowLabels.join("|") !== "Info|Re-rank|Remove" ||
-      !actionState.visible.every((item) =>
-        item.display !== "none" &&
+      !actionState.handles.every((item) =>
+        item.hasIcon &&
+        item.display === "none" &&
         item.visibility === "visible" &&
         Number(item.opacity) === 1 &&
-        item.width > 0 &&
-        item.height >= 30 &&
-        item.labelWidth === 0 &&
-        item.labelFits
+        item.width === 0 &&
+        item.height === 0
       ) ||
       !actionState.overflowVisible ||
       actionState.overflowVisible.display === "none" ||
@@ -3490,6 +3500,55 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     ) {
       throw new Error(`Full-screen action row is wrong: ${JSON.stringify(actionState)}`);
     }
+
+    await page.evaluate(`document.querySelector('#fullscreen-move-toggle')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#fullscreen-grid')?.classList.contains('is-move-mode')`, 3000);
+    const moveModeState = await page.evaluate(`(() => {
+      const grid = document.querySelector('#fullscreen-grid');
+      const handles = [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__drag-handle')];
+      const overflowToggles = [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__overflow .movie-item__overflow-toggle')];
+      const moveToggle = document.querySelector('#fullscreen-move-toggle');
+      return {
+        gridMoveMode: grid?.classList.contains('is-move-mode'),
+        moveTogglePressed: moveToggle?.getAttribute('aria-pressed'),
+        visibleHandles: handles.map((button) => {
+          const style = getComputedStyle(button);
+          const rect = button.getBoundingClientRect();
+          return {
+            text: button.textContent.trim().replace(/\\s+/g, ' '),
+            display: style.display,
+            visibility: style.visibility,
+            opacity: style.opacity,
+            width: Math.round(rect.width),
+            height: Math.round(rect.height),
+            hasIcon: !!button.querySelector('.ui-icon')
+          };
+        }),
+        visibleOverflowToggles: overflowToggles.filter((toggle) => getComputedStyle(toggle).display !== 'none').length,
+        handleInsidePosters: document.querySelectorAll('#fullscreen-grid .fullscreen-card__poster .fullscreen-card__drag-handle').length,
+        handleInsideActions: document.querySelectorAll('#fullscreen-grid .fullscreen-card__actions .fullscreen-card__drag-handle').length
+      };
+    })()`);
+    if (
+      !moveModeState.gridMoveMode ||
+      moveModeState.moveTogglePressed !== "true" ||
+      moveModeState.visibleOverflowToggles !== 0 ||
+      moveModeState.handleInsidePosters !== 0 ||
+      moveModeState.handleInsideActions !== 6 ||
+      !moveModeState.visibleHandles.every((item) =>
+        item.text === "Move" &&
+        item.display !== "none" &&
+        item.visibility === "visible" &&
+        Number(item.opacity) === 1 &&
+        item.width >= 30 &&
+        item.height >= 30 &&
+        item.hasIcon
+      )
+    ) {
+      throw new Error(`Full-screen move mode controls are wrong: ${JSON.stringify(moveModeState)}`);
+    }
+    await page.evaluate(`document.querySelector('#fullscreen-move-toggle')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#fullscreen-grid')?.classList.contains('is-move-mode')`, 3000);
 
     await page.send("Emulation.setDeviceMetricsOverride", {
       width: 430,
@@ -3518,6 +3577,10 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
         overlayZ: Number(getComputedStyle(overlay).zIndex),
         mobileNavZ: mobileNav ? Number(getComputedStyle(mobileNav).zIndex) : null,
         compact: grid?.classList.contains('is-compact'),
+        moveMode: grid?.classList.contains('is-move-mode'),
+        movePressed: document.querySelector('#fullscreen-move-toggle')?.getAttribute('aria-pressed'),
+        visibleHandles: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__drag-handle')]
+          .filter((button) => getComputedStyle(button).display !== 'none').length,
         columns: getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length,
         cardHeight: Math.round(card?.getBoundingClientRect().height || 0),
         titleDisplay: title ? getComputedStyle(title).display : ''
@@ -3537,6 +3600,10 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
       const header = document.querySelector('.fullscreen-header');
       return {
         compact: grid?.classList.contains('is-compact'),
+        moveMode: grid?.classList.contains('is-move-mode'),
+        movePressed: document.querySelector('#fullscreen-move-toggle')?.getAttribute('aria-pressed'),
+        visibleHandles: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__drag-handle')]
+          .filter((button) => getComputedStyle(button).display !== 'none').length,
         columns: getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length,
         headerHeight: Math.round(header?.getBoundingClientRect().height || 0),
         cardHeight: Math.round(card?.getBoundingClientRect().height || 0),
@@ -3548,7 +3615,13 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
       mobileComfortable.mobileNavDisplay !== "none" ||
       mobileComfortable.overlayZ <= mobileComfortable.mobileNavZ ||
       mobileComfortable.compact ||
+      mobileComfortable.moveMode ||
+      mobileComfortable.movePressed !== "false" ||
+      mobileComfortable.visibleHandles !== 0 ||
       !mobileCompact.compact ||
+      mobileCompact.moveMode ||
+      mobileCompact.movePressed !== "false" ||
+      mobileCompact.visibleHandles !== 0 ||
       mobileComfortable.columns < 3 ||
       mobileCompact.columns <= mobileComfortable.columns ||
       mobileCompact.headerHeight > 150 ||
@@ -3583,6 +3656,9 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     const filtered = await page.evaluate(`(() => ({
       title: document.querySelector('.fullscreen-card__title')?.textContent.trim(),
       subtitle: document.querySelector('#fullscreen-sub')?.textContent.trim(),
+      moveMode: document.querySelector('#fullscreen-grid')?.classList.contains('is-move-mode'),
+      movePressed: document.querySelector('#fullscreen-move-toggle')?.getAttribute('aria-pressed'),
+      moveDisabled: document.querySelector('#fullscreen-move-toggle')?.disabled,
       dragHandleVisible: getComputedStyle(document.querySelector('.fullscreen-card__drag-handle')).display !== 'none',
       actionLabels: [...document.querySelectorAll('.fullscreen-card__action')]
         .filter((button) => getComputedStyle(button).display !== 'none')
@@ -3593,6 +3669,9 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     if (
       filtered.title !== "Gamma" ||
       filtered.subtitle !== "1 of 6 movies" ||
+      filtered.moveMode ||
+      filtered.movePressed !== "false" ||
+      !filtered.moveDisabled ||
       filtered.dragHandleVisible ||
       filtered.actionLabels.join("|") !== "" ||
       filtered.overflowLabels.join("|") !== "Info|Re-rank|Remove"
@@ -3715,13 +3794,15 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     await waitFor(page, `document.querySelector('#compare')?.classList.contains('panel--hidden') && document.querySelectorAll('#ranking .ranking__item').length === 6`, 3000);
     await page.evaluate(`document.querySelector('#ranking-expand')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#ranking-fullscreen')?.hidden && document.querySelectorAll('#fullscreen-grid .fullscreen-card').length === 6`, 3000);
+    await page.evaluate(`document.querySelector('#fullscreen-move-toggle')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#fullscreen-grid')?.classList.contains('is-move-mode')`, 3000);
 
     const dragPoints = await page.evaluate(`(() => {
       const cards = [...document.querySelectorAll('#fullscreen-grid .fullscreen-card')];
-      const first = cards[0].getBoundingClientRect();
+      const firstHandle = cards[0].querySelector('.fullscreen-card__drag-handle').getBoundingClientRect();
       const last = cards.at(-1).getBoundingClientRect();
       return {
-        from: { x: first.left + first.width / 2, y: first.top + first.height / 2 },
+        from: { x: firstHandle.left + firstHandle.width / 2, y: firstHandle.top + firstHandle.height / 2 },
         to: { x: last.right - 2, y: last.top + last.height / 2 }
       };
     })()`);
@@ -3818,6 +3899,8 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
       gridTitles: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__title')].map((el) => el.textContent.trim()),
       rankingTitles: [...document.querySelectorAll('#ranking .ranking__title')].map((el) => el.textContent.trim()),
       compact: document.querySelector('#fullscreen-grid')?.classList.contains('is-compact'),
+      moveMode: document.querySelector('#fullscreen-grid')?.classList.contains('is-move-mode'),
+      movePressed: document.querySelector('#fullscreen-move-toggle')?.getAttribute('aria-pressed'),
       focusedTitle: document.activeElement?.querySelector?.('.fullscreen-card__title')?.textContent.trim() || '',
       draggingCards: document.querySelectorAll('#fullscreen-grid .fullscreen-card.is-dragging').length,
       staleDraggedCards: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card')]
@@ -3828,6 +3911,10 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
           const rect = actions.getBoundingClientRect();
           return style.display !== 'none' && style.visibility === 'visible' && Number(style.opacity || 1) === 1 && rect.height >= 30;
         }),
+      visibleHandles: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__drag-handle')]
+        .filter((button) => getComputedStyle(button).display !== 'none').length,
+      visibleOverflowToggles: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__overflow .movie-item__overflow-toggle')]
+        .filter((button) => getComputedStyle(button).display !== 'none').length,
       handleInsidePosters: document.querySelectorAll('#fullscreen-grid .fullscreen-card__poster .fullscreen-card__drag-handle').length
     }))()`);
     if (
@@ -3835,9 +3922,13 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
       state.gridTitles[0] !== "Alpha" ||
       state.rankingTitles[0] !== "Alpha" ||
       !state.compact ||
+      !state.moveMode ||
+      state.movePressed !== "true" ||
       state.draggingCards ||
       state.staleDraggedCards ||
       !state.actionRowsVisible ||
+      state.visibleHandles !== 6 ||
+      state.visibleOverflowToggles !== 0 ||
       state.handleInsidePosters
     ) {
       throw new Error(`Full-screen drag undo did not restore the original order: ${JSON.stringify(state)}`);

@@ -58,7 +58,7 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="styles.css?v=120" />
+    <link rel="stylesheet" href="styles.css?v=121" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -705,6 +705,18 @@
                   <option value="compact">Compact</option>
                 </select>
               </label>
+              <button
+                class="fullscreen-move-toggle"
+                id="fullscreen-move-toggle"
+                type="button"
+                aria-label="Reorder full-screen ranking"
+                aria-pressed="false"
+              >
+                <svg class="ui-icon" aria-hidden="true" focusable="false">
+                  <use href="#icon-drag"></use>
+                </svg>
+                <span>Move</span>
+              </button>
               <form class="fullscreen-jump" id="fullscreen-jump-form">
                 <label for="fullscreen-jump">Jump to</label>
                 <input id="fullscreen-jump" type="number" min="1" inputmode="numeric" placeholder="#" />
@@ -1320,6 +1332,6 @@
 
     <div class="panel__feedback" id="add-feedback" role="status" aria-live="polite"></div>
 
-    <script type="module" src="app.js?v=155"></script>
+    <script type="module" src="app.js?v=156"></script>
   </body>
 </html>

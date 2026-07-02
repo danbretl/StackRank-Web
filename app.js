@@ -194,6 +194,7 @@ const fullscreenSearchClear = document.getElementById("fullscreen-search-clear")
 const fullscreenJump = document.getElementById("fullscreen-jump");
 const fullscreenJumpForm = document.getElementById("fullscreen-jump-form");
 const fullscreenDensity = document.getElementById("fullscreen-density");
+const fullscreenMoveToggle = document.getElementById("fullscreen-move-toggle");
 const watchListEl = document.getElementById("watch-list");
 const notInterestedListEl = document.getElementById("not-interested-list");
 const watchListSub = document.getElementById("watch-list-sub");
@@ -553,6 +554,7 @@ let rankingMoveMode = false;
 let fullscreenTrigger = null;
 let fullscreenFilterQuery = "";
 let fullscreenDensityMode = "comfortable";
+let fullscreenMoveMode = false;
 let fullscreenDrag = null;
 let fullscreenTasteSignal = null;
 let lastPackDiscoveryNudgeAt = 0;
@@ -7629,6 +7631,27 @@ const createFullscreenActionButton = ({
   return button;
 };
 
+const syncFullscreenMoveModeControls = ({ isFiltered = false, count = ranking.length } = {}) => {
+  const isAvailable = count > 1 && !isFiltered;
+  if (!isAvailable) fullscreenMoveMode = false;
+  if (fullscreenGrid) {
+    fullscreenGrid.classList.toggle("is-move-mode", fullscreenMoveMode);
+    fullscreenGrid.classList.toggle("is-move-disabled", !isAvailable);
+  }
+  if (fullscreenMoveToggle) {
+    fullscreenMoveToggle.disabled = !isAvailable;
+    fullscreenMoveToggle.setAttribute("aria-pressed", fullscreenMoveMode ? "true" : "false");
+    fullscreenMoveToggle.classList.toggle("is-active", fullscreenMoveMode);
+    fullscreenMoveToggle.title = fullscreenMoveMode
+      ? "Exit move mode"
+      : isAvailable
+        ? "Move mode"
+        : count > 1
+          ? "Clear the filter to reorder"
+          : "Add another movie to reorder";
+  }
+};
+
 function renderFullscreenRanking({ focusRankingIndex = null } = {}) {
   if (!fullscreenGrid) return;
   fullscreenGrid.innerHTML = "";
@@ -7644,6 +7667,7 @@ function renderFullscreenRanking({ focusRankingIndex = null } = {}) {
   const isFiltered = Boolean(query || fullscreenTasteSignal);
   fullscreenGrid.classList.toggle("is-compact", fullscreenDensityMode === "compact");
   fullscreenGrid.classList.toggle("is-filtered", isFiltered);
+  syncFullscreenMoveModeControls({ isFiltered, count });
   if (fullscreenTitle) {
     fullscreenTitle.textContent = fullscreenTasteSignal
       ? `${fullscreenTasteSignal.value} in your ranking`
@@ -7714,6 +7738,7 @@ function renderFullscreenRanking({ focusRankingIndex = null } = {}) {
     actions.className = "fullscreen-card__actions";
     const handle = createFullscreenActionButton({
       label: "Move",
+      icon: "drag",
       ariaLabel: `Drag to reorder ${movie.title}`,
       className: "fullscreen-card__drag-handle",
     });
@@ -7757,6 +7782,7 @@ function openFullscreenRanking({ trigger = null } = {}) {
   if (!ranking.length || !fullscreenOverlay) return;
   fullscreenTrigger =
     trigger || (document.activeElement instanceof HTMLElement ? document.activeElement : null);
+  fullscreenMoveMode = false;
   renderFullscreenRanking();
   lockShareScroll();
   document.body.classList.add("is-fullscreen-open");
@@ -7781,6 +7807,7 @@ function closeFullscreenRanking({ restoreFocus = true } = {}) {
   }
   fullscreenTrigger = null;
   fullscreenTasteSignal = null;
+  fullscreenMoveMode = false;
 }
 
 if (rankingExpand) {
@@ -7827,6 +7854,14 @@ if (fullscreenDensity) {
   fullscreenDensity.addEventListener("change", () => {
     fullscreenDensityMode = fullscreenDensity.value === "compact" ? "compact" : "comfortable";
     renderFullscreenRanking();
+  });
+}
+
+if (fullscreenMoveToggle) {
+  fullscreenMoveToggle.addEventListener("click", () => {
+    fullscreenMoveMode = !fullscreenMoveMode;
+    renderFullscreenRanking();
+    fullscreenMoveToggle.focus({ preventScroll: true });
   });
 }
 
@@ -7957,6 +7992,7 @@ if (fullscreenGrid) {
     const index = Number(card.dataset.index);
     if (!Number.isInteger(index) || !ranking[index]) return;
     if (event.target.closest(".fullscreen-card__drag-handle")) return;
+    if (fullscreenMoveMode) return;
     const action = event.target.closest("[data-action]")?.dataset.action;
     if (event.target.closest(".movie-item__overflow") && !action) return;
     if (action === "detail") {
@@ -7998,16 +8034,14 @@ if (fullscreenGrid) {
   });
 
   fullscreenGrid.addEventListener("pointerdown", (event) => {
-    if (event.button !== 0 || fullscreenFilterQuery.trim() || fullscreenTasteSignal) return;
-    const handleTarget = event.target.closest(".fullscreen-card__drag-handle");
-    if (event.target.closest(".fullscreen-card__action") && !handleTarget) return;
-    if (event.target.closest(".movie-item__overflow") && !handleTarget) return;
-    const card = event.target.closest(".fullscreen-card");
-    if (!card) return;
-    if (event.pointerType === "touch" && !handleTarget) {
+    if (event.button !== 0 || !fullscreenMoveMode || fullscreenFilterQuery.trim() || fullscreenTasteSignal) {
       return;
     }
-    if (handleTarget) event.preventDefault();
+    const handleTarget = event.target.closest(".fullscreen-card__drag-handle");
+    if (!handleTarget) return;
+    const card = event.target.closest(".fullscreen-card");
+    if (!card) return;
+    event.preventDefault();
     card.setPointerCapture?.(event.pointerId);
     fullscreenDrag = {
       pointerId: event.pointerId,

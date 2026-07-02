@@ -554,7 +554,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=117" ||
+      desktop.cssHref !== "styles.css?v=118" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -1030,6 +1030,60 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       throw new Error(`Mobile Rank shell is wrong: ${JSON.stringify(mobileRank)}`);
     }
 
+    await page.evaluate(`document.querySelector('#ranking .ranking__item .ranking__overflow > summary')?.click(); true;`);
+    await waitFor(
+      page,
+      `(() => {
+        const menu = document.querySelector('#ranking .ranking__item .ranking__overflow .movie-item__overflow-menu');
+        const rect = menu?.getBoundingClientRect();
+        return document.querySelector('#ranking .ranking__item .ranking__overflow')?.open && rect && rect.top > 0 && rect.height > 80;
+      })()`,
+      3000,
+    );
+    const mobileRankOverflow = await page.evaluate(`(() => {
+      const item = document.querySelector('#ranking .ranking__item');
+      const menu = item?.querySelector('.ranking__overflow .movie-item__overflow-menu');
+      const toggle = item?.querySelector('.ranking__overflow > summary');
+      const menuRect = menu?.getBoundingClientRect();
+      const toggleRect = toggle?.getBoundingClientRect();
+      const hit = menuRect ? document.elementFromPoint(menuRect.left + 12, menuRect.top + 12) : null;
+      return {
+        open: item?.querySelector('.ranking__overflow')?.open,
+        labels: [...(item?.querySelectorAll('.ranking__overflow .movie-item__overflow-action') || [])]
+          .map((button) => button.textContent.trim()),
+        position: menu ? getComputedStyle(menu).position : '',
+        display: menu ? getComputedStyle(menu).display : '',
+        rect: menuRect ? {
+          left: Math.round(menuRect.left),
+          top: Math.round(menuRect.top),
+          right: Math.round(menuRect.right),
+          bottom: Math.round(menuRect.bottom),
+          width: Math.round(menuRect.width),
+          height: Math.round(menuRect.height)
+        } : null,
+        toggleBottom: toggleRect ? Math.round(toggleRect.bottom) : null,
+        hitText: hit?.textContent?.trim() || '',
+        viewport: { width: window.innerWidth, height: window.innerHeight }
+      };
+    })()`);
+    if (
+      !mobileRankOverflow.open ||
+      mobileRankOverflow.labels.join("|") !== "Info|Re-rank|Remove" ||
+      mobileRankOverflow.position !== "fixed" ||
+      mobileRankOverflow.display === "none" ||
+      !mobileRankOverflow.rect ||
+      mobileRankOverflow.rect.width < 132 ||
+      mobileRankOverflow.rect.height < 100 ||
+      mobileRankOverflow.rect.left < 0 ||
+      mobileRankOverflow.rect.right > mobileRankOverflow.viewport.width ||
+      mobileRankOverflow.rect.top < 0 ||
+      mobileRankOverflow.rect.bottom > mobileRankOverflow.viewport.height ||
+      !mobileRankOverflow.hitText.includes("Info")
+    ) {
+      throw new Error(`Mobile Rank overflow menu is wrong: ${JSON.stringify(mobileRankOverflow)}`);
+    }
+    await page.evaluate(`document.querySelector('#ranking .ranking__item .ranking__overflow')?.removeAttribute('open'); true;`);
+
     await page.evaluate(`document.querySelector('#ranking-move-toggle')?.click(); true;`);
     await wait(100);
     const mobileMoveMode = await page.evaluate(`(() => {
@@ -1236,8 +1290,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=152" ||
-      empty.cssHref !== "styles.css?v=117" ||
+      empty.moduleSrc !== "app.js?v=153" ||
+      empty.cssHref !== "styles.css?v=118" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -3358,8 +3412,12 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     const actionState = await page.evaluate(`(() => {
       const card = document.querySelector('#fullscreen-grid .fullscreen-card');
       const actions = [...card.querySelectorAll('.fullscreen-card__action')];
+      const overflow = card.querySelector('.fullscreen-card__overflow');
+      const overflowToggle = overflow?.querySelector('.movie-item__overflow-toggle');
       return {
         labels: actions.map((button) => button.textContent.trim().replace(/\\s+/g, ' ')),
+        overflowLabels: [...card.querySelectorAll('.fullscreen-card__overflow .movie-item__overflow-action')]
+          .map((button) => button.textContent.trim().replace(/\\s+/g, ' ')),
         visible: actions.map((button) => {
           const style = getComputedStyle(button);
           const rect = button.getBoundingClientRect();
@@ -3374,28 +3432,116 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
             labelFits: label ? label.scrollWidth <= label.clientWidth + 1 : false
           };
         }),
+        overflowVisible: (() => {
+          const style = overflowToggle ? getComputedStyle(overflowToggle) : null;
+          const rect = overflowToggle?.getBoundingClientRect();
+          return style && rect ? {
+            display: style.display,
+            visibility: style.visibility,
+            opacity: style.opacity,
+            width: Math.round(rect.width),
+            height: Math.round(rect.height)
+          } : null;
+        })(),
         handleInsidePoster: !!card.querySelector('.fullscreen-card__poster .fullscreen-card__drag-handle'),
         handleInsideActions: !!card.querySelector('.fullscreen-card__actions .fullscreen-card__drag-handle'),
         handlePosition: getComputedStyle(card.querySelector('.fullscreen-card__drag-handle')).position
       };
     })()`);
     if (
-      actionState.labels.join("|") !== "Info|Re-rank|Move|Remove" ||
+      actionState.labels.join("|") !== "Move" ||
+      actionState.overflowLabels.join("|") !== "Info|Re-rank|Remove" ||
       !actionState.visible.every((item) =>
         item.display !== "none" &&
         item.visibility === "visible" &&
         Number(item.opacity) === 1 &&
         item.width > 0 &&
-        item.height >= 32 &&
-        item.labelWidth > 0 &&
+        item.height >= 30 &&
+        item.labelWidth === 0 &&
         item.labelFits
       ) ||
+      !actionState.overflowVisible ||
+      actionState.overflowVisible.display === "none" ||
+      actionState.overflowVisible.visibility !== "visible" ||
+      Number(actionState.overflowVisible.opacity) !== 1 ||
+      actionState.overflowVisible.width < 30 ||
+      actionState.overflowVisible.height < 30 ||
       actionState.handleInsidePoster ||
       !actionState.handleInsideActions ||
       actionState.handlePosition === "absolute"
     ) {
       throw new Error(`Full-screen action row is wrong: ${JSON.stringify(actionState)}`);
     }
+
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 430,
+      height: 932,
+      deviceScaleFactor: 1,
+      mobile: false,
+      screenWidth: 430,
+      screenHeight: 932,
+    });
+    await waitFor(page, `document.querySelectorAll('#fullscreen-grid .fullscreen-card').length === 6`, 3000);
+    await page.evaluate(`(() => {
+      const density = document.querySelector('#fullscreen-density');
+      density.value = 'comfortable';
+      density.dispatchEvent(new Event('change', { bubbles: true }));
+      return true;
+    })()`);
+    const mobileComfortable = await page.evaluate(`(() => {
+      const grid = document.querySelector('#fullscreen-grid');
+      const card = document.querySelector('#fullscreen-grid .fullscreen-card');
+      const title = card?.querySelector('.fullscreen-card__title');
+      return {
+        compact: grid?.classList.contains('is-compact'),
+        columns: getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length,
+        cardHeight: Math.round(card?.getBoundingClientRect().height || 0),
+        titleDisplay: title ? getComputedStyle(title).display : ''
+      };
+    })()`);
+    await page.evaluate(`(() => {
+      const density = document.querySelector('#fullscreen-density');
+      density.value = 'compact';
+      density.dispatchEvent(new Event('change', { bubbles: true }));
+      return true;
+    })()`);
+    await waitFor(page, `document.querySelector('#fullscreen-grid')?.classList.contains('is-compact')`, 3000);
+    const mobileCompact = await page.evaluate(`(() => {
+      const grid = document.querySelector('#fullscreen-grid');
+      const card = document.querySelector('#fullscreen-grid .fullscreen-card');
+      const title = card?.querySelector('.fullscreen-card__title');
+      return {
+        compact: grid?.classList.contains('is-compact'),
+        columns: getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length,
+        cardHeight: Math.round(card?.getBoundingClientRect().height || 0),
+        titleDisplay: title ? getComputedStyle(title).display : ''
+      };
+    })()`);
+    if (
+      mobileComfortable.compact ||
+      !mobileCompact.compact ||
+      mobileComfortable.columns < 3 ||
+      mobileCompact.columns <= mobileComfortable.columns ||
+      mobileCompact.cardHeight >= mobileComfortable.cardHeight ||
+      mobileCompact.titleDisplay !== "none"
+    ) {
+      throw new Error(`Mobile full-screen density is wrong: ${JSON.stringify({ mobileComfortable, mobileCompact })}`);
+    }
+    await page.evaluate(`(() => {
+      const density = document.querySelector('#fullscreen-density');
+      density.value = 'comfortable';
+      density.dispatchEvent(new Event('change', { bubbles: true }));
+      return true;
+    })()`);
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 1280,
+      height: 900,
+      deviceScaleFactor: 1,
+      mobile: false,
+      screenWidth: 1280,
+      screenHeight: 900,
+    });
+    await waitFor(page, `!document.querySelector('#fullscreen-grid')?.classList.contains('is-compact')`, 3000);
 
     await page.evaluate(`(() => {
       const input = document.querySelector('#fullscreen-search');
@@ -3410,13 +3556,16 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
       dragHandleVisible: getComputedStyle(document.querySelector('.fullscreen-card__drag-handle')).display !== 'none',
       actionLabels: [...document.querySelectorAll('.fullscreen-card__action')]
         .filter((button) => getComputedStyle(button).display !== 'none')
+        .map((button) => button.textContent.trim().replace(/\\s+/g, ' ')),
+      overflowLabels: [...document.querySelectorAll('.fullscreen-card__overflow .movie-item__overflow-action')]
         .map((button) => button.textContent.trim().replace(/\\s+/g, ' '))
     }))()`);
     if (
       filtered.title !== "Gamma" ||
       filtered.subtitle !== "1 of 6 movies" ||
       filtered.dragHandleVisible ||
-      filtered.actionLabels.join("|") !== "Info|Re-rank|Remove"
+      filtered.actionLabels.join("|") !== "" ||
+      filtered.overflowLabels.join("|") !== "Info|Re-rank|Remove"
     ) {
       throw new Error(`Full-screen filtering state is wrong: ${JSON.stringify(filtered)}`);
     }
@@ -3465,7 +3614,7 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     }
     const jumpFocusShot = await page.screenshot("fullscreen-ranking-jump-focus.png");
 
-    await page.evaluate(`document.querySelector('#fullscreen-grid .fullscreen-card [data-action="detail"]')?.click(); true;`);
+    await page.evaluate(`document.querySelector('#fullscreen-grid .fullscreen-card .fullscreen-card__primary')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#movie-detail')?.hidden && document.querySelector('#detail-title')?.textContent.trim() === 'Alpha'`, 3000);
     const nestedModal = await page.evaluate(`(() => {
       const layer = document.querySelector('#movie-detail');
@@ -3493,12 +3642,20 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
       3000,
     );
 
-    await page.evaluate(`document.querySelector('.fullscreen-card[data-index="2"] [data-action="remove"]')?.click(); true;`);
+    await page.evaluate(`(() => {
+      document.querySelector('.fullscreen-card[data-index="2"] .fullscreen-card__overflow > summary')?.click();
+      document.querySelector('.fullscreen-card[data-index="2"] [data-action="remove"]')?.click();
+      return true;
+    })()`);
     await waitFor(page, `document.querySelectorAll('#fullscreen-grid .fullscreen-card').length === 5`, 3000);
     await page.evaluate(`document.querySelector('#add-feedback .feedback-toast__action')?.click(); true;`);
     await waitFor(page, `document.querySelectorAll('#fullscreen-grid .fullscreen-card').length === 6`, 3000);
 
-    await page.evaluate(`document.querySelector('.fullscreen-card[data-index="1"] [data-action="restack"]')?.click(); true;`);
+    await page.evaluate(`(() => {
+      document.querySelector('.fullscreen-card[data-index="1"] .fullscreen-card__overflow > summary')?.click();
+      document.querySelector('.fullscreen-card[data-index="1"] [data-action="restack"]')?.click();
+      return true;
+    })()`);
     await waitFor(page, `document.querySelector('#ranking-fullscreen')?.hidden && !document.querySelector('#compare')?.classList.contains('panel--hidden')`, 3000);
     await page.evaluate(`document.querySelector('#cancel-ranking')?.click(); true;`);
     await waitFor(page, `document.querySelector('#compare')?.classList.contains('panel--hidden') && document.querySelectorAll('#ranking .ranking__item').length === 6`, 3000);
@@ -3615,7 +3772,7 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
         .every((actions) => {
           const style = getComputedStyle(actions);
           const rect = actions.getBoundingClientRect();
-          return style.display !== 'none' && style.visibility === 'visible' && Number(style.opacity || 1) === 1 && rect.height >= 32;
+          return style.display !== 'none' && style.visibility === 'visible' && Number(style.opacity || 1) === 1 && rect.height >= 30;
         }),
       handleInsidePosters: document.querySelectorAll('#fullscreen-grid .fullscreen-card__poster .fullscreen-card__drag-handle').length
     }))()`);

@@ -1046,8 +1046,35 @@ const createMovieOverflow = (label, actions = []) => {
     document.querySelectorAll(".movie-item__overflow[open]").forEach((other) => {
       if (other !== overflow) other.removeAttribute("open");
     });
+    window.requestAnimationFrame(() => positionMovieOverflowMenu(overflow));
   });
   return overflow;
+};
+
+const closeMovieOverflowMenus = () => {
+  document.querySelectorAll(".movie-item__overflow[open]").forEach((overflow) => {
+    overflow.removeAttribute("open");
+  });
+};
+
+const positionMovieOverflowMenu = (overflow) => {
+  const summary = overflow?.querySelector("summary");
+  const menu = overflow?.querySelector(".movie-item__overflow-menu");
+  if (!summary || !menu || !overflow.open) return;
+  const margin = 8;
+  const toggleRect = summary.getBoundingClientRect();
+  const menuRect = menu.getBoundingClientRect();
+  const left = Math.min(
+    Math.max(margin, toggleRect.right - menuRect.width),
+    Math.max(margin, window.innerWidth - menuRect.width - margin),
+  );
+  const below = toggleRect.bottom + 4;
+  const above = toggleRect.top - menuRect.height - 4;
+  const top = below + menuRect.height + margin <= window.innerHeight
+    ? below
+    : Math.max(margin, above);
+  menu.style.left = `${left}px`;
+  menu.style.top = `${top}px`;
 };
 
 const createMovieOverflowActionButton = ({ label, ariaLabel, className = "", kind = "secondary", action = "" }) => {
@@ -7674,29 +7701,32 @@ function renderFullscreenRanking({ focusRankingIndex = null } = {}) {
     meta.textContent = movie.year ? String(movie.year) : "Year unknown";
     const actions = document.createElement("div");
     actions.className = "fullscreen-card__actions";
-    const info = createFullscreenActionButton({
-      label: "Info",
-      action: "detail",
-      ariaLabel: `Show details for ${movie.title}`,
-    });
-    const restack = createFullscreenActionButton({
-      label: "Re-rank",
-      action: "restack",
-      ariaLabel: `Re-rank ${movie.title}`,
-    });
     const handle = createFullscreenActionButton({
       label: "Move",
       ariaLabel: `Drag to reorder ${movie.title}`,
       className: "fullscreen-card__drag-handle",
     });
     handle.title = "Drag to reorder";
-    const remove = createFullscreenActionButton({
-      label: "Remove",
-      action: "remove",
-      ariaLabel: `Remove ${movie.title}`,
-      className: "fullscreen-card__action--danger",
-    });
-    actions.append(info, restack, handle, remove);
+    const overflow = createMovieOverflow(`More actions for ${movie.title}`, [
+      createMovieOverflowActionButton({
+        label: "Info",
+        ariaLabel: `Show details for ${movie.title}`,
+        action: "detail",
+      }),
+      createMovieOverflowActionButton({
+        label: "Re-rank",
+        ariaLabel: `Re-rank ${movie.title}`,
+        action: "restack",
+      }),
+      createMovieOverflowActionButton({
+        label: "Remove",
+        ariaLabel: `Remove ${movie.title}`,
+        kind: "danger",
+        action: "remove",
+      }),
+    ]);
+    overflow.classList.add("fullscreen-card__overflow");
+    actions.append(handle, overflow);
     primary.append(poster, title, meta);
     card.append(primary, actions);
     fullscreenGrid.appendChild(card);
@@ -7915,6 +7945,7 @@ if (fullscreenGrid) {
     if (!Number.isInteger(index) || !ranking[index]) return;
     if (event.target.closest(".fullscreen-card__drag-handle")) return;
     const action = event.target.closest("[data-action]")?.dataset.action;
+    if (event.target.closest(".movie-item__overflow") && !action) return;
     if (action === "detail") {
       openMovieDetail(ranking[index], { type: "ranked" }, event.target.closest("button") || card);
       return;
@@ -7957,6 +7988,7 @@ if (fullscreenGrid) {
     if (event.button !== 0 || fullscreenFilterQuery.trim() || fullscreenTasteSignal) return;
     const handleTarget = event.target.closest(".fullscreen-card__drag-handle");
     if (event.target.closest(".fullscreen-card__action") && !handleTarget) return;
+    if (event.target.closest(".movie-item__overflow") && !handleTarget) return;
     const card = event.target.closest(".fullscreen-card");
     if (!card) return;
     if (event.pointerType === "touch" && !handleTarget) {
@@ -9213,6 +9245,10 @@ document.addEventListener("keydown", (event) => {
     return;
   }
   if (event.key !== "Escape") return;
+  if (document.querySelector(".movie-item__overflow[open]")) {
+    closeMovieOverflowMenus();
+    return;
+  }
   if (!signinOverlay.hidden) {
     closeSignIn();
     return;
@@ -9427,6 +9463,7 @@ titleInput.addEventListener("keydown", (event) => {
 });
 
 document.addEventListener("click", (event) => {
+  if (!event.target.closest(".movie-item__overflow")) closeMovieOverflowMenus();
   if (
     !rankingSettingsPanel.hidden &&
     !rankingSettingsPanel.contains(event.target) &&
@@ -9438,6 +9475,9 @@ document.addEventListener("click", (event) => {
     hideSuggestions();
   }
 });
+
+window.addEventListener("resize", closeMovieOverflowMenus);
+window.addEventListener("scroll", closeMovieOverflowMenus, true);
 
 suggestions.addEventListener("mousemove", (event) => {
   const item = event.target.closest(".suggestions__item");

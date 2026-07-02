@@ -554,7 +554,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=119" ||
+      desktop.cssHref !== "styles.css?v=120" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -1047,8 +1047,22 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       const menuRect = menu?.getBoundingClientRect();
       const toggleRect = toggle?.getBoundingClientRect();
       const hit = menuRect ? document.elementFromPoint(menuRect.left + 12, menuRect.top + 12) : null;
+      const occlusionSamples = menuRect ? [
+        { name: 'top-right', x: menuRect.right - 16, y: menuRect.top + 18 },
+        { name: 'middle-right', x: menuRect.right - 16, y: menuRect.top + menuRect.height / 2 },
+        { name: 'bottom-right', x: menuRect.right - 16, y: menuRect.bottom - 18 }
+      ].map((point) => {
+        const target = document.elementFromPoint(point.x, point.y);
+        return {
+          name: point.name,
+          className: target?.className || '',
+          text: target?.textContent?.trim() || '',
+          inMenu: !!target?.closest('.movie-item__overflow-menu')
+        };
+      }) : [];
       return {
         open: item?.querySelector('.ranking__overflow')?.open,
+        itemRaised: item?.classList.contains('is-overflow-open'),
         labels: [...(item?.querySelectorAll('.ranking__overflow .movie-item__overflow-action') || [])]
           .map((button) => button.textContent.trim()),
         position: menu ? getComputedStyle(menu).position : '',
@@ -1063,11 +1077,13 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         } : null,
         toggleBottom: toggleRect ? Math.round(toggleRect.bottom) : null,
         hitText: hit?.textContent?.trim() || '',
+        occlusionSamples,
         viewport: { width: window.innerWidth, height: window.innerHeight }
       };
     })()`);
     if (
       !mobileRankOverflow.open ||
+      !mobileRankOverflow.itemRaised ||
       mobileRankOverflow.labels.join("|") !== "Info|Re-rank|Remove" ||
       mobileRankOverflow.position !== "fixed" ||
       mobileRankOverflow.display === "none" ||
@@ -1078,10 +1094,12 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       mobileRankOverflow.rect.right > mobileRankOverflow.viewport.width ||
       mobileRankOverflow.rect.top < 0 ||
       mobileRankOverflow.rect.bottom > mobileRankOverflow.viewport.height ||
-      !mobileRankOverflow.hitText.includes("Info")
+      !mobileRankOverflow.hitText.includes("Info") ||
+      !mobileRankOverflow.occlusionSamples.every((sample) => sample.inMenu)
     ) {
       throw new Error(`Mobile Rank overflow menu is wrong: ${JSON.stringify(mobileRankOverflow)}`);
     }
+    const mobileRankOverflowShot = await page.screenshot("app-shell-mobile-ranking-overflow.png");
     await page.evaluate(`document.querySelector('#ranking .ranking__item .ranking__overflow')?.removeAttribute('open'); true;`);
 
     await page.evaluate(`document.querySelector('#ranking-move-toggle')?.click(); true;`);
@@ -1205,8 +1223,8 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { desktop, mobileRank, mobileDiscover, mobileLists, restored },
-      screenshots: [desktopShot, desktopInfoHoverShot, discoverShot].filter(Boolean),
+      details: { desktop, mobileRank, mobileRankOverflow, mobileDiscover, mobileLists, restored },
+      screenshots: [desktopShot, desktopInfoHoverShot, mobileRankOverflowShot, discoverShot].filter(Boolean),
     };
   } finally {
     await page.close();
@@ -1290,8 +1308,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=154" ||
-      empty.cssHref !== "styles.css?v=119" ||
+      empty.moduleSrc !== "app.js?v=155" ||
+      empty.cssHref !== "styles.css?v=120" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||

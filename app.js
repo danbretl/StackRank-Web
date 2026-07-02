@@ -1030,6 +1030,12 @@ const createMovieInfoButton = (movie, className = "") => {
   return button;
 };
 
+const setMovieOverflowLayerState = (overflow, open) => {
+  overflow
+    ?.closest(".ranking__item, .queue-list__item, .fullscreen-card, .movie-item")
+    ?.classList.toggle("is-overflow-open", Boolean(open));
+};
+
 const createMovieOverflow = (label, actions = []) => {
   const overflow = document.createElement("details");
   overflow.className = "movie-item__overflow";
@@ -1042,9 +1048,13 @@ const createMovieOverflow = (label, actions = []) => {
   actions.forEach((action) => menu.appendChild(action));
   overflow.append(summary, menu);
   overflow.addEventListener("toggle", () => {
+    setMovieOverflowLayerState(overflow, overflow.open);
     if (!overflow.open) return;
     document.querySelectorAll(".movie-item__overflow[open]").forEach((other) => {
-      if (other !== overflow) other.removeAttribute("open");
+      if (other !== overflow) {
+        setMovieOverflowLayerState(other, false);
+        other.removeAttribute("open");
+      }
     });
     window.requestAnimationFrame(() => positionMovieOverflowMenu(overflow));
   });
@@ -1053,6 +1063,7 @@ const createMovieOverflow = (label, actions = []) => {
 
 const closeMovieOverflowMenus = () => {
   document.querySelectorAll(".movie-item__overflow[open]").forEach((overflow) => {
+    setMovieOverflowLayerState(overflow, false);
     overflow.removeAttribute("open");
   });
 };

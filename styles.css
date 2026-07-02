@@ -6810,6 +6810,13 @@ textarea,
   justify-self: end;
 }
 
+.movie-item.is-overflow-open,
+.ranking__item.is-overflow-open,
+.queue-list__item.is-overflow-open,
+.fullscreen-card.is-overflow-open {
+  z-index: 1250;
+}
+
 .movie-item__overflow > summary {
   list-style: none;
 }

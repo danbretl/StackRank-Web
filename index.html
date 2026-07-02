@@ -58,7 +58,7 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="styles.css?v=115" />
+    <link rel="stylesheet" href="styles.css?v=116" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -463,6 +463,17 @@
             <h2>Current ranking</h2>
             <div class="panel__actions">
               <button
+                class="icon-button icon-button--quiet ranking-add-jump"
+                id="ranking-add-jump"
+                type="button"
+                aria-label="Add a movie"
+              >
+                <svg class="ui-icon" aria-hidden="true" focusable="false">
+                  <use href="#icon-search"></use>
+                </svg>
+                <span class="icon-button__label">Add</span>
+              </button>
+              <button
                 class="icon-button icon-button--quiet"
                 id="ranking-review"
                 type="button"
@@ -497,6 +508,18 @@
                   <use href="#icon-fullscreen"></use>
                 </svg>
                 <span class="icon-button__label">Full screen</span>
+              </button>
+              <button
+                class="icon-button icon-button--quiet ranking-move-toggle"
+                id="ranking-move-toggle"
+                type="button"
+                aria-label="Reorder ranking"
+                aria-pressed="false"
+              >
+                <svg class="ui-icon" aria-hidden="true" focusable="false">
+                  <use href="#icon-drag"></use>
+                </svg>
+                <span class="icon-button__label">Move</span>
               </button>
               <button class="icon-button icon-button--quiet" id="share-list" type="button" aria-label="Share ranking">
                 <svg class="ui-icon" aria-hidden="true" focusable="false">
@@ -1297,6 +1320,6 @@
 
     <div class="panel__feedback" id="add-feedback" role="status" aria-live="polite"></div>
 
-    <script type="module" src="app.js?v=150"></script>
+    <script type="module" src="app.js?v=151"></script>
   </body>
 </html>

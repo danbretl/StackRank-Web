@@ -174,6 +174,8 @@ const reviewKeepButton = document.getElementById("review-keep");
 const reviewSwapButton = document.getElementById("review-swap");
 const reviewEndButton = document.getElementById("review-end");
 const rankingReviewButton = document.getElementById("ranking-review");
+const rankingAddJump = document.getElementById("ranking-add-jump");
+const rankingMoveToggle = document.getElementById("ranking-move-toggle");
 const compareHeading = compareSection.querySelector(".panel__header h2");
 const rankingList = document.getElementById("ranking");
 const rankingFilter = document.getElementById("ranking-filter");
@@ -547,6 +549,7 @@ let pendingPackContext = null;
 let autoPackSession = null;
 let rankingFilterQuery = "";
 let rankingFilterExpanded = false;
+let rankingMoveMode = false;
 let fullscreenTrigger = null;
 let fullscreenFilterQuery = "";
 let fullscreenDensityMode = "comfortable";
@@ -1047,6 +1050,15 @@ const createMovieOverflow = (label, actions = []) => {
   return overflow;
 };
 
+const createMovieOverflowActionButton = ({ label, ariaLabel, className = "", kind = "secondary" }) => {
+  const button = document.createElement("button");
+  button.className = `movie-item__overflow-action movie-item__overflow-action--${kind} ${className}`.trim();
+  button.type = "button";
+  if (ariaLabel) button.setAttribute("aria-label", ariaLabel);
+  button.textContent = label;
+  return button;
+};
+
 const createMovieItem = ({
   element = "div",
   variant,
@@ -1307,12 +1319,20 @@ const renderFirstRunExperience = (rankingLength = ranking.length) => {
 const renderRanking = () => {
   rankingList.innerHTML = "";
   const hasRankedMovies = ranking.length > 0;
+  const query = rankingFilterQuery.trim().toLowerCase();
+  if (!hasRankedMovies || query) rankingMoveMode = false;
+  rankingList.classList.toggle("is-move-mode", rankingMoveMode);
   renderFirstRunExperience();
   shareButton.disabled = !hasRankedMovies;
   clearButton.disabled = !hasRankedMovies;
   if (rankingFilterToggle) rankingFilterToggle.disabled = !hasRankedMovies;
   if (rankingExpand) rankingExpand.disabled = !hasRankedMovies;
   if (rankingReviewButton) rankingReviewButton.disabled = ranking.length < 2;
+  if (rankingMoveToggle) {
+    rankingMoveToggle.disabled = !hasRankedMovies || Boolean(query);
+    rankingMoveToggle.setAttribute("aria-pressed", rankingMoveMode ? "true" : "false");
+    rankingMoveToggle.classList.toggle("is-active", rankingMoveMode);
+  }
 
   if (!hasRankedMovies) {
     if (rankingFilterExpanded) setRankingFilterExpanded(false);
@@ -1326,7 +1346,6 @@ const renderRanking = () => {
     return;
   }
 
-  const query = rankingFilterQuery.trim().toLowerCase();
   rankingList.classList.toggle("ranking--filtered", Boolean(query));
   let visibleCount = 0;
   ranking.forEach((movie, index) => {
@@ -1364,13 +1383,32 @@ const renderRanking = () => {
       kind: "danger",
       className: "ranking__delete",
     });
+    const overflow = createMovieOverflow(`More actions for ${movie.title}`, [
+      createMovieOverflowActionButton({
+        label: "Info",
+        ariaLabel: `Show details for ${movie.title}`,
+        className: "ranking__info",
+      }),
+      createMovieOverflowActionButton({
+        label: "Re-rank",
+        ariaLabel: `Re-rank ${movie.title}`,
+        className: "ranking__restack",
+      }),
+      createMovieOverflowActionButton({
+        label: "Remove",
+        ariaLabel: `Remove ${movie.title}`,
+        kind: "danger",
+        className: "ranking__delete",
+      }),
+    ]);
+    overflow.classList.add("ranking__overflow");
     const item = createMovieItem({
       element: "li",
       variant: "ranking",
       movie,
       rank: index + 1,
       metadata: "Current ranking",
-      actions: [infoButton, restackButton, handle, removeButton],
+      actions: [infoButton, restackButton, handle, removeButton, overflow],
       className: "ranking__item",
       legacyPosterClass: "ranking__poster",
     });
@@ -1394,6 +1432,16 @@ const renderRanking = () => {
   if (!shareStudio.hidden) updateShareStudio();
 };
 
+function setRankingMoveMode(active) {
+  const next = Boolean(active && ranking.length && !rankingFilterQuery.trim());
+  if (rankingMoveMode === next) {
+    if (rankingMoveToggle) rankingMoveToggle.setAttribute("aria-pressed", next ? "true" : "false");
+    return;
+  }
+  rankingMoveMode = next;
+  renderRanking();
+}
+
 function setRankingFilterExpanded(expanded) {
   rankingFilterExpanded = expanded;
   if (rankingFilter) rankingFilter.hidden = !expanded;
@@ -1414,12 +1462,14 @@ function setRankingFilterExpanded(expanded) {
 
 if (rankingFilterToggle) {
   rankingFilterToggle.addEventListener("click", () => {
+    if (!rankingFilterExpanded) setRankingMoveMode(false);
     setRankingFilterExpanded(!rankingFilterExpanded);
   });
 }
 if (rankingFilterInput) {
   rankingFilterInput.addEventListener("input", () => {
     rankingFilterQuery = rankingFilterInput.value;
+    if (rankingFilterQuery) rankingMoveMode = false;
     if (rankingFilterClear) rankingFilterClear.hidden = !rankingFilterQuery;
     renderRanking();
   });
@@ -1440,6 +1490,19 @@ if (rankingFilterClear) {
     rankingFilterClear.hidden = true;
     rankingFilterInput.focus();
     renderRanking();
+  });
+}
+
+if (rankingMoveToggle) {
+  rankingMoveToggle.addEventListener("click", () => {
+    setRankingMoveMode(!rankingMoveMode);
+  });
+}
+
+if (rankingAddJump) {
+  rankingAddJump.addEventListener("click", () => {
+    titleInput.scrollIntoView({ block: "center", behavior: "smooth" });
+    titleInput.focus({ preventScroll: true });
   });
 }
 
@@ -3739,12 +3802,28 @@ rankingList.addEventListener("click", (event) => {
     return;
   }
   const removeButton = event.target.closest(".ranking__delete");
-  if (!removeButton) return;
-  const item = removeButton.closest(".ranking__item");
+  if (removeButton) {
+    const item = removeButton.closest(".ranking__item");
+    if (!item) return;
+    const index = Number(item.dataset.index);
+    if (Number.isNaN(index)) return;
+    removeRankedMovie(index);
+    return;
+  }
+
+  if (
+    rankingMoveMode ||
+    event.target.closest(".ranking__actions, .movie-item__actions, .movie-item__detail, .movie-item__overflow")
+  ) {
+    return;
+  }
+
+  const item = event.target.closest(".ranking__item");
   if (!item) return;
   const index = Number(item.dataset.index);
   if (Number.isNaN(index)) return;
-  removeRankedMovie(index);
+  const movie = ranking[index];
+  if (movie) openMovieDetail(movie, { type: "ranked", source: "ranking", index }, item);
 });
 
 const clearDragShifts = () => {
@@ -3850,7 +3929,7 @@ rankingList.addEventListener(
     ) {
       return;
     }
-    if (event.pointerType === "touch" && !handleTarget) {
+    if ((event.pointerType === "touch" || window.matchMedia("(max-width: 720px)").matches) && !handleTarget) {
       return;
     }
     event.preventDefault();

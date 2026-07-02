@@ -897,29 +897,36 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         innerWidth,
         innerHeight,
         toolbarControls: (() => {
-          const expectedIds = ['ranking-review', 'ranking-filter-toggle', 'ranking-expand', 'share-list'];
+          const expectedIds = ['ranking-add-jump', 'ranking-review', 'ranking-filter-toggle', 'ranking-expand', 'ranking-move-toggle'];
           return expectedIds.map((id) => {
             const button = document.getElementById(id);
             const label = button?.querySelector('.icon-button__label');
             const bounds = button?.getBoundingClientRect();
             const labelBounds = label?.getBoundingClientRect();
-            const style = label ? getComputedStyle(label) : null;
+            const buttonStyle = button ? getComputedStyle(button) : null;
+            const labelStyle = label ? getComputedStyle(label) : null;
             return {
               id,
-              label: label?.textContent.trim() || '',
+              label: label?.textContent.trim() || button?.getAttribute('aria-label') || '',
+              ariaLabel: button?.getAttribute('aria-label') || '',
               buttonWidth: bounds?.width || 0,
               buttonHeight: bounds?.height || 0,
               labelWidth: labelBounds?.width || 0,
               labelHeight: labelBounds?.height || 0,
-              display: style?.display || '',
-              visibility: style?.visibility || '',
-              opacity: style?.opacity || '',
+              display: buttonStyle?.display || '',
+              visibility: buttonStyle?.visibility || '',
+              opacity: buttonStyle?.opacity || '',
+              labelDisplay: labelStyle?.display || '',
               scrollWidth: button?.scrollWidth || 0
             };
           });
         })(),
         toolbarRows: (() => {
-          const controls = [...document.querySelectorAll('.panel--list .panel__actions .icon-button')];
+          const controls = [...document.querySelectorAll('.panel--list .panel__actions .icon-button')].filter((button) => {
+            const bounds = button.getBoundingClientRect();
+            const style = getComputedStyle(button);
+            return bounds.width > 0 && bounds.height > 0 && style.display !== 'none';
+          });
           return [...new Set(controls.map((button) => Math.round(button.getBoundingClientRect().top)))];
         })(),
         rowControls: (() => {
@@ -956,6 +963,13 @@ const testAppShellNavigation = async ({ baseUrl }) => {
               pointerEvents: style.pointerEvents
             };
           });
+          const overflow = first?.querySelector('.ranking__overflow');
+          const overflowToggle = first?.querySelector('.movie-item__overflow-toggle');
+          const overflowBounds = overflowToggle?.getBoundingClientRect();
+          const visibleRows = [...document.querySelectorAll('#ranking .ranking__item')].filter((item) => {
+            const bounds = item.getBoundingClientRect();
+            return bounds.bottom < window.innerHeight - 72;
+          }).length;
           return {
             rowTouchAction: first ? getComputedStyle(first).touchAction : '',
             handleTouchAction: first?.querySelector('.ranking__handle')
@@ -965,9 +979,14 @@ const testAppShellNavigation = async ({ baseUrl }) => {
             restackVisible: visible('.ranking__restack'),
             handleVisible: visible('.ranking__handle'),
             removeVisible: visible('.ranking__delete'),
+            overflowVisible: !!overflowBounds &&
+              overflowBounds.width >= 36 &&
+              overflowBounds.height >= 36 &&
+              getComputedStyle(overflow).display !== 'none',
             overflowCount: first?.querySelectorAll('.movie-item__overflow-toggle').length ?? 0,
             actionLabels: actionRects.map((action) => action.text),
             actionRects,
+            visibleRows,
             tripleRankClearance: rankRect && posterRect ? posterRect.left - rankRect.right : null
           };
         })()
@@ -984,37 +1003,54 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       mobileRank.mobileNav.height < 68 ||
       mobileRank.topNavVisible ||
       mobileRank.scrollWidth > mobileRank.innerWidth ||
-      mobileRank.toolbarControls.map((control) => control.label).join("|") !== "Review|Filter|Full screen|Share" ||
+      mobileRank.toolbarControls.map((control) => control.label).join("|") !== "Add|Review|Filter|Full screen|Move" ||
       mobileRank.toolbarRows.length !== 1 ||
       mobileRank.toolbarControls.some((control) =>
-        control.buttonWidth < 44 ||
-        control.buttonHeight < 44 ||
-        control.labelWidth <= 0 ||
-        control.labelHeight <= 0 ||
+        control.buttonWidth < 34 ||
+        control.buttonHeight < 34 ||
+        control.labelWidth !== 0 ||
+        control.labelHeight !== 0 ||
         control.display === "none" ||
         control.visibility === "hidden" ||
         control.opacity === "0" ||
+        control.labelDisplay !== "none" ||
         control.scrollWidth > Math.ceil(control.buttonWidth)
       ) ||
       mobileRank.rowControls.rowTouchAction !== "pan-y" ||
       mobileRank.rowControls.handleTouchAction !== "none" ||
-      !mobileRank.rowControls.infoVisible ||
-      !mobileRank.rowControls.restackVisible ||
-      !mobileRank.rowControls.handleVisible ||
-      !mobileRank.rowControls.removeVisible ||
-      mobileRank.rowControls.overflowCount !== 0 ||
-      mobileRank.rowControls.actionLabels.join("|") !== "Info|Re-rank|Move|Remove" ||
-      mobileRank.rowControls.actionRects.some((action) =>
-        action.width < 44 ||
-        action.height < 44 ||
-        action.display === "none" ||
-        action.visibility === "hidden" ||
-        action.pointerEvents === "none"
-      ) ||
+      mobileRank.rowControls.infoVisible ||
+      mobileRank.rowControls.restackVisible ||
+      mobileRank.rowControls.handleVisible ||
+      mobileRank.rowControls.removeVisible ||
+      !mobileRank.rowControls.overflowVisible ||
+      mobileRank.rowControls.overflowCount !== 1 ||
+      mobileRank.rowControls.visibleRows < 4 ||
       mobileRank.rowControls.tripleRankClearance < 4
     ) {
       throw new Error(`Mobile Rank shell is wrong: ${JSON.stringify(mobileRank)}`);
     }
+
+    await page.evaluate(`document.querySelector('#ranking-move-toggle')?.click(); true;`);
+    await wait(100);
+    const mobileMoveMode = await page.evaluate(`(() => {
+      const first = document.querySelector('#ranking .ranking__item');
+      return {
+        active: document.querySelector('#ranking')?.classList.contains('is-move-mode'),
+        pressed: document.querySelector('#ranking-move-toggle')?.getAttribute('aria-pressed'),
+        handleDisplay: first ? getComputedStyle(first.querySelector('.ranking__handle')).display : '',
+        overflowDisplay: first ? getComputedStyle(first.querySelector('.ranking__overflow')).display : ''
+      };
+    })()`);
+    if (
+      !mobileMoveMode.active ||
+      mobileMoveMode.pressed !== "true" ||
+      mobileMoveMode.handleDisplay === "none" ||
+      mobileMoveMode.overflowDisplay !== "none"
+    ) {
+      throw new Error(`Mobile move mode controls are wrong: ${JSON.stringify(mobileMoveMode)}`);
+    }
+    await page.evaluate(`document.querySelector('#ranking-move-toggle')?.click(); true;`);
+    await wait(100);
 
     await page.evaluate(`(() => {
       document.querySelectorAll('[data-app-destination-target="discover"]').forEach((button) => button.click());
@@ -1932,7 +1968,7 @@ const testMovieDetailClearsBetweenRankedMovies = async ({ baseUrl }) => {
     await seedPage(page, baseUrl, "movie-detail-clears-between-ranked-movies", {
       ranking: [movie("First Detail", 2001, 2131), movie("Second Detail", 2002, 2132)],
     });
-    await page.evaluate(`document.querySelector('#ranking .ranking__item:first-child .ranking__info')?.click(); true;`);
+    await page.evaluate(`document.querySelector('#ranking .ranking__item:first-child .movie-item__body')?.click(); true;`);
     await waitFor(
       page,
       `document.querySelector('#detail-director')?.textContent.trim() === 'First Director'`,
@@ -1946,7 +1982,7 @@ const testMovieDetailClearsBetweenRankedMovies = async ({ baseUrl }) => {
     const firstShot = await page.screenshot("movie-detail-first-loaded.png");
     await page.evaluate(`document.querySelector('#detail-close')?.click(); true;`);
     await waitFor(page, `document.querySelector('#movie-detail')?.hidden`, 3000);
-    await page.evaluate(`document.querySelectorAll('#ranking .ranking__item')[1]?.querySelector('.ranking__info')?.click(); true;`);
+    await page.evaluate(`document.querySelectorAll('#ranking .ranking__item')[1]?.querySelector('.movie-item__body')?.click(); true;`);
     await waitFor(
       page,
       `!document.querySelector('#movie-detail')?.hidden && window.__e2eSecondDetailRequested === true`,

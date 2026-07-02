@@ -554,7 +554,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=121" ||
+      desktop.cssHref !== "styles.css?v=122" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -1065,6 +1065,15 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         itemRaised: item?.classList.contains('is-overflow-open'),
         labels: [...(item?.querySelectorAll('.ranking__overflow .movie-item__overflow-action') || [])]
           .map((button) => button.textContent.trim()),
+        actionMetrics: [...(item?.querySelectorAll('.ranking__overflow .movie-item__overflow-action') || [])]
+          .map((button) => ({
+            text: button.textContent.trim(),
+            width: Math.round(button.getBoundingClientRect().width),
+            height: Math.round(button.getBoundingClientRect().height),
+            scrollWidth: button.scrollWidth,
+            clientWidth: button.clientWidth,
+            whiteSpace: getComputedStyle(button).whiteSpace
+          })),
         position: menu ? getComputedStyle(menu).position : '',
         display: menu ? getComputedStyle(menu).display : '',
         rect: menuRect ? {
@@ -1088,13 +1097,19 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       mobileRankOverflow.position !== "fixed" ||
       mobileRankOverflow.display === "none" ||
       !mobileRankOverflow.rect ||
-      mobileRankOverflow.rect.width < 132 ||
+      mobileRankOverflow.rect.width < 152 ||
       mobileRankOverflow.rect.height < 100 ||
       mobileRankOverflow.rect.left < 0 ||
       mobileRankOverflow.rect.right > mobileRankOverflow.viewport.width ||
       mobileRankOverflow.rect.top < 0 ||
       mobileRankOverflow.rect.bottom > mobileRankOverflow.viewport.height ||
       !mobileRankOverflow.hitText.includes("Info") ||
+      !mobileRankOverflow.actionMetrics.every((action) =>
+        action.whiteSpace === "nowrap" &&
+        action.scrollWidth <= action.clientWidth + 1 &&
+        action.width >= 120 &&
+        action.height <= 40
+      ) ||
       !mobileRankOverflow.occlusionSamples.every((sample) => sample.inMenu)
     ) {
       throw new Error(`Mobile Rank overflow menu is wrong: ${JSON.stringify(mobileRankOverflow)}`);
@@ -1309,7 +1324,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
       empty.moduleSrc !== "app.js?v=156" ||
-      empty.cssHref !== "styles.css?v=121" ||
+      empty.cssHref !== "styles.css?v=122" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -3378,18 +3393,18 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
   try {
     await seedPage(page, baseUrl, "fullscreen-ranking", {
       ranking: [
-        movie("Alpha", 1990, 2001),
-        movie("Beta", 1995, 2002),
-        movie("Gamma", 2000, 2003),
-        movie("Delta", 2005, 2004),
-        movie("Epsilon", 2010, 2005),
-        movie("Zeta", 2015, 2006),
+        movie("Alpha", 1990, null),
+        movie("Beta", 1995, null),
+        movie("Gamma", 2000, null),
+        movie("Delta", 2005, null),
+        movie("Epsilon", 2010, null),
+        movie("Zeta", 2015, null),
       ],
     });
     await page.evaluate(`(() => {
       const realFetch = window.fetch.bind(window);
       window.fetch = (input, options) => {
-        const url = String(input);
+        const url = typeof input === 'string' ? input : input?.url || String(input);
         if (url.includes('/functions/v1/tmdb-detail')) {
           const id = Number(new URL(url).searchParams.get('id'));
           return Promise.resolve(new Response(JSON.stringify({
@@ -3500,6 +3515,64 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     ) {
       throw new Error(`Full-screen action row is wrong: ${JSON.stringify(actionState)}`);
     }
+
+    await page.evaluate(`(() => {
+      const overflow = document.querySelector('.fullscreen-card[data-index="2"] .fullscreen-card__overflow');
+      overflow?.setAttribute('open', '');
+      overflow?.closest('.fullscreen-card')?.classList.add('is-overflow-open');
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `document.querySelector('.fullscreen-card[data-index="2"] .fullscreen-card__overflow')?.open`,
+      3000,
+    );
+    const fullscreenOverflowFocus = await page.evaluate(`(() => {
+      const card = document.querySelector('.fullscreen-card[data-index="2"]');
+      const menu = card?.querySelector('.fullscreen-card__overflow .movie-item__overflow-menu');
+      const cardStyle = card ? getComputedStyle(card) : null;
+      return {
+        open: card?.querySelector('.fullscreen-card__overflow')?.open,
+        cardBorderColor: cardStyle?.borderColor || '',
+        cardBoxShadow: cardStyle?.boxShadow || '',
+        labels: [...(menu?.querySelectorAll('.movie-item__overflow-action') || [])]
+          .map((button) => button.textContent.trim()),
+        actionMetrics: [...(menu?.querySelectorAll('.movie-item__overflow-action') || [])]
+          .map((button) => ({
+            text: button.textContent.trim(),
+            width: Math.round(button.getBoundingClientRect().width),
+            height: Math.round(button.getBoundingClientRect().height),
+            scrollWidth: button.scrollWidth,
+            clientWidth: button.clientWidth,
+            whiteSpace: getComputedStyle(button).whiteSpace
+          }))
+      };
+    })()`);
+    if (
+      !fullscreenOverflowFocus.open ||
+      fullscreenOverflowFocus.cardBorderColor === "rgb(17, 17, 17)" ||
+      fullscreenOverflowFocus.cardBoxShadow !== "none" ||
+      fullscreenOverflowFocus.labels.join("|") !== "Info|Re-rank|Remove" ||
+      !fullscreenOverflowFocus.actionMetrics.every((action) =>
+        action.whiteSpace === "nowrap" &&
+        action.scrollWidth <= action.clientWidth + 1 &&
+        action.width >= 120 &&
+        action.height <= 40
+      )
+    ) {
+      throw new Error(`Full-screen overflow focus/menu styling is wrong: ${JSON.stringify(fullscreenOverflowFocus)}`);
+    }
+    await page.evaluate(`(() => {
+      const overflow = document.querySelector('.fullscreen-card[data-index="2"] .fullscreen-card__overflow');
+      overflow?.removeAttribute('open');
+      overflow?.closest('.fullscreen-card')?.classList.remove('is-overflow-open');
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `!document.querySelector('.fullscreen-card[data-index="2"] .fullscreen-card__overflow')?.open`,
+      3000,
+    );
 
     await page.evaluate(`document.querySelector('#fullscreen-move-toggle')?.click(); true;`);
     await waitFor(page, `document.querySelector('#fullscreen-grid')?.classList.contains('is-move-mode')`, 3000);
@@ -3708,6 +3781,7 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
         activeTitle: card?.querySelector('.fullscreen-card__title')?.textContent.trim(),
         primaryOutlineColor: targetStyle.outlineColor,
         primaryOutlineStyle: targetStyle.outlineStyle,
+        primaryBoxShadow: targetStyle.boxShadow,
         cardBorderColor: cardStyle.borderColor,
         cardBoxShadow: cardStyle.boxShadow,
         focusToken: getComputedStyle(document.documentElement).getPropertyValue('--focus').trim()
@@ -3716,7 +3790,8 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     if (
       jumpFocus.activeTitle !== "Delta" ||
       jumpFocus.primaryOutlineColor === "rgb(11, 99, 206)" ||
-      !jumpFocus.cardBoxShadow.includes("rgb(17, 17, 17)") ||
+      jumpFocus.cardBoxShadow !== "none" ||
+      jumpFocus.primaryBoxShadow.includes("rgb(11, 99, 206)") ||
       jumpFocus.focusToken !== "#111111"
     ) {
       throw new Error(`Full-screen jump focus style is wrong: ${JSON.stringify(jumpFocus)}`);

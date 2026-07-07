@@ -573,7 +573,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=127" ||
+      desktop.cssHref !== "styles.css?v=128" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -902,6 +902,122 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     }
     const desktopShot = await page.screenshot("app-shell-desktop-rank.png");
 
+    const switchAppDestination = async (destination) => {
+      await page.evaluate(`(() => {
+        document.querySelectorAll('[data-app-destination-target="${destination}"]').forEach((button) => button.click());
+        return true;
+      })()`);
+      await waitFor(
+        page,
+        `document.querySelector('main.app')?.dataset.appDestination === ${JSON.stringify(destination)}`,
+        3000,
+      );
+      await wait(100);
+    };
+    const readPackShelfLayout = async () =>
+      page.evaluate(`(() => {
+        const rect = (element) => {
+          const bounds = element?.getBoundingClientRect();
+          return bounds ? {
+            left: Math.round(bounds.left),
+            right: Math.round(bounds.right),
+            top: Math.round(bounds.top),
+            bottom: Math.round(bounds.bottom),
+            width: Math.round(bounds.width),
+            height: Math.round(bounds.height)
+          } : null;
+        };
+        const columnCount = (value) => String(value || '').split(' ').filter(Boolean).length;
+        const row = document.querySelector('#pack-row');
+        const rowStyle = row ? getComputedStyle(row) : null;
+        const cards = [...document.querySelectorAll('#pack-row .pack-card')].map((card) => {
+          const action = card.querySelector('.pack-card__action');
+          const actionStyle = action ? getComputedStyle(action) : null;
+          const title = card.querySelector('.pack-card__title');
+          const subtitle = card.querySelector('.pack-card__subtitle');
+          return {
+            slug: card.dataset.slug,
+            card: rect(card),
+            cover: rect(card.querySelector('.pack-cover')),
+            title: rect(title),
+            subtitle: rect(subtitle),
+            status: rect(card.querySelector('.pack-card__status')),
+            progress: rect(card.querySelector('.pack-card__progress')),
+            action: rect(action),
+            actionText: action?.textContent.trim() || '',
+            actionFontSize: actionStyle?.fontSize || '',
+            actionScrollWidth: action?.scrollWidth || 0,
+            actionClientWidth: action?.clientWidth || 0,
+            titleText: title?.textContent.trim() || '',
+            titleScrollHeight: title?.scrollHeight || 0,
+            titleClientHeight: title?.clientHeight || 0,
+            subtitleScrollHeight: subtitle?.scrollHeight || 0,
+            subtitleClientHeight: subtitle?.clientHeight || 0
+          };
+        });
+        const firstThree = cards.slice(0, 3);
+        const overlaps = (a, b) => !!a && !!b &&
+          a.left < b.right - 1 &&
+          a.right > b.left + 1 &&
+          a.top < b.bottom - 1 &&
+          a.bottom > b.top + 1;
+        return {
+          destination: document.querySelector('main.app')?.dataset.appDestination,
+          pointerCoarse: matchMedia('(pointer: coarse)').matches,
+          portrait: matchMedia('(orientation: portrait)').matches,
+          row: rect(row),
+          gridTemplateColumns: rowStyle?.gridTemplateColumns || '',
+          gridColumnCount: columnCount(rowStyle?.gridTemplateColumns),
+          cardCount: cards.length,
+          firstThreeShareRow: firstThree.length === 3 &&
+            firstThree.every((card) => Math.abs(card.card.top - firstThree[0].card.top) < 3),
+          cards,
+          brokenCards: cards.filter((card) =>
+            !card.card ||
+            !card.cover ||
+            !card.action ||
+            card.card.width < 210 ||
+            card.card.height > 260 ||
+            card.cover.width < 60 ||
+            card.cover.width > 92 ||
+            card.cover.height < 64 ||
+            card.cover.height > 86 ||
+            card.action.height < 43 ||
+            card.actionFontSize === '0px' ||
+            card.actionScrollWidth > card.actionClientWidth + 1 ||
+            overlaps(card.action, card.progress) ||
+            overlaps(card.cover, card.title) ||
+            overlaps(card.cover, card.subtitle)
+          ).map((card) => ({
+            slug: card.slug,
+            card: card.card,
+            cover: card.cover,
+            action: card.action,
+            actionText: card.actionText,
+            actionFontSize: card.actionFontSize,
+            actionScrollWidth: card.actionScrollWidth,
+            actionClientWidth: card.actionClientWidth
+          })),
+          scrollWidth: document.documentElement.scrollWidth,
+          innerWidth
+        };
+      })()`);
+    const assertTabletDiscoverPackShelf = (label, layout) => {
+      if (
+        layout.destination !== "discover" ||
+        !layout.pointerCoarse ||
+        layout.gridColumnCount !== 3 ||
+        layout.cardCount !== 3 ||
+        !layout.firstThreeShareRow ||
+        !layout.row ||
+        layout.row.height > 260 ||
+        layout.brokenCards.length ||
+        layout.scrollWidth > layout.innerWidth
+      ) {
+        throw new Error(`${label} pack shelf is wrong: ${JSON.stringify(layout)}`);
+      }
+    };
+
     await page.send("Emulation.setDeviceMetricsOverride", {
       width: 1024,
       height: 768,
@@ -989,6 +1105,14 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       throw new Error(`iPad landscape Rank shell is wrong: ${JSON.stringify(ipadLandscape)}`);
     }
     const ipadLandscapeShot = await page.screenshot("app-shell-ipad-landscape-rank.png");
+
+    await switchAppDestination("discover");
+    await page.evaluate(`document.querySelector('#pack-section')?.scrollIntoView({ block: 'start' }); true;`);
+    await wait(100);
+    const ipadDiscoverPacksLandscape = await readPackShelfLayout();
+    assertTabletDiscoverPackShelf("iPad landscape Discover", ipadDiscoverPacksLandscape);
+    const ipadDiscoverPacksLandscapeShot = await page.screenshot("app-shell-ipad-landscape-discover-packs.png");
+    await switchAppDestination("rank");
 
     await page.send("Emulation.setDeviceMetricsOverride", {
       width: 980,
@@ -1078,6 +1202,14 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       throw new Error(`iPad portrait Rank shell is wrong: ${JSON.stringify(ipadPortrait)}`);
     }
     const ipadPortraitShot = await page.screenshot("app-shell-ipad-portrait-rank.png");
+
+    await switchAppDestination("discover");
+    await page.evaluate(`document.querySelector('#pack-section')?.scrollIntoView({ block: 'start' }); true;`);
+    await wait(100);
+    const ipadDiscoverPacksPortrait = await readPackShelfLayout();
+    assertTabletDiscoverPackShelf("iPad portrait Discover", ipadDiscoverPacksPortrait);
+    const ipadDiscoverPacksPortraitShot = await page.screenshot("app-shell-ipad-portrait-discover-packs.png");
+    await switchAppDestination("rank");
 
     await page.send("Emulation.setTouchEmulationEnabled", { enabled: false });
     await page.send("Emulation.setDeviceMetricsOverride", {
@@ -1480,6 +1612,18 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         destination: document.querySelector('main.app')?.dataset.appDestination,
         currentNav: document.querySelector('.app-nav--mobile .app-nav__item[aria-current="page"]')?.textContent.trim(),
         pack: rect('#pack-section'),
+        packShelf: (() => {
+          const row = document.querySelector('#pack-row');
+          const rowStyle = row ? getComputedStyle(row) : null;
+          const columnCount = String(rowStyle?.gridTemplateColumns || '').split(' ').filter(Boolean).length;
+          const cards = [...document.querySelectorAll('#pack-row .pack-card')].map((card) => {
+            const bounds = card.getBoundingClientRect();
+            return { top: Math.round(bounds.top), width: Math.round(bounds.width), height: Math.round(bounds.height) };
+          });
+          const firstThreeShareRow = cards.slice(0, 3).length === 3 &&
+            cards.slice(0, 3).every((card) => Math.abs(card.top - cards[0].top) < 3);
+          return { columnCount, cardCount: cards.length, firstThreeShareRow, minCardWidth: Math.min(...cards.map((card) => card.width)) };
+        })(),
         addVisible: inFlow('.panel--add'),
         rankingVisible: inFlow('.panel--list'),
         scrollY: window.scrollY,
@@ -1493,6 +1637,10 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       !mobileDiscover.pack ||
       mobileDiscover.addVisible ||
       mobileDiscover.rankingVisible ||
+      mobileDiscover.packShelf.columnCount !== 1 ||
+      mobileDiscover.packShelf.cardCount !== 3 ||
+      mobileDiscover.packShelf.firstThreeShareRow ||
+      mobileDiscover.packShelf.minCardWidth < 300 ||
       mobileDiscover.scrollY < 400 ||
       mobileDiscover.scrollWidth > mobileDiscover.innerWidth
     ) {
@@ -1603,7 +1751,9 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       details: {
         desktop,
         ipadLandscape,
+        ipadDiscoverPacksLandscape,
         ipadPortrait,
+        ipadDiscoverPacksPortrait,
         mobileRank,
         mobileRankOverflow,
         mobileRankDetailLayer,
@@ -1616,7 +1766,9 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         desktopShot,
         desktopInfoHoverShot,
         ipadLandscapeShot,
+        ipadDiscoverPacksLandscapeShot,
         ipadPortraitShot,
+        ipadDiscoverPacksPortraitShot,
         mobileRankOverflowShot,
         mobileRankOverflowDetailShot,
         discoverShot,
@@ -1706,7 +1858,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
       empty.moduleSrc !== "app.js?v=159" ||
-      empty.cssHref !== "styles.css?v=127" ||
+      empty.cssHref !== "styles.css?v=128" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||

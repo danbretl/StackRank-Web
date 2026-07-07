@@ -7694,6 +7694,97 @@ body.is-fullscreen-open .app-nav--mobile {
   }
 }
 
+@media (min-width: 721px) and (pointer: coarse) {
+  .app[data-app-destination="discover"] .pack-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  .app[data-app-destination="discover"] .pack-row .pack-card {
+    grid-template-columns: minmax(68px, 84px) minmax(0, 1fr);
+    grid-template-areas:
+      "media title"
+      "media subtitle"
+      "media status"
+      "progress progress"
+      "action action";
+    grid-template-rows: auto auto 1fr auto auto;
+    align-content: start;
+    align-items: start;
+    min-height: 0;
+    gap: 7px 10px;
+    padding: 12px;
+    text-align: left;
+  }
+
+  .app[data-app-destination="discover"] .pack-row .pack-card--loading {
+    min-height: 178px;
+  }
+
+  .app[data-app-destination="discover"] .pack-row .pack-card__media,
+  .app[data-app-destination="discover"] .pack-row .pack-card__body {
+    display: contents;
+  }
+
+  .app[data-app-destination="discover"] .pack-row .pack-cover {
+    grid-area: media;
+    align-self: start;
+    width: 100%;
+    max-width: 84px;
+    height: 74px;
+    aspect-ratio: auto;
+  }
+
+  .app[data-app-destination="discover"] .pack-row .pack-card__title {
+    grid-area: title;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-align: left;
+  }
+
+  .app[data-app-destination="discover"] .pack-row .pack-card__subtitle {
+    grid-area: subtitle;
+    display: -webkit-box;
+    overflow: hidden;
+    min-height: 0;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-align: left;
+  }
+
+  .app[data-app-destination="discover"] .pack-row .pack-card__status {
+    grid-area: status;
+    align-self: end;
+    text-align: left;
+  }
+
+  .app[data-app-destination="discover"] .pack-row .pack-card__progress {
+    grid-area: progress;
+    align-self: end;
+    margin-top: 2px;
+  }
+
+  .app[data-app-destination="discover"] .pack-row .pack-card__action {
+    grid-area: action;
+    justify-self: stretch;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: var(--icon-target-coarse);
+    padding: 0 10px;
+    border-radius: var(--radius-control);
+    font-size: var(--type-meta-size);
+  }
+
+  .app[data-app-destination="discover"] .pack-row .pack-card__action .ui-icon {
+    width: 16px !important;
+    height: 16px !important;
+    flex-basis: 16px;
+  }
+}
+
 @media (min-width: 721px) and (max-width: 899px) {
   .topbar {
     order: -2;

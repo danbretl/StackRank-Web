@@ -573,7 +573,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=124" ||
+      desktop.cssHref !== "styles.css?v=126" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -902,6 +902,184 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     }
     const desktopShot = await page.screenshot("app-shell-desktop-rank.png");
 
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 1024,
+      height: 768,
+      deviceScaleFactor: 2,
+      mobile: true,
+      screenWidth: 1024,
+      screenHeight: 768,
+    });
+    await page.send("Emulation.setTouchEmulationEnabled", { enabled: true, maxTouchPoints: 5 });
+    await wait(250);
+    const ipadLandscape = await page.evaluate(`(() => {
+      const rect = (selector) => {
+        const bounds = document.querySelector(selector)?.getBoundingClientRect();
+        return bounds ? {
+          left: Math.round(bounds.left),
+          right: Math.round(bounds.right),
+          top: Math.round(bounds.top),
+          bottom: Math.round(bounds.bottom),
+          width: Math.round(bounds.width),
+          height: Math.round(bounds.height)
+        } : null;
+      };
+      const item = document.querySelector('#ranking .ranking__item');
+      const actions = item?.querySelector('.movie-item__actions');
+      const actionStyle = actions ? getComputedStyle(actions) : null;
+      const buttons = [...(item?.querySelectorAll('.movie-item__actions > button') || [])].map((button) => {
+        const bounds = button.getBoundingClientRect();
+        const label = button.querySelector('span');
+        return {
+          text: button.textContent.trim(),
+          width: Math.round(bounds.width),
+          height: Math.round(bounds.height),
+          labelDisplay: label ? getComputedStyle(label).display : null
+        };
+      });
+      const side = rect('.side-stack');
+      const rail = rect('.stack');
+      return {
+        destination: document.querySelector('main.app')?.dataset.appDestination,
+        pointerCoarse: matchMedia('(pointer: coarse)').matches,
+        hoverHover: matchMedia('(hover: hover)').matches,
+        side,
+        rail,
+        actionStyle: actionStyle ? {
+          display: actionStyle.display,
+          gridColumn: actionStyle.gridColumnStart + '/' + actionStyle.gridColumnEnd,
+          borderTopWidth: actionStyle.borderTopWidth,
+          borderTopStyle: actionStyle.borderTopStyle
+        } : null,
+        item: rect('#ranking .ranking__item'),
+        body: rect('#ranking .ranking__item .movie-item__body'),
+        actions: rect('#ranking .ranking__item .movie-item__actions'),
+        buttons,
+        overflowDisplay: item?.querySelector('.ranking__overflow')
+          ? getComputedStyle(item.querySelector('.ranking__overflow')).display
+          : null,
+        scrollWidth: document.documentElement.scrollWidth,
+        innerWidth
+      };
+    })()`);
+    if (
+      ipadLandscape.destination !== "rank" ||
+      !ipadLandscape.pointerCoarse ||
+      ipadLandscape.hoverHover ||
+      !ipadLandscape.side ||
+      !ipadLandscape.rail ||
+      ipadLandscape.side.left >= ipadLandscape.rail.left ||
+      ipadLandscape.actionStyle?.display !== "flex" ||
+      ipadLandscape.actionStyle?.gridColumn !== "4/auto" ||
+      ipadLandscape.actionStyle?.borderTopWidth !== "0px" ||
+      ipadLandscape.actions?.width > 220 ||
+      ipadLandscape.body?.width < 120 ||
+      ipadLandscape.actions?.left < ipadLandscape.body?.right ||
+      ipadLandscape.buttons.map((button) => button.text).join("|") !== "Info|Re-rank|Move|Remove" ||
+      ipadLandscape.buttons.some((button) =>
+        button.width < 43 ||
+        button.width > 48 ||
+        button.height < 43 ||
+        button.height > 48 ||
+        button.labelDisplay !== "none"
+      ) ||
+      ipadLandscape.overflowDisplay !== "none" ||
+      ipadLandscape.scrollWidth > ipadLandscape.innerWidth
+    ) {
+      throw new Error(`iPad landscape Rank shell is wrong: ${JSON.stringify(ipadLandscape)}`);
+    }
+    const ipadLandscapeShot = await page.screenshot("app-shell-ipad-landscape-rank.png");
+
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 980,
+      height: 1180,
+      deviceScaleFactor: 2,
+      mobile: true,
+      screenWidth: 980,
+      screenHeight: 1180,
+    });
+    await wait(250);
+    const ipadPortrait = await page.evaluate(`(() => {
+      const rect = (selector) => {
+        const bounds = document.querySelector(selector)?.getBoundingClientRect();
+        return bounds ? {
+          left: Math.round(bounds.left),
+          right: Math.round(bounds.right),
+          top: Math.round(bounds.top),
+          bottom: Math.round(bounds.bottom),
+          width: Math.round(bounds.width),
+          height: Math.round(bounds.height)
+        } : null;
+      };
+      const item = document.querySelector('#ranking .ranking__item');
+      const actions = item?.querySelector('.movie-item__actions');
+      const actionStyle = actions ? getComputedStyle(actions) : null;
+      const appStyle = getComputedStyle(document.querySelector('.app'));
+      const toolbarControls = [...document.querySelectorAll('.panel--list .panel__actions .icon-button')]
+        .map((button) => {
+          const bounds = button.getBoundingClientRect();
+          const label = button.querySelector('.icon-button__label');
+          const style = getComputedStyle(button);
+          return {
+            id: button.id,
+            label: label?.textContent.trim() || '',
+            width: Math.round(bounds.width),
+            height: Math.round(bounds.height),
+            display: style.display
+          };
+        })
+        .filter((button) => button.display !== 'none' && button.width > 0 && button.height > 0);
+      const side = rect('.side-stack');
+      const rail = rect('.stack');
+      return {
+        destination: document.querySelector('main.app')?.dataset.appDestination,
+        pointerCoarse: matchMedia('(pointer: coarse)').matches,
+        portrait: matchMedia('(orientation: portrait)').matches,
+        appColumns: appStyle.gridTemplateColumns,
+        appAreas: appStyle.gridTemplateAreas,
+        side,
+        rail,
+        body: rect('#ranking .ranking__item .movie-item__body'),
+        actions: rect('#ranking .ranking__item .movie-item__actions'),
+        actionStyle: actionStyle ? {
+          display: actionStyle.display,
+          gridColumn: actionStyle.gridColumnStart + '/' + actionStyle.gridColumnEnd,
+          borderTopWidth: actionStyle.borderTopWidth
+        } : null,
+        toolbarControls,
+        scrollWidth: document.documentElement.scrollWidth,
+        innerWidth
+      };
+    })()`);
+    if (
+      ipadPortrait.destination !== "rank" ||
+      !ipadPortrait.pointerCoarse ||
+      !ipadPortrait.portrait ||
+      ipadPortrait.appColumns.includes(" ") ||
+      !ipadPortrait.appAreas.includes('"topbar"') ||
+      !ipadPortrait.appAreas.includes('"list"') ||
+      !ipadPortrait.appAreas.includes('"stack"') ||
+      !ipadPortrait.side ||
+      !ipadPortrait.rail ||
+      ipadPortrait.side.width < 860 ||
+      ipadPortrait.rail.width < 860 ||
+      ipadPortrait.rail.left !== ipadPortrait.side.left ||
+      ipadPortrait.rail.top <= ipadPortrait.side.bottom ||
+      ipadPortrait.actionStyle?.display !== "flex" ||
+      ipadPortrait.actionStyle?.gridColumn !== "4/auto" ||
+      ipadPortrait.actionStyle?.borderTopWidth !== "0px" ||
+      ipadPortrait.toolbarControls.map((control) => control.label).join("|") !== "Add|Review|Filter|Full screen|Move|Share" ||
+      ipadPortrait.toolbarControls.some((control) => control.width < 43 || control.height < 43) ||
+      ipadPortrait.actions?.width > 220 ||
+      ipadPortrait.body?.width < 420 ||
+      ipadPortrait.actions?.left < ipadPortrait.body?.right ||
+      ipadPortrait.scrollWidth > ipadPortrait.innerWidth
+    ) {
+      throw new Error(`iPad portrait Rank shell is wrong: ${JSON.stringify(ipadPortrait)}`);
+    }
+    const ipadPortraitShot = await page.screenshot("app-shell-ipad-portrait-rank.png");
+
+    await page.send("Emulation.setTouchEmulationEnabled", { enabled: false });
     await page.send("Emulation.setDeviceMetricsOverride", {
       width: 390,
       height: 844,
@@ -1424,6 +1602,8 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     return {
       details: {
         desktop,
+        ipadLandscape,
+        ipadPortrait,
         mobileRank,
         mobileRankOverflow,
         mobileRankDetailLayer,
@@ -1435,6 +1615,8 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       screenshots: [
         desktopShot,
         desktopInfoHoverShot,
+        ipadLandscapeShot,
+        ipadPortraitShot,
         mobileRankOverflowShot,
         mobileRankOverflowDetailShot,
         discoverShot,
@@ -1524,7 +1706,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
       empty.moduleSrc !== "app.js?v=159" ||
-      empty.cssHref !== "styles.css?v=124" ||
+      empty.cssHref !== "styles.css?v=126" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||

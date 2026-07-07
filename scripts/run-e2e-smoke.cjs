@@ -573,7 +573,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=128" ||
+      desktop.cssHref !== "styles.css?v=129" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -930,6 +930,10 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         const columnCount = (value) => String(value || '').split(' ').filter(Boolean).length;
         const row = document.querySelector('#pack-row');
         const rowStyle = row ? getComputedStyle(row) : null;
+        const range = (values) => {
+          const numeric = values.filter((value) => Number.isFinite(value));
+          return numeric.length ? Math.round(Math.max(...numeric) - Math.min(...numeric)) : null;
+        };
         const cards = [...document.querySelectorAll('#pack-row .pack-card')].map((card) => {
           const action = card.querySelector('.pack-card__action');
           const actionStyle = action ? getComputedStyle(action) : null;
@@ -982,7 +986,10 @@ const testAppShellNavigation = async ({ baseUrl }) => {
             card.cover.width > 92 ||
             card.cover.height < 64 ||
             card.cover.height > 86 ||
-            card.action.height < 43 ||
+            card.action.height < 34 ||
+            card.action.height > 40 ||
+            card.action.width < 104 ||
+            card.action.width > 150 ||
             card.actionFontSize === '0px' ||
             card.actionScrollWidth > card.actionClientWidth + 1 ||
             overlaps(card.action, card.progress) ||
@@ -998,6 +1005,10 @@ const testAppShellNavigation = async ({ baseUrl }) => {
             actionScrollWidth: card.actionScrollWidth,
             actionClientWidth: card.actionClientWidth
           })),
+          firstThreeActionTopRange: range(firstThree.map((card) => card.action?.top)),
+          firstThreeActionBottomRange: range(firstThree.map((card) => card.action?.bottom)),
+          firstThreeActionHeightRange: range(firstThree.map((card) => card.action?.height)),
+          firstThreeActionWidthRange: range(firstThree.map((card) => card.action?.width)),
           scrollWidth: document.documentElement.scrollWidth,
           innerWidth
         };
@@ -1012,9 +1023,137 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         !layout.row ||
         layout.row.height > 260 ||
         layout.brokenCards.length ||
+        layout.firstThreeActionTopRange > 2 ||
+        layout.firstThreeActionBottomRange > 2 ||
+        layout.firstThreeActionHeightRange > 1 ||
+        layout.firstThreeActionWidthRange > 6 ||
         layout.scrollWidth > layout.innerWidth
       ) {
         throw new Error(`${label} pack shelf is wrong: ${JSON.stringify(layout)}`);
+      }
+    };
+    const readAllPacksLayout = async () =>
+      page.evaluate(`(() => {
+        const rect = (element) => {
+          const bounds = element?.getBoundingClientRect();
+          return bounds ? {
+            left: Math.round(bounds.left),
+            right: Math.round(bounds.right),
+            top: Math.round(bounds.top),
+            bottom: Math.round(bounds.bottom),
+            width: Math.round(bounds.width),
+            height: Math.round(bounds.height)
+          } : null;
+        };
+        const range = (values) => {
+          const numeric = values.filter((value) => Number.isFinite(value));
+          return numeric.length ? Math.round(Math.max(...numeric) - Math.min(...numeric)) : null;
+        };
+        const list = document.querySelector('#pack-detail-list');
+        const listStyle = list ? getComputedStyle(list) : null;
+        const cards = [...document.querySelectorAll('#pack-detail-list .pack-card')]
+          .filter((card) => {
+            const bounds = card.getBoundingClientRect();
+            return bounds.width > 0 && bounds.height > 0;
+          })
+          .slice(0, 12)
+          .map((card) => {
+            const action = card.querySelector('.pack-card__action');
+            const actionStyle = action ? getComputedStyle(action) : null;
+            return {
+              slug: card.dataset.slug,
+              card: rect(card),
+              title: rect(card.querySelector('.pack-card__title')),
+              subtitle: rect(card.querySelector('.pack-card__subtitle')),
+              status: rect(card.querySelector('.pack-card__status')),
+              progress: rect(card.querySelector('.pack-card__progress')),
+              action: rect(action),
+              actionFontSize: actionStyle?.fontSize || '',
+              actionScrollWidth: action?.scrollWidth || 0,
+              actionClientWidth: action?.clientWidth || 0
+            };
+          });
+        const rows = [];
+        for (const card of cards) {
+          if (!card.card) continue;
+          const row = rows.find((item) => Math.abs(item.top - card.card.top) < 4);
+          if (row) {
+            row.items.push(card);
+          } else {
+            rows.push({ top: card.card.top, items: [card] });
+          }
+        }
+        const rowSummaries = rows.map((row) => ({
+          top: row.top,
+          count: row.items.length,
+          actionTopRange: range(row.items.map((card) => card.action?.top)),
+          actionBottomRange: range(row.items.map((card) => card.action?.bottom)),
+          actionHeightRange: range(row.items.map((card) => card.action?.height)),
+          actionWidthRange: range(row.items.map((card) => card.action?.width)),
+          progressTopRange: range(row.items.map((card) => card.progress?.top)),
+          progressBottomRange: range(row.items.map((card) => card.progress?.bottom))
+        }));
+        return {
+          overlayOpen: !document.querySelector('#pack-detail')?.hidden &&
+            document.querySelector('#pack-detail')?.classList.contains('is-all-packs'),
+          pointerCoarse: matchMedia('(pointer: coarse)').matches,
+          list: rect(list),
+          gridTemplateColumns: listStyle?.gridTemplateColumns || '',
+          gridColumnCount: String(listStyle?.gridTemplateColumns || '').split(' ').filter(Boolean).length,
+          totalCards: document.querySelectorAll('#pack-detail-list .pack-card').length,
+          cards,
+          rows: rowSummaries,
+          brokenCards: cards.filter((card) =>
+            !card.card ||
+            !card.action ||
+            card.action.height < 34 ||
+            card.action.height > 40 ||
+            card.action.width < 104 ||
+            card.action.width > 150 ||
+            card.actionFontSize === '0px' ||
+            card.actionScrollWidth > card.actionClientWidth + 1
+          ).map((card) => ({
+            slug: card.slug,
+            card: card.card,
+            action: card.action,
+            actionFontSize: card.actionFontSize,
+            actionScrollWidth: card.actionScrollWidth,
+            actionClientWidth: card.actionClientWidth
+          })),
+          scrollWidth: document.documentElement.scrollWidth,
+          innerWidth
+        };
+      })()`);
+    const assertAllPacksPackGrid = (label, layout, shelfLayout) => {
+      const badRows = layout.rows.filter((row) =>
+        row.count > 1 &&
+        (
+          row.actionTopRange > 2 ||
+          row.actionBottomRange > 2 ||
+          row.actionHeightRange > 1 ||
+          row.actionWidthRange > 6 ||
+          row.progressTopRange > 2 ||
+          row.progressBottomRange > 2
+        )
+      );
+      const shelfAction = shelfLayout?.cards?.[0]?.action;
+      const allPacksAction = layout.cards?.[0]?.action;
+      const mismatchedShelfAction = !!shelfAction && !!allPacksAction &&
+        (
+          Math.abs(shelfAction.width - allPacksAction.width) > 8 ||
+          Math.abs(shelfAction.height - allPacksAction.height) > 1
+        );
+      if (
+        !layout.overlayOpen ||
+        !layout.pointerCoarse ||
+        layout.gridColumnCount < 3 ||
+        layout.totalCards < 12 ||
+        layout.brokenCards.length ||
+        badRows.length ||
+        mismatchedShelfAction ||
+        layout.scrollWidth > layout.innerWidth
+      ) {
+        throw new Error(`${label} pack grid is wrong: ${JSON.stringify({ ...layout, badRows, mismatchedShelfAction, shelfAction, allPacksAction })}`);
       }
     };
 
@@ -1112,6 +1251,19 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     const ipadDiscoverPacksLandscape = await readPackShelfLayout();
     assertTabletDiscoverPackShelf("iPad landscape Discover", ipadDiscoverPacksLandscape);
     const ipadDiscoverPacksLandscapeShot = await page.screenshot("app-shell-ipad-landscape-discover-packs.png");
+    await page.evaluate(`document.querySelector('#pack-view-all')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#pack-detail')?.classList.contains('is-all-packs') &&
+        document.querySelectorAll('#pack-detail-list .pack-card').length >= 12`,
+      5000,
+    );
+    await wait(100);
+    const ipadAllPacksLandscape = await readAllPacksLayout();
+    assertAllPacksPackGrid("iPad landscape All Packs", ipadAllPacksLandscape, ipadDiscoverPacksLandscape);
+    const ipadAllPacksLandscapeShot = await page.screenshot("app-shell-ipad-landscape-all-packs.png");
+    await page.evaluate(`document.querySelector('#pack-detail-close')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#pack-detail')?.hidden`, 3000);
     await switchAppDestination("rank");
 
     await page.send("Emulation.setDeviceMetricsOverride", {
@@ -1209,6 +1361,19 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     const ipadDiscoverPacksPortrait = await readPackShelfLayout();
     assertTabletDiscoverPackShelf("iPad portrait Discover", ipadDiscoverPacksPortrait);
     const ipadDiscoverPacksPortraitShot = await page.screenshot("app-shell-ipad-portrait-discover-packs.png");
+    await page.evaluate(`document.querySelector('#pack-view-all')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#pack-detail')?.classList.contains('is-all-packs') &&
+        document.querySelectorAll('#pack-detail-list .pack-card').length >= 12`,
+      5000,
+    );
+    await wait(100);
+    const ipadAllPacksPortrait = await readAllPacksLayout();
+    assertAllPacksPackGrid("iPad portrait All Packs", ipadAllPacksPortrait, ipadDiscoverPacksPortrait);
+    const ipadAllPacksPortraitShot = await page.screenshot("app-shell-ipad-portrait-all-packs.png");
+    await page.evaluate(`document.querySelector('#pack-detail-close')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#pack-detail')?.hidden`, 3000);
     await switchAppDestination("rank");
 
     await page.send("Emulation.setTouchEmulationEnabled", { enabled: false });
@@ -1858,7 +2023,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
       empty.moduleSrc !== "app.js?v=159" ||
-      empty.cssHref !== "styles.css?v=128" ||
+      empty.cssHref !== "styles.css?v=129" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||

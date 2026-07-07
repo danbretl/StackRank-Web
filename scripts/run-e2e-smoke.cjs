@@ -573,7 +573,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=126" ||
+      desktop.cssHref !== "styles.css?v=127" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -1706,7 +1706,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
       empty.moduleSrc !== "app.js?v=159" ||
-      empty.cssHref !== "styles.css?v=126" ||
+      empty.cssHref !== "styles.css?v=127" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -4628,6 +4628,210 @@ const testSuggestionExplanations = async ({ baseUrl }) => {
       throw new Error(`Popular explanation is missing source/genre context: ${JSON.stringify(initial.popularReasons)}`);
     }
 
+    const readSuggestionResponsiveLayout = async () =>
+      page.evaluate(`(() => {
+        const rect = (element) => {
+          const bounds = element?.getBoundingClientRect();
+          return bounds ? {
+            top: Math.round(bounds.top),
+            right: Math.round(bounds.right),
+            bottom: Math.round(bounds.bottom),
+            left: Math.round(bounds.left),
+            width: Math.round(bounds.width),
+            height: Math.round(bounds.height)
+          } : null;
+        };
+        const overlaps = (a, b) => !!a && !!b &&
+          a.left < b.right - 1 &&
+          a.right > b.left + 1 &&
+          a.top < b.bottom - 1 &&
+          a.bottom > b.top + 1;
+        const columnCount = (value) =>
+          String(value || '').split(' ').map((part) => part.trim()).filter(Boolean).length;
+        const rows = [...document.querySelectorAll('.panel--discovery .suggest-row')].map((row) => {
+          const rowStyle = getComputedStyle(row);
+          const cards = [...row.querySelectorAll('.suggest-card:not(.suggest-card--loading)')].map((card) => {
+            const cardRect = rect(card);
+            const title = rect(card.querySelector('.suggest-name'));
+            const year = rect(card.querySelector('.suggest-meta'));
+            const reason = rect(card.querySelector('.suggest-reason'));
+            const poster = rect(card.querySelector('.suggest-poster'));
+            const detail = rect(card.querySelector('.suggest-info'));
+            const actions = rect(card.querySelector('.suggest-actions'));
+            const actionsStyle = card.querySelector('.suggest-actions')
+              ? getComputedStyle(card.querySelector('.suggest-actions'))
+              : null;
+            return {
+              rowId: row.id,
+              titleText: card.querySelector('.suggest-name')?.textContent.trim(),
+              card: cardRect,
+              title,
+              year,
+              reason,
+              poster,
+              detail,
+              actions,
+              actionColumnCount: columnCount(actionsStyle?.gridTemplateColumns),
+              titleOverlapsReason: overlaps(title, reason),
+              titleOverlapsPoster: overlaps(title, poster),
+              reasonOverlapsPoster: overlaps(reason, poster),
+              detailOverlapsTitle: overlaps(detail, title),
+              actionsOverlapsContent:
+                overlaps(actions, title) ||
+                overlaps(actions, year) ||
+                overlaps(actions, reason) ||
+                overlaps(actions, poster),
+              actionsBelowReason: actions && reason ? actions.top >= reason.bottom - 1 : false,
+              titleWithinCard: cardRect && title ? title.left >= cardRect.left && title.right <= cardRect.right : false,
+              reasonWithinCard: cardRect && reason ? reason.left >= cardRect.left && reason.right <= cardRect.right : false,
+              actionsWithinCard: cardRect && actions ? actions.left >= cardRect.left && actions.right <= cardRect.right : false
+            };
+          });
+          const firstThree = cards.slice(0, 3);
+          return {
+            id: row.id,
+            row: rect(row),
+            gridTemplateColumns: rowStyle.gridTemplateColumns,
+            gridColumnCount: columnCount(rowStyle.gridTemplateColumns),
+            cardCount: cards.length,
+            firstThreeShareRow: firstThree.length === 3 &&
+              firstThree.every((card) => Math.abs(card.card.top - firstThree[0].card.top) < 3),
+            cards
+          };
+        });
+        const visibleCards = rows
+          .flatMap((row) => row.cards)
+          .filter((card) => card.card?.width > 0 && card.card?.height > 0);
+        return {
+          destination: document.querySelector('main.app')?.dataset.appDestination,
+          currentNav: document.querySelector('.app-nav--top .app-nav__item[aria-current="page"]')?.textContent.trim() ||
+            document.querySelector('.app-nav--mobile .app-nav__item[aria-current="page"]')?.textContent.trim(),
+          pointerCoarse: matchMedia('(pointer: coarse)').matches,
+          portrait: matchMedia('(orientation: portrait)').matches,
+          landscape: matchMedia('(orientation: landscape)').matches,
+          panel: rect(document.querySelector('.panel--discovery')),
+          stack: rect(document.querySelector('.stack')),
+          sideStack: rect(document.querySelector('.side-stack')),
+          rows: rows.map(({ cards, ...row }) => row),
+          cardCount: visibleCards.length,
+          minCardWidth: visibleCards.length ? Math.min(...visibleCards.map((card) => card.card.width)) : 0,
+          brokenCards: visibleCards.filter((card) =>
+            card.card.width < 238 ||
+            card.titleOverlapsReason ||
+            card.titleOverlapsPoster ||
+            card.reasonOverlapsPoster ||
+            card.detailOverlapsTitle ||
+            card.actionsOverlapsContent ||
+            !card.actionsBelowReason ||
+            !card.titleWithinCard ||
+            !card.reasonWithinCard ||
+            !card.actionsWithinCard ||
+            card.actionColumnCount < 3
+          ).map((card) => ({
+            rowId: card.rowId,
+            titleText: card.titleText,
+            card: card.card,
+            actionColumnCount: card.actionColumnCount,
+            titleOverlapsReason: card.titleOverlapsReason,
+            titleOverlapsPoster: card.titleOverlapsPoster,
+            reasonOverlapsPoster: card.reasonOverlapsPoster,
+            detailOverlapsTitle: card.detailOverlapsTitle,
+            actionsOverlapsContent: card.actionsOverlapsContent,
+            actionsBelowReason: card.actionsBelowReason,
+            titleWithinCard: card.titleWithinCard,
+            reasonWithinCard: card.reasonWithinCard,
+            actionsWithinCard: card.actionsWithinCard
+          })),
+          scrollWidth: document.documentElement.scrollWidth,
+          innerWidth
+        };
+      })()`);
+    const assertSuggestionResponsiveLayout = (label, layout, options) => {
+      const rows = layout.rows.filter((row) => row.cardCount > 0);
+      const wrongRowFlow = options.stacked
+        ? rows.filter((row) => row.firstThreeShareRow || row.gridColumnCount !== 1)
+        : rows.filter((row) => !row.firstThreeShareRow || row.gridColumnCount < 3);
+      if (
+        layout.destination !== options.destination ||
+        !layout.pointerCoarse ||
+        layout.cardCount !== 9 ||
+        layout.minCardWidth < options.minCardWidth ||
+        layout.scrollWidth > layout.innerWidth ||
+        layout.brokenCards.length ||
+        wrongRowFlow.length
+      ) {
+        throw new Error(`${label} suggestion layout is broken: ${JSON.stringify({ layout, wrongRowFlow })}`);
+      }
+    };
+    const setTouchTabletViewport = async (width, height) => {
+      await page.send("Emulation.setDeviceMetricsOverride", {
+        width,
+        height,
+        deviceScaleFactor: 2,
+        mobile: true,
+        screenWidth: width,
+        screenHeight: height,
+      });
+      await page.send("Emulation.setTouchEmulationEnabled", { enabled: true, maxTouchPoints: 5 });
+      await wait(250);
+    };
+    const setDestination = async (destination) => {
+      await page.evaluate(`(() => {
+        document.querySelectorAll('[data-app-destination-target="${destination}"]').forEach((button) => button.click());
+        return true;
+      })()`);
+      await waitFor(
+        page,
+        `document.querySelector('main.app')?.dataset.appDestination === ${JSON.stringify(destination)}`,
+        3000,
+      );
+      await wait(150);
+    };
+    const responsiveScreenshots = [];
+    const captureSuggestionSection = async (filename) => {
+      await page.evaluate(`document.querySelector('#suggest-related-title')?.scrollIntoView({ block: 'start' }); true;`);
+      await wait(100);
+      return page.screenshot(filename);
+    };
+
+    await setTouchTabletViewport(1024, 768);
+    const ipadRankLandscape = await readSuggestionResponsiveLayout();
+    assertSuggestionResponsiveLayout("iPad landscape Rank rail", ipadRankLandscape, {
+      destination: "rank",
+      stacked: true,
+      minCardWidth: 260,
+    });
+    responsiveScreenshots.push(await captureSuggestionSection("suggestions-ipad-landscape-rank.png"));
+
+    await setDestination("discover");
+    const ipadDiscoverLandscape = await readSuggestionResponsiveLayout();
+    assertSuggestionResponsiveLayout("iPad landscape Discover", ipadDiscoverLandscape, {
+      destination: "discover",
+      stacked: false,
+      minCardWidth: 250,
+    });
+    responsiveScreenshots.push(await captureSuggestionSection("suggestions-ipad-landscape-discover.png"));
+
+    await setTouchTabletViewport(980, 1180);
+    const ipadDiscoverPortrait = await readSuggestionResponsiveLayout();
+    assertSuggestionResponsiveLayout("iPad portrait Discover", ipadDiscoverPortrait, {
+      destination: "discover",
+      stacked: false,
+      minCardWidth: 250,
+    });
+    responsiveScreenshots.push(await captureSuggestionSection("suggestions-ipad-portrait-discover.png"));
+
+    await setDestination("rank");
+    const ipadRankPortrait = await readSuggestionResponsiveLayout();
+    assertSuggestionResponsiveLayout("iPad portrait Rank", ipadRankPortrait, {
+      destination: "rank",
+      stacked: false,
+      minCardWidth: 250,
+    });
+    responsiveScreenshots.push(await captureSuggestionSection("suggestions-ipad-portrait-rank.png"));
+
+    await setDestination("discover");
+    await page.send("Emulation.setTouchEmulationEnabled", { enabled: false });
     await page.send("Emulation.setDeviceMetricsOverride", {
       width: 390,
       height: 844,
@@ -4756,8 +4960,17 @@ const testSuggestionExplanations = async ({ baseUrl }) => {
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { pending, initial, refreshedPending, refreshed },
-      screenshots: [await page.screenshot("suggestion-explanations.png")],
+      details: {
+        pending,
+        initial,
+        ipadRankLandscape,
+        ipadDiscoverLandscape,
+        ipadDiscoverPortrait,
+        ipadRankPortrait,
+        refreshedPending,
+        refreshed,
+      },
+      screenshots: [...responsiveScreenshots, await page.screenshot("suggestion-explanations.png")],
     };
   } finally {
     await page.close();

@@ -7279,6 +7279,10 @@ body.is-detail-open .movie-item__overflow-menu {
     border-left: 1px solid var(--rule);
   }
 
+  .suggest-card.movie-item-card .movie-item__actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .movie-item--ranking {
     grid-template-columns: minmax(88px, max-content) 56px minmax(0, 1fr);
     row-gap: var(--space-3);
@@ -7624,6 +7628,10 @@ body.is-fullscreen-open .app-nav--mobile {
     box-shadow: none;
   }
 
+  .app[data-app-destination="rank"] .stack .suggest-row {
+    grid-template-columns: 1fr;
+  }
+
   .panel--add .field input {
     min-height: 48px;
     border-color: var(--ink);
@@ -7679,6 +7687,10 @@ body.is-fullscreen-open .app-nav--mobile {
   .panel--list .ranking-add-jump,
   .panel--list .ranking-move-toggle {
     display: inline-flex !important;
+  }
+
+  .app[data-app-destination="rank"] .stack .suggest-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 

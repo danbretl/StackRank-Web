@@ -99,7 +99,7 @@ joined to an auth identity.
 - Retention/flood posture:
   `supabase/migrations/20260708064357_product_events_retention_and_flood_limit.sql`
 - Public share-link allowlist/RLS extension:
-  `supabase/migrations/20260708101029_add_shared_lists.sql`
+  `supabase/migrations/20260708104134_20260708101029_add_shared_lists.sql`
 - Vercel pageview injection: `initVercelWebAnalytics()` in `app.js`
 
 Telemetry failures are non-blocking and only log in `?debug=1`; product actions

@@ -15,6 +15,7 @@ Execution progress:
 - **8 Backup nudges for signed-out users:** implemented in this pass; signed-out local-only users now get a rate-limited actionable backup/sync nudge every 25 rankings and after browser storage starts failing, with pure FTUE gate tests and browser coverage in the storage-failure E2E flow.
 - **9a Autocomplete listbox ARIA:** implemented in this pass; the movie search input is now a real ARIA combobox tied to the suggestion listbox with expanded/active-descendant/selected-option state, covered by the autocomplete keyboard E2E flow.
 - **9b Keyboard reorder:** implemented in this pass; focused Move handles in the main ranking and full-screen ranking now support Arrow Up / Arrow Down one-slot reordering, keep focus on the moved handle, announce the new rank through the existing feedback live region, and are covered by the app-shell and full-screen E2E flows.
+- **10 Public shareable list link:** implemented in this pass; signed-in users can publish/update/copy/revoke read-only snapshot links from Share Studio, `/s/:slug` renders a static poster-grid page from `shared_lists`, revoked rows disappear from public reads, publish/view telemetry is privacy-bounded, and helper/unit plus mocked Supabase E2E coverage is in place.
 
 **Baseline context an executor must know before touching anything:**
 

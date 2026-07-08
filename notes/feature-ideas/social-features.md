@@ -2,6 +2,8 @@
 
 **Status: parked — explicitly "someday, not now"** (Catie). Captured here so the idea isn't lost and so we design current features without painting ourselves into a corner.
 
+Note: public read-only snapshot links now ship separately via Share Studio and `/s/:slug`. Those links are opt-in, unlisted, revocable, and contain a static snapshot rather than any account-to-account relationship. This note remains about the larger friend graph: profiles, consented friend access, per-title comparison, and friend-derived packs.
+
 ## The vision
 
 StackRank today is single-player: your list, your queues, your packs. The social layer turns it into something you do *with* people:

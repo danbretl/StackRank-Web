@@ -1,13 +1,14 @@
 # Product instrumentation
 
-Status: **shipped (Jun 2026).**
+Status: **shipped (Jun 2026; public share-link events added Jul 2026).**
 
 ## Purpose
 
 Several roadmap decisions were waiting for usage evidence, but StackRank had no
 analytics layer. This implementation measures the small set of funnels needed
-to evaluate ranking, packs, review, sharing, importing, and future first-run
-work without collecting movie choices or account identity.
+to evaluate ranking, packs, review, sharing, public shared-list links,
+importing, and future first-run work without collecting movie choices or
+account identity.
 
 ## What ships
 
@@ -68,6 +69,9 @@ defense because anonymous clients can still mint new session UUIDs.
 - `pack_rank_all_started` / `pack_rank_all_stopped` — bucketed remaining count
   and completed/ended/canceled/failed outcome.
 - `share_opened` / `share_exported` — list-size bucket and export format.
+- `share_link_published` / `shared_list_viewed` — adoption of public
+  read-only snapshot links without recording the slug, URL, title, TMDB id, or
+  owner identity.
 - `import_opened` / `import_completed` — settings entry and bucketed imported
   list size.
 - `quick_start_shown` / `quick_start_pack_opened` /
@@ -94,6 +98,8 @@ joined to an auth identity.
   `supabase/migrations/20260629012754_add_taste_explorer_events.sql`
 - Retention/flood posture:
   `supabase/migrations/20260708064357_product_events_retention_and_flood_limit.sql`
+- Public share-link allowlist/RLS extension:
+  `supabase/migrations/20260708101029_add_shared_lists.sql`
 - Vercel pageview injection: `initVercelWebAnalytics()` in `app.js`
 
 Telemetry failures are non-blocking and only log in `?debug=1`; product actions

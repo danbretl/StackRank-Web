@@ -6,6 +6,7 @@ This folder captures product ideas that are worth revisiting later. They are int
 
 - [Movie detail pane](movie-detail-decision-sheet.md) — v1 done in commit `64ff621`.
 - [Share export sizes and a multi-image image set](share-export-sizes-and-image-set.md) — **shipped (Jun 2026).** Skinny/Wide single-image shapes, grouped/paginated Image sets, ZIP delivery, per-card preview labels, pack exports, empty-section handling, and a full-resolution lightbox with per-image actions/navigation. Only an alternate iPad-shaped Image-set layout remains parked.
+- Public shareable list links — **shipped (Jul 2026)** as a Share Studio extension: signed-in publish/update/copy/revoke controls, static `/s/:slug` read-only poster grids, revocable `shared_lists` snapshots, and privacy-bounded publish/view telemetry.
 - [Suggestion packs](suggestion-packs.md) — **v1 shipped (Jun 2026).** 114 curated fallback packs, browse/detail/Rank-all flows, text/category/progress filters, derived progress, organic discovery, local/Supabase persistence paths, bulk actions, Share Studio integration, and pack-aware undo.
 - [Undo for list changes](undo-history-for-list-changes.md) — **shipped (Jun 2026).** Single-level toast undo covers queue actions, ranking deletion/clear, completed placements (including pack Rank all), and pack Save all/Hide all.
 - [Website link preview metadata](website-link-preview-metadata.md) — **shipped (Jun 2026).** Open Graph/Twitter metadata plus a reproducible 1200×630 preview card.

@@ -3,7 +3,8 @@
 Status: **v1 shipped Jun 2026.** Built and refined across several review rounds. The
 implementation now includes the original format/shape work plus the later Share
 Suite polish: ZIP delivery, in-studio image-set labels, the Movie packs section,
-and general empty-section hiding/disabled toggles.
+general empty-section hiding/disabled toggles, and Jul 2026 public snapshot
+links.
 
 - Phase 0 enabling refactor — `buildShareImages()` dispatcher, width-agnostic `shareSectionBuilders()`, `buildShareHeader`, `placeSectionFlow`, shared SVG wrapper.
 - **Shape: Skinny / Wide** (renamed from Portrait/Landscape). Wide = 2-col masonry of the non-list sections + the whole list full-width below at 4/4/11 cols (mixed/text/posters), with the inter-column gutter set equal to the page padding.
@@ -13,8 +14,9 @@ and general empty-section hiding/disabled toggles.
 - **Empty-section handling** — every export surface omits sections with no content after detail loading settles, and the matching Include toggle is disabled with an "(empty)" label. Detail-backed Genres and Cast & crew remain available while their async enrichment is still loading.
 - **Full-resolution preview lightbox** — tapping a Single-image preview or any Image-set card opens the generated SVG in a shared overlay with native pinch-zoom/pan, tap-to-enlarge, and close via ×/backdrop/Escape. Share mode includes explicit **Download PNG** / **Share PNG** actions. Image sets add previous/next buttons, arrow-key navigation, horizontal swipe while zoomed out, and the same `i/total CAPTION` counter used in the studio. Navigating the lightbox keeps the studio deck index synchronized.
 - **Shared poster viewer** — the same overlay is reused without share chrome for the original-resolution TMDB poster opened from the movie-detail pane.
+- **Public snapshot links** — signed-in users can publish/update/copy/revoke a short `/s/:slug` link from Share Studio. It stores a static minimal snapshot in `shared_lists` and renders a read-only monochrome poster grid with a "Make your own stack" CTA; signed-out users are prompted to sign in before publishing.
 
-`SHARE_OPTIONS_VERSION` is now 7 (v6 migrated `portrait`/`landscape` → `skinny`/`wide`; v7 added the `packs` toggle). Current cache keys: `app.js?v=100`, `styles.css?v=70`.
+`SHARE_OPTIONS_VERSION` is now 7 (v6 migrated `portrait`/`landscape` → `skinny`/`wide`; v7 added the `packs` toggle). Current cache keys: `app.js?v=172`, `styles.css?v=132`, `shared.js?v=2`.
 
 **Phase 3 polish — shipped except iPad page size (Jun 2026):**
 - **ZIP delivery — SHIPPED.** Image-set PNG and SVG exports now bundle into a single `.zip` (`stackrank-share-images.zip` / `stackrank-share-svg.zip`) instead of N staggered downloads (which fired a browser "download multiple files?" prompt and scattered files). Implemented with a hand-rolled, dependency-free **stored (uncompressed) ZIP writer** (`createStoredZipBlob` + `crc32` + `concatBytes` + `dosDateTime`) — no deflate, just CRC32 and fixed headers — staying inside the no-npm-deps constraint. A 1-card set downloads as a single plain file (no pointless zip). The PNG button reads "Download zip (N)" / SVG "SVG zip". Validated against system `unzip -t` and Python `zipfile.testzip()` (CRCs + binary/UTF-8 round-trip).

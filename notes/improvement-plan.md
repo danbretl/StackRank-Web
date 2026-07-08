@@ -7,6 +7,7 @@ Execution progress:
 - **34 Land the in-flight iPad Lists work:** completed before this execution pass in commits `2291076` and `8a81ecf`; working tree was clean on `main` before item 19 started.
 - **19 Cache-key verify check:** implemented in this pass with `scripts/check-cache-versions.mjs`, `data/asset-versions.json`, runtime module-graph `lib/` imports versioned, and `npm run verify` wired to run `npm run check:cache`.
 - **1 Stop loading `supabase-js` from jsdelivr at runtime:** implemented in this pass; `@supabase/supabase-js@2.108.2` is vendored as a standalone browser ESM bundle, `app.js` imports it locally, CSP removes jsdelivr, `/vendor/` gets immutable caching, and the rendered browser smoke loaded the local module graph cleanly.
+- **2/3/24 Harden and modernize TMDB edge functions:** implemented and deployed in this pass; the JSON TMDB proxies now use a shared StackRank origin allowlist, `tmdb-image` has a shared token bucket and longer immutable cache, all four functions use `Deno.serve`, and hosted endpoint probes plus `npm run test:production` pass.
 
 **Baseline context an executor must know before touching anything:**
 

@@ -1,22 +1,45 @@
-import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-  "Access-Control-Allow-Methods": "GET, OPTIONS",
-};
+import {
+  jsonResponse,
+  preflightResponse,
+  PUBLIC_CORS_HEADERS,
+} from "../_shared/http.ts";
+import {
+  clientRateLimitKey,
+  takeRateLimitToken,
+} from "../_shared/rate-limit.ts";
 
 const allowedSizes = new Set(["w92", "w154", "w185", "w342", "w500"]);
+const POSTER_CACHE_CONTROL =
+  "public, max-age=604800, s-maxage=2592000, immutable";
+const POSTER_RATE_LIMIT = 300;
+const POSTER_RATE_LIMIT_WINDOW_MS = 5 * 60 * 1000;
+const posterRateLimitBuckets = new Map();
 
 const errorResponse = (message: string, status = 400) =>
-  new Response(JSON.stringify({ error: message }), {
-    headers: { ...corsHeaders, "Content-Type": "application/json" },
-    status,
-  });
+  jsonResponse({ error: message }, status, PUBLIC_CORS_HEADERS);
 
-serve(async (req) => {
+Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
-    return new Response("ok", { headers: corsHeaders });
+    return preflightResponse(PUBLIC_CORS_HEADERS);
+  }
+
+  const rateLimit = takeRateLimitToken(
+    posterRateLimitBuckets,
+    clientRateLimitKey(req),
+    {
+      limit: POSTER_RATE_LIMIT,
+      windowMs: POSTER_RATE_LIMIT_WINDOW_MS,
+    },
+  );
+  if (!rateLimit.allowed) {
+    return jsonResponse(
+      { error: "Too many poster requests" },
+      429,
+      {
+        ...PUBLIC_CORS_HEADERS,
+        "Retry-After": String(rateLimit.retryAfterSeconds),
+      },
+    );
   }
 
   const url = new URL(req.url);
@@ -34,14 +57,17 @@ serve(async (req) => {
   try {
     const response = await fetch(`https://image.tmdb.org/t/p/${size}${path}`);
     if (!response.ok || !response.body) {
-      return errorResponse("Poster not found", response.status === 404 ? 404 : 502);
+      return errorResponse(
+        "Poster not found",
+        response.status === 404 ? 404 : 502,
+      );
     }
 
     const contentType = response.headers.get("Content-Type") || "image/jpeg";
     return new Response(response.body, {
       headers: {
-        ...corsHeaders,
-        "Cache-Control": "public, max-age=86400",
+        ...PUBLIC_CORS_HEADERS,
+        "Cache-Control": POSTER_CACHE_CONTROL,
         "Content-Type": contentType,
       },
       status: 200,

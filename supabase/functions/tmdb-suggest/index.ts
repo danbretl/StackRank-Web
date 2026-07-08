@@ -1,10 +1,10 @@
-import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
+import {
+  jsonResponse,
+  rejectDisallowedBrowserOrigin,
+  stackRankCorsHeaders,
+  stackRankPreflightResponse,
+} from "../_shared/http.ts";
 import { hasValidPublishableKey } from "../_shared/publishable-key.ts";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
 
 const genreNames: Record<number, string> = {
   12: "Adventure",
@@ -28,15 +28,24 @@ const genreNames: Record<number, string> = {
   10770: "TV Movie",
 };
 
-serve(async (req) => {
+Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
-    return new Response("ok", { headers: corsHeaders });
+    return stackRankPreflightResponse(req);
   }
+
+  const originRejection = rejectDisallowedBrowserOrigin(req);
+  if (originRejection) {
+    return originRejection;
+  }
+
+  const corsHeaders = stackRankCorsHeaders(req);
+
   if (!hasValidPublishableKey(req)) {
-    return new Response(JSON.stringify({ error: "Valid publishable API key required" }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 401,
-    });
+    return jsonResponse(
+      { error: "Valid publishable API key required" },
+      401,
+      corsHeaders,
+    );
   }
 
   const url = new URL(req.url);
@@ -44,17 +53,16 @@ serve(async (req) => {
   const seed = url.searchParams.get("seed");
   const tmdbKey = Deno.env.get("TMDB_API_KEY");
   if (!tmdbKey) {
-    return new Response(JSON.stringify({ error: "TMDB_API_KEY missing" }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 500,
-    });
+    return jsonResponse({ error: "TMDB_API_KEY missing" }, 500, corsHeaders);
   }
 
   let tmdbUrl = "";
   if (type === "recommendations" && seed) {
-    tmdbUrl = `https://api.themoviedb.org/3/movie/${seed}/recommendations?api_key=${tmdbKey}`;
+    tmdbUrl =
+      `https://api.themoviedb.org/3/movie/${seed}/recommendations?api_key=${tmdbKey}`;
   } else if (type === "trending") {
-    tmdbUrl = `https://api.themoviedb.org/3/trending/movie/week?api_key=${tmdbKey}`;
+    tmdbUrl =
+      `https://api.themoviedb.org/3/trending/movie/week?api_key=${tmdbKey}`;
   } else if (type === "essentials") {
     const page = Math.floor(Math.random() * 8) + 1;
     const params = new URLSearchParams({
@@ -68,7 +76,8 @@ serve(async (req) => {
       "primary_release_date.lte": "2015-12-31",
       without_genres: "99,10755",
     });
-    tmdbUrl = `https://api.themoviedb.org/3/discover/movie?${params.toString()}`;
+    tmdbUrl =
+      `https://api.themoviedb.org/3/discover/movie?${params.toString()}`;
   } else {
     tmdbUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${tmdbKey}`;
   }
@@ -76,10 +85,7 @@ serve(async (req) => {
   try {
     const response = await fetch(tmdbUrl);
     if (!response.ok) {
-      return new Response(JSON.stringify({ results: [] }), {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 200,
-      });
+      return jsonResponse({ results: [] }, 200, corsHeaders);
     }
     const data = await response.json();
     const results = (data.results || []).map((movie: any) => ({
@@ -87,16 +93,11 @@ serve(async (req) => {
       title: movie.title,
       year: movie.release_date ? Number(movie.release_date.slice(0, 4)) : null,
       posterPath: movie.poster_path,
-      genres: (movie.genre_ids || []).map((id: number) => genreNames[id]).filter(Boolean),
+      genres: (movie.genre_ids || []).map((id: number) => genreNames[id])
+        .filter(Boolean),
     }));
-    return new Response(JSON.stringify({ results }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 200,
-    });
+    return jsonResponse({ results }, 200, corsHeaders);
   } catch (_error) {
-    return new Response(JSON.stringify({ results: [] }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 200,
-    });
+    return jsonResponse({ results: [] }, 200, corsHeaders);
   }
 });

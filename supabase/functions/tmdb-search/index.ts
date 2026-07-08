@@ -1,50 +1,53 @@
-import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
+import {
+  jsonResponse,
+  rejectDisallowedBrowserOrigin,
+  stackRankCorsHeaders,
+  stackRankPreflightResponse,
+} from "../_shared/http.ts";
 import { hasValidPublishableKey } from "../_shared/publishable-key.ts";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
-
-serve(async (req) => {
+Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
-    return new Response("ok", { headers: corsHeaders });
+    return stackRankPreflightResponse(req);
   }
+
+  const originRejection = rejectDisallowedBrowserOrigin(req);
+  if (originRejection) {
+    return originRejection;
+  }
+
+  const corsHeaders = stackRankCorsHeaders(req);
+
   if (!hasValidPublishableKey(req)) {
-    return new Response(JSON.stringify({ error: "Valid publishable API key required" }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 401,
-    });
+    return jsonResponse(
+      { error: "Valid publishable API key required" },
+      401,
+      corsHeaders,
+    );
   }
 
   const url = new URL(req.url);
   const query = url.searchParams.get("q");
   if (!query) {
-    return new Response(JSON.stringify({ results: [] }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 200,
-    });
+    return jsonResponse({ results: [] }, 200, corsHeaders);
   }
 
   const tmdbKey = Deno.env.get("TMDB_API_KEY");
   if (!tmdbKey) {
-    return new Response(JSON.stringify({ error: "TMDB_API_KEY missing" }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 500,
-    });
+    return jsonResponse({ error: "TMDB_API_KEY missing" }, 500, corsHeaders);
   }
 
-  const tmdbUrl = `https://api.themoviedb.org/3/search/movie?api_key=${tmdbKey}&query=${encodeURIComponent(
-    query,
-  )}&include_adult=false`;
+  const tmdbUrl =
+    `https://api.themoviedb.org/3/search/movie?api_key=${tmdbKey}&query=${
+      encodeURIComponent(
+        query,
+      )
+    }&include_adult=false`;
 
   try {
     const response = await fetch(tmdbUrl);
     if (!response.ok) {
-      return new Response(JSON.stringify({ results: [] }), {
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-        status: 200,
-      });
+      return jsonResponse({ results: [] }, 200, corsHeaders);
     }
     const data = await response.json();
     const results = (data.results || []).map((movie: any) => ({
@@ -54,14 +57,8 @@ serve(async (req) => {
       posterPath: movie.poster_path,
     }));
 
-    return new Response(JSON.stringify({ results }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 200,
-    });
+    return jsonResponse({ results }, 200, corsHeaders);
   } catch (_error) {
-    return new Response(JSON.stringify({ results: [] }), {
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 200,
-    });
+    return jsonResponse({ results: [] }, 200, corsHeaders);
   }
 });

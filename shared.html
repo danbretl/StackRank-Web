@@ -29,19 +29,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://image.tmdb.org" />
     <link rel="preconnect" href="https://hrfhakrxsllrqmscxxpb.supabase.co" />
-    <link rel="stylesheet" href="/styles.css?v=132" />
+    <link rel="stylesheet" href="/styles.css?v=134" />
   </head>
   <body class="shared-body">
     <main class="shared-page" data-shared-state="loading">
       <header class="shared-hero">
         <a class="shared-brand" href="/movies" aria-label="StackRank movies">StackRank</a>
-        <p class="shared-kicker">Read-only movie stack</p>
+        <p class="shared-kicker">Read-only movie ranking</p>
         <h1 id="shared-title">Shared ranking</h1>
         <p id="shared-subtitle">
           This is a published snapshot. Future edits stay private until the owner updates the link.
         </p>
         <div class="shared-meta" id="shared-meta" aria-live="polite">Loading shared list...</div>
-        <a class="cta shared-cta" href="/movies">Make your own stack</a>
+        <a class="cta shared-cta" href="/movies">Rank your own movies</a>
       </header>
 
       <section class="shared-content" aria-labelledby="shared-title">
@@ -49,6 +49,45 @@
         <div class="shared-grid" id="shared-grid"></div>
       </section>
     </main>
-    <script type="module" src="/shared.js?v=2"></script>
+
+    <div class="shared-detail" id="shared-detail" hidden>
+      <section
+        class="shared-detail__sheet"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="shared-detail-title"
+        aria-describedby="shared-detail-overview"
+      >
+        <button class="shared-detail__close" id="shared-detail-close" type="button" aria-label="Close movie details">
+          &times;
+        </button>
+        <header class="shared-detail__hero">
+          <div class="shared-detail__poster" id="shared-detail-poster"></div>
+          <div class="shared-detail__heading">
+            <p class="shared-detail__rank" id="shared-detail-rank"></p>
+            <h2 id="shared-detail-title">Movie title</h2>
+            <div class="shared-detail__sub" id="shared-detail-sub"></div>
+            <div class="shared-detail__genres" id="shared-detail-genres"></div>
+          </div>
+        </header>
+        <p class="shared-detail__overview" id="shared-detail-overview"></p>
+        <dl class="shared-detail__meta">
+          <div>
+            <dt>Directed by</dt>
+            <dd id="shared-detail-director">Unknown</dd>
+          </div>
+          <div>
+            <dt>Starring</dt>
+            <dd id="shared-detail-cast">Unknown</dd>
+          </div>
+        </dl>
+        <div class="shared-detail__status" id="shared-detail-status" aria-live="polite"></div>
+        <a class="detail-action detail-action--primary shared-detail__cta" id="shared-detail-cta" href="/movies">
+          Rank this movie
+        </a>
+      </section>
+    </div>
+
+    <script type="module" src="/shared.js?v=3"></script>
   </body>
 </html>

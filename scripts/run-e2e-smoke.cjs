@@ -591,7 +591,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=132" ||
+      desktop.cssHref !== "styles.css?v=134" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -2250,7 +2250,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
       empty.moduleSrc !== "app.js?v=173" ||
-      empty.cssHref !== "styles.css?v=132" ||
+      empty.cssHref !== "styles.css?v=134" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -4646,6 +4646,22 @@ const testPublicShareLink = async ({ baseUrl }) => {
             if (url.includes('/rest/v1/product_events')) {
               return new Response(null, { status: 201 });
             }
+            if (url.includes('/functions/v1/tmdb-detail')) {
+              const id = Number(new URL(url).searchParams.get('id'));
+              return jsonResponse({
+                result: {
+                  tmdbId: id,
+                  title: id === 129 ? 'Spirited Away' : 'Shared Detail',
+                  year: id === 129 ? 2001 : 2020,
+                  posterPath: id === 129 ? '/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg' : '',
+                  runtime: 125,
+                  genres: ['Animation', 'Fantasy'],
+                  director: 'Hayao Miyazaki',
+                  cast: ['Rumi Hiiragi', 'Miyu Irino'],
+                  overview: 'A detail fixture for the public shared list.'
+                }
+              });
+            }
             if (url.includes('/functions/v1/tmdb-')) {
               return jsonResponse({ results: [] });
             }
@@ -4782,19 +4798,113 @@ const testPublicShareLink = async ({ baseUrl }) => {
       meta: document.querySelector('#shared-meta')?.textContent.trim(),
       cards: [...document.querySelectorAll('.shared-card h2')].map((el) => el.textContent.trim()),
       cta: document.querySelector('.shared-cta')?.getAttribute('href'),
+      ctaText: document.querySelector('.shared-cta')?.textContent.trim(),
+      ctaDecoration: getComputedStyle(document.querySelector('.shared-cta')).textDecorationLine,
+      ctaWidth: Math.round(document.querySelector('.shared-cta')?.getBoundingClientRect().width || 0),
+      titleAlign: getComputedStyle(document.querySelector('#shared-title')).textAlign,
       appControls: !!document.querySelector('#share-list, #movie-form')
     }))()`);
     if (
       publicView.pathname !== `/s/${published.slug}` ||
       publicView.title !== "Shared StackRank movie list" ||
-      publicView.heading !== "E2E Link's movie stack" ||
+      publicView.heading !== "E2E Link's movie ranking" ||
       !publicView.meta.includes("3 ranked movies") ||
       publicView.cards.join("|") !== "Spirited Away|Moonlight|Heat" ||
       publicView.cta !== "/movies" ||
+      publicView.ctaText !== "Rank your own movies" ||
+      publicView.ctaDecoration !== "none" ||
+      publicView.ctaWidth > 260 ||
+      publicView.titleAlign !== "center" ||
       publicView.appControls
     ) {
       throw new Error(`Public shared view is wrong: ${JSON.stringify(publicView)}`);
     }
+
+    await page.evaluate(`document.querySelector('.shared-card')?.click(); true;`);
+    await waitFor(
+      page,
+      `!document.querySelector('#shared-detail')?.hidden &&
+        document.querySelector('#shared-detail-status')?.textContent.trim() === '' &&
+        document.querySelector('#shared-detail-title')?.textContent.trim() === 'Spirited Away'`,
+      8000,
+    );
+    const sharedDetail = await page.evaluate(`(() => ({
+      rank: document.querySelector('#shared-detail-rank')?.textContent.trim(),
+      title: document.querySelector('#shared-detail-title')?.textContent.trim(),
+      sub: document.querySelector('#shared-detail-sub')?.textContent.trim(),
+      genres: document.querySelector('#shared-detail-genres')?.textContent.trim(),
+      overview: document.querySelector('#shared-detail-overview')?.textContent.trim(),
+      director: document.querySelector('#shared-detail-director')?.textContent.trim(),
+      cast: document.querySelector('#shared-detail-cast')?.textContent.trim(),
+      ctaText: document.querySelector('#shared-detail-cta')?.textContent.trim(),
+      cta: document.querySelector('#shared-detail-cta')?.getAttribute('href')
+    }))()`);
+    if (
+      sharedDetail.rank !== "Ranked #1" ||
+      sharedDetail.title !== "Spirited Away" ||
+      sharedDetail.sub !== "2001 - 2h 5m" ||
+      sharedDetail.genres !== "Animation, Fantasy" ||
+      sharedDetail.overview !== "A detail fixture for the public shared list." ||
+      sharedDetail.director !== "Hayao Miyazaki" ||
+      sharedDetail.cast !== "Rumi Hiiragi, Miyu Irino" ||
+      sharedDetail.ctaText !== "Rank this movie" ||
+      sharedDetail.cta !== "/movies"
+    ) {
+      throw new Error(`Shared detail view is wrong: ${JSON.stringify(sharedDetail)}`);
+    }
+    await page.evaluate(`document.querySelector('#shared-detail-close')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#shared-detail')?.hidden`, 3000);
+
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 390,
+      height: 844,
+      deviceScaleFactor: 3,
+      mobile: true,
+      screenWidth: 390,
+      screenHeight: 844,
+    });
+    await page.send("Page.reload", { ignoreCache: true });
+    await waitFor(page, `document.querySelectorAll('.shared-card').length === 3`, 8000);
+    const mobilePublicView = await page.evaluate(`(() => {
+      const grid = document.querySelector('.shared-grid');
+      const cta = document.querySelector('.shared-cta');
+      const firstCard = document.querySelector('.shared-card');
+      const columns = getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length;
+      const cardRect = firstCard.getBoundingClientRect();
+      const visibleCards = [...document.querySelectorAll('.shared-card')].filter((card) => {
+        const rect = card.getBoundingClientRect();
+        return rect.top < innerHeight && rect.bottom > 0;
+      }).length;
+      return {
+        columns,
+        cardHeight: Math.round(cardRect.height),
+        visibleCards,
+        ctaWidth: Math.round(cta.getBoundingClientRect().width),
+        ctaDecoration: getComputedStyle(cta).textDecorationLine,
+        titleAlign: getComputedStyle(document.querySelector('#shared-title')).textAlign,
+        scrollWidth: document.documentElement.scrollWidth,
+        innerWidth
+      };
+    })()`);
+    if (
+      mobilePublicView.columns !== 3 ||
+      mobilePublicView.cardHeight > 230 ||
+      mobilePublicView.visibleCards < 3 ||
+      mobilePublicView.ctaWidth > 230 ||
+      mobilePublicView.ctaDecoration !== "none" ||
+      mobilePublicView.titleAlign !== "center" ||
+      mobilePublicView.scrollWidth > mobilePublicView.innerWidth
+    ) {
+      throw new Error(`Mobile shared view is not compact enough: ${JSON.stringify(mobilePublicView)}`);
+    }
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 1280,
+      height: 900,
+      deviceScaleFactor: 1,
+      mobile: false,
+      screenWidth: 1280,
+      screenHeight: 900,
+    });
 
     await page.send("Page.navigate", { url: `${baseUrl}/?e2e=public-share-link-revoke` });
     await waitFor(
@@ -4862,7 +4972,7 @@ const testPublicShareLink = async ({ baseUrl }) => {
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { published, updateCopy, publicView, revoked, revokedPublic },
+      details: { published, updateCopy, publicView, sharedDetail, mobilePublicView, revoked, revokedPublic },
       screenshots: [await page.screenshot("public-share-link-revoked.png")],
     };
   } finally {

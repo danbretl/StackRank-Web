@@ -2,10 +2,15 @@
 
 Status: **evaluation snapshot, 2026-07-07.** Produced from a full read of the codebase: `app.js` (~9,650 lines), all `lib/` modules, `index.html`, `styles.css` structure, `supabase/` (functions, migrations, config), `vercel.json`, CI, `tests/`, `scripts/`, and the notes directory. Each item states what to change, where, why, and the gotchas an executor needs. Items are grouped and ordered by priority within each group. Nothing here is committed roadmap — it is a ranked menu for the product owner.
 
+Execution progress:
+
+- **34 Land the in-flight iPad Lists work:** completed before this execution pass in commits `2291076` and `8a81ecf`; working tree was clean on `main` before item 19 started.
+- **19 Cache-key verify check:** implemented in this pass with `scripts/check-cache-versions.mjs`, `data/asset-versions.json`, runtime module-graph `lib/` imports versioned, and `npm run verify` wired to run `npm run check:cache`.
+
 **Baseline context an executor must know before touching anything:**
 
 - The 2026-06/07 redesign (see `notes/feature-ideas/design-audit.md`) is **complete through Phase 8 and released**. Do not revisit Phase 1–8 visual/IA decisions; the app shell now has Rank / Discover / Lists destinations (`lib/app-shell.js`, `lib/lists.js`, `data-app-destination` on `main.app`).
-- There is **uncommitted work in flight** (iPad Lists two-column layout: `styles.css` +86 lines, e2e assertions in `scripts/run-e2e-smoke.cjs`, cache bump to `styles.css?v=130`). Finish/verify/commit that separately before starting unrelated CSS work.
+- The former in-flight iPad Lists two-column layout work has landed (`2291076`, with documentation follow-up `8a81ecf`); unrelated CSS/e2e work can proceed from a clean base.
 - Ground rules from `CLAUDE.md` apply to every item: no build step, no npm runtime deps, mobile first-class, no TMDB ratings shown, bump `?v=N` cache keys, new logic gets DOM-free `lib/` modules with tests, commit only when asked.
 - Validation for every item: `npm run verify` (unit + `node --check` + Deno checks + e2e); `npm run test:production` after deploys; `npm run screenshots` when responsive visuals are at risk.
 
@@ -165,7 +170,7 @@ Ordered by expected impact ÷ effort. The first three have existing design notes
 
 - **What:** The mixed/text/posters list-cell rendering exists three nearly identical times: `shareSectionBuilders().fullList` (`app.js:6611`), `buildWideFullListDescriptor` (`app.js:6827`), and `buildWholeListPageDescriptors` (`app.js:7019`) — ~450 duplicated lines where a geometry tweak must be applied thrice (titleFit, cell metrics, fallback-poster clip paths are copy-pasted). Extract parameterized cell/row renderers (`renderMixedCell`, `renderTextRow`, `renderPosterCell`, each taking `{cols, cellW, …}`) into `lib/share-svg.js` next to the existing composers, with unit tests over the emitted SVG strings.
 - **Why:** Real drift risk (the three copies already differ subtly in insets), and `lib/share-svg.js` is the established home with a test harness.
-- **Gotchas:** Keep output byte-identical first (snapshot the current SVG strings in tests, then refactor to match) so the e2e download-artifact validations stay green. Bump `lib/share-svg.js` cache key (currently unversioned in the import list — flag via item 19).
+- **Gotchas:** Keep output byte-identical first (snapshot the current SVG strings in tests, then refactor to match) so the e2e download-artifact validations stay green. Bump `lib/share-svg.js`'s cache key when it changes; item 19 now enforces runtime module-graph import cache keys.
 
 ### 24. Modernize edge functions to `Deno.serve`
 

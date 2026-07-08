@@ -1,12 +1,12 @@
 import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2/+esm";
-import { createStoredZipBlob } from "./lib/zip.js";
+import { createStoredZipBlob } from "./lib/zip.js?v=1";
 import {
   mergeQueuePayloads,
   mergeRankingPayloads,
   normalizeSuggestionQueueLists,
   parseQueuePayload,
   parseRankingPayload,
-} from "./lib/persistence.js?v=1";
+} from "./lib/persistence.js?v=2";
 import {
   mergePackProgressPayloads,
   normalizePackProgressEntry,
@@ -20,7 +20,7 @@ import {
   trimTextToSvgWidth,
   wrapTextToSvgWidth,
   svgTextLines,
-} from "./lib/text.js";
+} from "./lib/text.js?v=1";
 import {
   formatRuntime,
   formatRuntimeTotal,
@@ -29,14 +29,14 @@ import {
   rankedCountLabel,
   dayKey,
   formatShortDate,
-} from "./lib/format.js";
+} from "./lib/format.js?v=1";
 import {
   normalizeTitle,
   movieKey,
   movieYear,
   isDuplicateMovie as isDuplicateInList,
-} from "./lib/movie.js";
-import { computeRankingInsights } from "./lib/insights.js";
+} from "./lib/movie.js?v=1";
+import { computeRankingInsights } from "./lib/insights.js?v=2";
 import {
   mergePackLibraries,
   computePackStats,
@@ -48,7 +48,7 @@ import {
   sharePackCardStatus,
   summarizePacks,
   featuredPacks,
-} from "./lib/packs.js?v=3";
+} from "./lib/packs.js?v=4";
 import {
   getSharePickGroups,
   movieExportLine,
@@ -58,7 +58,7 @@ import {
   buildShareExportSections as libBuildShareExportSections,
   sectionsToMarkdown,
   sectionsToText,
-} from "./lib/share-export.js?v=2";
+} from "./lib/share-export.js?v=3";
 import {
   getShareDisplayName,
   possessiveName,
@@ -69,17 +69,17 @@ import {
   composeShareSingleSvg,
   composeShareWideSvg,
   composeShareCard,
-} from "./lib/share-svg.js";
+} from "./lib/share-svg.js?v=2";
 import { comparisonMidIndex, firstComparisonIndex, applyComparison, isSearchSettled } from "./lib/ranking.js?v=2";
 import { buildReviewQueue } from "./lib/review.js?v=1";
-import { createUndoController } from "./lib/undo.js";
+import { createUndoController } from "./lib/undo.js?v=1";
 import {
   buildImportedRanking,
   buildStackRankBackup,
   chooseAutomaticTmdbMatch,
   parseRankedTitleList,
   parseStackRankBackup,
-} from "./lib/backup.js?v=2";
+} from "./lib/backup.js?v=3";
 import {
   buildSuggestionReason,
   buildSuggestionSectionSubtitle,
@@ -114,7 +114,7 @@ import {
   tasteMatchingPacks,
   tasteSignalEntries,
   tasteSignalPackQuery,
-} from "./lib/taste.js?v=3";
+} from "./lib/taste.js?v=4";
 import {
   AUTH_PROVIDERS,
   enabledOAuthProviders,

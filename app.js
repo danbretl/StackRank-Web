@@ -1,12 +1,16 @@
 import { createClient } from "./vendor/supabase-js-2.108.2.js?v=1";
 import { createStoredZipBlob } from "./lib/zip.js?v=1";
 import {
+  isJsonPayloadWithinByteLimit,
+  jsonByteLength,
   mergeQueuePayloads,
   mergeRankingPayloads,
   normalizeSuggestionQueueLists,
   parseQueuePayload,
   parseRankingPayload,
-} from "./lib/persistence.js?v=2";
+  REMOTE_LIST_PAYLOAD_LIMIT_BYTES,
+  REMOTE_PACK_PROGRESS_STATE_LIMIT_BYTES,
+} from "./lib/persistence.js?v=3";
 import {
   mergePackProgressPayloads,
   normalizePackProgressEntry,
@@ -2148,12 +2152,42 @@ const normalizeSuggestionQueues = () => {
   notInterestedList = normalized.notInterestedList;
 };
 
+const formatPayloadSizeLimit = (bytes) => {
+  if (bytes >= 1024 * 1024) return `${Math.round(bytes / (1024 * 1024))} MB`;
+  if (bytes >= 1024) return `${Math.round(bytes / 1024)} KB`;
+  return `${bytes} bytes`;
+};
+
+const warnRemotePayloadTooLarge = (label, byteLength, limitBytes) => {
+  const limitLabel = formatPayloadSizeLimit(limitBytes);
+  console.warn(
+    `Skipping ${label} sync: payload is ${byteLength} bytes; limit is ${limitBytes} bytes.`,
+  );
+  setAddFeedback(
+    `${label} saved on this device, but it is too large to sync (${limitLabel} limit).`,
+    4200,
+  );
+};
+
+const canSyncJsonPayload = (label, value, limitBytes) => {
+  if (isJsonPayloadWithinByteLimit(value, limitBytes)) return true;
+  warnRemotePayloadTooLarge(label, jsonByteLength(value), limitBytes);
+  return false;
+};
+
 const saveSuggestionQueues = async () => {
   const updatedAt = new Date().toISOString();
   saveLocalQueuePayload(updatedAt);
 
   const listId = getListId();
   if (supabaseEnabled && supabase && listId) {
+    if (
+      !canSyncJsonPayload("Watch next", watchList, REMOTE_LIST_PAYLOAD_LIMIT_BYTES) ||
+      !canSyncJsonPayload("Not for me", notInterestedList, REMOTE_LIST_PAYLOAD_LIMIT_BYTES)
+    ) {
+      return;
+    }
+
     await runSupabaseRequest(
       supabase.from("movie_lists").upsert(
         [
@@ -2273,12 +2307,17 @@ const savePackProgress = async (slug) => {
 
   const listId = getListId();
   if (supabaseEnabled && supabase && listId) {
+    const state = stripPackProgressMetadata(packProgress[slug]);
+    if (!canSyncJsonPayload("Pack progress", state, REMOTE_PACK_PROGRESS_STATE_LIMIT_BYTES)) {
+      return;
+    }
+
     await runSupabaseRequest(
       supabase.from("pack_progress").upsert(
         {
           list_id: listId,
           pack_slug: slug,
-          state: stripPackProgressMetadata(packProgress[slug]),
+          state,
           updated_at: updatedAt,
         },
         { onConflict: "list_id,pack_slug" },
@@ -2293,14 +2332,6 @@ const savePackProgressSnapshot = async () => {
   const listId = getListId();
   if (!supabaseEnabled || !supabase || !listId) return;
 
-  const { error: deleteError } = await runSupabaseRequest(
-    supabase.from("pack_progress").delete().eq("list_id", listId),
-    "Could not replace synced pack progress",
-  );
-  if (deleteError) {
-    return;
-  }
-
   const knownSlugs = new Set(suggestionPacks.map((pack) => pack.slug));
   const rows = Object.entries(packProgress)
     .filter(([slug]) => knownSlugs.has(slug))
@@ -2310,6 +2341,26 @@ const savePackProgressSnapshot = async () => {
       state: stripPackProgressMetadata(entry),
       updated_at: entry.updated_at || new Date().toISOString(),
     }));
+  const oversizedRow = rows.find(
+    ({ state }) => !isJsonPayloadWithinByteLimit(state, REMOTE_PACK_PROGRESS_STATE_LIMIT_BYTES),
+  );
+  if (oversizedRow) {
+    warnRemotePayloadTooLarge(
+      "Pack progress",
+      jsonByteLength(oversizedRow.state),
+      REMOTE_PACK_PROGRESS_STATE_LIMIT_BYTES,
+    );
+    return;
+  }
+
+  const { error: deleteError } = await runSupabaseRequest(
+    supabase.from("pack_progress").delete().eq("list_id", listId),
+    "Could not replace synced pack progress",
+  );
+  if (deleteError) {
+    return;
+  }
+
   if (!rows.length) return;
   await runSupabaseRequest(
     supabase.from("pack_progress").upsert(rows, { onConflict: "list_id,pack_slug" }),
@@ -2425,6 +2476,10 @@ const saveRanking = async () => {
   // local list behind for merge-on-load to resurrect.
   saveLocalPayload(ranking, updatedAt);
   if (supabaseEnabled && supabase && listId) {
+    if (!canSyncJsonPayload("Ranking", ranking, REMOTE_LIST_PAYLOAD_LIMIT_BYTES)) {
+      return;
+    }
+
     const payload = {
       list_id: listId,
       movies: ranking,

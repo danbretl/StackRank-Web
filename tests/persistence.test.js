@@ -2,11 +2,15 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 
 import {
+  isJsonPayloadWithinByteLimit,
+  jsonByteLength,
   mergeQueuePayloads,
   mergeRankingPayloads,
   normalizeSuggestionQueueLists,
   parseQueuePayload,
   parseRankingPayload,
+  REMOTE_LIST_PAYLOAD_LIMIT_BYTES,
+  REMOTE_PACK_PROGRESS_STATE_LIMIT_BYTES,
 } from "../lib/persistence.js";
 
 const movie = (tmdbId, title = `Movie ${tmdbId}`) => ({ tmdbId, title });
@@ -61,6 +65,23 @@ test("parseQueuePayload independently normalizes malformed queue fields", () => 
       updated_at: "2026-06-27T12:00:00.000Z",
     },
   );
+});
+
+test("jsonByteLength measures UTF-8 JSON payload bytes", () => {
+  assert.equal(jsonByteLength({ title: "Heat" }), 16);
+  assert.equal(jsonByteLength(["é"]), 6);
+});
+
+test("isJsonPayloadWithinByteLimit enforces remote payload caps defensively", () => {
+  assert.equal(isJsonPayloadWithinByteLimit({ ok: true }, REMOTE_LIST_PAYLOAD_LIMIT_BYTES), true);
+  assert.equal(
+    isJsonPayloadWithinByteLimit({ text: "x".repeat(REMOTE_PACK_PROGRESS_STATE_LIMIT_BYTES) }, 16),
+    false,
+  );
+
+  const circular = {};
+  circular.self = circular;
+  assert.equal(isJsonPayloadWithinByteLimit(circular, REMOTE_LIST_PAYLOAD_LIMIT_BYTES), false);
 });
 
 test("mergeRankingPayloads keeps newest order and appends movies only older snapshots contain", () => {

@@ -1448,11 +1448,12 @@ const renderRanking = () => {
     const handle = createMovieActionButton({
       label: "Move",
       icon: "drag",
-      ariaLabel: `Drag to reorder ${movie.title}`,
+      ariaLabel: `Move ${movie.title}; rank ${index + 1} of ${ranking.length}. Use Arrow Up or Arrow Down to reorder`,
       kind: "tertiary",
       className: "ranking__handle movie-item__handle",
     });
-    handle.title = "Drag to reorder";
+    handle.title = "Drag or use arrow keys to reorder";
+    handle.setAttribute("aria-keyshortcuts", "ArrowUp ArrowDown");
     const removeButton = createMovieActionButton({
       label: "Remove",
       icon: "remove",
@@ -4049,6 +4050,67 @@ const removeRankedMovie = (index, { fromFullscreen = false } = {}) => {
   return true;
 };
 
+const focusRankingMoveHandle = (index) => {
+  const item = rankingList?.querySelector(`.ranking__item[data-index="${index}"]`);
+  const handle = item?.querySelector(".ranking__handle");
+  if (!item || !handle) return;
+  handle.focus({ preventScroll: true });
+  item.scrollIntoView({ block: "nearest", inline: "nearest" });
+};
+
+const focusFullscreenMoveHandle = (index) => {
+  const card = fullscreenGrid?.querySelector(`.fullscreen-card[data-index="${index}"]`);
+  const handle = card?.querySelector(".fullscreen-card__drag-handle");
+  if (!card || !handle) return;
+  handle.focus({ preventScroll: true });
+  card.scrollIntoView({ block: "nearest", inline: "nearest" });
+};
+
+const restoreKeyboardMoveFocus = (surface, index) => {
+  window.requestAnimationFrame(() => {
+    if (surface === "fullscreen" && fullscreenOverlay && !fullscreenOverlay.hidden) {
+      focusFullscreenMoveHandle(index);
+      return;
+    }
+    focusRankingMoveHandle(index);
+  });
+};
+
+const moveRankedMovieWithKeyboard = (fromIndex, direction, { surface = "ranking" } = {}) => {
+  if (
+    !Number.isInteger(fromIndex) ||
+    !Number.isInteger(direction) ||
+    direction === 0 ||
+    !ranking[fromIndex] ||
+    pending
+  ) {
+    return false;
+  }
+  const toIndex = fromIndex + direction;
+  if (toIndex < 0 || toIndex >= ranking.length) return false;
+
+  const beforeRanking = snapshotRanking();
+  const movedMovie = ranking[fromIndex];
+  ranking = moveRankingItem(ranking, fromIndex, toIndex);
+  const nextIndex = ranking.indexOf(movedMovie);
+  saveRanking();
+  renderRanking();
+  if (fullscreenOverlay && !fullscreenOverlay.hidden) {
+    renderFullscreenRanking({
+      focusRankingIndex: nextIndex,
+      focusMoveHandle: surface === "fullscreen",
+    });
+  }
+  if (surface === "ranking") focusRankingMoveHandle(nextIndex);
+  updateSuggestions();
+  renderPackSurfaces();
+  setUndoableFeedback(`"${movedMovie.title}" moved to #${nextIndex + 1} of ${ranking.length}.`, () => {
+    restoreRankingTo(beforeRanking);
+    restoreKeyboardMoveFocus(surface, fromIndex);
+  });
+  return true;
+};
+
 rankingList.addEventListener("click", (event) => {
   const infoButton = event.target.closest(".ranking__info");
   if (infoButton) {
@@ -4093,6 +4155,19 @@ rankingList.addEventListener("click", (event) => {
   if (Number.isNaN(index)) return;
   const movie = ranking[index];
   if (movie) openMovieDetail(movie, { type: "ranked", source: "ranking", index }, item);
+});
+
+rankingList.addEventListener("keydown", (event) => {
+  if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+  const handle = event.target.closest(".ranking__handle");
+  if (!handle || rankingFilterQuery.trim()) return;
+  const item = handle.closest(".ranking__item");
+  const index = Number(item?.dataset.index);
+  if (!Number.isInteger(index)) return;
+  event.preventDefault();
+  moveRankedMovieWithKeyboard(index, event.key === "ArrowUp" ? -1 : 1, {
+    surface: "ranking",
+  });
 });
 
 const clearDragShifts = () => {
@@ -7860,7 +7935,7 @@ const syncFullscreenMoveModeControls = ({ isFiltered = false, count = ranking.le
   }
 };
 
-function renderFullscreenRanking({ focusRankingIndex = null } = {}) {
+function renderFullscreenRanking({ focusRankingIndex = null, focusMoveHandle = false } = {}) {
   if (!fullscreenGrid) return;
   fullscreenGrid.innerHTML = "";
   const count = ranking.length;
@@ -7947,10 +8022,11 @@ function renderFullscreenRanking({ focusRankingIndex = null } = {}) {
     const handle = createFullscreenActionButton({
       label: "Move",
       icon: "drag",
-      ariaLabel: `Drag to reorder ${movie.title}`,
+      ariaLabel: `Move ${movie.title}; rank ${index + 1} of ${ranking.length}. Use Arrow Up or Arrow Down to reorder`,
       className: "fullscreen-card__drag-handle",
     });
-    handle.title = "Drag to reorder";
+    handle.title = "Drag or use arrow keys to reorder";
+    handle.setAttribute("aria-keyshortcuts", "ArrowUp ArrowDown");
     const overflow = createMovieOverflow(`More actions for ${movie.title}`, [
       createMovieOverflowActionButton({
         label: "Info",
@@ -7980,7 +8056,12 @@ function renderFullscreenRanking({ focusRankingIndex = null } = {}) {
       `.fullscreen-card[data-index="${focusRankingIndex}"]`,
     );
     if (focusCard) {
-      focusCard.querySelector(".fullscreen-card__primary")?.focus({ preventScroll: true });
+      const focusTarget = focusMoveHandle
+        ? focusCard.querySelector(".fullscreen-card__drag-handle")
+        : focusCard.querySelector(".fullscreen-card__primary");
+      (focusTarget || focusCard.querySelector(".fullscreen-card__primary"))?.focus({
+        preventScroll: true,
+      });
       focusCard.scrollIntoView({ block: "nearest", inline: "nearest" });
     }
   }
@@ -8221,6 +8302,18 @@ if (fullscreenGrid) {
 
   fullscreenGrid.addEventListener("keydown", (event) => {
     const card = event.target.closest(".fullscreen-card");
+    const moveHandle = event.target.closest(".fullscreen-card__drag-handle");
+    if (card && moveHandle && (event.key === "ArrowUp" || event.key === "ArrowDown")) {
+      const index = Number(card.dataset.index);
+      if (!fullscreenMoveMode || fullscreenFilterQuery.trim() || fullscreenTasteSignal || !Number.isInteger(index)) {
+        return;
+      }
+      event.preventDefault();
+      moveRankedMovieWithKeyboard(index, event.key === "ArrowUp" ? -1 : 1, {
+        surface: "fullscreen",
+      });
+      return;
+    }
     const primary = event.target.closest(".fullscreen-card__primary");
     if (!card || !primary) return;
     if (!["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "Home", "End"].includes(event.key)) {

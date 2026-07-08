@@ -1871,6 +1871,61 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     ) {
       throw new Error(`Mobile move mode controls are wrong: ${JSON.stringify(mobileMoveMode)}`);
     }
+    await page.evaluate(`document.querySelector('#ranking .ranking__item[data-index="0"] .ranking__handle')?.focus(); true;`);
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyDown",
+      key: "ArrowDown",
+      windowsVirtualKeyCode: 40,
+      code: "ArrowDown",
+    });
+    await waitFor(
+      page,
+      `[...document.querySelectorAll('#ranking .ranking__title')][1]?.textContent.trim() === 'Alpha' &&
+        document.activeElement?.closest('.ranking__item')?.dataset.index === '1'`,
+      3000,
+    );
+    const mobileKeyboardMoveDown = await page.evaluate(`(() => ({
+      rankingTitles: [...document.querySelectorAll('#ranking .ranking__title')].map((el) => el.textContent.trim()),
+      focusedIndex: document.activeElement?.closest('.ranking__item')?.dataset.index || '',
+      focusedLabel: document.activeElement?.getAttribute('aria-label') || '',
+      keyshortcuts: document.activeElement?.getAttribute('aria-keyshortcuts') || '',
+      feedback: document.querySelector('#add-feedback')?.textContent.trim() || ''
+    }))()`);
+    if (
+      mobileKeyboardMoveDown.rankingTitles.slice(0, 2).join("|") !== "Beta|Alpha" ||
+      mobileKeyboardMoveDown.focusedIndex !== "1" ||
+      !mobileKeyboardMoveDown.focusedLabel.includes("Move Alpha") ||
+      mobileKeyboardMoveDown.keyshortcuts !== "ArrowUp ArrowDown" ||
+      !mobileKeyboardMoveDown.feedback.includes('"Alpha" moved to #2 of 5.')
+    ) {
+      throw new Error(`Mobile keyboard move down is wrong: ${JSON.stringify(mobileKeyboardMoveDown)}`);
+    }
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyDown",
+      key: "ArrowUp",
+      windowsVirtualKeyCode: 38,
+      code: "ArrowUp",
+    });
+    await waitFor(
+      page,
+      `[...document.querySelectorAll('#ranking .ranking__title')][0]?.textContent.trim() === 'Alpha' &&
+        document.activeElement?.closest('.ranking__item')?.dataset.index === '0'`,
+      3000,
+    );
+    const mobileKeyboardMoveUp = await page.evaluate(`(() => ({
+      rankingTitles: [...document.querySelectorAll('#ranking .ranking__title')].map((el) => el.textContent.trim()),
+      focusedIndex: document.activeElement?.closest('.ranking__item')?.dataset.index || '',
+      focusedLabel: document.activeElement?.getAttribute('aria-label') || '',
+      feedback: document.querySelector('#add-feedback')?.textContent.trim() || ''
+    }))()`);
+    if (
+      mobileKeyboardMoveUp.rankingTitles.slice(0, 2).join("|") !== "Alpha|Beta" ||
+      mobileKeyboardMoveUp.focusedIndex !== "0" ||
+      !mobileKeyboardMoveUp.focusedLabel.includes("Move Alpha") ||
+      !mobileKeyboardMoveUp.feedback.includes('"Alpha" moved to #1 of 5.')
+    ) {
+      throw new Error(`Mobile keyboard move up is wrong: ${JSON.stringify(mobileKeyboardMoveUp)}`);
+    }
     await page.evaluate(`document.querySelector('#ranking-move-toggle')?.click(); true;`);
     await wait(100);
 
@@ -2145,7 +2200,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=170" ||
+      empty.moduleSrc !== "app.js?v=171" ||
       empty.cssHref !== "styles.css?v=130" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
@@ -4960,6 +5015,66 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('#fullscreen-move-toggle')?.click(); true;`);
     await waitFor(page, `document.querySelector('#fullscreen-grid')?.classList.contains('is-move-mode')`, 3000);
 
+    await page.evaluate(`document.querySelector('#fullscreen-grid .fullscreen-card[data-index="0"] .fullscreen-card__drag-handle')?.focus(); true;`);
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyDown",
+      key: "ArrowDown",
+      windowsVirtualKeyCode: 40,
+      code: "ArrowDown",
+    });
+    await waitFor(
+      page,
+      `[...document.querySelectorAll('#fullscreen-grid .fullscreen-card__title')][1]?.textContent.trim() === 'Alpha' &&
+        document.activeElement?.closest('.fullscreen-card')?.dataset.index === '1'`,
+      3000,
+    );
+    const fullscreenKeyboardMoveDown = await page.evaluate(`(() => ({
+      gridTitles: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__title')].map((el) => el.textContent.trim()),
+      rankingTitles: [...document.querySelectorAll('#ranking .ranking__title')].map((el) => el.textContent.trim()),
+      focusedIndex: document.activeElement?.closest('.fullscreen-card')?.dataset.index || '',
+      focusedLabel: document.activeElement?.getAttribute('aria-label') || '',
+      keyshortcuts: document.activeElement?.getAttribute('aria-keyshortcuts') || '',
+      feedback: document.querySelector('#add-feedback')?.textContent.trim() || ''
+    }))()`);
+    if (
+      fullscreenKeyboardMoveDown.gridTitles.slice(0, 2).join("|") !== "Beta|Alpha" ||
+      fullscreenKeyboardMoveDown.rankingTitles.slice(0, 2).join("|") !== "Beta|Alpha" ||
+      fullscreenKeyboardMoveDown.focusedIndex !== "1" ||
+      !fullscreenKeyboardMoveDown.focusedLabel.includes("Move Alpha") ||
+      fullscreenKeyboardMoveDown.keyshortcuts !== "ArrowUp ArrowDown" ||
+      !fullscreenKeyboardMoveDown.feedback.includes('"Alpha" moved to #2 of 6.')
+    ) {
+      throw new Error(`Full-screen keyboard move down is wrong: ${JSON.stringify(fullscreenKeyboardMoveDown)}`);
+    }
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyDown",
+      key: "ArrowUp",
+      windowsVirtualKeyCode: 38,
+      code: "ArrowUp",
+    });
+    await waitFor(
+      page,
+      `[...document.querySelectorAll('#fullscreen-grid .fullscreen-card__title')][0]?.textContent.trim() === 'Alpha' &&
+        document.activeElement?.closest('.fullscreen-card')?.dataset.index === '0'`,
+      3000,
+    );
+    const fullscreenKeyboardMoveUp = await page.evaluate(`(() => ({
+      gridTitles: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__title')].map((el) => el.textContent.trim()),
+      rankingTitles: [...document.querySelectorAll('#ranking .ranking__title')].map((el) => el.textContent.trim()),
+      focusedIndex: document.activeElement?.closest('.fullscreen-card')?.dataset.index || '',
+      focusedLabel: document.activeElement?.getAttribute('aria-label') || '',
+      feedback: document.querySelector('#add-feedback')?.textContent.trim() || ''
+    }))()`);
+    if (
+      fullscreenKeyboardMoveUp.gridTitles.slice(0, 2).join("|") !== "Alpha|Beta" ||
+      fullscreenKeyboardMoveUp.rankingTitles.slice(0, 2).join("|") !== "Alpha|Beta" ||
+      fullscreenKeyboardMoveUp.focusedIndex !== "0" ||
+      !fullscreenKeyboardMoveUp.focusedLabel.includes("Move Alpha") ||
+      !fullscreenKeyboardMoveUp.feedback.includes('"Alpha" moved to #1 of 6.')
+    ) {
+      throw new Error(`Full-screen keyboard move up is wrong: ${JSON.stringify(fullscreenKeyboardMoveUp)}`);
+    }
+
     const dragPoints = await page.evaluate(`(() => {
       const cards = [...document.querySelectorAll('#fullscreen-grid .fullscreen-card')];
       const firstHandle = cards[0].querySelector('.fullscreen-card__drag-handle').getBoundingClientRect();
@@ -5099,7 +5214,15 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { semantics, nestedModal, fullscreenDetailLayer, filtered, state },
+      details: {
+        semantics,
+        nestedModal,
+        fullscreenDetailLayer,
+        filtered,
+        fullscreenKeyboardMoveDown,
+        fullscreenKeyboardMoveUp,
+        state,
+      },
       screenshots: [jumpFocusShot, fullscreenOverflowDetailShot, await page.screenshot("fullscreen-ranking-interactions.png")],
     };
   } finally {

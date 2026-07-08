@@ -573,7 +573,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=129" ||
+      desktop.cssHref !== "styles.css?v=130" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -774,8 +774,16 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         movie("Delta", 2005, 2004),
         movie("Epsilon", 2010, 2005),
       ],
-      watchList: [queueMovie("Saved", 2020, 2006)],
-      notInterestedList: [{ ...queueMovie("Hidden", 2021, 2007), hiddenAt: "2026-06-20T13:30:00.000Z" }],
+      watchList: [
+        queueMovie("Saved", 2020, 2006),
+        queueMovie("Later Pick", 2019, 2008),
+        queueMovie("Queued Drama", 2018, 2009),
+        queueMovie("Weekend Watch", 2017, 2010),
+      ],
+      notInterestedList: [
+        { ...queueMovie("Hidden", 2021, 2007), hiddenAt: "2026-06-20T13:30:00.000Z" },
+        { ...queueMovie("Buried Pick", 2016, 2011), hiddenAt: "2026-06-20T13:40:00.000Z" },
+      ],
     });
     await page.evaluate(`(() => {
       const realFetch = window.fetch.bind(window);
@@ -1156,6 +1164,105 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         throw new Error(`${label} pack grid is wrong: ${JSON.stringify({ ...layout, badRows, mismatchedShelfAction, shelfAction, allPacksAction })}`);
       }
     };
+    const readTabletListsLayout = async () =>
+      page.evaluate(`(() => {
+        const rect = (element) => {
+          const bounds = element?.getBoundingClientRect();
+          return bounds ? {
+            left: Math.round(bounds.left),
+            right: Math.round(bounds.right),
+            top: Math.round(bounds.top),
+            bottom: Math.round(bounds.bottom),
+            width: Math.round(bounds.width),
+            height: Math.round(bounds.height)
+          } : null;
+        };
+        const visible = (element) => {
+          const bounds = element?.getBoundingClientRect();
+          const style = element ? getComputedStyle(element) : null;
+          return !!bounds &&
+            bounds.width > 0 &&
+            bounds.height > 0 &&
+            style?.display !== 'none' &&
+            style?.visibility !== 'hidden';
+        };
+        const list = document.querySelector('#watch-list');
+        const listStyle = list ? getComputedStyle(list) : null;
+        const first = document.querySelector('#watch-list .queue-list__item');
+        const cards = [...document.querySelectorAll('#watch-list .queue-list__item')].slice(0, 4).map((card) => rect(card));
+        const actionMetrics = [...(first?.querySelectorAll('.queue-list__actions > .movie-item__action') || [])].map((button) => {
+          const bounds = button.getBoundingClientRect();
+          const style = getComputedStyle(button);
+          return {
+            text: button.textContent.trim(),
+            width: Math.round(bounds.width),
+            height: Math.round(bounds.height),
+            display: style.display,
+            visibility: style.visibility
+          };
+        });
+        const visibleActions = actionMetrics.filter((action) =>
+          action.width > 0 &&
+          action.height > 0 &&
+          action.display !== 'none' &&
+          action.visibility !== 'hidden'
+        );
+        return {
+          destination: document.querySelector('main.app')?.dataset.appDestination,
+          pointerCoarse: matchMedia('(pointer: coarse)').matches,
+          portrait: matchMedia('(orientation: portrait)').matches,
+          panel: rect(document.querySelector('.panel--queues')),
+          sideStack: rect(document.querySelector('.side-stack')),
+          watchVisible: visible(document.querySelector('#watch-list')),
+          hiddenVisible: visible(document.querySelector('#not-interested-list')),
+          watchSelected: document.querySelector('#watch-list-tab')?.getAttribute('aria-selected'),
+          hiddenSelected: document.querySelector('#hidden-list-tab')?.getAttribute('aria-selected'),
+          listStyle: {
+            maxHeight: listStyle?.maxHeight || '',
+            overflowY: listStyle?.overflowY || '',
+            gridTemplateColumns: listStyle?.gridTemplateColumns || '',
+            gridColumnCount: String(listStyle?.gridTemplateColumns || '').split(' ').filter(Boolean).length
+          },
+          listClientHeight: list?.clientHeight || 0,
+          listScrollHeight: list?.scrollHeight || 0,
+          cardCount: document.querySelectorAll('#watch-list .queue-list__item').length,
+          cards,
+          firstTwoShareRow: cards.length >= 2 && Math.abs(cards[0].top - cards[1].top) < 3,
+          firstThirdStartsNewRow: cards.length >= 3 && cards[2].top > cards[0].bottom,
+          visibleActionLabels: visibleActions.map((action) => action.text),
+          visibleActions,
+          hiddenActions: actionMetrics.filter((action) => action.width === 0 || action.height === 0 || action.display === 'none'),
+          overflowVisible: visible(first?.querySelector('.movie-item__overflow-toggle')),
+          detailVisible: visible(first?.querySelector('.movie-item__detail')),
+          scrollWidth: document.documentElement.scrollWidth,
+          innerWidth
+        };
+      })()`);
+    const assertTabletListsLayout = (label, layout) => {
+      if (
+        layout.destination !== "lists" ||
+        !layout.watchVisible ||
+        layout.hiddenVisible ||
+        layout.watchSelected !== "true" ||
+        layout.hiddenSelected !== "false" ||
+        !layout.panel ||
+        layout.panel.width < layout.innerWidth * 0.84 ||
+        layout.listStyle.maxHeight !== "none" ||
+        layout.listStyle.overflowY !== "visible" ||
+        layout.listStyle.gridColumnCount !== 2 ||
+        layout.cardCount < 4 ||
+        !layout.firstTwoShareRow ||
+        !layout.firstThirdStartsNewRow ||
+        layout.visibleActionLabels.join("|") !== "Rank" ||
+        !layout.overflowVisible ||
+        layout.detailVisible ||
+        layout.visibleActions.some((action) => action.width < 60 || action.height < 34 || action.width > 92 || action.height > 42) ||
+        layout.listScrollHeight > layout.listClientHeight + 2 ||
+        layout.scrollWidth > layout.innerWidth
+      ) {
+        throw new Error(`${label} Lists layout is wrong: ${JSON.stringify(layout)}`);
+      }
+    };
 
     await page.send("Emulation.setDeviceMetricsOverride", {
       width: 1024,
@@ -1264,6 +1371,11 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     const ipadAllPacksLandscapeShot = await page.screenshot("app-shell-ipad-landscape-all-packs.png");
     await page.evaluate(`document.querySelector('#pack-detail-close')?.click(); true;`);
     await waitFor(page, `document.querySelector('#pack-detail')?.hidden`, 3000);
+    await switchAppDestination("lists");
+    await wait(100);
+    const ipadListsLandscape = await readTabletListsLayout();
+    assertTabletListsLayout("iPad landscape", ipadListsLandscape);
+    const ipadListsLandscapeShot = await page.screenshot("app-shell-ipad-landscape-lists.png");
     await switchAppDestination("rank");
 
     await page.send("Emulation.setDeviceMetricsOverride", {
@@ -1374,6 +1486,11 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     const ipadAllPacksPortraitShot = await page.screenshot("app-shell-ipad-portrait-all-packs.png");
     await page.evaluate(`document.querySelector('#pack-detail-close')?.click(); true;`);
     await waitFor(page, `document.querySelector('#pack-detail')?.hidden`, 3000);
+    await switchAppDestination("lists");
+    await wait(100);
+    const ipadListsPortrait = await readTabletListsLayout();
+    assertTabletListsLayout("iPad portrait", ipadListsPortrait);
+    const ipadListsPortraitShot = await page.screenshot("app-shell-ipad-portrait-lists.png");
     await switchAppDestination("rank");
 
     await page.send("Emulation.setTouchEmulationEnabled", { enabled: false });
@@ -1917,8 +2034,10 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         desktop,
         ipadLandscape,
         ipadDiscoverPacksLandscape,
+        ipadListsLandscape,
         ipadPortrait,
         ipadDiscoverPacksPortrait,
+        ipadListsPortrait,
         mobileRank,
         mobileRankOverflow,
         mobileRankDetailLayer,
@@ -1932,8 +2051,12 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         desktopInfoHoverShot,
         ipadLandscapeShot,
         ipadDiscoverPacksLandscapeShot,
+        ipadAllPacksLandscapeShot,
+        ipadListsLandscapeShot,
         ipadPortraitShot,
         ipadDiscoverPacksPortraitShot,
+        ipadAllPacksPortraitShot,
+        ipadListsPortraitShot,
         mobileRankOverflowShot,
         mobileRankOverflowDetailShot,
         discoverShot,
@@ -2023,7 +2146,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
       empty.moduleSrc !== "app.js?v=159" ||
-      empty.cssHref !== "styles.css?v=129" ||
+      empty.cssHref !== "styles.css?v=130" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||

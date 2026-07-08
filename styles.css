@@ -8730,6 +8730,92 @@ body.is-comparing .card--clickable.is-pressed {
   }
 }
 
+@media (min-width: 721px) and (max-width: 1180px) {
+  .app[data-app-destination="lists"] .side-stack {
+    max-width: none;
+  }
+
+  .app[data-app-destination="lists"] .panel--queues {
+    padding: var(--space-6);
+    gap: var(--space-4);
+  }
+
+  .app[data-app-destination="lists"] .queue-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    max-height: none;
+    overflow: visible;
+    overscroll-behavior: auto;
+    padding-top: 0;
+    padding-right: 0;
+    scrollbar-gutter: auto;
+  }
+
+  .app[data-app-destination="lists"] .movie-item--queue {
+    grid-template-columns: 48px minmax(0, 1fr) auto;
+    min-height: 92px;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3);
+  }
+
+  .app[data-app-destination="lists"] .movie-item--queue .movie-item__poster {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .app[data-app-destination="lists"] .movie-item--queue .movie-item__body {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .app[data-app-destination="lists"] .movie-item--queue .movie-item__detail {
+    display: none;
+  }
+
+  .app[data-app-destination="lists"] .movie-item--queue .queue-list__actions {
+    grid-column: 3;
+    grid-row: 1;
+    width: auto;
+    display: flex;
+    align-self: center;
+    gap: var(--space-2);
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .app[data-app-destination="lists"] .movie-item--queue .queue-list__actions > * + * {
+    border-left: 0;
+  }
+
+  .app[data-app-destination="lists"] .movie-item--queue .queue-list__actions > .queue-action--secondary,
+  .app[data-app-destination="lists"] .movie-item--queue .queue-list__actions > .queue-action--remove {
+    display: none;
+  }
+
+  .app[data-app-destination="lists"] .movie-item--queue .queue-list__actions .queue-list__primary {
+    min-width: 68px;
+    min-height: 36px;
+    padding: 0 var(--space-3);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-control);
+  }
+
+  .app[data-app-destination="lists"] .movie-item--queue .queue-list__overflow {
+    display: block;
+  }
+
+  .app[data-app-destination="lists"] .movie-item--queue .movie-item__overflow-toggle {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    border-color: var(--rule);
+    background: var(--surface);
+  }
+}
+
 @media (max-width: 900px) and (orientation: landscape) {
   body.is-comparing .compare__controls {
     padding-top: var(--space-2);

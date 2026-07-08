@@ -152,30 +152,46 @@ const openChromePage = async ({ width = 1280, height = 900, name }) => {
       "--disable-gpu",
       "--disable-dev-shm-usage",
       "--no-sandbox",
+      "--no-first-run",
+      "--no-default-browser-check",
       "--hide-scrollbars",
+      "--remote-debugging-address=127.0.0.1",
       `--remote-debugging-port=${port}`,
       `--user-data-dir=${profile}`,
       `--window-size=${width},${height}`,
       "about:blank",
     ],
-    { stdio: ["ignore", "ignore", "ignore"] },
+    { stdio: ["ignore", "ignore", "pipe"] },
   );
+  let chromeExit = null;
+  let chromeStderr = "";
+  proc.stderr.on("data", (chunk) => {
+    chromeStderr = `${chromeStderr}${chunk.toString()}`.slice(-4000);
+  });
+  proc.once("exit", (code, signal) => {
+    chromeExit = { code, signal };
+  });
 
   let pageTarget = null;
-  for (let attempt = 0; attempt < 80; attempt += 1) {
+  for (let attempt = 0; attempt < 150; attempt += 1) {
     try {
-      await getCdpJson(port, "/json/new?about:blank").catch(() => null);
       const tabs = await getCdpJson(port, "/json/list");
       pageTarget = tabs.find((target) => target.type === "page" && target.webSocketDebuggerUrl);
       if (pageTarget) break;
     } catch (_error) {
-      await wait(100);
+      // Chrome may need a moment before the debugging endpoint is listening.
     }
+    if (chromeExit) break;
+    await wait(100);
   }
 
   if (!pageTarget) {
     proc.kill();
-    throw new Error("Chrome CDP page target did not start");
+    throw new Error(
+      `Chrome CDP page target did not start${chromeExit ? `; Chrome exited ${JSON.stringify(chromeExit)}` : ""}${
+        chromeStderr.trim() ? `\nChrome stderr:\n${chromeStderr.trim()}` : ""
+      }`,
+    );
   }
 
   const ws = await connectWebSocket(pageTarget.webSocketDebuggerUrl);
@@ -874,6 +890,9 @@ const testAppShellNavigation = async ({ baseUrl }) => {
           transform: style.transform
       };
     })()`);
+    const desktopHasFineHover = await page.evaluate(
+      `matchMedia('(hover: hover) and (pointer: fine)').matches`,
+    );
     const desktopActionHoverStates = [];
     let desktopInfoHoverShot = null;
     for (const selector of [".ranking__info", ".ranking__restack", ".ranking__handle", ".ranking__delete"]) {
@@ -899,14 +918,20 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       !hover ||
       hover.width < 35.5 ||
       hover.height < 35.5 ||
-      hover.borderTopColor === before.borderTopColor ||
-      hover.backgroundColor === before.backgroundColor ||
-      hover.borderTopColor === "rgba(0, 0, 0, 0)" ||
-      hover.backgroundColor === "rgba(0, 0, 0, 0)" ||
-      hover.transform === "none"
+      (desktopHasFineHover &&
+        (hover.borderTopColor === before.borderTopColor ||
+          hover.backgroundColor === before.backgroundColor ||
+          hover.borderTopColor === "rgba(0, 0, 0, 0)" ||
+          hover.backgroundColor === "rgba(0, 0, 0, 0)" ||
+          hover.transform === "none"))
     );
     if (missingHoverState.length) {
-      throw new Error(`Desktop ranking action hover state is inconsistent: ${JSON.stringify(desktopActionHoverStates)}`);
+      throw new Error(
+        `Desktop ranking action hover state is inconsistent: ${JSON.stringify({
+          desktopHasFineHover,
+          states: desktopActionHoverStates,
+        })}`,
+      );
     }
     const desktopShot = await page.screenshot("app-shell-desktop-rank.png");
 

@@ -5,12 +5,13 @@ import {
   jsonByteLength,
   mergeQueuePayloads,
   mergeRankingPayloads,
+  mergeRankingPayloadsWithMetadata,
   normalizeSuggestionQueueLists,
   parseQueuePayload,
   parseRankingPayload,
   REMOTE_LIST_PAYLOAD_LIMIT_BYTES,
   REMOTE_PACK_PROGRESS_STATE_LIMIT_BYTES,
-} from "./lib/persistence.js?v=3";
+} from "./lib/persistence.js?v=4";
 import {
   mergePackProgressPayloads,
   normalizePackProgressEntry,
@@ -2467,6 +2468,26 @@ const loadSuggestionPacks = async () => {
   rebuildPackIndex();
 };
 
+const showMergedPlacementNotice = (appendedMovies = []) => {
+  const movies = Array.isArray(appendedMovies) ? appendedMovies : [];
+  if (!movies.length) return;
+  const count = movies.length;
+  const message = `${count} movie${count === 1 ? "" : "s"} merged from another device ${
+    count === 1 ? "was" : "were"
+  } added to the bottom.`;
+  const focusTmdbId = movies.find((movie) => movie?.tmdbId != null)?.tmdbId || null;
+  const actions =
+    ranking.length > 1
+      ? [
+          {
+            label: "Review order",
+            onClick: () => startReview({ focusTmdbId }),
+          },
+        ]
+      : [];
+  setAddFeedback(message, actions.length ? 9000 : 5200, actions);
+};
+
 const saveRanking = async () => {
   const listId = getListId();
   const updatedAt = new Date().toISOString();
@@ -2505,13 +2526,14 @@ const loadRanking = async () => {
     );
     if (!error && data && Array.isArray(data.movies)) {
       const local = getLocalPayload();
-      const merged = mergeRankingPayloads([
+      const merged = mergeRankingPayloadsWithMetadata([
         { movies: data.movies, updated_at: data.updated_at || null },
         local,
       ]);
       ranking = merged.movies;
       rankingUpdatedAt = merged.updated_at;
       await saveRanking();
+      showMergedPlacementNotice(merged.appendedMovies);
       return;
     }
   }
@@ -2969,13 +2991,13 @@ const reviewDecision = (swap) => {
   advanceReview();
 };
 
-const startReview = () => {
+const startReview = ({ focusTmdbId = lastAddedTmdbId } = {}) => {
   if (pending || isReviewing()) return;
   if (ranking.length < 2) {
     setAddFeedback("Add at least two movies to review your ranking.", 2600);
     return;
   }
-  const queue = buildReviewQueue(ranking, { focusTmdbId: lastAddedTmdbId, max: REVIEW_PAIR_LIMIT });
+  const queue = buildReviewQueue(ranking, { focusTmdbId, max: REVIEW_PAIR_LIMIT });
   if (!queue.length) {
     setAddFeedback("Nothing to review right now.", 2600);
     return;
@@ -3029,7 +3051,7 @@ const finishReview = (completed) => {
 reviewKeepButton.addEventListener("click", () => chooseReviewCard(false));
 reviewSwapButton.addEventListener("click", () => chooseReviewCard(true));
 reviewEndButton.addEventListener("click", () => finishReview(false));
-if (rankingReviewButton) rankingReviewButton.addEventListener("click", startReview);
+if (rankingReviewButton) rankingReviewButton.addEventListener("click", () => startReview());
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();

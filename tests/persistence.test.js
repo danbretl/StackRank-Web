@@ -6,6 +6,7 @@ import {
   jsonByteLength,
   mergeQueuePayloads,
   mergeRankingPayloads,
+  mergeRankingPayloadsWithMetadata,
   normalizeSuggestionQueueLists,
   parseQueuePayload,
   parseRankingPayload,
@@ -100,6 +101,23 @@ test("mergeRankingPayloads keeps newest order and appends movies only older snap
   assert.deepEqual(merged.movies.map(({ tmdbId }) => tmdbId), [2, 1, 3]);
   assert.equal(merged.updated_at, newer.updated_at);
   assert.deepEqual(payloads, [older, newer], "caller-owned payload order is not mutated");
+});
+
+test("mergeRankingPayloadsWithMetadata reports older-only movies appended to the newest base", () => {
+  const older = {
+    movies: [movie(1), movie(2), movie(3)],
+    updated_at: "2026-06-26T12:00:00.000Z",
+  };
+  const newer = {
+    movies: [movie(2), movie(1)],
+    updated_at: "2026-06-27T12:00:00.000Z",
+  };
+
+  const merged = mergeRankingPayloadsWithMetadata([older, newer]);
+
+  assert.deepEqual(merged.movies.map(({ tmdbId }) => tmdbId), [2, 1, 3]);
+  assert.deepEqual(merged.appendedMovies.map(({ tmdbId }) => tmdbId), [3]);
+  assert.deepEqual(merged.appendedKeys, ["tmdb:3"]);
 });
 
 test("mergeRankingPayloads treats invalid timestamps as oldest and preserves first input on ties", () => {

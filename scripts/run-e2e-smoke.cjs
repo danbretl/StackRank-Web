@@ -2145,7 +2145,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=163" ||
+      empty.moduleSrc !== "app.js?v=165" ||
       empty.cssHref !== "styles.css?v=130" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
@@ -4061,6 +4061,10 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
         writeListId: payload?.list_id || null,
         writeTitles: payload?.movies?.map((entry) => entry.title) || [],
         writeAuthorized: !!lastWrite?.authorization?.startsWith('Bearer '),
+        mergeNotice: document.querySelector('#add-feedback')?.textContent.trim() || '',
+        mergeNoticeActions: [...document.querySelectorAll('#add-feedback button')].map((button) =>
+          button.textContent.trim()
+        ),
         packProgress: JSON.parse(localStorage.getItem(
           'stackrank:pack-progress:v1:user:${userId}'
         ) || '{}').progress || {},
@@ -4078,12 +4082,38 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
       state.writeListId !== `user:${userId}` ||
       state.writeTitles.join("|") !== expectedTitles ||
       !state.writeAuthorized ||
+      !state.mergeNotice.includes("1 movie merged from another device was added to the bottom.") ||
+      state.mergeNoticeActions.join("|") !== "Review order" ||
       state.packProgressGetCount < 1 ||
       state.packProgress["director-wes-anderson"]?.lastIndex !== 4 ||
       state.packProgress["year-1999"]?.lastIndex !== 1
     ) {
       throw new Error(`Signed-in merge/save adapter failed: ${JSON.stringify(state)}`);
     }
+
+    await page.evaluate(`document.querySelector('#add-feedback button')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.body.classList.contains('is-reviewing') &&
+        document.querySelector('#compare-sub')?.textContent.includes('Pair 1 of')`,
+      3000,
+    );
+    const reviewStart = await page.evaluate(`(() => ({
+      isReviewing: document.body.classList.contains('is-reviewing'),
+      subtitle: document.querySelector('#compare-sub')?.textContent.trim() || '',
+      firstLabel: document.querySelector('#new-card .card__label')?.textContent.trim() || '',
+      secondLabel: document.querySelector('#existing-card .card__label')?.textContent.trim() || ''
+    }))()`);
+    if (
+      !reviewStart.isReviewing ||
+      !reviewStart.subtitle.includes('Still prefer #2 over #3?') ||
+      reviewStart.firstLabel !== 'Currently #2' ||
+      reviewStart.secondLabel !== 'Currently #3'
+    ) {
+      throw new Error(`Merge review action did not focus appended placement: ${JSON.stringify(reviewStart)}`);
+    }
+    await page.evaluate(`document.querySelector('#review-end')?.click(); true;`);
+    await waitFor(page, `!document.body.classList.contains('is-reviewing')`, 3000);
 
     await page.evaluate(`(() => {
       Math.random = () => 0.5;

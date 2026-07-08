@@ -122,11 +122,12 @@ import {
 } from "./lib/taste.js?v=4";
 import {
   AUTH_PROVIDERS,
+  SIGN_OUT_LOCAL_DATA_MESSAGE,
   enabledOAuthProviders,
   signInRedirectUrl,
   isLikelyEmail,
   normalizeAuthEmail,
-} from "./lib/auth.js?v=2";
+} from "./lib/auth.js?v=3";
 import {
   createAppShellState,
   switchAppDestination,
@@ -8919,6 +8920,7 @@ const handleOAuthSignIn = async (provider) => {
 
 const handleSignOut = async () => {
   if (!supabaseEnabled || !supabase) return;
+  if (!window.confirm(SIGN_OUT_LOCAL_DATA_MESSAGE)) return;
   authNotice = "";
   let error = null;
   try {
@@ -8930,12 +8932,15 @@ const handleSignOut = async () => {
     authStatus.textContent = `Sign-out failed: ${error?.message || "Could not reach the sign-in service."}`;
     return;
   }
+  currentUser = null;
+  setAuthUI();
+  updateStatus();
   ranking = [];
   pending = null;
   pendingOrigin = null;
   pendingTelemetry = null;
   searchRange = null;
-  saveRanking();
+  await saveRanking();
   setComparisonMode(false);
   renderRanking();
   await loadSuggestionQueues();

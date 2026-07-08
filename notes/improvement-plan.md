@@ -11,6 +11,7 @@ Execution progress:
 - **4 Bound stored `jsonb` payload sizes in Postgres:** implemented and applied in this pass; real exported backups plus production maxima were checked against the caps, client-side byte guards now skip oversized remote writes after local saves, the matching Postgres constraints are validated in production, and local full verify plus rendered browser smoke pass.
 - **5 `product_events` retention and flood posture:** implemented and applied in this pass; Supabase Cron now deletes raw product events older than 180 days, a per-session database trigger rejects more than 500 rows for one `session_id`, and the instrumentation note documents the remaining anon insert-volume risk.
 - **6 Cross-device merge loses rank positions — make it explicit:** implemented in this pass; remote/local ranking merges now report older-only movies appended to the bottom, show a **Review order** toast focused on the appended placement, and are covered by persistence unit tests plus the signed-in Supabase merge E2E flow. Full `npm run verify` and rendered local browser smoke pass.
+- **7 Decide and document the sign-out data story:** implemented in this pass; sign-out now confirms that the account copy remains while the device-local list is cleared, drops `currentUser` before saving that empty local view so it cannot post an empty account ranking, and is covered by auth unit tests plus the signed-in Supabase E2E flow.
 
 **Baseline context an executor must know before touching anything:**
 

@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   AUTH_PROVIDERS,
+  SIGN_OUT_LOCAL_DATA_MESSAGE,
   enabledOAuthProviders,
   signInRedirectUrl,
   isLikelyEmail,
@@ -15,6 +16,13 @@ test("AUTH_PROVIDERS offers Google and Apple with literal Supabase ids", () => {
     assert.ok(p.id, "provider needs an id");
     assert.ok(p.label, "provider needs a label");
   }
+});
+
+test("SIGN_OUT_LOCAL_DATA_MESSAGE is explicit about the account copy and device state", () => {
+  assert.equal(
+    SIGN_OUT_LOCAL_DATA_MESSAGE,
+    "Sign out? Your list stays in your account; this device will show an empty list.",
+  );
 });
 
 test("enabledOAuthProviders follows the hosted Supabase provider settings", () => {

@@ -2145,7 +2145,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=165" ||
+      empty.moduleSrc !== "app.js?v=166" ||
       empty.cssHref !== "styles.css?v=130" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
@@ -4229,10 +4229,86 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
         `Signed-in offline write recovery failed: ${JSON.stringify({ offlineWrite, recoveredWrite })}`,
       );
     }
+
+    await page.evaluate(`(() => {
+      window.__e2eConfirmCalls = [];
+      window.__e2eConfirmResult = false;
+      window.confirm = (message) => {
+        window.__e2eConfirmCalls.push(message);
+        return window.__e2eConfirmResult;
+      };
+      if (document.querySelector('#ranking-settings-panel')?.hidden) {
+        document.querySelector('#ranking-settings-toggle')?.click();
+      }
+      document.querySelector('#settings-sign-out')?.click();
+      return true;
+    })()`);
+    const cancelledSignOut = await page.evaluate(`(() => ({
+      confirmCalls: window.__e2eConfirmCalls || [],
+      rankingRows: document.querySelectorAll('#ranking .ranking__item').length,
+      authTokenPresent: !!localStorage.getItem('sb-hrfhakrxsllrqmscxxpb-auth-token'),
+      logoutCount: (window.__e2eSupabaseRequests || []).filter((request) =>
+        request.url.includes('/auth/v1/logout')
+      ).length
+    }))()`);
+    if (
+      cancelledSignOut.confirmCalls.join("|") !==
+        "Sign out? Your list stays in your account; this device will show an empty list." ||
+      cancelledSignOut.rankingRows !== 3 ||
+      !cancelledSignOut.authTokenPresent ||
+      cancelledSignOut.logoutCount !== 0
+    ) {
+      throw new Error(`Cancelled sign-out did not preserve signed-in state: ${JSON.stringify(cancelledSignOut)}`);
+    }
+
+    await page.evaluate(`(() => {
+      window.__e2eConfirmResult = true;
+      document.querySelector('#settings-sign-out')?.click();
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `(() => {
+        const stored = JSON.parse(localStorage.getItem('stackrank:movies:v1') || '{}');
+        return document.querySelectorAll('#ranking .ranking__item').length === 0 &&
+          (stored.movies || []).length === 0 &&
+          !localStorage.getItem('sb-hrfhakrxsllrqmscxxpb-auth-token');
+      })()`,
+      5000,
+    );
+    const signedOutState = await page.evaluate(`(() => ({
+      confirmCalls: window.__e2eConfirmCalls || [],
+      authState: document.querySelector('#settings-auth-state')?.textContent.trim(),
+      authSignInVisible: !document.querySelector('#auth-sign-in')?.hidden,
+      rankingRows: document.querySelectorAll('#ranking .ranking__item').length,
+      storedTitles: JSON.parse(localStorage.getItem('stackrank:movies:v1') || '{}').movies?.map((entry) => entry.title) || [],
+      logoutCount: (window.__e2eSupabaseRequests || []).filter((request) =>
+        request.url.includes('/auth/v1/logout')
+      ).length,
+      rankingWriteCount: (window.__e2eSupabaseRequests || []).filter((request) =>
+        request.method === 'POST' && request.url.includes('/rest/v1/rankings')
+      ).length
+    }))()`);
+    if (
+      signedOutState.confirmCalls.length !== 2 ||
+      signedOutState.confirmCalls.some(
+        (message) =>
+          message !== "Sign out? Your list stays in your account; this device will show an empty list.",
+      ) ||
+      !signedOutState.authState.includes("Not signed in") ||
+      !signedOutState.authSignInVisible ||
+      signedOutState.rankingRows !== 0 ||
+      signedOutState.storedTitles.length !== 0 ||
+      signedOutState.logoutCount !== 1 ||
+      signedOutState.rankingWriteCount !== state.rankingWriteCount
+    ) {
+      throw new Error(`Confirmed sign-out did not clear only the device-local state: ${JSON.stringify(signedOutState)}`);
+    }
+
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { state, packWrite, offlineWrite, recoveredWrite },
+      details: { state, packWrite, offlineWrite, recoveredWrite, cancelledSignOut, signedOutState },
       screenshots: [await page.screenshot("supabase-merge-save.png")],
     };
   } finally {

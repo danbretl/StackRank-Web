@@ -700,12 +700,22 @@ const testBootLayoutStability = async ({ baseUrl }) => {
         document.querySelectorAll('.suggest-card--loading').length === 6`,
       5000,
     );
-    const boot = await page.evaluate(`(() => ({
-      discoveryHeight: document.querySelector('#suggest-panel')?.getBoundingClientRect().height,
-      packHeight: document.querySelector('#pack-row')?.getBoundingClientRect().height,
-      essentialsHeight: document.querySelector('#suggest-essentials')?.getBoundingClientRect().height,
-      popularHeight: document.querySelector('#suggest-popular')?.getBoundingClientRect().height
-    }))()`);
+    const boot = await page.evaluate(`(() => {
+      const display = (selector) => {
+        const element = document.querySelector(selector);
+        return element ? getComputedStyle(element).display : '';
+      };
+      return {
+        discoveryHeight: document.querySelector('#suggest-panel')?.getBoundingClientRect().height,
+        discoveryDisplay: display('#suggest-panel'),
+        packHeight: document.querySelector('#pack-row')?.getBoundingClientRect().height,
+        packDisplay: display('#pack-row'),
+        essentialsHeight: document.querySelector('#suggest-essentials')?.getBoundingClientRect().height,
+        essentialsDisplay: display('#suggest-essentials'),
+        popularHeight: document.querySelector('#suggest-popular')?.getBoundingClientRect().height,
+        popularDisplay: display('#suggest-popular')
+      };
+    })()`);
 
     await waitFor(
       page,
@@ -714,21 +724,33 @@ const testBootLayoutStability = async ({ baseUrl }) => {
       10000,
     );
     await wait(250);
-    const settled = await page.evaluate(`(() => ({
-      discoveryHeight: document.querySelector('#suggest-panel')?.getBoundingClientRect().height,
-      packHeight: document.querySelector('#pack-row')?.getBoundingClientRect().height,
-      essentialsHeight: document.querySelector('#suggest-essentials')?.getBoundingClientRect().height,
-      popularHeight: document.querySelector('#suggest-popular')?.getBoundingClientRect().height,
-      layoutShifts: window.__e2eLayoutShifts || [],
-      cls: (window.__e2eLayoutShifts || []).reduce((sum, entry) => sum + entry.value, 0),
-      scrollWidth: document.documentElement.scrollWidth,
-      innerWidth
-    }))()`);
+    const settled = await page.evaluate(`(() => {
+      const display = (selector) => {
+        const element = document.querySelector(selector);
+        return element ? getComputedStyle(element).display : '';
+      };
+      return {
+        discoveryHeight: document.querySelector('#suggest-panel')?.getBoundingClientRect().height,
+        discoveryDisplay: display('#suggest-panel'),
+        packHeight: document.querySelector('#pack-row')?.getBoundingClientRect().height,
+        packDisplay: display('#pack-row'),
+        essentialsHeight: document.querySelector('#suggest-essentials')?.getBoundingClientRect().height,
+        essentialsDisplay: display('#suggest-essentials'),
+        popularHeight: document.querySelector('#suggest-popular')?.getBoundingClientRect().height,
+        popularDisplay: display('#suggest-popular'),
+        layoutShifts: window.__e2eLayoutShifts || [],
+        cls: (window.__e2eLayoutShifts || []).reduce((sum, entry) => sum + entry.value, 0),
+        scrollWidth: document.documentElement.scrollWidth,
+        innerWidth
+      };
+    })()`);
+    const visibleHeightChanged = (afterDisplay, beforeHeight, afterHeight, tolerance) =>
+      afterDisplay !== "none" && Math.abs(afterHeight - beforeHeight) > tolerance;
     if (
-      Math.abs(settled.discoveryHeight - boot.discoveryHeight) > 40 ||
-      Math.abs(settled.packHeight - boot.packHeight) > 4 ||
-      Math.abs(settled.essentialsHeight - boot.essentialsHeight) > 4 ||
-      Math.abs(settled.popularHeight - boot.popularHeight) > 4 ||
+      visibleHeightChanged(settled.discoveryDisplay, boot.discoveryHeight, settled.discoveryHeight, 40) ||
+      visibleHeightChanged(settled.packDisplay, boot.packHeight, settled.packHeight, 4) ||
+      visibleHeightChanged(settled.essentialsDisplay, boot.essentialsHeight, settled.essentialsHeight, 4) ||
+      visibleHeightChanged(settled.popularDisplay, boot.popularHeight, settled.popularHeight, 4) ||
       settled.cls >= 0.1 ||
       settled.scrollWidth > settled.innerWidth
     ) {

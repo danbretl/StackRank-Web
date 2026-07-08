@@ -9,6 +9,7 @@ Execution progress:
 - **1 Stop loading `supabase-js` from jsdelivr at runtime:** implemented in this pass; `@supabase/supabase-js@2.108.2` is vendored as a standalone browser ESM bundle, `app.js` imports it locally, CSP removes jsdelivr, `/vendor/` gets immutable caching, and the rendered browser smoke loaded the local module graph cleanly.
 - **2/3/24 Harden and modernize TMDB edge functions:** implemented and deployed in this pass; the JSON TMDB proxies now use a shared StackRank origin allowlist, `tmdb-image` has a shared token bucket and longer immutable cache, all four functions use `Deno.serve`, and hosted endpoint probes plus `npm run test:production` pass.
 - **4 Bound stored `jsonb` payload sizes in Postgres:** implemented and applied in this pass; real exported backups plus production maxima were checked against the caps, client-side byte guards now skip oversized remote writes after local saves, the matching Postgres constraints are validated in production, and local full verify plus rendered browser smoke pass.
+- **5 `product_events` retention and flood posture:** implemented and applied in this pass; Supabase Cron now deletes raw product events older than 180 days, a per-session database trigger rejects more than 500 rows for one `session_id`, and the instrumentation note documents the remaining anon insert-volume risk.
 
 **Baseline context an executor must know before touching anything:**
 

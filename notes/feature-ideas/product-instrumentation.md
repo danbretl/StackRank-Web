@@ -48,6 +48,13 @@ property keys, property values, JSON types, and payload size. The browser
 sanitizer provides the same first line of defense; the database remains
 authoritative.
 
+Raw product events are retained for 180 days. A Supabase Cron job named
+`stackrank-product-events-retention` runs daily and deletes older rows, so the
+clean analysis cutoff (`2026-06-29 18:44:36+00`) is still useful for historical
+queries until those rows naturally age out. A database trigger rejects more than
+500 rows for one `session_id`; this is a cheap loop brake, not a complete flood
+defense because anonymous clients can still mint new session UUIDs.
+
 ## Event dictionary
 
 - `session_started` — app initialization finished; distinguishes empty and
@@ -85,6 +92,8 @@ joined to an auth identity.
   `supabase/migrations/20260628225636_add_quick_start_events.sql`
 - Taste Explorer allowlist/RLS extension:
   `supabase/migrations/20260629012754_add_taste_explorer_events.sql`
+- Retention/flood posture:
+  `supabase/migrations/20260708064357_product_events_retention_and_flood_limit.sql`
 - Vercel pageview injection: `initVercelWebAnalytics()` in `app.js`
 
 Telemetry failures are non-blocking and only log in `?debug=1`; product actions
@@ -233,7 +242,8 @@ from exposed;
 - Review FTUE activation on 2026-07-12; extend to 2026-07-28 if fewer than 50
   post-cutover exposed sessions. Use the decision thresholds in
   `first-run-quick-start.md`.
-- Review event volume after 60–90 days and add a retention job if traffic makes
-  indefinite raw-event storage unnecessary.
+- Review event volume after 60–90 days; if the 180-day raw retention window is
+  more than product analysis needs, shorten the Cron job rather than keeping
+  old rows indefinitely.
 - Only add events that answer a named product decision. Do not turn this into
   exhaustive click tracking.

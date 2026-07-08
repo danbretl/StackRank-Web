@@ -40,7 +40,8 @@ test("Vercel applies the production browser security policy to every route", () 
   assert.match(headers["Content-Security-Policy"], /default-src 'self'/);
   assert.match(headers["Content-Security-Policy"], /frame-ancestors 'none'/);
   assert.match(headers["Content-Security-Policy"], /object-src 'none'/);
-  assert.match(headers["Content-Security-Policy"], /https:\/\/cdn\.jsdelivr\.net/);
+  assert.doesNotMatch(headers["Content-Security-Policy"], /https:\/\/cdn\.jsdelivr\.net/);
+  assert.match(headers["Content-Security-Policy"], /script-src 'self'/);
   assert.match(headers["Content-Security-Policy"], /https:\/\/hrfhakrxsllrqmscxxpb\.supabase\.co/);
   assert.equal(headers["Permissions-Policy"], "browsing-topics=(), camera=(), geolocation=(), microphone=(), payment=(), usb=()");
   assert.equal(headers["Referrer-Policy"], "strict-origin-when-cross-origin");
@@ -57,7 +58,7 @@ test("Vercel gives cache-busted static payloads immutable browser caching", () =
         Object.fromEntries(headers.map(({ key, value }) => [key, value])),
       ]),
   );
-  for (const source of ["/app.js", "/styles.css", "/data/suggestion-packs.json"]) {
+  for (const source of ["/app.js", "/styles.css", "/data/suggestion-packs.json", "/vendor/(.*)"]) {
     assert.equal(
       cacheRules.get(source)?.["Cache-Control"],
       "public, max-age=31536000, immutable",

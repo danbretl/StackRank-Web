@@ -4,6 +4,7 @@ import fs from "node:fs";
 const productionOrigin = "https://www.stackrankapp.com";
 const apexOrigin = "https://stackrankapp.com";
 const localIndex = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
+const localApp = fs.readFileSync(new URL("../app.js", import.meta.url), "utf8");
 const vercelConfig = JSON.parse(
   fs.readFileSync(new URL("../vercel.json", import.meta.url), "utf8"),
 );
@@ -80,6 +81,10 @@ const expectedModule = attribute(
   /<script\b[^>]*\btype=["']module["'][^>]*>/i,
   "src",
 );
+const expectedVendorModule = localApp.match(
+  /from\s+["']\.\/(vendor\/supabase-js-2\.108\.2\.js\?v=\d+)["']/,
+)?.[1];
+assert.ok(expectedVendorModule, "Supabase vendor module import should be versioned");
 
 assert.equal(
   attribute(moviesHtml, /<link\b[^>]*\brel=["']canonical["'][^>]*>/i, "href"),
@@ -106,6 +111,7 @@ record("canonical, social metadata, and cache-busted assets match the repository
 for (const asset of [
   expectedCss,
   expectedModule,
+  expectedVendorModule,
   "assets/favicon.ico",
   "assets/favicon.svg",
   "assets/apple-touch-icon.png",
@@ -115,7 +121,12 @@ for (const asset of [
   assert.ok(response.headers.get("content-type"), `${asset} should have a content type`);
 }
 
-for (const asset of [expectedCss, expectedModule, "data/suggestion-packs.json?v=5"]) {
+for (const asset of [
+  expectedCss,
+  expectedModule,
+  expectedVendorModule,
+  "data/suggestion-packs.json?v=5",
+]) {
   const response = await request(`${productionOrigin}/${asset}`);
   assert.equal(response.status, 200, `${asset} should return 200`);
   assert.equal(
@@ -124,7 +135,7 @@ for (const asset of [expectedCss, expectedModule, "data/suggestion-packs.json?v=
     `${asset} should be immutable`,
   );
 }
-record("cache-busted app, CSS, and pack data are immutable");
+record("cache-busted app, vendor, CSS, and pack data are immutable");
 
 const ogResponse = await request(expectedOgImage);
 assert.equal(ogResponse.status, 200, "Open Graph image should return 200");

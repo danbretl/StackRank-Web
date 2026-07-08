@@ -1,4 +1,4 @@
-import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.108.2/+esm";
+import { createClient } from "./vendor/supabase-js-2.108.2.js?v=1";
 import { createStoredZipBlob } from "./lib/zip.js?v=1";
 import {
   mergeQueuePayloads,

@@ -9547,16 +9547,19 @@ const hideSuggestions = () => {
   suggestionItems = [];
   activeSuggestionIndex = -1;
   currentSuggestions = [];
+  titleInput.setAttribute("aria-expanded", "false");
+  titleInput.removeAttribute("aria-activedescendant");
 };
 
 const setActiveSuggestion = (index) => {
   if (!suggestionItems.length) return;
   activeSuggestionIndex = index;
   suggestionItems.forEach((item, idx) => {
-    if (idx === activeSuggestionIndex) {
-      item.classList.add("is-active");
-    } else {
-      item.classList.remove("is-active");
+    const active = idx === activeSuggestionIndex;
+    item.classList.toggle("is-active", active);
+    item.setAttribute("aria-selected", active ? "true" : "false");
+    if (active) {
+      titleInput.setAttribute("aria-activedescendant", item.id);
     }
   });
 };
@@ -9611,7 +9614,9 @@ const renderSuggestions = (movies) => {
   movies.forEach((movie, index) => {
     const item = document.createElement("div");
     item.className = "suggestions__item";
+    item.id = `suggestions-option-${index}`;
     item.setAttribute("role", "option");
+    item.setAttribute("aria-selected", "false");
     item.dataset.index = index;
 
     const poster = document.createElement("img");
@@ -9641,6 +9646,8 @@ const renderSuggestions = (movies) => {
   });
 
   suggestions.style.display = "block";
+  titleInput.setAttribute("aria-expanded", "true");
+  titleInput.removeAttribute("aria-activedescendant");
 };
 
 const renderSuggestionSearchStatus = (message) => {
@@ -9654,6 +9661,8 @@ const renderSuggestionSearchStatus = (message) => {
   status.textContent = message;
   suggestions.appendChild(status);
   suggestions.style.display = "block";
+  titleInput.setAttribute("aria-expanded", "true");
+  titleInput.removeAttribute("aria-activedescendant");
 };
 
 const fetchSuggestions = async (query) => {

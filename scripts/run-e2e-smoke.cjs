@@ -2145,7 +2145,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=169" ||
+      empty.moduleSrc !== "app.js?v=170" ||
       empty.cssHref !== "styles.css?v=130" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
@@ -3172,6 +3172,36 @@ const testAutocompleteKeyboardSelection = async ({ baseUrl }) => {
       return true;
     })()`);
     await waitFor(page, `document.querySelectorAll('#suggestions .suggestions__item').length === 2`, 3000);
+    const combobox = await page.evaluate(`(() => ({
+      role: document.querySelector('#title')?.getAttribute('role'),
+      autocomplete: document.querySelector('#title')?.getAttribute('aria-autocomplete'),
+      expanded: document.querySelector('#title')?.getAttribute('aria-expanded'),
+      controls: document.querySelector('#title')?.getAttribute('aria-controls'),
+      popup: document.querySelector('#title')?.getAttribute('aria-haspopup'),
+      activeDescendant: document.querySelector('#title')?.getAttribute('aria-activedescendant') || '',
+      listboxRole: document.querySelector('#suggestions')?.getAttribute('role'),
+      optionIds: [...document.querySelectorAll('#suggestions .suggestions__item')].map((item) => item.id),
+      optionRoles: [...document.querySelectorAll('#suggestions .suggestions__item')].map((item) =>
+        item.getAttribute('role')
+      ),
+      optionSelected: [...document.querySelectorAll('#suggestions .suggestions__item')].map((item) =>
+        item.getAttribute('aria-selected')
+      )
+    }))()`);
+    if (
+      combobox.role !== "combobox" ||
+      combobox.autocomplete !== "list" ||
+      combobox.expanded !== "true" ||
+      combobox.controls !== "suggestions" ||
+      combobox.popup !== "listbox" ||
+      combobox.activeDescendant ||
+      combobox.listboxRole !== "listbox" ||
+      combobox.optionIds.join("|") !== "suggestions-option-0|suggestions-option-1" ||
+      combobox.optionRoles.join("|") !== "option|option" ||
+      combobox.optionSelected.join("|") !== "false|false"
+    ) {
+      throw new Error(`Autocomplete combobox semantics are wrong: ${JSON.stringify(combobox)}`);
+    }
     for (const key of ["ArrowDown", "ArrowDown"]) {
       await page.send("Input.dispatchKeyEvent", {
         type: "keyDown",
@@ -3184,11 +3214,23 @@ const testAutocompleteKeyboardSelection = async ({ baseUrl }) => {
         code: key,
       });
     }
-    const active = await page.evaluate(
-      `document.querySelector('#suggestions .suggestions__item.is-active .suggestions__title')?.textContent.trim()`,
-    );
-    if (active !== "Keyboard Two") {
-      throw new Error(`Arrow keys selected the wrong autocomplete result: ${active}`);
+    const active = await page.evaluate(`(() => {
+      const activeId = document.querySelector('#title')?.getAttribute('aria-activedescendant') || '';
+      const activeOption = activeId ? document.getElementById(activeId) : null;
+      return {
+        title: activeOption?.querySelector('.suggestions__title')?.textContent.trim() || '',
+        activeId,
+        selectedValues: [...document.querySelectorAll('#suggestions .suggestions__item')].map((item) =>
+          item.getAttribute('aria-selected')
+        )
+      };
+    })()`);
+    if (
+      active.title !== "Keyboard Two" ||
+      active.activeId !== "suggestions-option-1" ||
+      active.selectedValues.join("|") !== "false|true"
+    ) {
+      throw new Error(`Arrow keys selected the wrong autocomplete result: ${JSON.stringify(active)}`);
     }
     await page.send("Input.dispatchKeyEvent", {
       type: "keyDown",
@@ -3211,12 +3253,16 @@ const testAutocompleteKeyboardSelection = async ({ baseUrl }) => {
     const selected = await page.evaluate(`(() => ({
       inputValue: document.querySelector('#title')?.value,
       suggestionCount: document.querySelectorAll('#suggestions .suggestions__item').length,
+      expanded: document.querySelector('#title')?.getAttribute('aria-expanded'),
+      activeDescendant: document.querySelector('#title')?.getAttribute('aria-activedescendant') || '',
       newTitle: document.querySelector('#new-title')?.textContent.trim(),
       comparing: document.body.classList.contains('is-comparing')
     }))()`);
     if (
       selected.inputValue !== "Keyboard Two" ||
       selected.suggestionCount !== 0 ||
+      selected.expanded !== "false" ||
+      selected.activeDescendant ||
       selected.newTitle !== "Keyboard Two" ||
       !selected.comparing
     ) {
@@ -3227,7 +3273,7 @@ const testAutocompleteKeyboardSelection = async ({ baseUrl }) => {
     await waitFor(page, `document.querySelector('#compare')?.classList.contains('panel--hidden')`, 3000);
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
-    return { details: { active, selected }, screenshots: [selectedShot] };
+    return { details: { combobox, active, selected }, screenshots: [selectedShot] };
   } finally {
     await page.close();
   }

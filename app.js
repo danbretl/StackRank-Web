@@ -108,7 +108,12 @@ import {
   buildProductEvent,
   countBucket,
   shouldCollectProductTelemetry,
-} from "./lib/telemetry.js?v=4";
+} from "./lib/telemetry.js?v=5";
+import {
+  buildSharedListPayload,
+  generateShareSlug,
+  sharedListUrl,
+} from "./lib/share-link.js?v=1";
 import {
   nextBackupNudgeState,
   parseBackupNudgeState,
@@ -281,6 +286,17 @@ const shareCopyMarkdown = document.getElementById("share-copy-markdown");
 const shareCopyJson = document.getElementById("share-copy-json");
 const shareCopyText = document.getElementById("share-copy-text");
 const shareExportStatus = document.getElementById("share-export-status");
+const shareLinkMeta = document.getElementById("share-link-meta");
+const shareLinkCopy = document.getElementById("share-link-copy");
+const shareLinkCard = document.getElementById("share-link-card");
+const shareLinkUrl = document.getElementById("share-link-url");
+const shareLinkUpdated = document.getElementById("share-link-updated");
+const shareLinkPublish = document.getElementById("share-link-publish");
+const shareLinkUpdate = document.getElementById("share-link-update");
+const shareLinkCopyButton = document.getElementById("share-link-copy-button");
+const shareLinkRevoke = document.getElementById("share-link-revoke");
+const shareLinkSignIn = document.getElementById("share-link-sign-in");
+const shareLinkStatus = document.getElementById("share-link-status");
 // The header now exposes only a "Sign in" affordance (signed-out) and the
 // settings gear; account details and Sign out live inside the settings popover.
 const authSignInButton = document.getElementById("auth-sign-in");
@@ -603,6 +619,7 @@ let shareSetScrollSyncTimer = null;
 // rewrites (which reload poster <image>s and cause a visible flicker).
 let lastSharePreviewMarkup = "";
 let shareScrollLockY = 0;
+let shareLinkState = { loaded: false, loading: false, busy: false, slug: "", url: "", updatedAt: null };
 const posterDataCache = new Map();
 let titleImportRows = [];
 let titleImportMeta = { duplicateCount: 0, ignoredCount: 0 };
@@ -3981,6 +3998,11 @@ window.addEventListener("resize", updateShareSetPageChrome);
 shareCopyMarkdown.addEventListener("click", () => copyShareExport("markdown"));
 shareCopyJson.addEventListener("click", () => copyShareExport("json"));
 shareCopyText.addEventListener("click", () => copyShareExport("text"));
+shareLinkPublish?.addEventListener("click", () => void upsertShareLinkSnapshot());
+shareLinkUpdate?.addEventListener("click", () => void upsertShareLinkSnapshot({ updateExisting: true }));
+shareLinkCopyButton?.addEventListener("click", () => void copyShareLink());
+shareLinkRevoke?.addEventListener("click", () => void revokeShareLink());
+shareLinkSignIn?.addEventListener("click", () => openSignIn({ trigger: shareLinkSignIn }));
 
 suggestPopularMore.addEventListener("click", () => {
   suggestPopularCursor += SUGGESTION_PAGE_SIZE;
@@ -7589,6 +7611,257 @@ function loadShareOptions() {
   }
 }
 
+const resetShareLinkState = () => {
+  shareLinkState = { loaded: false, loading: false, busy: false, slug: "", url: "", updatedAt: null };
+};
+
+const setShareLinkStatus = (message = "") => {
+  if (shareLinkStatus) shareLinkStatus.textContent = message;
+};
+
+const formatShareLinkTimestamp = (value) => {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return new Intl.DateTimeFormat(undefined, {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(date);
+};
+
+function updateShareLinkUi() {
+  if (!shareLinkMeta || !shareLinkPublish || !shareLinkUpdate || !shareLinkCopyButton || !shareLinkRevoke) {
+    return;
+  }
+  const signedIn = Boolean(currentUser && supabaseEnabled && supabase);
+  const busy = Boolean(shareLinkState.busy || shareLinkState.loading);
+  const hasLink = signedIn && Boolean(shareLinkState.slug && shareLinkState.url);
+
+  shareLinkSignIn.hidden = signedIn;
+  shareLinkPublish.hidden = !signedIn || hasLink;
+  shareLinkUpdate.hidden = !hasLink;
+  shareLinkCopyButton.hidden = !hasLink;
+  shareLinkRevoke.hidden = !hasLink;
+  shareLinkCard.hidden = !hasLink;
+
+  shareLinkPublish.disabled = busy || !ranking.length;
+  shareLinkUpdate.disabled = busy || !ranking.length;
+  shareLinkCopyButton.disabled = busy;
+  shareLinkRevoke.disabled = busy;
+  shareLinkSignIn.disabled = busy || !supabaseEnabled || !supabase;
+
+  if (!signedIn) {
+    shareLinkMeta.textContent = "Sign in required";
+    if (shareLinkCopy) {
+      shareLinkCopy.textContent =
+        "Sign in to publish a read-only snapshot link. Future ranking edits stay private until you update it.";
+    }
+    setShareLinkStatus(supabaseEnabled ? "" : "Sign-in is not configured on this build.");
+    return;
+  }
+
+  if (shareLinkState.loading) {
+    shareLinkMeta.textContent = "Checking link...";
+  } else if (hasLink) {
+    shareLinkMeta.textContent = "Published snapshot";
+  } else {
+    shareLinkMeta.textContent = "No link yet";
+  }
+
+  if (shareLinkCopy) {
+    shareLinkCopy.textContent = hasLink
+      ? "This link is a snapshot. Update it when you want visitors to see your latest ranking."
+      : "Publish a read-only snapshot link. Future ranking edits stay private until you update it.";
+  }
+  if (hasLink) {
+    shareLinkUrl.href = shareLinkState.url;
+    shareLinkUrl.textContent = shareLinkState.url;
+    const timestamp = formatShareLinkTimestamp(shareLinkState.updatedAt);
+    shareLinkUpdated.textContent = timestamp ? `Snapshot updated ${timestamp}` : "Snapshot published";
+  }
+}
+
+const sharedSnapshotPayload = () =>
+  buildSharedListPayload({
+    displayName: shareOptions.displayName,
+    movies: ranking,
+  });
+
+const loadShareLinkState = async ({ force = false } = {}) => {
+  if (!currentUser || !supabaseEnabled || !supabase) {
+    resetShareLinkState();
+    updateShareLinkUi();
+    return;
+  }
+  if (shareLinkState.loading || (shareLinkState.loaded && !force)) {
+    updateShareLinkUi();
+    return;
+  }
+  const listId = getListId();
+  if (!listId) return;
+  shareLinkState = { ...shareLinkState, loading: true };
+  updateShareLinkUi();
+  const { data, error } = await runSupabaseRequest(
+    supabase
+      .from("shared_lists")
+      .select("slug, updated_at")
+      .eq("list_id", listId)
+      .eq("revoked", false)
+      .order("updated_at", { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+    "Could not load shared list link",
+    { affectsSync: false },
+  );
+  if (!error && data?.slug) {
+    shareLinkState = {
+      loaded: true,
+      loading: false,
+      busy: false,
+      slug: data.slug,
+      url: sharedListUrl(window.location.origin, data.slug),
+      updatedAt: data.updated_at || null,
+    };
+  } else {
+    shareLinkState = { loaded: true, loading: false, busy: false, slug: "", url: "", updatedAt: null };
+    if (error) setShareLinkStatus("Could not check your current shared link.");
+  }
+  updateShareLinkUi();
+};
+
+const publishNewShareLink = async ({ listId, payload, updatedAt }) => {
+  let lastError = null;
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    const slug = generateShareSlug();
+    const { data, error } = await runSupabaseRequest(
+      supabase
+        .from("shared_lists")
+        .insert({
+          slug,
+          payload,
+          list_id: listId,
+          updated_at: updatedAt,
+          revoked: false,
+        })
+        .select("slug, updated_at")
+        .maybeSingle(),
+      "Could not publish shared list link",
+      { affectsSync: false },
+    );
+    if (!error && data?.slug) return { data, error: null };
+    lastError = error;
+    if (!String(error?.code || error?.message || "").includes("23505")) break;
+  }
+  return { error: lastError || new Error("Could not publish shared list link.") };
+};
+
+const upsertShareLinkSnapshot = async ({ updateExisting = false } = {}) => {
+  if (!currentUser || !supabaseEnabled || !supabase) {
+    openSignIn({ trigger: shareLinkSignIn || shareButton });
+    return;
+  }
+  const listId = getListId();
+  if (!listId || !ranking.length) return;
+  const payload = sharedSnapshotPayload();
+  if (!payload.movies.length) return;
+  if (!isJsonPayloadWithinByteLimit(payload, REMOTE_LIST_PAYLOAD_LIMIT_BYTES)) {
+    const limitLabel = formatPayloadSizeLimit(REMOTE_LIST_PAYLOAD_LIMIT_BYTES);
+    setShareLinkStatus(
+      `This snapshot is too large to publish (${limitLabel} limit). Try sharing an image export instead.`,
+    );
+    return;
+  }
+
+  const updatedAt = new Date().toISOString();
+  shareLinkState = { ...shareLinkState, busy: true };
+  setShareLinkStatus(updateExisting ? "Updating shared snapshot..." : "Publishing shared snapshot...");
+  updateShareLinkUi();
+  let result;
+  if (updateExisting && shareLinkState.slug) {
+    result = await runSupabaseRequest(
+      supabase
+        .from("shared_lists")
+        .update({ payload, updated_at: updatedAt, revoked: false })
+        .eq("slug", shareLinkState.slug)
+        .eq("list_id", listId)
+        .select("slug, updated_at")
+        .maybeSingle(),
+      "Could not update shared list link",
+      { affectsSync: false },
+    );
+  } else {
+    result = await publishNewShareLink({ listId, payload, updatedAt });
+  }
+
+  if (result?.error || !result?.data?.slug) {
+    shareLinkState = { ...shareLinkState, busy: false };
+    setShareLinkStatus("Could not publish this link. Try again in a moment.");
+    updateShareLinkUi();
+    return;
+  }
+
+  shareLinkState = {
+    loaded: true,
+    loading: false,
+    busy: false,
+    slug: result.data.slug,
+    url: sharedListUrl(window.location.origin, result.data.slug),
+    updatedAt: result.data.updated_at || updatedAt,
+  };
+  setShareLinkStatus(updateExisting ? "Shared snapshot updated." : "Snapshot link published.");
+  trackProductEvent("share_link_published", {
+    list_size: countBucket(ranking.length),
+  });
+  updateShareLinkUi();
+};
+
+const copyShareLink = async () => {
+  if (!shareLinkState.url) return;
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(shareLinkState.url);
+      setShareLinkStatus("Shared link copied.");
+      setAddFeedback("Shared link copied.", 2200);
+      return;
+    }
+  } catch (error) {
+    // Fall through to prompt.
+  }
+  window.prompt("Copy shared list link:", shareLinkState.url);
+  setShareLinkStatus("Copy the shared link from the prompt.");
+};
+
+const revokeShareLink = async () => {
+  if (!currentUser || !supabaseEnabled || !supabase || !shareLinkState.slug) return;
+  if (!window.confirm("Revoke this shared link? Visitors will no longer be able to open it.")) {
+    return;
+  }
+  const listId = getListId();
+  shareLinkState = { ...shareLinkState, busy: true };
+  setShareLinkStatus("Revoking shared link...");
+  updateShareLinkUi();
+  const { error } = await runSupabaseRequest(
+    supabase
+      .from("shared_lists")
+      .update({ revoked: true, updated_at: new Date().toISOString() })
+      .eq("slug", shareLinkState.slug)
+      .eq("list_id", listId),
+    "Could not revoke shared list link",
+    { affectsSync: false },
+  );
+  if (error) {
+    shareLinkState = { ...shareLinkState, busy: false };
+    setShareLinkStatus("Could not revoke this link. Try again in a moment.");
+    updateShareLinkUi();
+    return;
+  }
+  shareLinkState = { loaded: true, loading: false, busy: false, slug: "", url: "", updatedAt: null };
+  setShareLinkStatus("Shared link revoked. Visitors will no longer be able to open it.");
+  updateShareLinkUi();
+};
+
 // Per-section content availability for the Share Studio. A section with no
 // content to show (once any async detail loading has settled) is hidden from the
 // exports and its Include toggle is disabled. genres / cast+crew depend on async
@@ -7858,6 +8131,10 @@ function openShareStudio() {
   shareDetailsLoading = true;
   updateShareOptionControls();
   updateShareStudio();
+  setShareLinkStatus("");
+  resetShareLinkState();
+  updateShareLinkUi();
+  void loadShareLinkState({ force: true });
   lockShareScroll();
   shareStudio.hidden = false;
   shareStudio.scrollTop = 0;
@@ -8977,6 +9254,13 @@ const setAuthUI = () => {
     closeSignIn({ restoreFocus: false });
   }
   updateRankingSettingsAuthUI();
+  if (shareStudio && !shareStudio.hidden) {
+    if (currentUser) void loadShareLinkState({ force: true });
+    else {
+      resetShareLinkState();
+      updateShareLinkUi();
+    }
+  }
 };
 
 // The element to refocus when the sign-in view closes (header or settings

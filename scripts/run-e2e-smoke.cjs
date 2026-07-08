@@ -99,7 +99,9 @@ const serveStatic = async () => {
         ? "index.html"
         : pathname === "/privacy"
           ? "privacy.html"
-          : pathname.replace(/^\/+/, "");
+          : /^\/s\/[a-z0-9]{10}$/.test(pathname)
+            ? "shared.html"
+            : pathname.replace(/^\/+/, "");
     const filePath = path.resolve(rootDir, relativePath);
 
     if (!filePath.startsWith(rootDir) || !fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
@@ -589,7 +591,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=130" ||
+      desktop.cssHref !== "styles.css?v=132" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -2247,8 +2249,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=171" ||
-      empty.cssHref !== "styles.css?v=130" ||
+      empty.moduleSrc !== "app.js?v=172" ||
+      empty.cssHref !== "styles.css?v=132" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -4090,6 +4092,16 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
           window.fetch = async (input, options = {}) => {
             const request = input instanceof Request ? input.clone() : new Request(input, options);
             const url = request.url;
+            if (url.startsWith('https://image.tmdb.org/')) {
+              const png = Uint8Array.from(
+                atob('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/p9sAAAAASUVORK5CYII='),
+                (char) => char.charCodeAt(0)
+              );
+              return new Response(png, {
+                status: 200,
+                headers: { 'Content-Type': 'image/png', 'Access-Control-Allow-Origin': '*' }
+              });
+            }
             if (!url.startsWith('https://hrfhakrxsllrqmscxxpb.supabase.co/')) {
               return realFetch(input, options);
             }
@@ -4471,6 +4483,376 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
     return {
       details: { state, packWrite, offlineWrite, recoveredWrite, cancelledSignOut, signedOutState },
       screenshots: [await page.screenshot("supabase-merge-save.png")],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
+const testPublicShareLink = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "public-share-link", width: 1280, height: 900 });
+  const userId = "share-link-user";
+  const user = {
+    id: userId,
+    aud: "authenticated",
+    role: "authenticated",
+    email: "share@example.test",
+    app_metadata: { provider: "email", providers: ["email"] },
+    user_metadata: {},
+    identities: [],
+    created_at: "2026-07-08T10:00:00.000Z",
+  };
+  const jwtHeader = Buffer.from(JSON.stringify({ alg: "HS256", typ: "JWT" })).toString("base64url");
+  const jwtPayload = Buffer.from(
+    JSON.stringify({
+      sub: userId,
+      aud: "authenticated",
+      role: "authenticated",
+      email: user.email,
+      exp: Math.floor(Date.now() / 1000) + 3600,
+    }),
+  ).toString("base64url");
+  const authSession = {
+    access_token: `${jwtHeader}.${jwtPayload}.e2e-signature`,
+    token_type: "bearer",
+    expires_in: 3600,
+    expires_at: Math.floor(Date.now() / 1000) + 3600,
+    refresh_token: "share-e2e-refresh-token",
+    user,
+  };
+  const ranking = [
+    { ...movie("Spirited Away", 2001, 129), posterPath: "/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg" },
+    { ...movie("Moonlight", 2016, 376867), posterPath: "/4911T5FbJ9eD2Faz5Z8cT3SUhUq.jpg" },
+    { ...movie("Heat", 1995, 949), posterPath: "/obpPQskaVpSiC9RcJRB6iWDTCXS.jpg" },
+  ];
+  try {
+    await page.send("Page.addScriptToEvaluateOnNewDocument", {
+      source: `
+        (() => {
+          const authKey = 'sb-hrfhakrxsllrqmscxxpb-auth-token';
+          const authSession = ${JSON.stringify(authSession)};
+          const readRows = () => JSON.parse(localStorage.getItem('__e2eSharedRows') || '{}');
+          const writeRows = (rows) => localStorage.setItem('__e2eSharedRows', JSON.stringify(rows));
+          const eqValue = (params, name) => {
+            const raw = params.get(name) || '';
+            return raw.startsWith('eq.') ? raw.slice(3) : raw;
+          };
+          Object.defineProperty(navigator, 'clipboard', {
+            configurable: true,
+            value: {
+              writeText: async (value) => {
+                localStorage.setItem('__e2eCopiedText', value);
+              }
+            }
+          });
+          if (!localStorage.getItem(authKey)) {
+            localStorage.setItem(authKey, JSON.stringify(authSession));
+          }
+          const realFetch = window.fetch.bind(window);
+          window.__e2eSupabaseRequests = [];
+          const jsonResponse = (value, status = 200, extraHeaders = {}) =>
+            new Response(JSON.stringify(value), {
+              status,
+              headers: {
+                'Content-Type': 'application/json',
+                ...extraHeaders
+              }
+            });
+          window.fetch = async (input, options = {}) => {
+            const request = input instanceof Request ? input.clone() : new Request(input, options);
+            const url = request.url;
+            if (url.startsWith('https://image.tmdb.org/')) {
+              const png = Uint8Array.from(
+                atob('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/p9sAAAAASUVORK5CYII='),
+                (char) => char.charCodeAt(0)
+              );
+              return new Response(png, {
+                status: 200,
+                headers: { 'Content-Type': 'image/png', 'Access-Control-Allow-Origin': '*' }
+              });
+            }
+            if (!url.startsWith('https://hrfhakrxsllrqmscxxpb.supabase.co/')) {
+              return realFetch(input, options);
+            }
+            const method = request.method || 'GET';
+            const body = method === 'GET' || method === 'HEAD' ? '' : await request.clone().text();
+            window.__e2eSupabaseRequests.push({ url, method, body });
+            if (url.includes('/auth/v1/user')) return jsonResponse(${JSON.stringify(user)});
+            if (url.includes('/auth/v1/token')) return jsonResponse(${JSON.stringify(authSession)});
+            if (url.includes('/rest/v1/rankings')) {
+              if (method === 'GET') {
+                const row = {
+                  movies: ${JSON.stringify(ranking)},
+                  updated_at: '2026-07-08T10:00:00.000Z'
+                };
+                const accept = request.headers.get('accept') || '';
+                return jsonResponse(accept.includes('object+json') ? row : [row], 200, {
+                  'Content-Range': '0-0/1'
+                });
+              }
+              return new Response(null, { status: 201 });
+            }
+            if (url.includes('/rest/v1/shared_lists')) {
+              const parsedUrl = new URL(url);
+              const params = parsedUrl.searchParams;
+              const rows = readRows();
+              if (method === 'GET') {
+                const slug = eqValue(params, 'slug');
+                const listId = eqValue(params, 'list_id');
+                const revoked = eqValue(params, 'revoked');
+                let matches = Object.values(rows);
+                if (slug) matches = matches.filter((row) => row.slug === slug);
+                if (listId) matches = matches.filter((row) => row.list_id === listId);
+                if (revoked === 'false') matches = matches.filter((row) => row.revoked === false);
+                matches.sort((a, b) => String(b.updated_at).localeCompare(String(a.updated_at)));
+                const accept = request.headers.get('accept') || '';
+                return jsonResponse(accept.includes('object+json') ? (matches[0] || null) : matches, 200, {
+                  'Content-Range': matches.length ? \`0-\${matches.length - 1}/\${matches.length}\` : '*/0'
+                });
+              }
+              if (method === 'POST') {
+                const payload = JSON.parse(body || '{}');
+                const row = {
+                  ...payload,
+                  created_at: '2026-07-08T10:01:00.000Z',
+                  updated_at: payload.updated_at || '2026-07-08T10:01:00.000Z',
+                  revoked: payload.revoked === true ? true : false
+                };
+                rows[row.slug] = row;
+                writeRows(rows);
+                return jsonResponse(row, 201, { 'Content-Range': '0-0/1' });
+              }
+              if (method === 'PATCH') {
+                const slug = eqValue(params, 'slug');
+                const updates = body ? JSON.parse(body) : {};
+                const row = rows[slug];
+                if (!row) return jsonResponse(null, 200, { 'Content-Range': '*/0' });
+                rows[slug] = { ...row, ...updates };
+                writeRows(rows);
+                if (params.has('select')) {
+                  return jsonResponse(rows[slug], 200, { 'Content-Range': '0-0/1' });
+                }
+                return new Response(null, { status: 204 });
+              }
+            }
+            if (
+              url.includes('/rest/v1/movie_lists') ||
+              url.includes('/rest/v1/pack_progress') ||
+              url.includes('/rest/v1/suggestion_packs')
+            ) {
+              if (method === 'GET') return jsonResponse([], 200, { 'Content-Range': '*/0' });
+              return new Response(null, { status: 201 });
+            }
+            if (url.includes('/rest/v1/product_events')) {
+              return new Response(null, { status: 201 });
+            }
+            if (url.includes('/functions/v1/tmdb-')) {
+              return jsonResponse({ results: [] });
+            }
+            return jsonResponse({});
+          };
+        })();
+      `,
+    });
+
+    await page.send("Page.navigate", { url: `${baseUrl}/share-link-seed` });
+    await waitFor(page, "document.readyState === 'complete'", 5000);
+    await page.evaluate(`
+      localStorage.clear();
+      localStorage.setItem(
+        'sb-hrfhakrxsllrqmscxxpb-auth-token',
+        ${JSON.stringify(JSON.stringify(authSession))}
+      );
+      localStorage.setItem(
+        'stackrank:share-options:v1',
+        ${JSON.stringify(
+          JSON.stringify({
+            version: 7,
+            displayName: "E2E Link",
+            top: true,
+            bottom: true,
+            eras: true,
+            genres: true,
+            people: true,
+            queues: true,
+            packs: true,
+            fullList: true,
+            fullListStyle: "mixed",
+            format: "single",
+            shape: "skinny",
+            theme: "classic",
+            tone: "neutral",
+          }),
+        )}
+      );
+      true;
+    `);
+    page.events.length = 0;
+    await page.send("Page.navigate", { url: `${baseUrl}/?e2e=public-share-link` });
+    await waitFor(
+      page,
+      `document.querySelectorAll('#ranking .ranking__item').length === 3 &&
+        document.querySelector('#settings-auth-state')?.textContent.includes('share@example.test')`,
+      12000,
+    );
+    await page.evaluate(`(() => {
+      document.querySelector('#share-list')?.click();
+      document.querySelector('.share-disclosure--link').open = true;
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `!document.querySelector('#share-studio')?.hidden &&
+        document.querySelector('#share-link-meta')?.textContent.trim() === 'No link yet'`,
+      8000,
+    );
+    await page.evaluate(`document.querySelector('#share-link-publish')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#share-link-status')?.textContent.includes('published') &&
+        document.querySelector('#share-link-url')?.textContent.includes('/s/')`,
+      8000,
+    );
+    const published = await page.evaluate(`(() => {
+      const href = document.querySelector('#share-link-url')?.href || '';
+      const slug = href.split('/s/')[1] || '';
+      const rows = JSON.parse(localStorage.getItem('__e2eSharedRows') || '{}');
+      const row = rows[slug] || null;
+      return {
+        href,
+        slug,
+        meta: document.querySelector('#share-link-meta')?.textContent.trim(),
+        status: document.querySelector('#share-link-status')?.textContent.trim(),
+        row,
+        payloadKeys: row ? Object.keys(row.payload.movies[0]).sort() : [],
+        privateRankedAt: row?.payload.movies?.some((entry) => 'rankedAt' in entry) || false
+      };
+    })()`);
+    if (
+      !/\/s\/[a-z0-9]{10}$/.test(published.href) ||
+      published.meta !== "Published snapshot" ||
+      !published.row ||
+      published.row.list_id !== `user:${userId}` ||
+      published.row.payload.displayName !== "E2E Link" ||
+      published.row.payload.movies.map((entry) => entry.title).join("|") !== "Spirited Away|Moonlight|Heat" ||
+      published.payloadKeys.join("|") !== "posterPath|title|tmdbId|year" ||
+      published.privateRankedAt
+    ) {
+      throw new Error(`Publish link state is wrong: ${JSON.stringify(published)}`);
+    }
+
+    await page.evaluate(`document.querySelector('#share-link-update')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#share-link-status')?.textContent.includes('updated')`, 8000);
+    await page.evaluate(`document.querySelector('#share-link-copy-button')?.click(); true;`);
+    await waitFor(
+      page,
+      `localStorage.getItem('__e2eCopiedText') === ${JSON.stringify(published.href)}`,
+      3000,
+    );
+    const updateCopy = await page.evaluate(`(() => ({
+      copied: localStorage.getItem('__e2eCopiedText'),
+      updateCount: (window.__e2eSupabaseRequests || []).filter((request) =>
+        request.method === 'PATCH' && request.url.includes('/rest/v1/shared_lists')
+      ).length
+    }))()`);
+    if (updateCopy.copied !== published.href || updateCopy.updateCount < 1) {
+      throw new Error(`Update/copy link failed: ${JSON.stringify(updateCopy)}`);
+    }
+
+    await page.send("Page.navigate", { url: published.href });
+    try {
+      await waitFor(page, `document.querySelectorAll('.shared-card').length === 3`, 8000);
+    } catch (error) {
+      const debug = await page.evaluate(`(() => ({
+        href: location.href,
+        pathname: location.pathname,
+        title: document.title,
+        status: document.querySelector('#shared-status')?.textContent.trim(),
+        cards: document.querySelectorAll('.shared-card').length,
+        rows: JSON.parse(localStorage.getItem('__e2eSharedRows') || '{}'),
+        body: document.body.innerText.slice(0, 500),
+        requests: window.__e2eSupabaseRequests || []
+      }))()`);
+      throw new Error(`Shared public page did not render cards: ${JSON.stringify(debug)}`);
+    }
+    const publicView = await page.evaluate(`(() => ({
+      pathname: location.pathname,
+      title: document.title,
+      heading: document.querySelector('#shared-title')?.textContent.trim(),
+      meta: document.querySelector('#shared-meta')?.textContent.trim(),
+      cards: [...document.querySelectorAll('.shared-card h2')].map((el) => el.textContent.trim()),
+      cta: document.querySelector('.shared-cta')?.getAttribute('href'),
+      appControls: !!document.querySelector('#share-list, #movie-form')
+    }))()`);
+    if (
+      publicView.pathname !== `/s/${published.slug}` ||
+      publicView.title !== "Shared StackRank movie list" ||
+      publicView.heading !== "E2E Link's movie stack" ||
+      !publicView.meta.includes("3 ranked movies") ||
+      publicView.cards.join("|") !== "Spirited Away|Moonlight|Heat" ||
+      publicView.cta !== "/movies" ||
+      publicView.appControls
+    ) {
+      throw new Error(`Public shared view is wrong: ${JSON.stringify(publicView)}`);
+    }
+
+    await page.send("Page.navigate", { url: `${baseUrl}/?e2e=public-share-link-revoke` });
+    await waitFor(
+      page,
+      `document.querySelectorAll('#ranking .ranking__item').length === 3 &&
+        document.querySelector('#settings-auth-state')?.textContent.includes('share@example.test')`,
+      12000,
+    );
+    await page.evaluate(`(() => {
+      window.confirm = () => true;
+      document.querySelector('#share-list')?.click();
+      document.querySelector('.share-disclosure--link').open = true;
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `document.querySelector('#share-link-url')?.textContent === ${JSON.stringify(published.href)}`,
+      8000,
+    );
+    await page.evaluate(`document.querySelector('#share-link-revoke')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#share-link-status')?.textContent.includes('revoked') &&
+        document.querySelector('#share-link-card')?.hidden`,
+      8000,
+    );
+    const revoked = await page.evaluate(`(() => {
+      const rows = JSON.parse(localStorage.getItem('__e2eSharedRows') || '{}');
+      return {
+        revoked: rows[${JSON.stringify(published.slug)}]?.revoked,
+        publishVisible: !document.querySelector('#share-link-publish')?.hidden,
+        revokeHidden: document.querySelector('#share-link-revoke')?.hidden
+      };
+    })()`);
+    if (revoked.revoked !== true || !revoked.publishVisible || !revoked.revokeHidden) {
+      throw new Error(`Revoke link state is wrong: ${JSON.stringify(revoked)}`);
+    }
+
+    await page.send("Page.navigate", { url: published.href });
+    await waitFor(
+      page,
+      `document.querySelector('#shared-status')?.textContent.includes('no longer available')`,
+      8000,
+    );
+    const revokedPublic = await page.evaluate(`(() => ({
+      cards: document.querySelectorAll('.shared-card').length,
+      status: document.querySelector('#shared-status')?.textContent.trim(),
+      cta: document.querySelector('.shared-cta')?.getAttribute('href')
+    }))()`);
+    if (revokedPublic.cards !== 0 || !revokedPublic.status.includes("no longer available") || revokedPublic.cta !== "/movies") {
+      throw new Error(`Revoked shared link still renders: ${JSON.stringify(revokedPublic)}`);
+    }
+
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { published, updateCopy, publicView, revoked, revokedPublic },
+      screenshots: [await page.screenshot("public-share-link-revoked.png")],
     };
   } finally {
     await page.close();
@@ -6408,6 +6790,7 @@ const tests = [
   { name: "backup restore and title-list import", run: testBackupAndImport },
   { name: "backup, PNG, and ZIP downloads", run: testBackupAndImageDownloads },
   { name: "signed-in Supabase merge and save", run: testSignedInSupabaseMergeAndSave },
+  { name: "public shareable list link", run: testPublicShareLink },
   { name: "full-screen ranking interactions", run: testFullscreenRankingInteractions },
   { name: "Taste Explorer evidence and ranking lens", run: testTasteExplorer },
   { name: "suggestion explanations and refresh", run: testSuggestionExplanations },

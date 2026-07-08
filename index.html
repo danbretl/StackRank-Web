@@ -58,7 +58,7 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="styles.css?v=130" />
+    <link rel="stylesheet" href="styles.css?v=132" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -917,6 +917,40 @@
                   </fieldset>
                 </div>
               </details>
+              <details class="share-disclosure share-disclosure--link">
+                <summary>
+                  <span>Link</span>
+                  <span class="share-disclosure__meta" id="share-link-meta">Sign in required</span>
+                  <svg class="ui-icon" aria-hidden="true" focusable="false">
+                    <use href="#icon-chevron-down"></use>
+                  </svg>
+                </summary>
+                <div class="share-disclosure__body">
+                  <p class="share-link-copy" id="share-link-copy">
+                    Publish a read-only snapshot link. Future ranking edits stay private until you update it.
+                  </p>
+                  <div class="share-link-card" id="share-link-card" hidden>
+                    <a id="share-link-url" href="#" target="_blank" rel="noopener"></a>
+                    <span id="share-link-updated"></span>
+                  </div>
+                  <div class="share-actions share-actions--link">
+                    <button class="detail-action detail-action--primary" id="share-link-publish" type="button">
+                      Publish link
+                    </button>
+                    <button class="detail-action detail-action--primary" id="share-link-update" type="button" hidden>
+                      Update link
+                    </button>
+                    <button class="detail-action detail-action--muted" id="share-link-copy-button" type="button" hidden>
+                      Copy link
+                    </button>
+                    <button class="detail-action detail-action--danger" id="share-link-revoke" type="button" hidden>
+                      Revoke link
+                    </button>
+                    <button class="detail-action" id="share-link-sign-in" type="button">Sign in to publish</button>
+                  </div>
+                  <div class="share-link-status" id="share-link-status" aria-live="polite"></div>
+                </div>
+              </details>
               <details class="share-disclosure share-disclosure--advanced">
                 <summary>
                   <span>Advanced exports</span>
@@ -1337,6 +1371,6 @@
 
     <div class="panel__feedback" id="add-feedback" role="status" aria-live="polite"></div>
 
-    <script type="module" src="app.js?v=171"></script>
+    <script type="module" src="app.js?v=172"></script>
   </body>
 </html>

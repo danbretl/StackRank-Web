@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shared StackRank movie list</title>
+    <meta
+      name="description"
+      content="A read-only StackRank movie list snapshot."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Shared StackRank movie list" />
+    <meta
+      property="og:description"
+      content="A read-only movie ranking snapshot made with StackRank."
+    />
+    <meta property="og:image" content="https://www.stackrankapp.com/assets/og-preview.png?v=1" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Shared StackRank movie list" />
+    <meta
+      name="twitter:description"
+      content="A read-only movie ranking snapshot made with StackRank."
+    />
+    <meta name="twitter:image" content="https://www.stackrankapp.com/assets/og-preview.png?v=1" />
+    <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://image.tmdb.org" />
+    <link rel="preconnect" href="https://hrfhakrxsllrqmscxxpb.supabase.co" />
+    <link rel="stylesheet" href="/styles.css?v=132" />
+  </head>
+  <body class="shared-body">
+    <main class="shared-page" data-shared-state="loading">
+      <header class="shared-hero">
+        <a class="shared-brand" href="/movies" aria-label="StackRank movies">StackRank</a>
+        <p class="shared-kicker">Read-only movie stack</p>
+        <h1 id="shared-title">Shared ranking</h1>
+        <p id="shared-subtitle">
+          This is a published snapshot. Future edits stay private until the owner updates the link.
+        </p>
+        <div class="shared-meta" id="shared-meta" aria-live="polite">Loading shared list...</div>
+        <a class="cta shared-cta" href="/movies">Make your own stack</a>
+      </header>
+
+      <section class="shared-content" aria-labelledby="shared-title">
+        <div class="shared-status" id="shared-status" role="status">Loading shared list...</div>
+        <div class="shared-grid" id="shared-grid"></div>
+      </section>
+    </main>
+    <script type="module" src="/shared.js?v=2"></script>
+  </body>
+</html>

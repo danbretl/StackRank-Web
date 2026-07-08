@@ -27,6 +27,10 @@ test("Vercel serves the static SPA at /movies without changing the visible URL",
       source: "/privacy",
       destination: "/privacy.html",
     },
+    {
+      source: "/s/:slug",
+      destination: "/shared.html",
+    },
   ]);
 });
 
@@ -58,7 +62,7 @@ test("Vercel gives cache-busted static payloads immutable browser caching", () =
         Object.fromEntries(headers.map(({ key, value }) => [key, value])),
       ]),
   );
-  for (const source of ["/app.js", "/styles.css", "/data/suggestion-packs.json", "/vendor/(.*)"]) {
+  for (const source of ["/app.js", "/styles.css", "/shared.js", "/data/suggestion-packs.json", "/vendor/(.*)"]) {
     assert.equal(
       cacheRules.get(source)?.["Cache-Control"],
       "public, max-age=31536000, immutable",

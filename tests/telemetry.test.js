@@ -92,6 +92,33 @@ test("taste explorer events retain only bounded context", () => {
   );
 });
 
+test("public share-link events keep only aggregate context", () => {
+  assert.deepEqual(
+    buildProductEvent({
+      eventName: "share_link_published",
+      sessionId,
+      properties: { list_size: "5_9", slug: "23456789ab", signed_in: true },
+    }),
+    {
+      event_name: "share_link_published",
+      session_id: sessionId,
+      properties: { list_size: "5_9", signed_in: true },
+    },
+  );
+  assert.deepEqual(
+    buildProductEvent({
+      eventName: "shared_list_viewed",
+      sessionId,
+      properties: { list_size: "10_24", slug: "23456789ab", signed_in: false },
+    }),
+    {
+      event_name: "shared_list_viewed",
+      session_id: sessionId,
+      properties: { list_size: "10_24", signed_in: false },
+    },
+  );
+});
+
 test("telemetry runs only for real production visits and honors privacy controls", () => {
   assert.equal(shouldCollectProductTelemetry({ hostname: "www.stackrankapp.com" }), true);
   assert.equal(shouldCollectProductTelemetry({ hostname: "localhost" }), false);

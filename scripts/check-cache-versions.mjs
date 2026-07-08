@@ -9,7 +9,7 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 const SCRIPT_PATH = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(SCRIPT_PATH), "..");
 const MANIFEST_PATH = path.join(ROOT, "data", "asset-versions.json");
-const ROOT_SOURCE_FILES = ["index.html", "privacy.html", "app.js"];
+const ROOT_SOURCE_FILES = ["index.html", "privacy.html", "shared.html", "app.js", "shared.js"];
 const RUNTIME_SOURCE_DIRS = ["lib", "js"];
 const LOCAL_ASSET_EXTENSIONS = new Set([
   ".css",

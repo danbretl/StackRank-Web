@@ -4,6 +4,7 @@ import fs from "node:fs";
 const productionOrigin = "https://www.stackrankapp.com";
 const apexOrigin = "https://stackrankapp.com";
 const localIndex = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
+const localShared = fs.readFileSync(new URL("../shared.html", import.meta.url), "utf8");
 const localApp = fs.readFileSync(new URL("../app.js", import.meta.url), "utf8");
 const vercelConfig = JSON.parse(
   fs.readFileSync(new URL("../vercel.json", import.meta.url), "utf8"),
@@ -40,6 +41,8 @@ const attribute = (html, tagPattern, name) => {
   return tag.match(new RegExp(`\\b${name}=["']([^"']+)["']`, "i"))?.[1] || "";
 };
 
+const assetPath = (asset) => (asset.startsWith("/") ? asset : `/${asset}`);
+
 await expectRedirect("http://stackrankapp.com/", 308, "https://stackrankapp.com/");
 await expectRedirect(`${apexOrigin}/`, 308, `${productionOrigin}/`);
 await expectRedirect(`${productionOrigin}/`, 307, "/movies");
@@ -50,6 +53,8 @@ const moviesResponse = await expectOk("/movies");
 const moviesHtml = await moviesResponse.text();
 const privacyResponse = await expectOk("/privacy");
 const privacyHtml = await privacyResponse.text();
+const sharedResponse = await expectOk("/s/prodsmoke1");
+const sharedHtml = await sharedResponse.text();
 
 const configuredHeaders = Object.fromEntries(
   vercelConfig.headers[0].headers.map(({ key, value }) => [key.toLowerCase(), value]),
@@ -57,9 +62,10 @@ const configuredHeaders = Object.fromEntries(
 for (const [key, expected] of Object.entries(configuredHeaders)) {
   assert.equal(moviesResponse.headers.get(key), expected, `/movies ${key}`);
   assert.equal(privacyResponse.headers.get(key), expected, `/privacy ${key}`);
+  assert.equal(sharedResponse.headers.get(key), expected, `/s/prodsmoke1 ${key}`);
 }
 assert.match(moviesResponse.headers.get("strict-transport-security") || "", /max-age=/);
-record("security headers match vercel.json on /movies and /privacy");
+record("security headers match vercel.json on /movies, /privacy, and /s/:slug");
 
 const expectedCanonical = attribute(
   localIndex,
@@ -78,6 +84,16 @@ const expectedCss = attribute(
 );
 const expectedModule = attribute(
   localIndex,
+  /<script\b[^>]*\btype=["']module["'][^>]*>/i,
+  "src",
+);
+const expectedSharedCss = attribute(
+  localShared,
+  /<link\b[^>]*\brel=["']stylesheet["'][^>]*>/i,
+  "href",
+);
+const expectedSharedModule = attribute(
+  localShared,
   /<script\b[^>]*\btype=["']module["'][^>]*>/i,
   "src",
 );
@@ -108,26 +124,46 @@ assert.equal(
 );
 record("canonical, social metadata, and cache-busted assets match the repository");
 
+assert.equal(
+  attribute(sharedHtml, /<meta\b[^>]*\bproperty=["']og:title["'][^>]*>/i, "content"),
+  "Shared StackRank movie list",
+);
+assert.equal(
+  attribute(sharedHtml, /<meta\b[^>]*\bname=["']robots["'][^>]*>/i, "content"),
+  "noindex, nofollow",
+);
+assert.equal(
+  attribute(sharedHtml, /<link\b[^>]*\brel=["']stylesheet["'][^>]*>/i, "href"),
+  expectedSharedCss,
+);
+assert.equal(
+  attribute(sharedHtml, /<script\b[^>]*\btype=["']module["'][^>]*>/i, "src"),
+  expectedSharedModule,
+);
+record("shared-list route serves generic noindex metadata and cache-busted assets");
+
 for (const asset of [
   expectedCss,
   expectedModule,
+  expectedSharedModule,
   expectedVendorModule,
   "assets/favicon.ico",
   "assets/favicon.svg",
   "assets/apple-touch-icon.png",
   "assets/tmdb-logo.svg",
 ]) {
-  const response = await expectOk(`/${asset}`);
+  const response = await expectOk(assetPath(asset));
   assert.ok(response.headers.get("content-type"), `${asset} should have a content type`);
 }
 
 for (const asset of [
   expectedCss,
   expectedModule,
+  expectedSharedModule,
   expectedVendorModule,
   "data/suggestion-packs.json?v=5",
 ]) {
-  const response = await request(`${productionOrigin}/${asset}`);
+  const response = await request(new URL(assetPath(asset), productionOrigin).toString());
   assert.equal(response.status, 200, `${asset} should return 200`);
   assert.equal(
     response.headers.get("cache-control"),
@@ -160,12 +196,14 @@ record("privacy controls and TMDB credits are present");
 const robotsResponse = await expectOk("/robots.txt");
 const robots = await robotsResponse.text();
 assert.match(robots, /User-agent: \*/);
+assert.match(robots, /Disallow: \/s\//);
 assert.match(robots, /Sitemap: https:\/\/www\.stackrankapp\.com\/sitemap\.xml/);
 
 const sitemapResponse = await expectOk("/sitemap.xml");
 const sitemap = await sitemapResponse.text();
 assert.match(sitemap, /https:\/\/www\.stackrankapp\.com\/movies/);
 assert.match(sitemap, /https:\/\/www\.stackrankapp\.com\/privacy/);
+assert.doesNotMatch(sitemap, /\/s\//);
 record("robots.txt and sitemap.xml expose the canonical routes");
 
 for (const label of checks) console.log(`PASS ${label}`);

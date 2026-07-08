@@ -12,6 +12,7 @@ Execution progress:
 - **5 `product_events` retention and flood posture:** implemented and applied in this pass; Supabase Cron now deletes raw product events older than 180 days, a per-session database trigger rejects more than 500 rows for one `session_id`, and the instrumentation note documents the remaining anon insert-volume risk.
 - **6 Cross-device merge loses rank positions — make it explicit:** implemented in this pass; remote/local ranking merges now report older-only movies appended to the bottom, show a **Review order** toast focused on the appended placement, and are covered by persistence unit tests plus the signed-in Supabase merge E2E flow. Full `npm run verify` and rendered local browser smoke pass.
 - **7 Decide and document the sign-out data story:** implemented in this pass; sign-out now confirms that the account copy remains while the device-local list is cleared, drops `currentUser` before saving that empty local view so it cannot post an empty account ranking, and is covered by auth unit tests plus the signed-in Supabase E2E flow.
+- **8 Backup nudges for signed-out users:** implemented in this pass; signed-out local-only users now get a rate-limited actionable backup/sync nudge every 25 rankings and after browser storage starts failing, with pure FTUE gate tests and browser coverage in the storage-failure E2E flow.
 
 **Baseline context an executor must know before touching anything:**
 

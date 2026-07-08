@@ -1,9 +1,13 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
+  BACKUP_NUDGE_COOLDOWN_MS,
   STARTER_PACK_SLUGS,
   getFirstRunExperience,
+  nextBackupNudgeState,
+  parseBackupNudgeState,
   selectStarterPacks,
+  shouldShowBackupNudge,
 } from "../lib/ftue.js";
 
 const pack = (slug, sortOrder = 0, overrides = {}) => ({
@@ -68,4 +72,91 @@ test("starter packs fall back deterministically when curated entries are unavail
   );
   assert.deepEqual(selectStarterPacks(library, { limit: 0 }), []);
   assert.deepEqual(selectStarterPacks(null), []);
+});
+
+test("backup nudge appears for signed-out users at new 25-movie thresholds", () => {
+  assert.equal(shouldShowBackupNudge({ rankingLength: 24 }).show, false);
+
+  const first = shouldShowBackupNudge({ rankingLength: 25, now: 1000 });
+  assert.deepEqual(first, {
+    show: true,
+    reason: "ranking_count",
+    rankingCount: 25,
+  });
+
+  const state = nextBackupNudgeState({ decision: first, now: 1000 });
+  assert.equal(shouldShowBackupNudge({ rankingLength: 25, state, now: 1000 }).show, false);
+  assert.equal(
+    shouldShowBackupNudge({
+      rankingLength: 50,
+      state,
+      now: 1000 + BACKUP_NUDGE_COOLDOWN_MS - 1,
+    }).show,
+    false,
+  );
+  assert.deepEqual(
+    shouldShowBackupNudge({
+      rankingLength: 50,
+      state,
+      now: 1000 + BACKUP_NUDGE_COOLDOWN_MS,
+    }),
+    {
+      show: true,
+      reason: "ranking_count",
+      rankingCount: 50,
+    },
+  );
+});
+
+test("backup nudge is suppressed for signed-in users", () => {
+  assert.equal(
+    shouldShowBackupNudge({
+      rankingLength: 100,
+      signedIn: true,
+      localPersistenceUnavailable: true,
+    }).show,
+    false,
+  );
+});
+
+test("backup nudge can surface a signed-out browser-storage failure after cooldown", () => {
+  const state = { lastShownAt: 1000, lastRankingCount: 25 };
+  assert.equal(
+    shouldShowBackupNudge({
+      rankingLength: 26,
+      localPersistenceUnavailable: true,
+      state,
+      now: 1000 + BACKUP_NUDGE_COOLDOWN_MS - 1,
+    }).show,
+    false,
+  );
+  assert.deepEqual(
+    shouldShowBackupNudge({
+      rankingLength: 26,
+      localPersistenceUnavailable: true,
+      state,
+      now: 1000 + BACKUP_NUDGE_COOLDOWN_MS,
+    }),
+    {
+      show: true,
+      reason: "storage_unavailable",
+      rankingCount: 26,
+    },
+  );
+});
+
+test("backup nudge state parsing is defensive and monotonic", () => {
+  assert.deepEqual(parseBackupNudgeState("{"), { lastShownAt: 0, lastRankingCount: 0 });
+  assert.deepEqual(parseBackupNudgeState(JSON.stringify({ lastShownAt: "7", lastRankingCount: 25.9 })), {
+    lastShownAt: 7,
+    lastRankingCount: 25,
+  });
+  assert.deepEqual(
+    nextBackupNudgeState({
+      state: { lastShownAt: 100, lastRankingCount: 50 },
+      decision: { rankingCount: 25 },
+      now: 200,
+    }),
+    { lastShownAt: 200, lastRankingCount: 50 },
+  );
 });

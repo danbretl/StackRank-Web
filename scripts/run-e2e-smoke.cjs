@@ -2145,7 +2145,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=166" ||
+      empty.moduleSrc !== "app.js?v=169" ||
       empty.cssHref !== "styles.css?v=130" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
@@ -2623,11 +2623,22 @@ const testStorageFailureWarning = async ({ baseUrl }) => {
       await wait(120);
     }
     await waitFor(page, `document.querySelector('#compare')?.classList.contains('panel--hidden')`, 5000);
+    await waitFor(
+      page,
+      `document.querySelector('#add-feedback')?.textContent.includes(
+        'Browser storage is having trouble. Download a backup before leaving.'
+      )`,
+      3000,
+    );
     const state = await page.evaluate(`(() => ({
       rankingCount: document.querySelectorAll('#ranking .ranking__item').length,
       storedCount: JSON.parse(localStorage.getItem('stackrank:movies:v1') || '{}').movies?.length || 0,
       status: document.querySelector('#api-status')?.textContent.trim(),
-      backupEnabled: !document.querySelector('#download-backup')?.disabled
+      backupEnabled: !document.querySelector('#download-backup')?.disabled,
+      feedback: document.querySelector('#add-feedback')?.textContent.trim() || '',
+      feedbackActions: [...document.querySelectorAll('#add-feedback button')].map((button) =>
+        button.textContent.trim()
+      )
     }))()`);
     await page.evaluate(`(() => {
       document.querySelector('#ranking-settings-toggle')?.click();
@@ -2643,6 +2654,8 @@ const testStorageFailureWarning = async ({ baseUrl }) => {
       state.storedCount !== 3 ||
       !/could not save in this browser/i.test(state.status || "") ||
       !state.backupEnabled ||
+      !state.feedback.includes("Browser storage is having trouble. Download a backup before leaving.") ||
+      state.feedbackActions.join("|") !== "Download backup|Sign in to sync" ||
       state.backupRankingCount !== 4
     ) {
       throw new Error(`Storage failure was not surfaced safely: ${JSON.stringify(state)}`);

@@ -110,9 +110,12 @@ import {
   shouldCollectProductTelemetry,
 } from "./lib/telemetry.js?v=4";
 import {
+  nextBackupNudgeState,
+  parseBackupNudgeState,
+  shouldShowBackupNudge,
   getFirstRunExperience,
   selectStarterPacks,
-} from "./lib/ftue.js?v=2";
+} from "./lib/ftue.js?v=3";
 import {
   TASTE_EXPLORER_MIN_MOVIES,
   buildTasteSignals,
@@ -471,6 +474,7 @@ const TMDB_POSTER_ORIGINAL = "https://image.tmdb.org/t/p/original";
 const STORAGE_KEY = "stackrank:movies:v1";
 const QUEUE_STORAGE_KEY = "stackrank:suggestion-queues:v1";
 const PACK_PROGRESS_STORAGE_KEY = "stackrank:pack-progress:v1";
+const BACKUP_NUDGE_STORAGE_KEY = "stackrank:backup-nudge:v1";
 const PACK_FALLBACK_PATH = "data/suggestion-packs.json?v=5";
 const SHARE_OPTIONS_KEY = "stackrank:share-options:v1";
 const WATCH_LIST_TYPE = "watch";
@@ -507,6 +511,8 @@ let currentUser = null;
 let authNotice = "";
 let localPersistenceUnavailable = false;
 const localPersistenceFailures = new Set();
+let backupNudgeStateMemory = { lastShownAt: 0, lastRankingCount: 0 };
+let backupNudgeTimeout = null;
 let remoteSyncUnavailable = false;
 let statusTimeout = null;
 let dragIndex = null;
@@ -3142,6 +3148,92 @@ const downloadStackRankBackup = () => {
   setAddFeedback("StackRank backup downloaded.", 2400);
 };
 
+function readBackupNudgeState() {
+  let storedState = { lastShownAt: 0, lastRankingCount: 0 };
+  if (storageEnabled) {
+    try {
+      storedState = parseBackupNudgeState(localStorage.getItem(BACKUP_NUDGE_STORAGE_KEY));
+    } catch (_error) {
+      storedState = { lastShownAt: 0, lastRankingCount: 0 };
+    }
+  }
+  return {
+    lastShownAt: Math.max(storedState.lastShownAt, backupNudgeStateMemory.lastShownAt),
+    lastRankingCount: Math.max(storedState.lastRankingCount, backupNudgeStateMemory.lastRankingCount),
+  };
+}
+
+function saveBackupNudgeState(state) {
+  backupNudgeStateMemory = parseBackupNudgeState(state);
+  if (!storageEnabled) return;
+  try {
+    localStorage.setItem(BACKUP_NUDGE_STORAGE_KEY, JSON.stringify(backupNudgeStateMemory));
+  } catch (_error) {
+    // This state only rate-limits reminders. Real storage failures are handled
+    // by the ranking/queue/share persistence paths, which surface a stronger
+    // warning to the user.
+  }
+}
+
+function backupNudgeDecision() {
+  const state = readBackupNudgeState();
+  return {
+    state,
+    decision: shouldShowBackupNudge({
+      rankingLength: ranking.length,
+      signedIn: Boolean(currentUser),
+      localPersistenceUnavailable,
+      state,
+    }),
+  };
+}
+
+function showSignedOutBackupNudge({ state, decision }) {
+  if (currentUser) return false;
+  if (!decision.show) return false;
+  saveBackupNudgeState(nextBackupNudgeState({ state, decision }));
+  const storageMessage = "Browser storage is having trouble. Download a backup before leaving.";
+  const countMessage = `${decision.rankingCount} movies ranked on this device. Back up or sign in to protect your list.`;
+  const actions = [
+    {
+      label: "Download backup",
+      onClick: downloadStackRankBackup,
+    },
+  ];
+  if (supabaseEnabled && supabase) {
+    actions.push({
+      label: "Sign in to sync",
+      onClick: () => openSignIn({ trigger: authSignInButton }),
+    });
+  }
+  setAddFeedback(
+    decision.reason === "storage_unavailable" ? storageMessage : countMessage,
+    12000,
+    actions,
+  );
+  return true;
+}
+
+function maybeShowSignedOutBackupNudge() {
+  return showSignedOutBackupNudge(backupNudgeDecision());
+}
+
+function scheduleSignedOutBackupNudge({ delay = 1200 } = {}) {
+  const pendingNudge = backupNudgeDecision();
+  if (!pendingNudge.decision.show) return false;
+  if (backupNudgeTimeout) return true;
+  const run = () => {
+    backupNudgeTimeout = null;
+    if (pending || document.body.classList.contains("is-comparing")) {
+      backupNudgeTimeout = window.setTimeout(run, 700);
+      return;
+    }
+    showSignedOutBackupNudge(pendingNudge);
+  };
+  backupNudgeTimeout = window.setTimeout(run, Math.max(0, Number(delay) || 0));
+  return true;
+}
+
 const restoreStackRankBackup = async (file) => {
   backupStatus.textContent = "Reading backup…";
   try {
@@ -4155,6 +4247,9 @@ const setLocalPersistenceAvailability = (available, surface = "browser") => {
   if (localPersistenceUnavailable === nextUnavailable) return;
   localPersistenceUnavailable = nextUnavailable;
   refreshPersistenceStatus();
+  if (nextUnavailable && !currentUser) {
+    scheduleSignedOutBackupNudge({ delay: 0 });
+  }
 };
 
 const setRemoteSyncAvailability = (available) => {
@@ -5712,6 +5807,7 @@ const maybeShowPackDiscoveryNudge = (movie) => {
 };
 
 const handleRankingSettled = (rankedMovie, insertIndex, context) => {
+  const backupNudgeScheduled = scheduleSignedOutBackupNudge();
   if (context?.type === "pack") {
     const pack = getPackBySlug(context.slug);
     if (pack) {
@@ -5736,7 +5832,9 @@ const handleRankingSettled = (rankedMovie, insertIndex, context) => {
     return;
   }
   renderPackSurfaces();
-  window.setTimeout(() => maybeShowPackDiscoveryNudge(rankedMovie), 900);
+  if (!backupNudgeScheduled) {
+    window.setTimeout(() => maybeShowPackDiscoveryNudge(rankedMovie), 900);
+  }
 };
 
 const getPreviousInspiredSeed = () => {

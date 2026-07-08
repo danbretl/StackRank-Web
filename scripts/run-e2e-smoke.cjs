@@ -2249,7 +2249,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=172" ||
+      empty.moduleSrc !== "app.js?v=173" ||
       empty.cssHref !== "styles.css?v=132" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
@@ -4823,13 +4823,24 @@ const testPublicShareLink = async ({ baseUrl }) => {
     );
     const revoked = await page.evaluate(`(() => {
       const rows = JSON.parse(localStorage.getItem('__e2eSharedRows') || '{}');
+      const revokeRequest = [...(window.__e2eSupabaseRequests || [])].reverse().find((request) =>
+        request.method === 'PATCH' &&
+        request.url.includes('/rest/v1/shared_lists') &&
+        (request.body || '').includes('"revoked":true')
+      );
       return {
         revoked: rows[${JSON.stringify(published.slug)}]?.revoked,
         publishVisible: !document.querySelector('#share-link-publish')?.hidden,
-        revokeHidden: document.querySelector('#share-link-revoke')?.hidden
+        revokeHidden: document.querySelector('#share-link-revoke')?.hidden,
+        revokeSelect: revokeRequest ? new URL(revokeRequest.url).searchParams.get('select') : null
       };
     })()`);
-    if (revoked.revoked !== true || !revoked.publishVisible || !revoked.revokeHidden) {
+    if (
+      revoked.revoked !== true ||
+      !revoked.publishVisible ||
+      !revoked.revokeHidden ||
+      revoked.revokeSelect !== "slug"
+    ) {
       throw new Error(`Revoke link state is wrong: ${JSON.stringify(revoked)}`);
     }
 

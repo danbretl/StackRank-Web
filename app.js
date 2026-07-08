@@ -7842,16 +7842,18 @@ const revokeShareLink = async () => {
   shareLinkState = { ...shareLinkState, busy: true };
   setShareLinkStatus("Revoking shared link...");
   updateShareLinkUi();
-  const { error } = await runSupabaseRequest(
+  const { data, error } = await runSupabaseRequest(
     supabase
       .from("shared_lists")
       .update({ revoked: true, updated_at: new Date().toISOString() })
       .eq("slug", shareLinkState.slug)
-      .eq("list_id", listId),
+      .eq("list_id", listId)
+      .select("slug")
+      .maybeSingle(),
     "Could not revoke shared list link",
     { affectsSync: false },
   );
-  if (error) {
+  if (error || !data?.slug) {
     shareLinkState = { ...shareLinkState, busy: false };
     setShareLinkStatus("Could not revoke this link. Try again in a moment.");
     updateShareLinkUi();

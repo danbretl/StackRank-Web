@@ -16,7 +16,7 @@ links.
 - **Shared poster viewer** — the same overlay is reused without share chrome for the original-resolution TMDB poster opened from the movie-detail pane.
 - **Public snapshot links** — signed-in users can publish/update/copy/revoke a short `/s/:slug` link from Share Studio. It stores a static minimal snapshot in `shared_lists` and renders a read-only monochrome poster grid with a "Make your own stack" CTA; signed-out users are prompted to sign in before publishing.
 
-`SHARE_OPTIONS_VERSION` is now 7 (v6 migrated `portrait`/`landscape` → `skinny`/`wide`; v7 added the `packs` toggle). Current cache keys: `app.js?v=172`, `styles.css?v=132`, `shared.js?v=2`.
+`SHARE_OPTIONS_VERSION` is now 7 (v6 migrated `portrait`/`landscape` → `skinny`/`wide`; v7 added the `packs` toggle). Current cache keys: `app.js?v=173`, `styles.css?v=132`, `shared.js?v=2`.
 
 **Phase 3 polish — shipped except iPad page size (Jun 2026):**
 - **ZIP delivery — SHIPPED.** Image-set PNG and SVG exports now bundle into a single `.zip` (`stackrank-share-images.zip` / `stackrank-share-svg.zip`) instead of N staggered downloads (which fired a browser "download multiple files?" prompt and scattered files). Implemented with a hand-rolled, dependency-free **stored (uncompressed) ZIP writer** (`createStoredZipBlob` + `crc32` + `concatBytes` + `dosDateTime`) — no deflate, just CRC32 and fixed headers — staying inside the no-npm-deps constraint. A 1-card set downloads as a single plain file (no pointless zip). The PNG button reads "Download zip (N)" / SVG "SVG zip". Validated against system `unzip -t` and Python `zipfile.testzip()` (CRCs + binary/UTF-8 round-trip).

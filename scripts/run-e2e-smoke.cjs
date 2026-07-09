@@ -591,7 +591,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=137" ||
+      desktop.cssHref !== "styles.css?v=138" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -1070,10 +1070,11 @@ const testAppShellNavigation = async ({ baseUrl }) => {
           innerWidth
         };
       })()`);
-    const assertTabletDiscoverPackShelf = (label, layout) => {
+    const assertLargeScreenDiscoverPackShelf = (label, layout, options = {}) => {
+      const expectedPointerCoarse = options.expectedPointerCoarse ?? true;
       if (
         layout.destination !== "discover" ||
-        !layout.pointerCoarse ||
+        layout.pointerCoarse !== expectedPointerCoarse ||
         layout.gridColumnCount !== 3 ||
         layout.cardCount !== 3 ||
         !layout.firstThreeShareRow ||
@@ -1326,6 +1327,16 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     const desktopListsShot = await page.screenshot("app-shell-desktop-lists.png");
     await switchAppDestination("rank");
 
+    await switchAppDestination("discover");
+    await page.evaluate(`document.querySelector('#pack-section')?.scrollIntoView({ block: 'start' }); true;`);
+    await wait(100);
+    const desktopDiscoverPacks = await readPackShelfLayout();
+    assertLargeScreenDiscoverPackShelf("Desktop Discover", desktopDiscoverPacks, {
+      expectedPointerCoarse: false,
+    });
+    const desktopDiscoverPacksShot = await page.screenshot("app-shell-desktop-discover-packs.png");
+    await switchAppDestination("rank");
+
     await page.send("Emulation.setDeviceMetricsOverride", {
       width: 1024,
       height: 768,
@@ -1418,7 +1429,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('#pack-section')?.scrollIntoView({ block: 'start' }); true;`);
     await wait(100);
     const ipadDiscoverPacksLandscape = await readPackShelfLayout();
-    assertTabletDiscoverPackShelf("iPad landscape Discover", ipadDiscoverPacksLandscape);
+    assertLargeScreenDiscoverPackShelf("iPad landscape Discover", ipadDiscoverPacksLandscape);
     const ipadDiscoverPacksLandscapeShot = await page.screenshot("app-shell-ipad-landscape-discover-packs.png");
     await page.evaluate(`document.querySelector('#pack-view-all')?.click(); true;`);
     await waitFor(
@@ -1533,7 +1544,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('#pack-section')?.scrollIntoView({ block: 'start' }); true;`);
     await wait(100);
     const ipadDiscoverPacksPortrait = await readPackShelfLayout();
-    assertTabletDiscoverPackShelf("iPad portrait Discover", ipadDiscoverPacksPortrait);
+    assertLargeScreenDiscoverPackShelf("iPad portrait Discover", ipadDiscoverPacksPortrait);
     const ipadDiscoverPacksPortraitShot = await page.screenshot("app-shell-ipad-portrait-discover-packs.png");
     await page.evaluate(`document.querySelector('#pack-view-all')?.click(); true;`);
     await waitFor(
@@ -2150,6 +2161,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       details: {
         desktop,
         desktopLists,
+        desktopDiscoverPacks,
         ipadLandscape,
         ipadDiscoverPacksLandscape,
         ipadListsLandscape,
@@ -2168,6 +2180,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         desktopShot,
         desktopInfoHoverShot,
         desktopListsShot,
+        desktopDiscoverPacksShot,
         ipadLandscapeShot,
         ipadDiscoverPacksLandscapeShot,
         ipadAllPacksLandscapeShot,
@@ -2265,7 +2278,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
       empty.moduleSrc !== "app.js?v=175" ||
-      empty.cssHref !== "styles.css?v=137" ||
+      empty.cssHref !== "styles.css?v=138" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||

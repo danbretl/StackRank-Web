@@ -8537,7 +8537,7 @@ body.is-fullscreen-open .app-nav--mobile {
   }
 }
 
-@media (min-width: 721px) and (pointer: coarse) {
+@media (min-width: 721px) {
   .app[data-app-destination="discover"] .pack-row {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     align-items: stretch;

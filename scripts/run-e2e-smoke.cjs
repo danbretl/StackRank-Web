@@ -591,7 +591,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=134" ||
+      desktop.cssHref !== "styles.css?v=137" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -1213,7 +1213,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         throw new Error(`${label} pack grid is wrong: ${JSON.stringify({ ...layout, badRows, mismatchedShelfAction, shelfAction, allPacksAction })}`);
       }
     };
-    const readTabletListsLayout = async () =>
+    const readLargeScreenListsLayout = async () =>
       page.evaluate(`(() => {
         const rect = (element) => {
           const bounds = element?.getBoundingClientRect();
@@ -1287,15 +1287,18 @@ const testAppShellNavigation = async ({ baseUrl }) => {
           innerWidth
         };
       })()`);
-    const assertTabletListsLayout = (label, layout) => {
+    const assertLargeScreenListsLayout = (label, layout, options = {}) => {
+      const expectedPointerCoarse = options.expectedPointerCoarse ?? true;
+      const minPanelWidth = options.minPanelWidth ?? layout.innerWidth * 0.84;
       if (
         layout.destination !== "lists" ||
+        layout.pointerCoarse !== expectedPointerCoarse ||
         !layout.watchVisible ||
         layout.hiddenVisible ||
         layout.watchSelected !== "true" ||
         layout.hiddenSelected !== "false" ||
         !layout.panel ||
-        layout.panel.width < layout.innerWidth * 0.84 ||
+        layout.panel.width < minPanelWidth ||
         layout.listStyle.maxHeight !== "none" ||
         layout.listStyle.overflowY !== "visible" ||
         layout.listStyle.gridColumnCount !== 2 ||
@@ -1312,6 +1315,16 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         throw new Error(`${label} Lists layout is wrong: ${JSON.stringify(layout)}`);
       }
     };
+
+    await switchAppDestination("lists");
+    await wait(100);
+    const desktopLists = await readLargeScreenListsLayout();
+    assertLargeScreenListsLayout("Desktop", desktopLists, {
+      expectedPointerCoarse: false,
+      minPanelWidth: 1000,
+    });
+    const desktopListsShot = await page.screenshot("app-shell-desktop-lists.png");
+    await switchAppDestination("rank");
 
     await page.send("Emulation.setDeviceMetricsOverride", {
       width: 1024,
@@ -1422,8 +1435,8 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     await waitFor(page, `document.querySelector('#pack-detail')?.hidden`, 3000);
     await switchAppDestination("lists");
     await wait(100);
-    const ipadListsLandscape = await readTabletListsLayout();
-    assertTabletListsLayout("iPad landscape", ipadListsLandscape);
+    const ipadListsLandscape = await readLargeScreenListsLayout();
+    assertLargeScreenListsLayout("iPad landscape", ipadListsLandscape);
     const ipadListsLandscapeShot = await page.screenshot("app-shell-ipad-landscape-lists.png");
     await switchAppDestination("rank");
 
@@ -1537,8 +1550,8 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     await waitFor(page, `document.querySelector('#pack-detail')?.hidden`, 3000);
     await switchAppDestination("lists");
     await wait(100);
-    const ipadListsPortrait = await readTabletListsLayout();
-    assertTabletListsLayout("iPad portrait", ipadListsPortrait);
+    const ipadListsPortrait = await readLargeScreenListsLayout();
+    assertLargeScreenListsLayout("iPad portrait", ipadListsPortrait);
     const ipadListsPortraitShot = await page.screenshot("app-shell-ipad-portrait-lists.png");
     await switchAppDestination("rank");
 
@@ -2136,6 +2149,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     return {
       details: {
         desktop,
+        desktopLists,
         ipadLandscape,
         ipadDiscoverPacksLandscape,
         ipadListsLandscape,
@@ -2153,6 +2167,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       screenshots: [
         desktopShot,
         desktopInfoHoverShot,
+        desktopListsShot,
         ipadLandscapeShot,
         ipadDiscoverPacksLandscapeShot,
         ipadAllPacksLandscapeShot,
@@ -2249,8 +2264,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=173" ||
-      empty.cssHref !== "styles.css?v=134" ||
+      empty.moduleSrc !== "app.js?v=175" ||
+      empty.cssHref !== "styles.css?v=137" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||

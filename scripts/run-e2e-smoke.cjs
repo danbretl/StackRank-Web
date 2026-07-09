@@ -591,7 +591,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=138" ||
+      desktop.cssHref !== "styles.css?v=139" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -1316,6 +1316,70 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         throw new Error(`${label} Lists layout is wrong: ${JSON.stringify(layout)}`);
       }
     };
+    const readOpenQueueOverflowLayout = async (listSelector) =>
+      page.evaluate(`(() => {
+        const rect = (element) => {
+          const bounds = element?.getBoundingClientRect();
+          return bounds ? {
+            left: Math.round(bounds.left),
+            right: Math.round(bounds.right),
+            top: Math.round(bounds.top),
+            bottom: Math.round(bounds.bottom),
+            width: Math.round(bounds.width),
+            height: Math.round(bounds.height)
+          } : null;
+        };
+        const item = document.querySelector(${JSON.stringify(`${listSelector} .queue-list__item:first-child`)});
+        const overflow = item?.querySelector('.queue-list__overflow');
+        const toggle = overflow?.querySelector('summary');
+        const menu = overflow?.querySelector('.movie-item__overflow-menu');
+        const menuRect = rect(menu);
+        const toggleRect = rect(toggle);
+        const hit = menuRect ? document.elementFromPoint(menuRect.left + 12, menuRect.top + 12) : null;
+        return {
+          destination: document.querySelector('main.app')?.dataset.appDestination,
+          open: !!overflow?.open,
+          itemRaised: !!item?.classList.contains('is-overflow-open'),
+          itemTransform: item ? getComputedStyle(item).transform : '',
+          menuPosition: menu ? getComputedStyle(menu).position : '',
+          menuDisplay: menu ? getComputedStyle(menu).display : '',
+          item: rect(item),
+          toggle: toggleRect,
+          menu: menuRect,
+          labels: [...(menu?.querySelectorAll('.movie-item__overflow-action') || [])]
+            .map((button) => button.textContent.trim()),
+          menuTopGap: menuRect && toggleRect ? menuRect.top - toggleRect.bottom : null,
+          menuRightGap: menuRect && toggleRect ? toggleRect.right - menuRect.right : null,
+          menuWithinItemColumn: !!menuRect && !!rect(item) &&
+            menuRect.left >= rect(item).left - 1 &&
+            menuRect.right <= rect(item).right + 1,
+          hitInMenu: !!hit?.closest('.movie-item__overflow-menu'),
+          scrollWidth: document.documentElement.scrollWidth,
+          innerWidth
+        };
+      })()`);
+    const assertDesktopQueueOverflowLayout = (label, layout, expectedLabels) => {
+      if (
+        layout.destination !== "lists" ||
+        !layout.open ||
+        !layout.itemRaised ||
+        layout.itemTransform !== "none" ||
+        layout.menuPosition !== "fixed" ||
+        layout.menuDisplay === "none" ||
+        !layout.item ||
+        !layout.toggle ||
+        !layout.menu ||
+        layout.labels.join("|") !== expectedLabels ||
+        layout.menuTopGap < 0 ||
+        layout.menuTopGap > 8 ||
+        Math.abs(layout.menuRightGap) > 3 ||
+        !layout.menuWithinItemColumn ||
+        !layout.hitInMenu ||
+        layout.scrollWidth > layout.innerWidth
+      ) {
+        throw new Error(`${label} queue overflow menu is detached: ${JSON.stringify(layout)}`);
+      }
+    };
 
     await switchAppDestination("lists");
     await wait(100);
@@ -1325,6 +1389,28 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       minPanelWidth: 1000,
     });
     const desktopListsShot = await page.screenshot("app-shell-desktop-lists.png");
+    await page.evaluate(`document.querySelector('#watch-list .queue-list__item:first-child .queue-list__overflow > summary')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#watch-list .queue-list__item:first-child .queue-list__overflow')?.open`, 3000);
+    const desktopWatchOverflow = await readOpenQueueOverflowLayout("#watch-list");
+    assertDesktopQueueOverflowLayout("Desktop Watch next", desktopWatchOverflow, "Info|Hide|Remove");
+    const desktopWatchOverflowShot = await page.screenshot("app-shell-desktop-watch-overflow.png");
+    await page.evaluate(`document.querySelector('#watch-list .queue-list__item:first-child .queue-list__overflow > summary')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#watch-list .queue-list__item:first-child .queue-list__overflow')?.open`, 3000);
+    await page.evaluate(`document.querySelector('#hidden-list-tab')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#hidden-list-tab')?.getAttribute('aria-selected') === 'true' &&
+        document.querySelector('#not-interested-list')?.getBoundingClientRect().height > 0`,
+      3000,
+    );
+    await page.evaluate(`document.querySelector('#not-interested-list .queue-list__item:first-child .queue-list__overflow > summary')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#not-interested-list .queue-list__item:first-child .queue-list__overflow')?.open`, 3000);
+    const desktopHiddenOverflow = await readOpenQueueOverflowLayout("#not-interested-list");
+    assertDesktopQueueOverflowLayout("Desktop Hidden", desktopHiddenOverflow, "Info|Save|Remove");
+    await page.evaluate(`document.querySelector('#not-interested-list .queue-list__item:first-child .queue-list__overflow > summary')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#not-interested-list .queue-list__item:first-child .queue-list__overflow')?.open`, 3000);
+    await page.evaluate(`document.querySelector('#watch-list-tab')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#watch-list-tab')?.getAttribute('aria-selected') === 'true'`, 3000);
     await switchAppDestination("rank");
 
     await switchAppDestination("discover");
@@ -2107,10 +2193,21 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       throw new Error(`Mobile Lists shell is wrong: ${JSON.stringify(mobileLists)}`);
     }
 
+    await page.evaluate(`document.querySelector('#watch-list .queue-list__item:first-child')?.scrollIntoView({ block: 'center' }); true;`);
+    await wait(50);
     await page.evaluate(`document.querySelector('#watch-list .queue-list__item:first-child .queue-list__overflow > summary')?.click(); true;`);
     await waitFor(
       page,
       `document.querySelector('#watch-list .queue-list__item:first-child .queue-list__overflow')?.open`,
+      3000,
+    );
+    await waitFor(
+      page,
+      `(() => {
+        const action = document.querySelector('#watch-list .queue-list__item:first-child .queue-list__overflow .movie-item__overflow-action.queue-info-action');
+        const rect = action?.getBoundingClientRect();
+        return !!rect && rect.top >= 0 && rect.bottom <= innerHeight && rect.left >= 0 && rect.right <= innerWidth;
+      })()`,
       3000,
     );
     const mobileQueueInfoTap = await page.evaluate(`(() => {
@@ -2161,6 +2258,8 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       details: {
         desktop,
         desktopLists,
+        desktopWatchOverflow,
+        desktopHiddenOverflow,
         desktopDiscoverPacks,
         ipadLandscape,
         ipadDiscoverPacksLandscape,
@@ -2180,6 +2279,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         desktopShot,
         desktopInfoHoverShot,
         desktopListsShot,
+        desktopWatchOverflowShot,
         desktopDiscoverPacksShot,
         ipadLandscapeShot,
         ipadDiscoverPacksLandscapeShot,
@@ -2277,8 +2377,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=175" ||
-      empty.cssHref !== "styles.css?v=138" ||
+      empty.moduleSrc !== "app.js?v=176" ||
+      empty.cssHref !== "styles.css?v=139" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||

@@ -1117,6 +1117,7 @@ const createMovieOverflow = (label, actions = []) => {
         other.removeAttribute("open");
       }
     });
+    positionMovieOverflowMenu(overflow);
     window.requestAnimationFrame(() => positionMovieOverflowMenu(overflow));
   });
   return overflow;

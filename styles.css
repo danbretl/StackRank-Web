@@ -7746,6 +7746,7 @@ textarea,
 .queue-list__item.is-overflow-open,
 .fullscreen-card.is-overflow-open {
   z-index: 1250;
+  transform: none;
 }
 
 .movie-item__overflow > summary {

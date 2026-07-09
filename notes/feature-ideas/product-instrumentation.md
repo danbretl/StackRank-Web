@@ -80,6 +80,13 @@ defense because anonymous clients can still mint new session UUIDs.
 - `taste_explorer_opened` / `taste_lens_opened` — adoption of the native
   explorer and its evidence-to-ranking loop without recording which genre,
   decade, director, or cast member was selected.
+- `tonight_opened` / `tonight_picked` — adoption of the "Pick something for
+  tonight" decision helper. `tonight_opened` carries the bucketed Watch next
+  size; `tonight_picked` fires when a pick is committed ("Watch this") with
+  `source` = `tonight_mood` or `tonight_no_mood` (whether a vibe was applied)
+  and the bucketed queue size. The mood text itself, the chosen movie, and the
+  interpreted vibe signals are never recorded. Ranking from a tonight pick
+  reuses `ranking_started` with `source` = `tonight`.
 
 Allowed property keys are `source`, `list_size`, `count`, `format`, `outcome`,
 and `signed_in`. String values must be short machine tokens; `signed_in` is
@@ -100,6 +107,8 @@ joined to an auth identity.
   `supabase/migrations/20260708064357_product_events_retention_and_flood_limit.sql`
 - Public share-link allowlist/RLS extension:
   `supabase/migrations/20260708104134_20260708101029_add_shared_lists.sql`
+- Tonight picker allowlist/RLS extension:
+  `supabase/migrations/20260709001734_add_tonight_events.sql`
 - Vercel pageview injection: `initVercelWebAnalytics()` in `app.js`
 
 Telemetry failures are non-blocking and only log in `?debug=1`; product actions

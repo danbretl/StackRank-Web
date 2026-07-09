@@ -92,6 +92,41 @@ test("taste explorer events retain only bounded context", () => {
   );
 });
 
+test("tonight events keep only bounded context and never the mood text", () => {
+  assert.deepEqual(
+    buildProductEvent({
+      eventName: "tonight_opened",
+      sessionId,
+      properties: { list_size: "5_9", mood: "cozy 80s sci-fi" },
+    }),
+    {
+      event_name: "tonight_opened",
+      session_id: sessionId,
+      properties: { list_size: "5_9" },
+    },
+  );
+  assert.deepEqual(
+    buildProductEvent({
+      eventName: "tonight_picked",
+      sessionId,
+      properties: { source: "tonight_mood", count: "2_4", title: "Heat" },
+    }),
+    {
+      event_name: "tonight_picked",
+      session_id: sessionId,
+      properties: { source: "tonight_mood", count: "2_4" },
+    },
+  );
+  assert.deepEqual(
+    buildProductEvent({
+      eventName: "ranking_started",
+      sessionId,
+      properties: { source: "tonight", list_size: "10_24" },
+    }).properties,
+    { source: "tonight", list_size: "10_24" },
+  );
+});
+
 test("public share-link events keep only aggregate context", () => {
   assert.deepEqual(
     buildProductEvent({

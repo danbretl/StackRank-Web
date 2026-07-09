@@ -7,7 +7,7 @@ import {
   buildProductEvent,
   countBucket,
   shouldCollectProductTelemetry,
-} from "./lib/telemetry.js?v=5";
+} from "./lib/telemetry.js?v=6";
 import { formatRuntime } from "./lib/format.js?v=1";
 
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";

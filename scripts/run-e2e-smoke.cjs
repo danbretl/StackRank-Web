@@ -6392,6 +6392,153 @@ const testTasteExplorer = async ({ baseUrl }) => {
   }
 };
 
+const testTonightPicker = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "tonight-picker", width: 1280, height: 900 });
+  try {
+    await page.send("Page.addScriptToEvaluateOnNewDocument", {
+      source: `
+        (() => {
+          const facts = {
+            4101: { tmdbId: 4101, title: 'Queue Crime', year: 2004, posterPath: '', runtime: 120,
+              genres: ['Crime', 'Thriller'], keywords: ['heist'], director: 'Director One', cast: ['Actor One'],
+              moodScore: 0.2, moodMatches: { senses: [], keywords: [], era: null } },
+            4102: { tmdbId: 4102, title: 'Queue Comedy', year: 2016, posterPath: '', runtime: 105,
+              genres: ['Comedy'], keywords: ['buddy'], director: '', cast: [],
+              moodScore: 0.9, moodMatches: { senses: ['funny'], keywords: ['buddy'], era: null } },
+            4103: { tmdbId: 4103, title: 'Queue Epic', year: 2012, posterPath: '', runtime: 195,
+              genres: ['War'], keywords: ['battle'], director: '', cast: [],
+              moodScore: 0.1, moodMatches: { senses: [], keywords: [], era: null } },
+            4104: { tmdbId: 4104, title: 'Queue Feelgood', year: 2019, posterPath: '', runtime: 98,
+              genres: ['Comedy', 'Family'], keywords: ['feel good'], director: '', cast: [],
+              moodScore: 0.75, moodMatches: { senses: ['funny', 'feel-good'], keywords: ['feel good'], era: null } }
+          };
+          const realFetch = window.fetch.bind(window);
+          window.fetch = (input, options) => {
+            const url = typeof input === 'string' ? input : input?.url || '';
+            if (url.includes('/functions/v1/tonight-pick')) {
+              const params = new URL(url).searchParams;
+              const mood = params.get('mood') || '';
+              const ids = (params.get('ids') || '').split(',').map(Number);
+              window.__tonightRequests = (window.__tonightRequests || []).concat([{ ids, mood }]);
+              return Promise.resolve(new Response(JSON.stringify({
+                mood: mood ? { readable: true, recognized: ['funny'], era: null, runtimeHint: null } : null,
+                results: ids.map((id) => {
+                  if (!facts[id]) return null;
+                  return mood ? facts[id] : { ...facts[id], moodScore: null, moodMatches: null };
+                }).filter(Boolean)
+              }), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+            }
+            if (url.includes('/functions/v1/tmdb-detail')) {
+              const id = Number(new URL(url).searchParams.get('id'));
+              return Promise.resolve(new Response(JSON.stringify({
+                result: { tmdbId: id, runtime: 110, genres: ['Drama'], director: '', cast: [], overview: 'E2E.' }
+              }), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+            }
+            return realFetch(input, options);
+          };
+        })();
+      `,
+    });
+    await seedPage(page, baseUrl, "tonight-picker", {
+      ranking: [
+        { ...movie("Ranked Crime", 1995, 4001), genres: ["Crime"] },
+        { ...movie("Ranked Crime Two", 2006, 4002), genres: ["Crime"] },
+        { ...movie("Ranked Comedy", 2007, 4003), genres: ["Comedy"] },
+      ],
+      watchList: [
+        queueMovie("Queue Crime", 2004, 4101),
+        queueMovie("Queue Comedy", 2016, 4102),
+        queueMovie("Queue Epic", 2012, 4103),
+        queueMovie("Queue Feelgood", 2019, 4104),
+      ],
+    });
+
+    await page.evaluate(
+      `document.querySelector('.app-nav--top .app-nav__item[data-app-destination-target="lists"]')?.click(); true;`,
+    );
+    const collapsed = await page.evaluate(`(() => ({
+      panelHidden: document.querySelector('#tonight-panel')?.hidden,
+      contentHidden: document.querySelector('#tonight-content')?.hidden,
+      expanded: document.querySelector('#tonight-toggle')?.getAttribute('aria-expanded')
+    }))()`);
+    if (collapsed.panelHidden || !collapsed.contentHidden || collapsed.expanded !== "false") {
+      throw new Error(`Tonight panel collapsed state is wrong: ${JSON.stringify(collapsed)}`);
+    }
+
+    await page.evaluate(`document.querySelector('#tonight-toggle')?.click(); true;`);
+    await waitFor(page, `document.querySelectorAll('#tonight-time .tonight__chip').length === 4`, 5000);
+    await page.evaluate(`(() => {
+      document.querySelector('.tonight__chip[data-window="standard"]')?.click();
+      const mood = document.querySelector('#tonight-mood');
+      mood.value = 'funny feel good';
+      document.querySelector('#tonight-run')?.click();
+      return true;
+    })()`);
+    await waitFor(page, `document.querySelectorAll('#tonight-results .tonight-card').length === 3`, 5000);
+    const picks = await page.evaluate(`(() => ({
+      request: (window.__tonightRequests || [])[0] || null,
+      status: document.querySelector('#tonight-status')?.textContent.trim(),
+      titles: [...document.querySelectorAll('.tonight-card__title')].map((el) => el.textContent.trim()),
+      firstReasons: [...document.querySelectorAll('.tonight-card .tonight-card__reasons')][0]?.textContent || '',
+      footerHidden: document.querySelector('#tonight-footer')?.hidden
+    }))()`);
+    if (
+      !picks.request ||
+      picks.request.mood !== "funny feel good" ||
+      picks.request.ids.join("|") !== "4101|4102|4103|4104" ||
+      picks.status !== "Vibe read as funny." ||
+      picks.titles[0] !== "Queue Comedy (2016)" ||
+      picks.titles.length !== 3 ||
+      picks.titles.includes("Queue Epic (2012)") ||
+      !/Matches your vibe — funny, buddy/.test(picks.firstReasons) ||
+      picks.footerHidden
+    ) {
+      throw new Error(`Tonight picks are wrong: ${JSON.stringify(picks)}`);
+    }
+
+    await page.evaluate(`document.querySelector('.tonight-card .tonight-card__watch')?.click(); true;`);
+    await waitFor(page, `document.querySelectorAll('#tonight-results .tonight-card').length === 1`, 5000);
+    const chosen = await page.evaluate(`(() => ({
+      title: document.querySelector('.tonight-card__title')?.textContent.trim(),
+      hasRank: !!document.querySelector('.tonight-card__rank'),
+      hasBack: !!document.querySelector('.tonight-card__back'),
+      status: document.querySelector('#tonight-status')?.textContent.trim(),
+      footerHidden: document.querySelector('#tonight-footer')?.hidden
+    }))()`);
+    if (
+      chosen.title !== "Queue Comedy (2016)" ||
+      !chosen.hasRank ||
+      !chosen.hasBack ||
+      !/Enjoy “Queue Comedy”/.test(chosen.status) ||
+      !chosen.footerHidden
+    ) {
+      throw new Error(`Tonight chosen state is wrong: ${JSON.stringify(chosen)}`);
+    }
+
+    await page.evaluate(`document.querySelector('.tonight-card__rank')?.click(); true;`);
+    await waitFor(page, `document.body.classList.contains('is-comparing')`, 5000);
+    await page.evaluate(`document.querySelector('#cancel-ranking')?.click(); true;`);
+    await waitFor(page, `!document.body.classList.contains('is-comparing')`, 5000);
+    const afterCancel = await page.evaluate(`(() => ({
+      queueRows: document.querySelectorAll('#watch-list .queue-list__item').length,
+      cards: document.querySelectorAll('#tonight-results .tonight-card').length
+    }))()`);
+    if (afterCancel.queueRows !== 4 || afterCancel.cards !== 3) {
+      throw new Error(`Tonight rank/cancel round trip is wrong: ${JSON.stringify(afterCancel)}`);
+    }
+
+    const desktopShot = await page.screenshot("tonight-picker-desktop.png");
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { collapsed, picks, chosen, afterCancel },
+      screenshots: [desktopShot],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
 const testPackBrowserAndActions = async ({ baseUrl }) => {
   const page = await openChromePage({ name: "pack-browser-actions", width: 1280, height: 900 });
   const packs = [
@@ -6914,6 +7061,7 @@ const tests = [
   { name: "public shareable list link", run: testPublicShareLink },
   { name: "full-screen ranking interactions", run: testFullscreenRankingInteractions },
   { name: "Taste Explorer evidence and ranking lens", run: testTasteExplorer },
+  { name: "tonight picker mood, choice, and rank round trip", run: testTonightPicker },
   { name: "suggestion explanations and refresh", run: testSuggestionExplanations },
   { name: "pack browser filters, paging, actions, and persistence", run: testPackBrowserAndActions },
   { name: "pack Rank all cancel, resume, and completion", run: testPackRankAllResumeAndCompletion },

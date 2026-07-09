@@ -636,6 +636,280 @@ body.is-share-open .skeleton {
   line-height: var(--type-item-line);
 }
 
+/* "Pick something for tonight" decision helper (Watch next pane) */
+
+.tonight {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-card);
+  background: var(--surface-subtle);
+}
+
+.tonight__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.tonight__header h4 {
+  margin: 1px 0 0;
+  font-size: var(--type-item-size);
+  line-height: var(--type-item-line);
+}
+
+.tonight__eyebrow {
+  color: var(--ink-muted);
+  font-size: var(--type-eyebrow-size);
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  line-height: var(--type-eyebrow-line);
+  text-transform: uppercase;
+}
+
+.tonight__toggle {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 11px;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-control);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.tonight__toggle svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  transition: transform 0.18s ease;
+}
+
+.tonight__toggle.is-expanded svg {
+  transform: rotate(180deg);
+}
+
+.tonight__content {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.tonight__intro {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.tonight__time {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tonight__chip {
+  min-height: 36px;
+  padding: 6px 12px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.tonight__chip[aria-pressed="true"] {
+  border-color: var(--rule-strong);
+  background: var(--ink);
+  color: var(--surface);
+}
+
+.tonight__mood-row {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.tonight__mood {
+  flex: 1;
+  min-width: 0;
+}
+
+.tonight__mood-input {
+  width: 100%;
+  min-width: 0;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid #cfcfcf;
+  border-radius: var(--radius-control);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.tonight__mood-input:focus {
+  border-color: var(--rule-strong);
+  outline: 2px solid rgba(17, 17, 17, 0.12);
+  outline-offset: 1px;
+}
+
+.tonight__run {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-control);
+  background: var(--ink);
+  color: var(--surface);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 650;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.tonight__run[disabled] {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.tonight__status {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+.tonight__status:empty {
+  display: none;
+}
+
+.tonight__results {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.tonight__results:empty {
+  display: none;
+}
+
+.tonight-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-card);
+  background: var(--surface);
+}
+
+.tonight-card__poster {
+  width: 56px;
+  height: 84px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #e8e7e4;
+}
+
+.tonight-card__poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.tonight-card__body {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: var(--space-1);
+}
+
+.tonight-card__title {
+  margin: 0;
+  font-size: var(--type-item-size);
+  line-height: var(--type-item-line);
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+
+.tonight-card__title small {
+  color: var(--ink-muted);
+  font-weight: 500;
+}
+
+.tonight-card__reasons {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 2px;
+  color: var(--ink-muted);
+  font-size: var(--type-meta-size);
+  line-height: var(--type-meta-line);
+}
+
+.tonight-card__reasons li::before {
+  content: "· ";
+}
+
+.tonight-card__actions {
+  margin-top: var(--space-1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tonight__footer {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.tonight__shuffle {
+  min-height: 40px;
+  padding: 6px 14px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+@media (max-width: 720px) {
+  .tonight__mood-row {
+    flex-direction: column;
+  }
+
+  .tonight__run {
+    width: 100%;
+  }
+}
+
+@media (pointer: coarse) {
+  .tonight__chip {
+    min-height: 44px;
+    padding: 8px 14px;
+  }
+}
+
 .panel--quiet {
   opacity: 0.78;
   box-shadow: none;

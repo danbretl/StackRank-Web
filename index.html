@@ -58,7 +58,7 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="styles.css?v=134" />
+    <link rel="stylesheet" href="styles.css?v=136" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -646,6 +646,52 @@
               <h3>Watch next</h3>
               <span class="panel__sub" id="watch-list-sub">0 movies saved for later</span>
             </div>
+            <section class="tonight" id="tonight-panel" aria-labelledby="tonight-title" hidden>
+              <div class="tonight__header">
+                <div>
+                  <div class="tonight__eyebrow">Decision helper</div>
+                  <h4 id="tonight-title">Pick something for tonight</h4>
+                </div>
+                <button
+                  class="tonight__toggle"
+                  id="tonight-toggle"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls="tonight-content"
+                >
+                  Start
+                  <svg class="ui-icon" aria-hidden="true" focusable="false">
+                    <use href="#icon-chevron-down"></use>
+                  </svg>
+                </button>
+              </div>
+              <div class="tonight__content" id="tonight-content" hidden>
+                <p class="tonight__intro">
+                  Say how much time you have and the vibe you’re in. It picks from Watch next using
+                  your ranking — nothing gets chosen for you.
+                </p>
+                <div class="tonight__time" role="group" aria-label="How much time do you have?" id="tonight-time"></div>
+                <div class="tonight__mood-row">
+                  <label class="tonight__mood">
+                    <span class="sr-only">Optional vibe</span>
+                    <input
+                      id="tonight-mood"
+                      class="tonight__mood-input"
+                      type="text"
+                      maxlength="120"
+                      placeholder="Optional vibe — cozy, mind-bending, laugh-out-loud…"
+                      autocomplete="off"
+                    />
+                  </label>
+                  <button class="tonight__run" id="tonight-run" type="button">Find my movie</button>
+                </div>
+                <p class="tonight__status" id="tonight-status" role="status" aria-live="polite"></p>
+                <ul class="tonight__results" id="tonight-results"></ul>
+                <div class="tonight__footer" id="tonight-footer" hidden>
+                  <button class="tonight__shuffle" id="tonight-shuffle" type="button">Show different picks</button>
+                </div>
+              </div>
+            </section>
             <ul id="watch-list" class="queue-list">
               <li class="queue-list__empty">No saved movies yet.</li>
             </ul>
@@ -1371,6 +1417,6 @@
 
     <div class="panel__feedback" id="add-feedback" role="status" aria-live="polite"></div>
 
-    <script type="module" src="app.js?v=173"></script>
+    <script type="module" src="app.js?v=175"></script>
   </body>
 </html>

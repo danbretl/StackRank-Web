@@ -108,7 +108,7 @@ import {
   buildProductEvent,
   countBucket,
   shouldCollectProductTelemetry,
-} from "./lib/telemetry.js?v=5";
+} from "./lib/telemetry.js?v=6";
 import {
   buildSharedListPayload,
   generateShareSlug,
@@ -145,6 +145,13 @@ import {
   createListDestinationState,
   switchListDestination,
 } from "./lib/lists.js?v=1";
+import {
+  TONIGHT_TIME_WINDOWS,
+  DEFAULT_TONIGHT_WINDOW,
+  normalizeTonightWindow,
+  buildTonightSlate,
+  tonightMoodSummary,
+} from "./lib/tonight.js?v=1";
 
 console.info("StackRank build", "taste-explorer-v1");
 
@@ -215,6 +222,16 @@ const watchListSub = document.getElementById("watch-list-sub");
 const notInterestedSub = document.getElementById("not-interested-sub");
 const listTabs = Array.from(document.querySelectorAll("[data-list-destination-target]"));
 const listPanes = Array.from(document.querySelectorAll("[data-list-destination]"));
+const tonightPanel = document.getElementById("tonight-panel");
+const tonightToggle = document.getElementById("tonight-toggle");
+const tonightContent = document.getElementById("tonight-content");
+const tonightTime = document.getElementById("tonight-time");
+const tonightMoodInput = document.getElementById("tonight-mood");
+const tonightRunButton = document.getElementById("tonight-run");
+const tonightStatus = document.getElementById("tonight-status");
+const tonightResults = document.getElementById("tonight-results");
+const tonightFooter = document.getElementById("tonight-footer");
+const tonightShuffleButton = document.getElementById("tonight-shuffle");
 const rankingSettingsToggle = document.getElementById("ranking-settings-toggle");
 const rankingSettingsPanel = document.getElementById("ranking-settings-panel");
 const rankingSettingsClose = document.getElementById("ranking-settings-close");
@@ -484,6 +501,7 @@ const TMDB_PROXY_PATH = "/functions/v1/tmdb-search";
 const TMDB_SUGGEST_PATH = "/functions/v1/tmdb-suggest";
 const TMDB_DETAIL_PATH = "/functions/v1/tmdb-detail";
 const TMDB_IMAGE_PATH = "/functions/v1/tmdb-image";
+const TONIGHT_PICK_PATH = "/functions/v1/tonight-pick";
 const TMDB_POSTER_BASE = "https://image.tmdb.org/t/p/w342";
 const TMDB_POSTER_SMALL = "https://image.tmdb.org/t/p/w92";
 const TMDB_POSTER_ORIGINAL = "https://image.tmdb.org/t/p/original";
@@ -2064,6 +2082,299 @@ const renderQueueList = (container, list, emptyText, source) => {
   });
 };
 
+// --- "Pick something for tonight" — a decision helper over Watch next. -----
+// The user picks a time window and optionally types a mood/vibe; the
+// tonight-pick edge function enriches the queue (runtime, genres, keywords,
+// people) and scores the vibe server-side, then lib/tonight.js blends that
+// with the rank-weighted taste signals to surface three explained candidates.
+// Nothing is chosen or persisted on the user's behalf.
+
+const TONIGHT_MIN_QUEUE = 2;
+const TONIGHT_CANDIDATE_CAP = 80;
+const TONIGHT_FALLBACK_ENRICH_CAP = 24;
+const TONIGHT_FETCH_TIMEOUT_MS = 12000;
+
+let tonightExpanded = false;
+let tonightWindowId = DEFAULT_TONIGHT_WINDOW;
+let tonightRequestId = 0;
+// Facts + mood interpretation from the last tonight-pick run, kept in memory
+// so window changes and "Show different picks" re-rank instantly without
+// another round trip. Never persisted.
+let tonightRun = null;
+
+const tonightQueueCandidates = () =>
+  watchList.filter((movie) => movie?.tmdbId).slice(0, TONIGHT_CANDIDATE_CAP);
+
+const setTonightStatus = (text) => {
+  tonightStatus.textContent = text || "";
+};
+
+const renderTonightTimeChips = () => {
+  tonightTime.innerHTML = "";
+  TONIGHT_TIME_WINDOWS.forEach((window) => {
+    const chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = "tonight__chip";
+    chip.textContent = window.label;
+    chip.dataset.window = window.id;
+    chip.setAttribute("aria-pressed", String(window.id === tonightWindowId));
+    chip.addEventListener("click", () => {
+      if (tonightWindowId === window.id) return;
+      tonightWindowId = normalizeTonightWindow(window.id);
+      renderTonightTimeChips();
+      if (tonightRun) {
+        tonightRun.shownIds = new Set();
+        tonightRun.chosenId = null;
+        renderTonightSlate();
+      }
+    });
+    tonightTime.appendChild(chip);
+  });
+};
+
+const createTonightCard = (entry, { chosen = false } = {}) => {
+  const movie = entry.movie;
+  const item = document.createElement("li");
+  item.className = "tonight-card";
+  item.dataset.tmdbId = String(movie.tmdbId);
+
+  const posterWrap = document.createElement("div");
+  posterWrap.className = "tonight-card__poster";
+  posterWrap.appendChild(
+    createMoviePoster({ ...movie, posterPath: movie.posterPath || entry.facts.posterPath }),
+  );
+
+  const body = document.createElement("div");
+  body.className = "tonight-card__body";
+  const title = document.createElement("h5");
+  title.className = "tonight-card__title";
+  title.textContent = movie.title;
+  const year = movieYear(movie) || movieYear(entry.facts);
+  if (year) {
+    const small = document.createElement("small");
+    small.textContent = ` (${year})`;
+    title.appendChild(small);
+  }
+  const reasons = document.createElement("ul");
+  reasons.className = "tonight-card__reasons";
+  entry.reasons.forEach((reason) => {
+    const line = document.createElement("li");
+    line.textContent = reason;
+    reasons.appendChild(line);
+  });
+
+  const actions = document.createElement("div");
+  actions.className = "tonight-card__actions";
+  if (chosen) {
+    const rankButton = document.createElement("button");
+    rankButton.type = "button";
+    rankButton.className = "queue-action queue-list__primary tonight-card__rank";
+    rankButton.textContent = "Rank it";
+    rankButton.setAttribute("aria-label", `Rank ${movie.title}`);
+    rankButton.addEventListener("click", () => {
+      startRankingMovie(movie, { type: "tonight" });
+    });
+    const backButton = document.createElement("button");
+    backButton.type = "button";
+    backButton.className = "queue-action tonight-card__back";
+    backButton.textContent = "Change pick";
+    backButton.addEventListener("click", () => {
+      if (tonightRun) tonightRun.chosenId = null;
+      renderTonightSlate();
+    });
+    actions.append(rankButton, backButton);
+  } else {
+    const watchButton = document.createElement("button");
+    watchButton.type = "button";
+    watchButton.className = "queue-action queue-list__primary tonight-card__watch";
+    watchButton.textContent = "Watch this";
+    watchButton.setAttribute("aria-label", `Watch ${movie.title} tonight`);
+    watchButton.addEventListener("click", () => {
+      if (!tonightRun) return;
+      tonightRun.chosenId = movie.tmdbId;
+      trackProductEvent("tonight_picked", {
+        source: tonightRun.moodApplied ? "tonight_mood" : "tonight_no_mood",
+        count: countBucket(watchList.length),
+      });
+      renderTonightSlate();
+    });
+    actions.append(watchButton);
+  }
+  const infoButton = createMovieInfoButton(movie, "tonight-card__info");
+  infoButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+    openMovieDetail(movie, { type: "queue", source: "watch" }, infoButton);
+  });
+  actions.appendChild(infoButton);
+
+  body.append(title, reasons, actions);
+  item.append(posterWrap, body);
+  return item;
+};
+
+// Re-rank and re-render from the cached run. `shuffle` rotates in picks that
+// have not been shown yet; a chosen movie collapses the slate to one card.
+function renderTonightSlate({ shuffle = false } = {}) {
+  const run = tonightRun;
+  if (!run) return;
+  const queue = tonightQueueCandidates();
+  tonightResults.innerHTML = "";
+  if (queue.length < TONIGHT_MIN_QUEUE) {
+    tonightFooter.hidden = true;
+    setTonightStatus("");
+    return;
+  }
+  if (shuffle) run.seed += 1;
+  const { entries, slate } = buildTonightSlate({
+    queue,
+    facts: run.facts,
+    insights: getRankingInsights(),
+    windowId: tonightWindowId,
+    moodApplied: run.moodApplied,
+    seed: run.seed,
+    excludeIds: shuffle ? run.shownIds : new Set(),
+  });
+  // Look the chosen movie up across all scored entries, not just the current
+  // slate — a pick chosen from a shuffled slate may not be in the recomputed
+  // top three.
+  const chosenEntry = run.chosenId
+    ? entries.find((entry) => entry.movie.tmdbId === run.chosenId) || null
+    : null;
+  if (chosenEntry) {
+    tonightResults.appendChild(createTonightCard(chosenEntry, { chosen: true }));
+    tonightFooter.hidden = true;
+    setTonightStatus(`Enjoy “${chosenEntry.movie.title}” — come back after and rank where it lands.`);
+    return;
+  }
+  run.chosenId = null;
+  run.slateIds = slate.map((entry) => entry.movie.tmdbId);
+  slate.forEach((entry) => {
+    run.shownIds.add(entry.movie.tmdbId);
+    tonightResults.appendChild(createTonightCard(entry));
+  });
+  tonightFooter.hidden = slate.length === 0;
+  setTonightStatus(tonightMoodSummary(run.mood, { moodUnavailable: run.moodUnavailable }));
+}
+
+// Fallback enrichment when the edge function is unreachable: hydrate a slice
+// of the queue through the detail cache (no keywords, no mood scoring).
+const tonightFallbackFacts = async (queue) => {
+  const targets = queue.slice(0, TONIGHT_FALLBACK_ENRICH_CAP);
+  for (let index = 0; index < targets.length; index += 4) {
+    await Promise.all(targets.slice(index, index + 4).map(fetchMovieDetail));
+  }
+  const facts = new Map();
+  targets.forEach((movie) => {
+    const detail = detailCache.get(String(movie.tmdbId));
+    if (detail) facts.set(movie.tmdbId, detail);
+  });
+  return facts;
+};
+
+const runTonightPick = async () => {
+  const queue = tonightQueueCandidates();
+  if (queue.length < TONIGHT_MIN_QUEUE) return;
+  const moodText = tonightMoodInput.value.trim();
+  const requestId = ++tonightRequestId;
+  tonightRunButton.disabled = true;
+  tonightResults.innerHTML = "";
+  tonightFooter.hidden = true;
+  setTonightStatus("Reading your queue…");
+
+  let facts = null;
+  let mood = null;
+  let moodUnavailable = false;
+  if (supabaseEnabled) {
+    try {
+      const params = new URLSearchParams({ ids: queue.map((movie) => movie.tmdbId).join(",") });
+      if (moodText) params.set("mood", moodText);
+      const response = await withTimeout(
+        fetch(`${SUPABASE_URL}${TONIGHT_PICK_PATH}?${params.toString()}`, {
+          headers: { apikey: SUPABASE_PUBLISHABLE_KEY },
+        }),
+        TONIGHT_FETCH_TIMEOUT_MS,
+        "Tonight picks timed out",
+      );
+      if (response.ok) {
+        const data = await response.json();
+        if (Array.isArray(data.results) && data.results.length) {
+          facts = new Map(data.results.map((result) => [result.tmdbId, result]));
+          mood = data.mood || null;
+        }
+      }
+    } catch (error) {
+      facts = null;
+    }
+  }
+  if (requestId !== tonightRequestId) return;
+  if (!facts) {
+    facts = await tonightFallbackFacts(queue);
+    moodUnavailable = Boolean(moodText);
+    if (requestId !== tonightRequestId) return;
+  }
+
+  tonightRun = {
+    facts,
+    mood,
+    moodApplied: Boolean(mood?.readable),
+    moodUnavailable,
+    seed: 0,
+    shownIds: new Set(),
+    slateIds: [],
+    chosenId: null,
+  };
+  tonightRunButton.disabled = false;
+  renderTonightSlate();
+};
+
+const setTonightExpanded = (expanded) => {
+  tonightExpanded = expanded;
+  tonightContent.hidden = !expanded;
+  tonightToggle.setAttribute("aria-expanded", String(expanded));
+  tonightToggle.classList.toggle("is-expanded", expanded);
+  tonightToggle.firstChild.textContent = expanded ? "Close " : "Start ";
+  if (expanded) {
+    trackProductEvent("tonight_opened", { list_size: countBucket(watchList.length) });
+  }
+};
+
+// Called on every queue render: keeps visibility in sync with the queue and
+// drops stale results when a shown movie has left Watch next (ranked, hidden,
+// or removed).
+const renderTonightPanel = () => {
+  const eligible = tonightQueueCandidates().length >= TONIGHT_MIN_QUEUE;
+  tonightPanel.hidden = !eligible;
+  if (!eligible) {
+    tonightRun = null;
+    tonightResults.innerHTML = "";
+    tonightFooter.hidden = true;
+    setTonightStatus("");
+    return;
+  }
+  if (!tonightTime.childElementCount) renderTonightTimeChips();
+  if (tonightRun) {
+    const queueIds = new Set(tonightQueueCandidates().map((movie) => movie.tmdbId));
+    const shownIds = tonightRun.chosenId ? [tonightRun.chosenId] : tonightRun.slateIds;
+    if (shownIds.some((tmdbId) => !queueIds.has(tmdbId))) {
+      tonightRun.chosenId = null;
+      tonightRun.shownIds = new Set();
+      renderTonightSlate();
+    }
+  }
+};
+
+tonightToggle.addEventListener("click", () => setTonightExpanded(!tonightExpanded));
+tonightRunButton.addEventListener("click", () => {
+  void runTonightPick();
+});
+tonightShuffleButton.addEventListener("click", () => renderTonightSlate({ shuffle: true }));
+tonightMoodInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    void runTonightPick();
+  }
+});
+
 const queueCountLabel = (count, suffix) => `${count} movie${count === 1 ? "" : "s"} ${suffix}`;
 
 const renderSuggestionQueueSubtitles = () => {
@@ -2089,6 +2400,7 @@ const renderSuggestionQueues = () => {
   renderSuggestionQueueSubtitles();
   renderQueueList(watchListEl, watchList, "No saved movies yet.", "watch");
   renderQueueList(notInterestedListEl, notInterestedList, "Nothing hidden yet.", "notInterested");
+  renderTonightPanel();
   renderListDestination();
 };
 
@@ -2634,6 +2946,7 @@ const withRankingTimestamp = (movie) => ({
 });
 
 const rankingTelemetrySource = (context, origin) => {
+  if (context?.type === "tonight") return "tonight";
   if (context?.type === "pack") return context.mode === "auto" ? "pack_auto" : "pack_browse";
   if (context?.type === "suggestion") return `suggestion_${context.section || "unknown"}`;
   if (context?.type === "queue") return context.source === "watch" ? "watch_queue" : "hidden_queue";

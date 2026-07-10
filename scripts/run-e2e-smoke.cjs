@@ -651,7 +651,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=141" ||
+      desktop.cssHref !== "styles.css?v=145" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -2660,6 +2660,173 @@ const testAppShellNavigation = async ({ baseUrl }) => {
   }
 };
 
+const testPrimaryActionVisualSystem = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "primary-action-visual-system", width: 1440, height: 900 });
+  try {
+    await seedPage(page, baseUrl, "primary-action-visual-system", {
+      ranking: [
+        movie("Alpha", 1990, 2101),
+        movie("Beta", 1995, 2102),
+        movie("Gamma", 2000, 2103),
+        movie("Delta", 2005, 2104),
+        movie("Epsilon", 2010, 2105),
+      ],
+      watchList: [queueMovie("Saved", 2020, 2106), queueMovie("Later Pick", 2019, 2107)],
+    });
+    await waitFor(
+      page,
+      `document.querySelectorAll('#pack-row .pack-card__action').length === 3 &&
+        document.querySelector('.suggest-card .movie-item__action--primary')`,
+      10000,
+    );
+
+    const primarySelectors = {
+      addSearch: ".panel--add .field input",
+      packStartOrContinue: "#pack-row .pack-card:not(.pack-card--completed) .pack-card__action",
+      movieRank: ".suggest-card .movie-item__action--primary",
+      tonightPicker: "#tonight-run",
+      fullscreenJump: "#fullscreen-jump-button",
+      sharePublish: "#share-link-publish",
+      shareDownload: "#share-download-png",
+      detailRank: "#detail-rank",
+      packRankAll: "#pack-auto-start",
+      importMatch: "#title-import-match",
+      importApply: "#title-import-apply",
+      signInMagicLink: "#signin-magic-send",
+    };
+    const primaryActions = await page.evaluate(`(() => {
+      const selectors = ${JSON.stringify(primarySelectors)};
+      return Object.fromEntries(Object.entries(selectors).map(([name, selector]) => {
+        const element = document.querySelector(selector);
+        if (!element) return [name, null];
+        const style = getComputedStyle(element);
+        return [name, {
+          selector,
+          backgroundColor: style.backgroundColor,
+          color: style.color,
+          borderTopColor: style.borderTopColor,
+          borderTopWidth: style.borderTopWidth,
+          boxShadow: style.boxShadow,
+          fontWeight: style.fontWeight
+        }];
+      }));
+    })()`);
+    const invalidPrimaryActions = Object.entries(primaryActions).filter(([name, style]) =>
+      !style ||
+      style.backgroundColor !== "rgb(255, 255, 255)" ||
+      style.color !== "rgb(17, 17, 17)" ||
+      style.borderTopColor !== "rgb(17, 17, 17)" ||
+      style.borderTopWidth !== "1px" ||
+      !style.boxShadow.includes("inset") ||
+      (name !== "addSearch" && Number.parseInt(style.fontWeight, 10) < 650)
+    );
+    if (invalidPrimaryActions.length) {
+      throw new Error(
+        `High-value actions do not share the editorial keyline treatment: ${JSON.stringify({
+          invalidPrimaryActions,
+          primaryActions,
+        })}`,
+      );
+    }
+
+    const reservedInkStates = await page.evaluate(`(() => {
+      const read = (selector) => {
+        const style = getComputedStyle(document.querySelector(selector));
+        return { backgroundColor: style.backgroundColor, color: style.color };
+      };
+      return {
+        selectedListTab: read('#watch-list-tab'),
+        packProgress: read('#pack-row .pack-card__progress span')
+      };
+    })()`);
+    if (
+      reservedInkStates.selectedListTab.backgroundColor !== "rgb(17, 17, 17)" ||
+      reservedInkStates.selectedListTab.color !== "rgb(255, 255, 255)" ||
+      reservedInkStates.packProgress.backgroundColor !== "rgb(17, 17, 17)"
+    ) {
+      throw new Error(`Black is not reserved for selection and progress states: ${JSON.stringify(reservedInkStates)}`);
+    }
+    const appShot = await page.screenshot("primary-actions-app.png");
+
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 390,
+      height: 844,
+      deviceScaleFactor: 3,
+      mobile: true,
+      screenWidth: 390,
+      screenHeight: 844,
+    });
+    await wait(100);
+    const mobileAddSearch = await page.evaluate(`(() => {
+      const element = document.querySelector('.panel--add .field input');
+      const style = getComputedStyle(element);
+      const bounds = element.getBoundingClientRect();
+      return {
+        backgroundColor: style.backgroundColor,
+        color: style.color,
+        borderTopColor: style.borderTopColor,
+        borderTopWidth: style.borderTopWidth,
+        boxShadow: style.boxShadow,
+        height: bounds.height
+      };
+    })()`);
+    if (
+      mobileAddSearch.backgroundColor !== "rgb(255, 255, 255)" ||
+      mobileAddSearch.color !== "rgb(17, 17, 17)" ||
+      mobileAddSearch.borderTopColor !== "rgb(17, 17, 17)" ||
+      mobileAddSearch.borderTopWidth !== "1px" ||
+      !mobileAddSearch.boxShadow.includes("inset") ||
+      mobileAddSearch.height < 48
+    ) {
+      throw new Error(`Mobile Add search does not use the touch-sized keyline treatment: ${JSON.stringify(mobileAddSearch)}`);
+    }
+    const mobileShot = await page.screenshot("primary-actions-mobile.png");
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: 1440,
+      height: 900,
+      deviceScaleFactor: 1,
+      mobile: false,
+      screenWidth: 1440,
+      screenHeight: 900,
+    });
+
+    await page.send("Page.navigate", { url: `${baseUrl}/shared.html` });
+    await waitFor(page, `document.readyState === 'complete' && document.querySelector('.shared-cta')`, 10000);
+    const sharedCta = await page.evaluate(`(() => {
+      const style = getComputedStyle(document.querySelector('.shared-cta'));
+      return {
+        backgroundColor: style.backgroundColor,
+        color: style.color,
+        borderTopColor: style.borderTopColor,
+        borderTopWidth: style.borderTopWidth,
+        boxShadow: style.boxShadow,
+        fontWeight: style.fontWeight,
+        textTransform: style.textTransform
+      };
+    })()`);
+    if (
+      sharedCta.backgroundColor !== "rgb(255, 255, 255)" ||
+      sharedCta.color !== "rgb(17, 17, 17)" ||
+      sharedCta.borderTopColor !== "rgb(17, 17, 17)" ||
+      sharedCta.borderTopWidth !== "1px" ||
+      !sharedCta.boxShadow.includes("inset") ||
+      Number.parseInt(sharedCta.fontWeight, 10) < 650 ||
+      sharedCta.textTransform !== "none"
+    ) {
+      throw new Error(`Shared-list CTA does not use the editorial keyline treatment: ${JSON.stringify(sharedCta)}`);
+    }
+
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { primaryActions, reservedInkStates, mobileAddSearch, sharedCta },
+      screenshots: [appShot, mobileShot, await page.screenshot("primary-actions-shared-list.png")],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
 const testFirstRunQuickStart = async ({ baseUrl }) => {
   const page = await openChromePage({ name: "first-run-quick-start", width: 1280, height: 900 });
   try {
@@ -2737,8 +2904,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=178" ||
-      empty.cssHref !== "styles.css?v=141" ||
+      empty.moduleSrc !== "app.js?v=179" ||
+      empty.cssHref !== "styles.css?v=145" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -7662,13 +7829,53 @@ const testPackBrowserAndActions = async ({ baseUrl }) => {
       `document.querySelector('#pack-detail-title')?.textContent.trim() === 'E2E Director Head Start'`,
       3000,
     );
-    const pagerBefore = await page.evaluate(`(() => ({
-      hidden: document.querySelector('#pack-detail-pager')?.hidden,
-      count: document.querySelector('#pack-detail-pager-count')?.textContent.trim(),
-      prevDisabled: document.querySelector('#pack-detail-prev')?.disabled,
-      nextDisabled: document.querySelector('#pack-detail-next')?.disabled
-    }))()`);
-    if (pagerBefore.hidden || pagerBefore.count !== "Pack 2 of 3" || pagerBefore.nextDisabled) {
+    const pagerBefore = await page.evaluate(`(() => {
+      const rect = (selector) => {
+        const bounds = document.querySelector(selector)?.getBoundingClientRect();
+        return bounds ? {
+          left: Math.round(bounds.left),
+          right: Math.round(bounds.right),
+          top: Math.round(bounds.top),
+          width: Math.round(bounds.width),
+          height: Math.round(bounds.height)
+        } : null;
+      };
+      const close = document.querySelector('#pack-detail-close');
+      const sheet = rect('#pack-detail .pack-sheet');
+      const closeRect = rect('#pack-detail-close');
+      const prevRect = rect('#pack-detail-prev');
+      return {
+        hidden: document.querySelector('#pack-detail-pager')?.hidden,
+        count: document.querySelector('#pack-detail-pager-count')?.textContent.trim(),
+        prevDisabled: document.querySelector('#pack-detail-prev')?.disabled,
+        nextDisabled: document.querySelector('#pack-detail-next')?.disabled,
+        closeText: close?.textContent.trim(),
+        closeAria: close?.getAttribute('aria-label'),
+        closeIcon: close?.querySelector('use')?.getAttribute('href'),
+        closeRect,
+        prevRect,
+        closeLeftInset: closeRect && sheet ? closeRect.left - sheet.left : null,
+        closeTopInset: closeRect && sheet ? closeRect.top - sheet.top : null,
+        controlsAligned: closeRect && prevRect
+          ? Math.abs(closeRect.top - prevRect.top) <= 1 && Math.abs(closeRect.height - prevRect.height) <= 1
+          : false,
+        closeBeforePager: closeRect && prevRect ? closeRect.right + 12 <= prevRect.left : false
+      };
+    })()`);
+    if (
+      pagerBefore.hidden ||
+      pagerBefore.count !== "Pack 2 of 3" ||
+      pagerBefore.nextDisabled ||
+      pagerBefore.closeText !== "Close" ||
+      pagerBefore.closeAria !== "Close pack and return to all suggestion packs" ||
+      pagerBefore.closeIcon !== "#icon-close" ||
+      pagerBefore.closeLeftInset < 16 ||
+      pagerBefore.closeLeftInset > 30 ||
+      pagerBefore.closeTopInset < 16 ||
+      pagerBefore.closeTopInset > 30 ||
+      !pagerBefore.controlsAligned ||
+      !pagerBefore.closeBeforePager
+    ) {
       throw new Error(`Pack detail pager state is wrong: ${JSON.stringify(pagerBefore)}`);
     }
     await page.evaluate(`document.querySelector('#pack-detail-next')?.click(); true;`);
@@ -7736,6 +7943,29 @@ const testPackBrowserAndActions = async ({ baseUrl }) => {
     }
 
     const completedShot = await page.screenshot("pack-actions-complete.png");
+    await page.evaluate(`document.querySelector('#pack-detail-close')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#pack-detail')?.classList.contains('is-all-packs') &&
+        document.activeElement?.dataset.slug === 'e2e-director-fresh'`,
+      3000,
+    );
+    const closeReturn = await page.evaluate(`(() => ({
+      browserOpen: document.querySelector('#pack-detail')?.classList.contains('is-all-packs'),
+      title: document.querySelector('#pack-detail-title')?.textContent.trim(),
+      focusedSlug: document.activeElement?.dataset.slug || null,
+      closeAria: document.querySelector('#pack-detail-close')?.getAttribute('aria-label'),
+      closeIcon: document.querySelector('#pack-detail-close use')?.getAttribute('href')
+    }))()`);
+    if (
+      !closeReturn.browserOpen ||
+      closeReturn.title !== "All suggestion packs" ||
+      closeReturn.focusedSlug !== "e2e-director-fresh" ||
+      closeReturn.closeAria !== "Close suggestion packs" ||
+      closeReturn.closeIcon !== "#icon-close"
+    ) {
+      throw new Error(`Pack Close did not return to All Packs: ${JSON.stringify(closeReturn)}`);
+    }
     await page.send("Page.reload", { ignoreCache: true });
     await waitFor(page, `document.querySelectorAll('#ranking .ranking__item').length === 2`, 10000);
     await waitFor(page, `document.querySelectorAll('#pack-row .pack-card').length === 2`, 5000);
@@ -7768,7 +7998,7 @@ const testPackBrowserAndActions = async ({ baseUrl }) => {
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { search, headStart, pagerBefore, actions, persisted },
+      details: { search, headStart, pagerBefore, actions, closeReturn, persisted },
       screenshots: [completedShot, await page.screenshot("pack-completed-filter.png")],
     };
   } finally {
@@ -7967,6 +8197,10 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
       return page.evaluate(`(() => {
         const titleRect = document.querySelector('#pack-detail-title')?.getBoundingClientRect();
         const closeRect = document.querySelector('#pack-detail-close')?.getBoundingClientRect();
+        const pager = document.querySelector('#pack-detail-pager');
+        const pagerRect = pager?.getBoundingClientRect();
+        const pagerVisible = !!pagerRect && !pager.hidden && pagerRect.width > 0 && pagerRect.height > 0;
+        const sheetRect = document.querySelector('#pack-detail .pack-sheet')?.getBoundingClientRect();
         const subRect = document.querySelector('#pack-detail-sub')?.getBoundingClientRect();
         const overlaps = (a, b) => !!a && !!b &&
           a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
@@ -7974,7 +8208,14 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
           title: document.querySelector('#pack-detail-title')?.textContent.trim(),
           titleCloseOverlap: overlaps(titleRect, closeRect),
           titleSubOverlap: overlaps(titleRect, subRect),
-          closeClearance: Math.round((closeRect?.left || 0) - (titleRect?.right || 0)),
+          closeText: document.querySelector('#pack-detail-close')?.textContent.trim(),
+          closeAria: document.querySelector('#pack-detail-close')?.getAttribute('aria-label'),
+          closeIcon: document.querySelector('#pack-detail-close use')?.getAttribute('href'),
+          closeLeftInset: Math.round((closeRect?.left || 0) - (sheetRect?.left || 0)),
+          closeAboveTitle: !!closeRect && !!titleRect && closeRect.bottom + 8 <= titleRect.top,
+          pagerVisible,
+          closeAbovePager: !pagerVisible || (!!closeRect && closeRect.bottom + 8 <= pagerRect.top),
+          pagerAboveTitle: !pagerVisible || (!!titleRect && pagerRect.bottom + 8 <= titleRect.top),
           titleHeight: Math.round(titleRect?.height || 0),
           movieRole: document.querySelector('.pack-movie')?.getAttribute('role'),
           movieTabIndex: document.querySelector('.pack-movie')?.getAttribute('tabindex'),
@@ -7994,7 +8235,14 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
     if (
       blockbuster.titleCloseOverlap ||
       blockbuster.titleSubOverlap ||
-      blockbuster.closeClearance < 8 ||
+      blockbuster.closeText !== "Close" ||
+      blockbuster.closeAria !== "Close pack and return to all suggestion packs" ||
+      blockbuster.closeIcon !== "#icon-close" ||
+      blockbuster.closeLeftInset < 16 ||
+      blockbuster.closeLeftInset > 30 ||
+      !blockbuster.closeAboveTitle ||
+      !blockbuster.closeAbovePager ||
+      !blockbuster.pagerAboveTitle ||
       blockbuster.movieRole !== "group" ||
       blockbuster.movieTabIndex ||
       !/^Rank /.test(blockbuster.movieRankLabel || "") ||
@@ -8012,7 +8260,15 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
       "Tom Hanks Comfort Canon",
     );
     const tomHanksShot = await page.screenshot("mobile-pack-title-tom-hanks.png");
-    if (tomHanks.titleCloseOverlap || tomHanks.titleSubOverlap || tomHanks.closeClearance < 8) {
+    if (
+      tomHanks.titleCloseOverlap ||
+      tomHanks.titleSubOverlap ||
+      tomHanks.closeText !== "Close" ||
+      tomHanks.closeIcon !== "#icon-close" ||
+      !tomHanks.closeAboveTitle ||
+      !tomHanks.closeAbovePager ||
+      !tomHanks.pagerAboveTitle
+    ) {
       throw new Error(`Tom Hanks pack title overlaps header controls: ${JSON.stringify(tomHanks)}`);
     }
 
@@ -8032,6 +8288,7 @@ const tests = [
   { name: "privacy page and TMDB credits", run: testPrivacyAndCredits },
   { name: "mobile and desktop boot layout stability", run: testBootLayoutStability },
   { name: "app shell destination navigation", run: testAppShellNavigation },
+  { name: "high-value primary action visual system", run: testPrimaryActionVisualSystem },
   { name: "first-run quick start activation flow", run: testFirstRunQuickStart },
   { name: "dedicated sign-in view and provider availability", run: testSignInExperience },
   { name: "watch queue comparison flow", run: testQueueComparison },

@@ -6038,14 +6038,16 @@ const closePackDetail = ({ restoreFocus = true } = {}) => {
   packDetailTrigger = null;
 };
 
-const setPackDetailCloseMode = (backToBrowser) => {
-  packDetailClose.setAttribute(
-    "aria-label",
-    backToBrowser ? "Back to all suggestion packs" : "Close suggestion packs",
-  );
-  packDetailClose.title = backToBrowser ? "Back to all packs" : "Close";
+const setPackDetailCloseMode = (mode) => {
+  const ariaLabel = mode === "browser"
+    ? "Close suggestion packs"
+    : mode === "return"
+      ? "Close pack and return to all suggestion packs"
+      : "Close suggestion pack";
+  packDetailClose.setAttribute("aria-label", ariaLabel);
+  packDetailClose.title = "Close";
   const iconUse = packDetailClose.querySelector("use");
-  if (iconUse) iconUse.setAttribute("href", backToBrowser ? "#icon-previous" : "#icon-close");
+  if (iconUse) iconUse.setAttribute("href", "#icon-close");
 };
 
 const updatePackDetailPager = () => {
@@ -6079,7 +6081,7 @@ const openPackDetail = (slug, { trigger = null, showHandled = false, fromAllPack
   const cameFromAllPacks = fromAllPacks ?? browserViewOpen;
   if (browserViewOpen) packBrowserScrollTop = packDetailSheet ? packDetailSheet.scrollTop : 0;
   packDetailFromAllPacks = cameFromAllPacks;
-  setPackDetailCloseMode(cameFromAllPacks);
+  setPackDetailCloseMode(cameFromAllPacks ? "return" : "pack");
   packDetailOverlay.classList.remove("is-all-packs");
   packBrowserFilters.hidden = true;
   currentPackSlug = slug;
@@ -6406,7 +6408,7 @@ const openAllPacks = ({ restoreScroll = false, trigger = null, source = "home", 
   currentPackSlug = null;
   packDetailFromAllPacks = false;
   if (!restoreScroll || !packDetailTrigger) packDetailTrigger = trigger || packViewAll;
-  setPackDetailCloseMode(false);
+  setPackDetailCloseMode("browser");
   packDetailPager.hidden = true;
   packDetailOverlay.classList.add("is-all-packs");
   packBrowserFilters.hidden = false;

@@ -651,7 +651,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=145" ||
+      desktop.cssHref !== "styles.css?v=146" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -2906,7 +2906,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
       empty.moduleSrc !== "app.js?v=179" ||
-      empty.cssHref !== "styles.css?v=145" ||
+      empty.cssHref !== "styles.css?v=146" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -7775,6 +7775,43 @@ const testPackBrowserAndActions = async ({ baseUrl }) => {
         document.querySelector('#pack-detail')?.classList.contains('is-all-packs')`,
       5000,
     );
+    const allPacksCloseStyle = await page.evaluate(`(() => {
+      const close = document.querySelector('#pack-detail-close');
+      const style = getComputedStyle(close);
+      const bounds = close.getBoundingClientRect();
+      return {
+        text: close.textContent.trim(),
+        aria: close.getAttribute('aria-label'),
+        icon: close.querySelector('use')?.getAttribute('href'),
+        width: Math.round(bounds.width),
+        height: Math.round(bounds.height),
+        padding: style.padding,
+        borderColor: style.borderTopColor,
+        borderRadius: style.borderRadius,
+        background: style.backgroundColor,
+        color: style.color
+      };
+    })()`);
+    if (
+      allPacksCloseStyle.text ||
+      allPacksCloseStyle.aria !== "Close suggestion packs" ||
+      allPacksCloseStyle.icon !== "#icon-close" ||
+      allPacksCloseStyle.width < 43 ||
+      allPacksCloseStyle.height < 43 ||
+      allPacksCloseStyle.padding !== "0px"
+    ) {
+      throw new Error(`All Packs close control is wrong: ${JSON.stringify(allPacksCloseStyle)}`);
+    }
+    const allPacksCloseVisual = {
+      text: allPacksCloseStyle.text,
+      width: allPacksCloseStyle.width,
+      height: allPacksCloseStyle.height,
+      padding: allPacksCloseStyle.padding,
+      borderColor: allPacksCloseStyle.borderColor,
+      borderRadius: allPacksCloseStyle.borderRadius,
+      background: allPacksCloseStyle.background,
+      color: allPacksCloseStyle.color,
+    };
     await page.evaluate(`document.querySelector('#pack-browser-filter-toggle')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#pack-browser-filter-controls')?.hidden`, 3000);
 
@@ -7860,6 +7897,8 @@ const testPackBrowserAndActions = async ({ baseUrl }) => {
       const sheet = rect('#pack-detail .pack-sheet');
       const closeRect = rect('#pack-detail-close');
       const prevRect = rect('#pack-detail-prev');
+      const nextRect = rect('#pack-detail-next');
+      const closeStyle = getComputedStyle(close);
       return {
         hidden: document.querySelector('#pack-detail-pager')?.hidden,
         count: document.querySelector('#pack-detail-pager-count')?.textContent.trim(),
@@ -7870,27 +7909,42 @@ const testPackBrowserAndActions = async ({ baseUrl }) => {
         closeIcon: close?.querySelector('use')?.getAttribute('href'),
         closeRect,
         prevRect,
-        closeLeftInset: closeRect && sheet ? closeRect.left - sheet.left : null,
+        nextRect,
+        closeRightInset: closeRect && sheet ? sheet.right - closeRect.right : null,
         closeTopInset: closeRect && sheet ? closeRect.top - sheet.top : null,
-        controlsAligned: closeRect && prevRect
-          ? Math.abs(closeRect.top - prevRect.top) <= 1 && Math.abs(closeRect.height - prevRect.height) <= 1
+        controlsAligned: closeRect && prevRect && nextRect
+          ? Math.abs(closeRect.top - prevRect.top) <= 1 &&
+            Math.abs(closeRect.top - nextRect.top) <= 1 &&
+            Math.abs(closeRect.height - prevRect.height) <= 1 &&
+            Math.abs(closeRect.height - nextRect.height) <= 1
           : false,
-        closeBeforePager: closeRect && prevRect ? closeRect.right + 12 <= prevRect.left : false
+        pagerBeforeClose: closeRect && nextRect ? nextRect.right + 8 <= closeRect.left : false,
+        closeStyle: {
+          text: close?.textContent.trim(),
+          width: Math.round(closeRect?.width || 0),
+          height: Math.round(closeRect?.height || 0),
+          padding: closeStyle.padding,
+          borderColor: closeStyle.borderTopColor,
+          borderRadius: closeStyle.borderRadius,
+          background: closeStyle.backgroundColor,
+          color: closeStyle.color
+        }
       };
     })()`);
     if (
       pagerBefore.hidden ||
       pagerBefore.count !== "Pack 2 of 3" ||
       pagerBefore.nextDisabled ||
-      pagerBefore.closeText !== "Close" ||
+      pagerBefore.closeText ||
       pagerBefore.closeAria !== "Close pack and return to all suggestion packs" ||
       pagerBefore.closeIcon !== "#icon-close" ||
-      pagerBefore.closeLeftInset < 16 ||
-      pagerBefore.closeLeftInset > 30 ||
+      pagerBefore.closeRightInset < 16 ||
+      pagerBefore.closeRightInset > 30 ||
       pagerBefore.closeTopInset < 16 ||
       pagerBefore.closeTopInset > 30 ||
       !pagerBefore.controlsAligned ||
-      !pagerBefore.closeBeforePager
+      !pagerBefore.pagerBeforeClose ||
+      JSON.stringify(pagerBefore.closeStyle) !== JSON.stringify(allPacksCloseVisual)
     ) {
       throw new Error(`Pack detail pager state is wrong: ${JSON.stringify(pagerBefore)}`);
     }
@@ -8227,10 +8281,11 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
           closeText: document.querySelector('#pack-detail-close')?.textContent.trim(),
           closeAria: document.querySelector('#pack-detail-close')?.getAttribute('aria-label'),
           closeIcon: document.querySelector('#pack-detail-close use')?.getAttribute('href'),
-          closeLeftInset: Math.round((closeRect?.left || 0) - (sheetRect?.left || 0)),
+          closeRightInset: Math.round((sheetRect?.right || 0) - (closeRect?.right || 0)),
           closeAboveTitle: !!closeRect && !!titleRect && closeRect.bottom + 8 <= titleRect.top,
           pagerVisible,
-          closeAbovePager: !pagerVisible || (!!closeRect && closeRect.bottom + 8 <= pagerRect.top),
+          controlsAligned: !pagerVisible || (!!closeRect && Math.abs(closeRect.top - pagerRect.top) <= 1 && Math.abs(closeRect.height - pagerRect.height) <= 1),
+          pagerBeforeClose: !pagerVisible || (!!closeRect && pagerRect.right + 8 <= closeRect.left),
           pagerAboveTitle: !pagerVisible || (!!titleRect && pagerRect.bottom + 8 <= titleRect.top),
           titleHeight: Math.round(titleRect?.height || 0),
           movieRole: document.querySelector('.pack-movie')?.getAttribute('role'),
@@ -8251,13 +8306,14 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
     if (
       blockbuster.titleCloseOverlap ||
       blockbuster.titleSubOverlap ||
-      blockbuster.closeText !== "Close" ||
+      blockbuster.closeText ||
       blockbuster.closeAria !== "Close pack and return to all suggestion packs" ||
       blockbuster.closeIcon !== "#icon-close" ||
-      blockbuster.closeLeftInset < 16 ||
-      blockbuster.closeLeftInset > 30 ||
+      blockbuster.closeRightInset < 16 ||
+      blockbuster.closeRightInset > 30 ||
       !blockbuster.closeAboveTitle ||
-      !blockbuster.closeAbovePager ||
+      !blockbuster.controlsAligned ||
+      !blockbuster.pagerBeforeClose ||
       !blockbuster.pagerAboveTitle ||
       blockbuster.movieRole !== "group" ||
       blockbuster.movieTabIndex ||
@@ -8279,10 +8335,11 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
     if (
       tomHanks.titleCloseOverlap ||
       tomHanks.titleSubOverlap ||
-      tomHanks.closeText !== "Close" ||
+      tomHanks.closeText ||
       tomHanks.closeIcon !== "#icon-close" ||
       !tomHanks.closeAboveTitle ||
-      !tomHanks.closeAbovePager ||
+      !tomHanks.controlsAligned ||
+      !tomHanks.pagerBeforeClose ||
       !tomHanks.pagerAboveTitle
     ) {
       throw new Error(`Tom Hanks pack title overlaps header controls: ${JSON.stringify(tomHanks)}`);

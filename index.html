@@ -58,7 +58,7 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="styles.css?v=145" />
+    <link rel="stylesheet" href="styles.css?v=146" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -1095,12 +1095,6 @@
           aria-labelledby="pack-detail-title"
         >
           <div class="pack-detail-toolbar">
-            <button class="detail-close overlay-close" id="pack-detail-close" type="button" aria-label="Close suggestion pack">
-              <svg class="ui-icon" aria-hidden="true" focusable="false">
-                <use href="#icon-close"></use>
-              </svg>
-              <span class="pack-detail-close-label">Close</span>
-            </button>
             <div class="pack-detail-pager" id="pack-detail-pager" hidden>
               <button class="pack-pager-btn" id="pack-detail-prev" type="button" aria-label="Previous pack">
                 <svg class="ui-icon" aria-hidden="true" focusable="false">
@@ -1116,6 +1110,11 @@
                 </svg>
               </button>
             </div>
+            <button class="detail-close overlay-close" id="pack-detail-close" type="button" aria-label="Close suggestion pack">
+              <svg class="ui-icon" aria-hidden="true" focusable="false">
+                <use href="#icon-close"></use>
+              </svg>
+            </button>
           </div>
           <header class="overlay-header pack-detail-head">
             <div class="pack-cover pack-cover--large" id="pack-detail-cover" aria-hidden="true"></div>

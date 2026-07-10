@@ -1812,10 +1812,11 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     });
     await page.evaluate(`window.scrollTo(0, 0); true;`);
     const fineTabletLandscape = await readRankModalityLayout();
+    // Linux headless Chrome can report pointer:none / hover:none after touch
+    // emulation is disabled. The non-touch state plus rendered direct-action
+    // contract is the portable authority for this synthetic desktop profile.
     if (
       fineTabletCapabilities.pointerCoarse ||
-      !fineTabletCapabilities.pointerFine ||
-      !fineTabletCapabilities.hoverHover ||
       fineTabletCapabilities.maxTouchPoints !== 0 ||
       !fineTabletLandscape.sideLeftOfRail ||
       !fineTabletLandscape.topNavVisible ||
@@ -6295,7 +6296,22 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
       return null;
     })()`);
     if (!fullscreenOutsideTap) throw new Error("Missing fullscreen outside-tap target");
-    await clickAt(page, fullscreenOutsideTap.x, fullscreenOutsideTap.y);
+    // A raw CDP mouse press can focus-scroll the card before the click on
+    // Linux headless Chrome, which invokes the separate scroll-dismiss path.
+    // Dispatch the click at the already hit-tested target so this assertion
+    // isolates the capture-phase outside-click contract. The real coordinate
+    // touch path is covered by the mobile Rank outside-tap regression.
+    await page.evaluate(`(() => {
+      const point = ${JSON.stringify(fullscreenOutsideTap)};
+      const target = document.elementFromPoint(point.x, point.y);
+      target?.dispatchEvent(new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+        view: window
+      }));
+      return true;
+    })()`);
     await waitFor(page, `!document.querySelector('.movie-item__overflow[open]')`, 3000);
     const fullscreenDismissState = await page.evaluate(`(() => ({
       detailHidden: document.querySelector('#movie-detail')?.hidden,

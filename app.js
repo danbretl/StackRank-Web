@@ -4302,14 +4302,34 @@ sharePreview.addEventListener("keydown", (event) => {
 //     for image sets, prev/next nav + an "i/total CAPTION" counter + swipe.
 // `lightboxTrigger` is the element to return focus to on close.
 let lightboxTrigger = null;
+let lightboxTriggerFallback = null;
 let lightboxKind = "poster"; // "poster" | "share"
 let lightboxSwiped = false; // suppress the tap-to-zoom click after a swipe-nav
+
+function lightboxFocusFallback(trigger) {
+  if (lightboxKind !== "share" || !(trigger instanceof Element)) return null;
+  const card = trigger.closest(".share-preview-card");
+  if (card) return { kind: "card", pageIndex: card.dataset.pageIndex || "" };
+  if (trigger.closest(".share-preview-single")) return { kind: "single" };
+  return null;
+}
+
+function resolveLightboxFocusTarget(trigger, fallback) {
+  if (trigger && document.contains(trigger)) return trigger;
+  if (fallback?.kind === "single") return sharePreview.querySelector(".share-preview-single");
+  if (fallback?.kind === "card") {
+    return Array.from(sharePreview.querySelectorAll(".share-preview-card"))
+      .find((card) => card.dataset.pageIndex === fallback.pageIndex) || null;
+  }
+  return null;
+}
 
 function showLightbox(trigger) {
   shareLightbox.classList.remove("is-zoomed");
   shareLightbox.hidden = false;
   syncModalIsolation();
   lightboxTrigger = trigger || null;
+  lightboxTriggerFallback = lightboxFocusFallback(trigger);
   shareLightboxClose.focus();
 }
 
@@ -4325,8 +4345,11 @@ function closeLightbox({ restoreFocus = true } = {}) {
     updateShareSetPageChrome();
   }
   const trigger = lightboxTrigger;
+  const triggerFallback = lightboxTriggerFallback;
   lightboxTrigger = null;
-  if (restoreFocus && trigger && document.contains(trigger)) trigger.focus?.({ preventScroll: true });
+  lightboxTriggerFallback = null;
+  const focusTarget = resolveLightboxFocusTarget(trigger, triggerFallback);
+  if (restoreFocus && focusTarget) focusTarget.focus?.({ preventScroll: true });
 }
 
 // Set the image wrapper's aspect ratio from the current content so CSS can scale

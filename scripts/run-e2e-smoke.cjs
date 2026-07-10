@@ -2905,7 +2905,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=179" ||
+      empty.moduleSrc !== "app.js?v=180" ||
       empty.cssHref !== "styles.css?v=146" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
@@ -4255,6 +4255,14 @@ const testShareStudio = async ({ baseUrl }) => {
     ) {
       throw new Error(`Single-image lightbox state is wrong: ${JSON.stringify(singleLightbox)}`);
     }
+    const previewReplacement = await page.evaluate(`(() => {
+      const preview = document.querySelector('.share-preview-single');
+      if (!preview) return false;
+      const replacement = preview.cloneNode(true);
+      preview.replaceWith(replacement);
+      return !document.contains(preview) && document.contains(replacement);
+    })()`);
+    if (!previewReplacement) throw new Error("Could not replace the share preview focus target");
     await page.evaluate(`document.querySelector('#share-lightbox-image')?.focus(); true;`);
     await page.send("Input.dispatchKeyEvent", {
       type: "keyDown",
@@ -4269,7 +4277,7 @@ const testShareStudio = async ({ baseUrl }) => {
       code: "Escape",
     });
     await waitFor(page, `document.querySelector('#share-lightbox')?.hidden`, 2000);
-    await waitFor(page, `document.activeElement?.classList.contains('share-preview-single')`, 2000);
+    await waitFor(page, `document.activeElement?.classList.contains('share-preview-single')`, 3000);
 
     await page.evaluate(`document.querySelector('input[name="share-format"][value="set"]')?.click(); true;`);
     await waitFor(page, `document.querySelectorAll('#share-preview figure svg').length >= 1`, 5000);

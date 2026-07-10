@@ -50,10 +50,11 @@ import {
   packActionText as libPackActionText,
   filterPacks,
   countPackFilterStates,
+  selectHomepagePackEntries,
   sharePackCardStatus,
   summarizePacks,
   featuredPacks,
-} from "./lib/packs.js?v=4";
+} from "./lib/packs.js?v=5";
 import {
   getSharePickGroups,
   movieExportLine,
@@ -63,7 +64,7 @@ import {
   buildShareExportSections as libBuildShareExportSections,
   sectionsToMarkdown,
   sectionsToText,
-} from "./lib/share-export.js?v=3";
+} from "./lib/share-export.js?v=4";
 import {
   getShareDisplayName,
   possessiveName,
@@ -139,7 +140,7 @@ import {
 import {
   createAppShellState,
   switchAppDestination,
-} from "./lib/app-shell.js?v=1";
+} from "./lib/app-shell.js?v=2";
 import {
   DEFAULT_LIST_DESTINATION,
   createListDestinationState,
@@ -338,6 +339,7 @@ const packSectionSub = document.getElementById("pack-section-sub");
 const packRow = document.getElementById("pack-row");
 const packEmpty = document.getElementById("pack-empty");
 const packViewAll = document.getElementById("pack-view-all");
+const packRefresh = document.getElementById("pack-refresh");
 const detailOverlay = document.getElementById("movie-detail");
 const detailClose = document.getElementById("detail-close");
 const detailPoster = document.getElementById("detail-poster");
@@ -593,6 +595,7 @@ let suggestionSectionState = {
 let suggestionPacks = [];
 let packProgress = {};
 let packIndexByMovieId = new Map();
+let homepagePackSelectionSlugs = [];
 let currentPackSlug = null;
 let packDetailTrigger = null;
 let packDetailShowHandled = false;
@@ -723,7 +726,8 @@ const tmdbProxyUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_PROXY_PATH}` : "";
 const tmdbSuggestUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_SUGGEST_PATH}` : "";
 const tmdbImageUrl = supabaseEnabled ? `${SUPABASE_URL}${TMDB_IMAGE_PATH}` : "";
 const SUGGESTION_PAGE_SIZE = 3;
-const PACK_PANEL_SIZE = 3;
+const PACK_LAUNCHPAD_SIZE = 6;
+const STARTER_PACK_PANEL_SIZE = 3;
 const PACK_DISCOVERY_NUDGE_COOLDOWN_MS = 1000 * 60 * 30;
 const PACK_BROWSER_STATES = [
   { value: "all", label: "All" },
@@ -1643,8 +1647,11 @@ if (rankingMoveToggle) {
 
 if (rankingAddJump) {
   rankingAddJump.addEventListener("click", () => {
-    titleInput.scrollIntoView({ block: "center", behavior: "smooth" });
-    titleInput.focus({ preventScroll: true });
+    applyAppDestination("rank");
+    window.requestAnimationFrame(() => {
+      titleInput.scrollIntoView({ block: "center", behavior: "smooth" });
+      titleInput.focus({ preventScroll: true });
+    });
   });
 }
 
@@ -5136,7 +5143,7 @@ const undoController = createUndoController();
 const UNDO_TOAST_MS = 5000;
 
 // Show a toast whose "Undo" button reverses the action via `restore`.
-const setUndoableFeedback = (message, restore, duration = UNDO_TOAST_MS) => {
+const setUndoableFeedback = (message, restore, duration = UNDO_TOAST_MS, extraActions = []) => {
   const token = undoController.set({ label: message, restore, ttlMs: duration });
   setAddFeedback(message, duration, [
     {
@@ -5146,6 +5153,7 @@ const setUndoableFeedback = (message, restore, duration = UNDO_TOAST_MS) => {
         if (run) run();
       },
     },
+    ...extraActions,
   ]);
 };
 
@@ -5249,7 +5257,17 @@ const announcePlacement = (message, context, rankedMovie, origin) => {
     const originRef = origin ? { ...origin, movie: { ...origin.movie } } : null;
     setUndoableFeedback(message, () => undoAutoPackPlacement(movieRef, originRef));
   } else if (snap) {
-    setUndoableFeedback(message, () => restoreListsTo(snap));
+    const extraActions =
+      appShellState.destination === "rank"
+        ? [
+            {
+              label: "View ranking",
+              muted: true,
+              onClick: () => applyAppDestination("ranking"),
+            },
+          ]
+        : [];
+    setUndoableFeedback(message, () => restoreListsTo(snap), UNDO_TOAST_MS, extraActions);
   } else {
     setAddFeedback(message);
   }
@@ -5829,6 +5847,21 @@ const sortedPacksForDisplay = (includeCompleted = false) =>
       return a.sort_order - b.sort_order || a.title.localeCompare(b.title);
     });
 
+const homepagePacksForDisplay = ({ rotate = false } = {}) => {
+  const entries = suggestionPacks.map((pack) => ({ pack, stats: getPackStats(pack) }));
+  const unfinishedCount = entries.filter(({ stats }) => !stats.completed).length;
+  const expectedCount = Math.min(PACK_LAUNCHPAD_SIZE, unfinishedCount);
+  if (!rotate && homepagePackSelectionSlugs.length) {
+    const selected = homepagePackSelectionSlugs
+      .map((slug) => entries.find(({ pack }) => pack.slug === slug))
+      .filter((entry) => entry && !entry.stats.completed);
+    if (selected.length === expectedCount) return selected.map(({ pack }) => pack);
+  }
+  const selected = selectHomepagePackEntries(entries, { limit: PACK_LAUNCHPAD_SIZE });
+  homepagePackSelectionSlugs = selected.map(({ pack }) => pack.slug);
+  return selected.map(({ pack }) => pack);
+};
+
 const packStatusText = (pack, stats = getPackStats(pack)) => libPackStatusText(stats);
 
 const packActionText = (pack, stats = getPackStats(pack)) => libPackActionText(stats);
@@ -5974,16 +6007,17 @@ const formatPackCountsLabel = (short = false) => {
   return `${available} ${noun(available)} available`;
 };
 
-const renderPackPanel = () => {
+const renderPackPanel = ({ rotate = false } = {}) => {
   if (!packSection) return;
   packRow.innerHTML = "";
   const isEmptyFirstRun = getFirstRunExperience(ranking.length).state === "empty";
   const packs = isEmptyFirstRun
-    ? selectStarterPacks(suggestionPacks, { limit: PACK_PANEL_SIZE })
-    : sortedPacksForDisplay(false).slice(0, PACK_PANEL_SIZE);
+    ? selectStarterPacks(suggestionPacks, { limit: STARTER_PACK_PANEL_SIZE })
+    : homepagePacksForDisplay({ rotate });
   packEmpty.hidden = packs.length > 0;
   packSection.classList.toggle("is-first-run", isEmptyFirstRun);
-  packSectionTitle.textContent = isEmptyFirstRun ? "Start with a movie pack" : "Suggested movie packs";
+  packSectionTitle.textContent = isEmptyFirstRun ? "Start with a movie pack" : "Fresh movie packs";
+  packRefresh.hidden = isEmptyFirstRun || packs.length === 0;
   if (!suggestionPacks.length) {
     packSectionSub.textContent = isEmptyFirstRun
       ? "Starter packs will appear here after they load."
@@ -5996,10 +6030,10 @@ const renderPackPanel = () => {
     packSectionSub.innerHTML = "";
     const full = document.createElement("span");
     full.className = "pack-section-sub__full";
-    full.textContent = formatPackCountsLabel(false);
+    full.textContent = `${formatPackCountsLabel(false)} · fresh mix each visit`;
     const short = document.createElement("span");
     short.className = "pack-section-sub__short";
-    short.textContent = formatPackCountsLabel(true);
+    short.textContent = `Fresh mix · ${formatPackCountsLabel(true)}`;
     packSectionSub.append(full, short);
   }
   packs.forEach((pack) => {
@@ -10513,6 +10547,11 @@ watchListEl.addEventListener("click", handleQueueInteraction);
 notInterestedListEl.addEventListener("click", handleQueueInteraction);
 skipPackMovieButton.addEventListener("click", skipCurrentPackMovie);
 packViewAll.addEventListener("click", () => openAllPacks());
+packRefresh.addEventListener("click", () => {
+  homepagePackSelectionSlugs = [];
+  renderPackPanel({ rotate: true });
+  setAddFeedback("Fresh movie packs ready.", 1800);
+});
 packBrowserFilterToggle.addEventListener("click", () => {
   setPackBrowserFiltersExpanded(!packBrowserFiltersExpanded);
 });
@@ -10875,8 +10914,9 @@ const startRankingFromSelection = () => {
   }
   const movie = selectedSuggestion;
   selectedSuggestion = null;
-  // Adding from the homepage form: scroll to where the movie lands in the list.
-  startRankingMovie(movie, { type: "search" }, { scrollToPlacement: true });
+  // Search is part of the Rank launchpad. Return there after placement so a
+  // fresh pack and movie prompt can immediately invite the next ranking.
+  startRankingMovie(movie, { type: "search" }, { scrollToPlacement: false });
 };
 
 const startRankingFromSuggestion = (movie, section = "unknown") => {

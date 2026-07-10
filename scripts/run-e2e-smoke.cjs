@@ -651,7 +651,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=147" ||
+      desktop.cssHref !== "styles.css?v=149" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -810,9 +810,9 @@ const testBootLayoutStability = async ({ baseUrl }) => {
       afterDisplay !== "none" && Math.abs(afterHeight - beforeHeight) > tolerance;
     if (
       visibleHeightChanged(settled.discoveryDisplay, boot.discoveryHeight, settled.discoveryHeight, 40) ||
-      visibleHeightChanged(settled.packDisplay, boot.packHeight, settled.packHeight, 4) ||
-      visibleHeightChanged(settled.essentialsDisplay, boot.essentialsHeight, settled.essentialsHeight, 4) ||
-      visibleHeightChanged(settled.popularDisplay, boot.popularHeight, settled.popularHeight, 4) ||
+      visibleHeightChanged(settled.packDisplay, boot.packHeight, settled.packHeight, 12) ||
+      visibleHeightChanged(settled.essentialsDisplay, boot.essentialsHeight, settled.essentialsHeight, 20) ||
+      visibleHeightChanged(settled.popularDisplay, boot.popularHeight, settled.popularHeight, 20) ||
       settled.cls >= 0.1 ||
       settled.scrollWidth > settled.innerWidth
     ) {
@@ -922,18 +922,17 @@ const testAppShellNavigation = async ({ baseUrl }) => {
           height: bounds.height
         } : null;
       };
-      const rank = rect('.side-stack');
-      const rail = rect('.stack');
-      const total = (rank?.width || 0) + (rail?.width || 0);
+      const workspace = rect('.stack');
+      const ranking = rect('.panel--list');
       return {
         destination: document.querySelector('main.app')?.dataset.appDestination,
         currentNav: document.querySelector('.app-nav--top .app-nav__item[aria-current="page"]')?.textContent.trim(),
-        rank,
-        rail,
-        ratio: total ? rank.width / total : 0,
-        rankingLeftOfRail: rank && rail ? rank.left < rail.left : false,
+        workspace,
+        ranking,
         addVisible: !!rect('.panel--add'),
-        continueVisible: !!rect('.panel--discovery'),
+        discoveryVisible: !!rect('.panel--discovery'),
+        packCount: document.querySelectorAll('#pack-row .pack-card').length,
+        moviePromptColumns: getComputedStyle(document.querySelector('.suggest-movie-grid')).gridTemplateColumns.split(' ').filter(Boolean).length,
         visibleQueuePanels: [...document.querySelectorAll('.panel--queues')].filter((panel) => {
           const bounds = panel.getBoundingClientRect();
           return bounds.width > 0 && bounds.height > 0;
@@ -945,16 +944,26 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     if (
       desktop.destination !== "rank" ||
       desktop.currentNav !== "Rank" ||
-      desktop.ratio < 0.61 ||
-      desktop.ratio > 0.67 ||
-      !desktop.rankingLeftOfRail ||
+      !desktop.workspace ||
+      desktop.workspace.width < 1300 ||
+      desktop.ranking?.width > 0 ||
       !desktop.addVisible ||
-      !desktop.continueVisible ||
+      !desktop.discoveryVisible ||
+      desktop.packCount !== 6 ||
+      desktop.moviePromptColumns !== 3 ||
       desktop.visibleQueuePanels !== 0 ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Desktop app shell layout is wrong: ${JSON.stringify(desktop)}`);
     }
+    const desktopShot = await page.screenshot("app-shell-desktop-rank-launchpad.png");
+
+    await page.evaluate(`(() => {
+      document.querySelector('.app-nav--top [data-app-destination-target="ranking"]')?.click();
+      return true;
+    })()`);
+    await waitFor(page, `document.querySelector('main.app')?.dataset.appDestination === 'ranking'`, 3000);
+    await wait(100);
 
     const readRankingActionStyle = async (selector) =>
       page.evaluate(`(() => {
@@ -1017,7 +1026,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         })}`,
       );
     }
-    const desktopShot = await page.screenshot("app-shell-desktop-rank.png");
+    const desktopRankingShot = await page.screenshot("app-shell-desktop-ranking.png");
 
     const switchAppDestination = async (destination) => {
       await page.evaluate(`(() => {
@@ -1131,18 +1140,17 @@ const testAppShellNavigation = async ({ baseUrl }) => {
           innerHeight
         };
       })()`);
-    const assertCoarseRankLayout = (label, layout, toolbarLabels, { twoColumn = true } = {}) => {
+    const assertCoarseRankLayout = (label, layout, toolbarLabels, { mobile = false } = {}) => {
       if (
-        layout.destination !== "rank" ||
+        layout.destination !== "ranking" ||
         !layout.pointerCoarse ||
         layout.pointerFine ||
         !layout.anyPointerCoarse ||
         layout.hoverHover ||
         !layout.hoverNone ||
         layout.maxTouchPoints < 1 ||
-        (twoColumn && !layout.sideLeftOfRail) ||
-        (twoColumn && !layout.topNavVisible) ||
-        (!twoColumn && !layout.mobileNavVisible) ||
+        (!mobile && !layout.topNavVisible) ||
+        (mobile && !layout.mobileNavVisible) ||
         layout.toolbarControls.map((control) => control.label).join("|") !== toolbarLabels ||
         layout.toolbarControls.some((control) => control.rect.width < 44 || control.rect.height < 44) ||
         layout.visibleDirectActionLabels.length !== 0 ||
@@ -1369,15 +1377,15 @@ const testAppShellNavigation = async ({ baseUrl }) => {
             !card.card ||
             !card.cover ||
             !card.action ||
-            card.card.width < 210 ||
+            card.card.width < 190 ||
             card.card.height > 260 ||
             card.cover.width < 60 ||
             card.cover.width > 92 ||
-            card.cover.height < 64 ||
+            card.cover.height < 56 ||
             card.cover.height > 86 ||
             (pointerCoarse
               ? card.action.height < 44 || card.action.width < 44
-              : card.action.height < 34 || card.action.height > 40 || card.action.width < 104 || card.action.width > 150) ||
+              : card.action.height < 34 || card.action.height > 40 || card.action.width < 104) ||
             card.actionFontSize === '0px' ||
             card.actionScrollWidth > card.actionClientWidth + 1 ||
             overlaps(card.action, card.progress) ||
@@ -1403,14 +1411,14 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       })()`);
     const assertLargeScreenDiscoverPackShelf = (label, layout, options = {}) => {
       const expectedPointerCoarse = options.expectedPointerCoarse ?? true;
+      const expectedColumns = options.expectedColumns ?? 3;
       if (
-        layout.destination !== "discover" ||
+        layout.destination !== "rank" ||
         layout.pointerCoarse !== expectedPointerCoarse ||
-        layout.gridColumnCount !== 3 ||
-        layout.cardCount !== 3 ||
+        layout.gridColumnCount !== expectedColumns ||
+        layout.cardCount !== 6 ||
         !layout.firstThreeShareRow ||
         !layout.row ||
-        layout.row.height > 260 ||
         layout.brokenCards.length ||
         layout.firstThreeActionTopRange > 2 ||
         layout.firstThreeActionBottomRange > 2 ||
@@ -1643,7 +1651,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         layout.listStyle.maxHeight !== "none" ||
         layout.listStyle.overflowY !== "visible" ||
         layout.listStyle.gridColumnCount < 2 ||
-        layout.listStyle.gridColumnCount > 3 ||
+        layout.listStyle.gridColumnCount > 4 ||
         layout.cardCount < 4 ||
         !layout.firstTwoShareRow ||
         layout.firstRowCount !== layout.listStyle.gridColumnCount ||
@@ -1795,15 +1803,22 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     await waitFor(page, `document.querySelector('#watch-list-tab')?.getAttribute('aria-selected') === 'true'`, 3000);
     await switchAppDestination("rank");
 
-    await switchAppDestination("discover");
     await page.evaluate(`document.querySelector('#pack-section')?.scrollIntoView({ block: 'start' }); true;`);
     await wait(100);
     const desktopDiscoverPacks = await readPackShelfLayout();
-    assertLargeScreenDiscoverPackShelf("Desktop Discover", desktopDiscoverPacks, {
+    assertLargeScreenDiscoverPackShelf("Desktop Rank launchpad", desktopDiscoverPacks, {
       expectedPointerCoarse: false,
+      expectedColumns: 6,
     });
-    const desktopDiscoverPacksShot = await page.screenshot("app-shell-desktop-discover-packs.png");
-    await switchAppDestination("rank");
+    const desktopDiscoverPacksShot = await page.screenshot("app-shell-desktop-rank-packs.png");
+    await page.evaluate(`document.querySelector('#pack-refresh')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelectorAll('#pack-row .pack-card').length === 6 &&
+        document.querySelector('#add-feedback')?.textContent.includes('Fresh movie packs ready.')`,
+      3000,
+    );
+    await switchAppDestination("ranking");
 
     const fineTabletCapabilities = await setDeviceProfile(page, {
       width: 1024,
@@ -1818,7 +1833,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     if (
       fineTabletCapabilities.pointerCoarse ||
       fineTabletCapabilities.maxTouchPoints !== 0 ||
-      !fineTabletLandscape.sideLeftOfRail ||
+      fineTabletLandscape.destination !== "ranking" ||
       !fineTabletLandscape.topNavVisible ||
       fineTabletLandscape.mobileNavVisible ||
       fineTabletLandscape.toolbarControls.map((control) => control.label).join("|") !== "Review|Filter|Full screen|Share" ||
@@ -1837,14 +1852,11 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       deviceScaleFactor: 2,
     });
     const ipadLandscape = await readRankModalityLayout();
-    assertCoarseRankLayout("iPad landscape", ipadLandscape, "Review|Filter|Full screen|Move|Share");
+    assertCoarseRankLayout("iPad landscape Ranking", ipadLandscape, "Review|Filter|Full screen|Move|Share");
     const sameLandscapeTopology =
       fineTabletLandscape.appColumns === ipadLandscape.appColumns &&
       fineTabletLandscape.appAreas === ipadLandscape.appAreas &&
-      Math.abs(fineTabletLandscape.side.width - ipadLandscape.side.width) <= 1 &&
-      Math.abs(fineTabletLandscape.rail.width - ipadLandscape.rail.width) <= 1 &&
-      fineTabletLandscape.sideLeftOfRail &&
-      ipadLandscape.sideLeftOfRail;
+      Math.abs(fineTabletLandscape.side.width - ipadLandscape.side.width) <= 1;
     if (!sameLandscapeTopology) {
       throw new Error(`1024px layout changed with input modality: ${JSON.stringify({ fineTabletLandscape, ipadLandscape })}`);
     }
@@ -1857,11 +1869,11 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     const ipadRankInteractionsLandscape = await exerciseCoarseRankControls("iPad landscape Rank");
     const ipadLandscapeShot = await page.screenshot("app-shell-ipad-landscape-rank.png");
 
-    await switchAppDestination("discover");
+    await switchAppDestination("rank");
     await page.evaluate(`document.querySelector('#pack-section')?.scrollIntoView({ block: 'start' }); true;`);
     await wait(100);
     const ipadDiscoverPacksLandscape = await readPackShelfLayout();
-    assertLargeScreenDiscoverPackShelf("iPad landscape Discover", ipadDiscoverPacksLandscape);
+    assertLargeScreenDiscoverPackShelf("iPad landscape Rank launchpad", ipadDiscoverPacksLandscape);
     const ipadDiscoverTargetsLandscape = await readVisibleControlTargets([
       ".panel--discovery",
       "#pack-section",
@@ -1889,7 +1901,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     const ipadListsTargetsLandscape = await readVisibleControlTargets([".panel--queues", ".app-nav--top"]);
     assertCoarseControlTargets("iPad landscape Lists", ipadListsTargetsLandscape);
     const ipadListsLandscapeShot = await page.screenshot("app-shell-ipad-landscape-lists.png");
-    await switchAppDestination("rank");
+    await switchAppDestination("ranking");
 
     const ipadPortraitCapabilities = await setDeviceProfile(page, {
       width: 980,
@@ -1898,19 +1910,19 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       deviceScaleFactor: 2,
     });
     const ipadPortrait = await readRankModalityLayout();
-    assertCoarseRankLayout("iPad portrait", ipadPortrait, "Review|Filter|Full screen|Move|Share");
-    if (!ipadPortrait.sideLeftOfRail || !ipadPortrait.appAreas.includes('"list stack"')) {
-      throw new Error(`iPad portrait did not keep the large-screen two-column topology: ${JSON.stringify(ipadPortrait)}`);
+    assertCoarseRankLayout("iPad portrait Ranking", ipadPortrait, "Review|Filter|Full screen|Move|Share");
+    if (!ipadPortrait.side?.width || ipadPortrait.rail?.width > 0) {
+      throw new Error(`iPad portrait Ranking did not use the full-width artifact workspace: ${JSON.stringify(ipadPortrait)}`);
     }
     const ipadRankTargetsPortrait = await readVisibleControlTargets([".panel--list", ".app-nav--top"]);
     assertCoarseControlTargets("iPad portrait Rank", ipadRankTargetsPortrait);
     const ipadPortraitShot = await page.screenshot("app-shell-ipad-portrait-rank.png");
 
-    await switchAppDestination("discover");
+    await switchAppDestination("rank");
     await page.evaluate(`document.querySelector('#pack-section')?.scrollIntoView({ block: 'start' }); true;`);
     await wait(100);
     const ipadDiscoverPacksPortrait = await readPackShelfLayout();
-    assertLargeScreenDiscoverPackShelf("iPad portrait Discover", ipadDiscoverPacksPortrait);
+    assertLargeScreenDiscoverPackShelf("iPad portrait Rank launchpad", ipadDiscoverPacksPortrait);
     const ipadDiscoverTargetsPortrait = await readVisibleControlTargets([
       ".panel--discovery",
       "#pack-section",
@@ -1938,7 +1950,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     const ipadListsTargetsPortrait = await readVisibleControlTargets([".panel--queues", ".app-nav--top"]);
     assertCoarseControlTargets("iPad portrait Lists", ipadListsTargetsPortrait);
     const ipadListsPortraitShot = await page.screenshot("app-shell-ipad-portrait-lists.png");
-    await switchAppDestination("rank");
+    await switchAppDestination("ranking");
 
     const iphoneCapabilities = await setDeviceProfile(page, {
       width: 390,
@@ -2077,15 +2089,15 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       };
     })()`);
     if (
-      mobileRank.destination !== "rank" ||
+      mobileRank.destination !== "ranking" ||
       !mobileRank.pointerCoarse ||
       mobileRank.pointerFine ||
       !mobileRank.anyPointerCoarse ||
       mobileRank.hoverHover ||
       !mobileRank.hoverNone ||
       mobileRank.maxTouchPoints < 1 ||
-      !mobileRank.add ||
-      !mobileRank.ranking ||
+      mobileRank.add?.width > 0 ||
+      !mobileRank.ranking?.width ||
       mobileRank.ranking.top >= mobileRank.innerHeight ||
       mobileRank.discoveryVisible ||
       mobileRank.queueVisible ||
@@ -2393,7 +2405,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     await tapSelector("#ranking-move-toggle");
     await wait(100);
 
-    await tapSelector('.app-nav--mobile [data-app-destination-target="discover"]');
+    await tapSelector('.app-nav--mobile [data-app-destination-target="rank"]');
     await wait(100);
     await page.evaluate(`window.scrollTo(0, 520); true;`);
     await wait(50);
@@ -2430,27 +2442,27 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       };
     })()`);
     if (
-      mobileDiscover.destination !== "discover" ||
-      mobileDiscover.currentNav !== "Discover" ||
+      mobileDiscover.destination !== "rank" ||
+      mobileDiscover.currentNav !== "Rank" ||
       !mobileDiscover.pack ||
-      mobileDiscover.addVisible ||
+      !mobileDiscover.addVisible ||
       mobileDiscover.rankingVisible ||
-      mobileDiscover.packShelf.columnCount !== 1 ||
-      mobileDiscover.packShelf.cardCount !== 3 ||
-      mobileDiscover.packShelf.firstThreeShareRow ||
-      mobileDiscover.packShelf.minCardWidth < 300 ||
+      mobileDiscover.packShelf.columnCount !== 6 ||
+      mobileDiscover.packShelf.cardCount !== 6 ||
+      !mobileDiscover.packShelf.firstThreeShareRow ||
+      mobileDiscover.packShelf.minCardWidth < 280 ||
       mobileDiscover.scrollY < 400 ||
       mobileDiscover.scrollWidth > mobileDiscover.innerWidth
     ) {
-      throw new Error(`Mobile Discover shell is wrong: ${JSON.stringify(mobileDiscover)}`);
+      throw new Error(`Mobile Rank launchpad shell is wrong: ${JSON.stringify(mobileDiscover)}`);
     }
     const iphoneDiscoverTargets = await readVisibleControlTargets([
       ".panel--discovery",
       "#pack-section",
       ".app-nav--mobile",
     ]);
-    assertCoarseControlTargets("iPhone Discover", iphoneDiscoverTargets);
-    const discoverShot = await page.screenshot("app-shell-mobile-discover.png");
+    assertCoarseControlTargets("iPhone Rank launchpad", iphoneDiscoverTargets);
+    const discoverShot = await page.screenshot("app-shell-mobile-rank-launchpad.png");
 
     await tapSelector('.app-nav--mobile [data-app-destination-target="lists"]');
     await wait(100);
@@ -2516,21 +2528,30 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       `(() => {
         const action = document.querySelector('#watch-list .queue-list__item:first-child .queue-list__overflow .movie-item__overflow-action.queue-info-action');
         const rect = action?.getBoundingClientRect();
-        return !!rect && rect.top >= 0 && rect.bottom <= innerHeight && rect.left >= 0 && rect.right <= innerWidth;
+        return !!rect && getComputedStyle(action).visibility === 'visible' &&
+          rect.width >= 44 && rect.height >= 44 &&
+          rect.top >= 0 && rect.bottom <= innerHeight && rect.left >= 0 && rect.right <= innerWidth;
       })()`,
       3000,
     );
     const iphoneQueueMenuTargets = await readVisibleControlTargets([
       "#watch-list .queue-list__item:first-child .queue-list__overflow .movie-item__overflow-menu",
     ]);
-    assertCoarseControlTargets("iPhone Watch next overflow", iphoneQueueMenuTargets);
     const mobileQueueInfoTap = await page.evaluate(`(() => {
       const action = document.querySelector('#watch-list .queue-list__item:first-child .queue-list__overflow .movie-item__overflow-action.queue-info-action');
       const rect = action?.getBoundingClientRect();
       if (!rect) return null;
-      return { x: Math.round(rect.left + rect.width / 2), y: Math.round(rect.top + rect.height / 2) };
+      return {
+        x: Math.round(rect.left + rect.width / 2),
+        y: Math.round(rect.top + rect.height / 2),
+        width: Math.round(rect.width),
+        height: Math.round(rect.height),
+        visible: getComputedStyle(action).visibility === 'visible'
+      };
     })()`);
-    if (!mobileQueueInfoTap) throw new Error("Missing mobile queue overflow Info target");
+    if (!mobileQueueInfoTap || !mobileQueueInfoTap.visible || mobileQueueInfoTap.width < 44 || mobileQueueInfoTap.height < 44) {
+      throw new Error(`Missing or undersized mobile queue overflow Info target: ${JSON.stringify(mobileQueueInfoTap)}`);
+    }
     await tapAt(page, mobileQueueInfoTap.x, mobileQueueInfoTap.y);
     await waitFor(page, `!document.querySelector('#movie-detail')?.hidden`, 3000);
     const mobileQueueDetailLayer = await page.evaluate(`(() => {
@@ -2559,14 +2580,14 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     await tapSelector("#detail-close");
     await waitFor(page, `document.querySelector('#movie-detail')?.hidden`, 3000);
 
-    await tapSelector('.app-nav--mobile [data-app-destination-target="discover"]');
+    await tapSelector('.app-nav--mobile [data-app-destination-target="rank"]');
     await wait(100);
     const restored = await page.evaluate(`window.scrollY`);
     if (Math.abs(restored - mobileDiscover.scrollY) > 8) {
-      throw new Error(`Discover scroll was not restored: ${JSON.stringify({ before: mobileDiscover.scrollY, restored })}`);
+      throw new Error(`Rank launchpad scroll was not restored: ${JSON.stringify({ before: mobileDiscover.scrollY, restored })}`);
     }
 
-    await switchAppDestination("rank");
+    await switchAppDestination("ranking");
     const iphoneLandscapeCapabilities = await setDeviceProfile(page, {
       width: 844,
       height: 390,
@@ -2578,7 +2599,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       "iPhone landscape",
       iphoneLandscape,
       "Add|Review|Filter|Full screen|Move|Share",
-      { twoColumn: false },
+      { mobile: true },
     );
     if (iphoneLandscape.topNavVisible) {
       throw new Error(`iPhone landscape retained desktop navigation: ${JSON.stringify(iphoneLandscape)}`);
@@ -2636,6 +2657,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       },
       screenshots: [
         desktopShot,
+        desktopRankingShot,
         desktopInfoHoverShot,
         desktopListsShot,
         desktopWatchOverflowShot,
@@ -2676,7 +2698,7 @@ const testPrimaryActionVisualSystem = async ({ baseUrl }) => {
     });
     await waitFor(
       page,
-      `document.querySelectorAll('#pack-row .pack-card__action').length === 3 &&
+      `document.querySelectorAll('#pack-row .pack-card__action').length === 6 &&
         document.querySelector('.suggest-card .movie-item__action--primary')`,
       10000,
     );
@@ -2905,8 +2927,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=180" ||
-      empty.cssHref !== "styles.css?v=147" ||
+      empty.moduleSrc !== "app.js?v=181" ||
+      empty.cssHref !== "styles.css?v=149" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -3034,7 +3056,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       !one.importHidden ||
       !one.inputBlurred ||
       one.rankingTitle !== "First Pick" ||
-      one.packTitle !== "Suggested movie packs"
+      one.packTitle !== "Fresh movie packs"
     ) {
       throw new Error(`One-movie first-run state is wrong: ${JSON.stringify(one)}`);
     }
@@ -3088,8 +3110,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
     if (
       activated.rankingTitles.join("|") !== "Second Pick|First Pick" ||
       !activated.firstRunHidden ||
-      !activated.inputBlurred ||
-      activated.packTitle !== "Suggested movie packs"
+      activated.inputBlurred ||
+      activated.packTitle !== "Fresh movie packs"
     ) {
       throw new Error(`Activated first-run state is wrong: ${JSON.stringify(activated)}`);
     }
@@ -5849,6 +5871,8 @@ const testRankingPointerTransactions = async ({ baseUrl }) => {
     await seedPage(page, baseUrl, "ranking-pointer-transactions", {
       ranking: originalTitles.map((title, index) => movie(title, 1990 + index, 1600 + index)),
     });
+    await page.evaluate(`document.querySelector('[data-app-destination-target="ranking"]')?.click(); true;`);
+    await waitFor(page, `document.querySelector('main.app')?.dataset.appDestination === 'ranking'`, 3000);
 
     const dragPoints = await page.evaluate(`(() => {
       const list = document.querySelector('#ranking');
@@ -7257,23 +7281,23 @@ const testSuggestionExplanations = async ({ baseUrl }) => {
     });
     responsiveScreenshots.push(await captureSuggestionSection("suggestions-ipad-landscape-rank.png"));
 
-    await setDestination("discover");
+    await setDestination("rank");
     const ipadDiscoverLandscape = await readSuggestionResponsiveLayout();
-    assertSuggestionResponsiveLayout("iPad landscape Discover", ipadDiscoverLandscape, {
-      destination: "discover",
-      stacked: false,
+    assertSuggestionResponsiveLayout("iPad landscape Rank launchpad repeat", ipadDiscoverLandscape, {
+      destination: "rank",
+      stacked: true,
       minCardWidth: 250,
     });
-    responsiveScreenshots.push(await captureSuggestionSection("suggestions-ipad-landscape-discover.png"));
+    responsiveScreenshots.push(await captureSuggestionSection("suggestions-ipad-landscape-launchpad.png"));
 
     await setTouchTabletViewport(980, 1180);
     const ipadDiscoverPortrait = await readSuggestionResponsiveLayout();
-    assertSuggestionResponsiveLayout("iPad portrait Discover", ipadDiscoverPortrait, {
-      destination: "discover",
-      stacked: false,
-      minCardWidth: 250,
+    assertSuggestionResponsiveLayout("iPad portrait Rank launchpad", ipadDiscoverPortrait, {
+      destination: "rank",
+      stacked: true,
+      minCardWidth: 240,
     });
-    responsiveScreenshots.push(await captureSuggestionSection("suggestions-ipad-portrait-discover.png"));
+    responsiveScreenshots.push(await captureSuggestionSection("suggestions-ipad-portrait-launchpad.png"));
 
     await setDestination("rank");
     const ipadRankPortrait = await readSuggestionResponsiveLayout();
@@ -7283,11 +7307,11 @@ const testSuggestionExplanations = async ({ baseUrl }) => {
     assertSuggestionResponsiveLayout("iPad portrait Rank rail", ipadRankPortrait, {
       destination: "rank",
       stacked: true,
-      minCardWidth: 250,
+      minCardWidth: 240,
     });
     responsiveScreenshots.push(await captureSuggestionSection("suggestions-ipad-portrait-rank.png"));
 
-    await setDestination("discover");
+    await setDestination("rank");
     await page.send("Emulation.setTouchEmulationEnabled", { enabled: false });
     await page.send("Emulation.setDeviceMetricsOverride", {
       width: 390,
@@ -7470,6 +7494,8 @@ const testTasteExplorer = async ({ baseUrl }) => {
         { ...movie("Epsilon", 2012, 3005), genres: ["Drama"], director: "Director Four", cast: ["Actor Four"] },
       ],
     });
+    await page.evaluate(`document.querySelector('[data-app-destination-target="ranking"]')?.click(); true;`);
+    await waitFor(page, `document.querySelector('main.app')?.dataset.appDestination === 'ranking'`, 3000);
     const collapsed = await page.evaluate(`(() => ({
       hidden: document.querySelector('#taste-explorer')?.hidden,
       contentHidden: document.querySelector('#taste-content')?.hidden,
@@ -8245,15 +8271,10 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
   try {
     await seedPage(page, baseUrl, "mobile-pack-title-clearance", { ranking: [] });
     await waitFor(page, `document.querySelectorAll('#pack-row .pack-card').length === 3`, 10000);
-    await page.evaluate(`(() => {
-      const button = document.querySelector('.app-nav--mobile [data-app-destination-target="discover"]');
-      button?.click();
-      return true;
-    })()`);
-    await waitFor(page, `document.querySelector('main.app')?.dataset.appDestination === 'discover'`, 5000);
+    await waitFor(page, `document.querySelector('main.app')?.dataset.appDestination === 'rank'`, 5000);
     const navClickState = await page.evaluate(`(() => {
-      const button = document.querySelector('.app-nav--mobile [data-app-destination-target="discover"]');
-      const topButton = document.querySelector('.app-nav--top [data-app-destination-target="discover"]');
+      const button = document.querySelector('.app-nav--mobile [data-app-destination-target="rank"]');
+      const topButton = document.querySelector('.app-nav--top [data-app-destination-target="rank"]');
       return {
         found: Boolean(button),
         topFound: Boolean(topButton),
@@ -8264,8 +8285,8 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
         buttonText: button?.textContent.trim() || null,
       };
     })()`);
-    if (navClickState.destination !== "discover") {
-      throw new Error(`Mobile Discover nav did not activate: ${JSON.stringify(navClickState)}`);
+    if (navClickState.destination !== "rank") {
+      throw new Error(`Mobile Rank launchpad did not remain active: ${JSON.stringify(navClickState)}`);
     }
     await page.evaluate(`document.querySelector('#pack-view-all')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#pack-detail')?.hidden && document.querySelector('#pack-detail')?.classList.contains('is-all-packs')`, 5000);

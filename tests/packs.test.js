@@ -9,6 +9,7 @@ import {
   packFilterState,
   filterPacks,
   countPackFilterStates,
+  selectHomepagePackEntries,
   sharePackCardStatus,
   summarizePacks,
   featuredPacks,
@@ -222,6 +223,51 @@ test("countPackFilterStates returns mutually exclusive state totals", () => {
     completed: 1,
     updated: 0,
   });
+});
+
+test("selectHomepagePackEntries rotates unfinished packs while preserving continuation and category variety", () => {
+  const makeEntry = (slug, category, handled = [], progress = {}) => {
+    const p = pack(slug, [1, 2, 3, 4], { category });
+    return { pack: p, stats: computePackStats(p, handledFrom({ ranked: handled }), progress) };
+  };
+  const entries = [
+    makeEntry("active-a", "Director", [1], { startedAt: "x" }),
+    makeEntry("active-b", "Franchise", [1, 2], { startedAt: "x" }),
+    makeEntry("active-c", "Genre", [1], { startedAt: "x" }),
+    makeEntry("head-start", "Awards", [1]),
+    makeEntry("fresh-era", "Era"),
+    makeEntry("fresh-country", "Country"),
+    makeEntry("fresh-actor", "Actor"),
+    makeEntry("fresh-seasonal", "Seasonal"),
+    makeEntry("done", "Director", [1, 2, 3, 4]),
+  ];
+  const samples = [0.83, 0.16, 0.71, 0.28, 0.62, 0.39, 0.94, 0.05, 0.56, 0.44, 0.76, 0.22];
+  let cursor = 0;
+  const chosen = selectHomepagePackEntries(entries, {
+    limit: 6,
+    random: () => samples[cursor++ % samples.length],
+  });
+  const slugs = chosen.map(({ pack: p }) => p.slug);
+  const categories = new Set(chosen.map(({ pack: p }) => p.category));
+
+  assert.equal(chosen.length, 6);
+  assert.ok(!slugs.includes("done"), "completed packs stay off the homepage");
+  assert.ok(chosen.some(({ stats }) => stats.started), "at least one explicit continuation remains visible");
+  assert.ok(chosen.filter(({ stats }) => stats.started).length <= 2, "continuation work cannot lock the whole shelf");
+  assert.ok(categories.size >= 5, "the first shelf favors distinct pack categories");
+});
+
+test("selectHomepagePackEntries produces different fresh shelves for different visit randomness", () => {
+  const entries = Array.from({ length: 12 }, (_, index) => {
+    const p = pack(`fresh-${index}`, [index + 1], { category: `Category ${index % 8}` });
+    return { pack: p, stats: computePackStats(p, handledFrom({}), {}) };
+  });
+  const first = selectHomepagePackEntries(entries, { limit: 6, random: () => 0.12 }).map(({ pack: p }) => p.slug);
+  const second = selectHomepagePackEntries(entries, { limit: 6, random: () => 0.87 }).map(({ pack: p }) => p.slug);
+
+  assert.notDeepEqual(first, second);
+  assert.equal(new Set(first).size, 6);
+  assert.equal(new Set(second).size, 6);
 });
 
 test("summarizePacks: counts, distinct ids, top category, engaged", () => {

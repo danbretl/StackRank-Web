@@ -58,7 +58,7 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="styles.css?v=147" />
+    <link rel="stylesheet" href="styles.css?v=149" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -159,7 +159,7 @@
           <button class="app-nav__item is-active" type="button" data-app-destination-target="rank" aria-current="page">
             Rank
           </button>
-          <button class="app-nav__item" type="button" data-app-destination-target="discover">Discover</button>
+          <button class="app-nav__item" type="button" data-app-destination-target="ranking">Ranking</button>
           <button class="app-nav__item" type="button" data-app-destination-target="lists">Lists</button>
         </nav>
         <div class="topbar__actions">
@@ -246,7 +246,7 @@
       <div class="stack">
         <section class="panel panel--focus panel--add" aria-live="polite">
           <div class="panel__header">
-            <h2>Add to your ranking</h2>
+            <h2>Rank another movie</h2>
           </div>
           <form id="movie-form" class="form form--center">
             <label class="field field--center">
@@ -346,7 +346,7 @@
 
         <section class="panel panel--discovery" id="discover-panel" aria-labelledby="discover-title">
           <div class="panel__header panel__header--discovery">
-            <h2 id="discover-title">Continue ranking</h2>
+            <h2 id="discover-title">Find something to rank</h2>
           </div>
           <div class="suggest-panel" id="suggest-panel">
             <div class="suggest-section suggest-section--packs" id="pack-section">
@@ -355,15 +355,26 @@
                   <div class="suggest-title" id="pack-section-title">Suggested movie packs</div>
                   <div class="pack-section-sub" id="pack-section-sub">Packs to work through.</div>
                 </div>
-                <button class="pack-view-all" id="pack-view-all" type="button">View all packs</button>
+                <div class="suggest-header__actions">
+                  <button class="suggest-button" id="pack-refresh" type="button" aria-label="Refresh suggested movie packs">
+                    <svg class="ui-icon" aria-hidden="true" focusable="false">
+                      <use href="#icon-refresh"></use>
+                    </svg>
+                  </button>
+                  <button class="pack-view-all" id="pack-view-all" type="button">View all packs</button>
+                </div>
               </div>
               <div class="pack-row" id="pack-row">
+                <div class="pack-card pack-card--loading" aria-hidden="true"></div>
+                <div class="pack-card pack-card--loading" aria-hidden="true"></div>
+                <div class="pack-card pack-card--loading" aria-hidden="true"></div>
                 <div class="pack-card pack-card--loading" aria-hidden="true"></div>
                 <div class="pack-card pack-card--loading" aria-hidden="true"></div>
                 <div class="pack-card pack-card--loading" aria-hidden="true"></div>
               </div>
               <div class="suggest-empty" id="pack-empty" hidden>Packs will appear here after they load.</div>
             </div>
+            <div class="suggest-movie-grid" aria-label="Suggested movies">
             <div class="suggest-section" id="suggest-related-section" hidden>
               <div class="suggest-header">
                 <div class="suggest-copy">
@@ -457,6 +468,7 @@
                   </div>
                 </div>
               </div>
+            </div>
             </div>
           </div>
         </section>
@@ -1412,11 +1424,11 @@
           </svg>
           <span>Rank</span>
         </button>
-        <button class="app-nav__item" type="button" data-app-destination-target="discover">
+        <button class="app-nav__item" type="button" data-app-destination-target="ranking">
           <svg class="ui-icon" aria-hidden="true" focusable="false">
-            <use href="#icon-search"></use>
+            <use href="#icon-grid"></use>
           </svg>
-          <span>Discover</span>
+          <span>Ranking</span>
         </button>
         <button class="app-nav__item" type="button" data-app-destination-target="lists">
           <svg class="ui-icon" aria-hidden="true" focusable="false">
@@ -1429,6 +1441,6 @@
 
     <div class="panel__feedback" id="add-feedback" role="status" aria-live="polite"></div>
 
-    <script type="module" src="app.js?v=180"></script>
+    <script type="module" src="app.js?v=181"></script>
   </body>
 </html>

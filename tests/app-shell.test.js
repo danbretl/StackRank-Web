@@ -9,20 +9,20 @@ import {
 } from "../lib/app-shell.js";
 
 test("normalizeAppDestination accepts only stable app destinations", () => {
-  assert.deepEqual(APP_DESTINATIONS, ["rank", "discover", "lists"]);
+  assert.deepEqual(APP_DESTINATIONS, ["rank", "ranking", "lists"]);
   assert.equal(normalizeAppDestination("rank"), "rank");
-  assert.equal(normalizeAppDestination("discover"), "discover");
+  assert.equal(normalizeAppDestination("ranking"), "ranking");
   assert.equal(normalizeAppDestination("lists"), "lists");
   assert.equal(normalizeAppDestination("bogus"), "rank");
   assert.equal(normalizeAppDestination("bogus", "lists"), "lists");
 });
 
 test("createAppShellState normalizes destination and scroll positions", () => {
-  assert.deepEqual(createAppShellState({ destination: "discover", scrollPositions: { rank: 120, lists: -5 } }), {
-    destination: "discover",
+  assert.deepEqual(createAppShellState({ destination: "ranking", scrollPositions: { rank: 120, lists: -5 } }), {
+    destination: "ranking",
     scrollPositions: {
       rank: 120,
-      discover: 0,
+      ranking: 0,
       lists: 0,
     },
   });
@@ -31,24 +31,24 @@ test("createAppShellState normalizes destination and scroll positions", () => {
 test("switchAppDestination records current scroll and restores destination scroll", () => {
   const initial = createAppShellState({
     destination: "rank",
-    scrollPositions: { discover: 320 },
+    scrollPositions: { ranking: 320 },
   });
-  const switched = switchAppDestination(initial, "discover", 180);
+  const switched = switchAppDestination(initial, "ranking", 180);
 
   assert.equal(switched.changed, true);
   assert.equal(switched.scrollY, 320);
   assert.deepEqual(switched.state, {
-    destination: "discover",
+    destination: "ranking",
     scrollPositions: {
       rank: 180,
-      discover: 320,
+      ranking: 320,
       lists: 0,
     },
   });
 
   const back = switchAppDestination(switched.state, "rank", 520);
   assert.equal(back.scrollY, 180);
-  assert.equal(back.state.scrollPositions.discover, 520);
+  assert.equal(back.state.scrollPositions.ranking, 520);
 });
 
 test("switchAppDestination ignores invalid destinations without losing scroll", () => {

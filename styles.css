@@ -10177,3 +10177,404 @@ body.is-comparing .card--clickable.is-pressed {
     transform: none !important;
   }
 }
+
+/* 2026-07-10 action-first home: Rank is the launchpad, Ranking is the artifact.
+   Packs and individual movie prompts share the full-width workspace. */
+.app {
+  width: 100%;
+  max-width: 1600px;
+}
+
+.app[data-app-destination="rank"] .side-stack,
+.app[data-app-destination="ranking"] .stack,
+.app[data-app-destination="ranking"] .panel--queues,
+.app[data-app-destination="lists"] .stack,
+.app[data-app-destination="lists"] .panel--list,
+.app[data-app-destination="lists"] .panel--snapshot,
+.app[data-app-destination="lists"] .panel--taste {
+  display: none;
+}
+
+.app[data-app-destination="rank"] .stack,
+.app[data-app-destination="ranking"] .side-stack,
+.app[data-app-destination="lists"] .side-stack {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.app[data-app-destination="rank"] .panel--add,
+.app[data-app-destination="rank"] .panel--discovery,
+.app[data-app-destination="ranking"] .panel--list {
+  box-shadow: none;
+}
+
+.app[data-app-destination="rank"] .panel--discovery,
+.app[data-app-destination="ranking"] .panel--list,
+.app[data-app-destination="lists"] .panel--queues {
+  display: grid;
+}
+
+.app[data-app-destination="rank"] .panel--add {
+  align-items: center;
+}
+
+.app[data-app-destination="rank"] .suggest-panel {
+  gap: var(--space-6);
+}
+
+.suggest-header__actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.suggest-movie-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-4);
+  align-items: start;
+}
+
+.suggest-movie-grid > .suggest-section {
+  min-width: 0;
+  padding: var(--space-4);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-card);
+  background: var(--surface-subtle);
+}
+
+.suggest-movie-grid .suggest-row {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.suggest-movie-grid .suggest-card {
+  background: var(--surface);
+}
+
+.app[data-app-destination="ranking"] .ranking {
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
+  scrollbar-gutter: auto;
+}
+
+.app[data-app-destination="ranking"] .panel--list {
+  min-height: 0;
+  border-color: transparent;
+}
+
+@media (min-width: 900px) {
+  .app,
+  .app[data-app-destination="rank"],
+  .app[data-app-destination="ranking"],
+  .app[data-app-destination="lists"] {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "topbar"
+      "workspace"
+      "footnote";
+  }
+
+  .stack,
+  .side-stack {
+    grid-area: workspace;
+  }
+
+  .app[data-app-destination="rank"] .panel--add {
+    grid-template-columns: auto minmax(420px, 1fr);
+    gap: var(--space-6);
+    padding: var(--space-6);
+  }
+
+  .app[data-app-destination="rank"] .panel--add > .panel__header {
+    white-space: nowrap;
+  }
+
+  .app[data-app-destination="rank"] .panel--add > .form {
+    width: 100%;
+    max-width: none;
+  }
+
+  .app[data-app-destination="rank"] .panel--add > :is(.first-run, .compare-panel) {
+    grid-column: 1 / -1;
+  }
+
+  .app[data-app-destination="rank"] .panel--discovery {
+    padding: var(--space-6);
+  }
+
+  .app[data-app-destination="rank"] .pack-row {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card {
+    grid-template-columns: minmax(56px, 72px) minmax(0, 1fr);
+    grid-template-areas:
+      "media title"
+      "media subtitle"
+      "status status"
+      "progress progress"
+      "action action";
+    grid-template-rows: auto auto 1fr auto auto;
+    align-content: start;
+    align-items: start;
+    min-height: 194px;
+    gap: 7px 9px;
+    padding: 11px;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card__media,
+  .app[data-app-destination="rank"] .pack-row .pack-card__body {
+    display: contents;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-cover {
+    grid-area: media;
+    width: 100%;
+    height: 62px;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card__title {
+    grid-area: title;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card__subtitle {
+    grid-area: subtitle;
+    display: -webkit-box;
+    overflow: hidden;
+    min-height: 0;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card__status {
+    grid-area: status;
+    align-self: end;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card__progress {
+    grid-area: progress;
+    margin-top: 1px;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card__action {
+    grid-area: action;
+    width: 100%;
+    height: 36px;
+    min-height: 36px;
+    border-radius: var(--radius-control);
+    font-size: var(--type-meta-size);
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card__action .ui-icon {
+    width: 16px !important;
+    height: 16px !important;
+    flex-basis: 16px;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1250px) {
+  .app[data-app-destination="rank"] .pack-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card {
+    min-height: 178px;
+  }
+
+  .suggest-movie-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+}
+
+@media (min-width: 721px) and (any-pointer: coarse) {
+  .app[data-app-destination="rank"] .pack-row .pack-card__action {
+    height: 44px;
+    min-height: 44px;
+  }
+}
+
+@media (min-width: 721px) and (max-width: 899px) {
+  .app[data-app-destination="rank"] .pack-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: stretch;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card {
+    grid-template-columns: minmax(56px, 72px) minmax(0, 1fr);
+    grid-template-areas:
+      "media title"
+      "media subtitle"
+      "status status"
+      "progress progress"
+      "action action";
+    grid-template-rows: auto auto 1fr auto auto;
+    align-content: start;
+    align-items: start;
+    min-height: 194px;
+    gap: 7px 9px;
+    padding: 11px;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card__media,
+  .app[data-app-destination="rank"] .pack-row .pack-card__body {
+    display: contents;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-cover {
+    grid-area: media;
+    width: 100%;
+    height: 62px;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card__title {
+    grid-area: title;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card__subtitle {
+    grid-area: subtitle;
+    display: -webkit-box;
+    overflow: hidden;
+    min-height: 0;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card__status {
+    grid-area: status;
+    align-self: end;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card__progress {
+    grid-area: progress;
+    margin-top: 1px;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card__action {
+    grid-area: action;
+    width: 100%;
+    height: 44px;
+    min-height: 44px;
+    border-radius: var(--radius-control);
+    font-size: var(--type-meta-size);
+  }
+
+  .app[data-app-destination="rank"] .side-stack {
+    order: initial;
+  }
+
+  .suggest-movie-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .suggest-movie-grid > .suggest-section:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .suggest-movie-grid > .suggest-section:last-child .suggest-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px),
+  (any-pointer: coarse) and (orientation: landscape) and (max-height: 600px) {
+  .app[data-app-destination="rank"] .panel--discovery {
+    display: grid;
+  }
+
+  .app[data-app-destination="ranking"] .side-stack,
+  .app[data-app-destination="lists"] .side-stack {
+    max-width: none;
+  }
+
+  .app[data-app-destination="rank"] .panel--add {
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-6);
+  }
+
+  .app[data-app-destination="rank"] .panel--discovery {
+    padding-top: var(--space-6);
+  }
+
+  .app[data-app-destination="rank"] .pack-row,
+  .suggest-movie-grid .suggest-row {
+    display: grid;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(280px, 84vw);
+    gap: var(--space-3);
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-right: calc(var(--space-6) * -1);
+    margin-left: calc(var(--space-6) * -1);
+    padding: 0 var(--space-6) var(--space-2);
+    scroll-padding-inline: var(--space-6);
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card,
+  .suggest-movie-grid .suggest-row .suggest-card {
+    scroll-snap-align: start;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card {
+    min-height: 132px;
+  }
+
+  .app[data-app-destination="rank"] .pack-row .pack-card--loading {
+    min-height: 233px;
+  }
+
+  .app[data-app-destination="rank"] .suggest-card--loading {
+    min-height: 176px;
+  }
+
+  .suggest-movie-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+
+  .suggest-movie-grid > .suggest-section {
+    padding: var(--space-4) 0;
+    border-right: 0;
+    border-left: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .suggest-movie-grid > .suggest-section .suggest-header {
+    padding-right: var(--space-4);
+    padding-left: var(--space-4);
+  }
+
+  .suggest-movie-grid .suggest-row .suggest-card {
+    min-width: 0;
+  }
+
+  .suggest-header--packs {
+    align-items: flex-start;
+  }
+
+  .suggest-header__actions {
+    gap: var(--space-1);
+  }
+
+  .suggest-header__actions .pack-view-all {
+    padding-right: var(--space-3);
+    padding-left: var(--space-3);
+  }
+}

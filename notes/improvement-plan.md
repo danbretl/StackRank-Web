@@ -20,7 +20,7 @@ Execution progress:
 
 **Baseline context an executor must know before touching anything:**
 
-- The 2026-06/07 redesign (see `notes/feature-ideas/design-audit.md`) is **complete through Phase 8 and released**. Do not revisit Phase 1–8 visual/IA decisions; the app shell now has Rank / Discover / Lists destinations (`lib/app-shell.js`, `lib/lists.js`, `data-app-destination` on `main.app`).
+- The 2026-06/07 redesign is complete, with the 2026-07-10 action-first follow-up recorded in `notes/feature-ideas/design-audit.md`: the app shell now has **Rank / Ranking / Lists** destinations. Rank is the full-width ranking launchpad; Ranking holds the ordered artifact; Lists holds the queues (`lib/app-shell.js`, `lib/lists.js`, `data-app-destination` on `main.app`).
 - The former in-flight iPad Lists two-column layout work has landed (`2291076`, with documentation follow-up `8a81ecf`); unrelated CSS/e2e work can proceed from a clean base.
 - Ground rules from `CLAUDE.md` apply to every item: no build step, no npm runtime deps, mobile first-class, no TMDB ratings shown, bump `?v=N` cache keys, new logic gets DOM-free `lib/` modules with tests, commit only when asked.
 - Validation for every item: `npm run verify` (unit + `node --check` + Deno checks + e2e); `npm run test:production` after deploys; `npm run screenshots` when responsive visuals are at risk.

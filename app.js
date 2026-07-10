@@ -422,6 +422,13 @@ const modalLayers = [
   fullscreenOverlay,
 ].filter(Boolean);
 
+// Only workspaces with editable controls need to follow the software keyboard.
+// Detail sheets and the image lightbox intentionally retain the layout viewport
+// so native pinch-zoom does not resize the surface under the user's fingers.
+const keyboardViewportLayers = new Set(
+  [signinOverlay, titleImportOverlay, shareStudio, packDetailOverlay, fullscreenOverlay].filter(Boolean),
+);
+
 const activeModalLayer = () => modalLayers.find((layer) => !layer.hidden) || null;
 
 const modalFocusableElements = (layer) =>
@@ -445,6 +452,7 @@ const syncModalIsolation = () => {
     if (!(child instanceof HTMLElement)) return;
     child.inert = Boolean(activeLayer && child !== activeLayer);
   });
+  syncActiveModalViewport();
 };
 
 document.addEventListener("keydown", (event) => {
@@ -559,6 +567,11 @@ let dragOffsetX = 0;
 let dragOffsetY = 0;
 let dragPointerId = null;
 let dragCaptureEl = null;
+let dragStarted = false;
+let dragStartX = 0;
+let dragStartY = 0;
+let dragAutoScrollSpeed = 0;
+let dragScrollOwner = null;
 let migrationStats = null;
 const debugEnabled = new URLSearchParams(window.location.search).get("debug") === "1";
 let highlightTimeout = null;
@@ -602,6 +615,7 @@ let fullscreenFilterQuery = "";
 let fullscreenDensityMode = "comfortable";
 let fullscreenMoveMode = false;
 let fullscreenDrag = null;
+let fullscreenDragScrollRaf = null;
 let fullscreenTasteSignal = null;
 let lastPackDiscoveryNudgeAt = 0;
 let currentPlaceholderTitle = "";
@@ -643,6 +657,8 @@ let titleImportRows = [];
 let titleImportMeta = { duplicateCount: 0, ignoredCount: 0 };
 let titleImportTrigger = null;
 let titleImportMatching = false;
+let titleImportRequestId = 0;
+let titleImportAbortController = null;
 
 const storageEnabled = typeof window !== "undefined" && "localStorage" in window;
 const supabaseEnabled =
@@ -1087,6 +1103,9 @@ const setMovieOverflowLayerState = (overflow, open) => {
   overflow
     ?.closest(MOVIE_OVERFLOW_LAYER_SELECTOR)
     ?.classList.toggle("is-overflow-open", Boolean(open));
+  if (!open) {
+    overflow?.querySelector(".movie-item__overflow-menu")?.classList.remove("is-positioned");
+  }
 };
 
 const createMovieOverflow = (label, actions = []) => {
@@ -1109,6 +1128,7 @@ const createMovieOverflow = (label, actions = []) => {
     { capture: true },
   );
   overflow.addEventListener("toggle", () => {
+    overflow.querySelector(".movie-item__overflow-menu")?.classList.remove("is-positioned");
     setMovieOverflowLayerState(overflow, overflow.open);
     if (!overflow.open) return;
     document.querySelectorAll(".movie-item__overflow[open]").forEach((other) => {
@@ -1147,19 +1167,25 @@ const positionMovieOverflowMenu = (overflow) => {
   const menu = overflow?.querySelector(".movie-item__overflow-menu");
   if (!summary || !menu || !overflow.open) return;
   const margin = 8;
+  const visualViewport = window.visualViewport;
+  const viewportLeft = visualViewport?.offsetLeft || 0;
+  const viewportTop = visualViewport?.offsetTop || 0;
+  const viewportRight = viewportLeft + (visualViewport?.width || window.innerWidth);
+  const viewportBottom = viewportTop + (visualViewport?.height || window.innerHeight);
   const toggleRect = summary.getBoundingClientRect();
   const menuRect = menu.getBoundingClientRect();
   const left = Math.min(
-    Math.max(margin, toggleRect.right - menuRect.width),
-    Math.max(margin, window.innerWidth - menuRect.width - margin),
+    Math.max(viewportLeft + margin, toggleRect.right - menuRect.width),
+    Math.max(viewportLeft + margin, viewportRight - menuRect.width - margin),
   );
   const below = toggleRect.bottom + 4;
   const above = toggleRect.top - menuRect.height - 4;
-  const top = below + menuRect.height + margin <= window.innerHeight
+  const top = below + menuRect.height + margin <= viewportBottom
     ? below
-    : Math.max(margin, above);
+    : Math.max(viewportTop + margin, above);
   menu.style.left = `${left}px`;
   menu.style.top = `${top}px`;
+  menu.classList.add("is-positioned");
 };
 
 const createMovieOverflowActionButton = ({ label, ariaLabel, className = "", kind = "secondary", action = "" }) => {
@@ -1402,6 +1428,7 @@ function updateRankingSettingsAuthUI() {
 function closeRankingSettings({ restoreFocus = true } = {}) {
   if (rankingSettingsPanel.hidden) return;
   rankingSettingsPanel.hidden = true;
+  document.body.classList.remove("is-settings-open");
   rankingSettingsToggle.setAttribute("aria-expanded", "false");
   if (restoreFocus) rankingSettingsToggle.focus({ preventScroll: true });
 }
@@ -1409,6 +1436,7 @@ function closeRankingSettings({ restoreFocus = true } = {}) {
 function openRankingSettings() {
   updateRankingSettingsAuthUI();
   rankingSettingsPanel.hidden = false;
+  document.body.classList.add("is-settings-open");
   rankingSettingsToggle.setAttribute("aria-expanded", "true");
   rankingSettingsClose.focus({ preventScroll: true });
 }
@@ -1680,6 +1708,17 @@ function createSnapshotMovieRow({ movie, rank, rankedTime }) {
     className: "snapshot__movie",
     legacyPosterClass: "snapshot__poster",
   });
+  row.tabIndex = 0;
+  row.setAttribute("role", "button");
+  row.setAttribute("aria-label", `Show details for ${movie.title}, currently ranked #${rank}`);
+  const openDetail = () =>
+    openMovieDetail(movie, { type: "ranked", source: "snapshot", index: rank - 1 }, row);
+  row.addEventListener("click", openDetail);
+  row.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    openDetail();
+  });
   return row;
 }
 
@@ -1807,6 +1846,8 @@ const renderTasteDetail = (signal, insights) => {
 
 const renderTasteExplorer = () => {
   if (!tasteExplorer) return;
+  const focusedSignalId = document.activeElement?.closest?.("[data-taste-signal]")?.dataset
+    .tasteSignal;
   const available = ranking.length >= TASTE_EXPLORER_MIN_MOVIES;
   tasteExplorer.hidden = !available;
   if (!available) {
@@ -1833,6 +1874,7 @@ const renderTasteExplorer = () => {
     const button = document.createElement("button");
     button.className = "taste__signal";
     button.type = "button";
+    button.dataset.tasteSignal = signal.id;
     button.setAttribute("aria-pressed", String(signal.id === activeTasteSignalId));
     const eyebrow = document.createElement("span");
     eyebrow.className = "taste__signal-eyebrow";
@@ -1849,6 +1891,12 @@ const renderTasteExplorer = () => {
     });
     tasteSignals.appendChild(button);
   });
+
+  if (focusedSignalId) {
+    tasteSignals
+      .querySelector(`[data-taste-signal="${CSS.escape(focusedSignalId)}"]`)
+      ?.focus({ preventScroll: true });
+  }
 
   if (tasteExplorerLoading) {
     const placeholders = Math.max(1, 3 - signals.length);
@@ -2111,6 +2159,7 @@ const setTonightStatus = (text) => {
 };
 
 const renderTonightTimeChips = () => {
+  const focusedWindowId = document.activeElement?.closest?.("[data-window]")?.dataset.window;
   tonightTime.innerHTML = "";
   TONIGHT_TIME_WINDOWS.forEach((window) => {
     const chip = document.createElement("button");
@@ -2131,6 +2180,11 @@ const renderTonightTimeChips = () => {
     });
     tonightTime.appendChild(chip);
   });
+  if (focusedWindowId) {
+    tonightTime
+      .querySelector(`[data-window="${CSS.escape(focusedWindowId)}"]`)
+      ?.focus({ preventScroll: true });
+  }
 };
 
 const createTonightCard = (entry, { chosen = false } = {}) => {
@@ -2182,6 +2236,11 @@ const createTonightCard = (entry, { chosen = false } = {}) => {
     backButton.addEventListener("click", () => {
       if (tonightRun) tonightRun.chosenId = null;
       renderTonightSlate();
+      const restoredCard = tonightResults.querySelector(
+        `.tonight-card[data-tmdb-id="${CSS.escape(String(movie.tmdbId))}"]`,
+      );
+      (restoredCard?.querySelector(".tonight-card__watch") ||
+        tonightResults.querySelector(".tonight-card__watch"))?.focus({ preventScroll: true });
     });
     actions.append(rankButton, backButton);
   } else {
@@ -2198,6 +2257,7 @@ const createTonightCard = (entry, { chosen = false } = {}) => {
         count: countBucket(watchList.length),
       });
       renderTonightSlate();
+      tonightResults.querySelector(".tonight-card__rank")?.focus({ preventScroll: true });
     });
     actions.append(watchButton);
   }
@@ -2938,7 +2998,49 @@ const scrollComparisonIntoView = () => {
   // can actually see the comparison they need to make.
   const target = compareSection.closest(".panel--focus") || compareSection;
   const top = target.getBoundingClientRect().top + window.scrollY - 16;
-  window.scrollTo({ left: 0, top: Math.max(0, top), behavior: "smooth" });
+  const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+  window.scrollTo({ left: 0, top: Math.max(0, top), behavior });
+};
+
+const focusVisibleControl = (candidates) => {
+  const control = candidates.find((element) => {
+    if (!(element instanceof HTMLElement) || element.hidden || !element.isConnected) return false;
+    const style = window.getComputedStyle(element);
+    return style.display !== "none" && style.visibility !== "hidden" && element.getClientRects().length > 0;
+  });
+  control?.focus({ preventScroll: true });
+  return Boolean(control);
+};
+
+const focusRankingRowControl = (index) => {
+  const item = rankingList.querySelector(`.ranking__item[data-index="${index}"]`);
+  if (!item) return false;
+  return focusVisibleControl([
+    item.querySelector(".ranking__overflow > summary"),
+    item.querySelector(".ranking__info"),
+    item.querySelector(".ranking__handle"),
+  ]);
+};
+
+const restoreComparisonFocus = (origin = null, fallbackIndex = null) => {
+  window.requestAnimationFrame(() => {
+    if (pending || isReviewing() || activeModalLayer()) return;
+    if (origin?.type === "ranking" && focusRankingRowControl(origin.index)) return;
+    if (origin?.type === "watch" || origin?.type === "notInterested") {
+      const list = origin.type === "watch" ? watchListEl : notInterestedListEl;
+      const item = list?.querySelector(`.queue-list__item[data-index="${origin.index}"]`);
+      if (
+        focusVisibleControl([
+          item?.querySelector(".queue-list__primary"),
+          item?.querySelector(".movie-item__overflow > summary"),
+        ])
+      ) {
+        return;
+      }
+    }
+    if (Number.isInteger(fallbackIndex) && focusRankingRowControl(fallbackIndex)) return;
+    focusVisibleControl([rankingAddJump, titleInput]);
+  });
 };
 
 const withRankingTimestamp = (movie) => ({
@@ -2980,6 +3082,7 @@ const startComparison = () => {
     announcePlacement(`"${ranking[0].title}" placed as your top pick.`, context, rankedMovie, origin);
     settleRankingScroll(0);
     handleRankingSettled(rankedMovie, 0, context);
+    restoreComparisonFocus(null, 0);
     trackProductEvent("ranking_completed", {
       source: telemetry?.source || "unknown",
       list_size: countBucket(ranking.length),
@@ -2997,6 +3100,11 @@ const startComparison = () => {
   setSuggestionsHidden(true);
   showComparison();
   scrollComparisonIntoView();
+  window.requestAnimationFrame(() => {
+    if (pending && !isReviewing() && !compareSection.classList.contains("panel--hidden")) {
+      newCard.focus({ preventScroll: true });
+    }
+  });
 };
 
 const showComparison = () => {
@@ -3117,6 +3225,7 @@ const handleDecision = (isNewBetter, midIndex) => {
     announcePlacement(placementMessage, context, rankedMovie, origin);
     settleRankingScroll(insertIndex);
     handleRankingSettled(rankedMovie, insertIndex, context);
+    restoreComparisonFocus(null, insertIndex);
     trackProductEvent("ranking_completed", {
       source: telemetry?.source || "unknown",
       list_size: countBucket(ranking.length),
@@ -3169,6 +3278,7 @@ const cancelComparison = () => {
   const comparisonCount = pending.comparisons;
   const telemetry = pendingTelemetry;
   const context = pendingPackContext;
+  const origin = pendingOrigin;
   restorePendingOrigin();
   pending = null;
   pendingPackContext = null;
@@ -3185,6 +3295,7 @@ const cancelComparison = () => {
   updateSuggestions();
   restoreComparisonReturnScroll();
   titleInput.blur();
+  restoreComparisonFocus(origin);
   trackProductEvent("ranking_canceled", {
     source: telemetry?.source || "unknown",
     list_size: countBucket(ranking.length),
@@ -3354,6 +3465,11 @@ const startReview = ({ focusTmdbId = lastAddedTmdbId } = {}) => {
   setReviewMode(true);
   showReviewPair();
   scrollComparisonIntoView();
+  window.requestAnimationFrame(() => {
+    if (isReviewing() && !compareSection.classList.contains("panel--hidden")) {
+      newCard.focus({ preventScroll: true });
+    }
+  });
 };
 
 const finishReview = (completed) => {
@@ -3369,6 +3485,11 @@ const finishReview = (completed) => {
   renderRanking();
   restoreComparisonReturnScroll();
   titleInput.blur();
+  window.requestAnimationFrame(() => {
+    if (!pending && !isReviewing() && !activeModalLayer()) {
+      focusVisibleControl([rankingReviewButton, rankingAddJump, titleInput]);
+    }
+  });
   trackProductEvent("review_completed", {
     list_size: countBucket(ranking.length),
     count: countBucket(stats.changed),
@@ -3710,6 +3831,7 @@ const renderTitleImportMatches = () => {
 
     const select = document.createElement("select");
     select.className = "import-match-select";
+    select.dataset.importIndex = String(index);
     select.setAttribute("aria-label", `TMDB match for ${row.entry.title}`);
     const placeholder = document.createElement("option");
     placeholder.value = "";
@@ -3744,6 +3866,11 @@ const renderTitleImportMatches = () => {
         row.guessed = false;
       }
       renderTitleImportMatches();
+      window.requestAnimationFrame(() => {
+        titleImportMatches
+          .querySelector(`[data-import-index="${index}"]`)
+          ?.focus({ preventScroll: true });
+      });
     });
 
     item.append(rank, poster, copy, select);
@@ -3775,9 +3902,10 @@ const renderTitleImportMatches = () => {
   updateTitleImportApplyState();
 };
 
-const fetchTmdbImportCandidates = async (entry) => {
+const fetchTmdbImportCandidates = async (entry, { signal } = {}) => {
   const url = `${tmdbProxyUrl}?q=${encodeURIComponent(entry.title)}`;
   const response = await fetch(url, {
+    signal,
     headers: {
       apikey: SUPABASE_PUBLISHABLE_KEY,
     },
@@ -3788,17 +3916,22 @@ const fetchTmdbImportCandidates = async (entry) => {
     .filter((movie) => movie?.tmdbId && movie?.title);
 };
 
-const matchTitleImportEntries = async (entries) => {
+const matchTitleImportEntries = async (
+  entries,
+  { requestId = titleImportRequestId, signal } = {},
+) => {
   const rows = new Array(entries.length);
   let cursor = 0;
   let completed = 0;
   const worker = async () => {
     while (cursor < entries.length) {
+      if (signal?.aborted || requestId !== titleImportRequestId) return;
       const index = cursor;
       cursor += 1;
       const entry = entries[index];
       try {
-        const results = await fetchTmdbImportCandidates(entry);
+        const results = await fetchTmdbImportCandidates(entry, { signal });
+        if (signal?.aborted || requestId !== titleImportRequestId) return;
         const { movie: automatic, confidence } = chooseAutomaticTmdbMatch(entry, results);
         const candidates = results.slice(0, 8);
         if (automatic && !candidates.some((movie) => movie.tmdbId === automatic.tmdbId)) {
@@ -3814,6 +3947,9 @@ const matchTitleImportEntries = async (entries) => {
           searchFailed: false,
         };
       } catch (error) {
+        if (error?.name === "AbortError" || signal?.aborted || requestId !== titleImportRequestId) {
+          return;
+        }
         rows[index] = {
           entry,
           candidates: [],
@@ -3825,46 +3961,62 @@ const matchTitleImportEntries = async (entries) => {
         };
       }
       completed += 1;
-      titleImportStatus.textContent = `Matching ${completed} of ${entries.length}…`;
+      if (requestId === titleImportRequestId && !titleImportOverlay.hidden) {
+        titleImportStatus.textContent = `Matching ${completed} of ${entries.length}…`;
+      }
     }
   };
   await Promise.all(Array.from({ length: Math.min(3, entries.length) }, () => worker()));
   return rows;
 };
 
-// The import overlay is the only modal with a text field, so it's the only one
-// that opens the on-screen keyboard. On iOS the keyboard shrinks the visual
-// viewport but not the fixed full-screen overlay, which would push the action
-// buttons (anchored to the overlay bottom on mobile) behind the keyboard. Pin
-// the overlay to the visual viewport while it's open so the buttons stay above
-// the keyboard and reachable.
-let titleImportViewportSyncing = false;
-const syncTitleImportViewport = () => {
+// On iOS the on-screen keyboard shrinks the visual viewport without resizing a
+// fixed overlay. Sign in, import, packs, full-screen ranking, and Share Studio
+// all contain editable controls, so keep whichever modal is topmost pinned to
+// the visible viewport rather than special-casing a single workflow.
+let modalViewportLayer = null;
+let modalViewportSyncing = false;
+
+const clearModalViewportStyles = (layer) => {
+  if (!layer) return;
+  layer.style.top = "";
+  layer.style.bottom = "";
+  layer.style.height = "";
+  layer.style.removeProperty("--modal-vvh");
+  layer.style.removeProperty("--import-vvh");
+};
+
+function syncActiveModalViewport() {
   const vv = window.visualViewport;
-  if (!vv || titleImportOverlay.hidden) return;
-  titleImportOverlay.style.top = `${vv.offsetTop}px`;
-  titleImportOverlay.style.bottom = "auto";
-  titleImportOverlay.style.height = `${vv.height}px`;
-  titleImportOverlay.style.setProperty("--import-vvh", `${vv.height}px`);
-};
-const startTitleImportViewportSync = () => {
-  if (!window.visualViewport || titleImportViewportSyncing) return;
-  titleImportViewportSyncing = true;
-  window.visualViewport.addEventListener("resize", syncTitleImportViewport);
-  window.visualViewport.addEventListener("scroll", syncTitleImportViewport);
-  syncTitleImportViewport();
-};
-const stopTitleImportViewportSync = () => {
-  if (window.visualViewport && titleImportViewportSyncing) {
-    window.visualViewport.removeEventListener("resize", syncTitleImportViewport);
-    window.visualViewport.removeEventListener("scroll", syncTitleImportViewport);
+  const visibleLayer = activeModalLayer();
+  const activeLayer = keyboardViewportLayers.has(visibleLayer) ? visibleLayer : null;
+  if (modalViewportLayer !== activeLayer) {
+    clearModalViewportStyles(modalViewportLayer);
+    modalViewportLayer = activeLayer;
   }
-  titleImportViewportSyncing = false;
-  titleImportOverlay.style.top = "";
-  titleImportOverlay.style.bottom = "";
-  titleImportOverlay.style.height = "";
-  titleImportOverlay.style.removeProperty("--import-vvh");
-};
+  if (!vv || !activeLayer) {
+    if (window.visualViewport && modalViewportSyncing) {
+      window.visualViewport.removeEventListener("resize", syncActiveModalViewport);
+      window.visualViewport.removeEventListener("scroll", syncActiveModalViewport);
+    }
+    modalViewportSyncing = false;
+    clearModalViewportStyles(modalViewportLayer);
+    modalViewportLayer = null;
+    return;
+  }
+  if (!modalViewportSyncing) {
+    modalViewportSyncing = true;
+    vv.addEventListener("resize", syncActiveModalViewport);
+    vv.addEventListener("scroll", syncActiveModalViewport);
+  }
+  activeLayer.style.top = `${vv.offsetTop}px`;
+  activeLayer.style.bottom = "auto";
+  activeLayer.style.height = `${vv.height}px`;
+  activeLayer.style.setProperty("--modal-vvh", `${vv.height}px`);
+  if (activeLayer === titleImportOverlay) {
+    activeLayer.style.setProperty("--import-vvh", `${vv.height}px`);
+  }
+}
 
 const showTitleImportEntryStep = () => {
   titleImportReview.hidden = true;
@@ -3897,17 +4049,20 @@ const openTitleImport = ({ trigger = openTitleImportButton, source = "settings" 
     });
   }
   showTitleImportEntryStep();
-  startTitleImportViewportSync();
 };
 
 const closeTitleImport = ({ restoreFocus = true, reset = false } = {}) => {
-  stopTitleImportViewportSync();
+  titleImportRequestId += 1;
+  titleImportAbortController?.abort();
+  titleImportAbortController = null;
   titleImportOverlay.hidden = true;
   syncModalIsolation();
   document.body.classList.remove("is-detail-open");
   titleImportMatching = false;
   titleImportInput.disabled = false;
   titleImportMatch.disabled = false;
+  titleImportMatch.textContent = "Match titles";
+  titleImportStatus.textContent = "";
   if (reset) {
     titleImportInput.value = "";
     titleImportRows = [];
@@ -3945,8 +4100,17 @@ const beginTitleImportMatching = async () => {
   titleImportMatch.disabled = true;
   titleImportMatch.textContent = "Matching…";
   titleImportStatus.textContent = `Matching 0 of ${parsed.entries.length}…`;
+  titleImportAbortController?.abort();
+  const abortController = new AbortController();
+  titleImportAbortController = abortController;
+  const requestId = ++titleImportRequestId;
   try {
-    titleImportRows = await matchTitleImportEntries(parsed.entries);
+    const matchedRows = await matchTitleImportEntries(parsed.entries, {
+      requestId,
+      signal: abortController.signal,
+    });
+    if (requestId !== titleImportRequestId || titleImportOverlay.hidden) return;
+    titleImportRows = matchedRows;
     titleImportConfirm.checked = false;
     titleImportEntry.hidden = true;
     titleImportReview.hidden = false;
@@ -3954,11 +4118,14 @@ const beginTitleImportMatching = async () => {
     titleImportReview.scrollIntoView({ block: "start" });
     titleImportBack.focus({ preventScroll: true });
   } finally {
-    titleImportMatching = false;
-    titleImportInput.disabled = false;
-    titleImportMatch.disabled = false;
-    titleImportMatch.textContent = "Match titles";
-    if (!titleImportReview.hidden) updateTitleImportApplyState();
+    if (requestId === titleImportRequestId) {
+      titleImportAbortController = null;
+      titleImportMatching = false;
+      titleImportInput.disabled = false;
+      titleImportMatch.disabled = false;
+      titleImportMatch.textContent = "Match titles";
+      if (!titleImportReview.hidden) updateTitleImportApplyState();
+    }
   }
 };
 
@@ -4081,6 +4248,20 @@ shareStudio.addEventListener("click", (event) => {
 shareDownloadSvg.addEventListener("click", downloadShareSvg);
 shareDownloadPng.addEventListener("click", downloadSharePng);
 shareNativeShare.addEventListener("click", () => shareNativePng());
+
+const openSharePreviewFromTrigger = (trigger) => {
+  if (!(trigger instanceof Element)) return;
+  const cardFigure = trigger.closest(".share-preview-card");
+  if (cardFigure) {
+    const index = Number(cardFigure.dataset.pageIndex);
+    if (!Number.isNaN(index)) shareSetPageIndex = index;
+    openShareLightbox(cardFigure);
+    return;
+  }
+  const singlePreview = trigger.closest(".share-preview-single");
+  if (singlePreview) openShareLightbox(singlePreview);
+};
+
 sharePreview.addEventListener("click", (event) => {
   if (!(event.target instanceof Element)) return;
   const stepButton = event.target.closest("[data-share-page-step]");
@@ -4104,15 +4285,15 @@ sharePreview.addEventListener("click", (event) => {
   // Any remaining click on a preview image (single-image SVG, or an image-set
   // card) opens the full-res lightbox in share mode. Nav/action buttons were
   // handled and returned above, so reaching here means an image was tapped.
-  const cardFigure = event.target.closest(".share-preview-card");
-  if (cardFigure) {
-    const idx = Number(cardFigure.dataset.pageIndex);
-    if (!Number.isNaN(idx)) shareSetPageIndex = idx;
-    openShareLightbox(cardFigure);
-    return;
-  }
-  const svgEl = event.target.closest("svg");
-  if (svgEl && !svgEl.closest("button")) openShareLightbox(svgEl);
+  if (!event.target.closest("button")) openSharePreviewFromTrigger(event.target);
+});
+
+sharePreview.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  const trigger = event.target.closest(".share-preview-card, .share-preview-single");
+  if (!trigger) return;
+  event.preventDefault();
+  openSharePreviewFromTrigger(trigger);
 });
 
 // Shared full-res lightbox. Two flavors:
@@ -4145,7 +4326,7 @@ function closeLightbox({ restoreFocus = true } = {}) {
   }
   const trigger = lightboxTrigger;
   lightboxTrigger = null;
-  if (restoreFocus && trigger && document.contains(trigger)) trigger.focus?.();
+  if (restoreFocus && trigger && document.contains(trigger)) trigger.focus?.({ preventScroll: true });
 }
 
 // Set the image wrapper's aspect ratio from the current content so CSS can scale
@@ -4275,19 +4456,41 @@ shareLightbox.addEventListener("click", (event) => {
   closeLightbox();
 });
 
+shareLightboxImage.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  event.preventDefault();
+  shareLightbox.classList.toggle("is-zoomed");
+});
+
 // Horizontal swipe pages an image set — but only when not zoomed (zoomed = pan).
 let lightboxPointer = null;
 shareLightboxStage.addEventListener("pointerdown", (event) => {
   lightboxSwiped = false;
+  if (event.button !== 0 || event.isPrimary === false) {
+    lightboxPointer = null;
+    return;
+  }
   if (shareLightbox.classList.contains("is-zoomed")) {
     lightboxPointer = null;
     return;
   }
   lightboxPointer = { x: event.clientX, y: event.clientY, id: event.pointerId };
+  try {
+    shareLightboxStage.setPointerCapture?.(event.pointerId);
+  } catch (_error) {
+    // Synthetic tests and interrupted pointers may not have active capture.
+  }
 });
 shareLightboxStage.addEventListener("pointerup", (event) => {
   const start = lightboxPointer;
   lightboxPointer = null;
+  try {
+    if (shareLightboxStage.hasPointerCapture?.(event.pointerId)) {
+      shareLightboxStage.releasePointerCapture(event.pointerId);
+    }
+  } catch (_error) {
+    // The browser may already have released capture before pointerup.
+  }
   if (!start || start.id !== event.pointerId) return;
   if (lightboxKind !== "share" || !shareLightbox.classList.contains("is-set")) return;
   if (shareLightbox.classList.contains("is-zoomed")) return;
@@ -4296,6 +4499,17 @@ shareLightboxStage.addEventListener("pointerup", (event) => {
   if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) {
     lightboxSwiped = true;
     lightboxStep(dx < 0 ? 1 : -1);
+  }
+});
+shareLightboxStage.addEventListener("pointercancel", (event) => {
+  if (lightboxPointer?.id !== event.pointerId) return;
+  lightboxPointer = null;
+  try {
+    if (shareLightboxStage.hasPointerCapture?.(event.pointerId)) {
+      shareLightboxStage.releasePointerCapture(event.pointerId);
+    }
+  } catch (_error) {
+    // The browser may already have released capture during cancellation.
   }
 });
 
@@ -4448,6 +4662,10 @@ const moveRankedMovieWithKeyboard = (fromIndex, direction, { surface = "ranking"
 };
 
 rankingList.addEventListener("click", (event) => {
+  if (event.target.closest(`.ranking__item[data-dragged="true"]`)) {
+    event.preventDefault();
+    return;
+  }
   const infoButton = event.target.closest(".ranking__info");
   if (infoButton) {
     const item = infoButton.closest(".ranking__item");
@@ -4543,14 +4761,102 @@ const updateDragGhost = (event) => {
   dragGhost.style.top = `${event.clientY - dragOffsetY}px`;
 };
 
-const onPointerMove = (event) => {
+const suppressPostDragClickUntilRelease = (item) => {
+  if (!item) return;
+  item.dataset.dragged = "true";
+  let cleared = false;
+  const clear = () => {
+    if (cleared) return;
+    cleared = true;
+    window.setTimeout(() => delete item.dataset.dragged, 0);
+  };
+  window.addEventListener("pointerup", clear, { once: true });
+  window.addEventListener("pointercancel", clear, { once: true });
+  window.setTimeout(clear, 1200);
+};
+
+const updateRankingDragAutoScroll = () => {
+  if (!dragStarted || !dragItem || !dragAutoScrollSpeed) {
+    dragOverRaf = null;
+    return;
+  }
+  (dragScrollOwner || window).scrollBy({ top: dragAutoScrollSpeed, behavior: "auto" });
+  updateDragLayout();
+  dragOverRaf = window.requestAnimationFrame(updateRankingDragAutoScroll);
+};
+
+const setRankingDragAutoScroll = (clientY) => {
+  const viewport = dragScrollOwner instanceof HTMLElement
+    ? dragScrollOwner.getBoundingClientRect()
+    : {
+        top: window.visualViewport?.offsetTop || 0,
+        bottom:
+          (window.visualViewport?.offsetTop || 0) +
+          (window.visualViewport?.height || window.innerHeight),
+      };
+  const visibleTop = Math.max(0, viewport.top);
+  const visibleBottom = Math.min(window.innerHeight, viewport.bottom);
+  const edge = Math.min(88, Math.max(1, visibleBottom - visibleTop) * 0.16);
+  if (clientY < visibleTop + edge) {
+    dragAutoScrollSpeed = -Math.max(
+      4,
+      Math.min(16, Math.round(((visibleTop + edge - clientY) / edge) * 16)),
+    );
+  } else if (clientY > visibleBottom - edge) {
+    dragAutoScrollSpeed = Math.max(
+      4,
+      Math.min(16, Math.round(((clientY - (visibleBottom - edge)) / edge) * 16)),
+    );
+  } else {
+    dragAutoScrollSpeed = 0;
+  }
+  if (dragAutoScrollSpeed && !dragOverRaf) {
+    dragOverRaf = window.requestAnimationFrame(updateRankingDragAutoScroll);
+  }
+};
+
+const startRankingDrag = (event) => {
+  if (!dragItem || dragStarted) return;
+  dragStarted = true;
+  const rankingStyle = window.getComputedStyle(rankingList);
+  dragScrollOwner =
+    rankingList.scrollHeight > rankingList.clientHeight + 1 &&
+    ["auto", "scroll"].includes(rankingStyle.overflowY)
+      ? rankingList
+      : window;
+  const rect = dragItem.getBoundingClientRect();
+  dragOffsetX = event.clientX - rect.left;
+  dragOffsetY = event.clientY - rect.top;
   dragPointerY = event.clientY;
-  updateDragGhost(event);
+  dragGhost = dragItem.cloneNode(true);
+  dragGhost.classList.add("drag-ghost");
+  dragGhost.setAttribute("aria-hidden", "true");
+  dragGhost.inert = true;
+  dragGhost.style.width = `${rect.width}px`;
+  dragGhost.style.height = `${rect.height}px`;
+  dragGhost.style.left = `${rect.left}px`;
+  dragGhost.style.top = `${rect.top}px`;
+  document.body.appendChild(dragGhost);
+  dragItem.classList.add("is-dragging");
+  dragItem.setAttribute("aria-grabbed", "true");
+  document.body.classList.add("is-dragging");
   updateDragLayout();
 };
 
-const endDrag = () => {
-  if (!dragItem || dragIndex === null) return;
+const onPointerMove = (event) => {
+  if (!dragItem || event.pointerId !== dragPointerId) return;
+  const distance = Math.hypot(event.clientX - dragStartX, event.clientY - dragStartY);
+  if (!dragStarted && distance < 6) return;
+  event.preventDefault();
+  startRankingDrag(event);
+  dragPointerY = event.clientY;
+  updateDragGhost(event);
+  updateDragLayout();
+  setRankingDragAutoScroll(event.clientY);
+};
+
+const cleanupRankingDrag = () => {
+  const item = dragItem;
   if (dragCaptureEl && dragCaptureEl.releasePointerCapture && dragPointerId !== null) {
     try {
       dragCaptureEl.releasePointerCapture(dragPointerId);
@@ -4558,25 +4864,19 @@ const endDrag = () => {
       // Ignore missing pointer capture.
     }
   }
-  const items = Array.from(rankingList.querySelectorAll(".ranking__item")).filter(
-    (el) => el !== dragItem,
-  );
-  const insertIndex = dragTargetIndex ?? dragIndex;
-  const currentOrder = items.map((el) => Number(el.dataset.index));
-  const updated = currentOrder.map((index) => ranking[index]);
-  const moved = ranking[dragIndex];
-  updated.splice(insertIndex, 0, moved);
-  ranking = updated;
-  saveRanking();
-  renderRanking();
-  dragItem.classList.remove("is-dragging");
-  dragItem.setAttribute("aria-grabbed", "false");
+  item?.classList.remove("is-dragging");
+  item?.setAttribute("aria-grabbed", "false");
   dragItem = null;
   dragIndex = null;
   dragTargetIndex = null;
   dragPointerY = null;
   dragPointerId = null;
   dragCaptureEl = null;
+  dragStarted = false;
+  dragStartX = 0;
+  dragStartY = 0;
+  dragAutoScrollSpeed = 0;
+  dragScrollOwner = null;
   if (dragGhost) {
     dragGhost.remove();
     dragGhost = null;
@@ -4588,15 +4888,52 @@ const endDrag = () => {
   clearDragShifts();
   document.body.classList.remove("is-dragging");
   window.removeEventListener("pointermove", onPointerMove);
-  window.removeEventListener("pointerup", endDrag);
-  window.removeEventListener("pointercancel", endDrag);
+  window.removeEventListener("pointerup", commitRankingDrag);
+  window.removeEventListener("pointercancel", cancelRankingDrag);
   window.removeEventListener("scroll", updateDragLayout, true);
 };
+
+function cancelRankingDrag(event) {
+  if (event && dragPointerId !== null && event.pointerId !== dragPointerId) return;
+  cleanupRankingDrag();
+}
+
+function commitRankingDrag(event) {
+  if (!dragItem || dragIndex === null || event.pointerId !== dragPointerId) return;
+  if (!dragStarted) {
+    cleanupRankingDrag();
+    return;
+  }
+  const draggedItem = dragItem;
+  draggedItem.dataset.dragged = "true";
+  window.requestAnimationFrame(() => delete draggedItem.dataset.dragged);
+  const items = Array.from(rankingList.querySelectorAll(".ranking__item")).filter(
+    (element) => element !== dragItem,
+  );
+  const insertIndex = dragTargetIndex ?? dragIndex;
+  const currentOrder = items.map((element) => Number(element.dataset.index));
+  const updated = currentOrder.map((index) => ranking[index]);
+  const moved = ranking[dragIndex];
+  const beforeRanking = snapshotRanking();
+  updated.splice(insertIndex, 0, moved);
+  const changed = updated.some((movie, index) => movieKey(movie) !== movieKey(ranking[index]));
+  cleanupRankingDrag();
+  if (!changed || !moved) return;
+  ranking = updated;
+  const nextIndex = ranking.findIndex((movie) => movieKey(movie) === movieKey(moved));
+  saveRanking();
+  renderRanking();
+  updateSuggestions();
+  renderPackSurfaces();
+  setUndoableFeedback(`"${moved.title}" moved to #${nextIndex + 1}.`, () =>
+    restoreRankingTo(beforeRanking),
+  );
+}
 
 rankingList.addEventListener(
   "pointerdown",
   (event) => {
-    if (event.target.closest(".ranking__delete")) return;
+    if (event.button !== 0 || event.isPrimary === false || pending || dragItem) return;
     // Reordering a filtered subset is ambiguous (hidden items break the drop
     // math), so dragging is disabled while a filter is active.
     if (rankingFilterQuery.trim()) return;
@@ -4609,10 +4946,11 @@ rankingList.addEventListener(
     ) {
       return;
     }
-    if ((event.pointerType === "touch" || window.matchMedia("(max-width: 720px)").matches) && !handleTarget) {
+    const directPointer = event.pointerType === "touch" || event.pointerType === "pen";
+    if (directPointer && !handleTarget) {
       return;
     }
-    event.preventDefault();
+    if (handleTarget) event.preventDefault();
     if (item.setPointerCapture) {
       item.setPointerCapture(event.pointerId);
     }
@@ -4622,27 +4960,17 @@ rankingList.addEventListener(
     dragIndex = Number(item.dataset.index);
     dragTargetIndex = dragIndex;
     dragPointerY = event.clientY;
-  const rect = item.getBoundingClientRect();
-  dragOffsetX = event.clientX - rect.left;
-  dragOffsetY = event.clientY - rect.top;
-  dragGhost = item.cloneNode(true);
-  dragGhost.classList.add("drag-ghost");
-  dragGhost.style.width = `${rect.width}px`;
-  dragGhost.style.height = `${rect.height}px`;
-  dragGhost.style.left = `${rect.left}px`;
-  dragGhost.style.top = `${rect.top}px`;
-  document.body.appendChild(dragGhost);
-  item.classList.add("is-dragging");
-  item.setAttribute("aria-grabbed", "true");
-  document.body.classList.add("is-dragging");
-  updateDragLayout();
-    window.addEventListener("pointermove", onPointerMove);
-    window.addEventListener("pointerup", endDrag);
-    window.addEventListener("pointercancel", endDrag);
+    dragStartX = event.clientX;
+    dragStartY = event.clientY;
+    dragStarted = false;
+    window.addEventListener("pointermove", onPointerMove, { passive: false });
+    window.addEventListener("pointerup", commitRankingDrag);
+    window.addEventListener("pointercancel", cancelRankingDrag);
     window.addEventListener("scroll", updateDragLayout, true);
   },
   { passive: false },
 );
+rankingList.addEventListener("dragstart", (event) => event.preventDefault());
 
 const refreshPersistenceStatus = () => {
   updateStatus();
@@ -4913,7 +5241,8 @@ const highlightRankingItem = (index) => {
   const item = items[index];
   if (!item) return;
   item.classList.add("is-highlight");
-  item.scrollIntoView({ behavior: "smooth", block: "center" });
+  const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+  item.scrollIntoView({ behavior, block: "center" });
   window.setTimeout(() => {
     item.classList.remove("is-highlight");
   }, 2000);
@@ -4955,6 +5284,9 @@ const renderDetailLoadingPane = (status = "Loading details...") => {
   detailStatus.textContent = status;
   detailRetry.hidden = true;
   setPoster(detailPoster, null);
+  detailPoster.removeAttribute("role");
+  detailPoster.removeAttribute("tabindex");
+  detailPoster.removeAttribute("aria-label");
 };
 
 const renderDetailPane = (movie, status = "") => {
@@ -4973,6 +5305,15 @@ const renderDetailPane = (movie, status = "") => {
   detailStatus.textContent = status;
   detailRetry.hidden = true;
   setPoster(detailPoster, movie);
+  if (movie.posterPath) {
+    detailPoster.setAttribute("role", "button");
+    detailPoster.tabIndex = 0;
+    detailPoster.setAttribute("aria-label", `Open full-size poster for ${movie.title || "this movie"}`);
+  } else {
+    detailPoster.removeAttribute("role");
+    detailPoster.removeAttribute("tabindex");
+    detailPoster.removeAttribute("aria-label");
+  }
 };
 
 const normalizeDetailContext = (context) => {
@@ -5681,15 +6022,30 @@ const renderPackSurfaces = () => {
 };
 
 const closePackDetail = ({ restoreFocus = true } = {}) => {
+  const closingSlug = currentPackSlug;
+  const storedTrigger = packDetailTrigger;
   currentPackSlug = null;
   packDetailFromAllPacks = false;
   packDetailOverlay.hidden = true;
   syncModalIsolation();
   document.body.classList.remove("is-detail-open");
-  if (restoreFocus && packDetailTrigger) {
-    packDetailTrigger.focus();
+  if (restoreFocus) {
+    const refreshedCard = closingSlug
+      ? document.querySelector(`.pack-card[data-slug="${CSS.escape(closingSlug)}"]`)
+      : null;
+    focusVisibleControl([storedTrigger, refreshedCard, packViewAll]);
   }
   packDetailTrigger = null;
+};
+
+const setPackDetailCloseMode = (backToBrowser) => {
+  packDetailClose.setAttribute(
+    "aria-label",
+    backToBrowser ? "Back to all suggestion packs" : "Close suggestion packs",
+  );
+  packDetailClose.title = backToBrowser ? "Back to all packs" : "Close";
+  const iconUse = packDetailClose.querySelector("use");
+  if (iconUse) iconUse.setAttribute("href", backToBrowser ? "#icon-previous" : "#icon-close");
 };
 
 const updatePackDetailPager = () => {
@@ -5723,10 +6079,11 @@ const openPackDetail = (slug, { trigger = null, showHandled = false, fromAllPack
   const cameFromAllPacks = fromAllPacks ?? browserViewOpen;
   if (browserViewOpen) packBrowserScrollTop = packDetailSheet ? packDetailSheet.scrollTop : 0;
   packDetailFromAllPacks = cameFromAllPacks;
+  setPackDetailCloseMode(cameFromAllPacks);
   packDetailOverlay.classList.remove("is-all-packs");
   packBrowserFilters.hidden = true;
   currentPackSlug = slug;
-  packDetailTrigger = trigger || packDetailTrigger;
+  if (!cameFromAllPacks && trigger) packDetailTrigger = trigger;
   packDetailShowHandled = showHandled;
   renderPackDetail();
   packDetailOverlay.hidden = false;
@@ -5751,6 +6108,20 @@ const addPackMovieToQueue = (pack, movie, target) => {
   addSuggestionToQueue(movie, target, null);
   syncPackCompletion(pack);
   renderPackSurfaces();
+};
+
+const restorePackMovieActionFocus = (index, action) => {
+  window.requestAnimationFrame(() => {
+    if (activeModalLayer() !== packDetailOverlay) return;
+    const cards = Array.from(packDetailList.querySelectorAll(".pack-movie"));
+    const card = cards[Math.min(index, Math.max(0, cards.length - 1))];
+    focusVisibleControl([
+      card?.querySelector(`[data-pack-action="${action}"]`),
+      card?.querySelector("button"),
+      packShowHandled,
+      packDetailClose,
+    ]);
+  });
 };
 
 const addPackRemainingToQueue = (pack, target) => {
@@ -5846,17 +6217,24 @@ const createPackMovieCard = (pack, movieEntry) => {
       kind: "tertiary",
       className: "suggest-action suggest-action--muted",
     });
+    rankButton.dataset.packAction = "rank";
+    saveButton.dataset.packAction = "save";
+    hideButton.dataset.packAction = "hide";
     rankButton.addEventListener("click", (event) => {
       event.stopPropagation();
       startPackMovieRanking(pack, movie, "browse");
     });
     saveButton.addEventListener("click", (event) => {
       event.stopPropagation();
+      const index = Array.from(packDetailList.querySelectorAll(".pack-movie")).indexOf(card);
       addPackMovieToQueue(pack, movie, "watch");
+      restorePackMovieActionFocus(index, "save");
     });
     hideButton.addEventListener("click", (event) => {
       event.stopPropagation();
+      const index = Array.from(packDetailList.querySelectorAll(".pack-movie")).indexOf(card);
       addPackMovieToQueue(pack, movie, "notInterested");
+      restorePackMovieActionFocus(index, "hide");
     });
     actions.append(rankButton, saveButton, hideButton);
   }
@@ -6018,7 +6396,7 @@ const renderPackBrowser = () => {
   });
 };
 
-const openAllPacks = ({ restoreScroll = false, trigger = null, source = "home" } = {}) => {
+const openAllPacks = ({ restoreScroll = false, trigger = null, source = "home", focusSlug = null } = {}) => {
   if (!restoreScroll) {
     trackProductEvent("pack_browser_opened", {
       list_size: countBucket(ranking.length),
@@ -6028,6 +6406,7 @@ const openAllPacks = ({ restoreScroll = false, trigger = null, source = "home" }
   currentPackSlug = null;
   packDetailFromAllPacks = false;
   if (!restoreScroll || !packDetailTrigger) packDetailTrigger = trigger || packViewAll;
+  setPackDetailCloseMode(false);
   packDetailPager.hidden = true;
   packDetailOverlay.classList.add("is-all-packs");
   packBrowserFilters.hidden = false;
@@ -6051,7 +6430,12 @@ const openAllPacks = ({ restoreScroll = false, trigger = null, source = "home" }
   // Returning from a pack detail restores where the user was in the list;
   // opening fresh from the homepage starts at the top.
   if (packDetailSheet) packDetailSheet.scrollTop = restoreScroll ? packBrowserScrollTop : 0;
-  packDetailClose.focus({ preventScroll: true });
+  window.requestAnimationFrame(() => {
+    const returnCard = focusSlug
+      ? packDetailList.querySelector(`.pack-card[data-slug="${focusSlug}"]`)
+      : null;
+    (returnCard || packDetailClose).focus({ preventScroll: true });
+  });
 };
 
 // The pack overlay is reused for both the "All packs" browser and a single
@@ -6059,7 +6443,8 @@ const openAllPacks = ({ restoreScroll = false, trigger = null, source = "home" }
 // back to the browser rather than dismissing the whole overlay to the homepage.
 const handlePackDetailClose = () => {
   if (packDetailFromAllPacks && currentPackSlug) {
-    openAllPacks({ restoreScroll: true });
+    const focusSlug = currentPackSlug;
+    openAllPacks({ restoreScroll: true, focusSlug });
     return;
   }
   closePackDetail();
@@ -8278,7 +8663,8 @@ function scrollToShareSetPage({ instant = false } = {}) {
     viewport.scrollLeft = left;
     viewport.style.scrollBehavior = previousScrollBehavior;
   } else {
-    viewport.scrollTo({ left, behavior: "smooth" });
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+    viewport.scrollTo({ left, behavior });
   }
   updateShareSetPageChrome();
 }
@@ -8333,17 +8719,19 @@ function updateShareStudio() {
     const total = images.cards.length;
     shareSetPageIndex = Math.min(Math.max(shareSetPageIndex, 0), Math.max(0, total - 1));
     const canSharePage = canNativeSharePngFiles(1);
-    const sharePageUnavailable = canSharePage
-      ? ""
-      : ` title="${NATIVE_SHARE_UNAVAILABLE_MESSAGE}" aria-label="Share page unavailable. ${NATIVE_SHARE_UNAVAILABLE_MESSAGE}"`;
     const figures = images.cards
       .map(
         (card, index) =>
-          `<figure class="share-preview-card" data-page-index="${index}" data-caption="${xmlEscape(card.caption || card.label || "")}">` +
+          `<figure class="share-preview-card" role="button" tabindex="0" ` +
+          `aria-label="Open full-size preview: ${xmlEscape(card.caption || card.label || `image ${index + 1}`)}" ` +
+          `data-page-index="${index}" data-caption="${xmlEscape(card.caption || card.label || "")}">` +
           `<div class="share-preview-card__media">${card.svg}</div>` +
           `</figure>`,
       )
       .join("");
+    const sharePageAction = canSharePage
+      ? `<button class="detail-action detail-action--muted" type="button" data-share-page-share ${sharePngPreparing ? "disabled" : ""}>Share page</button>`
+      : "";
     const markup =
       `<div class="share-preview-deck" data-total="${total}">` +
       `<div class="share-preview-deck__stage">` +
@@ -8364,7 +8752,7 @@ function updateShareStudio() {
       `</div>` +
       `<div class="share-preview-page-actions">` +
       `<button class="detail-action detail-action--muted" type="button" data-share-page-download ${sharePngPreparing ? "disabled" : ""}>Download this page</button>` +
-      `<button class="detail-action detail-action--muted" type="button" data-share-page-share ${sharePngPreparing || !canSharePage ? "disabled" : ""}${sharePageUnavailable}>Share page</button>` +
+      sharePageAction +
       `</div>` +
       `</div>` +
       `</div>`;
@@ -8387,7 +8775,7 @@ function updateShareStudio() {
       shareDownloadPng,
       count > 1 ? `Download zip (${count})` : count ? "Download image" : "Download images",
     );
-    shareNativeShare.hidden = false;
+    shareNativeShare.hidden = !(canShareSet || canSharePage);
     if (canShareSet) {
       setShareButtonLabel(shareNativeShare, count > 1 ? `Share set (${count})` : "Share");
     } else if (canSharePage) {
@@ -8399,13 +8787,15 @@ function updateShareStudio() {
     shareNativeShare.title = canShareSet || canSharePage ? "" : NATIVE_SHARE_UNAVAILABLE_MESSAGE;
     shareDownloadSvg.textContent = count > 1 ? "SVG zip" : "SVG";
   } else {
-    if (images.svg !== lastSharePreviewMarkup) {
-      sharePreview.innerHTML = images.svg;
-      lastSharePreviewMarkup = images.svg;
+    const singleMarkup =
+      `<div class="share-preview-single" role="button" tabindex="0" aria-label="Open full-size share preview">${images.svg}</div>`;
+    if (singleMarkup !== lastSharePreviewMarkup) {
+      sharePreview.innerHTML = singleMarkup;
+      lastSharePreviewMarkup = singleMarkup;
     }
     setShareButtonLabel(shareDownloadPng, "Download PNG");
     const canShareImage = canNativeSharePngFiles(1);
-    shareNativeShare.hidden = false;
+    shareNativeShare.hidden = !canShareImage;
     shareNativeShare.dataset.available = String(canShareImage);
     shareNativeShare.title = canShareImage ? "" : NATIVE_SHARE_UNAVAILABLE_MESSAGE;
     setShareButtonLabel(shareNativeShare, "Share");
@@ -8766,7 +9156,10 @@ if (fullscreenJumpForm) {
     const card = fullscreenGrid.querySelector(`.fullscreen-card[data-index="${rank - 1}"]`);
     if (card) {
       card.querySelector(".fullscreen-card__primary")?.focus({ preventScroll: true });
-      card.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+      const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth";
+      card.scrollIntoView({ behavior, block: "center", inline: "center" });
     }
   });
 }
@@ -8781,9 +9174,10 @@ const clearFullscreenDropMarker = () => {
   });
 };
 
-function cancelFullscreenDrag() {
+function cancelFullscreenDrag(event) {
   const drag = fullscreenDrag;
   if (!drag) return;
+  if (event && event.pointerId !== drag.pointerId) return;
   if (drag.captureEl?.releasePointerCapture && drag.pointerId !== null) {
     try {
       drag.captureEl.releasePointerCapture(drag.pointerId);
@@ -8793,6 +9187,10 @@ function cancelFullscreenDrag() {
   }
   drag.card?.classList.remove("is-dragging");
   drag.ghost?.remove();
+  if (fullscreenDragScrollRaf) {
+    window.cancelAnimationFrame(fullscreenDragScrollRaf);
+    fullscreenDragScrollRaf = null;
+  }
   clearFullscreenDropMarker();
   document.body.classList.remove("is-fullscreen-dragging");
   fullscreenDrag = null;
@@ -8816,6 +9214,55 @@ const startFullscreenDrag = (event) => {
   document.body.classList.add("is-fullscreen-dragging");
 };
 
+const updateFullscreenDropTarget = (clientX, clientY) => {
+  const drag = fullscreenDrag;
+  if (!drag) return;
+  drag.clientX = clientX;
+  drag.clientY = clientY;
+  const cards = fullscreenCards().filter((card) => card !== drag.card);
+  const rects = cards.map((card) => card.getBoundingClientRect());
+  drag.targetIndex = gridDropIndex(rects, clientX, clientY);
+  clearFullscreenDropMarker();
+  if (!cards.length) return;
+  if (drag.targetIndex <= 0) cards[0].classList.add("is-drop-before");
+  else if (drag.targetIndex >= cards.length) cards.at(-1).classList.add("is-drop-after");
+  else cards[drag.targetIndex].classList.add("is-drop-before");
+};
+
+const continueFullscreenDragAutoScroll = () => {
+  const drag = fullscreenDrag;
+  if (!drag?.started || !drag.scrollSpeed) {
+    fullscreenDragScrollRaf = null;
+    return;
+  }
+  fullscreenGrid.scrollBy({ top: drag.scrollSpeed, behavior: "auto" });
+  updateFullscreenDropTarget(drag.clientX, drag.clientY);
+  fullscreenDragScrollRaf = window.requestAnimationFrame(continueFullscreenDragAutoScroll);
+};
+
+const setFullscreenDragAutoScroll = (clientY) => {
+  const drag = fullscreenDrag;
+  if (!drag) return;
+  const gridRect = fullscreenGrid.getBoundingClientRect();
+  const edge = Math.min(64, gridRect.height * 0.18);
+  if (clientY < gridRect.top + edge) {
+    drag.scrollSpeed = -Math.max(
+      4,
+      Math.min(16, Math.round(((gridRect.top + edge - clientY) / edge) * 16)),
+    );
+  } else if (clientY > gridRect.bottom - edge) {
+    drag.scrollSpeed = Math.max(
+      4,
+      Math.min(16, Math.round(((clientY - (gridRect.bottom - edge)) / edge) * 16)),
+    );
+  } else {
+    drag.scrollSpeed = 0;
+  }
+  if (drag.scrollSpeed && !fullscreenDragScrollRaf) {
+    fullscreenDragScrollRaf = window.requestAnimationFrame(continueFullscreenDragAutoScroll);
+  }
+};
+
 const updateFullscreenDrag = (event) => {
   const drag = fullscreenDrag;
   if (!drag || drag.pointerId !== event.pointerId) return;
@@ -8825,20 +9272,8 @@ const updateFullscreenDrag = (event) => {
   startFullscreenDrag(event);
   drag.ghost.style.left = `${event.clientX - drag.offsetX}px`;
   drag.ghost.style.top = `${event.clientY - drag.offsetY}px`;
-
-  const cards = fullscreenCards().filter((card) => card !== drag.card);
-  const rects = cards.map((card) => card.getBoundingClientRect());
-  drag.targetIndex = gridDropIndex(rects, event.clientX, event.clientY);
-  clearFullscreenDropMarker();
-  if (cards.length) {
-    if (drag.targetIndex <= 0) cards[0].classList.add("is-drop-before");
-    else if (drag.targetIndex >= cards.length) cards.at(-1).classList.add("is-drop-after");
-    else cards[drag.targetIndex].classList.add("is-drop-before");
-  }
-
-  const gridRect = fullscreenGrid.getBoundingClientRect();
-  if (event.clientY < gridRect.top + 50) fullscreenGrid.scrollBy({ top: -16 });
-  else if (event.clientY > gridRect.bottom - 50) fullscreenGrid.scrollBy({ top: 16 });
+  updateFullscreenDropTarget(event.clientX, event.clientY);
+  setFullscreenDragAutoScroll(event.clientY);
 };
 
 const finishFullscreenDrag = (event) => {
@@ -8928,11 +9363,20 @@ if (fullscreenGrid) {
   });
 
   fullscreenGrid.addEventListener("pointerdown", (event) => {
-    if (event.button !== 0 || !fullscreenMoveMode || fullscreenFilterQuery.trim() || fullscreenTasteSignal) {
+    if (
+      event.button !== 0 ||
+      event.isPrimary === false ||
+      fullscreenDrag ||
+      !fullscreenMoveMode ||
+      fullscreenFilterQuery.trim() ||
+      fullscreenTasteSignal
+    ) {
       return;
     }
     const handleTarget = event.target.closest(".fullscreen-card__drag-handle");
-    if (!handleTarget) return;
+    const directPointer = event.pointerType === "touch" || event.pointerType === "pen";
+    if (directPointer && !handleTarget) return;
+    if (!handleTarget && event.target.closest(".fullscreen-card__actions, .movie-item__overflow")) return;
     const card = event.target.closest(".fullscreen-card");
     if (!card) return;
     event.preventDefault();
@@ -8945,6 +9389,9 @@ if (fullscreenGrid) {
       targetIndex: Number(card.dataset.index),
       startX: event.clientX,
       startY: event.clientY,
+      clientX: event.clientX,
+      clientY: event.clientY,
+      scrollSpeed: 0,
       started: false,
       ghost: null,
     };
@@ -8952,6 +9399,7 @@ if (fullscreenGrid) {
   fullscreenGrid.addEventListener("pointermove", updateFullscreenDrag, { passive: false });
   fullscreenGrid.addEventListener("pointerup", finishFullscreenDrag);
   fullscreenGrid.addEventListener("pointercancel", cancelFullscreenDrag);
+  fullscreenGrid.addEventListener("dragstart", (event) => event.preventDefault());
 }
 
 function updateShareOptionsFromControls() {
@@ -10047,6 +10495,15 @@ packBrowserSearch.addEventListener("input", () => {
   packBrowserFilterValues.query = packBrowserSearch.value;
   renderPackBrowser();
 });
+packBrowserSearch.addEventListener("keydown", (event) => {
+  if (event.key !== "Escape" || !packBrowserFilterValues.query) return;
+  event.preventDefault();
+  event.stopPropagation();
+  packBrowserFilterValues.query = "";
+  packBrowserSearch.value = "";
+  renderPackBrowser();
+  packBrowserSearch.focus({ preventScroll: true });
+});
 packBrowserSearchClear.addEventListener("click", () => {
   packBrowserFilterValues.query = "";
   packBrowserSearch.value = "";
@@ -10062,6 +10519,11 @@ packBrowserStateOptions.addEventListener("click", (event) => {
   if (!button || button.disabled) return;
   packBrowserFilterValues.state = button.dataset.state;
   renderPackBrowser();
+  window.requestAnimationFrame(() => {
+    packBrowserStateOptions
+      .querySelector(`[data-state="${button.dataset.state}"]`)
+      ?.focus({ preventScroll: true });
+  });
 });
 packBrowserReset.addEventListener("click", () => {
   packBrowserSearch.blur();
@@ -10069,6 +10531,7 @@ packBrowserReset.addEventListener("click", () => {
   packBrowserSearch.value = "";
   packBrowserCategory.value = "all";
   renderPackBrowser();
+  packBrowserSearch.focus({ preventScroll: true });
 });
 packDetailClose.addEventListener("click", () => handlePackDetailClose());
 packDetailPrev.addEventListener("click", () => navigatePackDetail(-1));
@@ -10078,7 +10541,7 @@ packDetailNext.addEventListener("click", () => navigatePackDetail(1));
 document.addEventListener("keydown", (event) => {
   if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
   if (event.metaKey || event.ctrlKey || event.altKey) return;
-  if (packDetailOverlay.hidden || !packDetailFromAllPacks) return;
+  if (activeModalLayer() !== packDetailOverlay || !packDetailFromAllPacks) return;
   if (packDetailOverlay.classList.contains("is-all-packs")) return;
   const tag = event.target?.tagName;
   if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA") return;
@@ -10099,12 +10562,85 @@ packShowHandled.addEventListener("click", () => {
 });
 packSaveAll.addEventListener("click", () => {
   const pack = getPackBySlug(currentPackSlug);
-  if (pack) addPackRemainingToQueue(pack, "watch");
+  if (pack) {
+    addPackRemainingToQueue(pack, "watch");
+    focusVisibleControl([packShowHandled, packDetailClose]);
+  }
 });
 packHideAll.addEventListener("click", () => {
   const pack = getPackBySlug(currentPackSlug);
-  if (pack) addPackRemainingToQueue(pack, "notInterested");
+  if (pack) {
+    addPackRemainingToQueue(pack, "notInterested");
+    focusVisibleControl([packShowHandled, packDetailClose]);
+  }
 });
+
+const captureDetailMutationAnchor = (context) => {
+  const trigger = detailTrigger;
+  if (context?.slug) {
+    const card = trigger?.closest(".pack-movie");
+    return {
+      type: "pack",
+      index: Array.from(packDetailList.querySelectorAll(".pack-movie")).indexOf(card),
+    };
+  }
+  if (context?.type === "queue") {
+    const list = context.source === "watch" ? watchListEl : notInterestedListEl;
+    const row = trigger?.closest(".queue-list__item");
+    return {
+      type: "queue",
+      source: context.source,
+      index: Array.from(list?.querySelectorAll(".queue-list__item") || []).indexOf(row),
+    };
+  }
+  const config = getSuggestionSectionConfig(context?.sectionKey);
+  const card = trigger?.closest(".suggest-card");
+  return {
+    type: "suggestion",
+    sectionKey: context?.sectionKey,
+    index: Array.from(config?.container?.querySelectorAll(".suggest-card") || []).indexOf(card),
+  };
+};
+
+const restoreDetailMutationFocus = (anchor, action) => {
+  if (anchor?.type === "pack") {
+    restorePackMovieActionFocus(anchor.index, action);
+    return;
+  }
+  window.requestAnimationFrame(() => {
+    if (activeModalLayer()) return;
+    if (anchor?.type === "queue") {
+      const list = anchor.source === "watch" ? watchListEl : notInterestedListEl;
+      const rows = Array.from(list?.querySelectorAll(".queue-list__item") || []);
+      const row = rows[Math.min(anchor.index, Math.max(0, rows.length - 1))];
+      const tabTarget = anchor.source === "watch" ? "watch" : "hidden";
+      if (
+        focusVisibleControl([
+          row?.querySelector(".queue-list__primary"),
+          row?.querySelector(".movie-item__overflow > summary"),
+          listTabs.find((button) => button.dataset.listDestinationTarget === tabTarget),
+        ])
+      ) {
+        return;
+      }
+    }
+    if (anchor?.type === "suggestion") {
+      const config = getSuggestionSectionConfig(anchor.sectionKey);
+      const cards = Array.from(config?.container?.querySelectorAll(".suggest-card") || []);
+      const card = cards[Math.min(anchor.index, Math.max(0, cards.length - 1))];
+      if (
+        focusVisibleControl([
+          card?.querySelector(".suggest-action"),
+          card?.querySelector(".suggest-info"),
+          config?.moreButton,
+        ])
+      ) {
+        return;
+      }
+    }
+    focusVisibleControl([rankingAddJump, titleInput]);
+  });
+};
 
 detailClose.addEventListener("click", () => closeMovieDetail());
 detailRetry.addEventListener("click", () => {
@@ -10119,6 +10655,12 @@ detailRetry.addEventListener("click", () => {
 // Tap the detail-pane poster to view the artwork full-res in the shared lightbox.
 detailPoster.addEventListener("click", () => {
   if (currentDetail?.movie?.posterPath) openPosterLightbox(currentDetail.movie, detailPoster);
+});
+detailPoster.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" && event.key !== " ") return;
+  if (!currentDetail?.movie?.posterPath) return;
+  event.preventDefault();
+  openPosterLightbox(currentDetail.movie, detailPoster);
 });
 
 detailOverlay.addEventListener("click", (event) => {
@@ -10149,6 +10691,7 @@ detailSave.addEventListener("click", () => {
   if (!currentDetail) return;
   const { movie, context } = currentDetail;
   if (context.type === "ranked") return;
+  const anchor = captureDetailMutationAnchor(context);
   closeMovieDetail({ restoreFocus: false });
   if (context.type === "queue") {
     moveQueueMovieByMovie(context.source, movie);
@@ -10158,12 +10701,14 @@ detailSave.addEventListener("click", () => {
   } else {
     addSuggestionToQueue(movie, "watch", context.sectionKey);
   }
+  restoreDetailMutationFocus(anchor, "save");
 });
 
 detailHide.addEventListener("click", () => {
   if (!currentDetail) return;
   const { movie, context } = currentDetail;
   if (context.type === "ranked") return;
+  const anchor = captureDetailMutationAnchor(context);
   closeMovieDetail({ restoreFocus: false });
   if (context.type === "queue") {
     removeQueueMovieByMovie(context.source, movie);
@@ -10173,6 +10718,7 @@ detailHide.addEventListener("click", () => {
   } else {
     addSuggestionToQueue(movie, "notInterested", context.sectionKey);
   }
+  restoreDetailMutationFocus(anchor, "hide");
 });
 
 document.addEventListener("keydown", (event) => {
@@ -10196,9 +10742,24 @@ document.addEventListener("keydown", (event) => {
     }
     return;
   }
+  if (event.key === "Escape" && dragItem) {
+    event.preventDefault();
+    if (dragStarted) suppressPostDragClickUntilRelease(dragItem);
+    cancelRankingDrag();
+    return;
+  }
+  if (event.key === "Escape" && fullscreenDrag) {
+    event.preventDefault();
+    if (fullscreenDrag.started) suppressPostDragClickUntilRelease(fullscreenDrag.card);
+    cancelFullscreenDrag();
+    return;
+  }
   if (event.key !== "Escape") return;
-  if (document.querySelector(".movie-item__overflow[open]")) {
+  const openMovieOverflow = document.querySelector(".movie-item__overflow[open]");
+  if (openMovieOverflow) {
+    const overflowToggle = openMovieOverflow.querySelector("summary");
     closeMovieOverflowMenus();
+    overflowToggle?.focus({ preventScroll: true });
     return;
   }
   if (!signinOverlay.hidden) {
@@ -10207,6 +10768,10 @@ document.addEventListener("keydown", (event) => {
   }
   if (isReviewing()) {
     finishReview(false);
+    return;
+  }
+  if (pending) {
+    cancelComparison();
     return;
   }
   if (!titleImportOverlay.hidden) {
@@ -10404,6 +10969,12 @@ titleInput.addEventListener("input", (event) => {
 });
 
 titleInput.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && titleInput.getAttribute("aria-expanded") === "true") {
+    event.preventDefault();
+    event.stopPropagation();
+    hideSuggestions();
+    return;
+  }
   if (!suggestionItems.length) return;
 
   if (event.key === "ArrowDown") {

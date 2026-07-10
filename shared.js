@@ -15,6 +15,15 @@ const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl
 const TMDB_POSTER_BASE = "https://image.tmdb.org/t/p/w342";
 const TMDB_DETAIL_POSTER_BASE = "https://image.tmdb.org/t/p/w500";
 const TMDB_DETAIL_PATH = "/functions/v1/tmdb-detail";
+const DETAIL_FOCUSABLE_SELECTOR = [
+  "a[href]",
+  "button:not([disabled])",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  "textarea:not([disabled])",
+  '[contenteditable="true"]',
+  '[tabindex]:not([tabindex="-1"])',
+].join(",");
 
 const page = document.querySelector(".shared-page");
 const title = document.getElementById("shared-title");
@@ -41,6 +50,7 @@ const detailCache = new Map();
 const detailRequests = new Map();
 let detailRequestId = 0;
 let detailTrigger = null;
+let detailPageLock = null;
 const productTelemetryEnabled = shouldCollectProductTelemetry({
   hostname: window.location.hostname,
   doNotTrack: navigator.doNotTrack || window.doNotTrack || "",
@@ -148,11 +158,82 @@ const fetchMovieDetail = async (movie) => {
   return request;
 };
 
+const detailFocusableElements = () =>
+  Array.from(detailOverlay?.querySelectorAll(DETAIL_FOCUSABLE_SELECTOR) || []).filter((element) => {
+    if (!(element instanceof HTMLElement) || element.hidden || element.closest("[hidden]")) return false;
+    const style = window.getComputedStyle(element);
+    return style.display !== "none" && style.visibility !== "hidden" && element.getClientRects().length > 0;
+  });
+
+const lockDetailPage = () => {
+  if (detailPageLock) return;
+  const body = document.body;
+  const scrollX = window.scrollX || document.documentElement.scrollLeft || 0;
+  const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+  detailPageLock = {
+    scrollX,
+    scrollY,
+    pageInert: Boolean(page?.inert),
+    bodyHadOpenClass: body.classList.contains("is-shared-detail-open"),
+    bodyStyle: {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+      paddingRight: body.style.paddingRight,
+    },
+  };
+
+  const scrollbarGap = Math.max(0, window.innerWidth - document.documentElement.clientWidth);
+  const bodyPaddingRight = Number.parseFloat(window.getComputedStyle(body).paddingRight) || 0;
+  if (page) page.inert = true;
+  body.classList.add("is-shared-detail-open");
+  body.style.position = "fixed";
+  body.style.top = `-${scrollY}px`;
+  body.style.left = "0";
+  body.style.right = "0";
+  body.style.width = "100%";
+  if (scrollbarGap) body.style.paddingRight = `${bodyPaddingRight + scrollbarGap}px`;
+};
+
+const unlockDetailPage = () => {
+  if (!detailPageLock) return;
+  const lock = detailPageLock;
+  detailPageLock = null;
+  if (page) page.inert = lock.pageInert;
+  if (!lock.bodyHadOpenClass) document.body.classList.remove("is-shared-detail-open");
+  Object.assign(document.body.style, lock.bodyStyle);
+  window.scrollTo(lock.scrollX, lock.scrollY);
+};
+
+const trapDetailFocus = (event) => {
+  const focusable = detailFocusableElements();
+  if (!focusable.length) {
+    event.preventDefault();
+    return;
+  }
+  const first = focusable[0];
+  const last = focusable.at(-1);
+  if (!detailOverlay.contains(document.activeElement)) {
+    event.preventDefault();
+    (event.shiftKey ? last : first).focus({ preventScroll: true });
+  } else if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus({ preventScroll: true });
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus({ preventScroll: true });
+  }
+};
+
 const closeMovieDetail = ({ restoreFocus = true } = {}) => {
   detailRequestId += 1;
   detailOverlay.hidden = true;
-  document.body.classList.remove("is-shared-detail-open");
-  if (restoreFocus && detailTrigger) detailTrigger.focus();
+  unlockDetailPage();
+  if (restoreFocus && detailTrigger && document.contains(detailTrigger)) {
+    detailTrigger.focus({ preventScroll: true });
+  }
   detailTrigger = null;
 };
 
@@ -165,7 +246,7 @@ const openMovieDetail = async ({ movie, rank, trigger }) => {
     statusText: movie.tmdbId ? "Loading details..." : "More details unavailable.",
   });
   detailOverlay.hidden = false;
-  document.body.classList.add("is-shared-detail-open");
+  lockDetailPage();
   detailClose.focus({ preventScroll: true });
   const detail = await fetchMovieDetail(movie);
   if (requestId !== detailRequestId || detailOverlay.hidden) return;
@@ -274,9 +355,12 @@ detailOverlay.addEventListener("click", (event) => {
   if (event.target === detailOverlay) closeMovieDetail();
 });
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape" && detailOverlay && !detailOverlay.hidden) {
+  if (!detailOverlay || detailOverlay.hidden) return;
+  if (event.key === "Escape") {
     event.preventDefault();
     closeMovieDetail();
+  } else if (event.key === "Tab") {
+    trapDetailFocus(event);
   }
 });
 

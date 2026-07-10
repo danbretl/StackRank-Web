@@ -90,85 +90,91 @@ const seedQueues = {
   ],
 };
 
-const allShots = [
-  {
-    name: "desktop-main",
+const DEVICE_PROFILES = Object.freeze({
+  desktop: Object.freeze({
+    device: "desktop",
+    orientation: "landscape",
+    input: "fine",
     width: 1440,
     height: 900,
-    state: "main",
-  },
-  {
-    name: "mobile-main",
+    deviceScaleFactor: 1,
+    mobile: false,
+    touch: false,
+  }),
+  ipadLandscape: Object.freeze({
+    device: "ipad",
+    orientation: "landscape",
+    input: "coarse-touch",
+    width: 1024,
+    height: 768,
+    deviceScaleFactor: 2,
+    mobile: true,
+    touch: true,
+  }),
+  ipadPortrait: Object.freeze({
+    device: "ipad",
+    orientation: "portrait",
+    input: "coarse-touch",
+    width: 820,
+    height: 1180,
+    deviceScaleFactor: 2,
+    mobile: true,
+    touch: true,
+  }),
+  iphonePortrait: Object.freeze({
+    device: "iphone",
+    orientation: "portrait",
+    input: "coarse-touch",
     width: 390,
     height: 844,
-    state: "main",
-  },
-  {
-    name: "desktop-comparison",
-    width: 1440,
-    height: 900,
-    state: "comparison",
-  },
-  {
-    name: "mobile-comparison-portrait",
-    width: 390,
-    height: 844,
-    state: "comparison",
-  },
-  {
-    name: "mobile-comparison-landscape",
+    deviceScaleFactor: 3,
+    mobile: true,
+    touch: true,
+  }),
+  iphoneLandscape: Object.freeze({
+    device: "iphone",
+    orientation: "landscape",
+    input: "coarse-touch",
     width: 844,
     height: 390,
-    state: "comparison",
-  },
-  {
-    name: "desktop-all-packs",
-    width: 1440,
-    height: 900,
-    state: "all-packs",
-  },
-  {
-    name: "mobile-all-packs",
-    width: 390,
-    height: 844,
-    state: "all-packs",
-  },
-  {
-    name: "desktop-pack-detail",
-    width: 1440,
-    height: 900,
-    state: "pack-detail",
-  },
-  {
-    name: "mobile-pack-detail",
-    width: 390,
-    height: 844,
-    state: "pack-detail",
-  },
-  {
-    name: "desktop-movie-detail",
-    width: 1440,
-    height: 900,
-    state: "movie-detail",
-  },
-  {
-    name: "mobile-movie-detail",
-    width: 390,
-    height: 844,
-    state: "movie-detail",
-  },
-  {
-    name: "desktop-share-studio",
-    width: 1440,
-    height: 900,
-    state: "share",
-  },
-  {
-    name: "mobile-share-studio",
-    width: 390,
-    height: 844,
-    state: "share",
-  },
+    deviceScaleFactor: 3,
+    mobile: true,
+    touch: true,
+  }),
+});
+
+const createShot = (name, profileName, state) => ({
+  name,
+  profileName,
+  state,
+  ...DEVICE_PROFILES[profileName],
+});
+
+const allShots = [
+  createShot("desktop-main", "desktop", "main"),
+  createShot("ipad-main-landscape", "ipadLandscape", "main"),
+  createShot("ipad-main-portrait", "ipadPortrait", "main"),
+  createShot("mobile-main", "iphonePortrait", "main"),
+  createShot("mobile-main-landscape", "iphoneLandscape", "main"),
+  createShot("desktop-comparison", "desktop", "comparison"),
+  createShot("ipad-comparison-landscape", "ipadLandscape", "comparison"),
+  createShot("ipad-comparison-portrait", "ipadPortrait", "comparison"),
+  createShot("mobile-comparison-portrait", "iphonePortrait", "comparison"),
+  createShot("mobile-comparison-landscape", "iphoneLandscape", "comparison"),
+  createShot("desktop-all-packs", "desktop", "all-packs"),
+  createShot("ipad-all-packs-landscape", "ipadLandscape", "all-packs"),
+  createShot("ipad-all-packs-portrait", "ipadPortrait", "all-packs"),
+  createShot("mobile-all-packs", "iphonePortrait", "all-packs"),
+  createShot("desktop-pack-detail", "desktop", "pack-detail"),
+  createShot("ipad-pack-detail-portrait", "ipadPortrait", "pack-detail"),
+  createShot("mobile-pack-detail", "iphonePortrait", "pack-detail"),
+  createShot("desktop-movie-detail", "desktop", "movie-detail"),
+  createShot("ipad-movie-detail-portrait", "ipadPortrait", "movie-detail"),
+  createShot("mobile-movie-detail", "iphonePortrait", "movie-detail"),
+  createShot("desktop-share-studio", "desktop", "share"),
+  createShot("ipad-share-studio-landscape", "ipadLandscape", "share"),
+  createShot("ipad-share-studio-portrait", "ipadPortrait", "share"),
+  createShot("mobile-share-studio", "iphonePortrait", "share"),
 ];
 const shots = onlyNames ? allShots.filter((shot) => onlyNames.has(shot.name)) : allShots;
 
@@ -360,7 +366,7 @@ const captureShot = async (baseUrl, shot) => {
       updated_at: new Date().toISOString(),
     };
     const shareOptions = {
-      version: 5,
+      version: 7,
       displayName: "Dan",
       top: true,
       bottom: true,
@@ -368,20 +374,38 @@ const captureShot = async (baseUrl, shot) => {
       genres: true,
       people: true,
       queues: true,
+      packs: true,
       fullList: true,
       fullListStyle: "mixed",
+      format: "single",
+      shape: "skinny",
       theme: "pop",
       tone: "neutral",
     };
 
     await page.send("Page.enable");
     await page.send("Runtime.enable");
+    if (!shot.touch) {
+      await page.send("Emulation.setTouchEmulationEnabled", { enabled: false });
+    }
     await page.send("Emulation.setDeviceMetricsOverride", {
       width: shot.width,
       height: shot.height,
-      deviceScaleFactor: 1,
-      mobile: shot.width < 700,
+      deviceScaleFactor: shot.deviceScaleFactor,
+      mobile: shot.mobile,
+      screenWidth: shot.width,
+      screenHeight: shot.height,
+      screenOrientation: {
+        type: shot.orientation === "portrait" ? "portraitPrimary" : "landscapePrimary",
+        angle: shot.orientation === "portrait" ? 0 : 90,
+      },
     });
+    if (shot.touch) {
+      await page.send("Emulation.setTouchEmulationEnabled", {
+        enabled: true,
+        maxTouchPoints: 5,
+      });
+    }
     await page.send("Page.navigate", { url: `${baseUrl}/?screenshot=${encodeURIComponent(shot.name)}` });
     await wait(600);
     await page.send("Runtime.evaluate", {
@@ -497,6 +521,16 @@ const captureShot = async (baseUrl, shot) => {
           title: document.title,
           url: location.href,
           viewport: { width: innerWidth, height: innerHeight },
+          capabilities: {
+            orientation: matchMedia('(orientation: portrait)').matches ? 'portrait' : 'landscape',
+            pointerCoarse: matchMedia('(pointer: coarse)').matches,
+            pointerFine: matchMedia('(pointer: fine)').matches,
+            anyPointerCoarse: matchMedia('(any-pointer: coarse)').matches,
+            hoverHover: matchMedia('(hover: hover)').matches,
+            hoverNone: matchMedia('(hover: none)').matches,
+            maxTouchPoints: navigator.maxTouchPoints,
+            devicePixelRatio
+          },
           scroll: {
             width: document.documentElement.scrollWidth,
             height: document.documentElement.scrollHeight
@@ -513,6 +547,38 @@ const captureShot = async (baseUrl, shot) => {
       awaitPromise: true,
       returnByValue: true,
     });
+    const observed = metrics.result.value;
+    const expectedTouchCapabilities =
+      observed.capabilities.pointerCoarse &&
+      observed.capabilities.anyPointerCoarse &&
+      observed.capabilities.hoverNone &&
+      !observed.capabilities.hoverHover &&
+      observed.capabilities.maxTouchPoints > 0;
+    const expectedFineCapabilities =
+      observed.capabilities.pointerFine &&
+      observed.capabilities.hoverHover &&
+      !observed.capabilities.pointerCoarse &&
+      observed.capabilities.maxTouchPoints === 0;
+    if (
+      observed.viewport.width !== shot.width ||
+      observed.viewport.height !== shot.height ||
+      observed.capabilities.orientation !== shot.orientation ||
+      (shot.touch ? !expectedTouchCapabilities : !expectedFineCapabilities)
+    ) {
+      throw new Error(
+        `Device profile mismatch for ${shot.name}: ${JSON.stringify({
+          expected: {
+            viewport: { width: shot.width, height: shot.height },
+            orientation: shot.orientation,
+            input: shot.input,
+          },
+          observed: {
+            viewport: observed.viewport,
+            capabilities: observed.capabilities,
+          },
+        })}`,
+      );
+    }
 
     const screenshot = await page.send("Page.captureScreenshot", {
       format: "png",
@@ -527,14 +593,21 @@ const captureShot = async (baseUrl, shot) => {
       archivePath,
       latestPath,
       state: shot.state,
+      profile: shot.profileName,
+      device: shot.device,
+      orientation: shot.orientation,
+      input: shot.input,
       viewport: `${shot.width}x${shot.height}`,
-      bodyClass: metrics.result.value.bodyClass,
-      scroll: metrics.result.value.scroll,
-      hasComparison: metrics.result.value.hasComparison,
-      hasShareStudio: metrics.result.value.hasShareStudio,
-      hasPackBrowser: metrics.result.value.hasPackBrowser,
-      hasPackDetail: metrics.result.value.hasPackDetail,
-      hasMovieDetail: metrics.result.value.hasMovieDetail,
+      deviceScaleFactor: shot.deviceScaleFactor,
+      capabilities: observed.capabilities,
+      shareOptionsVersion: shareOptions.version,
+      bodyClass: observed.bodyClass,
+      scroll: observed.scroll,
+      hasComparison: observed.hasComparison,
+      hasShareStudio: observed.hasShareStudio,
+      hasPackBrowser: observed.hasPackBrowser,
+      hasPackDetail: observed.hasPackDetail,
+      hasMovieDetail: observed.hasMovieDetail,
     };
   } finally {
     await page.close();

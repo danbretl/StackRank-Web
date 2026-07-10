@@ -351,6 +351,66 @@ const clickAt = async (page, x, y) => {
   });
 };
 
+const DEVICE_INPUT_PROFILE = Object.freeze({
+  fine: "fine",
+  coarseTouch: "coarse-touch",
+});
+
+const setDeviceProfile = async (
+  page,
+  {
+    width,
+    height,
+    input = DEVICE_INPUT_PROFILE.fine,
+    deviceScaleFactor = input === DEVICE_INPUT_PROFILE.coarseTouch ? 2 : 1,
+  },
+) => {
+  const touch = input === DEVICE_INPUT_PROFILE.coarseTouch;
+  if (!touch) {
+    await page.send("Emulation.setTouchEmulationEnabled", { enabled: false });
+  }
+  await page.send("Emulation.setDeviceMetricsOverride", {
+    width,
+    height,
+    deviceScaleFactor,
+    mobile: touch,
+    screenWidth: width,
+    screenHeight: height,
+  });
+  if (touch) {
+    await page.send("Emulation.setTouchEmulationEnabled", { enabled: true, maxTouchPoints: 5 });
+  }
+  await wait(150);
+  return page.evaluate(`(() => ({
+    innerWidth,
+    innerHeight,
+    pointerCoarse: matchMedia('(pointer: coarse)').matches,
+    pointerFine: matchMedia('(pointer: fine)').matches,
+    anyPointerCoarse: matchMedia('(any-pointer: coarse)').matches,
+    hoverHover: matchMedia('(hover: hover)').matches,
+    hoverNone: matchMedia('(hover: none)').matches,
+    maxTouchPoints: navigator.maxTouchPoints
+  }))()`);
+};
+
+const tapAt = async (page, x, y) => {
+  const point = {
+    x: Math.round(x),
+    y: Math.round(y),
+    radiusX: 1,
+    radiusY: 1,
+    force: 1,
+  };
+  await page.send("Input.dispatchTouchEvent", {
+    type: "touchStart",
+    touchPoints: [point],
+  });
+  await page.send("Input.dispatchTouchEvent", {
+    type: "touchEnd",
+    touchPoints: [],
+  });
+};
+
 const waitForDownload = async (page, fileName, timeoutMs = 30000) => {
   const filePath = path.join(page.downloadDir, fileName);
   const partialPath = `${filePath}.crdownload`;
@@ -591,7 +651,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=139" ||
+      desktop.cssHref !== "styles.css?v=141" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -971,6 +1031,277 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       );
       await wait(100);
     };
+    const tapSelector = async (selector) => {
+      const point = await page.evaluate(`(() => {
+        const element = document.querySelector(${JSON.stringify(selector)});
+        const bounds = element?.getBoundingClientRect();
+        if (!bounds || bounds.width <= 0 || bounds.height <= 0) return null;
+        const x = Math.round(bounds.left + bounds.width / 2);
+        const y = Math.round(bounds.top + bounds.height / 2);
+        const hit = document.elementFromPoint(x, y);
+        return {
+          x,
+          y,
+          hit: hit === element || element?.contains(hit)
+        };
+      })()`);
+      if (!point?.hit) {
+        throw new Error(`Touch target is not hittable: ${selector} ${JSON.stringify(point)}`);
+      }
+      await tapAt(page, point.x, point.y);
+      return point;
+    };
+    const readRankModalityLayout = async () =>
+      page.evaluate(`(() => {
+        const rect = (element) => {
+          const bounds = element?.getBoundingClientRect();
+          return bounds ? {
+            left: Math.round(bounds.left),
+            right: Math.round(bounds.right),
+            top: Math.round(bounds.top),
+            bottom: Math.round(bounds.bottom),
+            width: Math.round(bounds.width),
+            height: Math.round(bounds.height)
+          } : null;
+        };
+        const visible = (element) => {
+          const bounds = element?.getBoundingClientRect();
+          const style = element ? getComputedStyle(element) : null;
+          return !!bounds &&
+            bounds.width > 0 &&
+            bounds.height > 0 &&
+            style?.display !== 'none' &&
+            style?.visibility !== 'hidden' &&
+            style?.opacity !== '0' &&
+            style?.pointerEvents !== 'none';
+        };
+        const item = document.querySelector('#ranking .ranking__item');
+        const appStyle = getComputedStyle(document.querySelector('.app'));
+        const side = rect(document.querySelector('.side-stack'));
+        const rail = rect(document.querySelector('.stack'));
+        const directActions = [...(item?.querySelectorAll('.movie-item__actions > .movie-item__action') || [])]
+          .map((button) => ({
+            text: button.textContent.trim(),
+            className: button.className,
+            visible: visible(button),
+            rect: rect(button)
+          }));
+        const toolbarControls = [...document.querySelectorAll('.panel--list .panel__actions .icon-button')]
+          .filter((button) => visible(button))
+          .map((button) => ({
+            id: button.id,
+            label: button.querySelector('.icon-button__label')?.textContent.trim() || button.getAttribute('aria-label') || '',
+            rect: rect(button)
+          }));
+        const overflow = item?.querySelector('.ranking__overflow');
+        const overflowToggle = overflow?.querySelector('.movie-item__overflow-toggle');
+        const handle = item?.querySelector('.ranking__handle');
+        return {
+          destination: document.querySelector('main.app')?.dataset.appDestination,
+          pointerCoarse: matchMedia('(pointer: coarse)').matches,
+          pointerFine: matchMedia('(pointer: fine)').matches,
+          anyPointerCoarse: matchMedia('(any-pointer: coarse)').matches,
+          hoverHover: matchMedia('(hover: hover)').matches,
+          hoverNone: matchMedia('(hover: none)').matches,
+          maxTouchPoints: navigator.maxTouchPoints,
+          appColumns: appStyle.gridTemplateColumns,
+          appAreas: appStyle.gridTemplateAreas,
+          side,
+          rail,
+          sideLeftOfRail: !!side && !!rail && side.left < rail.left && side.right <= rail.left,
+          topNavVisible: visible(document.querySelector('.app-nav--top')),
+          mobileNavVisible: visible(document.querySelector('.app-nav--mobile')),
+          toolbarControls,
+          directActions,
+          visibleDirectActionLabels: directActions.filter((action) => action.visible).map((action) => action.text),
+          overflow: {
+            visible: visible(overflowToggle),
+            rect: rect(overflowToggle),
+            display: overflow ? getComputedStyle(overflow).display : ''
+          },
+          handle: {
+            visible: visible(handle),
+            rect: rect(handle),
+            touchAction: handle ? getComputedStyle(handle).touchAction : ''
+          },
+          rowTouchAction: item ? getComputedStyle(item).touchAction : '',
+          body: rect(item?.querySelector('.movie-item__body')),
+          scrollWidth: document.documentElement.scrollWidth,
+          innerWidth,
+          innerHeight
+        };
+      })()`);
+    const assertCoarseRankLayout = (label, layout, toolbarLabels, { twoColumn = true } = {}) => {
+      if (
+        layout.destination !== "rank" ||
+        !layout.pointerCoarse ||
+        layout.pointerFine ||
+        !layout.anyPointerCoarse ||
+        layout.hoverHover ||
+        !layout.hoverNone ||
+        layout.maxTouchPoints < 1 ||
+        (twoColumn && !layout.sideLeftOfRail) ||
+        (twoColumn && !layout.topNavVisible) ||
+        (!twoColumn && !layout.mobileNavVisible) ||
+        layout.toolbarControls.map((control) => control.label).join("|") !== toolbarLabels ||
+        layout.toolbarControls.some((control) => control.rect.width < 44 || control.rect.height < 44) ||
+        layout.visibleDirectActionLabels.length !== 0 ||
+        !layout.overflow.visible ||
+        layout.overflow.rect?.width < 44 ||
+        layout.overflow.rect?.height < 44 ||
+        layout.handle.visible ||
+        layout.rowTouchAction !== "pan-y" ||
+        layout.handle.touchAction !== "none" ||
+        layout.body?.width < 80 ||
+        layout.body?.height < 44 ||
+        layout.scrollWidth > layout.innerWidth
+      ) {
+        throw new Error(`${label} coarse Rank layout is wrong: ${JSON.stringify(layout)}`);
+      }
+    };
+    const readVisibleControlTargets = async (rootSelectors) =>
+      page.evaluate(`(() => {
+        const roots = ${JSON.stringify(rootSelectors)}
+          .map((selector) => document.querySelector(selector))
+          .filter(Boolean);
+        const controls = [...new Set(roots.flatMap((root) => [
+          ...(root.matches('button, summary, a[href], [role="button"]') ? [root] : []),
+          ...root.querySelectorAll('button, summary, a[href], [role="button"]')
+        ]))].filter((element) => {
+          const bounds = element.getBoundingClientRect();
+          const style = getComputedStyle(element);
+          return bounds.width > 0 &&
+            bounds.height > 0 &&
+            style.display !== 'none' &&
+            style.visibility !== 'hidden' &&
+            style.opacity !== '0' &&
+            style.pointerEvents !== 'none';
+        }).map((element) => {
+          const bounds = element.getBoundingClientRect();
+          return {
+            id: element.id || '',
+            className: element.className || '',
+            text: element.getAttribute('aria-label') || element.textContent.trim().replace(/\\s+/g, ' ').slice(0, 80),
+            width: Math.round(bounds.width),
+            height: Math.round(bounds.height)
+          };
+        });
+        return {
+          pointerCoarse: matchMedia('(pointer: coarse)').matches,
+          count: controls.length,
+          controls,
+          bad: controls.filter((control) => control.width < 44 || control.height < 44)
+        };
+      })()`);
+    const assertCoarseControlTargets = (label, audit) => {
+      if (!audit.pointerCoarse || audit.count < 2 || audit.bad.length) {
+        throw new Error(`${label} has undersized coarse controls: ${JSON.stringify(audit)}`);
+      }
+    };
+    const readCoarseHoverSuppression = async (selector) => {
+      await page.send("Input.dispatchMouseEvent", { type: "mouseMoved", x: 1, y: 1, button: "none" });
+      await wait(30);
+      const readStyle = () =>
+        page.evaluate(`(() => {
+          const element = document.querySelector(${JSON.stringify(selector)});
+          const bounds = element?.getBoundingClientRect();
+          const style = element ? getComputedStyle(element) : null;
+          return element && bounds && style ? {
+            x: Math.round(bounds.left + bounds.width / 2),
+            y: Math.round(bounds.top + bounds.height / 2),
+            transform: style.transform,
+            backgroundColor: style.backgroundColor,
+            borderTopColor: style.borderTopColor,
+            hovered: element.matches(':hover'),
+            pointerCoarse: matchMedia('(pointer: coarse)').matches,
+            hoverHover: matchMedia('(hover: hover)').matches
+          } : null;
+        })()`);
+      const before = await readStyle();
+      if (!before) throw new Error(`Missing coarse hover target: ${selector}`);
+      await page.send("Input.dispatchMouseEvent", {
+        type: "mouseMoved",
+        x: before.x,
+        y: before.y,
+        button: "none",
+      });
+      await wait(120);
+      const after = await readStyle();
+      return { selector, before, after };
+    };
+    const assertCoarseHoverSuppressed = (label, evidence) => {
+      if (
+        !evidence.before.pointerCoarse ||
+        evidence.before.hoverHover ||
+        evidence.after.transform !== evidence.before.transform ||
+        evidence.after.backgroundColor !== evidence.before.backgroundColor ||
+        evidence.after.borderTopColor !== evidence.before.borderTopColor
+      ) {
+        throw new Error(`${label} retained a hover-only visual state: ${JSON.stringify(evidence)}`);
+      }
+    };
+    const exerciseCoarseRankControls = async (label) => {
+      await page.evaluate(`document.querySelector('#ranking .ranking__item')?.scrollIntoView({ block: 'center' }); true;`);
+      await wait(50);
+      await tapSelector("#ranking .ranking__item .movie-item__body");
+      await waitFor(page, `!document.querySelector('#movie-detail')?.hidden`, 3000);
+      const rowTap = await page.evaluate(`(() => ({
+        title: document.querySelector('#detail-title')?.textContent.trim(),
+        detailHidden: document.querySelector('#movie-detail')?.hidden,
+        openMenus: document.querySelectorAll('.movie-item__overflow[open]').length
+      }))()`);
+      if (rowTap.detailHidden || !rowTap.title || rowTap.openMenus !== 0) {
+        throw new Error(`${label} row tap did not open detail cleanly: ${JSON.stringify(rowTap)}`);
+      }
+      await page.evaluate(`document.querySelector('#detail-close')?.click(); true;`);
+      await waitFor(page, `document.querySelector('#movie-detail')?.hidden`, 3000);
+
+      await tapSelector("#ranking .ranking__item .ranking__overflow > summary");
+      await waitFor(page, `document.querySelector('#ranking .ranking__item .ranking__overflow')?.open`, 3000);
+      const overflow = await page.evaluate(`(() => ({
+        labels: [...document.querySelectorAll('#ranking .ranking__item:first-child .ranking__overflow .movie-item__overflow-action')]
+          .map((button) => button.textContent.trim()),
+        targets: [...document.querySelectorAll('#ranking .ranking__item:first-child .ranking__overflow .movie-item__overflow-action')]
+          .map((button) => {
+            const bounds = button.getBoundingClientRect();
+            return { width: Math.round(bounds.width), height: Math.round(bounds.height) };
+          })
+      }))()`);
+      if (
+        overflow.labels.join("|") !== "Info|Re-rank|Remove" ||
+        overflow.targets.some((target) => target.width < 44 || target.height < 44)
+      ) {
+        throw new Error(`${label} overflow semantics are wrong: ${JSON.stringify(overflow)}`);
+      }
+      await tapSelector("#ranking .ranking__item .ranking__overflow > summary");
+      await waitFor(page, `!document.querySelector('#ranking .ranking__item .ranking__overflow')?.open`, 3000);
+
+      await tapSelector("#ranking-move-toggle");
+      await waitFor(page, `document.querySelector('#ranking')?.classList.contains('is-move-mode')`, 3000);
+      const moveMode = await page.evaluate(`(() => {
+        const handle = document.querySelector('#ranking .ranking__item .ranking__handle');
+        const bounds = handle?.getBoundingClientRect();
+        return {
+          pressed: document.querySelector('#ranking-move-toggle')?.getAttribute('aria-pressed'),
+          handleDisplay: handle ? getComputedStyle(handle).display : '',
+          handleWidth: Math.round(bounds?.width || 0),
+          handleHeight: Math.round(bounds?.height || 0),
+          overflowDisplay: getComputedStyle(document.querySelector('#ranking .ranking__item .ranking__overflow')).display
+        };
+      })()`);
+      if (
+        moveMode.pressed !== "true" ||
+        moveMode.handleDisplay === "none" ||
+        moveMode.handleWidth < 44 ||
+        moveMode.handleHeight < 44 ||
+        moveMode.overflowDisplay !== "none"
+      ) {
+        throw new Error(`${label} Move mode is wrong: ${JSON.stringify(moveMode)}`);
+      }
+      await tapSelector("#ranking-move-toggle");
+      await waitFor(page, `!document.querySelector('#ranking')?.classList.contains('is-move-mode')`, 3000);
+      return { rowTap, overflow, moveMode };
+    };
     const readPackShelfLayout = async () =>
       page.evaluate(`(() => {
         const rect = (element) => {
@@ -987,6 +1318,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         const columnCount = (value) => String(value || '').split(' ').filter(Boolean).length;
         const row = document.querySelector('#pack-row');
         const rowStyle = row ? getComputedStyle(row) : null;
+        const pointerCoarse = matchMedia('(pointer: coarse)').matches;
         const range = (values) => {
           const numeric = values.filter((value) => Number.isFinite(value));
           return numeric.length ? Math.round(Math.max(...numeric) - Math.min(...numeric)) : null;
@@ -1024,7 +1356,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
           a.bottom > b.top + 1;
         return {
           destination: document.querySelector('main.app')?.dataset.appDestination,
-          pointerCoarse: matchMedia('(pointer: coarse)').matches,
+          pointerCoarse,
           portrait: matchMedia('(orientation: portrait)').matches,
           row: rect(row),
           gridTemplateColumns: rowStyle?.gridTemplateColumns || '',
@@ -1043,10 +1375,9 @@ const testAppShellNavigation = async ({ baseUrl }) => {
             card.cover.width > 92 ||
             card.cover.height < 64 ||
             card.cover.height > 86 ||
-            card.action.height < 34 ||
-            card.action.height > 40 ||
-            card.action.width < 104 ||
-            card.action.width > 150 ||
+            (pointerCoarse
+              ? card.action.height < 44 || card.action.width < 44
+              : card.action.height < 34 || card.action.height > 40 || card.action.width < 104 || card.action.width > 150) ||
             card.actionFontSize === '0px' ||
             card.actionScrollWidth > card.actionClientWidth + 1 ||
             overlaps(card.action, card.progress) ||
@@ -1109,6 +1440,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         };
         const list = document.querySelector('#pack-detail-list');
         const listStyle = list ? getComputedStyle(list) : null;
+        const pointerCoarse = matchMedia('(pointer: coarse)').matches;
         const cards = [...document.querySelectorAll('#pack-detail-list .pack-card')]
           .filter((card) => {
             const bounds = card.getBoundingClientRect();
@@ -1154,7 +1486,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         return {
           overlayOpen: !document.querySelector('#pack-detail')?.hidden &&
             document.querySelector('#pack-detail')?.classList.contains('is-all-packs'),
-          pointerCoarse: matchMedia('(pointer: coarse)').matches,
+          pointerCoarse,
           list: rect(list),
           gridTemplateColumns: listStyle?.gridTemplateColumns || '',
           gridColumnCount: String(listStyle?.gridTemplateColumns || '').split(' ').filter(Boolean).length,
@@ -1196,7 +1528,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       );
       const shelfAction = shelfLayout?.cards?.[0]?.action;
       const allPacksAction = layout.cards?.[0]?.action;
-      const mismatchedShelfAction = !!shelfAction && !!allPacksAction &&
+      const mismatchedShelfAction = !layout.pointerCoarse && !!shelfAction && !!allPacksAction &&
         (
           Math.abs(shelfAction.width - allPacksAction.width) > 8 ||
           Math.abs(shelfAction.height - allPacksAction.height) > 1
@@ -1277,6 +1609,9 @@ const testAppShellNavigation = async ({ baseUrl }) => {
           listScrollHeight: list?.scrollHeight || 0,
           cardCount: document.querySelectorAll('#watch-list .queue-list__item').length,
           cards,
+          firstRowCount: cards.length
+            ? cards.filter((card) => Math.abs(card.top - cards[0].top) < 3).length
+            : 0,
           firstTwoShareRow: cards.length >= 2 && Math.abs(cards[0].top - cards[1].top) < 3,
           firstThirdStartsNewRow: cards.length >= 3 && cards[2].top > cards[0].bottom,
           visibleActionLabels: visibleActions.map((action) => action.text),
@@ -1291,6 +1626,11 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     const assertLargeScreenListsLayout = (label, layout, options = {}) => {
       const expectedPointerCoarse = options.expectedPointerCoarse ?? true;
       const minPanelWidth = options.minPanelWidth ?? layout.innerWidth * 0.84;
+      const hasBadVisibleAction = layout.visibleActions.some((action) =>
+        expectedPointerCoarse
+          ? action.width < 44 || action.height < 44
+          : action.width < 60 || action.height < 34 || action.width > 92 || action.height > 42
+      );
       if (
         layout.destination !== "lists" ||
         layout.pointerCoarse !== expectedPointerCoarse ||
@@ -1302,18 +1642,54 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         layout.panel.width < minPanelWidth ||
         layout.listStyle.maxHeight !== "none" ||
         layout.listStyle.overflowY !== "visible" ||
-        layout.listStyle.gridColumnCount !== 2 ||
+        layout.listStyle.gridColumnCount < 2 ||
+        layout.listStyle.gridColumnCount > 3 ||
         layout.cardCount < 4 ||
         !layout.firstTwoShareRow ||
-        !layout.firstThirdStartsNewRow ||
+        layout.firstRowCount !== layout.listStyle.gridColumnCount ||
         layout.visibleActionLabels.join("|") !== "Rank" ||
         !layout.overflowVisible ||
         layout.detailVisible ||
-        layout.visibleActions.some((action) => action.width < 60 || action.height < 34 || action.width > 92 || action.height > 42) ||
+        hasBadVisibleAction ||
         layout.listScrollHeight > layout.listClientHeight + 2 ||
         layout.scrollWidth > layout.innerWidth
       ) {
         throw new Error(`${label} Lists layout is wrong: ${JSON.stringify(layout)}`);
+      }
+    };
+    const readOverflowVisibilityGuard = async () =>
+      page.evaluate(`(() => {
+        const overflow = document.createElement('details');
+        overflow.className = 'movie-item__overflow';
+        overflow.open = true;
+        const summary = document.createElement('summary');
+        const menu = document.createElement('div');
+        menu.className = 'movie-item__overflow-menu';
+        menu.textContent = 'Overflow';
+        overflow.append(summary, menu);
+        document.body.append(overflow);
+        const unpositionedStyle = getComputedStyle(menu);
+        const unpositioned = {
+          display: unpositionedStyle.display,
+          visibility: unpositionedStyle.visibility
+        };
+        menu.classList.add('is-positioned');
+        const positionedStyle = getComputedStyle(menu);
+        const positioned = {
+          display: positionedStyle.display,
+          visibility: positionedStyle.visibility
+        };
+        overflow.remove();
+        return { unpositioned, positioned };
+      })()`);
+    const assertOverflowVisibilityGuard = (layout) => {
+      if (
+        layout.unpositioned.display === "none" ||
+        layout.unpositioned.visibility !== "hidden" ||
+        layout.positioned.display === "none" ||
+        layout.positioned.visibility !== "visible"
+      ) {
+        throw new Error(`Overflow visibility guard is wrong: ${JSON.stringify(layout)}`);
       }
     };
     const readOpenQueueOverflowLayout = async (listSelector) =>
@@ -1343,6 +1719,8 @@ const testAppShellNavigation = async ({ baseUrl }) => {
           itemTransform: item ? getComputedStyle(item).transform : '',
           menuPosition: menu ? getComputedStyle(menu).position : '',
           menuDisplay: menu ? getComputedStyle(menu).display : '',
+          menuVisibility: menu ? getComputedStyle(menu).visibility : '',
+          menuPositioned: !!menu?.classList.contains('is-positioned'),
           item: rect(item),
           toggle: toggleRect,
           menu: menuRect,
@@ -1366,6 +1744,8 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         layout.itemTransform !== "none" ||
         layout.menuPosition !== "fixed" ||
         layout.menuDisplay === "none" ||
+        layout.menuVisibility !== "visible" ||
+        !layout.menuPositioned ||
         !layout.item ||
         !layout.toggle ||
         !layout.menu ||
@@ -1383,6 +1763,8 @@ const testAppShellNavigation = async ({ baseUrl }) => {
 
     await switchAppDestination("lists");
     await wait(100);
+    const desktopOverflowVisibilityGuard = await readOverflowVisibilityGuard();
+    assertOverflowVisibilityGuard(desktopOverflowVisibilityGuard);
     const desktopLists = await readLargeScreenListsLayout();
     assertLargeScreenListsLayout("Desktop", desktopLists, {
       expectedPointerCoarse: false,
@@ -1423,92 +1805,55 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     const desktopDiscoverPacksShot = await page.screenshot("app-shell-desktop-discover-packs.png");
     await switchAppDestination("rank");
 
-    await page.send("Emulation.setDeviceMetricsOverride", {
+    const fineTabletCapabilities = await setDeviceProfile(page, {
       width: 1024,
       height: 768,
-      deviceScaleFactor: 2,
-      mobile: true,
-      screenWidth: 1024,
-      screenHeight: 768,
+      input: DEVICE_INPUT_PROFILE.fine,
     });
-    await page.send("Emulation.setTouchEmulationEnabled", { enabled: true, maxTouchPoints: 5 });
-    await wait(250);
-    const ipadLandscape = await page.evaluate(`(() => {
-      const rect = (selector) => {
-        const bounds = document.querySelector(selector)?.getBoundingClientRect();
-        return bounds ? {
-          left: Math.round(bounds.left),
-          right: Math.round(bounds.right),
-          top: Math.round(bounds.top),
-          bottom: Math.round(bounds.bottom),
-          width: Math.round(bounds.width),
-          height: Math.round(bounds.height)
-        } : null;
-      };
-      const item = document.querySelector('#ranking .ranking__item');
-      const actions = item?.querySelector('.movie-item__actions');
-      const actionStyle = actions ? getComputedStyle(actions) : null;
-      const buttons = [...(item?.querySelectorAll('.movie-item__actions > button') || [])].map((button) => {
-        const bounds = button.getBoundingClientRect();
-        const label = button.querySelector('span');
-        return {
-          text: button.textContent.trim(),
-          width: Math.round(bounds.width),
-          height: Math.round(bounds.height),
-          labelDisplay: label ? getComputedStyle(label).display : null
-        };
-      });
-      const side = rect('.side-stack');
-      const rail = rect('.stack');
-      return {
-        destination: document.querySelector('main.app')?.dataset.appDestination,
-        pointerCoarse: matchMedia('(pointer: coarse)').matches,
-        hoverHover: matchMedia('(hover: hover)').matches,
-        side,
-        rail,
-        actionStyle: actionStyle ? {
-          display: actionStyle.display,
-          gridColumn: actionStyle.gridColumnStart + '/' + actionStyle.gridColumnEnd,
-          borderTopWidth: actionStyle.borderTopWidth,
-          borderTopStyle: actionStyle.borderTopStyle
-        } : null,
-        item: rect('#ranking .ranking__item'),
-        body: rect('#ranking .ranking__item .movie-item__body'),
-        actions: rect('#ranking .ranking__item .movie-item__actions'),
-        buttons,
-        overflowDisplay: item?.querySelector('.ranking__overflow')
-          ? getComputedStyle(item.querySelector('.ranking__overflow')).display
-          : null,
-        scrollWidth: document.documentElement.scrollWidth,
-        innerWidth
-      };
-    })()`);
+    await page.evaluate(`window.scrollTo(0, 0); true;`);
+    const fineTabletLandscape = await readRankModalityLayout();
     if (
-      ipadLandscape.destination !== "rank" ||
-      !ipadLandscape.pointerCoarse ||
-      ipadLandscape.hoverHover ||
-      !ipadLandscape.side ||
-      !ipadLandscape.rail ||
-      ipadLandscape.side.left >= ipadLandscape.rail.left ||
-      ipadLandscape.actionStyle?.display !== "flex" ||
-      ipadLandscape.actionStyle?.gridColumn !== "4/auto" ||
-      ipadLandscape.actionStyle?.borderTopWidth !== "0px" ||
-      ipadLandscape.actions?.width > 220 ||
-      ipadLandscape.body?.width < 120 ||
-      ipadLandscape.actions?.left < ipadLandscape.body?.right ||
-      ipadLandscape.buttons.map((button) => button.text).join("|") !== "Info|Re-rank|Move|Remove" ||
-      ipadLandscape.buttons.some((button) =>
-        button.width < 43 ||
-        button.width > 48 ||
-        button.height < 43 ||
-        button.height > 48 ||
-        button.labelDisplay !== "none"
-      ) ||
-      ipadLandscape.overflowDisplay !== "none" ||
-      ipadLandscape.scrollWidth > ipadLandscape.innerWidth
+      fineTabletCapabilities.pointerCoarse ||
+      !fineTabletCapabilities.pointerFine ||
+      !fineTabletCapabilities.hoverHover ||
+      fineTabletCapabilities.maxTouchPoints !== 0 ||
+      !fineTabletLandscape.sideLeftOfRail ||
+      !fineTabletLandscape.topNavVisible ||
+      fineTabletLandscape.mobileNavVisible ||
+      fineTabletLandscape.toolbarControls.map((control) => control.label).join("|") !== "Review|Filter|Full screen|Share" ||
+      fineTabletLandscape.visibleDirectActionLabels.join("|") !== "Info|Re-rank|Move|Remove" ||
+      fineTabletLandscape.overflow.visible ||
+      fineTabletLandscape.scrollWidth > fineTabletLandscape.innerWidth
     ) {
-      throw new Error(`iPad landscape Rank shell is wrong: ${JSON.stringify(ipadLandscape)}`);
+      throw new Error(`1024px fine-pointer Rank layout is wrong: ${JSON.stringify({ fineTabletCapabilities, fineTabletLandscape })}`);
     }
+    const fineTabletLandscapeShot = await page.screenshot("app-shell-desktop-1024-rank.png");
+
+    const ipadLandscapeCapabilities = await setDeviceProfile(page, {
+      width: 1024,
+      height: 768,
+      input: DEVICE_INPUT_PROFILE.coarseTouch,
+      deviceScaleFactor: 2,
+    });
+    const ipadLandscape = await readRankModalityLayout();
+    assertCoarseRankLayout("iPad landscape", ipadLandscape, "Review|Filter|Full screen|Move|Share");
+    const sameLandscapeTopology =
+      fineTabletLandscape.appColumns === ipadLandscape.appColumns &&
+      fineTabletLandscape.appAreas === ipadLandscape.appAreas &&
+      Math.abs(fineTabletLandscape.side.width - ipadLandscape.side.width) <= 1 &&
+      Math.abs(fineTabletLandscape.rail.width - ipadLandscape.rail.width) <= 1 &&
+      fineTabletLandscape.sideLeftOfRail &&
+      ipadLandscape.sideLeftOfRail;
+    if (!sameLandscapeTopology) {
+      throw new Error(`1024px layout changed with input modality: ${JSON.stringify({ fineTabletLandscape, ipadLandscape })}`);
+    }
+    const ipadRankTargetsLandscape = await readVisibleControlTargets([".panel--list", ".app-nav--top"]);
+    assertCoarseControlTargets("iPad landscape Rank", ipadRankTargetsLandscape);
+    const ipadHoverSuppression = await readCoarseHoverSuppression(
+      "#ranking .ranking__item .movie-item__overflow-toggle",
+    );
+    assertCoarseHoverSuppressed("iPad landscape Rank", ipadHoverSuppression);
+    const ipadRankInteractionsLandscape = await exerciseCoarseRankControls("iPad landscape Rank");
     const ipadLandscapeShot = await page.screenshot("app-shell-ipad-landscape-rank.png");
 
     await switchAppDestination("discover");
@@ -1516,6 +1861,12 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     await wait(100);
     const ipadDiscoverPacksLandscape = await readPackShelfLayout();
     assertLargeScreenDiscoverPackShelf("iPad landscape Discover", ipadDiscoverPacksLandscape);
+    const ipadDiscoverTargetsLandscape = await readVisibleControlTargets([
+      ".panel--discovery",
+      "#pack-section",
+      ".app-nav--top",
+    ]);
+    assertCoarseControlTargets("iPad landscape Discover", ipadDiscoverTargetsLandscape);
     const ipadDiscoverPacksLandscapeShot = await page.screenshot("app-shell-ipad-landscape-discover-packs.png");
     await page.evaluate(`document.querySelector('#pack-view-all')?.click(); true;`);
     await waitFor(
@@ -1534,96 +1885,24 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     await wait(100);
     const ipadListsLandscape = await readLargeScreenListsLayout();
     assertLargeScreenListsLayout("iPad landscape", ipadListsLandscape);
+    const ipadListsTargetsLandscape = await readVisibleControlTargets([".panel--queues", ".app-nav--top"]);
+    assertCoarseControlTargets("iPad landscape Lists", ipadListsTargetsLandscape);
     const ipadListsLandscapeShot = await page.screenshot("app-shell-ipad-landscape-lists.png");
     await switchAppDestination("rank");
 
-    await page.send("Emulation.setDeviceMetricsOverride", {
+    const ipadPortraitCapabilities = await setDeviceProfile(page, {
       width: 980,
       height: 1180,
+      input: DEVICE_INPUT_PROFILE.coarseTouch,
       deviceScaleFactor: 2,
-      mobile: true,
-      screenWidth: 980,
-      screenHeight: 1180,
     });
-    await wait(250);
-    const ipadPortrait = await page.evaluate(`(() => {
-      const rect = (selector) => {
-        const bounds = document.querySelector(selector)?.getBoundingClientRect();
-        return bounds ? {
-          left: Math.round(bounds.left),
-          right: Math.round(bounds.right),
-          top: Math.round(bounds.top),
-          bottom: Math.round(bounds.bottom),
-          width: Math.round(bounds.width),
-          height: Math.round(bounds.height)
-        } : null;
-      };
-      const item = document.querySelector('#ranking .ranking__item');
-      const actions = item?.querySelector('.movie-item__actions');
-      const actionStyle = actions ? getComputedStyle(actions) : null;
-      const appStyle = getComputedStyle(document.querySelector('.app'));
-      const toolbarControls = [...document.querySelectorAll('.panel--list .panel__actions .icon-button')]
-        .map((button) => {
-          const bounds = button.getBoundingClientRect();
-          const label = button.querySelector('.icon-button__label');
-          const style = getComputedStyle(button);
-          return {
-            id: button.id,
-            label: label?.textContent.trim() || '',
-            width: Math.round(bounds.width),
-            height: Math.round(bounds.height),
-            display: style.display
-          };
-        })
-        .filter((button) => button.display !== 'none' && button.width > 0 && button.height > 0);
-      const side = rect('.side-stack');
-      const rail = rect('.stack');
-      return {
-        destination: document.querySelector('main.app')?.dataset.appDestination,
-        pointerCoarse: matchMedia('(pointer: coarse)').matches,
-        portrait: matchMedia('(orientation: portrait)').matches,
-        appColumns: appStyle.gridTemplateColumns,
-        appAreas: appStyle.gridTemplateAreas,
-        side,
-        rail,
-        body: rect('#ranking .ranking__item .movie-item__body'),
-        actions: rect('#ranking .ranking__item .movie-item__actions'),
-        actionStyle: actionStyle ? {
-          display: actionStyle.display,
-          gridColumn: actionStyle.gridColumnStart + '/' + actionStyle.gridColumnEnd,
-          borderTopWidth: actionStyle.borderTopWidth
-        } : null,
-        toolbarControls,
-        scrollWidth: document.documentElement.scrollWidth,
-        innerWidth
-      };
-    })()`);
-    if (
-      ipadPortrait.destination !== "rank" ||
-      !ipadPortrait.pointerCoarse ||
-      !ipadPortrait.portrait ||
-      ipadPortrait.appColumns.includes(" ") ||
-      !ipadPortrait.appAreas.includes('"topbar"') ||
-      !ipadPortrait.appAreas.includes('"list"') ||
-      !ipadPortrait.appAreas.includes('"stack"') ||
-      !ipadPortrait.side ||
-      !ipadPortrait.rail ||
-      ipadPortrait.side.width < 860 ||
-      ipadPortrait.rail.width < 860 ||
-      ipadPortrait.rail.left !== ipadPortrait.side.left ||
-      ipadPortrait.rail.top <= ipadPortrait.side.bottom ||
-      ipadPortrait.actionStyle?.display !== "flex" ||
-      ipadPortrait.actionStyle?.gridColumn !== "4/auto" ||
-      ipadPortrait.actionStyle?.borderTopWidth !== "0px" ||
-      ipadPortrait.toolbarControls.map((control) => control.label).join("|") !== "Add|Review|Filter|Full screen|Move|Share" ||
-      ipadPortrait.toolbarControls.some((control) => control.width < 43 || control.height < 43) ||
-      ipadPortrait.actions?.width > 220 ||
-      ipadPortrait.body?.width < 420 ||
-      ipadPortrait.actions?.left < ipadPortrait.body?.right ||
-      ipadPortrait.scrollWidth > ipadPortrait.innerWidth
-    ) {
-      throw new Error(`iPad portrait Rank shell is wrong: ${JSON.stringify(ipadPortrait)}`);
+    const ipadPortrait = await readRankModalityLayout();
+    assertCoarseRankLayout("iPad portrait", ipadPortrait, "Review|Filter|Full screen|Move|Share");
+    if (!ipadPortrait.sideLeftOfRail || !ipadPortrait.appAreas.includes('"list stack"')) {
+      throw new Error(`iPad portrait did not keep the large-screen two-column topology: ${JSON.stringify(ipadPortrait)}`);
     }
+    const ipadRankTargetsPortrait = await readVisibleControlTargets([".panel--list", ".app-nav--top"]);
+    assertCoarseControlTargets("iPad portrait Rank", ipadRankTargetsPortrait);
     const ipadPortraitShot = await page.screenshot("app-shell-ipad-portrait-rank.png");
 
     await switchAppDestination("discover");
@@ -1631,6 +1910,12 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     await wait(100);
     const ipadDiscoverPacksPortrait = await readPackShelfLayout();
     assertLargeScreenDiscoverPackShelf("iPad portrait Discover", ipadDiscoverPacksPortrait);
+    const ipadDiscoverTargetsPortrait = await readVisibleControlTargets([
+      ".panel--discovery",
+      "#pack-section",
+      ".app-nav--top",
+    ]);
+    assertCoarseControlTargets("iPad portrait Discover", ipadDiscoverTargetsPortrait);
     const ipadDiscoverPacksPortraitShot = await page.screenshot("app-shell-ipad-portrait-discover-packs.png");
     await page.evaluate(`document.querySelector('#pack-view-all')?.click(); true;`);
     await waitFor(
@@ -1649,19 +1934,17 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     await wait(100);
     const ipadListsPortrait = await readLargeScreenListsLayout();
     assertLargeScreenListsLayout("iPad portrait", ipadListsPortrait);
+    const ipadListsTargetsPortrait = await readVisibleControlTargets([".panel--queues", ".app-nav--top"]);
+    assertCoarseControlTargets("iPad portrait Lists", ipadListsTargetsPortrait);
     const ipadListsPortraitShot = await page.screenshot("app-shell-ipad-portrait-lists.png");
     await switchAppDestination("rank");
 
-    await page.send("Emulation.setTouchEmulationEnabled", { enabled: false });
-    await page.send("Emulation.setDeviceMetricsOverride", {
+    const iphoneCapabilities = await setDeviceProfile(page, {
       width: 390,
       height: 844,
-      deviceScaleFactor: 1,
-      mobile: false,
-      screenWidth: 390,
-      screenHeight: 844,
+      input: DEVICE_INPUT_PROFILE.coarseTouch,
+      deviceScaleFactor: 3,
     });
-    await wait(250);
     const mobileRank = await page.evaluate(`(() => {
       const rect = (selector) => {
         const bounds = document.querySelector(selector)?.getBoundingClientRect();
@@ -1678,6 +1961,12 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       };
       return {
         destination: document.querySelector('main.app')?.dataset.appDestination,
+        pointerCoarse: matchMedia('(pointer: coarse)').matches,
+        pointerFine: matchMedia('(pointer: fine)').matches,
+        anyPointerCoarse: matchMedia('(any-pointer: coarse)').matches,
+        hoverHover: matchMedia('(hover: hover)').matches,
+        hoverNone: matchMedia('(hover: none)').matches,
+        maxTouchPoints: navigator.maxTouchPoints,
         add: rect('.panel--add'),
         ranking: rect('.panel--list'),
         discoveryVisible: inFlow('.panel--discovery'),
@@ -1774,8 +2063,8 @@ const testAppShellNavigation = async ({ baseUrl }) => {
             handleVisible: visible('.ranking__handle'),
             removeVisible: visible('.ranking__delete'),
             overflowVisible: !!overflowBounds &&
-              overflowBounds.width >= 36 &&
-              overflowBounds.height >= 36 &&
+              overflowBounds.width >= 44 &&
+              overflowBounds.height >= 44 &&
               getComputedStyle(overflow).display !== 'none',
             overflowCount: first?.querySelectorAll('.movie-item__overflow-toggle').length ?? 0,
             actionLabels: actionRects.map((action) => action.text),
@@ -1788,6 +2077,12 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     })()`);
     if (
       mobileRank.destination !== "rank" ||
+      !mobileRank.pointerCoarse ||
+      mobileRank.pointerFine ||
+      !mobileRank.anyPointerCoarse ||
+      mobileRank.hoverHover ||
+      !mobileRank.hoverNone ||
+      mobileRank.maxTouchPoints < 1 ||
       !mobileRank.add ||
       !mobileRank.ranking ||
       mobileRank.ranking.top >= mobileRank.innerHeight ||
@@ -1800,8 +2095,8 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       mobileRank.toolbarControls.map((control) => control.label).join("|") !== "Add|Review|Filter|Full screen|Move" ||
       mobileRank.toolbarRows.length !== 1 ||
       mobileRank.toolbarControls.some((control) =>
-        control.buttonWidth < 34 ||
-        control.buttonHeight < 34 ||
+        control.buttonWidth < 44 ||
+        control.buttonHeight < 44 ||
         control.labelWidth !== 0 ||
         control.labelHeight !== 0 ||
         control.display === "none" ||
@@ -1821,10 +2116,13 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       mobileRank.rowControls.visibleRows < 4 ||
       mobileRank.rowControls.tripleRankClearance < 4
     ) {
-      throw new Error(`Mobile Rank shell is wrong: ${JSON.stringify(mobileRank)}`);
+      throw new Error(`Mobile Rank shell is wrong: ${JSON.stringify({ iphoneCapabilities, mobileRank })}`);
     }
 
-    await page.evaluate(`document.querySelector('#ranking .ranking__item .ranking__overflow > summary')?.click(); true;`);
+    const iphoneRankTargets = await readVisibleControlTargets([".panel--list", ".app-nav--mobile"]);
+    assertCoarseControlTargets("iPhone Rank", iphoneRankTargets);
+
+    await tapSelector("#ranking .ranking__item .ranking__overflow > summary");
     await waitFor(
       page,
       `(() => {
@@ -1902,7 +2200,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         action.whiteSpace === "nowrap" &&
         action.scrollWidth <= action.clientWidth + 1 &&
         action.width >= 120 &&
-        action.height <= 40
+        action.height >= 44
       ) ||
       !mobileRankOverflow.occlusionSamples.every((sample) => sample.inMenu)
     ) {
@@ -1925,7 +2223,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     if (!mobileRankInfoTap?.hitInfo) {
       throw new Error(`Missing mobile ranking overflow Info target: ${JSON.stringify(mobileRankInfoTap)}`);
     }
-    await clickAt(page, mobileRankInfoTap.x, mobileRankInfoTap.y);
+    await tapAt(page, mobileRankInfoTap.x, mobileRankInfoTap.y);
     await waitFor(page, `!document.querySelector('#movie-detail')?.hidden`, 3000);
     const mobileRankDetailLayer = await page.evaluate(`(() => {
       const point = ${JSON.stringify(mobileRankInfoTap)};
@@ -1961,9 +2259,9 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       throw new Error(`Mobile Rank overflow Info detail is layered wrong: ${JSON.stringify(mobileRankDetailLayer)}`);
     }
     const mobileRankOverflowDetailShot = await page.screenshot("app-shell-mobile-ranking-overflow-detail.png");
-    await page.evaluate(`document.querySelector('#detail-close')?.click(); true;`);
+    await tapSelector("#detail-close");
     await waitFor(page, `document.querySelector('#movie-detail')?.hidden`, 3000);
-    await page.evaluate(`document.querySelector('#ranking .ranking__item .ranking__overflow > summary')?.click(); true;`);
+    await tapSelector("#ranking .ranking__item .ranking__overflow > summary");
     await waitFor(
       page,
       `document.querySelector('#ranking .ranking__item .ranking__overflow')?.open`,
@@ -1999,7 +2297,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       return null;
     })()`);
     if (!mobileRankOutsideTap) throw new Error("Missing mobile ranking outside-tap target");
-    await clickAt(page, mobileRankOutsideTap.x, mobileRankOutsideTap.y);
+    await tapAt(page, mobileRankOutsideTap.x, mobileRankOutsideTap.y);
     await waitFor(page, `!document.querySelector('.movie-item__overflow[open]')`, 3000);
     const mobileRankDismissState = await page.evaluate(`(() => ({
       detailHidden: document.querySelector('#movie-detail')?.hidden,
@@ -2011,14 +2309,18 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     }
     await page.evaluate(`document.querySelector('#ranking .ranking__item .ranking__overflow')?.removeAttribute('open'); true;`);
 
-    await page.evaluate(`document.querySelector('#ranking-move-toggle')?.click(); true;`);
+    await tapSelector("#ranking-move-toggle");
     await wait(100);
     const mobileMoveMode = await page.evaluate(`(() => {
       const first = document.querySelector('#ranking .ranking__item');
+      const handle = first?.querySelector('.ranking__handle');
+      const handleBounds = handle?.getBoundingClientRect();
       return {
         active: document.querySelector('#ranking')?.classList.contains('is-move-mode'),
         pressed: document.querySelector('#ranking-move-toggle')?.getAttribute('aria-pressed'),
-        handleDisplay: first ? getComputedStyle(first.querySelector('.ranking__handle')).display : '',
+        handleDisplay: handle ? getComputedStyle(handle).display : '',
+        handleWidth: Math.round(handleBounds?.width || 0),
+        handleHeight: Math.round(handleBounds?.height || 0),
         overflowDisplay: first ? getComputedStyle(first.querySelector('.ranking__overflow')).display : ''
       };
     })()`);
@@ -2026,6 +2328,8 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       !mobileMoveMode.active ||
       mobileMoveMode.pressed !== "true" ||
       mobileMoveMode.handleDisplay === "none" ||
+      mobileMoveMode.handleWidth < 44 ||
+      mobileMoveMode.handleHeight < 44 ||
       mobileMoveMode.overflowDisplay !== "none"
     ) {
       throw new Error(`Mobile move mode controls are wrong: ${JSON.stringify(mobileMoveMode)}`);
@@ -2085,13 +2389,10 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     ) {
       throw new Error(`Mobile keyboard move up is wrong: ${JSON.stringify(mobileKeyboardMoveUp)}`);
     }
-    await page.evaluate(`document.querySelector('#ranking-move-toggle')?.click(); true;`);
+    await tapSelector("#ranking-move-toggle");
     await wait(100);
 
-    await page.evaluate(`(() => {
-      document.querySelectorAll('[data-app-destination-target="discover"]').forEach((button) => button.click());
-      return true;
-    })()`);
+    await tapSelector('.app-nav--mobile [data-app-destination-target="discover"]');
     await wait(100);
     await page.evaluate(`window.scrollTo(0, 520); true;`);
     await wait(50);
@@ -2142,9 +2443,15 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     ) {
       throw new Error(`Mobile Discover shell is wrong: ${JSON.stringify(mobileDiscover)}`);
     }
+    const iphoneDiscoverTargets = await readVisibleControlTargets([
+      ".panel--discovery",
+      "#pack-section",
+      ".app-nav--mobile",
+    ]);
+    assertCoarseControlTargets("iPhone Discover", iphoneDiscoverTargets);
     const discoverShot = await page.screenshot("app-shell-mobile-discover.png");
 
-    await page.evaluate(`document.querySelector('.app-nav--mobile [data-app-destination-target="lists"]')?.click(); true;`);
+    await tapSelector('.app-nav--mobile [data-app-destination-target="lists"]');
     await wait(100);
     const mobileLists = await page.evaluate(`(() => {
       const inFlow = (selector) => {
@@ -2183,7 +2490,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       mobileLists.hiddenSelected !== "false" ||
       mobileLists.firstActionLabels.join("|") !== "Rank|Hide|Remove" ||
       mobileLists.overflowCount !== 1 ||
-      !mobileLists.firstActionRects.some((action) => action.text === "Rank" && action.width >= 44 && action.height >= 36) ||
+      !mobileLists.firstActionRects.some((action) => action.text === "Rank" && action.width >= 44 && action.height >= 44) ||
       mobileLists.firstActionRects.some((action) => action.text !== "Rank" && (action.width > 0 || action.height > 0)) ||
       mobileLists.addVisible ||
       mobileLists.rankingVisible ||
@@ -2192,10 +2499,12 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     ) {
       throw new Error(`Mobile Lists shell is wrong: ${JSON.stringify(mobileLists)}`);
     }
+    const iphoneListsTargets = await readVisibleControlTargets([".panel--queues", ".app-nav--mobile"]);
+    assertCoarseControlTargets("iPhone Lists", iphoneListsTargets);
 
     await page.evaluate(`document.querySelector('#watch-list .queue-list__item:first-child')?.scrollIntoView({ block: 'center' }); true;`);
     await wait(50);
-    await page.evaluate(`document.querySelector('#watch-list .queue-list__item:first-child .queue-list__overflow > summary')?.click(); true;`);
+    await tapSelector("#watch-list .queue-list__item:first-child .queue-list__overflow > summary");
     await waitFor(
       page,
       `document.querySelector('#watch-list .queue-list__item:first-child .queue-list__overflow')?.open`,
@@ -2210,6 +2519,10 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       })()`,
       3000,
     );
+    const iphoneQueueMenuTargets = await readVisibleControlTargets([
+      "#watch-list .queue-list__item:first-child .queue-list__overflow .movie-item__overflow-menu",
+    ]);
+    assertCoarseControlTargets("iPhone Watch next overflow", iphoneQueueMenuTargets);
     const mobileQueueInfoTap = await page.evaluate(`(() => {
       const action = document.querySelector('#watch-list .queue-list__item:first-child .queue-list__overflow .movie-item__overflow-action.queue-info-action');
       const rect = action?.getBoundingClientRect();
@@ -2217,7 +2530,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       return { x: Math.round(rect.left + rect.width / 2), y: Math.round(rect.top + rect.height / 2) };
     })()`);
     if (!mobileQueueInfoTap) throw new Error("Missing mobile queue overflow Info target");
-    await page.evaluate(`document.querySelector('#watch-list .queue-list__item:first-child .queue-list__overflow .movie-item__overflow-action.queue-info-action')?.click(); true;`);
+    await tapAt(page, mobileQueueInfoTap.x, mobileQueueInfoTap.y);
     await waitFor(page, `!document.querySelector('#movie-detail')?.hidden`, 3000);
     const mobileQueueDetailLayer = await page.evaluate(`(() => {
       const point = ${JSON.stringify(mobileQueueInfoTap)};
@@ -2242,15 +2555,39 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       throw new Error(`Mobile Queue overflow Info detail is layered wrong: ${JSON.stringify(mobileQueueDetailLayer)}`);
     }
     const mobileQueueOverflowDetailShot = await page.screenshot("app-shell-mobile-queue-overflow-detail.png");
-    await page.evaluate(`document.querySelector('#detail-close')?.click(); true;`);
+    await tapSelector("#detail-close");
     await waitFor(page, `document.querySelector('#movie-detail')?.hidden`, 3000);
 
-    await page.evaluate(`document.querySelector('.app-nav--mobile [data-app-destination-target="discover"]')?.click(); true;`);
+    await tapSelector('.app-nav--mobile [data-app-destination-target="discover"]');
     await wait(100);
     const restored = await page.evaluate(`window.scrollY`);
     if (Math.abs(restored - mobileDiscover.scrollY) > 8) {
       throw new Error(`Discover scroll was not restored: ${JSON.stringify({ before: mobileDiscover.scrollY, restored })}`);
     }
+
+    await switchAppDestination("rank");
+    const iphoneLandscapeCapabilities = await setDeviceProfile(page, {
+      width: 844,
+      height: 390,
+      input: DEVICE_INPUT_PROFILE.coarseTouch,
+      deviceScaleFactor: 3,
+    });
+    const iphoneLandscape = await readRankModalityLayout();
+    assertCoarseRankLayout(
+      "iPhone landscape",
+      iphoneLandscape,
+      "Add|Review|Filter|Full screen|Move|Share",
+      { twoColumn: false },
+    );
+    if (iphoneLandscape.topNavVisible) {
+      throw new Error(`iPhone landscape retained desktop navigation: ${JSON.stringify(iphoneLandscape)}`);
+    }
+    const iphoneLandscapeTargets = await readVisibleControlTargets([
+      ".panel--list",
+      ".app-nav--mobile",
+    ]);
+    assertCoarseControlTargets("iPhone landscape Rank", iphoneLandscapeTargets);
+    const iphoneLandscapeShot = await page.screenshot("app-shell-iphone-landscape-rank.png");
 
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
@@ -2258,22 +2595,43 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       details: {
         desktop,
         desktopLists,
+        desktopOverflowVisibilityGuard,
         desktopWatchOverflow,
         desktopHiddenOverflow,
         desktopDiscoverPacks,
+        fineTabletCapabilities,
+        fineTabletLandscape,
+        ipadLandscapeCapabilities,
         ipadLandscape,
+        ipadRankTargetsLandscape,
+        ipadHoverSuppression,
+        ipadRankInteractionsLandscape,
         ipadDiscoverPacksLandscape,
+        ipadDiscoverTargetsLandscape,
         ipadListsLandscape,
+        ipadListsTargetsLandscape,
+        ipadPortraitCapabilities,
         ipadPortrait,
+        ipadRankTargetsPortrait,
         ipadDiscoverPacksPortrait,
+        ipadDiscoverTargetsPortrait,
         ipadListsPortrait,
+        ipadListsTargetsPortrait,
+        iphoneCapabilities,
         mobileRank,
+        iphoneRankTargets,
         mobileRankOverflow,
         mobileRankDetailLayer,
         mobileDiscover,
+        iphoneDiscoverTargets,
         mobileLists,
+        iphoneListsTargets,
+        iphoneQueueMenuTargets,
         mobileQueueDetailLayer,
         restored,
+        iphoneLandscapeCapabilities,
+        iphoneLandscape,
+        iphoneLandscapeTargets,
       },
       screenshots: [
         desktopShot,
@@ -2281,6 +2639,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         desktopListsShot,
         desktopWatchOverflowShot,
         desktopDiscoverPacksShot,
+        fineTabletLandscapeShot,
         ipadLandscapeShot,
         ipadDiscoverPacksLandscapeShot,
         ipadAllPacksLandscapeShot,
@@ -2289,6 +2648,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         ipadDiscoverPacksPortraitShot,
         ipadAllPacksPortraitShot,
         ipadListsPortraitShot,
+        iphoneLandscapeShot,
         mobileRankOverflowShot,
         mobileRankOverflowDetailShot,
         discoverShot,
@@ -2377,8 +2737,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=176" ||
-      empty.cssHref !== "styles.css?v=139" ||
+      empty.moduleSrc !== "app.js?v=178" ||
+      empty.cssHref !== "styles.css?v=141" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -2803,6 +3163,7 @@ const testQueueComparison = async ({ baseUrl }) => {
       return !document.querySelector('#compare')?.classList.contains('panel--hidden');
     })()`);
     if (!started) throw new Error("Clicking a watch-list row did not open comparison mode");
+    await waitFor(page, `document.activeElement?.id === 'new-card'`, 3000);
     await waitFor(page, `!document.querySelector('#compare')?.classList.contains('panel--hidden')`, 5000);
     const comparisonShot = await page.screenshot("queue-comparison-open.png");
     for (let i = 0; i < 6; i += 1) {
@@ -3230,7 +3591,18 @@ const testComparisonUndoCancel = async ({ baseUrl }) => {
       throw new Error(`Undo did not restore the initial comparison state: ${JSON.stringify(afterUndo)}`);
     }
 
-    await page.evaluate(`document.querySelector('#cancel-ranking')?.click(); true;`);
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyDown",
+      key: "Escape",
+      code: "Escape",
+      windowsVirtualKeyCode: 27,
+    });
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyUp",
+      key: "Escape",
+      code: "Escape",
+      windowsVirtualKeyCode: 27,
+    });
     await waitFor(page, `document.querySelector('#compare')?.classList.contains('panel--hidden')`, 5000);
     const settled = await page.evaluate(`(() => ({
       rankingTitles: [...document.querySelectorAll('#ranking .ranking__title')].map((el) => el.textContent.trim()),
@@ -3663,23 +4035,42 @@ const testShareStudio = async ({ baseUrl }) => {
     const singleShot = await page.screenshot("share-studio-single.png");
     const singleState = await page.evaluate(`(() => ({
       previewSvg: !!document.querySelector('#share-preview svg'),
+      previewRole: document.querySelector('.share-preview-single')?.getAttribute('role'),
+      previewTabIndex: document.querySelector('.share-preview-single')?.tabIndex,
       bottomDisabled: !!document.querySelector('#share-include-bottom')?.disabled,
       queuesDisabled: !!document.querySelector('#share-include-queues')?.disabled,
       packsDisabled: !!document.querySelector('#share-include-packs')?.disabled,
+      nativeShareHidden: !!document.querySelector('#share-native-share')?.hidden,
+      nativeShareAvailable: document.querySelector('#share-native-share')?.dataset.available,
+      nativeShareDisabled: !!document.querySelector('#share-native-share')?.disabled,
       pngText: document.querySelector('#share-download-png')?.textContent.trim()
     }))()`);
-    if (!singleState.previewSvg) throw new Error("Single-image Share preview did not render an SVG");
+    if (
+      !singleState.previewSvg ||
+      singleState.previewRole !== "button" ||
+      singleState.previewTabIndex !== 0 ||
+      singleState.nativeShareHidden === (singleState.nativeShareAvailable === "true") ||
+      (singleState.nativeShareAvailable === "true" && singleState.nativeShareDisabled)
+    ) {
+      throw new Error(`Single-image Share preview semantics are wrong: ${JSON.stringify(singleState)}`);
+    }
     if (!singleState.bottomDisabled || !singleState.queuesDisabled || !singleState.packsDisabled) {
       throw new Error(`Expected empty include toggles to be disabled: ${JSON.stringify(singleState)}`);
     }
-    await page.evaluate(`document.querySelector('#share-preview svg')?.dispatchEvent(
-      new MouseEvent('click', { bubbles: true })
-    ); true;`);
+    await page.evaluate(`document.querySelector('.share-preview-single')?.focus(); true;`);
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyDown",
+      key: "Enter",
+      code: "Enter",
+      windowsVirtualKeyCode: 13,
+    });
     await waitFor(page, `!document.querySelector('#share-lightbox')?.hidden`, 3000);
     const singleLightbox = await page.evaluate(`(() => ({
       shareMode: document.querySelector('#share-lightbox')?.classList.contains('is-share'),
       setMode: document.querySelector('#share-lightbox')?.classList.contains('is-set'),
       imageSvg: !!document.querySelector('#share-lightbox-image svg'),
+      dialogRole: document.querySelector('#share-lightbox')?.getAttribute('role'),
+      activeId: document.activeElement?.id,
       caption: document.querySelector('#share-lightbox-caption')?.textContent.trim(),
       downloadHidden: document.querySelector('#share-lightbox-download')?.hidden,
       backgroundInert: document.querySelector('#share-studio')?.inert
@@ -3688,13 +4079,21 @@ const testShareStudio = async ({ baseUrl }) => {
       !singleLightbox.shareMode ||
       singleLightbox.setMode ||
       !singleLightbox.imageSvg ||
+      singleLightbox.dialogRole !== "dialog" ||
+      singleLightbox.activeId !== "share-lightbox-close" ||
       singleLightbox.caption ||
       singleLightbox.downloadHidden ||
       !singleLightbox.backgroundInert
     ) {
       throw new Error(`Single-image lightbox state is wrong: ${JSON.stringify(singleLightbox)}`);
     }
-    await page.evaluate(`document.querySelector('#share-lightbox-image')?.click(); true;`);
+    await page.evaluate(`document.querySelector('#share-lightbox-image')?.focus(); true;`);
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyDown",
+      key: "Enter",
+      code: "Enter",
+      windowsVirtualKeyCode: 13,
+    });
     await waitFor(page, `document.querySelector('#share-lightbox')?.classList.contains('is-zoomed')`, 2000);
     await page.send("Input.dispatchKeyEvent", {
       type: "keyDown",
@@ -3702,18 +4101,29 @@ const testShareStudio = async ({ baseUrl }) => {
       code: "Escape",
     });
     await waitFor(page, `document.querySelector('#share-lightbox')?.hidden`, 2000);
+    await waitFor(page, `document.activeElement?.classList.contains('share-preview-single')`, 2000);
 
     await page.evaluate(`document.querySelector('input[name="share-format"][value="set"]')?.click(); true;`);
     await waitFor(page, `document.querySelectorAll('#share-preview figure svg').length >= 1`, 5000);
     const setState = await page.evaluate(`(() => ({
       cardCount: document.querySelectorAll('#share-preview figure svg').length,
+      cardRole: document.querySelector('#share-preview figure')?.getAttribute('role'),
+      cardTabIndex: document.querySelector('#share-preview figure')?.tabIndex,
       shapeHidden: !!document.querySelector('#share-shape-fieldset')?.hidden,
       pngText: document.querySelector('#share-download-png')?.textContent.trim(),
       svgText: document.querySelector('#share-download-svg')?.textContent.trim()
     }))()`);
     if (!setState.shapeHidden) throw new Error("Shape controls should hide for Image set format");
-    if (setState.cardCount < 1) throw new Error("Image set preview did not render cards");
-    await page.evaluate(`document.querySelector('#share-preview .share-preview-card')?.click(); true;`);
+    if (setState.cardCount < 1 || setState.cardRole !== "button" || setState.cardTabIndex !== 0) {
+      throw new Error(`Image set preview semantics are wrong: ${JSON.stringify(setState)}`);
+    }
+    await page.evaluate(`document.querySelector('#share-preview .share-preview-card')?.focus(); true;`);
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyDown",
+      key: "Enter",
+      code: "Enter",
+      windowsVirtualKeyCode: 13,
+    });
     await waitFor(
       page,
       `!document.querySelector('#share-lightbox')?.hidden &&
@@ -3756,6 +4166,8 @@ const testShareStudio = async ({ baseUrl }) => {
         stage.dispatchEvent(new PointerEvent('pointerdown', {
           bubbles: true,
           pointerId: 17,
+          isPrimary: true,
+          button: 0,
           clientX: 320,
           clientY: 300
         }));
@@ -3787,6 +4199,8 @@ const testShareStudio = async ({ baseUrl }) => {
       stage.dispatchEvent(new PointerEvent('pointerdown', {
         bubbles: true,
         pointerId: 18,
+        isPrimary: true,
+        button: 0,
         clientX: 320,
         clientY: 300
       }));
@@ -3897,6 +4311,13 @@ const testBackupAndImport = async ({ baseUrl }) => {
         const url = String(input);
         if (url.includes('/functions/v1/tmdb-search')) {
           const query = new URL(url).searchParams.get('q') || '';
+          if (query === 'Slow Close') {
+            return new Promise((resolve) => {
+              window.__resolveSlowImport = () => resolve(new Response(JSON.stringify({
+                results: [{ tmdbId: 1306, title: 'Slow Close', year: 2024, posterPath: '' }]
+              }), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+            });
+          }
           return Promise.resolve(new Response(JSON.stringify({ results: fixtures[query] || [] }), {
             status: 200,
             headers: { 'Content-Type': 'application/json' }
@@ -3905,6 +4326,37 @@ const testBackupAndImport = async ({ baseUrl }) => {
         return realFetch(input, options);
       };
       document.querySelector('#ranking-settings-toggle')?.click();
+      document.querySelector('#open-title-import')?.click();
+      const input = document.querySelector('#title-import-input');
+      input.value = 'Slow Close';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      document.querySelector('#title-import-match')?.click();
+      return true;
+    })()`);
+    await waitFor(page, `document.querySelector('#title-import-match')?.textContent.trim() === 'Matching…'`, 3000);
+    await page.evaluate(`(() => {
+      document.querySelector('#title-import-close')?.click();
+      window.__resolveSlowImport?.();
+      return true;
+    })()`);
+    await wait(150);
+    const canceledMatch = await page.evaluate(`(() => ({
+      overlayHidden: document.querySelector('#title-import')?.hidden,
+      reviewHidden: document.querySelector('#title-import-review')?.hidden,
+      matchDisabled: document.querySelector('#title-import-match')?.disabled,
+      matchText: document.querySelector('#title-import-match')?.textContent.trim(),
+      status: document.querySelector('#title-import-status')?.textContent.trim()
+    }))()`);
+    if (
+      !canceledMatch.overlayHidden ||
+      !canceledMatch.reviewHidden ||
+      canceledMatch.matchDisabled ||
+      canceledMatch.matchText !== "Match titles" ||
+      canceledMatch.status
+    ) {
+      throw new Error(`Closing import did not invalidate matching work: ${JSON.stringify(canceledMatch)}`);
+    }
+    await page.evaluate(`(() => {
       document.querySelector('#open-title-import')?.click();
       const input = document.querySelector('#title-import-input');
       input.value = '1. The Godfather (1972)\\n2. Heat\\n3. Spirited Away (2001)';
@@ -4021,7 +4473,7 @@ const testBackupAndImport = async ({ baseUrl }) => {
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { reviewState, imported, restored, afterReload },
+      details: { canceledMatch, reviewState, imported, restored, afterReload },
       screenshots: [reviewShot, await page.screenshot("backup-restore-complete.png")],
     };
   } finally {
@@ -4948,7 +5400,24 @@ const testPublicShareLink = async ({ baseUrl }) => {
       throw new Error(`Public shared view is wrong: ${JSON.stringify(publicView)}`);
     }
 
-    await page.evaluate(`document.querySelector('.shared-card')?.click(); true;`);
+    const sharedModalBefore = await page.evaluate(`(() => {
+      document.body.style.minHeight = '2600px';
+      window.scrollTo(0, 1200);
+      const bodyStyle = {
+        position: document.body.style.position,
+        top: document.body.style.top,
+        left: document.body.style.left,
+        right: document.body.style.right,
+        width: document.body.style.width,
+        paddingRight: document.body.style.paddingRight
+      };
+      const state = { scrollX, scrollY, bodyStyle };
+      document.querySelector('.shared-card')?.click();
+      return state;
+    })()`);
+    if (sharedModalBefore.scrollY < 1000) {
+      throw new Error(`Shared modal scroll fixture did not move off-screen: ${JSON.stringify(sharedModalBefore)}`);
+    }
     await waitFor(
       page,
       `!document.querySelector('#shared-detail')?.hidden &&
@@ -4965,7 +5434,12 @@ const testPublicShareLink = async ({ baseUrl }) => {
       director: document.querySelector('#shared-detail-director')?.textContent.trim(),
       cast: document.querySelector('#shared-detail-cast')?.textContent.trim(),
       ctaText: document.querySelector('#shared-detail-cta')?.textContent.trim(),
-      cta: document.querySelector('#shared-detail-cta')?.getAttribute('href')
+      cta: document.querySelector('#shared-detail-cta')?.getAttribute('href'),
+      backgroundInert: document.querySelector('.shared-page')?.inert,
+      activeId: document.activeElement?.id,
+      bodyLocked: document.body.classList.contains('is-shared-detail-open'),
+      bodyPosition: document.body.style.position,
+      bodyTop: document.body.style.top
     }))()`);
     if (
       sharedDetail.rank !== "Ranked #1" ||
@@ -4976,12 +5450,85 @@ const testPublicShareLink = async ({ baseUrl }) => {
       sharedDetail.director !== "Hayao Miyazaki" ||
       sharedDetail.cast !== "Rumi Hiiragi, Miyu Irino" ||
       sharedDetail.ctaText !== "Rank this movie" ||
-      sharedDetail.cta !== "/movies"
+      sharedDetail.cta !== "/movies" ||
+      !sharedDetail.backgroundInert ||
+      sharedDetail.activeId !== "shared-detail-close" ||
+      !sharedDetail.bodyLocked ||
+      sharedDetail.bodyPosition !== "fixed" ||
+      sharedDetail.bodyTop !== `-${sharedModalBefore.scrollY}px`
     ) {
       throw new Error(`Shared detail view is wrong: ${JSON.stringify(sharedDetail)}`);
     }
-    await page.evaluate(`document.querySelector('#shared-detail-close')?.click(); true;`);
-    await waitFor(page, `document.querySelector('#shared-detail')?.hidden`, 3000);
+    const sharedModalFocus = await page.evaluate(`(() => {
+      const close = document.querySelector('#shared-detail-close');
+      const cta = document.querySelector('#shared-detail-cta');
+      close.focus({ preventScroll: true });
+      close.dispatchEvent(new KeyboardEvent('keydown', {
+        key: 'Tab',
+        shiftKey: true,
+        bubbles: true,
+        cancelable: true
+      }));
+      const backwardActiveId = document.activeElement?.id;
+      cta.dispatchEvent(new KeyboardEvent('keydown', {
+        key: 'Tab',
+        bubbles: true,
+        cancelable: true
+      }));
+      return {
+        backwardActiveId,
+        forwardActiveId: document.activeElement?.id,
+        backgroundInert: document.querySelector('.shared-page')?.inert
+      };
+    })()`);
+    if (
+      sharedModalFocus.backwardActiveId !== "shared-detail-cta" ||
+      sharedModalFocus.forwardActiveId !== "shared-detail-close" ||
+      !sharedModalFocus.backgroundInert
+    ) {
+      throw new Error(`Shared detail focus did not wrap: ${JSON.stringify(sharedModalFocus)}`);
+    }
+    await page.evaluate(
+      `document.dispatchEvent(new KeyboardEvent('keydown', {
+        key: 'Escape',
+        bubbles: true,
+        cancelable: true
+      })); true;`,
+    );
+    await waitFor(
+      page,
+      `document.querySelector('#shared-detail')?.hidden &&
+        !document.querySelector('.shared-page')?.inert &&
+        document.activeElement === document.querySelector('.shared-card')`,
+      3000,
+    );
+    const sharedModalClosed = await page.evaluate(`(() => ({
+      scrollX,
+      scrollY,
+      bodyStyle: {
+        position: document.body.style.position,
+        top: document.body.style.top,
+        left: document.body.style.left,
+        right: document.body.style.right,
+        width: document.body.style.width,
+        paddingRight: document.body.style.paddingRight
+      },
+      bodyLocked: document.body.classList.contains('is-shared-detail-open'),
+      backgroundInert: document.querySelector('.shared-page')?.inert,
+      triggerFocused: document.activeElement === document.querySelector('.shared-card')
+    }))()`);
+    if (
+      Math.abs(sharedModalClosed.scrollX - sharedModalBefore.scrollX) > 1 ||
+      Math.abs(sharedModalClosed.scrollY - sharedModalBefore.scrollY) > 1 ||
+      JSON.stringify(sharedModalClosed.bodyStyle) !== JSON.stringify(sharedModalBefore.bodyStyle) ||
+      sharedModalClosed.bodyLocked ||
+      sharedModalClosed.backgroundInert ||
+      !sharedModalClosed.triggerFocused
+    ) {
+      throw new Error(
+        `Shared detail modal did not restore its page state: ${JSON.stringify({ sharedModalBefore, sharedModalClosed })}`,
+      );
+    }
 
     await page.send("Emulation.setDeviceMetricsOverride", {
       width: 390,
@@ -5100,8 +5647,259 @@ const testPublicShareLink = async ({ baseUrl }) => {
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { published, updateCopy, publicView, sharedDetail, mobilePublicView, revoked, revokedPublic },
+      details: {
+        published,
+        updateCopy,
+        publicView,
+        sharedDetail,
+        sharedModalBefore,
+        sharedModalFocus,
+        sharedModalClosed,
+        mobilePublicView,
+        revoked,
+        revokedPublic,
+      },
       screenshots: [await page.screenshot("public-share-link-revoked.png")],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
+const testRankingPointerTransactions = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "ranking-pointer-transactions", width: 1280, height: 900 });
+  const originalTitles = Array.from({ length: 30 }, (_, index) => `Movie ${String(index + 1).padStart(2, "0")}`);
+  try {
+    await seedPage(page, baseUrl, "ranking-pointer-transactions", {
+      ranking: originalTitles.map((title, index) => movie(title, 1990 + index, 1600 + index)),
+    });
+
+    const dragPoints = await page.evaluate(`(() => {
+      const list = document.querySelector('#ranking');
+      const first = list?.querySelector('.ranking__item .movie-item__body')?.getBoundingClientRect();
+      const listRect = list?.getBoundingClientRect();
+      return first && listRect ? {
+        from: { x: first.left + first.width / 2, y: first.top + first.height / 2 },
+        edge: {
+          x: first.left + first.width / 2,
+          y: list.scrollHeight > list.clientHeight ? listRect.bottom - 5 : innerHeight - 5
+        },
+        listScrollable: list.scrollHeight > list.clientHeight,
+        listScrollTop: list.scrollTop,
+        windowScrollY: window.scrollY
+      } : null;
+    })()`);
+    if (!dragPoints) throw new Error("Desktop ranking drag points were unavailable");
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mousePressed",
+      x: dragPoints.from.x,
+      y: dragPoints.from.y,
+      button: "left",
+      buttons: 1,
+      clickCount: 1,
+    });
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mouseMoved",
+      x: dragPoints.edge.x,
+      y: dragPoints.edge.y,
+      button: "left",
+      buttons: 1,
+    });
+    await wait(450);
+    const autoScrolled = await page.evaluate(`(() => ({
+      listScrollTop: document.querySelector('#ranking')?.scrollTop || 0,
+      windowScrollY: window.scrollY,
+      dragging: document.querySelectorAll('#ranking .ranking__item.is-dragging').length
+    }))()`);
+    const correctOwnerScrolled = dragPoints.listScrollable
+      ? autoScrolled.listScrollTop >= 30 && Math.abs(autoScrolled.windowScrollY - dragPoints.windowScrollY) <= 4
+      : autoScrolled.windowScrollY >= dragPoints.windowScrollY + 30 && autoScrolled.listScrollTop <= 4;
+    if (!correctOwnerScrolled || autoScrolled.dragging !== 1) {
+      throw new Error(`Long ranking drag scrolled the wrong surface: ${JSON.stringify({ dragPoints, autoScrolled })}`);
+    }
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mouseReleased",
+      x: dragPoints.edge.x,
+      y: dragPoints.edge.y,
+      button: "left",
+      buttons: 0,
+      clickCount: 1,
+    });
+    await waitFor(
+      page,
+      `[...document.querySelectorAll('#ranking .ranking__title')][0]?.textContent.trim() !== 'Movie 01' &&
+        document.querySelector('#add-feedback .feedback-toast__action')?.textContent.trim() === 'Undo'`,
+      5000,
+    );
+    await page.evaluate(`document.querySelector('#add-feedback .feedback-toast__action')?.click(); true;`);
+    await waitFor(
+      page,
+      `[...document.querySelectorAll('#ranking .ranking__title')].map((node) => node.textContent.trim()).join('|') === ${JSON.stringify(originalTitles.join("|"))}`,
+      5000,
+    );
+
+    await page.evaluate(`(() => {
+      document.querySelector('#ranking').scrollTop = 0;
+      const feedback = document.querySelector('#add-feedback');
+      if (feedback) feedback.innerHTML = '';
+      return true;
+    })()`);
+    const noOpPoints = await page.evaluate(`(() => {
+      const body = document.querySelector('#ranking .ranking__item .movie-item__body')?.getBoundingClientRect();
+      return body ? {
+        from: { x: body.left + body.width / 2, y: body.top + body.height / 2 },
+        to: { x: body.left + body.width / 2 + 12, y: body.top + body.height / 2 }
+      } : null;
+    })()`);
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mousePressed",
+      x: noOpPoints.from.x,
+      y: noOpPoints.from.y,
+      button: "left",
+      buttons: 1,
+      clickCount: 1,
+    });
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mouseMoved",
+      x: noOpPoints.to.x,
+      y: noOpPoints.to.y,
+      button: "left",
+      buttons: 1,
+    });
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mouseReleased",
+      x: noOpPoints.to.x,
+      y: noOpPoints.to.y,
+      button: "left",
+      buttons: 0,
+      clickCount: 1,
+    });
+    await wait(120);
+    const noOp = await page.evaluate(`(() => ({
+      titles: [...document.querySelectorAll('#ranking .ranking__title')].map((node) => node.textContent.trim()),
+      detailHidden: document.querySelector('#movie-detail')?.hidden,
+      feedback: document.querySelector('#add-feedback')?.textContent.trim() || '',
+      dragging: document.querySelectorAll('#ranking .ranking__item.is-dragging').length
+    }))()`);
+    if (
+      noOp.titles.join("|") !== originalTitles.join("|") ||
+      !noOp.detailHidden ||
+      noOp.feedback ||
+      noOp.dragging
+    ) {
+      throw new Error(`No-op mouse drag committed or opened detail: ${JSON.stringify(noOp)}`);
+    }
+
+    const escapePoints = await page.evaluate(`(() => {
+      const rows = [...document.querySelectorAll('#ranking .ranking__item')];
+      const first = rows[0]?.querySelector('.movie-item__body')?.getBoundingClientRect();
+      const third = rows[2]?.getBoundingClientRect();
+      return first && third ? {
+        from: { x: first.left + first.width / 2, y: first.top + first.height / 2 },
+        to: { x: third.left + third.width / 2, y: third.top + third.height / 2 }
+      } : null;
+    })()`);
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mousePressed",
+      x: escapePoints.from.x,
+      y: escapePoints.from.y,
+      button: "left",
+      buttons: 1,
+      clickCount: 1,
+    });
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mouseMoved",
+      x: escapePoints.to.x,
+      y: escapePoints.to.y,
+      button: "left",
+      buttons: 1,
+    });
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyDown",
+      key: "Escape",
+      code: "Escape",
+      windowsVirtualKeyCode: 27,
+    });
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mouseReleased",
+      x: escapePoints.to.x,
+      y: escapePoints.to.y,
+      button: "left",
+      buttons: 0,
+      clickCount: 1,
+    });
+    await wait(120);
+    const escaped = await page.evaluate(`(() => ({
+      titles: [...document.querySelectorAll('#ranking .ranking__title')].map((node) => node.textContent.trim()),
+      detailHidden: document.querySelector('#movie-detail')?.hidden,
+      dragging: document.querySelectorAll('#ranking .ranking__item.is-dragging').length,
+      bodyDragging: document.body.classList.contains('is-dragging')
+    }))()`);
+    if (
+      escaped.titles.join("|") !== originalTitles.join("|") ||
+      !escaped.detailHidden ||
+      escaped.dragging ||
+      escaped.bodyDragging
+    ) {
+      throw new Error(`Escape did not cancel the main drag transaction: ${JSON.stringify(escaped)}`);
+    }
+
+    await setDeviceProfile(page, {
+      width: 1024,
+      height: 768,
+      input: DEVICE_INPUT_PROFILE.coarseTouch,
+      deviceScaleFactor: 2,
+    });
+    await page.evaluate(`(() => {
+      document.querySelector('#ranking').scrollTop = 0;
+      document.querySelector('#ranking-move-toggle')?.click();
+      return true;
+    })()`);
+    await waitFor(page, `document.querySelector('#ranking')?.classList.contains('is-move-mode')`, 3000);
+    const touchPoints = await page.evaluate(`(() => {
+      const rows = [...document.querySelectorAll('#ranking .ranking__item')];
+      const handle = rows[0]?.querySelector('.ranking__handle')?.getBoundingClientRect();
+      const fourth = rows[3]?.getBoundingClientRect();
+      return handle && fourth ? {
+        from: { x: handle.left + handle.width / 2, y: handle.top + handle.height / 2 },
+        to: { x: fourth.left + fourth.width / 2, y: fourth.top + fourth.height / 2 }
+      } : null;
+    })()`);
+    const touchStart = {
+      x: Math.round(touchPoints.from.x),
+      y: Math.round(touchPoints.from.y),
+      radiusX: 2,
+      radiusY: 2,
+      force: 1,
+      id: 7,
+    };
+    await page.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [touchStart] });
+    await page.send("Input.dispatchTouchEvent", {
+      type: "touchMove",
+      touchPoints: [{ ...touchStart, x: Math.round(touchPoints.to.x), y: Math.round(touchPoints.to.y) }],
+    });
+    await page.send("Input.dispatchTouchEvent", { type: "touchCancel", touchPoints: [] });
+    await wait(150);
+    const touchCanceled = await page.evaluate(`(() => ({
+      titles: [...document.querySelectorAll('#ranking .ranking__title')].map((node) => node.textContent.trim()),
+      dragging: document.querySelectorAll('#ranking .ranking__item.is-dragging').length,
+      bodyDragging: document.body.classList.contains('is-dragging'),
+      moveMode: document.querySelector('#ranking')?.classList.contains('is-move-mode')
+    }))()`);
+    if (
+      touchCanceled.titles.join("|") !== originalTitles.join("|") ||
+      touchCanceled.dragging ||
+      touchCanceled.bodyDragging ||
+      !touchCanceled.moveMode
+    ) {
+      throw new Error(`Touch cancellation committed the main drag: ${JSON.stringify(touchCanceled)}`);
+    }
+
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { dragPoints, autoScrolled, noOp, escaped, touchCanceled },
+      screenshots: [await page.screenshot("ranking-pointer-transactions.png")],
     };
   } finally {
     await page.close();
@@ -5693,6 +6491,64 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('#fullscreen-move-toggle')?.click(); true;`);
     await waitFor(page, `document.querySelector('#fullscreen-grid')?.classList.contains('is-move-mode')`, 3000);
 
+    const fullscreenEscapePoints = await page.evaluate(`(() => {
+      const cards = [...document.querySelectorAll('#fullscreen-grid .fullscreen-card')];
+      const first = cards[0]?.querySelector('.fullscreen-card__primary')?.getBoundingClientRect();
+      const third = cards[2]?.getBoundingClientRect();
+      return first && third ? {
+        from: { x: first.left + first.width / 2, y: first.top + first.height / 2 },
+        to: { x: third.left + third.width / 2, y: third.top + third.height / 2 }
+      } : null;
+    })()`);
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mousePressed",
+      x: fullscreenEscapePoints.from.x,
+      y: fullscreenEscapePoints.from.y,
+      button: "left",
+      buttons: 1,
+      clickCount: 1,
+    });
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mouseMoved",
+      x: fullscreenEscapePoints.to.x,
+      y: fullscreenEscapePoints.to.y,
+      button: "left",
+      buttons: 1,
+    });
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyDown",
+      key: "Escape",
+      code: "Escape",
+      windowsVirtualKeyCode: 27,
+    });
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mouseReleased",
+      x: fullscreenEscapePoints.to.x,
+      y: fullscreenEscapePoints.to.y,
+      button: "left",
+      buttons: 0,
+      clickCount: 1,
+    });
+    await wait(120);
+    const fullscreenEscapeDrag = await page.evaluate(`(() => ({
+      overlayOpen: !document.querySelector('#ranking-fullscreen')?.hidden,
+      gridTitles: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__title')].map((node) => node.textContent.trim()),
+      rankingTitles: [...document.querySelectorAll('#ranking .ranking__title')].map((node) => node.textContent.trim()),
+      dragging: document.querySelectorAll('#fullscreen-grid .fullscreen-card.is-dragging').length,
+      bodyDragging: document.body.classList.contains('is-fullscreen-dragging'),
+      detailHidden: document.querySelector('#movie-detail')?.hidden
+    }))()`);
+    if (
+      !fullscreenEscapeDrag.overlayOpen ||
+      fullscreenEscapeDrag.gridTitles.join("|") !== "Alpha|Beta|Gamma|Delta|Epsilon|Zeta" ||
+      fullscreenEscapeDrag.rankingTitles.join("|") !== "Alpha|Beta|Gamma|Delta|Epsilon|Zeta" ||
+      fullscreenEscapeDrag.dragging ||
+      fullscreenEscapeDrag.bodyDragging ||
+      !fullscreenEscapeDrag.detailHidden
+    ) {
+      throw new Error(`Escape closed or committed the full-screen drag: ${JSON.stringify(fullscreenEscapeDrag)}`);
+    }
+
     await page.evaluate(`document.querySelector('#fullscreen-grid .fullscreen-card[data-index="0"] .fullscreen-card__drag-handle')?.focus(); true;`);
     await page.send("Input.dispatchKeyEvent", {
       type: "keyDown",
@@ -5899,6 +6755,7 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
         filtered,
         fullscreenKeyboardMoveDown,
         fullscreenKeyboardMoveUp,
+        fullscreenEscapeDrag,
         state,
       },
       screenshots: [jumpFocusShot, fullscreenOverflowDetailShot, await page.screenshot("fullscreen-ranking-interactions.png")],
@@ -6229,9 +7086,12 @@ const testSuggestionExplanations = async ({ baseUrl }) => {
 
     await setDestination("rank");
     const ipadRankPortrait = await readSuggestionResponsiveLayout();
-    assertSuggestionResponsiveLayout("iPad portrait Rank", ipadRankPortrait, {
+    // Rank keeps the same two-column composition as a fine-pointer viewport at
+    // this width, so its suggestion rail remains a single-card column. Input
+    // modality changes the controls, not the available-width layout.
+    assertSuggestionResponsiveLayout("iPad portrait Rank rail", ipadRankPortrait, {
       destination: "rank",
-      stacked: false,
+      stacked: true,
       minCardWidth: 250,
     });
     responsiveScreenshots.push(await captureSuggestionSection("suggestions-ipad-portrait-rank.png"));
@@ -7187,6 +8047,7 @@ const tests = [
   { name: "backup, PNG, and ZIP downloads", run: testBackupAndImageDownloads },
   { name: "signed-in Supabase merge and save", run: testSignedInSupabaseMergeAndSave },
   { name: "public shareable list link", run: testPublicShareLink },
+  { name: "ranking pointer drag transactions", run: testRankingPointerTransactions },
   { name: "full-screen ranking interactions", run: testFullscreenRankingInteractions },
   { name: "Taste Explorer evidence and ranking lens", run: testTasteExplorer },
   { name: "tonight picker mood, choice, and rank round trip", run: testTonightPicker },

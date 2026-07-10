@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>StackRank — Build your movie ranking</title>
     <meta
       name="description"
@@ -58,7 +58,7 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="styles.css?v=139" />
+    <link rel="stylesheet" href="styles.css?v=141" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -1333,7 +1333,14 @@
         </div>
       </div>
 
-      <div class="share-lightbox" id="share-lightbox" hidden>
+      <div
+        class="share-lightbox"
+        id="share-lightbox"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Full-size preview"
+        hidden
+      >
         <button
           class="share-lightbox__close"
           id="share-lightbox-close"
@@ -1367,11 +1374,14 @@
         <div
           class="share-lightbox__stage"
           id="share-lightbox-stage"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Full-size preview"
         >
-          <div class="share-lightbox__image" id="share-lightbox-image"></div>
+          <div
+            class="share-lightbox__image"
+            id="share-lightbox-image"
+            role="button"
+            tabindex="0"
+            aria-label="Toggle enlarged preview"
+          ></div>
         </div>
         <div class="share-lightbox__bar" id="share-lightbox-bar">
           <span class="share-lightbox__caption" id="share-lightbox-caption"></span>
@@ -1417,6 +1427,6 @@
 
     <div class="panel__feedback" id="add-feedback" role="status" aria-live="polite"></div>
 
-    <script type="module" src="app.js?v=176"></script>
+    <script type="module" src="app.js?v=178"></script>
   </body>
 </html>

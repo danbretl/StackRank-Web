@@ -1558,11 +1558,12 @@ body.is-comparing .first-run {
 .pack-detail-pager {
   grid-column: 1;
   grid-row: 1;
-  width: 100%;
+  width: max-content;
+  max-width: 100%;
   display: grid;
-  grid-template-columns: auto minmax(96px, 1fr) auto;
+  grid-template-columns: auto auto auto;
   align-items: center;
-  justify-self: stretch;
+  justify-self: start;
   gap: 12px;
 }
 
@@ -1603,10 +1604,13 @@ body.is-comparing .first-run {
 }
 
 .pack-pager-count {
+  min-width: 104px;
+  padding: 0 8px;
   font-size: 0.78rem;
   font-weight: 600;
   color: var(--ink-soft);
   text-align: center;
+  white-space: nowrap;
 }
 
 .pack-detail-head {
@@ -1636,7 +1640,6 @@ body.is-comparing .first-run {
   }
 
   .pack-detail-pager {
-    grid-template-columns: auto minmax(72px, 1fr) auto;
     gap: 6px;
   }
 
@@ -1646,8 +1649,10 @@ body.is-comparing .first-run {
   }
 
   .pack-detail-pager .pack-pager-count {
+    min-width: 72px;
+    padding-right: 4px;
+    padding-left: 4px;
     font-size: 0.7rem;
-    white-space: nowrap;
   }
 }
 

@@ -651,7 +651,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=146" ||
+      desktop.cssHref !== "styles.css?v=147" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -2906,7 +2906,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
       empty.moduleSrc !== "app.js?v=180" ||
-      empty.cssHref !== "styles.css?v=146" ||
+      empty.cssHref !== "styles.css?v=147" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -7904,7 +7904,10 @@ const testPackBrowserAndActions = async ({ baseUrl }) => {
       const close = document.querySelector('#pack-detail-close');
       const sheet = rect('#pack-detail .pack-sheet');
       const closeRect = rect('#pack-detail-close');
+      const toolbarRect = rect('.pack-detail-toolbar');
+      const pagerRect = rect('#pack-detail-pager');
       const prevRect = rect('#pack-detail-prev');
+      const countRect = rect('#pack-detail-pager-count');
       const nextRect = rect('#pack-detail-next');
       const closeStyle = getComputedStyle(close);
       return {
@@ -7916,7 +7919,10 @@ const testPackBrowserAndActions = async ({ baseUrl }) => {
         closeAria: close?.getAttribute('aria-label'),
         closeIcon: close?.querySelector('use')?.getAttribute('href'),
         closeRect,
+        toolbarRect,
+        pagerRect,
         prevRect,
+        countRect,
         nextRect,
         closeRightInset: closeRect && sheet ? sheet.right - closeRect.right : null,
         closeTopInset: closeRect && sheet ? closeRect.top - sheet.top : null,
@@ -7925,6 +7931,10 @@ const testPackBrowserAndActions = async ({ baseUrl }) => {
             Math.abs(closeRect.top - nextRect.top) <= 1 &&
             Math.abs(closeRect.height - prevRect.height) <= 1 &&
             Math.abs(closeRect.height - nextRect.height) <= 1
+          : false,
+        pagerLeftAligned: pagerRect && toolbarRect ? Math.abs(pagerRect.left - toolbarRect.left) <= 1 : false,
+        pagerCompact: pagerRect && toolbarRect && closeRect && countRect
+          ? pagerRect.width < toolbarRect.width - closeRect.width - 48 && countRect.width <= 140
           : false,
         pagerBeforeClose: closeRect && nextRect ? nextRect.right + 8 <= closeRect.left : false,
         closeStyle: {
@@ -7951,6 +7961,8 @@ const testPackBrowserAndActions = async ({ baseUrl }) => {
       pagerBefore.closeTopInset < 16 ||
       pagerBefore.closeTopInset > 30 ||
       !pagerBefore.controlsAligned ||
+      !pagerBefore.pagerLeftAligned ||
+      !pagerBefore.pagerCompact ||
       !pagerBefore.pagerBeforeClose ||
       JSON.stringify(pagerBefore.closeStyle) !== JSON.stringify(allPacksCloseVisual)
     ) {

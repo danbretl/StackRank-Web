@@ -4038,6 +4038,109 @@ const testComparisonUndoCancel = async ({ baseUrl }) => {
   }
 };
 
+const testSuggestionComparisonCancelContinuity = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "suggestion-comparison-cancel-continuity" });
+  try {
+    await page.send("Page.addScriptToEvaluateOnNewDocument", {
+      source: `
+        (() => {
+          const realFetch = window.fetch.bind(window);
+          window.__e2eSuggestionRequests = { popular: 0, essentials: 0, recommendations: 0 };
+          const suggestions = {
+            popular: [
+              { tmdbId: 2311, title: 'Popular One', year: 2026, posterPath: '' },
+              { tmdbId: 2312, title: 'Popular Two', year: 2025, posterPath: '' },
+              { tmdbId: 2313, title: 'Popular Three', year: 2024, posterPath: '' }
+            ],
+            essentials: [
+              { tmdbId: 2321, title: 'Essential One', year: 1950, posterPath: '' },
+              { tmdbId: 2322, title: 'Essential Two', year: 1960, posterPath: '' },
+              { tmdbId: 2323, title: 'Essential Three', year: 1970, posterPath: '' }
+            ],
+            recommendations: [
+              { tmdbId: 2331, title: 'Inspired One', year: 2001, posterPath: '' },
+              { tmdbId: 2332, title: 'Inspired Two', year: 2002, posterPath: '' },
+              { tmdbId: 2333, title: 'Inspired Three', year: 2003, posterPath: '' }
+            ]
+          };
+          window.fetch = (input, options) => {
+            const url = typeof input === 'string' ? input : input?.url || '';
+            if (url.includes('/functions/v1/tmdb-suggest')) {
+              const type = new URL(url).searchParams.get('type') || 'popular';
+              window.__e2eSuggestionRequests[type] += 1;
+              const generation = window.__e2eSuggestionRequests[type];
+              const results = (suggestions[type] || []).map((movie) => ({
+                ...movie,
+                title: generation === 1 ? movie.title : movie.title + ' refreshed'
+              }));
+              return Promise.resolve(new Response(JSON.stringify({ results }), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' }
+              }));
+            }
+            if (url.includes('/functions/v1/tmdb-detail')) {
+              return Promise.resolve(new Response(JSON.stringify({ result: null }), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' }
+              }));
+            }
+            return realFetch(input, options);
+          };
+        })();
+      `,
+    });
+    await seedPage(page, baseUrl, "suggestion-comparison-cancel-continuity", {
+      ranking: [movie("Alpha", 1990, 2301), movie("Beta", 2000, 2302), movie("Gamma", 2010, 2303)],
+    });
+    await waitFor(
+      page,
+      `document.querySelectorAll('#suggest-popular .suggest-card').length === 3 &&
+        document.querySelectorAll('#suggest-essentials .suggest-card').length === 3 &&
+        document.querySelectorAll('#suggest-related .suggest-card').length === 3`,
+      10000,
+    );
+    const before = await page.evaluate(`(() => ({
+      requests: { ...window.__e2eSuggestionRequests },
+      titles: [...document.querySelectorAll('.suggest-movie-grid .suggest-card .movie-item__title')]
+        .map((element) => element.textContent.trim())
+    }))()`);
+    await page.evaluate(`document.querySelector('#suggest-popular .movie-item__action--primary')?.click(); true;`);
+    await waitFor(page, `document.body.classList.contains('is-comparing')`, 3000);
+    await page.evaluate(`document.querySelector('#cancel-ranking')?.click(); true;`);
+    await waitFor(
+      page,
+      `!document.body.classList.contains('is-comparing') &&
+        !document.querySelector('.suggest-panel')?.hidden`,
+      3000,
+    );
+    await wait(300);
+    const after = await page.evaluate(`(() => ({
+      requests: { ...window.__e2eSuggestionRequests },
+      titles: [...document.querySelectorAll('.suggest-movie-grid .suggest-card .movie-item__title')]
+        .map((element) => element.textContent.trim()),
+      canceledMovieRanked: [...document.querySelectorAll('#ranking .ranking__title')]
+        .some((element) => element.textContent.trim() === 'Popular One'),
+      feedback: document.querySelector('#add-feedback')?.textContent.trim() || ''
+    }))()`);
+    if (
+      JSON.stringify(after.requests) !== JSON.stringify(before.requests) ||
+      after.titles.join("|") !== before.titles.join("|") ||
+      after.canceledMovieRanked ||
+      !after.feedback.includes('Canceled ranking "Popular One".')
+    ) {
+      throw new Error(`Cancel did not preserve the exact suggestion set: ${JSON.stringify({ before, after })}`);
+    }
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { before, after },
+      screenshots: [await page.screenshot("suggestion-comparison-canceled.png")],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
 const testRankingReviewSession = async ({ baseUrl }) => {
   const page = await openChromePage({ name: "ranking-review" });
   const originalTitles = ["Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta"];
@@ -8661,6 +8764,7 @@ const tests = [
   { name: "TMDB failure and recovery", run: testTmdbFailureRecovery },
   { name: "movie detail clears between ranked movies", run: testMovieDetailClearsBetweenRankedMovies },
   { name: "comparison undo and cancel restore origin", run: testComparisonUndoCancel },
+  { name: "suggestion comparison cancel preserves exact choices", run: testSuggestionComparisonCancelContinuity },
   { name: "ranking review swap, Escape, and session undo", run: testRankingReviewSession },
   { name: "autocomplete keyboard selection", run: testAutocompleteKeyboardSelection },
   { name: "portrait and landscape comparison layouts", run: testComparisonResponsiveLayouts },

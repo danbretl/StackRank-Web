@@ -3299,7 +3299,14 @@ const cancelComparison = () => {
   compareSection.classList.add("panel--hidden");
   form.reset();
   setAddFeedback(`Canceled ranking "${canceledTitle}".`, 2600);
-  updateSuggestions();
+  if (context?.type === "suggestion") {
+    // The suggestion lanes are hidden, not destroyed, while comparison is in
+    // progress. Reveal that exact set on cancel so backing out never swaps the
+    // movie choices beneath the user.
+    setSuggestionsHidden(false);
+  } else {
+    void updateSuggestions();
+  }
   restoreComparisonReturnScroll();
   titleInput.blur();
   restoreComparisonFocus(origin);

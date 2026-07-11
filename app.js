@@ -200,6 +200,7 @@ const rankingAddJump = document.getElementById("ranking-add-jump");
 const rankingMoveToggle = document.getElementById("ranking-move-toggle");
 const compareHeading = compareSection.querySelector(".panel__header h2");
 const rankingList = document.getElementById("ranking");
+const rankingTotal = document.getElementById("ranking-total");
 const rankingFilter = document.getElementById("ranking-filter");
 const rankingFilterToggle = document.getElementById("ranking-filter-toggle");
 const rankingFilterInput = document.getElementById("ranking-filter-input");
@@ -1464,6 +1465,9 @@ const renderFirstRunExperience = (rankingLength = ranking.length) => {
 const renderRanking = () => {
   rankingList.innerHTML = "";
   const hasRankedMovies = ranking.length > 0;
+  if (rankingTotal) {
+    rankingTotal.textContent = `${ranking.length} ${ranking.length === 1 ? "movie" : "movies"}`;
+  }
   const query = rankingFilterQuery.trim().toLowerCase();
   if (!hasRankedMovies || query) rankingMoveMode = false;
   rankingList.classList.toggle("is-move-mode", rankingMoveMode);

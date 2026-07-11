@@ -697,7 +697,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=152" ||
+      desktop.cssHref !== "styles.css?v=154" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -973,6 +973,11 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       return {
         destination: document.querySelector('main.app')?.dataset.appDestination,
         currentNav: document.querySelector('.app-nav--top .app-nav__item[aria-current="page"]')?.textContent.trim(),
+        brand: document.querySelector('.brand')?.textContent.trim() || '',
+        category: document.querySelector('.brand-category')?.textContent.trim() || '',
+        brandFontSize: parseFloat(getComputedStyle(document.querySelector('.brand')).fontSize),
+        navFontSize: parseFloat(getComputedStyle(document.querySelector('.app-nav--top .app-nav__item')).fontSize),
+        categoryColor: getComputedStyle(document.querySelector('.brand-category')).color,
         workspace,
         ranking,
         addVisible: !!rect('.panel--add'),
@@ -990,6 +995,11 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     if (
       desktop.destination !== "rank" ||
       desktop.currentNav !== "Rank" ||
+      desktop.brand !== "StackRank" ||
+      desktop.category !== "Movies" ||
+      desktop.brandFontSize < 14 ||
+      desktop.navFontSize < 15 ||
+      desktop.categoryColor !== "rgb(72, 72, 68)" ||
       !desktop.workspace ||
       desktop.workspace.width < 1300 ||
       desktop.ranking?.width > 0 ||
@@ -1010,6 +1020,12 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     })()`);
     await waitFor(page, `document.querySelector('main.app')?.dataset.appDestination === 'ranking'`, 3000);
     await wait(100);
+    const desktopRankingTotal = await page.evaluate(
+      `document.querySelector('#ranking-total')?.textContent.trim() || ''`,
+    );
+    if (desktopRankingTotal !== "5 movies") {
+      throw new Error(`Desktop ranking total is wrong: ${JSON.stringify(desktopRankingTotal)}`);
+    }
 
     const readRankingActionStyle = async (selector) =>
       page.evaluate(`(() => {
@@ -1471,6 +1487,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         const columnCount = (value) => String(value || '').split(' ').filter(Boolean).length;
         const row = document.querySelector('#pack-row');
         const rowStyle = row ? getComputedStyle(row) : null;
+        const panelStyle = getComputedStyle(document.querySelector('.suggest-panel'));
         const pointerCoarse = matchMedia('(pointer: coarse)').matches;
         const range = (values) => {
           const numeric = values.filter((value) => Number.isFinite(value));
@@ -1512,6 +1529,8 @@ const testAppShellNavigation = async ({ baseUrl }) => {
           pointerCoarse,
           portrait: matchMedia('(orientation: portrait)').matches,
           row: rect(row),
+          rowOverflowX: rowStyle?.overflowX || '',
+          panelOverflowX: panelStyle.overflowX,
           gridTemplateColumns: rowStyle?.gridTemplateColumns || '',
           gridColumnCount: columnCount(rowStyle?.gridTemplateColumns),
           cardCount: cards.length,
@@ -1564,6 +1583,8 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         layout.cardCount !== 6 ||
         !layout.firstThreeShareRow ||
         !layout.row ||
+        layout.rowOverflowX !== "visible" ||
+        layout.panelOverflowX !== "visible" ||
         layout.brokenCards.length ||
         layout.firstThreeActionTopRange > 2 ||
         layout.firstThreeActionBottomRange > 2 ||
@@ -1962,6 +1983,57 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       expectedColumns: 6,
     });
     const desktopDiscoverPacksShot = await page.screenshot("app-shell-desktop-rank-packs.png");
+    const desktopPackEdgeHovers = [];
+    const desktopPackEdgeHoverShots = [];
+    if (desktopHasFineHover) {
+      for (const [position, index] of [["first", 0], ["last", 5]]) {
+        await page.send("Input.dispatchMouseEvent", { type: "mouseMoved", x: 1, y: 1, button: "none" });
+        const before = await page.evaluate(`(() => {
+          const card = document.querySelectorAll('#pack-row .pack-card')[${index}];
+          const bounds = card?.getBoundingClientRect();
+          return bounds ? {
+            left: Math.round(bounds.left),
+            right: Math.round(bounds.right),
+            top: Math.round(bounds.top),
+            centerX: Math.round(bounds.left + bounds.width / 2),
+            centerY: Math.round(bounds.top + bounds.height / 2)
+          } : null;
+        })()`);
+        if (!before) throw new Error(`Missing ${position} desktop pack card`);
+        await page.send("Input.dispatchMouseEvent", {
+          type: "mouseMoved",
+          x: before.centerX,
+          y: before.centerY,
+          button: "none",
+        });
+        await wait(260);
+        const after = await page.evaluate(`(() => {
+          const card = document.querySelectorAll('#pack-row .pack-card')[${index}];
+          const bounds = card?.getBoundingClientRect();
+          const style = card ? getComputedStyle(card) : null;
+          return bounds ? {
+            left: Math.round(bounds.left),
+            right: Math.round(bounds.right),
+            top: Math.round(bounds.top),
+            borderTopColor: style?.borderTopColor || '',
+            transform: style?.transform || ''
+          } : null;
+        })()`);
+        if (
+          !after ||
+          after.top > before.top - 1 ||
+          after.left !== before.left ||
+          after.right !== before.right ||
+          !["rgb(17, 17, 17)", "rgb(18, 18, 18)"].includes(after.borderTopColor) ||
+          after.transform === "none"
+        ) {
+          throw new Error(`${position} desktop pack hover keyline is clipped: ${JSON.stringify({ before, after })}`);
+        }
+        desktopPackEdgeHovers.push({ position, before, after });
+        desktopPackEdgeHoverShots.push(await page.screenshot(`app-shell-desktop-pack-${position}-hover.png`));
+      }
+      await page.send("Input.dispatchMouseEvent", { type: "mouseMoved", x: 1, y: 1, button: "none" });
+    }
     await page.evaluate(`document.querySelector('#pack-refresh')?.click(); true;`);
     await waitFor(
       page,
@@ -2619,7 +2691,11 @@ const testAppShellNavigation = async ({ baseUrl }) => {
             firstThreeShareRow,
             minCardWidth: Math.min(...cards.map((card) => card.width)),
             clientWidth: row?.clientWidth || 0,
-            scrollWidth: row?.scrollWidth || 0
+            scrollWidth: row?.scrollWidth || 0,
+            paddingTop: Number.parseFloat(rowStyle?.paddingTop || '0'),
+            firstCardInsetTop: cards.length && row
+              ? Math.round(cards[0].top - row.getBoundingClientRect().top)
+              : 0
           };
         })(),
         addVisible: inFlow('.panel--add'),
@@ -2639,6 +2715,8 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       mobileDiscover.packShelf.cardCount !== 6 ||
       !mobileDiscover.packShelf.firstThreeShareRow ||
       mobileDiscover.packShelf.minCardWidth < 280 ||
+      mobileDiscover.packShelf.paddingTop < 4 ||
+      mobileDiscover.packShelf.firstCardInsetTop < 4 ||
       mobileDiscover.packShelf.scrollWidth <= mobileDiscover.packShelf.clientWidth + 40 ||
       mobileDiscover.scrollY < 400 ||
       mobileDiscover.scrollWidth > mobileDiscover.innerWidth
@@ -2834,10 +2912,12 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         desktop,
         desktopLists,
         desktopOverflowVisibilityGuard,
+        desktopRankingTotal,
         desktopWatchOverflow,
         desktopHiddenOverflow,
         desktopDensity,
         desktopDiscoverPacks,
+        desktopPackEdgeHovers,
         fineTabletCapabilities,
         fineTabletLandscape,
         ipadLandscapeCapabilities,
@@ -2886,6 +2966,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         desktopListsShot,
         desktopWatchOverflowShot,
         desktopDiscoverPacksShot,
+        ...desktopPackEdgeHoverShots,
         fineTabletLandscapeShot,
         ipadLandscapeShot,
         ipadDiscoverPacksLandscapeShot,
@@ -3004,19 +3085,33 @@ const testPrimaryActionVisualSystem = async ({ baseUrl }) => {
       screenHeight: 844,
     });
     await wait(100);
-    const mobileAddSearch = await page.evaluate(`(() => {
+    const mobileChrome = await page.evaluate(`(() => {
       const element = document.querySelector('.panel--add .field input');
       const style = getComputedStyle(element);
       const bounds = element.getBoundingClientRect();
+      const actionGroup = document.querySelector('.suggest-card .movie-item__actions');
+      const rankAction = actionGroup?.querySelector('.movie-item__action--primary');
+      const groupStyle = actionGroup ? getComputedStyle(actionGroup) : null;
+      const rankStyle = rankAction ? getComputedStyle(rankAction) : null;
       return {
-        backgroundColor: style.backgroundColor,
-        color: style.color,
-        borderTopColor: style.borderTopColor,
-        borderTopWidth: style.borderTopWidth,
-        boxShadow: style.boxShadow,
-        height: bounds.height
+        addSearch: {
+          backgroundColor: style.backgroundColor,
+          color: style.color,
+          borderTopColor: style.borderTopColor,
+          borderTopWidth: style.borderTopWidth,
+          boxShadow: style.boxShadow,
+          height: bounds.height
+        },
+        suggestionRank: {
+          groupOverflow: groupStyle?.overflow || '',
+          groupBorderTopWidth: groupStyle?.borderTopWidth || '',
+          groupBorderTopColor: groupStyle?.borderTopColor || '',
+          rankBoxShadow: rankStyle?.boxShadow || '',
+          rankBorderRadius: rankStyle?.borderRadius || ''
+        }
       };
     })()`);
+    const mobileAddSearch = mobileChrome.addSearch;
     if (
       mobileAddSearch.backgroundColor !== "rgb(255, 255, 255)" ||
       mobileAddSearch.color !== "rgb(17, 17, 17)" ||
@@ -3026,6 +3121,16 @@ const testPrimaryActionVisualSystem = async ({ baseUrl }) => {
       mobileAddSearch.height < 48
     ) {
       throw new Error(`Mobile Add search does not use the touch-sized keyline treatment: ${JSON.stringify(mobileAddSearch)}`);
+    }
+    if (
+      mobileChrome.suggestionRank.groupOverflow !== "visible" ||
+      mobileChrome.suggestionRank.groupBorderTopWidth !== "1px" ||
+      mobileChrome.suggestionRank.groupBorderTopColor !== "rgb(216, 215, 211)" &&
+        mobileChrome.suggestionRank.groupBorderTopColor !== "rgb(17, 17, 17)" ||
+      !mobileChrome.suggestionRank.rankBoxShadow.includes("inset") ||
+      mobileChrome.suggestionRank.rankBorderRadius === "0px"
+    ) {
+      throw new Error(`Mobile suggestion Rank keyline is clipped: ${JSON.stringify(mobileChrome.suggestionRank)}`);
     }
     const mobileShot = await page.screenshot("primary-actions-mobile.png");
     await page.send("Emulation.setDeviceMetricsOverride", {
@@ -3066,7 +3171,7 @@ const testPrimaryActionVisualSystem = async ({ baseUrl }) => {
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { primaryActions, reservedInkStates, mobileAddSearch, sharedCta },
+      details: { primaryActions, reservedInkStates, mobileChrome, sharedCta },
       screenshots: [appShot, mobileShot, await page.screenshot("primary-actions-shared-list.png")],
     };
   } finally {
@@ -3151,8 +3256,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=182" ||
-      empty.cssHref !== "styles.css?v=152" ||
+      empty.moduleSrc !== "app.js?v=184" ||
+      empty.cssHref !== "styles.css?v=154" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||

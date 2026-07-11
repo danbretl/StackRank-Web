@@ -196,6 +196,22 @@ body.is-share-open .skeleton {
   font-weight: 700;
 }
 
+.brand-lockup {
+  display: inline-flex;
+  min-width: 0;
+  align-items: baseline;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.brand-category {
+  color: #484844;
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 .topbar__meta {
   color: var(--ink-soft);
 }
@@ -950,6 +966,22 @@ body.is-share-open .skeleton {
   align-items: baseline;
   justify-content: space-between;
   gap: 10px;
+}
+
+.panel__title {
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.ranking-total {
+  color: var(--ink-muted);
+  font-size: var(--type-meta-size);
+  font-weight: 500;
+  line-height: var(--type-meta-line);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .panel__sub {
@@ -10252,6 +10284,7 @@ body.is-comparing .card--clickable.is-pressed {
 .app[data-app-destination="rank"] .suggest-panel {
   gap: var(--space-4);
   margin-top: 0;
+  overflow-x: visible;
 }
 
 .app[data-app-destination="rank"] .panel--discovery {
@@ -10657,9 +10690,10 @@ body.is-comparing .card--clickable.is-pressed {
     gap: var(--space-3);
     overflow-x: auto;
     overflow-y: hidden;
+    margin-top: -4px;
     margin-right: -12px;
     margin-left: -12px;
-    padding: 0 12px var(--space-2);
+    padding: 4px 12px var(--space-2);
     scroll-padding-inline: 12px;
     scroll-snap-type: none;
     scrollbar-width: thin;
@@ -10742,5 +10776,63 @@ body.is-comparing .app[data-app-destination="rank"] .panel--add {
   body.is-comparing .app[data-app-destination="rank"] .panel--add {
     padding: var(--space-3);
     border-radius: 16px;
+  }
+}
+
+/* Rank Bar density follow-up: calibrated shell type and unclipped keylines. */
+.brand {
+  font-size: 0.875rem;
+}
+
+.app-nav__item {
+  font-size: 0.9375rem;
+}
+
+.panel--list .panel__title {
+  flex: 1 1 auto;
+}
+
+@media (max-width: 720px),
+  (any-pointer: coarse) and (orientation: landscape) and (max-height: 600px) {
+  .brand-lockup {
+    grid-column: 1;
+    grid-row: 1;
+    gap: 7px;
+  }
+
+  .brand {
+    font-size: 1.0625rem;
+  }
+
+  .brand-category {
+    font-size: 0.625rem;
+  }
+
+  .panel--list .panel__title h2 {
+    flex: 0 1 auto;
+  }
+
+  .panel--list .ranking-total {
+    font-size: 0.72rem;
+  }
+
+  .suggest-card.movie-item-card .movie-item__actions {
+    overflow: visible;
+  }
+
+  .suggest-card.movie-item-card .movie-item__actions > :first-child {
+    border-radius: calc(var(--radius-control) - 1px) 0 0 calc(var(--radius-control) - 1px);
+  }
+
+  .suggest-card.movie-item-card .movie-item__actions > :last-child {
+    border-radius: 0 calc(var(--radius-control) - 1px) calc(var(--radius-control) - 1px) 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .panel--list .panel__title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
   }
 }

@@ -10641,12 +10641,19 @@ body.is-comparing .card--clickable.is-pressed {
     padding: 0;
   }
 
+  .app[data-app-destination="rank"] .suggest-section--packs,
+  .suggest-movie-grid {
+    width: 100%;
+    min-width: 0;
+  }
+
   .app[data-app-destination="rank"] .pack-row,
   .suggest-movie-grid .suggest-row {
-    display: grid;
-    grid-template-columns: none;
-    grid-auto-flow: column;
-    grid-auto-columns: clamp(300px, 82vw, 360px);
+    display: flex;
+    width: calc(100% + 24px);
+    max-width: none;
+    min-width: 0;
+    flex-wrap: nowrap;
     gap: var(--space-3);
     overflow-x: auto;
     overflow-y: hidden;
@@ -10654,13 +10661,16 @@ body.is-comparing .card--clickable.is-pressed {
     margin-left: -12px;
     padding: 0 12px var(--space-2);
     scroll-padding-inline: 12px;
-    scroll-snap-type: x proximity;
+    scroll-snap-type: none;
     scrollbar-width: thin;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
   }
 
   .app[data-app-destination="rank"] .pack-row .pack-card,
   .suggest-movie-grid .suggest-row .suggest-card {
-    scroll-snap-align: start;
+    flex: 0 0 clamp(300px, 82vw, 360px);
+    scroll-snap-align: none;
   }
 
   .app[data-app-destination="rank"] .pack-row .pack-card {

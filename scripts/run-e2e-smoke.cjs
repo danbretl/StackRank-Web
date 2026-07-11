@@ -411,6 +411,52 @@ const tapAt = async (page, x, y) => {
   });
 };
 
+const swipeShelfLeft = async (page, selector, distance = 150) => {
+  await page.evaluate(`document.querySelector(${JSON.stringify(selector)})?.scrollIntoView({ block: 'center' }); true;`);
+  await wait(100);
+  const before = await page.evaluate(`(() => {
+    const shelf = document.querySelector(${JSON.stringify(selector)});
+    if (!shelf) return null;
+    const bounds = shelf.getBoundingClientRect();
+    const style = getComputedStyle(shelf);
+    return {
+      windowScrollY: window.scrollY,
+      scrollLeft: shelf.scrollLeft,
+      scrollWidth: shelf.scrollWidth,
+      clientWidth: shelf.clientWidth,
+      display: style.display,
+      overflowX: style.overflowX,
+      scrollSnapType: style.scrollSnapType,
+      left: bounds.left,
+      right: bounds.right,
+      top: bounds.top,
+      bottom: bounds.bottom
+    };
+  })()`);
+  if (!before) throw new Error(`Missing horizontal shelf: ${selector}`);
+  const start = {
+    x: Math.round(Math.min(before.right - 24, before.left + before.clientWidth - 24)),
+    y: Math.round((before.top + before.bottom) / 2),
+    radiusX: 1,
+    radiusY: 1,
+    force: 1,
+  };
+  await page.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [start] });
+  for (let step = 1; step <= 6; step += 1) {
+    await page.send("Input.dispatchTouchEvent", {
+      type: "touchMove",
+      touchPoints: [{ ...start, x: Math.round(start.x - (distance * step) / 6) }],
+    });
+    await wait(16);
+  }
+  await page.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+  await wait(200);
+  const after = await page.evaluate(`document.querySelector(${JSON.stringify(selector)})?.scrollLeft || 0`);
+  await page.evaluate(`window.scrollTo(0, ${before.windowScrollY}); true;`);
+  await wait(50);
+  return { selector, before, after };
+};
+
 const waitForDownload = async (page, fileName, timeoutMs = 30000) => {
   const filePath = path.join(page.downloadDir, fileName);
   const partialPath = `${filePath}.crdownload`;
@@ -651,7 +697,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=151" ||
+      desktop.cssHref !== "styles.css?v=152" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -2561,14 +2607,20 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         packShelf: (() => {
           const row = document.querySelector('#pack-row');
           const rowStyle = row ? getComputedStyle(row) : null;
-          const columnCount = String(rowStyle?.gridTemplateColumns || '').split(' ').filter(Boolean).length;
           const cards = [...document.querySelectorAll('#pack-row .pack-card')].map((card) => {
             const bounds = card.getBoundingClientRect();
             return { top: Math.round(bounds.top), width: Math.round(bounds.width), height: Math.round(bounds.height) };
           });
           const firstThreeShareRow = cards.slice(0, 3).length === 3 &&
             cards.slice(0, 3).every((card) => Math.abs(card.top - cards[0].top) < 3);
-          return { columnCount, cardCount: cards.length, firstThreeShareRow, minCardWidth: Math.min(...cards.map((card) => card.width)) };
+          return {
+            display: rowStyle?.display || '',
+            cardCount: cards.length,
+            firstThreeShareRow,
+            minCardWidth: Math.min(...cards.map((card) => card.width)),
+            clientWidth: row?.clientWidth || 0,
+            scrollWidth: row?.scrollWidth || 0
+          };
         })(),
         addVisible: inFlow('.panel--add'),
         rankingVisible: inFlow('.panel--list'),
@@ -2583,10 +2635,11 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       !mobileDiscover.pack ||
       !mobileDiscover.addVisible ||
       mobileDiscover.rankingVisible ||
-      mobileDiscover.packShelf.columnCount !== 6 ||
+      mobileDiscover.packShelf.display !== "flex" ||
       mobileDiscover.packShelf.cardCount !== 6 ||
       !mobileDiscover.packShelf.firstThreeShareRow ||
       mobileDiscover.packShelf.minCardWidth < 280 ||
+      mobileDiscover.packShelf.scrollWidth <= mobileDiscover.packShelf.clientWidth + 40 ||
       mobileDiscover.scrollY < 400 ||
       mobileDiscover.scrollWidth > mobileDiscover.innerWidth
     ) {
@@ -2598,6 +2651,25 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       ".app-nav--mobile",
     ]);
     assertCoarseControlTargets("iPhone Rank launchpad", iphoneDiscoverTargets);
+    const iphonePackSwipe = await swipeShelfLeft(page, "#pack-row");
+    const iphoneSuggestionSwipe = await swipeShelfLeft(page, "#suggest-essentials");
+    for (const swipe of [iphonePackSwipe, iphoneSuggestionSwipe]) {
+      if (
+        swipe.before.display !== "flex" ||
+        swipe.before.overflowX !== "auto" ||
+        swipe.before.scrollSnapType !== "none" ||
+        swipe.before.clientWidth > iphoneDensity.innerWidth + 2 ||
+        swipe.before.scrollWidth <= swipe.before.clientWidth + 40 ||
+        swipe.after <= swipe.before.scrollLeft + 20
+      ) {
+        throw new Error(`iPhone shelf did not scroll horizontally: ${JSON.stringify(swipe)}`);
+      }
+    }
+    const rankScrollBeforeSwitch = await page.evaluate(`(() => {
+      const max = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+      window.scrollTo(0, Math.min(${mobileDiscover.scrollY}, max));
+      return { y: window.scrollY, max };
+    })()`);
     const discoverShot = await page.screenshot("app-shell-mobile-rank-launchpad.png");
 
     await tapSelector('.app-nav--mobile [data-app-destination-target="lists"]');
@@ -2722,10 +2794,10 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       y: window.scrollY,
       max: Math.max(0, document.documentElement.scrollHeight - window.innerHeight)
     }))()`);
-    const reachableRestoreTarget = Math.min(mobileDiscover.scrollY, restored.max);
+    const reachableRestoreTarget = Math.min(rankScrollBeforeSwitch.y, restored.max);
     if (Math.abs(restored.y - reachableRestoreTarget) > 8) {
       throw new Error(`Rank launchpad scroll was not restored: ${JSON.stringify({
-        before: mobileDiscover.scrollY,
+        before: rankScrollBeforeSwitch,
         reachableRestoreTarget,
         restored
       })}`);
@@ -2795,6 +2867,9 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         iphoneDensity,
         mobileDiscover,
         iphoneDiscoverTargets,
+        iphonePackSwipe,
+        iphoneSuggestionSwipe,
+        rankScrollBeforeSwitch,
         mobileLists,
         iphoneListsTargets,
         iphoneQueueMenuTargets,
@@ -3077,7 +3152,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
       empty.moduleSrc !== "app.js?v=182" ||
-      empty.cssHref !== "styles.css?v=151" ||
+      empty.cssHref !== "styles.css?v=152" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||

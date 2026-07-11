@@ -10178,11 +10178,26 @@ body.is-comparing .card--clickable.is-pressed {
   }
 }
 
-/* 2026-07-10 action-first home: Rank is the launchpad, Ranking is the artifact.
-   Packs and individual movie prompts share the full-width workspace. */
+/* Action-first shell: Rank is the launchpad, Ranking is the artifact. The Rank
+   Bar and open discovery canvas share one responsive working grid. */
 .app {
   width: 100%;
   max-width: 1600px;
+  padding-right: 24px;
+  padding-left: 24px;
+  gap: var(--space-4);
+}
+
+.topbar {
+  margin-right: -24px;
+  margin-left: -24px;
+  padding-right: 24px;
+  padding-left: 24px;
+}
+
+.app[data-app-destination="rank"] {
+  max-width: none;
+  row-gap: 0;
 }
 
 .app[data-app-destination="rank"] .side-stack,
@@ -10203,6 +10218,10 @@ body.is-comparing .card--clickable.is-pressed {
   margin: 0;
 }
 
+.app[data-app-destination="rank"] .stack {
+  gap: var(--space-4);
+}
+
 .app[data-app-destination="rank"] .panel--add,
 .app[data-app-destination="rank"] .panel--discovery,
 .app[data-app-destination="ranking"] .panel--list {
@@ -10216,11 +10235,37 @@ body.is-comparing .card--clickable.is-pressed {
 }
 
 .app[data-app-destination="rank"] .panel--add {
+  display: grid;
+  position: relative;
+  z-index: 20;
+  min-height: 0;
+  margin-right: -24px;
+  margin-left: -24px;
+  padding: var(--space-2) 24px;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  border-radius: 0;
+  background: var(--surface);
   align-items: center;
 }
 
 .app[data-app-destination="rank"] .suggest-panel {
-  gap: var(--space-6);
+  gap: var(--space-4);
+  margin-top: 0;
+}
+
+.app[data-app-destination="rank"] .panel--discovery {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.app[data-app-destination="rank"] .suggest-section--packs {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
 }
 
 .suggest-header__actions {
@@ -10265,6 +10310,40 @@ body.is-comparing .card--clickable.is-pressed {
   border-color: transparent;
 }
 
+@media (min-width: 721px) {
+  .app[data-app-destination="rank"] .panel--add {
+    grid-template-columns: auto minmax(420px, 1fr);
+    gap: var(--space-4);
+    padding: var(--space-2) 24px;
+  }
+
+  .app[data-app-destination="rank"] .panel--add > .panel__header {
+    white-space: nowrap;
+  }
+
+  .app[data-app-destination="rank"] .panel--add > .panel__header h2 {
+    margin: 0;
+    font-size: var(--type-item-size);
+    line-height: var(--type-item-line);
+  }
+
+  .app[data-app-destination="rank"] .panel--add > .form {
+    width: 100%;
+    max-width: none;
+  }
+
+  .app[data-app-destination="rank"] .panel--add .field input {
+    height: 48px;
+    min-height: 48px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .app[data-app-destination="rank"] .panel--add > :is(.first-run, .compare-panel) {
+    grid-column: 1 / -1;
+  }
+}
+
 @media (min-width: 900px) {
   .app,
   .app[data-app-destination="rank"],
@@ -10282,27 +10361,8 @@ body.is-comparing .card--clickable.is-pressed {
     grid-area: workspace;
   }
 
-  .app[data-app-destination="rank"] .panel--add {
-    grid-template-columns: auto minmax(420px, 1fr);
-    gap: var(--space-6);
-    padding: var(--space-6);
-  }
-
-  .app[data-app-destination="rank"] .panel--add > .panel__header {
-    white-space: nowrap;
-  }
-
-  .app[data-app-destination="rank"] .panel--add > .form {
-    width: 100%;
-    max-width: none;
-  }
-
-  .app[data-app-destination="rank"] .panel--add > :is(.first-run, .compare-panel) {
-    grid-column: 1 / -1;
-  }
-
   .app[data-app-destination="rank"] .panel--discovery {
-    padding: var(--space-6);
+    padding: 0;
   }
 
   .app[data-app-destination="rank"] .pack-row {
@@ -10381,6 +10441,27 @@ body.is-comparing .card--clickable.is-pressed {
   }
 }
 
+@media (min-width: 721px) and (max-width: 1100px) {
+  .app {
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .topbar {
+    margin-right: -20px;
+    margin-left: -20px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+
+  .app[data-app-destination="rank"] .panel--add {
+    margin-right: -20px;
+    margin-left: -20px;
+    padding-right: 20px;
+    padding-left: 20px;
+  }
+}
+
 @media (min-width: 900px) and (max-width: 1250px) {
   .app[data-app-destination="rank"] .pack-row {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -10397,9 +10478,24 @@ body.is-comparing .card--clickable.is-pressed {
 }
 
 @media (min-width: 721px) and (any-pointer: coarse) {
+  .app[data-app-destination="rank"] .panel--add .field input {
+    height: 52px;
+    min-height: 52px;
+  }
+
+  .app[data-app-destination="rank"] :is(.suggest-button, .pack-view-all, .suggest-action, .suggest-info) {
+    min-height: 48px;
+  }
+
+  .app[data-app-destination="rank"] :is(.suggest-button, .suggest-info) {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+  }
+
   .app[data-app-destination="rank"] .pack-row .pack-card__action {
-    height: 44px;
-    min-height: 44px;
+    height: 48px;
+    min-height: 48px;
   }
 }
 
@@ -10466,8 +10562,8 @@ body.is-comparing .card--clickable.is-pressed {
   .app[data-app-destination="rank"] .pack-row .pack-card__action {
     grid-area: action;
     width: 100%;
-    height: 44px;
-    min-height: 44px;
+    height: 48px;
+    min-height: 48px;
     border-radius: var(--radius-control);
     font-size: var(--type-meta-size);
   }
@@ -10491,6 +10587,18 @@ body.is-comparing .card--clickable.is-pressed {
 
 @media (max-width: 720px),
   (any-pointer: coarse) and (orientation: landscape) and (max-height: 600px) {
+  .app {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .topbar {
+    margin-right: -12px;
+    margin-left: -12px;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
   .app[data-app-destination="rank"] .panel--discovery {
     display: grid;
   }
@@ -10501,12 +10609,36 @@ body.is-comparing .card--clickable.is-pressed {
   }
 
   .app[data-app-destination="rank"] .panel--add {
-    padding-top: var(--space-6);
-    padding-bottom: var(--space-6);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    margin-right: -12px;
+    margin-left: -12px;
+    padding: 6px 12px;
+  }
+
+  .app[data-app-destination="rank"] .panel--add > .panel__header {
+    display: none;
+  }
+
+  .app[data-app-destination="rank"] .panel--add > .form {
+    width: 100%;
+  }
+
+  .app[data-app-destination="rank"] .panel--add .field input {
+    height: 56px;
+    min-height: 56px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .app[data-app-destination="rank"] .panel--add > :is(.first-run, .compare-panel) {
+    margin-top: var(--space-2);
   }
 
   .app[data-app-destination="rank"] .panel--discovery {
-    padding-top: var(--space-6);
+    margin-right: 0;
+    margin-left: 0;
+    padding: 0;
   }
 
   .app[data-app-destination="rank"] .pack-row,
@@ -10514,14 +10646,14 @@ body.is-comparing .card--clickable.is-pressed {
     display: grid;
     grid-template-columns: none;
     grid-auto-flow: column;
-    grid-auto-columns: minmax(280px, 84vw);
+    grid-auto-columns: clamp(300px, 82vw, 360px);
     gap: var(--space-3);
     overflow-x: auto;
     overflow-y: hidden;
-    margin-right: calc(var(--space-6) * -1);
-    margin-left: calc(var(--space-6) * -1);
-    padding: 0 var(--space-6) var(--space-2);
-    scroll-padding-inline: var(--space-6);
+    margin-right: -12px;
+    margin-left: -12px;
+    padding: 0 12px var(--space-2);
+    scroll-padding-inline: 12px;
     scroll-snap-type: x proximity;
     scrollbar-width: thin;
   }
@@ -10535,8 +10667,15 @@ body.is-comparing .card--clickable.is-pressed {
     min-height: 132px;
   }
 
+  .app[data-app-destination="rank"] .pack-row :is(.pack-card__title, .pack-card__subtitle) {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
   .app[data-app-destination="rank"] .pack-row .pack-card--loading {
-    min-height: 233px;
+    min-height: 169px;
   }
 
   .app[data-app-destination="rank"] .suggest-card--loading {
@@ -10545,11 +10684,11 @@ body.is-comparing .card--clickable.is-pressed {
 
   .suggest-movie-grid {
     grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-4);
+    gap: var(--space-3);
   }
 
   .suggest-movie-grid > .suggest-section {
-    padding: var(--space-4) 0;
+    padding: var(--space-3) 0;
     border-right: 0;
     border-left: 0;
     border-radius: 0;
@@ -10557,8 +10696,8 @@ body.is-comparing .card--clickable.is-pressed {
   }
 
   .suggest-movie-grid > .suggest-section .suggest-header {
-    padding-right: var(--space-4);
-    padding-left: var(--space-4);
+    padding-right: 0;
+    padding-left: 0;
   }
 
   .suggest-movie-grid .suggest-row .suggest-card {
@@ -10576,5 +10715,22 @@ body.is-comparing .card--clickable.is-pressed {
   .suggest-header__actions .pack-view-all {
     padding-right: var(--space-3);
     padding-left: var(--space-3);
+  }
+}
+
+body.is-comparing .app[data-app-destination="rank"] .panel--add {
+  z-index: auto;
+  margin: 0;
+  padding: clamp(var(--space-6), 3vw, var(--space-12));
+  border: 1px solid var(--ink);
+  border-radius: var(--radius-surface);
+  background: var(--surface);
+}
+
+@media (max-width: 720px),
+  (any-pointer: coarse) and (orientation: landscape) and (max-height: 600px) {
+  body.is-comparing .app[data-app-destination="rank"] .panel--add {
+    padding: var(--space-3);
+    border-radius: 16px;
   }
 }

@@ -651,7 +651,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=149" ||
+      desktop.cssHref !== "styles.css?v=151" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -1248,6 +1248,105 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         throw new Error(`${label} retained a hover-only visual state: ${JSON.stringify(evidence)}`);
       }
     };
+    const readRankLaunchpadDensity = async () =>
+      page.evaluate(`(() => {
+        const rect = (selector) => {
+          const bounds = document.querySelector(selector)?.getBoundingClientRect();
+          return bounds ? {
+            left: Math.round(bounds.left),
+            right: Math.round(bounds.right),
+            top: Math.round(bounds.top),
+            bottom: Math.round(bounds.bottom),
+            width: Math.round(bounds.width),
+            height: Math.round(bounds.height)
+          } : null;
+        };
+        const surface = (selector) => {
+          const element = document.querySelector(selector);
+          const style = element ? getComputedStyle(element) : null;
+          return style ? {
+            backgroundColor: style.backgroundColor,
+            borderTopWidth: style.borderTopWidth,
+            borderRightWidth: style.borderRightWidth,
+            borderBottomWidth: style.borderBottomWidth,
+            borderLeftWidth: style.borderLeftWidth,
+            boxShadow: style.boxShadow
+          } : null;
+        };
+        const packCards = [...document.querySelectorAll('#pack-row .pack-card')].map((card) => {
+          const bounds = card.getBoundingClientRect();
+          return {
+            top: Math.round(bounds.top),
+            bottom: Math.round(bounds.bottom),
+            left: Math.round(bounds.left),
+            right: Math.round(bounds.right),
+            width: Math.round(bounds.width),
+            height: Math.round(bounds.height)
+          };
+        });
+        const title = document.querySelector('.panel__header--discovery');
+        const titleStyle = title ? getComputedStyle(title) : null;
+        return {
+          destination: document.querySelector('main.app')?.dataset.appDestination,
+          pointerCoarse: matchMedia('(pointer: coarse)').matches,
+          topbar: rect('.topbar'),
+          rankBar: rect('.panel--add'),
+          rankLabel: rect('.panel--add > .panel__header'),
+          input: rect('#title'),
+          discovery: rect('.panel--discovery'),
+          discoverySurface: surface('.panel--discovery'),
+          discoveryTitleVisible: !!titleStyle && titleStyle.position !== 'absolute',
+          packSection: rect('#pack-section'),
+          packSurface: surface('#pack-section'),
+          packCards,
+          suggestionGrid: rect('.suggest-movie-grid'),
+          searchCount: document.querySelectorAll('#title').length,
+          scrollY: Math.round(window.scrollY),
+          scrollWidth: document.documentElement.scrollWidth,
+          innerWidth,
+          innerHeight
+        };
+      })()`);
+    const assertRankLaunchpadDensity = (label, layout, {
+      minInputHeight,
+      maxFirstPackTop,
+      phone = false,
+    }) => {
+      const transparent = (surface) => surface?.backgroundColor === 'rgba(0, 0, 0, 0)' &&
+        surface.borderTopWidth === '0px' &&
+        surface.borderRightWidth === '0px' &&
+        surface.borderBottomWidth === '0px' &&
+        surface.borderLeftWidth === '0px' &&
+        surface.boxShadow === 'none';
+      const firstPack = layout.packCards[0];
+      const lastPack = layout.packCards.at(-1);
+      if (
+        layout.destination !== 'rank' ||
+        layout.searchCount !== 1 ||
+        !layout.topbar ||
+        !layout.rankBar ||
+        Math.abs(layout.rankBar.top - layout.topbar.bottom) > 1 ||
+        layout.rankBar.height > 72 ||
+        !layout.input ||
+        layout.input.height < minInputHeight ||
+        layout.input.top < layout.rankBar.top ||
+        layout.input.bottom > layout.rankBar.bottom ||
+        !transparent(layout.discoverySurface) ||
+        !transparent(layout.packSurface) ||
+        layout.discoveryTitleVisible ||
+        !layout.packSection ||
+        layout.packCards.length !== 6 ||
+        !firstPack ||
+        firstPack.top > maxFirstPackTop ||
+        firstPack.top - layout.rankBar.bottom > 80 ||
+        !lastPack ||
+        (!phone && (!layout.suggestionGrid || layout.suggestionGrid.top >= layout.innerHeight)) ||
+        (!phone && layout.rankLabel && Math.abs(layout.rankLabel.left - layout.packSection.left) > 1) ||
+        layout.scrollWidth > layout.innerWidth
+      ) {
+        throw new Error(`${label} Rank Bar density regressed: ${JSON.stringify(layout)}`);
+      }
+    };
     const exerciseCoarseRankControls = async (label) => {
       await page.evaluate(`document.querySelector('#ranking .ranking__item')?.scrollIntoView({ block: 'center' }); true;`);
       await wait(50);
@@ -1803,6 +1902,12 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     await waitFor(page, `document.querySelector('#watch-list-tab')?.getAttribute('aria-selected') === 'true'`, 3000);
     await switchAppDestination("rank");
 
+    await page.evaluate(`window.scrollTo(0, 0); true;`);
+    const desktopDensity = await readRankLaunchpadDensity();
+    assertRankLaunchpadDensity("Desktop", desktopDensity, {
+      minInputHeight: 44,
+      maxFirstPackTop: 205,
+    });
     await page.evaluate(`document.querySelector('#pack-section')?.scrollIntoView({ block: 'start' }); true;`);
     await wait(100);
     const desktopDiscoverPacks = await readPackShelfLayout();
@@ -1870,6 +1975,12 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     const ipadLandscapeShot = await page.screenshot("app-shell-ipad-landscape-rank.png");
 
     await switchAppDestination("rank");
+    await page.evaluate(`window.scrollTo(0, 0); true;`);
+    const ipadDensityLandscape = await readRankLaunchpadDensity();
+    assertRankLaunchpadDensity("iPad landscape", ipadDensityLandscape, {
+      minInputHeight: 52,
+      maxFirstPackTop: 215,
+    });
     await page.evaluate(`document.querySelector('#pack-section')?.scrollIntoView({ block: 'start' }); true;`);
     await wait(100);
     const ipadDiscoverPacksLandscape = await readPackShelfLayout();
@@ -1918,7 +2029,25 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     assertCoarseControlTargets("iPad portrait Rank", ipadRankTargetsPortrait);
     const ipadPortraitShot = await page.screenshot("app-shell-ipad-portrait-rank.png");
 
+    const ipadDensityPortraitCapabilities = await setDeviceProfile(page, {
+      width: 820,
+      height: 1180,
+      input: DEVICE_INPUT_PROFILE.coarseTouch,
+      deviceScaleFactor: 2,
+    });
     await switchAppDestination("rank");
+    await page.evaluate(`window.scrollTo(0, 0); true;`);
+    const ipadDensityPortrait = await readRankLaunchpadDensity();
+    assertRankLaunchpadDensity("iPad portrait", ipadDensityPortrait, {
+      minInputHeight: 52,
+      maxFirstPackTop: 215,
+    });
+    await setDeviceProfile(page, {
+      width: 980,
+      height: 1180,
+      input: DEVICE_INPUT_PROFILE.coarseTouch,
+      deviceScaleFactor: 2,
+    });
     await page.evaluate(`document.querySelector('#pack-section')?.scrollIntoView({ block: 'start' }); true;`);
     await wait(100);
     const ipadDiscoverPacksPortrait = await readPackShelfLayout();
@@ -2407,6 +2536,13 @@ const testAppShellNavigation = async ({ baseUrl }) => {
 
     await tapSelector('.app-nav--mobile [data-app-destination-target="rank"]');
     await wait(100);
+    await page.evaluate(`window.scrollTo(0, 0); true;`);
+    const iphoneDensity = await readRankLaunchpadDensity();
+    assertRankLaunchpadDensity("iPhone portrait", iphoneDensity, {
+      minInputHeight: 56,
+      maxFirstPackTop: 220,
+      phone: true,
+    });
     await page.evaluate(`window.scrollTo(0, 520); true;`);
     await wait(50);
     const mobileDiscover = await page.evaluate(`(() => {
@@ -2582,9 +2718,17 @@ const testAppShellNavigation = async ({ baseUrl }) => {
 
     await tapSelector('.app-nav--mobile [data-app-destination-target="rank"]');
     await wait(100);
-    const restored = await page.evaluate(`window.scrollY`);
-    if (Math.abs(restored - mobileDiscover.scrollY) > 8) {
-      throw new Error(`Rank launchpad scroll was not restored: ${JSON.stringify({ before: mobileDiscover.scrollY, restored })}`);
+    const restored = await page.evaluate(`(() => ({
+      y: window.scrollY,
+      max: Math.max(0, document.documentElement.scrollHeight - window.innerHeight)
+    }))()`);
+    const reachableRestoreTarget = Math.min(mobileDiscover.scrollY, restored.max);
+    if (Math.abs(restored.y - reachableRestoreTarget) > 8) {
+      throw new Error(`Rank launchpad scroll was not restored: ${JSON.stringify({
+        before: mobileDiscover.scrollY,
+        reachableRestoreTarget,
+        restored
+      })}`);
     }
 
     await switchAppDestination("ranking");
@@ -2620,6 +2764,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         desktopOverflowVisibilityGuard,
         desktopWatchOverflow,
         desktopHiddenOverflow,
+        desktopDensity,
         desktopDiscoverPacks,
         fineTabletCapabilities,
         fineTabletLandscape,
@@ -2628,6 +2773,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         ipadRankTargetsLandscape,
         ipadHoverSuppression,
         ipadRankInteractionsLandscape,
+        ipadDensityLandscape,
         ipadDiscoverPacksLandscape,
         ipadDiscoverTargetsLandscape,
         ipadListsLandscape,
@@ -2635,6 +2781,8 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         ipadPortraitCapabilities,
         ipadPortrait,
         ipadRankTargetsPortrait,
+        ipadDensityPortraitCapabilities,
+        ipadDensityPortrait,
         ipadDiscoverPacksPortrait,
         ipadDiscoverTargetsPortrait,
         ipadListsPortrait,
@@ -2644,6 +2792,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
         iphoneRankTargets,
         mobileRankOverflow,
         mobileRankDetailLayer,
+        iphoneDensity,
         mobileDiscover,
         iphoneDiscoverTargets,
         mobileLists,
@@ -2927,8 +3076,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=181" ||
-      empty.cssHref !== "styles.css?v=149" ||
+      empty.moduleSrc !== "app.js?v=182" ||
+      empty.cssHref !== "styles.css?v=151" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -3110,7 +3259,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
     if (
       activated.rankingTitles.join("|") !== "Second Pick|First Pick" ||
       !activated.firstRunHidden ||
-      activated.inputBlurred ||
+      !activated.inputBlurred ||
       activated.packTitle !== "Fresh movie packs"
     ) {
       throw new Error(`Activated first-run state is wrong: ${JSON.stringify(activated)}`);
@@ -3958,6 +4107,9 @@ const testAutocompleteKeyboardSelection = async ({ baseUrl }) => {
     await seedPage(page, baseUrl, "autocomplete-keyboard", {
       ranking: [movie("Alpha", 1990, 1180), movie("Beta", 2000, 1183)],
     });
+    const packTopBeforeAutocomplete = await page.evaluate(
+      `Math.round(document.querySelector('#pack-row .pack-card')?.getBoundingClientRect().top || 0)`,
+    );
     await page.evaluate(`(() => {
       const input = document.querySelector('#title');
       input.focus();
@@ -3966,22 +4118,39 @@ const testAutocompleteKeyboardSelection = async ({ baseUrl }) => {
       return true;
     })()`);
     await waitFor(page, `document.querySelectorAll('#suggestions .suggestions__item').length === 2`, 3000);
-    const combobox = await page.evaluate(`(() => ({
-      role: document.querySelector('#title')?.getAttribute('role'),
-      autocomplete: document.querySelector('#title')?.getAttribute('aria-autocomplete'),
-      expanded: document.querySelector('#title')?.getAttribute('aria-expanded'),
-      controls: document.querySelector('#title')?.getAttribute('aria-controls'),
-      popup: document.querySelector('#title')?.getAttribute('aria-haspopup'),
-      activeDescendant: document.querySelector('#title')?.getAttribute('aria-activedescendant') || '',
-      listboxRole: document.querySelector('#suggestions')?.getAttribute('role'),
-      optionIds: [...document.querySelectorAll('#suggestions .suggestions__item')].map((item) => item.id),
-      optionRoles: [...document.querySelectorAll('#suggestions .suggestions__item')].map((item) =>
-        item.getAttribute('role')
-      ),
-      optionSelected: [...document.querySelectorAll('#suggestions .suggestions__item')].map((item) =>
-        item.getAttribute('aria-selected')
-      )
-    }))()`);
+    const combobox = await page.evaluate(`(() => {
+      const rect = (selector) => {
+        const bounds = document.querySelector(selector)?.getBoundingClientRect();
+        return bounds ? {
+          top: Math.round(bounds.top),
+          bottom: Math.round(bounds.bottom),
+          height: Math.round(bounds.height)
+        } : null;
+      };
+      const suggestions = document.querySelector('#suggestions');
+      return {
+        role: document.querySelector('#title')?.getAttribute('role'),
+        autocomplete: document.querySelector('#title')?.getAttribute('aria-autocomplete'),
+        expanded: document.querySelector('#title')?.getAttribute('aria-expanded'),
+        controls: document.querySelector('#title')?.getAttribute('aria-controls'),
+        popup: document.querySelector('#title')?.getAttribute('aria-haspopup'),
+        activeDescendant: document.querySelector('#title')?.getAttribute('aria-activedescendant') || '',
+        listboxRole: suggestions?.getAttribute('role'),
+        optionIds: [...document.querySelectorAll('#suggestions .suggestions__item')].map((item) => item.id),
+        optionRoles: [...document.querySelectorAll('#suggestions .suggestions__item')].map((item) =>
+          item.getAttribute('role')
+        ),
+        optionSelected: [...document.querySelectorAll('#suggestions .suggestions__item')].map((item) =>
+          item.getAttribute('aria-selected')
+        ),
+        inputRect: rect('#title'),
+        suggestionsRect: rect('#suggestions'),
+        packTop: Math.round(document.querySelector('#pack-row .pack-card')?.getBoundingClientRect().top || 0),
+        packSectionTop: Math.round(document.querySelector('#pack-section')?.getBoundingClientRect().top || 0),
+        suggestionsPosition: suggestions ? getComputedStyle(suggestions).position : '',
+        suggestionsZIndex: suggestions ? Number(getComputedStyle(suggestions).zIndex) : 0
+      };
+    })()`);
     if (
       combobox.role !== "combobox" ||
       combobox.autocomplete !== "list" ||
@@ -3992,7 +4161,14 @@ const testAutocompleteKeyboardSelection = async ({ baseUrl }) => {
       combobox.listboxRole !== "listbox" ||
       combobox.optionIds.join("|") !== "suggestions-option-0|suggestions-option-1" ||
       combobox.optionRoles.join("|") !== "option|option" ||
-      combobox.optionSelected.join("|") !== "false|false"
+      combobox.optionSelected.join("|") !== "false|false" ||
+      Math.abs(combobox.packTop - packTopBeforeAutocomplete) > 1 ||
+      combobox.suggestionsPosition !== "absolute" ||
+      combobox.suggestionsZIndex < 10 ||
+      !combobox.inputRect ||
+      !combobox.suggestionsRect ||
+      combobox.suggestionsRect.top < combobox.inputRect.bottom ||
+      combobox.suggestionsRect.bottom <= combobox.packSectionTop
     ) {
       throw new Error(`Autocomplete combobox semantics are wrong: ${JSON.stringify(combobox)}`);
     }

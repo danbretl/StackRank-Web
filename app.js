@@ -3046,7 +3046,7 @@ const restoreComparisonFocus = (origin = null, fallbackIndex = null) => {
       }
     }
     if (Number.isInteger(fallbackIndex) && focusRankingRowControl(fallbackIndex)) return;
-    focusVisibleControl([rankingAddJump, titleInput]);
+    focusVisibleControl([rankingAddJump]);
   });
 };
 

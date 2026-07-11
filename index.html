@@ -58,7 +58,7 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="styles.css?v=149" />
+    <link rel="stylesheet" href="styles.css?v=151" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -244,9 +244,9 @@
       </header>
 
       <div class="stack">
-        <section class="panel panel--focus panel--add" aria-live="polite">
+        <section class="panel panel--focus panel--add rank-bar" aria-live="polite">
           <div class="panel__header">
-            <h2>Rank another movie</h2>
+            <h2>Rank another</h2>
           </div>
           <form id="movie-form" class="form form--center">
             <label class="field field--center">
@@ -345,14 +345,14 @@
         </section>
 
         <section class="panel panel--discovery" id="discover-panel" aria-labelledby="discover-title">
-          <div class="panel__header panel__header--discovery">
+          <div class="panel__header panel__header--discovery sr-only">
             <h2 id="discover-title">Find something to rank</h2>
           </div>
           <div class="suggest-panel" id="suggest-panel">
             <div class="suggest-section suggest-section--packs" id="pack-section">
               <div class="suggest-header suggest-header--packs">
                 <div>
-                  <div class="suggest-title" id="pack-section-title">Suggested movie packs</div>
+                  <div class="suggest-title" id="pack-section-title">Fresh movie packs</div>
                   <div class="pack-section-sub" id="pack-section-sub">Packs to work through.</div>
                 </div>
                 <div class="suggest-header__actions">
@@ -1441,6 +1441,6 @@
 
     <div class="panel__feedback" id="add-feedback" role="status" aria-live="polite"></div>
 
-    <script type="module" src="app.js?v=181"></script>
+    <script type="module" src="app.js?v=182"></script>
   </body>
 </html>

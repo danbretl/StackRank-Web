@@ -9,21 +9,21 @@ import {
 } from "../lib/app-shell.js";
 
 test("normalizeAppDestination accepts only stable app destinations", () => {
-  assert.deepEqual(APP_DESTINATIONS, ["rank", "ranking", "lists"]);
+  assert.deepEqual(APP_DESTINATIONS, ["rank", "ranking", "you"]);
   assert.equal(normalizeAppDestination("rank"), "rank");
   assert.equal(normalizeAppDestination("ranking"), "ranking");
-  assert.equal(normalizeAppDestination("lists"), "lists");
+  assert.equal(normalizeAppDestination("you"), "you");
   assert.equal(normalizeAppDestination("bogus"), "rank");
-  assert.equal(normalizeAppDestination("bogus", "lists"), "lists");
+  assert.equal(normalizeAppDestination("bogus", "you"), "you");
 });
 
 test("createAppShellState normalizes destination and scroll positions", () => {
-  assert.deepEqual(createAppShellState({ destination: "ranking", scrollPositions: { rank: 120, lists: -5 } }), {
+  assert.deepEqual(createAppShellState({ destination: "ranking", scrollPositions: { rank: 120, you: -5 } }), {
     destination: "ranking",
     scrollPositions: {
       rank: 120,
       ranking: 0,
-      lists: 0,
+      you: 0,
     },
   });
 });
@@ -42,7 +42,7 @@ test("switchAppDestination records current scroll and restores destination scrol
     scrollPositions: {
       rank: 180,
       ranking: 320,
-      lists: 0,
+      you: 0,
     },
   });
 
@@ -52,9 +52,9 @@ test("switchAppDestination records current scroll and restores destination scrol
 });
 
 test("switchAppDestination ignores invalid destinations without losing scroll", () => {
-  const result = switchAppDestination({ destination: "lists" }, "unknown", 44);
+  const result = switchAppDestination({ destination: "you" }, "unknown", 44);
   assert.equal(result.changed, false);
-  assert.equal(result.state.destination, "lists");
-  assert.equal(result.state.scrollPositions.lists, 44);
+  assert.equal(result.state.destination, "you");
+  assert.equal(result.state.scrollPositions.you, 44);
   assert.equal(result.scrollY, 44);
 });

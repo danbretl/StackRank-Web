@@ -76,6 +76,15 @@ const seedQueues = {
       queuedAt: "2026-06-21T04:30:00.000Z",
       savedAt: "2026-06-21T04:30:00.000Z",
     },
+    {
+      title: "The Apartment",
+      year: 1960,
+      posterPath: "/hhSRt1KKfRT0yEhEtRW3qp31JFU.jpg",
+      tmdbId: 284,
+      comparisons: 0,
+      queuedAt: "2026-06-21T04:40:00.000Z",
+      savedAt: "2026-06-21T04:40:00.000Z",
+    },
   ],
   notInterestedList: [
     {
@@ -156,6 +165,31 @@ const allShots = [
   createShot("ipad-main-portrait", "ipadPortrait", "main"),
   createShot("mobile-main", "iphonePortrait", "main"),
   createShot("mobile-main-landscape", "iphoneLandscape", "main"),
+  createShot("desktop-ranking", "desktop", "ranking"),
+  createShot("ipad-ranking-landscape", "ipadLandscape", "ranking"),
+  createShot("ipad-ranking-portrait", "ipadPortrait", "ranking"),
+  createShot("mobile-ranking", "iphonePortrait", "ranking"),
+  createShot("mobile-ranking-landscape", "iphoneLandscape", "ranking"),
+  createShot("desktop-ranking-options", "desktop", "ranking-options"),
+  createShot("ipad-ranking-options-landscape", "ipadLandscape", "ranking-options"),
+  createShot("ipad-ranking-options-portrait", "ipadPortrait", "ranking-options"),
+  createShot("mobile-ranking-options", "iphonePortrait", "ranking-options"),
+  createShot("mobile-ranking-options-landscape", "iphoneLandscape", "ranking-options"),
+  createShot("desktop-ranking-posters", "desktop", "ranking-posters"),
+  createShot("ipad-ranking-posters-landscape", "ipadLandscape", "ranking-posters"),
+  createShot("ipad-ranking-posters-portrait", "ipadPortrait", "ranking-posters"),
+  createShot("mobile-ranking-posters", "iphonePortrait", "ranking-posters"),
+  createShot("mobile-ranking-posters-landscape", "iphoneLandscape", "ranking-posters"),
+  createShot("desktop-ranking-compact", "desktop", "ranking-compact"),
+  createShot("ipad-ranking-compact-landscape", "ipadLandscape", "ranking-compact"),
+  createShot("ipad-ranking-compact-portrait", "ipadPortrait", "ranking-compact"),
+  createShot("mobile-ranking-compact", "iphonePortrait", "ranking-compact"),
+  createShot("mobile-ranking-compact-landscape", "iphoneLandscape", "ranking-compact"),
+  createShot("desktop-you", "desktop", "you"),
+  createShot("ipad-you-landscape", "ipadLandscape", "you"),
+  createShot("ipad-you-portrait", "ipadPortrait", "you"),
+  createShot("mobile-you", "iphonePortrait", "you"),
+  createShot("mobile-you-landscape", "iphoneLandscape", "you"),
   createShot("desktop-comparison", "desktop", "comparison"),
   createShot("ipad-comparison-landscape", "ipadLandscape", "comparison"),
   createShot("ipad-comparison-portrait", "ipadPortrait", "comparison"),
@@ -419,6 +453,61 @@ const captureShot = async (baseUrl, shot) => {
     });
     await wait(1800);
 
+    if (shot.state.startsWith("ranking")) {
+      const result = await page.send("Runtime.evaluate", {
+        expression: `
+          (() => {
+            const button = document.querySelector('[data-app-destination-target="ranking"]');
+            if (!button) return { clicked: false };
+            button.click();
+            window.scrollTo(0, 0);
+            return { clicked: true };
+          })()
+        `,
+        awaitPromise: true,
+        returnByValue: true,
+      });
+      if (!result.result.value.clicked) throw new Error(`Could not open Ranking for ${shot.name}`);
+      await wait(350);
+    }
+
+    if (shot.state === "ranking-options") {
+      await page.send("Runtime.evaluate", {
+        expression: `document.querySelector('#ranking-filter-toggle')?.click(); true;`,
+        awaitPromise: true,
+        returnByValue: true,
+      });
+      await wait(250);
+    }
+
+    if (shot.state === "ranking-posters" || shot.state === "ranking-compact") {
+      const mode = shot.state === "ranking-posters" ? "posters" : "compact";
+      await page.send("Runtime.evaluate", {
+        expression: `document.querySelector('[data-ranking-view="${mode}"]')?.click(); window.scrollTo(0, 0); true;`,
+        awaitPromise: true,
+        returnByValue: true,
+      });
+      await wait(350);
+    }
+
+    if (shot.state === "you") {
+      const result = await page.send("Runtime.evaluate", {
+        expression: `
+          (() => {
+            const button = document.querySelector('[data-app-destination-target="you"]');
+            if (!button) return { clicked: false };
+            button.click();
+            window.scrollTo(0, 0);
+            return { clicked: true };
+          })()
+        `,
+        awaitPromise: true,
+        returnByValue: true,
+      });
+      if (!result.result.value.clicked) throw new Error(`Could not open You for ${shot.name}`);
+      await wait(650);
+    }
+
     if (shot.state === "comparison") {
       const result = await page.send("Runtime.evaluate", {
         expression: `
@@ -514,6 +603,23 @@ const captureShot = async (baseUrl, shot) => {
       await wait(1000);
     }
 
+    // Reassert the requested device after state transitions. Mobile Chrome can
+    // occasionally fall back to the headless window's inner size after a
+    // scripted navigation click even though touch emulation remains enabled.
+    await page.send("Emulation.setDeviceMetricsOverride", {
+      width: shot.width,
+      height: shot.height,
+      deviceScaleFactor: shot.deviceScaleFactor,
+      mobile: shot.mobile,
+      screenWidth: shot.width,
+      screenHeight: shot.height,
+      screenOrientation: {
+        type: shot.orientation === "portrait" ? "portraitPrimary" : "landscapePrimary",
+        angle: shot.orientation === "portrait" ? 0 : 90,
+      },
+    });
+    await wait(100);
+
     const metrics = await page.send("Runtime.evaluate", {
       expression: `
         (() => ({
@@ -535,6 +641,20 @@ const captureShot = async (baseUrl, shot) => {
             width: document.documentElement.scrollWidth,
             height: document.documentElement.scrollHeight
           },
+          wideElements: [...document.body.querySelectorAll('*')]
+            .map((element) => {
+              const rect = element.getBoundingClientRect();
+              return {
+                tag: element.tagName.toLowerCase(),
+                id: element.id || '',
+                className: typeof element.className === 'string' ? element.className : '',
+                left: Math.round(rect.left),
+                right: Math.round(rect.right),
+                width: Math.round(rect.width)
+              };
+            })
+            .filter((item) => item.right > ${shot.width + 1} || item.width > ${shot.width + 1})
+            .slice(0, 20),
           hasComparison: !document.querySelector('#compare')?.classList.contains('panel--hidden'),
           hasShareStudio: !document.querySelector('#share-studio')?.hidden,
           hasPackBrowser: document.querySelector('#pack-detail')?.classList.contains('is-all-packs'),
@@ -575,6 +695,8 @@ const captureShot = async (baseUrl, shot) => {
           observed: {
             viewport: observed.viewport,
             capabilities: observed.capabilities,
+            scroll: observed.scroll,
+            wideElements: observed.wideElements,
           },
         })}`,
       );

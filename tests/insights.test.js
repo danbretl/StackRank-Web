@@ -8,7 +8,39 @@ import {
   countReversePreferenceMany,
   median,
   computeRankingInsights,
+  countRankedInMonth,
+  rankingMilestoneProgress,
 } from "../lib/insights.js";
+
+test("rankingMilestoneProgress uses durable milestones without inventing a score", () => {
+  assert.deepEqual(rankingMilestoneProgress(0), {
+    count: 0,
+    previous: 0,
+    next: 1,
+    remaining: 1,
+    progress: 0,
+  });
+  assert.deepEqual(rankingMilestoneProgress(63), {
+    count: 63,
+    previous: 50,
+    next: 75,
+    remaining: 12,
+    progress: 13 / 25,
+  });
+  assert.equal(rankingMilestoneProgress(1000).next, 1500);
+});
+
+test("countRankedInMonth counts only valid timestamps in the local calendar month", () => {
+  const movies = [
+    { rankedAt: "2026-07-01T12:00:00Z" },
+    { rankedAt: "2026-07-20T12:00:00Z" },
+    { rankedAt: "2026-06-30T12:00:00Z" },
+    { rankedAt: "not-a-date" },
+    {},
+  ];
+  assert.equal(countRankedInMonth(movies, new Date("2026-07-12T12:00:00")), 2);
+  assert.equal(countRankedInMonth(movies, "invalid"), 0);
+});
 
 test("preferenceWeight: #1 is worth ~1, last is worth 1/total, empty is 0", () => {
   assert.equal(preferenceWeight(0, 4), 1);

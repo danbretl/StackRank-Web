@@ -697,7 +697,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=154" ||
+      desktop.cssHref !== "styles.css?v=158" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -3003,17 +3003,15 @@ const testPrimaryActionVisualSystem = async ({ baseUrl }) => {
     });
     await waitFor(
       page,
-      `document.querySelectorAll('#pack-row .pack-card__action').length === 6 &&
+      `document.querySelectorAll('#pack-row .pack-card').length === 6 &&
         document.querySelector('.suggest-card .movie-item__action--primary')`,
       10000,
     );
 
     const primarySelectors = {
       addSearch: ".panel--add .field input",
-      packStartOrContinue: "#pack-row .pack-card:not(.pack-card--completed) .pack-card__action",
       movieRank: ".suggest-card .movie-item__action--primary",
       tonightPicker: "#tonight-run",
-      fullscreenJump: "#fullscreen-jump-button",
       sharePublish: "#share-link-publish",
       shareDownload: "#share-download-png",
       detailRank: "#detail-rank",
@@ -3064,7 +3062,7 @@ const testPrimaryActionVisualSystem = async ({ baseUrl }) => {
       };
       return {
         selectedListTab: read('#watch-list-tab'),
-        packProgress: read('#pack-row .pack-card__progress span')
+        packProgress: read('#pack-row .pack-card__progress-segment--ranked')
       };
     })()`);
     if (
@@ -3256,8 +3254,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=184" ||
-      empty.cssHref !== "styles.css?v=154" ||
+      empty.moduleSrc !== "app.js?v=186" ||
+      empty.cssHref !== "styles.css?v=158" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -7953,18 +7951,17 @@ const testTasteExplorer = async ({ baseUrl }) => {
         { ...movie("Epsilon", 2012, 3005), genres: ["Drama"], director: "Director Four", cast: ["Actor Four"] },
       ],
     });
-    await page.evaluate(`document.querySelector('[data-app-destination-target="ranking"]')?.click(); true;`);
-    await waitFor(page, `document.querySelector('main.app')?.dataset.appDestination === 'ranking'`, 3000);
-    const collapsed = await page.evaluate(`(() => ({
+    await page.evaluate(`document.querySelector('[data-app-destination-target="you"]')?.click(); true;`);
+    await waitFor(page, `document.querySelector('main.app')?.dataset.appDestination === 'you'`, 3000);
+    const dashboard = await page.evaluate(`(() => ({
       hidden: document.querySelector('#taste-explorer')?.hidden,
       contentHidden: document.querySelector('#taste-content')?.hidden,
-      expanded: document.querySelector('#taste-toggle')?.getAttribute('aria-expanded')
+      toggleHidden: document.querySelector('#taste-toggle')?.hidden
     }))()`);
-    if (collapsed.hidden || !collapsed.contentHidden || collapsed.expanded !== "false") {
-      throw new Error(`Taste Explorer collapsed state is wrong: ${JSON.stringify(collapsed)}`);
+    if (dashboard.hidden || dashboard.contentHidden || !dashboard.toggleHidden) {
+      throw new Error(`Taste Explorer dashboard state is wrong: ${JSON.stringify(dashboard)}`);
     }
 
-    await page.evaluate(`document.querySelector('#taste-toggle')?.click(); true;`);
     await waitFor(
       page,
       `document.querySelectorAll('#taste-signals .taste__signal:not(.taste__signal--loading)').length === 3`,
@@ -8022,24 +8019,28 @@ const testTasteExplorer = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('#taste-detail .taste__action')?.click(); true;`);
     await waitFor(
       page,
-      `!document.querySelector('#ranking-fullscreen')?.hidden &&
-        document.querySelector('#fullscreen-title')?.textContent.trim() === 'Drama in your ranking' &&
+      `document.querySelector('main.app')?.dataset.appDestination === 'ranking' &&
+        document.querySelector('#ranking-view-label')?.textContent.trim() === 'Posters' &&
         document.querySelectorAll('#fullscreen-grid .fullscreen-card').length === 4`,
       5000,
     );
     const lens = await page.evaluate(`(() => ({
-      title: document.querySelector('#fullscreen-title')?.textContent.trim(),
-      subtitle: document.querySelector('#fullscreen-sub')?.textContent.trim(),
+      destination: document.querySelector('main.app')?.dataset.appDestination,
+      view: document.querySelector('#ranking-view-label')?.textContent.trim(),
+      filterPlaceholder: document.querySelector('#ranking-filter-input')?.placeholder,
+      filterCount: document.querySelector('#ranking-filter-count')?.textContent.trim(),
       ranks: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__rank')]
         .map((el) => el.textContent.trim()),
-      jumpHidden: document.querySelector('#fullscreen-jump-form')?.hidden,
+      moveDisabled: document.querySelector('#ranking-move-toggle')?.disabled,
       filtered: document.querySelector('#fullscreen-grid')?.classList.contains('is-filtered')
     }))()`);
     if (
-      lens.title !== "Drama in your ranking" ||
-      lens.subtitle !== "4 movies, preserving your overall order" ||
+      lens.destination !== "ranking" ||
+      lens.view !== "Posters" ||
+      lens.filterPlaceholder !== "Filter within Drama" ||
+      lens.filterCount !== "4 of 5" ||
       lens.ranks.join("|") !== "1|3|4|5" ||
-      !lens.jumpHidden ||
+      !lens.moveDisabled ||
       !lens.filtered
     ) {
       throw new Error(`Taste ranking lens is wrong: ${JSON.stringify(lens)}`);
@@ -8048,7 +8049,7 @@ const testTasteExplorer = async ({ baseUrl }) => {
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { collapsed, open, mobile, lens },
+      details: { dashboard, open, mobile, lens },
       screenshots: [mobileShot, lensShot],
     };
   } finally {
@@ -8118,14 +8119,16 @@ const testTonightPicker = async ({ baseUrl }) => {
     });
 
     await page.evaluate(
-      `document.querySelector('.app-nav--top .app-nav__item[data-app-destination-target="lists"]')?.click(); true;`,
+      `document.querySelector('.app-nav--top .app-nav__item[data-app-destination-target="you"]')?.click(); true;`,
     );
     const collapsed = await page.evaluate(`(() => ({
+      destination: document.querySelector('main.app')?.dataset.appDestination,
+      visible: document.querySelector('#tonight-panel')?.getBoundingClientRect().height > 0,
       panelHidden: document.querySelector('#tonight-panel')?.hidden,
       contentHidden: document.querySelector('#tonight-content')?.hidden,
       expanded: document.querySelector('#tonight-toggle')?.getAttribute('aria-expanded')
     }))()`);
-    if (collapsed.panelHidden || !collapsed.contentHidden || collapsed.expanded !== "false") {
+    if (collapsed.destination !== "you" || !collapsed.visible || collapsed.panelHidden || !collapsed.contentHidden || collapsed.expanded !== "false") {
       throw new Error(`Tonight panel collapsed state is wrong: ${JSON.stringify(collapsed)}`);
     }
 
@@ -8856,11 +8859,464 @@ const testMobilePackTitleClearance = async ({ baseUrl }) => {
   }
 };
 
+const testApprovedAppShellNavigation = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "approved-app-shell-navigation", width: 1440, height: 900 });
+  try {
+    await seedPage(page, baseUrl, "approved-app-shell-navigation", {
+      ranking: [
+        movie("Alpha", 1990, 2001),
+        movie("Beta", 1995, 2002),
+        movie("Gamma", 2000, 2003),
+        movie("Delta", 2005, 2004),
+        movie("Epsilon", 2010, 2005),
+        movie("Zeta", 2015, 2006),
+      ],
+      watchList: [
+        queueMovie("Saved", 2020, 2101),
+        queueMovie("Later Pick", 2019, 2102),
+        queueMovie("Queued Drama", 2018, 2103),
+        queueMovie("Weekend Watch", 2017, 2104),
+        queueMovie("Fifth Pick", 2016, 2105),
+      ],
+      notInterestedList: [
+        { ...queueMovie("Hidden", 2021, 2201), hiddenAt: "2026-07-01T13:30:00.000Z" },
+        { ...queueMovie("Buried Pick", 2016, 2202), hiddenAt: "2026-07-01T13:40:00.000Z" },
+      ],
+    });
+
+    const switchDestination = async (destination) => {
+      await page.evaluate(`(() => {
+        const controls = [...document.querySelectorAll('[data-app-destination-target="${destination}"]')];
+        const visible = controls.find((control) => control.getBoundingClientRect().width > 0);
+        visible?.click();
+        window.scrollTo(0, 0);
+        return !!visible;
+      })()`);
+      await waitFor(
+        page,
+        `document.querySelector('main.app')?.dataset.appDestination === ${JSON.stringify(destination)}`,
+        3000,
+      );
+      await wait(120);
+    };
+
+    const readShell = async () =>
+      page.evaluate(`(() => {
+        const visible = (element) => {
+          const rect = element?.getBoundingClientRect();
+          const style = element ? getComputedStyle(element) : null;
+          return !!rect && rect.width > 0 && rect.height > 0 && style?.display !== 'none' && style?.visibility !== 'hidden';
+        };
+        const rect = (element) => {
+          const bounds = element?.getBoundingClientRect();
+          return bounds ? { left: bounds.left, right: bounds.right, top: bounds.top, bottom: bounds.bottom, width: bounds.width, height: bounds.height } : null;
+        };
+        const app = document.querySelector('main.app');
+        const rankInput = document.querySelector('#title');
+        const header = document.querySelector('.ranking-workspace__header');
+        const view = document.querySelector('#ranking-filter-toggle');
+        const move = document.querySelector('#ranking-move-toggle');
+        const share = document.querySelector('#share-list');
+        const widgetOrder = [...document.querySelectorAll('#you-dashboard__missing, #you-dashboard .you-widget')]
+          .map((widget) => ({ id: widget.id || widget.className, rect: rect(widget) }))
+          .filter((item) => item.rect);
+        return {
+          destination: app?.dataset.appDestination,
+          currentTopNav: document.querySelector('.app-nav--top [aria-current="page"]')?.textContent.trim() || '',
+          currentMobileNav: document.querySelector('.app-nav--mobile [aria-current="page"]')?.textContent.trim() || '',
+          topNavVisible: visible(document.querySelector('.app-nav--top')),
+          mobileNavVisible: visible(document.querySelector('.app-nav--mobile')),
+          input: rect(rankInput),
+          inputPlaceholder: rankInput?.placeholder || '',
+          inputFocused: document.activeElement === rankInput,
+          recentVisible: visible(document.querySelector('#snapshot-panel')),
+          recentCount: document.querySelectorAll('#snapshot-content .rank-activity__item').length,
+          packCount: document.querySelectorAll('#pack-row .pack-card').length,
+          segmentedPackCount: document.querySelectorAll('#pack-row .pack-card__progress-segment').length,
+          suggestionLanes: document.querySelectorAll('.suggest-movie-grid > .suggest-section').length,
+          total: document.querySelector('#ranking-total')?.textContent.trim() || '',
+          header: rect(header),
+          view: { visible: visible(view), rect: rect(view), label: document.querySelector('#ranking-view-label')?.textContent.trim() || '' },
+          move: { visible: visible(move), rect: rect(move), label: move?.textContent.trim() || '', pressed: move?.getAttribute('aria-pressed') || '' },
+          share: { visible: visible(share), rect: rect(share) },
+          reviewVisible: visible(document.querySelector('#ranking-review')),
+          filterOpen: !document.querySelector('#ranking-filter')?.hidden,
+          viewChoices: [...document.querySelectorAll('[data-ranking-view]')].map((button) => button.dataset.rankingView),
+          hasJump: !!document.querySelector('#fullscreen-jump, #fullscreen-jump-form'),
+          hasLegacyFullscreenHeader: !!document.querySelector('.fullscreen-header'),
+          listVisible: visible(document.querySelector('#ranking')),
+          posterVisible: visible(document.querySelector('#ranking-fullscreen')),
+          compact: document.querySelector('#ranking')?.classList.contains('ranking--compact'),
+          rowCount: document.querySelectorAll('#ranking .ranking__item').length,
+          posterCount: document.querySelectorAll('#fullscreen-grid .fullscreen-card').length,
+          visibleRowHandles: [...document.querySelectorAll('#ranking .ranking__handle')].filter(visible).length,
+          visibleRowOverflows: [...document.querySelectorAll('#ranking .ranking__overflow')].filter(visible).length,
+          widgetOrder,
+          hiddenManagerVisible: visible(document.querySelector('#manage-hidden-movies')),
+          hiddenPaneVisible: visible(document.querySelector('#not-interested-list')),
+          watchVisibleRows: [...document.querySelectorAll('#watch-list > li')].filter(visible).length,
+          scrollWidth: document.documentElement.scrollWidth,
+          innerWidth,
+        };
+      })()`);
+
+    const desktopRank = await readShell();
+    if (
+      desktopRank.destination !== "rank" ||
+      desktopRank.currentTopNav !== "Rank" ||
+      desktopRank.input?.height < 68 ||
+      desktopRank.inputPlaceholder !== "Search for a movie" ||
+      !desktopRank.recentVisible ||
+      desktopRank.recentCount !== 3 ||
+      desktopRank.packCount !== 6 ||
+      desktopRank.segmentedPackCount !== 24 ||
+      desktopRank.suggestionLanes !== 3 ||
+      desktopRank.scrollWidth > desktopRank.innerWidth
+    ) {
+      throw new Error(`Desktop Rank launchpad is wrong: ${JSON.stringify(desktopRank)}`);
+    }
+    const desktopRankShot = await page.screenshot("approved-shell-desktop-rank.png");
+
+    await switchDestination("ranking");
+    let desktopRanking = await readShell();
+    if (
+      desktopRanking.total !== "6 movies" ||
+      desktopRanking.view.label !== "Detailed" ||
+      !desktopRanking.reviewVisible ||
+      !desktopRanking.share.visible ||
+      desktopRanking.move.visible ||
+      !desktopRanking.listVisible ||
+      desktopRanking.posterVisible ||
+      desktopRanking.rowCount !== 6 ||
+      desktopRanking.hasJump ||
+      desktopRanking.hasLegacyFullscreenHeader ||
+      desktopRanking.scrollWidth > desktopRanking.innerWidth
+    ) {
+      throw new Error(`Desktop Ranking workspace is wrong: ${JSON.stringify(desktopRanking)}`);
+    }
+
+    await page.evaluate(`document.querySelector('#ranking-filter-toggle')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#ranking-filter')?.hidden`, 3000);
+    desktopRanking = await readShell();
+    if (desktopRanking.viewChoices.join("|") !== "detailed|posters|compact" || !desktopRanking.filterOpen) {
+      throw new Error(`Display and filters panel is wrong: ${JSON.stringify(desktopRanking)}`);
+    }
+    const desktopOptionsShot = await page.screenshot("approved-shell-desktop-display-filters.png");
+
+    await page.evaluate(`document.querySelector('[data-ranking-view="compact"]')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#ranking')?.classList.contains('ranking--compact')`, 3000);
+    const compact = await readShell();
+    if (!compact.compact || compact.view.label !== "Compact" || !compact.listVisible || compact.posterVisible) {
+      throw new Error(`Compact Ranking view is wrong: ${JSON.stringify(compact)}`);
+    }
+
+    await page.evaluate(`document.querySelector('[data-ranking-view="posters"]')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#ranking-fullscreen')?.hidden`, 3000);
+    const posters = await readShell();
+    if (posters.view.label !== "Posters" || posters.listVisible || !posters.posterVisible || posters.posterCount !== 6) {
+      throw new Error(`Posters Ranking view is wrong: ${JSON.stringify(posters)}`);
+    }
+    const desktopPostersShot = await page.screenshot("approved-shell-desktop-posters.png");
+
+    await page.evaluate(`(() => {
+      document.querySelector('#ranking-filter-toggle')?.click();
+      const input = document.querySelector('#ranking-filter-input');
+      input.value = 'Gamma';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      return true;
+    })()`);
+    await waitFor(page, `document.querySelectorAll('#fullscreen-grid .fullscreen-card').length === 1`, 3000);
+    const filtered = await page.evaluate(`(() => ({
+      count: document.querySelectorAll('#fullscreen-grid .fullscreen-card').length,
+      title: document.querySelector('.fullscreen-card__title')?.textContent.trim() || '',
+      moveDisabled: document.querySelector('#ranking-move-toggle')?.disabled,
+      indicatorHidden: document.querySelector('#ranking-view-filter-indicator')?.hidden
+    }))()`);
+    if (filtered.count !== 1 || filtered.title !== "Gamma" || !filtered.moveDisabled || filtered.indicatorHidden) {
+      throw new Error(`Filtered Ranking state is wrong: ${JSON.stringify(filtered)}`);
+    }
+    await page.evaluate(`document.querySelector('#ranking-filter-clear')?.click(); true;`);
+    await waitFor(page, `document.querySelectorAll('#fullscreen-grid .fullscreen-card').length === 6`, 3000);
+
+    await switchDestination("you");
+    const desktopYou = await readShell();
+    const desktopWidgetIds = desktopYou.widgetOrder.map((item) => item.id);
+    if (
+      desktopYou.currentTopNav !== "You" ||
+      desktopWidgetIds.join("|") !== "you-progress|tonight-panel|taste-explorer|panel panel--queues you-widget" ||
+      !desktopYou.hiddenManagerVisible ||
+      desktopYou.hiddenPaneVisible ||
+      desktopYou.watchVisibleRows !== 4 ||
+      desktopYou.scrollWidth > desktopYou.innerWidth
+    ) {
+      throw new Error(`Desktop You dashboard is wrong: ${JSON.stringify(desktopYou)}`);
+    }
+    const desktopYouShot = await page.screenshot("approved-shell-desktop-you.png");
+    await page.evaluate(`document.querySelector('#manage-hidden-movies')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#you-dashboard')?.classList.contains('is-managing-hidden')`, 3000);
+    const hiddenManager = await readShell();
+    if (!hiddenManager.hiddenPaneVisible || hiddenManager.hiddenManagerVisible) {
+      throw new Error(`Hidden movie management is wrong: ${JSON.stringify(hiddenManager)}`);
+    }
+    await page.evaluate(`document.querySelector('#hidden-back-to-dashboard')?.click(); true;`);
+
+    await switchDestination("ranking");
+    await page.evaluate(`document.body.focus(); true;`);
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyDown",
+      key: "/",
+      code: "Slash",
+      windowsVirtualKeyCode: 191,
+    });
+    await waitFor(
+      page,
+      `document.querySelector('main.app')?.dataset.appDestination === 'rank' && document.activeElement === document.querySelector('#title')`,
+      3000,
+    );
+    const slashShortcut = await readShell();
+    if (!slashShortcut.inputFocused) throw new Error(`Slash shortcut did not focus Rank: ${JSON.stringify(slashShortcut)}`);
+
+    await setDeviceProfile(page, {
+      width: 820,
+      height: 1180,
+      input: DEVICE_INPUT_PROFILE.coarseTouch,
+      deviceScaleFactor: 2,
+    });
+    await switchDestination("ranking");
+    await page.evaluate(`document.querySelector('[data-ranking-view="detailed"]')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#ranking')?.hidden`, 3000);
+    let ipad = await readShell();
+    if (
+      !ipad.topNavVisible ||
+      ipad.mobileNavVisible ||
+      !ipad.move.visible ||
+      ipad.move.rect.width < 44 ||
+      ipad.move.rect.height < 44 ||
+      ipad.visibleRowHandles !== 0 ||
+      ipad.visibleRowOverflows !== 6 ||
+      ipad.scrollWidth > ipad.innerWidth
+    ) {
+      throw new Error(`iPad Ranking controls are wrong: ${JSON.stringify(ipad)}`);
+    }
+    await page.evaluate(`document.querySelector('#ranking-move-toggle')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#ranking')?.classList.contains('is-move-mode')`, 3000);
+    ipad = await readShell();
+    if (ipad.move.label !== "Done" || ipad.move.pressed !== "true" || ipad.visibleRowHandles !== 6 || ipad.visibleRowOverflows !== 0) {
+      throw new Error(`iPad Move mode is wrong: ${JSON.stringify(ipad)}`);
+    }
+    const ipadMoveShot = await page.screenshot("approved-shell-ipad-move.png");
+
+    await setDeviceProfile(page, {
+      width: 390,
+      height: 844,
+      input: DEVICE_INPUT_PROFILE.coarseTouch,
+      deviceScaleFactor: 3,
+    });
+    await switchDestination("you");
+    const phoneYou = await readShell();
+    const phoneWidgetTops = phoneYou.widgetOrder.map((item) => Math.round(item.rect.top));
+    if (
+      phoneYou.topNavVisible ||
+      !phoneYou.mobileNavVisible ||
+      phoneYou.currentMobileNav !== "You" ||
+      !phoneWidgetTops.every((top, index) => index === 0 || top > phoneWidgetTops[index - 1]) ||
+      phoneYou.scrollWidth > phoneYou.innerWidth
+    ) {
+      throw new Error(`iPhone You dashboard is wrong: ${JSON.stringify(phoneYou)}`);
+    }
+    const phoneYouShot = await page.screenshot("approved-shell-iphone-you.png");
+
+    await switchDestination("ranking");
+    await page.evaluate(`document.querySelector('[data-ranking-view="detailed"]')?.click(); true;`);
+    const phoneRanking = await readShell();
+    const phoneActions = [phoneRanking.view.rect, phoneRanking.move.rect, phoneRanking.share.rect].filter(Boolean);
+    if (
+      !phoneRanking.mobileNavVisible ||
+      !phoneRanking.view.visible ||
+      !phoneRanking.move.visible ||
+      !phoneRanking.share.visible ||
+      phoneActions.some((rect) => rect.left < -1 || rect.right > phoneRanking.innerWidth + 1 || rect.height < 38) ||
+      phoneRanking.scrollWidth > phoneRanking.innerWidth
+    ) {
+      throw new Error(`iPhone Ranking header is wrong: ${JSON.stringify(phoneRanking)}`);
+    }
+    const phoneRankingShot = await page.screenshot("approved-shell-iphone-ranking.png");
+
+    await setDeviceProfile(page, {
+      width: 844,
+      height: 390,
+      input: DEVICE_INPUT_PROFILE.coarseTouch,
+      deviceScaleFactor: 3,
+    });
+    const phoneLandscape = await readShell();
+    if (phoneLandscape.header?.height > 90 || phoneLandscape.scrollWidth > phoneLandscape.innerWidth) {
+      throw new Error(`iPhone landscape Ranking header is too dense: ${JSON.stringify(phoneLandscape)}`);
+    }
+    const phoneLandscapeShot = await page.screenshot("approved-shell-iphone-landscape-ranking.png");
+
+    await switchDestination("rank");
+    const phoneLandscapeRank = await readShell();
+    const landscapeShelf = await page.evaluate(`(() => {
+      const shelf = document.querySelector('#pack-row');
+      const style = shelf ? getComputedStyle(shelf) : null;
+      return {
+        clientWidth: shelf?.clientWidth || 0,
+        scrollWidth: shelf?.scrollWidth || 0,
+        overflowX: style?.overflowX || '',
+        display: style?.display || '',
+        webkitOverflowScrolling: style?.webkitOverflowScrolling || ''
+      };
+    })()`);
+    if (
+      phoneLandscapeRank.input?.width < 800 ||
+      phoneLandscapeRank.scrollWidth > phoneLandscapeRank.innerWidth ||
+      landscapeShelf.display !== "flex" ||
+      landscapeShelf.overflowX !== "auto" ||
+      landscapeShelf.scrollWidth <= landscapeShelf.clientWidth
+    ) {
+      throw new Error(`iPhone landscape Rank shelf or search regressed: ${JSON.stringify({ phoneLandscapeRank, landscapeShelf })}`);
+    }
+    const landscapeShelfSwipe = await swipeShelfLeft(page, "#pack-row", 180);
+    if (landscapeShelfSwipe.after <= landscapeShelfSwipe.before.scrollLeft) {
+      throw new Error(`iPhone landscape Rank shelf did not scroll: ${JSON.stringify(landscapeShelfSwipe)}`);
+    }
+    const phoneLandscapeRankShot = await page.screenshot("approved-shell-iphone-landscape-rank.png");
+
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Approved shell browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { desktopRank, desktopRanking, compact, posters, filtered, desktopYou, ipad, phoneYou, phoneRanking, phoneLandscape, phoneLandscapeRank, landscapeShelf, landscapeShelfSwipe },
+      screenshots: [
+        desktopRankShot,
+        desktopOptionsShot,
+        desktopPostersShot,
+        desktopYouShot,
+        ipadMoveShot,
+        phoneYouShot,
+        phoneRankingShot,
+        phoneLandscapeShot,
+        phoneLandscapeRankShot,
+      ],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
+const testUnifiedRankingWorkspaceInteractions = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "unified-ranking-workspace", width: 1280, height: 900 });
+  try {
+    await seedPage(page, baseUrl, "unified-ranking-workspace", {
+      ranking: [
+        movie("Alpha", 1990, 3001),
+        movie("Beta", 1995, 3002),
+        movie("Gamma", 2000, 3003),
+        movie("Delta", 2005, 3004),
+        movie("Epsilon", 2010, 3005),
+        movie("Zeta", 2015, 3006),
+      ],
+    });
+    await page.evaluate(`document.querySelector('.app-nav--top [data-app-destination-target="ranking"]')?.click(); true;`);
+    await waitFor(page, `document.querySelector('main.app')?.dataset.appDestination === 'ranking'`, 3000);
+    await page.evaluate(`document.querySelector('[data-ranking-view="posters"]')?.click(); true;`);
+    await waitFor(page, `document.querySelectorAll('#fullscreen-grid .fullscreen-card').length === 6`, 3000);
+
+    const initial = await page.evaluate(`(() => ({
+      bodyFullscreen: document.body.classList.contains('is-fullscreen-open'),
+      surfaceHidden: document.querySelector('#ranking-fullscreen')?.hidden,
+      navVisible: document.querySelector('.app-nav--top')?.getBoundingClientRect().height > 0,
+      cards: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__title')].map((node) => node.textContent.trim()),
+      legacyClose: !!document.querySelector('#fullscreen-close'),
+      legacyDensity: !!document.querySelector('#fullscreen-density'),
+      legacyJump: !!document.querySelector('#fullscreen-jump')
+    }))()`);
+    if (
+      initial.bodyFullscreen ||
+      initial.surfaceHidden ||
+      !initial.navVisible ||
+      initial.cards.join("|") !== "Alpha|Beta|Gamma|Delta|Epsilon|Zeta" ||
+      initial.legacyClose ||
+      initial.legacyDensity ||
+      initial.legacyJump
+    ) {
+      throw new Error(`Poster view still behaves like a fullscreen modal: ${JSON.stringify(initial)}`);
+    }
+
+    await page.evaluate(`document.querySelector('#fullscreen-grid .fullscreen-card[data-index="0"] .fullscreen-card__drag-handle')?.focus(); true;`);
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyDown",
+      key: "ArrowDown",
+      code: "ArrowDown",
+      windowsVirtualKeyCode: 40,
+    });
+    await waitFor(page, `[...document.querySelectorAll('#fullscreen-grid .fullscreen-card__title')][1]?.textContent.trim() === 'Alpha'`, 3000);
+    const keyboardMove = await page.evaluate(`(() => ({
+      posters: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__title')].map((node) => node.textContent.trim()),
+      list: [...document.querySelectorAll('#ranking .ranking__title')].map((node) => node.textContent.trim()),
+      focusedIndex: document.activeElement?.closest('.fullscreen-card')?.dataset.index || '',
+      feedback: document.querySelector('#add-feedback')?.textContent.trim() || ''
+    }))()`);
+    if (
+      keyboardMove.posters.slice(0, 2).join("|") !== "Beta|Alpha" ||
+      keyboardMove.list.slice(0, 2).join("|") !== "Beta|Alpha" ||
+      keyboardMove.focusedIndex !== "1" ||
+      !keyboardMove.feedback.includes('"Alpha" moved to #2 of 6.')
+    ) {
+      throw new Error(`Poster keyboard reorder is wrong: ${JSON.stringify(keyboardMove)}`);
+    }
+    await page.evaluate(`document.querySelector('#add-feedback .feedback-toast__action')?.click(); true;`);
+    await waitFor(page, `[...document.querySelectorAll('#fullscreen-grid .fullscreen-card__title')][0]?.textContent.trim() === 'Alpha'`, 3000);
+
+    await page.evaluate(`(() => {
+      document.querySelector('#ranking-filter-toggle')?.click();
+      const input = document.querySelector('#ranking-filter-input');
+      input.value = 'Gamma';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      return true;
+    })()`);
+    await waitFor(page, `document.querySelectorAll('#fullscreen-grid .fullscreen-card').length === 1`, 3000);
+    const filtered = await page.evaluate(`(() => ({
+      title: document.querySelector('.fullscreen-card__title')?.textContent.trim() || '',
+      handleVisible: getComputedStyle(document.querySelector('.fullscreen-card__drag-handle')).display !== 'none',
+      moveDisabled: document.querySelector('#ranking-move-toggle')?.disabled,
+      count: document.querySelector('#ranking-filter-count')?.textContent.trim() || ''
+    }))()`);
+    if (filtered.title !== "Gamma" || filtered.handleVisible || !filtered.moveDisabled || filtered.count !== "1 of 6") {
+      throw new Error(`Density hid the filtered reorder state: ${JSON.stringify(filtered)}`);
+    }
+    await page.evaluate(`document.querySelector('#ranking-filter-clear')?.click(); document.querySelector('[data-ranking-view="compact"]')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#ranking')?.classList.contains('ranking--compact')`, 3000);
+    await page.send("Page.navigate", { url: `${baseUrl}/?e2e=unified-ranking-workspace-reload` });
+    await waitFor(page, `document.querySelector('#title')`, 5000);
+    await page.evaluate(`document.querySelector('.app-nav--top [data-app-destination-target="ranking"]')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#ranking-view-label')?.textContent.trim() === 'Compact' && document.querySelectorAll('#ranking .ranking__item').length === 6`,
+      5000,
+    );
+    const remembered = await page.evaluate(`(() => ({
+      label: document.querySelector('#ranking-view-label')?.textContent.trim() || '',
+      compact: document.querySelector('#ranking')?.classList.contains('ranking--compact'),
+      rowCount: document.querySelectorAll('#ranking .ranking__item').length
+    }))()`);
+    if (remembered.label !== "Compact" || !remembered.compact || remembered.rowCount !== 6) {
+      throw new Error(`Ranking view preference was not remembered: ${JSON.stringify(remembered)}`);
+    }
+
+    const screenshot = await page.screenshot("unified-ranking-compact-remembered.png");
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Unified Ranking browser errors: ${JSON.stringify(health.errors)}`);
+    return { details: { initial, keyboardMove, filtered, remembered }, screenshots: [screenshot] };
+  } finally {
+    await page.close();
+  }
+};
+
 const tests = [
   { name: "localStorage persistence round-trip", run: testLoadPersistence },
   { name: "privacy page and TMDB credits", run: testPrivacyAndCredits },
   { name: "mobile and desktop boot layout stability", run: testBootLayoutStability },
-  { name: "app shell destination navigation", run: testAppShellNavigation },
+  { name: "app shell destination navigation", run: testApprovedAppShellNavigation },
   { name: "high-value primary action visual system", run: testPrimaryActionVisualSystem },
   { name: "first-run quick start activation flow", run: testFirstRunQuickStart },
   { name: "dedicated sign-in view and provider availability", run: testSignInExperience },
@@ -8879,7 +9335,7 @@ const tests = [
   { name: "signed-in Supabase merge and save", run: testSignedInSupabaseMergeAndSave },
   { name: "public shareable list link", run: testPublicShareLink },
   { name: "ranking pointer drag transactions", run: testRankingPointerTransactions },
-  { name: "full-screen ranking interactions", run: testFullscreenRankingInteractions },
+  { name: "unified ranking workspace interactions", run: testUnifiedRankingWorkspaceInteractions },
   { name: "Taste Explorer evidence and ranking lens", run: testTasteExplorer },
   { name: "tonight picker mood, choice, and rank round trip", run: testTonightPicker },
   { name: "suggestion explanations and refresh", run: testSuggestionExplanations },

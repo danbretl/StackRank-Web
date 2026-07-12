@@ -58,7 +58,7 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="styles.css?v=154" />
+    <link rel="stylesheet" href="styles.css?v=158" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -148,6 +148,10 @@
         <circle cx="3.5" cy="10" r=".8" fill="currentColor" stroke="none"></circle>
         <circle cx="3.5" cy="15" r=".8" fill="currentColor" stroke="none"></circle>
       </symbol>
+      <symbol id="icon-user" viewBox="0 0 20 20">
+        <circle cx="10" cy="6.5" r="3"></circle>
+        <path d="M4.5 17c.5-3 2.3-4.6 5.5-4.6s5 1.6 5.5 4.6"></path>
+      </symbol>
       <symbol id="icon-check" viewBox="0 0 20 20">
         <path d="m4.5 10.5 3.5 3.5 7.5-8"></path>
       </symbol>
@@ -163,7 +167,7 @@
             Rank
           </button>
           <button class="app-nav__item" type="button" data-app-destination-target="ranking">Ranking</button>
-          <button class="app-nav__item" type="button" data-app-destination-target="lists">Lists</button>
+          <button class="app-nav__item" type="button" data-app-destination-target="you">You</button>
         </nav>
         <div class="topbar__actions">
           <span class="auth__status panel__sub" id="auth-status" role="status" aria-live="polite"></span>
@@ -271,6 +275,7 @@
                   aria-haspopup="listbox"
                   required
                 />
+                <kbd class="rank-bar__shortcut" aria-hidden="true">/</kbd>
                 <div id="suggestions" class="suggestions" role="listbox" aria-label="Movie suggestions"></div>
               </div>
             </label>
@@ -345,6 +350,13 @@
               </button>
             </div>
           </div>
+        </section>
+
+        <section class="rank-activity" id="snapshot-panel" aria-label="Recently ranked" hidden>
+          <span class="rank-activity__label">Recent</span>
+          <div class="rank-activity__content" id="snapshot-content"></div>
+          <button class="rank-activity__open" id="snapshot-open-ranking" type="button">View ranking</button>
+          <span class="sr-only" id="snapshot-sub">Latest placements</span>
         </section>
 
         <section class="panel panel--discovery" id="discover-panel" aria-labelledby="discover-title">
@@ -479,61 +491,31 @@
 
       <div class="side-stack">
         <section class="panel panel--list">
-          <div class="panel__header">
-            <div class="panel__title">
-              <h2>Current ranking</h2>
-              <span class="ranking-total" id="ranking-total">0 movies</span>
+          <header class="ranking-workspace__header">
+            <div class="ranking-workspace__heading">
+              <div class="panel__title">
+                <h2>Current ranking</h2>
+                <span class="ranking-total" id="ranking-total">0 movies</span>
+              </div>
+              <button class="ranking-review-link" id="ranking-review" type="button">Review order</button>
             </div>
-            <div class="panel__actions">
+            <div class="panel__actions ranking-workspace__actions">
               <button
-                class="icon-button icon-button--quiet ranking-add-jump"
-                id="ranking-add-jump"
-                type="button"
-                aria-label="Add a movie"
-              >
-                <svg class="ui-icon" aria-hidden="true" focusable="false">
-                  <use href="#icon-search"></use>
-                </svg>
-                <span class="icon-button__label">Add</span>
-              </button>
-              <button
-                class="icon-button icon-button--quiet"
-                id="ranking-review"
-                type="button"
-                aria-label="Review ranking order"
-              >
-                <svg class="ui-icon" aria-hidden="true" focusable="false">
-                  <use href="#icon-review"></use>
-                </svg>
-                <span class="icon-button__label">Review</span>
-              </button>
-              <button
-                class="icon-button icon-button--quiet"
+                class="ranking-view-trigger"
                 id="ranking-filter-toggle"
                 type="button"
-                aria-label="Filter ranking"
+                aria-label="Open display and filter options"
                 aria-expanded="false"
                 aria-controls="ranking-filter"
               >
+                <span id="ranking-view-label">Detailed</span>
+                <span class="ranking-view-trigger__filter" id="ranking-view-filter-indicator" hidden></span>
                 <svg class="ui-icon" aria-hidden="true" focusable="false">
-                  <use href="#icon-filter"></use>
+                  <use href="#icon-chevron-down"></use>
                 </svg>
-                <span class="icon-button__label">Filter</span>
               </button>
               <button
-                class="icon-button icon-button--quiet"
-                id="ranking-expand"
-                type="button"
-                aria-label="Open full-screen view"
-                aria-haspopup="dialog"
-              >
-                <svg class="ui-icon" aria-hidden="true" focusable="false">
-                  <use href="#icon-fullscreen"></use>
-                </svg>
-                <span class="icon-button__label">Full screen</span>
-              </button>
-              <button
-                class="icon-button icon-button--quiet ranking-move-toggle"
+                class="ranking-move-toggle"
                 id="ranking-move-toggle"
                 type="button"
                 aria-label="Reorder ranking"
@@ -542,17 +524,37 @@
                 <svg class="ui-icon" aria-hidden="true" focusable="false">
                   <use href="#icon-drag"></use>
                 </svg>
-                <span class="icon-button__label">Move</span>
+                <span class="ranking-move-toggle__label">Move</span>
               </button>
-              <button class="icon-button icon-button--quiet" id="share-list" type="button" aria-label="Share ranking">
+              <button class="ranking-share-primary" id="share-list" type="button" aria-label="Share ranking">
                 <svg class="ui-icon" aria-hidden="true" focusable="false">
                   <use href="#icon-share"></use>
                 </svg>
-                <span class="icon-button__label">Share</span>
+                <span>Share</span>
               </button>
             </div>
-          </div>
+          </header>
           <div class="ranking-filter" id="ranking-filter" hidden>
+            <fieldset class="ranking-view-options">
+              <legend>Display</legend>
+              <div class="ranking-view-options__choices" role="radiogroup" aria-label="Ranking display">
+                <button type="button" role="radio" aria-checked="true" data-ranking-view="detailed">
+                  <span class="ranking-view-options__preview ranking-view-options__preview--detailed" aria-hidden="true"></span>
+                  <strong>Detailed</strong>
+                  <small>Posters, titles, and context</small>
+                </button>
+                <button type="button" role="radio" aria-checked="false" data-ranking-view="posters">
+                  <span class="ranking-view-options__preview ranking-view-options__preview--posters" aria-hidden="true"></span>
+                  <strong>Posters</strong>
+                  <small>A visual ranking grid</small>
+                </button>
+                <button type="button" role="radio" aria-checked="false" data-ranking-view="compact">
+                  <span class="ranking-view-options__preview ranking-view-options__preview--compact" aria-hidden="true"></span>
+                  <strong>Compact</strong>
+                  <small>More of the list at once</small>
+                </button>
+              </div>
+            </fieldset>
             <div class="ranking-filter__control">
               <input
                 id="ranking-filter-input"
@@ -576,26 +578,98 @@
             </div>
             <span class="ranking-filter__count" id="ranking-filter-count" role="status" aria-live="polite"></span>
           </div>
+          <p class="ranking-filter__move-note" id="ranking-filter-move-note" hidden>Clear the filter to reorder.</p>
           <ol id="ranking" class="ranking">
             <li class="ranking__empty">No movies yet. Add one to begin.</li>
           </ol>
-        </section>
-
-        <section class="panel panel--snapshot" id="snapshot-panel">
-          <div class="panel__header">
-            <h2>Recently ranked</h2>
-            <span class="panel__sub" id="snapshot-sub">Latest additions</span>
-          </div>
-          <div class="snapshot" id="snapshot-content">
-            <div class="snapshot__empty">Rank a movie to start a running log here.</div>
+          <div class="ranking-poster-surface" id="ranking-fullscreen" hidden>
+            <div class="fullscreen-grid ranking-poster-grid" id="fullscreen-grid" aria-live="polite"></div>
           </div>
         </section>
 
-        <section class="panel panel--taste" id="taste-explorer" hidden>
+      </div>
+
+      <section class="you-dashboard" id="you-dashboard" aria-labelledby="you-title">
+        <header class="you-dashboard__header">
+          <h2 id="you-title">You</h2>
+          <p>Your space for taste, picks, and progress. Keep ranking to make it more useful.</p>
+        </header>
+        <div class="you-dashboard__grid">
+          <section class="panel you-widget you-progress" id="you-progress" aria-labelledby="you-progress-title">
+            <header class="you-widget__header">
+              <h3 id="you-progress-title">Your progress</h3>
+            </header>
+            <div class="you-progress__stats">
+              <div><strong id="you-progress-ranked">0</strong><span>ranked</span></div>
+              <div><strong id="you-progress-month">0</strong><span>this month</span></div>
+              <div><strong id="you-progress-goal">5</strong><span>movie goal</span></div>
+            </div>
+            <div class="you-progress__bar" role="progressbar" aria-label="Progress to next ranking milestone" aria-valuemin="0" aria-valuemax="5" aria-valuenow="0" id="you-progress-bar">
+              <span id="you-progress-bar-fill"></span>
+            </div>
+            <div class="you-progress__packs">
+              <span><strong id="you-progress-packs-complete">0</strong> packs complete</span>
+              <span><strong id="you-progress-packs-active">0</strong> in progress</span>
+              <span><strong id="you-progress-pack-ranked">0</strong> ranked through packs</span>
+            </div>
+            <p class="you-progress__message" id="you-progress-message">Rank your first movie to begin.</p>
+          </section>
+
+          <section class="panel tonight you-widget" id="tonight-panel" aria-labelledby="tonight-title">
+            <div class="tonight__header you-widget__header">
+              <div>
+                <h3 id="tonight-title">Tonight</h3>
+                <p>Pick from Watch next using your ranking.</p>
+              </div>
+              <button
+                class="tonight__toggle"
+                id="tonight-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="tonight-content"
+              >
+                Start
+                <svg class="ui-icon" aria-hidden="true" focusable="false">
+                  <use href="#icon-chevron-down"></use>
+                </svg>
+              </button>
+            </div>
+            <div class="you-widget__empty" id="tonight-locked" hidden>
+              <strong>Save 2 movies to unlock Tonight.</strong>
+              <button type="button" data-you-rank-cta>Find movies to save</button>
+            </div>
+            <div class="tonight__content" id="tonight-content" hidden>
+              <p class="tonight__intro">
+                Say how much time you have and the vibe you’re in. Nothing gets chosen for you.
+              </p>
+              <div class="tonight__time" role="group" aria-label="How much time do you have?" id="tonight-time"></div>
+              <div class="tonight__mood-row">
+                <label class="tonight__mood">
+                  <span class="sr-only">Optional vibe</span>
+                  <input
+                    id="tonight-mood"
+                    class="tonight__mood-input"
+                    type="text"
+                    maxlength="120"
+                    placeholder="Optional vibe — cozy, mind-bending, laugh-out-loud…"
+                    autocomplete="off"
+                  />
+                </label>
+                <button class="tonight__run" id="tonight-run" type="button">Find my movie</button>
+              </div>
+              <p class="tonight__status" id="tonight-status" role="status" aria-live="polite"></p>
+              <ul class="tonight__results" id="tonight-results"></ul>
+              <div class="tonight__footer" id="tonight-footer" hidden>
+                <button class="tonight__shuffle" id="tonight-shuffle" type="button">Show different picks</button>
+              </div>
+            </div>
+          </section>
+
+        <section class="panel panel--taste you-widget" id="taste-explorer">
           <div class="taste__header">
             <div>
-              <div class="taste__eyebrow">Rank-weighted insights</div>
-              <h2>Your taste</h2>
+              <h3>Taste Explorer</h3>
+              <p>See what shapes the top of your ranking.</p>
             </div>
             <button
               class="taste__toggle"
@@ -613,6 +687,10 @@
           <p class="taste__intro" id="taste-intro">
             See which eras, genres, and people shape the top of your ranking.
           </p>
+          <div class="you-widget__empty" id="taste-locked" hidden>
+            <strong>Rank 5 movies to reveal your taste.</strong>
+            <button type="button" data-you-rank-cta>Rank another movie</button>
+          </div>
           <div class="taste__content" id="taste-content" hidden>
             <p class="taste__method">Higher-ranked movies count more. Tap a signal to see the evidence.</p>
             <div class="taste__signals" id="taste-signals" aria-label="Taste signals"></div>
@@ -621,14 +699,14 @@
           </div>
         </section>
 
-        <section class="panel panel--queues" aria-labelledby="lists-title">
+        <section class="panel panel--queues you-widget" aria-labelledby="lists-title">
           <div class="panel__header panel__header--lists">
             <div>
-              <h2 id="lists-title">Lists</h2>
-              <span class="panel__sub">Saved and hidden movies</span>
+              <h3 id="lists-title">Watch next</h3>
+              <span class="panel__sub" id="watch-list-sub">0 movies saved for later</span>
             </div>
           </div>
-          <div class="list-tabs" role="tablist" aria-label="Movie lists">
+          <div class="list-tabs" role="tablist" aria-label="Movie lists" hidden>
             <button
               class="list-tabs__button is-active"
               id="watch-list-tab"
@@ -660,59 +738,10 @@
             aria-labelledby="watch-list-tab"
             data-list-destination="watch"
           >
-            <div class="queue-pane__header">
-              <h3>Watch next</h3>
-              <span class="panel__sub" id="watch-list-sub">0 movies saved for later</span>
-            </div>
-            <section class="tonight" id="tonight-panel" aria-labelledby="tonight-title" hidden>
-              <div class="tonight__header">
-                <div>
-                  <div class="tonight__eyebrow">Decision helper</div>
-                  <h4 id="tonight-title">Pick something for tonight</h4>
-                </div>
-                <button
-                  class="tonight__toggle"
-                  id="tonight-toggle"
-                  type="button"
-                  aria-expanded="false"
-                  aria-controls="tonight-content"
-                >
-                  Start
-                  <svg class="ui-icon" aria-hidden="true" focusable="false">
-                    <use href="#icon-chevron-down"></use>
-                  </svg>
-                </button>
-              </div>
-              <div class="tonight__content" id="tonight-content" hidden>
-                <p class="tonight__intro">
-                  Say how much time you have and the vibe you’re in. It picks from Watch next using
-                  your ranking — nothing gets chosen for you.
-                </p>
-                <div class="tonight__time" role="group" aria-label="How much time do you have?" id="tonight-time"></div>
-                <div class="tonight__mood-row">
-                  <label class="tonight__mood">
-                    <span class="sr-only">Optional vibe</span>
-                    <input
-                      id="tonight-mood"
-                      class="tonight__mood-input"
-                      type="text"
-                      maxlength="120"
-                      placeholder="Optional vibe — cozy, mind-bending, laugh-out-loud…"
-                      autocomplete="off"
-                    />
-                  </label>
-                  <button class="tonight__run" id="tonight-run" type="button">Find my movie</button>
-                </div>
-                <p class="tonight__status" id="tonight-status" role="status" aria-live="polite"></p>
-                <ul class="tonight__results" id="tonight-results"></ul>
-                <div class="tonight__footer" id="tonight-footer" hidden>
-                  <button class="tonight__shuffle" id="tonight-shuffle" type="button">Show different picks</button>
-                </div>
-              </div>
-            </section>
             <ul id="watch-list" class="queue-list">
               <li class="queue-list__empty">No saved movies yet.</li>
             </ul>
+            <button class="you-widget__expand" id="watch-list-expand" type="button" hidden>View all</button>
           </section>
           <section
             class="queue-pane"
@@ -723,7 +752,10 @@
             hidden
           >
             <div class="queue-pane__header">
-              <h3>Hidden</h3>
+              <div>
+                <h3>Hidden movies</h3>
+                <button class="you-hidden-back" id="hidden-back-to-dashboard" type="button">Back to You</button>
+              </div>
               <span class="panel__sub" id="not-interested-sub">0 movies hidden from view</span>
             </div>
             <ul id="not-interested-list" class="queue-list queue-list--quiet">
@@ -731,71 +763,9 @@
             </ul>
           </section>
         </section>
-      </div>
-
-      <div class="overlay overlay--workspace fullscreen-overlay" id="ranking-fullscreen" hidden>
-        <section
-          class="overlay-shell workspace-shell fullscreen-sheet"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="fullscreen-title"
-        >
-          <header class="overlay-header workspace-header fullscreen-header">
-            <div class="fullscreen-header__top">
-              <div>
-                <h2 id="fullscreen-title">Current ranking</h2>
-                <p class="fullscreen-sub" id="fullscreen-sub"></p>
-              </div>
-              <button
-                class="icon-button icon-button--quiet overlay-close"
-                id="fullscreen-close"
-                type="button"
-                aria-label="Close full-screen view"
-              >
-                <svg class="ui-icon" aria-hidden="true" focusable="false">
-                  <use href="#icon-close"></use>
-                </svg>
-              </button>
-            </div>
-            <div class="fullscreen-toolbar">
-              <label class="fullscreen-search">
-                <span class="sr-only">Filter ranking</span>
-                <input id="fullscreen-search" type="search" placeholder="Filter titles or years" autocomplete="off" />
-                <button id="fullscreen-search-clear" type="button" aria-label="Clear full-screen filter" hidden>
-                  <svg class="ui-icon" aria-hidden="true" focusable="false">
-                    <use href="#icon-close"></use>
-                  </svg>
-                </button>
-              </label>
-              <label class="fullscreen-control">
-                <span>Size</span>
-                <select id="fullscreen-density">
-                  <option value="comfortable">Comfortable</option>
-                  <option value="compact">Compact</option>
-                </select>
-              </label>
-              <button
-                class="fullscreen-move-toggle"
-                id="fullscreen-move-toggle"
-                type="button"
-                aria-label="Reorder full-screen ranking"
-                aria-pressed="false"
-              >
-                <svg class="ui-icon" aria-hidden="true" focusable="false">
-                  <use href="#icon-drag"></use>
-                </svg>
-                <span>Move</span>
-              </button>
-              <form class="fullscreen-jump" id="fullscreen-jump-form">
-                <label for="fullscreen-jump">Jump to</label>
-                <input id="fullscreen-jump" type="number" min="1" inputmode="numeric" placeholder="#" />
-                <button id="fullscreen-jump-button" type="submit">Go</button>
-              </form>
-            </div>
-          </header>
-          <div class="fullscreen-grid" id="fullscreen-grid" aria-live="polite"></div>
-        </section>
-      </div>
+        </div>
+        <button class="you-dashboard__hidden-link" id="manage-hidden-movies" type="button">Manage hidden movies</button>
+      </section>
 
       <div class="overlay overlay--workspace share-overlay" id="share-studio" hidden>
         <section
@@ -1436,17 +1406,17 @@
           </svg>
           <span>Ranking</span>
         </button>
-        <button class="app-nav__item" type="button" data-app-destination-target="lists">
+        <button class="app-nav__item" type="button" data-app-destination-target="you">
           <svg class="ui-icon" aria-hidden="true" focusable="false">
-            <use href="#icon-lists"></use>
+            <use href="#icon-user"></use>
           </svg>
-          <span>Lists</span>
+          <span>You</span>
         </button>
       </nav>
     </main>
 
     <div class="panel__feedback" id="add-feedback" role="status" aria-live="polite"></div>
 
-    <script type="module" src="app.js?v=184"></script>
+    <script type="module" src="app.js?v=186"></script>
   </body>
 </html>

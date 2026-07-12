@@ -1,7 +1,8 @@
 # Rank Bar density follow-up
 
-Status: **bounded app fixes shipped and both private design briefs published;
-awaiting design review (Jul 2026).**
+Status: **bounded fixes shipped; both private briefs approved; approved Rank,
+Ranking, and personal-space redesign implemented and verified; screenshot
+review brief in progress (Jul 2026).**
 
 This is the handoff record for the first review of the shipped Rank Bar density
 redesign. It supplements, and does not replace,
@@ -258,9 +259,38 @@ published:
   - source: `ranking-personal-space-brief/`
   - review: <https://stackrank-ranking-personal-brief.danbretl.chatgpt.site>
 
-No unapproved Rank Bar, pack-card, shared-search, navigation, Ranking-page,
-Taste Explorer, or Recently ranked direction has been implemented in the app.
-The next step is explicit design review and approval.
+The design review is now complete. The approved implementation direction is:
+
+- Rank owns movie search and the repeatable rank/discover loop. Its v1 uses a
+  72px desktop Rank Bar, `/` shortcut, ruled suggestion lanes, simplified
+  whole-card packs with segmented ranked/saved/hidden progress, and a compact
+  Recently ranked orientation rail.
+- Ranking owns list viewing and management. The separate fullscreen mode is
+  removed in favor of remembered Detailed, Posters, and Compact views on the
+  native page. Display and filtering share one panel; Jump to rank is removed;
+  reordering is disabled while filtered.
+- Ranking action priority is active view, Move on touch, and Share, with Review
+  order kept quiet near the title. Mouse drag works across items; touch uses
+  explicit Move mode and handles; keyboard handles retain Arrow Up/Down.
+- Search belongs to Rank for now. `/` from another normal destination returns
+  to Rank and focuses it. Ranking does not carry a separate Add action.
+- The third destination is `You` for v1. It is a fixed-order modular dashboard
+  of Your progress, Tonight, Taste Explorer, and Watch next. Hidden movies are
+  secondary management rather than a peer widget. Customization can follow
+  only if usage justifies it.
+- Taste Explorer moves to You; its ranking lens opens Posters with the native
+  Ranking filter contract. Recently ranked moves to Rank only.
+
+The requested post-implementation review artifact must use real responsive app
+screenshots and zoomed views of the changed elements across Desktop, iPad
+landscape/portrait, and iPhone landscape/portrait.
+
+Implementation verification passed with `npm run verify`: 234 Node tests, 21
+Deno edge-function tests, pack validation, syntax/cache checks, and all 29 E2E
+browser flows. The responsive capture matrix is archived under
+`debug/screenshots/runs/2026-07-12T08-16-12Z-approved-redesign/`; a subsequent
+focused iPhone-landscape capture verifies the corrected full-width Rank Bar.
+Runtime cache keys are `app.js?v=186` and `styles.css?v=158`.
 
 ## Material product decisions for the briefs
 

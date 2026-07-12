@@ -41,7 +41,11 @@ import {
   movieYear,
   isDuplicateMovie as isDuplicateInList,
 } from "./lib/movie.js?v=1";
-import { computeRankingInsights } from "./lib/insights.js?v=2";
+import {
+  computeRankingInsights,
+  countRankedInMonth,
+  rankingMilestoneProgress,
+} from "./lib/insights.js?v=3";
 import {
   mergePackLibraries,
   computePackStats,
@@ -104,7 +108,9 @@ import {
   gridDropIndex,
   gridNavigationTarget,
   moveRankingItem,
-} from "./lib/fullscreen-ranking.js?v=1";
+  normalizeRankingViewMode,
+  rankingViewLabel,
+} from "./lib/fullscreen-ranking.js?v=2";
 import {
   buildProductEvent,
   countBucket,
@@ -140,7 +146,7 @@ import {
 import {
   createAppShellState,
   switchAppDestination,
-} from "./lib/app-shell.js?v=2";
+} from "./lib/app-shell.js?v=3";
 import {
   DEFAULT_LIST_DESTINATION,
   createListDestinationState,
@@ -154,7 +160,7 @@ import {
   tonightMoodSummary,
 } from "./lib/tonight.js?v=1";
 
-console.info("StackRank build", "taste-explorer-v1");
+console.info("StackRank build", "ranking-you-v1");
 
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 
@@ -206,18 +212,12 @@ const rankingFilterToggle = document.getElementById("ranking-filter-toggle");
 const rankingFilterInput = document.getElementById("ranking-filter-input");
 const rankingFilterClear = document.getElementById("ranking-filter-clear");
 const rankingFilterCount = document.getElementById("ranking-filter-count");
-const rankingExpand = document.getElementById("ranking-expand");
+const rankingViewLabelEl = document.getElementById("ranking-view-label");
+const rankingViewFilterIndicator = document.getElementById("ranking-view-filter-indicator");
+const rankingViewButtons = Array.from(document.querySelectorAll("[data-ranking-view]"));
+const rankingFilterMoveNote = document.getElementById("ranking-filter-move-note");
 const fullscreenOverlay = document.getElementById("ranking-fullscreen");
-const fullscreenClose = document.getElementById("fullscreen-close");
-const fullscreenTitle = document.getElementById("fullscreen-title");
 const fullscreenGrid = document.getElementById("fullscreen-grid");
-const fullscreenSub = document.getElementById("fullscreen-sub");
-const fullscreenSearch = document.getElementById("fullscreen-search");
-const fullscreenSearchClear = document.getElementById("fullscreen-search-clear");
-const fullscreenJump = document.getElementById("fullscreen-jump");
-const fullscreenJumpForm = document.getElementById("fullscreen-jump-form");
-const fullscreenDensity = document.getElementById("fullscreen-density");
-const fullscreenMoveToggle = document.getElementById("fullscreen-move-toggle");
 const watchListEl = document.getElementById("watch-list");
 const notInterestedListEl = document.getElementById("not-interested-list");
 const watchListSub = document.getElementById("watch-list-sub");
@@ -234,6 +234,22 @@ const tonightStatus = document.getElementById("tonight-status");
 const tonightResults = document.getElementById("tonight-results");
 const tonightFooter = document.getElementById("tonight-footer");
 const tonightShuffleButton = document.getElementById("tonight-shuffle");
+const tonightLocked = document.getElementById("tonight-locked");
+const tasteLocked = document.getElementById("taste-locked");
+const youDashboard = document.getElementById("you-dashboard");
+const youProgressRanked = document.getElementById("you-progress-ranked");
+const youProgressMonth = document.getElementById("you-progress-month");
+const youProgressGoal = document.getElementById("you-progress-goal");
+const youProgressBar = document.getElementById("you-progress-bar");
+const youProgressBarFill = document.getElementById("you-progress-bar-fill");
+const youProgressPacksComplete = document.getElementById("you-progress-packs-complete");
+const youProgressPacksActive = document.getElementById("you-progress-packs-active");
+const youProgressPackRanked = document.getElementById("you-progress-pack-ranked");
+const youProgressMessage = document.getElementById("you-progress-message");
+const watchListExpand = document.getElementById("watch-list-expand");
+const manageHiddenMovies = document.getElementById("manage-hidden-movies");
+const hiddenBackToDashboard = document.getElementById("hidden-back-to-dashboard");
+const youRankCtas = Array.from(document.querySelectorAll("[data-you-rank-cta]"));
 const rankingSettingsToggle = document.getElementById("ranking-settings-toggle");
 const rankingSettingsPanel = document.getElementById("ranking-settings-panel");
 const rankingSettingsClose = document.getElementById("ranking-settings-close");
@@ -266,6 +282,7 @@ const shareButton = document.getElementById("share-list");
 const snapshotPanel = document.getElementById("snapshot-panel");
 const snapshotSub = document.getElementById("snapshot-sub");
 const snapshotContent = document.getElementById("snapshot-content");
+const snapshotOpenRanking = document.getElementById("snapshot-open-ranking");
 const tasteExplorer = document.getElementById("taste-explorer");
 const tasteToggle = document.getElementById("taste-toggle");
 const tasteContent = document.getElementById("taste-content");
@@ -422,14 +439,13 @@ const modalLayers = [
   titleImportOverlay,
   shareStudio,
   packDetailOverlay,
-  fullscreenOverlay,
 ].filter(Boolean);
 
 // Only workspaces with editable controls need to follow the software keyboard.
 // Detail sheets and the image lightbox intentionally retain the layout viewport
 // so native pinch-zoom does not resize the surface under the user's fingers.
 const keyboardViewportLayers = new Set(
-  [signinOverlay, titleImportOverlay, shareStudio, packDetailOverlay, fullscreenOverlay].filter(Boolean),
+  [signinOverlay, titleImportOverlay, shareStudio, packDetailOverlay].filter(Boolean),
 );
 
 const activeModalLayer = () => modalLayers.find((layer) => !layer.hidden) || null;
@@ -483,6 +499,7 @@ document.addEventListener("keydown", (event) => {
 
 const applyAppDestination = (destination, { restoreScroll = true } = {}) => {
   if (!appShell) return;
+  const previousDestination = appShellState.destination;
   const currentScrollY = window.scrollY || document.documentElement.scrollTop || 0;
   const next = switchAppDestination(appShellState, destination, currentScrollY);
   appShellState = next.state;
@@ -494,6 +511,14 @@ const applyAppDestination = (destination, { restoreScroll = true } = {}) => {
     if (selected) button.setAttribute("aria-current", "page");
     else button.removeAttribute("aria-current");
   });
+  if (active === "you" && previousDestination !== "you") {
+    const result = switchListDestination(listDestinationState, "watch");
+    listDestinationState = result.state;
+    renderListDestination();
+    renderTasteExplorer();
+    renderTonightPanel();
+    renderYouProgress();
+  }
   if (restoreScroll) {
     window.requestAnimationFrame(() => {
       window.scrollTo({ left: 0, top: next.scrollY, behavior: "auto" });
@@ -505,6 +530,27 @@ appDestinationButtons.forEach((button) => {
   button.addEventListener("click", () => {
     closeRankingSettings({ restoreFocus: false });
     applyAppDestination(button.dataset.appDestinationTarget || "rank");
+  });
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "/" || event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
+  const target = event.target;
+  if (
+    target instanceof HTMLInputElement ||
+    target instanceof HTMLTextAreaElement ||
+    target instanceof HTMLSelectElement ||
+    target?.isContentEditable ||
+    activeModalLayer() ||
+    document.body.classList.contains("is-comparing")
+  ) {
+    return;
+  }
+  event.preventDefault();
+  applyAppDestination("rank");
+  window.requestAnimationFrame(() => {
+    titleInput.scrollIntoView({ block: "center", behavior: "smooth" });
+    titleInput.focus({ preventScroll: true });
   });
 });
 
@@ -522,6 +568,7 @@ const PACK_PROGRESS_STORAGE_KEY = "stackrank:pack-progress:v1";
 const BACKUP_NUDGE_STORAGE_KEY = "stackrank:backup-nudge:v1";
 const PACK_FALLBACK_PATH = "data/suggestion-packs.json?v=5";
 const SHARE_OPTIONS_KEY = "stackrank:share-options:v1";
+const RANKING_VIEW_STORAGE_KEY = "stackrank:ranking-view:v1";
 const WATCH_LIST_TYPE = "watch";
 const NOT_INTERESTED_LIST_TYPE = "not_interested";
 const INSPIRED_SEED_KEY = "stackrank:inspired-seed:v1";
@@ -616,8 +663,9 @@ let rankingFilterExpanded = false;
 let rankingMoveMode = false;
 let fullscreenTrigger = null;
 let fullscreenFilterQuery = "";
-let fullscreenDensityMode = "comfortable";
 let fullscreenMoveMode = false;
+let rankingViewMode = "detailed";
+let watchListExpanded = false;
 let fullscreenDrag = null;
 let fullscreenDragScrollRaf = null;
 let fullscreenTasteSignal = null;
@@ -1462,6 +1510,62 @@ const renderFirstRunExperience = (rankingLength = ranking.length) => {
   quickStartImportButton.hidden = !experience.showImport;
 };
 
+const loadRankingViewPreference = () => {
+  if (!storageEnabled) return;
+  try {
+    rankingViewMode = normalizeRankingViewMode(window.localStorage.getItem(RANKING_VIEW_STORAGE_KEY));
+  } catch (_error) {
+    rankingViewMode = "detailed";
+  }
+};
+
+const saveRankingViewPreference = () => {
+  if (!storageEnabled) return;
+  try {
+    window.localStorage.setItem(RANKING_VIEW_STORAGE_KEY, rankingViewMode);
+  } catch (_error) {
+    // Display preferences never affect ranking persistence.
+  }
+};
+
+const rankingHasActiveFilter = () => Boolean(rankingFilterQuery.trim() || fullscreenTasteSignal);
+
+const syncRankingViewControls = () => {
+  if (rankingViewLabelEl) rankingViewLabelEl.textContent = rankingViewLabel(rankingViewMode);
+  rankingViewButtons.forEach((button) => {
+    const selected = button.dataset.rankingView === rankingViewMode;
+    button.classList.toggle("is-active", selected);
+    button.setAttribute("aria-checked", String(selected));
+  });
+  const isFiltered = rankingHasActiveFilter();
+  if (rankingViewFilterIndicator) {
+    rankingViewFilterIndicator.hidden = !isFiltered;
+    rankingViewFilterIndicator.textContent = isFiltered ? "Filtered" : "";
+  }
+  if (rankingFilterMoveNote) rankingFilterMoveNote.hidden = !isFiltered;
+  rankingList.hidden = rankingViewMode === "posters";
+  rankingList.classList.toggle("ranking--compact", rankingViewMode === "compact");
+  if (fullscreenOverlay) fullscreenOverlay.hidden = rankingViewMode !== "posters";
+};
+
+const setRankingViewMode = (mode, { persist = true, focus = false } = {}) => {
+  const next = normalizeRankingViewMode(mode, rankingViewMode);
+  const changed = next !== rankingViewMode;
+  rankingViewMode = next;
+  if (persist) saveRankingViewPreference();
+  if (rankingViewMode !== "posters") cancelFullscreenDrag();
+  syncRankingViewControls();
+  if (changed) renderRanking();
+  if (focus) {
+    window.requestAnimationFrame(() => {
+      const target = rankingViewMode === "posters"
+        ? fullscreenGrid?.querySelector(".fullscreen-card__primary")
+        : rankingList?.querySelector(".ranking__item");
+      target?.focus?.({ preventScroll: true });
+    });
+  }
+};
+
 const renderRanking = () => {
   rankingList.innerHTML = "";
   const hasRankedMovies = ranking.length > 0;
@@ -1469,18 +1573,26 @@ const renderRanking = () => {
     rankingTotal.textContent = `${ranking.length} ${ranking.length === 1 ? "movie" : "movies"}`;
   }
   const query = rankingFilterQuery.trim().toLowerCase();
-  if (!hasRankedMovies || query) rankingMoveMode = false;
+  const lensEntries = fullscreenTasteSignal
+    ? tasteSignalEntries(ranking.map(movieWithDetail), fullscreenTasteSignal)
+    : null;
+  const lensIndexes = lensEntries ? new Set(lensEntries.map((entry) => entry.index)) : null;
+  const isFiltered = Boolean(query || fullscreenTasteSignal);
+  fullscreenFilterQuery = rankingFilterQuery;
+  if (!hasRankedMovies || isFiltered) rankingMoveMode = false;
   rankingList.classList.toggle("is-move-mode", rankingMoveMode);
   renderFirstRunExperience();
   shareButton.disabled = !hasRankedMovies;
   clearButton.disabled = !hasRankedMovies;
   if (rankingFilterToggle) rankingFilterToggle.disabled = !hasRankedMovies;
-  if (rankingExpand) rankingExpand.disabled = !hasRankedMovies;
   if (rankingReviewButton) rankingReviewButton.disabled = ranking.length < 2;
   if (rankingMoveToggle) {
-    rankingMoveToggle.disabled = !hasRankedMovies || Boolean(query);
+    rankingMoveToggle.disabled = !hasRankedMovies || isFiltered;
     rankingMoveToggle.setAttribute("aria-pressed", rankingMoveMode ? "true" : "false");
     rankingMoveToggle.classList.toggle("is-active", rankingMoveMode);
+    const moveLabel = rankingMoveToggle.querySelector(".ranking-move-toggle__label");
+    if (moveLabel) moveLabel.textContent = rankingMoveMode ? "Done" : "Move";
+    rankingMoveToggle.setAttribute("aria-label", rankingMoveMode ? "Finish reordering ranking" : "Reorder ranking");
   }
 
   if (!hasRankedMovies) {
@@ -1491,13 +1603,17 @@ const renderRanking = () => {
     rankingList.appendChild(empty);
     renderListSnapshot();
     renderTasteExplorer();
+    renderYouProgress();
+    syncRankingViewControls();
+    if (rankingViewMode === "posters") renderFullscreenRanking();
     if (!shareStudio.hidden) updateShareStudio();
     return;
   }
 
-  rankingList.classList.toggle("ranking--filtered", Boolean(query));
+  rankingList.classList.toggle("ranking--filtered", isFiltered);
   let visibleCount = 0;
   ranking.forEach((movie, index) => {
+    if (lensIndexes && !lensIndexes.has(index)) return;
     if (query) {
       const haystack = `${movie.title} ${movie.year || ""}`.toLowerCase();
       if (!haystack.includes(query)) return;
@@ -1567,23 +1683,32 @@ const renderRanking = () => {
     rankingList.appendChild(item);
   });
 
-  if (query && visibleCount === 0) {
+  if (isFiltered && visibleCount === 0) {
     const empty = document.createElement("li");
     empty.className = "ranking__empty";
     empty.textContent = "No movies match that filter.";
     rankingList.appendChild(empty);
   }
   if (rankingFilterCount) {
-    rankingFilterCount.textContent = query ? `${visibleCount} of ${ranking.length}` : "";
+    rankingFilterCount.textContent = isFiltered ? `${visibleCount} of ${ranking.length}` : "";
   }
+  if (rankingFilterInput) {
+    rankingFilterInput.placeholder = fullscreenTasteSignal
+      ? `Filter within ${fullscreenTasteSignal.value}`
+      : "Filter by title or year";
+  }
+  if (rankingFilterClear) rankingFilterClear.hidden = !isFiltered;
 
   renderListSnapshot();
   renderTasteExplorer();
+  renderYouProgress();
+  syncRankingViewControls();
+  if (rankingViewMode === "posters") renderFullscreenRanking();
   if (!shareStudio.hidden) updateShareStudio();
 };
 
 function setRankingMoveMode(active) {
-  const next = Boolean(active && ranking.length && !rankingFilterQuery.trim());
+  const next = Boolean(active && ranking.length && !rankingHasActiveFilter());
   if (rankingMoveMode === next) {
     if (rankingMoveToggle) rankingMoveToggle.setAttribute("aria-pressed", next ? "true" : "false");
     return;
@@ -1599,15 +1724,11 @@ function setRankingFilterExpanded(expanded) {
     rankingFilterToggle.setAttribute("aria-expanded", expanded ? "true" : "false");
     rankingFilterToggle.classList.toggle("is-active", expanded);
   }
-  if (!expanded && rankingFilterQuery) {
-    // Collapsing clears the filter so the full list is never hidden behind a
-    // closed control.
-    rankingFilterQuery = "";
-    if (rankingFilterInput) rankingFilterInput.value = "";
-    if (rankingFilterClear) rankingFilterClear.hidden = true;
-    renderRanking();
+  if (expanded) {
+    rankingViewButtons
+      .find((button) => button.dataset.rankingView === rankingViewMode)
+      ?.focus({ preventScroll: true });
   }
-  if (expanded && rankingFilterInput) rankingFilterInput.focus();
 }
 
 if (rankingFilterToggle) {
@@ -1619,14 +1740,17 @@ if (rankingFilterToggle) {
 if (rankingFilterInput) {
   rankingFilterInput.addEventListener("input", () => {
     rankingFilterQuery = rankingFilterInput.value;
+    fullscreenFilterQuery = rankingFilterQuery;
     if (rankingFilterQuery) rankingMoveMode = false;
     if (rankingFilterClear) rankingFilterClear.hidden = !rankingFilterQuery;
     renderRanking();
   });
   rankingFilterInput.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && rankingFilterQuery) {
+    if (event.key === "Escape" && rankingHasActiveFilter()) {
       event.stopPropagation();
       rankingFilterQuery = "";
+      fullscreenFilterQuery = "";
+      fullscreenTasteSignal = null;
       rankingFilterInput.value = "";
       if (rankingFilterClear) rankingFilterClear.hidden = true;
       renderRanking();
@@ -1636,12 +1760,22 @@ if (rankingFilterInput) {
 if (rankingFilterClear) {
   rankingFilterClear.addEventListener("click", () => {
     rankingFilterQuery = "";
+    fullscreenFilterQuery = "";
+    fullscreenTasteSignal = null;
     rankingFilterInput.value = "";
     rankingFilterClear.hidden = true;
     rankingFilterInput.focus();
     renderRanking();
   });
 }
+
+rankingViewButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    setRankingViewMode(button.dataset.rankingView);
+    setRankingFilterExpanded(false);
+    rankingFilterToggle?.focus({ preventScroll: true });
+  });
+});
 
 if (rankingMoveToggle) {
   rankingMoveToggle.addEventListener("click", () => {
@@ -1705,59 +1839,55 @@ function getRecentRankedItems() {
   };
 }
 
-function createSnapshotMovieRow({ movie, rank, rankedTime }) {
-  const status = document.createElement("div");
-  status.className = "movie-item__status snapshot__movie-detail";
-  status.textContent = rankedTime !== null ? formatShortDate(movie.rankedAt) : "Current list";
-  const row = createMovieItem({
-    element: "li",
-    variant: "recent",
-    movie,
-    rank: `#${rank}`,
-    metadata: "Recently ranked",
-    statusNode: status,
-    className: "snapshot__movie",
-    legacyPosterClass: "snapshot__poster",
-  });
-  row.tabIndex = 0;
-  row.setAttribute("role", "button");
-  row.setAttribute("aria-label", `Show details for ${movie.title}, currently ranked #${rank}`);
-  const openDetail = () =>
-    openMovieDetail(movie, { type: "ranked", source: "snapshot", index: rank - 1 }, row);
-  row.addEventListener("click", openDetail);
-  row.addEventListener("keydown", (event) => {
-    if (event.key !== "Enter" && event.key !== " ") return;
-    event.preventDefault();
-    openDetail();
-  });
+function openRecentPlacement(rank) {
+  applyAppDestination("ranking");
+  window.requestAnimationFrame(() => highlightRankingItem(rank - 1));
+}
+
+function createSnapshotMovieRow({ movie, rank }) {
+  const row = document.createElement("button");
+  row.type = "button";
+  row.className = "rank-activity__item snapshot__movie";
+  row.setAttribute("aria-label", `Open ${movie.title} at rank ${rank}`);
+  const poster = createMoviePoster(movie, "rank-activity__poster snapshot__poster");
+  poster.loading = "lazy";
+  const copy = document.createElement("span");
+  copy.className = "rank-activity__movie";
+  const title = document.createElement("strong");
+  title.textContent = movie.title;
+  const placement = document.createElement("span");
+  placement.textContent = `#${rank}`;
+  copy.append(title, placement);
+  row.append(poster, copy);
+  row.addEventListener("click", () => openRecentPlacement(rank));
   return row;
 }
 
 function renderListSnapshot() {
   const insights = getRankingInsights();
   snapshotContent.innerHTML = "";
-  if (snapshotPanel) snapshotPanel.hidden = insights.count > 0 && insights.count < 3;
+  const recent = getRecentRankedItems();
+  const visibleItems = recent.items.filter((item) => item.rankedTime !== null);
+  if (snapshotPanel) snapshotPanel.hidden = visibleItems.length === 0;
 
-  if (!insights.count) {
-    if (snapshotPanel) snapshotPanel.hidden = false;
-    snapshotSub.textContent = "Waiting for ranked movies";
-    const empty = document.createElement("div");
-    empty.className = "snapshot__empty";
-    empty.textContent = "Rank a movie to start a running log here.";
-    snapshotContent.appendChild(empty);
+  if (!visibleItems.length) {
+    snapshotSub.textContent = "No recent placements";
     return;
   }
 
-  const recent = getRecentRankedItems();
-  const lead = recent.hasRankedTimes ? "Latest additions" : "Current top three";
-  snapshotSub.textContent = `${lead} of ${insights.count} total`;
+  snapshotSub.textContent = `${visibleItems.length} recent of ${insights.count} total`;
 
-  const list = document.createElement("ol");
-  list.className = "snapshot__recent";
-  recent.items.forEach((item) => {
-    list.appendChild(createSnapshotMovieRow(item));
+  visibleItems.forEach((item) => {
+    snapshotContent.appendChild(createSnapshotMovieRow(item));
   });
-  snapshotContent.append(list);
+}
+
+if (snapshotOpenRanking) {
+  snapshotOpenRanking.addEventListener("click", () => {
+    const latest = getRecentRankedItems().items.find((item) => item.rankedTime !== null);
+    if (latest) openRecentPlacement(latest.rank);
+    else applyAppDestination("ranking");
+  });
 }
 
 const getTasteMatchingPacks = (signal) => {
@@ -1860,19 +1990,25 @@ const renderTasteExplorer = () => {
   const focusedSignalId = document.activeElement?.closest?.("[data-taste-signal]")?.dataset
     .tasteSignal;
   const available = ranking.length >= TASTE_EXPLORER_MIN_MOVIES;
-  tasteExplorer.hidden = !available;
+  const dashboardActive = appShellState.destination === "you";
+  const expanded = dashboardActive || tasteExplorerExpanded;
+  tasteExplorer.hidden = false;
+  if (tasteLocked) tasteLocked.hidden = available;
+  if (tasteToggle) tasteToggle.hidden = !available || dashboardActive;
+  if (tasteIntro) tasteIntro.hidden = !available || expanded;
   if (!available) {
     tasteExplorerExpanded = false;
     activeTasteSignalId = null;
+    tasteContent.hidden = true;
     return;
   }
 
-  tasteToggle.setAttribute("aria-expanded", String(tasteExplorerExpanded));
-  tasteToggle.classList.toggle("is-expanded", tasteExplorerExpanded);
-  tasteToggle.firstChild.textContent = tasteExplorerExpanded ? "Close " : "Explore ";
-  tasteContent.hidden = !tasteExplorerExpanded;
-  tasteIntro.hidden = tasteExplorerExpanded;
-  if (!tasteExplorerExpanded) return;
+  tasteToggle.setAttribute("aria-expanded", String(expanded));
+  tasteToggle.classList.toggle("is-expanded", expanded);
+  tasteToggle.firstChild.textContent = expanded ? "Close " : "Explore ";
+  tasteContent.hidden = !expanded;
+  tasteIntro.hidden = expanded;
+  if (!expanded) return;
 
   const insights = getRankingInsights();
   const signals = buildTasteSignals(insights);
@@ -2415,8 +2551,12 @@ const setTonightExpanded = (expanded) => {
 // or removed).
 const renderTonightPanel = () => {
   const eligible = tonightQueueCandidates().length >= TONIGHT_MIN_QUEUE;
-  tonightPanel.hidden = !eligible;
+  tonightPanel.hidden = false;
+  if (tonightLocked) tonightLocked.hidden = eligible;
+  tonightToggle.hidden = !eligible;
   if (!eligible) {
+    tonightExpanded = false;
+    tonightContent.hidden = true;
     tonightRun = null;
     tonightResults.innerHTML = "";
     tonightFooter.hidden = true;
@@ -2466,15 +2606,51 @@ const renderListDestination = () => {
     const selected = pane.dataset.listDestination === destination;
     pane.hidden = !selected;
   });
+  if (youDashboard) youDashboard.classList.toggle("is-managing-hidden", destination === "hidden");
 };
 
 const renderSuggestionQueues = () => {
   renderSuggestionQueueSubtitles();
   renderQueueList(watchListEl, watchList, "No saved movies yet.", "watch");
   renderQueueList(notInterestedListEl, notInterestedList, "Nothing hidden yet.", "notInterested");
+  watchListEl.classList.toggle("is-expanded", watchListExpanded);
+  if (watchListExpand) {
+    watchListExpand.hidden = watchList.length <= 4;
+    watchListExpand.textContent = watchListExpanded ? "Show fewer" : `View all ${watchList.length}`;
+    watchListExpand.setAttribute("aria-expanded", String(watchListExpanded));
+  }
   renderTonightPanel();
   renderListDestination();
 };
+
+const showListDestination = (destination) => {
+  const result = switchListDestination(listDestinationState, destination);
+  listDestinationState = result.state;
+  renderListDestination();
+};
+
+watchListExpand?.addEventListener("click", () => {
+  watchListExpanded = !watchListExpanded;
+  renderSuggestionQueues();
+  watchListExpand.focus({ preventScroll: true });
+});
+
+manageHiddenMovies?.addEventListener("click", () => {
+  showListDestination("hidden");
+  hiddenBackToDashboard?.focus({ preventScroll: true });
+});
+
+hiddenBackToDashboard?.addEventListener("click", () => {
+  showListDestination("watch");
+  manageHiddenMovies?.focus({ preventScroll: true });
+});
+
+youRankCtas.forEach((button) => {
+  button.addEventListener("click", () => {
+    applyAppDestination("rank");
+    window.requestAnimationFrame(() => titleInput.focus({ preventScroll: true }));
+  });
+});
 
 const getLocalPayload = () => {
   if (!storageEnabled) {
@@ -5883,6 +6059,32 @@ const sharePackEntries = () => suggestionPacks.map((pack) => ({ pack, stats: get
 const getSharePackSummary = () => summarizePacks(sharePackEntries());
 const getSharePackFeatured = (limit = 4) => featuredPacks(sharePackEntries(), limit);
 
+function renderYouProgress() {
+  if (!youProgressRanked) return;
+  const milestone = rankingMilestoneProgress(ranking.length);
+  const packSummary = getSharePackSummary();
+  const monthCount = countRankedInMonth(ranking);
+  youProgressRanked.textContent = String(ranking.length);
+  youProgressMonth.textContent = String(monthCount);
+  youProgressGoal.textContent = String(milestone.next);
+  youProgressPacksComplete.textContent = String(packSummary.completed);
+  youProgressPacksActive.textContent = String(packSummary.inProgress);
+  youProgressPackRanked.textContent = String(packSummary.rankedCount);
+  if (youProgressBar) {
+    youProgressBar.setAttribute("aria-valuemin", String(milestone.previous));
+    youProgressBar.setAttribute("aria-valuemax", String(milestone.next));
+    youProgressBar.setAttribute("aria-valuenow", String(ranking.length));
+  }
+  if (youProgressBarFill) {
+    youProgressBarFill.style.width = `${Math.round(milestone.progress * 100)}%`;
+  }
+  if (youProgressMessage) {
+    youProgressMessage.textContent = ranking.length
+      ? `${milestone.remaining} ${milestone.remaining === 1 ? "movie" : "movies"} until your next milestone.`
+      : "Rank your first movie to begin.";
+  }
+}
+
 const createPackCover = (pack, className = "pack-cover") => {
   const cover = document.createElement("div");
   cover.className = className;
@@ -5951,7 +6153,18 @@ const createPackCard = (pack, options = {}) => {
   stateLabel.textContent = packActionText(pack, stats);
   const progressText = document.createElement("span");
   progressText.className = "pack-card__progress-text";
-  progressText.textContent = `${stats.handled} of ${stats.total} ranked`;
+  const handledCounts = stats.handledMovies.reduce(
+    (counts, entry) => {
+      if (entry.state.type === "ranked") counts.ranked += 1;
+      if (entry.state.type === "watch") counts.saved += 1;
+      if (entry.state.type === "hidden") counts.hidden += 1;
+      return counts;
+    },
+    { ranked: 0, saved: 0, hidden: 0 },
+  );
+  progressText.textContent = stats.handled
+    ? `${handledCounts.ranked} ranked · ${handledCounts.saved} saved · ${handledCounts.hidden} hidden`
+    : `${stats.total} ready`;
   if (options.showCategory) {
     const category = document.createElement("span");
     category.className = "pack-card__category";
@@ -5966,18 +6179,27 @@ const createPackCard = (pack, options = {}) => {
 
   const progress = document.createElement("div");
   progress.className = "pack-card__progress";
-  progress.setAttribute("aria-hidden", "true");
-  const progressFill = document.createElement("span");
-  progressFill.style.width = `${Math.round(stats.progress * 100)}%`;
-  progress.appendChild(progressFill);
-
-  const action = document.createElement("span");
-  action.className = "pack-card__action";
-  action.append(createUiIcon("next"), document.createTextNode(packActionText(pack, stats)));
+  progress.setAttribute(
+    "aria-label",
+    `${handledCounts.ranked} ranked, ${handledCounts.saved} saved, ${handledCounts.hidden} hidden, ${stats.total - stats.handled} ready`,
+  );
+  const progressSegments = [
+    ["ranked", handledCounts.ranked],
+    ["saved", handledCounts.saved],
+    ["hidden", handledCounts.hidden],
+    ["ready", stats.total - stats.handled],
+  ];
+  progressSegments.forEach(([type, count]) => {
+    const segment = document.createElement("span");
+    segment.className = `pack-card__progress-segment pack-card__progress-segment--${type}`;
+    segment.style.flex = String(count);
+    if (!count) segment.hidden = true;
+    progress.appendChild(segment);
+  });
 
   const media = document.createElement("div");
   media.className = "pack-card__media";
-  media.append(createPackCover(pack), action);
+  media.append(createPackCover(pack));
 
   const body = document.createElement("div");
   body.className = "pack-card__body";
@@ -5986,6 +6208,10 @@ const createPackCard = (pack, options = {}) => {
   if (stats.completed) {
     card.appendChild(completeBadge);
   }
+  card.setAttribute(
+    "aria-label",
+    `${packActionText(pack, stats)} ${pack.title}. ${handledCounts.ranked} ranked, ${handledCounts.saved} saved, ${handledCounts.hidden} hidden, ${stats.total - stats.handled} ready.`,
+  );
   card.append(media, body);
   card.addEventListener("click", () => {
     trackProductEvent("pack_opened", {
@@ -6086,6 +6312,7 @@ const renderPackSurfaces = () => {
   } else if (currentPackSlug) {
     renderPackDetail();
   }
+  renderYouProgress();
   updateDebugPanel();
 };
 
@@ -8969,22 +9196,10 @@ const createFullscreenActionButton = ({
 
 const syncFullscreenMoveModeControls = ({ isFiltered = false, count = ranking.length } = {}) => {
   const isAvailable = count > 1 && !isFiltered;
-  if (!isAvailable) fullscreenMoveMode = false;
+  fullscreenMoveMode = isAvailable ? rankingMoveMode : false;
   if (fullscreenGrid) {
     fullscreenGrid.classList.toggle("is-move-mode", fullscreenMoveMode);
     fullscreenGrid.classList.toggle("is-move-disabled", !isAvailable);
-  }
-  if (fullscreenMoveToggle) {
-    fullscreenMoveToggle.disabled = !isAvailable;
-    fullscreenMoveToggle.setAttribute("aria-pressed", fullscreenMoveMode ? "true" : "false");
-    fullscreenMoveToggle.classList.toggle("is-active", fullscreenMoveMode);
-    fullscreenMoveToggle.title = fullscreenMoveMode
-      ? "Exit move mode"
-      : isAvailable
-        ? "Move mode"
-        : count > 1
-          ? "Clear the filter to reorder"
-          : "Add another movie to reorder";
   }
 };
 
@@ -9001,32 +9216,9 @@ function renderFullscreenRanking({ focusRankingIndex = null, focusMoveHandle = f
     return `${movie?.title || ""} ${movie?.year || ""}`.toLocaleLowerCase().includes(query);
   });
   const isFiltered = Boolean(query || fullscreenTasteSignal);
-  fullscreenGrid.classList.toggle("is-compact", fullscreenDensityMode === "compact");
+  fullscreenGrid.classList.remove("is-compact");
   fullscreenGrid.classList.toggle("is-filtered", isFiltered);
   syncFullscreenMoveModeControls({ isFiltered, count });
-  if (fullscreenTitle) {
-    fullscreenTitle.textContent = fullscreenTasteSignal
-      ? `${fullscreenTasteSignal.value} in your ranking`
-      : "Current ranking";
-  }
-  if (fullscreenSearch) {
-    fullscreenSearch.placeholder = fullscreenTasteSignal
-      ? `Filter within ${fullscreenTasteSignal.value}`
-      : "Filter titles or years";
-  }
-  if (fullscreenJumpForm) fullscreenJumpForm.hidden = Boolean(fullscreenTasteSignal);
-  if (fullscreenSub) {
-    fullscreenSub.textContent = fullscreenTasteSignal
-      ? `${entries.length} ${entries.length === 1 ? "movie" : "movies"}, preserving your overall order`
-      : isFiltered
-        ? `${entries.length} of ${count} ${count === 1 ? "movie" : "movies"}`
-      : count
-        ? `${count} ${count === 1 ? "movie" : "movies"}, top to bottom`
-        : "No movies yet.";
-  }
-  if (fullscreenJump) {
-    fullscreenJump.max = String(Math.max(1, count));
-  }
   if (!entries.length) {
     const empty = document.createElement("div");
     empty.className = "fullscreen-empty";
@@ -9124,118 +9316,20 @@ function openFullscreenRanking({ trigger = null } = {}) {
   if (!ranking.length || !fullscreenOverlay) return;
   fullscreenTrigger =
     trigger || (document.activeElement instanceof HTMLElement ? document.activeElement : null);
-  fullscreenMoveMode = false;
-  renderFullscreenRanking();
-  lockShareScroll();
-  document.body.classList.add("is-fullscreen-open");
-  fullscreenOverlay.hidden = false;
-  syncModalIsolation();
-  if (fullscreenGrid) fullscreenGrid.scrollTop = 0;
-  if (fullscreenSearch) fullscreenSearch.value = fullscreenFilterQuery;
-  if (fullscreenSearchClear) fullscreenSearchClear.hidden = !fullscreenFilterQuery;
-  if (fullscreenDensity) fullscreenDensity.value = fullscreenDensityMode;
-  if (fullscreenClose) fullscreenClose.focus({ preventScroll: true });
+  rankingFilterQuery = fullscreenFilterQuery;
+  if (rankingFilterInput) rankingFilterInput.value = rankingFilterQuery;
+  applyAppDestination("ranking");
+  setRankingMoveMode(false);
+  setRankingViewMode("posters", { focus: true });
 }
 
 function closeFullscreenRanking({ restoreFocus = true } = {}) {
-  if (!fullscreenOverlay || fullscreenOverlay.hidden) return;
   cancelFullscreenDrag();
-  fullscreenOverlay.hidden = true;
-  document.body.classList.remove("is-fullscreen-open");
-  syncModalIsolation();
-  unlockShareScroll();
   if (restoreFocus && fullscreenTrigger && document.contains(fullscreenTrigger)) {
     fullscreenTrigger.focus({ preventScroll: true });
   }
   fullscreenTrigger = null;
-  fullscreenTasteSignal = null;
   fullscreenMoveMode = false;
-}
-
-if (rankingExpand) {
-  rankingExpand.addEventListener("click", () => {
-    fullscreenTasteSignal = null;
-    openFullscreenRanking({ trigger: rankingExpand });
-  });
-}
-if (fullscreenClose) fullscreenClose.addEventListener("click", () => closeFullscreenRanking());
-if (fullscreenOverlay) {
-  fullscreenOverlay.addEventListener("click", (event) => {
-    if (event.target === fullscreenOverlay) closeFullscreenRanking();
-  });
-}
-
-if (fullscreenSearch) {
-  fullscreenSearch.addEventListener("input", () => {
-    fullscreenFilterQuery = fullscreenSearch.value;
-    fullscreenSearchClear.hidden = !fullscreenFilterQuery;
-    renderFullscreenRanking();
-  });
-  fullscreenSearch.addEventListener("keydown", (event) => {
-    if (event.key !== "Escape" || !fullscreenFilterQuery) return;
-    event.preventDefault();
-    event.stopPropagation();
-    fullscreenFilterQuery = "";
-    fullscreenSearch.value = "";
-    fullscreenSearchClear.hidden = true;
-    renderFullscreenRanking();
-  });
-}
-
-if (fullscreenSearchClear) {
-  fullscreenSearchClear.addEventListener("click", () => {
-    fullscreenFilterQuery = "";
-    fullscreenSearch.value = "";
-    fullscreenSearchClear.hidden = true;
-    renderFullscreenRanking();
-    fullscreenSearch.focus();
-  });
-}
-
-if (fullscreenDensity) {
-  fullscreenDensity.addEventListener("change", () => {
-    fullscreenDensityMode = fullscreenDensity.value === "compact" ? "compact" : "comfortable";
-    renderFullscreenRanking();
-  });
-}
-
-if (fullscreenMoveToggle) {
-  fullscreenMoveToggle.addEventListener("click", () => {
-    fullscreenMoveMode = !fullscreenMoveMode;
-    renderFullscreenRanking();
-    fullscreenMoveToggle.focus({ preventScroll: true });
-  });
-}
-
-if (fullscreenJumpForm) {
-  fullscreenJumpForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const rank = Number(fullscreenJump.value);
-    if (!Number.isInteger(rank) || rank < 1 || rank > ranking.length) {
-      fullscreenJump.setCustomValidity(`Enter a rank from 1 to ${ranking.length}.`);
-      fullscreenJump.reportValidity();
-      return;
-    }
-    fullscreenJump.setCustomValidity("");
-    if (fullscreenFilterQuery) {
-      fullscreenFilterQuery = "";
-      fullscreenSearch.value = "";
-      fullscreenSearchClear.hidden = true;
-      renderFullscreenRanking();
-    }
-    const card = fullscreenGrid.querySelector(`.fullscreen-card[data-index="${rank - 1}"]`);
-    if (card) {
-      card.querySelector(".fullscreen-card__primary")?.focus({ preventScroll: true });
-      const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "auto"
-        : "smooth";
-      card.scrollIntoView({ behavior, block: "center", inline: "center" });
-    }
-  });
-}
-
-if (fullscreenJump) {
-  fullscreenJump.addEventListener("input", () => fullscreenJump.setCustomValidity(""));
 }
 
 const clearFullscreenDropMarker = () => {
@@ -9403,7 +9497,7 @@ if (fullscreenGrid) {
     const moveHandle = event.target.closest(".fullscreen-card__drag-handle");
     if (card && moveHandle && (event.key === "ArrowUp" || event.key === "ArrowDown")) {
       const index = Number(card.dataset.index);
-      if (!fullscreenMoveMode || fullscreenFilterQuery.trim() || fullscreenTasteSignal || !Number.isInteger(index)) {
+      if (fullscreenFilterQuery.trim() || fullscreenTasteSignal || !Number.isInteger(index)) {
         return;
       }
       event.preventDefault();
@@ -9437,7 +9531,6 @@ if (fullscreenGrid) {
       event.button !== 0 ||
       event.isPrimary === false ||
       fullscreenDrag ||
-      !fullscreenMoveMode ||
       fullscreenFilterQuery.trim() ||
       fullscreenTasteSignal
     ) {
@@ -9445,7 +9538,7 @@ if (fullscreenGrid) {
     }
     const handleTarget = event.target.closest(".fullscreen-card__drag-handle");
     const directPointer = event.pointerType === "touch" || event.pointerType === "pen";
-    if (directPointer && !handleTarget) return;
+    if (directPointer && (!fullscreenMoveMode || !handleTarget)) return;
     if (!handleTarget && event.target.closest(".fullscreen-card__actions, .movie-item__overflow")) return;
     const card = event.target.closest(".fullscreen-card");
     if (!card) return;
@@ -10857,16 +10950,17 @@ document.addEventListener("keydown", (event) => {
     closeRankingSettings();
     return;
   }
+  if (rankingFilterExpanded) {
+    setRankingFilterExpanded(false);
+    rankingFilterToggle?.focus({ preventScroll: true });
+    return;
+  }
   if (!shareStudio.hidden) {
     closeShareStudio();
     return;
   }
   if (!detailOverlay.hidden) {
     closeMovieDetail();
-    return;
-  }
-  if (fullscreenOverlay && !fullscreenOverlay.hidden) {
-    closeFullscreenRanking();
     return;
   }
   if (!packDetailOverlay.hidden) {
@@ -11080,6 +11174,14 @@ document.addEventListener("click", (event) => {
   ) {
     closeRankingSettings({ restoreFocus: false });
   }
+  if (
+    rankingFilterExpanded &&
+    !rankingFilter.contains(event.target) &&
+    event.target !== rankingFilterToggle &&
+    !rankingFilterToggle.contains(event.target)
+  ) {
+    setRankingFilterExpanded(false);
+  }
   if (!suggestions.contains(event.target) && event.target !== titleInput) {
     hideSuggestions();
   }
@@ -11138,6 +11240,8 @@ function renderBootSkeleton({ hasLocalRanking = false } = {}) {
 
 const init = async () => {
   startPlaceholderRotation();
+  loadRankingViewPreference();
+  syncRankingViewControls();
   loadShareOptions();
   updateShareOptionControls();
   updateStatus();

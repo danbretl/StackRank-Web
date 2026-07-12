@@ -2,11 +2,23 @@ import test from "node:test";
 import assert from "node:assert/strict";
 
 import {
+  normalizeRankingViewMode,
+  rankingViewLabel,
   filterFullscreenRanking,
   gridDropIndex,
   gridNavigationTarget,
   moveRankingItem,
 } from "../lib/fullscreen-ranking.js";
+
+test("ranking view modes normalize to the three approved presentation presets", () => {
+  assert.equal(normalizeRankingViewMode("detailed"), "detailed");
+  assert.equal(normalizeRankingViewMode("posters"), "posters");
+  assert.equal(normalizeRankingViewMode("compact"), "compact");
+  assert.equal(normalizeRankingViewMode("fullscreen"), "detailed");
+  assert.equal(rankingViewLabel("detailed"), "Detailed");
+  assert.equal(rankingViewLabel("posters"), "Posters");
+  assert.equal(rankingViewLabel("compact"), "Compact");
+});
 
 test("fullscreen filtering retains original ranking indexes", () => {
   const ranking = [

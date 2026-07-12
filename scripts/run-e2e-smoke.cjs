@@ -697,7 +697,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=158" ||
+      desktop.cssHref !== "styles.css?v=159" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -2382,7 +2382,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     const iphoneRankTargets = await readVisibleControlTargets([".panel--list", ".app-nav--mobile"]);
     assertCoarseControlTargets("iPhone Rank", iphoneRankTargets);
 
-    await tapSelector("#ranking .ranking__item .ranking__overflow > summary");
+    await page.evaluate(`document.querySelector('#ranking .ranking__item .ranking__overflow > summary')?.click(); true;`);
     await waitFor(
       page,
       `(() => {
@@ -2424,7 +2424,9 @@ const testAppShellNavigation = async ({ baseUrl }) => {
             height: Math.round(button.getBoundingClientRect().height),
             scrollWidth: button.scrollWidth,
             clientWidth: button.clientWidth,
-            whiteSpace: getComputedStyle(button).whiteSpace
+            whiteSpace: getComputedStyle(button).whiteSpace,
+            display: getComputedStyle(button).display,
+            visibility: getComputedStyle(button).visibility
           })),
         position: menu ? getComputedStyle(menu).position : '',
         display: menu ? getComputedStyle(menu).display : '',
@@ -2458,6 +2460,8 @@ const testAppShellNavigation = async ({ baseUrl }) => {
       !mobileRankOverflow.hitText.includes("Info") ||
       !mobileRankOverflow.actionMetrics.every((action) =>
         action.whiteSpace === "nowrap" &&
+        action.display === "flex" &&
+        action.visibility === "visible" &&
         action.scrollWidth <= action.clientWidth + 1 &&
         action.width >= 120 &&
         action.height >= 44
@@ -2521,7 +2525,7 @@ const testAppShellNavigation = async ({ baseUrl }) => {
     const mobileRankOverflowDetailShot = await page.screenshot("app-shell-mobile-ranking-overflow-detail.png");
     await tapSelector("#detail-close");
     await waitFor(page, `document.querySelector('#movie-detail')?.hidden`, 3000);
-    await tapSelector("#ranking .ranking__item .ranking__overflow > summary");
+    await page.evaluate(`document.querySelector('#ranking .ranking__item .ranking__overflow > summary')?.click(); true;`);
     await waitFor(
       page,
       `document.querySelector('#ranking .ranking__item .ranking__overflow')?.open`,
@@ -3254,8 +3258,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=186" ||
-      empty.cssHref !== "styles.css?v=158" ||
+      empty.moduleSrc !== "app.js?v=187" ||
+      empty.cssHref !== "styles.css?v=159" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -8728,6 +8732,90 @@ const testPackRankAllResumeAndCompletion = async ({ baseUrl }) => {
   }
 };
 
+const testPackPlacementReveal = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "pack-placement-reveal", width: 390, height: 844 });
+  const packs = [
+    {
+      slug: "e2e-placement-pack",
+      title: "E2E Placement Pack",
+      subtitle: "Pack-to-ranking reveal fixture",
+      category: "Test",
+      version: 1,
+      sort_order: 1,
+      movies: [movie("Pack Reveal", 2024, 4501)],
+    },
+  ];
+  try {
+    await setDeviceProfile(page, {
+      width: 390,
+      height: 844,
+      input: DEVICE_INPUT_PROFILE.coarseTouch,
+      deviceScaleFactor: 3,
+    });
+    await installPackFixtures(page, packs);
+    await seedPage(page, baseUrl, "pack-placement-reveal", {
+      ranking: [movie("Anchor", 2000, 4500)],
+    });
+    await waitFor(page, `!!document.querySelector('#pack-row [data-slug="e2e-placement-pack"]')`, 5000);
+    await page.evaluate(`document.querySelector('#pack-row [data-slug="e2e-placement-pack"]')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#pack-detail-title')?.textContent.trim() === 'E2E Placement Pack'`, 3000);
+    await page.evaluate(`document.querySelector('#pack-detail-list [aria-label="Rank Pack Reveal"]')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#new-title')?.textContent.trim() === 'Pack Reveal'`, 3000);
+    await page.evaluate(`document.querySelector('#existing-card')?.click(); true;`);
+    await waitFor(
+      page,
+      `!document.querySelector('#pack-detail')?.hidden &&
+        [...document.querySelectorAll('#add-feedback .feedback-toast__action')].some((button) => button.textContent.trim() === 'View ranking')`,
+      5000,
+    );
+    await page.evaluate(`(() => {
+      const button = [...document.querySelectorAll('#add-feedback .feedback-toast__action')]
+        .find((action) => action.textContent.trim() === 'View ranking');
+      button?.click();
+      return !!button;
+    })()`);
+    await waitFor(
+      page,
+      `document.querySelector('main.app')?.dataset.appDestination === 'ranking' &&
+        document.querySelector('#pack-detail')?.hidden &&
+        !![...document.querySelectorAll('#ranking .ranking__item')]
+          .find((item) => item.querySelector('.ranking__title')?.textContent.trim() === 'Pack Reveal')
+          ?.classList.contains('is-highlight')`,
+      5000,
+    );
+    const revealed = await page.evaluate(`(() => {
+      const item = [...document.querySelectorAll('#ranking .ranking__item')]
+        .find((row) => row.querySelector('.ranking__title')?.textContent.trim() === 'Pack Reveal');
+      const rect = item?.getBoundingClientRect();
+      return {
+        destination: document.querySelector('main.app')?.dataset.appDestination,
+        packHidden: document.querySelector('#pack-detail')?.hidden,
+        highlighted: item?.classList.contains('is-highlight'),
+        rowTop: Math.round(rect?.top || 0),
+        rowBottom: Math.round(rect?.bottom || 0),
+        viewportHeight: innerHeight,
+        appInert: document.querySelector('main.app')?.inert,
+      };
+    })()`);
+    if (
+      revealed.destination !== "ranking" ||
+      !revealed.packHidden ||
+      !revealed.highlighted ||
+      revealed.rowBottom <= 0 ||
+      revealed.rowTop >= revealed.viewportHeight ||
+      revealed.appInert
+    ) {
+      throw new Error(`Pack placement reveal stayed behind its overlay: ${JSON.stringify(revealed)}`);
+    }
+    const screenshot = await page.screenshot("pack-placement-revealed-ranking.png");
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Pack placement reveal browser errors: ${JSON.stringify(health.errors)}`);
+    return { details: { revealed }, screenshots: [screenshot] };
+  } finally {
+    await page.close();
+  }
+};
+
 const testMobilePackTitleClearance = async ({ baseUrl }) => {
   const page = await openChromePage({ name: "mobile-pack-title-clearance", width: 440, height: 956 });
   try {
@@ -9083,6 +9171,12 @@ const testApprovedAppShellNavigation = async ({ baseUrl }) => {
       deviceScaleFactor: 2,
     });
     await switchDestination("ranking");
+    await page.evaluate(`(() => {
+      const move = document.querySelector('#ranking-move-toggle');
+      if (move?.getAttribute('aria-pressed') === 'true') move.click();
+      return true;
+    })()`);
+    await waitFor(page, `document.querySelector('#ranking-move-toggle')?.getAttribute('aria-pressed') === 'false'`, 3000);
     await page.evaluate(`document.querySelector('[data-ranking-view="detailed"]')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#ranking')?.hidden`, 3000);
     let ipad = await readShell();
@@ -9127,6 +9221,12 @@ const testApprovedAppShellNavigation = async ({ baseUrl }) => {
     const phoneYouShot = await page.screenshot("approved-shell-iphone-you.png");
 
     await switchDestination("ranking");
+    await page.evaluate(`(() => {
+      const move = document.querySelector('#ranking-move-toggle');
+      if (move?.getAttribute('aria-pressed') === 'true') move.click();
+      return true;
+    })()`);
+    await waitFor(page, `document.querySelector('#ranking-move-toggle')?.getAttribute('aria-pressed') === 'false'`, 3000);
     await page.evaluate(`document.querySelector('[data-ranking-view="detailed"]')?.click(); true;`);
     const phoneRanking = await readShell();
     const phoneActions = [phoneRanking.view.rect, phoneRanking.move.rect, phoneRanking.share.rect].filter(Boolean);
@@ -9141,6 +9241,99 @@ const testApprovedAppShellNavigation = async ({ baseUrl }) => {
       throw new Error(`iPhone Ranking header is wrong: ${JSON.stringify(phoneRanking)}`);
     }
     const phoneRankingShot = await page.screenshot("approved-shell-iphone-ranking.png");
+
+    await page.evaluate(`document.querySelector('#ranking .ranking__item .ranking__overflow > summary')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#ranking .ranking__item .ranking__overflow')?.open`, 3000);
+    const phoneRankingOverflow = await page.evaluate(`(() => {
+      const details = document.querySelector('#ranking .ranking__item .ranking__overflow');
+      const menu = details?.querySelector('.movie-item__overflow-menu');
+      const buttons = [...(menu?.querySelectorAll('.movie-item__overflow-action') || [])];
+      const menuRect = menu?.getBoundingClientRect();
+      return {
+        open: details?.open,
+        labels: buttons.map((button) => button.textContent.trim()),
+        actions: buttons.map((button) => {
+          const rect = button.getBoundingClientRect();
+          const style = getComputedStyle(button);
+          return {
+            display: style.display,
+            visibility: style.visibility,
+            width: Math.round(rect.width),
+            height: Math.round(rect.height),
+          };
+        }),
+        menu: menuRect ? {
+          left: Math.round(menuRect.left),
+          right: Math.round(menuRect.right),
+          top: Math.round(menuRect.top),
+          bottom: Math.round(menuRect.bottom),
+          height: Math.round(menuRect.height),
+        } : null,
+        innerWidth,
+        innerHeight,
+      };
+    })()`);
+    if (
+      !phoneRankingOverflow.open ||
+      phoneRankingOverflow.labels.join("|") !== "Info|Re-rank|Remove" ||
+      !phoneRankingOverflow.actions.every((action) =>
+        action.display === "flex" &&
+        action.visibility === "visible" &&
+        action.width >= 120 &&
+        action.height >= 44
+      ) ||
+      !phoneRankingOverflow.menu ||
+      phoneRankingOverflow.menu.height < 140 ||
+      phoneRankingOverflow.menu.left < 0 ||
+      phoneRankingOverflow.menu.right > phoneRankingOverflow.innerWidth ||
+      phoneRankingOverflow.menu.top < 0 ||
+      phoneRankingOverflow.menu.bottom > phoneRankingOverflow.innerHeight
+    ) {
+      throw new Error(`iPhone Ranking overflow menu is wrong: ${JSON.stringify(phoneRankingOverflow)}`);
+    }
+    const phoneRankingOverflowShot = await page.screenshot("approved-shell-iphone-ranking-overflow.png");
+    await page.evaluate(`document.querySelector('#ranking .ranking__item .ranking__overflow > summary')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#ranking .ranking__item .ranking__overflow')?.open`, 3000);
+
+    const detailedRowHeight = await page.evaluate(
+      `Math.round(document.querySelector('#ranking .ranking__item')?.getBoundingClientRect().height || 0)`,
+    );
+    await page.evaluate(`document.querySelector('[data-ranking-view="compact"]')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#ranking')?.classList.contains('ranking--compact')`, 3000);
+    const phoneCompact = await page.evaluate(`(() => {
+      const first = document.querySelector('#ranking .ranking__item');
+      const poster = first?.querySelector('.movie-item__poster');
+      const overflow = first?.querySelector('.movie-item__overflow-toggle');
+      const rowRect = first?.getBoundingClientRect();
+      const overflowRect = overflow?.getBoundingClientRect();
+      const visibleRows = [...document.querySelectorAll('#ranking .ranking__item')].filter((row) => {
+        const rect = row.getBoundingClientRect();
+        return rect.top >= 0 && rect.bottom <= innerHeight - 72;
+      }).length;
+      return {
+        rowHeight: Math.round(rowRect?.height || 0),
+        posterDisplay: poster ? getComputedStyle(poster).display : '',
+        overflowWidth: Math.round(overflowRect?.width || 0),
+        overflowHeight: Math.round(overflowRect?.height || 0),
+        visibleRows,
+        scrollWidth: document.documentElement.scrollWidth,
+        innerWidth,
+      };
+    })()`);
+    if (
+      phoneCompact.rowHeight > 46 ||
+      phoneCompact.rowHeight >= detailedRowHeight * 0.7 ||
+      phoneCompact.posterDisplay !== "none" ||
+      phoneCompact.overflowWidth < 44 ||
+      phoneCompact.overflowHeight < 44 ||
+      phoneCompact.visibleRows < 6 ||
+      phoneCompact.scrollWidth > phoneCompact.innerWidth
+    ) {
+      throw new Error(`iPhone Compact view is not materially denser: ${JSON.stringify({ detailedRowHeight, phoneCompact })}`);
+    }
+    const phoneCompactShot = await page.screenshot("approved-shell-iphone-compact.png");
+    await page.evaluate(`document.querySelector('[data-ranking-view="detailed"]')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#ranking')?.classList.contains('ranking--compact')`, 3000);
 
     await setDeviceProfile(page, {
       width: 844,
@@ -9185,7 +9378,7 @@ const testApprovedAppShellNavigation = async ({ baseUrl }) => {
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Approved shell browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { desktopRank, desktopRanking, compact, posters, filtered, desktopYou, ipad, phoneYou, phoneRanking, phoneLandscape, phoneLandscapeRank, landscapeShelf, landscapeShelfSwipe },
+      details: { desktopRank, desktopRanking, compact, posters, filtered, desktopYou, ipad, phoneYou, phoneRanking, phoneRankingOverflow, phoneCompact, phoneLandscape, phoneLandscapeRank, landscapeShelf, landscapeShelfSwipe },
       screenshots: [
         desktopRankShot,
         desktopOptionsShot,
@@ -9194,6 +9387,8 @@ const testApprovedAppShellNavigation = async ({ baseUrl }) => {
         ipadMoveShot,
         phoneYouShot,
         phoneRankingShot,
+        phoneRankingOverflowShot,
+        phoneCompactShot,
         phoneLandscapeShot,
         phoneLandscapeRankShot,
       ],
@@ -9341,6 +9536,7 @@ const tests = [
   { name: "suggestion explanations and refresh", run: testSuggestionExplanations },
   { name: "pack browser filters, paging, actions, and persistence", run: testPackBrowserAndActions },
   { name: "pack Rank all cancel, resume, and completion", run: testPackRankAllResumeAndCompletion },
+  { name: "pack placement reveal dismisses overlay", run: testPackPlacementReveal },
   { name: "mobile pack title clearance", run: testMobilePackTitleClearance },
 ];
 

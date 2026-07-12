@@ -2,7 +2,8 @@
 
 Status: **bounded fixes shipped; both private briefs approved; approved Rank,
 Ranking, and You redesign implemented and verified; private responsive
-implementation review published (Jul 2026).**
+implementation review published; initial phone-testing follow-up complete
+(Jul 2026).**
 
 This is the handoff record for the first review of the shipped Rank Bar density
 redesign. It supplements, and does not replace,
@@ -305,6 +306,23 @@ The brief calls out the five highest-value review questions: whether Rank
 creates the intended loop, whether `You` is the right name, whether the view
 labels and action order are intuitive, whether Review order is quiet enough,
 and whether the v1 You widget order is credible.
+
+Initial production phone testing produced three bounded corrections:
+
+- Ranking overflow menus now keep their Info, Re-rank, and Remove actions
+  visible instead of inheriting the inline-action hide rule.
+- Compact is a genuinely dense rank/title/year list: posters are removed and
+  phone rows drop from roughly 85px to 45px while retaining 44px Move/overflow
+  targets.
+- A pack-origin placement toast's `View ranking` action cancels any scheduled
+  pack reopen, dismisses an already-visible pack, clears presentation filters,
+  navigates to Ranking, and reveals the exact ranked item.
+
+Regression coverage exercises the visible phone overflow actions, Compact row
+density, and the full pack → rank → toast → revealed Ranking flow. `npm run
+verify` passes with 234 Node tests, 21 Deno edge-function tests, pack validation,
+syntax/cache checks, and all 30 E2E browser flows. Runtime cache keys are
+`app.js?v=187` and `styles.css?v=159`.
 
 ## Material product decisions for the briefs
 

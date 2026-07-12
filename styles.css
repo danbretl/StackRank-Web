@@ -2482,7 +2482,8 @@ button.suggest-primary {
   height: 0.75rem;
 }
 
-.ranking__item.is-highlight {
+.ranking__item.is-highlight,
+.fullscreen-card.is-highlight {
   outline: 2px solid var(--border);
   box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.04);
   transition: box-shadow 0.4s ease, outline-color 0.4s ease;
@@ -11413,9 +11414,9 @@ body.is-comparing .app[data-app-destination="rank"] .panel--add {
   }
 }
 
-.ranking .movie-item--ranking .ranking__info,
-.ranking .movie-item--ranking .ranking__restack,
-.ranking .movie-item--ranking .ranking__delete {
+.ranking .movie-item--ranking .movie-item__actions > .ranking__info,
+.ranking .movie-item--ranking .movie-item__actions > .ranking__restack,
+.ranking .movie-item--ranking .movie-item__actions > .ranking__delete {
   display: none;
 }
 
@@ -11438,24 +11439,45 @@ body.is-comparing .app[data-app-destination="rank"] .panel--add {
   }
 }
 
-.ranking--compact li {
-  padding: 6px 0;
+.ranking--compact li,
+.ranking--compact li:first-child {
+  padding: 0;
 }
 
 .ranking--compact .movie-item--ranking {
-  grid-template-columns: 52px 32px minmax(0, 1fr) auto;
-  min-height: 58px;
-  gap: 10px;
+  grid-template-columns: 44px minmax(0, 1fr) auto;
+  min-height: 44px;
+  gap: 6px;
 }
 
 .ranking--compact .movie-item--ranking .movie-item__rank {
-  font-size: 1.65rem;
+  grid-column: 1;
+  font-size: 1.18rem;
+  font-variant-numeric: tabular-nums;
 }
 
 .ranking--compact .movie-item--ranking .movie-item__poster {
-  width: 32px;
-  height: 48px;
-  border-radius: 4px;
+  display: none;
+}
+
+.ranking--compact .movie-item--ranking .movie-item__body {
+  grid-column: 2;
+  min-width: 0;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: auto;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.ranking--compact .movie-item--ranking .movie-item__actions {
+  grid-column: 3;
+}
+
+.ranking--compact .movie-item--ranking .movie-item__year {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 0.68rem;
+  white-space: nowrap;
 }
 
 .ranking--compact .movie-item--ranking .movie-item__meta {
@@ -11463,7 +11485,21 @@ body.is-comparing .app[data-app-destination="rank"] .panel--add {
 }
 
 .ranking--compact .movie-item--ranking .movie-item__title {
-  font-size: 0.86rem;
+  grid-column: 1;
+  grid-row: 1;
+  overflow: hidden;
+  font-size: 0.8rem;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ranking--compact .movie-item--ranking .movie-item__overflow-toggle,
+.ranking--compact .movie-item--ranking .ranking__handle {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 @media (max-width: 900px) {

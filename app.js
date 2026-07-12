@@ -656,6 +656,7 @@ let packBrowserScrollTop = 0;
 let packBrowserOrder = [];
 let packBrowserFilterValues = { query: "", category: "all", state: "all" };
 let packBrowserFiltersExpanded = false;
+let packDetailReopenTimeout = null;
 let pendingPackContext = null;
 let autoPackSession = null;
 let rankingFilterQuery = "";
@@ -5450,7 +5451,7 @@ const announcePlacement = (message, context, rankedMovie, origin) => {
             {
               label: "View ranking",
               muted: true,
-              onClick: () => applyAppDestination("ranking"),
+              onClick: () => revealRankedMovie(rankedMovie),
             },
           ]
         : [];
@@ -5460,13 +5461,37 @@ const announcePlacement = (message, context, rankedMovie, origin) => {
   }
 };
 
+const revealRankedMovie = (movie) => {
+  if (packDetailReopenTimeout) {
+    window.clearTimeout(packDetailReopenTimeout);
+    packDetailReopenTimeout = null;
+  }
+  if (!packDetailOverlay.hidden) closePackDetail({ restoreFocus: false });
+
+  const index = ranking.findIndex((item) => movieKey(item) === movieKey(movie));
+  if (index < 0) return;
+  rankingFilterQuery = "";
+  fullscreenFilterQuery = "";
+  fullscreenTasteSignal = null;
+  if (rankingFilterInput) rankingFilterInput.value = "";
+  if (rankingFilterClear) rankingFilterClear.hidden = true;
+  setRankingMoveMode(false);
+  setRankingFilterExpanded(false);
+  renderRanking();
+  applyAppDestination("ranking", { restoreScroll: false });
+  window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => highlightRankingItem(index));
+  });
+};
+
 const highlightRankingItem = (index) => {
   // Don't scroll-highlight the just-placed item if we've already swapped back
   // into a comparison (e.g. auto-pack advancing to the next movie) — the smooth
   // scroll would yank the freshly-shown comparison view.
   if (document.body.classList.contains("is-comparing")) return;
-  const items = rankingList.querySelectorAll(".ranking__item");
-  const item = items[index];
+  const item = rankingViewMode === "posters"
+    ? fullscreenGrid?.querySelector(`.fullscreen-card[data-index="${index}"]`)
+    : rankingList.querySelector(`.ranking__item[data-index="${index}"]`);
   if (!item) return;
   item.classList.add("is-highlight");
   const behavior = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
@@ -6919,7 +6944,11 @@ const handleRankingSettled = (rankedMovie, insertIndex, context) => {
         // decoupled from the ranking flow.
         queueMicrotask(advanceAutoPack);
       } else {
-        window.setTimeout(() => openPackDetail(pack.slug, { fromAllPacks: context.fromAllPacks }), 180);
+        if (packDetailReopenTimeout) window.clearTimeout(packDetailReopenTimeout);
+        packDetailReopenTimeout = window.setTimeout(() => {
+          packDetailReopenTimeout = null;
+          openPackDetail(pack.slug, { fromAllPacks: context.fromAllPacks });
+        }, 180);
       }
     }
     return;

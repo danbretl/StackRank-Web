@@ -322,6 +322,7 @@ a {
 }
 
 .section-intro h2,
+.comparison-overview-header h2,
 .directions-header h2 {
   margin: 0;
   font-size: clamp(48px, 5vw, 76px);
@@ -379,6 +380,116 @@ a {
   color: var(--muted);
   font-size: 14px;
   line-height: 1.48;
+}
+
+.comparison-overview {
+  padding: 120px var(--page-gutter) 130px;
+  border-top: 1px solid var(--ink);
+  scroll-margin-top: 68px;
+}
+
+.comparison-overview-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 64px;
+  align-items: end;
+}
+
+.comparison-overview-header > div > p {
+  max-width: 720px;
+  margin: 22px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.comparison-overview-key {
+  flex: 0 0 auto;
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+}
+
+.comparison-wall {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin-top: 54px;
+  border-top: 1px solid var(--ink);
+  border-left: 1px solid var(--ink);
+}
+
+.comparison-wall > button {
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  background: var(--paper);
+  text-align: left;
+  transition: background 160ms ease;
+}
+
+.comparison-wall > button:hover,
+.comparison-wall > button:focus-visible {
+  background: var(--wash);
+  outline: 0;
+}
+
+.comparison-wall-image {
+  display: block;
+  overflow: hidden;
+  border-bottom: 1px solid var(--rule);
+  background: var(--wash);
+}
+
+.comparison-wall-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.comparison-wall > button:hover img,
+.comparison-wall > button:focus-visible img {
+  transform: scale(1.025);
+}
+
+.comparison-wall-caption {
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr);
+  gap: 7px 10px;
+  min-height: 94px;
+  padding: 14px;
+}
+
+.comparison-wall-caption > span:first-child {
+  grid-row: 1 / span 2;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.comparison-wall-caption strong {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.comparison-wall-caption > span:last-child {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.comparison-overview-note {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-family: var(--font-instrument-serif), Georgia, serif;
+  font-size: 17px;
 }
 
 .directions-section {
@@ -947,6 +1058,10 @@ footer a {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .comparison-wall {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .criteria-list article,
   .criteria-list article:first-child,
   .criteria-list article:last-child {
@@ -1031,6 +1146,7 @@ footer a {
   }
 
   .brief-section,
+  .comparison-overview,
   .directions-section {
     padding-top: 78px;
     padding-bottom: 90px;
@@ -1048,6 +1164,33 @@ footer a {
   .criteria-list {
     grid-template-columns: 1fr;
     margin-top: 66px;
+  }
+
+  .comparison-overview-header {
+    display: block;
+  }
+
+  .comparison-overview-key {
+    margin-top: 24px;
+  }
+
+  .comparison-wall {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 36px;
+  }
+
+  .comparison-wall-caption {
+    grid-template-columns: 24px minmax(0, 1fr);
+    min-height: 88px;
+    padding: 12px 10px;
+  }
+
+  .comparison-wall-caption strong {
+    font-size: 12px;
+  }
+
+  .comparison-wall-caption > span:last-child {
+    font-size: 10px;
   }
 
   .criteria-list article,

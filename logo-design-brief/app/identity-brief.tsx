@@ -169,6 +169,9 @@ const directions: Direction[] = [
 ];
 
 const rankedDirections = [...directions].sort((a, b) => b.score - a.score);
+const finalRankById = new Map(
+  rankedDirections.map((direction, index) => [direction.id, index + 1]),
+);
 
 const filters = [
   { id: "all", label: "All 10" },
@@ -324,7 +327,7 @@ export function IdentityBrief({ reviewerName }: { reviewerName: string }) {
           <span>/ Identity brief</span>
         </a>
         <nav aria-label="Primary navigation">
-          <a href="#overview">Overview</a>
+          <a href="#comparison-overview">At a glance</a>
           <a href="#directions">Directions</a>
           <a href="#recommendation">Recommendation</a>
         </nav>
@@ -384,6 +387,52 @@ export function IdentityBrief({ reviewerName }: { reviewerName: string }) {
             </article>
           ))}
         </div>
+      </section>
+
+      <section
+        className="comparison-overview"
+        id="comparison-overview"
+        aria-labelledby="comparison-overview-title"
+      >
+        <div className="comparison-overview-header">
+          <div>
+            <h2 id="comparison-overview-title">All ten at a glance</h2>
+            <p>
+              The complete exploration on one wall. Compare silhouette, density,
+              wordmark character, and category behavior before opening any board.
+            </p>
+          </div>
+          <p className="comparison-overview-key">
+            Concept number · Final rank · Score
+          </p>
+        </div>
+        <div className="comparison-wall">
+          {directions.map((direction) => (
+            <button
+              key={direction.id}
+              type="button"
+              onClick={() => setActiveBoard(direction)}
+              aria-label={`Open ${direction.title}, ranked ${finalRankById.get(direction.id)} overall`}
+            >
+              <span className="comparison-wall-image">
+                <img
+                  src={direction.image}
+                  alt={`${direction.title} logo system overview`}
+                />
+              </span>
+              <span className="comparison-wall-caption">
+                <span>{String(direction.id).padStart(2, "0")}</span>
+                <strong>{direction.title}</strong>
+                <span>
+                  Rank {finalRankById.get(direction.id)} · {direction.score.toFixed(1)}
+                </span>
+              </span>
+            </button>
+          ))}
+        </div>
+        <p className="comparison-overview-note">
+          Select any board for a full-size view. Use arrow keys to move through the set.
+        </p>
       </section>
 
       <section className="directions-section" id="directions">

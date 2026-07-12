@@ -45,6 +45,8 @@ test("renders the complete identity brief for an authenticated reviewer", async 
   assert.match(html, /<title>StackRank identity directions<\/title>/i);
   assert.match(html, /Ten ways to make preference visible\./);
   assert.match(html, /The brief behind the marks/);
+  assert.match(html, /All ten at a glance/);
+  assert.match(html, /Concept number · Final rank · Score/);
   assert.match(html, /The directions/);
   assert.match(html, /Build from Rank Fold\./);
   assert.match(html, /Design Reviewer/);

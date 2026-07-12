@@ -144,9 +144,12 @@ import {
   normalizeAuthEmail,
 } from "./lib/auth.js?v=3";
 import {
+  APP_DESTINATION_MEMORY_TTL_MS,
+  createAppDestinationMemory,
   createAppShellState,
+  parseAppDestinationMemory,
   switchAppDestination,
-} from "./lib/app-shell.js?v=3";
+} from "./lib/app-shell.js?v=4";
 import {
   DEFAULT_LIST_DESTINATION,
   createListDestinationState,
@@ -505,6 +508,7 @@ const applyAppDestination = (destination, { restoreScroll = true } = {}) => {
   appShellState = next.state;
   const active = appShellState.destination;
   appShell.dataset.appDestination = active;
+  rememberAppDestination(active, { force: next.changed });
   appDestinationButtons.forEach((button) => {
     const selected = button.dataset.appDestinationTarget === active;
     button.classList.toggle("is-active", selected);
@@ -569,14 +573,51 @@ const BACKUP_NUDGE_STORAGE_KEY = "stackrank:backup-nudge:v1";
 const PACK_FALLBACK_PATH = "data/suggestion-packs.json?v=5";
 const SHARE_OPTIONS_KEY = "stackrank:share-options:v1";
 const RANKING_VIEW_STORAGE_KEY = "stackrank:ranking-view:v1";
+const APP_DESTINATION_MEMORY_KEY = "stackrank:app-destination:v1";
+const APP_DESTINATION_MEMORY_WRITE_INTERVAL_MS = 60 * 1000;
 const WATCH_LIST_TYPE = "watch";
 const NOT_INTERESTED_LIST_TYPE = "not_interested";
 const INSPIRED_SEED_KEY = "stackrank:inspired-seed:v1";
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl";
 
-let appShellState = createAppShellState();
+let lastAppDestinationMemoryWrite = 0;
+
+const loadRememberedAppDestination = () => {
+  try {
+    return parseAppDestinationMemory(
+      sessionStorage.getItem(APP_DESTINATION_MEMORY_KEY),
+      Date.now(),
+      APP_DESTINATION_MEMORY_TTL_MS,
+    );
+  } catch (_error) {
+    return "rank";
+  }
+};
+
+const rememberAppDestination = (destination, { force = false } = {}) => {
+  const now = Date.now();
+  if (!force && now - lastAppDestinationMemoryWrite < APP_DESTINATION_MEMORY_WRITE_INTERVAL_MS) return;
+  try {
+    sessionStorage.setItem(
+      APP_DESTINATION_MEMORY_KEY,
+      JSON.stringify(createAppDestinationMemory(destination, now)),
+    );
+    lastAppDestinationMemoryWrite = now;
+  } catch (_error) {
+    // Destination memory is a convenience only; storage failures must never
+    // interfere with navigation.
+  }
+};
+
+let appShellState = createAppShellState({ destination: loadRememberedAppDestination() });
 let listDestinationState = createListDestinationState(DEFAULT_LIST_DESTINATION);
+
+const refreshAppDestinationMemory = () => rememberAppDestination(appShellState.destination);
+document.addEventListener("pointerdown", refreshAppDestinationMemory, { passive: true });
+document.addEventListener("keydown", refreshAppDestinationMemory);
+window.addEventListener("scroll", refreshAppDestinationMemory, { passive: true });
+
 let ranking = [];
 let rankingUpdatedAt = null;
 let watchList = [];
@@ -11268,6 +11309,7 @@ function renderBootSkeleton({ hasLocalRanking = false } = {}) {
 }
 
 const init = async () => {
+  applyAppDestination(appShellState.destination, { restoreScroll: false });
   startPlaceholderRotation();
   loadRankingViewPreference();
   syncRankingViewControls();

@@ -324,6 +324,22 @@ verify` passes with 234 Node tests, 21 Deno edge-function tests, pack validation
 syntax/cache checks, and all 30 E2E browser flows. Runtime cache keys are
 `app.js?v=187` and `styles.css?v=160`.
 
+A second production-phone follow-up is complete:
+
+- Compact explicitly clears the coarse-pointer 44px minimum height inherited
+  by its text wrapper, restoring vertical centering while preserving the inline
+  title/year baseline, 24×36 poster, and 44px row actions.
+- Rank / Ranking / You now use per-tab session memory. Meaningful activity
+  refreshes the current destination at most once per minute; a refresh within
+  30 minutes restores it, while expired or invalid state returns to Rank.
+
+Focused unit and browser regressions cover the exact Compact title-line center,
+refresh restoration, the 30-minute expiry boundary, and the Rank fallback.
+Runtime cache keys for this follow-up are `app.js?v=188`, `styles.css?v=161`,
+and `lib/app-shell.js?v=4`. `npm run verify` passes with 236 Node tests, 21
+Deno edge-function tests, pack validation, syntax/cache checks, and all 30 E2E
+browser flows.
+
 ## Material product decisions for the briefs
 
 1. The earlier brief's deliberately compact Rank Bar and its instruction not to

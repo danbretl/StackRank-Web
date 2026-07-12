@@ -11467,6 +11467,8 @@ body.is-comparing .app[data-app-destination="rank"] .panel--add {
 .ranking--compact .movie-item--ranking .movie-item__body {
   grid-column: 3;
   min-width: 0;
+  min-height: 0;
+  align-self: center;
   display: flex;
   align-items: baseline;
   gap: 6px;

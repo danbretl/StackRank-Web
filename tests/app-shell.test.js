@@ -2,9 +2,12 @@ import assert from "node:assert/strict";
 import test from "node:test";
 
 import {
+  APP_DESTINATION_MEMORY_TTL_MS,
   APP_DESTINATIONS,
+  createAppDestinationMemory,
   createAppShellState,
   normalizeAppDestination,
+  parseAppDestinationMemory,
   switchAppDestination,
 } from "../lib/app-shell.js";
 
@@ -26,6 +29,27 @@ test("createAppShellState normalizes destination and scroll positions", () => {
       you: 0,
     },
   });
+});
+
+test("app destination memory keeps a valid destination for 30 minutes", () => {
+  const now = Date.parse("2026-07-12T16:00:00.000Z");
+  const memory = createAppDestinationMemory("ranking", now - APP_DESTINATION_MEMORY_TTL_MS);
+
+  assert.deepEqual(memory, {
+    destination: "ranking",
+    updatedAt: now - APP_DESTINATION_MEMORY_TTL_MS,
+  });
+  assert.equal(parseAppDestinationMemory(JSON.stringify(memory), now), "ranking");
+});
+
+test("app destination memory defaults to Rank after inactivity or invalid data", () => {
+  const now = Date.parse("2026-07-12T16:00:00.000Z");
+  const expired = createAppDestinationMemory("you", now - APP_DESTINATION_MEMORY_TTL_MS - 1);
+
+  assert.equal(parseAppDestinationMemory(JSON.stringify(expired), now), "rank");
+  assert.equal(parseAppDestinationMemory({ destination: "ranking", updatedAt: now + 1 }, now), "rank");
+  assert.equal(parseAppDestinationMemory({ destination: "unknown", updatedAt: now }, now), "rank");
+  assert.equal(parseAppDestinationMemory("not json", now), "rank");
 });
 
 test("switchAppDestination records current scroll and restores destination scroll", () => {

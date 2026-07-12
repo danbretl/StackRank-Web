@@ -697,7 +697,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=160" ||
+      desktop.cssHref !== "styles.css?v=161" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -3258,8 +3258,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=187" ||
-      empty.cssHref !== "styles.css?v=160" ||
+      empty.moduleSrc !== "app.js?v=188" ||
+      empty.cssHref !== "styles.css?v=161" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -9310,6 +9310,7 @@ const testApprovedAppShellNavigation = async ({ baseUrl }) => {
       const posterRect = poster?.getBoundingClientRect();
       const titleRect = title?.getBoundingClientRect();
       const yearRect = year?.getBoundingClientRect();
+      const body = first?.querySelector('.movie-item__body');
       const overflowRect = overflow?.getBoundingClientRect();
       const visibleRows = [...document.querySelectorAll('#ranking .ranking__item')].filter((row) => {
         const rect = row.getBoundingClientRect();
@@ -9322,6 +9323,10 @@ const testApprovedAppShellNavigation = async ({ baseUrl }) => {
         posterHeight: Math.round(posterRect?.height || 0),
         yearGap: titleRect && yearRect ? Math.round(yearRect.left - titleRect.right) : null,
         yearTopDelta: titleRect && yearRect ? Math.round(Math.abs(yearRect.top - titleRect.top)) : null,
+        titleCenterDelta: rowRect && titleRect
+          ? Math.round(Math.abs((titleRect.top + titleRect.height / 2) - (rowRect.top + rowRect.height / 2)))
+          : null,
+        bodyMinHeight: body ? Math.round(parseFloat(getComputedStyle(body).minHeight) || 0) : null,
         overflowWidth: Math.round(overflowRect?.width || 0),
         overflowHeight: Math.round(overflowRect?.height || 0),
         visibleRows,
@@ -9338,6 +9343,8 @@ const testApprovedAppShellNavigation = async ({ baseUrl }) => {
       phoneCompact.yearGap < 4 ||
       phoneCompact.yearGap > 10 ||
       phoneCompact.yearTopDelta > 3 ||
+      phoneCompact.titleCenterDelta > 2 ||
+      phoneCompact.bodyMinHeight !== 0 ||
       phoneCompact.overflowWidth < 44 ||
       phoneCompact.overflowHeight < 44 ||
       phoneCompact.visibleRows < 6 ||
@@ -9348,6 +9355,42 @@ const testApprovedAppShellNavigation = async ({ baseUrl }) => {
     const phoneCompactShot = await page.screenshot("approved-shell-iphone-compact.png");
     await page.evaluate(`document.querySelector('[data-ranking-view="detailed"]')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#ranking')?.classList.contains('ranking--compact')`, 3000);
+
+    await switchDestination("you");
+    await page.send("Page.reload", { ignoreCache: true });
+    await waitFor(
+      page,
+      `document.readyState === 'complete' && document.querySelector('main.app')?.dataset.appDestination === 'you'`,
+      10000,
+    );
+    const rememberedDestination = await page.evaluate(`(() => ({
+      destination: document.querySelector('main.app')?.dataset.appDestination || '',
+      currentMobileNav: document.querySelector('.app-nav--mobile [aria-current="page"]')?.textContent.trim() || ''
+    }))()`);
+    if (rememberedDestination.destination !== "you" || rememberedDestination.currentMobileNav !== "You") {
+      throw new Error(`Active destination was not remembered on refresh: ${JSON.stringify(rememberedDestination)}`);
+    }
+
+    await page.evaluate(`(() => {
+      sessionStorage.setItem('stackrank:app-destination:v1', JSON.stringify({
+        destination: 'ranking',
+        updatedAt: Date.now() - (30 * 60 * 1000) - 1
+      }));
+      return true;
+    })()`);
+    await page.send("Page.reload", { ignoreCache: true });
+    await waitFor(
+      page,
+      `document.readyState === 'complete' && document.querySelector('main.app')?.dataset.appDestination === 'rank'`,
+      10000,
+    );
+    const expiredDestination = await page.evaluate(`(() => ({
+      destination: document.querySelector('main.app')?.dataset.appDestination || '',
+      currentMobileNav: document.querySelector('.app-nav--mobile [aria-current="page"]')?.textContent.trim() || ''
+    }))()`);
+    if (expiredDestination.destination !== "rank" || expiredDestination.currentMobileNav !== "Rank") {
+      throw new Error(`Expired destination memory did not return to Rank: ${JSON.stringify(expiredDestination)}`);
+    }
 
     await setDeviceProfile(page, {
       width: 844,
@@ -9392,7 +9435,7 @@ const testApprovedAppShellNavigation = async ({ baseUrl }) => {
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Approved shell browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { desktopRank, desktopRanking, compact, posters, filtered, desktopYou, ipad, phoneYou, phoneRanking, phoneRankingOverflow, phoneCompact, phoneLandscape, phoneLandscapeRank, landscapeShelf, landscapeShelfSwipe },
+      details: { desktopRank, desktopRanking, compact, posters, filtered, desktopYou, ipad, phoneYou, phoneRanking, phoneRankingOverflow, phoneCompact, rememberedDestination, expiredDestination, phoneLandscape, phoneLandscapeRank, landscapeShelf, landscapeShelfSwipe },
       screenshots: [
         desktopRankShot,
         desktopOptionsShot,

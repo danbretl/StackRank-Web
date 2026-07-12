@@ -1,8 +1,8 @@
 # Rank Bar density follow-up
 
 Status: **bounded fixes shipped; both private briefs approved; approved Rank,
-Ranking, and personal-space redesign implemented and verified; screenshot
-review brief in progress (Jul 2026).**
+Ranking, and You redesign implemented and verified; private responsive
+implementation review published (Jul 2026).**
 
 This is the handoff record for the first review of the shipped Rank Bar density
 redesign. It supplements, and does not replace,
@@ -291,6 +291,20 @@ browser flows. The responsive capture matrix is archived under
 `debug/screenshots/runs/2026-07-12T08-16-12Z-approved-redesign/`; a subsequent
 focused iPhone-landscape capture verifies the corrected full-width Rank Bar.
 Runtime cache keys are `app.js?v=186` and `styles.css?v=158`.
+
+The screenshot-led implementation review is complete and privately published:
+
+- app implementation: `5dd8a08` — `Unify Ranking and add You dashboard`
+- brief source: `ranking-redesign-review-brief/`
+- private review: <https://stackrank-ranking-you-review.danbretl.chatgpt.site>
+- coverage: Rank, Ranking, Display & filters, Detailed/Posters/Compact views,
+  reorder contracts, and You across Desktop, iPad landscape/portrait, and
+  iPhone landscape/portrait using real app captures
+
+The brief calls out the five highest-value review questions: whether Rank
+creates the intended loop, whether `You` is the right name, whether the view
+labels and action order are intuitive, whether Review order is quiet enough,
+and whether the v1 You widget order is credible.
 
 ## Material product decisions for the briefs
 

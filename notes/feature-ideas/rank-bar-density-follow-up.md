@@ -311,9 +311,9 @@ Initial production phone testing produced three bounded corrections:
 
 - Ranking overflow menus now keep their Info, Re-rank, and Remove actions
   visible instead of inheriting the inline-action hide rule.
-- Compact is a genuinely dense rank/title/year list: posters are removed and
-  phone rows drop from roughly 85px to 45px while retaining 44px Move/overflow
-  targets.
+- Compact keeps a 24×36 poster beside a dense rank/title/year line. The year is
+  left-aligned immediately after the title, and phone rows remain roughly 45px
+  tall with 44px Move/overflow targets.
 - A pack-origin placement toast's `View ranking` action cancels any scheduled
   pack reopen, dismisses an already-visible pack, clears presentation filters,
   navigates to Ranking, and reveals the exact ranked item.
@@ -322,7 +322,7 @@ Regression coverage exercises the visible phone overflow actions, Compact row
 density, and the full pack → rank → toast → revealed Ranking flow. `npm run
 verify` passes with 234 Node tests, 21 Deno edge-function tests, pack validation,
 syntax/cache checks, and all 30 E2E browser flows. Runtime cache keys are
-`app.js?v=187` and `styles.css?v=159`.
+`app.js?v=187` and `styles.css?v=160`.
 
 ## Material product decisions for the briefs
 

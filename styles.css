@@ -11445,7 +11445,7 @@ body.is-comparing .app[data-app-destination="rank"] .panel--add {
 }
 
 .ranking--compact .movie-item--ranking {
-  grid-template-columns: 44px minmax(0, 1fr) auto;
+  grid-template-columns: 44px 24px minmax(0, 1fr) auto;
   min-height: 44px;
   gap: 6px;
 }
@@ -11457,25 +11457,28 @@ body.is-comparing .app[data-app-destination="rank"] .panel--add {
 }
 
 .ranking--compact .movie-item--ranking .movie-item__poster {
-  display: none;
+  display: block;
+  grid-column: 2;
+  width: 24px;
+  height: 36px;
+  border-radius: 3px;
 }
 
 .ranking--compact .movie-item--ranking .movie-item__body {
-  grid-column: 2;
+  grid-column: 3;
   min-width: 0;
-  grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-rows: auto;
+  display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 6px;
+  overflow: hidden;
 }
 
 .ranking--compact .movie-item--ranking .movie-item__actions {
-  grid-column: 3;
+  grid-column: 4;
 }
 
 .ranking--compact .movie-item--ranking .movie-item__year {
-  grid-column: 2;
-  grid-row: 1;
+  flex: 0 0 auto;
   font-size: 0.68rem;
   white-space: nowrap;
 }
@@ -11485,8 +11488,8 @@ body.is-comparing .app[data-app-destination="rank"] .panel--add {
 }
 
 .ranking--compact .movie-item--ranking .movie-item__title {
-  grid-column: 1;
-  grid-row: 1;
+  min-width: 0;
+  flex: 0 1 auto;
   overflow: hidden;
   font-size: 0.8rem;
   line-height: 1.1;

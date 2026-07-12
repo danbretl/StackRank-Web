@@ -697,7 +697,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.tmdbNotice ||
       desktop.tmdbLogoSrc !== "assets/tmdb-logo.svg" ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=159" ||
+      desktop.cssHref !== "styles.css?v=160" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -3259,7 +3259,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
       empty.moduleSrc !== "app.js?v=187" ||
-      empty.cssHref !== "styles.css?v=159" ||
+      empty.cssHref !== "styles.css?v=160" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -9303,8 +9303,13 @@ const testApprovedAppShellNavigation = async ({ baseUrl }) => {
     const phoneCompact = await page.evaluate(`(() => {
       const first = document.querySelector('#ranking .ranking__item');
       const poster = first?.querySelector('.movie-item__poster');
+      const title = first?.querySelector('.movie-item__title');
+      const year = first?.querySelector('.movie-item__year');
       const overflow = first?.querySelector('.movie-item__overflow-toggle');
       const rowRect = first?.getBoundingClientRect();
+      const posterRect = poster?.getBoundingClientRect();
+      const titleRect = title?.getBoundingClientRect();
+      const yearRect = year?.getBoundingClientRect();
       const overflowRect = overflow?.getBoundingClientRect();
       const visibleRows = [...document.querySelectorAll('#ranking .ranking__item')].filter((row) => {
         const rect = row.getBoundingClientRect();
@@ -9313,6 +9318,10 @@ const testApprovedAppShellNavigation = async ({ baseUrl }) => {
       return {
         rowHeight: Math.round(rowRect?.height || 0),
         posterDisplay: poster ? getComputedStyle(poster).display : '',
+        posterWidth: Math.round(posterRect?.width || 0),
+        posterHeight: Math.round(posterRect?.height || 0),
+        yearGap: titleRect && yearRect ? Math.round(yearRect.left - titleRect.right) : null,
+        yearTopDelta: titleRect && yearRect ? Math.round(Math.abs(yearRect.top - titleRect.top)) : null,
         overflowWidth: Math.round(overflowRect?.width || 0),
         overflowHeight: Math.round(overflowRect?.height || 0),
         visibleRows,
@@ -9323,7 +9332,12 @@ const testApprovedAppShellNavigation = async ({ baseUrl }) => {
     if (
       phoneCompact.rowHeight > 46 ||
       phoneCompact.rowHeight >= detailedRowHeight * 0.7 ||
-      phoneCompact.posterDisplay !== "none" ||
+      phoneCompact.posterDisplay === "none" ||
+      phoneCompact.posterWidth !== 24 ||
+      phoneCompact.posterHeight !== 36 ||
+      phoneCompact.yearGap < 4 ||
+      phoneCompact.yearGap > 10 ||
+      phoneCompact.yearTopDelta > 3 ||
       phoneCompact.overflowWidth < 44 ||
       phoneCompact.overflowHeight < 44 ||
       phoneCompact.visibleRows < 6 ||

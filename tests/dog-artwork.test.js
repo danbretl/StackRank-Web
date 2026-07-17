@@ -31,14 +31,16 @@ const policy = await fixture("../artwork-license-policy.json");
 
 const sha256 = "a".repeat(64);
 const sha1 = "b".repeat(40);
-const baseLedger = (assets = []) => ({
+const baseLedger = (assets = [], overrides = {}) => ({
   schemaVersion: 1,
   ledgerVersion: "test.1",
   catalogVersion: "vbo-2026-04-15",
   policyVersion: policy.policyVersion,
   storagePrefix: "dogs-catalog/vbo-2026-04-15-r1/",
+  publicAssetBaseUrl: "https://example.supabase.co/storage/v1/object/public/",
   updatedAt: "2026-07-16",
   assets,
+  ...overrides,
 });
 
 const approvedAsset = (overrides = {}) => ({
@@ -451,6 +453,20 @@ test("unsupported fields, mismatched licenses, missing hashes, and unready deliv
   assert.ok(result.errors.some((error) => /do not match the allowlist/.test(error)));
   assert.ok(result.errors.some((error) => /sourceSha256/.test(error)));
   assert.ok(result.errors.some((error) => /allowed purpose requires byte-verified delivery/.test(error)));
+
+  const unsafeBase = validateArtworkLedger({
+    ledger: baseLedger([approvedAsset()], { publicAssetBaseUrl: "http://example.com/public/" }),
+    policy,
+    catalog: catalog(),
+  });
+  assert.ok(unsafeBase.errors.some((error) => /publicAssetBaseUrl/u.test(error)));
+
+  const wrongStorageEndpoint = validateArtworkLedger({
+    ledger: baseLedger([approvedAsset()], { publicAssetBaseUrl: "https://example.com/public/" }),
+    policy,
+    catalog: catalog(),
+  });
+  assert.ok(wrongStorageEndpoint.errors.some((error) => /publicAssetBaseUrl/u.test(error)));
 });
 
 test("catalog image references fail if their ledger row is missing or belongs to another breed", () => {

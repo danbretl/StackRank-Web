@@ -5,10 +5,12 @@ import {
 import {
   DOGS_CATEGORY,
   DOG_LIST_TYPES,
+  dogArtworkObjectUrl,
+  dogDragAutoScrollDelta,
   dogEntityToCandidate,
   dogStatusLabel,
   normalizeDogCatalogEntity,
-} from "./lib/categories/dogs.js?v=2";
+} from "./lib/categories/dogs.js?v=6";
 import {
   buildCatalogIndex,
   catalogFacetValues,
@@ -49,7 +51,7 @@ import {
   dogsExportText,
   parseDogNameImport,
   parseDogsBackup,
-} from "./lib/dogs.js?v=1";
+} from "./lib/dogs.js?v=2";
 import { buildReviewQueue } from "./lib/review.js?v=1";
 import { createUndoController } from "./lib/undo.js?v=1";
 import {
@@ -67,9 +69,9 @@ const ACTIVE_CATEGORY = resolveDocumentCategory(
 if (!ACTIVE_CATEGORY) throw new Error("Unknown or mismatched StackRank Dogs category");
 
 const STORAGE_KEYS = categoryStorageKeys(ACTIVE_CATEGORY);
-const CATALOG_URL = "data/dogs/dog-catalog.json?v=1";
-const PACKS_URL = "data/dogs/packs.json?v=1";
-const RIGHTS_URL = "data/dogs/image-rights.json?v=2";
+const CATALOG_URL = "data/dogs/dog-catalog.json?v=2";
+const PACKS_URL = "data/dogs/packs.json?v=2";
+const RIGHTS_URL = "data/dogs/image-rights.json?v=3";
 const RIGHTS_POLICY_URL = "data/dogs/artwork-license-policy.json?v=1";
 const TOAST_MS = 4200;
 const UNDO_MS = 8000;
@@ -138,6 +140,7 @@ let catalogItemById = new Map();
 let catalogLoadError = null;
 let packs = [];
 let rightsPolicy = null;
+let rightsLedger = null;
 let rightsAssets = [];
 let rightsByAssetId = new Map();
 let rightsByCatalogId = new Map();
@@ -345,12 +348,10 @@ const showDestination = (destination, { restoreScroll = true } = {}) => {
 const assetObjectUrl = (asset, role = "card") => {
   const variants = Array.isArray(asset?.delivery?.variants) ? asset.delivery.variants : [];
   const variant = variants.find((entry) => entry.role === role) || variants[0];
-  const objectPath = cleanText(variant?.objectPath);
-  if (!objectPath) return "";
-  if (/^https:\/\//.test(objectPath)) return objectPath;
-  if (objectPath.startsWith("/")) return objectPath;
-  if (objectPath.startsWith("assets/")) return `/${objectPath}`;
-  return "";
+  return dogArtworkObjectUrl(variant?.objectPath, {
+    publicBaseUrl: rightsLedger?.publicAssetBaseUrl,
+    storagePrefix: rightsLedger?.storagePrefix,
+  });
 };
 
 const approvedImageForCatalogId = (catalogId, role = "card") => {
@@ -377,12 +378,23 @@ const candidateForCatalogId = (catalogId, role = "card") => {
 
 const displayItem = (item, role = "card") => {
   const current = candidateForCatalogId(item?.entityRef?.id, role);
-  if (!current) return item;
-  return {
+  const safeStoredItem = {
     ...item,
     snapshot: {
-      ...item.snapshot,
-      secondaryText: current.snapshot.secondaryText || item.snapshot.secondaryText,
+      ...item?.snapshot,
+      image: {
+        url: "",
+        alt: cleanText(item?.snapshot?.image?.alt),
+        assetId: "",
+      },
+    },
+  };
+  if (!current) return safeStoredItem;
+  return {
+    ...safeStoredItem,
+    snapshot: {
+      ...safeStoredItem.snapshot,
+      secondaryText: current.snapshot.secondaryText || safeStoredItem.snapshot.secondaryText,
       image: current.snapshot.image,
     },
     catalog: current.catalog,
@@ -410,6 +422,27 @@ const createDogMedia = (item, role = "card") => {
     wrapper.appendChild(image);
   }
   return wrapper;
+};
+
+const appendArtworkCredit = (container, asset, displayName = "") => {
+  const name = cleanText(displayName) || catalogById.get(asset?.catalogId)?.displayName || "Dog breed";
+  const credit = document.createElement("span");
+  credit.textContent = `Photo for ${name}: ${asset?.attribution || asset?.creator || "Creator recorded"}`;
+  const source = document.createElement("a");
+  source.href = asset.sourcePage;
+  source.target = "_blank";
+  source.rel = "noreferrer";
+  source.textContent = "Source";
+  const license = document.createElement("a");
+  license.href = asset.licenseUrl;
+  license.target = "_blank";
+  license.rel = "noreferrer";
+  license.textContent = asset.license || "License";
+  const modifications = (Array.isArray(asset?.modifications) ? asset.modifications : [])
+    .filter((value) => value !== "none")
+    .join(", ");
+  container.append(credit, " · ", source, " · ", license);
+  if (modifications) container.append(` · Modified: ${modifications}.`);
 };
 
 const handledLocation = (id) => {
@@ -1084,14 +1117,7 @@ function openDetail(catalogId) {
   const attribution = document.createElement("p");
   attribution.className = "detail-attribution";
   if (image?.asset) {
-    const asset = image.asset;
-    attribution.append("Photo: ", asset.attribution || asset.creator, " · ", asset.license || "License recorded", " · ");
-    const source = document.createElement("a");
-    source.href = asset.sourcePage;
-    source.target = "_blank";
-    source.rel = "noreferrer";
-    source.textContent = "Source";
-    attribution.append(" ", source);
+    appendArtworkCredit(attribution, image.asset, shown.snapshot.primaryText);
   } else {
     attribution.textContent = "No rights-approved display photo is available yet. Catalog inclusion never depends on image availability.";
   }
@@ -1103,11 +1129,12 @@ function openDetail(catalogId) {
 
 const renderCredits = () => {
   activeDetailId = "";
-  const approved = rightsAssets.filter((asset) => canProviderPurpose(
+  const approvedAssets = rightsAssets.filter((asset) => canProviderPurpose(
     DOGS_CATEGORY,
     PROVIDER_PURPOSES.ARTWORK_UI_DISPLAY,
     { asset, rightsPolicy },
-  )).length;
+  ) && assetObjectUrl(asset, "detail"));
+  const approved = approvedAssets.length;
   detailContent.innerHTML = "";
   const heading = document.createElement("div");
   heading.className = "dialog-heading";
@@ -1123,6 +1150,22 @@ const renderCredits = () => {
   source.innerHTML = "Catalog: Vertebrate Breed Ontology, CC BY 4.0. Every source descendant has an auditable disposition in the generated coverage report. Photo credits appear on each detail view; public and raster sharing remain disabled unless their separate rights gates pass.";
   heading.append(label, title, summary, source);
   detailContent.appendChild(heading);
+  if (approvedAssets.length) {
+    const photoHeading = document.createElement("h2");
+    photoHeading.textContent = "Delivered photo credits";
+    const credits = document.createElement("ul");
+    credits.className = "artwork-credit-list";
+    approvedAssets
+      .sort((left, right) =>
+        (catalogById.get(left.catalogId)?.displayName || left.catalogId)
+          .localeCompare(catalogById.get(right.catalogId)?.displayName || right.catalogId))
+      .forEach((asset) => {
+        const item = document.createElement("li");
+        appendArtworkCredit(item, asset);
+        credits.appendChild(item);
+      });
+    detailContent.append(photoHeading, credits);
+  }
   showDialog(detailDialog);
 };
 
@@ -1356,7 +1399,8 @@ const loadCatalog = async () => {
     packs = (Array.isArray(packsPayload?.packs) ? packsPayload.packs : []).filter((pack) =>
       cleanText(pack?.id) && Array.isArray(pack?.items) && pack.items.every((id) => catalogById.get(id)?.selectable));
     const rightsPayload = rightsResponse.ok ? await rightsResponse.json() : { assets: [] };
-    rightsAssets = Array.isArray(rightsPayload?.assets) ? rightsPayload.assets : [];
+    rightsLedger = rightsPayload && typeof rightsPayload === "object" ? rightsPayload : null;
+    rightsAssets = Array.isArray(rightsLedger?.assets) ? rightsLedger.assets : [];
     rightsPolicy = policyResponse.ok ? await policyResponse.json() : null;
     rightsByAssetId = new Map(rightsAssets.map((asset) => [asset.assetId, asset]));
     rightsByCatalogId = new Map();
@@ -1379,6 +1423,7 @@ const loadCatalog = async () => {
     catalogById = new Map();
     catalogItemById = new Map();
     packs = [];
+    rightsLedger = null;
     rightsAssets = [];
     rightsByAssetId = new Map();
     rightsByCatalogId = new Map();
@@ -1415,15 +1460,39 @@ const onRankingPointerMove = (event) => {
   sourceRow?.classList.add("is-dragging");
   const target = document.elementFromPoint(event.clientX, event.clientY)?.closest(".ranking-row");
   if (target) dragState.targetKey = target.dataset.key;
+  const scrollDelta = dogDragAutoScrollDelta(event.clientY, window.innerHeight);
+  if (scrollDelta) window.scrollBy({ top: scrollDelta, behavior: "instant" });
   event.preventDefault();
 };
 
-const finishRankingDrag = (event) => {
-  if (!dragState || event.pointerId !== dragState.pointerId) return;
+const clearRankingDrag = () => {
   const current = dragState;
   dragState = null;
   document.body.classList.remove("is-dragging");
   $$(".ranking-row.is-dragging").forEach((row) => row.classList.remove("is-dragging"));
+  const sourceRow = current
+    ? $(`.ranking-row[data-key="${CSS.escape(current.sourceKey)}"]`)
+    : null;
+  try {
+    if (current && sourceRow?.hasPointerCapture?.(current.pointerId)) {
+      sourceRow.releasePointerCapture(current.pointerId);
+    }
+  } catch (_error) {
+    // Capture may already have been released by the browser.
+  }
+  return current;
+};
+
+const cancelRankingDrag = (event) => {
+  if (!dragState) return false;
+  if (Number.isInteger(event?.pointerId) && event.pointerId !== dragState.pointerId) return false;
+  clearRankingDrag();
+  return true;
+};
+
+const finishRankingDrag = (event) => {
+  if (!dragState || event.pointerId !== dragState.pointerId) return;
+  const current = clearRankingDrag();
   if (!current.dragging || current.sourceKey === current.targetKey) return;
   const targetIndex = ranking.findIndex((item) => entityRefKey(item) === current.targetKey);
   performRankingMove(current.sourceKey, targetIndex);
@@ -1491,7 +1560,9 @@ rankingEl.addEventListener("keydown", (event) => {
 rankingEl.addEventListener("pointerdown", onRankingPointerDown);
 rankingEl.addEventListener("pointermove", onRankingPointerMove);
 rankingEl.addEventListener("pointerup", finishRankingDrag);
-rankingEl.addEventListener("pointercancel", finishRankingDrag);
+rankingEl.addEventListener("pointercancel", cancelRankingDrag);
+rankingEl.addEventListener("lostpointercapture", cancelRankingDrag);
+window.addEventListener("blur", cancelRankingDrag);
 
 $$('[data-ranking-view]').forEach((button) => {
   button.addEventListener("click", () => {
@@ -1575,7 +1646,8 @@ toastAction.addEventListener("click", () => {
 
 document.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
-  if (!comparisonEl.hidden) cancelRanking();
+  if (cancelRankingDrag()) event.preventDefault();
+  else if (!comparisonEl.hidden) cancelRanking();
   else if (!reviewEl.hidden) endReview();
   else if (!settings.hidden) closeSettings();
 });

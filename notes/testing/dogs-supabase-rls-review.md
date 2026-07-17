@@ -8,6 +8,14 @@ The proposed migration is
 `supabase migration new add_category_data_tables` using Supabase CLI 2.109.1. It adds only generic
 new-category tables; it does not alter the mature Movies tables or payloads.
 
+The separate proposed migration
+`supabase/migrations/20260716090038_add_dog_artwork_storage.sql` prepares immutable Dogs artwork
+delivery. It creates the public `dogs-catalog` bucket with a 5 MiB object limit and a WebP-only MIME
+allowlist. Supabase public buckets serve known direct object URLs without a `storage.objects`
+SELECT policy, so the migration creates no browser policy for listing, INSERT, UPDATE, or DELETE.
+An accountable operator must upload through the service role and verify the delivered bytes. It
+does not upload any object.
+
 ## Current platform guidance reviewed
 
 - [Supabase changelog index](https://supabase.com/changelog.md), fetched July 16, 2026.
@@ -78,6 +86,7 @@ Read-only inspection of the linked production project confirmed:
 
 - PostgreSQL 17.6 and `auth.uid()` are available;
 - all four proposed `category_*` relation names are unused;
+- the proposed `dogs-catalog` storage bucket id is unused and no existing storage policy references it;
 - all four mature Movies relations remain present;
 - the current migration ledger ends at `20260708160447_allow_owner_read_shared_lists`, so the local
   `20260716090037` version does not collide;
@@ -136,6 +145,21 @@ where conrelid in (
   'public.category_shared_lists'::regclass
 )
 order by table_name::text, conname;
+
+select id, name, public, file_size_limit, allowed_mime_types
+from storage.buckets
+where id = 'dogs-catalog';
+
+select policyname, roles, cmd, qual, with_check
+from pg_policies
+where schemaname = 'storage'
+  and tablename = 'objects'
+  and (
+    policyname ilike '%Dogs%'
+    or coalesce(qual, '') ilike '%dogs-catalog%'
+    or coalesce(with_check, '') ilike '%dogs-catalog%'
+  )
+order by policyname;
 "
 ```
 
@@ -197,3 +221,8 @@ Before any production application, repeat the behavior probes against a disposab
 run security and performance advisors there, and inspect Data API REST behavior with real User A,
 User B, and anonymous JWT contexts. Production migration application remains a separate explicit
 authorization gate.
+
+For artwork storage, also verify that an anonymous GET of one operator-uploaded fixture succeeds,
+that anonymous/authenticated list, INSERT, UPDATE, and DELETE attempts fail, and that the returned
+bytes, content type, and one-year cache header match the delivery manifest. Delete the disposable
+fixture with the service role before treating the storage rehearsal as complete.

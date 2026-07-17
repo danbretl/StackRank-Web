@@ -206,9 +206,9 @@ for (const asset of [
   expectedDogsModule,
   expectedVendorModule,
   "data/suggestion-packs.json?v=5",
-  "data/dogs/dog-catalog.json?v=1",
-  "data/dogs/packs.json?v=1",
-  "data/dogs/image-rights.json?v=1",
+  "data/dogs/dog-catalog.json?v=2",
+  "data/dogs/packs.json?v=2",
+  "data/dogs/image-rights.json?v=3",
   "data/dogs/artwork-license-policy.json?v=1",
 ]) {
   const response = await request(new URL(assetPath(asset), productionOrigin).toString());
@@ -221,12 +221,12 @@ for (const asset of [
 }
 record("cache-busted app, vendor, CSS, and pack data are immutable");
 
-const dogCatalogResponse = await request(new URL("/data/dogs/dog-catalog.json?v=1", productionOrigin));
+const dogCatalogResponse = await request(new URL("/data/dogs/dog-catalog.json?v=2", productionOrigin));
 const dogCatalog = await dogCatalogResponse.json();
 assert.equal(dogCatalog.catalogId, "stackrank-dogs");
 assert.equal(dogCatalog.entities?.length, 1264);
 assert.equal(dogCatalog.source?.release, "2026-04-15");
-const dogPacksResponse = await request(new URL("/data/dogs/packs.json?v=1", productionOrigin));
+const dogPacksResponse = await request(new URL("/data/dogs/packs.json?v=2", productionOrigin));
 const dogPacks = await dogPacksResponse.json();
 assert.equal(dogPacks.packs?.length, 46);
 assert.equal(dogPacks.packs?.filter((pack) => pack.placements?.includes("starter")).length, 3);

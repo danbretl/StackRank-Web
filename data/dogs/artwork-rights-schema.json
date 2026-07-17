@@ -10,6 +10,7 @@
     "catalogVersion",
     "policyVersion",
     "storagePrefix",
+    "publicAssetBaseUrl",
     "updatedAt",
     "assets"
   ],
@@ -32,6 +33,10 @@
     "storagePrefix": {
       "type": "string",
       "pattern": "^dogs-catalog/[a-z0-9.-]+/$"
+    },
+    "publicAssetBaseUrl": {
+      "type": "string",
+      "pattern": "^https://[^/?#]+/storage/v1/object/public/$"
     },
     "updatedAt": {
       "type": "string",

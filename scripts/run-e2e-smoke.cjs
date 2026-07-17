@@ -95,7 +95,9 @@ const serveStatic = async () => {
       return;
     }
     const relativePath =
-      pathname === "/movies"
+      /^\/dogs-catalog\/e2e\/[a-z0-9.-]+\.webp$/u.test(pathname)
+        ? "assets/og-preview.png"
+      : pathname === "/movies"
         ? "index.html"
         : pathname === "/books"
           ? "books.html"
@@ -714,9 +716,11 @@ const testBooksVerticalSlice = async ({ baseUrl }) => {
       `,
     });
     await page.send("Page.navigate", { url: `${baseUrl}/books?e2e=books-vertical-slice` });
+    // Provider-hosted cover images can keep readyState at "interactive" while
+    // the deterministic local shelf UI is already complete and actionable.
     await waitFor(
       page,
-      `document.readyState === 'complete' && document.querySelectorAll('.book-tile').length === 12`,
+      `document.readyState !== 'loading' && document.querySelectorAll('.book-tile').length === 12`,
       10000,
     );
 
@@ -1006,6 +1010,9 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       robots: document.querySelector('meta[name="robots"]')?.content || null,
       cssHref: document.querySelector('link[rel="stylesheet"]')?.getAttribute('href'),
       scriptSrc: document.querySelector('script[type="module"]')?.getAttribute('src'),
+      searchRole: document.querySelector('#dogs-search')?.getAttribute('role'),
+      searchAutocomplete: document.querySelector('#dogs-search')?.getAttribute('aria-autocomplete'),
+      searchControls: document.querySelector('#dogs-search')?.getAttribute('aria-controls'),
       catalogStatus: document.querySelector('#dogs-catalog-status')?.textContent.trim(),
       featuredTitles: [...document.querySelectorAll('.featured-pack h3')].map((node) => node.textContent.trim()),
       tileCount: document.querySelectorAll('.featured-pack .breed-tile').length,
@@ -1019,8 +1026,11 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       initial.marker !== "dogs" ||
       initial.canonical !== "https://www.stackrankapp.com/dogs" ||
       initial.robots !== null ||
-      initial.cssHref !== "dogs.css?v=4" ||
-      initial.scriptSrc !== "dogs.js?v=4" ||
+      initial.cssHref !== "dogs.css?v=5" ||
+      initial.scriptSrc !== "dogs.js?v=8" ||
+      initial.searchRole !== "combobox" ||
+      initial.searchAutocomplete !== "list" ||
+      initial.searchControls !== "dogs-suggestions" ||
       initial.featuredTitles.join("|") !== "Around the world|Shapes and coats|Familiar and beyond" ||
       initial.tileCount !== 9 ||
       initial.dogsStorage !== null ||
@@ -1182,6 +1192,45 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       3000,
     );
 
+    const cancelDragPoints = await page.evaluate(`(() => {
+      const rows = [...document.querySelectorAll('#dogs-ranking .ranking-row')];
+      const from = rows[0]?.querySelector('.ranking-row__copy')?.getBoundingClientRect();
+      const to = rows.at(-1)?.querySelector('.ranking-row__copy')?.getBoundingClientRect();
+      return from && to ? {
+        from: { x: from.left + from.width / 2, y: from.top + from.height / 2 },
+        to: { x: to.left + to.width / 2, y: to.top + to.height / 2 }
+      } : null;
+    })()`);
+    if (!cancelDragPoints) throw new Error("Dogs cancel-drag targets were unavailable");
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mousePressed", x: cancelDragPoints.from.x, y: cancelDragPoints.from.y,
+      button: "left", buttons: 1, clickCount: 1,
+    });
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mouseMoved", x: cancelDragPoints.to.x, y: cancelDragPoints.to.y,
+      button: "left", buttons: 1,
+    });
+    await waitFor(page, `document.body.classList.contains('is-dragging')`, 3000);
+    await page.evaluate(`document.dispatchEvent(new KeyboardEvent('keydown', {
+      key: 'Escape', bubbles: true, cancelable: true
+    })); true;`);
+    await page.send("Input.dispatchMouseEvent", {
+      type: "mouseReleased", x: cancelDragPoints.to.x, y: cancelDragPoints.to.y,
+      button: "left", buttons: 0, clickCount: 1,
+    });
+    const canceledDrag = await page.evaluate(`(() => ({
+      order: [...document.querySelectorAll('#dogs-ranking .ranking-row strong')].map((node) => node.textContent.trim()),
+      dragging: document.body.classList.contains('is-dragging'),
+      touchAction: getComputedStyle(document.querySelector('#dogs-ranking .move-handle')).touchAction
+    }))()`);
+    if (
+      JSON.stringify(canceledDrag.order) !== JSON.stringify(beforePointerOrder) ||
+      canceledDrag.dragging ||
+      canceledDrag.touchAction !== "none"
+    ) {
+      throw new Error(`Dogs interrupted drag was not canceled safely: ${JSON.stringify(canceledDrag)}`);
+    }
+
     await page.evaluate(`document.querySelector('[data-ranking-view="photos"]')?.click(); true;`);
     await waitFor(page, `document.querySelector('#dogs-ranking')?.dataset.rankingView === 'photos'`, 3000);
     const photoView = await page.evaluate(`(() => ({
@@ -1249,9 +1298,17 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     const detail = await page.evaluate(`(() => ({
       title: document.querySelector('#dogs-detail h1')?.textContent.trim(),
       id: [...document.querySelectorAll('#dogs-detail .detail-fact strong')].find((node) => /^VBO:/.test(node.textContent))?.textContent.trim(),
+      registryRefs: [...document.querySelectorAll('#dogs-detail .detail-fact')]
+        .find((node) => node.querySelector('span')?.textContent.trim() === 'Registry references')
+        ?.querySelector('strong')?.textContent.trim(),
       rightsFallback: document.querySelector('#dogs-detail .detail-attribution')?.textContent.includes('No rights-approved display photo')
     }))()`);
-    if (!detail.title || !/^VBO:\d{7}$/.test(detail.id || "") || !detail.rightsFallback) {
+    if (
+      !detail.title ||
+      !/^VBO:\d{7}$/.test(detail.id || "") ||
+      !detail.registryRefs?.includes(":") ||
+      !detail.rightsFallback
+    ) {
       throw new Error(`Dogs detail provenance is incomplete: ${JSON.stringify(detail)}`);
     }
     const detailShot = await page.screenshot("dogs-detail-desktop.png");
@@ -1556,12 +1613,182 @@ const testDogsPhoneViewport = async ({ baseUrl }) => {
       throw new Error(`Dogs true phone landscape is clipped: ${JSON.stringify({ landscapeProfile, landscape })}`);
     }
     const landscapeShot = await page.screenshot("dogs-phone-comparison-landscape.png");
+    await setDeviceProfile(page, {
+      width: 390,
+      height: 844,
+      input: DEVICE_INPUT_PROFILE.coarseTouch,
+    });
+    await page.evaluate(`
+      document.querySelector('#dogs-cancel-comparison')?.click();
+      document.querySelector('.dogs-nav [data-destination="ranking"]')?.click();
+      true;
+    `);
+    await waitFor(page, `document.querySelectorAll('#dogs-ranking .ranking-row').length === 1`, 3000);
+    const phoneRankingActions = await page.evaluate(`(() => {
+      const remove = document.querySelector('#dogs-ranking [data-action="remove"]');
+      const box = remove?.getBoundingClientRect();
+      return {
+        removeVisible: Boolean(box && box.width >= 44 && box.height >= 44),
+        removeDisplay: remove ? getComputedStyle(remove).display : null,
+        overflow: document.documentElement.scrollWidth > innerWidth
+      };
+    })()`);
+    if (
+      !phoneRankingActions.removeVisible ||
+      phoneRankingActions.removeDisplay === "none" ||
+      phoneRankingActions.overflow
+    ) {
+      throw new Error(`Dogs phone ranking lacks a safe Remove action: ${JSON.stringify(phoneRankingActions)}`);
+    }
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Dogs phone browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { portraitProfile, portrait, landscapeProfile, landscape },
+      details: { portraitProfile, portrait, landscapeProfile, landscape, phoneRankingActions },
       screenshots: [portraitShot, landscapeShot],
     };
+  } finally {
+    await page.close();
+  }
+};
+
+const testDogsApprovedArtworkAttribution = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "dogs-approved-artwork", width: 1280, height: 900 });
+  const storagePrefix = "dogs-catalog/e2e/";
+  const cardPath = `${storagePrefix}approved-dog-320.webp`;
+  const detailPath = `${storagePrefix}approved-dog-960.webp`;
+  const sourcePage = "https://commons.wikimedia.org/wiki/File:Broholmer_634.jpg";
+  const licenseUrl = "https://creativecommons.org/licenses/by-sa/3.0/";
+  const mockRights = {
+    schemaVersion: 1,
+    ledgerVersion: "e2e.1",
+    catalogVersion: "vbo-2026-04-15.2",
+    policyVersion: "2026-07-16.1",
+    storagePrefix,
+    publicAssetBaseUrl: `${baseUrl}/`,
+    updatedAt: "2026-07-16",
+    assets: [{
+      assetId: "dogs:photo:commons:aaaaaaaaaaaaaaaa",
+      catalogId: "VBO:0000661",
+      sourcePage,
+      creator: "Fixture Photographer",
+      license: "CC BY-SA 3.0",
+      licenseUrl,
+      attribution: "Broholmer — Fixture Photographer; CC BY-SA 3.0; via Wikimedia Commons.",
+      modifications: ["crop", "resize", "webp conversion"],
+      review: {
+        status: "approved",
+        subjectMatchesCatalog: true,
+      },
+      uiDisplayAllowed: true,
+      publicSnapshotAllowed: false,
+      rasterExportAllowed: false,
+      delivery: {
+        status: "uploaded_verified",
+        variants: [
+          { role: "card", objectPath: cardPath },
+          { role: "detail", objectPath: detailPath },
+        ],
+      },
+    }],
+  };
+  try {
+    await page.send("Page.addScriptToEvaluateOnNewDocument", {
+      source: `
+        const nativeFetch = window.fetch.bind(window);
+        window.fetch = (input, init) => {
+          if (String(input).includes('data/dogs/image-rights.json')) {
+            return Promise.resolve(new Response(${JSON.stringify(JSON.stringify(mockRights))}, {
+              status: 200,
+              headers: { 'content-type': 'application/json' }
+            }));
+          }
+          return nativeFetch(input, init);
+        };
+      `,
+    });
+    await page.send("Page.navigate", { url: `${baseUrl}/dogs?e2e=dogs-approved-artwork` });
+    await waitFor(
+      page,
+      `document.querySelector('#dogs-catalog-status')?.textContent.includes('(1 available)')`,
+      15000,
+    );
+    await page.evaluate(`(() => {
+      const input = document.querySelector('#dogs-search');
+      input.value = 'Broholmer';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      return true;
+    })()`);
+    await waitFor(page, `document.querySelectorAll('#dogs-suggestions .search-option').length === 1`, 3000);
+    await page.evaluate(`document.querySelector('#dogs-suggestions .search-option')?.click(); true;`);
+    await waitFor(
+      page,
+      `JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1') || '{"items":[]}').items.length === 1`,
+      3000,
+    );
+    await page.evaluate(`document.querySelector('.dogs-nav [data-destination="ranking"]')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#dogs-ranking .dog-media img')?.complete &&
+       !document.querySelector('#dogs-ranking .dog-media')?.classList.contains('is-missing')`,
+      3000,
+    );
+    const card = await page.evaluate(`(() => {
+      const image = document.querySelector('#dogs-ranking .dog-media img');
+      return {
+        src: image?.src,
+        visible: Boolean(image && image.getBoundingClientRect().width > 0),
+        fallback: image?.closest('.dog-media')?.classList.contains('is-missing')
+      };
+    })()`);
+    const expectedCardUrl = `${baseUrl}/${cardPath}`;
+    if (card.src !== expectedCardUrl || !card.visible || card.fallback) {
+      throw new Error(`Dogs approved card artwork did not load: ${JSON.stringify({ card, expectedCardUrl })}`);
+    }
+
+    await page.evaluate(`document.querySelector('#dogs-ranking [data-action="detail"]')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#dogs-detail')?.open`, 3000);
+    const detail = await page.evaluate(`(() => {
+      const credit = document.querySelector('#dogs-detail .detail-attribution');
+      const links = [...credit.querySelectorAll('a')];
+      return {
+        imageSrc: document.querySelector('#dogs-detail .dog-media img')?.src,
+        text: credit.textContent,
+        sourceHref: links.find((link) => link.textContent === 'Source')?.href,
+        licenseHref: links.find((link) => link.textContent === 'CC BY-SA 3.0')?.href
+      };
+    })()`);
+    if (
+      detail.imageSrc !== `${baseUrl}/${detailPath}` ||
+      detail.sourceHref !== sourcePage ||
+      detail.licenseHref !== licenseUrl ||
+      !detail.text.includes("Modified: crop, resize, webp conversion.")
+    ) {
+      throw new Error(`Dogs detail attribution is incomplete: ${JSON.stringify(detail)}`);
+    }
+
+    await page.evaluate(`document.querySelector('#dogs-open-credits')?.click(); true;`);
+    await waitFor(page, `document.querySelectorAll('#dogs-detail .artwork-credit-list li').length === 1`, 3000);
+    const credits = await page.evaluate(`(() => {
+      const item = document.querySelector('#dogs-detail .artwork-credit-list li');
+      return {
+        count: document.querySelectorAll('#dogs-detail .artwork-credit-list li').length,
+        text: item?.textContent,
+        links: [...item.querySelectorAll('a')].map((link) => link.href)
+      };
+    })()`);
+    if (
+      credits.count !== 1 ||
+      !credits.text.includes("Fixture Photographer") ||
+      !credits.text.includes("Modified: crop, resize, webp conversion.") ||
+      !credits.links.includes(sourcePage) ||
+      !credits.links.includes(licenseUrl)
+    ) {
+      throw new Error(`Dogs comprehensive photo credits are incomplete: ${JSON.stringify(credits)}`);
+    }
+    const screenshot = await page.screenshot("dogs-approved-artwork-credits.png");
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Dogs approved artwork browser errors: ${JSON.stringify(health.errors)}`);
+    return { details: { card, detail, credits }, screenshots: [screenshot] };
   } finally {
     await page.close();
   }
@@ -1575,7 +1802,11 @@ const testDogsFailureRecovery = async ({ baseUrl }) => {
       primaryText: "Broholmer",
       secondaryText: "Breed or type",
       year: null,
-      image: { url: "", alt: "", assetId: "" },
+      image: {
+        url: "https://unapproved.example.test/stale-dog.webp",
+        alt: "Stale unapproved dog",
+        assetId: "dogs:photo:retired:aaaaaaaaaaaaaaaa",
+      },
     },
     rankedAt: "2026-07-16T08:00:00.000Z",
     comparisons: 0,
@@ -1605,9 +1836,15 @@ const testDogsFailureRecovery = async ({ baseUrl }) => {
       status: document.querySelector('#dogs-catalog-status')?.textContent.trim(),
       rows: document.querySelectorAll('#dogs-ranking .ranking-row').length,
       savedName: document.querySelector('#dogs-ranking .ranking-row strong')?.textContent.trim(),
-      fallbackVisible: !document.querySelector('#dogs-discovery-fallback')?.hidden
+      fallbackVisible: !document.querySelector('#dogs-discovery-fallback')?.hidden,
+      renderedImages: document.querySelectorAll('#dogs-ranking .dog-media img').length
     }))()`);
-    if (failedCatalog.rows !== 1 || failedCatalog.savedName !== "Broholmer" || !failedCatalog.fallbackVisible) {
+    if (
+      failedCatalog.rows !== 1 ||
+      failedCatalog.savedName !== "Broholmer" ||
+      !failedCatalog.fallbackVisible ||
+      failedCatalog.renderedImages !== 0
+    ) {
       throw new Error(`Dogs catalog failure lost saved data: ${JSON.stringify(failedCatalog)}`);
     }
     await page.send("Network.setBlockedURLs", { urls: [] });
@@ -10735,6 +10972,7 @@ const tests = [
   { name: "noindex family home preview", run: testFamilyHomePreview },
   { name: "Dogs comprehensive local product", run: testDogsLocalProduct },
   { name: "Dogs exact phone portrait and landscape viewport", run: testDogsPhoneViewport },
+  { name: "Dogs approved artwork and attribution contract", run: testDogsApprovedArtworkAttribution },
   { name: "Dogs catalog and storage failure recovery", run: testDogsFailureRecovery },
   { name: "privacy page and TMDB credits", run: testPrivacyAndCredits },
   { name: "mobile and desktop boot layout stability", run: testBootLayoutStability },

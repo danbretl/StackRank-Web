@@ -394,7 +394,7 @@ textarea:focus-visible,
   background: #fff;
   cursor: pointer;
 }
-.ranking-row__actions .move-handle { display: none; cursor: grab; }
+.ranking-row__actions .move-handle { display: none; cursor: grab; touch-action: none; }
 body.is-move-mode .ranking-row__actions .move-handle { display: inline-grid; place-items: center; }
 .ranking-row.is-dragging { z-index: 5; opacity: 0.75; background: #fff; box-shadow: var(--shadow-small); }
 .dogs-ranking[data-ranking-view="photos"] { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; padding: 24px 0; }
@@ -413,7 +413,7 @@ body.is-move-mode .ranking-row__actions .move-handle { display: inline-grid; pla
 .dogs-ranking[data-ranking-view="photos"] .ranking-row__copy strong { font-size: 1rem; }
 .dogs-ranking[data-ranking-view="photos"] .ranking-row__copy span { font-size: 0.76rem; }
 .dogs-ranking[data-ranking-view="photos"] .ranking-row__actions { grid-column: 2; grid-row: 2; }
-.dogs-ranking[data-ranking-view="photos"] .ranking-row__actions button:not([data-action="detail"]):not(.move-handle) { display: none; }
+.dogs-ranking[data-ranking-view="photos"] .ranking-row__actions button:not([data-action="detail"]):not([data-action="remove"]):not(.move-handle) { display: none; }
 .dogs-ranking[data-ranking-view="compact"] .ranking-row { grid-template-columns: 54px minmax(0, 1fr) auto; min-height: 66px; padding: 8px 4px; }
 .dogs-ranking[data-ranking-view="compact"] .dog-media { display: none; }
 .dogs-ranking[data-ranking-view="compact"] .ranking-row__copy { grid-column: 2; }
@@ -522,6 +522,8 @@ body.is-move-mode .ranking-row__actions .move-handle { display: inline-grid; pla
 .detail-fact span { display: block; color: var(--ink-soft); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; }
 .detail-fact strong { display: block; margin-top: 5px; }
 .detail-attribution { padding-top: 18px; border-top: 1px solid var(--border-soft); color: var(--ink-soft); font-size: 0.78rem; line-height: 1.5; }
+.artwork-credit-list { display: grid; gap: 12px; padding: 0; list-style: none; }
+.artwork-credit-list li { padding: 14px 0; border-bottom: 1px solid var(--border-soft); color: var(--ink-soft); font-size: 0.82rem; line-height: 1.55; }
 .pack-browser-tools { display: flex; gap: 14px; margin: 28px 0 18px; }
 .pack-browser-tools label { display: grid; flex: 1; gap: 5px; color: var(--ink-soft); font-size: 0.76rem; }
 .pack-browser-tools input,
@@ -676,10 +678,10 @@ body.is-move-mode .ranking-row__actions .move-handle { display: inline-grid; pla
   .ranking-row__copy span { font-size: 0.72rem; }
   .ranking-row__actions { display: grid; grid-template-columns: repeat(2, 44px); }
   .ranking-row__actions button[data-action="up"],
-  .ranking-row__actions button[data-action="down"],
-  .ranking-row__actions button[data-action="remove"] { display: none; }
+  .ranking-row__actions button[data-action="down"] { display: none; }
   body.is-move-mode .ranking-row__actions { grid-template-columns: 44px; }
-  body.is-move-mode .ranking-row__actions button[data-action="detail"] { display: none; }
+  body.is-move-mode .ranking-row__actions button[data-action="detail"],
+  body.is-move-mode .ranking-row__actions button[data-action="remove"] { display: none; }
   .dogs-ranking[data-ranking-view="photos"] { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .dogs-ranking[data-ranking-view="compact"] .ranking-row { grid-template-columns: 38px minmax(0, 1fr) auto; }
   .you-stats { grid-template-columns: repeat(2, 1fr); }

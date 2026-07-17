@@ -6,7 +6,7 @@ export const MIXED_BREED_ID = "VBO:0200902";
 export const CLASSIFICATION_SCHEMA_VERSION = 1;
 export const CATALOG_SCHEMA_VERSION = 1;
 export const CATALOG_ID = "stackrank-dogs";
-export const CATALOG_VERSION = "vbo-2026-04-15.1";
+export const CATALOG_VERSION = "vbo-2026-04-15.2";
 export const MAX_RUNTIME_BYTES = 2_000_000;
 export const MAX_RECORD_BYTES = 16_384;
 
@@ -30,6 +30,14 @@ const CURIE_PATTERN = /^VBO:\d{7}$/u;
 const VBO_IRI_PREFIX = "http://purl.obolibrary.org/obo/VBO_";
 const SOURCE_PREDICATE = "http://purl.org/dc/terms/source";
 const MOST_COMMON_NAME_SUFFIX = "#most_common_name";
+const PLACEHOLDER_CATALOG_NAMES = new Set([
+  "n a",
+  "none",
+  "not applicable",
+  "tbd",
+  "unknown",
+  "unspecified",
+]);
 
 export function readJson(path) {
   return JSON.parse(fs.readFileSync(path, "utf8"));
@@ -68,11 +76,17 @@ export function normalizeCatalogName(value) {
     .trim();
 }
 
+function isUsableCatalogName(value) {
+  if (!String(value || "").trim()) return false;
+  const normalized = normalizeCatalogName(value);
+  return !PLACEHOLDER_CATALOG_NAMES.has(normalized);
+}
+
 export function sourceDisplayName(node) {
   const preferred = (node?.meta?.synonyms || []).find(
     (synonym) => synonym.synonymType?.endsWith(MOST_COMMON_NAME_SUFFIX),
   )?.val;
-  return String(preferred || node?.lbl || "")
+  return String(isUsableCatalogName(preferred) ? preferred : node?.lbl || "")
     .replace(/ \(Dog\)$/u, "")
     .trim();
 }
@@ -426,7 +440,11 @@ function aliasesForEntries(entries, displayName, entityId, preferredOwnerByName)
   ).filter((alias) => {
     const normalized = normalizeCatalogName(alias);
     const preferredOwner = preferredOwnerByName.get(normalized);
-    return normalized !== displayKey && (!preferredOwner || preferredOwner === entityId);
+    return (
+      isUsableCatalogName(alias) &&
+      normalized !== displayKey &&
+      (!preferredOwner || preferredOwner === entityId)
+    );
   });
 }
 
@@ -945,11 +963,19 @@ export function validateCatalogSystem({
     entitiesById.set(entity.id, entity);
     if (!CURIE_PATTERN.test(entity.id || "")) errors.push(`Invalid catalog identity ${entity.id}`);
     if (!entity.displayName?.trim()) errors.push(`Catalog entity ${entity.id} is missing displayName`);
+    if (entity.displayName?.trim() && !isUsableCatalogName(entity.displayName)) {
+      errors.push(`Catalog entity ${entity.id} uses placeholder displayName ${entity.displayName}`);
+    }
     if (entity.entityType !== "dog") errors.push(`Catalog entity ${entity.id} must have entityType dog`);
     if (!SELECTABLE_DISPOSITIONS.has(entity.status)) errors.push(`Catalog entity ${entity.id} has invalid status`);
     if (entity.selectable !== true) errors.push(`Runtime catalog entity ${entity.id} must be selectable`);
     if (!Array.isArray(entity.sourceIds) || !entity.sourceIds.includes(entity.id)) {
       errors.push(`Catalog entity ${entity.id} must preserve its VBO source id`);
+    }
+    for (const alias of entity.aliases || []) {
+      if (!isUsableCatalogName(alias)) {
+        errors.push(`Catalog entity ${entity.id} uses placeholder alias ${alias}`);
+      }
     }
     if (
       entity.primaryImageAssetId !== null &&

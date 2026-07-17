@@ -57,6 +57,7 @@ const ALLOWED_LEDGER_KEYS = new Set([
   "catalogVersion",
   "policyVersion",
   "storagePrefix",
+  "publicAssetBaseUrl",
   "updatedAt",
   "assets",
 ]);
@@ -749,7 +750,13 @@ export const validateArtworkLedger = ({ ledger, policy, catalog = null, packs = 
   if (!isObject(ledger)) return { errors: ["ledger must be an object"], warnings, report: null };
   validateObjectKeys(ledger, ALLOWED_LEDGER_KEYS, "ledger", errors);
   if (ledger.schemaVersion !== 1) errors.push("ledger.schemaVersion must be 1");
-  for (const field of ["ledgerVersion", "catalogVersion", "policyVersion", "storagePrefix"]) {
+  for (const field of [
+    "ledgerVersion",
+    "catalogVersion",
+    "policyVersion",
+    "storagePrefix",
+    "publicAssetBaseUrl",
+  ]) {
     if (!cleanString(ledger[field])) errors.push(`ledger.${field} is required`);
   }
   if (ledger.policyVersion !== policy?.policyVersion) errors.push("ledger.policyVersion does not match policy.policyVersion");
@@ -761,6 +768,23 @@ export const validateArtworkLedger = ({ ledger, policy, catalog = null, packs = 
   }
   if (!/^dogs-catalog\/[a-z0-9.-]+\/$/.test(cleanString(ledger.storagePrefix))) {
     errors.push("ledger.storagePrefix must be an immutable dogs-catalog version prefix");
+  }
+  try {
+    const publicAssetBaseUrl = new URL(cleanString(ledger.publicAssetBaseUrl));
+    if (
+      publicAssetBaseUrl.protocol !== "https:" ||
+      publicAssetBaseUrl.username ||
+      publicAssetBaseUrl.password ||
+      publicAssetBaseUrl.search ||
+      publicAssetBaseUrl.hash ||
+      publicAssetBaseUrl.pathname !== "/storage/v1/object/public/"
+    ) {
+      throw new Error("unsafe public asset base");
+    }
+  } catch {
+    errors.push(
+      "ledger.publicAssetBaseUrl must be a credential-free HTTPS Supabase public Storage URL",
+    );
   }
   if (!isDate(ledger.updatedAt)) errors.push("ledger.updatedAt must be YYYY-MM-DD");
   if (!Array.isArray(ledger.assets)) errors.push("ledger.assets must be an array");

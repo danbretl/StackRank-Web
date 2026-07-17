@@ -48,18 +48,26 @@ Disposition counts:
 | Historical | 36 |
 | Excluded | 2 |
 
-The runtime catalog contains `1,264` selectable concepts in a deterministic `706,898`-byte JSON
+The runtime catalog contains `1,264` selectable concepts in a deterministic `706,883`-byte JSON
 artifact. Review artifacts retain 26 regional/landrace decisions and 18 deliberately retained
 ambiguous synonyms for human audit rather than silently collapsing them.
+
+`npm run review:dogs:catalog` builds a noindex local workspace under
+`reports/dogs-catalog-review/`. It combines all 682 deterministic review-queue entries with exact
+VBO labels, parents, synonyms, cross-references, source URLs, runtime entity context, and existing
+override evidence. Draft decisions and notes stay in that browser and export only as a review-aid
+JSON file; the workspace has no import, apply, catalog-build, or source-file write capability.
 
 Key artifacts:
 
 - `data/dogs/classification.json`
 - `data/dogs/classification-review.json`
 - `data/dogs/catalog-overrides.json`
+- `data/dogs/catalog-review-guide.md`
 - `data/dogs/dog-catalog.json`
 - `data/dogs/coverage-report.json`
 - `scripts/build-dog-catalog.mjs`
+- `scripts/build-dog-catalog-review.mjs`
 - `scripts/validate-dog-catalog.mjs`
 
 ## Editorial packs
@@ -112,6 +120,13 @@ used for discovery only and cannot write directly to the rights ledger.
 The UI therefore renders a polished code-native fallback. Public links and raster sharing remain
 disabled even if a future asset is approved only for UI display.
 
+A deterministic review-only discovery queue now accounts for all `871` current-canonical concepts
+that do not yet have any ledger row: `185` are prioritized by editorial-pack engagement and `686`
+form the catalog long tail. All `28` existing ledger ids are excluded regardless of approval state,
+so no pending candidate is accidentally rediscovered as “missing.” The queue embeds source versions
+and SHA-256 digests plus bounded Openverse/Commons search inputs; it performs no request, import,
+approval, or download by itself.
+
 `npm run review:dogs:artwork` builds a noindex local review workspace under
 `reports/dogs-artwork-review/`. It presents all 28 exact ledger candidates with uncropped Commons
 originals, pinned/current source links, hashes, attribution, license text, and three separate human
@@ -124,7 +139,11 @@ Key artifacts:
 - `data/dogs/artwork-license-policy.json`
 - `data/dogs/artwork-coverage-report.json`
 - `data/dogs/artwork-review-guide.md`
+- `data/dogs/artwork-discovery-guide.md`
+- `data/dogs/artwork-discovery-queue.json`
 - `scripts/build-dog-artwork-review.mjs`
+- `scripts/build-dog-artwork-discovery-queue.mjs`
+- `scripts/deliver-dog-artwork.mjs`
 - `scripts/fetch-dog-artwork.mjs`
 - `scripts/process-dog-artwork.mjs`
 - `scripts/validate-dog-artwork.mjs`
@@ -163,12 +182,18 @@ entity envelope, and Books was not expanded just to manufacture abstraction.
 The proposed migration was created with `supabase migration new`:
 
 - `supabase/migrations/20260716090037_add_category_data_tables.sql`
+- `supabase/migrations/20260716090038_add_dog_artwork_storage.sql`
 
-It adds only `category_rankings`, `category_lists`, `category_pack_progress`, and
+The first adds only `category_rankings`, `category_lists`, `category_pack_progress`, and
 `category_shared_lists`. It explicitly grants the intended Data API roles, enables RLS, gives every
 owner table SELECT/INSERT/UPDATE/DELETE policies, uses `(select auth.uid())`, gives UPDATE both
 `USING` and `WITH CHECK`, bounds all JSON payloads and generic identifiers, and restricts anonymous
 snapshot reads to safe columns on non-revoked rows. Mature Movies tables are untouched.
+
+The second prepares a public-read, WebP-only `dogs-catalog` bucket with a 5 MiB object bound and no
+browser list or write policies. It does not upload artwork. A read-only production query confirmed
+that the bucket id is currently unused and no existing storage policy references it; neither
+migration has been applied.
 
 Docker and local Postgres are unavailable on this machine, and Supabase rejected a cost-confirmed
 disposable branch because the organization is on Free. A read-only production audit nevertheless
@@ -217,16 +242,17 @@ inspected during implementation.
 
 ## Verification and release checklist
 
-Final local verification completed with a green `npm run verify` on July 16, 2026:
+Final local verification completed with a green `npm run verify` on July 17, 2026:
 
-- 351 / 351 Node unit and data tests passed (`reports/runs/2026-07-17T064123Z`);
+- 378 / 378 Node unit and data tests passed (`reports/runs/2026-07-17T074339Z`);
 - 24 / 24 Deno function tests passed;
 - browser syntax and all 54 cache-manifest assets passed;
 - the 114-pack Movies validator passed;
-- Dogs catalog, structural artwork, and 46-pack validators passed;
-- 35 / 35 real-Chrome flows passed (`reports/e2e/runs/2026-07-17T064138Z`), including
+- Dogs catalog, structural artwork, comprehensive artwork-discovery, and 46-pack validators passed;
+- 36 / 36 real-Chrome flows passed (`reports/e2e/runs/2026-07-17T074356Z`), including
   Movies, Books, Dogs, family home, exact 390×844 and 844×390 Dogs viewports, iPad, failure
-  recovery, backup/import/export downloads, pointer/keyboard reorder, and legacy Movies sharing.
+  recovery, strict backup/import/export downloads, approved-artwork attribution, pointer/keyboard
+  reorder and cancellation, and legacy Movies sharing.
 
 The exact phone pass found and repaired a real intrinsic grid overflow that a shrink-to-fit geometry
 check had masked; the final regression asserts a 390px layout viewport and zero horizontal overflow.

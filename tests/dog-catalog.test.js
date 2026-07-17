@@ -135,6 +135,18 @@ test("keeps the comprehensive runtime artifact bounded without a canonical cap",
   );
 });
 
+test("removes upstream placeholder synonyms from public catalog search names", () => {
+  assert.deepEqual(entitiesById.get("VBO:0201347").aliases, ["Bangkaew"]);
+  assert.equal(
+    catalog.entities.some((entity) =>
+      [entity.displayName, ...entity.aliases].some((name) =>
+        /^(?:n\/?a|none|not applicable|tbd|unknown|unspecified)$/iu.test(name.trim()),
+      ),
+    ),
+    false,
+  );
+});
+
 test("preserves every alias source id and resolves its search names to one stored identity", () => {
   for (const term of classification.terms.filter((row) => row.disposition === "alias")) {
     const target = entitiesById.get(term.targetId);
@@ -267,6 +279,10 @@ test("rejects unsupported metadata and oversized records", () => {
   const oversizedCatalog = clone(catalog);
   oversizedCatalog.entities[0].aliases.push("x".repeat(MAX_RECORD_BYTES));
   assertError(validationErrors({ catalog: oversizedCatalog }), /exceeds 16384 bytes/u);
+
+  const placeholderCatalog = clone(catalog);
+  placeholderCatalog.entities[0].aliases.push("TBD");
+  assertError(validationErrors({ catalog: placeholderCatalog }), /placeholder alias TBD/u);
 });
 
 test("rejects runtime ordering or content that was not emitted by the deterministic compiler", () => {

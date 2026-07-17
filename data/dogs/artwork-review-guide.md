@@ -111,6 +111,62 @@ Browser clients must remain read-only. Verify the remote bytes against the manif
 two variant records into the ledger and set delivery to `uploaded_verified` (or
 `bundled_verified` only for a deliberately checked-in small asset).
 
+The delivery command defaults to local byte/hash verification and performs no network request:
+
+```sh
+npm run deliver:dogs:artwork -- \
+  --manifest /tmp/stackrank-broholmer-art/dogs-photo-commons-example.artwork-processing.json
+```
+
+After an operator has separately uploaded immutable objects, the same command can verify their
+public bytes, MIME type, and one-year browser cache without credentials or writes:
+
+```sh
+npm run deliver:dogs:artwork -- \
+  --manifest /tmp/stackrank-broholmer-art/dogs-photo-commons-example.artwork-processing.json \
+  --public-base-url https://hrfhakrxsllrqmscxxpb.supabase.co/storage/v1/object/public/ \
+  --out /tmp/stackrank-broholmer-art/artwork-delivery.json
+```
+
+Read-only remote verification is pinned to this exact public base so a byte-identical object in a
+different project or object store cannot be mistaken for delivered StackRank artwork.
+
+The upload path is intentionally difficult to trigger. It is available only after the storage
+migration is approved and applied, both secret environment values are present, and the exact
+confirmation token is supplied:
+
+```sh
+SUPABASE_URL=https://PROJECT.supabase.co \
+SUPABASE_SERVICE_ROLE_KEY=... \
+npm run deliver:dogs:artwork -- \
+  --manifest /tmp/stackrank-broholmer-art/dogs-photo-commons-example.artwork-processing.json \
+  --upload \
+  --confirm-upload I_UNDERSTAND_THIS_UPLOADS_IMMUTABLE_DOG_ARTWORK \
+  --out /tmp/stackrank-broholmer-art/artwork-delivery.json
+```
+
+Before its first POST, the tool re-verifies both local variants and checks every authenticated
+Storage object path. A missing object is eligible for upload; an existing object is skipped only
+when its exact bytes, SHA-256, and WebP MIME type match the processing manifest. This makes a
+partially completed run safely resumable while still refusing any conflicting object. Uploads omit
+`x-upsert`, so an object that appears in a race is rejected rather than replaced. It then fetches
+each public object and verifies its exact byte count, SHA-256, WebP MIME type, and
+`max-age=31536000` browser-cache policy. Object names are stable source-derived identifiers inside
+an immutable, versioned storage prefix. Any crop, recipe, or tool change that can alter derivative
+bytes requires a new storage-prefix revision; the old paths are never reused or overwritten. The
+service-role key is never printed or written to the report. Output files use create-only writes.
+
+The report contains a `ledgerFragment` only after remote verification. It does not read or mutate
+`image-rights.json`, grant a use purpose, or change review status. Copying that fragment into the
+approved asset remains a separate human-reviewed edit.
+
+`image-rights.json.publicAssetBaseUrl` is the credential-free HTTPS base used to turn a validated
+`dogs-catalog/...` object path into a browser-readable public URL. Creating that public bucket and
+its bounded WebP configuration is still a separately reviewed migration/operator action. A public
+bucket serves known object URLs without a `storage.objects` SELECT policy; deliberately creating no
+anon/authenticated object policies keeps browser listing and writes closed. The URL in the ledger
+does not create storage, grant browser writes, or upload any bytes.
+
 For every ready image, add `attributionCompliance`. For BY-SA images, also add
 `shareAlikeCompliance` with the same license and no additional restrictions. Only then may
 `uiDisplayAllowed` become true. Public snapshots and raster exports remain false until their global

@@ -60,6 +60,16 @@ Public-domain claims are never auto-imported; a reviewer must document the exact
 
 ## 3. Human source and subject review
 
+Build the local review dashboard first. It embeds the exact catalog and ledger metadata, loads the
+candidate originals lazily from Commons, stores unfinished notes only in that browser, and exports a
+review-notes JSON file. It cannot modify `image-rights.json`, approve an asset, process a crop, or
+upload anything.
+
+```sh
+npm run review:dogs:artwork
+open reports/dogs-artwork-review/index.html
+```
+
 Open the pinned `sourcePageRevision.id`, the current file page, the original at full resolution, and
 the exact Creative Commons legal code. Check:
 

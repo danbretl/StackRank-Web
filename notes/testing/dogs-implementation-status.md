@@ -20,7 +20,7 @@ those launch gates passed.
 | --- | --- | --- |
 | 0 — orient and protect | Complete | Existing Books/cross-domain work and `logo-design-brief/` were preserved; Movies stayed on its existing routes, keys, tables, and payloads. |
 | 1 — catalog compiler | Complete | Pinned VBO release, 100% raw-term disposition, deterministic compiler, validator, reports, and difficult-case tests. |
-| 2 — artwork pipeline | Candidate pipeline complete; approval blocked | Import/process/ledger/policy/coverage tooling is fail-closed. All 27 promoted entities have exact Commons candidates, plus Broholmer; all 28 are byte-verified but pending human review, with zero approved or delivered assets. |
+| 2 — artwork pipeline | Candidate pipeline complete; approval blocked | Import/process/ledger/policy/coverage tooling is fail-closed. All 27 promoted entities have exact Commons candidates, plus Broholmer; all 28 are byte-verified but pending human review, with zero approved or delivered assets. A generated local-only review workspace now makes the exact source, subject, and restriction checks practical without mutating the ledger. |
 | 3 — shared category platform | Complete for demonstrated local behavior | Entity, catalog, ranking session, ranked-list, backup, provider-purpose, list transition, ranking operation, and remote-row contracts have focused tests. Books remains noindex and working. |
 | 4 — Dogs local product | Complete | `/dogs` implements the full local interaction contract and responsive/failure browser flows. |
 | 5 — sync, links, family | Prepared, not enabled | Additive migration and client no-loss/bounds helpers are ready but unapplied. Public snapshot/raster/account capabilities remain off. The noindex `home.html` artifact is ready without replacing `/`. |
@@ -112,12 +112,19 @@ used for discovery only and cannot write directly to the rights ledger.
 The UI therefore renders a polished code-native fallback. Public links and raster sharing remain
 disabled even if a future asset is approved only for UI display.
 
+`npm run review:dogs:artwork` builds a noindex local review workspace under
+`reports/dogs-artwork-review/`. It presents all 28 exact ledger candidates with uncropped Commons
+originals, pinned/current source links, hashes, attribution, license text, and three separate human
+review dimensions. Work-in-progress notes stay in that browser and export as a review-aid JSON file;
+the workspace has no approval, upload, processing, or ledger-write capability.
+
 Key artifacts:
 
 - `data/dogs/image-rights.json`
 - `data/dogs/artwork-license-policy.json`
 - `data/dogs/artwork-coverage-report.json`
 - `data/dogs/artwork-review-guide.md`
+- `scripts/build-dog-artwork-review.mjs`
 - `scripts/fetch-dog-artwork.mjs`
 - `scripts/process-dog-artwork.mjs`
 - `scripts/validate-dog-artwork.mjs`
@@ -212,12 +219,12 @@ inspected during implementation.
 
 Final local verification completed with a green `npm run verify` on July 16, 2026:
 
-- 349 / 349 Node unit and data tests passed (`reports/runs/2026-07-17T061400Z`);
+- 351 / 351 Node unit and data tests passed (`reports/runs/2026-07-17T064123Z`);
 - 24 / 24 Deno function tests passed;
 - browser syntax and all 54 cache-manifest assets passed;
 - the 114-pack Movies validator passed;
 - Dogs catalog, structural artwork, and 46-pack validators passed;
-- 35 / 35 real-Chrome flows passed (`reports/e2e/runs/2026-07-17T061415Z`), including
+- 35 / 35 real-Chrome flows passed (`reports/e2e/runs/2026-07-17T064138Z`), including
   Movies, Books, Dogs, family home, exact 390×844 and 844×390 Dogs viewports, iPad, failure
   recovery, backup/import/export downloads, pointer/keyboard reorder, and legacy Movies sharing.
 

@@ -15,6 +15,7 @@
     "validate:dogs:packs": "node scripts/validate-dog-packs.mjs",
     "validate:dogs": "npm run validate:dogs:catalog && npm run validate:dogs:artwork && npm run validate:dogs:packs",
     "build:dogs:catalog": "node scripts/build-dog-catalog.mjs",
+    "review:dogs:artwork": "node scripts/build-dog-artwork-review.mjs",
     "verify": "npm test && npm run check && npm run check:cache && npm run check:functions && npm run test:functions && npm run validate:packs && npm run validate:dogs && npm run test:e2e",
     "author:packs": "node scripts/author-suggestion-packs.mjs",
     "screenshots": "node scripts/capture-screenshots.cjs",

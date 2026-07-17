@@ -289,6 +289,7 @@ const openChromePage = async ({ width = 1280, height = 900, name, launchAttempt 
   };
 
   await send("Page.enable");
+  await send("DOM.enable");
   await send("Runtime.enable");
   await send("Log.enable");
   await send("Network.enable");
@@ -345,6 +346,16 @@ const waitFor = async (page, expression, timeoutMs = 8000) => {
     await wait(100);
   }
   throw new Error(`Timed out waiting for: ${expression}\nLast value: ${JSON.stringify(lastValue)}`);
+};
+
+const focusSelector = async (page, selector) => {
+  const { root } = await page.send("DOM.getDocument", { depth: 0, pierce: true });
+  const { nodeId } = await page.send("DOM.querySelector", {
+    nodeId: root.nodeId,
+    selector,
+  });
+  if (!nodeId) throw new Error(`Could not focus missing selector: ${selector}`);
+  await page.send("DOM.focus", { nodeId });
 };
 
 const clickAt = async (page, x, y) => {
@@ -8288,7 +8299,10 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
         document.querySelector('#fullscreen-grid .fullscreen-card[data-index="0"] .fullscreen-card__drag-handle')?.getBoundingClientRect().height > 0`,
       3000,
     );
-    await page.evaluate(`document.querySelector('#fullscreen-grid .fullscreen-card[data-index="0"] .fullscreen-card__drag-handle')?.focus(); true;`);
+    await focusSelector(
+      page,
+      '#fullscreen-grid .fullscreen-card[data-index="0"] .fullscreen-card__drag-handle',
+    );
     await page.send("Input.dispatchKeyEvent", {
       type: "keyDown",
       key: "ArrowDown",

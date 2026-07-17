@@ -207,17 +207,20 @@ inspected during implementation.
 
 Final local verification completed with a green `npm run verify` on July 16, 2026:
 
-- 348 / 348 Node unit and data tests passed (`reports/runs/2026-07-17T051452Z`);
+- 348 / 348 Node unit and data tests passed (`reports/runs/2026-07-17T052457Z`);
 - 24 / 24 Deno function tests passed;
 - browser syntax and all 54 cache-manifest assets passed;
 - the 114-pack Movies validator passed;
 - Dogs catalog, structural artwork, and 46-pack validators passed;
-- 35 / 35 real-Chrome flows passed (`reports/e2e/runs/2026-07-17T051507Z`), including
+- 35 / 35 real-Chrome flows passed (`reports/e2e/runs/2026-07-17T052511Z`), including
   Movies, Books, Dogs, family home, exact 390×844 and 844×390 Dogs viewports, iPad, failure
   recovery, backup/import/export downloads, pointer/keyboard reorder, and legacy Movies sharing.
 
 The exact phone pass found and repaired a real intrinsic grid overflow that a shrink-to-fit geometry
 check had masked; the final regression asserts a 390px layout viewport and zero horizontal overflow.
+The Chrome harness retries one failed initial CDP launch with a fresh profile, and keyboard reorder
+checks synchronize on focus plus complete key-down/key-up events so slower Linux CI runners exercise
+the same interaction contract instead of failing on process or input timing.
 
 The networked
 `npm run test:production` script now contains Dogs route, header, metadata, immutable catalog/packs,

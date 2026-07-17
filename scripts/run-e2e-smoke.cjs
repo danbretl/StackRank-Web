@@ -142,10 +142,10 @@ const connectWebSocket = (url) =>
     ws.addEventListener("error", reject);
   });
 
-const openChromePage = async ({ width = 1280, height = 900, name }) => {
+const openChromePage = async ({ width = 1280, height = 900, name, launchAttempt = 0 }) => {
   const chromePath = findChromePath();
   const port = await getFreePort();
-  const profile = path.join("/tmp", `stackrank-e2e-${name}-${Date.now()}`);
+  const profile = path.join("/tmp", `stackrank-e2e-${name}-${Date.now()}-${launchAttempt}`);
   const downloadDir = path.join(downloadsRoot, name);
   fs.rmSync(profile, { recursive: true, force: true });
   fs.rmSync(downloadDir, { recursive: true, force: true });
@@ -192,11 +192,21 @@ const openChromePage = async ({ width = 1280, height = 900, name }) => {
   }
 
   if (!pageTarget) {
-    proc.kill();
+    const failureDetails =
+      `Chrome CDP page target did not start after ${launchAttempt + 1} attempt${launchAttempt ? "s" : ""}${
+        chromeExit ? `; Chrome exited ${JSON.stringify(chromeExit)}` : ""
+      }${chromeStderr.trim() ? `\nChrome stderr:\n${chromeStderr.trim()}` : ""}`;
+    proc.kill("SIGKILL");
+    await Promise.race([
+      new Promise((resolve) => proc.once("exit", resolve)),
+      wait(1000),
+    ]);
+    fs.rmSync(profile, { recursive: true, force: true });
+    if (launchAttempt === 0) {
+      return openChromePage({ width, height, name, launchAttempt: 1 });
+    }
     throw new Error(
-      `Chrome CDP page target did not start${chromeExit ? `; Chrome exited ${JSON.stringify(chromeExit)}` : ""}${
-        chromeStderr.trim() ? `\nChrome stderr:\n${chromeStderr.trim()}` : ""
-      }`,
+      failureDetails,
     );
   }
 
@@ -10539,13 +10549,24 @@ const testUnifiedRankingWorkspaceInteractions = async ({ baseUrl }) => {
     }
 
     await page.evaluate(`document.querySelector('#fullscreen-grid .fullscreen-card[data-index="0"] .fullscreen-card__drag-handle')?.focus(); true;`);
+    await waitFor(
+      page,
+      `document.activeElement === document.querySelector('#fullscreen-grid .fullscreen-card[data-index="0"] .fullscreen-card__drag-handle')`,
+      3000,
+    );
     await page.send("Input.dispatchKeyEvent", {
       type: "keyDown",
       key: "ArrowDown",
       code: "ArrowDown",
       windowsVirtualKeyCode: 40,
     });
-    await waitFor(page, `[...document.querySelectorAll('#fullscreen-grid .fullscreen-card__title')][1]?.textContent.trim() === 'Alpha'`, 3000);
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyUp",
+      key: "ArrowDown",
+      code: "ArrowDown",
+      windowsVirtualKeyCode: 40,
+    });
+    await waitFor(page, `[...document.querySelectorAll('#fullscreen-grid .fullscreen-card__title')][1]?.textContent.trim() === 'Alpha'`, 5000);
     const keyboardMove = await page.evaluate(`(() => ({
       posters: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__title')].map((node) => node.textContent.trim()),
       list: [...document.querySelectorAll('#ranking .ranking__title')].map((node) => node.textContent.trim()),

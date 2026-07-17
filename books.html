@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en" data-stackrank-category="books">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>StackRank Books — Build your book ranking</title>
+    <meta
+      name="description"
+      content="Rank books by choosing between them. StackRank finds the exact order, one comparison at a time."
+    />
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="canonical" href="https://www.stackrankapp.com/books" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="StackRank" />
+    <meta property="og:url" content="https://www.stackrankapp.com/books" />
+    <meta property="og:title" content="StackRank Books — Build your book ranking" />
+    <meta
+      property="og:description"
+      content="Rank books by choosing between them, one comparison at a time."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="StackRank Books — Build your book ranking" />
+    <meta
+      name="twitter:description"
+      content="Rank books by choosing between them, one comparison at a time."
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      href="https://fonts.gstatic.com/s/spacegrotesk/v22/V8mDoQDjQSkFtoMM3T6r8E7mPbF4C_k3HqU.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="books.css?v=3" />
+  </head>
+  <body>
+    <header class="books-header">
+      <a class="books-brand" href="/books" aria-label="StackRank Books home">STACKRANK</a>
+      <nav class="books-nav" aria-label="Books destinations">
+        <button type="button" data-view-target="rank" aria-current="page">Rank</button>
+        <button type="button" data-view-target="ranking">Ranking</button>
+        <button type="button" data-view-target="you">You</button>
+      </nav>
+      <div class="books-header__actions">
+        <a href="/movies">Movies</a>
+        <button
+          id="books-settings-toggle"
+          class="icon-button"
+          type="button"
+          aria-label="Open Books settings"
+          aria-expanded="false"
+          aria-controls="books-settings"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z" />
+            <path d="M19.1 13.4c.04-.46.04-.92 0-1.38l1.75-1.36-1.8-3.12-2.06.83a7.8 7.8 0 0 0-1.2-.7L15.48 5h-3.6l-.32 2.67c-.42.2-.82.43-1.2.7l-2.05-.83-1.8 3.12 1.74 1.36a8 8 0 0 0 0 1.38l-1.74 1.36 1.8 3.12 2.05-.83c.38.27.78.5 1.2.7l.32 2.67h3.6l.32-2.67c.42-.2.82-.43 1.2-.7l2.05.83 1.8-3.12-1.75-1.36Z" />
+          </svg>
+        </button>
+      </div>
+      <div id="books-settings" class="books-settings" hidden>
+        <p><strong>Books preview</strong></p>
+        <p>Your book ranking is stored only in this browser for now.</p>
+        <button id="books-download-backup" type="button">Download Books backup</button>
+        <button id="books-restore-backup" type="button">Restore Books backup</button>
+        <input id="books-restore-file" type="file" accept="application/json,.json" hidden />
+        <button id="books-clear-ranking" class="danger-link" type="button">Clear book ranking</button>
+      </div>
+    </header>
+
+    <main class="books-app">
+      <section id="books-view-rank" class="books-view" data-view="rank">
+        <section class="rank-panel" aria-labelledby="books-add-heading">
+          <h1 id="books-add-heading">Add a book</h1>
+          <form id="books-search-form" role="search" autocomplete="off">
+            <label class="sr-only" for="books-search">Search for a book</label>
+            <div class="search-control">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="10.5" cy="10.5" r="6.5" />
+                <path d="m15.5 15.5 5 5" />
+              </svg>
+              <input
+                id="books-search"
+                type="search"
+                placeholder="Search by title, author, or ISBN"
+                aria-autocomplete="list"
+                aria-controls="books-suggestions"
+                aria-expanded="false"
+                aria-activedescendant=""
+              />
+            </div>
+            <ul id="books-suggestions" role="listbox" hidden></ul>
+          </form>
+          <p id="books-search-status" class="search-status" role="status" aria-live="polite"></p>
+          <p class="local-note"><strong>Preview:</strong> stored only on this device. Search data comes from Open Library.</p>
+        </section>
+
+        <section id="books-recent-section" class="recent-panel" aria-labelledby="books-recent-heading" hidden>
+          <div class="section-heading-row">
+            <h2 id="books-recent-heading">Recently ranked</h2>
+            <button type="button" data-view-target="ranking">Open ranking</button>
+          </div>
+          <div id="books-recent" class="recent-rail"></div>
+        </section>
+
+        <section class="discovery" aria-labelledby="books-discovery-heading">
+          <div class="section-heading-row">
+            <div>
+              <h2 id="books-discovery-heading">Start somewhere good</h2>
+              <p>Pick any cover to place that book in your ranking.</p>
+            </div>
+            <span>12 hand-picked books</span>
+          </div>
+          <div id="books-starter-shelves" class="starter-shelves"></div>
+        </section>
+      </section>
+
+      <section id="books-view-ranking" class="books-view" data-view="ranking" hidden>
+        <div class="ranking-heading">
+          <div>
+            <p class="section-label">Your ordered list</p>
+            <h1>My book ranking</h1>
+            <p id="books-ranking-subtitle">No books ranked yet.</p>
+          </div>
+          <button type="button" data-view-target="rank">Add a book</button>
+        </div>
+        <ol id="books-ranking" class="books-ranking"></ol>
+        <div id="books-ranking-empty" class="ranking-empty">
+          <h2>Your first book becomes #1.</h2>
+          <p>Add another and StackRank will find its exact place through a few quick choices.</p>
+          <button type="button" data-view-target="rank">Find a book</button>
+        </div>
+      </section>
+
+      <section id="books-view-you" class="books-view" data-view="you" hidden>
+        <div class="you-heading">
+          <p class="section-label">Your reading taste</p>
+          <h1>You</h1>
+          <p>Early signals from the books you have ranked on this device.</p>
+        </div>
+        <div class="you-stats">
+          <article>
+            <span>Ranked books</span>
+            <strong id="books-stat-count">0</strong>
+          </article>
+          <article>
+            <span>Top book</span>
+            <strong id="books-stat-top">—</strong>
+          </article>
+          <article>
+            <span>Publication span</span>
+            <strong id="books-stat-years">—</strong>
+          </article>
+        </div>
+        <section class="you-next">
+          <h2>What comes next</h2>
+          <p>Author, era, and subject lenses will arrive after the work/edition model and provider rights are proven.</p>
+        </section>
+      </section>
+    </main>
+
+    <section id="books-comparison" class="comparison" aria-labelledby="books-comparison-heading" hidden>
+      <div class="comparison__topbar">
+        <div>
+          <span id="books-comparison-progress">Placing your book</span>
+          <h1 id="books-comparison-heading">Which book do you prefer?</h1>
+        </div>
+        <button id="books-cancel-comparison" type="button">Cancel</button>
+      </div>
+      <div class="comparison__choices">
+        <button id="books-new-choice" class="comparison-card" type="button"></button>
+        <div class="comparison__or" aria-hidden="true">OR</div>
+        <button id="books-existing-choice" class="comparison-card" type="button"></button>
+      </div>
+      <p class="comparison__hint">Choose the one you would rank higher.</p>
+    </section>
+
+    <div id="books-toast" class="books-toast" role="status" aria-live="polite" hidden></div>
+
+    <footer class="books-footer">
+      <p>
+        Book search and cover links are provided by
+        <a href="https://openlibrary.org/" target="_blank" rel="noreferrer">Open Library</a>.
+        This private preview does not sync or publish book data.
+      </p>
+      <a href="/privacy">Privacy &amp; credits</a>
+    </footer>
+
+    <script type="module" src="books.js?v=2"></script>
+  </body>
+</html>

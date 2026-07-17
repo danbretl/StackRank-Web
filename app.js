@@ -1,4 +1,10 @@
 import { createClient } from "./vendor/supabase-js-2.108.2.js?v=1";
+import {
+  categoryStorageKeys,
+  resolveDocumentCategory,
+  userScopedStorageCandidates,
+} from "./lib/category.js?v=2";
+import { MOVIES_CATEGORY } from "./lib/categories/movies.js?v=2";
 import { createStoredZipBlob } from "./lib/zip.js?v=1";
 import {
   isJsonPayloadWithinByteLimit,
@@ -142,7 +148,7 @@ import {
   signInRedirectUrl,
   isLikelyEmail,
   normalizeAuthEmail,
-} from "./lib/auth.js?v=3";
+} from "./lib/auth.js?v=4";
 import {
   APP_DESTINATION_MEMORY_TTL_MS,
   createAppDestinationMemory,
@@ -163,7 +169,19 @@ import {
   tonightMoodSummary,
 } from "./lib/tonight.js?v=1";
 
-console.info("StackRank build", "ranking-you-v1");
+const ACTIVE_CATEGORY = resolveDocumentCategory(
+  {
+    marker: document.documentElement.dataset.stackrankCategory,
+    pathname: window.location.pathname,
+  },
+  [MOVIES_CATEGORY],
+);
+if (!ACTIVE_CATEGORY) {
+  throw new Error("Unknown or mismatched StackRank category");
+}
+const ACTIVE_STORAGE_KEYS = categoryStorageKeys(ACTIVE_CATEGORY);
+
+console.info("StackRank build", "ranking-you-v1", ACTIVE_CATEGORY.id);
 
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 
@@ -566,18 +584,18 @@ const TONIGHT_PICK_PATH = "/functions/v1/tonight-pick";
 const TMDB_POSTER_BASE = "https://image.tmdb.org/t/p/w342";
 const TMDB_POSTER_SMALL = "https://image.tmdb.org/t/p/w92";
 const TMDB_POSTER_ORIGINAL = "https://image.tmdb.org/t/p/original";
-const STORAGE_KEY = "stackrank:movies:v1";
-const QUEUE_STORAGE_KEY = "stackrank:suggestion-queues:v1";
-const PACK_PROGRESS_STORAGE_KEY = "stackrank:pack-progress:v1";
-const BACKUP_NUDGE_STORAGE_KEY = "stackrank:backup-nudge:v1";
+const STORAGE_KEY = ACTIVE_STORAGE_KEYS.ranking;
+const QUEUE_STORAGE_KEY = ACTIVE_STORAGE_KEYS.queues;
+const PACK_PROGRESS_STORAGE_KEY = ACTIVE_STORAGE_KEYS.packProgress;
+const BACKUP_NUDGE_STORAGE_KEY = ACTIVE_STORAGE_KEYS.backupNudge;
 const PACK_FALLBACK_PATH = "data/suggestion-packs.json?v=5";
-const SHARE_OPTIONS_KEY = "stackrank:share-options:v1";
-const RANKING_VIEW_STORAGE_KEY = "stackrank:ranking-view:v1";
-const APP_DESTINATION_MEMORY_KEY = "stackrank:app-destination:v1";
+const SHARE_OPTIONS_KEY = ACTIVE_STORAGE_KEYS.shareOptions;
+const RANKING_VIEW_STORAGE_KEY = ACTIVE_STORAGE_KEYS.rankingView;
+const APP_DESTINATION_MEMORY_KEY = ACTIVE_STORAGE_KEYS.appDestination;
 const APP_DESTINATION_MEMORY_WRITE_INTERVAL_MS = 60 * 1000;
 const WATCH_LIST_TYPE = "watch";
 const NOT_INTERESTED_LIST_TYPE = "not_interested";
-const INSPIRED_SEED_KEY = "stackrank:inspired-seed:v1";
+const INSPIRED_SEED_KEY = ACTIVE_STORAGE_KEYS.suggestionSeed;
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl";
 
@@ -2725,11 +2743,7 @@ const saveLocalPayload = (movies, updatedAt) => {
 };
 
 const getQueueStorageKeys = () => {
-  const keys = [QUEUE_STORAGE_KEY];
-  if (currentUser && currentUser.id) {
-    keys.unshift(`${QUEUE_STORAGE_KEY}:user:${currentUser.id}`);
-  }
-  return keys;
+  return userScopedStorageCandidates(QUEUE_STORAGE_KEY, currentUser?.id);
 };
 
 const getQueuePayload = (key) => {
@@ -2880,11 +2894,7 @@ const loadSuggestionQueues = async () => {
 };
 
 const getPackProgressStorageKeys = () => {
-  const keys = [PACK_PROGRESS_STORAGE_KEY];
-  if (currentUser && currentUser.id) {
-    keys.unshift(`${PACK_PROGRESS_STORAGE_KEY}:user:${currentUser.id}`);
-  }
-  return keys;
+  return userScopedStorageCandidates(PACK_PROGRESS_STORAGE_KEY, currentUser?.id);
 };
 
 const getPackProgressPayload = (key) => {
@@ -10351,7 +10361,7 @@ const handleMagicLinkSignIn = async () => {
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: signInRedirectUrl(window.location),
+        emailRedirectTo: signInRedirectUrl(window.location, ACTIVE_CATEGORY.path),
       },
     });
     if (error) throw error;
@@ -10380,7 +10390,7 @@ const handleOAuthSignIn = async (provider) => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
       options: {
-        redirectTo: signInRedirectUrl(window.location),
+        redirectTo: signInRedirectUrl(window.location, ACTIVE_CATEGORY.path),
       },
     });
     if (error) throw error;

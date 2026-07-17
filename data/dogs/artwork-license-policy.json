@@ -1,0 +1,252 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "2026-07-16.1",
+  "reviewedAt": "2026-07-16",
+  "reviewScope": "StackRank Dogs catalog photography",
+  "disclaimer": "Engineering policy, not legal advice. Each source and any non-copyright restrictions still require human review.",
+  "sources": [
+    {
+      "title": "Wikimedia Commons reuse guidance",
+      "url": "https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia",
+      "accessedAt": "2026-07-16"
+    },
+    {
+      "title": "MediaWiki Imageinfo API",
+      "url": "https://www.mediawiki.org/wiki/API:Imageinfo",
+      "accessedAt": "2026-07-16"
+    },
+    {
+      "title": "MediaWiki API etiquette",
+      "url": "https://www.mediawiki.org/wiki/API:Etiquette",
+      "accessedAt": "2026-07-16"
+    },
+    {
+      "title": "Openverse API",
+      "url": "https://api.openverse.org/",
+      "accessedAt": "2026-07-16"
+    },
+    {
+      "title": "Openverse terms of service",
+      "url": "https://docs.openverse.org/terms_of_service.html",
+      "accessedAt": "2026-07-16"
+    },
+    {
+      "title": "Creative Commons licenses",
+      "url": "https://creativecommons.org/share-your-work/use-remix/cc-licenses/",
+      "accessedAt": "2026-07-16"
+    }
+  ],
+  "sourceRules": {
+    "approvedProviders": [
+      "wikimedia-commons"
+    ],
+    "openverseIsDiscoveryOnly": true,
+    "requireOriginalByteHash": true,
+    "requireHumanRightsReview": true,
+    "requireHumanSubjectReview": true,
+    "rejectNonCommercial": true,
+    "rejectNoDerivatives": true,
+    "rejectUnverifiedLicenseChain": true,
+    "rejectProvenanceFreeImages": true,
+    "rejectAiGeneratedBreedSubstitutes": true
+  },
+  "openverseNotice": {
+    "requiredIfDiscoveryProducesShippedAssets": true,
+    "text": "Artwork discovery used Openverse. StackRank is not endorsed or certified by Openverse.",
+    "note": "Openverse metadata never establishes rights; the original source must still be verified independently."
+  },
+  "purposeGates": {
+    "uiDisplay": {
+      "enabled": true,
+      "reviewedAt": "2026-07-16",
+      "note": "Allowed only for approved ledger rows delivered from a byte-verified immutable asset variant."
+    },
+    "publicSnapshot": {
+      "enabled": false,
+      "reviewedAt": null,
+      "note": "Blocked until snapshot attribution, takedown, and ShareAlike handling are separately reviewed and tested."
+    },
+    "rasterExport": {
+      "enabled": false,
+      "reviewedAt": null,
+      "note": "Blocked until attribution survives every PNG/ZIP path and a ShareAlike adaptation strategy is separately reviewed."
+    }
+  },
+  "launchThresholds": {
+    "promotedUiCoverage": 1,
+    "currentCanonicalUiCoverage": 0.95
+  },
+  "licenses": [
+    {
+      "id": "CC0-1.0",
+      "label": "CC0 1.0",
+      "acceptedSourceLabels": [
+        "CC0",
+        "CC0 1.0"
+      ],
+      "version": "1.0",
+      "url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "requiresAttribution": false,
+      "shareAlike": false,
+      "commercialUse": true,
+      "derivatives": true,
+      "manualPublicDomainEvidence": false
+    },
+    {
+      "id": "PDM-1.0",
+      "label": "Public Domain Mark 1.0",
+      "acceptedSourceLabels": [
+        "Public domain",
+        "Public Domain Mark 1.0",
+        "PDM 1.0"
+      ],
+      "version": "1.0",
+      "url": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "requiresAttribution": false,
+      "shareAlike": false,
+      "commercialUse": true,
+      "derivatives": true,
+      "manualPublicDomainEvidence": true
+    },
+    {
+      "id": "CC-BY-1.0",
+      "label": "CC BY 1.0",
+      "acceptedSourceLabels": [
+        "CC BY 1.0"
+      ],
+      "version": "1.0",
+      "url": "https://creativecommons.org/licenses/by/1.0/",
+      "requiresAttribution": true,
+      "shareAlike": false,
+      "commercialUse": true,
+      "derivatives": true,
+      "manualPublicDomainEvidence": false
+    },
+    {
+      "id": "CC-BY-2.0",
+      "label": "CC BY 2.0",
+      "acceptedSourceLabels": [
+        "CC BY 2.0"
+      ],
+      "version": "2.0",
+      "url": "https://creativecommons.org/licenses/by/2.0/",
+      "requiresAttribution": true,
+      "shareAlike": false,
+      "commercialUse": true,
+      "derivatives": true,
+      "manualPublicDomainEvidence": false
+    },
+    {
+      "id": "CC-BY-2.5",
+      "label": "CC BY 2.5",
+      "acceptedSourceLabels": [
+        "CC BY 2.5"
+      ],
+      "version": "2.5",
+      "url": "https://creativecommons.org/licenses/by/2.5/",
+      "requiresAttribution": true,
+      "shareAlike": false,
+      "commercialUse": true,
+      "derivatives": true,
+      "manualPublicDomainEvidence": false
+    },
+    {
+      "id": "CC-BY-3.0",
+      "label": "CC BY 3.0",
+      "acceptedSourceLabels": [
+        "CC BY 3.0"
+      ],
+      "version": "3.0",
+      "url": "https://creativecommons.org/licenses/by/3.0/",
+      "requiresAttribution": true,
+      "shareAlike": false,
+      "commercialUse": true,
+      "derivatives": true,
+      "manualPublicDomainEvidence": false
+    },
+    {
+      "id": "CC-BY-4.0",
+      "label": "CC BY 4.0",
+      "acceptedSourceLabels": [
+        "CC BY 4.0"
+      ],
+      "version": "4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/",
+      "requiresAttribution": true,
+      "shareAlike": false,
+      "commercialUse": true,
+      "derivatives": true,
+      "manualPublicDomainEvidence": false
+    },
+    {
+      "id": "CC-BY-SA-1.0",
+      "label": "CC BY-SA 1.0",
+      "acceptedSourceLabels": [
+        "CC BY-SA 1.0"
+      ],
+      "version": "1.0",
+      "url": "https://creativecommons.org/licenses/by-sa/1.0/",
+      "requiresAttribution": true,
+      "shareAlike": true,
+      "commercialUse": true,
+      "derivatives": true,
+      "manualPublicDomainEvidence": false
+    },
+    {
+      "id": "CC-BY-SA-2.0",
+      "label": "CC BY-SA 2.0",
+      "acceptedSourceLabels": [
+        "CC BY-SA 2.0"
+      ],
+      "version": "2.0",
+      "url": "https://creativecommons.org/licenses/by-sa/2.0/",
+      "requiresAttribution": true,
+      "shareAlike": true,
+      "commercialUse": true,
+      "derivatives": true,
+      "manualPublicDomainEvidence": false
+    },
+    {
+      "id": "CC-BY-SA-2.5",
+      "label": "CC BY-SA 2.5",
+      "acceptedSourceLabels": [
+        "CC BY-SA 2.5"
+      ],
+      "version": "2.5",
+      "url": "https://creativecommons.org/licenses/by-sa/2.5/",
+      "requiresAttribution": true,
+      "shareAlike": true,
+      "commercialUse": true,
+      "derivatives": true,
+      "manualPublicDomainEvidence": false
+    },
+    {
+      "id": "CC-BY-SA-3.0",
+      "label": "CC BY-SA 3.0",
+      "acceptedSourceLabels": [
+        "CC BY-SA 3.0"
+      ],
+      "version": "3.0",
+      "url": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "requiresAttribution": true,
+      "shareAlike": true,
+      "commercialUse": true,
+      "derivatives": true,
+      "manualPublicDomainEvidence": false
+    },
+    {
+      "id": "CC-BY-SA-4.0",
+      "label": "CC BY-SA 4.0",
+      "acceptedSourceLabels": [
+        "CC BY-SA 4.0"
+      ],
+      "version": "4.0",
+      "url": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "requiresAttribution": true,
+      "shareAlike": true,
+      "commercialUse": true,
+      "derivatives": true,
+      "manualPublicDomainEvidence": false
+    }
+  ]
+}

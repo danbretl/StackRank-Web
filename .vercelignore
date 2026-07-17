@@ -1,0 +1,20 @@
+# Development-only workspaces and reports
+logo-design-brief/
+reports/
+
+# Source, tests, notes, and database operations are versioned but are not web assets
+notes/
+scripts/
+supabase/
+tests/
+
+# Dogs catalog inputs and audit artifacts; runtime JSON remains deployable
+data/dogs/sources/
+data/dogs/artwork-fixtures/
+data/dogs/classification.json
+data/dogs/classification-review.json
+data/dogs/catalog-overrides.json
+data/dogs/coverage-report.json
+data/dogs/artwork-coverage-report.json
+data/dogs/artwork-review-guide.md
+data/dogs/artwork-rights-schema.json

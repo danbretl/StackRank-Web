@@ -1,6 +1,10 @@
 # Multi-domain URL architecture
 
-Status: **Movies URL shipped to production (2026-06-29).**
+Status: **Movies URL shipped to production (2026-06-29); category isolation groundwork and a
+private `/books` vertical slice implemented locally (2026-07-13).**
+
+See [`multi-domain-expansion-plan.md`](multi-domain-expansion-plan.md) for the provider research,
+shared architecture, product plans, and staged launch recommendation.
 
 ## Decision
 
@@ -98,3 +102,10 @@ another category ships:
   outside category namespaces;
 - place category-specific public resources beneath their category, for example
   `/movies/lists/<id>` and `/books/lists/<id>`.
+
+The 2026-07-13 groundwork now supplies the stable category marker, exact Movies
+storage compatibility, fail-closed route resolution, namespaced defaults for
+new domains, and category-aware auth callbacks. The `/books` route remains
+noindex, device-only, and intentionally outside account sync/public sharing.
+Generic remote tables and category-specific public routes remain prerequisites
+before a second category can be considered launched.

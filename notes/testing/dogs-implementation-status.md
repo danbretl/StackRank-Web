@@ -218,10 +218,11 @@ Final local verification completed with a green `npm run verify` on July 16, 202
 
 The exact phone pass found and repaired a real intrinsic grid overflow that a shrink-to-fit geometry
 check had masked; the final regression asserts a 390px layout viewport and zero horizontal overflow.
-The Chrome harness retries one failed initial CDP launch with a fresh profile. Keyboard reorder
-checks enable the explicit Move mode before synchronizing on visible-handle focus and complete
-key-down/key-up events, so pointer-capability differences and slower Linux CI runners exercise the
-same user-visible interaction contract instead of failing on environment or input timing.
+The Chrome harness retries one failed initial CDP launch with a fresh profile and foregrounds each
+CDP page target before interaction. Keyboard reorder checks enable the explicit Move mode before
+synchronizing on visible-handle focus and complete key-down/key-up events, so pointer-capability
+differences and slower Linux CI runners exercise the same user-visible interaction contract instead
+of failing on environment or input timing.
 
 The networked
 `npm run test:production` script now contains Dogs route, header, metadata, immutable catalog/packs,

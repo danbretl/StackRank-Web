@@ -5,12 +5,14 @@ Status date: **July 16, 2026**
 StackRank Dogs is now a substantial local-first second product, not a demo. The `/dogs` route,
 complete generated catalog, editorial discovery library, ranking/list utilities, failure handling,
 shared category contracts, additive database proposal, family-home artifact, and regression coverage
-are implemented in this worktree. It has not been committed, pushed, deployed, or connected to new
+are implemented on the `codex/dogs-launch` review branch and published to a protected Vercel preview
+through draft PR #1. It has not been promoted to the public production site or connected to new
 production tables.
 
-Public launch is **not approved or ready** while the artwork gate is at zero and the additive
-database migration remains unapplied and unprobed against Postgres. All affected capabilities fail
-closed rather than pretending those gates passed.
+Public production launch is **not ready** while the artwork gate is at zero and the additive database
+migration remains unapplied and unprobed against Postgres. The review branch and protected preview
+are safe staging surfaces; all affected product capabilities fail closed rather than pretending
+those launch gates passed.
 
 ## Delivery phase status
 
@@ -207,12 +209,12 @@ inspected during implementation.
 
 Final local verification completed with a green `npm run verify` on July 16, 2026:
 
-- 348 / 348 Node unit and data tests passed (`reports/runs/2026-07-17T052457Z`);
+- 348 / 348 Node unit and data tests passed (`reports/runs/2026-07-17T055713Z`);
 - 24 / 24 Deno function tests passed;
 - browser syntax and all 54 cache-manifest assets passed;
 - the 114-pack Movies validator passed;
 - Dogs catalog, structural artwork, and 46-pack validators passed;
-- 35 / 35 real-Chrome flows passed (`reports/e2e/runs/2026-07-17T052511Z`), including
+- 35 / 35 real-Chrome flows passed (`reports/e2e/runs/2026-07-17T055728Z`), including
   Movies, Books, Dogs, family home, exact 390×844 and 844×390 Dogs viewports, iPad, failure
   recovery, backup/import/export downloads, pointer/keyboard reorder, and legacy Movies sharing.
 
@@ -220,10 +222,14 @@ The exact phone pass found and repaired a real intrinsic grid overflow that a sh
 check had masked; the final regression asserts a 390px layout viewport and zero horizontal overflow.
 The Chrome harness retries one failed initial CDP launch with a fresh profile, foregrounds each CDP
 page target, and enables headless focus emulation before interaction. Keyboard reorder checks enable
-the explicit Move mode before synchronizing the visible handle through Chrome's DOM focus command
-and complete key-down/key-up events, so pointer-capability and headless-focus differences on slower
-Linux CI runners exercise the same user-visible interaction contract instead of failing on
-environment or input timing.
+the explicit Move mode before testing visible handles. The unified Posters check dispatches a
+bubbling, cancelable Arrow Down event directly to that handle because Linux headless Chrome does not
+reliably retain DOM focus on this newly rendered control; it still verifies that the application
+handled the event, reordered both views, rendered the moved handle's accessible label and keyboard
+shortcuts, announced the move, and supports Undo. Separate list and full ranking flows retain
+real-CDP focus movement coverage. The same hardening completes CDP key pairs in Share Studio,
+records focus-restoration calls across deliberate DOM replacement, and excludes transient
+`:focus-visible` colors from the pack close-control base-style comparison.
 
 The networked
 `npm run test:production` script now contains Dogs route, header, metadata, immutable catalog/packs,
@@ -238,4 +244,5 @@ Before public launch:
 4. Obtain explicit authorization before applying the migration anywhere shared or production-facing.
 5. Only after the migration passes, wire account sync/public links, enable their category capabilities, and add mocked plus real two-user browser coverage.
 6. Decide and authorize the root-home cutover; then remove home noindex, replace the root redirect, and update global canonical/social/production checks in the same release.
-7. Obtain explicit authorization to commit, push, deploy, or upload immutable artwork.
+7. Obtain explicit authorization before promoting the protected preview to production or uploading
+   immutable artwork. The review branch, draft PR, and protected preview are already established.

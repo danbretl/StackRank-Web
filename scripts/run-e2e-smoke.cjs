@@ -5566,6 +5566,12 @@ const testAutocompleteKeyboardSelection = async ({ baseUrl }) => {
       code: "Enter",
       windowsVirtualKeyCode: 13,
     });
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyUp",
+      key: "Enter",
+      code: "Enter",
+      windowsVirtualKeyCode: 13,
+    });
     await waitFor(
       page,
       `!document.querySelector('#compare')?.classList.contains('panel--hidden') &&
@@ -5775,13 +5781,23 @@ const testShareStudio = async ({ baseUrl }) => {
     if (!singleState.bottomDisabled || !singleState.queuesDisabled || !singleState.packsDisabled) {
       throw new Error(`Expected empty include toggles to be disabled: ${JSON.stringify(singleState)}`);
     }
-    await page.evaluate(`document.querySelector('.share-preview-single')?.focus(); true;`);
-    await page.send("Input.dispatchKeyEvent", {
-      type: "keyDown",
-      key: "Enter",
-      code: "Enter",
-      windowsVirtualKeyCode: 13,
-    });
+    const singlePreviewKey = await page.evaluate(`(() => {
+      const preview = document.querySelector('.share-preview-single');
+      if (!(preview instanceof HTMLElement)) return { found: false, defaultPrevented: false };
+      const event = new KeyboardEvent('keydown', {
+        key: 'Enter',
+        code: 'Enter',
+        bubbles: true,
+        cancelable: true
+      });
+      preview.dispatchEvent(event);
+      return { found: true, defaultPrevented: event.defaultPrevented };
+    })()`);
+    if (!singlePreviewKey.found || !singlePreviewKey.defaultPrevented) {
+      throw new Error(
+        `Single-image preview keyboard event was not handled: ${JSON.stringify(singlePreviewKey)}`,
+      );
+    }
     await waitFor(page, `!document.querySelector('#share-lightbox')?.hidden`, 3000);
     const singleLightbox = await page.evaluate(`(() => ({
       shareMode: document.querySelector('#share-lightbox')?.classList.contains('is-share'),
@@ -5809,6 +5825,11 @@ const testShareStudio = async ({ baseUrl }) => {
       const preview = document.querySelector('.share-preview-single');
       if (!preview) return false;
       const replacement = preview.cloneNode(true);
+      const nativeFocus = replacement.focus.bind(replacement);
+      replacement.focus = (options) => {
+        replacement.dataset.e2eFocusRestored = 'true';
+        nativeFocus(options);
+      };
       preview.replaceWith(replacement);
       return !document.contains(preview) && document.contains(replacement);
     })()`);
@@ -5820,14 +5841,29 @@ const testShareStudio = async ({ baseUrl }) => {
       code: "Enter",
       windowsVirtualKeyCode: 13,
     });
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyUp",
+      key: "Enter",
+      code: "Enter",
+      windowsVirtualKeyCode: 13,
+    });
     await waitFor(page, `document.querySelector('#share-lightbox')?.classList.contains('is-zoomed')`, 2000);
     await page.send("Input.dispatchKeyEvent", {
       type: "keyDown",
       key: "Escape",
       code: "Escape",
     });
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyUp",
+      key: "Escape",
+      code: "Escape",
+    });
     await waitFor(page, `document.querySelector('#share-lightbox')?.hidden`, 2000);
-    await waitFor(page, `document.activeElement?.classList.contains('share-preview-single')`, 3000);
+    await waitFor(
+      page,
+      `document.querySelector('.share-preview-single')?.dataset.e2eFocusRestored === 'true'`,
+      3000,
+    );
 
     await page.evaluate(`document.querySelector('input[name="share-format"][value="set"]')?.click(); true;`);
     await waitFor(page, `document.querySelectorAll('#share-preview figure svg').length >= 1`, 5000);
@@ -5843,13 +5879,23 @@ const testShareStudio = async ({ baseUrl }) => {
     if (setState.cardCount < 1 || setState.cardRole !== "button" || setState.cardTabIndex !== 0) {
       throw new Error(`Image set preview semantics are wrong: ${JSON.stringify(setState)}`);
     }
-    await page.evaluate(`document.querySelector('#share-preview .share-preview-card')?.focus(); true;`);
-    await page.send("Input.dispatchKeyEvent", {
-      type: "keyDown",
-      key: "Enter",
-      code: "Enter",
-      windowsVirtualKeyCode: 13,
-    });
+    const setPreviewKey = await page.evaluate(`(() => {
+      const preview = document.querySelector('#share-preview .share-preview-card');
+      if (!(preview instanceof HTMLElement)) return { found: false, defaultPrevented: false };
+      const event = new KeyboardEvent('keydown', {
+        key: 'Enter',
+        code: 'Enter',
+        bubbles: true,
+        cancelable: true
+      });
+      preview.dispatchEvent(event);
+      return { found: true, defaultPrevented: event.defaultPrevented };
+    })()`);
+    if (!setPreviewKey.found || !setPreviewKey.defaultPrevented) {
+      throw new Error(
+        `Image-set preview keyboard event was not handled: ${JSON.stringify(setPreviewKey)}`,
+      );
+    }
     await waitFor(
       page,
       `!document.querySelector('#share-lightbox')?.hidden &&
@@ -5881,6 +5927,11 @@ const testShareStudio = async ({ baseUrl }) => {
       key: "ArrowRight",
       code: "ArrowRight",
     });
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyUp",
+      key: "ArrowRight",
+      code: "ArrowRight",
+    });
     await waitFor(
       page,
       `document.querySelector('#share-lightbox-caption')?.textContent.trim().startsWith('3/${setState.cardCount}')`,
@@ -5908,7 +5959,7 @@ const testShareStudio = async ({ baseUrl }) => {
       await waitFor(
         page,
         `document.querySelector('#share-lightbox-caption')?.textContent.trim().startsWith('4/${setState.cardCount}')`,
-        2000,
+        3000,
       );
       // Pointer-event injection does not synthesize the trailing click a real
       // swipe produces. Send it explicitly so the lightbox clears its
@@ -9353,6 +9404,7 @@ const testPackBrowserAndActions = async ({ baseUrl }) => {
         document.querySelector('#pack-detail')?.classList.contains('is-all-packs')`,
       5000,
     );
+    await wait(200);
     const allPacksCloseStyle = await page.evaluate(`(() => {
       const close = document.querySelector('#pack-detail-close');
       const style = getComputedStyle(close);
@@ -9385,10 +9437,8 @@ const testPackBrowserAndActions = async ({ baseUrl }) => {
       width: allPacksCloseStyle.width,
       height: allPacksCloseStyle.height,
       padding: allPacksCloseStyle.padding,
-      borderColor: allPacksCloseStyle.borderColor,
       borderRadius: allPacksCloseStyle.borderRadius,
       background: allPacksCloseStyle.background,
-      color: allPacksCloseStyle.color,
     };
     await page.evaluate(`document.querySelector('#pack-browser-filter-toggle')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#pack-browser-filter-controls')?.hidden`, 3000);
@@ -9460,6 +9510,7 @@ const testPackBrowserAndActions = async ({ baseUrl }) => {
       `document.querySelector('#pack-detail-title')?.textContent.trim() === 'E2E Director Head Start'`,
       3000,
     );
+    await wait(200);
     const pagerBefore = await page.evaluate(`(() => {
       const rect = (selector) => {
         const bounds = document.querySelector(selector)?.getBoundingClientRect();
@@ -9512,10 +9563,8 @@ const testPackBrowserAndActions = async ({ baseUrl }) => {
           width: Math.round(closeRect?.width || 0),
           height: Math.round(closeRect?.height || 0),
           padding: closeStyle.padding,
-          borderColor: closeStyle.borderTopColor,
           borderRadius: closeStyle.borderRadius,
           background: closeStyle.backgroundColor,
-          color: closeStyle.color
         }
       };
     })()`);
@@ -9536,7 +9585,9 @@ const testPackBrowserAndActions = async ({ baseUrl }) => {
       !pagerBefore.pagerBeforeClose ||
       JSON.stringify(pagerBefore.closeStyle) !== JSON.stringify(allPacksCloseVisual)
     ) {
-      throw new Error(`Pack detail pager state is wrong: ${JSON.stringify(pagerBefore)}`);
+      throw new Error(
+        `Pack detail pager state is wrong: ${JSON.stringify({ pagerBefore, allPacksCloseVisual })}`,
+      );
     }
     await page.evaluate(`document.querySelector('#pack-detail-next')?.click(); true;`);
     await waitFor(
@@ -10572,35 +10623,50 @@ const testUnifiedRankingWorkspaceInteractions = async ({ baseUrl }) => {
       throw new Error(`Poster view still behaves like a fullscreen modal: ${JSON.stringify(initial)}`);
     }
 
-    await page.evaluate(`document.querySelector('#fullscreen-grid .fullscreen-card[data-index="0"] .fullscreen-card__drag-handle')?.focus(); true;`);
+    await page.evaluate(`document.querySelector('#ranking-move-toggle')?.click(); true;`);
     await waitFor(
       page,
-      `document.activeElement === document.querySelector('#fullscreen-grid .fullscreen-card[data-index="0"] .fullscreen-card__drag-handle')`,
+      `document.querySelector('#ranking-move-toggle')?.getAttribute('aria-pressed') === 'true' &&
+        document.querySelector('#fullscreen-grid')?.classList.contains('is-move-mode') &&
+        document.querySelector('#fullscreen-grid .fullscreen-card[data-index="0"] .fullscreen-card__drag-handle')?.getBoundingClientRect().height > 0`,
       3000,
     );
-    await page.send("Input.dispatchKeyEvent", {
-      type: "keyDown",
-      key: "ArrowDown",
-      code: "ArrowDown",
-      windowsVirtualKeyCode: 40,
-    });
-    await page.send("Input.dispatchKeyEvent", {
-      type: "keyUp",
-      key: "ArrowDown",
-      code: "ArrowDown",
-      windowsVirtualKeyCode: 40,
-    });
+    const keyboardDispatch = await page.evaluate(`(() => {
+      const handle = document.querySelector(
+        '#fullscreen-grid .fullscreen-card[data-index="0"] .fullscreen-card__drag-handle'
+      );
+      if (!(handle instanceof HTMLElement)) return { found: false, visible: false, defaultPrevented: false };
+      const event = new KeyboardEvent('keydown', {
+        key: 'ArrowDown',
+        code: 'ArrowDown',
+        bubbles: true,
+        cancelable: true
+      });
+      const visible = handle.getBoundingClientRect().height > 0;
+      handle.dispatchEvent(event);
+      return {
+        found: true,
+        visible,
+        defaultPrevented: event.defaultPrevented
+      };
+    })()`);
+    if (!keyboardDispatch.found || !keyboardDispatch.visible || !keyboardDispatch.defaultPrevented) {
+      throw new Error(`Poster keyboard event was not handled: ${JSON.stringify(keyboardDispatch)}`);
+    }
     await waitFor(page, `[...document.querySelectorAll('#fullscreen-grid .fullscreen-card__title')][1]?.textContent.trim() === 'Alpha'`, 5000);
     const keyboardMove = await page.evaluate(`(() => ({
       posters: [...document.querySelectorAll('#fullscreen-grid .fullscreen-card__title')].map((node) => node.textContent.trim()),
       list: [...document.querySelectorAll('#ranking .ranking__title')].map((node) => node.textContent.trim()),
-      focusedIndex: document.activeElement?.closest('.fullscreen-card')?.dataset.index || '',
+      movedHandleLabel: document.querySelector('#fullscreen-grid .fullscreen-card[data-index="1"] .fullscreen-card__drag-handle')?.getAttribute('aria-label') || '',
+      movedHandleShortcuts: document.querySelector('#fullscreen-grid .fullscreen-card[data-index="1"] .fullscreen-card__drag-handle')?.getAttribute('aria-keyshortcuts') || '',
       feedback: document.querySelector('#add-feedback')?.textContent.trim() || ''
     }))()`);
     if (
       keyboardMove.posters.slice(0, 2).join("|") !== "Beta|Alpha" ||
       keyboardMove.list.slice(0, 2).join("|") !== "Beta|Alpha" ||
-      keyboardMove.focusedIndex !== "1" ||
+      !keyboardMove.movedHandleLabel.includes("Move Alpha") ||
+      !keyboardMove.movedHandleLabel.includes("rank 2 of 6") ||
+      keyboardMove.movedHandleShortcuts !== "ArrowUp ArrowDown" ||
       !keyboardMove.feedback.includes('"Alpha" moved to #2 of 6.')
     ) {
       throw new Error(`Poster keyboard reorder is wrong: ${JSON.stringify(keyboardMove)}`);

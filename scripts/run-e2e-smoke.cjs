@@ -8279,6 +8279,14 @@ const testFullscreenRankingInteractions = async ({ baseUrl }) => {
       throw new Error(`Escape closed or committed the full-screen drag: ${JSON.stringify(fullscreenEscapeDrag)}`);
     }
 
+    await page.evaluate(`document.querySelector('#ranking-move-toggle')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#ranking-move-toggle')?.getAttribute('aria-pressed') === 'true' &&
+        document.querySelector('#fullscreen-grid')?.classList.contains('is-move-mode') &&
+        document.querySelector('#fullscreen-grid .fullscreen-card[data-index="0"] .fullscreen-card__drag-handle')?.getBoundingClientRect().height > 0`,
+      3000,
+    );
     await page.evaluate(`document.querySelector('#fullscreen-grid .fullscreen-card[data-index="0"] .fullscreen-card__drag-handle')?.focus(); true;`);
     await page.send("Input.dispatchKeyEvent", {
       type: "keyDown",

@@ -10,6 +10,8 @@ import {
   categoryRemoteJsonBytes,
   categoryStatePayloadFromRow,
   categoryUserListId,
+  isCategoryRemoteId,
+  isCategoryRemoteListType,
   mergeCategoryItemPayloads,
   mergeCategoryStatePayloads,
   normalizeCategorySharedPayload,
@@ -33,6 +35,18 @@ test("category user list ids accept only Supabase UUID identities", () => {
   assert.equal(categoryUserListId(USER_ID), `user:${USER_ID}`);
   assert.equal(categoryUserListId(`user:${USER_ID}`), `user:${USER_ID}`);
   assert.equal(categoryUserListId("mock-user"), "");
+});
+
+test("category and list-type identifiers are format and byte bounded", () => {
+  assert.equal(isCategoryRemoteId("dogs"), true);
+  assert.equal(isCategoryRemoteId("rare-dogs"), true);
+  assert.equal(isCategoryRemoteId("d".repeat(64)), true);
+  assert.equal(isCategoryRemoteId("d".repeat(65)), false);
+  assert.equal(isCategoryRemoteId("Dogs"), false);
+  assert.equal(isCategoryRemoteListType("not_for_me"), true);
+  assert.equal(isCategoryRemoteListType("n".repeat(64)), true);
+  assert.equal(isCategoryRemoteListType("n".repeat(65)), false);
+  assert.equal(isCategoryRemoteListType("not-for-me"), false);
 });
 
 test("ranking and list row builders bind category, identity, and bounded items", () => {

@@ -5824,46 +5824,56 @@ const testShareStudio = async ({ baseUrl }) => {
     const previewReplacement = await page.evaluate(`(() => {
       const preview = document.querySelector('.share-preview-single');
       if (!preview) return false;
-      const replacement = preview.cloneNode(true);
-      const nativeFocus = replacement.focus.bind(replacement);
-      replacement.focus = (options) => {
-        replacement.dataset.e2eFocusRestored = 'true';
-        nativeFocus(options);
+      window.__e2eNativePreviewFocus = HTMLElement.prototype.focus;
+      HTMLElement.prototype.focus = function(options) {
+        if (this.matches?.('.share-preview-single')) {
+          document.documentElement.dataset.e2eSharePreviewFocusRestored = 'true';
+        }
+        return window.__e2eNativePreviewFocus.call(this, options);
       };
+      const replacement = preview.cloneNode(true);
       preview.replaceWith(replacement);
       return !document.contains(preview) && document.contains(replacement);
     })()`);
     if (!previewReplacement) throw new Error("Could not replace the share preview focus target");
-    await page.evaluate(`document.querySelector('#share-lightbox-image')?.focus(); true;`);
-    await page.send("Input.dispatchKeyEvent", {
-      type: "keyDown",
-      key: "Enter",
-      code: "Enter",
-      windowsVirtualKeyCode: 13,
-    });
-    await page.send("Input.dispatchKeyEvent", {
-      type: "keyUp",
-      key: "Enter",
-      code: "Enter",
-      windowsVirtualKeyCode: 13,
-    });
+    const lightboxImageKey = await page.evaluate(`(() => {
+      const image = document.querySelector('#share-lightbox-image');
+      if (!(image instanceof HTMLElement)) return { found: false, defaultPrevented: false };
+      const event = new KeyboardEvent('keydown', {
+        key: 'Enter',
+        code: 'Enter',
+        bubbles: true,
+        cancelable: true
+      });
+      image.dispatchEvent(event);
+      return { found: true, defaultPrevented: event.defaultPrevented };
+    })()`);
+    if (!lightboxImageKey.found || !lightboxImageKey.defaultPrevented) {
+      throw new Error(
+        `Share lightbox image keyboard event was not handled: ${JSON.stringify(lightboxImageKey)}`,
+      );
+    }
     await waitFor(page, `document.querySelector('#share-lightbox')?.classList.contains('is-zoomed')`, 2000);
-    await page.send("Input.dispatchKeyEvent", {
-      type: "keyDown",
-      key: "Escape",
-      code: "Escape",
-    });
-    await page.send("Input.dispatchKeyEvent", {
-      type: "keyUp",
-      key: "Escape",
-      code: "Escape",
-    });
+    await page.evaluate(`document.dispatchEvent(new KeyboardEvent('keydown', {
+      key: 'Escape',
+      code: 'Escape',
+      bubbles: true,
+      cancelable: true
+    })); true;`);
     await waitFor(page, `document.querySelector('#share-lightbox')?.hidden`, 2000);
     await waitFor(
       page,
-      `document.querySelector('.share-preview-single')?.dataset.e2eFocusRestored === 'true'`,
+      `document.documentElement.dataset.e2eSharePreviewFocusRestored === 'true'`,
       3000,
     );
+    await page.evaluate(`(() => {
+      if (window.__e2eNativePreviewFocus) {
+        HTMLElement.prototype.focus = window.__e2eNativePreviewFocus;
+        delete window.__e2eNativePreviewFocus;
+      }
+      delete document.documentElement.dataset.e2eSharePreviewFocusRestored;
+      return true;
+    })()`);
 
     await page.evaluate(`document.querySelector('input[name="share-format"][value="set"]')?.click(); true;`);
     await waitFor(page, `document.querySelectorAll('#share-preview figure svg').length >= 1`, 5000);

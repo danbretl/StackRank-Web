@@ -160,13 +160,16 @@ The proposed migration was created with `supabase migration new`:
 It adds only `category_rankings`, `category_lists`, `category_pack_progress`, and
 `category_shared_lists`. It explicitly grants the intended Data API roles, enables RLS, gives every
 owner table SELECT/INSERT/UPDATE/DELETE policies, uses `(select auth.uid())`, gives UPDATE both
-`USING` and `WITH CHECK`, bounds all JSON payloads, and restricts anonymous snapshot reads to safe
-columns on non-revoked rows. Mature Movies tables are untouched.
+`USING` and `WITH CHECK`, bounds all JSON payloads and generic identifiers, and restricts anonymous
+snapshot reads to safe columns on non-revoked rows. Mature Movies tables are untouched.
 
-Docker is unavailable on this machine, so the migration was not parsed or applied against local
-Postgres and advisors could not run. The exact local/branch probes and two-user/category/revocation
-checks are in `notes/testing/dogs-supabase-rls-review.md`. This is a real remaining gate, not a test
-result to infer from static SQL.
+Docker and local Postgres are unavailable on this machine, and Supabase rejected a cost-confirmed
+disposable branch because the organization is on Free. A read-only production audit nevertheless
+confirmed PostgreSQL 17.6 compatibility for the migration expressions, unused `category_*` names,
+the required Data API roles, no migration-version collision, and the continued presence of every
+mature Movies table. Production advisors were recorded as a pre-migration baseline without changing
+state. The exact local/branch probes and two-user/category/revocation checks remain in
+`notes/testing/dogs-supabase-rls-review.md`; full DDL and behavior validation are still a real gate.
 
 ## Family home and release boundaries
 
@@ -209,12 +212,12 @@ inspected during implementation.
 
 Final local verification completed with a green `npm run verify` on July 16, 2026:
 
-- 348 / 348 Node unit and data tests passed (`reports/runs/2026-07-17T055713Z`);
+- 349 / 349 Node unit and data tests passed (`reports/runs/2026-07-17T061400Z`);
 - 24 / 24 Deno function tests passed;
 - browser syntax and all 54 cache-manifest assets passed;
 - the 114-pack Movies validator passed;
 - Dogs catalog, structural artwork, and 46-pack validators passed;
-- 35 / 35 real-Chrome flows passed (`reports/e2e/runs/2026-07-17T055728Z`), including
+- 35 / 35 real-Chrome flows passed (`reports/e2e/runs/2026-07-17T061415Z`), including
   Movies, Books, Dogs, family home, exact 390×844 and 844×390 Dogs viewports, iPad, failure
   recovery, backup/import/export downloads, pointer/keyboard reorder, and legacy Movies sharing.
 
@@ -240,7 +243,9 @@ Before public launch:
 
 1. Complete human review, processing/delivery, and approval for the 27 promoted candidates, then source/review enough current-canonical artwork to meet the declared 95% threshold.
 2. Review the catalog ambiguity/regional/historical queues and record every accepted override.
-3. Start a local or disposable Supabase branch; reset, lint, run advisors, and execute every isolation/revocation probe in the RLS review.
+3. Install/start local Postgres via the Supabase Docker stack, or upgrade Supabase long enough to
+   create a disposable branch; reset, lint, run advisors, and execute every isolation/revocation
+   probe in the RLS review.
 4. Obtain explicit authorization before applying the migration anywhere shared or production-facing.
 5. Only after the migration passes, wire account sync/public links, enable their category capabilities, and add mocked plus real two-user browser coverage.
 6. Decide and authorize the root-home cutover; then remove home noindex, replace the root redirect, and update global canonical/social/production checks in the same release.

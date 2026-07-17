@@ -1,6 +1,7 @@
 # Dogs additive Supabase/RLS review
 
-Status: **prepared locally on July 16, 2026; not applied to any database.**
+Status: **prepared locally and read-only production compatibility-audited on July 16, 2026; not
+applied to any database.**
 
 The proposed migration is
 `supabase/migrations/20260716090037_add_category_data_tables.sql`. It was created with
@@ -28,7 +29,7 @@ change is the explicit Data API grant requirement, which the migration handles p
 
 Every owner table:
 
-- constrains `list_id` to `user:<uuid>` and category/list-type identifiers to bounded slug formats;
+- constrains `list_id` to `user:<uuid>` and category/list-type identifiers to 64-byte slug formats;
 - enables RLS explicitly;
 - revokes inherited/default access before granting a deliberate Data API surface;
 - grants signed-in clients SELECT/INSERT/UPDATE/DELETE and creates one ownership policy for each;
@@ -59,7 +60,7 @@ The client snapshot builder permits only `{ displayName, items, catalogVersion }
 reduced to the category-neutral `{ entityRef, snapshot }` contract. Artwork still needs the
 independent provider-purpose gate before its URL or asset id is included.
 
-## Verification completed without a database
+## Verification completed without applying schema
 
 - Static migration tests assert all four tables, RLS enablement, explicit grants, all four owner
   operations, UPDATE `USING` plus `WITH CHECK`, public non-revoked reads, payload bounds, and no
@@ -68,8 +69,29 @@ independent provider-purpose gate before its URL or asset id is included.
   entity validation, newest-base no-loss ranking merges, older-only pack recovery, public snapshot
   reduction, and malformed/cross-category rejection.
 
-The local Supabase stack was unavailable because Docker was not running. No migration was applied
-locally or remotely, and no linked-project query or advisor changed external state.
+The local Supabase stack was unavailable because Docker and local Postgres are not installed. A
+disposable Supabase branch was then cost-confirmed at $0.01344/hour, but Supabase rejected creation
+because branch management requires Pro and this organization is on Free. No branch was created and
+no branch charge began.
+
+Read-only inspection of the linked production project confirmed:
+
+- PostgreSQL 17.6 and `auth.uid()` are available;
+- all four proposed `category_*` relation names are unused;
+- all four mature Movies relations remain present;
+- the current migration ledger ends at `20260708160447_allow_owner_read_shared_lists`, so the local
+  `20260716090037` version does not collide;
+- the `anon`, `authenticated`, and `service_role` roles are present;
+- the exact category/list-type regex, new 64-byte bound, JSON allowlist subtraction, optional-field
+  predicate, JSON array check, and JSON byte-size expressions evaluate as intended.
+
+Production security advisors reported three pre-existing warnings unrelated to the unapplied
+category migration: anonymous and authenticated callers can directly execute
+`public.enforce_product_events_session_insert_limit()`, and leaked-password protection is disabled.
+Performance advisors reported two unused Movies indexes and overlapping permissive SELECT policies
+on `shared_lists`. These are baseline observations, not category-schema results; this review did not
+change them or any other production state. No full DDL parse, RLS behavior probe, Data API request,
+or advisor-after-migration result is claimed.
 
 ## Direct local probes to run when Docker is available
 

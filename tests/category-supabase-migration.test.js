@@ -76,6 +76,8 @@ test("JSON payloads and generic identifiers are bounded in Postgres", () => {
   assert.match(migration, /category_shared_lists_payload_size[\s\S]*?1048576/i);
   assert.match(migration, /category_shared_lists_payload_fields/i);
   assert.equal((migration.match(/list_id_format check/g) || []).length, 4);
+  assert.equal((migration.match(/category_size check \(octet_length\(category\) <= 64\)/g) || []).length, 4);
+  assert.match(migration, /list_type_size check \(octet_length\(list_type\) <= 64\)/i);
   assert.match(migration, /primary key \(list_id, category, list_type\)/i);
   assert.match(migration, /unique \(list_id, category\)/i);
 });

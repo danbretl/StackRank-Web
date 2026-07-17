@@ -13,6 +13,7 @@ create table public.category_rankings (
   constraint category_rankings_category_format check (
     category ~ '^[a-z0-9]+(-[a-z0-9]+)*$'
   ),
+  constraint category_rankings_category_size check (octet_length(category) <= 64),
   constraint category_rankings_items_array check (jsonb_typeof(items) = 'array'),
   constraint category_rankings_items_count check (jsonb_array_length(items) <= 5000),
   constraint category_rankings_items_size check (octet_length(items::text) <= 1048576)
@@ -31,9 +32,11 @@ create table public.category_lists (
   constraint category_lists_category_format check (
     category ~ '^[a-z0-9]+(-[a-z0-9]+)*$'
   ),
+  constraint category_lists_category_size check (octet_length(category) <= 64),
   constraint category_lists_list_type_format check (
     list_type ~ '^[a-z0-9]+(_[a-z0-9]+)*$'
   ),
+  constraint category_lists_list_type_size check (octet_length(list_type) <= 64),
   constraint category_lists_items_array check (jsonb_typeof(items) = 'array'),
   constraint category_lists_items_count check (jsonb_array_length(items) <= 5000),
   constraint category_lists_items_size check (octet_length(items::text) <= 1048576)
@@ -51,6 +54,7 @@ create table public.category_pack_progress (
   constraint category_pack_progress_category_format check (
     category ~ '^[a-z0-9]+(-[a-z0-9]+)*$'
   ),
+  constraint category_pack_progress_category_size check (octet_length(category) <= 64),
   constraint category_pack_progress_state_object check (jsonb_typeof(state) = 'object'),
   constraint category_pack_progress_state_size check (octet_length(state::text) <= 8192)
 );
@@ -71,6 +75,7 @@ create table public.category_shared_lists (
   constraint category_shared_lists_category_format check (
     category ~ '^[a-z0-9]+(-[a-z0-9]+)*$'
   ),
+  constraint category_shared_lists_category_size check (octet_length(category) <= 64),
   constraint category_shared_lists_payload_object check (jsonb_typeof(payload) = 'object'),
   constraint category_shared_lists_payload_fields check (
     payload - array['displayName', 'items', 'catalogVersion']::text[] = '{}'::jsonb

@@ -294,6 +294,7 @@ const openChromePage = async ({ width = 1280, height = 900, name, launchAttempt 
   await send("Log.enable");
   await send("Network.enable");
   await send("Page.bringToFront");
+  await send("Emulation.setFocusEmulationEnabled", { enabled: true });
   await send("Emulation.setDeviceMetricsOverride", {
     width,
     height,

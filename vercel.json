@@ -26,6 +26,10 @@
       "destination": "/privacy.html"
     },
     {
+      "source": "/s/dogs/:slug",
+      "destination": "/dogs-shared.html"
+    },
+    {
       "source": "/s/:slug",
       "destination": "/shared.html"
     }
@@ -121,6 +125,24 @@
     },
     {
       "source": "/dogs.css",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/dogs-shared.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/dogs-shared.css",
       "headers": [
         {
           "key": "Cache-Control",

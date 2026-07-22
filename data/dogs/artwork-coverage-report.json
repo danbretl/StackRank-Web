@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "ledgerVersion": "2026-07-16.1",
+  "ledgerVersion": "2026-07-21.1",
   "policyVersion": "2026-07-16.1",
   "catalogVersion": "vbo-2026-04-15.2",
   "sourceDates": {
-    "ledgerUpdatedAt": "2026-07-16",
+    "ledgerUpdatedAt": "2026-07-21",
     "policyReviewedAt": "2026-07-16"
   },
   "catalog": {
-    "records": 1264,
-    "selectable": 1264,
-    "currentSelectable": 1228,
-    "currentCanonical": 899,
+    "records": 1239,
+    "selectable": 1239,
+    "currentSelectable": 1203,
+    "currentCanonical": 877,
     "promoted": 27,
     "missingPromotedCatalogIds": []
   },
@@ -22,10 +22,9 @@
     "quarantinedRows": 0,
     "readyDeliveryRows": 0,
     "allRowsLicenseDistribution": {
-      "CC-BY-2.0": 5,
-      "CC-BY-4.0": 1,
-      "CC-BY-SA-3.0": 11,
-      "CC-BY-SA-4.0": 10,
+      "CC-BY-2.0": 4,
+      "CC-BY-SA-3.0": 12,
+      "CC-BY-SA-4.0": 11,
       "CC0-1.0": 1
     },
     "approvedLicenseDistribution": {},
@@ -37,13 +36,13 @@
   "coverage": {
     "uiDisplay": {
       "selectableCovered": 0,
-      "selectableTotal": 1264,
+      "selectableTotal": 1239,
       "selectablePercent": 0,
       "currentSelectableCovered": 0,
-      "currentSelectableTotal": 1228,
+      "currentSelectableTotal": 1203,
       "currentSelectablePercent": 0,
       "currentCanonicalCovered": 0,
-      "currentCanonicalTotal": 899,
+      "currentCanonicalTotal": 877,
       "currentCanonicalPercent": 0,
       "promotedCovered": 0,
       "promotedTotal": 27,
@@ -51,12 +50,12 @@
     },
     "publicSnapshot": {
       "selectableCovered": 0,
-      "selectableTotal": 1264,
+      "selectableTotal": 1239,
       "selectablePercent": 0
     },
     "rasterExport": {
       "selectableCovered": 0,
-      "selectableTotal": 1264,
+      "selectableTotal": 1239,
       "selectablePercent": 0
     }
   },
@@ -69,10 +68,10 @@
   },
   "launchReadyForUi": false,
   "unresolvedUiArtworkSummary": {
-    "total": 1264,
+    "total": 1239,
     "byReason": {
       "human review pending": 28,
-      "no ledger row": 1236
+      "no ledger row": 1211
     },
     "promotedTotal": 27
   },
@@ -240,18 +239,8 @@
       "reason": "no ledger row"
     },
     {
-      "catalogId": "VBO:0008001",
-      "primaryText": "Elsesian",
-      "reason": "no ledger row"
-    },
-    {
-      "catalogId": "VBO:0008002",
-      "primaryText": "German Shephard",
-      "reason": "no ledger row"
-    },
-    {
       "catalogId": "VBO:0008003",
-      "primaryText": "Indigenous",
+      "primaryText": "Bangladesh Indigenous Dog",
       "reason": "no ledger row"
     },
     {
@@ -261,7 +250,7 @@
     },
     {
       "catalogId": "VBO:0008005",
-      "primaryText": "Balgarski barak",
+      "primaryText": "Bulgarian Barak",
       "reason": "no ledger row"
     },
     {
@@ -316,17 +305,7 @@
     },
     {
       "catalogId": "VBO:0008049",
-      "primaryText": "SMALL MEĐIMURJE DOG – MEĐI",
-      "reason": "no ledger row"
-    },
-    {
-      "catalogId": "VBO:0008051",
-      "primaryText": "Hungarian houn",
-      "reason": "no ledger row"
-    },
-    {
-      "catalogId": "VBO:0008055",
-      "primaryText": "Magyarországi Drótszőrű Magyarvizsla Tenyésztők Egyesülete",
+      "primaryText": "Small Međimurje Dog (Međi)",
       "reason": "no ledger row"
     },
     {
@@ -345,23 +324,13 @@
       "reason": "no ledger row"
     },
     {
-      "catalogId": "VBO:0008085",
-      "primaryText": "Kars Turkish Shepherd",
-      "reason": "no ledger row"
-    },
-    {
       "catalogId": "VBO:0008086",
       "primaryText": "Turkish Greyhound",
       "reason": "no ledger row"
     },
     {
-      "catalogId": "VBO:0008087",
-      "primaryText": "Çatal Burun Hunting",
-      "reason": "no ledger row"
-    },
-    {
       "catalogId": "VBO:0008093",
-      "primaryText": "SA Greyhound",
+      "primaryText": "South African Greyhound",
       "reason": "no ledger row"
     },
     {
@@ -1025,11 +994,6 @@
       "reason": "no ledger row"
     },
     {
-      "catalogId": "VBO:0200155",
-      "primaryText": "Berger de Beauce",
-      "reason": "no ledger row"
-    },
-    {
       "catalogId": "VBO:0200156",
       "primaryText": "Berger de Savoie Shepherd Dog",
       "reason": "no ledger row"
@@ -1202,16 +1166,6 @@
     {
       "catalogId": "VBO:0200197",
       "primaryText": "Borzoi",
-      "reason": "no ledger row"
-    },
-    {
-      "catalogId": "VBO:0200198",
-      "primaryText": "Bosanski Ostrodlaki Gonic Barak",
-      "reason": "no ledger row"
-    },
-    {
-      "catalogId": "VBO:0200200",
-      "primaryText": "Bosnian Broken-Haired Hound - Called Barak",
       "reason": "no ledger row"
     },
     {
@@ -1577,11 +1531,6 @@
     {
       "catalogId": "VBO:0200293",
       "primaryText": "Carlin Pinscher",
-      "reason": "no ledger row"
-    },
-    {
-      "catalogId": "VBO:0200296",
-      "primaryText": "Castro Laboreiro Dog",
       "reason": "no ledger row"
     },
     {
@@ -2095,11 +2044,6 @@
       "reason": "no ledger row"
     },
     {
-      "catalogId": "VBO:0200412",
-      "primaryText": "Dachshund, Old Format",
-      "reason": "no ledger row"
-    },
-    {
       "catalogId": "VBO:0200413",
       "primaryText": "Dachshund, Rabbit",
       "reason": "no ledger row"
@@ -2300,11 +2244,6 @@
       "reason": "no ledger row"
     },
     {
-      "catalogId": "VBO:0200462",
-      "primaryText": "Dutch Sheeppoodle",
-      "reason": "no ledger row"
-    },
-    {
       "catalogId": "VBO:0200463",
       "primaryText": "Dutch Shepherd",
       "reason": "no ledger row"
@@ -2400,11 +2339,6 @@
       "reason": "no ledger row"
     },
     {
-      "catalogId": "VBO:0200485",
-      "primaryText": "English Bulldog",
-      "reason": "no ledger row"
-    },
-    {
       "catalogId": "VBO:0200486",
       "primaryText": "English Cocker Spaniel",
       "reason": "no ledger row"
@@ -2442,11 +2376,6 @@
     {
       "catalogId": "VBO:0200497",
       "primaryText": "English Springer Spaniel",
-      "reason": "no ledger row"
-    },
-    {
-      "catalogId": "VBO:0200498",
-      "primaryText": "English Toy Spaniel",
       "reason": "no ledger row"
     },
     {
@@ -2600,11 +2529,6 @@
       "reason": "no ledger row"
     },
     {
-      "catalogId": "VBO:0200539",
-      "primaryText": "French Bulldog, Group 9 : Companion and Toy Dogs",
-      "reason": "no ledger row"
-    },
-    {
       "catalogId": "VBO:0200540",
       "primaryText": "French Guard Dog",
       "reason": "no ledger row"
@@ -2622,11 +2546,6 @@
     {
       "catalogId": "VBO:0200544",
       "primaryText": "French Pointer",
-      "reason": "no ledger row"
-    },
-    {
-      "catalogId": "VBO:0200546",
-      "primaryText": "French Pointing Dog - Pyrenean Type",
       "reason": "no ledger row"
     },
     {
@@ -3171,17 +3090,12 @@
     },
     {
       "catalogId": "VBO:0200679",
-      "primaryText": "Hungarian Hound - Transylvanian Scent Hound",
+      "primaryText": "Transylvanian Hound",
       "reason": "no ledger row"
     },
     {
       "catalogId": "VBO:0200681",
       "primaryText": "Hungarian Smooth-Haired Vizsla",
-      "reason": "no ledger row"
-    },
-    {
-      "catalogId": "VBO:0200682",
-      "primaryText": "Hungarian Water Dog",
       "reason": "no ledger row"
     },
     {
@@ -3327,11 +3241,6 @@
     {
       "catalogId": "VBO:0200721",
       "primaryText": "Italian Spinone",
-      "reason": "no ledger row"
-    },
-    {
-      "catalogId": "VBO:0200723",
-      "primaryText": "Italian Volpino",
       "reason": "no ledger row"
     },
     {
@@ -3937,11 +3846,6 @@
     {
       "catalogId": "VBO:0200862",
       "primaryText": "Manchester Terrier",
-      "reason": "no ledger row"
-    },
-    {
-      "catalogId": "VBO:0200863",
-      "primaryText": "Manchester Terrier, Old Format",
       "reason": "no ledger row"
     },
     {
@@ -4790,11 +4694,6 @@
       "reason": "no ledger row"
     },
     {
-      "catalogId": "VBO:0201062",
-      "primaryText": "Poodle, Toy Old Format",
-      "reason": "no ledger row"
-    },
-    {
       "catalogId": "VBO:0201063",
       "primaryText": "Poogle",
       "reason": "no ledger row"
@@ -5575,11 +5474,6 @@
       "reason": "no ledger row"
     },
     {
-      "catalogId": "VBO:0201243",
-      "primaryText": "Slovakian Hound",
-      "reason": "no ledger row"
-    },
-    {
       "catalogId": "VBO:0201244",
       "primaryText": "Slovakian Wire-Haired Pointer",
       "reason": "no ledger row"
@@ -5855,11 +5749,6 @@
       "reason": "no ledger row"
     },
     {
-      "catalogId": "VBO:0201313",
-      "primaryText": "Swedish Elkhound",
-      "reason": "no ledger row"
-    },
-    {
       "catalogId": "VBO:0201315",
       "primaryText": "Swedish Lapphund",
       "reason": "no ledger row"
@@ -6090,11 +5979,6 @@
       "reason": "no ledger row"
     },
     {
-      "catalogId": "VBO:0201369",
-      "primaryText": "Transmontano Mastiff",
-      "reason": "no ledger row"
-    },
-    {
       "catalogId": "VBO:0201371",
       "primaryText": "Treeing Cur",
       "reason": "no ledger row"
@@ -6245,11 +6129,6 @@
       "reason": "no ledger row"
     },
     {
-      "catalogId": "VBO:0201407",
-      "primaryText": "Welsh Corgi, Old Format",
-      "reason": "no ledger row"
-    },
-    {
       "catalogId": "VBO:0201408",
       "primaryText": "Welsh Hillman",
       "reason": "no ledger row"
@@ -6347,11 +6226,6 @@
     {
       "catalogId": "VBO:0201428",
       "primaryText": "Wirehaired Vizsla",
-      "reason": "no ledger row"
-    },
-    {
-      "catalogId": "VBO:0201429",
-      "primaryText": "Wolf",
       "reason": "no ledger row"
     },
     {

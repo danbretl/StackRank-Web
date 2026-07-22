@@ -1,3 +1,4 @@
+import { createClient } from "./vendor/supabase-js-2.108.2.js?v=1";
 import {
   categoryStorageKeys,
   resolveDocumentCategory,
@@ -5,12 +6,13 @@ import {
 import {
   DOGS_CATEGORY,
   DOG_LIST_TYPES,
+  canonicalizeDogStoredState,
   dogArtworkObjectUrl,
   dogDragAutoScrollDelta,
   dogEntityToCandidate,
   dogStatusLabel,
   normalizeDogCatalogEntity,
-} from "./lib/categories/dogs.js?v=6";
+} from "./lib/categories/dogs.js?v=9";
 import {
   buildCatalogIndex,
   catalogFacetValues,
@@ -46,6 +48,30 @@ import {
   canProviderPurpose,
 } from "./lib/provider-policy.js?v=1";
 import {
+  buildCategoryListRow,
+  buildCategoryPackProgressRow,
+  buildCategoryRankingRow,
+  buildCategorySharedListRow,
+  categoryItemPayloadFromRow,
+  categoryListUpdatedAtState,
+  categoryRemoteWriteSurfaces,
+  categorySharedListUrl,
+  categoryStatePayloadFromRow,
+  categoryUserListId,
+  generateCategoryShareSlug,
+  mergeCategoryPlacementPayloads,
+  mergeCategoryStatePayloads,
+  normalizeCategorySharedPayload,
+} from "./lib/category-remote-persistence.js?v=4";
+import {
+  AUTH_PROVIDERS,
+  SIGN_OUT_LOCAL_DATA_MESSAGE,
+  enabledOAuthProviders,
+  isLikelyEmail,
+  normalizeAuthEmail,
+  signInRedirectUrl,
+} from "./lib/auth.js?v=4";
+import {
   buildDogTasteSignals,
   buildDogsBackup,
   dogsExportText,
@@ -69,15 +95,44 @@ const ACTIVE_CATEGORY = resolveDocumentCategory(
 if (!ACTIVE_CATEGORY) throw new Error("Unknown or mismatched StackRank Dogs category");
 
 const STORAGE_KEYS = categoryStorageKeys(ACTIVE_CATEGORY);
-const CATALOG_URL = "data/dogs/dog-catalog.json?v=2";
+const CATALOG_URL = "data/dogs/dog-catalog.json?v=3";
 const PACKS_URL = "data/dogs/packs.json?v=2";
-const RIGHTS_URL = "data/dogs/image-rights.json?v=3";
+const RIGHTS_URL = "data/dogs/image-rights.json?v=4";
 const RIGHTS_POLICY_URL = "data/dogs/artwork-license-policy.json?v=1";
+const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl";
+const AUTH_INIT_TIMEOUT_MS = 3200;
 const TOAST_MS = 4200;
 const UNDO_MS = 8000;
 const STORAGE_FAILURE_MESSAGE = "Browser storage is unavailable. Your Dogs changes may be temporary; download a backup before leaving this page.";
 const SEARCH_LIMIT = 14;
 const LIST_OPTIONS = Object.freeze({ domain: "dogs", listTypes: DOG_LIST_TYPES });
+const ALL_REMOTE_SURFACES = Object.freeze(["ranking", ...DOG_LIST_TYPES, "packProgress"]);
+const localRemoteFixture =
+  window.__STACKRANK_DOGS_REMOTE_FIXTURE__ === true &&
+  ["localhost", "127.0.0.1", "[::1]"].includes(window.location.hostname) &&
+  new URLSearchParams(window.location.search).get("e2e") === "dogs-remote-sync";
+const DOGS_RUNTIME_POLICY = localRemoteFixture
+  ? Object.freeze({
+      ...DOGS_CATEGORY,
+      capabilities: Object.freeze({
+        ...DOGS_CATEGORY.capabilities,
+        accountSync: true,
+        publicSnapshots: true,
+      }),
+    })
+  : DOGS_CATEGORY;
+const accountSyncEnabled = canProviderPurpose(
+  DOGS_RUNTIME_POLICY,
+  PROVIDER_PURPOSES.ACCOUNT_SYNC,
+);
+const publicSnapshotsEnabled = canProviderPurpose(
+  DOGS_RUNTIME_POLICY,
+  PROVIDER_PURPOSES.PUBLIC_SNAPSHOT,
+);
+const supabase = accountSyncEnabled || publicSnapshotsEnabled
+  ? createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
+  : null;
 
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
@@ -120,6 +175,26 @@ const packsDialog = $("#dogs-packs-dialog");
 const hiddenDialog = $("#dogs-hidden-dialog");
 const backupDialog = $("#dogs-backup-dialog");
 const exportDialog = $("#dogs-export-dialog");
+const signInDialog = $("#dogs-signin-dialog");
+const accountState = $("#dogs-account-state");
+const signInButton = $("#dogs-sign-in");
+const signOutButton = $("#dogs-sign-out");
+const remoteGateNote = $("#dogs-remote-gate-note");
+const signInProviders = $("#dogs-signin-providers");
+const signInGoogle = $("#dogs-signin-google");
+const signInApple = $("#dogs-signin-apple");
+const signInEmail = $("#dogs-signin-email");
+const signInEmailForm = $("#dogs-signin-email-form");
+const signInSend = $("#dogs-signin-send");
+const signInStatus = $("#dogs-signin-status");
+const publicShare = $("#dogs-public-share");
+const sharePublish = $("#dogs-share-publish");
+const shareUpdate = $("#dogs-share-update");
+const shareCopy = $("#dogs-share-copy");
+const shareRevoke = $("#dogs-share-revoke");
+const shareLinkCard = $("#dogs-share-link-card");
+const shareLinkUrl = $("#dogs-share-link-url");
+const shareStatus = $("#dogs-share-status");
 
 let ranking = [];
 let lists = { curious: [], not_for_me: [] };
@@ -131,6 +206,31 @@ let preferences = {
   imageOnly: false,
 };
 let storageAvailable = true;
+let stateUpdatedAt = {
+  ranking: null,
+  lists: { curious: null, not_for_me: null },
+  packProgress: null,
+};
+let currentUser = null;
+let authNotice = "";
+let authSubscription = null;
+let signInProviderPromise = null;
+let remoteWriteChain = Promise.resolve();
+let remoteLoadPromise = null;
+let remoteLoadListId = "";
+let remoteReadyListId = "";
+let deferredRemoteSave = null;
+let catalogReadyPromise = null;
+let remoteSyncUnavailable = false;
+const emptyShareLinkState = () => ({
+  loaded: false,
+  loading: false,
+  busy: false,
+  slug: "",
+  updatedAt: null,
+  revoked: false,
+});
+let shareLinkState = emptyShareLinkState();
 
 let catalogDocument = null;
 let normalizedCatalog = null;
@@ -186,6 +286,24 @@ const DOG_CATALOG_ADAPTER = Object.freeze({
 });
 
 const stateSnapshot = () => clone({ ranking, lists, packProgress, preferences });
+const sameEntityOrder = (left, right) =>
+  left.length === right.length &&
+  left.every((item, index) => entityRefKey(item) === entityRefKey(right[index]));
+const changedEntitySurfaces = (before, after) => {
+  const changed = [];
+  if (!sameEntityOrder(before.ranking, after.ranking)) changed.push("ranking");
+  DOG_LIST_TYPES.forEach((listType) => {
+    if (!sameEntityOrder(before.lists[listType], after.lists[listType])) changed.push(listType);
+  });
+  return changed;
+};
+const changedPersistedSurfaces = (before, after) => {
+  const changed = changedEntitySurfaces(before, after);
+  if (JSON.stringify(before.packProgress) !== JSON.stringify(after.packProgress)) {
+    changed.push("packProgress");
+  }
+  return changed;
+};
 
 const showToast = (message, { undoSnapshot = null, duration = TOAST_MS } = {}) => {
   if (!storageAvailable && message !== STORAGE_FAILURE_MESSAGE) {
@@ -201,11 +319,14 @@ const showToast = (message, { undoSnapshot = null, duration = TOAST_MS } = {}) =
       label: message,
       ttlMs: UNDO_MS,
       restore: () => {
+        const beforeUndo = stateSnapshot();
         ranking = undoSnapshot.ranking;
         lists = undoSnapshot.lists;
         packProgress = undoSnapshot.packProgress;
         preferences = undoSnapshot.preferences;
-        saveAll();
+        saveAll({
+          changedSurfaces: changedPersistedSurfaces(beforeUndo, undoSnapshot),
+        });
         renderAll();
       },
     });
@@ -274,10 +395,17 @@ const loadState = () => {
     }, LIST_OPTIONS);
     ranking = normalized.ranking;
     lists = normalized.lists;
+    stateUpdatedAt.ranking = rankedPayload.updated_at || null;
+    stateUpdatedAt.lists = categoryListUpdatedAtState(queuesPayload, {
+      listTypes: DOG_LIST_TYPES,
+    });
     const progressPayload = loadJsonStorage(STORAGE_KEYS.packProgress, {});
     packProgress = progressPayload.state && typeof progressPayload.state === "object"
       ? progressPayload.state
       : {};
+    stateUpdatedAt.packProgress = typeof progressPayload.updated_at === "string"
+      ? progressPayload.updated_at
+      : null;
     const viewPayload = loadJsonStorage(STORAGE_KEYS.rankingView, {});
     preferences = {
       rankingView: ["detailed", "photos", "compact"].includes(viewPayload.rankingView)
@@ -305,15 +433,373 @@ const persist = (key, value) => {
   }
 };
 
-const saveAll = () => {
-  const now = new Date().toISOString();
+const localPayloadSnapshot = () => ({
+  ranking: { items: clone(ranking), updated_at: stateUpdatedAt.ranking },
+  lists: {
+    curious: { items: clone(lists.curious), updated_at: stateUpdatedAt.lists.curious },
+    not_for_me: { items: clone(lists.not_for_me), updated_at: stateUpdatedAt.lists.not_for_me },
+  },
+  packProgress: { state: clone(packProgress), updated_at: stateUpdatedAt.packProgress },
+});
+
+const saveAll = ({
+  syncRemote = true,
+  mergeRemote = false,
+  updatedAt = new Date().toISOString(),
+  changedSurfaces = ["ranking", "queues", "packProgress"],
+} = {}) => {
+  const changed = new Set(changedSurfaces);
+  const nextListUpdatedAt = Object.fromEntries(DOG_LIST_TYPES.map((listType) => [
+    listType,
+    changed.has("queues") || changed.has(listType)
+      ? updatedAt
+      : stateUpdatedAt.lists[listType],
+  ]));
+  stateUpdatedAt = {
+    ranking: changed.has("ranking") ? updatedAt : stateUpdatedAt.ranking,
+    lists: nextListUpdatedAt,
+    packProgress: changed.has("packProgress") ? updatedAt : stateUpdatedAt.packProgress,
+  };
+  const queuesUpdatedAt = Object.values(stateUpdatedAt.lists).filter(Boolean).sort().at(-1) || null;
   const results = [
-    persist(STORAGE_KEYS.ranking, serializeRankedListPayload(ranking, now)),
-    persist(STORAGE_KEYS.queues, JSON.stringify({ ...lists, updated_at: now })),
-    persist(STORAGE_KEYS.packProgress, JSON.stringify({ state: packProgress, updated_at: now })),
+    persist(STORAGE_KEYS.ranking, serializeRankedListPayload(ranking, stateUpdatedAt.ranking)),
+    persist(STORAGE_KEYS.queues, JSON.stringify({
+      ...lists,
+      updated_at: queuesUpdatedAt,
+      list_updated_at: stateUpdatedAt.lists,
+    })),
+    persist(STORAGE_KEYS.packProgress, JSON.stringify({
+      state: packProgress,
+      updated_at: stateUpdatedAt.packProgress,
+    })),
     persist(STORAGE_KEYS.rankingView, JSON.stringify(preferences)),
   ];
+  if (syncRemote && changed.size && accountSyncEnabled && currentUser && supabase) {
+    queueRemoteSave(localPayloadSnapshot(), {
+      mergeRemote,
+      changedSurfaces: categoryRemoteWriteSurfaces([...changed], { listTypes: DOG_LIST_TYPES }),
+    });
+  }
   return results.every(Boolean);
+};
+
+const savePreferences = () =>
+  persist(STORAGE_KEYS.rankingView, JSON.stringify(preferences));
+
+const withTimeout = (promise, timeoutMs, message) => {
+  let timer = null;
+  return Promise.race([
+    promise,
+    new Promise((_, reject) => {
+      timer = window.setTimeout(() => reject(new Error(message)), timeoutMs);
+    }),
+  ]).finally(() => window.clearTimeout(timer));
+};
+
+const setRemoteUnavailable = (message, error) => {
+  if (!remoteSyncUnavailable) showToast(message, { duration: 6500 });
+  remoteSyncUnavailable = true;
+  authNotice = "Account sync is temporarily unavailable. This device copy is still current.";
+  if (error) console.warn(message, error);
+  updateAccountUi();
+};
+
+const readRemoteStateRows = (listId) => Promise.all([
+  supabase
+    .from("category_rankings")
+    .select("list_id,category,items,updated_at")
+    .eq("list_id", listId)
+    .eq("category", ACTIVE_CATEGORY.id)
+    .maybeSingle(),
+  supabase
+    .from("category_lists")
+    .select("list_id,category,list_type,items,updated_at")
+    .eq("list_id", listId)
+    .eq("category", ACTIVE_CATEGORY.id)
+    .in("list_type", DOG_LIST_TYPES),
+  supabase
+    .from("category_pack_progress")
+    .select("list_id,category,state,updated_at")
+    .eq("list_id", listId)
+    .eq("category", ACTIVE_CATEGORY.id)
+    .maybeSingle(),
+]);
+
+const payloadsFromRemoteRows = (results, listId, local) => {
+  const rankingPayload = categoryItemPayloadFromRow(results[0].data, {
+    category: ACTIVE_CATEGORY.id,
+    listId,
+  });
+  const remoteLists = Array.isArray(results[1].data) ? results[1].data : [];
+  const remoteListPayloads = Object.fromEntries(DOG_LIST_TYPES.map((listType) => {
+    const row = remoteLists.find((candidate) => candidate?.list_type === listType);
+    return [listType, categoryItemPayloadFromRow(row, {
+      category: ACTIVE_CATEGORY.id,
+      listId,
+      listType,
+    })];
+  }));
+  const mergedPlacements = mergeCategoryPlacementPayloads({
+    ranking: [local.ranking, rankingPayload],
+    lists: Object.fromEntries(DOG_LIST_TYPES.map((listType) => [listType, [
+      local.lists[listType],
+      remoteListPayloads[listType],
+    ]])),
+  }, { category: ACTIVE_CATEGORY.id, listTypes: DOG_LIST_TYPES });
+  const mergedRanking = mergedPlacements.ranking;
+  const mergedLists = mergedPlacements.lists;
+  const remoteProgress = categoryStatePayloadFromRow(results[2].data, {
+    category: ACTIVE_CATEGORY.id,
+    listId,
+  });
+  const mergedProgress = mergeCategoryStatePayloads([
+    local.packProgress,
+    remoteProgress,
+  ], { category: ACTIVE_CATEGORY.id });
+  const normalized = normalizeCategoryListState({
+    ranking: mergedRanking.items,
+    lists: {
+      curious: mergedLists.curious.items,
+      not_for_me: mergedLists.not_for_me.items,
+    },
+  }, LIST_OPTIONS);
+  const canonical = catalogDocument?.entities?.length
+    ? canonicalizeDogStoredState(normalized, catalogDocument.entities)
+    : normalized;
+  return {
+    ranking: { ...mergedRanking, items: canonical.ranking },
+    lists: {
+      curious: { ...mergedLists.curious, items: canonical.lists.curious },
+      not_for_me: { ...mergedLists.not_for_me, items: canonical.lists.not_for_me },
+    },
+    packProgress: mergedProgress,
+    remapped: canonical.remapped || 0,
+  };
+};
+
+const syncRemoteSnapshot = async (
+  snapshot,
+  expectedListId,
+  { mergeRemote = true, changedSurfaces = ALL_REMOTE_SURFACES } = {},
+) => {
+  const listId = categoryUserListId(currentUser?.id);
+  if (
+    !accountSyncEnabled ||
+    !supabase ||
+    !listId ||
+    !expectedListId ||
+    listId !== expectedListId
+  ) return;
+  const writeSurfaces = new Set(categoryRemoteWriteSurfaces(changedSurfaces, {
+    listTypes: DOG_LIST_TYPES,
+  }));
+  if (!writeSurfaces.size) return;
+  let merged = snapshot;
+  if (mergeRemote) {
+    let remoteResults;
+    try {
+      remoteResults = await readRemoteStateRows(listId);
+    } catch (error) {
+      if (categoryUserListId(currentUser?.id) !== expectedListId) return;
+      setRemoteUnavailable("Could not reconcile Dogs before syncing. Your device copy is still saved.", error);
+      return;
+    }
+    if (categoryUserListId(currentUser?.id) !== expectedListId) return;
+    const remoteError = remoteResults.find((result) => result?.error)?.error;
+    if (remoteError) {
+      setRemoteUnavailable(
+        "Could not reconcile Dogs before syncing. Your device copy is still saved.",
+        remoteError,
+      );
+      return;
+    }
+    merged = payloadsFromRemoteRows(remoteResults, listId, snapshot);
+  }
+  const updatedAt = new Date().toISOString();
+  const rankingRow = writeSurfaces.has("ranking")
+    ? buildCategoryRankingRow({
+        listId,
+        category: ACTIVE_CATEGORY.id,
+        items: merged.ranking.items,
+        updatedAt,
+      })
+    : null;
+  const listRows = DOG_LIST_TYPES.filter((listType) => writeSurfaces.has(listType))
+    .map((listType) => buildCategoryListRow({
+    listId,
+    category: ACTIVE_CATEGORY.id,
+    listType,
+    items: merged.lists[listType]?.items,
+    updatedAt,
+  }));
+  const packRow = writeSurfaces.has("packProgress")
+    ? buildCategoryPackProgressRow({
+        listId,
+        category: ACTIVE_CATEGORY.id,
+        state: merged.packProgress.state,
+        updatedAt,
+      })
+    : null;
+  if (
+    (writeSurfaces.has("ranking") && !rankingRow) ||
+    listRows.some((row) => !row) ||
+    (writeSurfaces.has("packProgress") && !packRow)
+  ) {
+    setRemoteUnavailable(
+      "This Dogs snapshot is too large or malformed to sync. Your device copy is still saved.",
+    );
+    return;
+  }
+  let results;
+  try {
+    const operations = [];
+    if (rankingRow) operations.push(supabase.from("category_rankings").upsert(rankingRow, {
+        onConflict: "list_id,category",
+      }));
+    if (listRows.length) operations.push(supabase.from("category_lists").upsert(listRows, {
+        onConflict: "list_id,category,list_type",
+      }));
+    if (packRow) operations.push(supabase.from("category_pack_progress").upsert(packRow, {
+        onConflict: "list_id,category",
+      }));
+    results = await Promise.all(operations);
+  } catch (error) {
+    if (categoryUserListId(currentUser?.id) !== expectedListId) return;
+    setRemoteUnavailable("Could not sync Dogs right now. Your device copy is still saved.", error);
+    return;
+  }
+  if (categoryUserListId(currentUser?.id) !== expectedListId) return;
+  const error = results.find((result) => result?.error)?.error;
+  if (error) {
+    setRemoteUnavailable("Could not sync Dogs right now. Your device copy is still saved.", error);
+    return;
+  }
+  remoteSyncUnavailable = false;
+  authNotice = "";
+  updateAccountUi();
+};
+
+const queueRemoteSave = (snapshot, options = {}) => {
+  const expectedListId = categoryUserListId(currentUser?.id);
+  if (
+    expectedListId &&
+    remoteReadyListId !== expectedListId &&
+    options.initialReconciliation !== true
+  ) {
+    const previousSurfaces = deferredRemoteSave?.listId === expectedListId
+      ? deferredRemoteSave.options.changedSurfaces || []
+      : [];
+    deferredRemoteSave = {
+      listId: expectedListId,
+      snapshot,
+      options: {
+        ...options,
+        changedSurfaces: [...new Set([
+          ...previousSurfaces,
+          ...(options.changedSurfaces || []),
+        ])],
+      },
+    };
+    return Promise.resolve();
+  }
+  remoteWriteChain = remoteWriteChain
+    .catch(() => undefined)
+    .then(() => syncRemoteSnapshot(snapshot, expectedListId, options));
+  return remoteWriteChain;
+};
+
+const canonicalizeCurrentCatalogState = ({ announceUpgrade = false, persistUpgrade = true } = {}) => {
+  if (!catalogDocument?.entities?.length) return { changed: false, remapped: 0, deduplicated: 0 };
+  const upgraded = canonicalizeDogStoredState({ ranking, lists }, catalogDocument.entities);
+  ranking = upgraded.ranking;
+  lists = upgraded.lists;
+  if (upgraded.changed && persistUpgrade) {
+    saveAll({ syncRemote: false, changedSurfaces: [] });
+  }
+  if (announceUpgrade && upgraded.remapped) {
+    showToast(
+      `Updated ${upgraded.remapped} saved breed reference${upgraded.remapped === 1 ? "" : "s"} to the current catalog.`,
+    );
+  }
+  return upgraded;
+};
+
+const performRemoteStateLoad = async () => {
+  const listId = categoryUserListId(currentUser?.id);
+  if (!accountSyncEnabled || !supabase || !listId) return;
+  let results;
+  try {
+    results = await readRemoteStateRows(listId);
+  } catch (error) {
+    setRemoteUnavailable("Could not load synced Dogs. Showing this device copy.", error);
+    return;
+  }
+  const error = results.find((result) => result?.error)?.error;
+  if (error) {
+    setRemoteUnavailable("Could not load synced Dogs. Showing this device copy.", error);
+    return;
+  }
+  if (categoryUserListId(currentUser?.id) !== listId) return;
+  const local = localPayloadSnapshot();
+
+  const merged = payloadsFromRemoteRows(results, listId, local);
+  if (categoryUserListId(currentUser?.id) !== listId) return;
+  ranking = merged.ranking.items;
+  lists = {
+    curious: merged.lists.curious.items,
+    not_for_me: merged.lists.not_for_me.items,
+  };
+  packProgress = merged.packProgress.state;
+  stateUpdatedAt = {
+    ranking: merged.ranking.updated_at || stateUpdatedAt.ranking,
+    lists: Object.fromEntries(DOG_LIST_TYPES.map((listType) => [
+      listType,
+      merged.lists[listType].updated_at || stateUpdatedAt.lists[listType],
+    ])),
+    packProgress: merged.packProgress.updated_at || stateUpdatedAt.packProgress,
+  };
+  saveAll({ syncRemote: false, changedSurfaces: [] });
+  await queueRemoteSave(localPayloadSnapshot(), {
+    mergeRemote: false,
+    changedSurfaces: ALL_REMOTE_SURFACES,
+    initialReconciliation: true,
+  });
+  if (categoryUserListId(currentUser?.id) !== listId) return;
+  remoteReadyListId = listId;
+  if (deferredRemoteSave?.listId === listId) {
+    const pending = deferredRemoteSave;
+    deferredRemoteSave = null;
+    await queueRemoteSave(localPayloadSnapshot(), pending.options);
+  }
+  if (categoryUserListId(currentUser?.id) !== listId) return;
+  renderAll();
+  const appended = merged.ranking.appendedItems.length + merged.remapped;
+  if (appended) {
+    showToast(
+      `${appended} breed${appended === 1 ? "" : "s"} merged from another saved copy ${appended === 1 ? "was" : "were"} kept in your ranking. Review the order when convenient.`,
+      { duration: 8000 },
+    );
+  }
+};
+
+const loadRemoteState = () => {
+  const requestedListId = categoryUserListId(currentUser?.id);
+  if (!requestedListId) return Promise.resolve();
+  if (remoteLoadPromise) {
+    if (remoteLoadListId === requestedListId) return remoteLoadPromise;
+    return remoteLoadPromise.catch(() => undefined).then(() =>
+      categoryUserListId(currentUser?.id) === requestedListId
+        ? loadRemoteState()
+        : undefined);
+  }
+  remoteLoadListId = requestedListId;
+  const wrapped = performRemoteStateLoad().finally(() => {
+    if (remoteLoadPromise !== wrapped) return;
+    remoteLoadPromise = null;
+    remoteLoadListId = "";
+  });
+  remoteLoadPromise = wrapped;
+  return wrapped;
 };
 
 const closeSettings = () => {
@@ -354,11 +840,15 @@ const assetObjectUrl = (asset, role = "card") => {
   });
 };
 
-const approvedImageForCatalogId = (catalogId, role = "card") => {
+const approvedImageForCatalogId = (
+  catalogId,
+  role = "card",
+  purpose = PROVIDER_PURPOSES.ARTWORK_UI_DISPLAY,
+) => {
   const candidates = rightsByCatalogId.get(catalogId) || [];
   const asset = candidates.find((entry) => canProviderPurpose(
-    DOGS_CATEGORY,
-    PROVIDER_PURPOSES.ARTWORK_UI_DISPLAY,
+    DOGS_RUNTIME_POLICY,
+    purpose,
     { asset: entry, rightsPolicy },
   ) && assetObjectUrl(entry, role));
   if (!asset) return null;
@@ -854,7 +1344,7 @@ const transitionItem = (item, destination) => {
   if (!transition.changed) return;
   ranking = transition.state.ranking;
   lists = transition.state.lists;
-  saveAll();
+  saveAll({ changedSurfaces: changedEntitySurfaces(before, { ranking, lists }) });
   renderAll();
   const label = destination === "curious"
     ? `${item.snapshot.primaryText} saved to Curious about.`
@@ -927,7 +1417,7 @@ const settleRanking = (session) => {
   searchInput.value = "";
   searchInput.blur();
   closeSearchResults();
-  saveAll();
+  saveAll({ changedSurfaces: changedEntitySurfaces(before, { ranking, lists }) });
   renderAll();
   showToast(`${placed} is #${placedRank}.`, { undoSnapshot: before });
   if (origin) {
@@ -1017,7 +1507,7 @@ const advanceReview = (swap) => {
   if (swap) {
     [ranking[pairIndex], ranking[pairIndex + 1]] = [ranking[pairIndex + 1], ranking[pairIndex]];
     reviewSession.changed = true;
-    saveAll();
+    saveAll({ changedSurfaces: ["ranking"] });
   }
   reviewSession.cursor += 1;
   renderReview();
@@ -1041,7 +1531,7 @@ const performRankingMove = (key, toIndex, label) => {
   const result = moveRankedEntity(ranking, key, toIndex);
   if (!result.changed) return;
   ranking = result.items;
-  saveAll();
+  saveAll({ changedSurfaces: ["ranking"] });
   renderAll();
   announce(`${result.item.snapshot.primaryText} moved to rank ${result.toIndex + 1}.`);
   showToast(label || `${result.item.snapshot.primaryText} moved.`, { undoSnapshot: before });
@@ -1053,7 +1543,7 @@ const removeFromRanking = (key) => {
   if (!window.confirm(`Remove ${result.item.snapshot.primaryText} from your Dogs ranking?`)) return;
   const before = stateSnapshot();
   ranking = result.items;
-  saveAll();
+  saveAll({ changedSurfaces: ["ranking"] });
   renderAll();
   showToast(`${result.item.snapshot.primaryText} removed from the ranking.`, { undoSnapshot: before });
 };
@@ -1179,7 +1669,7 @@ const startPack = (packId) => {
     versionSeen: 1,
   };
   const next = packItems(pack).find((item) => !handledLocation(item.entityRef.id));
-  saveAll();
+  saveAll({ changedSurfaces: ["packProgress"] });
   renderAll();
   if (packsDialog.open) packsDialog.close();
   if (next) beginRanking(next);
@@ -1261,14 +1751,18 @@ const restoreBackup = async (file) => {
       not_for_me: normalizeStoredRanking(backup.lists.not_for_me),
     };
     if (restoredRanking.length !== backup.ranking.length) throw new Error("invalid ranking entities");
-    if (!window.confirm("Replace this device’s Dogs ranking, lists, and pack progress with the backup?")) return;
+    const restoreScope = currentUser
+      ? "Replace your synced Dogs ranking, lists, and pack progress—and this device copy—with the backup?"
+      : "Replace this device’s Dogs ranking, lists, and pack progress with the backup?";
+    if (!window.confirm(restoreScope)) return;
     const before = stateSnapshot();
     const normalized = normalizeCategoryListState({ ranking: restoredRanking, lists: restoredLists }, LIST_OPTIONS);
     ranking = normalized.ranking;
     lists = normalized.lists;
     packProgress = backup.packProgress || {};
     preferences = { ...preferences, ...(backup.preferences || {}) };
-    saveAll();
+    canonicalizeCurrentCatalogState({ persistUpgrade: false });
+    saveAll({ mergeRemote: false });
     renderAll();
     backupDialog.close();
     showToast(`Restored ${ranking.length} ranked breed${ranking.length === 1 ? "" : "s"}.`, { undoSnapshot: before });
@@ -1334,11 +1828,427 @@ const applyImport = () => {
   const normalized = normalizeCategoryListState({ ranking, lists }, LIST_OPTIONS);
   ranking = normalized.ranking;
   lists = normalized.lists;
-  saveAll();
+  saveAll({
+    changedSurfaces: changedEntitySurfaces(before, { ranking, lists }),
+    mergeRemote: false,
+  });
   renderAll();
   backupDialog.close();
   showDestination("ranking");
   showToast(`Imported ${ranking.length} breed${ranking.length === 1 ? "" : "s"} in the reviewed order.`, { undoSnapshot: before });
+};
+
+const updateAccountUi = () => {
+  const available = Boolean(supabase && (accountSyncEnabled || publicSnapshotsEnabled));
+  signInButton.hidden = !available || Boolean(currentUser);
+  signOutButton.hidden = !available || !currentUser;
+  if (!available) {
+    accountState.textContent = "Dogs on this device";
+    remoteGateNote.textContent =
+      "Account sync and public links stay off until the additive Dogs RLS contract is approved.";
+  } else if (currentUser) {
+    accountState.textContent = currentUser.email
+      ? `Signed in as ${currentUser.email}`
+      : "Signed in";
+    remoteGateNote.textContent = remoteSyncUnavailable
+      ? authNotice
+      : "This Dogs ranking is backed up to your StackRank account.";
+  } else {
+    accountState.textContent = "Dogs on this device";
+    remoteGateNote.textContent = authNotice || "Sign in to sync this Dogs ranking across devices.";
+  }
+  publicShare.hidden = !publicSnapshotsEnabled;
+  updateShareLinkUi();
+};
+
+const setSignInStatus = (message, error = false) => {
+  signInStatus.textContent = message;
+  signInStatus.classList.toggle("is-error", error);
+};
+
+const setSignInBusy = (busy) => {
+  signInGoogle.disabled = busy;
+  signInApple.disabled = busy;
+  signInEmail.disabled = busy;
+  signInSend.disabled = busy;
+};
+
+const loadSignInProviderAvailability = async () => {
+  if (signInProviderPromise) return signInProviderPromise;
+  signInProviderPromise = fetch(`${SUPABASE_URL}/auth/v1/settings`, {
+    headers: { apikey: SUPABASE_PUBLISHABLE_KEY },
+  })
+    .then((response) => {
+      if (!response.ok) throw new Error(`Auth settings returned ${response.status}.`);
+      return response.json();
+    })
+    .then((settingsPayload) => {
+      const enabled = new Set(enabledOAuthProviders(settingsPayload).map(({ provider }) => provider));
+      signInGoogle.hidden = !enabled.has("google");
+      signInApple.hidden = !enabled.has("apple");
+      signInProviders.hidden = enabled.size === 0;
+    })
+    .catch((error) => {
+      signInProviderPromise = null;
+      signInProviders.hidden = true;
+      console.warn("Could not load Supabase OAuth provider settings", error);
+    });
+  return signInProviderPromise;
+};
+
+const openSignIn = () => {
+  if (!supabase) return;
+  setSignInBusy(false);
+  setSignInStatus("");
+  showDialog(signInDialog);
+  signInEmail.focus({ preventScroll: true });
+  void loadSignInProviderAvailability();
+};
+
+const handleMagicLinkSignIn = async () => {
+  if (!supabase) return;
+  const email = normalizeAuthEmail(signInEmail.value);
+  if (!isLikelyEmail(email)) {
+    setSignInStatus("Enter a valid email address to receive a sign-in link.", true);
+    signInEmail.focus();
+    return;
+  }
+  setSignInBusy(true);
+  setSignInStatus("Sending your sign-in link…");
+  try {
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: {
+        emailRedirectTo: signInRedirectUrl(window.location, ACTIVE_CATEGORY.path),
+      },
+    });
+    if (error) throw error;
+    signInEmail.value = "";
+    setSignInStatus(`Check ${email} for your sign-in link.`);
+  } catch (error) {
+    setSignInStatus(`Sign-in failed: ${error?.message || "Could not reach the sign-in service."}`, true);
+  } finally {
+    setSignInBusy(false);
+  }
+};
+
+const handleOAuthSignIn = async (provider) => {
+  if (!supabase) return;
+  const config = AUTH_PROVIDERS.find((entry) => entry.provider === provider);
+  const button = provider === "google" ? signInGoogle : provider === "apple" ? signInApple : null;
+  if (!config || !button || button.hidden) return;
+  setSignInBusy(true);
+  setSignInStatus(`Redirecting to ${config.label.replace(/^Continue with /, "")}…`);
+  try {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: signInRedirectUrl(window.location, ACTIVE_CATEGORY.path),
+      },
+    });
+    if (error) throw error;
+  } catch (error) {
+    setSignInBusy(false);
+    setSignInStatus(`Sign-in failed: ${error?.message || "Could not reach the sign-in service."}`, true);
+  }
+};
+
+const clearDeviceStateAfterSignOut = () => {
+  ranking = [];
+  lists = { curious: [], not_for_me: [] };
+  packProgress = {};
+  shareLinkState = emptyShareLinkState();
+  saveAll({ syncRemote: false });
+  renderAll();
+};
+
+const handleSignOut = async () => {
+  if (!supabase || !currentUser || !window.confirm(SIGN_OUT_LOCAL_DATA_MESSAGE)) return;
+  let error;
+  try {
+    ({ error } = await supabase.auth.signOut());
+  } catch (caughtError) {
+    error = caughtError;
+  }
+  if (error) {
+    authNotice = `Sign-out failed: ${error.message || "Could not reach the sign-in service."}`;
+    updateAccountUi();
+    return;
+  }
+  if (currentUser) {
+    currentUser = null;
+    clearDeviceStateAfterSignOut();
+  }
+  authNotice = "Signed out.";
+  updateAccountUi();
+  closeSettings();
+};
+
+const initAuth = async () => {
+  updateAccountUi();
+  if (!supabase) return;
+  try {
+    const { data, error } = await withTimeout(
+      supabase.auth.getSession(),
+      AUTH_INIT_TIMEOUT_MS,
+      "Supabase auth initialization timed out.",
+    );
+    if (error) throw error;
+    currentUser = data?.session?.user || null;
+    authNotice = "";
+  } catch (error) {
+    currentUser = null;
+    authNotice = "Could not reach Supabase. Showing this device copy.";
+    console.warn("Could not initialize Dogs auth", error);
+  }
+  updateAccountUi();
+  const { data } = supabase.auth.onAuthStateChange((event, session) => {
+    const incomingListId = categoryUserListId(session?.user?.id);
+    if (
+      event === "INITIAL_SESSION" &&
+      incomingListId === categoryUserListId(currentUser?.id)
+    ) return;
+    const previousListId = categoryUserListId(currentUser?.id);
+    const wasSignedIn = Boolean(currentUser);
+    currentUser = session?.user || null;
+    const nextListId = categoryUserListId(currentUser?.id);
+    const switchedAccounts = Boolean(
+      previousListId && nextListId && previousListId !== nextListId,
+    );
+    if (previousListId !== nextListId) {
+      shareLinkState = emptyShareLinkState();
+      remoteReadyListId = "";
+      deferredRemoteSave = null;
+    }
+    authNotice = "";
+    if (currentUser) {
+      if (switchedAccounts) clearDeviceStateAfterSignOut();
+      if (signInDialog.open) signInDialog.close();
+      const requestedListId = nextListId;
+      void (catalogReadyPromise || Promise.resolve()).then(async () => {
+        if (remoteLoadPromise) await remoteLoadPromise;
+        if (categoryUserListId(currentUser?.id) === requestedListId) {
+          await loadRemoteState();
+        }
+      });
+    } else if (wasSignedIn) {
+      clearDeviceStateAfterSignOut();
+    }
+    updateAccountUi();
+  });
+  authSubscription = data?.subscription || null;
+};
+
+const sharedSnapshotPayload = () => normalizeCategorySharedPayload({
+  catalogVersion: catalogDocument?.catalogVersion || "",
+  items: ranking.map((item) => {
+    const current = candidateForCatalogId(item.entityRef.id) || item;
+    const publicImage = approvedImageForCatalogId(
+      item.entityRef.id,
+      "card",
+      PROVIDER_PURPOSES.ARTWORK_PUBLIC_SNAPSHOT,
+    );
+    return {
+      entityRef: current.entityRef,
+      snapshot: {
+        ...current.snapshot,
+        image: publicImage
+          ? {
+              url: publicImage.url,
+              alt: publicImage.alt,
+              assetId: publicImage.assetId,
+            }
+          : { url: "", alt: "", assetId: "" },
+      },
+    };
+  }),
+}, { category: ACTIVE_CATEGORY.id });
+
+const updateShareLinkUi = () => {
+  if (!publicShare) return;
+  const available = publicSnapshotsEnabled && Boolean(currentUser && supabase);
+  const active = available && Boolean(shareLinkState.slug && !shareLinkState.revoked);
+  const busy = shareLinkState.loading || shareLinkState.busy;
+  sharePublish.hidden = !available || active;
+  shareUpdate.hidden = !active;
+  shareCopy.hidden = !active;
+  shareRevoke.hidden = !active;
+  shareLinkCard.hidden = !active;
+  sharePublish.disabled = busy || !ranking.length;
+  shareUpdate.disabled = busy || !ranking.length;
+  shareCopy.disabled = busy;
+  shareRevoke.disabled = busy;
+  if (!available) {
+    shareStatus.textContent = currentUser
+      ? "Public Dogs links are not enabled on this build."
+      : "Sign in to publish a read-only Dogs ranking snapshot.";
+    return;
+  }
+  if (active) {
+    const url = categorySharedListUrl(window.location.origin, ACTIVE_CATEGORY.id, shareLinkState.slug);
+    shareLinkUrl.href = url;
+    shareLinkUrl.textContent = url;
+    shareStatus.textContent = "This link changes only when you choose Update snapshot.";
+  } else if (shareLinkState.loading) {
+    shareStatus.textContent = "Checking your current link…";
+  } else if (shareLinkState.revoked) {
+    shareStatus.textContent = "The previous link is revoked. Publishing again creates a new address.";
+  } else {
+    shareStatus.textContent = "Publish a read-only snapshot. Later ranking changes stay private.";
+  }
+};
+
+const loadShareLinkState = async ({ force = false } = {}) => {
+  const listId = categoryUserListId(currentUser?.id);
+  if (!publicSnapshotsEnabled || !supabase || !listId) {
+    updateShareLinkUi();
+    return;
+  }
+  if (shareLinkState.loading || (shareLinkState.loaded && !force)) return;
+  shareLinkState = { ...shareLinkState, loading: true };
+  updateShareLinkUi();
+  const { data, error } = await supabase
+    .from("category_shared_lists")
+    .select("slug,updated_at,revoked_at")
+    .eq("list_id", listId)
+    .eq("category", ACTIVE_CATEGORY.id)
+    .maybeSingle();
+  if (categoryUserListId(currentUser?.id) !== listId) return;
+  if (error) {
+    shareLinkState = { ...shareLinkState, loaded: false, loading: false };
+    updateShareLinkUi();
+    shareStatus.textContent = "Could not check your current link. Try again in a moment.";
+    return;
+  }
+  shareLinkState = {
+    loaded: true,
+    loading: false,
+    busy: false,
+    slug: cleanText(data?.slug),
+    updatedAt: data?.updated_at || null,
+    revoked: Boolean(data?.revoked_at),
+  };
+  updateShareLinkUi();
+};
+
+const saveSharedSnapshot = async ({ updateExisting = false } = {}) => {
+  const listId = categoryUserListId(currentUser?.id);
+  const payload = sharedSnapshotPayload();
+  if (!publicSnapshotsEnabled || !supabase || !listId || !payload?.items?.length) return;
+  shareLinkState = { ...shareLinkState, busy: true };
+  shareStatus.textContent = updateExisting ? "Updating snapshot…" : "Publishing snapshot…";
+  updateShareLinkUi();
+  const now = new Date().toISOString();
+  let result = null;
+  let lastError = null;
+  if (updateExisting && shareLinkState.slug && !shareLinkState.revoked) {
+    result = await supabase
+      .from("category_shared_lists")
+      .update({ payload, updated_at: now, revoked_at: null })
+      .eq("slug", shareLinkState.slug)
+      .eq("list_id", listId)
+      .eq("category", ACTIVE_CATEGORY.id)
+      .is("revoked_at", null)
+      .select("slug,updated_at,revoked_at")
+      .maybeSingle();
+  } else {
+    for (let attempt = 0; attempt < 4; attempt += 1) {
+      const slug = generateCategoryShareSlug();
+      if (shareLinkState.slug) {
+        result = await supabase
+          .from("category_shared_lists")
+          .update({ slug, payload, updated_at: now, revoked_at: null })
+          .eq("slug", shareLinkState.slug)
+          .eq("list_id", listId)
+          .eq("category", ACTIVE_CATEGORY.id)
+          .select("slug,updated_at,revoked_at")
+          .maybeSingle();
+      } else {
+        const row = buildCategorySharedListRow({
+          slug,
+          listId,
+          category: ACTIVE_CATEGORY.id,
+          payload,
+          createdAt: now,
+          updatedAt: now,
+        });
+        result = row
+          ? await supabase
+              .from("category_shared_lists")
+              .insert(row)
+              .select("slug,updated_at,revoked_at")
+              .maybeSingle()
+          : { data: null, error: new Error("Snapshot payload is invalid.") };
+      }
+      if (!result.error && result.data?.slug) {
+        lastError = null;
+        break;
+      }
+      lastError = result.error;
+      if (!String(result.error?.code || result.error?.message || "").includes("23505")) break;
+    }
+  }
+  const error = result?.error || lastError;
+  if (categoryUserListId(currentUser?.id) !== listId) return;
+  if (error || !result?.data?.slug) {
+    shareLinkState = { ...shareLinkState, busy: false };
+    shareStatus.textContent = "Could not save this public snapshot. Try again in a moment.";
+    console.warn("Could not save Dogs public snapshot", error);
+    updateShareLinkUi();
+    return;
+  }
+  shareLinkState = {
+    loaded: true,
+    loading: false,
+    busy: false,
+    slug: result.data.slug,
+    updatedAt: result.data.updated_at || now,
+    revoked: false,
+  };
+  updateShareLinkUi();
+  showToast(updateExisting ? "Public Dogs snapshot updated." : "Public Dogs snapshot published.");
+};
+
+const copyShareLink = async () => {
+  if (!shareLinkState.slug || shareLinkState.revoked) return;
+  const url = categorySharedListUrl(window.location.origin, ACTIVE_CATEGORY.id, shareLinkState.slug);
+  try {
+    await navigator.clipboard.writeText(url);
+  } catch (_error) {
+    const input = document.createElement("textarea");
+    input.value = url;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand("copy");
+    input.remove();
+  }
+  showToast("Public Dogs link copied.");
+};
+
+const revokeShareLink = async () => {
+  const listId = categoryUserListId(currentUser?.id);
+  if (!supabase || !listId || !shareLinkState.slug) return;
+  const revokedAt = new Date().toISOString();
+  shareLinkState = { ...shareLinkState, busy: true };
+  updateShareLinkUi();
+  const { data, error } = await supabase
+    .from("category_shared_lists")
+    .update({ revoked_at: revokedAt, updated_at: revokedAt })
+    .eq("slug", shareLinkState.slug)
+    .eq("list_id", listId)
+    .eq("category", ACTIVE_CATEGORY.id)
+    .select("slug,updated_at,revoked_at")
+    .maybeSingle();
+  if (categoryUserListId(currentUser?.id) !== listId) return;
+  if (error || !data?.slug) {
+    shareLinkState = { ...shareLinkState, busy: false };
+    shareStatus.textContent = "Could not revoke this link. Try again in a moment.";
+    updateShareLinkUi();
+    return;
+  }
+  shareLinkState = { ...shareLinkState, busy: false, revoked: true };
+  updateShareLinkUi();
+  showToast("Public Dogs link revoked.");
 };
 
 const openExport = () => {
@@ -1348,6 +2258,7 @@ const openExport = () => {
   }
   $("#dogs-export-preview").textContent = dogsExportText(ranking, catalogDocument?.catalogVersion, "text");
   showDialog(exportDialog);
+  void loadShareLinkState();
 };
 
 const exportRanking = (format) => {
@@ -1361,12 +2272,13 @@ const exportRanking = (format) => {
 
 const clearAllDogsData = () => {
   if (!ranking.length && !lists.curious.length && !lists.not_for_me.length) return;
-  if (!window.confirm("Clear this device’s Dogs ranking, lists, and pack progress? Movies and Books will not be touched.")) return;
+  const scope = currentUser ? "your synced Dogs data and this device copy" : "this device’s Dogs data";
+  if (!window.confirm(`Clear ${scope}? Movies and Books will not be touched.`)) return;
   const before = stateSnapshot();
   ranking = [];
   lists = { curious: [], not_for_me: [] };
   packProgress = {};
-  saveAll();
+  saveAll({ mergeRemote: false });
   renderAll();
   closeSettings();
   showToast("Dogs data cleared from this device.", { undoSnapshot: before });
@@ -1415,6 +2327,7 @@ const loadCatalog = async () => {
     )).length;
     catalogStatus.textContent = `${catalogDocument.entities.length.toLocaleString()} selectable breeds and types · VBO ${catalogDocument.source.release} · photography appears only after rights review${approvedCount ? ` (${approvedCount} available)` : ""}`;
     fillFilterOptions();
+    canonicalizeCurrentCatalogState({ announceUpgrade: true });
   } catch (error) {
     catalogLoadError = error;
     catalogDocument = null;
@@ -1569,7 +2482,7 @@ $$('[data-ranking-view]').forEach((button) => {
     preferences.rankingView = button.dataset.rankingView;
     $$('[data-ranking-view]').forEach((candidate) =>
       candidate.setAttribute("aria-pressed", String(candidate === button)));
-    saveAll();
+    savePreferences();
     renderRanking();
   });
 });
@@ -1580,17 +2493,17 @@ $("#dogs-filter-toggle").addEventListener("click", (event) => {
 });
 $("#dogs-status-filter").addEventListener("change", (event) => {
   preferences.statusFilter = event.target.value;
-  saveAll();
+  savePreferences();
   renderRanking();
 });
 $("#dogs-region-filter").addEventListener("change", (event) => {
   preferences.regionFilter = event.target.value;
-  saveAll();
+  savePreferences();
   renderRanking();
 });
 $("#dogs-image-filter").addEventListener("change", (event) => {
   preferences.imageOnly = event.target.checked;
-  saveAll();
+  savePreferences();
   renderRanking();
 });
 $("#dogs-clear-filters").addEventListener("click", () => {
@@ -1598,7 +2511,7 @@ $("#dogs-clear-filters").addEventListener("click", () => {
   preferences.regionFilter = "";
   preferences.imageOnly = false;
   fillFilterOptions();
-  saveAll();
+  savePreferences();
   renderRanking();
 });
 $("#dogs-move-mode").addEventListener("click", (event) => {
@@ -1619,6 +2532,18 @@ $("#dogs-open-credits").addEventListener("click", renderCredits);
 
 $("#dogs-open-backup").addEventListener("click", () => showDialog(backupDialog));
 $("#dogs-open-export").addEventListener("click", openExport);
+signInButton.addEventListener("click", openSignIn);
+signOutButton.addEventListener("click", () => void handleSignOut());
+signInEmailForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  void handleMagicLinkSignIn();
+});
+signInGoogle.addEventListener("click", () => void handleOAuthSignIn("google"));
+signInApple.addEventListener("click", () => void handleOAuthSignIn("apple"));
+sharePublish.addEventListener("click", () => void saveSharedSnapshot());
+shareUpdate.addEventListener("click", () => void saveSharedSnapshot({ updateExisting: true }));
+shareCopy.addEventListener("click", () => void copyShareLink());
+shareRevoke.addEventListener("click", () => void revokeShareLink());
 $("#dogs-open-hidden").addEventListener("click", () => {
   renderLists();
   showDialog(hiddenDialog);
@@ -1654,6 +2579,7 @@ document.addEventListener("keydown", (event) => {
 
 const init = async () => {
   loadState();
+  updateAccountUi();
   $$('[data-ranking-view]').forEach((button) =>
     button.setAttribute("aria-pressed", String(button.dataset.rankingView === preferences.rankingView)));
   let initialDestination = "rank";
@@ -1664,7 +2590,10 @@ const init = async () => {
   }
   showDestination(initialDestination, { restoreScroll: false });
   renderAll();
-  await loadCatalog();
+  catalogReadyPromise = loadCatalog();
+  await Promise.all([catalogReadyPromise, initAuth()]);
+  canonicalizeCurrentCatalogState({ persistUpgrade: true });
+  if (currentUser) await loadRemoteState();
   if (!storageAvailable) storageError();
   console.info("StackRank Dogs", {
     catalogVersion: catalogDocument?.catalogVersion || null,

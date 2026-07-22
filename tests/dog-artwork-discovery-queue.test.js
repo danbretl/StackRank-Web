@@ -196,13 +196,13 @@ test("tracked discovery queue exactly matches the current versioned catalog, led
   });
   assert.equal(queueText, stableJson(built));
   assert.equal(built.sourceVersions.catalogVersion, "vbo-2026-04-15.2");
-  assert.equal(built.summary.currentCanonicalCount, 899);
+  assert.equal(built.summary.currentCanonicalCount, 877);
   assert.equal(built.summary.catalogIdsWithLedgerRows, 28);
-  assert.equal(built.summary.queuedMissingLedgerRows, 871);
+  assert.equal(built.summary.queuedMissingLedgerRows, 849);
   assert.equal(built.summary.promoted, 0);
   assert.equal(built.summary.packEngaged, 185);
-  assert.equal(built.summary.catalogLongTail, 686);
+  assert.equal(built.summary.catalogLongTail, 664);
   const ledgerIds = new Set(JSON.parse(ledgerText).assets.map((asset) => asset.catalogId));
   assert.ok(built.items.every((item) => !ledgerIds.has(item.catalogId)));
-  assert.equal(new Set(built.items.map((item) => item.catalogId)).size, 871);
+  assert.equal(new Set(built.items.map((item) => item.catalogId)).size, 849);
 });

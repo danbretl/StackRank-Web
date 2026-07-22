@@ -1,7 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "check": "node --check app.js && node --check books.js && node --check dogs.js && node --check home.js && node --check shared.js",
+    "check": "node --check app.js && node --check books.js && node --check dogs.js && node --check dogs-shared.js && node --check home.js && node --check shared.js",
     "check:cache": "node scripts/check-cache-versions.mjs",
     "check:functions": "deno check --no-lock supabase/functions/*/index.ts supabase/functions/_shared/*.ts",
     "test:functions": "deno test --no-lock supabase/functions/_shared/*_test.ts",
@@ -19,6 +19,7 @@
     "build:dogs:artwork-discovery": "node scripts/build-dog-artwork-discovery-queue.mjs",
     "review:dogs:catalog": "node scripts/build-dog-catalog-review.mjs",
     "review:dogs:artwork": "node scripts/build-dog-artwork-review.mjs",
+    "prepare:dogs:artwork": "node scripts/prepare-dog-artwork-batch.mjs",
     "deliver:dogs:artwork": "node scripts/deliver-dog-artwork.mjs",
     "verify": "npm test && npm run check && npm run check:cache && npm run check:functions && npm run test:functions && npm run validate:packs && npm run validate:dogs && npm run test:e2e",
     "author:packs": "node scripts/author-suggestion-packs.mjs",

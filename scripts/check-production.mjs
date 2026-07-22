@@ -5,6 +5,7 @@ const productionOrigin = "https://www.stackrankapp.com";
 const apexOrigin = "https://stackrankapp.com";
 const localIndex = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const localDogs = fs.readFileSync(new URL("../dogs.html", import.meta.url), "utf8");
+const localDogsShared = fs.readFileSync(new URL("../dogs-shared.html", import.meta.url), "utf8");
 const localShared = fs.readFileSync(new URL("../shared.html", import.meta.url), "utf8");
 const localApp = fs.readFileSync(new URL("../app.js", import.meta.url), "utf8");
 const vercelConfig = JSON.parse(
@@ -59,6 +60,8 @@ const privacyResponse = await expectOk("/privacy");
 const privacyHtml = await privacyResponse.text();
 const sharedResponse = await expectOk("/s/prodsmoke1");
 const sharedHtml = await sharedResponse.text();
+const dogsSharedResponse = await expectOk("/s/dogs/prodsmoke123");
+const dogsSharedHtml = await dogsSharedResponse.text();
 
 const configuredHeaders = Object.fromEntries(
   vercelConfig.headers[0].headers.map(({ key, value }) => [key.toLowerCase(), value]),
@@ -68,6 +71,7 @@ for (const [key, expected] of Object.entries(configuredHeaders)) {
   assert.equal(dogsResponse.headers.get(key), expected, `/dogs ${key}`);
   assert.equal(privacyResponse.headers.get(key), expected, `/privacy ${key}`);
   assert.equal(sharedResponse.headers.get(key), expected, `/s/prodsmoke1 ${key}`);
+  assert.equal(dogsSharedResponse.headers.get(key), expected, `/s/dogs/prodsmoke123 ${key}`);
 }
 assert.match(moviesResponse.headers.get("strict-transport-security") || "", /max-age=/);
 record("security headers match vercel.json on /movies, /dogs, /privacy, and /s/:slug");
@@ -182,12 +186,38 @@ assert.equal(
 );
 record("shared-list route serves generic noindex metadata and cache-busted assets");
 
+const expectedDogsSharedCss = attribute(
+  localDogsShared,
+  /<link\b[^>]*\brel=["']stylesheet["'][^>]*>/i,
+  "href",
+);
+const expectedDogsSharedModule = attribute(
+  localDogsShared,
+  /<script\b[^>]*\btype=["']module["'][^>]*>/i,
+  "src",
+);
+assert.equal(
+  attribute(dogsSharedHtml, /<meta\b[^>]*\bname=["']robots["'][^>]*>/i, "content"),
+  "noindex, nofollow",
+);
+assert.equal(
+  attribute(dogsSharedHtml, /<script\b[^>]*\btype=["']module["'][^>]*>/i, "src"),
+  expectedDogsSharedModule,
+);
+assert.equal(
+  attribute(dogsSharedHtml, /<link\b[^>]*\brel=["']stylesheet["'][^>]*>/i, "href"),
+  expectedDogsSharedCss,
+);
+record("Dogs shared-list route preserves the distinct noindex category artifact");
+
 for (const asset of [
   expectedCss,
   expectedModule,
   expectedSharedModule,
   expectedDogsCss,
   expectedDogsModule,
+  expectedDogsSharedCss,
+  expectedDogsSharedModule,
   expectedVendorModule,
   "assets/favicon.ico",
   "assets/favicon.svg",
@@ -204,11 +234,13 @@ for (const asset of [
   expectedSharedModule,
   expectedDogsCss,
   expectedDogsModule,
+  expectedDogsSharedCss,
+  expectedDogsSharedModule,
   expectedVendorModule,
   "data/suggestion-packs.json?v=5",
-  "data/dogs/dog-catalog.json?v=2",
+  "data/dogs/dog-catalog.json?v=3",
   "data/dogs/packs.json?v=2",
-  "data/dogs/image-rights.json?v=3",
+  "data/dogs/image-rights.json?v=4",
   "data/dogs/artwork-license-policy.json?v=1",
 ]) {
   const response = await request(new URL(assetPath(asset), productionOrigin).toString());
@@ -221,10 +253,10 @@ for (const asset of [
 }
 record("cache-busted app, vendor, CSS, and pack data are immutable");
 
-const dogCatalogResponse = await request(new URL("/data/dogs/dog-catalog.json?v=2", productionOrigin));
+const dogCatalogResponse = await request(new URL("/data/dogs/dog-catalog.json?v=3", productionOrigin));
 const dogCatalog = await dogCatalogResponse.json();
 assert.equal(dogCatalog.catalogId, "stackrank-dogs");
-assert.equal(dogCatalog.entities?.length, 1264);
+assert.equal(dogCatalog.entities?.length, 1239);
 assert.equal(dogCatalog.source?.release, "2026-04-15");
 const dogPacksResponse = await request(new URL("/data/dogs/packs.json?v=2", productionOrigin));
 const dogPacks = await dogPacksResponse.json();

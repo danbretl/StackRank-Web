@@ -162,55 +162,14 @@
       "primaryImageAssetId": null
     },
     {
-      "id": "VBO:0008001",
-      "displayName": "Elsesian",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [
-        "Elsesian, Bangladesh"
-      ],
-      "sourceIds": [
-        "VBO:0008001"
-      ],
-      "registryRefs": [],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
-      "id": "VBO:0008002",
-      "displayName": "German Shephard",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [
-        "German Shephard, Bangladesh"
-      ],
-      "sourceIds": [
-        "VBO:0008002"
-      ],
-      "registryRefs": [],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
       "id": "VBO:0008003",
-      "displayName": "Indigenous",
+      "displayName": "Bangladesh Indigenous Dog",
       "entityType": "dog",
       "status": "canonical",
       "selectable": true,
       "promoted": false,
       "aliases": [
+        "Indigenous",
         "Indigenous, Bangladesh"
       ],
       "sourceIds": [
@@ -247,12 +206,13 @@
     },
     {
       "id": "VBO:0008005",
-      "displayName": "Balgarski barak",
+      "displayName": "Bulgarian Barak",
       "entityType": "dog",
       "status": "canonical",
       "selectable": true,
       "promoted": false,
       "aliases": [
+        "Balgarski barak",
         "Balgarski barak, Bulgaria",
         "Bulgarian coarse-haired hound - Barak",
         "Bulgarian houd (Barak)"
@@ -486,59 +446,16 @@
     },
     {
       "id": "VBO:0008049",
-      "displayName": "SMALL MEĐIMURJE DOG – MEĐI",
+      "displayName": "Small Međimurje Dog (Međi)",
       "entityType": "dog",
       "status": "canonical",
       "selectable": true,
       "promoted": false,
       "aliases": [
-        "MALI MEÄIMURSKI PAS",
         "SMALL MEĐIMURJE DOG – MEĐI, Croatia"
       ],
       "sourceIds": [
         "VBO:0008049"
-      ],
-      "registryRefs": [],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
-      "id": "VBO:0008051",
-      "displayName": "Hungarian houn",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [
-        "Hungarian houn, Hungary"
-      ],
-      "sourceIds": [
-        "VBO:0008051"
-      ],
-      "registryRefs": [],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
-      "id": "VBO:0008055",
-      "displayName": "Magyarországi Drótszőrű Magyarvizsla Tenyésztők Egyesülete",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [
-        "Magyarországi Drótszőrű Magyarvizsla Tenyésztők Egyesülete, Hungary"
-      ],
-      "sourceIds": [
-        "VBO:0008055"
       ],
       "registryRefs": [],
       "relationships": {
@@ -613,27 +530,6 @@
       "primaryImageAssetId": null
     },
     {
-      "id": "VBO:0008085",
-      "displayName": "Kars Turkish Shepherd",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [
-        "Kars Turkish Shepherd, Turkey"
-      ],
-      "sourceIds": [
-        "VBO:0008085"
-      ],
-      "registryRefs": [],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
       "id": "VBO:0008086",
       "displayName": "Turkish Greyhound",
       "entityType": "dog",
@@ -655,34 +551,14 @@
       "primaryImageAssetId": null
     },
     {
-      "id": "VBO:0008087",
-      "displayName": "Çatal Burun Hunting",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [
-        "Çatal Burun Hunting, Turkey"
-      ],
-      "sourceIds": [
-        "VBO:0008087"
-      ],
-      "registryRefs": [],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
       "id": "VBO:0008093",
-      "displayName": "SA Greyhound",
+      "displayName": "South African Greyhound",
       "entityType": "dog",
       "status": "canonical",
       "selectable": true,
       "promoted": false,
       "aliases": [
+        "SA Greyhound",
         "SA Greyhound, South Africa"
       ],
       "sourceIds": [
@@ -3183,13 +3059,20 @@
       "selectable": true,
       "promoted": false,
       "aliases": [
+        "BOSANSKI OSTRODLAKI GONIC-BARAK",
+        "Bosnian Broken-Haired Hound - Called Barak",
+        "Bosnian Coarse-Haired Hound",
         "STICHELHAARIGER BOSNICHER LAUFHUND-GENANNT BARAK"
       ],
       "sourceIds": [
-        "VBO:0200117"
+        "VBO:0200117",
+        "VBO:0200198",
+        "VBO:0200200"
       ],
       "registryRefs": [
-        "iDog:307"
+        "FCI:155",
+        "iDog:307",
+        "VeNom:13723"
       ],
       "relationships": {
         "relatedIds": []
@@ -3576,6 +3459,7 @@
         "Bas Rouge",
         "Beauce Sheep dog",
         "Beauce Shepherd Dog",
+        "Berger de Beauce",
         "French Short-Haired Shepherd Dog",
         "French Shorthaired Shepherd",
         "Shepherd Dog - Beauce",
@@ -3583,9 +3467,11 @@
       ],
       "sourceIds": [
         "VBO:0200135",
-        "VBO:0200136"
+        "VBO:0200136",
+        "VBO:0200155"
       ],
       "registryRefs": [
+        "FCI:44",
         "iDog:26",
         "VeNom:14759"
       ],
@@ -3980,27 +3866,6 @@
         "FCI:194",
         "iDog:32",
         "VeNom:14766"
-      ],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
-      "id": "VBO:0200155",
-      "displayName": "Berger de Beauce",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [],
-      "sourceIds": [
-        "VBO:0200155"
-      ],
-      "registryRefs": [
-        "FCI:44"
       ],
       "relationships": {
         "relatedIds": []
@@ -4910,50 +4775,6 @@
       "primaryImageAssetId": null
     },
     {
-      "id": "VBO:0200198",
-      "displayName": "Bosanski Ostrodlaki Gonic Barak",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [],
-      "sourceIds": [
-        "VBO:0200198"
-      ],
-      "registryRefs": [
-        "VeNom:13723"
-      ],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
-      "id": "VBO:0200200",
-      "displayName": "Bosnian Broken-Haired Hound - Called Barak",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [
-        "Bosnian Coarse-Haired Hound"
-      ],
-      "sourceIds": [
-        "VBO:0200200"
-      ],
-      "registryRefs": [
-        "FCI:155"
-      ],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
       "id": "VBO:0200201",
       "displayName": "Bosnian Hound",
       "entityType": "dog",
@@ -5463,14 +5284,18 @@
       "selectable": true,
       "promoted": false,
       "aliases": [
+        "Braque Français - Type Pyrenees",
         "Braque Francais de Petite Taille",
-        "Braque Francais de Petite Taille ( French Pointing Dog – Pyrenean Type )"
+        "Braque Francais de Petite Taille ( French Pointing Dog – Pyrenean Type )",
+        "French Pointing Dog – Pyrenean Type"
       ],
       "sourceIds": [
         "VBO:0200225",
-        "VBO:0200226"
+        "VBO:0200226",
+        "VBO:0200546"
       ],
       "registryRefs": [
+        "FCI:134",
         "iDog:52",
         "VeNom:13753",
         "VeNom:22461"
@@ -6117,15 +5942,23 @@
       "selectable": true,
       "promoted": false,
       "aliases": [
-        "Bulldog (unspecified)"
+        "British Bulldog",
+        "Bulldog - British",
+        "Bulldog - British (Bulldog - English)",
+        "Bulldog - English",
+        "Bulldog (unspecified)",
+        "English Bulldog"
       ],
       "sourceIds": [
-        "VBO:0200258"
+        "VBO:0200236",
+        "VBO:0200258",
+        "VBO:0200485"
       ],
       "registryRefs": [
         "FCI:149",
         "iDog:58",
-        "VeNom:13759"
+        "VeNom:13759",
+        "VeNom:13765"
       ],
       "relationships": {
         "relatedIds": []
@@ -6556,6 +6389,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [
+        "Castro Laboreiro Dog",
         "Cattle Dog - Portuguese",
         "Cattle Dog - Portuguese (Cão de Castro Laboreiro)",
         "Dog of Castro Laboreiro",
@@ -6564,9 +6398,11 @@
       ],
       "sourceIds": [
         "VBO:0200285",
+        "VBO:0200296",
         "VBO:0201066"
       ],
       "registryRefs": [
+        "FCI:170",
         "iDog:319",
         "VeNom:13839"
       ],
@@ -6587,12 +6423,15 @@
       "aliases": [
         "Mâtin Transmontano",
         "Transmontano Mastif",
+        "Transmontano Mastiff",
         "Transmontano-Hirtenhund"
       ],
       "sourceIds": [
-        "VBO:0200286"
+        "VBO:0200286",
+        "VBO:0201369"
       ],
       "registryRefs": [
+        "FCI:368",
         "iDog:479"
       ],
       "relationships": {
@@ -6714,27 +6553,6 @@
       ],
       "registryRefs": [
         "VeNom:14521"
-      ],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
-      "id": "VBO:0200296",
-      "displayName": "Castro Laboreiro Dog",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [],
-      "sourceIds": [
-        "VBO:0200296"
-      ],
-      "registryRefs": [
-        "FCI:170"
       ],
       "relationships": {
         "relatedIds": []
@@ -9088,6 +8906,7 @@
       "aliases": [
         "Bassotto",
         "Dachshund (unspecified)",
+        "Dachshund, Old Format",
         "Dackel",
         "https://ngdc.cncb.ac.cn/idog/breed/getBreedDetail.action?breedId=83",
         "Jamnik",
@@ -9102,12 +8921,14 @@
         "Worshond"
       ],
       "sourceIds": [
-        "VBO:0200406"
+        "VBO:0200406",
+        "VBO:0200412"
       ],
       "registryRefs": [
         "FCI:148",
         "iDog:83",
-        "VeNom:13952"
+        "VeNom:13952",
+        "VeNom:13953"
       ],
       "relationships": {
         "relatedIds": []
@@ -9230,28 +9051,6 @@
         "FCI:148",
         "iDog:286",
         "VeNom:13957"
-      ],
-      "relationships": {
-        "parentId": "VBO:0200406",
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
-      "id": "VBO:0200412",
-      "displayName": "Dachshund, Old Format",
-      "entityType": "dog",
-      "status": "variety",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [],
-      "sourceIds": [
-        "VBO:0200412"
-      ],
-      "registryRefs": [
-        "VeNom:13953"
       ],
       "relationships": {
         "parentId": "VBO:0200406",
@@ -10255,30 +10054,6 @@
       "primaryImageAssetId": null
     },
     {
-      "id": "VBO:0200462",
-      "displayName": "Dutch Sheeppoodle",
-      "entityType": "dog",
-      "status": "crossbreed",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [
-        "Dutch Sheeppoodle (Nederlandse Schapendoes)"
-      ],
-      "sourceIds": [
-        "VBO:0200462"
-      ],
-      "registryRefs": [
-        "VeNom:13991"
-      ],
-      "relationships": {
-        "parentId": "VBO:0200902",
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
       "id": "VBO:0200463",
       "displayName": "Dutch Shepherd",
       "entityType": "dog",
@@ -10745,33 +10520,6 @@
       "primaryImageAssetId": null
     },
     {
-      "id": "VBO:0200485",
-      "displayName": "English Bulldog",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [
-        "British Bulldog",
-        "Bulldog - British",
-        "Bulldog - British (Bulldog - English)",
-        "Bulldog - English"
-      ],
-      "sourceIds": [
-        "VBO:0200236",
-        "VBO:0200485"
-      ],
-      "registryRefs": [
-        "VeNom:13765"
-      ],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
       "id": "VBO:0200486",
       "displayName": "English Cocker Spaniel",
       "entityType": "dog",
@@ -10967,35 +10715,6 @@
         "FCI:125",
         "iDog:97",
         "VeNom:14884"
-      ],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
-      "id": "VBO:0200498",
-      "displayName": "English Toy Spaniel",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [
-        "Blenheim Spaniel",
-        "Charlies",
-        "Prince Charles Spaniel",
-        "Ruby Spaniel",
-        "Spaniel - English Toy",
-        "Toy Spaniel"
-      ],
-      "sourceIds": [
-        "VBO:0200498"
-      ],
-      "registryRefs": [
-        "iDog:98",
-        "VeNom:14875"
       ],
       "relationships": {
         "relatedIds": []
@@ -11769,28 +11488,6 @@
       "primaryImageAssetId": null
     },
     {
-      "id": "VBO:0200539",
-      "displayName": "French Bulldog, Group 9 : Companion and Toy Dogs",
-      "entityType": "dog",
-      "status": "variety",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [],
-      "sourceIds": [
-        "VBO:0200539"
-      ],
-      "registryRefs": [
-        "FCI:101"
-      ],
-      "relationships": {
-        "parentId": "VBO:0201455",
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
       "id": "VBO:0200540",
       "displayName": "French Guard Dog",
       "entityType": "dog",
@@ -11878,29 +11575,6 @@
       ],
       "registryRefs": [
         "VeNom:14551"
-      ],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
-      "id": "VBO:0200546",
-      "displayName": "French Pointing Dog - Pyrenean Type",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [
-        "Braque Français - Type Pyrenees"
-      ],
-      "sourceIds": [
-        "VBO:0200546"
-      ],
-      "registryRefs": [
-        "FCI:134"
       ],
       "relationships": {
         "relatedIds": []
@@ -12487,6 +12161,10 @@
         "Berger Allemand",
         "Deutscher Schaferhund",
         "DSH",
+        "Elsesian",
+        "Elsesian, Bangladesh",
+        "German Shephard",
+        "German Shephard, Bangladesh",
         "German Shepherd Dog unspecified",
         "GSD",
         "Schaferhund",
@@ -12495,6 +12173,8 @@
         "Shepherd Dog - German unspecified"
       ],
       "sourceIds": [
+        "VBO:0008001",
+        "VBO:0008002",
         "VBO:0200577"
       ],
       "registryRefs": [
@@ -14642,7 +14322,7 @@
     },
     {
       "id": "VBO:0200679",
-      "displayName": "Hungarian Hound - Transylvanian Scent Hound",
+      "displayName": "Transylvanian Hound",
       "entityType": "dog",
       "status": "canonical",
       "selectable": true,
@@ -14650,11 +14330,14 @@
       "aliases": [
         "Erdélyi Kopó",
         "Hound - Transylvanian",
-        "Transylvanian Hound",
+        "Hungarian houn",
+        "Hungarian houn, Hungary",
+        "Hungarian Hound - Transylvanian Scent Hound",
         "Transylvanian kopó",
         "Transylvanian kopó, Hungary"
       ],
       "sourceIds": [
+        "VBO:0008051",
         "VBO:0008059",
         "VBO:0200679",
         "VBO:0201370"
@@ -14691,30 +14374,6 @@
       "registryRefs": [
         "VeNom:14248",
         "VeNom:22417"
-      ],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
-      "id": "VBO:0200682",
-      "displayName": "Hungarian Water Dog",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [
-        "Water Dog - Hungarian",
-        "Water Dog - Hungarian (Puli)"
-      ],
-      "sourceIds": [
-        "VBO:0200682"
-      ],
-      "registryRefs": [
-        "VeNom:15117"
       ],
       "relationships": {
         "relatedIds": []
@@ -15480,27 +15139,6 @@
       "primaryImageAssetId": null
     },
     {
-      "id": "VBO:0200723",
-      "displayName": "Italian Volpino",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [],
-      "sourceIds": [
-        "VBO:0200723"
-      ],
-      "registryRefs": [
-        "FCI:195"
-      ],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
       "id": "VBO:0200724",
       "displayName": "Jack Russell Terrier",
       "entityType": "dog",
@@ -15726,12 +15364,19 @@
       "status": "canonical",
       "selectable": true,
       "promoted": false,
-      "aliases": [],
+      "aliases": [
+        "Elkhound - Swedish",
+        "Elkhound - Swedish (Jamthund)",
+        "Swedish Elkhound"
+      ],
       "sourceIds": [
-        "VBO:0200733"
+        "VBO:0200733",
+        "VBO:0201313"
       ],
       "registryRefs": [
-        "FCI:42"
+        "FCI:42",
+        "iDog:396",
+        "VeNom:13995"
       ],
       "relationships": {
         "relatedIds": []
@@ -16209,8 +15854,12 @@
       "status": "canonical",
       "selectable": true,
       "promoted": false,
-      "aliases": [],
+      "aliases": [
+        "Kars Turkish Shepherd",
+        "Kars Turkish Shepherd, Turkey"
+      ],
       "sourceIds": [
+        "VBO:0008085",
         "VBO:0200757"
       ],
       "registryRefs": [],
@@ -16381,15 +16030,25 @@
       "selectable": true,
       "promoted": false,
       "aliases": [
+        "Blenheim Spaniel",
+        "Charlies",
+        "English Toy Spaniel",
         "KCS",
+        "Prince Charles Spaniel",
+        "Ruby Spaniel",
+        "Spaniel - English Toy",
         "Spaniel - King Charles",
-        "Spaniel - King Charles (KCS)"
+        "Spaniel - King Charles (KCS)",
+        "Toy Spaniel"
       ],
       "sourceIds": [
+        "VBO:0200498",
         "VBO:0200765"
       ],
       "registryRefs": [
         "FCI:128",
+        "iDog:98",
+        "VeNom:14875",
         "VeNom:14880"
       ],
       "relationships": {
@@ -18458,41 +18117,22 @@
       "promoted": false,
       "aliases": [
         "Manchester Terrier (Standard)",
+        "Manchester Terrier, Old Format",
         "Terrier - Manchester",
         "Terrier - Manchester (unspecified)",
+        "Terrier - Manchester, Old Format",
         "Terrier - Manchester, Standard"
       ],
       "sourceIds": [
-        "VBO:0200862"
+        "VBO:0200862",
+        "VBO:0200863"
       ],
       "registryRefs": [
         "FCI:71",
         "iDog:156",
         "VeNom:15036",
+        "VeNom:15037",
         "VeNom:15038"
-      ],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
-      "id": "VBO:0200863",
-      "displayName": "Manchester Terrier, Old Format",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [
-        "Terrier - Manchester, Old Format"
-      ],
-      "sourceIds": [
-        "VBO:0200863"
-      ],
-      "registryRefs": [
-        "VeNom:15037"
       ],
       "relationships": {
         "relatedIds": []
@@ -22678,40 +22318,20 @@
       "selectable": true,
       "promoted": false,
       "aliases": [
-        "Toy Poodle"
+        "Poodle - Old Format Toy",
+        "Poodle, Toy Old Format",
+        "Toy Poodle",
+        "Toy Poodle - Old Format"
       ],
       "sourceIds": [
-        "VBO:0201061"
+        "VBO:0201061",
+        "VBO:0201062"
       ],
       "registryRefs": [
         "FCI:172",
         "iDog:270",
+        "VeNom:14592",
         "VeNom:14595"
-      ],
-      "relationships": {
-        "parentId": "VBO:0201048",
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
-      "id": "VBO:0201062",
-      "displayName": "Poodle, Toy Old Format",
-      "entityType": "dog",
-      "status": "variety",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [
-        "Poodle - Old Format Toy",
-        "Toy Poodle - Old Format"
-      ],
-      "sourceIds": [
-        "VBO:0201062"
-      ],
-      "registryRefs": [
-        "VeNom:14592"
       ],
       "relationships": {
         "parentId": "VBO:0201048",
@@ -23599,15 +23219,20 @@
       "promoted": false,
       "aliases": [
         "Hungarian Puli",
-        "Puli, Hungary"
+        "Hungarian Water Dog",
+        "Puli, Hungary",
+        "Water Dog - Hungarian",
+        "Water Dog - Hungarian (Puli)"
       ],
       "sourceIds": [
         "VBO:0008057",
+        "VBO:0200682",
         "VBO:0201102"
       ],
       "registryRefs": [
         "FCI:55",
-        "iDog:197"
+        "iDog:197",
+        "VeNom:15117"
       ],
       "relationships": {
         "relatedIds": []
@@ -25342,6 +24967,8 @@
       "aliases": [
         "Dutch Schapendoes",
         "Dutch Sheepdog",
+        "Dutch Sheeppoodle",
+        "Dutch Sheeppoodle (Nederlandse Schapendoes)",
         "Nederlandse Schapendoes",
         "Nederlandse Schapendoes, Netherlands",
         "Sheepdog - Dutch",
@@ -25351,11 +24978,13 @@
         "VBO:0008070",
         "VBO:0200460",
         "VBO:0200461",
+        "VBO:0200462",
         "VBO:0201181"
       ],
       "registryRefs": [
         "FCI:313",
         "iDog:211",
+        "VeNom:13991",
         "VeNom:14713"
       ],
       "relationships": {
@@ -26661,31 +26290,6 @@
       "primaryImageAssetId": null
     },
     {
-      "id": "VBO:0201243",
-      "displayName": "Slovakian Hound",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [
-        "Hound - Slovakian",
-        "Hound - Slovakian (Kopov)",
-        "Kopov"
-      ],
-      "sourceIds": [
-        "VBO:0201243"
-      ],
-      "registryRefs": [
-        "VeNom:14234"
-      ],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
       "id": "VBO:0201244",
       "displayName": "Slovakian Wire-Haired Pointer",
       "entityType": "dog",
@@ -26760,16 +26364,22 @@
         "Black Forest Hound",
         "Black Forrest Hound",
         "Hound - Black Forrest",
-        "Slovak Hound"
+        "Hound - Slovakian",
+        "Hound - Slovakian (Kopov)",
+        "Kopov",
+        "Slovak Hound",
+        "Slovakian Hound"
       ],
       "sourceIds": [
         "VBO:0200171",
+        "VBO:0201243",
         "VBO:0201246"
       ],
       "registryRefs": [
         "FCI:244",
         "iDog:225",
-        "VeNom:14153"
+        "VeNom:14153",
+        "VeNom:14234"
       ],
       "relationships": {
         "relatedIds": []
@@ -28090,31 +27700,6 @@
       "primaryImageAssetId": null
     },
     {
-      "id": "VBO:0201313",
-      "displayName": "Swedish Elkhound",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [
-        "Elkhound - Swedish",
-        "Elkhound - Swedish (Jamthund)"
-      ],
-      "sourceIds": [
-        "VBO:0201313"
-      ],
-      "registryRefs": [
-        "iDog:396",
-        "VeNom:13995"
-      ],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
       "id": "VBO:0201315",
       "displayName": "Swedish Lapphund",
       "entityType": "dog",
@@ -29205,27 +28790,6 @@
       "primaryImageAssetId": null
     },
     {
-      "id": "VBO:0201369",
-      "displayName": "Transmontano Mastiff",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [],
-      "sourceIds": [
-        "VBO:0201369"
-      ],
-      "registryRefs": [
-        "FCI:368"
-      ],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
       "id": "VBO:0201371",
       "displayName": "Treeing Cur",
       "entityType": "dog",
@@ -29649,15 +29213,18 @@
         "Florentine",
         "Florentine Spitz",
         "Italian Spitz",
+        "Italian Volpino",
         "Spitz - Italian",
         "Spitz - Italian (Florentine) (Volpino Italiano) (Cane de Quirinale)",
         "Volpino"
       ],
       "sourceIds": [
         "VBO:0200722",
+        "VBO:0200723",
         "VBO:0201390"
       ],
       "registryRefs": [
+        "FCI:195",
         "iDog:401",
         "VeNom:14917"
       ],
@@ -29935,33 +29502,15 @@
       "selectable": true,
       "promoted": false,
       "aliases": [
-        "Welsh Corgi (unspecified)"
+        "Welsh Corgi (unspecified)",
+        "Welsh Corgi, Old Format"
       ],
       "sourceIds": [
-        "VBO:0201406"
-      ],
-      "registryRefs": [
-        "VeNom:15123"
-      ],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
-      "id": "VBO:0201407",
-      "displayName": "Welsh Corgi, Old Format",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [],
-      "sourceIds": [
+        "VBO:0201406",
         "VBO:0201407"
       ],
       "registryRefs": [
+        "VeNom:15123",
         "VeNom:15125"
       ],
       "relationships": {
@@ -30510,31 +30059,10 @@
       "primaryImageAssetId": null
     },
     {
-      "id": "VBO:0201429",
-      "displayName": "Wolf",
-      "entityType": "dog",
-      "status": "canonical",
-      "selectable": true,
-      "promoted": false,
-      "aliases": [],
-      "sourceIds": [
-        "VBO:0201429"
-      ],
-      "registryRefs": [
-        "VeNom:15130"
-      ],
-      "relationships": {
-        "relatedIds": []
-      },
-      "originRegions": [],
-      "tags": [],
-      "primaryImageAssetId": null
-    },
-    {
       "id": "VBO:0201430",
       "displayName": "Wolfdog",
       "entityType": "dog",
-      "status": "canonical",
+      "status": "crossbreed",
       "selectable": true,
       "promoted": false,
       "aliases": [
@@ -30547,6 +30075,7 @@
         "VeNom:19073"
       ],
       "relationships": {
+        "parentId": "VBO:0200902",
         "relatedIds": []
       },
       "originRegions": [],
@@ -31140,9 +30669,11 @@
         "Bouledogue Francais",
         "Bulldog - French",
         "French bull dog",
+        "French Bulldog, Group 9 : Companion and Toy Dogs",
         "Frenchie"
       ],
       "sourceIds": [
+        "VBO:0200539",
         "VBO:0201455"
       ],
       "registryRefs": [
@@ -31331,11 +30862,14 @@
       "selectable": true,
       "promoted": false,
       "aliases": [
+        "Çatal Burun Hunting",
+        "Çatal Burun Hunting, Turkey",
         "Çatalburun",
         "Tarsus Fork-nose",
         "Turkish Pointer"
       ],
       "sourceIds": [
+        "VBO:0008087",
         "VBO:0201464"
       ],
       "registryRefs": [],

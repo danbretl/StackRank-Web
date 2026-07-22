@@ -41,6 +41,10 @@ test("Vercel serves the static SPA at /movies without changing the visible URL",
       destination: "/privacy.html",
     },
     {
+      source: "/s/dogs/:slug",
+      destination: "/dogs-shared.html",
+    },
+    {
       source: "/s/:slug",
       destination: "/shared.html",
     },
@@ -84,6 +88,8 @@ test("Vercel gives cache-busted static payloads immutable browser caching", () =
     "/books.css",
     "/dogs.js",
     "/dogs.css",
+    "/dogs-shared.js",
+    "/dogs-shared.css",
     "/home.js",
     "/home.css",
     "/data/dogs/(.*)",
@@ -118,6 +124,17 @@ test("Dogs is a public category route without weakening the Books noindex bounda
   assert.equal(vercelConfig.headers.some(({ source }) => source === "/dogs"), false);
 });
 
+test("Dogs public snapshots use a category route without changing legacy Movies links", () => {
+  assert.deepEqual(vercelConfig.rewrites.find(({ source }) => source === "/s/dogs/:slug"), {
+    source: "/s/dogs/:slug",
+    destination: "/dogs-shared.html",
+  });
+  assert.deepEqual(vercelConfig.rewrites.find(({ source }) => source === "/s/:slug"), {
+    source: "/s/:slug",
+    destination: "/shared.html",
+  });
+});
+
 test("Vercel previews exclude versioned source and audit files that are not browser assets", () => {
   for (const path of [
     "logo-design-brief/",
@@ -132,6 +149,7 @@ test("Vercel previews exclude versioned source and audit files that are not brow
     "data/dogs/catalog-overrides.json",
     "data/dogs/coverage-report.json",
     "data/dogs/artwork-coverage-report.json",
+    "data/dogs/artwork-crop-recipes.json",
   ]) {
     assert.ok(vercelIgnore.includes(path), `${path} must stay out of Vercel uploads`);
   }
@@ -140,6 +158,9 @@ test("Vercel previews exclude versioned source and audit files that are not brow
     "dogs.html",
     "dogs.js",
     "dogs.css",
+    "dogs-shared.html",
+    "dogs-shared.js",
+    "dogs-shared.css",
     "data/dogs/dog-catalog.json",
     "data/dogs/packs.json",
     "data/dogs/image-rights.json",

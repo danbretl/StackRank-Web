@@ -61,6 +61,22 @@ const hashFile = async (filename) => {
   return { bytes: bytes.byteLength, sha256: createHash("sha256").update(bytes).digest("hex") };
 };
 
+const verifyLocalOriginal = async ({ candidate, filename }) => {
+  const bytes = await readFile(filename);
+  if (bytes.byteLength > MAX_SOURCE_BYTES) {
+    throw new Error(`Original exceeds the ${MAX_SOURCE_BYTES}-byte processing limit`);
+  }
+  const result = {
+    bytes: bytes.byteLength,
+    sha256: createHash("sha256").update(bytes).digest("hex"),
+    sha1: createHash("sha1").update(bytes).digest("hex"),
+  };
+  if (result.bytes !== candidate.sourceBytes) throw new Error("Local byte count does not match the candidate ledger data");
+  if (result.sha256 !== candidate.sourceSha256) throw new Error("Local SHA-256 does not match the candidate ledger data");
+  if (result.sha1 !== candidate.sourceSha1) throw new Error("Local SHA-1 does not match the candidate ledger data");
+  return result;
+};
+
 const downloadVerifiedOriginal = async ({ candidate, outputPath, fetchImpl = fetch }) => {
   const response = await fetchImpl(candidate.originalUrl, {
     headers: { "User-Agent": USER_AGENT, Accept: candidate.sourceMime },
@@ -140,6 +156,7 @@ export const processArtworkCandidate = async ({
   fetchImpl = fetch,
   execFileImpl = execFile,
   processedAt = new Date().toISOString(),
+  sourcePath = null,
 }) => {
   if (!/^dogs:photo:[a-z0-9-]+:[a-f0-9]{16}$/.test(cleanString(candidate?.assetId))) {
     throw new Error("Candidate has an invalid assetId");
@@ -164,10 +181,12 @@ export const processArtworkCandidate = async ({
 
   const temporaryDirectory = await mkdtemp(path.join(tmpdir(), "stackrank-dog-artwork-"));
   const sourceExtension = candidate.sourceMime === "image/png" ? ".png" : candidate.sourceMime === "image/webp" ? ".webp" : ".jpg";
-  const sourcePath = path.join(temporaryDirectory, `source${sourceExtension}`);
+  const downloadedSourcePath = path.join(temporaryDirectory, `source${sourceExtension}`);
+  const resolvedSourcePath = sourcePath ? path.resolve(sourcePath) : downloadedSourcePath;
   try {
-    await downloadVerifiedOriginal({ candidate, outputPath: sourcePath, fetchImpl });
-    const dimensions = await orientedDimensions(sourcePath, execFileImpl);
+    if (sourcePath) await verifyLocalOriginal({ candidate, filename: resolvedSourcePath });
+    else await downloadVerifiedOriginal({ candidate, outputPath: resolvedSourcePath, fetchImpl });
+    const dimensions = await orientedDimensions(resolvedSourcePath, execFileImpl);
     if (crop.x + crop.width > dimensions.width || crop.y + crop.height > dimensions.height) {
       throw new Error(
         `Crop ${crop.x},${crop.y},${crop.width},${crop.height} exceeds oriented source ${dimensions.width}x${dimensions.height}`,
@@ -175,7 +194,7 @@ export const processArtworkCandidate = async ({
     }
     const { stdout: versionOutput } = await execFileImpl("magick", ["-version"]);
     for (const { target, filename } of outputs) {
-      await execFileImpl("magick", buildArtworkMagickArgs({ sourcePath, outputPath: filename, crop, target }));
+      await execFileImpl("magick", buildArtworkMagickArgs({ sourcePath: resolvedSourcePath, outputPath: filename, crop, target }));
       await inspectVariant({ filename, target, execFileImpl });
     }
     const variants = [];
@@ -227,7 +246,7 @@ const parseArgs = (argv) => {
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
     if (arg === "--help") options.help = true;
-    else if (["--candidate", "--crop", "--out-dir", "--storage-prefix", "--manifest"].includes(arg)) {
+    else if (["--candidate", "--crop", "--out-dir", "--storage-prefix", "--manifest", "--source"].includes(arg)) {
       const value = argv[index + 1];
       if (!value) throw new Error(`${arg} requires a value`);
       options[arg.slice(2).replace(/-([a-z])/g, (_, letter) => letter.toUpperCase())] = value;
@@ -238,7 +257,7 @@ const parseArgs = (argv) => {
 };
 
 const printHelp = () => {
-  console.log(`Generate two byte-hashed WebP variants from an exact, hashed Dogs artwork candidate.\n\nUsage:\n  node scripts/process-dog-artwork.mjs \\\n    --candidate data/dogs/artwork-candidate-example.json \\\n    --crop x,y,width,height \\\n    --out-dir /tmp/dog-artwork \\\n    --storage-prefix dogs-catalog/vbo-2026-04-15-r1/\n\nThe 3:2 crop is an explicit editorial decision. This command downloads only the candidate's exact original, verifies its SHA-256/SHA-1/byte count, auto-orients it, strips metadata, and writes 320×213 plus 960×640 WebP variants. It never uploads, edits the rights ledger, or enables a use purpose.\n`);
+  console.log(`Generate two byte-hashed WebP variants from an exact, hashed Dogs artwork candidate.\n\nUsage:\n  node scripts/process-dog-artwork.mjs \\\n    --candidate data/dogs/artwork-candidate-example.json \\\n    --crop x,y,width,height \\\n    --out-dir /tmp/dog-artwork \\\n    --storage-prefix dogs-catalog/vbo-2026-04-15-r1/ \\\n    [--source /tmp/exact-byte-verified-original.jpg]\n\nThe 3:2 crop is an explicit editorial decision. This command verifies either the supplied local original or a fresh download against the candidate's SHA-256/SHA-1/byte count, auto-orients it, strips metadata, and writes 320×213 plus 960×640 WebP variants. It never uploads, edits the rights ledger, or enables a use purpose.\n`);
 };
 
 const main = async () => {
@@ -257,6 +276,7 @@ const main = async () => {
     outputDirectory: path.resolve(options.outDir),
     storagePrefix: options.storagePrefix,
     manifestPath: options.manifest ? path.resolve(options.manifest) : null,
+    sourcePath: options.source ? path.resolve(options.source) : null,
   });
   console.log(JSON.stringify(manifest, null, 2));
 };

@@ -1,6 +1,6 @@
 # StackRank Dogs implementation status
 
-Status date: **July 16, 2026**
+Status date: **July 21, 2026**
 
 StackRank Dogs is now a substantial local-first second product, not a demo. The `/dogs` route,
 complete generated catalog, editorial discovery library, ranking/list utilities, failure handling,
@@ -9,22 +9,22 @@ are implemented on the `codex/dogs-launch` review branch and published to a prot
 through draft PR #1. It has not been promoted to the public production site or connected to new
 production tables.
 
-Public production launch is **not ready** while the artwork gate is at zero and the additive database
-migration remains unapplied and unprobed against Postgres. The review branch and protected preview
-are safe staging surfaces; all affected product capabilities fail closed rather than pretending
-those launch gates passed.
+The comprehensive local-first Dogs product is ready for an iterative public `/dogs` release with its
+polished neutral artwork fallbacks. Account sync, public snapshot links, and licensed photography
+remain separately fail-closed until their database/application and accountable artwork gates pass;
+they no longer block sharing and learning from the core product.
 
 ## Delivery phase status
 
 | Phase | Status | Evidence / remaining gate |
 | --- | --- | --- |
 | 0 — orient and protect | Complete | Existing Books/cross-domain work and `logo-design-brief/` were preserved; Movies stayed on its existing routes, keys, tables, and payloads. |
-| 1 — catalog compiler | Complete | Pinned VBO release, 100% raw-term disposition, deterministic compiler, validator, reports, and difficult-case tests. |
-| 2 — artwork pipeline | Candidate pipeline complete; approval blocked | Import/process/ledger/policy/coverage tooling is fail-closed. All 27 promoted entities have exact Commons candidates, plus Broholmer; all 28 are byte-verified but pending human review, with zero approved or delivered assets. A generated local-only review workspace now makes the exact source, subject, and restriction checks practical without mutating the ledger. |
+| 1 — catalog compiler | Complete | Pinned VBO release, 100% raw-term disposition, deterministic compiler, validator, difficult-case tests, and an accountable 2026-07-21 editorial audit of every generated review queue. |
+| 2 — artwork pipeline | Batch prepared; approval/delivery blocked | Import/process/ledger/policy/coverage tooling is fail-closed. All 27 promoted entities have exact Commons candidates, plus Broholmer; all 28 are byte-verified, source-audited, deterministically cropped into 320/960 WebPs, and visually inspected as a batch. They remain pending accountable human approval, with zero approved or delivered assets. |
 | 3 — shared category platform | Complete for demonstrated local behavior | Entity, catalog, ranking session, ranked-list, backup, provider-purpose, list transition, ranking operation, and remote-row contracts have focused tests. Books remains noindex and working. |
 | 4 — Dogs local product | Complete | `/dogs` implements the full local interaction contract and responsive/failure browser flows. |
-| 5 — sync, links, family | Prepared, not enabled | Additive migration and client no-loss/bounds helpers are ready but unapplied. Public snapshot/raster/account capabilities remain off. The noindex `home.html` artifact is ready without replacing `/`. |
-| 6 — launch hardening | Substantially complete; manual gates remain | Privacy/credits, sitemap, security/cache routes, validators, production-smoke assertions, screenshots, and release instructions are present. Human rights/editorial review, a real database probe, and Dan's release authorization remain. |
+| 5 — sync, links, family | Client complete, fail-closed | Account sync, per-list timestamps, account isolation, owner publish/update/copy/revoke, and the anonymous `/s/dogs/:slug` renderer are implemented and independently security-reviewed. Production capability flags remain off until the additive schema passes real probes. Raster sharing remains separately disabled. The noindex `home.html` artifact is ready without replacing `/`. |
+| 6 — launch hardening | Public local-first release ready | Privacy/credits, sitemap, security/cache routes, validators, production-smoke assertions, screenshots, full verification, and a passing real-Postgres branch rehearsal are present. Production migration/application remains a follow-up gate for sync/links; accountable artwork approval/delivery remains a follow-up gate for photography. |
 
 ## Catalog coverage
 
@@ -41,19 +41,26 @@ Disposition counts:
 
 | Disposition | Count |
 | --- | ---: |
-| Canonical | 899 |
-| Alias | 271 |
-| Variety | 190 |
+| Canonical | 877 |
+| Alias | 294 |
+| Variety | 187 |
 | Crossbreed | 139 |
 | Historical | 36 |
-| Excluded | 2 |
+| Excluded | 4 |
 
-The runtime catalog contains `1,264` selectable concepts in a deterministic `706,883`-byte JSON
-artifact. Review artifacts retain 26 regional/landrace decisions and 18 deliberately retained
-ambiguous synonyms for human audit rather than silently collapsing them.
+The runtime catalog contains `1,239` selectable concepts in a deterministic `697,034`-byte JSON
+artifact. Review artifacts retain 20 regional/landrace decisions and 18 deliberately retained
+ambiguous synonyms as explicit audit records rather than silently collapsing them.
+
+The accountable editorial pass is recorded in
+`notes/testing/dogs-catalog-editorial-audit-2026-07-21.md`. It recomputed every generated decision,
+compared all selectable exact VBO names before alias suppression, researched identity conflicts from
+primary registry sources, applied high-confidence corrections, and added full-queue traceability
+tests. The remaining regional and ambiguous rows are explicit retained decisions, not an unreviewed
+launch backlog.
 
 `npm run review:dogs:catalog` builds a noindex local workspace under
-`reports/dogs-catalog-review/`. It combines all 682 deterministic review-queue entries with exact
+`reports/dogs-catalog-review/`. It combines all 698 deterministic review-queue entries with exact
 VBO labels, parents, synonyms, cross-references, source URLs, runtime entity context, and existing
 override evidence. Draft decisions and notes stay in that browser and export only as a review-aid
 JSON file; the workspace has no import, apply, catalog-build, or source-file write capability.
@@ -90,9 +97,9 @@ Current exact deployable coverage is intentionally `0%`:
 
 | Gate | Approved / required |
 | --- | ---: |
-| UI display | 0 / 899 current canonical |
-| Public snapshots | 0 / 899 current canonical |
-| Raster export | 0 / 899 current canonical |
+| UI display | 0 / 877 current canonical |
+| Public snapshots | 0 / 877 current canonical |
+| Raster export | 0 / 877 current canonical |
 | Promoted starter entities | 0 / 27 |
 
 All 27 promoted entities now have a Wikimedia Commons candidate imported by exact file page and
@@ -120,8 +127,8 @@ used for discovery only and cannot write directly to the rights ledger.
 The UI therefore renders a polished code-native fallback. Public links and raster sharing remain
 disabled even if a future asset is approved only for UI display.
 
-A deterministic review-only discovery queue now accounts for all `871` current-canonical concepts
-that do not yet have any ledger row: `185` are prioritized by editorial-pack engagement and `686`
+A deterministic review-only discovery queue now accounts for all `849` current-canonical concepts
+that do not yet have any ledger row: `185` are prioritized by editorial-pack engagement and `664`
 form the catalog long tail. All `28` existing ledger ids are excluded regardless of approval state,
 so no pending candidate is accidentally rediscovered as “missing.” The queue embeds source versions
 and SHA-256 digests plus bounded Openverse/Commons search inputs; it performs no request, import,
@@ -152,7 +159,7 @@ Key artifacts:
 
 `dogs.html`, `dogs.js`, and `dogs.css` provide:
 
-- accessible canonical/alias search over all 1,264 selectable concepts;
+- accessible canonical/alias search over all 1,239 selectable concepts;
 - canonical VBO identity storage even when an alias initiated ranking;
 - three starter packs, all 46 packs in a filterable browser, progress, browse prompts, and Recently ranked;
 - binary insertion with opening jitter, exact midpoint narrowing, Undo last choice, Cancel, and origin/scroll restoration;
@@ -195,13 +202,13 @@ browser list or write policies. It does not upload artwork. A read-only producti
 that the bucket id is currently unused and no existing storage policy references it; neither
 migration has been applied.
 
-Docker and local Postgres are unavailable on this machine, and Supabase rejected a cost-confirmed
-disposable branch because the organization is on Free. A read-only production audit nevertheless
-confirmed PostgreSQL 17.6 compatibility for the migration expressions, unused `category_*` names,
-the required Data API roles, no migration-version collision, and the continued presence of every
-mature Movies table. Production advisors were recorded as a pre-migration baseline without changing
-state. The exact local/branch probes and two-user/category/revocation checks remain in
-`notes/testing/dogs-supabase-rls-review.md`; full DDL and behavior validation are still a real gate.
+Docker and local Postgres are unavailable on this machine. The unchanged Stack Rank project is now
+in the Pro organization, and the three-file migration sequence passed on a no-production-data hosted
+branch using PostgreSQL 17, two real Auth users, SQL/grant/RLS/constraint checks, Data API isolation,
+public/revoked snapshot checks, Storage restrictions, and advisors. Fixture cleanup passed and the
+branch was deleted without merge. The detailed evidence and repository-history baseline nuance are
+recorded in `notes/testing/dogs-supabase-rls-review.md`. Production remains unchanged; applying the
+same three files there still requires separate explicit authorization and post-apply probes.
 
 ## Family home and release boundaries
 
@@ -209,9 +216,10 @@ state. The exact local/branch probes and two-user/category/revocation checks rem
 navigation, count-only per-category progress, and no category app bundles. It intentionally remains
 at `/home.html`; `vercel.json` still redirects `/` to `/movies` as explicitly required.
 
-Legacy Movies `/s/:slug` remains unchanged. The new category snapshot table/client envelope is
-prepared, but no Dogs publish UI or public route is enabled before the migration and capability
-gates pass.
+Legacy Movies `/s/:slug` remains unchanged. Dogs owner controls and the distinct anonymous
+`/s/dogs/:slug` artifact are complete behind production-disabled capabilities. Mocked browser QA
+covers merge, publish/update/copy/revoke, anonymous rendering, revoked denial, and legacy identity
+remapping; no live Dogs publish UI is enabled before the migration and capability gates pass.
 
 `.vercelignore` keeps versioned ontology inputs, audit fixtures, tests, notes, migration sources, and
 local design workspaces out of deployment uploads while retaining the bounded Dogs runtime catalog,
@@ -242,17 +250,19 @@ inspected during implementation.
 
 ## Verification and release checklist
 
-Final local verification completed with a green `npm run verify` on July 17, 2026:
+Final local verification completed with a green `npm run verify` on July 21, 2026 (the report uses
+UTC July 22):
 
-- 378 / 378 Node unit and data tests passed (`reports/runs/2026-07-17T074339Z`);
+- 398 / 398 Node unit and data tests passed (`reports/runs/2026-07-22T042033Z`);
 - 24 / 24 Deno function tests passed;
-- browser syntax and all 54 cache-manifest assets passed;
+- browser syntax and all 57 cache-manifest assets passed;
 - the 114-pack Movies validator passed;
 - Dogs catalog, structural artwork, comprehensive artwork-discovery, and 46-pack validators passed;
-- 36 / 36 real-Chrome flows passed (`reports/e2e/runs/2026-07-17T074356Z`), including
+- 37 / 37 real-Chrome flows passed (`reports/e2e/runs/2026-07-22T042052Z`), including
   Movies, Books, Dogs, family home, exact 390×844 and 844×390 Dogs viewports, iPad, failure
   recovery, strict backup/import/export downloads, approved-artwork attribution, pointer/keyboard
-  reorder and cancellation, and legacy Movies sharing.
+  reorder and cancellation, legacy Movies sharing, and the fail-closed Dogs account-sync/public-link
+  flow. The new desktop, phone, iPad, and public-snapshot screenshots were visually inspected.
 
 The exact phone pass found and repaired a real intrinsic grid overflow that a shrink-to-fit geometry
 check had masked; the final regression asserts a 390px layout viewport and zero horizontal overflow.
@@ -272,15 +282,23 @@ The networked
 privacy-credit, and sitemap assertions, but it must not be run as evidence for Dogs until the
 corresponding commit is actually deployed.
 
-Before public launch:
+For the iterative public local-first launch:
 
-1. Complete human review, processing/delivery, and approval for the 27 promoted candidates, then source/review enough current-canonical artwork to meet the declared 95% threshold.
-2. Review the catalog ambiguity/regional/historical queues and record every accepted override.
-3. Install/start local Postgres via the Supabase Docker stack, or upgrade Supabase long enough to
-   create a disposable branch; reset, lint, run advisors, and execute every isolation/revocation
-   probe in the RLS review.
-4. Obtain explicit authorization before applying the migration anywhere shared or production-facing.
-5. Only after the migration passes, wire account sync/public links, enable their category capabilities, and add mocked plus real two-user browser coverage.
-6. Decide and authorize the root-home cutover; then remove home noindex, replace the root redirect, and update global canonical/social/production checks in the same release.
-7. Obtain explicit authorization before promoting the protected preview to production or uploading
-   immutable artwork. The review branch, draft PR, and protected preview are already established.
+1. Commit and push the integrated, fully verified local-first release without `logo-design-brief/` or
+   unrelated dirty-worktree content, then deploy the public `/dogs` route while `/` stays on
+   `/movies` and Books stays noindex.
+2. Verify the real production Dogs route, Movies compatibility, headers/cache behavior, responsive
+   rendering, and console/network cleanliness.
+
+For subsequent sync, links, and photography iterations:
+
+1. Obtain explicit authorization for the exact three-file production migration set, apply it without
+   a branch merge, and repeat the critical probes before enabling any client capability.
+2. Flip only Dogs account sync/public snapshots, update privacy and production-smoke assertions in
+   the same release, then verify real two-user auth and anonymous/revoked links on a protected preview.
+3. Record accountable approval/rejection for the exact audited 28-image batch and upload only
+   approved immutable variants. Expand photography incrementally rather than holding the product for
+   aspirational 95% current-canonical coverage.
+
+The root redirect remains `/movies`; a family-home cutover is not required for Dogs launch and
+remains separately unauthorized.

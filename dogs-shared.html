@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" data-stackrank-category="dogs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Shared StackRank Dogs ranking</title>
+    <meta name="description" content="A read-only StackRank Dogs ranking snapshot." />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Shared StackRank Dogs ranking" />
+    <meta property="og:description" content="A read-only dog breed ranking snapshot made with StackRank." />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="/assets/favicon.ico" sizes="any" />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://hrfhakrxsllrqmscxxpb.supabase.co" />
+    <link rel="stylesheet" href="/dogs-shared.css?v=1" />
+  </head>
+  <body>
+    <main class="dog-share" data-state="loading">
+      <header class="dog-share__hero">
+        <a class="dog-share__brand" href="/dogs">STACKRANK</a>
+        <p class="dog-share__kicker">Read-only Dogs ranking</p>
+        <h1>Shared dog ranking</h1>
+        <p>A published snapshot. Later ranking changes stay private until the owner updates this link.</p>
+        <p id="dog-share-meta" class="dog-share__meta" aria-live="polite">Loading shared ranking…</p>
+        <a class="dog-share__cta" href="/dogs">Rank your favorite dog breeds</a>
+      </header>
+      <section class="dog-share__content" aria-label="Shared dog breed ranking">
+        <p id="dog-share-status" class="dog-share__status" role="status">Loading shared ranking…</p>
+        <ol id="dog-share-list" class="dog-share__list"></ol>
+      </section>
+    </main>
+    <script type="module" src="/dogs-shared.js?v=2"></script>
+  </body>
+</html>

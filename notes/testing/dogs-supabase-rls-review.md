@@ -1,7 +1,7 @@
 # Dogs additive Supabase/RLS review
 
-Status: **prepared locally and read-only production compatibility-audited on July 16, 2026; not
-applied to any database.**
+Status: **prepared locally, read-only production compatibility-audited on July 16, and successfully
+rehearsed on a disposable hosted Postgres 17 branch on July 21, 2026; not applied to production.**
 
 The proposed migration is
 `supabase/migrations/20260716090037_add_category_data_tables.sql`. It was created with
@@ -77,10 +77,11 @@ independent provider-purpose gate before its URL or asset id is included.
   entity validation, newest-base no-loss ranking merges, older-only pack recovery, public snapshot
   reduction, and malformed/cross-category rejection.
 
-The local Supabase stack was unavailable because Docker and local Postgres are not installed. A
-disposable Supabase branch was then cost-confirmed at $0.01344/hour, but Supabase rejected creation
-because branch management requires Pro and this organization is on Free. No branch was created and
-no branch charge began.
+The local Supabase stack remains unavailable because no Docker-compatible runtime or local Postgres
+is installed. After the unchanged Stack Rank project moved to the Pro organization, a disposable
+Micro branch was created for the hosted rehearsal at the confirmed $0.01344/hour rate. It contained
+no production data, passed the automated probe set below, and was deleted without merge immediately
+afterward. Supabase CLI 2.109.1 was used for the rehearsal.
 
 Read-only inspection of the linked production project confirmed:
 
@@ -102,16 +103,131 @@ on `shared_lists`. These are baseline observations, not category-schema results;
 change them or any other production state. No full DDL parse, RLS behavior probe, Data API request,
 or advisor-after-migration result is claimed.
 
-## Direct local probes to run when Docker is available
+The ledger comparison also found one earlier pending migration:
+`20260709001734_add_tonight_events.sql`. A normal `supabase db push` would apply that Movies
+telemetry allowlist migration before the two Dogs migrations. Rehearse and authorize it separately;
+do not describe a three-file push as Dogs-only. The CLI's passwordless temporary login role also
+failed read-only `migration list --linked` and `db push --linked --dry-run` checks for this project.
+Use the documented password-based fallback by setting `SUPABASE_DB_PASSWORD` privately in the
+operator shell before a future authorized dry run or push. Never paste that password into chat or
+commit it.
 
-Discover command flags again after any CLI upgrade, then run:
+The repository's tracked migration sequence is not a clean-database baseline: its first policy
+optimization assumes the pre-existing `public.rankings` table. Therefore, do not use a fresh
+repository-wide `supabase db reset` as the first Dogs rehearsal. Use a disposable scratch Supabase
+workdir containing only the two additive Dogs migrations. Supabase's local base provides the
+required `auth.uid()` and `storage.buckets` surfaces while the scratch history avoids altering or
+inventing legacy Movies migration records.
+
+## Disposable hosted branch rehearsal harness (preferred)
+
+`scripts/rehearse-dogs-supabase-branch.mjs` automates the evidence pass against a disposable hosted
+branch created from the production schema and migration history. It never creates a branch or
+applies a migration. It fails closed unless the operator supplies the exact disposable branch ref,
+the branch URL and credentials, the branch Postgres URL, and a deliberate confirmation phrase. The
+production ref `hrfhakrxsllrqmscxxpb` is rejected at the expected-ref, API-origin, and database
+identity boundaries.
+
+Create a no-production-data branch, establish the repository's known mature schema baseline, apply
+the following three pending migrations in order, and do not Git-integrate or merge the branch:
+
+1. `20260709001734_add_tonight_events.sql`
+2. `20260716090037_add_category_data_tables.sql`
+3. `20260716090038_add_dog_artwork_storage.sql`
+
+Set credentials only in the operator's private shell. Do not paste them into chat, a note, a shell
+history file, or a commit. Modern branch publishable/secret keys and legacy anon/service-role keys
+both work because the harness passes the supplied values only to the matching branch endpoints.
 
 ```sh
+export STACKRANK_SUPABASE_EXPECTED_BRANCH_REF='<20-character-disposable-branch-ref>'
+export STACKRANK_SUPABASE_BRANCH_URL="https://${STACKRANK_SUPABASE_EXPECTED_BRANCH_REF}.supabase.co"
+export STACKRANK_SUPABASE_BRANCH_PUBLISHABLE_KEY='<branch-publishable-key>'
+export STACKRANK_SUPABASE_BRANCH_SECRET_KEY='<branch-secret-key>'
+export STACKRANK_SUPABASE_BRANCH_DB_URL='<branch-postgres-connection-url>'
+export STACKRANK_SUPABASE_REHEARSAL_CONFIRM='I_UNDERSTAND_THIS_TARGETS_ONLY_A_DISPOSABLE_BRANCH'
+node scripts/rehearse-dogs-supabase-branch.mjs
+```
+
+The harness verifies the exact three migration-ledger entries, all four tables, grants, RLS policy
+surface, constraint names, and bounded public WebP bucket through the Postgres connection. It then
+creates two confirmed disposable Auth users and exercises real JWT-backed Data API behavior: User A
+owner CRUD, User B isolation and cross-owner denial, distinct Dogs/Books rows, anonymous safe-column
+snapshot reads, ownership/revocation-column denial, and revoked-snapshot hiding. Finally it uploads
+a uniquely named service-role WebP fixture, verifies known-object public bytes/content type/one-year
+cache policy, and proves anonymous/authenticated clients cannot discover, insert, overwrite, or
+delete it. Security and performance advisors run as separate CLI passes.
+
+Fixture rows, objects, and Auth users are removed in `finally`, with service-role cleanup as a
+fallback even when a probe fails. The harness prints phases and advisor results but redacts the
+supplied keys, full database URL, and database password. A cleanup failure makes the rehearsal fail;
+resolve it in the disposable branch before deletion. After a passing run, save the non-secret
+terminal output as evidence, then delete the disposable branch without merge.
+
+### July 21 hosted rehearsal result
+
+The CLI-created no-data branch initially reported `MIGRATIONS_FAILED` because Supabase replayed the
+repository from its first tracked migration, while that history intentionally begins after the
+pre-existing `rankings` table. The branch contained only `movie_lists` and the first migration ledger
+row; a naïve `db push` would therefore have attempted already-applied history against an incomplete
+baseline. No production system was involved and no such push was made.
+
+On the disposable branch only, the minimal mature `rankings` baseline was restored, the tracked
+historical migrations were replayed to construct the repository schema, and the three pending files
+were applied in their real order. The session-mode IPv4 pooler was used because the direct database
+host required unavailable IPv6 and the transaction pooler rejected prepared statements. The
+rehearsal harness then passed every stage:
+
+- exact pending migration ledger entries, four category tables, grants, RLS, 17 policies, payload
+  constraints, and the bounded public WebP bucket;
+- two real disposable Auth users covering owner CRUD, cross-owner denial, User A/User B isolation,
+  and separate Dogs/Books rows under the same owner;
+- anonymous safe-column public snapshot reads, ownership-column denial, owner revocation, and
+  anonymous post-revocation denial;
+- service-only fixture upload, known-object public WebP GET with exact bytes/MIME/year cache,
+  anonymous/authenticated list and write denial, and denied overwrite/delete behavior;
+- deterministic cleanup of all rows, the Storage fixture, and both Auth users.
+
+Security advisors returned no findings. Performance advisors returned only the pre-existing Movies
+`shared_lists` overlapping permissive SELECT-policy warning already recorded in the production
+baseline. The branch `fxgypetljxgsxsiegwpe` was deleted without merge; a follow-up branch listing
+showed only the production `main` branch. This closes the real-Postgres/RLS/Data API/Storage rehearsal
+gate but does not authorize or claim production migration application.
+
+## Direct local probes to run when a container runtime is available
+
+Discover command flags again after any CLI upgrade. From the repository root, create an isolated
+workdir and copy only the two migrations under review:
+
+```sh
+ROOT="$PWD"
+TMPBASE="${TMPDIR:-/tmp}"
+TMPBASE="${TMPBASE%/}"
+SCRATCH="$(mktemp -d "$TMPBASE/stackrank-dogs-supabase.XXXXXX")"
+cd "$SCRATCH"
+supabase init
+cp "$ROOT/supabase/migrations/20260716090037_add_category_data_tables.sql" \
+  "$SCRATCH/supabase/migrations/"
+cp "$ROOT/supabase/migrations/20260716090038_add_dog_artwork_storage.sql" \
+  "$SCRATCH/supabase/migrations/"
 supabase start
 supabase db reset --local --no-seed
 supabase migration list --local
 supabase db lint --local --schema public --level error --fail-on error
 supabase db advisors --local --type all --level info --fail-on error
+```
+
+Keep the scratch database running through the SQL, Data API, and Storage probes below. When all
+evidence is captured, stop and delete only this disposable instance:
+
+```sh
+cd "$SCRATCH"
+supabase stop --no-backup
+cd "$ROOT"
+case "$SCRATCH" in
+  "$TMPBASE"/stackrank-dogs-supabase.*) rm -rf "$SCRATCH" ;;
+  *) echo "Refusing to remove unexpected scratch path: $SCRATCH" >&2; exit 1 ;;
+esac
 ```
 
 Inspect the schema, grants, policies, and bounds:
@@ -165,10 +281,12 @@ order by policyname;
 
 Use two disposable UUIDs to probe ownership and category isolation inside transactions. Expected
 permission failures should be run as separate `supabase db query --local` calls because a failed
-statement aborts its transaction.
+statement aborts its transaction. Keep the User A rows alive in the same transaction while probing
+User B; rolling User A back before User B's query would make an expected zero result meaningless.
 
 ```sql
--- User A can create distinct Dogs and Books rows with the same list id.
+-- User A can create distinct Dogs and Books rows with the same list id,
+-- while User B sees neither row in the same transaction.
 begin;
 set local role authenticated;
 select set_config(
@@ -181,12 +299,7 @@ values
   ('user:11111111-1111-4111-8111-111111111111', 'dogs', '[]'),
   ('user:11111111-1111-4111-8111-111111111111', 'books', '[]');
 select category from public.category_rankings order by category;
-rollback;
-```
-
-```sql
--- User B must see zero rows owned by User A.
-begin;
+reset role;
 set local role authenticated;
 select set_config(
   'request.jwt.claims',
@@ -217,10 +330,17 @@ For public snapshots, insert an active row as its authenticated owner, then swit
 verify the safe columns are readable. A direct `SELECT list_id` must fail with column permission
 denied. After the owner sets `revoked_at`, the anonymous safe-column query must return zero rows.
 
-Before any production application, repeat the behavior probes against a disposable Supabase branch,
-run security and performance advisors there, and inspect Data API REST behavior with real User A,
-User B, and anonymous JWT contexts. Production migration application remains a separate explicit
-authorization gate.
+Before any production application, complete the scratch rehearsal with Data API REST behavior under
+real local User A, User B, and anonymous JWT contexts, then run security and performance advisors.
+The disposable hosted branch is preferred now that the project belongs to Pro, but it is not a
+substitute for explicit production authorization.
+
+For the production path, first rehearse `20260709001734_add_tonight_events.sql` separately against a
+disposable copy of the current `product_events` schema. Then set `SUPABASE_DB_PASSWORD` privately
+and run `supabase db push --linked --dry-run`; it must report exactly the Tonight migration followed
+by the two Dogs migrations. Apply that ordered three-file set only if Dan explicitly authorizes all
+three. Afterward, repeat the schema/grant/policy/constraint checks, Data API probes, and advisors
+before enabling Dogs sync or public links.
 
 For artwork storage, also verify that an anonymous GET of one operator-uploaded fixture succeeds,
 that anonymous/authenticated list, INSERT, UPDATE, and DELETE attempts fail, and that the returned

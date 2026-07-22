@@ -6,13 +6,20 @@ import {
   buildCategoryPackProgressRow,
   buildCategoryRankingRow,
   buildCategorySharedListRow,
+  categorySharedListUrl,
+  categorySharedPayloadFromPublicRow,
+  categorySharedSlugFromPath,
   categoryItemPayloadFromRow,
+  categoryListUpdatedAtState,
   categoryRemoteJsonBytes,
+  categoryRemoteWriteSurfaces,
   categoryStatePayloadFromRow,
   categoryUserListId,
+  generateCategoryShareSlug,
   isCategoryRemoteId,
   isCategoryRemoteListType,
   mergeCategoryItemPayloads,
+  mergeCategoryPlacementPayloads,
   mergeCategoryStatePayloads,
   normalizeCategorySharedPayload,
 } from "../lib/category-remote-persistence.js";
@@ -47,6 +54,62 @@ test("category and list-type identifiers are format and byte bounded", () => {
   assert.equal(isCategoryRemoteListType("n".repeat(64)), true);
   assert.equal(isCategoryRemoteListType("n".repeat(65)), false);
   assert.equal(isCategoryRemoteListType("not-for-me"), false);
+});
+
+test("remote write plans isolate ranking, individual queues, pack progress, and full saves", () => {
+  const options = { listTypes: ["curious", "not_for_me"] };
+  assert.deepEqual(categoryRemoteWriteSurfaces(["ranking"], options), ["ranking"]);
+  assert.deepEqual(categoryRemoteWriteSurfaces(["curious"], options), ["curious"]);
+  assert.deepEqual(categoryRemoteWriteSurfaces(["packProgress"], options), ["packProgress"]);
+  assert.deepEqual(categoryRemoteWriteSurfaces(["not_for_me"], options), ["not_for_me"]);
+  assert.deepEqual(
+    categoryRemoteWriteSurfaces(["ranking", "queues", "packProgress"], options),
+    ["ranking", "curious", "not_for_me", "packProgress"],
+  );
+});
+
+test("per-list queue timestamps migrate from the legacy shared timestamp without coupling rows", () => {
+  const listTypes = ["curious", "not_for_me"];
+  assert.deepEqual(categoryListUpdatedAtState({ updated_at: NOW }, { listTypes }), {
+    curious: NOW,
+    not_for_me: NOW,
+  });
+  const curiousUpdated = "2026-07-17T08:00:00.000Z";
+  assert.deepEqual(categoryListUpdatedAtState({
+    updated_at: NOW,
+    list_updated_at: { curious: curiousUpdated },
+  }, { listTypes }), {
+    curious: curiousUpdated,
+    not_for_me: NOW,
+  });
+});
+
+test("cross-surface merge keeps the newest placement instead of ranking precedence", () => {
+  const akita = item("VBO:0200010", "dogs", "Akita");
+  const monday = "2026-07-20T08:00:00.000Z";
+  const tuesday = "2026-07-21T08:00:00.000Z";
+  const movedToHidden = mergeCategoryPlacementPayloads({
+    ranking: [
+      { items: [akita], updated_at: monday },
+      { items: [], updated_at: tuesday },
+    ],
+    lists: {
+      curious: [],
+      not_for_me: [{ items: [akita], updated_at: tuesday }],
+    },
+  }, { category: "dogs", listTypes: ["curious", "not_for_me"] });
+  assert.deepEqual(movedToHidden.ranking.items, []);
+  assert.deepEqual(movedToHidden.lists.not_for_me.items.map(entityRefKey), [entityRefKey(akita)]);
+
+  const movedToRanking = mergeCategoryPlacementPayloads({
+    ranking: [{ items: [akita], updated_at: tuesday }],
+    lists: {
+      curious: [{ items: [akita], updated_at: monday }, { items: [], updated_at: tuesday }],
+      not_for_me: [],
+    },
+  }, { category: "dogs", listTypes: ["curious", "not_for_me"] });
+  assert.deepEqual(movedToRanking.ranking.items.map(entityRefKey), [entityRefKey(akita)]);
+  assert.deepEqual(movedToRanking.lists.curious.items, []);
 });
 
 test("ranking and list row builders bind category, identity, and bounded items", () => {
@@ -191,4 +254,40 @@ test("shared-list rows expose only the bounded generic snapshot envelope", () =>
   assert.equal(normalizeCategorySharedPayload(payload, { category: "books" }), null);
   assert.equal(buildCategorySharedListRow({ ...row, slug: "short", listId: USER_ID }), null);
   assert.equal(categoryRemoteJsonBytes({ emoji: "🐕" }), 16, "bounds use UTF-8 bytes");
+});
+
+test("category shared paths stay separate from legacy Movies links", () => {
+  const slug = generateCategoryShareSlug(Uint8Array.from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]));
+  assert.equal(slug, "0123456789ab");
+  assert.equal(slug.length, 12);
+  assert.equal(
+    categorySharedListUrl("https://www.stackrankapp.com", "dogs", slug),
+    `https://www.stackrankapp.com/s/dogs/${slug}`,
+  );
+  assert.equal(categorySharedSlugFromPath(`/s/dogs/${slug}`, { category: "dogs" }), slug);
+  assert.equal(categorySharedSlugFromPath(`/s/${slug}`, { category: "dogs" }), "");
+  assert.equal(categorySharedSlugFromPath(`/s/books/${slug}`, { category: "dogs" }), "");
+});
+
+test("anonymous category shared rows reject owner-only columns and cross-category payloads", () => {
+  const payload = normalizeCategorySharedPayload({
+    items: [item("VBO:0000661")],
+    catalogVersion: "vbo-2026-04-15.1",
+  }, { category: "dogs" });
+  const publicRow = {
+    slug: "abc123def456",
+    category: "dogs",
+    payload,
+    created_at: NOW,
+    updated_at: NOW,
+  };
+  assert.deepEqual(categorySharedPayloadFromPublicRow(publicRow, { category: "dogs" }), publicRow);
+  assert.equal(categorySharedPayloadFromPublicRow({
+    ...publicRow,
+    list_id: `user:${USER_ID}`,
+  }, { category: "dogs" }), null);
+  assert.equal(categorySharedPayloadFromPublicRow({
+    ...publicRow,
+    category: "books",
+  }, { category: "dogs" }), null);
 });

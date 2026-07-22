@@ -3,7 +3,9 @@ import test from "node:test";
 
 import {
   DOGS_CATEGORY,
+  canonicalizeDogStoredState,
   dogArtworkObjectUrl,
+  dogPublicSnapshotArtworkUrl,
   dogDragAutoScrollDelta,
   dogEntityToCandidate,
   normalizeDogCatalogEntity,
@@ -18,6 +20,7 @@ import {
   parseDogNameImport,
   parseDogsBackup,
 } from "../lib/dogs.js";
+import { createRankedEntity } from "../lib/entity.js";
 
 const entity = (id, name, overrides = {}) => ({
   id,
@@ -104,6 +107,17 @@ test("Dogs artwork object paths resolve only through an explicit safe public bas
   );
 });
 
+test("public Dogs snapshots accept only immutable project WebP object URLs", () => {
+  const safe = "https://hrfhakrxsllrqmscxxpb.supabase.co/storage/v1/object/public/dogs-catalog/vbo-2026-04-15-r1/akita-320.webp";
+  assert.equal(dogPublicSnapshotArtworkUrl(safe), safe);
+  assert.equal(dogPublicSnapshotArtworkUrl(`${safe}?download=1`), "");
+  assert.equal(dogPublicSnapshotArtworkUrl(`${safe}#crop`), "");
+  assert.equal(dogPublicSnapshotArtworkUrl(safe.replace("https://", "https://user:pass@")), "");
+  assert.equal(dogPublicSnapshotArtworkUrl(safe.replace("akita-320.webp", "../secret.webp")), "");
+  assert.equal(dogPublicSnapshotArtworkUrl(safe.replace(".webp", ".jpg")), "");
+  assert.equal(dogPublicSnapshotArtworkUrl(safe.replace("hrfhakrxsllrqmscxxpb", "other-project")), "");
+});
+
 test("Dogs drag auto-scroll activates only near viewport edges", () => {
   assert.equal(dogDragAutoScrollDelta(36, 800), -11);
   assert.equal(dogDragAutoScrollDelta(400, 800), 0);
@@ -124,6 +138,49 @@ test("dog candidates always store canonical VBO identity", () => {
     id: "VBO:0000661",
   });
   assert.equal(candidate.snapshot.secondaryText, "Japan · Breed or type");
+});
+
+test("stored preview identities canonicalize through source ids without losing order or timestamps", () => {
+  const legacyAkita = createRankedEntity({
+    ...ranked("VBO:0000661", "Old Akita preview"),
+    entityRef: {
+      domain: "dogs",
+      type: "breed",
+      source: "vbo",
+      id: "VBO:0999999",
+    },
+    rankedAt: "2026-07-16T00:00:00.000Z",
+    comparisons: 3,
+  });
+  const canonicalAkita = ranked("VBO:0000661", "Akita");
+  const saluki = ranked("VBO:0001150", "Saluki");
+  const result = canonicalizeDogStoredState({
+    ranking: [legacyAkita, saluki],
+    lists: {
+      curious: [canonicalAkita],
+      not_for_me: [legacyAkita],
+    },
+  }, [
+    entity("VBO:0000661", "Akita", {
+      sourceIds: ["VBO:0000661", "VBO:0999999"],
+      originRegions: ["Japan"],
+    }),
+    entity("VBO:0001150", "Saluki"),
+  ]);
+
+  assert.deepEqual(result.ranking.map((item) => item.entityRef.id), [
+    "VBO:0000661",
+    "VBO:0001150",
+  ]);
+  assert.equal(result.ranking[0].snapshot.primaryText, "Akita");
+  assert.equal(result.ranking[0].snapshot.secondaryText, "Japan · Breed or type");
+  assert.equal(result.ranking[0].rankedAt, "2026-07-16T00:00:00.000Z");
+  assert.equal(result.ranking[0].comparisons, 3);
+  assert.deepEqual(result.lists.curious, [], "ranking owns the canonical duplicate");
+  assert.deepEqual(result.lists.not_for_me, [], "an old alias cannot survive in another list");
+  assert.equal(result.remapped, 2);
+  assert.equal(result.deduplicated, 2);
+  assert.equal(result.changed, true);
 });
 
 test("Dogs list normalization deduplicates canonically across ranking and secondary lists", () => {

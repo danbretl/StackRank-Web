@@ -105,6 +105,8 @@ const serveStatic = async () => {
           ? "dogs.html"
         : pathname === "/privacy"
           ? "privacy.html"
+          : /^\/s\/dogs\/[a-z0-9]{12}$/.test(pathname)
+            ? "dogs-shared.html"
           : /^\/s\/[a-z0-9]{10}$/.test(pathname)
             ? "shared.html"
             : pathname.replace(/^\/+/, "");
@@ -998,7 +1000,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     await waitFor(
       page,
       `document.readyState === 'complete' &&
-       document.querySelector('#dogs-catalog-status')?.textContent.includes('1,264 selectable') &&
+       document.querySelector('#dogs-catalog-status')?.textContent.includes('1,239 selectable') &&
        document.querySelectorAll('.featured-pack').length === 3`,
       15000,
     );
@@ -1026,8 +1028,8 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       initial.marker !== "dogs" ||
       initial.canonical !== "https://www.stackrankapp.com/dogs" ||
       initial.robots !== null ||
-      initial.cssHref !== "dogs.css?v=5" ||
-      initial.scriptSrc !== "dogs.js?v=8" ||
+      initial.cssHref !== "dogs.css?v=6" ||
+      initial.scriptSrc !== "dogs.js?v=16" ||
       initial.searchRole !== "combobox" ||
       initial.searchAutocomplete !== "list" ||
       initial.searchControls !== "dogs-suggestions" ||
@@ -1541,7 +1543,7 @@ const testDogsPhoneViewport = async ({ baseUrl }) => {
     await page.send("Page.navigate", { url: `${baseUrl}/dogs?e2e=dogs-phone-viewport` });
     await waitFor(
       page,
-      `document.querySelector('#dogs-catalog-status')?.textContent.includes('1,264 selectable') &&
+      `document.querySelector('#dogs-catalog-status')?.textContent.includes('1,239 selectable') &&
        document.querySelectorAll('.featured-pack').length === 3`,
       15000,
     );
@@ -1851,7 +1853,7 @@ const testDogsFailureRecovery = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('.dogs-nav [data-destination="rank"]')?.click(); document.querySelector('#dogs-retry-catalog')?.click(); true;`);
     await waitFor(
       page,
-      `document.querySelector('#dogs-catalog-status')?.textContent.includes('1,264 selectable') &&
+      `document.querySelector('#dogs-catalog-status')?.textContent.includes('1,239 selectable') &&
        document.querySelector('#dogs-discovery-fallback')?.hidden`,
       15000,
     );
@@ -10966,11 +10968,289 @@ const testUnifiedRankingWorkspaceInteractions = async ({ baseUrl }) => {
   }
 };
 
+const testDogsRemoteSyncAndShare = async ({ baseUrl }) => {
+  const page = await openChromePage({ name: "dogs-remote-sync", width: 1280, height: 900 });
+  const userId = "71d17419-151b-4cf7-9301-189323e6c701";
+  const user = {
+    id: userId,
+    aud: "authenticated",
+    role: "authenticated",
+    email: "dogs-sync@example.test",
+    app_metadata: { provider: "email", providers: ["email"] },
+    user_metadata: {},
+    identities: [],
+    created_at: "2026-07-21T10:00:00.000Z",
+  };
+  const jwtHeader = Buffer.from(JSON.stringify({ alg: "HS256", typ: "JWT" })).toString("base64url");
+  const jwtPayload = Buffer.from(JSON.stringify({
+    sub: userId,
+    aud: "authenticated",
+    role: "authenticated",
+    email: user.email,
+    exp: Math.floor(Date.now() / 1000) + 3600,
+  })).toString("base64url");
+  const session = {
+    access_token: `${jwtHeader}.${jwtPayload}.dogs-e2e-signature`,
+    token_type: "bearer",
+    expires_in: 3600,
+    expires_at: Math.floor(Date.now() / 1000) + 3600,
+    refresh_token: "dogs-e2e-refresh-token",
+    user,
+  };
+  const ranked = (id, name) => ({
+    entityRef: { domain: "dogs", type: "breed", source: "vbo", id },
+    snapshot: {
+      primaryText: name,
+      secondaryText: "Breed or type",
+      year: null,
+      image: { url: "", alt: "", assetId: "" },
+    },
+    rankedAt: "2026-07-20T10:00:00.000Z",
+    comparisons: 1,
+  });
+  try {
+    await page.send("Page.addScriptToEvaluateOnNewDocument", {
+      source: `
+        (() => {
+          window.__STACKRANK_DOGS_REMOTE_FIXTURE__ = true;
+          const authKey = 'sb-hrfhakrxsllrqmscxxpb-auth-token';
+          const session = ${JSON.stringify(session)};
+          if (!localStorage.getItem(authKey)) localStorage.setItem(authKey, JSON.stringify(session));
+          if (!localStorage.getItem('stackrank:dogs:ranking:v1')) {
+            localStorage.setItem('stackrank:dogs:ranking:v1', JSON.stringify({
+              items: [
+                ${JSON.stringify(ranked("VBO:0200010", "Akita"))},
+                ${JSON.stringify(ranked("VBO:0000661", "Broholmer"))}
+              ],
+              updated_at: '2026-07-21T10:00:00.000Z'
+            }));
+          }
+          Object.defineProperty(navigator, 'clipboard', {
+            configurable: true,
+            value: { writeText: async (value) => localStorage.setItem('__e2eDogsCopied', value) }
+          });
+          const nativeFetch = window.fetch.bind(window);
+          window.__e2eDogsRequests = [];
+          const json = (value, status = 200, headers = {}) => new Response(JSON.stringify(value), {
+            status,
+            headers: { 'Content-Type': 'application/json', ...headers }
+          });
+          const eq = (params, key) => {
+            const value = params.get(key) || '';
+            return value.startsWith('eq.') ? value.slice(3) : value;
+          };
+          window.fetch = async (input, options = {}) => {
+            const request = input instanceof Request ? input.clone() : new Request(input, options);
+            if (!request.url.startsWith('https://hrfhakrxsllrqmscxxpb.supabase.co/')) {
+              return nativeFetch(input, options);
+            }
+            const method = request.method || 'GET';
+            const body = method === 'GET' || method === 'HEAD' ? '' : await request.clone().text();
+            window.__e2eDogsRequests.push({ url: request.url, method, body });
+            if (request.url.includes('/auth/v1/user')) return json(${JSON.stringify(user)});
+            if (request.url.includes('/auth/v1/token')) return json(session);
+            if (request.url.includes('/auth/v1/settings')) return json({ external: {} });
+            if (request.url.includes('/rest/v1/category_rankings')) {
+              if (method === 'GET') return new Promise((resolve) => {
+                window.__e2eReleaseDogsRanking = () => resolve(json({
+                  list_id: 'user:${userId}',
+                  category: 'dogs',
+                  items: [${JSON.stringify(ranked("VBO:0001150", "Saluki"))}],
+                  updated_at: '2026-07-20T10:00:00.000Z'
+                }, 200, { 'Content-Range': '0-0/1' }));
+              });
+              return new Response(null, { status: 201 });
+            }
+            if (request.url.includes('/rest/v1/category_lists')) {
+              if (method === 'GET') return json([], 200, { 'Content-Range': '*/0' });
+              return new Response(null, { status: 201 });
+            }
+            if (request.url.includes('/rest/v1/category_pack_progress')) {
+              if (method === 'GET') return json(null, 200, { 'Content-Range': '*/0' });
+              return new Response(null, { status: 201 });
+            }
+            if (request.url.includes('/rest/v1/category_shared_lists')) {
+              const params = new URL(request.url).searchParams;
+              const stored = JSON.parse(localStorage.getItem('__e2eDogSharedRow') || 'null');
+              if (method === 'GET') {
+                const slug = eq(params, 'slug');
+                const match = stored && (!slug || stored.slug === slug) ? stored : null;
+                const publicRow = match && slug && !match.revoked_at ? {
+                  slug: match.slug,
+                  category: match.category,
+                  payload: match.payload,
+                  created_at: match.created_at,
+                  updated_at: match.updated_at
+                } : match;
+                return json(publicRow, 200, { 'Content-Range': publicRow ? '0-0/1' : '*/0' });
+              }
+              if (method === 'POST') {
+                const attempts = Number(localStorage.getItem('__e2eDogShareAttempts') || '0') + 1;
+                localStorage.setItem('__e2eDogShareAttempts', String(attempts));
+                if (attempts === 1) return json({ code: '23505', message: 'duplicate slug' }, 409);
+                const payload = JSON.parse(body || '{}');
+                const row = { ...payload, created_at: payload.created_at, updated_at: payload.updated_at };
+                localStorage.setItem('__e2eDogSharedRow', JSON.stringify(row));
+                return json(row, 201, { 'Content-Range': '0-0/1' });
+              }
+              if (method === 'PATCH') {
+                const updates = JSON.parse(body || '{}');
+                const row = { ...stored, ...updates };
+                localStorage.setItem('__e2eDogSharedRow', JSON.stringify(row));
+                return json(row, 200, { 'Content-Range': '0-0/1' });
+              }
+            }
+            return json({});
+          };
+        })();
+      `,
+    });
+    await page.send("Page.navigate", { url: `${baseUrl}/dogs?e2e=dogs-remote-sync` });
+    await waitFor(
+      page,
+      `typeof window.__e2eReleaseDogsRanking === 'function' &&
+       document.querySelectorAll('#dogs-ranking .ranking-row').length === 2`,
+      10000,
+    );
+    const preMergeSave = await page.evaluate(`(() => {
+      const handle = document.querySelector('#dogs-ranking .move-handle');
+      handle?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+      const ranking = JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1') || '{}');
+      return {
+        order: (ranking.items || []).map((item) => item.snapshot.primaryText),
+        writesBeforeRelease: window.__e2eDogsRequests.filter((request) =>
+          /category_(rankings|lists|pack_progress)/.test(request.url) && request.method === 'POST'
+        ).length
+      };
+    })()`);
+    if (preMergeSave.order.join("|") !== "Broholmer|Akita" || preMergeSave.writesBeforeRelease !== 0) {
+      throw new Error(`Dogs initial-load write gate failed: ${JSON.stringify(preMergeSave)}`);
+    }
+    await page.evaluate(`window.__e2eReleaseDogsRanking(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#dogs-account-state')?.textContent.includes('dogs-sync@example.test') &&
+       document.querySelectorAll('#dogs-ranking .ranking-row').length === 3`,
+      15000,
+    );
+    const merged = await page.evaluate(`(() => ({
+      order: JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.map((item) => item.snapshot.primaryText),
+      syncRequests: window.__e2eDogsRequests.filter((request) => /category_(rankings|lists|pack_progress)/.test(request.url) && request.method === 'POST').length,
+      movieWrites: window.__e2eDogsRequests.filter((request) => /rest\\/v1\\/(rankings|movie_lists|pack_progress)(\\?|$)/.test(request.url)).length
+    }))()`);
+    const categoryFilters = await page.evaluate(`window.__e2eDogsRequests
+      .filter((request) => /rest\\/v1\\/category_(rankings|lists|pack_progress)/.test(request.url) && request.method === 'GET')
+      .every((request) => new URL(request.url).searchParams.get('category') === 'eq.dogs')`);
+    const writesByTable = await page.evaluate(`Object.fromEntries(
+      ['category_rankings', 'category_lists', 'category_pack_progress'].map((table) => [table,
+        window.__e2eDogsRequests.filter((request) =>
+          request.method === 'POST' && request.url.includes('/rest/v1/' + table)
+        ).length
+      ])
+    )`);
+    const finalRankingWrite = await page.evaluate(`(() => {
+      const writes = window.__e2eDogsRequests.filter((request) =>
+        request.method === 'POST' && request.url.includes('/rest/v1/category_rankings')
+      );
+      const body = JSON.parse(writes.at(-1)?.body || '{}');
+      const row = Array.isArray(body) ? body[0] : body;
+      return (row.items || []).map((item) => item.snapshot.primaryText);
+    })()`);
+    if (
+      merged.order.join("|") !== "Broholmer|Akita|Saluki" ||
+      finalRankingWrite.join("|") !== "Broholmer|Akita|Saluki" ||
+      merged.syncRequests !== 4 ||
+      writesByTable.category_rankings !== 2 ||
+      writesByTable.category_lists !== 1 ||
+      writesByTable.category_pack_progress !== 1 ||
+      merged.movieWrites !== 0 ||
+      !categoryFilters
+    ) {
+      throw new Error(`Dogs no-loss sync merge is wrong: ${JSON.stringify(merged)}`);
+    }
+    const undoWriteStart = await page.evaluate(`window.__e2eDogsRequests.length`);
+    await page.evaluate(`(() => {
+      const handle = document.querySelector('#dogs-ranking .move-handle');
+      handle?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+      document.querySelector('#dogs-toast-action')?.click();
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `window.__e2eDogsRequests.slice(${undoWriteStart}).filter((request) =>
+        request.method === 'POST' && request.url.includes('/rest/v1/category_')
+      ).length >= 2`,
+      5000,
+    );
+    const undoWrites = await page.evaluate(`window.__e2eDogsRequests.slice(${undoWriteStart})
+      .filter((request) => request.method === 'POST' && request.url.includes('/rest/v1/category_'))
+      .map((request) => new URL(request.url).pathname)`);
+    if (
+      undoWrites.length !== 2 ||
+      undoWrites.some((pathname) => pathname !== "/rest/v1/category_rankings")
+    ) {
+      throw new Error(`Dogs ranking Undo wrote unrelated surfaces: ${JSON.stringify(undoWrites)}`);
+    }
+    await page.evaluate(`document.querySelector('#dogs-open-export')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#dogs-export-dialog')?.open && !document.querySelector('#dogs-public-share')?.hidden`, 3000);
+    await page.evaluate(`document.querySelector('#dogs-share-publish')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#dogs-share-link-card')?.hidden`, 5000);
+    const published = await page.evaluate(`(() => ({
+      attempts: Number(localStorage.getItem('__e2eDogShareAttempts') || '0'),
+      url: document.querySelector('#dogs-share-link-url')?.href || '',
+      row: JSON.parse(localStorage.getItem('__e2eDogSharedRow') || 'null')
+    }))()`);
+    if (published.attempts !== 2 || !/^http:\/\/127\.0\.0\.1:\d+\/s\/dogs\/[a-z0-9]{12}$/.test(published.url) || published.row?.payload?.items?.length !== 3) {
+      throw new Error(`Dogs public snapshot retry/publish is wrong: ${JSON.stringify(published)}`);
+    }
+    await page.evaluate(`document.querySelector('#dogs-share-update')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#dogs-toast-message')?.textContent.includes('snapshot updated')`, 5000);
+    await page.evaluate(`document.querySelector('#dogs-share-copy')?.click(); true;`);
+    await waitFor(page, `localStorage.getItem('__e2eDogsCopied') === ${JSON.stringify(published.url)}`, 5000);
+    const copied = await page.evaluate(`localStorage.getItem('__e2eDogsCopied') || ''`);
+    if (copied !== published.url) throw new Error(`Dogs copied the wrong URL: ${JSON.stringify({ copied, published: published.url })}`);
+    await page.send("Page.navigate", { url: published.url });
+    await waitFor(page, `document.querySelectorAll('#dog-share-list .dog-share__card').length === 3`, 8000);
+    const anonymous = await page.evaluate(`(() => ({
+      title: document.title,
+      names: [...document.querySelectorAll('.dog-share__copy strong')].map((node) => node.textContent.trim()),
+      authRequests: window.__e2eDogsRequests.filter((request) => request.url.includes('/auth/v1/')).length,
+      pathname: location.pathname
+    }))()`);
+    if (anonymous.names.join("|") !== "Broholmer|Akita|Saluki" || anonymous.authRequests !== 0 || !anonymous.pathname.startsWith("/s/dogs/")) {
+      throw new Error(`Dogs anonymous public route is wrong: ${JSON.stringify(anonymous)}`);
+    }
+    const screenshot = await page.screenshot("dogs-public-snapshot.png");
+    await page.send("Page.navigate", { url: `${baseUrl}/dogs?e2e=dogs-remote-sync` });
+    await waitFor(page, `document.querySelector('#dogs-account-state')?.textContent.includes('dogs-sync@example.test')`, 12000);
+    await page.evaluate(`document.querySelector('#dogs-open-export')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#dogs-share-revoke')?.hidden`, 5000);
+    await page.evaluate(`document.querySelector('#dogs-share-revoke')?.click(); true;`);
+    await waitFor(page, `JSON.parse(localStorage.getItem('__e2eDogSharedRow') || 'null')?.revoked_at`, 5000);
+    await page.send("Page.navigate", { url: published.url });
+    await waitFor(page, `document.querySelector('#dog-share-status')?.textContent.includes('no longer available')`, 8000);
+    const revoked = await page.evaluate(`(() => ({
+      cards: document.querySelectorAll('#dog-share-list .dog-share__card').length,
+      status: document.querySelector('#dog-share-status')?.textContent.trim() || '',
+      authRequests: window.__e2eDogsRequests.filter((request) => request.url.includes('/auth/v1/')).length
+    }))()`);
+    if (revoked.cards !== 0 || revoked.authRequests !== 0) {
+      throw new Error(`Revoked Dogs snapshot remained readable: ${JSON.stringify(revoked)}`);
+    }
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Dogs remote browser errors: ${JSON.stringify(health.errors)}`);
+    return { details: { preMergeSave, merged, writesByTable, finalRankingWrite, undoWrites, categoryFilters, published, copied, anonymous, revoked }, screenshots: [screenshot] };
+  } finally {
+    await page.close();
+  }
+};
+
 const tests = [
   { name: "localStorage persistence round-trip", run: testLoadPersistence },
   { name: "Books work-level ranking vertical slice", run: testBooksVerticalSlice },
   { name: "noindex family home preview", run: testFamilyHomePreview },
   { name: "Dogs comprehensive local product", run: testDogsLocalProduct },
+  { name: "Dogs mocked account sync and public snapshot", run: testDogsRemoteSyncAndShare },
   { name: "Dogs exact phone portrait and landscape viewport", run: testDogsPhoneViewport },
   { name: "Dogs approved artwork and attribution contract", run: testDogsApprovedArtworkAttribution },
   { name: "Dogs catalog and storage failure recovery", run: testDogsFailureRecovery },

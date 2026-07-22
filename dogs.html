@@ -34,7 +34,7 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="dogs.css?v=5" />
+    <link rel="stylesheet" href="dogs.css?v=6" />
   </head>
   <body>
     <header class="dogs-header">
@@ -62,13 +62,15 @@
       </div>
       <div id="dogs-settings" class="dogs-settings" hidden>
         <div class="dogs-settings__intro">
-          <strong>Dogs on this device</strong>
+          <strong id="dogs-account-state">Dogs on this device</strong>
           <span>Ranking and lists are kept separate from Movies and Books.</span>
         </div>
+        <button id="dogs-sign-in" type="button" hidden>Sign in to sync Dogs</button>
+        <button id="dogs-sign-out" type="button" hidden>Sign out</button>
         <button id="dogs-open-backup" type="button">Backup &amp; import</button>
         <button id="dogs-open-export" type="button">Export ranking</button>
         <button id="dogs-open-hidden" type="button">Manage Not for me</button>
-        <p class="dogs-settings__note">Account sync and public links stay off until the additive Dogs RLS contract is approved.</p>
+        <p id="dogs-remote-gate-note" class="dogs-settings__note">Account sync and public links stay off until the additive Dogs RLS contract is approved.</p>
         <button id="dogs-clear" class="danger-link" type="button">Clear Dogs data</button>
       </div>
     </header>
@@ -321,14 +323,53 @@
       <div class="dialog-heading">
         <p class="section-label">Share without artwork</p>
         <h1>Export ranking</h1>
-        <p>Text, Markdown, and JSON are available now. Public links and raster images remain rights and persistence gates.</p>
+        <p>Text, Markdown, and JSON are always available. Public links appear when account persistence is enabled; photography and raster exports keep separate rights gates.</p>
       </div>
       <div class="utility-actions">
         <button type="button" data-export-format="text">Download text</button>
         <button type="button" data-export-format="markdown">Download Markdown</button>
         <button type="button" data-export-format="json">Download JSON</button>
       </div>
+      <section id="dogs-public-share" class="dogs-public-share" hidden aria-labelledby="dogs-public-share-heading">
+        <div>
+          <p class="section-label">Signed-in snapshot</p>
+          <h2 id="dogs-public-share-heading">Public Dogs link</h2>
+          <p>A read-only snapshot. Future changes stay private until you update it.</p>
+        </div>
+        <div class="utility-actions">
+          <button id="dogs-share-publish" type="button">Publish snapshot</button>
+          <button id="dogs-share-update" type="button" hidden>Update snapshot</button>
+          <button id="dogs-share-copy" type="button" hidden>Copy link</button>
+          <button id="dogs-share-revoke" type="button" hidden>Revoke link</button>
+        </div>
+        <div id="dogs-share-link-card" class="dogs-share-link-card" hidden>
+          <a id="dogs-share-link-url" href=""></a>
+        </div>
+        <p id="dogs-share-status" class="dogs-share-status" role="status" aria-live="polite"></p>
+      </section>
       <pre id="dogs-export-preview" tabindex="0"></pre>
+    </dialog>
+
+    <dialog id="dogs-signin-dialog" class="dogs-dialog utility-dialog dogs-signin-dialog">
+      <form method="dialog" class="dialog-close-form"><button aria-label="Close sign in">×</button></form>
+      <div class="dialog-heading">
+        <p class="section-label">One StackRank account</p>
+        <h1>Sign in to sync Dogs</h1>
+        <p>Your Dogs ranking stays separate from Movies while using the same account session.</p>
+      </div>
+      <div id="dogs-signin-providers" class="dogs-signin-providers" hidden>
+        <button id="dogs-signin-google" type="button" hidden>Continue with Google</button>
+        <button id="dogs-signin-apple" type="button" hidden>Continue with Apple</button>
+      </div>
+      <form id="dogs-signin-email-form" class="dogs-signin-email-form">
+        <label for="dogs-signin-email">Email address</label>
+        <div>
+          <input id="dogs-signin-email" type="email" inputmode="email" autocomplete="email" required />
+          <button id="dogs-signin-send" type="submit">Email me a sign-in link</button>
+        </div>
+      </form>
+      <p id="dogs-signin-status" class="dogs-signin-status" role="status" aria-live="polite"></p>
+      <p class="dogs-settings__note">By continuing, you agree to the <a href="/privacy">privacy policy</a>.</p>
     </dialog>
 
     <div id="dogs-toast" class="dogs-toast" role="status" aria-live="polite" hidden>
@@ -349,6 +390,6 @@
       </div>
     </footer>
 
-    <script type="module" src="dogs.js?v=8"></script>
+    <script type="module" src="dogs.js?v=16"></script>
   </body>
 </html>

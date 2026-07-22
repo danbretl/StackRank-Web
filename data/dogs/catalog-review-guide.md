@@ -1,8 +1,12 @@
 # StackRank Dogs catalog review workflow
 
-Status: local editorial workflow as of 2026-07-16. The generated report is a review aid, not a
+Status: local editorial workflow as of 2026-07-21. The generated report is a review aid, not a
 catalog editor. It cannot change `classification.json`, `catalog-overrides.json`, the pinned VBO
 artifact, or any compiled catalog output.
+
+The accepted full-queue editorial audit and its primary-source correction evidence are recorded in
+`notes/testing/dogs-catalog-editorial-audit-2026-07-21.md`. This workspace remains useful for future
+VBO releases and proposed follow-up changes; browser-local drafts are never accepted decisions.
 
 ## Build and open the workspace
 
@@ -11,7 +15,7 @@ npm run review:dogs:catalog
 open reports/dogs-catalog-review/index.html
 ```
 
-The report is noindex and generated under the gitignored `reports/` directory. It contains all 682
+The report is noindex and generated under the gitignored `reports/` directory. It contains all 698
 entries from the seven deterministic queues in `classification-review.json`:
 
 - alias, variety, crossbreed, historical, and excluded decisions;

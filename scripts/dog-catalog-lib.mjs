@@ -39,8 +39,103 @@ const PLACEHOLDER_CATALOG_NAMES = new Set([
   "unspecified",
 ]);
 
+export function duplicateJsonObjectKeys(text) {
+  let index = 0;
+  const duplicates = [];
+  const skipWhitespace = () => {
+    while (/\s/u.test(text[index] || "")) index += 1;
+  };
+  const parseString = () => {
+    const start = index;
+    if (text[index] !== '"') throw new Error(`Expected JSON string at byte ${index}`);
+    index += 1;
+    while (index < text.length) {
+      if (text[index] === "\\") {
+        index += 2;
+        continue;
+      }
+      if (text[index] === '"') {
+        index += 1;
+        return JSON.parse(text.slice(start, index));
+      }
+      index += 1;
+    }
+    throw new Error(`Unterminated JSON string at byte ${start}`);
+  };
+  const parseValue = (path) => {
+    skipWhitespace();
+    if (text[index] === "{") {
+      index += 1;
+      skipWhitespace();
+      const keys = new Set();
+      if (text[index] === "}") {
+        index += 1;
+        return;
+      }
+      while (index < text.length) {
+        skipWhitespace();
+        const key = parseString();
+        const keyPath = `${path}.${key}`;
+        if (keys.has(key)) duplicates.push(keyPath);
+        keys.add(key);
+        skipWhitespace();
+        if (text[index] !== ":") throw new Error(`Expected JSON colon at byte ${index}`);
+        index += 1;
+        parseValue(keyPath);
+        skipWhitespace();
+        if (text[index] === "}") {
+          index += 1;
+          return;
+        }
+        if (text[index] !== ",") throw new Error(`Expected JSON comma at byte ${index}`);
+        index += 1;
+      }
+      throw new Error(`Unterminated JSON object at ${path}`);
+    }
+    if (text[index] === "[") {
+      index += 1;
+      skipWhitespace();
+      if (text[index] === "]") {
+        index += 1;
+        return;
+      }
+      let itemIndex = 0;
+      while (index < text.length) {
+        parseValue(`${path}[${itemIndex}]`);
+        itemIndex += 1;
+        skipWhitespace();
+        if (text[index] === "]") {
+          index += 1;
+          return;
+        }
+        if (text[index] !== ",") throw new Error(`Expected JSON comma at byte ${index}`);
+        index += 1;
+      }
+      throw new Error(`Unterminated JSON array at ${path}`);
+    }
+    if (text[index] === '"') {
+      parseString();
+      return;
+    }
+    const start = index;
+    while (index < text.length && !/[\s,}\]]/u.test(text[index])) index += 1;
+    if (start === index) throw new Error(`Expected JSON value at byte ${index}`);
+  };
+
+  skipWhitespace();
+  parseValue("$");
+  skipWhitespace();
+  if (index !== text.length) throw new Error(`Unexpected JSON content at byte ${index}`);
+  return duplicates;
+}
+
 export function readJson(path) {
-  return JSON.parse(fs.readFileSync(path, "utf8"));
+  const text = fs.readFileSync(path, "utf8");
+  const duplicates = duplicateJsonObjectKeys(text);
+  if (duplicates.length) {
+    throw new Error(`${path} contains duplicate JSON object keys: ${duplicates.join(", ")}`);
+  }
+  return JSON.parse(text);
 }
 
 export function sha256(buffer) {
@@ -77,7 +172,8 @@ export function normalizeCatalogName(value) {
 }
 
 function isUsableCatalogName(value) {
-  if (!String(value || "").trim()) return false;
+  const text = String(value || "").trim();
+  if (!text || /[\u0080-\u009f]/u.test(text)) return false;
   const normalized = normalizeCatalogName(value);
   return !PLACEHOLDER_CATALOG_NAMES.has(normalized);
 }

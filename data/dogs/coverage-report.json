@@ -11,49 +11,58 @@
   "classifiedTermCount": 1537,
   "unclassifiedTermCount": 0,
   "dispositionCounts": {
-    "alias": 271,
-    "canonical": 899,
+    "alias": 294,
+    "canonical": 877,
     "crossbreed": 139,
-    "excluded": 2,
+    "excluded": 4,
     "historical": 36,
-    "variety": 190
+    "variety": 187
   },
   "reasonCodeCounts": {
-    "curated_country_duplicate": 42,
+    "curated_country_duplicate": 47,
     "curated_country_variety": 2,
     "curated_historical_breed": 36,
     "curated_historical_registry_name": 5,
     "curated_historical_synonym": 1,
-    "curated_identity_anchor": 12,
+    "curated_identity_anchor": 13,
+    "curated_legacy_format_synonym": 4,
     "curated_mixed_breed_concept": 1,
     "curated_mixed_breed_synonym": 1,
     "curated_mixed_breed_umbrella": 1,
     "curated_ontology_parent_correction": 1,
-    "curated_registry_synonym": 149,
+    "curated_registry_group_label": 1,
+    "curated_registry_synonym": 162,
     "curated_registry_variety": 19,
     "curated_unspecified_registry_name": 4,
     "curated_variant_family_anchor": 8,
-    "non_domestic_canid": 1,
+    "curated_wolfdog_type": 1,
+    "non_domestic_canid": 2,
+    "organization_name_not_breed": 1,
     "research_population_not_consumer_breed_type": 1,
-    "vbo_direct_dog_breed": 877,
+    "vbo_direct_dog_breed": 854,
     "vbo_exact_synonym_cluster": 68,
-    "vbo_mixed_breed_descendant": 139,
-    "vbo_nested_breed_concept": 169
+    "vbo_mixed_breed_descendant": 138,
+    "vbo_nested_breed_concept": 166
   },
   "sourceDepthCounts": {
     "1": 1210,
     "2": 319,
     "3": 8
   },
-  "selectableEntityCount": 1264,
-  "runtimeEntityCount": 1264,
-  "runtimeBytes": 706883,
+  "selectableEntityCount": 1239,
+  "runtimeEntityCount": 1239,
+  "runtimeBytes": 697034,
   "largestRecordBytes": 848,
   "payloadLimits": {
     "runtimeBytes": 2000000,
     "recordBytes": 16384
   },
   "excludedTerms": [
+    {
+      "vboId": "VBO:0008055",
+      "sourceLabel": "Magyarországi Drótszőrű Magyarvizsla Tenyésztők Egyesülete, Hungary (Dog)",
+      "reasonCode": "organization_name_not_breed"
+    },
     {
       "vboId": "VBO:0200729",
       "sourceLabel": "Jackal (Dog)",
@@ -63,6 +72,11 @@
       "vboId": "VBO:0200929",
       "sourceLabel": "Navasota Mixed Breed (Dog)",
       "reasonCode": "research_population_not_consumer_breed_type"
+    },
+    {
+      "vboId": "VBO:0201429",
+      "sourceLabel": "Wolf (Dog)",
+      "reasonCode": "non_domestic_canid"
     }
   ],
   "historicalTerms": [

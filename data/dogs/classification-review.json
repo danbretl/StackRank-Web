@@ -8,12 +8,12 @@
   },
   "reviewedAt": "2026-07-16",
   "summary": {
-    "aliasDecisions": 271,
-    "varietyDecisions": 190,
+    "aliasDecisions": 294,
+    "varietyDecisions": 187,
     "crossbreedDecisions": 139,
     "historicalDecisions": 36,
-    "excludedDecisions": 2,
-    "regionalLandraceCandidates": 26,
+    "excludedDecisions": 4,
+    "regionalLandraceCandidates": 20,
     "ambiguousSearchNamesRetained": 18
   },
   "aliasDecisions": [
@@ -148,6 +148,20 @@
       "sourceLabel": "Pyrenean Mountain dog, Australia (Dog)",
       "targetId": "VBO:0200629",
       "targetLabel": "Great Pyrenees",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008001",
+      "sourceLabel": "Elsesian, Bangladesh (Dog)",
+      "targetId": "VBO:0200577",
+      "targetLabel": "German Shepherd Dog",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008002",
+      "sourceLabel": "German Shephard, Bangladesh (Dog)",
+      "targetId": "VBO:0200577",
+      "targetLabel": "German Shepherd Dog",
       "reasonCode": "curated_country_duplicate"
     },
     {
@@ -389,6 +403,13 @@
       "reasonCode": "vbo_exact_synonym_cluster"
     },
     {
+      "vboId": "VBO:0008051",
+      "sourceLabel": "Hungarian houn, Hungary (Dog)",
+      "targetId": "VBO:0200679",
+      "targetLabel": "Hungarian Hound - Transylvanian Scent Hound",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
       "vboId": "VBO:0008052",
       "sourceLabel": "Hungarian vizsla, Hungary (Dog)",
       "targetId": "VBO:0201389",
@@ -592,6 +613,20 @@
       "reasonCode": "curated_country_duplicate"
     },
     {
+      "vboId": "VBO:0008085",
+      "sourceLabel": "Kars Turkish Shepherd, Turkey (Dog)",
+      "targetId": "VBO:0200757",
+      "targetLabel": "Kars",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008087",
+      "sourceLabel": "Çatal Burun Hunting, Turkey (Dog)",
+      "targetId": "VBO:0201464",
+      "targetLabel": "Tarsus çatalburun",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
       "vboId": "VBO:0008088",
       "sourceLabel": "Africanis, South Africa (Dog)",
       "targetId": "VBO:0200007",
@@ -760,6 +795,13 @@
       "reasonCode": "curated_historical_registry_name"
     },
     {
+      "vboId": "VBO:0200155",
+      "sourceLabel": "Berger de Beauce (Dog)",
+      "targetId": "VBO:0200136",
+      "targetLabel": "Beauceron",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
       "vboId": "VBO:0200157",
       "sourceLabel": "Berger des Pyrenees (Dog)",
       "targetId": "VBO:0201117",
@@ -809,11 +851,25 @@
       "reasonCode": "curated_registry_synonym"
     },
     {
+      "vboId": "VBO:0200198",
+      "sourceLabel": "Bosanski Ostrodlaki Gonic Barak (Dog)",
+      "targetId": "VBO:0200117",
+      "targetLabel": "Barak",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
       "vboId": "VBO:0200199",
       "sourceLabel": "Bosnian and Herzegovinian - Croatian Shepherd Dog (Dog)",
       "targetId": "VBO:0201356",
       "targetLabel": "Tornjak",
       "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200200",
+      "sourceLabel": "Bosnian Broken-Haired Hound - Called Barak (Dog)",
+      "targetId": "VBO:0200117",
+      "targetLabel": "Barak",
+      "reasonCode": "curated_registry_synonym"
     },
     {
       "vboId": "VBO:0200207",
@@ -867,8 +923,8 @@
     {
       "vboId": "VBO:0200236",
       "sourceLabel": "British Bulldog (Dog)",
-      "targetId": "VBO:0200485",
-      "targetLabel": "English Bulldog",
+      "targetId": "VBO:0200258",
+      "targetLabel": "Bulldog",
       "reasonCode": "curated_registry_synonym"
     },
     {
@@ -963,6 +1019,13 @@
       "reasonCode": "curated_registry_synonym"
     },
     {
+      "vboId": "VBO:0200296",
+      "sourceLabel": "Castro Laboreiro Dog (Dog)",
+      "targetId": "VBO:0200285",
+      "targetLabel": "Cao de Castro Laboreiro",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
       "vboId": "VBO:0200298",
       "sourceLabel": "Catahoula Leopard Dog (Dog)",
       "targetId": "VBO:0200820",
@@ -1033,6 +1096,13 @@
       "reasonCode": "curated_mixed_breed_umbrella"
     },
     {
+      "vboId": "VBO:0200412",
+      "sourceLabel": "Dachshund, Old Format (Dog)",
+      "targetId": "VBO:0200406",
+      "targetLabel": "Dachshund",
+      "reasonCode": "curated_legacy_format_synonym"
+    },
+    {
       "vboId": "VBO:0200430",
       "sourceLabel": "Danish Broholmer (Dog)",
       "targetId": "VBO:0000661",
@@ -1089,6 +1159,13 @@
       "reasonCode": "curated_registry_synonym"
     },
     {
+      "vboId": "VBO:0200462",
+      "sourceLabel": "Dutch Sheeppoodle (Dog)",
+      "targetId": "VBO:0201181",
+      "targetLabel": "Schapendoes",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
       "vboId": "VBO:0200468",
       "sourceLabel": "Dutch Spaniel (Dog)",
       "targetId": "VBO:0201419",
@@ -1107,6 +1184,13 @@
       "sourceLabel": "English Beagle (Dog)",
       "targetId": "VBO:0200131",
       "targetLabel": "Beagle",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200485",
+      "sourceLabel": "English Bulldog (Dog)",
+      "targetId": "VBO:0200258",
+      "targetLabel": "Bulldog",
       "reasonCode": "curated_registry_synonym"
     },
     {
@@ -1135,6 +1219,13 @@
       "sourceLabel": "English Pointer (Dog)",
       "targetId": "VBO:0201029",
       "targetLabel": "Pointer",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200498",
+      "sourceLabel": "English Toy Spaniel (Dog)",
+      "targetId": "VBO:0200765",
+      "targetLabel": "King Charles Spaniel",
       "reasonCode": "curated_registry_synonym"
     },
     {
@@ -1201,6 +1292,13 @@
       "reasonCode": "curated_registry_synonym"
     },
     {
+      "vboId": "VBO:0200539",
+      "sourceLabel": "French Bulldog, Group 9 : Companion and Toy Dogs (Dog)",
+      "targetId": "VBO:0201455",
+      "targetLabel": "French Bulldog",
+      "reasonCode": "curated_registry_group_label"
+    },
+    {
       "vboId": "VBO:0200543",
       "sourceLabel": "French Mastiff (Dog)",
       "targetId": "VBO:0200450",
@@ -1212,6 +1310,13 @@
       "sourceLabel": "French Pointing Dog - Gascogne Type (Dog)",
       "targetId": "VBO:0200559",
       "targetLabel": "Gascogne Braque Français",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200546",
+      "sourceLabel": "French Pointing Dog - Pyrenean Type (Dog)",
+      "targetId": "VBO:0200226",
+      "targetLabel": "Braque Francais Pyrenean",
       "reasonCode": "curated_registry_synonym"
     },
     {
@@ -1369,6 +1474,13 @@
       "reasonCode": "curated_registry_synonym"
     },
     {
+      "vboId": "VBO:0200682",
+      "sourceLabel": "Hungarian Water Dog (Dog)",
+      "targetId": "VBO:0201102",
+      "targetLabel": "Puli",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
       "vboId": "VBO:0200685",
       "sourceLabel": "Husky (Dog)",
       "targetId": "VBO:0201233",
@@ -1444,6 +1556,13 @@
       "targetId": "VBO:0201390",
       "targetLabel": "Volpino Italiano",
       "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200723",
+      "sourceLabel": "Italian Volpino (Dog)",
+      "targetId": "VBO:0201390",
+      "targetLabel": "Volpino Italiano",
+      "reasonCode": "curated_registry_synonym"
     },
     {
       "vboId": "VBO:0200738",
@@ -1528,6 +1647,13 @@
       "targetId": "VBO:0200845",
       "targetLabel": "Majorca Mastiff",
       "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200863",
+      "sourceLabel": "Manchester Terrier, Old Format (Dog)",
+      "targetId": "VBO:0200862",
+      "targetLabel": "Manchester Terrier",
+      "reasonCode": "curated_legacy_format_synonym"
     },
     {
       "vboId": "VBO:0200873",
@@ -1656,6 +1782,13 @@
       "reasonCode": "curated_registry_synonym"
     },
     {
+      "vboId": "VBO:0201062",
+      "sourceLabel": "Poodle, Toy Old Format (Dog)",
+      "targetId": "VBO:0201061",
+      "targetLabel": "Poodle, Toy",
+      "reasonCode": "curated_legacy_format_synonym"
+    },
+    {
       "vboId": "VBO:0201065",
       "sourceLabel": "Porcelaine Hound (Dog)",
       "targetId": "VBO:0201064",
@@ -1768,6 +1901,13 @@
       "reasonCode": "curated_registry_synonym"
     },
     {
+      "vboId": "VBO:0201243",
+      "sourceLabel": "Slovakian Hound (Dog)",
+      "targetId": "VBO:0201246",
+      "targetLabel": "Slovensky Kopov",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
       "vboId": "VBO:0201248",
       "sourceLabel": "Small Blue Gascony (Dog)",
       "targetId": "VBO:0201010",
@@ -1859,6 +1999,13 @@
       "reasonCode": "curated_registry_synonym"
     },
     {
+      "vboId": "VBO:0201313",
+      "sourceLabel": "Swedish Elkhound (Dog)",
+      "targetId": "VBO:0200733",
+      "targetLabel": "Jämthund",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
       "vboId": "VBO:0201330",
       "sourceLabel": "Tahltan Bear Dog (Dog)",
       "targetId": "VBO:0201329",
@@ -1877,6 +2024,13 @@
       "sourceLabel": "Terrier Brasileiro (Dog)",
       "targetId": "VBO:0200231",
       "targetLabel": "Brazilian Terrier",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201369",
+      "sourceLabel": "Transmontano Mastiff (Dog)",
+      "targetId": "VBO:0200286",
+      "targetLabel": "Cão de Gado Transmontano",
       "reasonCode": "curated_registry_synonym"
     },
     {
@@ -1906,6 +2060,13 @@
       "targetId": "VBO:0201411",
       "targetLabel": "Welsh Springer Spaniel",
       "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201407",
+      "sourceLabel": "Welsh Corgi, Old Format (Dog)",
+      "targetId": "VBO:0201406",
+      "targetLabel": "Welsh Corgi",
+      "reasonCode": "curated_legacy_format_synonym"
     },
     {
       "vboId": "VBO:0201451",
@@ -2127,13 +2288,6 @@
       "reasonCode": "vbo_nested_breed_concept"
     },
     {
-      "vboId": "VBO:0200412",
-      "sourceLabel": "Dachshund, Old Format (Dog)",
-      "parentId": "VBO:0200406",
-      "parentLabel": "Dachshund",
-      "reasonCode": "vbo_nested_breed_concept"
-    },
-    {
       "vboId": "VBO:0200413",
       "sourceLabel": "Dachshund, Rabbit (Dog)",
       "parentId": "VBO:0200406",
@@ -2283,13 +2437,6 @@
     {
       "vboId": "VBO:0200538",
       "sourceLabel": "French Bulldog, Fawn, Brindled Or Not, With Medium Or Predominant Patching (Dog)",
-      "parentId": "VBO:0201455",
-      "parentLabel": "French Bulldog",
-      "reasonCode": "vbo_nested_breed_concept"
-    },
-    {
-      "vboId": "VBO:0200539",
-      "sourceLabel": "French Bulldog, Group 9 : Companion and Toy Dogs (Dog)",
       "parentId": "VBO:0201455",
       "parentLabel": "French Bulldog",
       "reasonCode": "vbo_nested_breed_concept"
@@ -2892,13 +3039,6 @@
     {
       "vboId": "VBO:0201061",
       "sourceLabel": "Poodle, Toy (Dog)",
-      "parentId": "VBO:0201048",
-      "parentLabel": "Poodle",
-      "reasonCode": "vbo_nested_breed_concept"
-    },
-    {
-      "vboId": "VBO:0201062",
-      "sourceLabel": "Poodle, Toy Old Format (Dog)",
       "parentId": "VBO:0201048",
       "parentLabel": "Poodle",
       "reasonCode": "vbo_nested_breed_concept"
@@ -3549,12 +3689,6 @@
       "reasonCode": "vbo_mixed_breed_descendant"
     },
     {
-      "vboId": "VBO:0200462",
-      "sourceLabel": "Dutch Sheeppoodle (Dog)",
-      "parentId": "VBO:0200902",
-      "reasonCode": "vbo_mixed_breed_descendant"
-    },
-    {
       "vboId": "VBO:0200536",
       "sourceLabel": "French Bull Terrier (Dog)",
       "parentId": "VBO:0200902",
@@ -4053,6 +4187,12 @@
       "reasonCode": "vbo_mixed_breed_descendant"
     },
     {
+      "vboId": "VBO:0201430",
+      "sourceLabel": "Wolfdog (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "curated_wolfdog_type"
+    },
+    {
       "vboId": "VBO:0201432",
       "sourceLabel": "Woodle (Dog)",
       "parentId": "VBO:0200902",
@@ -4267,6 +4407,11 @@
   ],
   "excludedDecisions": [
     {
+      "vboId": "VBO:0008055",
+      "sourceLabel": "Magyarországi Drótszőrű Magyarvizsla Tenyésztők Egyesülete, Hungary (Dog)",
+      "reasonCode": "organization_name_not_breed"
+    },
+    {
       "vboId": "VBO:0200729",
       "sourceLabel": "Jackal (Dog)",
       "reasonCode": "non_domestic_canid"
@@ -4275,24 +4420,17 @@
       "vboId": "VBO:0200929",
       "sourceLabel": "Navasota Mixed Breed (Dog)",
       "reasonCode": "research_population_not_consumer_breed_type"
+    },
+    {
+      "vboId": "VBO:0201429",
+      "sourceLabel": "Wolf (Dog)",
+      "reasonCode": "non_domestic_canid"
     }
   ],
   "regionalLandraceCandidates": [
     {
       "vboId": "VBO:0007991",
       "sourceLabel": "Kazakhski Tobet, Kazakhstan (Dog)",
-      "disposition": "canonical",
-      "reasonCode": "vbo_direct_dog_breed"
-    },
-    {
-      "vboId": "VBO:0008001",
-      "sourceLabel": "Elsesian, Bangladesh (Dog)",
-      "disposition": "canonical",
-      "reasonCode": "vbo_direct_dog_breed"
-    },
-    {
-      "vboId": "VBO:0008002",
-      "sourceLabel": "German Shephard, Bangladesh (Dog)",
       "disposition": "canonical",
       "reasonCode": "vbo_direct_dog_breed"
     },
@@ -4381,18 +4519,6 @@
       "reasonCode": "vbo_direct_dog_breed"
     },
     {
-      "vboId": "VBO:0008051",
-      "sourceLabel": "Hungarian houn, Hungary (Dog)",
-      "disposition": "canonical",
-      "reasonCode": "vbo_direct_dog_breed"
-    },
-    {
-      "vboId": "VBO:0008055",
-      "sourceLabel": "Magyarországi Drótszőrű Magyarvizsla Tenyésztők Egyesülete, Hungary (Dog)",
-      "disposition": "canonical",
-      "reasonCode": "vbo_direct_dog_breed"
-    },
-    {
       "vboId": "VBO:0008063",
       "sourceLabel": "Donggyeongi, Republic of Korea (Dog)",
       "disposition": "canonical",
@@ -4411,20 +4537,8 @@
       "reasonCode": "vbo_direct_dog_breed"
     },
     {
-      "vboId": "VBO:0008085",
-      "sourceLabel": "Kars Turkish Shepherd, Turkey (Dog)",
-      "disposition": "canonical",
-      "reasonCode": "vbo_direct_dog_breed"
-    },
-    {
       "vboId": "VBO:0008086",
       "sourceLabel": "Turkish Greyhound, Turkey (Dog)",
-      "disposition": "canonical",
-      "reasonCode": "vbo_direct_dog_breed"
-    },
-    {
-      "vboId": "VBO:0008087",
-      "sourceLabel": "Çatal Burun Hunting, Turkey (Dog)",
       "disposition": "canonical",
       "reasonCode": "vbo_direct_dog_breed"
     },

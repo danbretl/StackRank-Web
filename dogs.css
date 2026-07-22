@@ -536,6 +536,29 @@ body.is-move-mode .ranking-row__actions .move-handle { display: inline-grid; pla
 .pack-card__actions { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; }
 .pack-card__actions button { min-height: 42px; border: 1px solid var(--border); border-radius: 8px; background: #fff; padding: 0 12px; cursor: pointer; }
 .utility-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 4px; }
+.utility-actions button,
+.dogs-signin-providers button,
+.dogs-signin-email-form button {
+  min-height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+}
+.dogs-public-share { margin-top: 28px; padding: 24px; border: 1px solid var(--border); border-radius: 12px; }
+.dogs-public-share h2 { margin: 4px 0 6px; font-size: 1.35rem; }
+.dogs-public-share p { margin: 0; color: var(--ink-soft); }
+.dogs-public-share .utility-actions { margin: 20px 0 14px; }
+.dogs-share-link-card { padding: 12px; overflow-wrap: anywhere; border: 1px solid var(--border-soft); background: var(--surface-soft); }
+.dogs-share-status { min-height: 1.4em; padding-top: 10px; font-size: 0.82rem; }
+.dogs-signin-dialog { width: min(620px, calc(100% - 32px)); }
+.dogs-signin-providers { display: grid; gap: 10px; margin-top: 28px; }
+.dogs-signin-email-form { display: grid; gap: 8px; margin-top: 24px; }
+.dogs-signin-email-form > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; }
+.dogs-signin-email-form input { min-height: 48px; padding: 0 12px; border: 1px solid var(--border); border-radius: 8px; }
+.dogs-signin-status { min-height: 1.5em; color: var(--ink-soft); }
+.dogs-signin-status.is-error { color: #7a2020; }
 .import-form { display: grid; gap: 11px; padding-top: 24px; border-top: 1px solid var(--border-soft); }
 .import-form label { font-size: 1.05rem; font-weight: 650; }
 .import-form textarea { width: 100%; padding: 13px; resize: vertical; border: 1px solid var(--border); border-radius: 9px; }
@@ -623,6 +646,7 @@ body.is-move-mode .ranking-row__actions .move-handle { display: inline-grid; pla
   .dogs-nav button { min-height: 58px; }
   .dogs-nav button[aria-current="page"]::after { top: 0; bottom: auto; left: 24%; right: 24%; }
   .dogs-settings { position: fixed; top: 56px; left: 12px; right: 12px; width: auto; }
+  .dogs-signin-email-form > div { grid-template-columns: 1fr; }
   .dogs-app,
   .dogs-footer { width: calc(100% - 24px); }
   .dogs-app { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }

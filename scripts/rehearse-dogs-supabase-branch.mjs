@@ -695,8 +695,15 @@ const runAdvisors = (config) => {
   }
 };
 
-export const runBranchRehearsal = async (environment = process.env) => {
-  const config = parseBranchRehearsalConfig(environment);
+export const runDogsDataPlaneProbe = async (
+  config,
+  {
+    verifySchemaFirst = false,
+    runAdvisorsAfter = false,
+    targetLabel = "Supabase target",
+    successMessage = "Dogs data-plane probe passed.",
+  } = {},
+) => {
   const identity = createRehearsalIdentity();
   const users = [];
   const listIds = new Set();
@@ -705,11 +712,15 @@ export const runBranchRehearsal = async (environment = process.env) => {
   let sessionB;
   let mainError;
 
-  log(`Rehearsing disposable Supabase branch ${config.expectedRef}.`);
-  log("Secrets and database credentials will not be printed.");
+  log(`Probing ${targetLabel}.`);
+  log("Secrets and credentials will not be printed.");
   try {
-    log("1/6 Verifying migration ledger, schema, grants, RLS, constraints, and bucket...");
-    verifySchema(config);
+    if (verifySchemaFirst) {
+      log("1/6 Verifying migration ledger, schema, grants, RLS, constraints, and bucket...");
+      verifySchema(config);
+    } else {
+      log("1/6 Using the separately verified post-migration schema gate...");
+    }
 
     log("2/6 Creating two confirmed disposable Auth users...");
     users.push(await createUser(config, identity.emailA, identity.passwordA));
@@ -744,8 +755,8 @@ export const runBranchRehearsal = async (environment = process.env) => {
       category_rankings: 1,
     });
 
-    runAdvisors(config);
-    log("\nDisposable branch rehearsal passed.");
+    if (runAdvisorsAfter) runAdvisors(config);
+    log(`\n${successMessage}`);
   } catch (error) {
     mainError = error;
   } finally {
@@ -777,6 +788,16 @@ export const runBranchRehearsal = async (environment = process.env) => {
     }
   }
   if (mainError) throw mainError;
+};
+
+export const runBranchRehearsal = async (environment = process.env) => {
+  const config = parseBranchRehearsalConfig(environment);
+  return runDogsDataPlaneProbe(config, {
+    verifySchemaFirst: true,
+    runAdvisorsAfter: true,
+    targetLabel: `disposable Supabase branch ${config.expectedRef}`,
+    successMessage: "Disposable branch rehearsal passed.",
+  });
 };
 
 const isMain =

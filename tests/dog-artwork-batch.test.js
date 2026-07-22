@@ -23,11 +23,26 @@ test("tracked crop recipes cover every exact reviewed Dogs ledger asset once", a
     assert.equal(asset.review.subjectMatchesCatalog, true);
     assert.equal(asset.review.nonCopyrightRestrictionsReviewed, true);
     assert.ok(asset.review.rightsNotes.length >= 200);
-    assert.equal(asset.delivery.status, "not_ready");
-    assert.deepEqual(asset.delivery.variants, []);
-    assert.equal(asset.uiDisplayAllowed, false);
+    assert.equal(asset.delivery.status, "uploaded_verified");
+    assert.deepEqual(
+      asset.delivery.variants.map((variant) => variant.role).sort(),
+      ["card", "detail"],
+    );
+    assert.equal(asset.uiDisplayAllowed, true);
     assert.equal(asset.publicSnapshotAllowed, false);
     assert.equal(asset.rasterExportAllowed, false);
+    assert.deepEqual(asset.modifications, ["crop", "resize", "webp conversion"]);
+    assert.equal(asset.attributionCompliance.attributionSurface, "detail-and-credits");
+    assert.equal(asset.attributionCompliance.sourceLinkAvailable, true);
+    assert.equal(asset.attributionCompliance.licenseLinkAvailable, true);
+    assert.equal(asset.attributionCompliance.modificationsDisclosed, true);
+    if (asset.licenseId.includes("BY-SA")) {
+      assert.equal(asset.shareAlikeCompliance.adapterLicenseId, asset.licenseId);
+      assert.equal(asset.shareAlikeCompliance.adapterLicenseUrl, asset.licenseUrl);
+      assert.equal(asset.shareAlikeCompliance.noAdditionalRestrictions, true);
+    } else {
+      assert.equal(asset.shareAlikeCompliance, undefined);
+    }
   }
 });
 

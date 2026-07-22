@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "ledgerVersion": "2026-07-21.2",
+  "ledgerVersion": "2026-07-22.1",
   "catalogVersion": "vbo-2026-04-15.2",
   "policyVersion": "2026-07-16.1",
   "storagePrefix": "dogs-catalog/vbo-2026-04-15-r1/",
   "publicAssetBaseUrl": "https://hrfhakrxsllrqmscxxpb.supabase.co/storage/v1/object/public/",
-  "updatedAt": "2026-07-21",
+  "updatedAt": "2026-07-22",
   "assets": [
     {
       "assetId": "dogs:photo:commons:30139e8a8c8a57ba",
@@ -37,7 +37,9 @@
       "sourceWidth": 2916,
       "sourceHeight": 2112,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -47,12 +49,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 10922,
+            "sha256": "fb8c546039c836ca4a984ff60af3b31c92eacadec283b803d0d52f5299d4b161",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-30139e8a8c8a57ba-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 60210,
+            "sha256": "47584a8dcd77f1dd61d5e7b16d58974be9cef236d27637c5f4f090d81d5228a8",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-30139e8a8c8a57ba-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-3.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -85,7 +119,9 @@
       "sourceWidth": 4364,
       "sourceHeight": 3273,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -95,12 +131,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 10246,
+            "sha256": "8c68b60d46f68ad6a4a9461e1ad6278f7b8aac49464e0258cfcc95086f2dc684",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-6abd432b7d4c8fae-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 69212,
+            "sha256": "6cf3783dc6b1f56e1a2b7032dab0fa5cd0b3058aae5c3cc5f3432d6d5c64e479",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-6abd432b7d4c8fae-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-4.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -133,7 +201,9 @@
       "sourceWidth": 1000,
       "sourceHeight": 944,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -143,12 +213,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 13876,
+            "sha256": "155e6ec5b34f67f6cdb3c901d775411f8474f0c3b248c1dbcb993ef80567079e",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-e74fd94127402b88-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 61108,
+            "sha256": "b8920037fdcb77359de558cd9bceac8b0a31b840e2b040296a7162e7219b8d29",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-e74fd94127402b88-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-3.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -181,7 +283,9 @@
       "sourceWidth": 2382,
       "sourceHeight": 1746,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -191,12 +295,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 10780,
+            "sha256": "281b52dee43e16ed582080ae5c1aa7e4241be219d563891a198f3c7f8ab35814",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-36db1ccf81187f87-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 86700,
+            "sha256": "1b233d46c9f2d2cd3606bcc60f0bcbd9915fabcce4732ad22ad8841faa3d14bb",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-36db1ccf81187f87-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-3.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -229,7 +365,9 @@
       "sourceWidth": 2268,
       "sourceHeight": 1722,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -239,12 +377,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 15282,
+            "sha256": "667a3a7d07138f9ed602dc66aba80022354b6132a5f5b8d1b83bfb5736df26a7",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-bef7de10251cfe2f-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 80800,
+            "sha256": "8d863619cd6e6e42cc1672b17aa3f2a40f7b8b85609888d20a379ea3aab084d9",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-bef7de10251cfe2f-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-3.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -277,7 +447,9 @@
       "sourceWidth": 1857,
       "sourceHeight": 1035,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -287,12 +459,37 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 15880,
+            "sha256": "8c98d8d653193b8efaea23d8ec03dbe9b73d21c95316ba42a6758530c3f76eb1",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-20e86f59905d2e4f-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 92276,
+            "sha256": "a3e95ee9e0dc95777240da8835e7fac23ae97e6371385f60b84862763a68d7b9",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-20e86f59905d2e4f-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
       }
     },
     {
@@ -325,7 +522,9 @@
       "sourceWidth": 500,
       "sourceHeight": 667,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -335,12 +534,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 12196,
+            "sha256": "4c5a03b98c63fb93f300c738ed66a0ce814cc7410f16975dfa04f55e473fcb16",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-3ad110430b17a1f3-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 47118,
+            "sha256": "40ed79d43e06818051d0bed6adc65e81bcbffb0f8713a603fb13ac293ea4f33b",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-3ad110430b17a1f3-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-4.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -373,7 +604,9 @@
       "sourceWidth": 800,
       "sourceHeight": 534,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -383,12 +616,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 18342,
+            "sha256": "fafd3229cfbcfdc7e0416df654fbe4064bcf633fee69f5f817f6358849059bc2",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-098ed3a33c91671f-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 91932,
+            "sha256": "4f410e55cefb8b93b8dad18ffe08a72e34dac1aa5a2c47dd66db47d43dd95b13",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-098ed3a33c91671f-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-3.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -421,7 +686,9 @@
       "sourceWidth": 2049,
       "sourceHeight": 2111,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -431,12 +698,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 16484,
+            "sha256": "4360fd0974de3bab0b6f4a98be65e4224a60db374dfaf66d6a5e57037f5ce6cc",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-863eb3952573ca07-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 76118,
+            "sha256": "a8062e8f8aabf433cbcde4974f3d48e566e81d1b6c6848a5bd56d90f98b8a048",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-863eb3952573ca07-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-3.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -469,7 +768,9 @@
       "sourceWidth": 2554,
       "sourceHeight": 1703,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -479,12 +780,37 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 7080,
+            "sha256": "3dac11ae792c65ae24fd6a58930f0782c2a25c76b6abce8019c7d75a96b7203c",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-a1407c60444aa750-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 45716,
+            "sha256": "4005483471f617030665b6d75a7eaabf829b3f0ec1b3ecd59ddd966243c5de78",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-a1407c60444aa750-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
       }
     },
     {
@@ -517,7 +843,9 @@
       "sourceWidth": 1140,
       "sourceHeight": 962,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -527,12 +855,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 14072,
+            "sha256": "37a2337bd788442c3ff51b20d89064aa8ec64dd75bbcb15e5d99bf56049efdfd",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-06f10affe7b135e3-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 76938,
+            "sha256": "3ee019a4a95eb4622313f0b392314ca13ed89c880d41e718d5d4b16538b0733e",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-06f10affe7b135e3-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-3.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -565,7 +925,9 @@
       "sourceWidth": 620,
       "sourceHeight": 465,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -575,12 +937,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 22176,
+            "sha256": "a5453cc3fdc85fd4dafcdc4d420edd513ebbdd0f1ea5b7e410375c1363846e74",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-943553f8c0d293b9-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 82366,
+            "sha256": "28f7f6da097fbe11430c9cfa98cd3d15bd715c51190b7f63a0094ae70e841b55",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-943553f8c0d293b9-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-4.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -613,7 +1007,9 @@
       "sourceWidth": 2144,
       "sourceHeight": 1548,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -623,12 +1019,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 16632,
+            "sha256": "64603811c8e4c0d98d981ca08ca9700cd1536ce482ffa0af37222a9702238e96",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-41cb566b5a290e27-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 94990,
+            "sha256": "4b7104fc94e9068b570241d584701316fb65f97ccd5ac957dd74ad536c44f5a2",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-41cb566b5a290e27-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-3.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -661,7 +1089,9 @@
       "sourceWidth": 1383,
       "sourceHeight": 993,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -671,12 +1101,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 8634,
+            "sha256": "4cdaa34b136047077393259b3a79fd340720798d3add34719da60507456d570d",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-3f644149ac831d4c-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 48836,
+            "sha256": "d4ceabf61b9b3e4381371c2090ca75d9410103801fec2e92b9df8a861bc957a0",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-3f644149ac831d4c-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-3.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -709,7 +1171,9 @@
       "sourceWidth": 2266,
       "sourceHeight": 1843,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -719,12 +1183,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 15374,
+            "sha256": "805aa7f127283fd3b52a2d086092fda54b413d0bf48b1a3c7e89cdeaf0954df8",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-fe8e76b987b6abed-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 72314,
+            "sha256": "d1cf3d544860c74a70647025ec016f5a7021e093609b6fb8f2a55deea7fd6050",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-fe8e76b987b6abed-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-3.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -757,7 +1253,9 @@
       "sourceWidth": 3421,
       "sourceHeight": 2306,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -767,12 +1265,37 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 7658,
+            "sha256": "b8d50eab88c3a35503be91c1c46a3cac88b424f4eb541121db66cc9f54998c97",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-89758c5f0acdd0ff-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 51838,
+            "sha256": "616481d64e8de3df244e5d6662e4b251cd82f1f989e6233a2fc8fa89f342c494",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-89758c5f0acdd0ff-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
       }
     },
     {
@@ -805,7 +1328,9 @@
       "sourceWidth": 2550,
       "sourceHeight": 1830,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -815,12 +1340,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 11122,
+            "sha256": "1bf0cc7d4325dacb138990fe32663b61213b985534207dfd494845ddd44cdc8d",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-9aeff6681e1f8489-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 70166,
+            "sha256": "a5432618b0b454d6b30054805543cfdde71c913031210a093033561e4f25bcc1",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-9aeff6681e1f8489-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-3.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -853,7 +1410,9 @@
       "sourceWidth": 5472,
       "sourceHeight": 3420,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -863,18 +1422,50 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 8788,
+            "sha256": "3ea8d10510a95abb0696a58d7ec04f42c6d7adae224e9d8236c490c8060b7486",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-7216a3abd0f9289f-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 46726,
+            "sha256": "8061fb1d70f0da98a4cfccdd5ccadd9c85721bcfdeb33151ab12e4531a5390c3",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-7216a3abd0f9289f-960.webp"
+          }
+        ]
       },
       "discoveredVia": {
         "provider": "openverse",
         "id": "8255f872-fe54-4f71-ba2d-e4cec917e6d2",
         "landingPage": "https://commons.wikimedia.org/w/index.php?curid=132038687",
         "retrievedAt": "2026-07-22T03:31:08.452Z"
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-4.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -907,7 +1498,9 @@
       "sourceWidth": 1504,
       "sourceHeight": 1205,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -917,12 +1510,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 11494,
+            "sha256": "d6ffe098145b09b929bb7697fd254e6fce7c6baa4ea79970f463b92863e3af68",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-c41a2d765863ba5e-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 53226,
+            "sha256": "e8e1c4ce21b8396f0e66770b456d50464a4929210d88dcb73f7b95653941aed5",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-c41a2d765863ba5e-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-4.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -955,7 +1580,9 @@
       "sourceWidth": 2032,
       "sourceHeight": 1707,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -965,12 +1592,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 17526,
+            "sha256": "2678192c5817af44cb4bddd44233f99b25d745d485ff84bff34a55e165293fc8",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-c7188b60f1fd5659-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 92456,
+            "sha256": "6cb72ff18c686ef38b45ec566e13de0dc76869ad38e5be6767ea2c6186d4cc19",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-c7188b60f1fd5659-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-4.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -1003,7 +1662,9 @@
       "sourceWidth": 2592,
       "sourceHeight": 3888,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -1013,12 +1674,37 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 10082,
+            "sha256": "6d4c0603f86c6d7c272ebc37d1b4714c9ce35127b38ef7ee10ba5021e16b4524",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-e972d4592e63168d-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 50634,
+            "sha256": "a79ec3c2d5bbecb5e491ae734a8b859027e92e4bfb1cb528ccbbc825d8fea56c",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-e972d4592e63168d-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
       }
     },
     {
@@ -1051,7 +1737,9 @@
       "sourceWidth": 2700,
       "sourceHeight": 3600,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -1061,12 +1749,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 13026,
+            "sha256": "7f99791663f08c5b4c26d6900b03218d0d244a559e3197f2157f6931a2c89089",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-1b943a6e4ac246b0-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 64826,
+            "sha256": "89a9c7a140c5520aa99899e87f69dcce386e18ff519aaa94ab96624edc54bfff",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-1b943a6e4ac246b0-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-4.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -1099,7 +1819,9 @@
       "sourceWidth": 1958,
       "sourceHeight": 1496,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -1109,12 +1831,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 15606,
+            "sha256": "0108d2192f70a996bcd35ba40151688fb53769f890490040d192fa92e5ada029",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-6916a115cef70161-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 68294,
+            "sha256": "33fefa66ae48f53b47918afb2406a6f21f49e25f5fc85598747da3012e58f66e",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-6916a115cef70161-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-4.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -1147,7 +1901,9 @@
       "sourceWidth": 2650,
       "sourceHeight": 1285,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -1157,12 +1913,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 16432,
+            "sha256": "9dd1b4aab6a70646af3e9326e73019375acec328f8a81e606ef50849bebf0036",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-451ed8a54436b49b-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 148792,
+            "sha256": "c5d7b77dc87666f82632512340246b0314b9bb9104f943b290da9c105cf991f4",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-451ed8a54436b49b-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-4.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -1195,7 +1983,9 @@
       "sourceWidth": 3456,
       "sourceHeight": 2592,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -1205,12 +1995,37 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 10752,
+            "sha256": "4e36d33d9f236cd9ed1fb2c15cc278036b4a109fe2427d857598a4e8ac3c16e0",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-47453ea55c039c73-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 58670,
+            "sha256": "8d0a6c342849c9d017cb737432841c3b9ab0c35cef0918753ecbf32fdc3237aa",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-47453ea55c039c73-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
       }
     },
     {
@@ -1243,7 +2058,9 @@
       "sourceWidth": 3000,
       "sourceHeight": 2002,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -1253,12 +2070,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 25502,
+            "sha256": "d9c41a2a3bef4664be16f299e3ffe72f2b51949f51bb270a17d6dade4e99f5ca",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-c3bfdf579a687a3e-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 183344,
+            "sha256": "c2c71d0829b17dc2bd734dec0a12d34ee0296b3e670aff0fbaa855c3df9c7d94",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-c3bfdf579a687a3e-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-4.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -1291,7 +2140,9 @@
       "sourceWidth": 1434,
       "sourceHeight": 1275,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -1301,12 +2152,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 19178,
+            "sha256": "fad5ddeee3611f93deb532f36e74f948ba3e85546022dfb132007f3f2cd047d7",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-683ed1134fe9d4fb-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 108950,
+            "sha256": "bdbcf806dac916c2d7af16b119210561cbc6924ff62a3d43a38841b8eac692ec",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-683ed1134fe9d4fb-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-4.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     },
     {
@@ -1339,7 +2222,9 @@
       "sourceWidth": 3872,
       "sourceHeight": 2592,
       "modifications": [
-        "none"
+        "crop",
+        "resize",
+        "webp conversion"
       ],
       "review": {
         "status": "approved",
@@ -1349,12 +2234,44 @@
         "subjectMatchesCatalog": true,
         "nonCopyrightRestrictionsReviewed": true
       },
-      "uiDisplayAllowed": false,
+      "uiDisplayAllowed": true,
       "publicSnapshotAllowed": false,
       "rasterExportAllowed": false,
       "delivery": {
-        "status": "not_ready",
-        "variants": []
+        "status": "uploaded_verified",
+        "variants": [
+          {
+            "role": "card",
+            "width": 320,
+            "height": 213,
+            "mime": "image/webp",
+            "bytes": 15230,
+            "sha256": "580c70285ac0bcb34cecf7b909776d42081fa9fced6973a45e29a7be132fad80",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-bc685a13e6264431-320.webp"
+          },
+          {
+            "role": "detail",
+            "width": 960,
+            "height": 640,
+            "mime": "image/webp",
+            "bytes": 78816,
+            "sha256": "ee23d539515bcaf590c90c14a763d092c3d16cfc8797bda64a7d46fe161c8e1b",
+            "objectPath": "dogs-catalog/vbo-2026-04-15-r1/dogs-photo-commons-bc685a13e6264431-960.webp"
+          }
+        ]
+      },
+      "attributionCompliance": {
+        "attributionSurface": "detail-and-credits",
+        "sourceLinkAvailable": true,
+        "licenseLinkAvailable": true,
+        "modificationsDisclosed": true
+      },
+      "shareAlikeCompliance": {
+        "adapterLicenseId": "CC-BY-SA-3.0",
+        "adapterLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "modificationsDisclosed": true,
+        "attributionSurface": "detail-and-credits",
+        "noAdditionalRestrictions": true
       }
     }
   ]

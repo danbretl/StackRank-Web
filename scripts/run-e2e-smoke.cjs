@@ -1029,10 +1029,12 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       initial.canonical !== "https://www.stackrankapp.com/dogs" ||
       initial.robots !== null ||
       initial.cssHref !== "dogs.css?v=6" ||
-      initial.scriptSrc !== "dogs.js?v=17" ||
+      initial.scriptSrc !== "dogs.js?v=23" ||
       initial.searchRole !== "combobox" ||
       initial.searchAutocomplete !== "list" ||
       initial.searchControls !== "dogs-suggestions" ||
+      !initial.catalogStatus?.includes("sourced from the Vertebrate Breed Ontology") ||
+      /VBO:|vbo-|FCI|iDog|VeNom/.test(initial.catalogStatus || "") ||
       initial.featuredTitles.join("|") !== "Around the world|Shapes and coats|Familiar and beyond" ||
       initial.tileCount !== 9 ||
       initial.dogsStorage !== null ||
@@ -1054,9 +1056,10 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     const packLibrary = await page.evaluate(`(() => ({
       cards: document.querySelectorAll('#dogs-pack-browser .pack-card').length,
       families: document.querySelectorAll('#dogs-pack-family option').length - 1,
-      firstTitles: [...document.querySelectorAll('#dogs-pack-browser .pack-card h2')].slice(0, 3).map((node) => node.textContent.trim())
+      firstTitles: [...document.querySelectorAll('#dogs-pack-browser .pack-card h2')].slice(0, 3).map((node) => node.textContent.trim()),
+      rawMetadata: /VBO:|vbo-|FCI|iDog|VeNom/.test(document.querySelector('#dogs-pack-browser')?.innerText || '')
     }))()`);
-    if (packLibrary.cards !== 46 || packLibrary.families !== 17 || packLibrary.firstTitles.some((title) => !title)) {
+    if (packLibrary.cards !== 46 || packLibrary.families !== 17 || packLibrary.firstTitles.some((title) => !title) || packLibrary.rawMetadata) {
       throw new Error(`Dogs editorial pack library is incomplete: ${JSON.stringify(packLibrary)}`);
     }
     await page.evaluate(`(() => {
@@ -1080,7 +1083,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       name: document.querySelector('#dogs-suggestions .search-option strong')?.textContent.trim(),
       alias: document.querySelector('#dogs-suggestions .search-option__alias')?.textContent.trim()
     }))()`);
-    if (alias.name !== "Broholmer" || alias.alias !== "Alias: Danish Mastiff") {
+    if (alias.name !== "Broholmer" || alias.alias !== "Also known as Danish Mastiff") {
       throw new Error(`Dogs alias did not resolve canonically: ${JSON.stringify(alias)}`);
     }
     await page.evaluate(`document.querySelector('#dogs-search')?.dispatchEvent(new KeyboardEvent('keydown', {
@@ -1286,32 +1289,56 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     await waitFor(page, `document.querySelector('#dogs-filter-note') && !document.querySelector('#dogs-filter-note').hidden`, 3000);
     const filtered = await page.evaluate(`(() => ({
       visibleRows: document.querySelectorAll('#dogs-ranking .ranking-row').length,
+      visibleRowsWithImages: document.querySelectorAll('#dogs-ranking .ranking-row .dog-media img').length,
       storedCount: JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.length,
       note: document.querySelector('#dogs-filter-note')?.textContent.trim()
     }))()`);
-    if (filtered.visibleRows !== 0 || filtered.storedCount !== 3 || !/disabled while filters/i.test(filtered.note)) {
+    if (
+      filtered.visibleRows < 1 ||
+      filtered.visibleRows > filtered.storedCount ||
+      filtered.visibleRowsWithImages !== filtered.visibleRows ||
+      filtered.storedCount !== 3 ||
+      !/disabled while filters/i.test(filtered.note)
+    ) {
       throw new Error(`Dogs safe filter contract failed: ${JSON.stringify(filtered)}`);
     }
     await page.evaluate(`document.querySelector('#dogs-clear-filters')?.click(); true;`);
     await waitFor(page, `document.querySelectorAll('#dogs-ranking .ranking-row').length === 3`, 3000);
 
-    await page.evaluate(`document.querySelector('#dogs-ranking .ranking-row button[data-action="detail"]')?.click(); true;`);
+    await page.evaluate(`(() => {
+      const row = [...document.querySelectorAll('#dogs-ranking .ranking-row')]
+        .find((candidate) => candidate.querySelector('strong')?.textContent.trim() === 'Broholmer');
+      row?.querySelector('button[data-action="detail"]')?.click();
+      return true;
+    })()`);
     await waitFor(page, `document.querySelector('#dogs-detail')?.open`, 3000);
+    await waitFor(
+      page,
+      `document.querySelector('#dogs-detail .dog-media img')?.complete && !document.querySelector('#dogs-detail .dog-media')?.classList.contains('is-missing')`,
+      5000,
+    );
     const detail = await page.evaluate(`(() => ({
       title: document.querySelector('#dogs-detail h1')?.textContent.trim(),
-      id: [...document.querySelectorAll('#dogs-detail .detail-fact strong')].find((node) => /^VBO:/.test(node.textContent))?.textContent.trim(),
-      registryRefs: [...document.querySelectorAll('#dogs-detail .detail-fact')]
-        .find((node) => node.querySelector('span')?.textContent.trim() === 'Registry references')
+      source: [...document.querySelectorAll('#dogs-detail .detail-fact')]
+        .find((node) => node.querySelector('span')?.textContent.trim() === 'Source')
         ?.querySelector('strong')?.textContent.trim(),
-      rightsFallback: document.querySelector('#dogs-detail .detail-attribution')?.textContent.includes('No rights-approved display photo')
+      coverage: [...document.querySelectorAll('#dogs-detail .detail-fact')]
+        .find((node) => node.querySelector('span')?.textContent.trim() === 'Catalog coverage')
+        ?.querySelector('strong')?.textContent.trim() || '',
+      rawMetadata: /VBO:|vbo-|FCI|iDog|VeNom/.test(document.querySelector('#dogs-detail .detail-copy')?.innerText || ''),
+      imageSrc: document.querySelector('#dogs-detail .dog-media img')?.src || '',
+      imageLoaded: document.querySelector('#dogs-detail .dog-media')?.classList.contains('is-missing') === false,
+      attribution: document.querySelector('#dogs-detail .detail-attribution')?.textContent || ''
     }))()`);
     if (
       !detail.title ||
-      !/^VBO:\d{7}$/.test(detail.id || "") ||
-      !detail.registryRefs?.includes(":") ||
-      !detail.rightsFallback
+      detail.source !== "Vertebrate Breed Ontology" ||
+      detail.rawMetadata ||
+      !detail.imageSrc.includes('/storage/v1/object/public/dogs-catalog/vbo-2026-04-15-r1/') ||
+      !detail.imageLoaded ||
+      !detail.attribution.includes('Modified: crop, resize, webp conversion')
     ) {
-      throw new Error(`Dogs detail provenance is incomplete: ${JSON.stringify(detail)}`);
+      throw new Error(`Dogs detail metadata is not public-facing: ${JSON.stringify(detail)}`);
     }
     const detailShot = await page.screenshot("dogs-detail-desktop.png");
     await page.evaluate(`document.querySelector('#dogs-detail .detail-actions button:nth-child(2)')?.click(); true;`);
@@ -1950,7 +1977,11 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
         'Open Library'
       ),
       booksPrivacy: document.body.innerText.includes('Books data is not included in account sync or public sharing.'),
-      dogsPrivacy: document.body.innerText.includes('Dogs data is not yet included in account sync or public sharing'),
+      dogsPrivacy: document.body.innerText.includes(
+        'If you sign in, Dogs syncs its ranking, Curious about list, Not for me list, and pack progress in Dogs-specific account records.'
+      ) && document.body.innerText.includes(
+        'A public Dogs ranking is a read-only snapshot created only when you choose Publish'
+      ),
       dogsCredit: document.querySelector('#dog-credits-title')?.parentElement?.textContent.includes(
         'Vertebrate Breed Ontology'
       ),

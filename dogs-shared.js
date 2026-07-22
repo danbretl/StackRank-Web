@@ -3,7 +3,7 @@ import {
   categorySharedPayloadFromPublicRow,
   categorySharedSlugFromPath,
 } from "./lib/category-remote-persistence.js?v=4";
-import { dogPublicSnapshotArtworkUrl } from "./lib/categories/dogs.js?v=9";
+import { dogPublicSnapshotArtworkUrl } from "./lib/categories/dogs.js?v=14";
 
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl";

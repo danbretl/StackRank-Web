@@ -5,9 +5,12 @@ import {
   DOGS_CATEGORY,
   canonicalizeDogStoredState,
   dogArtworkObjectUrl,
+  dogDisplayAliases,
   dogPublicSnapshotArtworkUrl,
   dogDragAutoScrollDelta,
+  dogEditorialDisplayText,
   dogEntityToCandidate,
+  dogRegistryCoverageLabel,
   normalizeDogCatalogEntity,
 } from "../lib/categories/dogs.js";
 import {
@@ -37,13 +40,13 @@ const entity = (id, name, overrides = {}) => ({
 
 const ranked = (id, name) => dogEntityToCandidate(entity(id, name));
 
-test("Dogs descriptor is local-first and fails closed for sharing capabilities", () => {
+test("Dogs descriptor enables additive account sync and public snapshots without raster export", () => {
   assert.equal(DOGS_CATEGORY.path, "/dogs");
   assert.equal(DOGS_CATEGORY.labels.savedList, "Curious about");
   assert.equal(DOGS_CATEGORY.artwork.aspectRatio, 3 / 2, "runtime presentation matches the reviewed artwork crop");
   assert.deepEqual(DOGS_CATEGORY.capabilities, {
-    accountSync: false,
-    publicSnapshots: false,
+    accountSync: true,
+    publicSnapshots: true,
     rasterArtworkExport: false,
     liveSuggestions: false,
     textExport: true,
@@ -66,6 +69,50 @@ test("dog catalog normalization keeps safe taxonomy fields and rejects unsafe id
     { scheme: "iDog", group: "4" },
   ]);
   assert.equal(normalizeDogCatalogEntity(entity("not-vbo", "Akita")), null);
+});
+
+test("Dogs presents concise alternate names without leaking catalog annotations or codes", () => {
+  const greatDane = entity("VBO:0200623", "Great Dane", {
+    aliases: [
+      "Apollo of Dogs",
+      "Deutsche Dogge",
+      "Gentle Giant",
+      "German Mastiff",
+      "Немецкий дог",
+      "Great Dane (Mastiff - German) (Deutsche Dogge)",
+      "Mastiff - German",
+      "FCI:235",
+      "https://example.com/raw-record",
+    ],
+  });
+  assert.deepEqual(dogDisplayAliases(greatDane), [
+    "Apollo of Dogs",
+    "Deutsche Dogge",
+    "Gentle Giant",
+    "German Mastiff",
+  ]);
+  assert.deepEqual(dogDisplayAliases(greatDane, { limit: 5 }).at(-1), "Немецкий дог");
+  assert.deepEqual(dogDisplayAliases(greatDane, { limit: 0 }), []);
+  assert.deepEqual(dogDisplayAliases(entity("VBO:0000661", "Broholmer", {
+    aliases: ["Broholmer", "Broholmeren, Denmark", "Danish Broholmer"],
+  })), ["Danish Broholmer"]);
+});
+
+test("Dogs humanizes registry editorial copy and summarizes provenance without database codes", () => {
+  assert.equal(
+    dogEditorialDisplayText("FCI Group 1 sampler"),
+    "International registry · Group 1 sampler",
+  );
+  assert.equal(
+    dogEditorialDisplayText("Sheepdogs in the FCI scheme"),
+    "Sheepdogs in the international registry scheme",
+  );
+  assert.equal(dogEditorialDisplayText("iDog and VeNom"), "");
+  assert.equal(dogEditorialDisplayText("VBO:0200623"), "");
+  assert.equal(dogEditorialDisplayText("vbo-2026-04-15.2"), "");
+  assert.equal(dogRegistryCoverageLabel(entity("VBO:0200623", "Great Dane", {
+    registryRefs: ["FCI:235", "iDog:119", "VeNom:14037"],
+  })), "Cross-referenced across 3 source catalog systems");
 });
 
 test("Dogs artwork object paths resolve only through an explicit safe public base", () => {
@@ -274,18 +321,24 @@ test("Dogs Taste signals are recurring and rank weighted", () => {
     ranked("VBO:0001150", "Saluki"),
   ];
   const catalog = new Map([
-    ["VBO:0000661", entity("VBO:0000661", "Akita", { originRegions: ["Japan"], tags: ["spitz"] })],
-    ["VBO:0001234", entity("VBO:0001234", "Shiba Inu", { originRegions: ["Japan"], tags: ["spitz"] })],
+    ["VBO:0000661", entity("VBO:0000661", "Akita", { originRegions: ["Japan"], tags: ["spitz"], registryRefs: ["FCI:255"] })],
+    ["VBO:0001234", entity("VBO:0001234", "Shiba Inu", { originRegions: ["Japan"], tags: ["spitz"], registryRefs: ["FCI:257"] })],
     ["VBO:0001150", entity("VBO:0001150", "Saluki", { originRegions: ["Middle East"], tags: ["sighthound"] })],
   ]);
   const signals = buildDogTasteSignals(list, catalog);
   assert.deepEqual(signals.map((signal) => signal.value), ["Japan", "spitz"]);
+  assert.equal(signals.some((signal) => signal.kind === "registry"), false);
   assert.equal(signals[0].items.length, 2);
 });
 
 test("Dogs exports are text-first and preserve canonical ids in JSON", () => {
   const list = [ranked("VBO:0000661", "Akita")];
-  assert.match(dogsExportText(list, "vbo-2026-04-15.1", "markdown"), /\*\*Akita\*\*/);
+  const markdown = dogsExportText(list, "vbo-2026-04-15.1", "markdown");
+  const text = dogsExportText(list, "vbo-2026-04-15.1", "text");
+  assert.match(markdown, /\*\*Akita\*\*/);
+  assert.match(markdown, /Source: Vertebrate Breed Ontology/);
+  assert.doesNotMatch(`${markdown}\n${text}`, /VBO:|vbo-|FCI|iDog|VeNom/);
   const json = JSON.parse(dogsExportText(list, "vbo-2026-04-15.1", "json"));
   assert.equal(json.ranking[0].id, "VBO:0000661");
+  assert.equal(json.catalogVersion, "vbo-2026-04-15.1");
 });

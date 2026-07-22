@@ -11,12 +11,15 @@ deliberately excludes account sync, public snapshots, and raster cover exports w
 provider/artwork policy is evaluated. The cross-domain plan is in
 `notes/feature-ideas/multi-domain-expansion-plan.md`.
 
-As of July 16, 2026, Books expansion and provider outreach are paused. **StackRank Dogs is the active
+As of July 22, 2026, Books expansion and provider outreach are paused. **StackRank Dogs is the active
 next-category initiative** and now has a comprehensive local-first product at `/dogs`: a generated
 VBO catalog, editorial packs, ranking/lists/backup/export flows, and responsive browser coverage.
-Its public launch remains gated by rights-approved artwork plus approval/application of the additive
-sync migration. The authoritative plan is `notes/feature-ideas/dogs-launch-plan.md`; exact status and
-release gates live in `notes/testing/dogs-implementation-status.md`.
+The additive production schema and Storage bucket have been applied and passed real two-user/RLS/
+snapshot/Storage probes; 28 rights-reviewed photos are immutably delivered for UI display. Dogs
+account sync and public snapshot code is enabled, while public-snapshot artwork and raster export
+remain purpose-denied. The integrated changes are not yet committed, pushed, or deployed. The
+authoritative plan is `notes/feature-ideas/dogs-launch-plan.md`; exact status and release gates live
+in `notes/testing/dogs-implementation-status.md`.
 
 - **Live movies app:** https://www.stackrankapp.com/movies (Vercel; `stackrankapp.com` redirects to `www`, and the `www` root temporarily redirects to `/movies` until a cross-category home ships)
 - **Legacy host:** https://danbretl.github.io/StackRank-Web/ remains available during the origin migration so users can recover any browser-local data.
@@ -32,10 +35,11 @@ Plain **static single-page app — no build system, no framework, no bundler, no
 - **`books.html` / `books.js` / `books.css`** — private-preview Books route. It ranks Open Library
   works through the shared entity/rank-session/list/backup primitives, stores only under the Books
   namespace, and has its own focused real-browser regression flow.
-- **`dogs.html` / `dogs.js` / `dogs.css`** — public-route-ready, local-first Dogs product. It loads
+- **`dogs.html` / `dogs.js` / `dogs.css`** — public-route-ready Dogs product. It loads
   the generated static VBO catalog and editorial packs under `data/dogs/`, stores provider-qualified
-  breed identities only in Dogs keys, and keeps sync/public/raster capabilities off until their
-  separate persistence and artwork gates pass.
+  breed identities only in Dogs keys, syncs only through additive category tables when signed in,
+  and can publish revocable read-only Dogs snapshots. Raster export remains disabled; public
+  snapshots stay text-first until their separate artwork-purpose gate passes.
 - **`home.html` / `home.js` / `home.css`** — noindex family-home release artifact. It presents Movies
   and Dogs equally and reads count-only local progress without loading either app bundle. It is not
   wired to `/`; the authorized temporary root redirect still points to `/movies`.
@@ -62,11 +66,17 @@ Plain **static single-page app — no build system, no framework, no bundler, no
 
 **Supabase** (project ref `hrfhakrxsllrqmscxxpb`, URL + public publishable key live in `app.js`):
 - Tables: **`rankings`** (`list_id` PK, `movies` jsonb, `updated_at`), **`movie_lists`** (one row per `(list_id, list_type)`; `list_type` ∈ `watch` / `not_interested`; upsert `onConflict: "list_id,list_type"`), **`suggestion_packs`** + **`pack_progress`**, **`shared_lists`** (public read-only snapshots at `/s/:slug`, owner-managed by `list_id`, revoked rows hidden from anon/public reads while owners can still manage them), and insert-only **`product_events`** for privacy-bounded anonymous funnel telemetry. User JSON payloads are bounded in Postgres and mirrored client-side before remote writes: ranking/queue `movies` ≤ 1 MB each, shared-list `payload` ≤ 1 MB, pack-progress `state` ≤ 8 KB. Product events retain raw rows for 180 days via Supabase Cron and reject more than 500 rows for one `session_id`.
-- The unapplied migration `20260716090037_add_category_data_tables.sql` prepares additive
+- Applied migration `20260716090037_add_category_data_tables.sql` provides additive
   `category_rankings`, `category_lists`, `category_pack_progress`, and `category_shared_lists`
   tables with explicit grants, payload bounds, and category/owner RLS. It does not alter mature
-  Movies tables. Do not apply it without explicit authorization and the database probes in
-  `notes/testing/dogs-supabase-rls-review.md`.
+  Movies tables. Applied migration `20260716090038_add_dog_artwork_storage.sql` provides the public
+  WebP-only `dogs-catalog` bucket with no browser listing or write policies. Both passed the database
+  and Storage probes in `notes/testing/dogs-supabase-rls-review.md`.
+- A private task-output redaction error exposed the legacy `service_role` JWT (and the coupled public
+  legacy `anon` JWT) on 2026-07-22. No modern key or repository/temp artifact was exposed. The same-day
+  remediation disabled both legacy API keys and revoked the legacy HS256 signing key; the current
+  P-256 key and modern publishable/secret-key production probe passed afterward. Do not re-enable,
+  reuse, print, or redistribute either legacy value.
 - Per-user list id is `user:<auth.uid()>`. RLS policies are scoped to `list_id = 'user:' || (select auth.uid())` (the `(select …)` wrap is a Supabase RLS perf requirement — keep it). Migrations live in `supabase/migrations/`.
 - **Edge functions** (Deno/TS in `supabase/functions/`); the Movies functions proxy TMDB so the
   TMDB key stays server-side (Supabase secret `TMDB_API_KEY`):
@@ -88,8 +98,10 @@ Plain **static single-page app — no build system, no framework, no bundler, no
   Recently ranked, 46 validated editorial packs, Detailed/Photos/Compact ranking views, safe facets,
   pointer/touch/keyboard reorder, Review order, provenance-rich details, Curious about / Not for me,
   rank-weighted Taste patterns, category backup/restore/name import, and text/Markdown/JSON exports.
-  Missing photos use a neutral fallback. Account sync, public links, and raster sharing are visibly
-  disabled until their additive database and rights-purpose gates are approved.
+  Twenty-eight rights-reviewed display photos cover every promoted starter entity; missing photos
+  use a neutral fallback. Account sync and revocable public snapshot links use the additive category
+  tables. Public snapshots omit photos because that artwork purpose remains denied, and raster
+  sharing remains disabled.
 
 - **Experimental Books preview:** `/books` offers Open Library work search, three starter shelves,
   binary-insertion ranking, reorder/remove, simple stats, and category-bound backup/restore. It is

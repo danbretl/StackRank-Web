@@ -9,6 +9,7 @@ import {
   buildDogArtworkPublicUrl,
   buildDogArtworkUploadUrl,
   parseDogArtworkDeliveryArgs,
+  resolveDogArtworkOperatorKey,
   runDogArtworkDelivery,
   verifyLocalDogArtwork,
   verifyPublicDogArtworkVariant,
@@ -112,6 +113,23 @@ test("delivery CLI defaults to a read-only local verification mode", async () =>
   assert.equal(report.remote, null);
   assert.equal(report.ledgerFragment, null);
   assert.equal(report.ledgerMutationPerformed, false);
+});
+
+test("operator credentials prefer a modern secret key with a legacy service-role fallback", () => {
+  assert.equal(
+    resolveDogArtworkOperatorKey({
+      SUPABASE_SECRET_KEY: "sb_secret_modern",
+      SUPABASE_SERVICE_ROLE_KEY: "legacy-service-role",
+    }),
+    "sb_secret_modern",
+  );
+  assert.equal(
+    resolveDogArtworkOperatorKey({
+      SUPABASE_SERVICE_ROLE_KEY: "legacy-service-role",
+    }),
+    "legacy-service-role",
+  );
+  assert.equal(resolveDogArtworkOperatorKey({}), "");
 });
 
 test("local verification rejects changed bytes before any delivery action", async () => {
@@ -246,7 +264,7 @@ test("upload mode requires the exact confirmation and both secret environment va
       ...common,
       confirmation: DOG_ARTWORK_UPLOAD_CONFIRMATION,
     }),
-    /SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY/,
+    /SUPABASE_URL and SUPABASE_SECRET_KEY/,
   );
   assert.equal(fetchCalls, 0);
 });
@@ -368,6 +386,44 @@ test("upload mode resumes an exact partially completed immutable delivery", asyn
   assert.equal(
     report.ledgerFragment.delivery.variants[0].objectPath,
     cardObjectPath,
+  );
+  assert.equal(report.remote.status, "verified");
+});
+
+test("upload mode recognizes Supabase Storage's gateway-wrapped missing response", async () => {
+  const calls = [];
+  const report = await runDogArtworkDelivery({
+    manifestPath: MANIFEST_PATH,
+    readFileImpl: mockedFiles(),
+    rootDirectory: ROOT,
+    upload: true,
+    confirmation: DOG_ARTWORK_UPLOAD_CONFIRMATION,
+    supabaseUrl: DOG_ARTWORK_SUPABASE_URL,
+    serviceRoleKey: "fixture-service-role-secret",
+    fetchImpl: async (url, options) => {
+      calls.push({ url, options });
+      const authenticatedObject = url.includes("/storage/v1/object/dogs-catalog/");
+      if (options.method === "HEAD") return new Response(null, { status: 400 });
+      if (options.method === "GET" && authenticatedObject) {
+        return Response.json(
+          { statusCode: "404", error: "not_found", message: "Object not found" },
+          { status: 400 },
+        );
+      }
+      if (options.method === "POST") {
+        return Response.json({}, { status: 200 });
+      }
+      const bytes = bytesForUrl(url);
+      return new Response(bytes, {
+        status: 200,
+        headers: publicHeaders(bytes),
+      });
+    },
+  });
+
+  assert.deepEqual(
+    calls.map(({ options }) => options.method),
+    ["HEAD", "GET", "HEAD", "GET", "POST", "POST", "GET", "GET"],
   );
   assert.equal(report.remote.status, "verified");
 });

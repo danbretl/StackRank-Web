@@ -282,7 +282,8 @@ assert.match(privacyHtml, /<link\b[^>]*\brel=["']canonical["'][^>]*\bhref=["']ht
 assert.match(privacyHtml, /This product uses the TMDB API but is not endorsed or certified by TMDB\./);
 assert.match(privacyHtml, /assets\/tmdb-logo\.svg/);
 assert.match(privacyHtml, /mailto:stackrank@danbretl\.com/);
-assert.match(privacyHtml, /Dogs data is not yet included in account sync or\s+public sharing/);
+assert.match(privacyHtml, /If you sign in, Dogs syncs its ranking, Curious about\s+list, Not for me list, and pack progress in Dogs-specific account records/);
+assert.match(privacyHtml, /A public Dogs\s+ranking is a read-only snapshot created only when you choose Publish/);
 assert.match(privacyHtml, /Vertebrate Breed Ontology/);
 record("privacy controls plus Movies, Books, and Dogs credits are present");
 

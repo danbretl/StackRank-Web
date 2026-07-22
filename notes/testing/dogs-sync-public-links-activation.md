@@ -1,7 +1,10 @@
 # Dogs sync and public-link activation
 
-Status: **client prepared; production capabilities disabled.** No migration was applied and no
-production state changed while this client path was built.
+Status: **production schema and post-apply probes complete; client capabilities enabled locally.**
+The authorized three-file production sequence passed schema, RLS, two-user, anonymous-link,
+revocation, Storage, advisor-baseline, and zero-residue checks on July 22, 2026. The local release
+candidate now enables Dogs account sync and public text snapshots while keeping raster export off.
+No integrated client commit, push, deployment, or production-root redirect change has occurred.
 
 The Dogs browser client now contains the complete additive-table path for ranking, Curious about,
 Not for me, pack progress, auth, and owner-managed public snapshots. Local storage is always written
@@ -28,30 +31,43 @@ contract and the category tables' `updated_at` design. StackRank is a single-own
 collaborative editor; each tab still retains its local copy, and the next load appends older-only
 entities. True same-row compare-and-swap would require an additional reviewed database RPC or row
 revision migration and is intentionally not implied by this client activation. The protected-preview
-QA should explicitly accept this contract or keep the capability flags disabled pending that schema
-work.
+QA should explicitly accept this contract before deployment; the capability flags were enabled only
+after the production schema and isolation probes passed.
 
 ## Activation sequence
 
-1. Rehearse the normal pending production sequence as three ordered files:
+1. **Complete:** Rehearse the normal production sequence as three ordered files:
    `20260709001734_add_tonight_events.sql` (the separately observed Movies telemetry change),
    `20260716090037_add_category_data_tables.sql`, then
    `20260716090038_add_dog_artwork_storage.sql`. The disposable branch/scratch rehearsal covers all
    three and must not be merged into production. The SQL, Data API, two-user, cross-category,
    revocation, and public-link probes in `notes/testing/dogs-supabase-rls-review.md` focus on the
    category-table migration.
-2. Obtain explicit authorization for that exact three-file order, then apply it without a branch
-   merge. Do not enable the client before post-application probes pass.
-3. Change only `DOGS_CATEGORY.capabilities.accountSync` and
+2. **Complete:** Dan authorized that exact order for project `hrfhakrxsllrqmscxxpb`; the CLI applied
+   all three files and every post-application schema, grant, RLS, constraint, mature-Movies,
+   two-user, cross-category, anonymous active/revoked snapshot, and Storage probe passed. Fixture
+   cleanup left zero rows, objects, or Auth users.
+3. **Complete:** Change only `DOGS_CATEGORY.capabilities.accountSync` and
    `DOGS_CATEGORY.capabilities.publicSnapshots` in `lib/categories/dogs.js` from `false` to `true`,
-   bump the importing cache versions, and rerun unit, mocked browser, and real two-user checks.
-4. Update `/privacy` and the corresponding production-smoke assertion in the same release. The
-   current statement that Dogs is not included in account sync/public sharing is deliberately true
-   while the capability values remain false.
-5. Deploy a protected preview and verify signed-out local-only behavior, signed-in no-loss merge,
+   bump the importing cache versions, and rerun unit, mocked browser, and real two-user checks. The
+   capability/static suite, cache check, signed-out Browser check, and mocked no-loss
+   sync/publish/update/copy/revoke/anonymous/revoked E2E flow passed; the earlier real two-user
+   production probe remains the data-plane evidence.
+4. **Complete:** Update `/privacy` and the corresponding production-smoke assertion in the same
+   release. The revised policy and its desktop/mobile privacy E2E assertion passed locally.
+5. **Next:** Deploy a protected preview and verify signed-out local-only behavior, signed-in no-loss merge,
    publish/update/copy/revoke, anonymous view, and revoked-link denial. Only then request explicit
    authorization for production promotion.
 
-Artwork remains independent: enabling public text snapshots does not enable raster sharing, and an
-image is included only when the category, rights policy, asset review, purpose flag, and immutable
-delivery checks all allow public-snapshot use.
+Credential hygiene is complete for this release. A private operator-output redaction mistake exposed
+the confidential legacy service-role JWT and the public-by-design legacy anonymous JWT; no modern
+publishable or secret key was exposed, the one affected temporary artifact was deleted, and
+repository/temporary-file rescans are clean. On 2026-07-22 both legacy API keys were disabled and the
+previous legacy HS256 signing key was revoked, leaving the current P-256 signing key active. The
+modern-key bounded production probe passed afterward. No key value belongs in source or this note,
+and the legacy path must not be re-enabled.
+
+Artwork remains independent. The initial 28-asset/56-WebP batch is immutably delivered and enabled
+for normal UI display, but every public-snapshot and raster-export artwork purpose remains false.
+Enabling public text snapshots therefore includes no image unless the category, rights policy,
+asset review, purpose flag, and immutable-delivery checks all separately allow that use.

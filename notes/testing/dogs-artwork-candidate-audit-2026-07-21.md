@@ -1,11 +1,11 @@
 # Dogs artwork candidate audit — 2026-07-21
 
-Status: **accountable delegated source/crop review complete; 28 / 28 current candidates approved
-for delivery preparation.** Dan Bretl explicitly delegated the editorial and rights-evidence review
-to OpenAI Codex on 2026-07-21. Ledger `2026-07-21.2` transparently identifies that reviewer and
-records a concrete per-asset decision. This is not legal advice and grants no product purpose: all
-assets remain undelivered and denied for UI display, public snapshots, and raster export until the
-separate delivery and attribution gates pass.
+Status: **accountable delegated source/crop review complete; 28 / 28 approved assets delivered for
+UI display on July 22, 2026.** Dan Bretl explicitly delegated the editorial and rights-evidence
+review to OpenAI Codex on 2026-07-21. Ledger `2026-07-21.2` transparently identifies that reviewer
+and records a concrete per-asset decision. This is not legal advice. Delivery subsequently granted
+only the UI-display product purpose; public-snapshot and raster-export artwork purposes remain
+denied.
 
 ## Outcome
 
@@ -28,13 +28,31 @@ separate delivery and attribution gates pass.
   creator link was objectively corrected before approval. Stronger Finnish Spitz and Thai Ridgeback
   sources replace the two weaker, never-approved rows.
 - The two replacement candidates and all other current rows were locally processed and inspected.
-  All 28 are approved but remain undelivered and denied for UI, public-snapshot, and raster-export
-  use. Approval is not deployment or display permission.
+  All 28 were approved on July 21, then delivered and enabled for UI display on July 22 after the
+  separate production Storage and attribution gates passed. Public-snapshot and raster-export use
+  remains denied. Approval alone was not deployment or display permission.
 
 Current-ledger license distribution: 4 CC BY 2.0, 12 CC BY-SA 3.0, 11 CC BY-SA
 4.0, and 1 CC0 1.0. The CC BY/CC BY-SA licenses permit commercial reuse and modification subject
 to attribution; BY-SA derivatives also require share-alike. Creative Commons warns that privacy,
 publicity, and moral rights can still affect a use, so those issues were reviewed separately below.
+
+## Delivery addendum — 2026-07-22
+
+After the authorized production Storage migration and its real access-control fixture passed, the
+operator delivered the exact approved batch under immutable object names in the versioned
+`dogs-catalog` prefix:
+
+- 28 assets, each with its approved 320×213 and 960×640 WebP derivative (`56` objects total);
+- every remote object matched its delivery manifest bytes and MIME type and returned the intended
+  immutable cache policy;
+- the ledger records the delivered variants and enables `uiDisplayAllowed` for all 28 assets;
+- `publicSnapshotAllowed` and `rasterExportAllowed` remain false for every asset.
+
+The runtime catalog now references this batch for normal Dogs UI surfaces and preserves the neutral
+fallback for the rest of the catalog. Attribution remains attached to each delivered asset. The
+repository contains the ledger/catalog references, not the image bytes themselves. No commit, push,
+deployment, or production-root redirect change was part of this delivery pass.
 
 ## Candidate decisions
 
@@ -84,7 +102,8 @@ SHA-256, rejected unsupported metadata, and emitted a create-only pending candid
 Both were then processed locally with the deterministic ImageMagick recipe; the 320×213 and 960×640
 WebPs were visually inspected. Their source records now replace the weaker Thai Ridgeback and
 Finnish Spitz rows in the tracked ledger. They were subsequently approved in the delegated final
-review, but still have empty delivery variants and every purpose denied. Nothing was uploaded.
+review. At the end of this July 21 replacement pass they still had empty delivery variants and every
+purpose denied; nothing was uploaded until the separately gated July 22 delivery recorded above.
 
 ### Thai Ridgeback replacement — recommended
 
@@ -165,6 +184,7 @@ The audit used the tracked ledger and catalog plus fresh, read-only primary-sour
 
 The two source/credit fixes and the final delegated review are complete. Ledger `2026-07-21.2`
 records the reviewer, decision date, concrete rights notes, subject match, and non-copyright review
-for every current row. The next operator pass must immutably upload and byte-verify the exact 320×213
-and 960×640 WebPs, then add delivery, attribution, modification, and BY-SA compliance records. No
-purpose boolean should change before verified delivery and its global purpose gate are ready.
+for every current row. The July 22 operator pass immutably uploaded and byte-verified the exact
+320×213 and 960×640 WebPs and enabled the global UI-display purpose only after delivery and
+attribution verification. Public-snapshot and raster-export booleans remain false. Future long-tail
+artwork must repeat the same per-asset review, delivery, and purpose-specific gate.

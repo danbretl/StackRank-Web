@@ -1,24 +1,26 @@
 # Dogs additive Supabase/RLS review
 
-Status: **prepared locally, read-only production compatibility-audited on July 16, and successfully
-rehearsed on a disposable hosted Postgres 17 branch on July 21, 2026; not applied to production.**
+Status: **applied to production project `hrfhakrxsllrqmscxxpb` in the authorized order on July 22,
+2026. Schema, grants, RLS, constraints, Movies compatibility, two-user isolation, anonymous
+snapshot/revocation behavior, Storage restrictions, advisors, and deterministic cleanup all passed.**
 
-The proposed migration is
+The category-table migration is
 `supabase/migrations/20260716090037_add_category_data_tables.sql`. It was created with
 `supabase migration new add_category_data_tables` using Supabase CLI 2.109.1. It adds only generic
 new-category tables; it does not alter the mature Movies tables or payloads.
 
-The separate proposed migration
+The separate artwork-storage migration
 `supabase/migrations/20260716090038_add_dog_artwork_storage.sql` prepares immutable Dogs artwork
 delivery. It creates the public `dogs-catalog` bucket with a 5 MiB object limit and a WebP-only MIME
 allowlist. Supabase public buckets serve known direct object URLs without a `storage.objects`
 SELECT policy, so the migration creates no browser policy for listing, INSERT, UPDATE, or DELETE.
-An accountable operator must upload through the service role and verify the delivered bytes. It
-does not upload any object.
+An accountable operator must upload with a confidential server-side credential and verify the
+delivered bytes. The migration itself does not upload any object; the separately approved initial
+batch has since delivered and remotely verified 56 immutable WebPs.
 
 ## Current platform guidance reviewed
 
-- [Supabase changelog index](https://supabase.com/changelog.md), fetched July 16, 2026.
+- [Supabase changelog index](https://supabase.com/changelog.md), last rechecked July 22, 2026.
 - [April 28, 2026 Data API exposure breaking change](https://supabase.com/changelog/45329-breaking-change-tables-not-exposed-to-data-and-graphql-api-automatically): new public tables increasingly require explicit grants; grants and RLS are separate controls.
 - [Securing the Data API](https://supabase.com/docs/guides/api/securing-your-api): grant only the minimum role privileges and enable RLS on every exposed table.
 - [Row Level Security](https://supabase.com/docs/guides/database/postgres/row-level-security): use `TO` roles, wrap `auth.uid()` in `select`, give UPDATE both `USING` and `WITH CHECK`, and provide the corresponding SELECT policy.
@@ -26,7 +28,7 @@ does not upload any object.
 No changelog breaking change affecting ordinary Postgres RLS policy syntax was found. The relevant
 change is the explicit Data API grant requirement, which the migration handles per table.
 
-## Proposed schema
+## Applied schema
 
 | Table | Primary identity | Client payload bound | Public access |
 | --- | --- | --- | --- |
@@ -68,7 +70,7 @@ The client snapshot builder permits only `{ displayName, items, catalogVersion }
 reduced to the category-neutral `{ entityRef, snapshot }` contract. Artwork still needs the
 independent provider-purpose gate before its URL or asset id is included.
 
-## Verification completed without applying schema
+## Pre-application verification and branch rehearsal
 
 - Static migration tests assert all four tables, RLS enablement, explicit grants, all four owner
   operations, UPDATE `USING` plus `WITH CHECK`, public non-revoked reads, payload bounds, and no
@@ -83,7 +85,7 @@ Micro branch was created for the hosted rehearsal at the confirmed $0.01344/hour
 no production data, passed the automated probe set below, and was deleted without merge immediately
 afterward. Supabase CLI 2.109.1 was used for the rehearsal.
 
-Read-only inspection of the linked production project confirmed:
+Pre-application read-only inspection of the linked production project confirmed:
 
 - PostgreSQL 17.6 and `auth.uid()` are available;
 - all four proposed `category_*` relation names are unused;
@@ -95,22 +97,23 @@ Read-only inspection of the linked production project confirmed:
 - the exact category/list-type regex, new 64-byte bound, JSON allowlist subtraction, optional-field
   predicate, JSON array check, and JSON byte-size expressions evaluate as intended.
 
-Production security advisors reported three pre-existing warnings unrelated to the unapplied
+Production security advisors reported three pre-existing warnings unrelated to the then-unapplied
 category migration: anonymous and authenticated callers can directly execute
 `public.enforce_product_events_session_insert_limit()`, and leaked-password protection is disabled.
 Performance advisors reported two unused Movies indexes and overlapping permissive SELECT policies
-on `shared_lists`. These are baseline observations, not category-schema results; this review did not
-change them or any other production state. No full DDL parse, RLS behavior probe, Data API request,
-or advisor-after-migration result is claimed.
+on `shared_lists`. These were recorded as baseline observations rather than category-schema results.
+At that stage no full production DDL parse, RLS behavior probe, Data API request, or
+advisor-after-migration result was claimed; the later production pass below supplied those results.
 
 The ledger comparison also found one earlier pending migration:
 `20260709001734_add_tonight_events.sql`. A normal `supabase db push` would apply that Movies
-telemetry allowlist migration before the two Dogs migrations. Rehearse and authorize it separately;
-do not describe a three-file push as Dogs-only. The CLI's passwordless temporary login role also
-failed read-only `migration list --linked` and `db push --linked --dry-run` checks for this project.
-Use the documented password-based fallback by setting `SUPABASE_DB_PASSWORD` privately in the
-operator shell before a future authorized dry run or push. Never paste that password into chat or
-commit it.
+telemetry allowlist migration before the two Dogs migrations, so the review required a rehearsal
+and explicit authorization that covered the full order rather than describing the push as
+Dogs-only. That full order was later rehearsed and authorized. The CLI's passwordless temporary
+login role also failed read-only
+`migration list --linked` and `db push --linked --dry-run` checks for this project. The production
+operator used the documented password-based fallback with the password confined to the private
+shell and system credential store.
 
 The repository's tracked migration sequence is not a clean-database baseline: its first policy
 optimization assumes the pre-existing `public.rankings` table. Therefore, do not use a fresh
@@ -193,6 +196,60 @@ Security advisors returned no findings. Performance advisors returned only the p
 baseline. The branch `fxgypetljxgsxsiegwpe` was deleted without merge; a follow-up branch listing
 showed only the production `main` branch. This closes the real-Postgres/RLS/Data API/Storage rehearsal
 gate but does not authorize or claim production migration application.
+
+### July 22 production application and post-apply result
+
+Dan explicitly authorized production project `hrfhakrxsllrqmscxxpb`. A password-backed CLI dry run
+reported exactly the expected files, and the production push applied them in this order:
+
+1. `20260709001734_add_tonight_events.sql`
+2. `20260716090037_add_category_data_tables.sql`
+3. `20260716090038_add_dog_artwork_storage.sql`
+
+Post-application read-only database probes confirmed all three exact ledger entries; all four
+`category_*` tables with RLS enabled; the deliberate `anon`, `authenticated`, and `service_role`
+grants; 17 policies; 35 constraints; and the public `dogs-catalog` bucket with a 5 MiB limit,
+WebP-only allowlist, and zero Dogs browser Storage policies. The five checked mature Movies
+relations remained present, and the Tonight allowlist/policy probe confirmed its intended event and
+property additions.
+
+Production advisors were unchanged from the pre-application baseline: the same three security
+findings and four performance findings remained, with no Dogs/category/storage regression. The
+baseline still calls for its own remediation; it is not evidence against the additive schema.
+
+The production-safe harness then created two real disposable Auth users and passed:
+
+- User A owner CRUD across ranking, list, pack-progress, and shared-list rows;
+- User B invisibility and cross-owner write denial;
+- separate Dogs and Books rows for the same owner without cross-category leakage;
+- anonymous reads of only the safe active snapshot columns, denial of ownership/revocation columns,
+  owner revocation, and anonymous post-revocation denial;
+- service-only upload of a unique WebP fixture, public known-object GET with exact bytes, WebP MIME,
+  and immutable cache policy, plus anonymous/authenticated list, insert, overwrite, and delete
+  denial.
+
+The harness removed the Storage fixture, all table fixtures, and both Auth users in `finally`; the
+follow-up residue query returned zero. Only after those probes passed were the 28 approved artwork
+assets delivered as 56 immutable WebPs. Every object passed remote byte, MIME, and cache verification.
+
+During the operator pass, a redaction mistake printed the two legacy JWT API-key values into this
+private Codex task's tool output. The confidential legacy service-role JWT was treated as
+compromised; the legacy anonymous JWT is public by design but was coupled to the same legacy
+JWT-secret system. No modern publishable or secret key was exposed. One temporary JSON artifact
+containing JWT-shaped material was deleted, and an independent repository plus StackRank
+temporary-file rescan was clean.
+
+Credential remediation completed on 2026-07-22. After verifying all known client and operator paths
+used modern publishable/secret keys, the legacy anonymous/service-role API keys were disabled first,
+as required by Supabase, and the previous legacy HS256 signing key was then revoked. The current
+P-256 signing key remained active. The bounded two-user/RLS/snapshot/Storage production probe passed
+afterward using only modern keys and again left zero fixture residue. Do not re-enable or copy any
+legacy JWT value into documentation, source, logs, or future task messages.
+
+The database and Storage gates are complete. Dogs account-sync/public-snapshot capability flags are
+enabled in the local release candidate after the client, privacy, static, cache, and mocked-browser
+activation checks passed. Raster export and every artwork public-snapshot purpose remain disabled.
+No commit, push, deployment, or production-root redirect change is part of this database result.
 
 ## Direct local probes to run when a container runtime is available
 
@@ -335,14 +392,9 @@ real local User A, User B, and anonymous JWT contexts, then run security and per
 The disposable hosted branch is preferred now that the project belongs to Pro, but it is not a
 substitute for explicit production authorization.
 
-For the production path, first rehearse `20260709001734_add_tonight_events.sql` separately against a
-disposable copy of the current `product_events` schema. Then set `SUPABASE_DB_PASSWORD` privately
-and run `supabase db push --linked --dry-run`; it must report exactly the Tonight migration followed
-by the two Dogs migrations. Apply that ordered three-file set only if Dan explicitly authorizes all
-three. Afterward, repeat the schema/grant/policy/constraint checks, Data API probes, and advisors
-before enabling Dogs sync or public links.
-
-For artwork storage, also verify that an anonymous GET of one operator-uploaded fixture succeeds,
-that anonymous/authenticated list, INSERT, UPDATE, and DELETE attempts fail, and that the returned
-bytes, content type, and one-year cache header match the delivery manifest. Delete the disposable
-fixture with the service role before treating the storage rehearsal as complete.
+The July 22 production result above completed this exact rehearsal, authorization, dry-run,
+three-file push, database/Data API/advisor recheck, and Storage fixture sequence. Future schema or
+Storage changes must repeat the same discipline rather than treating this evidence as blanket
+authorization. Client activation is complete locally. The remaining release gates are protected-
+preview QA, explicit commit/push/deployment authorization, and real post-deploy signed-in plus
+anonymous/revoked-link flows.

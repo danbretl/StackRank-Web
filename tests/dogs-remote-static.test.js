@@ -8,13 +8,16 @@ const dogsDescriptor = fs.readFileSync(
   new URL("../lib/categories/dogs.js", import.meta.url),
   "utf8",
 );
+const dogsHtml = fs.readFileSync(new URL("../dogs.html", import.meta.url), "utf8");
 
-test("Dogs remote runtime support remains production fail-closed", () => {
-  assert.match(dogsDescriptor, /accountSync:\s*false/);
-  assert.match(dogsDescriptor, /publicSnapshots:\s*false/);
+test("Dogs production runtime enables additive sync and public snapshots", () => {
+  assert.match(dogsDescriptor, /accountSync:\s*true/);
+  assert.match(dogsDescriptor, /publicSnapshots:\s*true/);
+  assert.match(dogsDescriptor, /rasterArtworkExport:\s*false/);
   assert.match(dogsSource, /__STACKRANK_DOGS_REMOTE_FIXTURE__\s*===\s*true/);
   assert.match(dogsSource, /\["localhost",\s*"127\.0\.0\.1",\s*"\[::1\]"\]/);
   assert.match(dogsSource, /get\("e2e"\)\s*===\s*"dogs-remote-sync"/);
+  assert.doesNotMatch(dogsHtml, /stay off until the additive Dogs RLS contract is approved/);
 });
 
 test("Dogs sync uses only additive category tables and bounded row builders", () => {
@@ -52,4 +55,19 @@ test("Dogs public snapshots deliberately use a non-persistent anonymous client",
   assert.match(sharedSource, /detectSessionInUrl:\s*false/);
   assert.match(sharedSource, /select\("slug,category,payload,created_at,updated_at"\)/);
   assert.doesNotMatch(sharedSource, /list_id|revoked_at|auth\./);
+});
+
+test("ordinary Dogs metadata surfaces do not render internal catalog codes", () => {
+  for (const internalLabel of [
+    "Catalog identity",
+    "Catalog version",
+    "Registry references",
+    "Parent concept",
+  ]) {
+    assert.doesNotMatch(dogsSource, new RegExp(`addFact\\("${internalLabel}"`));
+  }
+  assert.doesNotMatch(dogsHtml, /pinned VBO release/);
+  assert.match(dogsSource, /addFact\("Source", "Vertebrate Breed Ontology"\)/);
+  assert.match(dogsSource, /dogDisplayAliases\(entity\)/);
+  assert.match(dogsSource, /dogEditorialDisplayText\(pack\.title\)/);
 });

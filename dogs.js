@@ -8,11 +8,14 @@ import {
   DOG_LIST_TYPES,
   canonicalizeDogStoredState,
   dogArtworkObjectUrl,
+  dogDisplayAliases,
   dogDragAutoScrollDelta,
+  dogEditorialDisplayText,
   dogEntityToCandidate,
+  dogRegistryCoverageLabel,
   dogStatusLabel,
   normalizeDogCatalogEntity,
-} from "./lib/categories/dogs.js?v=9";
+} from "./lib/categories/dogs.js?v=14";
 import {
   buildCatalogIndex,
   catalogFacetValues,
@@ -77,7 +80,7 @@ import {
   dogsExportText,
   parseDogNameImport,
   parseDogsBackup,
-} from "./lib/dogs.js?v=2";
+} from "./lib/dogs.js?v=3";
 import { buildReviewQueue } from "./lib/review.js?v=1";
 import { createUndoController } from "./lib/undo.js?v=1";
 import {
@@ -95,9 +98,9 @@ const ACTIVE_CATEGORY = resolveDocumentCategory(
 if (!ACTIVE_CATEGORY) throw new Error("Unknown or mismatched StackRank Dogs category");
 
 const STORAGE_KEYS = categoryStorageKeys(ACTIVE_CATEGORY);
-const CATALOG_URL = "data/dogs/dog-catalog.json?v=3";
+const CATALOG_URL = "data/dogs/dog-catalog.json?v=4";
 const PACKS_URL = "data/dogs/packs.json?v=2";
-const RIGHTS_URL = "data/dogs/image-rights.json?v=5";
+const RIGHTS_URL = "data/dogs/image-rights.json?v=6";
 const RIGHTS_POLICY_URL = "data/dogs/artwork-license-policy.json?v=1";
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl";
@@ -1038,9 +1041,10 @@ const renderFeaturedPacks = () => {
     const heading = document.createElement("div");
     heading.className = "featured-pack__heading";
     const title = document.createElement("h3");
-    title.textContent = pack.title;
+    const displayTitle = dogEditorialDisplayText(pack.title);
+    title.textContent = displayTitle;
     const family = document.createElement("span");
-    family.textContent = cleanText(pack.subtitle || pack.family);
+    family.textContent = dogEditorialDisplayText(pack.subtitle || pack.family);
     heading.append(title, family);
     const rail = document.createElement("div");
     rail.className = "featured-pack__rail";
@@ -1050,7 +1054,7 @@ const renderFeaturedPacks = () => {
     footer.className = "featured-pack__footer";
     const action = document.createElement("button");
     action.type = "button";
-    action.textContent = stats.handled ? `Continue ${pack.title} →` : `Explore ${pack.title} →`;
+    action.textContent = stats.handled ? `Continue ${displayTitle} →` : `Explore ${displayTitle} →`;
     action.addEventListener("click", () => startPack(pack.id));
     const progress = document.createElement("span");
     progress.className = "featured-pack__progress";
@@ -1109,10 +1113,16 @@ const renderSearchResults = (results) => {
     context.textContent = result.candidate.snapshot.secondaryText || "Breed or type";
     copy.append(name, context);
     if (result.matchedOn === "alias") {
-      const alias = document.createElement("span");
-      alias.className = "search-option__alias";
-      alias.textContent = `Alias: ${result.matchedText}`;
-      copy.append(alias);
+      const displayAlias = dogDisplayAliases({
+        displayName: result.candidate.snapshot.primaryText,
+        aliases: [result.matchedText],
+      }, { limit: 1 })[0];
+      if (displayAlias) {
+        const alias = document.createElement("span");
+        alias.className = "search-option__alias";
+        alias.textContent = `Also known as ${displayAlias}`;
+        copy.append(alias);
+      }
     }
     const meta = document.createElement("span");
     meta.className = "search-option__meta";
@@ -1208,11 +1218,15 @@ const renderRanking = () => {
     name.textContent = shown.snapshot.primaryText;
     const context = document.createElement("span");
     context.textContent = shown.snapshot.secondaryText || "Breed or type";
-    const aliases = document.createElement("span");
-    aliases.className = "ranking-row__aliases";
     const raw = catalogById.get(item.entityRef.id);
-    aliases.textContent = raw?.aliases?.length ? `Also: ${raw.aliases.slice(0, 3).join(", ")}` : `VBO ${item.entityRef.id.replace("VBO:", "")}`;
-    copy.append(name, context, aliases);
+    const alternateNames = dogDisplayAliases(raw, { limit: 3 });
+    copy.append(name, context);
+    if (alternateNames.length) {
+      const aliases = document.createElement("span");
+      aliases.className = "ranking-row__aliases";
+      aliases.textContent = `Also known as ${alternateNames.join(", ")}`;
+      copy.append(aliases);
+    }
     const actions = document.createElement("div");
     actions.className = "ranking-row__actions";
     actions.append(
@@ -1313,7 +1327,7 @@ const renderYou = () => {
     const article = document.createElement("article");
     article.className = "taste-signal";
     const kind = document.createElement("span");
-    kind.textContent = signal.kind === "registry" ? "Named registry scheme" : signal.kind === "region" ? "Catalog region" : "Curated catalog family";
+    kind.textContent = signal.kind === "region" ? "Catalog region" : "Curated catalog family";
     const value = document.createElement("strong");
     value.textContent = signal.value;
     const evidence = document.createElement("p");
@@ -1597,12 +1611,11 @@ function openDetail(catalogId) {
     fact.append(key, content);
     facts.appendChild(fact);
   };
-  addFact("Catalog identity", catalogId);
-  addFact("Catalog version", catalogDocument?.catalogVersion || "Unavailable");
-  addFact("Aliases", entity?.aliases?.slice(0, 12).join(", "));
-  addFact("Registry references", entity?.registryRefs?.slice(0, 12).map((ref) => typeof ref === "string" ? ref : `${ref.scheme}: ${ref.group}`).join(", "));
+  addFact("Also known as", dogDisplayAliases(entity).join(", "));
   addFact("Origin regions", entity?.originRegions?.join(", "));
-  addFact("Parent concept", entity?.relationships?.parentId);
+  addFact("Part of", catalogById.get(entity?.relationships?.parentId)?.displayName);
+  addFact("Source", "Vertebrate Breed Ontology");
+  addFact("Catalog coverage", dogRegistryCoverageLabel(entity));
   const image = approvedImageForCatalogId(catalogId, "detail");
   const attribution = document.createElement("p");
   attribution.className = "detail-attribution";
@@ -1634,7 +1647,7 @@ const renderCredits = () => {
   const title = document.createElement("h1");
   title.textContent = "Dogs sources";
   const summary = document.createElement("p");
-  summary.textContent = `${catalogDocument?.entities?.length || 0} selectable concepts from the pinned VBO ${catalogDocument?.source?.release || "release"}. ${approved} rights-approved display photo${approved === 1 ? "" : "s"} currently delivered; missing imagery uses a neutral fallback.`;
+  summary.textContent = `${catalogDocument?.entities?.length || 0} selectable breed and type records sourced from the Vertebrate Breed Ontology. ${approved} rights-approved display photo${approved === 1 ? "" : "s"} currently delivered; missing imagery uses a neutral fallback.`;
   const source = document.createElement("p");
   source.className = "detail-attribution";
   source.innerHTML = "Catalog: Vertebrate Breed Ontology, CC BY 4.0. Every source descendant has an auditable disposition in the generated coverage report. Photo credits appear on each detail view; public and raster sharing remain disabled unless their separate rights gates pass.";
@@ -1673,7 +1686,7 @@ const startPack = (packId) => {
   renderAll();
   if (packsDialog.open) packsDialog.close();
   if (next) beginRanking(next);
-  else showToast(`${pack.title} is complete.`, { undoSnapshot: before });
+  else showToast(`${dogEditorialDisplayText(pack.title)} is complete.`, { undoSnapshot: before });
 };
 
 const renderPackBrowser = () => {
@@ -1691,9 +1704,9 @@ const renderPackBrowser = () => {
     const card = document.createElement("article");
     card.className = "pack-card";
     const title = document.createElement("h2");
-    title.textContent = pack.title;
+    title.textContent = dogEditorialDisplayText(pack.title);
     const description = document.createElement("p");
-    description.textContent = pack.description || pack.subtitle;
+    description.textContent = dogEditorialDisplayText(pack.description || pack.subtitle);
     const rail = document.createElement("div");
     rail.className = "pack-card__rail";
     packItems(pack).slice(0, 4).forEach((item) => rail.append(createBreedTile(item, { showContext: false })));
@@ -1845,7 +1858,7 @@ const updateAccountUi = () => {
   if (!available) {
     accountState.textContent = "Dogs on this device";
     remoteGateNote.textContent =
-      "Account sync and public links stay off until the additive Dogs RLS contract is approved.";
+      "Account sync and public links are not enabled on this build.";
   } else if (currentUser) {
     accountState.textContent = currentUser.email
       ? `Signed in as ${currentUser.email}`
@@ -2325,7 +2338,7 @@ const loadCatalog = async () => {
       PROVIDER_PURPOSES.ARTWORK_UI_DISPLAY,
       { asset, rightsPolicy },
     )).length;
-    catalogStatus.textContent = `${catalogDocument.entities.length.toLocaleString()} selectable breeds and types · VBO ${catalogDocument.source.release} · photography appears only after rights review${approvedCount ? ` (${approvedCount} available)` : ""}`;
+    catalogStatus.textContent = `${catalogDocument.entities.length.toLocaleString()} selectable breeds and types · sourced from the Vertebrate Breed Ontology · photography appears only after rights review${approvedCount ? ` (${approvedCount} available)` : ""}`;
     fillFilterOptions();
     canonicalizeCurrentCatalogState({ announceUpgrade: true });
   } catch (error) {

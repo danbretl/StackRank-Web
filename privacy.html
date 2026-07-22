@@ -34,10 +34,10 @@
           <p>
             StackRank is designed to work without an account. Your movie ranking stays in this
             browser unless you choose to sign in and sync it. The experimental Books preview is
-            device-only and does not sync or publish book data. StackRank Dogs also begins local-only:
-            its ranking, Curious about list, Not for me list, and pack progress remain in this browser.
+            device-only and does not sync or publish book data. StackRank Dogs keeps a device copy
+            while signed out and can sync its separate ranking and lists when you sign in.
           </p>
-          <p class="legal-updated">Effective July 16, 2026</p>
+          <p class="legal-updated">Effective July 21, 2026</p>
         </div>
 
         <section class="legal-section" aria-labelledby="privacy-stored">
@@ -49,9 +49,9 @@
             share, or import something.
           </p>
           <p>
-            If you sign in, Supabase stores your account identity and syncs your ranking, queues,
-            and pack progress so they are available on your other devices. StackRank does not
-            receive or store a password.
+            If you sign in, Supabase stores your account identity and syncs the supported Movies
+            and Dogs rankings, queues or lists, and pack progress so they are available on your
+            other devices. StackRank does not receive or store a password.
           </p>
           <p>
             The Books preview separately stores its ranking in this browser. Book search sends the
@@ -61,8 +61,11 @@
           <p>
             Dogs uses a versioned catalog bundled with the site, so breed and alias searches do not
             send the text you type to an external catalog service. Dogs backups and text exports are
-            created only when you request them. Dogs data is not yet included in account sync or
-            public sharing, and it never reads or rewrites Movies or Books browser keys.
+            created only when you request them. If you sign in, Dogs syncs its ranking, Curious about
+            list, Not for me list, and pack progress in Dogs-specific account records. A public Dogs
+            ranking is a read-only snapshot created only when you choose Publish; later changes stay
+            private until you update it, and you can revoke the link. Dogs never reads or rewrites
+            Movies or Books browser keys.
           </p>
         </section>
 
@@ -86,7 +89,7 @@
             </li>
             <li>
               <strong>Supabase</strong> provides optional account sign-in, cross-device sync,
-              server functions, and privacy-bounded product events.
+              read-only public ranking snapshots, server functions, and privacy-bounded product events.
             </li>
             <li>
               <strong>Vercel</strong> hosts the site and provides aggregate Web Analytics

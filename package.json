@@ -21,6 +21,8 @@
     "review:dogs:artwork": "node scripts/build-dog-artwork-review.mjs",
     "prepare:dogs:artwork": "node scripts/prepare-dog-artwork-batch.mjs",
     "deliver:dogs:artwork": "node scripts/deliver-dog-artwork.mjs",
+    "activate:dogs:artwork": "node scripts/activate-dog-artwork-deliveries.mjs",
+    "probe:dogs:production": "node scripts/probe-dogs-supabase-production.mjs",
     "verify": "npm test && npm run check && npm run check:cache && npm run check:functions && npm run test:functions && npm run validate:packs && npm run validate:dogs && npm run test:e2e",
     "author:packs": "node scripts/author-suggestion-packs.mjs",
     "screenshots": "node scripts/capture-screenshots.cjs",

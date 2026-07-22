@@ -28,6 +28,10 @@ const cleanString = (value) =>
 const sha256 = (bytes) =>
   createHash("sha256").update(bytes).digest("hex");
 
+export const resolveDogArtworkOperatorKey = (env = process.env) =>
+  cleanString(env.SUPABASE_SECRET_KEY) ||
+  cleanString(env.SUPABASE_SERVICE_ROLE_KEY);
+
 const encodedObjectPath = (value) =>
   value
     .split("/")
@@ -430,6 +434,36 @@ const preflightImmutablePath = async ({
     redirect: "error",
   });
   if (response.status === 404) return "missing";
+  // Supabase Storage currently maps a missing private object to HTTP 400 at
+  // the gateway while preserving the upstream 404 in the JSON response. A
+  // HEAD response has no readable body, so confirm that exact shape with GET
+  // before treating the immutable path as vacant. Any other 400 still fails
+  // closed.
+  if (response.status === 400) {
+    const missing = await fetchImpl(objectUrl, {
+      method: "GET",
+      headers,
+      redirect: "error",
+    });
+    if (missing.status === 400) {
+      let payload = null;
+      try {
+        payload = await missing.json();
+      } catch {
+        // The exact structured not-found response is required below.
+      }
+      if (
+        String(payload?.statusCode || "") === "404" &&
+        payload?.error === "not_found" &&
+        payload?.message === "Object not found"
+      ) {
+        return "missing";
+      }
+    }
+    throw new Error(
+      `Could not prove immutable path is safe for ${variant.objectPath} (HTTP ${response.status})`,
+    );
+  }
   if (!response.ok) {
     throw new Error(
       `Could not prove immutable path is safe for ${variant.objectPath} (HTTP ${response.status})`,
@@ -515,7 +549,7 @@ export const uploadDogArtwork = async ({
   }
   if (!cleanString(supabaseUrl) || !cleanString(serviceRoleKey)) {
     throw new Error(
-      "Upload requires SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY",
+      "Upload requires SUPABASE_URL and SUPABASE_SECRET_KEY (or legacy SUPABASE_SERVICE_ROLE_KEY)",
     );
   }
   const verifiedPublicBase = normalizeUploadPublicBaseUrl(
@@ -637,7 +671,7 @@ export const runDogArtworkDelivery = async ({
     }
     if (!cleanString(supabaseUrl) || !cleanString(serviceRoleKey)) {
       throw new Error(
-        "Upload requires SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY",
+        "Upload requires SUPABASE_URL and SUPABASE_SECRET_KEY (or legacy SUPABASE_SERVICE_ROLE_KEY)",
       );
     }
     const effectivePublicBaseUrl =
@@ -698,7 +732,7 @@ Remote verification (read-only):
 
 Explicit upload and post-upload verification:
   SUPABASE_URL=https://PROJECT.supabase.co \\
-  SUPABASE_SERVICE_ROLE_KEY=... \\
+  SUPABASE_SECRET_KEY=... \\
   npm run deliver:dogs:artwork -- \\
     --manifest /tmp/example.artwork-processing.json \\
     --upload \\
@@ -726,7 +760,7 @@ const main = async () => {
     confirmation: options.confirmUpload,
     publicBaseUrl: options.publicBaseUrl,
     supabaseUrl: process.env.SUPABASE_URL,
-    serviceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY,
+    serviceRoleKey: resolveDogArtworkOperatorKey(process.env),
   });
   const serialized = `${JSON.stringify(report, null, 2)}\n`;
   if (options.out) {

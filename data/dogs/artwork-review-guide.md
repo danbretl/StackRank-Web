@@ -137,7 +137,7 @@ confirmation token is supplied:
 
 ```sh
 SUPABASE_URL=https://PROJECT.supabase.co \
-SUPABASE_SERVICE_ROLE_KEY=... \
+SUPABASE_SECRET_KEY=... \
 npm run deliver:dogs:artwork -- \
   --manifest /tmp/stackrank-broholmer-art/dogs-photo-commons-example.artwork-processing.json \
   --upload \
@@ -145,7 +145,9 @@ npm run deliver:dogs:artwork -- \
   --out /tmp/stackrank-broholmer-art/artwork-delivery.json
 ```
 
-Before its first POST, the tool re-verifies both local variants and checks every authenticated
+`SUPABASE_SECRET_KEY` is the preferred current operator credential; the uploader retains
+`SUPABASE_SERVICE_ROLE_KEY` only as a legacy fallback. Before its first POST, the tool re-verifies
+both local variants and checks every authenticated
 Storage object path. A missing object is eligible for upload; an existing object is skipped only
 when its exact bytes, SHA-256, and WebP MIME type match the processing manifest. This makes a
 partially completed run safely resumable while still refusing any conflicting object. Uploads omit
@@ -159,6 +161,31 @@ service-role key is never printed or written to the report. Output files use cre
 The report contains a `ledgerFragment` only after remote verification. It does not read or mutate
 `image-rights.json`, grant a use purpose, or change review status. Copying that fragment into the
 approved asset remains a separate human-reviewed edit.
+
+For a reviewed batch, the repository activation helper validates every report again before it can
+write the ledger or catalog links. It defaults to a dry run and requires an exact report count,
+new ledger version, activation date, `--apply`, and the explicit confirmation phrase:
+
+```sh
+npm run activate:dogs:artwork -- \
+  --reports /tmp/verified-dog-artwork-deliveries \
+  --ledger-version YYYY-MM-DD.N \
+  --activated-at YYYY-MM-DD \
+  --expected-count N
+
+npm run activate:dogs:artwork -- \
+  --reports /tmp/verified-dog-artwork-deliveries \
+  --ledger-version YYYY-MM-DD.N \
+  --activated-at YYYY-MM-DD \
+  --expected-count N \
+  --apply \
+  --confirm-activation I_REVIEWED_VERIFIED_DOG_ARTWORK_DELIVERIES
+```
+
+The helper enables UI display only, preserves public-snapshot and raster denial, records crop,
+resize, and WebP conversion, adds attribution and same-license ShareAlike compliance where
+required, and links the exact asset id through `catalog-overrides.json`. Rebuild and validate the
+catalog, coverage report, and discovery queue after activation.
 
 `image-rights.json.publicAssetBaseUrl` is the credential-free HTTPS base used to turn a validated
 `dogs-catalog/...` object path into a browser-readable public URL. Creating that public bucket and

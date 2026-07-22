@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "ledgerVersion": "2026-07-21.1",
+  "ledgerVersion": "2026-07-21.2",
   "policyVersion": "2026-07-16.1",
   "catalogVersion": "vbo-2026-04-15.2",
   "sourceDates": {
@@ -17,8 +17,8 @@
   },
   "ledger": {
     "rows": 28,
-    "approvedRightsRows": 0,
-    "pendingRows": 28,
+    "approvedRightsRows": 28,
+    "pendingRows": 0,
     "quarantinedRows": 0,
     "readyDeliveryRows": 0,
     "allRowsLicenseDistribution": {
@@ -27,11 +27,18 @@
       "CC-BY-SA-4.0": 11,
       "CC0-1.0": 1
     },
-    "approvedLicenseDistribution": {},
+    "approvedLicenseDistribution": {
+      "CC-BY-2.0": 4,
+      "CC-BY-SA-3.0": 12,
+      "CC-BY-SA-4.0": 11,
+      "CC0-1.0": 1
+    },
     "allRowsSourceProviderDistribution": {
       "wikimedia-commons": 28
     },
-    "approvedSourceProviderDistribution": {}
+    "approvedSourceProviderDistribution": {
+      "wikimedia-commons": 28
+    }
   },
   "coverage": {
     "uiDisplay": {
@@ -70,7 +77,7 @@
   "unresolvedUiArtworkSummary": {
     "total": 1239,
     "byReason": {
-      "human review pending": 28,
+      "approved rights, delivery/purpose not ready": 28,
       "no ledger row": 1211
     },
     "promotedTotal": 27
@@ -79,144 +86,144 @@
     {
       "catalogId": "VBO:0200088",
       "primaryText": "Australian Cattle Dog",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200108",
       "primaryText": "Azawakh",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200120",
       "primaryText": "Basenji",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200185",
       "primaryText": "Boerboel",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200231",
       "primaryText": "Brazilian Terrier",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200338",
       "primaryText": "Chihuahua",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200345",
       "primaryText": "Chinese Crested",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200389",
       "primaryText": "Coton de Tulear",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200406",
       "primaryText": "Dachshund",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200526",
       "primaryText": "Finnish Spitz",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200610",
       "primaryText": "Golden Retriever",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200623",
       "primaryText": "Great Dane",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200670",
       "primaryText": "Himalayan Sheepdog",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200744",
       "primaryText": "Jindo",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200800",
       "primaryText": "Labrador Retriever",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200919",
       "primaryText": "Mucuchies",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200934",
       "primaryText": "New Guinea Singing Dog",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200938",
       "primaryText": "Newfoundland",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201004",
       "primaryText": "Peruvian Hairless Dog",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201102",
       "primaryText": "Puli",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201135",
       "primaryText": "Rhodesian Ridgeback",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201171",
       "primaryText": "Saluki",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201220",
       "primaryText": "Shiba Inu",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201280",
       "primaryText": "Spanish Water Dog",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201348",
       "primaryText": "Thai Ridgeback",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201421",
       "primaryText": "Whippet",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201436",
       "primaryText": "Xoloitzcuintli",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     }
   ],
   "unresolvedUiArtwork": [
     {
       "catalogId": "VBO:0000661",
       "primaryText": "Broholmer",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0000663",
@@ -711,7 +718,7 @@
     {
       "catalogId": "VBO:0200088",
       "primaryText": "Australian Cattle Dog",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200089",
@@ -801,7 +808,7 @@
     {
       "catalogId": "VBO:0200108",
       "primaryText": "Azawakh",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200110",
@@ -846,7 +853,7 @@
     {
       "catalogId": "VBO:0200120",
       "primaryText": "Basenji",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200121",
@@ -1111,7 +1118,7 @@
     {
       "catalogId": "VBO:0200185",
       "primaryText": "Boerboel",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200186",
@@ -1286,7 +1293,7 @@
     {
       "catalogId": "VBO:0200231",
       "primaryText": "Brazilian Terrier",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200232",
@@ -1696,7 +1703,7 @@
     {
       "catalogId": "VBO:0200338",
       "primaryText": "Chihuahua",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200339",
@@ -1721,7 +1728,7 @@
     {
       "catalogId": "VBO:0200345",
       "primaryText": "Chinese Crested",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200346",
@@ -1936,7 +1943,7 @@
     {
       "catalogId": "VBO:0200389",
       "primaryText": "Coton de Tulear",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200390",
@@ -2016,7 +2023,7 @@
     {
       "catalogId": "VBO:0200406",
       "primaryText": "Dachshund",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200407",
@@ -2481,7 +2488,7 @@
     {
       "catalogId": "VBO:0200526",
       "primaryText": "Finnish Spitz",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200528",
@@ -2816,7 +2823,7 @@
     {
       "catalogId": "VBO:0200610",
       "primaryText": "Golden Retriever",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200611",
@@ -2861,7 +2868,7 @@
     {
       "catalogId": "VBO:0200623",
       "primaryText": "Great Dane",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200624",
@@ -3051,7 +3058,7 @@
     {
       "catalogId": "VBO:0200670",
       "primaryText": "Himalayan Sheepdog",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200671",
@@ -3326,7 +3333,7 @@
     {
       "catalogId": "VBO:0200744",
       "primaryText": "Jindo",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200745",
@@ -3576,7 +3583,7 @@
     {
       "catalogId": "VBO:0200800",
       "primaryText": "Labrador Retriever",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200801",
@@ -4091,7 +4098,7 @@
     {
       "catalogId": "VBO:0200919",
       "primaryText": "Mucuchies",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200920",
@@ -4161,7 +4168,7 @@
     {
       "catalogId": "VBO:0200934",
       "primaryText": "New Guinea Singing Dog",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200935",
@@ -4176,7 +4183,7 @@
     {
       "catalogId": "VBO:0200938",
       "primaryText": "Newfoundland",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200939",
@@ -4431,7 +4438,7 @@
     {
       "catalogId": "VBO:0201004",
       "primaryText": "Peruvian Hairless Dog",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201005",
@@ -4866,7 +4873,7 @@
     {
       "catalogId": "VBO:0201102",
       "primaryText": "Puli",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201103",
@@ -5001,7 +5008,7 @@
     {
       "catalogId": "VBO:0201135",
       "primaryText": "Rhodesian Ridgeback",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201137",
@@ -5166,7 +5173,7 @@
     {
       "catalogId": "VBO:0201171",
       "primaryText": "Saluki",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201172",
@@ -5366,7 +5373,7 @@
     {
       "catalogId": "VBO:0201220",
       "primaryText": "Shiba Inu",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201221",
@@ -5616,7 +5623,7 @@
     {
       "catalogId": "VBO:0201280",
       "primaryText": "Spanish Water Dog",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201282",
@@ -5891,7 +5898,7 @@
     {
       "catalogId": "VBO:0201348",
       "primaryText": "Thai Ridgeback",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201349",
@@ -6191,7 +6198,7 @@
     {
       "catalogId": "VBO:0201421",
       "primaryText": "Whippet",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201422",
@@ -6261,7 +6268,7 @@
     {
       "catalogId": "VBO:0201436",
       "primaryText": "Xoloitzcuintli",
-      "reason": "human review pending"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201437",

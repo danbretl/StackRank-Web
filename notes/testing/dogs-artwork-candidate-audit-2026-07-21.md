@@ -1,9 +1,11 @@
 # Dogs artwork candidate audit — 2026-07-21
 
-Status: **agent first-pass evidence and visual audit only.** This file does not approve an asset,
-identify a human reviewer, grant a purpose, upload bytes, or change `image-rights.json`. It is not
-legal advice. The launch ledger remains fail-closed until an accountable operator records the final
-decision and the delivery/attribution gates pass.
+Status: **accountable delegated source/crop review complete; 28 / 28 current candidates approved
+for delivery preparation.** Dan Bretl explicitly delegated the editorial and rights-evidence review
+to OpenAI Codex on 2026-07-21. Ledger `2026-07-21.2` transparently identifies that reviewer and
+records a concrete per-asset decision. This is not legal advice and grants no product purpose: all
+assets remain undelivered and denied for UI display, public snapshots, and raster export until the
+separate delivery and attribution gates pass.
 
 ## Outcome
 
@@ -20,12 +22,14 @@ decision and the delivery/attribution gates pass.
   subject. Himalayan Sheepdog and Mucuchies remain moderate-confidence rather than registry-grade
   identifications because their evidence is a creator-supplied Commons description/category, not a
   kennel-registry record.
-- **All 28 current ledger candidates are ready for an accountable batch-approval decision** after a
-  deliberate 3:2 crop is inspected. The Dachshund source-requested creator link was objectively
-  corrected in its still-pending ledger row. Stronger Finnish Spitz and Thai Ridgeback sources now
-  replace the two weaker pending rows without granting any purpose.
-- The two replacement candidates were also locally processed and inspected. They remain pending,
-  unapproved, undelivered, and denied for UI, public-snapshot, and raster-export use.
+- **All 28 current ledger candidates passed the accountable delegated decision.** Their exact source
+  revisions, byte hashes, license/provenance chains, subject evidence, non-copyright concerns, and
+  deliberate 3:2 crops were accepted in ledger `2026-07-21.2`. The Dachshund source-requested
+  creator link was objectively corrected before approval. Stronger Finnish Spitz and Thai Ridgeback
+  sources replace the two weaker, never-approved rows.
+- The two replacement candidates and all other current rows were locally processed and inspected.
+  All 28 are approved but remain undelivered and denied for UI, public-snapshot, and raster-export
+  use. Approval is not deployment or display permission.
 
 Current-ledger license distribution: 4 CC BY 2.0, 12 CC BY-SA 3.0, 11 CC BY-SA
 4.0, and 1 CC0 1.0. The CC BY/CC BY-SA licenses permit commercial reuse and modification subject
@@ -34,10 +38,12 @@ publicity, and moral rights can still affect a use, so those issues were reviewe
 
 ## Candidate decisions
 
-`Batch-ready` means the evidence supports a final accountable approval after inspecting the chosen
-crop. `Fix credit` means do not approve until the exact attribution request is represented in the
-ledger and rendered Credits/detail surfaces. `Replace` means keep the ledger row pending and source
-a better candidate.
+This table records the recommendations immediately before the final delegated decision.
+`Batch-ready` means the evidence supported approval after inspection of the chosen crop; every
+current row marked that way below was approved in ledger `2026-07-21.2`. `Fix credit` meant do not
+approve until the exact attribution request was represented in the ledger and rendered
+Credits/detail surfaces. `Replace` meant keep the prior row pending and source a better candidate;
+both replacements were completed before approval.
 
 | Catalog concept | Exact Commons source / selected license | Subject, crop, and restrictions review | Recommendation |
 | --- | --- | --- | --- |
@@ -77,8 +83,8 @@ exact current Commons revision and original bytes, verified Commons SHA-1 and by
 SHA-256, rejected unsupported metadata, and emitted a create-only pending candidate under `/tmp`.
 Both were then processed locally with the deterministic ImageMagick recipe; the 320×213 and 960×640
 WebPs were visually inspected. Their source records now replace the weaker Thai Ridgeback and
-Finnish Spitz rows in the tracked ledger, but remain pending with empty delivery variants and every
-purpose denied. Nothing was approved or uploaded.
+Finnish Spitz rows in the tracked ledger. They were subsequently approved in the delegated final
+review, but still have empty delivery variants and every purpose denied. Nothing was uploaded.
 
 ### Thai Ridgeback replacement — recommended
 
@@ -157,8 +163,8 @@ The audit used the tracked ledger and catalog plus fresh, read-only primary-sour
    [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), and
    [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
 
-The two credit fixes should be made before any final review status changes. The final operator pass
-should record concrete rights notes per asset, inspect the chosen 320×213 and 960×640 WebPs, and
-ensure the rendered attribution includes title, creator, source, exact license link, modifications,
-and BY-SA compliance. No purpose boolean should change before verified delivery and the global
-purpose gate are ready.
+The two source/credit fixes and the final delegated review are complete. Ledger `2026-07-21.2`
+records the reviewer, decision date, concrete rights notes, subject match, and non-copyright review
+for every current row. The next operator pass must immutably upload and byte-verify the exact 320×213
+and 960×640 WebPs, then add delivery, attribution, modification, and BY-SA compliance records. No
+purpose boolean should change before verified delivery and its global purpose gate are ready.

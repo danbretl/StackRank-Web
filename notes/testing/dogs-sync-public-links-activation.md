@@ -1,10 +1,10 @@
 # Dogs sync and public-link activation
 
-Status: **production schema and post-apply probes complete; client capabilities enabled locally.**
+Status: **live in production; schema, protected-preview, and post-deploy flows verified.**
 The authorized three-file production sequence passed schema, RLS, two-user, anonymous-link,
-revocation, Storage, advisor-baseline, and zero-residue checks on July 22, 2026. The local release
-candidate now enables Dogs account sync and public text snapshots while keeping raster export off.
-No integrated client commit, push, deployment, or production-root redirect change has occurred.
+revocation, Storage, advisor-baseline, and zero-residue checks on July 22, 2026. Commit `31267389`
+enables Dogs account sync and public text snapshots while keeping raster export off; it is live on
+`main`. The production root remains `/movies`.
 
 The Dogs browser client now contains the complete additive-table path for ranking, Curious about,
 Not for me, pack progress, auth, and owner-managed public snapshots. Local storage is always written
@@ -30,9 +30,8 @@ Concurrent edits to the **same row** remain last-writer-wins, matching the matur
 contract and the category tables' `updated_at` design. StackRank is a single-owner app rather than a
 collaborative editor; each tab still retains its local copy, and the next load appends older-only
 entities. True same-row compare-and-swap would require an additional reviewed database RPC or row
-revision migration and is intentionally not implied by this client activation. The protected-preview
-QA should explicitly accept this contract before deployment; the capability flags were enabled only
-after the production schema and isolation probes passed.
+revision migration and is intentionally not implied by this client activation. Protected-preview
+and production QA explicitly accepted this contract after the schema and isolation probes passed.
 
 ## Activation sequence
 
@@ -55,9 +54,11 @@ after the production schema and isolation probes passed.
    production probe remains the data-plane evidence.
 4. **Complete:** Update `/privacy` and the corresponding production-smoke assertion in the same
    release. The revised policy and its desktop/mobile privacy E2E assertion passed locally.
-5. **Next:** Deploy a protected preview and verify signed-out local-only behavior, signed-in no-loss merge,
-   publish/update/copy/revoke, anonymous view, and revoked-link denial. Only then request explicit
-   authorization for production promotion.
+5. **Complete:** The protected preview passed signed-out desktop/phone inspection, real artwork and
+   attribution checks, code-free detail rendering, console cleanliness, and mocked signed-in flows.
+   The exact artifact was promoted with explicit authorization. A real production account then
+   passed remote ranking persistence and publish/anonymous-view/revoke/denial checks; all QA rows and
+   the Auth user were removed and the final residue check was zero.
 
 Credential hygiene is complete for this release. A private operator-output redaction mistake exposed
 the confidential legacy service-role JWT and the public-by-design legacy anonymous JWT; no modern

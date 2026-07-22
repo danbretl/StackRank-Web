@@ -247,9 +247,9 @@ afterward using only modern keys and again left zero fixture residue. Do not re-
 legacy JWT value into documentation, source, logs, or future task messages.
 
 The database and Storage gates are complete. Dogs account-sync/public-snapshot capability flags are
-enabled in the local release candidate after the client, privacy, static, cache, and mocked-browser
-activation checks passed. Raster export and every artwork public-snapshot purpose remain disabled.
-No commit, push, deployment, or production-root redirect change is part of this database result.
+live in production after the client, privacy, static, cache, protected-preview, mocked-browser, and
+real post-deploy browser checks passed. Raster export and every artwork public-snapshot purpose
+remain disabled. The production root remains `/movies`.
 
 ## Direct local probes to run when a container runtime is available
 
@@ -395,6 +395,5 @@ substitute for explicit production authorization.
 The July 22 production result above completed this exact rehearsal, authorization, dry-run,
 three-file push, database/Data API/advisor recheck, and Storage fixture sequence. Future schema or
 Storage changes must repeat the same discipline rather than treating this evidence as blanket
-authorization. Client activation is complete locally. The remaining release gates are protected-
-preview QA, explicit commit/push/deployment authorization, and real post-deploy signed-in plus
-anonymous/revoked-link flows.
+authorization. The client release is live in commit `31267389`; protected-preview QA and real
+post-deploy signed-in plus anonymous/revoked-link flows passed with zero fixture residue.

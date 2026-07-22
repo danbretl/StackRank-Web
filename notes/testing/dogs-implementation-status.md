@@ -2,20 +2,17 @@
 
 Status date: **July 22, 2026**
 
-StackRank Dogs is now a substantial local-first second product, not a demo. The `/dogs` route,
-complete generated catalog, editorial discovery library, ranking/list utilities, failure handling,
-shared category contracts, additive database proposal, family-home artifact, and regression coverage
-are implemented on the `codex/dogs-launch` review branch and published to a protected Vercel preview
-through draft PR #1. The additive production schema and initial UI-display artwork batch are now
-present and independently probed, but the current integrated work has not been committed, pushed,
-or deployed and the production root redirect has not changed.
+StackRank Dogs is now a substantial public second product, not a demo. The `/dogs` route, complete
+generated catalog, editorial discovery library, ranking/list utilities, failure handling, shared
+category contracts, additive production persistence, family-home artifact, and regression coverage
+shipped in commit `31267389` through merged PR #4 on July 22, 2026. The exact protected-preview
+artifact was promoted to production, then `main` was fast-forwarded to the same commit. The
+production root still redirects to `/movies`, and Books remains noindex and local-only.
 
-The comprehensive local-first Dogs product is ready for an iterative public `/dogs` release with 28
-rights-reviewed photographs plus polished neutral fallbacks for the rest of the catalog. The
-production database and Storage gates have passed. Account sync and public snapshot links remain
-enabled in the local release candidate after production and mocked-browser activation checks;
-public-snapshot artwork and raster sharing remain separately denied by purpose policy. The activated
-client has not been committed, pushed, previewed, or deployed.
+The public product launches with 28 rights-reviewed photographs plus polished neutral fallbacks for
+the rest of the catalog. Account sync and revocable public text snapshots are active after real
+production Auth/Data API/browser verification. Public-snapshot artwork and raster sharing remain
+separately denied by purpose policy.
 
 ## Delivery phase status
 
@@ -26,8 +23,8 @@ client has not been committed, pushed, previewed, or deployed.
 | 2 — artwork pipeline | Initial UI batch delivered | Import/process/ledger/policy/coverage tooling remains fail-closed. All 27 promoted entities plus Broholmer have accountable approvals and 320/960 WebPs under immutable object names. All 56 production objects passed remote byte, MIME, and immutable-cache verification. UI display is enabled for these 28 assets; public-snapshot and raster-export purposes remain denied. |
 | 3 — shared category platform | Complete for demonstrated local behavior | Entity, catalog, ranking session, ranked-list, backup, provider-purpose, list transition, ranking operation, and remote-row contracts have focused tests. Books remains noindex and working. |
 | 4 — Dogs local product | Complete | `/dogs` implements the full local interaction contract and responsive/failure browser flows. |
-| 5 — sync, links, family | Production schema verified; local client activated | Account sync, per-list timestamps, account isolation, owner publish/update/copy/revoke, and the anonymous `/s/dogs/:slug` renderer are implemented and independently security-reviewed. The production schema passed real two-user and anonymous probes with zero fixture residue. The local capability, privacy, static, cache, signed-out Browser, and mocked no-loss sync/public-link checks passed. Raster sharing remains separately disabled. The noindex `home.html` artifact is ready without replacing `/`. |
-| 6 — launch hardening | Release candidate awaiting publication | Privacy/credits, sitemap, security/cache routes, validators, production-smoke assertions, screenshots, full verification, a real-Postgres branch rehearsal, production migration probes, and immutable artwork-delivery verification are present. No commit, push, deployment, or root-redirect change has occurred for this integrated pass. |
+| 5 — sync, links, family | Active in production | Account sync, per-list timestamps, account isolation, owner publish/update/copy/revoke, and the anonymous `/s/dogs/:slug` renderer are live and independently security-reviewed. Production probes and a post-deploy disposable-account browser pass verified remote ranking persistence plus active/revoked snapshot behavior with zero fixture residue. Raster sharing remains separately disabled. The noindex `home.html` artifact remains unrouted. |
+| 6 — launch hardening | Public release live | Privacy/credits, sitemap, security/cache routes, validators, screenshots, full verification, real-Postgres rehearsal/probes, immutable artwork delivery, protected-preview QA, and 35-check production smoke all passed. Commit `31267389` is on `main` and live; `/` remains on `/movies`. |
 
 ## Catalog coverage
 
@@ -245,10 +242,10 @@ navigation, count-only per-category progress, and no category app bundles. It in
 at `/home.html`; `vercel.json` still redirects `/` to `/movies` as explicitly required.
 
 Legacy Movies `/s/:slug` remains unchanged. Dogs owner controls and the distinct anonymous
-`/s/dogs/:slug` artifact are complete with locally enabled capabilities. Mocked browser QA
+`/s/dogs/:slug` artifact are live. Mocked browser QA
 covers merge, publish/update/copy/revoke, anonymous rendering, revoked denial, and legacy identity
-remapping. The migration, production probe, capability, privacy, static, cache, and local Browser
-gates have passed, but the activated Dogs publish UI has not been committed, pushed, or deployed.
+remapping. The migration, production probe, capability, privacy, static, cache, protected-preview,
+and post-deploy Browser gates have passed.
 
 `.vercelignore` keeps versioned ontology inputs, audit fixtures, tests, notes, migration sources, and
 local design workspaces out of deployment uploads while retaining the bounded Dogs runtime catalog,
@@ -270,7 +267,7 @@ Intentional deviations:
 - generated dog photography was never used as runtime content because it has no acceptable rights ledger;
 - the runtime catalog now references 28 rights-reviewed, immutably delivered Commons photographs
   and uses neutral code-native fallbacks for every other concept;
-- the family home is noindex/unrouted until the public launch authorization;
+- the family home remains noindex/unrouted pending a separate root-cutover authorization;
 - public text-snapshot controls follow the signed-in release contract, while public-snapshot artwork
   and raster sharing stay absent because those independent purpose gates remain denied.
 
@@ -281,18 +278,17 @@ inspected during implementation.
 
 ## Verification and release checklist
 
-Final local verification completed with a green `npm run verify` on July 21, 2026 (the report uses
-UTC July 22):
+Final local verification completed with a green `npm run verify` on July 22, 2026:
 
-- 398 / 398 Node unit and data tests passed (`reports/runs/2026-07-22T042033Z`);
+- 415 / 415 Node unit and data tests passed (`reports/runs/2026-07-22T072030Z`);
 - 24 / 24 Deno function tests passed;
 - browser syntax and all 57 cache-manifest assets passed;
 - the 114-pack Movies validator passed;
 - Dogs catalog, structural artwork, comprehensive artwork-discovery, and 46-pack validators passed;
-- 37 / 37 real-Chrome flows passed (`reports/e2e/runs/2026-07-22T042052Z`), including
+- 37 / 37 real-Chrome flows passed (`reports/e2e/runs/2026-07-22T072046Z`), including
   Movies, Books, Dogs, family home, exact 390×844 and 844×390 Dogs viewports, iPad, failure
   recovery, strict backup/import/export downloads, approved-artwork attribution, pointer/keyboard
-  reorder and cancellation, legacy Movies sharing, and the then-fail-closed Dogs account-sync/public-link
+  reorder and cancellation, legacy Movies sharing, and the activated Dogs account-sync/public-link
   flow. The new desktop, phone, iPad, and public-snapshot screenshots were visually inspected.
 
 After production probes and artwork delivery passed, the local activation follow-up enabled only
@@ -313,31 +309,23 @@ real-CDP focus movement coverage. The same hardening completes CDP key pairs in 
 records focus-restoration calls across deliberate DOM replacement, and excludes transient
 `:focus-visible` colors from the pack close-control base-style comparison.
 
-The networked
-`npm run test:production` script now contains Dogs route, header, metadata, immutable catalog/packs,
-privacy-credit, and sitemap assertions, but it must not be run as evidence for Dogs until the
-corresponding commit is actually deployed.
+Post-deploy `npm run test:production` passed all 35 route, redirect, security-header, cache,
+metadata, catalog, privacy-credit, and sitemap checks. A real disposable production account then
+ranked Great Dane, reloaded it from the remote Dogs row, published an anonymous text-only snapshot,
+verified that it exposed neither artwork nor internal catalog codes, revoked it, and observed the
+public denial state. Cleanup removed its ranking, list, pack-progress, shared-list, and Auth records;
+the final residue query returned zero. Vercel reported no runtime error clusters for the launch
+window.
 
-For the iterative public local-first launch:
+Ongoing release guardrails:
 
-1. Commit and push the integrated, fully verified local-first release without `logo-design-brief/` or
-   unrelated dirty-worktree content, then deploy the public `/dogs` route while `/` stays on
-   `/movies` and Books stays noindex.
-2. Verify the real production Dogs route, Movies compatibility, headers/cache behavior, responsive
-   rendering, and console/network cleanliness.
-
-For the integrated sync, links, and photography release:
-
-1. The exact three-file production migration set and post-application probes are complete. Preserve
-   the captured migration order and zero-residue result as the production baseline.
-2. The local client now enables only Dogs account sync/public snapshots, updates privacy and
-   production-smoke assertions in the same release, and keeps raster export false. Verify real
-   signed-in auth plus anonymous/revoked links on a protected preview before deployment.
-3. The delivered 28-image UI-display batch is integrated while public-snapshot and raster artwork
-   remain false. Expand photography incrementally rather than holding the product for aspirational
-   95% current-canonical coverage.
-4. Keep the revoked legacy JWT path disabled, do not reuse or redistribute the exposed confidential
+1. Preserve the exact three-file migration order and zero-residue result as the production baseline.
+2. Keep public-snapshot artwork and raster export false until their independent rights-purpose gates
+   pass; expand UI photography incrementally rather than holding the product for aspirational 95%
+   current-canonical coverage.
+3. Keep the revoked legacy JWT path disabled, do not reuse or redistribute the exposed confidential
    JWT, and keep operational clients on independently managed modern publishable/secret keys.
+4. Keep `/` on `/movies` until a separate family-home cutover is explicitly authorized.
 
 The root redirect remains `/movies`; a family-home cutover is not required for Dogs launch and
 remains separately unauthorized.

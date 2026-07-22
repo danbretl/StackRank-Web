@@ -17,11 +17,13 @@ VBO catalog, editorial packs, ranking/lists/backup/export flows, and responsive 
 The additive production schema and Storage bucket have been applied and passed real two-user/RLS/
 snapshot/Storage probes; 28 rights-reviewed photos are immutably delivered for UI display. Dogs
 account sync and public snapshot code is enabled, while public-snapshot artwork and raster export
-remain purpose-denied. The integrated changes are not yet committed, pushed, or deployed. The
+remain purpose-denied. The integrated release shipped to production on July 22, 2026 in commit
+`31267389`; `/dogs` is public while the production root continues to redirect to `/movies`. The
 authoritative plan is `notes/feature-ideas/dogs-launch-plan.md`; exact status and release gates live
 in `notes/testing/dogs-implementation-status.md`.
 
 - **Live movies app:** https://www.stackrankapp.com/movies (Vercel; `stackrankapp.com` redirects to `www`, and the `www` root temporarily redirects to `/movies` until a cross-category home ships)
+- **Live Dogs app:** https://www.stackrankapp.com/dogs
 - **Legacy host:** https://danbretl.github.io/StackRank-Web/ remains available during the origin migration so users can recover any browser-local data.
 - **Repo:** https://github.com/danbretl/StackRank-Web (local dir is `stackrank`, remote repo is `StackRank-Web`)
 - **Design intent (from day one):** simple, clean, slick, **monochrome**, punchy, modern. Minimal header; adding/ranking is front and center.

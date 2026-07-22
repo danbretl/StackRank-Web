@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>StackRank — Put your favorites in order</title>
+    <meta
+      name="description"
+      content="Choose a StackRank category and build your exact personal ranking through quick head-to-head comparisons."
+    />
+    <meta name="robots" content="noindex,nofollow" />
+    <link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      href="https://fonts.gstatic.com/s/spacegrotesk/v22/V8mDoQDjQSkFtoMM3T6r8E7mPbF4C_k3HqU.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="home.css?v=1" />
+  </head>
+  <body>
+    <header class="family-header">
+      <a href="/movies" class="family-brand" aria-label="StackRank home">STACKRANK</a>
+      <nav aria-label="Global navigation">
+        <a href="/privacy">Privacy</a>
+        <a class="account-link" href="/movies" aria-label="Open Movies to sign in">Sign in</a>
+      </nav>
+    </header>
+
+    <main class="family-main">
+      <div class="family-intro">
+        <h1>Put your favorites in order.</h1>
+        <p>Add something, choose between two at a time, and StackRank finds its exact place.</p>
+      </div>
+
+      <section class="category-grid" aria-label="StackRank categories">
+        <article class="category-card category-card--movies">
+          <div class="category-mosaic movie-mosaic" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <div class="category-copy">
+            <h2>Movies</h2>
+            <p>Build your personal movie ranking.</p>
+            <a class="category-cta" href="/movies">Open Movies</a>
+            <span id="home-movies-progress" class="category-progress">No rankings on this device yet</span>
+          </div>
+        </article>
+
+        <article class="category-card category-card--dogs">
+          <div class="category-mosaic dog-mosaic" aria-hidden="true">
+            <span><svg viewBox="0 0 96 82"><path d="M27 61c-2-14 1-29 10-40L30 9c-2-3 0-7 4-6l16 6c7-2 15-2 22 1L85 5c4-1 6 3 4 7l-8 13c6 10 8 22 5 35-2 10-10 17-21 18H47c-11-1-18-7-20-17Z"/></svg></span>
+            <span><svg viewBox="0 0 96 82"><path d="M27 61c-2-14 1-29 10-40L30 9c-2-3 0-7 4-6l16 6c7-2 15-2 22 1L85 5c4-1 6 3 4 7l-8 13c6 10 8 22 5 35-2 10-10 17-21 18H47c-11-1-18-7-20-17Z"/></svg></span>
+            <span><svg viewBox="0 0 96 82"><path d="M27 61c-2-14 1-29 10-40L30 9c-2-3 0-7 4-6l16 6c7-2 15-2 22 1L85 5c4-1 6 3 4 7l-8 13c6 10 8 22 5 35-2 10-10 17-21 18H47c-11-1-18-7-20-17Z"/></svg></span>
+            <span><svg viewBox="0 0 96 82"><path d="M27 61c-2-14 1-29 10-40L30 9c-2-3 0-7 4-6l16 6c7-2 15-2 22 1L85 5c4-1 6 3 4 7l-8 13c6 10 8 22 5 35-2 10-10 17-21 18H47c-11-1-18-7-20-17Z"/></svg></span>
+            <span><svg viewBox="0 0 96 82"><path d="M27 61c-2-14 1-29 10-40L30 9c-2-3 0-7 4-6l16 6c7-2 15-2 22 1L85 5c4-1 6 3 4 7l-8 13c6 10 8 22 5 35-2 10-10 17-21 18H47c-11-1-18-7-20-17Z"/></svg></span>
+            <span><svg viewBox="0 0 96 82"><path d="M27 61c-2-14 1-29 10-40L30 9c-2-3 0-7 4-6l16 6c7-2 15-2 22 1L85 5c4-1 6 3 4 7l-8 13c6 10 8 22 5 35-2 10-10 17-21 18H47c-11-1-18-7-20-17Z"/></svg></span>
+          </div>
+          <div class="category-copy">
+            <h2>Dogs</h2>
+            <p>Rank the dog breeds and types you love.</p>
+            <a class="category-cta" href="/dogs">Open Dogs</a>
+            <span id="home-dogs-progress" class="category-progress">No rankings on this device yet</span>
+          </div>
+        </article>
+      </section>
+
+      <aside class="books-preview">
+        <p>Books remains an experimental device-only preview.</p>
+        <a href="/books">Open Books preview</a>
+      </aside>
+    </main>
+
+    <footer class="family-footer"><a href="/privacy">Privacy &amp; credits</a></footer>
+    <script type="module" src="home.js?v=1"></script>
+  </body>
+</html>

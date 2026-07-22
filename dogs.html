@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en" data-stackrank-category="dogs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>StackRank Dogs — Rank the dog breeds you love</title>
+    <meta
+      name="description"
+      content="Rank dog breeds and types by choosing between them. StackRank finds your exact order, one comparison at a time."
+    />
+    <link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="canonical" href="https://www.stackrankapp.com/dogs" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="StackRank" />
+    <meta property="og:url" content="https://www.stackrankapp.com/dogs" />
+    <meta property="og:title" content="StackRank Dogs — Rank the dog breeds you love" />
+    <meta
+      property="og:description"
+      content="Build your exact ranking of dog breeds and types through quick head-to-head choices."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="StackRank Dogs — Rank the dog breeds you love" />
+    <meta
+      name="twitter:description"
+      content="Build your exact ranking of dog breeds and types through quick head-to-head choices."
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      href="https://fonts.gstatic.com/s/spacegrotesk/v22/V8mDoQDjQSkFtoMM3T6r8E7mPbF4C_k3HqU.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="dogs.css?v=6" />
+  </head>
+  <body>
+    <header class="dogs-header">
+      <a class="dogs-brand" href="/dogs" aria-label="StackRank Dogs home">STACKRANK</a>
+      <nav class="dogs-nav" aria-label="Dogs destinations">
+        <button type="button" data-destination="rank" aria-current="page">Rank</button>
+        <button type="button" data-destination="ranking">Ranking</button>
+        <button type="button" data-destination="you">You</button>
+      </nav>
+      <div class="dogs-header__actions">
+        <a href="/movies">Movies</a>
+        <button
+          id="dogs-settings-toggle"
+          class="icon-button"
+          type="button"
+          aria-label="Open Dogs settings"
+          aria-expanded="false"
+          aria-controls="dogs-settings"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z" />
+            <path d="M19.1 13.4c.04-.46.04-.92 0-1.38l1.75-1.36-1.8-3.12-2.06.83a7.8 7.8 0 0 0-1.2-.7L15.48 5h-3.6l-.32 2.67c-.42.2-.82.43-1.2.7l-2.05-.83-1.8 3.12 1.74 1.36a8 8 0 0 0 0 1.38l-1.74 1.36 1.8 3.12 2.05-.83c.38.27.78.5 1.2.7l.32 2.67h3.6l.32-2.67c.42-.2.82-.43 1.2-.7l2.05.83 1.8-3.12-1.75-1.36Z" />
+          </svg>
+        </button>
+      </div>
+      <div id="dogs-settings" class="dogs-settings" hidden>
+        <div class="dogs-settings__intro">
+          <strong id="dogs-account-state">Dogs on this device</strong>
+          <span>Ranking and lists are kept separate from Movies and Books.</span>
+        </div>
+        <button id="dogs-sign-in" type="button" hidden>Sign in to sync Dogs</button>
+        <button id="dogs-sign-out" type="button" hidden>Sign out</button>
+        <button id="dogs-open-backup" type="button">Backup &amp; import</button>
+        <button id="dogs-open-export" type="button">Export ranking</button>
+        <button id="dogs-open-hidden" type="button">Manage Not for me</button>
+        <p id="dogs-remote-gate-note" class="dogs-settings__note">Account sync and public links stay off until the additive Dogs RLS contract is approved.</p>
+        <button id="dogs-clear" class="danger-link" type="button">Clear Dogs data</button>
+      </div>
+    </header>
+
+    <main class="dogs-app">
+      <section id="dogs-view-rank" class="dogs-view" data-view="rank">
+        <section class="rank-panel" aria-labelledby="dogs-rank-heading">
+          <h1 id="dogs-rank-heading">Rank dog breeds</h1>
+          <form id="dogs-search-form" role="search" autocomplete="off">
+            <label class="sr-only" for="dogs-search">Search dog breeds, types, and aliases</label>
+            <div class="search-control">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="10.5" cy="10.5" r="6.5" />
+                <path d="m15.5 15.5 5 5" />
+              </svg>
+              <input
+                id="dogs-search"
+                type="search"
+                role="combobox"
+                placeholder="Search breeds, types, and aliases"
+                aria-autocomplete="list"
+                aria-controls="dogs-suggestions"
+                aria-expanded="false"
+                aria-activedescendant=""
+              />
+            </div>
+            <ul id="dogs-suggestions" role="listbox" hidden></ul>
+          </form>
+          <p class="rank-panel__explanation">Pick any breed to start. We’ll place each one through quick head-to-head choices.</p>
+          <p id="dogs-catalog-status" class="catalog-status" role="status" aria-live="polite">Loading the breed catalog…</p>
+        </section>
+
+        <section id="dogs-recent-section" class="recent-panel" aria-labelledby="dogs-recent-heading" hidden>
+          <div class="section-heading-row">
+            <h2 id="dogs-recent-heading">Recently ranked</h2>
+            <button type="button" data-destination="ranking">Open ranking</button>
+          </div>
+          <div id="dogs-recent" class="recent-rail"></div>
+        </section>
+
+        <section class="dogs-discovery" aria-labelledby="dogs-packs-heading">
+          <div class="section-heading-row">
+            <div>
+              <h2 id="dogs-packs-heading">Start with a pack</h2>
+              <p>Globally varied starting points, never suitability advice.</p>
+            </div>
+            <button id="dogs-view-all-packs" type="button">View all dog packs <span aria-hidden="true">→</span></button>
+          </div>
+          <div id="dogs-featured-packs" class="featured-packs" aria-live="polite"></div>
+          <div id="dogs-discovery-fallback" class="catalog-fallback" hidden>
+            <h3>The full catalog is temporarily unavailable.</h3>
+            <p>Your saved ranking is still here. Reload to retry the catalog without risking your data.</p>
+            <button id="dogs-retry-catalog" type="button">Retry catalog</button>
+          </div>
+        </section>
+
+        <section id="dogs-browse-section" class="browse-panel" aria-labelledby="dogs-browse-heading" hidden>
+          <div class="section-heading-row">
+            <div>
+              <h2 id="dogs-browse-heading">Explore the catalog</h2>
+              <p>A few more selectable breeds and types from the pinned VBO release.</p>
+            </div>
+            <button id="dogs-refresh-browse" type="button">Show different breeds</button>
+          </div>
+          <div id="dogs-browse-rail" class="breed-rail"></div>
+        </section>
+      </section>
+
+      <section id="dogs-view-ranking" class="dogs-view" data-view="ranking" hidden>
+        <div class="ranking-heading">
+          <div>
+            <p class="section-label">Your ordered list</p>
+            <h1>My dog ranking</h1>
+            <p id="dogs-ranking-subtitle">No breeds ranked yet.</p>
+          </div>
+          <div class="ranking-heading__actions">
+            <button id="dogs-review-order" type="button" disabled>Review order</button>
+            <button type="button" data-destination="rank">Rank another</button>
+          </div>
+        </div>
+
+        <section class="ranking-tools" aria-label="Ranking display and filters">
+          <div class="ranking-view-switch" role="group" aria-label="Ranking view">
+            <button type="button" data-ranking-view="detailed" aria-pressed="true">Detailed</button>
+            <button type="button" data-ranking-view="photos" aria-pressed="false">Photos</button>
+            <button type="button" data-ranking-view="compact" aria-pressed="false">Compact</button>
+          </div>
+          <button id="dogs-filter-toggle" type="button" aria-expanded="false" aria-controls="dogs-filters">Display &amp; filters</button>
+          <button id="dogs-move-mode" type="button" aria-pressed="false">Move</button>
+        </section>
+        <div id="dogs-filters" class="ranking-filters" hidden>
+          <label>
+            Status
+            <select id="dogs-status-filter"><option value="">All statuses</option></select>
+          </label>
+          <label>
+            Region
+            <select id="dogs-region-filter"><option value="">All regions</option></select>
+          </label>
+          <label class="check-control">
+            <input id="dogs-image-filter" type="checkbox" />
+            Has approved display photo
+          </label>
+          <button id="dogs-clear-filters" type="button">Clear filters</button>
+        </div>
+        <p id="dogs-filter-note" class="filter-note" hidden>Reordering is disabled while filters are active.</p>
+
+        <ol id="dogs-ranking" class="dogs-ranking" aria-label="Dog ranking"></ol>
+        <div id="dogs-ranking-empty" class="ranking-empty">
+          <h2>Your first breed becomes #1.</h2>
+          <p>Add another and StackRank will find its exact place through a few quick choices.</p>
+          <button type="button" data-destination="rank">Find a breed</button>
+        </div>
+      </section>
+
+      <section id="dogs-view-you" class="dogs-view" data-view="you" hidden>
+        <div class="you-heading">
+          <p class="section-label">Patterns in this ranking</p>
+          <h1>You</h1>
+          <p>These are rank-weighted catalog patterns, not claims about you or about individual dogs.</p>
+        </div>
+        <div class="you-stats">
+          <article><span>Ranked</span><strong id="dogs-stat-count">0</strong></article>
+          <article><span>Top breed or type</span><strong id="dogs-stat-top">—</strong></article>
+          <article><span>Comparisons made</span><strong id="dogs-stat-comparisons">0</strong></article>
+          <article><span>Curious about</span><strong id="dogs-stat-curious">0</strong></article>
+        </div>
+        <section class="taste-panel" aria-labelledby="dogs-taste-heading">
+          <div class="section-heading-row">
+            <div>
+              <h2 id="dogs-taste-heading">Taste patterns</h2>
+              <p>Recurring, sourced catalog signals near the top of your list.</p>
+            </div>
+          </div>
+          <div id="dogs-taste-signals" class="taste-signals"></div>
+          <p id="dogs-taste-empty">Rank at least five breeds to reveal careful patterns.</p>
+        </section>
+        <section class="list-panel" aria-labelledby="dogs-curious-heading">
+          <div class="section-heading-row">
+            <div>
+              <h2 id="dogs-curious-heading">Curious about</h2>
+              <p>Breeds and types you want to remember without ranking yet.</p>
+            </div>
+          </div>
+          <div id="dogs-curious-list" class="secondary-list"></div>
+          <p id="dogs-curious-empty">Nothing saved here yet.</p>
+        </section>
+      </section>
+    </main>
+
+    <section id="dogs-comparison" class="comparison" aria-labelledby="dogs-comparison-heading" hidden>
+      <div class="comparison__topbar">
+        <div class="comparison__brand"><strong>STACKRANK</strong><span>Dogs</span></div>
+        <div>
+          <span id="dogs-comparison-progress">Placing this breed</span>
+          <h1 id="dogs-comparison-heading">Which one do you love more?</h1>
+        </div>
+        <button id="dogs-cancel-comparison" type="button">Cancel ranking</button>
+      </div>
+      <div class="comparison__choices">
+        <button id="dogs-new-choice" class="comparison-card" type="button"></button>
+        <div class="comparison__or" aria-hidden="true"><span>OR</span></div>
+        <button id="dogs-existing-choice" class="comparison-card" type="button"></button>
+      </div>
+      <div class="comparison__footer">
+        <button id="dogs-undo-choice" type="button" hidden>Undo last choice</button>
+        <p>Choose the breed you’d rank higher.</p>
+      </div>
+    </section>
+
+    <section id="dogs-review" class="comparison review" aria-labelledby="dogs-review-heading" hidden>
+      <div class="comparison__topbar">
+        <div class="comparison__brand"><strong>STACKRANK</strong><span>Dogs</span></div>
+        <div>
+          <span id="dogs-review-progress">Reviewing your order</span>
+          <h1 id="dogs-review-heading">Does this order still feel right?</h1>
+        </div>
+        <button id="dogs-end-review" type="button">End review</button>
+      </div>
+      <div class="comparison__choices review__choices">
+        <article id="dogs-review-first" class="comparison-card is-static"></article>
+        <div class="comparison__or" aria-hidden="true"><span>ABOVE</span></div>
+        <article id="dogs-review-second" class="comparison-card is-static"></article>
+      </div>
+      <div class="review__actions">
+        <button id="dogs-review-keep" type="button">Keep this order</button>
+        <button id="dogs-review-swap" type="button">Swap them</button>
+      </div>
+    </section>
+
+    <dialog id="dogs-detail" class="dogs-dialog detail-dialog">
+      <form method="dialog" class="dialog-close-form"><button aria-label="Close breed details">×</button></form>
+      <div id="dogs-detail-content"></div>
+    </dialog>
+
+    <dialog id="dogs-packs-dialog" class="dogs-dialog packs-dialog">
+      <form method="dialog" class="dialog-close-form"><button aria-label="Close dog packs">×</button></form>
+      <div class="dialog-heading">
+        <p class="section-label">Explore</p>
+        <h1>Dog packs</h1>
+        <p>Editorial starting points grounded in catalog status and provenance—not suitability claims.</p>
+      </div>
+      <div class="pack-browser-tools">
+        <label>
+          Search packs
+          <input id="dogs-pack-search" type="search" placeholder="Search titles and breed names" />
+        </label>
+        <label>
+          Family
+          <select id="dogs-pack-family"><option value="">All families</option></select>
+        </label>
+      </div>
+      <div id="dogs-pack-browser" class="pack-browser"></div>
+    </dialog>
+
+    <dialog id="dogs-hidden-dialog" class="dogs-dialog list-dialog">
+      <form method="dialog" class="dialog-close-form"><button aria-label="Close Not for me list">×</button></form>
+      <div class="dialog-heading">
+        <p class="section-label">Secondary list</p>
+        <h1>Not for me</h1>
+        <p>These breeds stay out of discovery until you move or remove them.</p>
+      </div>
+      <div id="dogs-hidden-list" class="secondary-list"></div>
+      <p id="dogs-hidden-empty">Nothing hidden.</p>
+    </dialog>
+
+    <dialog id="dogs-backup-dialog" class="dogs-dialog utility-dialog">
+      <form method="dialog" class="dialog-close-form"><button aria-label="Close backup and import">×</button></form>
+      <div class="dialog-heading">
+        <p class="section-label">Keep your ranking safe</p>
+        <h1>Backup &amp; import</h1>
+        <p>Dogs backups are category-bound and cannot overwrite Movies or Books data.</p>
+      </div>
+      <div class="utility-actions">
+        <button id="dogs-download-backup" type="button">Download Dogs backup</button>
+        <button id="dogs-restore-backup" type="button">Restore Dogs backup</button>
+        <input id="dogs-restore-file" type="file" accept="application/json,.json" hidden />
+      </div>
+      <form id="dogs-import-form" class="import-form">
+        <label for="dogs-import-text">Import names or aliases, one per line</label>
+        <textarea id="dogs-import-text" rows="8" placeholder="Akita Inu&#10;Xoloitzcuintli&#10;Saluki"></textarea>
+        <p>Exact canonical or alias matches are added in this order. Ambiguous or unmatched lines are reported without changing your list.</p>
+        <button type="submit">Review import</button>
+      </form>
+      <div id="dogs-import-review" class="import-review" hidden></div>
+    </dialog>
+
+    <dialog id="dogs-export-dialog" class="dogs-dialog utility-dialog">
+      <form method="dialog" class="dialog-close-form"><button aria-label="Close ranking export">×</button></form>
+      <div class="dialog-heading">
+        <p class="section-label">Share without artwork</p>
+        <h1>Export ranking</h1>
+        <p>Text, Markdown, and JSON are always available. Public links appear when account persistence is enabled; photography and raster exports keep separate rights gates.</p>
+      </div>
+      <div class="utility-actions">
+        <button type="button" data-export-format="text">Download text</button>
+        <button type="button" data-export-format="markdown">Download Markdown</button>
+        <button type="button" data-export-format="json">Download JSON</button>
+      </div>
+      <section id="dogs-public-share" class="dogs-public-share" hidden aria-labelledby="dogs-public-share-heading">
+        <div>
+          <p class="section-label">Signed-in snapshot</p>
+          <h2 id="dogs-public-share-heading">Public Dogs link</h2>
+          <p>A read-only snapshot. Future changes stay private until you update it.</p>
+        </div>
+        <div class="utility-actions">
+          <button id="dogs-share-publish" type="button">Publish snapshot</button>
+          <button id="dogs-share-update" type="button" hidden>Update snapshot</button>
+          <button id="dogs-share-copy" type="button" hidden>Copy link</button>
+          <button id="dogs-share-revoke" type="button" hidden>Revoke link</button>
+        </div>
+        <div id="dogs-share-link-card" class="dogs-share-link-card" hidden>
+          <a id="dogs-share-link-url" href=""></a>
+        </div>
+        <p id="dogs-share-status" class="dogs-share-status" role="status" aria-live="polite"></p>
+      </section>
+      <pre id="dogs-export-preview" tabindex="0"></pre>
+    </dialog>
+
+    <dialog id="dogs-signin-dialog" class="dogs-dialog utility-dialog dogs-signin-dialog">
+      <form method="dialog" class="dialog-close-form"><button aria-label="Close sign in">×</button></form>
+      <div class="dialog-heading">
+        <p class="section-label">One StackRank account</p>
+        <h1>Sign in to sync Dogs</h1>
+        <p>Your Dogs ranking stays separate from Movies while using the same account session.</p>
+      </div>
+      <div id="dogs-signin-providers" class="dogs-signin-providers" hidden>
+        <button id="dogs-signin-google" type="button" hidden>Continue with Google</button>
+        <button id="dogs-signin-apple" type="button" hidden>Continue with Apple</button>
+      </div>
+      <form id="dogs-signin-email-form" class="dogs-signin-email-form">
+        <label for="dogs-signin-email">Email address</label>
+        <div>
+          <input id="dogs-signin-email" type="email" inputmode="email" autocomplete="email" required />
+          <button id="dogs-signin-send" type="submit">Email me a sign-in link</button>
+        </div>
+      </form>
+      <p id="dogs-signin-status" class="dogs-signin-status" role="status" aria-live="polite"></p>
+      <p class="dogs-settings__note">By continuing, you agree to the <a href="/privacy">privacy policy</a>.</p>
+    </dialog>
+
+    <div id="dogs-toast" class="dogs-toast" role="status" aria-live="polite" hidden>
+      <span id="dogs-toast-message"></span>
+      <button id="dogs-toast-action" type="button" hidden>Undo</button>
+    </div>
+    <div id="dogs-live-region" class="sr-only" aria-live="assertive"></div>
+
+    <footer class="dogs-footer">
+      <p>
+        Catalog identity comes from the
+        <a href="https://obofoundry.org/ontology/vbo.html" target="_blank" rel="noreferrer">Vertebrate Breed Ontology</a>
+        (CC BY 4.0). Breed preference is not advice about an individual dog.
+      </p>
+      <div>
+        <a href="/privacy">Privacy</a>
+        <button id="dogs-open-credits" type="button">Catalog &amp; photo credits</button>
+      </div>
+    </footer>
+
+    <script type="module" src="dogs.js?v=16"></script>
+  </body>
+</html>

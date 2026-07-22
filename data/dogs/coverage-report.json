@@ -1,0 +1,235 @@
+{
+  "schemaVersion": 1,
+  "catalogVersion": "vbo-2026-04-15.2",
+  "source": {
+    "release": "2026-04-15",
+    "rootId": "VBO:0400024",
+    "sha256": "511bb27d7581bfb8bccf69583c8ac0e3c12de4fdecaf0a8649abfcbfc5ed4da1",
+    "hashVerified": true
+  },
+  "sourceTermCount": 1537,
+  "classifiedTermCount": 1537,
+  "unclassifiedTermCount": 0,
+  "dispositionCounts": {
+    "alias": 294,
+    "canonical": 877,
+    "crossbreed": 139,
+    "excluded": 4,
+    "historical": 36,
+    "variety": 187
+  },
+  "reasonCodeCounts": {
+    "curated_country_duplicate": 47,
+    "curated_country_variety": 2,
+    "curated_historical_breed": 36,
+    "curated_historical_registry_name": 5,
+    "curated_historical_synonym": 1,
+    "curated_identity_anchor": 13,
+    "curated_legacy_format_synonym": 4,
+    "curated_mixed_breed_concept": 1,
+    "curated_mixed_breed_synonym": 1,
+    "curated_mixed_breed_umbrella": 1,
+    "curated_ontology_parent_correction": 1,
+    "curated_registry_group_label": 1,
+    "curated_registry_synonym": 162,
+    "curated_registry_variety": 19,
+    "curated_unspecified_registry_name": 4,
+    "curated_variant_family_anchor": 8,
+    "curated_wolfdog_type": 1,
+    "non_domestic_canid": 2,
+    "organization_name_not_breed": 1,
+    "research_population_not_consumer_breed_type": 1,
+    "vbo_direct_dog_breed": 854,
+    "vbo_exact_synonym_cluster": 68,
+    "vbo_mixed_breed_descendant": 138,
+    "vbo_nested_breed_concept": 166
+  },
+  "sourceDepthCounts": {
+    "1": 1210,
+    "2": 319,
+    "3": 8
+  },
+  "selectableEntityCount": 1239,
+  "runtimeEntityCount": 1239,
+  "runtimeBytes": 697034,
+  "largestRecordBytes": 848,
+  "payloadLimits": {
+    "runtimeBytes": 2000000,
+    "recordBytes": 16384
+  },
+  "excludedTerms": [
+    {
+      "vboId": "VBO:0008055",
+      "sourceLabel": "Magyarországi Drótszőrű Magyarvizsla Tenyésztők Egyesülete, Hungary (Dog)",
+      "reasonCode": "organization_name_not_breed"
+    },
+    {
+      "vboId": "VBO:0200729",
+      "sourceLabel": "Jackal (Dog)",
+      "reasonCode": "non_domestic_canid"
+    },
+    {
+      "vboId": "VBO:0200929",
+      "sourceLabel": "Navasota Mixed Breed (Dog)",
+      "reasonCode": "research_population_not_consumer_breed_type"
+    },
+    {
+      "vboId": "VBO:0201429",
+      "sourceLabel": "Wolf (Dog)",
+      "reasonCode": "non_domestic_canid"
+    }
+  ],
+  "historicalTerms": [
+    {
+      "vboId": "VBO:0200020",
+      "sourceLabel": "Alaunt (Dog)"
+    },
+    {
+      "vboId": "VBO:0200025",
+      "sourceLabel": "Alpine Mastiff (Dog)"
+    },
+    {
+      "vboId": "VBO:0200071",
+      "sourceLabel": "Argentine Polar Dog (Dog)"
+    },
+    {
+      "vboId": "VBO:0200080",
+      "sourceLabel": "Aryan Molossus (Dog)"
+    },
+    {
+      "vboId": "VBO:0200181",
+      "sourceLabel": "Blue Paul Terrier (Dog)"
+    },
+    {
+      "vboId": "VBO:0200260",
+      "sourceLabel": "Bullenbeisser (Dog)"
+    },
+    {
+      "vboId": "VBO:0200337",
+      "sourceLabel": "Chien-gris (Dog)"
+    },
+    {
+      "vboId": "VBO:0200355",
+      "sourceLabel": "Chiribaya Dog (Dog)"
+    },
+    {
+      "vboId": "VBO:0200385",
+      "sourceLabel": "Cordoba Fighting Dog (Dog)"
+    },
+    {
+      "vboId": "VBO:0200394",
+      "sourceLabel": "Cumberland Sheepdog (Dog)"
+    },
+    {
+      "vboId": "VBO:0200425",
+      "sourceLabel": "Dalbo Dog (Dog)"
+    },
+    {
+      "vboId": "VBO:0200446",
+      "sourceLabel": "Dogo Cubano (Dog)"
+    },
+    {
+      "vboId": "VBO:0200455",
+      "sourceLabel": "Dumfriesshire Black and Tan Foxhound (Dog)"
+    },
+    {
+      "vboId": "VBO:0200501",
+      "sourceLabel": "English White Terrier (Dog)"
+    },
+    {
+      "vboId": "VBO:0200556",
+      "sourceLabel": "Fuegian Dog (Dog)"
+    },
+    {
+      "vboId": "VBO:0200653",
+      "sourceLabel": "Halls Heeler (Dog)"
+    },
+    {
+      "vboId": "VBO:0200657",
+      "sourceLabel": "Hare Indian Dog (Dog)"
+    },
+    {
+      "vboId": "VBO:0200664",
+      "sourceLabel": "Hawaiian Poi Dog (Dog)"
+    },
+    {
+      "vboId": "VBO:0200792",
+      "sourceLabel": "Kurī (Dog)"
+    },
+    {
+      "vboId": "VBO:0200866",
+      "sourceLabel": "Marquesan Dog (Dog)"
+    },
+    {
+      "vboId": "VBO:0200903",
+      "sourceLabel": "Molossus (Dog)"
+    },
+    {
+      "vboId": "VBO:0200904",
+      "sourceLabel": "Molossus of Epirus (Dog)"
+    },
+    {
+      "vboId": "VBO:0200944",
+      "sourceLabel": "Norfolk Spaniel (Dog)"
+    },
+    {
+      "vboId": "VBO:0200950",
+      "sourceLabel": "North Country Beagle (Dog)"
+    },
+    {
+      "vboId": "VBO:0200965",
+      "sourceLabel": "Old Croatian Sighthound (Dog)"
+    },
+    {
+      "vboId": "VBO:0200970",
+      "sourceLabel": "Old English Terrier (Dog)"
+    },
+    {
+      "vboId": "VBO:0200972",
+      "sourceLabel": "Old Spanish Pointer (Dog)"
+    },
+    {
+      "vboId": "VBO:0200984",
+      "sourceLabel": "Pampas Deerhound (Dog)"
+    },
+    {
+      "vboId": "VBO:0201170",
+      "sourceLabel": "Salish Wool Dog (Dog)"
+    },
+    {
+      "vboId": "VBO:0201270",
+      "sourceLabel": "Southern Hound (Dog)"
+    },
+    {
+      "vboId": "VBO:0201329",
+      "sourceLabel": "Tahltan (Dog)"
+    },
+    {
+      "vboId": "VBO:0201333",
+      "sourceLabel": "Talbot Hound (Dog)"
+    },
+    {
+      "vboId": "VBO:0201346",
+      "sourceLabel": "Tesem (Dog)"
+    },
+    {
+      "vboId": "VBO:0201367",
+      "sourceLabel": "Toy Trawler Spaniel (Dog)"
+    },
+    {
+      "vboId": "VBO:0201377",
+      "sourceLabel": "Turnspit Dog (Dog)"
+    },
+    {
+      "vboId": "VBO:0201378",
+      "sourceLabel": "Tweed Water Spaniel (Dog)"
+    }
+  ],
+  "checks": {
+    "allSourceTermsClassified": true,
+    "exactlyOneDispositionPerSourceTerm": true,
+    "aliasTargetsResolved": true,
+    "relationshipCyclesAbsent": true,
+    "generatedDeterministically": true
+  }
+}

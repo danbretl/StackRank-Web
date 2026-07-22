@@ -1,0 +1,457 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.stackrankapp.com/schemas/dogs/artwork-rights-v1.json",
+  "title": "StackRank Dogs artwork rights ledger",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "ledgerVersion",
+    "catalogVersion",
+    "policyVersion",
+    "storagePrefix",
+    "publicAssetBaseUrl",
+    "updatedAt",
+    "assets"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "ledgerVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "catalogVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "policyVersion": {
+      "type": "string",
+      "minLength": 1
+    },
+    "storagePrefix": {
+      "type": "string",
+      "pattern": "^dogs-catalog/[a-z0-9.-]+/$"
+    },
+    "publicAssetBaseUrl": {
+      "type": "string",
+      "pattern": "^https://[^/?#]+/storage/v1/object/public/$"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/asset"
+      }
+    }
+  },
+  "$defs": {
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assetId",
+        "catalogId",
+        "sourceProvider",
+        "sourcePage",
+        "sourcePageRevision",
+        "originalUrl",
+        "title",
+        "creator",
+        "creatorUrl",
+        "licenseId",
+        "license",
+        "licenseVersion",
+        "licenseUrl",
+        "sourceLicenseLabel",
+        "sourceLicenseUrl",
+        "sourceCredit",
+        "sourceAttributionRequired",
+        "attribution",
+        "retrievedAt",
+        "sourceSha256",
+        "sourceSha1",
+        "sourceMime",
+        "sourceBytes",
+        "sourceWidth",
+        "sourceHeight",
+        "modifications",
+        "review",
+        "uiDisplayAllowed",
+        "publicSnapshotAllowed",
+        "rasterExportAllowed",
+        "delivery"
+      ],
+      "properties": {
+        "assetId": {
+          "type": "string",
+          "pattern": "^dogs:photo:[a-z0-9-]+:[a-f0-9]{16}$"
+        },
+        "catalogId": {
+          "type": "string",
+          "pattern": "^VBO:[0-9]{7}$"
+        },
+        "sourceProvider": {
+          "const": "wikimedia-commons"
+        },
+        "discoveredVia": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "provider",
+            "id",
+            "landingPage",
+            "retrievedAt"
+          ],
+          "properties": {
+            "provider": {
+              "const": "openverse"
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "landingPage": {
+              "type": "string",
+              "format": "uri"
+            },
+            "retrievedAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        "sourcePage": {
+          "type": "string",
+          "format": "uri"
+        },
+        "sourcePageRevision": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "timestamp"
+          ],
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "timestamp": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        },
+        "originalUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "creator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "creatorUrl": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        },
+        "licenseId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1
+        },
+        "licenseVersion": {
+          "type": "string",
+          "minLength": 1
+        },
+        "licenseUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "sourceLicenseLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sourceLicenseUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "sourceCredit": {
+          "type": "string"
+        },
+        "sourceAttributionRequired": {
+          "type": "boolean"
+        },
+        "publicDomainBasis": {
+          "type": "string",
+          "minLength": 1
+        },
+        "attribution": {
+          "type": "string",
+          "minLength": 1
+        },
+        "retrievedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "sourceSha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "sourceSha1": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "sourceMime": {
+          "enum": [
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+          ]
+        },
+        "sourceBytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 52428800
+        },
+        "sourceWidth": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sourceHeight": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "modifications": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "none",
+              "crop",
+              "resize",
+              "orientation normalization",
+              "webp conversion"
+            ]
+          }
+        },
+        "review": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "reviewedAt",
+            "reviewedBy",
+            "rightsNotes",
+            "subjectMatchesCatalog",
+            "nonCopyrightRestrictionsReviewed"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "pending",
+                "approved",
+                "quarantined",
+                "retired"
+              ]
+            },
+            "reviewedAt": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            },
+            "reviewedBy": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "rightsNotes": {
+              "type": "string"
+            },
+            "subjectMatchesCatalog": {
+              "type": "boolean"
+            },
+            "nonCopyrightRestrictionsReviewed": {
+              "type": "boolean"
+            }
+          }
+        },
+        "uiDisplayAllowed": {
+          "type": "boolean"
+        },
+        "publicSnapshotAllowed": {
+          "type": "boolean"
+        },
+        "rasterExportAllowed": {
+          "type": "boolean"
+        },
+        "rasterCompliance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "attributionEmbedded",
+            "licenseLinkEmbedded",
+            "modificationsEmbedded",
+            "adapterLicense",
+            "shareAlikeNoticeEmbedded"
+          ],
+          "properties": {
+            "attributionEmbedded": {
+              "const": true
+            },
+            "licenseLinkEmbedded": {
+              "const": true
+            },
+            "modificationsEmbedded": {
+              "const": true
+            },
+            "adapterLicense": {
+              "type": "string",
+              "minLength": 1
+            },
+            "shareAlikeNoticeEmbedded": {
+              "type": "boolean"
+            }
+          }
+        },
+        "shareAlikeCompliance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "adapterLicenseId",
+            "adapterLicenseUrl",
+            "modificationsDisclosed",
+            "attributionSurface",
+            "noAdditionalRestrictions"
+          ],
+          "properties": {
+            "adapterLicenseId": {
+              "type": "string",
+              "minLength": 1
+            },
+            "adapterLicenseUrl": {
+              "type": "string",
+              "format": "uri"
+            },
+            "modificationsDisclosed": {
+              "const": true
+            },
+            "attributionSurface": {
+              "const": "detail-and-credits"
+            },
+            "noAdditionalRestrictions": {
+              "const": true
+            }
+          }
+        },
+        "attributionCompliance": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "attributionSurface",
+            "sourceLinkAvailable",
+            "licenseLinkAvailable",
+            "modificationsDisclosed"
+          ],
+          "properties": {
+            "attributionSurface": {
+              "const": "detail-and-credits"
+            },
+            "sourceLinkAvailable": {
+              "const": true
+            },
+            "licenseLinkAvailable": {
+              "const": true
+            },
+            "modificationsDisclosed": {
+              "const": true
+            }
+          }
+        },
+        "delivery": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "variants"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "not_ready",
+                "bundled_verified",
+                "uploaded_verified",
+                "retired"
+              ]
+            },
+            "variants": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "role",
+                  "width",
+                  "height",
+                  "mime",
+                  "bytes",
+                  "sha256",
+                  "objectPath"
+                ],
+                "properties": {
+                  "role": {
+                    "enum": [
+                      "card",
+                      "detail"
+                    ]
+                  },
+                  "width": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "height": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "mime": {
+                    "const": "image/webp"
+                  },
+                  "bytes": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "objectPath": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

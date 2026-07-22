@@ -4,6 +4,8 @@ import fs from "node:fs";
 const productionOrigin = "https://www.stackrankapp.com";
 const apexOrigin = "https://stackrankapp.com";
 const localIndex = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
+const localDogs = fs.readFileSync(new URL("../dogs.html", import.meta.url), "utf8");
+const localDogsShared = fs.readFileSync(new URL("../dogs-shared.html", import.meta.url), "utf8");
 const localShared = fs.readFileSync(new URL("../shared.html", import.meta.url), "utf8");
 const localApp = fs.readFileSync(new URL("../app.js", import.meta.url), "utf8");
 const vercelConfig = JSON.parse(
@@ -47,25 +49,32 @@ await expectRedirect("http://stackrankapp.com/", 308, "https://stackrankapp.com/
 await expectRedirect(`${apexOrigin}/`, 308, `${productionOrigin}/`);
 await expectRedirect(`${productionOrigin}/`, 307, "/movies");
 await expectRedirect(`${productionOrigin}/movies/`, 308, "/movies");
+await expectRedirect(`${productionOrigin}/dogs/`, 308, "/dogs");
 await expectRedirect(`${productionOrigin}/privacy/`, 308, "/privacy");
 
 const moviesResponse = await expectOk("/movies");
 const moviesHtml = await moviesResponse.text();
+const dogsResponse = await expectOk("/dogs");
+const dogsHtml = await dogsResponse.text();
 const privacyResponse = await expectOk("/privacy");
 const privacyHtml = await privacyResponse.text();
 const sharedResponse = await expectOk("/s/prodsmoke1");
 const sharedHtml = await sharedResponse.text();
+const dogsSharedResponse = await expectOk("/s/dogs/prodsmoke123");
+const dogsSharedHtml = await dogsSharedResponse.text();
 
 const configuredHeaders = Object.fromEntries(
   vercelConfig.headers[0].headers.map(({ key, value }) => [key.toLowerCase(), value]),
 );
 for (const [key, expected] of Object.entries(configuredHeaders)) {
   assert.equal(moviesResponse.headers.get(key), expected, `/movies ${key}`);
+  assert.equal(dogsResponse.headers.get(key), expected, `/dogs ${key}`);
   assert.equal(privacyResponse.headers.get(key), expected, `/privacy ${key}`);
   assert.equal(sharedResponse.headers.get(key), expected, `/s/prodsmoke1 ${key}`);
+  assert.equal(dogsSharedResponse.headers.get(key), expected, `/s/dogs/prodsmoke123 ${key}`);
 }
 assert.match(moviesResponse.headers.get("strict-transport-security") || "", /max-age=/);
-record("security headers match vercel.json on /movies, /privacy, and /s/:slug");
+record("security headers match vercel.json on /movies, /dogs, /privacy, and /s/:slug");
 
 const expectedCanonical = attribute(
   localIndex,
@@ -97,6 +106,21 @@ const expectedSharedModule = attribute(
   /<script\b[^>]*\btype=["']module["'][^>]*>/i,
   "src",
 );
+const expectedDogsCanonical = attribute(
+  localDogs,
+  /<link\b[^>]*\brel=["']canonical["'][^>]*>/i,
+  "href",
+);
+const expectedDogsCss = attribute(
+  localDogs,
+  /<link\b[^>]*\brel=["']stylesheet["'][^>]*>/i,
+  "href",
+);
+const expectedDogsModule = attribute(
+  localDogs,
+  /<script\b[^>]*\btype=["']module["'][^>]*>/i,
+  "src",
+);
 const expectedVendorModule = localApp.match(
   /from\s+["']\.\/(vendor\/supabase-js-2\.108\.2\.js\?v=\d+)["']/,
 )?.[1];
@@ -124,6 +148,26 @@ assert.equal(
 );
 record("canonical, social metadata, and cache-busted assets match the repository");
 
+assert.match(dogsHtml, /<html\b[^>]*\bdata-stackrank-category=["']dogs["']/i);
+assert.equal(
+  attribute(dogsHtml, /<link\b[^>]*\brel=["']canonical["'][^>]*>/i, "href"),
+  expectedDogsCanonical,
+);
+assert.equal(
+  attribute(dogsHtml, /<meta\b[^>]*\bproperty=["']og:title["'][^>]*>/i, "content"),
+  "StackRank Dogs — Rank the dog breeds you love",
+);
+assert.equal(
+  attribute(dogsHtml, /<link\b[^>]*\brel=["']stylesheet["'][^>]*>/i, "href"),
+  expectedDogsCss,
+);
+assert.equal(
+  attribute(dogsHtml, /<script\b[^>]*\btype=["']module["'][^>]*>/i, "src"),
+  expectedDogsModule,
+);
+assert.equal(attribute(dogsHtml, /<meta\b[^>]*\bname=["']robots["'][^>]*>/i, "content"), "");
+record("Dogs route serves public canonical metadata and cache-busted assets");
+
 assert.equal(
   attribute(sharedHtml, /<meta\b[^>]*\bproperty=["']og:title["'][^>]*>/i, "content"),
   "Shared StackRank movie list",
@@ -142,10 +186,38 @@ assert.equal(
 );
 record("shared-list route serves generic noindex metadata and cache-busted assets");
 
+const expectedDogsSharedCss = attribute(
+  localDogsShared,
+  /<link\b[^>]*\brel=["']stylesheet["'][^>]*>/i,
+  "href",
+);
+const expectedDogsSharedModule = attribute(
+  localDogsShared,
+  /<script\b[^>]*\btype=["']module["'][^>]*>/i,
+  "src",
+);
+assert.equal(
+  attribute(dogsSharedHtml, /<meta\b[^>]*\bname=["']robots["'][^>]*>/i, "content"),
+  "noindex, nofollow",
+);
+assert.equal(
+  attribute(dogsSharedHtml, /<script\b[^>]*\btype=["']module["'][^>]*>/i, "src"),
+  expectedDogsSharedModule,
+);
+assert.equal(
+  attribute(dogsSharedHtml, /<link\b[^>]*\brel=["']stylesheet["'][^>]*>/i, "href"),
+  expectedDogsSharedCss,
+);
+record("Dogs shared-list route preserves the distinct noindex category artifact");
+
 for (const asset of [
   expectedCss,
   expectedModule,
   expectedSharedModule,
+  expectedDogsCss,
+  expectedDogsModule,
+  expectedDogsSharedCss,
+  expectedDogsSharedModule,
   expectedVendorModule,
   "assets/favicon.ico",
   "assets/favicon.svg",
@@ -160,8 +232,16 @@ for (const asset of [
   expectedCss,
   expectedModule,
   expectedSharedModule,
+  expectedDogsCss,
+  expectedDogsModule,
+  expectedDogsSharedCss,
+  expectedDogsSharedModule,
   expectedVendorModule,
   "data/suggestion-packs.json?v=5",
+  "data/dogs/dog-catalog.json?v=3",
+  "data/dogs/packs.json?v=2",
+  "data/dogs/image-rights.json?v=4",
+  "data/dogs/artwork-license-policy.json?v=1",
 ]) {
   const response = await request(new URL(assetPath(asset), productionOrigin).toString());
   assert.equal(response.status, 200, `${asset} should return 200`);
@@ -172,6 +252,17 @@ for (const asset of [
   );
 }
 record("cache-busted app, vendor, CSS, and pack data are immutable");
+
+const dogCatalogResponse = await request(new URL("/data/dogs/dog-catalog.json?v=3", productionOrigin));
+const dogCatalog = await dogCatalogResponse.json();
+assert.equal(dogCatalog.catalogId, "stackrank-dogs");
+assert.equal(dogCatalog.entities?.length, 1239);
+assert.equal(dogCatalog.source?.release, "2026-04-15");
+const dogPacksResponse = await request(new URL("/data/dogs/packs.json?v=2", productionOrigin));
+const dogPacks = await dogPacksResponse.json();
+assert.equal(dogPacks.packs?.length, 46);
+assert.equal(dogPacks.packs?.filter((pack) => pack.placements?.includes("starter")).length, 3);
+record("Dogs production catalog and editorial packs match the validated release artifacts");
 
 const ogResponse = await request(expectedOgImage);
 assert.equal(ogResponse.status, 200, "Open Graph image should return 200");
@@ -191,7 +282,9 @@ assert.match(privacyHtml, /<link\b[^>]*\brel=["']canonical["'][^>]*\bhref=["']ht
 assert.match(privacyHtml, /This product uses the TMDB API but is not endorsed or certified by TMDB\./);
 assert.match(privacyHtml, /assets\/tmdb-logo\.svg/);
 assert.match(privacyHtml, /mailto:stackrank@danbretl\.com/);
-record("privacy controls and TMDB credits are present");
+assert.match(privacyHtml, /Dogs data is not yet included in account sync or public sharing/);
+assert.match(privacyHtml, /Vertebrate Breed Ontology/);
+record("privacy controls plus Movies, Books, and Dogs credits are present");
 
 const robotsResponse = await expectOk("/robots.txt");
 const robots = await robotsResponse.text();
@@ -202,6 +295,7 @@ assert.match(robots, /Sitemap: https:\/\/www\.stackrankapp\.com\/sitemap\.xml/);
 const sitemapResponse = await expectOk("/sitemap.xml");
 const sitemap = await sitemapResponse.text();
 assert.match(sitemap, /https:\/\/www\.stackrankapp\.com\/movies/);
+assert.match(sitemap, /https:\/\/www\.stackrankapp\.com\/dogs/);
 assert.match(sitemap, /https:\/\/www\.stackrankapp\.com\/privacy/);
 assert.doesNotMatch(sitemap, /\/s\//);
 record("robots.txt and sitemap.xml expose the canonical routes");

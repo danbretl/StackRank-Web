@@ -1,0 +1,1039 @@
+{
+  "schemaVersion": 1,
+  "catalogId": "stackrank-dogs",
+  "catalogVersion": "vbo-2026-04-15.2",
+  "editorialVersion": "2026-07-16.1",
+  "updatedAt": "2026-07-16",
+  "sources": [
+    {
+      "id": "akc-groups-2026",
+      "label": "American Kennel Club breeds by group",
+      "url": "https://www.akc.org/akc-breeds-by-group/",
+      "retrievedAt": "2026-07-16"
+    },
+    {
+      "id": "fci-nomenclature-2026",
+      "label": "Fédération Cynologique Internationale breeds nomenclature",
+      "url": "https://www.fci.be/en/Nomenclature/Default.aspx",
+      "retrievedAt": "2026-07-16"
+    },
+    {
+      "id": "vbo-2026-04-15",
+      "label": "Vertebrate Breed Ontology release 2026-04-15",
+      "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+      "retrievedAt": "2026-07-16"
+    }
+  ],
+  "packs": [
+    {
+      "id": "gateway-around-the-world",
+      "title": "Around the world",
+      "subtitle": "A first ranking across six regions",
+      "description": "Start with familiar and less-familiar breeds and types from a deliberately global mix.",
+      "family": "gateway",
+      "placements": ["starter", "featured", "browse"],
+      "promoted": true,
+      "diversityRegions": ["Africa", "Asia", "Europe", "North America", "South America", "Oceania"],
+      "items": [
+        "VBO:0200800",
+        "VBO:0201220",
+        "VBO:0200108",
+        "VBO:0200338",
+        "VBO:0201135",
+        "VBO:0200088",
+        "VBO:0201171",
+        "VBO:0200526",
+        "VBO:0201004"
+      ]
+    },
+    {
+      "id": "gateway-shapes-and-coats",
+      "title": "Shapes and coats",
+      "subtitle": "An image-forward first ranking",
+      "description": "Compare a globally varied set with sharply different outlines, proportions, and coat presentations.",
+      "family": "gateway",
+      "placements": ["starter", "featured", "browse"],
+      "promoted": true,
+      "diversityRegions": ["Africa", "Asia", "Europe", "North America"],
+      "items": [
+        "VBO:0200623",
+        "VBO:0200406",
+        "VBO:0201421",
+        "VBO:0201102",
+        "VBO:0200345",
+        "VBO:0200938",
+        "VBO:0201436",
+        "VBO:0200120",
+        "VBO:0201348"
+      ]
+    },
+    {
+      "id": "gateway-familiar-and-beyond",
+      "title": "Familiar and beyond",
+      "subtitle": "Recognizable names meet regional discoveries",
+      "description": "Begin with a broad mix spanning Africa, Asia, Europe, South America, and the Pacific.",
+      "family": "gateway",
+      "placements": ["starter", "featured", "browse"],
+      "promoted": true,
+      "diversityRegions": ["Africa", "Asia", "Europe", "South America", "Oceania"],
+      "items": [
+        "VBO:0200610",
+        "VBO:0200744",
+        "VBO:0200185",
+        "VBO:0200231",
+        "VBO:0200934",
+        "VBO:0201280",
+        "VBO:0200670",
+        "VBO:0200389",
+        "VBO:0200919"
+      ]
+    },
+    {
+      "id": "akc-sporting-group-sampler",
+      "title": "AKC Sporting Group sampler",
+      "subtitle": "One registry's Sporting Group",
+      "description": "A sampler using the American Kennel Club's Sporting Group designation; other registries organize breeds differently.",
+      "family": "sporting",
+      "placements": ["browse"],
+      "promoted": false,
+      "schemeAttribution": {
+        "sourceId": "akc-groups-2026",
+        "label": "American Kennel Club — Sporting Group",
+        "note": "A registry-specific sampler, not a universal classification."
+      },
+      "items": [
+        "VBO:0200800",
+        "VBO:0200610",
+        "VBO:0200583",
+        "VBO:0200238",
+        "VBO:0200326",
+        "VBO:0200528",
+        "VBO:0200705",
+        "VBO:0200964",
+        "VBO:0201389",
+        "VBO:0201401"
+      ]
+    },
+    {
+      "id": "akc-hound-group-sampler",
+      "title": "AKC Hound Group sampler",
+      "subtitle": "One registry's Hound Group",
+      "description": "A sampler using the American Kennel Club's Hound Group designation; other registries organize breeds differently.",
+      "family": "hound",
+      "placements": ["browse"],
+      "promoted": false,
+      "schemeAttribution": {
+        "sourceId": "akc-groups-2026",
+        "label": "American Kennel Club — Hound Group",
+        "note": "A registry-specific sampler, not a universal classification."
+      },
+      "items": [
+        "VBO:0200004",
+        "VBO:0200120",
+        "VBO:0200126",
+        "VBO:0200131",
+        "VBO:0200175",
+        "VBO:0200197",
+        "VBO:0200406",
+        "VBO:0200638",
+        "VBO:0201135",
+        "VBO:0201171"
+      ]
+    },
+    {
+      "id": "akc-working-group-sampler",
+      "title": "AKC Working Group sampler",
+      "subtitle": "One registry's Working Group",
+      "description": "A sampler using the American Kennel Club's Working Group designation; other registries organize breeds differently.",
+      "family": "working",
+      "placements": ["browse"],
+      "promoted": false,
+      "schemeAttribution": {
+        "sourceId": "akc-groups-2026",
+        "label": "American Kennel Club — Working Group",
+        "note": "A registry-specific sampler, not a universal classification."
+      },
+      "items": [
+        "VBO:0200010",
+        "VBO:0200017",
+        "VBO:0200161",
+        "VBO:0200210",
+        "VBO:0200261",
+        "VBO:0200442",
+        "VBO:0200623",
+        "VBO:0200629",
+        "VBO:0200938",
+        "VBO:0201143"
+      ]
+    },
+    {
+      "id": "akc-terrier-group-sampler",
+      "title": "AKC Terrier Group sampler",
+      "subtitle": "One registry's Terrier Group",
+      "description": "A sampler using the American Kennel Club's Terrier Group designation; other registries organize breeds differently.",
+      "family": "terrier",
+      "placements": ["browse"],
+      "promoted": false,
+      "schemeAttribution": {
+        "sourceId": "akc-groups-2026",
+        "label": "American Kennel Club — Terrier Group",
+        "note": "A registry-specific sampler, not a universal classification."
+      },
+      "items": [
+        "VBO:0200008",
+        "VBO:0200137",
+        "VBO:0200255",
+        "VBO:0200267",
+        "VBO:0200764",
+        "VBO:0200896",
+        "VBO:0201198",
+        "VBO:0201415",
+        "VBO:0201424",
+        "VBO:0200098"
+      ]
+    },
+    {
+      "id": "akc-toy-group-sampler",
+      "title": "AKC Toy Group sampler",
+      "subtitle": "One registry's Toy Group",
+      "description": "A sampler using the American Kennel Club's Toy Group designation; other registries organize breeds differently.",
+      "family": "toy-companion",
+      "placements": ["browse"],
+      "promoted": false,
+      "schemeAttribution": {
+        "sourceId": "akc-groups-2026",
+        "label": "American Kennel Club — Toy Group",
+        "note": "A registry-specific sampler, not a universal classification."
+      },
+      "items": [
+        "VBO:0200338",
+        "VBO:0200309",
+        "VBO:0200345",
+        "VBO:0200735",
+        "VBO:0200856",
+        "VBO:0200985",
+        "VBO:0200994",
+        "VBO:0201043",
+        "VBO:0201089",
+        "VBO:0201223"
+      ]
+    },
+    {
+      "id": "akc-non-sporting-group-sampler",
+      "title": "AKC Non-Sporting Group sampler",
+      "subtitle": "One registry's Non-Sporting Group",
+      "description": "A sampler using the American Kennel Club's Non-Sporting Group designation; other registries organize breeds differently.",
+      "family": "non-sporting",
+      "placements": ["browse"],
+      "promoted": false,
+      "schemeAttribution": {
+        "sourceId": "akc-groups-2026",
+        "label": "American Kennel Club — Non-Sporting Group",
+        "note": "A registry-specific sampler, not a universal classification."
+      },
+      "items": [
+        "VBO:0200163",
+        "VBO:0200204",
+        "VBO:0200361",
+        "VBO:0200427",
+        "VBO:0200526",
+        "VBO:0201455",
+        "VBO:0200759",
+        "VBO:0200824",
+        "VBO:0201056",
+        "VBO:0201220",
+        "VBO:0201436"
+      ]
+    },
+    {
+      "id": "akc-herding-group-sampler",
+      "title": "AKC Herding Group sampler",
+      "subtitle": "One registry's Herding Group",
+      "description": "A sampler using the American Kennel Club's Herding Group designation; other registries organize breeds differently.",
+      "family": "herding",
+      "placements": ["browse"],
+      "promoted": false,
+      "schemeAttribution": {
+        "sourceId": "akc-groups-2026",
+        "label": "American Kennel Club — Herding Group",
+        "note": "A registry-specific sampler, not a universal classification."
+      },
+      "items": [
+        "VBO:0200088",
+        "VBO:0200095",
+        "VBO:0200134",
+        "VBO:0200193",
+        "VBO:0200577",
+        "VBO:0200969",
+        "VBO:0200995",
+        "VBO:0200290",
+        "VBO:0201217",
+        "VBO:0201102"
+      ]
+    },
+    {
+      "id": "fci-group-1-sampler",
+      "title": "FCI Group 1 sampler",
+      "subtitle": "Sheepdogs and cattle dogs in the FCI scheme",
+      "description": "A sampler from FCI Group 1; registry nomenclature is named because group systems are not universal.",
+      "family": "herding",
+      "placements": ["browse"],
+      "promoted": false,
+      "schemeAttribution": {
+        "sourceId": "fci-nomenclature-2026",
+        "label": "FCI — Group 1",
+        "note": "A registry-specific sampler, not a universal classification."
+      },
+      "items": [
+        "VBO:0200147",
+        "VBO:0200208",
+        "VBO:0200234",
+        "VBO:0200136",
+        "VBO:0200158",
+        "VBO:0201035",
+        "VBO:0200463",
+        "VBO:0201181",
+        "VBO:0200921",
+        "VBO:0200392"
+      ]
+    },
+    {
+      "id": "fci-group-5-sampler",
+      "title": "FCI Group 5 sampler",
+      "subtitle": "Spitz and primitive types in the FCI scheme",
+      "description": "A sampler from FCI Group 5; registry nomenclature is named because group systems are not universal.",
+      "family": "spitz-primitive",
+      "placements": ["browse"],
+      "promoted": false,
+      "schemeAttribution": {
+        "sourceId": "fci-nomenclature-2026",
+        "label": "FCI — Group 5",
+        "note": "A registry-specific sampler, not a universal classification."
+      },
+      "items": [
+        "VBO:0200010",
+        "VBO:0200017",
+        "VBO:0200120",
+        "VBO:0200274",
+        "VBO:0200361",
+        "VBO:0200526",
+        "VBO:0200759",
+        "VBO:0201174",
+        "VBO:0201220",
+        "VBO:0201347"
+      ]
+    },
+    {
+      "id": "fci-group-10-sampler",
+      "title": "FCI Group 10 sampler",
+      "subtitle": "Sighthounds in the FCI scheme",
+      "description": "A sampler from FCI Group 10; registry nomenclature is named because group systems are not universal.",
+      "family": "sighthound",
+      "placements": ["browse"],
+      "promoted": false,
+      "schemeAttribution": {
+        "sourceId": "fci-nomenclature-2026",
+        "label": "FCI — Group 10",
+        "note": "A registry-specific sampler, not a universal classification."
+      },
+      "items": [
+        "VBO:0200004",
+        "VBO:0200108",
+        "VBO:0200197",
+        "VBO:0200638",
+        "VBO:0200706",
+        "VBO:0201171",
+        "VBO:0201195",
+        "VBO:0201242",
+        "VBO:0201421",
+        "VBO:0200713"
+      ]
+    },
+    {
+      "id": "sighthounds-across-regions",
+      "title": "Sighthounds across regions",
+      "subtitle": "A globally distributed historical family",
+      "description": "Compare sighthound concepts from Africa, Asia, and Europe without treating any registry scheme as universal.",
+      "family": "sighthound",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200108",
+        "VBO:0201171",
+        "VBO:0201242",
+        "VBO:0200920",
+        "VBO:0200354",
+        "VBO:0200751",
+        "VBO:0201032",
+        "VBO:0201123",
+        "VBO:0201331",
+        "VBO:0200557"
+      ]
+    },
+    {
+      "id": "scent-hound-traditions",
+      "title": "Scent-hound traditions",
+      "subtitle": "Hounds from several naming traditions",
+      "description": "A cross-registry editorial grouping of scent-hound breeds and regional hound concepts.",
+      "family": "scent-hound",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200131",
+        "VBO:0200175",
+        "VBO:0200126",
+        "VBO:0200980",
+        "VBO:0200168",
+        "VBO:0200183",
+        "VBO:0201132",
+        "VBO:0201374",
+        "VBO:0200667",
+        "VBO:0200709"
+      ]
+    },
+    {
+      "id": "spitz-and-northern-types",
+      "title": "Spitz and northern types",
+      "subtitle": "Distinct regional branches",
+      "description": "A broad editorial set of spitz and northern breed concepts from Europe, Asia, and North America.",
+      "family": "spitz-primitive",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0201174",
+        "VBO:0201233",
+        "VBO:0200017",
+        "VBO:0200955",
+        "VBO:0200526",
+        "VBO:0200692",
+        "VBO:0201316",
+        "VBO:0200953",
+        "VBO:0200636",
+        "VBO:0201347"
+      ]
+    },
+    {
+      "id": "primitive-and-pariah-types",
+      "title": "Primitive and pariah types",
+      "subtitle": "Catalog concepts from several regions",
+      "description": "Explore current catalog concepts often discussed through primitive, pariah, or ancient-type histories.",
+      "family": "spitz-primitive",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200120",
+        "VBO:0200274",
+        "VBO:0200934",
+        "VBO:0201016",
+        "VBO:0200688",
+        "VBO:0200365",
+        "VBO:0200695",
+        "VBO:0201348",
+        "VBO:0201436",
+        "VBO:0201004"
+      ]
+    },
+    {
+      "id": "livestock-guardian-histories",
+      "title": "Livestock guardian histories",
+      "subtitle": "Mountain and pastoral breed concepts",
+      "description": "A regional mix linked by documented livestock-guardian histories, presented without suitability claims.",
+      "family": "livestock-guardian",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200062",
+        "VBO:0200749",
+        "VBO:0200321",
+        "VBO:0200304",
+        "VBO:0200629",
+        "VBO:0200865",
+        "VBO:0200793",
+        "VBO:0200779",
+        "VBO:0201356",
+        "VBO:0201180"
+      ]
+    },
+    {
+      "id": "water-dog-histories",
+      "title": "Water-dog histories",
+      "subtitle": "Water dogs and water spaniels",
+      "description": "Compare catalog concepts whose names and histories connect them with water-dog traditions.",
+      "family": "water-dog",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0201077",
+        "VBO:0201280",
+        "VBO:0200705",
+        "VBO:0200550",
+        "VBO:0201137",
+        "VBO:0201048",
+        "VBO:0201419",
+        "VBO:0200059",
+        "VBO:0200500",
+        "VBO:0200283"
+      ]
+    },
+    {
+      "id": "retriever-histories",
+      "title": "Retriever histories",
+      "subtitle": "Current and predecessor concepts",
+      "description": "A mix of retriever breeds and cataloged predecessor concepts, with each item retaining its catalog status.",
+      "family": "sporting",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200800",
+        "VBO:0200610",
+        "VBO:0200326",
+        "VBO:0200528",
+        "VBO:0200397",
+        "VBO:0200964",
+        "VBO:0200396",
+        "VBO:0201166"
+      ]
+    },
+    {
+      "id": "pointers-and-setters",
+      "title": "Pointers and setters",
+      "subtitle": "A cross-registry sporting set",
+      "description": "An editorial comparison spanning pointer, setter, and closely related sporting breed names.",
+      "family": "sporting",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0201029",
+        "VBO:0200583",
+        "VBO:0201401",
+        "VBO:0201389",
+        "VBO:0200495",
+        "VBO:0200702",
+        "VBO:0200613",
+        "VBO:0200238",
+        "VBO:0200721",
+        "VBO:0200215"
+      ]
+    },
+    {
+      "id": "spaniel-names-and-histories",
+      "title": "Spaniel names and histories",
+      "subtitle": "A broad spaniel comparison",
+      "description": "Explore spaniel breeds across sporting, water, and regional naming traditions.",
+      "family": "sporting",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200497",
+        "VBO:0200372",
+        "VBO:0200486",
+        "VBO:0200059",
+        "VBO:0200705",
+        "VBO:0200366",
+        "VBO:0200519",
+        "VBO:0201309",
+        "VBO:0201411"
+      ]
+    },
+    {
+      "id": "herding-traditions-around-world",
+      "title": "Herding traditions around the world",
+      "subtitle": "Regional cattle and sheepdog concepts",
+      "description": "A geographically varied editorial set grounded in cataloged herding and cattle-dog histories.",
+      "family": "herding",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200090",
+        "VBO:0200782",
+        "VBO:0200683",
+        "VBO:0200935",
+        "VBO:0200193",
+        "VBO:0200134",
+        "VBO:0200969",
+        "VBO:0200088",
+        "VBO:0200995",
+        "VBO:0200290"
+      ]
+    },
+    {
+      "id": "mountain-draft-and-sled-histories",
+      "title": "Mountain, draft, and sled histories",
+      "subtitle": "Large working histories across climates",
+      "description": "Compare breeds associated in historical sources with mountain, draft, or sled work—not present-day suitability.",
+      "family": "working",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200161",
+        "VBO:0201160",
+        "VBO:0200938",
+        "VBO:0200819",
+        "VBO:0200631",
+        "VBO:0200502",
+        "VBO:0200068",
+        "VBO:0200017",
+        "VBO:0201233",
+        "VBO:0201174"
+      ]
+    },
+    {
+      "id": "giant-silhouettes",
+      "title": "Giant silhouettes",
+      "subtitle": "A visual comparison of large outlines",
+      "description": "An image-led set selected for contrasting large-scale silhouettes, not for household or handling advice.",
+      "family": "giant",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200623",
+        "VBO:0200706",
+        "VBO:0200819",
+        "VBO:0200938",
+        "VBO:0201160",
+        "VBO:0200867",
+        "VBO:0201351",
+        "VBO:0200197",
+        "VBO:0201195",
+        "VBO:0000670"
+      ]
+    },
+    {
+      "id": "small-companion-traditions",
+      "title": "Small companion traditions",
+      "subtitle": "Small breeds from several regions",
+      "description": "A globally varied set of small companion-breed traditions, framed as personal preference only.",
+      "family": "toy-companion",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200338",
+        "VBO:0200856",
+        "VBO:0200985",
+        "VBO:0200994",
+        "VBO:0201043",
+        "VBO:0200735",
+        "VBO:0201223",
+        "VBO:0200662",
+        "VBO:0200163",
+        "VBO:0201448"
+      ]
+    },
+    {
+      "id": "hairless-coat-concepts",
+      "title": "Hairless coat concepts",
+      "subtitle": "Breeds and cataloged varieties",
+      "description": "A visual set of hairless breeds and explicitly cataloged hairless or size varieties from several regions.",
+      "family": "coat-silhouette",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200049",
+        "VBO:0200002",
+        "VBO:0200346",
+        "VBO:0200475",
+        "VBO:0200650",
+        "VBO:0201004",
+        "VBO:0201436",
+        "VBO:0201439"
+      ]
+    },
+    {
+      "id": "corded-and-curly-coats",
+      "title": "Corded and curly coats",
+      "subtitle": "A coat-first visual set",
+      "description": "Compare distinct corded and curly coat presentations without inferring care needs or behavior.",
+      "family": "coat-silhouette",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0201102",
+        "VBO:0200779",
+        "VBO:0200154",
+        "VBO:0201048",
+        "VBO:0201137",
+        "VBO:0200550",
+        "VBO:0201077",
+        "VBO:0200705",
+        "VBO:0200163",
+        "VBO:0200137"
+      ]
+    },
+    {
+      "id": "rough-and-wire-coats",
+      "title": "Rough and wire coats",
+      "subtitle": "Texture across several breed families",
+      "description": "A visual comparison of catalog concepts known for rough or wire coat presentations.",
+      "family": "coat-silhouette",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0201424",
+        "VBO:0201198",
+        "VBO:0200267",
+        "VBO:0201415",
+        "VBO:0200008",
+        "VBO:0201427",
+        "VBO:0200602",
+        "VBO:0200721",
+        "VBO:0201185",
+        "VBO:0201240"
+      ]
+    },
+    {
+      "id": "long-and-low-silhouettes",
+      "title": "Long and low silhouettes",
+      "subtitle": "A visual study in proportion",
+      "description": "Compare breeds with long-and-low outlines across hound, herding, spaniel, and terrier histories.",
+      "family": "coat-silhouette",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200406",
+        "VBO:0200126",
+        "VBO:0200290",
+        "VBO:0200995",
+        "VBO:0200429",
+        "VBO:0201316",
+        "VBO:0200808",
+        "VBO:0201240",
+        "VBO:0201309"
+      ]
+    },
+    {
+      "id": "sleek-silhouettes",
+      "title": "Sleek silhouettes",
+      "subtitle": "Long lines across several histories",
+      "description": "An image-led comparison of streamlined outlines from several regions and breed families.",
+      "family": "coat-silhouette",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200638",
+        "VBO:0201421",
+        "VBO:0201171",
+        "VBO:0201242",
+        "VBO:0200108",
+        "VBO:0200442",
+        "VBO:0201016",
+        "VBO:0200688",
+        "VBO:0201348",
+        "VBO:0200713"
+      ]
+    },
+    {
+      "id": "regional-africa",
+      "title": "Across Africa",
+      "subtitle": "Regional and internationally known concepts",
+      "description": "A gateway to breed and type concepts connected with regions across the African continent.",
+      "family": "regional-history",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200007",
+        "VBO:0200083",
+        "VBO:0200108",
+        "VBO:0200120",
+        "VBO:0200185",
+        "VBO:0200389",
+        "VBO:0200476",
+        "VBO:0201135",
+        "VBO:0201242"
+      ]
+    },
+    {
+      "id": "regional-east-asia",
+      "title": "Across East Asia",
+      "subtitle": "Breed concepts from several countries",
+      "description": "A regional discovery set spanning Japanese, Korean, and Chinese breed histories.",
+      "family": "regional-history",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200010",
+        "VBO:0201220",
+        "VBO:0200671",
+        "VBO:0200747",
+        "VBO:0200774",
+        "VBO:0201225",
+        "VBO:0200744",
+        "VBO:0200735",
+        "VBO:0200361",
+        "VBO:0200351"
+      ]
+    },
+    {
+      "id": "regional-south-asia",
+      "title": "Across South Asia",
+      "subtitle": "Regional breeds and types",
+      "description": "A discovery set of catalog concepts connected with the Indian subcontinent and Himalayan regions.",
+      "family": "regional-history",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200354",
+        "VBO:0200751",
+        "VBO:0200778",
+        "VBO:0200920",
+        "VBO:0201122",
+        "VBO:0200670",
+        "VBO:0200695",
+        "VBO:0201123",
+        "VBO:0200110"
+      ]
+    },
+    {
+      "id": "regional-latin-america-caribbean",
+      "title": "Latin America and the Caribbean",
+      "subtitle": "Regional breed and type histories",
+      "description": "A discovery set spanning South America, Mexico, Venezuela, Uruguay, Argentina, Brazil, Peru, and Cuba.",
+      "family": "regional-history",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200231",
+        "VBO:0200520",
+        "VBO:0200445",
+        "VBO:0200364",
+        "VBO:0200919",
+        "VBO:0200338",
+        "VBO:0201436",
+        "VBO:0201004",
+        "VBO:0200662"
+      ]
+    },
+    {
+      "id": "regional-iberian-peninsula",
+      "title": "Across the Iberian Peninsula",
+      "subtitle": "Spanish and Portuguese histories",
+      "description": "A regional set spanning water dogs, hounds, mastiffs, and sheepdog concepts from Spain and Portugal.",
+      "family": "regional-history",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0201077",
+        "VBO:0201280",
+        "VBO:0201067",
+        "VBO:0201278",
+        "VBO:0000670",
+        "VBO:0200557",
+        "VBO:0200299",
+        "VBO:0200509",
+        "VBO:0200283"
+      ]
+    },
+    {
+      "id": "regional-britain-ireland",
+      "title": "Britain and Ireland",
+      "subtitle": "Breed histories across the isles",
+      "description": "A varied regional set spanning collies, hounds, spaniels, terriers, corgis, and companion breeds.",
+      "family": "regional-history",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200193",
+        "VBO:0200267",
+        "VBO:0200309",
+        "VBO:0200497",
+        "VBO:0200706",
+        "VBO:0200724",
+        "VBO:0200969",
+        "VBO:0201198",
+        "VBO:0201406",
+        "VBO:0201448"
+      ]
+    },
+    {
+      "id": "regional-northern-europe",
+      "title": "Across Northern Europe",
+      "subtitle": "Nordic and nearby breed histories",
+      "description": "A regional discovery set from the Nordic countries, Greenland, Denmark, Sweden, Finland, Norway, and Iceland.",
+      "family": "regional-history",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200526",
+        "VBO:0200955",
+        "VBO:0201316",
+        "VBO:0200692",
+        "VBO:0200953",
+        "VBO:0200523",
+        "VBO:0201315",
+        "VBO:0000663",
+        "VBO:0000661",
+        "VBO:0200636"
+      ]
+    },
+    {
+      "id": "regional-central-europe",
+      "title": "Across Central Europe",
+      "subtitle": "Breed histories across several countries",
+      "description": "A regional set spanning German, Hungarian, Swiss, and neighboring breed histories.",
+      "family": "regional-history",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200577",
+        "VBO:0200442",
+        "VBO:0201143",
+        "VBO:0200210",
+        "VBO:0200406",
+        "VBO:0201102",
+        "VBO:0200793",
+        "VBO:0200779",
+        "VBO:0200161",
+        "VBO:0200819"
+      ]
+    },
+    {
+      "id": "regional-balkans",
+      "title": "Across the Balkans",
+      "subtitle": "Regional shepherd, hound, and companion histories",
+      "description": "A discovery set of catalog concepts connected with countries and regions across the Balkans.",
+      "family": "regional-history",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0201356",
+        "VBO:0201180",
+        "VBO:0200758",
+        "VBO:0200392",
+        "VBO:0200427",
+        "VBO:0201207",
+        "VBO:0200709",
+        "VBO:0200710",
+        "VBO:0200906",
+        "VBO:0200667"
+      ]
+    },
+    {
+      "id": "regional-central-western-asia",
+      "title": "Central and Western Asia",
+      "subtitle": "Regional guardian and hound histories",
+      "description": "A broad regional set from Central Asia, the Caucasus, Anatolia, Afghanistan, and nearby traditions.",
+      "family": "regional-history",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200004",
+        "VBO:0200062",
+        "VBO:0200077",
+        "VBO:0200321",
+        "VBO:0200304",
+        "VBO:0200563",
+        "VBO:0200749",
+        "VBO:0007991",
+        "VBO:0201331",
+        "VBO:0201171"
+      ]
+    },
+    {
+      "id": "regional-oceania-pacific",
+      "title": "Oceania and the Pacific",
+      "subtitle": "Australian, New Zealand, and Pacific concepts",
+      "description": "A regional set spanning Australian working and terrier histories, New Zealand dogs, and Pacific concepts.",
+      "family": "regional-history",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200088",
+        "VBO:0200090",
+        "VBO:0200782",
+        "VBO:0200098",
+        "VBO:0201237",
+        "VBO:0201342",
+        "VBO:0200683",
+        "VBO:0200935",
+        "VBO:0200934",
+        "VBO:0200097"
+      ]
+    },
+    {
+      "id": "historical-catalog-concepts",
+      "title": "Historical catalog concepts",
+      "subtitle": "Preserved names, clearly labeled historical",
+      "description": "Historical concepts retained for discovery and ranking; none is presented here as a current breed.",
+      "family": "regional-history",
+      "placements": ["browse"],
+      "promoted": false,
+      "items": [
+        "VBO:0200020",
+        "VBO:0200025",
+        "VBO:0200071",
+        "VBO:0200181",
+        "VBO:0200394",
+        "VBO:0200501",
+        "VBO:0200792",
+        "VBO:0201170",
+        "VBO:0201377",
+        "VBO:0201378"
+      ]
+    },
+    {
+      "id": "crossbreeds-widely-used-names",
+      "title": "Crossbreeds: widely used names",
+      "subtitle": "Cataloged crossbreed concepts",
+      "description": "A sampler of widely used crossbreed names, each explicitly labeled as a crossbreed in the catalog.",
+      "family": "crossbreed",
+      "placements": ["browse"],
+      "promoted": false,
+      "crossbreedDisclosure": "Every item in this pack is a cataloged crossbreed concept; names do not predict an individual dog's traits.",
+      "items": [
+        "VBO:0200798",
+        "VBO:0200370",
+        "VBO:0200316",
+        "VBO:0201099",
+        "VBO:0201190",
+        "VBO:0200356",
+        "VBO:0201045",
+        "VBO:0200907",
+        "VBO:0201229",
+        "VBO:0201285"
+      ]
+    },
+    {
+      "id": "crossbreeds-poodle-cross-names",
+      "title": "Crossbreeds: poodle-cross names",
+      "subtitle": "A naming pattern in the catalog",
+      "description": "Compare cataloged poodle-cross names while keeping their crossbreed status visible.",
+      "family": "crossbreed",
+      "placements": ["browse"],
+      "promoted": false,
+      "crossbreedDisclosure": "Every item in this pack is a cataloged crossbreed concept; names do not predict an individual dog's traits.",
+      "items": [
+        "VBO:0200798",
+        "VBO:0200370",
+        "VBO:0200316",
+        "VBO:0201190",
+        "VBO:0200860",
+        "VBO:0201447",
+        "VBO:0201047",
+        "VBO:0201224",
+        "VBO:0200825",
+        "VBO:0200213"
+      ]
+    },
+    {
+      "id": "crossbreeds-small-companion-names",
+      "title": "Crossbreeds: small companion names",
+      "subtitle": "Cataloged crossbreed concepts",
+      "description": "A small-companion crossbreed sampler with status and naming context kept explicit.",
+      "family": "crossbreed",
+      "placements": ["browse"],
+      "promoted": false,
+      "crossbreedDisclosure": "Every item in this pack is a cataloged crossbreed concept; names do not predict an individual dog's traits.",
+      "items": [
+        "VBO:0201099",
+        "VBO:0200362",
+        "VBO:0201041",
+        "VBO:0200907",
+        "VBO:0200359",
+        "VBO:0200306",
+        "VBO:0200851",
+        "VBO:0201222",
+        "VBO:0200356",
+        "VBO:0201096"
+      ]
+    }
+  ]
+}

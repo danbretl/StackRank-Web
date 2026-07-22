@@ -7,15 +7,20 @@ project_id = "hrfhakrxsllrqmscxxpb"
 site_url = "https://www.stackrankapp.com/movies"
 additional_redirect_urls = [
   "https://www.stackrankapp.com/",
+  "https://www.stackrankapp.com/dogs",
   "https://stackrankapp.com/movies",
+  "https://stackrankapp.com/dogs",
   "https://stackrankapp.com/",
   "https://stackrank-*-danbretl-2590s-projects.vercel.app/**",
   "https://danbretl.github.io/StackRank-Web/",
   "http://localhost:8000/movies",
+  "http://localhost:8000/dogs",
   "http://localhost:8000/",
   "http://localhost:3000/movies",
+  "http://localhost:3000/dogs",
   "http://localhost:3000/",
   "http://192.168.4.31:8000/movies",
+  "http://192.168.4.31:8000/dogs",
   "http://192.168.4.31:8000/",
 ]
 jwt_expiry = 3600
@@ -71,4 +76,7 @@ verify_jwt = false
 verify_jwt = false
 
 [functions.tonight-pick]
+verify_jwt = false
+
+[functions.books-search]
 verify_jwt = false

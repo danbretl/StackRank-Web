@@ -1,0 +1,6424 @@
+{
+  "schemaVersion": 1,
+  "ledgerVersion": "2026-07-21.1",
+  "policyVersion": "2026-07-16.1",
+  "catalogVersion": "vbo-2026-04-15.2",
+  "sourceDates": {
+    "ledgerUpdatedAt": "2026-07-21",
+    "policyReviewedAt": "2026-07-16"
+  },
+  "catalog": {
+    "records": 1239,
+    "selectable": 1239,
+    "currentSelectable": 1203,
+    "currentCanonical": 877,
+    "promoted": 27,
+    "missingPromotedCatalogIds": []
+  },
+  "ledger": {
+    "rows": 28,
+    "approvedRightsRows": 0,
+    "pendingRows": 28,
+    "quarantinedRows": 0,
+    "readyDeliveryRows": 0,
+    "allRowsLicenseDistribution": {
+      "CC-BY-2.0": 4,
+      "CC-BY-SA-3.0": 12,
+      "CC-BY-SA-4.0": 11,
+      "CC0-1.0": 1
+    },
+    "approvedLicenseDistribution": {},
+    "allRowsSourceProviderDistribution": {
+      "wikimedia-commons": 28
+    },
+    "approvedSourceProviderDistribution": {}
+  },
+  "coverage": {
+    "uiDisplay": {
+      "selectableCovered": 0,
+      "selectableTotal": 1239,
+      "selectablePercent": 0,
+      "currentSelectableCovered": 0,
+      "currentSelectableTotal": 1203,
+      "currentSelectablePercent": 0,
+      "currentCanonicalCovered": 0,
+      "currentCanonicalTotal": 877,
+      "currentCanonicalPercent": 0,
+      "promotedCovered": 0,
+      "promotedTotal": 27,
+      "promotedPercent": 0
+    },
+    "publicSnapshot": {
+      "selectableCovered": 0,
+      "selectableTotal": 1239,
+      "selectablePercent": 0
+    },
+    "rasterExport": {
+      "selectableCovered": 0,
+      "selectableTotal": 1239,
+      "selectablePercent": 0
+    }
+  },
+  "launchChecks": {
+    "catalogLoaded": true,
+    "currentCanonicalUiCoverageMet": false,
+    "promotedUiCoverageMet": false,
+    "publicSnapshotGateReviewed": false,
+    "rasterExportGateReviewed": false
+  },
+  "launchReadyForUi": false,
+  "unresolvedUiArtworkSummary": {
+    "total": 1239,
+    "byReason": {
+      "human review pending": 28,
+      "no ledger row": 1211
+    },
+    "promotedTotal": 27
+  },
+  "promotedUnresolvedUiArtwork": [
+    {
+      "catalogId": "VBO:0200088",
+      "primaryText": "Australian Cattle Dog",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200108",
+      "primaryText": "Azawakh",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200120",
+      "primaryText": "Basenji",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200185",
+      "primaryText": "Boerboel",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200231",
+      "primaryText": "Brazilian Terrier",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200338",
+      "primaryText": "Chihuahua",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200345",
+      "primaryText": "Chinese Crested",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200389",
+      "primaryText": "Coton de Tulear",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200406",
+      "primaryText": "Dachshund",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200526",
+      "primaryText": "Finnish Spitz",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200610",
+      "primaryText": "Golden Retriever",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200623",
+      "primaryText": "Great Dane",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200670",
+      "primaryText": "Himalayan Sheepdog",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200744",
+      "primaryText": "Jindo",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200800",
+      "primaryText": "Labrador Retriever",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200919",
+      "primaryText": "Mucuchies",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200934",
+      "primaryText": "New Guinea Singing Dog",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200938",
+      "primaryText": "Newfoundland",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0201004",
+      "primaryText": "Peruvian Hairless Dog",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0201102",
+      "primaryText": "Puli",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0201135",
+      "primaryText": "Rhodesian Ridgeback",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0201171",
+      "primaryText": "Saluki",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0201220",
+      "primaryText": "Shiba Inu",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0201280",
+      "primaryText": "Spanish Water Dog",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0201348",
+      "primaryText": "Thai Ridgeback",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0201421",
+      "primaryText": "Whippet",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0201436",
+      "primaryText": "Xoloitzcuintli",
+      "reason": "human review pending"
+    }
+  ],
+  "unresolvedUiArtwork": [
+    {
+      "catalogId": "VBO:0000661",
+      "primaryText": "Broholmer",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0000663",
+      "primaryText": "Danish-Swedish Farmdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0000668",
+      "primaryText": "Old Danish Pointing Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0000670",
+      "primaryText": "Pyrenean Mastiff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0007991",
+      "primaryText": "Kazakhski Tobet",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008003",
+      "primaryText": "Bangladesh Indigenous Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008004",
+      "primaryText": "Sarail",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008005",
+      "primaryText": "Bulgarian Barak",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008006",
+      "primaryText": "Balgarsko ludogorsko gonche",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008011",
+      "primaryText": "Ca Mè Mallorquí",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008015",
+      "primaryText": "Can de Guicho",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008017",
+      "primaryText": "Euskal Artzain Txakurra (variedad Gorbeiakoa)",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008018",
+      "primaryText": "Euskal Artzain Txakurra (variedad Iletsua)",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008024",
+      "primaryText": "Perdigueiro Galego",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008028",
+      "primaryText": "Perro de Agua del Cantábrico",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008029",
+      "primaryText": "Podenco Andaluz",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008031",
+      "primaryText": "Podenco Galego",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008032",
+      "primaryText": "Podenco Paternino",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008049",
+      "primaryText": "Small Međimurje Dog (Međi)",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008063",
+      "primaryText": "Donggyeongi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008064",
+      "primaryText": "Jeju native dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008066",
+      "primaryText": "Boerenfox",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008086",
+      "primaryText": "Turkish Greyhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0008093",
+      "primaryText": "South African Greyhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200000",
+      "primaryText": "Aberdeen Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200001",
+      "primaryText": "Abruzzenhund",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200002",
+      "primaryText": "Abyssinian Sand Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200003",
+      "primaryText": "Affenpinscher",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200004",
+      "primaryText": "Afghan Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200005",
+      "primaryText": "African Boerboel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200006",
+      "primaryText": "African Wild Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200007",
+      "primaryText": "Africanis",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200008",
+      "primaryText": "Airedale Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200009",
+      "primaryText": "Akbash",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200010",
+      "primaryText": "Akita",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200011",
+      "primaryText": "Aksaray Malaklisi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200012",
+      "primaryText": "Alangu Mastiff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200013",
+      "primaryText": "Alano Español",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200014",
+      "primaryText": "Alapaha Blue Blood Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200015",
+      "primaryText": "Alaskan Husky",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200016",
+      "primaryText": "Alaskan Klee Kai",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200017",
+      "primaryText": "Alaskan Malamute",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200018",
+      "primaryText": "Alaskan Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200020",
+      "primaryText": "Alaunt",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200022",
+      "primaryText": "Alopekis",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200023",
+      "primaryText": "Alpine Dachsbracke",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200024",
+      "primaryText": "Alpine Drachsbracke",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200025",
+      "primaryText": "Alpine Mastiff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200027",
+      "primaryText": "American Akita",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200028",
+      "primaryText": "American Bandogge Mastiff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200029",
+      "primaryText": "American Black & Tan Coonhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200030",
+      "primaryText": "American Blue Gascon Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200031",
+      "primaryText": "American Brittany",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200033",
+      "primaryText": "American Bullador",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200034",
+      "primaryText": "American Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200035",
+      "primaryText": "American Bullnese",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200036",
+      "primaryText": "American Bully",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200037",
+      "primaryText": "American Cockapoo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200038",
+      "primaryText": "American Cocker Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200039",
+      "primaryText": "American Cocker Spaniel, Any Solid Colour Other Than Black (Ascob)",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200040",
+      "primaryText": "American Cocker Spaniel, Black",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200041",
+      "primaryText": "American Cocker Spaniel, Parti-Colour",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200042",
+      "primaryText": "American Coonhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200043",
+      "primaryText": "American Crested Sand Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200044",
+      "primaryText": "American Dingo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200045",
+      "primaryText": "American English Coonhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200046",
+      "primaryText": "American Eskimo Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200047",
+      "primaryText": "American Foxhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200049",
+      "primaryText": "American Hairless Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200050",
+      "primaryText": "American Lamalese",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200051",
+      "primaryText": "American Leopard Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200052",
+      "primaryText": "American Lo-Size Pugg",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200053",
+      "primaryText": "American Mastiff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200054",
+      "primaryText": "American Pit Bull Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200055",
+      "primaryText": "American Staffordshire Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200056",
+      "primaryText": "American Staghound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200058",
+      "primaryText": "American Tundra Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200059",
+      "primaryText": "American Water Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200061",
+      "primaryText": "Anatolian Karabash Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200062",
+      "primaryText": "Anatolian Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200063",
+      "primaryText": "Andalusian Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200064",
+      "primaryText": "Andalusian Mouse-Hunting Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200065",
+      "primaryText": "Anglo-Francais de Moyenne Venerie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200066",
+      "primaryText": "Anglo-Francais de Petite Venerie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200068",
+      "primaryText": "Appenzeller Sennenhund",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200070",
+      "primaryText": "Ardennes Cattle Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200071",
+      "primaryText": "Argentine Polar Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200074",
+      "primaryText": "Ariege Pointing Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200075",
+      "primaryText": "Ariegeois",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200077",
+      "primaryText": "Armenian Gampr Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200078",
+      "primaryText": "Artois Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200079",
+      "primaryText": "Arubian Cunucu Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200080",
+      "primaryText": "Aryan Molossus",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200081",
+      "primaryText": "Ashayeri Sage",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200082",
+      "primaryText": "Assyrian Mastiff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200083",
+      "primaryText": "Aidi (Atlas Mountain Dog)",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200085",
+      "primaryText": "Atlas Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200086",
+      "primaryText": "Australian Bandog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200087",
+      "primaryText": "Australian Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200088",
+      "primaryText": "Australian Cattle Dog",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200089",
+      "primaryText": "Australian Greyhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200090",
+      "primaryText": "Australian Kelpie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200091",
+      "primaryText": "Australian Koolie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200092",
+      "primaryText": "Australian Labradoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200093",
+      "primaryText": "Australian Rough-Coated Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200094",
+      "primaryText": "Australian Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200095",
+      "primaryText": "Australian Shepherd",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200097",
+      "primaryText": "Australian Stumpy Tail Cattle Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200098",
+      "primaryText": "Australian Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200100",
+      "primaryText": "Austrian Black and Tan Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200101",
+      "primaryText": "Austrian Brandlbracke",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200102",
+      "primaryText": "Austrian Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200103",
+      "primaryText": "Austrian Pinscher",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200104",
+      "primaryText": "Austrian Short-Haired Pinscher",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200105",
+      "primaryText": "Austrian Standard Pinscher",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200106",
+      "primaryText": "Auvergne Pointer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200107",
+      "primaryText": "Aylestone Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200108",
+      "primaryText": "Azawakh",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200110",
+      "primaryText": "Bakharwal Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200112",
+      "primaryText": "Balla Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200113",
+      "primaryText": "Bandog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200114",
+      "primaryText": "Banjara Greyhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200115",
+      "primaryText": "Banjara Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200116",
+      "primaryText": "Banter Bulldogge",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200117",
+      "primaryText": "Barak",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200118",
+      "primaryText": "Barbado da Terceira",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200120",
+      "primaryText": "Basenji",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200121",
+      "primaryText": "Basque Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200122",
+      "primaryText": "Basset",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200124",
+      "primaryText": "Basset Bleu de Gascogne",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200125",
+      "primaryText": "Basset Fauve de Bretagne",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200126",
+      "primaryText": "Basset Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200127",
+      "primaryText": "Basset Vendeen Griffon",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200128",
+      "primaryText": "Bassoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200129",
+      "primaryText": "Bavarian Mountain Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200130",
+      "primaryText": "Bavarian Mountain Scent Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200131",
+      "primaryText": "Beagle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200132",
+      "primaryText": "Beagle Harrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200133",
+      "primaryText": "Beaglier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200134",
+      "primaryText": "Bearded Collie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200136",
+      "primaryText": "Beauceron",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200137",
+      "primaryText": "Bedlington Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200138",
+      "primaryText": "Bedouin Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200139",
+      "primaryText": "Bekarwal Mastiff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200140",
+      "primaryText": "Belgian Draft Mastiff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200142",
+      "primaryText": "Belgian Mastiff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200144",
+      "primaryText": "Belgian Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200145",
+      "primaryText": "Belgian Shepherd Dog — Groenendael",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200146",
+      "primaryText": "Belgian Shepherd Dog — Laekenois",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200147",
+      "primaryText": "Belgian Shepherd Dog — Malinois",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200148",
+      "primaryText": "Belgian Shepherd Dog — Tervueren",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200149",
+      "primaryText": "Belgian Short-Haired Pointer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200150",
+      "primaryText": "Belgian Street Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200151",
+      "primaryText": "Belgian Wolfhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200152",
+      "primaryText": "Belgrade Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200154",
+      "primaryText": "Bergamasco Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200156",
+      "primaryText": "Berger de Savoie Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200158",
+      "primaryText": "Berger Picard",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200159",
+      "primaryText": "Berger Shetland",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200160",
+      "primaryText": "Bernese Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200161",
+      "primaryText": "Bernese Mountain Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200162",
+      "primaryText": "Bichon",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200163",
+      "primaryText": "Bichon Frise",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200165",
+      "primaryText": "Biewer Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200166",
+      "primaryText": "Billy",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200167",
+      "primaryText": "Bizanian Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200168",
+      "primaryText": "Black and Tan Coonhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200169",
+      "primaryText": "Black and Tan Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200170",
+      "primaryText": "Black Cocker Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200172",
+      "primaryText": "Black Mouth Cur",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200174",
+      "primaryText": "Black Russian Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200175",
+      "primaryText": "Bloodhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200176",
+      "primaryText": "Blue Cattle Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200178",
+      "primaryText": "Blue Gascony Griffon",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200180",
+      "primaryText": "Blue Lacy",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200181",
+      "primaryText": "Blue Paul Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200182",
+      "primaryText": "Blue Picardy Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200183",
+      "primaryText": "Bluetick Coonhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200184",
+      "primaryText": "Bochi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200185",
+      "primaryText": "Boerboel",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200186",
+      "primaryText": "Bohemian Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200188",
+      "primaryText": "Bohemian Wire-Haired Pointing Griffon",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200189",
+      "primaryText": "Bolognese",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200190",
+      "primaryText": "Bolonoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200191",
+      "primaryText": "Borador",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200192",
+      "primaryText": "Bordeaux Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200193",
+      "primaryText": "Border Collie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200194",
+      "primaryText": "Border Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200195",
+      "primaryText": "Borgi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200196",
+      "primaryText": "Borkie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200197",
+      "primaryText": "Borzoi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200201",
+      "primaryText": "Bosnian Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200202",
+      "primaryText": "Boston Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200203",
+      "primaryText": "Boston Jug",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200204",
+      "primaryText": "Boston Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200205",
+      "primaryText": "Bourbonnais Pointing Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200206",
+      "primaryText": "Bouvier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200208",
+      "primaryText": "Bouvier des Flandres",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200209",
+      "primaryText": "Boxador",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200210",
+      "primaryText": "Boxer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200211",
+      "primaryText": "Boxer, Brindle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200212",
+      "primaryText": "Boxer, Fawn",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200213",
+      "primaryText": "Boxerdoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200214",
+      "primaryText": "Boykin Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200215",
+      "primaryText": "Bracco Italiano",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200216",
+      "primaryText": "Bracco Italiano, Chestnut Roan",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200217",
+      "primaryText": "Bracco Italiano, White-Orange",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200218",
+      "primaryText": "Braque",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200219",
+      "primaryText": "Braque Belge",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200222",
+      "primaryText": "Braque Dupuy",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200223",
+      "primaryText": "Braque Francais",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200226",
+      "primaryText": "Braque Francais Pyrenean",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200228",
+      "primaryText": "Brazilian Bulldogge",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200230",
+      "primaryText": "Brazilian Molosser",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200231",
+      "primaryText": "Brazilian Terrier",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200232",
+      "primaryText": "Brazilian Tracker",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200233",
+      "primaryText": "Breed Not Listed Canine",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200234",
+      "primaryText": "Briard",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200235",
+      "primaryText": "Briquet Griffon Vendeen",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200237",
+      "primaryText": "British Wolfdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200238",
+      "primaryText": "Brittany",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200240",
+      "primaryText": "Bruno Jura Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200241",
+      "primaryText": "Brussels Griffon",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200243",
+      "primaryText": "Brussels, Standard Griffon",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200244",
+      "primaryText": "Buckhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200245",
+      "primaryText": "Bug",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200246",
+      "primaryText": "Bulgarian Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200247",
+      "primaryText": "Bulgarian Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200248",
+      "primaryText": "American Bull Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200249",
+      "primaryText": "Bull and Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200250",
+      "primaryText": "Bull Arab",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200251",
+      "primaryText": "Bull Boxer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200253",
+      "primaryText": "Bull Mastiff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200254",
+      "primaryText": "Bull Mastweiler",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200255",
+      "primaryText": "Bull Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200256",
+      "primaryText": "Bull-Pei",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200257",
+      "primaryText": "Bullador",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200258",
+      "primaryText": "Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200259",
+      "primaryText": "Bulldogge",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200260",
+      "primaryText": "Bullenbeisser",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200261",
+      "primaryText": "Bullmastiff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200262",
+      "primaryText": "Bully Kutta",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200264",
+      "primaryText": "Buryat-Mongolian Wolfhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200267",
+      "primaryText": "Cairn Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200268",
+      "primaryText": "Cairnoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200269",
+      "primaryText": "Cajun Squirrel Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200270",
+      "primaryText": "Calupoh",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200271",
+      "primaryText": "Campeiro Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200272",
+      "primaryText": "Can de Chira",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200273",
+      "primaryText": "Can de Palleiro",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200274",
+      "primaryText": "Canaan Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200275",
+      "primaryText": "Canadian Eskimo Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200279",
+      "primaryText": "Cane di Oropa",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200280",
+      "primaryText": "Cane Paratore",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200281",
+      "primaryText": "Canis Panther",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200282",
+      "primaryText": "Canoe Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200283",
+      "primaryText": "Cantabrian Water Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200285",
+      "primaryText": "Cao de Castro Laboreiro",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200286",
+      "primaryText": "Cão de Gado Transmontano",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200288",
+      "primaryText": "Capheaton Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200289",
+      "primaryText": "Caravan Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200290",
+      "primaryText": "Cardigan Welsh Corgi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200291",
+      "primaryText": "Carea Leonés",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200293",
+      "primaryText": "Carlin Pinscher",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200297",
+      "primaryText": "Catahoula Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200299",
+      "primaryText": "Catalan Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200300",
+      "primaryText": "Cattle Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200302",
+      "primaryText": "Caucasian Ovtcharka",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200303",
+      "primaryText": "Caucasian Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200304",
+      "primaryText": "Caucasian Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200305",
+      "primaryText": "Cavachi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200306",
+      "primaryText": "Cavachon",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200307",
+      "primaryText": "Cavador",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200308",
+      "primaryText": "Cavajack",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200309",
+      "primaryText": "Cavalier King Charles Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200310",
+      "primaryText": "Cavalier King Charles Spaniel, Black And Tan",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200311",
+      "primaryText": "Cavalier King Charles Spaniel, Blenheim",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200312",
+      "primaryText": "Cavalier King Charles Spaniel, Ruby",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200313",
+      "primaryText": "Cavalier King Charles Spaniel, Tricolour",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200314",
+      "primaryText": "Cavamalt",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200315",
+      "primaryText": "Cavapom",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200316",
+      "primaryText": "Cavapoo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200317",
+      "primaryText": "Cavatzu",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200318",
+      "primaryText": "Cavestie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200320",
+      "primaryText": "Central Asian Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200321",
+      "primaryText": "Central Asian Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200323",
+      "primaryText": "Cesky Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200324",
+      "primaryText": "Cevennes Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200325",
+      "primaryText": "Chesador",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200326",
+      "primaryText": "Chesapeake Bay Retriever",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200327",
+      "primaryText": "Chi-Apso",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200328",
+      "primaryText": "Chi-Con",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200329",
+      "primaryText": "Chi-Poo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200330",
+      "primaryText": "Chi-Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200336",
+      "primaryText": "Chien Loup",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200337",
+      "primaryText": "Chien-gris",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200338",
+      "primaryText": "Chihuahua",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200339",
+      "primaryText": "Chihuahua, Long-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200340",
+      "primaryText": "Chihuahua, Smooth-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200342",
+      "primaryText": "Chilean Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200344",
+      "primaryText": "Chinese Chongqing Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200345",
+      "primaryText": "Chinese Crested",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200346",
+      "primaryText": "Chinese Crested, Hairless",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200347",
+      "primaryText": "Chinese Crested, Powder Puff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200348",
+      "primaryText": "Chinese Crestepoo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200349",
+      "primaryText": "Chinese Foo Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200350",
+      "primaryText": "Chinese Imperial Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200351",
+      "primaryText": "Chinese Shar-Pei",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200352",
+      "primaryText": "Chinese Shar-Pei, Miniature",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200353",
+      "primaryText": "Chinook",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200354",
+      "primaryText": "Chippiparai",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200355",
+      "primaryText": "Chiribaya Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200356",
+      "primaryText": "Chiweenie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200357",
+      "primaryText": "Chongqing Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200358",
+      "primaryText": "Chonzer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200359",
+      "primaryText": "Chorkie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200360",
+      "primaryText": "Chortai",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200361",
+      "primaryText": "Chow Chow",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200362",
+      "primaryText": "Chug",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200363",
+      "primaryText": "Chukotka Sled Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200364",
+      "primaryText": "Cimarron Uruguayo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200365",
+      "primaryText": "Cirneco dell'Etna",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200366",
+      "primaryText": "Clumber Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200367",
+      "primaryText": "Cockachon",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200368",
+      "primaryText": "Cockador",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200369",
+      "primaryText": "Cockalier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200370",
+      "primaryText": "Cockapoo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200371",
+      "primaryText": "Cockatzu",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200372",
+      "primaryText": "Cocker Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200373",
+      "primaryText": "Cocker Spaniel, A.S.C.O.B",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200374",
+      "primaryText": "Cocker Spaniel, Parti-Colour",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200375",
+      "primaryText": "Collie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200376",
+      "primaryText": "Collie Rough",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200377",
+      "primaryText": "Collie Smooth",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200378",
+      "primaryText": "Colombian Fino Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200379",
+      "primaryText": "Combai",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200380",
+      "primaryText": "Continental Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200381",
+      "primaryText": "Continental Toy Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200382",
+      "primaryText": "Continental Toy Spaniel, Papillon - With Erect Ears",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200383",
+      "primaryText": "Continental Toy Spaniel, Phalène - With Drooping Ears",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200384",
+      "primaryText": "Coonhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200385",
+      "primaryText": "Cordoba Fighting Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200387",
+      "primaryText": "Corgi Pug",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200388",
+      "primaryText": "Corkie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200389",
+      "primaryText": "Coton de Tulear",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200390",
+      "primaryText": "Coydog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200391",
+      "primaryText": "Cretan Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200392",
+      "primaryText": "Croatian Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200394",
+      "primaryText": "Cumberland Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200395",
+      "primaryText": "Cur",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200396",
+      "primaryText": "Curly Coated Murray River Retriever",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200397",
+      "primaryText": "Curly Coated Retriever",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200398",
+      "primaryText": "Cursinu",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200399",
+      "primaryText": "Cyprus Poodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200400",
+      "primaryText": "Cyprus Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200401",
+      "primaryText": "Czechoslovakian Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200402",
+      "primaryText": "Czechoslovakian Wolfdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200403",
+      "primaryText": "Czechoslovakian Wolfhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200404",
+      "primaryText": "Czesky Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200405",
+      "primaryText": "Dachsbracke",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200406",
+      "primaryText": "Dachshund",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200407",
+      "primaryText": "Dachshund, Long-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200408",
+      "primaryText": "Dachshund, Miniature",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200409",
+      "primaryText": "Dachshund, Miniature Long-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200410",
+      "primaryText": "Dachshund, Miniature Smooth-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200411",
+      "primaryText": "Dachshund, Miniature Wire-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200413",
+      "primaryText": "Dachshund, Rabbit",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200414",
+      "primaryText": "Dachshund, Rabbit Long-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200415",
+      "primaryText": "Dachshund, Rabbit Smooth-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200416",
+      "primaryText": "Dachshund, Rabbit Wire-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200417",
+      "primaryText": "Dachshund, Smooth-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200418",
+      "primaryText": "Dachshund, Standard",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200419",
+      "primaryText": "Dachshund, Standard Long-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200420",
+      "primaryText": "Dachshund, Standard Smooth-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200421",
+      "primaryText": "Dachshund, Standard Wire-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200422",
+      "primaryText": "Dachshund, Teckel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200423",
+      "primaryText": "Dachshund, Wire-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200424",
+      "primaryText": "Dakotah Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200425",
+      "primaryText": "Dalbo Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200426",
+      "primaryText": "Dalmador",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200427",
+      "primaryText": "Dalmatian",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200428",
+      "primaryText": "Dalmatian Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200429",
+      "primaryText": "Dandie Dinmont Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200431",
+      "primaryText": "Danish Chicken Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200433",
+      "primaryText": "Danish Spitz",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200434",
+      "primaryText": "Danish White Spitz",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200436",
+      "primaryText": "Denmark Feist",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200437",
+      "primaryText": "Deutsch Langhaar",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200440",
+      "primaryText": "Deutscher Wachtelhund",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200441",
+      "primaryText": "Dingo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200442",
+      "primaryText": "Doberman Pinscher",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200443",
+      "primaryText": "Dobermann, Black With Rust Red Clearly Defined And Clean Markings",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200444",
+      "primaryText": "Dobermann, Brown With Rust Red Clearly Defined And Clean Markings",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200445",
+      "primaryText": "Dogo Argentino",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200446",
+      "primaryText": "Dogo Cubano",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200447",
+      "primaryText": "Dogo Guatemalteco",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200448",
+      "primaryText": "Dogo Sardesco",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200449",
+      "primaryText": "Dogue Brasileiro",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200450",
+      "primaryText": "Dogue de Bordeaux",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200451",
+      "primaryText": "Dorkie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200452",
+      "primaryText": "Dorset Olde Tyme Bulldogge",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200453",
+      "primaryText": "Drentsche Patrijshond",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200454",
+      "primaryText": "Drever",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200455",
+      "primaryText": "Dumfriesshire Black and Tan Foxhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200456",
+      "primaryText": "Dunker",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200457",
+      "primaryText": "Dutch Dachsbracke",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200463",
+      "primaryText": "Dutch Shepherd",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200464",
+      "primaryText": "Dutch Shepherd Dog, Long-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200465",
+      "primaryText": "Dutch Shepherd Dog, Rough-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200466",
+      "primaryText": "Dutch Shepherd Dog, Short-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200467",
+      "primaryText": "Dutch Smoushond",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200469",
+      "primaryText": "Dutch Tulip Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200471",
+      "primaryText": "East Russian Coursing Hounds",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200472",
+      "primaryText": "East Siberian Laika",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200473",
+      "primaryText": "East-European Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200474",
+      "primaryText": "Eastern Greyhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200475",
+      "primaryText": "Ecuadorian Hairless Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200476",
+      "primaryText": "Egyptian Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200477",
+      "primaryText": "Elizabethan Beagle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200478",
+      "primaryText": "Elkhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200479",
+      "primaryText": "Elo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200481",
+      "primaryText": "English Boxer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200482",
+      "primaryText": "English Bull Terrier, Coloured",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200483",
+      "primaryText": "English Bull Terrier, White",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200484",
+      "primaryText": "English Bullador",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200486",
+      "primaryText": "English Cocker Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200487",
+      "primaryText": "English Cocker Spaniel, Particolours (Bicolours, Tricolours, Roans)",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200488",
+      "primaryText": "English Cocker Spaniel, Solid Colours",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200490",
+      "primaryText": "English Foxhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200493",
+      "primaryText": "English Mastweiler",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200495",
+      "primaryText": "English Setter",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200496",
+      "primaryText": "English Shepherd",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200497",
+      "primaryText": "English Springer Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200499",
+      "primaryText": "English Toy Terrier (Black & Tan)",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200500",
+      "primaryText": "English Water Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200501",
+      "primaryText": "English White Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200502",
+      "primaryText": "Entlebuch Cattle Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200506",
+      "primaryText": "Epagneul Pont-Audemer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200508",
+      "primaryText": "Estonian Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200509",
+      "primaryText": "Estrela Mountain Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200510",
+      "primaryText": "Estrela Mountain Dog, Long-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200511",
+      "primaryText": "Estrela Mountain Dog, Short-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200512",
+      "primaryText": "Eurasier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200515",
+      "primaryText": "Feist",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200516",
+      "primaryText": "Fell Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200517",
+      "primaryText": "Fell Terrier, Black",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200518",
+      "primaryText": "Fell Terrier, Red",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200519",
+      "primaryText": "Field Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200520",
+      "primaryText": "Fila Brasileiro",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200521",
+      "primaryText": "Fila da Terceira",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200522",
+      "primaryText": "Finnish Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200523",
+      "primaryText": "Finnish Lapphund",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200525",
+      "primaryText": "Finnish Reindeer Herder",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200526",
+      "primaryText": "Finnish Spitz",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200528",
+      "primaryText": "Flat-Coated Retriever",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200529",
+      "primaryText": "Formosan Mountain Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200530",
+      "primaryText": "Fox Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200531",
+      "primaryText": "Foxhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200533",
+      "primaryText": "French Basset",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200534",
+      "primaryText": "French Brittany",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200536",
+      "primaryText": "French Bull Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200537",
+      "primaryText": "Gascon Saintongeois",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200538",
+      "primaryText": "French Bulldog, Fawn, Brindled Or Not, With Medium Or Predominant Patching",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200540",
+      "primaryText": "French Guard Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200541",
+      "primaryText": "French Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200542",
+      "primaryText": "French Korthals Pointing Wire-Haired Griffon",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200544",
+      "primaryText": "French Pointer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200547",
+      "primaryText": "French Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200548",
+      "primaryText": "French Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200549",
+      "primaryText": "French Tricolour Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200550",
+      "primaryText": "French Water Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200551",
+      "primaryText": "French White and Black Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200552",
+      "primaryText": "French White and Orange Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200556",
+      "primaryText": "Fuegian Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200557",
+      "primaryText": "Galgo Español",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200558",
+      "primaryText": "Garafian Shepherd",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200559",
+      "primaryText": "Gascogne Braque Français",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200561",
+      "primaryText": "Gascon Saintongeois, Great",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200562",
+      "primaryText": "Gascon Saintongeois, Small",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200563",
+      "primaryText": "Georgian Shepherd",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200567",
+      "primaryText": "German Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200569",
+      "primaryText": "German Koolie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200570",
+      "primaryText": "German Longhaired Pointer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200572",
+      "primaryText": "German Pinscher, Black And Tan",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200573",
+      "primaryText": "German Pinscher, Self Coloured: Deer Red, Reddish-Brown To Dark Red Brown",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200574",
+      "primaryText": "German Pointer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200575",
+      "primaryText": "German Roughhaired Pointer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200576",
+      "primaryText": "German Sheeppoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200577",
+      "primaryText": "German Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200578",
+      "primaryText": "German Shepherd Dog, Double Coat",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200579",
+      "primaryText": "German Shepherd Dog, Long And Harsh Outer Coat",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200580",
+      "primaryText": "German Shepherd Dog, Non-White",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200581",
+      "primaryText": "German Shepherd Dog, Old",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200582",
+      "primaryText": "German Shepherd Dog, White",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200583",
+      "primaryText": "German Shorthaired Pointer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200585",
+      "primaryText": "German Spitz",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200586",
+      "primaryText": "German Spitz, Giant",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200587",
+      "primaryText": "German Spitz, Giant Spitz Brown, Black",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200588",
+      "primaryText": "German Spitz, Giant Spitz White",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200589",
+      "primaryText": "German Spitz, Keeshond (Wolfspitz)",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200590",
+      "primaryText": "German Spitz, Klein",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200591",
+      "primaryText": "German Spitz, Medium Size Spitz Brown, Black",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200592",
+      "primaryText": "German Spitz, Medium Size Spitz Orange, Grey Shaded, Other Colours",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200593",
+      "primaryText": "German Spitz, Medium Size Spitz White",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200594",
+      "primaryText": "German Spitz, Miniature",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200595",
+      "primaryText": "German Spitz, Miniature Spitz Brown, Black",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200596",
+      "primaryText": "German Spitz, Miniature Spitz Orange, Grey Shaded, Other Colours",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200597",
+      "primaryText": "German Spitz, Miniature Spitz White",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200598",
+      "primaryText": "German Spitz, Mittel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200599",
+      "primaryText": "German Spitz, Pomeranian",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200600",
+      "primaryText": "German Spitz, Standard",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200601",
+      "primaryText": "German Spitz, Toy",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200602",
+      "primaryText": "German Wirehaired Pointer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200603",
+      "primaryText": "German Wolfspitz",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200604",
+      "primaryText": "Giant Schnauzer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200605",
+      "primaryText": "Giant Schnauzer, Black And Silver",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200606",
+      "primaryText": "Giant Schnauzer, Pepper And Salt",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200607",
+      "primaryText": "Giant Schnauzer, Pure Black With Black Undercoat",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200608",
+      "primaryText": "Giant Schnoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200609",
+      "primaryText": "Glen of Imaal Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200610",
+      "primaryText": "Golden Retriever",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200611",
+      "primaryText": "Goldendoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200613",
+      "primaryText": "Gordon Setter",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200615",
+      "primaryText": "Grand Basset Griffon Vendeen",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200617",
+      "primaryText": "Grand Fauve de Bretagne",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200619",
+      "primaryText": "Grand Griffon Vendeen",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200620",
+      "primaryText": "Great Anglo-French Tricolor Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200621",
+      "primaryText": "Great Anglo-French White and Black Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200622",
+      "primaryText": "Great Anglo-French White and Orange Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200623",
+      "primaryText": "Great Dane",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200624",
+      "primaryText": "Great Dane, Black and Harlequin",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200625",
+      "primaryText": "Great Dane, Blue",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200626",
+      "primaryText": "Great Dane, Fawn and Brindle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200627",
+      "primaryText": "Great Gascony Blue",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200629",
+      "primaryText": "Great Pyrenees",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200630",
+      "primaryText": "Great Swiss Cattle Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200631",
+      "primaryText": "Greater Swiss Mountain Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200634",
+      "primaryText": "Greek Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200635",
+      "primaryText": "Greek Shepherd",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200636",
+      "primaryText": "Greenland Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200637",
+      "primaryText": "Grey Collie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200638",
+      "primaryText": "Greyhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200640",
+      "primaryText": "Griffon Belge",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200642",
+      "primaryText": "Griffon Bruxellois",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200643",
+      "primaryText": "Griffon Fauve de Bretagne",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200645",
+      "primaryText": "Guard Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200647",
+      "primaryText": "Guejae Gae",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200648",
+      "primaryText": "Gull Dong",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200649",
+      "primaryText": "Gull Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200650",
+      "primaryText": "Hairless Khala",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200651",
+      "primaryText": "Halden Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200652",
+      "primaryText": "Hällefors Elkhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200653",
+      "primaryText": "Halls Heeler",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200655",
+      "primaryText": "Hamiltonstovare",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200656",
+      "primaryText": "Hanoverian Scent Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200657",
+      "primaryText": "Hare Indian Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200659",
+      "primaryText": "Harlequin Pinscher",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200660",
+      "primaryText": "Harrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200661",
+      "primaryText": "Havana Silk Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200662",
+      "primaryText": "Havanese",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200663",
+      "primaryText": "Havanese Toy Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200664",
+      "primaryText": "Hawaiian Poi Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200665",
+      "primaryText": "Heeler",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200666",
+      "primaryText": "Heideterrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200667",
+      "primaryText": "Hellenic Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200668",
+      "primaryText": "Hertha Pointer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200669",
+      "primaryText": "Hierran Wolfdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200670",
+      "primaryText": "Himalayan Sheepdog",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200671",
+      "primaryText": "Hokkaido",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200673",
+      "primaryText": "Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200674",
+      "primaryText": "Hovawart",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200675",
+      "primaryText": "Hovawart, Black",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200676",
+      "primaryText": "Hovawart, Black-Gold",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200677",
+      "primaryText": "Hovawart, Blond",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200678",
+      "primaryText": "Hungarian Greyhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200679",
+      "primaryText": "Transylvanian Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200681",
+      "primaryText": "Hungarian Smooth-Haired Vizsla",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200683",
+      "primaryText": "Huntaway",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200684",
+      "primaryText": "Huskamute",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200687",
+      "primaryText": "Hygenhund",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200688",
+      "primaryText": "Ibizan Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200690",
+      "primaryText": "Ibizan Podenco, Rough-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200691",
+      "primaryText": "Ibizan Podenco, Smooth-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200692",
+      "primaryText": "Icelandic Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200693",
+      "primaryText": "Ilio",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200695",
+      "primaryText": "Indian Pariah Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200696",
+      "primaryText": "Indian Spitz",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200697",
+      "primaryText": "Inuit Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200699",
+      "primaryText": "Irish Greyhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200700",
+      "primaryText": "Irish Red and White Setter",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200702",
+      "primaryText": "Irish Setter",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200703",
+      "primaryText": "Irish Soft Coated Wheaten Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200704",
+      "primaryText": "Irish Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200705",
+      "primaryText": "Irish Water Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200706",
+      "primaryText": "Irish Wolfhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200708",
+      "primaryText": "Istrian Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200709",
+      "primaryText": "Istrian Short-Haired Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200710",
+      "primaryText": "Istrian Wire-Haired Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200711",
+      "primaryText": "Italian Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200712",
+      "primaryText": "Italian Cane Corso",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200713",
+      "primaryText": "Italian Greyhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200716",
+      "primaryText": "Italian Rough-Haired Segugio",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200717",
+      "primaryText": "Italian Setter",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200718",
+      "primaryText": "Italian Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200719",
+      "primaryText": "Italian Short-Haired Segugio",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200721",
+      "primaryText": "Italian Spinone",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200724",
+      "primaryText": "Jack Russell Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200725",
+      "primaryText": "Jack-A-Poo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200726",
+      "primaryText": "Jack-Chi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200727",
+      "primaryText": "Jackabee",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200728",
+      "primaryText": "Jackador",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200730",
+      "primaryText": "Jackshit",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200731",
+      "primaryText": "Jackshund",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200732",
+      "primaryText": "Jagdterrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200733",
+      "primaryText": "Jämthund",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200734",
+      "primaryText": "Japanese Akitainu",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200735",
+      "primaryText": "Japanese Chin",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200736",
+      "primaryText": "Japanese Pointer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200737",
+      "primaryText": "Japanese Retriever",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200740",
+      "primaryText": "Japanese Spitz",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200741",
+      "primaryText": "Japanese Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200743",
+      "primaryText": "Japanese Tosa Inu",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200744",
+      "primaryText": "Jindo",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200745",
+      "primaryText": "Jonangi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200746",
+      "primaryText": "Jug",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200747",
+      "primaryText": "Kai Ken",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200748",
+      "primaryText": "Kaikadi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200749",
+      "primaryText": "Kangal Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200751",
+      "primaryText": "Kanni",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200753",
+      "primaryText": "Karakachan Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200754",
+      "primaryText": "Karelian Bear Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200755",
+      "primaryText": "Karelian Bear Laika",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200756",
+      "primaryText": "Karelo-Finnish Laika",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200757",
+      "primaryText": "Kars",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200758",
+      "primaryText": "Karst Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200759",
+      "primaryText": "Keeshond",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200761",
+      "primaryText": "Kemmer Feist",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200762",
+      "primaryText": "Kemmer Stock Hybrid Squirrel Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200763",
+      "primaryText": "Kerry Beagle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200764",
+      "primaryText": "Kerry Blue Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200765",
+      "primaryText": "King Charles Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200766",
+      "primaryText": "King Charles Spaniel, Black And Tan",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200767",
+      "primaryText": "King Charles Spaniel, Blenheim",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200768",
+      "primaryText": "King Charles Spaniel, Ruby",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200769",
+      "primaryText": "King Charles Spaniel, Tricolour",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200770",
+      "primaryText": "King Shepherd",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200771",
+      "primaryText": "King's White Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200772",
+      "primaryText": "Kintamani-Bali Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200773",
+      "primaryText": "Kirhiz",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200774",
+      "primaryText": "Kishu Ken",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200775",
+      "primaryText": "Kleiner Münsterländer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200776",
+      "primaryText": "Kleiner Münsterländer Vorstehund",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200777",
+      "primaryText": "Kokoni",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200778",
+      "primaryText": "Kombai",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200779",
+      "primaryText": "Komondor",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200780",
+      "primaryText": "Koochee Sage",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200782",
+      "primaryText": "Koolie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200785",
+      "primaryText": "Koyun dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200786",
+      "primaryText": "Kromfohrlander",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200787",
+      "primaryText": "Kuchi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200788",
+      "primaryText": "Kugsha Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200789",
+      "primaryText": "Kui Mlk",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200790",
+      "primaryText": "Kumaon Mastiff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200791",
+      "primaryText": "Kunming Wolfhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200792",
+      "primaryText": "Kurī",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200793",
+      "primaryText": "Kuvasz",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200794",
+      "primaryText": "Kyi-Apso",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200795",
+      "primaryText": "Kyi-Leo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200796",
+      "primaryText": "La-Chon",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200797",
+      "primaryText": "Lab-Pei",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200798",
+      "primaryText": "Labradoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200799",
+      "primaryText": "Labrador Husky",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200800",
+      "primaryText": "Labrador Retriever",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200801",
+      "primaryText": "Labralas",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200802",
+      "primaryText": "Labraspoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200803",
+      "primaryText": "Labstaff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200805",
+      "primaryText": "Laika",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200806",
+      "primaryText": "Lakedoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200807",
+      "primaryText": "Lakeland Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200808",
+      "primaryText": "Lancashire Heeler",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200809",
+      "primaryText": "Landseer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200810",
+      "primaryText": "Landseer (European Continental Type)",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200811",
+      "primaryText": "Landseer Newfoundland",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200813",
+      "primaryText": "Lapphund",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200814",
+      "primaryText": "Lapponian Herder",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200815",
+      "primaryText": "Lapponian Shepherd",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200816",
+      "primaryText": "Large Munsterlander",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200817",
+      "primaryText": "Larson Lakeview Bulldogge",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200818",
+      "primaryText": "Latvian Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200819",
+      "primaryText": "Leonberger",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200820",
+      "primaryText": "Leopard Cur",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200821",
+      "primaryText": "Levesque",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200822",
+      "primaryText": "Levriero Sardo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200823",
+      "primaryText": "Lha-Cocker",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200824",
+      "primaryText": "Lhasa Apso",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200825",
+      "primaryText": "Lhasa-Poo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200826",
+      "primaryText": "Lhasalier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200827",
+      "primaryText": "Liangshan Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200828",
+      "primaryText": "Limer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200829",
+      "primaryText": "Lithuanian Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200830",
+      "primaryText": "Llewellin Setter",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200831",
+      "primaryText": "Lobito Herreño",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200832",
+      "primaryText": "Long-Haired Pyrenean Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200833",
+      "primaryText": "Long-Haired Whippet",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200834",
+      "primaryText": "Loughlander",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200835",
+      "primaryText": "Louisiana Catahoula Leopard Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200836",
+      "primaryText": "Lowchen",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200837",
+      "primaryText": "Lucas Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200838",
+      "primaryText": "Lundehund",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200839",
+      "primaryText": "Lupo Italiano",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200840",
+      "primaryText": "Lurcher",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200841",
+      "primaryText": "Mackenzie River Husky",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200843",
+      "primaryText": "Mahratta Greyhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200844",
+      "primaryText": "Majestic Tree Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200845",
+      "primaryText": "Ca de Bou (Majorca Mastiff)",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200846",
+      "primaryText": "Majorca Ratter",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200847",
+      "primaryText": "Majorca Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200848",
+      "primaryText": "Majorca Shepherd Dog, Long-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200849",
+      "primaryText": "Majorca Shepherd Dog, Short-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200851",
+      "primaryText": "Mal-Shi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200856",
+      "primaryText": "Maltese",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200857",
+      "primaryText": "Maltese – Teacup",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200858",
+      "primaryText": "Maltese Jack Russell Mix",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200859",
+      "primaryText": "Maltese Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200860",
+      "primaryText": "Malti-Poo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200861",
+      "primaryText": "Maltipom",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200862",
+      "primaryText": "Manchester Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200864",
+      "primaryText": "Maneto",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200865",
+      "primaryText": "Maremma Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200866",
+      "primaryText": "Marquesan Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200867",
+      "primaryText": "Mastiff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200870",
+      "primaryText": "Mastweiler",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200871",
+      "primaryText": "Mazandarani Sage",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200872",
+      "primaryText": "McNab Shepherd",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200874",
+      "primaryText": "Meliteo Kinidio",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200875",
+      "primaryText": "Mi-Ki",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200876",
+      "primaryText": "Middle Asian Ovtcharka",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200878",
+      "primaryText": "Miniature Alaskan Husky",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200879",
+      "primaryText": "Miniature American Eskimo Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200880",
+      "primaryText": "Miniature American Shepherd",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200882",
+      "primaryText": "Miniature Bull Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200883",
+      "primaryText": "Miniature Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200884",
+      "primaryText": "Miniature Cockapoo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200885",
+      "primaryText": "Miniature Doberman Pinscher",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200886",
+      "primaryText": "Miniature English Bull Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200887",
+      "primaryText": "Miniature English Bull Terrier, Coloured",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200888",
+      "primaryText": "Miniature English Bull Terrier, White",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200889",
+      "primaryText": "Miniature Fox Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200890",
+      "primaryText": "Miniature Goldendoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200891",
+      "primaryText": "Miniature Jack Russell Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200892",
+      "primaryText": "Miniature Labradoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200893",
+      "primaryText": "Miniature Pinscher",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200894",
+      "primaryText": "Miniature Pinscher, Black And Tan",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200895",
+      "primaryText": "Miniature Pinscher, Self Coloured: Deer Red, Reddish-Brown To Dark Red Brown",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200896",
+      "primaryText": "Miniature Schnauzer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200897",
+      "primaryText": "Miniature Schnauzer, Black And Silver",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200898",
+      "primaryText": "Miniature Schnauzer, Pepper And Salt",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200899",
+      "primaryText": "Miniature Schnauzer, Pure Black With Black Undercoat",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200900",
+      "primaryText": "Miniature Schnauzer, Pure White With White Undercoat",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200901",
+      "primaryText": "Miniature Schnoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200902",
+      "primaryText": "Mixed Breed",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200903",
+      "primaryText": "Molossus",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200904",
+      "primaryText": "Molossus of Epirus",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200906",
+      "primaryText": "Montenegrin Mountain Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200907",
+      "primaryText": "Morkie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200909",
+      "primaryText": "Moscow Toy, Long-Haired Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200910",
+      "primaryText": "Moscow Toy, Short-Haired Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200911",
+      "primaryText": "Moscow Vodolaz",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200912",
+      "primaryText": "Moscow Watchdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200913",
+      "primaryText": "Moscow Water Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200914",
+      "primaryText": "Mountain Cur",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200915",
+      "primaryText": "Mountain Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200916",
+      "primaryText": "Mountain Feist",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200917",
+      "primaryText": "Mountain Stephens Stock Cur",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200918",
+      "primaryText": "Mountain View Cur",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200919",
+      "primaryText": "Mucuchies",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200920",
+      "primaryText": "Mudhol Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200921",
+      "primaryText": "Mudi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200922",
+      "primaryText": "Mudi, Ash Coloured (Blue Grey)",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200923",
+      "primaryText": "Mudi, Black",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200924",
+      "primaryText": "Mudi, Blue-Merle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200925",
+      "primaryText": "Mudi, Brown",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200926",
+      "primaryText": "Mudi, Fawn",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200927",
+      "primaryText": "Mudi, White",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200928",
+      "primaryText": "Munsterlander Pointer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200930",
+      "primaryText": "Neapolitan Mastiff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200931",
+      "primaryText": "Nebolish Mastiff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200932",
+      "primaryText": "Nederlandse Kooikerhondje",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200933",
+      "primaryText": "Nenets Herding Laika",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200934",
+      "primaryText": "New Guinea Singing Dog",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200935",
+      "primaryText": "New Zealand Heading Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200937",
+      "primaryText": "New Zealand Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200938",
+      "primaryText": "Newfoundland",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0200939",
+      "primaryText": "Newfoundland, Black",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200940",
+      "primaryText": "Newfoundland, Brown",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200941",
+      "primaryText": "Newfoundland, White And Black",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200942",
+      "primaryText": "Nivernais Griffon",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200944",
+      "primaryText": "Norfolk Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200945",
+      "primaryText": "Norfolk Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200946",
+      "primaryText": "Norman Artesien Basset",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200947",
+      "primaryText": "Norman Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200948",
+      "primaryText": "Norrbottenspets",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200950",
+      "primaryText": "North Country Beagle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200951",
+      "primaryText": "Northeasterly Hauling Laika",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200952",
+      "primaryText": "Northern Inuit Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200953",
+      "primaryText": "Norwegian Buhund",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200954",
+      "primaryText": "Norwegian Dunker Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200955",
+      "primaryText": "Norwegian Elkhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200956",
+      "primaryText": "Norwegian Elkhound Black",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200957",
+      "primaryText": "Norwegian Elkhound Grey",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200962",
+      "primaryText": "Norwich Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200964",
+      "primaryText": "Nova Scotia Duck Tolling Retriever",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200965",
+      "primaryText": "Old Croatian Sighthound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200967",
+      "primaryText": "Old English Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200969",
+      "primaryText": "Old English Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200970",
+      "primaryText": "Old English Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200971",
+      "primaryText": "Old Farm Collie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200972",
+      "primaryText": "Old Spanish Pointer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200973",
+      "primaryText": "Old Time Farm Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200974",
+      "primaryText": "Old Welsh Grey Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200975",
+      "primaryText": "Olde Boston Bulldogge",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200976",
+      "primaryText": "Olde English Bulldogge",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200977",
+      "primaryText": "Olde Victorian Bulldogge",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200978",
+      "primaryText": "Ori Pei",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200979",
+      "primaryText": "Original English Bulldogge",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200980",
+      "primaryText": "Otterhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200981",
+      "primaryText": "Ovtcharka",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200982",
+      "primaryText": "Pachon Navarro",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200983",
+      "primaryText": "Paisley Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200984",
+      "primaryText": "Pampas Deerhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200985",
+      "primaryText": "Papillon",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200987",
+      "primaryText": "Parson Russell Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200988",
+      "primaryText": "Pastore della Lessinia e del Lagorai",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200989",
+      "primaryText": "Patagonian Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200990",
+      "primaryText": "Patterdale Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200991",
+      "primaryText": "Patterjack",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200992",
+      "primaryText": "Patterpoo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200993",
+      "primaryText": "Pekepoo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200994",
+      "primaryText": "Pekingese",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200995",
+      "primaryText": "Pembroke Welsh Corgi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200996",
+      "primaryText": "Pencil-Tail Feist",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0200997",
+      "primaryText": "Perdiguero de Burgos",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201003",
+      "primaryText": "Perro Majorero",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201004",
+      "primaryText": "Peruvian Hairless Dog",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0201005",
+      "primaryText": "Peruvian Hairless Dog, Large",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201006",
+      "primaryText": "Peruvian Hairless Dog, Medium-Sized",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201007",
+      "primaryText": "Peruvian Hairless Dog, Miniature",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201009",
+      "primaryText": "Petit Basset Griffon Vendeen",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201010",
+      "primaryText": "Petit Bleu de Gascogne",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201011",
+      "primaryText": "Petit Brabançon",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201013",
+      "primaryText": "Petit Griffon Bleu de Gascogne",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201014",
+      "primaryText": "Petite Goldendoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201015",
+      "primaryText": "Phalène",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201016",
+      "primaryText": "Pharaoh Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201017",
+      "primaryText": "Phu Quoc Ridgeback",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201019",
+      "primaryText": "Picardy Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201020",
+      "primaryText": "Pila",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201021",
+      "primaryText": "Pinscher",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201023",
+      "primaryText": "Plott Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201024",
+      "primaryText": "Plummer Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201025",
+      "primaryText": "Pocket Beagle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201026",
+      "primaryText": "Podenco",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201027",
+      "primaryText": "Podenco Canario",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201028",
+      "primaryText": "Podenco Valenciano",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201029",
+      "primaryText": "Pointer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201030",
+      "primaryText": "Pointer-Rottweiler Mix",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201031",
+      "primaryText": "Poitevin",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201032",
+      "primaryText": "Polish Greyhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201033",
+      "primaryText": "Polish Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201034",
+      "primaryText": "Polish Hunting Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201035",
+      "primaryText": "Polish Lowland Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201036",
+      "primaryText": "Polish Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201037",
+      "primaryText": "Polish Tatra Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201038",
+      "primaryText": "Polynesian Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201039",
+      "primaryText": "Pomapoo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201040",
+      "primaryText": "Pomapug",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201041",
+      "primaryText": "Pomchi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201042",
+      "primaryText": "Pomeagle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201043",
+      "primaryText": "Pomeranian",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201044",
+      "primaryText": "Pomeranian-Chow Chow Mix",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201045",
+      "primaryText": "Pomsky",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201046",
+      "primaryText": "Pont-Audemer Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201047",
+      "primaryText": "Poochon",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201048",
+      "primaryText": "Poodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201049",
+      "primaryText": "Poodle, Medium size Brown Black White",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201050",
+      "primaryText": "Poodle, Medium size Grey Fawn",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201051",
+      "primaryText": "Poodle, Miniature",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201052",
+      "primaryText": "Poodle, Miniature Brown Black White",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201053",
+      "primaryText": "Poodle, Miniature Grey Fawn",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201055",
+      "primaryText": "Poodle, Multi-Colored",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201056",
+      "primaryText": "Poodle, Standard",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201057",
+      "primaryText": "Poodle, Standard Brown Black White",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201058",
+      "primaryText": "Poodle, Standard Grey Fawn",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201059",
+      "primaryText": "Poodle, Standard Multi-Colored",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201060",
+      "primaryText": "Poodle, Teacup",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201061",
+      "primaryText": "Poodle, Toy",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201063",
+      "primaryText": "Poogle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201064",
+      "primaryText": "Porcelaine",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201067",
+      "primaryText": "Portuguese Podengo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201068",
+      "primaryText": "Portuguese Podengo Pequeno",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201069",
+      "primaryText": "Portuguese Pointer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201070",
+      "primaryText": "Portuguese Rabbit Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201071",
+      "primaryText": "Portuguese Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201074",
+      "primaryText": "Portuguese Warren Hound-Portuguese Podengo, Large",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201075",
+      "primaryText": "Portuguese Warren Hound-Portuguese Podengo, Medium-Sized",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201076",
+      "primaryText": "Portuguese Warren Hound-Portuguese Podengo, Small",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201077",
+      "primaryText": "Portuguese Water Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201078",
+      "primaryText": "Portuguese Water Dog, Long And Wavy",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201079",
+      "primaryText": "Portuguese Water Dog, Shorter And Curly",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201080",
+      "primaryText": "Posavatz Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201082",
+      "primaryText": "Posavina Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201083",
+      "primaryText": "Potsdam Greyhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201084",
+      "primaryText": "Prague Ratter",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201085",
+      "primaryText": "Presa Canario",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201086",
+      "primaryText": "Pshdar Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201087",
+      "primaryText": "Pudelpointer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201088",
+      "primaryText": "Puerto Rican Mastiff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201089",
+      "primaryText": "Pug",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201090",
+      "primaryText": "Pug-Labrador Retriever Mix",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201091",
+      "primaryText": "Pug-Zu",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201092",
+      "primaryText": "Pug, Apricot",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201093",
+      "primaryText": "Pug, Black",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201094",
+      "primaryText": "Pug, Fawn",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201095",
+      "primaryText": "Pug, Silver",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201096",
+      "primaryText": "Pugalier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201097",
+      "primaryText": "Puganese",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201098",
+      "primaryText": "Pugapoo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201099",
+      "primaryText": "Puggle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201100",
+      "primaryText": "Puginese",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201101",
+      "primaryText": "Pugland",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201102",
+      "primaryText": "Puli",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0201103",
+      "primaryText": "Puli, Black, Black Shaded With Rust-Red Or Grey, Fawn, Grey In Any Shade",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201104",
+      "primaryText": "Puli, Pearl-White",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201105",
+      "primaryText": "Pumi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201106",
+      "primaryText": "Pumi, Black",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201107",
+      "primaryText": "Pumi, Fawn (Fakó). Primary Colours: Red, Yellow, Cream",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201108",
+      "primaryText": "Pumi, Grey In Various Shades",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201109",
+      "primaryText": "Pungsan Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201110",
+      "primaryText": "Purebred Cross Canine",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201111",
+      "primaryText": "Pyredoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201114",
+      "primaryText": "Pyrenean Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201115",
+      "primaryText": "Pyrenean Sheepdog - Long Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201116",
+      "primaryText": "Pyrenean Sheepdog - Smooth Faced",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201117",
+      "primaryText": "Pyrenean Shepherd",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201118",
+      "primaryText": "Pyrénées Braque Français",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201119",
+      "primaryText": "Rache",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201120",
+      "primaryText": "Rafeiro do Alentejo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201121",
+      "primaryText": "Raibs Suns",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201122",
+      "primaryText": "Rajapalayam",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201123",
+      "primaryText": "Rampur Greyhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201125",
+      "primaryText": "Rat Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201126",
+      "primaryText": "Ratonero Bodeguero Andaluz",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201128",
+      "primaryText": "Ratonero Murciano",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201129",
+      "primaryText": "Ratonero Valenciano",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201130",
+      "primaryText": "Ratter",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201132",
+      "primaryText": "Redbone Coonhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201134",
+      "primaryText": "Retriever",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201135",
+      "primaryText": "Rhodesian Ridgeback",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0201137",
+      "primaryText": "Romagna Water Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201138",
+      "primaryText": "Roman Rottweiler",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201139",
+      "primaryText": "Romanian Bucovina Shepherd",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201140",
+      "primaryText": "Romanian Carpathian Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201141",
+      "primaryText": "Romanian Mioritic Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201142",
+      "primaryText": "Romanian Raven Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201143",
+      "primaryText": "Rottweiler",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201144",
+      "primaryText": "Rough Beagle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201145",
+      "primaryText": "Russell Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201147",
+      "primaryText": "Russian Bolonka",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201148",
+      "primaryText": "Russian Harlequin Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201149",
+      "primaryText": "Russian Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201150",
+      "primaryText": "Russian Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201151",
+      "primaryText": "Russian Toy",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201152",
+      "primaryText": "Russian Toy, Longhaired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201153",
+      "primaryText": "Russian Toy, Smooth-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201154",
+      "primaryText": "Russian Tsvetnaya Bolonka",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201155",
+      "primaryText": "Russian-European Laika",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201156",
+      "primaryText": "Ryukyu Inu",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201158",
+      "primaryText": "Saarloos Wolfhond",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201159",
+      "primaryText": "Sage",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201160",
+      "primaryText": "Saint Bernard",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201161",
+      "primaryText": "Saint Bernard, Long-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201162",
+      "primaryText": "Saint Bernard, Short-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201163",
+      "primaryText": "Saint Germain Pointer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201164",
+      "primaryText": "Saint Hubert Bloodhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201165",
+      "primaryText": "Saint Hubert Jura Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201166",
+      "primaryText": "Saint John's Water Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201167",
+      "primaryText": "Saint Miguel Cattle Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201168",
+      "primaryText": "Saint-Usuge Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201169",
+      "primaryText": "Sakhalin Husky",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201170",
+      "primaryText": "Salish Wool Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201171",
+      "primaryText": "Saluki",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0201172",
+      "primaryText": "Saluki, Fringed",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201173",
+      "primaryText": "Saluki, Smooth",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201174",
+      "primaryText": "Samoyed",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201175",
+      "primaryText": "Sanshu Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201176",
+      "primaryText": "Sapsali",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201177",
+      "primaryText": "Sapsari",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201178",
+      "primaryText": "Sarabi Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201179",
+      "primaryText": "Sardinian Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201180",
+      "primaryText": "Sarplaninac",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201181",
+      "primaryText": "Schapendoes",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201182",
+      "primaryText": "Schiller Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201184",
+      "primaryText": "Schipperke",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201185",
+      "primaryText": "Schnauzer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201186",
+      "primaryText": "Schnauzer-Beagle Cross",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201187",
+      "primaryText": "Schnauzer, Pepper And Salt",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201188",
+      "primaryText": "Schnauzer, Pure Black With Black Undercoat",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201189",
+      "primaryText": "Schnauzer, Standard",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201190",
+      "primaryText": "Schnoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201193",
+      "primaryText": "Scoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201195",
+      "primaryText": "Scottish Deerhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201196",
+      "primaryText": "Scottish Rough Collie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201197",
+      "primaryText": "Scottish Smooth Collie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201198",
+      "primaryText": "Scottish Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201199",
+      "primaryText": "Sealydale Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201200",
+      "primaryText": "Sealyham Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201201",
+      "primaryText": "Segugio dell'Appennino",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201202",
+      "primaryText": "Segugio Italiano",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201203",
+      "primaryText": "Segugio Maremmano",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201204",
+      "primaryText": "Serbian Balkan Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201207",
+      "primaryText": "Serbian Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201208",
+      "primaryText": "Serbian Mountain Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201209",
+      "primaryText": "Serbian Tricolor Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201210",
+      "primaryText": "Serrano Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201211",
+      "primaryText": "Setter",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201214",
+      "primaryText": "Sharpoo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201215",
+      "primaryText": "Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201216",
+      "primaryText": "Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201217",
+      "primaryText": "Shetland Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201218",
+      "primaryText": "Shi-Jug",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201220",
+      "primaryText": "Shiba Inu",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0201221",
+      "primaryText": "ShiChi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201222",
+      "primaryText": "Shichon",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201223",
+      "primaryText": "Shih Tzu",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201224",
+      "primaryText": "Shih-Poo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201225",
+      "primaryText": "Shikoku",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201226",
+      "primaryText": "Shiloh Shepherd",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201227",
+      "primaryText": "Shinese",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201228",
+      "primaryText": "Shiranian",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201229",
+      "primaryText": "Shollie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201231",
+      "primaryText": "Shropshire Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201232",
+      "primaryText": "Shug",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201233",
+      "primaryText": "Siberian Husky",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201234",
+      "primaryText": "Sicillian Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201235",
+      "primaryText": "Silken Windhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201236",
+      "primaryText": "Silky Spitz",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201237",
+      "primaryText": "Silky Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201238",
+      "primaryText": "Simaku",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201239",
+      "primaryText": "Sinhala Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201240",
+      "primaryText": "Skye Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201241",
+      "primaryText": "Sleuth Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201242",
+      "primaryText": "Sloughi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201244",
+      "primaryText": "Slovakian Wire-Haired Pointer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201245",
+      "primaryText": "Slovensky Cuvac",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201246",
+      "primaryText": "Slovensky Kopov",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201247",
+      "primaryText": "Smaland Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201250",
+      "primaryText": "Small Munsterlander",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201251",
+      "primaryText": "Small Swiss Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201252",
+      "primaryText": "Small Swiss Hound, Small Bernese Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201253",
+      "primaryText": "Small Swiss Hound, Small Jura Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201254",
+      "primaryText": "Small Swiss Hound, Small Lucerne Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201255",
+      "primaryText": "Small Swiss Hound, Small Schwyz Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201256",
+      "primaryText": "Smithfield",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201257",
+      "primaryText": "Smooth Beagle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201258",
+      "primaryText": "Smooth Fox Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201259",
+      "primaryText": "Snorkie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201260",
+      "primaryText": "Soft Coated Wheaten Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201261",
+      "primaryText": "Soft-Coated Wheaten, English American Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201262",
+      "primaryText": "Soft-Coated Wheaten, Heavy Irish Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201263",
+      "primaryText": "Soft-Coated Wheaten, Traditional Irish Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201264",
+      "primaryText": "South Russian Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201265",
+      "primaryText": "South Russian Steppe Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201267",
+      "primaryText": "Southern Blackmouth Cur",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201268",
+      "primaryText": "Southern Bloodhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201270",
+      "primaryText": "Southern Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201271",
+      "primaryText": "Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201275",
+      "primaryText": "Spanish Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201276",
+      "primaryText": "Spanish Hound, Large",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201277",
+      "primaryText": "Spanish Hound, Small",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201278",
+      "primaryText": "Spanish Mastiff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201280",
+      "primaryText": "Spanish Water Dog",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0201282",
+      "primaryText": "Spitz",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201283",
+      "primaryText": "Sporgi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201284",
+      "primaryText": "Sporting Lucas Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201285",
+      "primaryText": "Springador",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201286",
+      "primaryText": "Springbatt",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201287",
+      "primaryText": "Springer Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201288",
+      "primaryText": "Springerdoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201289",
+      "primaryText": "Sprocker Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201290",
+      "primaryText": "Sprockerpoo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201291",
+      "primaryText": "Sprointer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201292",
+      "primaryText": "Sprollie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201293",
+      "primaryText": "Stabijhoun",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201296",
+      "primaryText": "Staffordshire Bull Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201297",
+      "primaryText": "Staffordshire Bull Terrier, English",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201298",
+      "primaryText": "Staffordshire Bull Terrier, Irish",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201299",
+      "primaryText": "Staffordshire Bull Terrier, Miniature",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201300",
+      "primaryText": "Staghound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201302",
+      "primaryText": "Stephens' Cur",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201303",
+      "primaryText": "Stoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201305",
+      "primaryText": "Styrian Coarse Haired Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201306",
+      "primaryText": "Styrian Rough-Haired Mountain Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201307",
+      "primaryText": "Styrian Wire-Haired Mountain Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201308",
+      "primaryText": "Sussex Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201309",
+      "primaryText": "Sussex Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201310",
+      "primaryText": "Swedish Briard",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201311",
+      "primaryText": "Swedish Cattle Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201315",
+      "primaryText": "Swedish Lapphund",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201316",
+      "primaryText": "Swedish Vallhund",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201317",
+      "primaryText": "Swedish White Elkhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201318",
+      "primaryText": "Swiss Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201319",
+      "primaryText": "Swiss Hound, Bernese Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201320",
+      "primaryText": "Swiss Hound, Jura Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201321",
+      "primaryText": "Swiss Hound, Lucerne Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201322",
+      "primaryText": "Swiss Hound, Schwyz Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201323",
+      "primaryText": "Swiss Mountain Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201324",
+      "primaryText": "Swiss Short-Haired Pinscher",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201325",
+      "primaryText": "Swiss White Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201327",
+      "primaryText": "Sydney Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201328",
+      "primaryText": "Tahitian Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201329",
+      "primaryText": "Tahltan",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201331",
+      "primaryText": "Taigan",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201333",
+      "primaryText": "Talbot Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201334",
+      "primaryText": "Tamaskan Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201335",
+      "primaryText": "Tamaskan Husky",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201336",
+      "primaryText": "Tang Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201337",
+      "primaryText": "Tasy",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201338",
+      "primaryText": "Tazy",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201339",
+      "primaryText": "Teacup Pomeranian",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201340",
+      "primaryText": "Teddy Roosevelt Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201341",
+      "primaryText": "Telomian",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201342",
+      "primaryText": "Tenterfield Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201343",
+      "primaryText": "Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201346",
+      "primaryText": "Tesem",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201347",
+      "primaryText": "Thai Bangkaew Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201348",
+      "primaryText": "Thai Ridgeback",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0201349",
+      "primaryText": "Tiara Teddy Bear",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201350",
+      "primaryText": "Tibetan Kyi Apso",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201351",
+      "primaryText": "Tibetan Mastiff",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201352",
+      "primaryText": "Tibetan Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201353",
+      "primaryText": "Tibetan Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201354",
+      "primaryText": "Titan Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201355",
+      "primaryText": "Tonya Finosu",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201356",
+      "primaryText": "Tornjak",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201357",
+      "primaryText": "Tosa",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201358",
+      "primaryText": "Toy American Eskimo Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201359",
+      "primaryText": "Toy Australian Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201360",
+      "primaryText": "Toy Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201361",
+      "primaryText": "Toy Fox Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201363",
+      "primaryText": "Toy Manchester Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201364",
+      "primaryText": "Toy Rat Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201367",
+      "primaryText": "Toy Trawler Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201368",
+      "primaryText": "Trail Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201371",
+      "primaryText": "Treeing Cur",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201372",
+      "primaryText": "Treeing Feist",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201373",
+      "primaryText": "Treeing Tennessee Brindle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201374",
+      "primaryText": "Treeing Walker Coonhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201375",
+      "primaryText": "Trigg Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201377",
+      "primaryText": "Turnspit Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201378",
+      "primaryText": "Tweed Water Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201379",
+      "primaryText": "Tyrolean Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201380",
+      "primaryText": "Utonagan",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201381",
+      "primaryText": "Gos Rater Valencià",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201382",
+      "primaryText": "Valley Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201383",
+      "primaryText": "Verelade",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201384",
+      "primaryText": "Victorian Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201385",
+      "primaryText": "Vikhan",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201387",
+      "primaryText": "Villano de Las Encartaciones",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201388",
+      "primaryText": "Villanuco de Las Encartaciones",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201389",
+      "primaryText": "Vizsla",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201390",
+      "primaryText": "Volpino Italiano",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201391",
+      "primaryText": "Vucciriscu",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201394",
+      "primaryText": "Waller",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201395",
+      "primaryText": "Wapoo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201396",
+      "primaryText": "Water Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201397",
+      "primaryText": "Water Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201398",
+      "primaryText": "Wauzer",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201400",
+      "primaryText": "Wee-Chon",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201401",
+      "primaryText": "Weimaraner",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201402",
+      "primaryText": "Weimaraner, Long-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201403",
+      "primaryText": "Weimaraner, Short-Haired",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201404",
+      "primaryText": "Weimardoodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201406",
+      "primaryText": "Welsh Corgi",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201408",
+      "primaryText": "Welsh Hillman",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201409",
+      "primaryText": "Welsh Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201410",
+      "primaryText": "Welsh Sheepdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201411",
+      "primaryText": "Welsh Springer Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201412",
+      "primaryText": "Welsh Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201414",
+      "primaryText": "West Country Harrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201415",
+      "primaryText": "West Highland White Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201416",
+      "primaryText": "West Siberian Laika",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201417",
+      "primaryText": "Westiepoo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201418",
+      "primaryText": "Westphalian Dachsbracke",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201419",
+      "primaryText": "Wetterhoun",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201420",
+      "primaryText": "Wheaten Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201421",
+      "primaryText": "Whippet",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0201422",
+      "primaryText": "White Shepherd",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201423",
+      "primaryText": "White Swiss Shepherd Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201424",
+      "primaryText": "Wire Fox Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201425",
+      "primaryText": "Wire Haired Whippet",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201426",
+      "primaryText": "Wire-Haired Jack Russell Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201427",
+      "primaryText": "Wirehaired Pointing Griffon",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201428",
+      "primaryText": "Wirehaired Vizsla",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201430",
+      "primaryText": "Wolfdog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201431",
+      "primaryText": "Wolfhound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201432",
+      "primaryText": "Woodle",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201433",
+      "primaryText": "Working Cocker Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201434",
+      "primaryText": "Working Kelpie",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201435",
+      "primaryText": "Xiasi Dog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201436",
+      "primaryText": "Xoloitzcuintli",
+      "reason": "human review pending"
+    },
+    {
+      "catalogId": "VBO:0201437",
+      "primaryText": "Xoloitzcuintli, Intermediate",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201438",
+      "primaryText": "Xoloitzcuintli, Miniature",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201439",
+      "primaryText": "Xoloitzcuintli, Standard",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201440",
+      "primaryText": "Xoloitzcuintli, Toy",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201441",
+      "primaryText": "Yajivy",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201442",
+      "primaryText": "Yakutian Laika",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201443",
+      "primaryText": "Yellow Black Mouth Cur",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201444",
+      "primaryText": "Yo-Chon",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201445",
+      "primaryText": "Yoranian",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201446",
+      "primaryText": "Yorkie Russell",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201447",
+      "primaryText": "Yorkipoo",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201448",
+      "primaryText": "Yorkshire Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201449",
+      "primaryText": "Miniature Yorkshire Terrier",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201450",
+      "primaryText": "Yugoslavian Hound",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201452",
+      "primaryText": "Zerdava",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201453",
+      "primaryText": "de Pont-Audemer Spaniel",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201454",
+      "primaryText": "German Pinscher",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201455",
+      "primaryText": "French Bulldog",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201456",
+      "primaryText": "Sangsari",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201457",
+      "primaryText": "Cane da Pastore D'Oropa",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201458",
+      "primaryText": "Cane di Mannara",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201459",
+      "primaryText": "Pastore della Sila",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201460",
+      "primaryText": "Spino Degli Iblei",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201461",
+      "primaryText": "Cane Lupino del Gigante",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201462",
+      "primaryText": "Levriero Meridionale",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201463",
+      "primaryText": "Xigou",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201464",
+      "primaryText": "Tarsus çatalburun",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201465",
+      "primaryText": "Chihuahua - Teacup",
+      "reason": "no ledger row"
+    },
+    {
+      "catalogId": "VBO:0201487",
+      "primaryText": "American Pocket Bully",
+      "reason": "no ledger row"
+    }
+  ],
+  "missingImageStrategy": {
+    "behavior": "Render the catalog identity and ranking controls with a neutral non-photographic fallback; never substitute another breed or an AI-generated breed depiction.",
+    "accessibleName": "Use the canonical breed/type name; do not describe the fallback as a photo.",
+    "visualTreatment": "Use the shared monochrome keyline, a decorative abstract paw/initial mark, and the same stable aspect box as approved photography so layout does not jump.",
+    "brokenImageTreatment": "On an approved asset load error, remove the failed image from accessibility and reveal the identical fallback without retrying an unverified source URL.",
+    "detailDisclosure": "A detail view may say ‘Photo awaiting rights review’; ranking and search cards should stay visually quiet.",
+    "searchAndRankingRemainAvailable": true,
+    "hideBrokenImages": true,
+    "requestUnapprovedOriginals": false,
+    "publicSnapshotBehavior": "Omit photography unless publicSnapshotAllowed is true for a byte-verified approved row.",
+    "rasterExportBehavior": "Omit photography unless rasterExportAllowed is true and export attribution compliance is present."
+  }
+}

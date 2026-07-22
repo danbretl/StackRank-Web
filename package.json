@@ -1,7 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "check": "node --check app.js",
+    "check": "node --check app.js && node --check books.js && node --check dogs.js && node --check dogs-shared.js && node --check home.js && node --check shared.js",
     "check:cache": "node scripts/check-cache-versions.mjs",
     "check:functions": "deno check --no-lock supabase/functions/*/index.ts supabase/functions/_shared/*.ts",
     "test:functions": "deno test --no-lock supabase/functions/_shared/*_test.ts",
@@ -10,7 +10,18 @@
     "test:production": "node scripts/check-production.mjs",
     "validate:packs": "node scripts/validate-suggestion-packs.mjs",
     "test:watch": "node --test --watch \"tests/**/*.test.js\"",
-    "verify": "npm test && npm run check && npm run check:cache && npm run check:functions && npm run test:functions && npm run validate:packs && npm run test:e2e",
+    "validate:dogs:catalog": "node scripts/validate-dog-catalog.mjs",
+    "validate:dogs:artwork": "node scripts/validate-dog-artwork.mjs",
+    "validate:dogs:artwork-discovery": "node scripts/build-dog-artwork-discovery-queue.mjs --check",
+    "validate:dogs:packs": "node scripts/validate-dog-packs.mjs",
+    "validate:dogs": "npm run validate:dogs:catalog && npm run validate:dogs:artwork && npm run validate:dogs:artwork-discovery && npm run validate:dogs:packs",
+    "build:dogs:catalog": "node scripts/build-dog-catalog.mjs",
+    "build:dogs:artwork-discovery": "node scripts/build-dog-artwork-discovery-queue.mjs",
+    "review:dogs:catalog": "node scripts/build-dog-catalog-review.mjs",
+    "review:dogs:artwork": "node scripts/build-dog-artwork-review.mjs",
+    "prepare:dogs:artwork": "node scripts/prepare-dog-artwork-batch.mjs",
+    "deliver:dogs:artwork": "node scripts/deliver-dog-artwork.mjs",
+    "verify": "npm test && npm run check && npm run check:cache && npm run check:functions && npm run test:functions && npm run validate:packs && npm run validate:dogs && npm run test:e2e",
     "author:packs": "node scripts/author-suggestion-packs.mjs",
     "screenshots": "node scripts/capture-screenshots.cjs",
     "build:og": "node scripts/build-og-image.cjs"

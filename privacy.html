@@ -33,9 +33,11 @@
           <h1>Privacy</h1>
           <p>
             StackRank is designed to work without an account. Your movie ranking stays in this
-            browser unless you choose to sign in and sync it.
+            browser unless you choose to sign in and sync it. The experimental Books preview is
+            device-only and does not sync or publish book data. StackRank Dogs also begins local-only:
+            its ranking, Curious about list, Not for me list, and pack progress remain in this browser.
           </p>
-          <p class="legal-updated">Effective June 29, 2026</p>
+          <p class="legal-updated">Effective July 16, 2026</p>
         </div>
 
         <section class="legal-section" aria-labelledby="privacy-stored">
@@ -51,6 +53,17 @@
             and pack progress so they are available on your other devices. StackRank does not
             receive or store a password.
           </p>
+          <p>
+            The Books preview separately stores its ranking in this browser. Book search sends the
+            text you type to a StackRank server function, which requests matching works from Open
+            Library. Books data is not included in account sync or public sharing.
+          </p>
+          <p>
+            Dogs uses a versioned catalog bundled with the site, so breed and alias searches do not
+            send the text you type to an external catalog service. Dogs backups and text exports are
+            created only when you request them. Dogs data is not yet included in account sync or
+            public sharing, and it never reads or rewrites Movies or Books browser keys.
+          </p>
         </section>
 
         <section class="legal-section" aria-labelledby="privacy-services">
@@ -59,6 +72,17 @@
             <li>
               <strong>TMDB</strong> supplies movie search results, details, suggestions, and
               artwork. Those requests are proxied through StackRank’s Supabase functions.
+            </li>
+            <li>
+              <strong>Open Library</strong> supplies search results and cover links for the
+              experimental Books preview. Search requests are proxied through a StackRank
+              Supabase function; cover images load from Open Library’s cover service.
+            </li>
+            <li>
+              <strong>Vertebrate Breed Ontology (VBO)</strong> supplies the versioned identity and
+              alias foundation bundled with StackRank Dogs. Searching the bundled Dogs catalog does
+              not contact VBO. When rights-approved dog photos are available, each detail view names
+              the creator, source page, and exact license.
             </li>
             <li>
               <strong>Supabase</strong> provides optional account sign-in, cross-device sync,
@@ -114,6 +138,15 @@
           <h2 id="privacy-links">Provider policies</h2>
           <div class="legal-link-list">
             <a href="https://supabase.com/privacy" rel="noreferrer">Supabase privacy policy</a>
+            <a href="https://archive.org/about/terms.php" rel="noreferrer">
+              Internet Archive terms (Open Library)
+            </a>
+            <a href="https://obofoundry.org/ontology/vbo.html" rel="noreferrer">
+              Vertebrate Breed Ontology record and license
+            </a>
+            <a href="https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia" rel="noreferrer">
+              Wikimedia Commons reuse guidance
+            </a>
             <a href="https://vercel.com/legal/privacy-policy" rel="noreferrer">Vercel privacy policy</a>
             <a href="https://policies.google.com/privacy" rel="noreferrer">Google privacy policy</a>
             <a href="https://www.jsdelivr.com/terms/privacy-policy-jsdelivr-net" rel="noreferrer">
@@ -140,8 +173,37 @@
           </p>
         </section>
 
+        <section class="legal-section legal-credits" aria-labelledby="book-credits-title">
+          <p class="legal-eyebrow">Service credits</p>
+          <h2 id="book-credits-title">Book data &amp; cover links</h2>
+          <p>
+            Experimental Books search data and cover links are provided by
+            <a href="https://openlibrary.org" rel="noreferrer">Open Library</a>, an initiative of
+            the Internet Archive.
+          </p>
+        </section>
+
+        <section class="legal-section legal-credits" aria-labelledby="dog-credits-title">
+          <p class="legal-eyebrow">Service credits</p>
+          <h2 id="dog-credits-title">Dog catalog &amp; photography</h2>
+          <p>
+            StackRank Dogs identity and aliases are derived from the
+            <a href="https://obofoundry.org/ontology/vbo.html" rel="noreferrer">Vertebrate Breed Ontology</a>,
+            release 2026-04-15, licensed under
+            <a href="https://creativecommons.org/licenses/by/4.0/" rel="noreferrer">CC BY 4.0</a>.
+            StackRank’s generated coverage report preserves an explicit disposition for every source
+            descendant below “Dog breed.”
+          </p>
+          <p>
+            Dog photos are shown only after their creator, source, exact license, file hash, human
+            subject review, and delivery artifact pass the purpose-specific rights ledger. Missing
+            photography uses a neutral fallback; catalog inclusion never depends on image availability.
+          </p>
+        </section>
+
         <footer class="legal-footer">
-          <a href="/movies">Return to StackRank</a>
+          <a href="/movies">Movies</a>
+          <a href="/dogs">Dogs</a>
           <a href="mailto:stackrank@danbretl.com">Contact</a>
         </footer>
       </article>

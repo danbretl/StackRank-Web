@@ -91,6 +91,57 @@ test("signInRedirectUrl keeps /movies on previews and local route-aware servers"
   );
 });
 
+test("signInRedirectUrl preserves an explicit second-category callback", () => {
+  assert.equal(
+    signInRedirectUrl(
+      {
+        hostname: "www.stackrankapp.com",
+        origin: "https://www.stackrankapp.com",
+        pathname: "/books",
+      },
+      "/books",
+    ),
+    "https://www.stackrankapp.com/books",
+  );
+  assert.equal(
+    signInRedirectUrl(
+      {
+        hostname: "localhost",
+        origin: "http://localhost:8000",
+        pathname: "/books/details",
+      },
+      "/books",
+    ),
+    "http://localhost:8000/books",
+  );
+  assert.equal(
+    signInRedirectUrl(
+      {
+        hostname: "www.stackrankapp.com",
+        origin: "https://www.stackrankapp.com",
+        pathname: "/books",
+      },
+      "/not valid",
+    ),
+    "https://www.stackrankapp.com/movies",
+    "invalid category paths fail back to the established Movies callback",
+  );
+});
+
+test("signInRedirectUrl preserves the Dogs category callback", () => {
+  assert.equal(
+    signInRedirectUrl(
+      {
+        hostname: "www.stackrankapp.com",
+        origin: "https://www.stackrankapp.com",
+        pathname: "/dogs",
+      },
+      "/dogs",
+    ),
+    "https://www.stackrankapp.com/dogs",
+  );
+});
+
 test("signInRedirectUrl keeps the legacy GitHub Pages sub-path", () => {
   assert.equal(
     signInRedirectUrl({

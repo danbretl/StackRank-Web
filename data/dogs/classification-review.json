@@ -1,0 +1,4757 @@
+{
+  "schemaVersion": 1,
+  "catalogVersion": "vbo-2026-04-15.2",
+  "source": {
+    "release": "2026-04-15",
+    "rootId": "VBO:0400024",
+    "sha256": "511bb27d7581bfb8bccf69583c8ac0e3c12de4fdecaf0a8649abfcbfc5ed4da1"
+  },
+  "reviewedAt": "2026-07-16",
+  "summary": {
+    "aliasDecisions": 294,
+    "varietyDecisions": 187,
+    "crossbreedDecisions": 139,
+    "historicalDecisions": 36,
+    "excludedDecisions": 4,
+    "regionalLandraceCandidates": 20,
+    "ambiguousSearchNamesRetained": 18
+  },
+  "aliasDecisions": [
+    {
+      "vboId": "VBO:0000664",
+      "sourceLabel": "Dutch Partridge Dog (Dog)",
+      "targetId": "VBO:0200453",
+      "targetLabel": "Drentsche Patrijshond",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0000665",
+      "sourceLabel": "Gos Rater Valencià (Dog)",
+      "targetId": "VBO:0201381",
+      "targetLabel": "Valencian Terrier",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0000666",
+      "sourceLabel": "Kooiker Dog (Dog)",
+      "targetId": "VBO:0200932",
+      "targetLabel": "Nederlandse Kooikerhondje",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0000669",
+      "sourceLabel": "perro Dogo Guatemalteco (Dog)",
+      "targetId": "VBO:0200447",
+      "targetLabel": "Dogo Guatemalteco",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0007985",
+      "sourceLabel": "Broholmeren, Denmark (Dog)",
+      "targetId": "VBO:0000661",
+      "targetLabel": "Broholmer",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0007986",
+      "sourceLabel": "Dansk Spids, Denmark (Dog)",
+      "targetId": "VBO:0200433",
+      "targetLabel": "Danish Spitz",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0007987",
+      "sourceLabel": "Dansk Svensk Gårdhund, Denmark (Dog)",
+      "targetId": "VBO:0000663",
+      "targetLabel": "Danish-Swedish Farmdog",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0007988",
+      "sourceLabel": "Drentsche Patrijshond, Netherlands (Dog)",
+      "targetId": "VBO:0200453",
+      "targetLabel": "Drentsche Patrijshond",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0007989",
+      "sourceLabel": "Gos Rater Valencià (Ratonero Valenciano), Spain (Dog)",
+      "targetId": "VBO:0201381",
+      "targetLabel": "Valencian Terrier",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0007990",
+      "sourceLabel": "Kooikerhondje, Netherlands (Dog)",
+      "targetId": "VBO:0200932",
+      "targetLabel": "Nederlandse Kooikerhondje",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0007992",
+      "sourceLabel": "Gammel Dansk Hønsehund, Denmark (Dog)",
+      "targetId": "VBO:0000668",
+      "targetLabel": "Old Danish Pointing Dog",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0007993",
+      "sourceLabel": "Dogo Guatemalteco, Guatemala (Dog)",
+      "targetId": "VBO:0200447",
+      "targetLabel": "Dogo Guatemalteco",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0007994",
+      "sourceLabel": "Mastín del Pirineo, Spain (Dog)",
+      "targetId": "VBO:0000670",
+      "targetLabel": "Pyrenean Mastiff",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0007995",
+      "sourceLabel": "Anatolian Shepherd, Australia (Dog)",
+      "targetId": "VBO:0200062",
+      "targetLabel": "Anatolian Shepherd Dog",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0007996",
+      "sourceLabel": "Border Collie, Australia (Dog)",
+      "targetId": "VBO:0200193",
+      "targetLabel": "Border Collie",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0007997",
+      "sourceLabel": "Cattle dog, Australia (Dog)",
+      "targetId": "VBO:0200300",
+      "targetLabel": "Cattle Dog",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0007998",
+      "sourceLabel": "Kelpie, Australia (Dog)",
+      "targetId": "VBO:0200090",
+      "targetLabel": "Australian Kelpie",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0007999",
+      "sourceLabel": "Maremma, Australia (Dog)",
+      "targetId": "VBO:0200865",
+      "targetLabel": "Maremma Sheepdog",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008000",
+      "sourceLabel": "Pyrenean Mountain dog, Australia (Dog)",
+      "targetId": "VBO:0200629",
+      "targetLabel": "Great Pyrenees",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008001",
+      "sourceLabel": "Elsesian, Bangladesh (Dog)",
+      "targetId": "VBO:0200577",
+      "targetLabel": "German Shepherd Dog",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008002",
+      "sourceLabel": "German Shephard, Bangladesh (Dog)",
+      "targetId": "VBO:0200577",
+      "targetLabel": "German Shepherd Dog",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008007",
+      "sourceLabel": "Balgarsko ovcharsko kuche, Bulgaria (Dog)",
+      "targetId": "VBO:0200247",
+      "targetLabel": "Bulgarian Shepherd Dog",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008008",
+      "sourceLabel": "Karakachansko kuche, Bulgaria (Dog)",
+      "targetId": "VBO:0200753",
+      "targetLabel": "Karakachan Dog",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008009",
+      "sourceLabel": "Alano Español, Spain (Dog)",
+      "targetId": "VBO:0200013",
+      "targetLabel": "Alano Español",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008010",
+      "sourceLabel": "Ca Eivissenc (Podenco Ibicenco), Spain (Dog)",
+      "targetId": "VBO:0200688",
+      "targetLabel": "Ibizan Hound",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008012",
+      "sourceLabel": "Ca Rater Mallorquí (Ratonero Mallorquín), Spain (Dog)",
+      "targetId": "VBO:0200846",
+      "targetLabel": "Majorca Ratter",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008013",
+      "sourceLabel": "Ca de Bou (Perro de Presa Mallorquín), Spain (Dog)",
+      "targetId": "VBO:0200845",
+      "targetLabel": "Majorca Mastiff",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008014",
+      "sourceLabel": "Ca de bestiar (Perro de Pastor Mallorquín), Spain (Dog)",
+      "targetId": "VBO:0200847",
+      "targetLabel": "Majorca Shepherd Dog",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008016",
+      "sourceLabel": "Can de Palleiro, Spain (Dog)",
+      "targetId": "VBO:0200273",
+      "targetLabel": "Can de Palleiro",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008019",
+      "sourceLabel": "Galgo Español, Spain (Dog)",
+      "targetId": "VBO:0200557",
+      "targetLabel": "Galgo Español",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008020",
+      "sourceLabel": "Gos d'Atura Catalá (Perro de Pastor Catalán), Spain (Dog)",
+      "targetId": "VBO:0200299",
+      "targetLabel": "Catalan Sheepdog",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008021",
+      "sourceLabel": "Mastín Español, Spain (Dog)",
+      "targetId": "VBO:0201278",
+      "targetLabel": "Spanish Mastiff",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008022",
+      "sourceLabel": "Pachón Navarro, Spain (Dog)",
+      "targetId": "VBO:0200982",
+      "targetLabel": "Pachon Navarro",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008023",
+      "sourceLabel": "Pastor Garafiano, Spain (Dog)",
+      "targetId": "VBO:0200558",
+      "targetLabel": "Garafian Shepherd",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008025",
+      "sourceLabel": "Perdiguero de Burgos, Spain (Dog)",
+      "targetId": "VBO:0200997",
+      "targetLabel": "Perdiguero de Burgos",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008026",
+      "sourceLabel": "Perro Majorero, Spain (Dog)",
+      "targetId": "VBO:0201003",
+      "targetLabel": "Perro Majorero",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008027",
+      "sourceLabel": "Perro de Agua Español, Spain (Dog)",
+      "targetId": "VBO:0201280",
+      "targetLabel": "Spanish Water Dog",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008030",
+      "sourceLabel": "Podenco Canario, Spain (Dog)",
+      "targetId": "VBO:0201027",
+      "targetLabel": "Podenco Canario",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008033",
+      "sourceLabel": "Podenco Valenciano, Spain (Dog)",
+      "targetId": "VBO:0201028",
+      "targetLabel": "Podenco Valenciano",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008034",
+      "sourceLabel": "Presa Canario, Spain (Dog)",
+      "targetId": "VBO:0201085",
+      "targetLabel": "Presa Canario",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008035",
+      "sourceLabel": "Ratonero - Bodeguero Andaluz, Spain (Dog)",
+      "targetId": "VBO:0201126",
+      "targetLabel": "Ratonero Bodeguero Andaluz",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008036",
+      "sourceLabel": "Sabueso Español, Spain (Dog)",
+      "targetId": "VBO:0201275",
+      "targetLabel": "Spanish Hound",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008037",
+      "sourceLabel": "Villano de las Encartaciones, Spain (Dog)",
+      "targetId": "VBO:0201387",
+      "targetLabel": "Villano de Las Encartaciones",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008038",
+      "sourceLabel": "Karjalankarhukoira, Finland (Dog)",
+      "targetId": "VBO:0200754",
+      "targetLabel": "Karelian Bear Dog",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008039",
+      "sourceLabel": "Lapinporokoira, Finland (Dog)",
+      "targetId": "VBO:0200814",
+      "targetLabel": "Lapponian Herder",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008040",
+      "sourceLabel": "Suomenajokoira, Finland (Dog)",
+      "targetId": "VBO:0200522",
+      "targetLabel": "Finnish Hound",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008041",
+      "sourceLabel": "Suomenlapinkoira, Finland (Dog)",
+      "targetId": "VBO:0200523",
+      "targetLabel": "Finnish Lapphund",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008042",
+      "sourceLabel": "Suomenpystykorva, Finland (Dog)",
+      "targetId": "VBO:0200526",
+      "targetLabel": "Finnish Spitz",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008043",
+      "sourceLabel": "Perro Dogo Guatemalteco, Guatemala (Dog)",
+      "targetId": "VBO:0200447",
+      "targetLabel": "Dogo Guatemalteco",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008044",
+      "sourceLabel": "CROATIAN SHEPHERD, Croatia (Dog)",
+      "targetId": "VBO:0200392",
+      "targetLabel": "Croatian Sheepdog",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008045",
+      "sourceLabel": "DALMATIAN, Croatia (Dog)",
+      "targetId": "VBO:0200427",
+      "targetLabel": "Dalmatian",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008046",
+      "sourceLabel": "ISTRIAN SHORT-HAIRED HOUND, Croatia (Dog)",
+      "targetId": "VBO:0200709",
+      "targetLabel": "Istrian Short-Haired Hound",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008047",
+      "sourceLabel": "ISTRIAN WIRE-HAIRED HOUND, Croatia (Dog)",
+      "targetId": "VBO:0200710",
+      "targetLabel": "Istrian Wire-Haired Hound",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008048",
+      "sourceLabel": "POSAVATZ HOUND, Croatia (Dog)",
+      "targetId": "VBO:0201080",
+      "targetLabel": "Posavatz Hound",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008050",
+      "sourceLabel": "TORNJAK, Croatia (Dog)",
+      "targetId": "VBO:0201356",
+      "targetLabel": "Tornjak",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008051",
+      "sourceLabel": "Hungarian houn, Hungary (Dog)",
+      "targetId": "VBO:0200679",
+      "targetLabel": "Hungarian Hound - Transylvanian Scent Hound",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008052",
+      "sourceLabel": "Hungarian vizsla, Hungary (Dog)",
+      "targetId": "VBO:0201389",
+      "targetLabel": "Vizsla",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008053",
+      "sourceLabel": "Komondor, Hungary (Dog)",
+      "targetId": "VBO:0200779",
+      "targetLabel": "Komondor",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008054",
+      "sourceLabel": "Kuvasz, Hungary (Dog)",
+      "targetId": "VBO:0200793",
+      "targetLabel": "Kuvasz",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008056",
+      "sourceLabel": "Mudi, Hungary (Dog)",
+      "targetId": "VBO:0200921",
+      "targetLabel": "Mudi",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008057",
+      "sourceLabel": "Puli, Hungary (Dog)",
+      "targetId": "VBO:0201102",
+      "targetLabel": "Puli",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008058",
+      "sourceLabel": "Pumi, Hungary (Dog)",
+      "targetId": "VBO:0201105",
+      "targetLabel": "Pumi",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008059",
+      "sourceLabel": "Transylvanian kopó, Hungary (Dog)",
+      "targetId": "VBO:0200679",
+      "targetLabel": "Hungarian Hound - Transylvanian Scent Hound",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008060",
+      "sourceLabel": "Chippiparai, India (Dog)",
+      "targetId": "VBO:0200354",
+      "targetLabel": "Chippiparai",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008061",
+      "sourceLabel": "Mudhol Hound, India (Dog)",
+      "targetId": "VBO:0200920",
+      "targetLabel": "Mudhol Hound",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008062",
+      "sourceLabel": "Rajapalayam, India (Dog)",
+      "targetId": "VBO:0201122",
+      "targetLabel": "Rajapalayam",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008065",
+      "sourceLabel": "Jindo, Republic of Korea (Dog)",
+      "targetId": "VBO:0200744",
+      "targetLabel": "Jindo",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008067",
+      "sourceLabel": "Hollandse Smoushond, Netherlands (Dog)",
+      "targetId": "VBO:0200467",
+      "targetLabel": "Dutch Smoushond",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008068",
+      "sourceLabel": "Hollandse herder (korthaar, langhaar en ruwhaar), Netherlands (Dog)",
+      "targetId": "VBO:0200463",
+      "targetLabel": "Dutch Shepherd",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008069",
+      "sourceLabel": "Markiesje, Netherlands (Dog)",
+      "targetId": "VBO:0200469",
+      "targetLabel": "Dutch Tulip Hound",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008070",
+      "sourceLabel": "Nederlandse Schapendoes, Netherlands (Dog)",
+      "targetId": "VBO:0201181",
+      "targetLabel": "Schapendoes",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008071",
+      "sourceLabel": "Saarloos Wolfhond, Netherlands (Dog)",
+      "targetId": "VBO:0201158",
+      "targetLabel": "Saarloos Wolfhond",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008072",
+      "sourceLabel": "Stabijhoun, Netherlands (Dog)",
+      "targetId": "VBO:0201293",
+      "targetLabel": "Stabijhoun",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008073",
+      "sourceLabel": "Wetterhoun, Netherlands (Dog)",
+      "targetId": "VBO:0201419",
+      "targetLabel": "Wetterhoun",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008074",
+      "sourceLabel": "Dunker, Norway (Dog)",
+      "targetId": "VBO:0200456",
+      "targetLabel": "Dunker",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008075",
+      "sourceLabel": "Haldenstover, Norway (Dog)",
+      "targetId": "VBO:0200651",
+      "targetLabel": "Halden Hound",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008076",
+      "sourceLabel": "Hygenhund, Norway (Dog)",
+      "targetId": "VBO:0200687",
+      "targetLabel": "Hygenhund",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008077",
+      "sourceLabel": "Lundehund, Norway (Dog)",
+      "targetId": "VBO:0200838",
+      "targetLabel": "Lundehund",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008078",
+      "sourceLabel": "Norsk buhund, Norway (Dog)",
+      "targetId": "VBO:0200953",
+      "targetLabel": "Norwegian Buhund",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008079",
+      "sourceLabel": "Norsk elghund gra, Norway (Dog)",
+      "targetId": "VBO:0200957",
+      "targetLabel": "Norwegian Elkhound Grey",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008080",
+      "sourceLabel": "Norsk elghund sort, Norway (Dog)",
+      "targetId": "VBO:0200956",
+      "targetLabel": "Norwegian Elkhound Black",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008081",
+      "sourceLabel": "New Guinea Singing dog, Papua New Guinea (Dog)",
+      "targetId": "VBO:0200934",
+      "targetLabel": "New Guinea Singing Dog",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008082",
+      "sourceLabel": "kraševec, Slovenia (Dog)",
+      "targetId": "VBO:0200758",
+      "targetLabel": "Karst Shepherd Dog",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008083",
+      "sourceLabel": "Akbas Turkish Shepherd, Turkey (Dog)",
+      "targetId": "VBO:0200009",
+      "targetLabel": "Akbash",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008084",
+      "sourceLabel": "Kangal Turkish Shepherd, Turkey (Dog)",
+      "targetId": "VBO:0200749",
+      "targetLabel": "Kangal Dog",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008085",
+      "sourceLabel": "Kars Turkish Shepherd, Turkey (Dog)",
+      "targetId": "VBO:0200757",
+      "targetLabel": "Kars",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008087",
+      "sourceLabel": "Çatal Burun Hunting, Turkey (Dog)",
+      "targetId": "VBO:0201464",
+      "targetLabel": "Tarsus çatalburun",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008088",
+      "sourceLabel": "Africanis, South Africa (Dog)",
+      "targetId": "VBO:0200007",
+      "targetLabel": "Africanis",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008089",
+      "sourceLabel": "Boerboel, South Africa (Dog)",
+      "targetId": "VBO:0200185",
+      "targetLabel": "Boerboel",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008090",
+      "sourceLabel": "Boxer, South Africa (Dog)",
+      "targetId": "VBO:0200210",
+      "targetLabel": "Boxer",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0008091",
+      "sourceLabel": "Jack Russel, South Africa (Dog)",
+      "targetId": "VBO:0200724",
+      "targetLabel": "Jack Russell Terrier",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0008092",
+      "sourceLabel": "Ridgeback, South Africa (Dog)",
+      "targetId": "VBO:0201135",
+      "targetLabel": "Rhodesian Ridgeback",
+      "reasonCode": "curated_country_duplicate"
+    },
+    {
+      "vboId": "VBO:0200021",
+      "sourceLabel": "Alentejo Mastiff (Dog)",
+      "targetId": "VBO:0201120",
+      "targetLabel": "Rafeiro do Alentejo",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200032",
+      "sourceLabel": "American Brittany Spaniel (Dog)",
+      "targetId": "VBO:0200031",
+      "targetLabel": "American Brittany",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200057",
+      "sourceLabel": "American Toy Terrier (Dog)",
+      "targetId": "VBO:0201361",
+      "targetLabel": "Toy Fox Terrier",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200060",
+      "sourceLabel": "American White Shepherd Dog (Dog)",
+      "targetId": "VBO:0201422",
+      "targetLabel": "White Shepherd",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200067",
+      "sourceLabel": "Anjing Kintamani-Bali (Dog)",
+      "targetId": "VBO:0200772",
+      "targetLabel": "Kintamani-Bali Dog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200069",
+      "sourceLabel": "Arabian Greyhound (Dog)",
+      "targetId": "VBO:0201242",
+      "targetLabel": "Sloughi",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200072",
+      "sourceLabel": "Argentinian Mastiff (Dog)",
+      "targetId": "VBO:0200445",
+      "targetLabel": "Dogo Argentino",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200073",
+      "sourceLabel": "Ariege Hound (Dog)",
+      "targetId": "VBO:0200075",
+      "targetLabel": "Ariegeois",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200076",
+      "sourceLabel": "Armant (Dog)",
+      "targetId": "VBO:0200476",
+      "targetLabel": "Egyptian Sheepdog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200084",
+      "sourceLabel": "Atlas Sheepdog (Dog)",
+      "targetId": "VBO:0200083",
+      "targetLabel": "Atlas Mountain Dog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200096",
+      "sourceLabel": "Australian Silky Terrier (Dog)",
+      "targetId": "VBO:0201237",
+      "targetLabel": "Silky Terrier",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200109",
+      "sourceLabel": "Azores Cattle Dog (Dog)",
+      "targetId": "VBO:0201167",
+      "targetLabel": "Saint Miguel Cattle Dog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200111",
+      "sourceLabel": "Balkan Hound (Dog)",
+      "targetId": "VBO:0201207",
+      "targetLabel": "Serbian Hound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200119",
+      "sourceLabel": "Barbet (Dog)",
+      "targetId": "VBO:0200550",
+      "targetLabel": "French Water Dog",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200123",
+      "sourceLabel": "Basset Artesien Normand (Dog)",
+      "targetId": "VBO:0200946",
+      "targetLabel": "Norman Artesien Basset",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200135",
+      "sourceLabel": "Beauce Shepherd Dog (Dog)",
+      "targetId": "VBO:0200136",
+      "targetLabel": "Beauceron",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200141",
+      "sourceLabel": "Belgian Griffon (Dog)",
+      "targetId": "VBO:0200640",
+      "targetLabel": "Griffon Belge",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200143",
+      "sourceLabel": "Belgian Sheepdog (Dog)",
+      "targetId": "VBO:0200145",
+      "targetLabel": "Belgian Shepherd Dog, Groenendael",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200153",
+      "sourceLabel": "Bench-Legged Feist (Dog)",
+      "targetId": "VBO:0201340",
+      "targetLabel": "Teddy Roosevelt Terrier",
+      "reasonCode": "curated_historical_registry_name"
+    },
+    {
+      "vboId": "VBO:0200155",
+      "sourceLabel": "Berger de Beauce (Dog)",
+      "targetId": "VBO:0200136",
+      "targetLabel": "Beauceron",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200157",
+      "sourceLabel": "Berger des Pyrenees (Dog)",
+      "targetId": "VBO:0201117",
+      "targetLabel": "Pyrenean Shepherd",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200164",
+      "sourceLabel": "Bichon Tenerife (Dog)",
+      "targetId": "VBO:0200163",
+      "targetLabel": "Bichon Frise",
+      "reasonCode": "curated_historical_registry_name"
+    },
+    {
+      "vboId": "VBO:0200171",
+      "sourceLabel": "Black Forest Hound (Dog)",
+      "targetId": "VBO:0201246",
+      "targetLabel": "Slovensky Kopov",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200173",
+      "sourceLabel": "Black Norwegian Elkhound (Dog)",
+      "targetId": "VBO:0200956",
+      "targetLabel": "Norwegian Elkhound Black",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200177",
+      "sourceLabel": "Blue Gascony Basset (Dog)",
+      "targetId": "VBO:0200124",
+      "targetLabel": "Basset Bleu de Gascogne",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200179",
+      "sourceLabel": "Blue Heeler (Dog)",
+      "targetId": "VBO:0200088",
+      "targetLabel": "Australian Cattle Dog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200187",
+      "sourceLabel": "Bohemian Terrier (Dog)",
+      "targetId": "VBO:0200323",
+      "targetLabel": "Cesky Terrier",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200198",
+      "sourceLabel": "Bosanski Ostrodlaki Gonic Barak (Dog)",
+      "targetId": "VBO:0200117",
+      "targetLabel": "Barak",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200199",
+      "sourceLabel": "Bosnian and Herzegovinian - Croatian Shepherd Dog (Dog)",
+      "targetId": "VBO:0201356",
+      "targetLabel": "Tornjak",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200200",
+      "sourceLabel": "Bosnian Broken-Haired Hound - Called Barak (Dog)",
+      "targetId": "VBO:0200117",
+      "targetLabel": "Barak",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200207",
+      "sourceLabel": "Bouvier des Ardennes (Dog)",
+      "targetId": "VBO:0200070",
+      "targetLabel": "Ardennes Cattle Dog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200220",
+      "sourceLabel": "Braque d’Auvergne (Dog)",
+      "targetId": "VBO:0200106",
+      "targetLabel": "Auvergne Pointer",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200221",
+      "sourceLabel": "Braque du Bourbonnais (Dog)",
+      "targetId": "VBO:0200205",
+      "targetLabel": "Bourbonnais Pointing Dog",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200224",
+      "sourceLabel": "Braque Francais de Grande Taille (Dog)",
+      "targetId": "VBO:0200559",
+      "targetLabel": "Gascogne Braque Français",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200225",
+      "sourceLabel": "Braque Francais de Petite Taille (Dog)",
+      "targetId": "VBO:0200226",
+      "targetLabel": "Braque Francais Pyrenean",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200227",
+      "sourceLabel": "Braque Saint Germain (Dog)",
+      "targetId": "VBO:0201163",
+      "targetLabel": "Saint Germain Pointer",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200229",
+      "sourceLabel": "Brazilian Mastiff (Dog)",
+      "targetId": "VBO:0200520",
+      "targetLabel": "Fila Brasileiro",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200236",
+      "sourceLabel": "British Bulldog (Dog)",
+      "targetId": "VBO:0200258",
+      "targetLabel": "Bulldog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200239",
+      "sourceLabel": "Brittany Spaniel (Dog)",
+      "targetId": "VBO:0200238",
+      "targetLabel": "Brittany",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200242",
+      "sourceLabel": "Brussels, Smooth Griffon (Dog)",
+      "targetId": "VBO:0201011",
+      "targetLabel": "Petit Brabancon",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200252",
+      "sourceLabel": "English Bull Terrier (Dog)",
+      "targetId": "VBO:0200255",
+      "targetLabel": "Bull Terrier",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200263",
+      "sourceLabel": "Burgos Pointing Dog (Dog)",
+      "targetId": "VBO:0200997",
+      "targetLabel": "Perdiguero de Burgos",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200265",
+      "sourceLabel": "Ca de Bou (Dog)",
+      "targetId": "VBO:0200845",
+      "targetLabel": "Majorca Mastiff",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200266",
+      "sourceLabel": "Ca Mè Mallorquí (Dog)",
+      "targetId": "VBO:0008011",
+      "targetLabel": "Ca Mè Mallorquí, Spain",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200276",
+      "sourceLabel": "Canarian Warren Hound (Dog)",
+      "targetId": "VBO:0201027",
+      "targetLabel": "Podenco Canario",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200277",
+      "sourceLabel": "Canary Dog (Dog)",
+      "targetId": "VBO:0201085",
+      "targetLabel": "Presa Canario",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200278",
+      "sourceLabel": "Canary Warren Hound (Dog)",
+      "targetId": "VBO:0201027",
+      "targetLabel": "Podenco Canario",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200284",
+      "sourceLabel": "Cao da Serra de Aires (Dog)",
+      "targetId": "VBO:0201071",
+      "targetLabel": "Portuguese Sheepdog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200287",
+      "sourceLabel": "Cão Fila de São Miguel (Dog)",
+      "targetId": "VBO:0201167",
+      "targetLabel": "Saint Miguel Cattle Dog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200294",
+      "sourceLabel": "Carolina Dog (Dog)",
+      "targetId": "VBO:0200044",
+      "targetLabel": "American Dingo",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200295",
+      "sourceLabel": "Carpathian Sheepdog (Dog)",
+      "targetId": "VBO:0201140",
+      "targetLabel": "Romanian Carpathian Shepherd Dog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200296",
+      "sourceLabel": "Castro Laboreiro Dog (Dog)",
+      "targetId": "VBO:0200285",
+      "targetLabel": "Cao de Castro Laboreiro",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200298",
+      "sourceLabel": "Catahoula Leopard Dog (Dog)",
+      "targetId": "VBO:0200820",
+      "targetLabel": "Leopard Cur",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200301",
+      "sourceLabel": "Caucasian Mountain Dog (Dog)",
+      "targetId": "VBO:0200304",
+      "targetLabel": "Caucasian Shepherd Dog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200319",
+      "sourceLabel": "Central Asian Ovtcharka (Dog)",
+      "targetId": "VBO:0200321",
+      "targetLabel": "Central Asian Shepherd Dog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200322",
+      "sourceLabel": "Cesky Fousek (Dog)",
+      "targetId": "VBO:0200188",
+      "targetLabel": "Bohemian Wire-Haired Pointing Griffon",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200331",
+      "sourceLabel": "Chien d'Artois (Dog)",
+      "targetId": "VBO:0200078",
+      "targetLabel": "Artois Hound",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200332",
+      "sourceLabel": "Chien de Berger Belge (Dog)",
+      "targetId": "VBO:0200144",
+      "targetLabel": "Belgian Shepherd Dog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200333",
+      "sourceLabel": "Chien Francais Blanc et Noir (Dog)",
+      "targetId": "VBO:0200551",
+      "targetLabel": "French White and Black Hound",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200334",
+      "sourceLabel": "Chien Francais Blanc et Orange (Dog)",
+      "targetId": "VBO:0200552",
+      "targetLabel": "French White and Orange Hound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200335",
+      "sourceLabel": "Chien Francais Tricolore (Dog)",
+      "targetId": "VBO:0200549",
+      "targetLabel": "French Tricolour Hound",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200393",
+      "sourceLabel": "Crossbreed (Dog)",
+      "targetId": "VBO:0200902",
+      "targetLabel": "Mixed Breed",
+      "reasonCode": "curated_mixed_breed_umbrella"
+    },
+    {
+      "vboId": "VBO:0200412",
+      "sourceLabel": "Dachshund, Old Format (Dog)",
+      "targetId": "VBO:0200406",
+      "targetLabel": "Dachshund",
+      "reasonCode": "curated_legacy_format_synonym"
+    },
+    {
+      "vboId": "VBO:0200430",
+      "sourceLabel": "Danish Broholmer (Dog)",
+      "targetId": "VBO:0000661",
+      "targetLabel": "Broholmer",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200432",
+      "sourceLabel": "Danish Mastiff (Dog)",
+      "targetId": "VBO:0000661",
+      "targetLabel": "Broholmer",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200435",
+      "sourceLabel": "Deerhound (Dog)",
+      "targetId": "VBO:0201195",
+      "targetLabel": "Scottish Deerhound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200438",
+      "sourceLabel": "Deutsch Stichelhaar (Dog)",
+      "targetId": "VBO:0200575",
+      "targetLabel": "German Roughhaired Pointer",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200439",
+      "sourceLabel": "Deutsche Bracke (Dog)",
+      "targetId": "VBO:0200567",
+      "targetLabel": "German Hound",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200459",
+      "sourceLabel": "Dutch Ratter (Dog)",
+      "targetId": "VBO:0200467",
+      "targetLabel": "Dutch Smoushond",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200460",
+      "sourceLabel": "Dutch Schapendoes (Dog)",
+      "targetId": "VBO:0201181",
+      "targetLabel": "Schapendoes",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200461",
+      "sourceLabel": "Dutch Sheepdog (Dog)",
+      "targetId": "VBO:0201181",
+      "targetLabel": "Schapendoes",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200462",
+      "sourceLabel": "Dutch Sheeppoodle (Dog)",
+      "targetId": "VBO:0201181",
+      "targetLabel": "Schapendoes",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200468",
+      "sourceLabel": "Dutch Spaniel (Dog)",
+      "targetId": "VBO:0201419",
+      "targetLabel": "Wetterhoun",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200470",
+      "sourceLabel": "East European Shepherd (Dog)",
+      "targetId": "VBO:0200473",
+      "targetLabel": "East-European Shepherd Dog",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200480",
+      "sourceLabel": "English Beagle (Dog)",
+      "targetId": "VBO:0200131",
+      "targetLabel": "Beagle",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200485",
+      "sourceLabel": "English Bulldog (Dog)",
+      "targetId": "VBO:0200258",
+      "targetLabel": "Bulldog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200489",
+      "sourceLabel": "English Coonhound (Dog)",
+      "targetId": "VBO:0200045",
+      "targetLabel": "American English Coonhound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200491",
+      "sourceLabel": "English Greyhound (Dog)",
+      "targetId": "VBO:0200638",
+      "targetLabel": "Greyhound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200492",
+      "sourceLabel": "English Mastiff (Dog)",
+      "targetId": "VBO:0200867",
+      "targetLabel": "Mastiff",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200494",
+      "sourceLabel": "English Pointer (Dog)",
+      "targetId": "VBO:0201029",
+      "targetLabel": "Pointer",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200498",
+      "sourceLabel": "English Toy Spaniel (Dog)",
+      "targetId": "VBO:0200765",
+      "targetLabel": "King Charles Spaniel",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200503",
+      "sourceLabel": "Entlebucher Mountain Dog (Dog)",
+      "targetId": "VBO:0200502",
+      "targetLabel": "Entlebuch Cattle Dog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200504",
+      "sourceLabel": "Epagneul de Pont-Audemer (Dog)",
+      "targetId": "VBO:0201046",
+      "targetLabel": "Pont-Audemer Spaniel",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200505",
+      "sourceLabel": "Epagneul Picard (Dog)",
+      "targetId": "VBO:0201019",
+      "targetLabel": "Picardy Spaniel",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200513",
+      "sourceLabel": "Farm Collie (Dog)",
+      "targetId": "VBO:0200496",
+      "targetLabel": "English Shepherd",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200514",
+      "sourceLabel": "Fawn Brittany Griffon (Dog)",
+      "targetId": "VBO:0200643",
+      "targetLabel": "Griffon Fauve de Bretagne",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200524",
+      "sourceLabel": "Finnish Lapponian Dog (Dog)",
+      "targetId": "VBO:0200523",
+      "targetLabel": "Finnish Lapphund",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200527",
+      "sourceLabel": "Flanders Cattle Dog (Dog)",
+      "targetId": "VBO:0200208",
+      "targetLabel": "Bouvier des Flandres",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200532",
+      "sourceLabel": "Francais Blanc et Orange (Dog)",
+      "targetId": "VBO:0200552",
+      "targetLabel": "French White and Orange Hound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200535",
+      "sourceLabel": "French Brittany Spaniel (Dog)",
+      "targetId": "VBO:0200534",
+      "targetLabel": "French Brittany",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200539",
+      "sourceLabel": "French Bulldog, Group 9 : Companion and Toy Dogs (Dog)",
+      "targetId": "VBO:0201455",
+      "targetLabel": "French Bulldog",
+      "reasonCode": "curated_registry_group_label"
+    },
+    {
+      "vboId": "VBO:0200543",
+      "sourceLabel": "French Mastiff (Dog)",
+      "targetId": "VBO:0200450",
+      "targetLabel": "Dogue de Bordeaux",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200545",
+      "sourceLabel": "French Pointing Dog - Gascogne Type (Dog)",
+      "targetId": "VBO:0200559",
+      "targetLabel": "Gascogne Braque Français",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200546",
+      "sourceLabel": "French Pointing Dog - Pyrenean Type (Dog)",
+      "targetId": "VBO:0200226",
+      "targetLabel": "Braque Francais Pyrenean",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200553",
+      "sourceLabel": "Fresian Water Dog (Dog)",
+      "targetId": "VBO:0201419",
+      "targetLabel": "Wetterhoun",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200554",
+      "sourceLabel": "Friesian Pointer (Dog)",
+      "targetId": "VBO:0201293",
+      "targetLabel": "Stabijhoun",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200555",
+      "sourceLabel": "Frisian Water Dog (Dog)",
+      "targetId": "VBO:0201419",
+      "targetLabel": "Wetterhoun",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200564",
+      "sourceLabel": "German Boxer (Dog)",
+      "targetId": "VBO:0200210",
+      "targetLabel": "Boxer",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200565",
+      "sourceLabel": "German Bracke Hound (Dog)",
+      "targetId": "VBO:0200567",
+      "targetLabel": "German Hound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200566",
+      "sourceLabel": "German Guard Dog (Dog)",
+      "targetId": "VBO:0200674",
+      "targetLabel": "Hovawart",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200568",
+      "sourceLabel": "German Hunting Terrier (Dog)",
+      "targetId": "VBO:0200732",
+      "targetLabel": "Jagdterrier",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200584",
+      "sourceLabel": "German Spaniel (Dog)",
+      "targetId": "VBO:0200440",
+      "targetLabel": "Deutscher Wachtelhund",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200612",
+      "sourceLabel": "Gończy Polski (Dog)",
+      "targetId": "VBO:0201034",
+      "targetLabel": "Polish Hunting Dog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200616",
+      "sourceLabel": "Grand Bleu de Gascogne (Dog)",
+      "targetId": "VBO:0200627",
+      "targetLabel": "Great Gascony Blue",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200618",
+      "sourceLabel": "Grand Gascon-Saintongeois (Dog)",
+      "targetId": "VBO:0200561",
+      "targetLabel": "Gascon Saintongeois, Great",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200628",
+      "sourceLabel": "Great Japanese Dog (Dog)",
+      "targetId": "VBO:0200027",
+      "targetLabel": "American Akita",
+      "reasonCode": "curated_historical_registry_name"
+    },
+    {
+      "vboId": "VBO:0200632",
+      "sourceLabel": "Greek Harehound (Dog)",
+      "targetId": "VBO:0200667",
+      "targetLabel": "Hellenic Hound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200633",
+      "sourceLabel": "Greek Hound (Dog)",
+      "targetId": "VBO:0200667",
+      "targetLabel": "Hellenic Hound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200639",
+      "sourceLabel": "Griffon (Dog)",
+      "targetId": "VBO:0200241",
+      "targetLabel": "Brussels Griffon",
+      "reasonCode": "curated_unspecified_registry_name"
+    },
+    {
+      "vboId": "VBO:0200641",
+      "sourceLabel": "Griffon Bleu de Gascogne (Dog)",
+      "targetId": "VBO:0200178",
+      "targetLabel": "Blue Gascony Griffon",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200644",
+      "sourceLabel": "Griffon Nivernais (Dog)",
+      "targetId": "VBO:0200942",
+      "targetLabel": "Nivernais Griffon",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200646",
+      "sourceLabel": "Guatemalan Bull Terrier (Dog)",
+      "targetId": "VBO:0200447",
+      "targetLabel": "Dogo Guatemalteco",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200654",
+      "sourceLabel": "Hamilton Hound (Dog)",
+      "targetId": "VBO:0200655",
+      "targetLabel": "Hamiltonstovare",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200658",
+      "sourceLabel": "Harehound (Dog)",
+      "targetId": "VBO:0200660",
+      "targetLabel": "Harrier",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200672",
+      "sourceLabel": "Holland Shepherd Dog (Dog)",
+      "targetId": "VBO:0200463",
+      "targetLabel": "Dutch Shepherd",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200680",
+      "sourceLabel": "Hungarian Sheepdog (Dog)",
+      "targetId": "VBO:0200779",
+      "targetLabel": "Komondor",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200682",
+      "sourceLabel": "Hungarian Water Dog (Dog)",
+      "targetId": "VBO:0201102",
+      "targetLabel": "Puli",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200685",
+      "sourceLabel": "Husky (Dog)",
+      "targetId": "VBO:0201233",
+      "targetLabel": "Siberian Husky",
+      "reasonCode": "curated_unspecified_registry_name"
+    },
+    {
+      "vboId": "VBO:0200686",
+      "sourceLabel": "Hygen Hound (Dog)",
+      "targetId": "VBO:0200687",
+      "targetLabel": "Hygenhund",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200689",
+      "sourceLabel": "Ibizan Podenco (Dog)",
+      "targetId": "VBO:0200688",
+      "targetLabel": "Ibizan Hound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200694",
+      "sourceLabel": "Indian Bear Hound (Dog)",
+      "targetId": "VBO:0200379",
+      "targetLabel": "Combai",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200698",
+      "sourceLabel": "Irish Glen Of Imaal Terrier (Dog)",
+      "targetId": "VBO:0200609",
+      "targetLabel": "Glen of Imaal Terrier",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200701",
+      "sourceLabel": "Irish Red Setter (Dog)",
+      "targetId": "VBO:0200702",
+      "targetLabel": "Irish Setter",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200707",
+      "sourceLabel": "Istrian Coarse-Haired Hound (Dog)",
+      "targetId": "VBO:0200710",
+      "targetLabel": "Istrian Wire-Haired Hound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200714",
+      "sourceLabel": "Italian Hound (Dog)",
+      "targetId": "VBO:0201202",
+      "targetLabel": "Segugio Italiano",
+      "reasonCode": "curated_unspecified_registry_name"
+    },
+    {
+      "vboId": "VBO:0200715",
+      "sourceLabel": "Italian Mastiff (Dog)",
+      "targetId": "VBO:0200712",
+      "targetLabel": "Italian Cane Corso",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200720",
+      "sourceLabel": "Italian Sighthound (Dog)",
+      "targetId": "VBO:0200713",
+      "targetLabel": "Italian Greyhound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200722",
+      "sourceLabel": "Italian Spitz (Dog)",
+      "targetId": "VBO:0201390",
+      "targetLabel": "Volpino Italiano",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200723",
+      "sourceLabel": "Italian Volpino (Dog)",
+      "targetId": "VBO:0201390",
+      "targetLabel": "Volpino Italiano",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200738",
+      "sourceLabel": "Japanese Shiba Inu (Dog)",
+      "targetId": "VBO:0201220",
+      "targetLabel": "Shiba Inu",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200739",
+      "sourceLabel": "Japanese Spaniel (Dog)",
+      "targetId": "VBO:0200735",
+      "targetLabel": "Japanese Chin",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200742",
+      "sourceLabel": "Japanese Tosa (Dog)",
+      "targetId": "VBO:0201357",
+      "targetLabel": "Tosa",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200750",
+      "sourceLabel": "Kangal Shepherd Dog (Dog)",
+      "targetId": "VBO:0200749",
+      "targetLabel": "Kangal Dog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200783",
+      "sourceLabel": "Korean Jindo (Dog)",
+      "targetId": "VBO:0200744",
+      "targetLabel": "Jindo",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200784",
+      "sourceLabel": "Korthals Griffon (Dog)",
+      "targetId": "VBO:0201427",
+      "targetLabel": "Wirehaired Pointing Griffon",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200804",
+      "sourceLabel": "Lagotto Romagnolo (Dog)",
+      "targetId": "VBO:0201137",
+      "targetLabel": "Romagna Water Dog",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200812",
+      "sourceLabel": "Lapland Reindeer dog (Dog)",
+      "targetId": "VBO:0200814",
+      "targetLabel": "Lapponian Herder",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200842",
+      "sourceLabel": "Magyar Agár (Dog)",
+      "targetId": "VBO:0200678",
+      "targetLabel": "Hungarian Greyhound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200850",
+      "sourceLabel": "Majorero Canario (Dog)",
+      "targetId": "VBO:0201003",
+      "targetLabel": "Perro Majorero",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200854",
+      "sourceLabel": "Mallorquin Bulldog (Dog)",
+      "targetId": "VBO:0200845",
+      "targetLabel": "Majorca Mastiff",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200855",
+      "sourceLabel": "Mallorquin Mastiff (Dog)",
+      "targetId": "VBO:0200845",
+      "targetLabel": "Majorca Mastiff",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200863",
+      "sourceLabel": "Manchester Terrier, Old Format (Dog)",
+      "targetId": "VBO:0200862",
+      "targetLabel": "Manchester Terrier",
+      "reasonCode": "curated_legacy_format_synonym"
+    },
+    {
+      "vboId": "VBO:0200873",
+      "sourceLabel": "Medium-Sized Anglo-French Hound (Dog)",
+      "targetId": "VBO:0200066",
+      "targetLabel": "Anglo-Francais de Petite Venerie",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200877",
+      "sourceLabel": "Mini-Pei (Dog)",
+      "targetId": "VBO:0200352",
+      "targetLabel": "Chinese Shar-Pei, Miniature",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200881",
+      "sourceLabel": "Miniature Australian Shepherd Dog (Dog)",
+      "targetId": "VBO:0200880",
+      "targetLabel": "Miniature American Shepherd",
+      "reasonCode": "curated_historical_registry_name"
+    },
+    {
+      "vboId": "VBO:0200908",
+      "sourceLabel": "Moscow Toy Terrier (Dog)",
+      "targetId": "VBO:0201151",
+      "targetLabel": "Russian Toy",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200943",
+      "sourceLabel": "Nordic Spitz (Dog)",
+      "targetId": "VBO:0200948",
+      "targetLabel": "Norrbottenspets",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200949",
+      "sourceLabel": "North American Shepherd Dog (Dog)",
+      "targetId": "VBO:0200880",
+      "targetLabel": "Miniature American Shepherd",
+      "reasonCode": "curated_historical_registry_name"
+    },
+    {
+      "vboId": "VBO:0200958",
+      "sourceLabel": "Norwegian Hound (Dog)",
+      "targetId": "VBO:0200456",
+      "targetLabel": "Dunker",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200959",
+      "sourceLabel": "Norwegian Lundehund (Dog)",
+      "targetId": "VBO:0200838",
+      "targetLabel": "Lundehund",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200960",
+      "sourceLabel": "Norwegian Puffin Dog (Dog)",
+      "targetId": "VBO:0200838",
+      "targetLabel": "Lundehund",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200961",
+      "sourceLabel": "Norwegian Sheepdog (Dog)",
+      "targetId": "VBO:0200953",
+      "targetLabel": "Norwegian Buhund",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200968",
+      "sourceLabel": "Old English Mastiff (Dog)",
+      "targetId": "VBO:0200867",
+      "targetLabel": "Mastiff",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0200986",
+      "sourceLabel": "Random-Bred Dog (Dog)",
+      "targetId": "VBO:0200902",
+      "targetLabel": "Mixed Breed",
+      "reasonCode": "curated_mixed_breed_synonym"
+    },
+    {
+      "vboId": "VBO:0200998",
+      "sourceLabel": "Perro Cimarron (Dog)",
+      "targetId": "VBO:0200364",
+      "targetLabel": "Cimarron Uruguayo",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0200999",
+      "sourceLabel": "Perro de Pastor Mallorquin (Dog)",
+      "targetId": "VBO:0200847",
+      "targetLabel": "Majorca Shepherd Dog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201000",
+      "sourceLabel": "Perro de Presa Canario (Dog)",
+      "targetId": "VBO:0201085",
+      "targetLabel": "Presa Canario",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201001",
+      "sourceLabel": "Perro de Presa Mallorquin (Dog)",
+      "targetId": "VBO:0200845",
+      "targetLabel": "Majorca Mastiff",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201012",
+      "sourceLabel": "Petit Gascon-Saintongeois (Dog)",
+      "targetId": "VBO:0200562",
+      "targetLabel": "Gascon Saintongeois, Small",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201018",
+      "sourceLabel": "Picardy Sheepdog (Dog)",
+      "targetId": "VBO:0200158",
+      "targetLabel": "Berger Picard",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201062",
+      "sourceLabel": "Poodle, Toy Old Format (Dog)",
+      "targetId": "VBO:0201061",
+      "targetLabel": "Poodle, Toy",
+      "reasonCode": "curated_legacy_format_synonym"
+    },
+    {
+      "vboId": "VBO:0201065",
+      "sourceLabel": "Porcelaine Hound (Dog)",
+      "targetId": "VBO:0201064",
+      "targetLabel": "Porcelaine",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201066",
+      "sourceLabel": "Portuguese Cattle Dog (Dog)",
+      "targetId": "VBO:0200285",
+      "targetLabel": "Cao de Castro Laboreiro",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0201072",
+      "sourceLabel": "Portuguese Warren Hound (Dog)",
+      "targetId": "VBO:0201067",
+      "targetLabel": "Portuguese Podengo",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201073",
+      "sourceLabel": "Portuguese Warren Hound-Portuguese Podengo (Dog)",
+      "targetId": "VBO:0201067",
+      "targetLabel": "Portuguese Podengo",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201081",
+      "sourceLabel": "Posavaz Hound (Dog)",
+      "targetId": "VBO:0201080",
+      "targetLabel": "Posavatz Hound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201124",
+      "sourceLabel": "Rastreador Brasileiro (Dog)",
+      "targetId": "VBO:0200232",
+      "targetLabel": "Brazilian Tracker",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201127",
+      "sourceLabel": "Ratonero Mallorquin (Dog)",
+      "targetId": "VBO:0200846",
+      "targetLabel": "Majorca Ratter",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201133",
+      "sourceLabel": "Redtick Coonhound (Dog)",
+      "targetId": "VBO:0200045",
+      "targetLabel": "American English Coonhound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201136",
+      "sourceLabel": "Ridgeback (Dog)",
+      "targetId": "VBO:0201135",
+      "targetLabel": "Rhodesian Ridgeback",
+      "reasonCode": "curated_unspecified_registry_name"
+    },
+    {
+      "vboId": "VBO:0201146",
+      "sourceLabel": "Russian Black Terrier (Dog)",
+      "targetId": "VBO:0200174",
+      "targetLabel": "Black Russian Terrier",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201183",
+      "sourceLabel": "Schillerstövare (Dog)",
+      "targetId": "VBO:0201182",
+      "targetLabel": "Schiller Hound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201191",
+      "sourceLabel": "Schweizer Laufhund (Dog)",
+      "targetId": "VBO:0201318",
+      "targetLabel": "Swiss Hound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201192",
+      "sourceLabel": "Schweizerischer Niederlaufhund (Dog)",
+      "targetId": "VBO:0201251",
+      "targetLabel": "Small Swiss Hound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201194",
+      "sourceLabel": "Scottish Collie (Dog)",
+      "targetId": "VBO:0200376",
+      "targetLabel": "Collie Rough",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201205",
+      "sourceLabel": "Serbian Balkan Standard Hound (Dog)",
+      "targetId": "VBO:0201207",
+      "targetLabel": "Serbian Hound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201206",
+      "sourceLabel": "Serbian Balkan Tricolour Hound (Dog)",
+      "targetId": "VBO:0201209",
+      "targetLabel": "Serbian Tricolor Hound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201243",
+      "sourceLabel": "Slovakian Hound (Dog)",
+      "targetId": "VBO:0201246",
+      "targetLabel": "Slovensky Kopov",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201248",
+      "sourceLabel": "Small Blue Gascony (Dog)",
+      "targetId": "VBO:0201010",
+      "targetLabel": "Petit Bleu de Gascogne",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0201249",
+      "sourceLabel": "Small Greek Domestic Dog (Dog)",
+      "targetId": "VBO:0200874",
+      "targetLabel": "Meliteo Kinidio",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201266",
+      "sourceLabel": "Southeastern European Shepherd (Dog)",
+      "targetId": "VBO:0201139",
+      "targetLabel": "Romanian Bucovina Shepherd",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201269",
+      "sourceLabel": "Southern Cur (Dog)",
+      "targetId": "VBO:0200172",
+      "targetLabel": "Black Mouth Cur",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201272",
+      "sourceLabel": "Spanish Bull Mastiff (Dog)",
+      "targetId": "VBO:0201278",
+      "targetLabel": "Spanish Mastiff",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201273",
+      "sourceLabel": "Spanish Bulldog (Dog)",
+      "targetId": "VBO:0200013",
+      "targetLabel": "Alano Español",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201274",
+      "sourceLabel": "Spanish Greyhound (Dog)",
+      "targetId": "VBO:0200557",
+      "targetLabel": "Galgo Español",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201279",
+      "sourceLabel": "Spanish Pointer (Dog)",
+      "targetId": "VBO:0200997",
+      "targetLabel": "Perdiguero de Burgos",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201281",
+      "sourceLabel": "Spinone Italiano (Dog)",
+      "targetId": "VBO:0200721",
+      "targetLabel": "Italian Spinone",
+      "reasonCode": "vbo_exact_synonym_cluster"
+    },
+    {
+      "vboId": "VBO:0201294",
+      "sourceLabel": "Stabyhoun (Dog)",
+      "targetId": "VBO:0201293",
+      "targetLabel": "Stabijhoun",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201295",
+      "sourceLabel": "Stabyhound (Dog)",
+      "targetId": "VBO:0201293",
+      "targetLabel": "Stabijhoun",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201304",
+      "sourceLabel": "Stumpy Tail Cattle Dog (Dog)",
+      "targetId": "VBO:0200097",
+      "targetLabel": "Australian Stumpy Tail Cattle Dog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201312",
+      "sourceLabel": "Swedish Dachsbracke (Dog)",
+      "targetId": "VBO:0200454",
+      "targetLabel": "Drever",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201313",
+      "sourceLabel": "Swedish Elkhound (Dog)",
+      "targetId": "VBO:0200733",
+      "targetLabel": "Jämthund",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201330",
+      "sourceLabel": "Tahltan Bear Dog (Dog)",
+      "targetId": "VBO:0201329",
+      "targetLabel": "Tahltan",
+      "reasonCode": "curated_historical_synonym"
+    },
+    {
+      "vboId": "VBO:0201332",
+      "sourceLabel": "Taiwan Dog (Dog)",
+      "targetId": "VBO:0200529",
+      "targetLabel": "Formosan Mountain Dog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201344",
+      "sourceLabel": "Terrier Brasileiro (Dog)",
+      "targetId": "VBO:0200231",
+      "targetLabel": "Brazilian Terrier",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201369",
+      "sourceLabel": "Transmontano Mastiff (Dog)",
+      "targetId": "VBO:0200286",
+      "targetLabel": "Cão de Gado Transmontano",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201370",
+      "sourceLabel": "Transylvanian Hound (Dog)",
+      "targetId": "VBO:0200679",
+      "targetLabel": "Hungarian Hound - Transylvanian Scent Hound",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201376",
+      "sourceLabel": "Turkish Kangal Dog (Dog)",
+      "targetId": "VBO:0200749",
+      "targetLabel": "Kangal Dog",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201386",
+      "sourceLabel": "Vilano Bulldog (Dog)",
+      "targetId": "VBO:0201387",
+      "targetLabel": "Villano de Las Encartaciones",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201405",
+      "sourceLabel": "Welsh Cocker Spaniel (Dog)",
+      "targetId": "VBO:0201411",
+      "targetLabel": "Welsh Springer Spaniel",
+      "reasonCode": "curated_registry_synonym"
+    },
+    {
+      "vboId": "VBO:0201407",
+      "sourceLabel": "Welsh Corgi, Old Format (Dog)",
+      "targetId": "VBO:0201406",
+      "targetLabel": "Welsh Corgi",
+      "reasonCode": "curated_legacy_format_synonym"
+    },
+    {
+      "vboId": "VBO:0201451",
+      "sourceLabel": "Yugoslavian Shepherd Dog - Sharplanina (Dog)",
+      "targetId": "VBO:0201180",
+      "targetLabel": "Sarplaninac",
+      "reasonCode": "curated_registry_synonym"
+    }
+  ],
+  "varietyDecisions": [
+    {
+      "vboId": "VBO:0008017",
+      "sourceLabel": "Euskal Artzain Txakurra (variedad Gorbeiakoa), Spain (Dog)",
+      "parentId": "VBO:0200121",
+      "parentLabel": "Basque Shepherd Dog",
+      "reasonCode": "curated_country_variety"
+    },
+    {
+      "vboId": "VBO:0008018",
+      "sourceLabel": "Euskal Artzain Txakurra (variedad Iletsua), Spain (Dog)",
+      "parentId": "VBO:0200121",
+      "parentLabel": "Basque Shepherd Dog",
+      "reasonCode": "curated_country_variety"
+    },
+    {
+      "vboId": "VBO:0200027",
+      "sourceLabel": "American Akita (Dog)",
+      "parentId": "VBO:0200010",
+      "parentLabel": "Akita",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0200031",
+      "sourceLabel": "American Brittany (Dog)",
+      "parentId": "VBO:0200238",
+      "parentLabel": "Brittany",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0200039",
+      "sourceLabel": "American Cocker Spaniel, Any Solid Colour Other Than Black (Ascob) (Dog)",
+      "parentId": "VBO:0200038",
+      "parentLabel": "American Cocker Spaniel",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200040",
+      "sourceLabel": "American Cocker Spaniel, Black (Dog)",
+      "parentId": "VBO:0200038",
+      "parentLabel": "American Cocker Spaniel",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200041",
+      "sourceLabel": "American Cocker Spaniel, Parti-Colour (Dog)",
+      "parentId": "VBO:0200038",
+      "parentLabel": "American Cocker Spaniel",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200145",
+      "sourceLabel": "Belgian Shepherd Dog, Groenendael (Dog)",
+      "parentId": "VBO:0200144",
+      "parentLabel": "Belgian Shepherd Dog",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0200146",
+      "sourceLabel": "Belgian Shepherd Dog, Laekenois (Dog)",
+      "parentId": "VBO:0200144",
+      "parentLabel": "Belgian Shepherd Dog",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0200147",
+      "sourceLabel": "Belgian Shepherd Dog, Malinois (Dog)",
+      "parentId": "VBO:0200144",
+      "parentLabel": "Belgian Shepherd Dog",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0200148",
+      "sourceLabel": "Belgian Shepherd Dog, Tervueren (Dog)",
+      "parentId": "VBO:0200144",
+      "parentLabel": "Belgian Shepherd Dog",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0200211",
+      "sourceLabel": "Boxer, Brindle (Dog)",
+      "parentId": "VBO:0200210",
+      "parentLabel": "Boxer",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200212",
+      "sourceLabel": "Boxer, Fawn (Dog)",
+      "parentId": "VBO:0200210",
+      "parentLabel": "Boxer",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200216",
+      "sourceLabel": "Bracco Italiano, Chestnut Roan (Dog)",
+      "parentId": "VBO:0200215",
+      "parentLabel": "Bracco Italiano",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200217",
+      "sourceLabel": "Bracco Italiano, White-Orange (Dog)",
+      "parentId": "VBO:0200215",
+      "parentLabel": "Bracco Italiano",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200310",
+      "sourceLabel": "Cavalier King Charles Spaniel, Black And Tan (Dog)",
+      "parentId": "VBO:0200309",
+      "parentLabel": "Cavalier King Charles Spaniel",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200311",
+      "sourceLabel": "Cavalier King Charles Spaniel, Blenheim (Dog)",
+      "parentId": "VBO:0200309",
+      "parentLabel": "Cavalier King Charles Spaniel",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200312",
+      "sourceLabel": "Cavalier King Charles Spaniel, Ruby (Dog)",
+      "parentId": "VBO:0200309",
+      "parentLabel": "Cavalier King Charles Spaniel",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200313",
+      "sourceLabel": "Cavalier King Charles Spaniel, Tricolour (Dog)",
+      "parentId": "VBO:0200309",
+      "parentLabel": "Cavalier King Charles Spaniel",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200339",
+      "sourceLabel": "Chihuahua, Long-Haired (Dog)",
+      "parentId": "VBO:0200338",
+      "parentLabel": "Chihuahua",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200340",
+      "sourceLabel": "Chihuahua, Smooth-Haired (Dog)",
+      "parentId": "VBO:0200338",
+      "parentLabel": "Chihuahua",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200346",
+      "sourceLabel": "Chinese Crested, Hairless (Dog)",
+      "parentId": "VBO:0200345",
+      "parentLabel": "Chinese Crested",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200347",
+      "sourceLabel": "Chinese Crested, Powder Puff (Dog)",
+      "parentId": "VBO:0200345",
+      "parentLabel": "Chinese Crested",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200382",
+      "sourceLabel": "Continental Toy Spaniel, Papillon - With Erect Ears (Dog)",
+      "parentId": "VBO:0200381",
+      "parentLabel": "Continental Toy Spaniel",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200383",
+      "sourceLabel": "Continental Toy Spaniel, Phalène - With Drooping Ears (Dog)",
+      "parentId": "VBO:0200381",
+      "parentLabel": "Continental Toy Spaniel",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200407",
+      "sourceLabel": "Dachshund, Long-Haired (Dog)",
+      "parentId": "VBO:0200406",
+      "parentLabel": "Dachshund",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200408",
+      "sourceLabel": "Dachshund, Miniature (Dog)",
+      "parentId": "VBO:0200406",
+      "parentLabel": "Dachshund",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200409",
+      "sourceLabel": "Dachshund, Miniature Long-Haired (Dog)",
+      "parentId": "VBO:0200406",
+      "parentLabel": "Dachshund",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200410",
+      "sourceLabel": "Dachshund, Miniature Smooth-Haired (Dog)",
+      "parentId": "VBO:0200406",
+      "parentLabel": "Dachshund",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200411",
+      "sourceLabel": "Dachshund, Miniature Wire-Haired (Dog)",
+      "parentId": "VBO:0200406",
+      "parentLabel": "Dachshund",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200413",
+      "sourceLabel": "Dachshund, Rabbit (Dog)",
+      "parentId": "VBO:0200406",
+      "parentLabel": "Dachshund",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200414",
+      "sourceLabel": "Dachshund, Rabbit Long-Haired (Dog)",
+      "parentId": "VBO:0200406",
+      "parentLabel": "Dachshund",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200415",
+      "sourceLabel": "Dachshund, Rabbit Smooth-Haired (Dog)",
+      "parentId": "VBO:0200406",
+      "parentLabel": "Dachshund",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200416",
+      "sourceLabel": "Dachshund, Rabbit Wire-Haired (Dog)",
+      "parentId": "VBO:0200406",
+      "parentLabel": "Dachshund",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200417",
+      "sourceLabel": "Dachshund, Smooth-Haired (Dog)",
+      "parentId": "VBO:0200406",
+      "parentLabel": "Dachshund",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200418",
+      "sourceLabel": "Dachshund, Standard (Dog)",
+      "parentId": "VBO:0200406",
+      "parentLabel": "Dachshund",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200419",
+      "sourceLabel": "Dachshund, Standard Long-Haired (Dog)",
+      "parentId": "VBO:0200406",
+      "parentLabel": "Dachshund",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200420",
+      "sourceLabel": "Dachshund, Standard Smooth-Haired (Dog)",
+      "parentId": "VBO:0200406",
+      "parentLabel": "Dachshund",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200421",
+      "sourceLabel": "Dachshund, Standard Wire-Haired (Dog)",
+      "parentId": "VBO:0200406",
+      "parentLabel": "Dachshund",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200422",
+      "sourceLabel": "Dachshund, Teckel (Dog)",
+      "parentId": "VBO:0200406",
+      "parentLabel": "Dachshund",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200423",
+      "sourceLabel": "Dachshund, Wire-Haired (Dog)",
+      "parentId": "VBO:0200406",
+      "parentLabel": "Dachshund",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200443",
+      "sourceLabel": "Dobermann, Black With Rust Red Clearly Defined And Clean Markings (Dog)",
+      "parentId": "VBO:0200442",
+      "parentLabel": "Doberman Pinscher",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200444",
+      "sourceLabel": "Dobermann, Brown With Rust Red Clearly Defined And Clean Markings (Dog)",
+      "parentId": "VBO:0200442",
+      "parentLabel": "Doberman Pinscher",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200464",
+      "sourceLabel": "Dutch Shepherd Dog, Long-Haired (Dog)",
+      "parentId": "VBO:0200463",
+      "parentLabel": "Dutch Shepherd",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200465",
+      "sourceLabel": "Dutch Shepherd Dog, Rough-Haired (Dog)",
+      "parentId": "VBO:0200463",
+      "parentLabel": "Dutch Shepherd",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200466",
+      "sourceLabel": "Dutch Shepherd Dog, Short-Haired (Dog)",
+      "parentId": "VBO:0200463",
+      "parentLabel": "Dutch Shepherd",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200487",
+      "sourceLabel": "English Cocker Spaniel, Particolours (Bicolours, Tricolours, Roans) (Dog)",
+      "parentId": "VBO:0200486",
+      "parentLabel": "English Cocker Spaniel",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200488",
+      "sourceLabel": "English Cocker Spaniel, Solid Colours (Dog)",
+      "parentId": "VBO:0200486",
+      "parentLabel": "English Cocker Spaniel",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200510",
+      "sourceLabel": "Estrela Mountain Dog, Long-Haired (Dog)",
+      "parentId": "VBO:0200509",
+      "parentLabel": "Estrela Mountain Dog",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200511",
+      "sourceLabel": "Estrela Mountain Dog, Short-Haired (Dog)",
+      "parentId": "VBO:0200509",
+      "parentLabel": "Estrela Mountain Dog",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200534",
+      "sourceLabel": "French Brittany (Dog)",
+      "parentId": "VBO:0200238",
+      "parentLabel": "Brittany",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0200538",
+      "sourceLabel": "French Bulldog, Fawn, Brindled Or Not, With Medium Or Predominant Patching (Dog)",
+      "parentId": "VBO:0201455",
+      "parentLabel": "French Bulldog",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200561",
+      "sourceLabel": "Gascon Saintongeois, Great (Dog)",
+      "parentId": "VBO:0200537",
+      "parentLabel": "Gascon Saintongeois",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200562",
+      "sourceLabel": "Gascon Saintongeois, Small (Dog)",
+      "parentId": "VBO:0200537",
+      "parentLabel": "Gascon Saintongeois",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200572",
+      "sourceLabel": "German Pinscher, Black And Tan (Dog)",
+      "parentId": "VBO:0201454",
+      "parentLabel": "German Pinscher",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200573",
+      "sourceLabel": "German Pinscher, Self Coloured: Deer Red, Reddish-Brown To Dark Red Brown (Dog)",
+      "parentId": "VBO:0201454",
+      "parentLabel": "German Pinscher",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200578",
+      "sourceLabel": "German Shepherd Dog, Double Coat (Dog)",
+      "parentId": "VBO:0200577",
+      "parentLabel": "German Shepherd Dog",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200579",
+      "sourceLabel": "German Shepherd Dog, Long And Harsh Outer Coat (Dog)",
+      "parentId": "VBO:0200577",
+      "parentLabel": "German Shepherd Dog",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200580",
+      "sourceLabel": "German Shepherd Dog, Non-White (Dog)",
+      "parentId": "VBO:0200577",
+      "parentLabel": "German Shepherd Dog",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200581",
+      "sourceLabel": "German Shepherd Dog, Old (Dog)",
+      "parentId": "VBO:0200577",
+      "parentLabel": "German Shepherd Dog",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200582",
+      "sourceLabel": "German Shepherd Dog, White (Dog)",
+      "parentId": "VBO:0200577",
+      "parentLabel": "German Shepherd Dog",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200586",
+      "sourceLabel": "German Spitz, Giant (Dog)",
+      "parentId": "VBO:0200585",
+      "parentLabel": "German Spitz",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200587",
+      "sourceLabel": "German Spitz, Giant Spitz Brown, Black (Dog)",
+      "parentId": "VBO:0200585",
+      "parentLabel": "German Spitz",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200588",
+      "sourceLabel": "German Spitz, Giant Spitz White (Dog)",
+      "parentId": "VBO:0200585",
+      "parentLabel": "German Spitz",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200589",
+      "sourceLabel": "German Spitz, Keeshond (Wolfspitz) (Dog)",
+      "parentId": "VBO:0200585",
+      "parentLabel": "German Spitz",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200590",
+      "sourceLabel": "German Spitz, Klein (Dog)",
+      "parentId": "VBO:0200585",
+      "parentLabel": "German Spitz",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200591",
+      "sourceLabel": "German Spitz, Medium Size Spitz Brown, Black (Dog)",
+      "parentId": "VBO:0200585",
+      "parentLabel": "German Spitz",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200592",
+      "sourceLabel": "German Spitz, Medium Size Spitz Orange, Grey Shaded, Other Colours (Dog)",
+      "parentId": "VBO:0200585",
+      "parentLabel": "German Spitz",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200593",
+      "sourceLabel": "German Spitz, Medium Size Spitz White (Dog)",
+      "parentId": "VBO:0200585",
+      "parentLabel": "German Spitz",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200594",
+      "sourceLabel": "German Spitz, Miniature (Dog)",
+      "parentId": "VBO:0200585",
+      "parentLabel": "German Spitz",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200595",
+      "sourceLabel": "German Spitz, Miniature Spitz Brown, Black (Dog)",
+      "parentId": "VBO:0200585",
+      "parentLabel": "German Spitz",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200596",
+      "sourceLabel": "German Spitz, Miniature Spitz Orange, Grey Shaded, Other Colours (Dog)",
+      "parentId": "VBO:0200585",
+      "parentLabel": "German Spitz",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200597",
+      "sourceLabel": "German Spitz, Miniature Spitz White (Dog)",
+      "parentId": "VBO:0200585",
+      "parentLabel": "German Spitz",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200598",
+      "sourceLabel": "German Spitz, Mittel (Dog)",
+      "parentId": "VBO:0200585",
+      "parentLabel": "German Spitz",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200599",
+      "sourceLabel": "German Spitz, Pomeranian (Dog)",
+      "parentId": "VBO:0200585",
+      "parentLabel": "German Spitz",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200600",
+      "sourceLabel": "German Spitz, Standard (Dog)",
+      "parentId": "VBO:0200585",
+      "parentLabel": "German Spitz",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200601",
+      "sourceLabel": "German Spitz, Toy (Dog)",
+      "parentId": "VBO:0200585",
+      "parentLabel": "German Spitz",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200603",
+      "sourceLabel": "German Wolfspitz (Dog)",
+      "parentId": "VBO:0200585",
+      "parentLabel": "German Spitz",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200605",
+      "sourceLabel": "Giant Schnauzer, Black And Silver (Dog)",
+      "parentId": "VBO:0200604",
+      "parentLabel": "Giant Schnauzer",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200606",
+      "sourceLabel": "Giant Schnauzer, Pepper And Salt (Dog)",
+      "parentId": "VBO:0200604",
+      "parentLabel": "Giant Schnauzer",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200607",
+      "sourceLabel": "Giant Schnauzer, Pure Black With Black Undercoat (Dog)",
+      "parentId": "VBO:0200604",
+      "parentLabel": "Giant Schnauzer",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200624",
+      "sourceLabel": "Great Dane, Black and Harlequin (Dog)",
+      "parentId": "VBO:0200623",
+      "parentLabel": "Great Dane",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200625",
+      "sourceLabel": "Great Dane, Blue (Dog)",
+      "parentId": "VBO:0200623",
+      "parentLabel": "Great Dane",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200626",
+      "sourceLabel": "Great Dane, Fawn and Brindle (Dog)",
+      "parentId": "VBO:0200623",
+      "parentLabel": "Great Dane",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200637",
+      "sourceLabel": "Grey Collie (Dog)",
+      "parentId": "VBO:0200375",
+      "parentLabel": "Collie",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200640",
+      "sourceLabel": "Griffon Belge (Dog)",
+      "parentId": "VBO:0200241",
+      "parentLabel": "Brussels Griffon",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0200642",
+      "sourceLabel": "Griffon Bruxellois (Dog)",
+      "parentId": "VBO:0200241",
+      "parentLabel": "Brussels Griffon",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0200675",
+      "sourceLabel": "Hovawart, Black (Dog)",
+      "parentId": "VBO:0200674",
+      "parentLabel": "Hovawart",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200676",
+      "sourceLabel": "Hovawart, Black-Gold (Dog)",
+      "parentId": "VBO:0200674",
+      "parentLabel": "Hovawart",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200677",
+      "sourceLabel": "Hovawart, Blond (Dog)",
+      "parentId": "VBO:0200674",
+      "parentLabel": "Hovawart",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200690",
+      "sourceLabel": "Ibizan Podenco, Rough-Haired (Dog)",
+      "parentId": "VBO:0200688",
+      "parentLabel": "Ibizan Hound",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0200691",
+      "sourceLabel": "Ibizan Podenco, Smooth-Haired (Dog)",
+      "parentId": "VBO:0200688",
+      "parentLabel": "Ibizan Hound",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0200716",
+      "sourceLabel": "Italian Rough-Haired Segugio (Dog)",
+      "parentId": "VBO:0201202",
+      "parentLabel": "Segugio Italiano",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0200719",
+      "sourceLabel": "Italian Short-Haired Segugio (Dog)",
+      "parentId": "VBO:0201202",
+      "parentLabel": "Segugio Italiano",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0200734",
+      "sourceLabel": "Japanese Akitainu (Dog)",
+      "parentId": "VBO:0200010",
+      "parentLabel": "Akita",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0200766",
+      "sourceLabel": "King Charles Spaniel, Black And Tan (Dog)",
+      "parentId": "VBO:0200765",
+      "parentLabel": "King Charles Spaniel",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200767",
+      "sourceLabel": "King Charles Spaniel, Blenheim (Dog)",
+      "parentId": "VBO:0200765",
+      "parentLabel": "King Charles Spaniel",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200768",
+      "sourceLabel": "King Charles Spaniel, Ruby (Dog)",
+      "parentId": "VBO:0200765",
+      "parentLabel": "King Charles Spaniel",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200769",
+      "sourceLabel": "King Charles Spaniel, Tricolour (Dog)",
+      "parentId": "VBO:0200765",
+      "parentLabel": "King Charles Spaniel",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200848",
+      "sourceLabel": "Majorca Shepherd Dog, Long-Haired (Dog)",
+      "parentId": "VBO:0200847",
+      "parentLabel": "Majorca Shepherd Dog",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200849",
+      "sourceLabel": "Majorca Shepherd Dog, Short-Haired (Dog)",
+      "parentId": "VBO:0200847",
+      "parentLabel": "Majorca Shepherd Dog",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200887",
+      "sourceLabel": "Miniature English Bull Terrier, Coloured (Dog)",
+      "parentId": "VBO:0200886",
+      "parentLabel": "Miniature English Bull Terrier",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200888",
+      "sourceLabel": "Miniature English Bull Terrier, White (Dog)",
+      "parentId": "VBO:0200886",
+      "parentLabel": "Miniature English Bull Terrier",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200894",
+      "sourceLabel": "Miniature Pinscher, Black And Tan (Dog)",
+      "parentId": "VBO:0200893",
+      "parentLabel": "Miniature Pinscher",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200895",
+      "sourceLabel": "Miniature Pinscher, Self Coloured: Deer Red, Reddish-Brown To Dark Red Brown (Dog)",
+      "parentId": "VBO:0200893",
+      "parentLabel": "Miniature Pinscher",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200897",
+      "sourceLabel": "Miniature Schnauzer, Black And Silver (Dog)",
+      "parentId": "VBO:0200896",
+      "parentLabel": "Miniature Schnauzer",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200898",
+      "sourceLabel": "Miniature Schnauzer, Pepper And Salt (Dog)",
+      "parentId": "VBO:0200896",
+      "parentLabel": "Miniature Schnauzer",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200899",
+      "sourceLabel": "Miniature Schnauzer, Pure Black With Black Undercoat (Dog)",
+      "parentId": "VBO:0200896",
+      "parentLabel": "Miniature Schnauzer",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200900",
+      "sourceLabel": "Miniature Schnauzer, Pure White With White Undercoat (Dog)",
+      "parentId": "VBO:0200896",
+      "parentLabel": "Miniature Schnauzer",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200909",
+      "sourceLabel": "Moscow Toy, Long-Haired Terrier (Dog)",
+      "parentId": "VBO:0201151",
+      "parentLabel": "Russian Toy",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200910",
+      "sourceLabel": "Moscow Toy, Short-Haired Terrier (Dog)",
+      "parentId": "VBO:0201151",
+      "parentLabel": "Russian Toy",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200922",
+      "sourceLabel": "Mudi, Ash Coloured (Blue Grey) (Dog)",
+      "parentId": "VBO:0200921",
+      "parentLabel": "Mudi",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200923",
+      "sourceLabel": "Mudi, Black (Dog)",
+      "parentId": "VBO:0200921",
+      "parentLabel": "Mudi",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200924",
+      "sourceLabel": "Mudi, Blue-Merle (Dog)",
+      "parentId": "VBO:0200921",
+      "parentLabel": "Mudi",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200925",
+      "sourceLabel": "Mudi, Brown (Dog)",
+      "parentId": "VBO:0200921",
+      "parentLabel": "Mudi",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200926",
+      "sourceLabel": "Mudi, Fawn (Dog)",
+      "parentId": "VBO:0200921",
+      "parentLabel": "Mudi",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200927",
+      "sourceLabel": "Mudi, White (Dog)",
+      "parentId": "VBO:0200921",
+      "parentLabel": "Mudi",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200939",
+      "sourceLabel": "Newfoundland, Black (Dog)",
+      "parentId": "VBO:0200938",
+      "parentLabel": "Newfoundland",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200940",
+      "sourceLabel": "Newfoundland, Brown (Dog)",
+      "parentId": "VBO:0200938",
+      "parentLabel": "Newfoundland",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200941",
+      "sourceLabel": "Newfoundland, White And Black (Dog)",
+      "parentId": "VBO:0200938",
+      "parentLabel": "Newfoundland",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0200985",
+      "sourceLabel": "Papillon (Dog)",
+      "parentId": "VBO:0200381",
+      "parentLabel": "Continental Toy Spaniel",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0201005",
+      "sourceLabel": "Peruvian Hairless Dog, Large (Dog)",
+      "parentId": "VBO:0201004",
+      "parentLabel": "Peruvian Hairless Dog",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201006",
+      "sourceLabel": "Peruvian Hairless Dog, Medium-Sized (Dog)",
+      "parentId": "VBO:0201004",
+      "parentLabel": "Peruvian Hairless Dog",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201007",
+      "sourceLabel": "Peruvian Hairless Dog, Miniature (Dog)",
+      "parentId": "VBO:0201004",
+      "parentLabel": "Peruvian Hairless Dog",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201011",
+      "sourceLabel": "Petit Brabancon (Dog)",
+      "parentId": "VBO:0200241",
+      "parentLabel": "Brussels Griffon",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0201015",
+      "sourceLabel": "Phalène (Dog)",
+      "parentId": "VBO:0200381",
+      "parentLabel": "Continental Toy Spaniel",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0201049",
+      "sourceLabel": "Poodle, Medium size Brown Black White (Dog)",
+      "parentId": "VBO:0201048",
+      "parentLabel": "Poodle",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201050",
+      "sourceLabel": "Poodle, Medium size Grey Fawn (Dog)",
+      "parentId": "VBO:0201048",
+      "parentLabel": "Poodle",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201051",
+      "sourceLabel": "Poodle, Miniature (Dog)",
+      "parentId": "VBO:0201048",
+      "parentLabel": "Poodle",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201052",
+      "sourceLabel": "Poodle, Miniature Brown Black White (Dog)",
+      "parentId": "VBO:0201051",
+      "parentLabel": "Poodle, Miniature",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201053",
+      "sourceLabel": "Poodle, Miniature Grey Fawn (Dog)",
+      "parentId": "VBO:0201051",
+      "parentLabel": "Poodle, Miniature",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201055",
+      "sourceLabel": "Poodle, Multi-Colored (Dog)",
+      "parentId": "VBO:0201048",
+      "parentLabel": "Poodle",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201056",
+      "sourceLabel": "Poodle, Standard (Dog)",
+      "parentId": "VBO:0201048",
+      "parentLabel": "Poodle",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201057",
+      "sourceLabel": "Poodle, Standard Brown Black White (Dog)",
+      "parentId": "VBO:0201056",
+      "parentLabel": "Poodle, Standard",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201058",
+      "sourceLabel": "Poodle, Standard Grey Fawn (Dog)",
+      "parentId": "VBO:0201056",
+      "parentLabel": "Poodle, Standard",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201059",
+      "sourceLabel": "Poodle, Standard Multi-Colored (Dog)",
+      "parentId": "VBO:0201056",
+      "parentLabel": "Poodle, Standard",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201060",
+      "sourceLabel": "Poodle, Teacup (Dog)",
+      "parentId": "VBO:0201048",
+      "parentLabel": "Poodle",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201061",
+      "sourceLabel": "Poodle, Toy (Dog)",
+      "parentId": "VBO:0201048",
+      "parentLabel": "Poodle",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201074",
+      "sourceLabel": "Portuguese Warren Hound-Portuguese Podengo, Large (Dog)",
+      "parentId": "VBO:0201067",
+      "parentLabel": "Portuguese Podengo",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201075",
+      "sourceLabel": "Portuguese Warren Hound-Portuguese Podengo, Medium-Sized (Dog)",
+      "parentId": "VBO:0201067",
+      "parentLabel": "Portuguese Podengo",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201076",
+      "sourceLabel": "Portuguese Warren Hound-Portuguese Podengo, Small (Dog)",
+      "parentId": "VBO:0201067",
+      "parentLabel": "Portuguese Podengo",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201078",
+      "sourceLabel": "Portuguese Water Dog, Long And Wavy (Dog)",
+      "parentId": "VBO:0201077",
+      "parentLabel": "Portuguese Water Dog",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201079",
+      "sourceLabel": "Portuguese Water Dog, Shorter And Curly (Dog)",
+      "parentId": "VBO:0201077",
+      "parentLabel": "Portuguese Water Dog",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201092",
+      "sourceLabel": "Pug, Apricot (Dog)",
+      "parentId": "VBO:0201089",
+      "parentLabel": "Pug",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201093",
+      "sourceLabel": "Pug, Black (Dog)",
+      "parentId": "VBO:0201089",
+      "parentLabel": "Pug",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201094",
+      "sourceLabel": "Pug, Fawn (Dog)",
+      "parentId": "VBO:0201089",
+      "parentLabel": "Pug",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201095",
+      "sourceLabel": "Pug, Silver (Dog)",
+      "parentId": "VBO:0201089",
+      "parentLabel": "Pug",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201103",
+      "sourceLabel": "Puli, Black, Black Shaded With Rust-Red Or Grey, Fawn, Grey In Any Shade (Dog)",
+      "parentId": "VBO:0201102",
+      "parentLabel": "Puli",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201104",
+      "sourceLabel": "Puli, Pearl-White (Dog)",
+      "parentId": "VBO:0201102",
+      "parentLabel": "Puli",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201106",
+      "sourceLabel": "Pumi, Black (Dog)",
+      "parentId": "VBO:0201105",
+      "parentLabel": "Pumi",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201107",
+      "sourceLabel": "Pumi, Fawn (Fakó). Primary Colours: Red, Yellow, Cream (Dog)",
+      "parentId": "VBO:0201105",
+      "parentLabel": "Pumi",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201108",
+      "sourceLabel": "Pumi, Grey In Various Shades (Dog)",
+      "parentId": "VBO:0201105",
+      "parentLabel": "Pumi",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201115",
+      "sourceLabel": "Pyrenean Sheepdog - Long Haired (Dog)",
+      "parentId": "VBO:0201114",
+      "parentLabel": "Pyrenean Sheepdog",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201116",
+      "sourceLabel": "Pyrenean Sheepdog - Smooth Faced (Dog)",
+      "parentId": "VBO:0201114",
+      "parentLabel": "Pyrenean Sheepdog",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201152",
+      "sourceLabel": "Russian Toy, Longhaired (Dog)",
+      "parentId": "VBO:0201151",
+      "parentLabel": "Russian Toy",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201153",
+      "sourceLabel": "Russian Toy, Smooth-Haired (Dog)",
+      "parentId": "VBO:0201151",
+      "parentLabel": "Russian Toy",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201154",
+      "sourceLabel": "Russian Tsvetnaya Bolonka (Dog)",
+      "parentId": "VBO:0201147",
+      "parentLabel": "Russian Bolonka",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0201161",
+      "sourceLabel": "Saint Bernard, Long-Haired (Dog)",
+      "parentId": "VBO:0201160",
+      "parentLabel": "Saint Bernard",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201162",
+      "sourceLabel": "Saint Bernard, Short-Haired (Dog)",
+      "parentId": "VBO:0201160",
+      "parentLabel": "Saint Bernard",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201172",
+      "sourceLabel": "Saluki, Fringed (Dog)",
+      "parentId": "VBO:0201171",
+      "parentLabel": "Saluki",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201173",
+      "sourceLabel": "Saluki, Smooth (Dog)",
+      "parentId": "VBO:0201171",
+      "parentLabel": "Saluki",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201187",
+      "sourceLabel": "Schnauzer, Pepper And Salt (Dog)",
+      "parentId": "VBO:0201185",
+      "parentLabel": "Schnauzer",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201188",
+      "sourceLabel": "Schnauzer, Pure Black With Black Undercoat (Dog)",
+      "parentId": "VBO:0201185",
+      "parentLabel": "Schnauzer",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201189",
+      "sourceLabel": "Schnauzer, Standard (Dog)",
+      "parentId": "VBO:0201185",
+      "parentLabel": "Schnauzer",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201252",
+      "sourceLabel": "Small Swiss Hound, Small Bernese Hound (Dog)",
+      "parentId": "VBO:0201251",
+      "parentLabel": "Small Swiss Hound",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201253",
+      "sourceLabel": "Small Swiss Hound, Small Jura Hound (Dog)",
+      "parentId": "VBO:0201251",
+      "parentLabel": "Small Swiss Hound",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201254",
+      "sourceLabel": "Small Swiss Hound, Small Lucerne Hound (Dog)",
+      "parentId": "VBO:0201251",
+      "parentLabel": "Small Swiss Hound",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201255",
+      "sourceLabel": "Small Swiss Hound, Small Schwyz Hound (Dog)",
+      "parentId": "VBO:0201251",
+      "parentLabel": "Small Swiss Hound",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201260",
+      "sourceLabel": "Soft Coated Wheaten Terrier (Dog)",
+      "parentId": "VBO:0201420",
+      "parentLabel": "Wheaten Terrier",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201261",
+      "sourceLabel": "Soft-Coated Wheaten, English American Terrier (Dog)",
+      "parentId": "VBO:0201260",
+      "parentLabel": "Soft Coated Wheaten Terrier",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201262",
+      "sourceLabel": "Soft-Coated Wheaten, Heavy Irish Terrier (Dog)",
+      "parentId": "VBO:0201260",
+      "parentLabel": "Soft Coated Wheaten Terrier",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201263",
+      "sourceLabel": "Soft-Coated Wheaten, Traditional Irish Terrier (Dog)",
+      "parentId": "VBO:0201260",
+      "parentLabel": "Soft Coated Wheaten Terrier",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201297",
+      "sourceLabel": "Staffordshire Bull Terrier, English (Dog)",
+      "parentId": "VBO:0201296",
+      "parentLabel": "Staffordshire Bull Terrier",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201298",
+      "sourceLabel": "Staffordshire Bull Terrier, Irish (Dog)",
+      "parentId": "VBO:0201296",
+      "parentLabel": "Staffordshire Bull Terrier",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201299",
+      "sourceLabel": "Staffordshire Bull Terrier, Miniature (Dog)",
+      "parentId": "VBO:0201296",
+      "parentLabel": "Staffordshire Bull Terrier",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201310",
+      "sourceLabel": "Swedish Briard (Dog)",
+      "parentId": "VBO:0200234",
+      "parentLabel": "Briard",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201319",
+      "sourceLabel": "Swiss Hound, Bernese Hound (Dog)",
+      "parentId": "VBO:0201318",
+      "parentLabel": "Swiss Hound",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201320",
+      "sourceLabel": "Swiss Hound, Jura Hound (Dog)",
+      "parentId": "VBO:0201318",
+      "parentLabel": "Swiss Hound",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201321",
+      "sourceLabel": "Swiss Hound, Lucerne Hound (Dog)",
+      "parentId": "VBO:0201318",
+      "parentLabel": "Swiss Hound",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201322",
+      "sourceLabel": "Swiss Hound, Schwyz Hound (Dog)",
+      "parentId": "VBO:0201318",
+      "parentLabel": "Swiss Hound",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201402",
+      "sourceLabel": "Weimaraner, Long-Haired (Dog)",
+      "parentId": "VBO:0201401",
+      "parentLabel": "Weimaraner",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201403",
+      "sourceLabel": "Weimaraner, Short-Haired (Dog)",
+      "parentId": "VBO:0201401",
+      "parentLabel": "Weimaraner",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201434",
+      "sourceLabel": "Working Kelpie (Dog)",
+      "parentId": "VBO:0200090",
+      "parentLabel": "Australian Kelpie",
+      "reasonCode": "curated_registry_variety"
+    },
+    {
+      "vboId": "VBO:0201437",
+      "sourceLabel": "Xoloitzcuintli, Intermediate (Dog)",
+      "parentId": "VBO:0201436",
+      "parentLabel": "Xoloitzcuintli",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201438",
+      "sourceLabel": "Xoloitzcuintli, Miniature (Dog)",
+      "parentId": "VBO:0201436",
+      "parentLabel": "Xoloitzcuintli",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201439",
+      "sourceLabel": "Xoloitzcuintli, Standard (Dog)",
+      "parentId": "VBO:0201436",
+      "parentLabel": "Xoloitzcuintli",
+      "reasonCode": "vbo_nested_breed_concept"
+    },
+    {
+      "vboId": "VBO:0201440",
+      "sourceLabel": "Xoloitzcuintli, Toy (Dog)",
+      "parentId": "VBO:0201436",
+      "parentLabel": "Xoloitzcuintli",
+      "reasonCode": "vbo_nested_breed_concept"
+    }
+  ],
+  "crossbreedDecisions": [
+    {
+      "vboId": "VBO:0200033",
+      "sourceLabel": "American Bullador (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200035",
+      "sourceLabel": "American Bullnese (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200037",
+      "sourceLabel": "American Cockapoo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200092",
+      "sourceLabel": "Australian Labradoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200128",
+      "sourceLabel": "Bassoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200133",
+      "sourceLabel": "Beaglier (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200184",
+      "sourceLabel": "Bochi (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200190",
+      "sourceLabel": "Bolonoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200191",
+      "sourceLabel": "Borador (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200195",
+      "sourceLabel": "Borgi (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200196",
+      "sourceLabel": "Borkie (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200202",
+      "sourceLabel": "Boston Bulldog (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200203",
+      "sourceLabel": "Boston Jug (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200209",
+      "sourceLabel": "Boxador (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200213",
+      "sourceLabel": "Boxerdoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200245",
+      "sourceLabel": "Bug (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200250",
+      "sourceLabel": "Bull Arab (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200256",
+      "sourceLabel": "Bull-Pei (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200257",
+      "sourceLabel": "Bullador (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200268",
+      "sourceLabel": "Cairnoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200305",
+      "sourceLabel": "Cavachi (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200306",
+      "sourceLabel": "Cavachon (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200307",
+      "sourceLabel": "Cavador (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200308",
+      "sourceLabel": "Cavajack (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200314",
+      "sourceLabel": "Cavamalt (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200315",
+      "sourceLabel": "Cavapom (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200316",
+      "sourceLabel": "Cavapoo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200317",
+      "sourceLabel": "Cavatzu (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200318",
+      "sourceLabel": "Cavestie (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200325",
+      "sourceLabel": "Chesador (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200327",
+      "sourceLabel": "Chi-Apso (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200328",
+      "sourceLabel": "Chi-Con (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200329",
+      "sourceLabel": "Chi-Poo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200330",
+      "sourceLabel": "Chi-Terrier (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200348",
+      "sourceLabel": "Chinese Crestepoo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200356",
+      "sourceLabel": "Chiweenie (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200358",
+      "sourceLabel": "Chonzer (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200359",
+      "sourceLabel": "Chorkie (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200362",
+      "sourceLabel": "Chug (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200367",
+      "sourceLabel": "Cockachon (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200368",
+      "sourceLabel": "Cockador (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200369",
+      "sourceLabel": "Cockalier (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200370",
+      "sourceLabel": "Cockapoo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200371",
+      "sourceLabel": "Cockatzu (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200387",
+      "sourceLabel": "Corgi Pug (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200388",
+      "sourceLabel": "Corkie (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200399",
+      "sourceLabel": "Cyprus Poodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200426",
+      "sourceLabel": "Dalmador (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200428",
+      "sourceLabel": "Dalmatian Spaniel (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200451",
+      "sourceLabel": "Dorkie (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200536",
+      "sourceLabel": "French Bull Terrier (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200576",
+      "sourceLabel": "German Sheeppoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200608",
+      "sourceLabel": "Giant Schnoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200684",
+      "sourceLabel": "Huskamute (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200725",
+      "sourceLabel": "Jack-A-Poo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200726",
+      "sourceLabel": "Jack-Chi (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200727",
+      "sourceLabel": "Jackabee (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200728",
+      "sourceLabel": "Jackador (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200730",
+      "sourceLabel": "Jackshit (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200731",
+      "sourceLabel": "Jackshund (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200746",
+      "sourceLabel": "Jug (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200795",
+      "sourceLabel": "Kyi-Leo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200796",
+      "sourceLabel": "La-Chon (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200797",
+      "sourceLabel": "Lab-Pei (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200798",
+      "sourceLabel": "Labradoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200799",
+      "sourceLabel": "Labrador Husky (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200801",
+      "sourceLabel": "Labralas (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200802",
+      "sourceLabel": "Labraspoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200803",
+      "sourceLabel": "Labstaff (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200806",
+      "sourceLabel": "Lakedoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200823",
+      "sourceLabel": "Lha-Cocker (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200825",
+      "sourceLabel": "Lhasa-Poo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200826",
+      "sourceLabel": "Lhasalier (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200851",
+      "sourceLabel": "Mal-Shi (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200858",
+      "sourceLabel": "Maltese Jack Russell Mix (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200859",
+      "sourceLabel": "Maltese Terrier (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200860",
+      "sourceLabel": "Malti-Poo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200861",
+      "sourceLabel": "Maltipom (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200870",
+      "sourceLabel": "Mastweiler (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200884",
+      "sourceLabel": "Miniature Cockapoo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200890",
+      "sourceLabel": "Miniature Goldendoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200892",
+      "sourceLabel": "Miniature Labradoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200901",
+      "sourceLabel": "Miniature Schnoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200907",
+      "sourceLabel": "Morkie (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200991",
+      "sourceLabel": "Patterjack (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200992",
+      "sourceLabel": "Patterpoo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0200993",
+      "sourceLabel": "Pekepoo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201014",
+      "sourceLabel": "Petite Goldendoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201030",
+      "sourceLabel": "Pointer-Rottweiler Mix (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201039",
+      "sourceLabel": "Pomapoo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201040",
+      "sourceLabel": "Pomapug (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201041",
+      "sourceLabel": "Pomchi (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201042",
+      "sourceLabel": "Pomeagle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201044",
+      "sourceLabel": "Pomeranian-Chow Chow Mix (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201045",
+      "sourceLabel": "Pomsky (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201047",
+      "sourceLabel": "Poochon (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201063",
+      "sourceLabel": "Poogle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201090",
+      "sourceLabel": "Pug-Labrador Retriever Mix (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201091",
+      "sourceLabel": "Pug-Zu (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201096",
+      "sourceLabel": "Pugalier (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201097",
+      "sourceLabel": "Puganese (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201098",
+      "sourceLabel": "Pugapoo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201099",
+      "sourceLabel": "Puggle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201100",
+      "sourceLabel": "Puginese (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201101",
+      "sourceLabel": "Pugland (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201110",
+      "sourceLabel": "Purebred Cross Canine (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201111",
+      "sourceLabel": "Pyredoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201186",
+      "sourceLabel": "Schnauzer-Beagle Cross (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201190",
+      "sourceLabel": "Schnoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201193",
+      "sourceLabel": "Scoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201214",
+      "sourceLabel": "Sharpoo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201221",
+      "sourceLabel": "ShiChi (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201222",
+      "sourceLabel": "Shichon (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201224",
+      "sourceLabel": "Shih-Poo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201227",
+      "sourceLabel": "Shinese (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201228",
+      "sourceLabel": "Shiranian (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201229",
+      "sourceLabel": "Shollie (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201232",
+      "sourceLabel": "Shug (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201259",
+      "sourceLabel": "Snorkie (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201283",
+      "sourceLabel": "Sporgi (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201285",
+      "sourceLabel": "Springador (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201286",
+      "sourceLabel": "Springbatt (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201288",
+      "sourceLabel": "Springerdoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201289",
+      "sourceLabel": "Sprocker Spaniel (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201290",
+      "sourceLabel": "Sprockerpoo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201291",
+      "sourceLabel": "Sprointer (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201292",
+      "sourceLabel": "Sprollie (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201303",
+      "sourceLabel": "Stoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201395",
+      "sourceLabel": "Wapoo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201398",
+      "sourceLabel": "Wauzer (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201400",
+      "sourceLabel": "Wee-Chon (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201404",
+      "sourceLabel": "Weimardoodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201417",
+      "sourceLabel": "Westiepoo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201430",
+      "sourceLabel": "Wolfdog (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "curated_wolfdog_type"
+    },
+    {
+      "vboId": "VBO:0201432",
+      "sourceLabel": "Woodle (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201444",
+      "sourceLabel": "Yo-Chon (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201445",
+      "sourceLabel": "Yoranian (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201446",
+      "sourceLabel": "Yorkie Russell (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201447",
+      "sourceLabel": "Yorkipoo (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "vbo_mixed_breed_descendant"
+    }
+  ],
+  "historicalDecisions": [
+    {
+      "vboId": "VBO:0200020",
+      "sourceLabel": "Alaunt (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200025",
+      "sourceLabel": "Alpine Mastiff (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200071",
+      "sourceLabel": "Argentine Polar Dog (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200080",
+      "sourceLabel": "Aryan Molossus (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200181",
+      "sourceLabel": "Blue Paul Terrier (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200260",
+      "sourceLabel": "Bullenbeisser (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200337",
+      "sourceLabel": "Chien-gris (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200355",
+      "sourceLabel": "Chiribaya Dog (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200385",
+      "sourceLabel": "Cordoba Fighting Dog (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200394",
+      "sourceLabel": "Cumberland Sheepdog (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200425",
+      "sourceLabel": "Dalbo Dog (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200446",
+      "sourceLabel": "Dogo Cubano (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200455",
+      "sourceLabel": "Dumfriesshire Black and Tan Foxhound (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200501",
+      "sourceLabel": "English White Terrier (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200556",
+      "sourceLabel": "Fuegian Dog (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200653",
+      "sourceLabel": "Halls Heeler (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200657",
+      "sourceLabel": "Hare Indian Dog (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200664",
+      "sourceLabel": "Hawaiian Poi Dog (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200792",
+      "sourceLabel": "Kurī (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200866",
+      "sourceLabel": "Marquesan Dog (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200903",
+      "sourceLabel": "Molossus (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200904",
+      "sourceLabel": "Molossus of Epirus (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200944",
+      "sourceLabel": "Norfolk Spaniel (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200950",
+      "sourceLabel": "North Country Beagle (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200965",
+      "sourceLabel": "Old Croatian Sighthound (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200970",
+      "sourceLabel": "Old English Terrier (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200972",
+      "sourceLabel": "Old Spanish Pointer (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0200984",
+      "sourceLabel": "Pampas Deerhound (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0201170",
+      "sourceLabel": "Salish Wool Dog (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0201270",
+      "sourceLabel": "Southern Hound (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0201329",
+      "sourceLabel": "Tahltan (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0201333",
+      "sourceLabel": "Talbot Hound (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0201346",
+      "sourceLabel": "Tesem (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0201367",
+      "sourceLabel": "Toy Trawler Spaniel (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0201377",
+      "sourceLabel": "Turnspit Dog (Dog)",
+      "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0201378",
+      "sourceLabel": "Tweed Water Spaniel (Dog)",
+      "reasonCode": "curated_historical_breed"
+    }
+  ],
+  "excludedDecisions": [
+    {
+      "vboId": "VBO:0008055",
+      "sourceLabel": "Magyarországi Drótszőrű Magyarvizsla Tenyésztők Egyesülete, Hungary (Dog)",
+      "reasonCode": "organization_name_not_breed"
+    },
+    {
+      "vboId": "VBO:0200729",
+      "sourceLabel": "Jackal (Dog)",
+      "reasonCode": "non_domestic_canid"
+    },
+    {
+      "vboId": "VBO:0200929",
+      "sourceLabel": "Navasota Mixed Breed (Dog)",
+      "reasonCode": "research_population_not_consumer_breed_type"
+    },
+    {
+      "vboId": "VBO:0201429",
+      "sourceLabel": "Wolf (Dog)",
+      "reasonCode": "non_domestic_canid"
+    }
+  ],
+  "regionalLandraceCandidates": [
+    {
+      "vboId": "VBO:0007991",
+      "sourceLabel": "Kazakhski Tobet, Kazakhstan (Dog)",
+      "disposition": "canonical",
+      "reasonCode": "vbo_direct_dog_breed"
+    },
+    {
+      "vboId": "VBO:0008003",
+      "sourceLabel": "Indigenous, Bangladesh (Dog)",
+      "disposition": "canonical",
+      "reasonCode": "vbo_direct_dog_breed"
+    },
+    {
+      "vboId": "VBO:0008004",
+      "sourceLabel": "Sarail, Bangladesh (Dog)",
+      "disposition": "canonical",
+      "reasonCode": "vbo_direct_dog_breed"
+    },
+    {
+      "vboId": "VBO:0008005",
+      "sourceLabel": "Balgarski barak, Bulgaria (Dog)",
+      "disposition": "canonical",
+      "reasonCode": "vbo_direct_dog_breed"
+    },
+    {
+      "vboId": "VBO:0008006",
+      "sourceLabel": "Balgarsko ludogorsko gonche, Bulgaria (Dog)",
+      "disposition": "canonical",
+      "reasonCode": "vbo_direct_dog_breed"
+    },
+    {
+      "vboId": "VBO:0008011",
+      "sourceLabel": "Ca Mè Mallorquí, Spain (Dog)",
+      "disposition": "canonical",
+      "reasonCode": "vbo_direct_dog_breed"
+    },
+    {
+      "vboId": "VBO:0008015",
+      "sourceLabel": "Can de Guicho, Spain (Dog)",
+      "disposition": "canonical",
+      "reasonCode": "vbo_direct_dog_breed"
+    },
+    {
+      "vboId": "VBO:0008017",
+      "sourceLabel": "Euskal Artzain Txakurra (variedad Gorbeiakoa), Spain (Dog)",
+      "disposition": "variety",
+      "reasonCode": "curated_country_variety"
+    },
+    {
+      "vboId": "VBO:0008018",
+      "sourceLabel": "Euskal Artzain Txakurra (variedad Iletsua), Spain (Dog)",
+      "disposition": "variety",
+      "reasonCode": "curated_country_variety"
+    },
+    {
+      "vboId": "VBO:0008024",
+      "sourceLabel": "Perdigueiro Galego, Spain (Dog)",
+      "disposition": "canonical",
+      "reasonCode": "vbo_direct_dog_breed"
+    },
+    {
+      "vboId": "VBO:0008028",
+      "sourceLabel": "Perro de Agua del Cantábrico, Spain (Dog)",
+      "disposition": "canonical",
+      "reasonCode": "vbo_direct_dog_breed"
+    },
+    {
+      "vboId": "VBO:0008029",
+      "sourceLabel": "Podenco Andaluz, Spain (Dog)",
+      "disposition": "canonical",
+      "reasonCode": "vbo_direct_dog_breed"
+    },
+    {
+      "vboId": "VBO:0008031",
+      "sourceLabel": "Podenco Galego, Spain (Dog)",
+      "disposition": "canonical",
+      "reasonCode": "vbo_direct_dog_breed"
+    },
+    {
+      "vboId": "VBO:0008032",
+      "sourceLabel": "Podenco Paternino, Spain (Dog)",
+      "disposition": "canonical",
+      "reasonCode": "vbo_direct_dog_breed"
+    },
+    {
+      "vboId": "VBO:0008049",
+      "sourceLabel": "SMALL MEĐIMURJE DOG – MEĐI, Croatia (Dog)",
+      "disposition": "canonical",
+      "reasonCode": "vbo_direct_dog_breed"
+    },
+    {
+      "vboId": "VBO:0008063",
+      "sourceLabel": "Donggyeongi, Republic of Korea (Dog)",
+      "disposition": "canonical",
+      "reasonCode": "vbo_direct_dog_breed"
+    },
+    {
+      "vboId": "VBO:0008064",
+      "sourceLabel": "Jeju native dog, Republic of Korea (Dog)",
+      "disposition": "canonical",
+      "reasonCode": "vbo_direct_dog_breed"
+    },
+    {
+      "vboId": "VBO:0008066",
+      "sourceLabel": "Boerenfox, Netherlands (Dog)",
+      "disposition": "canonical",
+      "reasonCode": "vbo_direct_dog_breed"
+    },
+    {
+      "vboId": "VBO:0008086",
+      "sourceLabel": "Turkish Greyhound, Turkey (Dog)",
+      "disposition": "canonical",
+      "reasonCode": "vbo_direct_dog_breed"
+    },
+    {
+      "vboId": "VBO:0008093",
+      "sourceLabel": "SA Greyhound, South Africa (Dog)",
+      "disposition": "canonical",
+      "reasonCode": "vbo_direct_dog_breed"
+    }
+  ],
+  "ambiguousSearchNames": [
+    {
+      "normalizedName": "aussie",
+      "names": [
+        "Aussie"
+      ],
+      "entityIds": [
+        "VBO:0200095",
+        "VBO:0200098"
+      ],
+      "reasonCode": "retained_shared_or_ambiguous_synonym"
+    },
+    {
+      "normalizedName": "belgium griffon",
+      "names": [
+        "Belgium Griffon"
+      ],
+      "entityIds": [
+        "VBO:0200241",
+        "VBO:0200640",
+        "VBO:0200642"
+      ],
+      "reasonCode": "retained_shared_or_ambiguous_synonym"
+    },
+    {
+      "normalizedName": "bolonka zwetna",
+      "names": [
+        "Bolonka Zwetna"
+      ],
+      "entityIds": [
+        "VBO:0201147",
+        "VBO:0201154"
+      ],
+      "reasonCode": "retained_shared_or_ambiguous_synonym"
+    },
+    {
+      "normalizedName": "bruss",
+      "names": [
+        "Bruss"
+      ],
+      "entityIds": [
+        "VBO:0200241",
+        "VBO:0200642"
+      ],
+      "reasonCode": "retained_shared_or_ambiguous_synonym"
+    },
+    {
+      "normalizedName": "chi",
+      "names": [
+        "Chi"
+      ],
+      "entityIds": [
+        "VBO:0200338",
+        "VBO:0200339",
+        "VBO:0200340"
+      ],
+      "reasonCode": "retained_shared_or_ambiguous_synonym"
+    },
+    {
+      "normalizedName": "cocker",
+      "names": [
+        "Cocker"
+      ],
+      "entityIds": [
+        "VBO:0200038",
+        "VBO:0200486"
+      ],
+      "reasonCode": "retained_shared_or_ambiguous_synonym"
+    },
+    {
+      "normalizedName": "epagneul breton",
+      "names": [
+        "Epagneul Breton"
+      ],
+      "entityIds": [
+        "VBO:0200238",
+        "VBO:0200534"
+      ],
+      "reasonCode": "retained_shared_or_ambiguous_synonym"
+    },
+    {
+      "normalizedName": "epagneul nain continental",
+      "names": [
+        "Epagneul Nain Continental",
+        "EPAGNEUL NAIN CONTINENTAL"
+      ],
+      "entityIds": [
+        "VBO:0200381",
+        "VBO:0200985",
+        "VBO:0201015"
+      ],
+      "reasonCode": "retained_shared_or_ambiguous_synonym"
+    },
+    {
+      "normalizedName": "gentle giant",
+      "names": [
+        "Gentle Giant"
+      ],
+      "entityIds": [
+        "VBO:0200623",
+        "VBO:0200819"
+      ],
+      "reasonCode": "retained_shared_or_ambiguous_synonym"
+    },
+    {
+      "normalizedName": "greyhound persian",
+      "names": [
+        "Greyhound - Persian",
+        "Greyhound/Persian"
+      ],
+      "entityIds": [
+        "VBO:0200004",
+        "VBO:0201171"
+      ],
+      "reasonCode": "retained_shared_or_ambiguous_synonym"
+    },
+    {
+      "normalizedName": "griff",
+      "names": [
+        "Griff"
+      ],
+      "entityIds": [
+        "VBO:0200241",
+        "VBO:0200642"
+      ],
+      "reasonCode": "retained_shared_or_ambiguous_synonym"
+    },
+    {
+      "normalizedName": "picard",
+      "names": [
+        "Picard"
+      ],
+      "entityIds": [
+        "VBO:0200078",
+        "VBO:0200158"
+      ],
+      "reasonCode": "retained_shared_or_ambiguous_synonym"
+    },
+    {
+      "normalizedName": "portuguese watchdog",
+      "names": [
+        "Portuguese Watchdog"
+      ],
+      "entityIds": [
+        "VBO:0200285",
+        "VBO:0201120"
+      ],
+      "reasonCode": "retained_shared_or_ambiguous_synonym"
+    },
+    {
+      "normalizedName": "russian bear schnauzer",
+      "names": [
+        "Russian Bear Schnauzer"
+      ],
+      "entityIds": [
+        "VBO:0200174",
+        "VBO:0200604"
+      ],
+      "reasonCode": "retained_shared_or_ambiguous_synonym"
+    },
+    {
+      "normalizedName": "segugio",
+      "names": [
+        "Segugio"
+      ],
+      "entityIds": [
+        "VBO:0200716",
+        "VBO:0200719"
+      ],
+      "reasonCode": "retained_shared_or_ambiguous_synonym"
+    },
+    {
+      "normalizedName": "tazi",
+      "names": [
+        "Tazi"
+      ],
+      "entityIds": [
+        "VBO:0200004",
+        "VBO:0201171"
+      ],
+      "reasonCode": "retained_shared_or_ambiguous_synonym"
+    },
+    {
+      "normalizedName": "vorstehhund",
+      "names": [
+        "Vorstehhund"
+      ],
+      "entityIds": [
+        "VBO:0200575",
+        "VBO:0201401"
+      ],
+      "reasonCode": "retained_shared_or_ambiguous_synonym"
+    },
+    {
+      "normalizedName": "welshie",
+      "names": [
+        "Welshie"
+      ],
+      "entityIds": [
+        "VBO:0201411",
+        "VBO:0201412"
+      ],
+      "reasonCode": "retained_shared_or_ambiguous_synonym"
+    }
+  ]
+}

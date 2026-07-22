@@ -19,7 +19,8 @@ test("artwork review report models every exact ledger candidate with promoted it
   });
   assert.equal(model.summary.candidates, 28);
   assert.equal(model.summary.promoted, 27);
-  assert.equal(model.summary.pending, 28);
+  assert.equal(model.summary.pending, 0);
+  assert.equal(model.assets.every((asset) => asset.ledgerReviewStatus === "approved"), true);
   assert.equal(model.assets[0].promoted, true);
   assert.equal(model.assets.at(-1).displayName, "Broholmer");
   assert.equal(model.assets.at(-1).promoted, false);

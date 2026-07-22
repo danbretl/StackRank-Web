@@ -1029,7 +1029,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       initial.canonical !== "https://www.stackrankapp.com/dogs" ||
       initial.robots !== null ||
       initial.cssHref !== "dogs.css?v=6" ||
-      initial.scriptSrc !== "dogs.js?v=16" ||
+      initial.scriptSrc !== "dogs.js?v=17" ||
       initial.searchRole !== "combobox" ||
       initial.searchAutocomplete !== "list" ||
       initial.searchControls !== "dogs-suggestions" ||

@@ -1,10 +1,11 @@
 # Dogs artwork batch delivery preparation — 2026-07-21
 
-Status: **28 / 28 current ledger candidates processed and visually inspected locally; zero
-approved, uploaded, delivered, or purpose-enabled.** This is accountable batch-preparation evidence,
-not an approval record or legal review. `data/dogs/image-rights.json` remains the fail-closed source of
-truth: every row is still pending, every delivery is still `not_ready`, and every UI/public/raster
-purpose flag remains false.
+Status: **28 / 28 current ledger candidates processed, visually inspected, and approved through a
+delegated accountable review; zero uploaded, delivered, or purpose-enabled.** This document records
+batch-preparation evidence and the later approval boundary; it is not legal advice.
+`data/dogs/image-rights.json` remains the fail-closed source of truth: every row is approved in
+ledger `2026-07-21.2`, every delivery is still `not_ready`, and every UI/public/raster purpose flag
+remains false.
 
 ## Method and outcome
 
@@ -26,16 +27,18 @@ purpose flag remains false.
 - 960 contact sheet: `/tmp/stackrank-dogs-artwork-prepared-v2/contact-sheet-960.jpg`
 - 320 contact sheet: `/tmp/stackrank-dogs-artwork-prepared-v2/contact-sheet-320.jpg`
 
-The local manifests intentionally retain `generated_local` status and pending visual-inspection text;
-they were not copied into the rights ledger. A later accountable approval must separately record the
-reviewer, decision time, rights notes, subject and non-copyright decisions. Delivery must then upload
-immutable bytes, verify remote hashes and cache headers, and only afterward consider per-purpose
-grants and the global artwork gate.
+The local manifests intentionally retain their immutable `generated_local` preparation status and
+original pending visual-inspection text; they were not mutated or copied into the rights ledger.
+The completed delegated approval separately records reviewer, decision date, rights notes, subject,
+and non-copyright decisions in ledger `2026-07-21.2`. Delivery must now upload immutable bytes,
+verify remote hashes and cache headers, and only afterward consider per-purpose grants and the
+global artwork gate.
 
 ## Per-asset crop, deterministic bytes, and visual outcome
 
-`Pass` below means only that both generated variants passed this crop/quality inspection. It does
-not mean rights approval or permission for any product purpose.
+`Pass` below means both generated variants passed the crop/quality inspection. The source/crop was
+subsequently approved in ledger `2026-07-21.2`, but that approval still does not permit any product
+purpose until delivery and attribution compliance are verified.
 
 | Source title / catalog concept | Crop `x,y,w,h` | 320×213 SHA-256 (bytes) | 960×640 SHA-256 (bytes) | Local crop/quality outcome |
 | --- | --- | --- | --- | --- |
@@ -70,9 +73,9 @@ not mean rights approval or permission for any product purpose.
 
 ## Remaining operator gates
 
-1. Record an accountable approval or rejection for each exact source/crop, including reviewer,
-   timestamp, rights notes, subject match, and non-copyright restrictions review.
-2. For approved rows only, immutably upload the exact 320/960 bytes with the declared cache headers,
+1. Completed: all 28 exact source/crop decisions now record reviewer, date, rights notes, subject
+   match, and non-copyright restrictions review in ledger `2026-07-21.2`.
+2. Immutably upload the exact 320/960 bytes with the declared cache headers,
    then verify public GET content type, byte count, SHA-256, and cache control.
 3. Copy verified delivery variants into the ledger without changing source identity, crop, or hashes.
 4. Decide UI and public-snapshot grants separately. Keep raster export denied until its attribution

@@ -7,7 +7,7 @@ import { assertArtworkCropRecipeContract } from "../scripts/prepare-dog-artwork-
 const root = new URL("../", import.meta.url);
 const readJson = async (filename) => JSON.parse(await readFile(new URL(filename, root), "utf8"));
 
-test("tracked crop recipes cover every exact pending Dogs ledger asset once", async () => {
+test("tracked crop recipes cover every exact reviewed Dogs ledger asset once", async () => {
   const [ledger, recipes] = await Promise.all([
     readJson("data/dogs/image-rights.json"),
     readJson("data/dogs/artwork-crop-recipes.json"),
@@ -16,8 +16,13 @@ test("tracked crop recipes cover every exact pending Dogs ledger asset once", as
   assert.doesNotThrow(() => assertArtworkCropRecipeContract({ ledger, recipes }));
   assert.equal(recipes.recipes.length, 28);
   assert.equal(new Set(recipes.recipes.map((recipe) => recipe.assetId)).size, 28);
-  assert.deepEqual(new Set(ledger.assets.map((asset) => asset.review.status)), new Set(["pending"]));
+  assert.deepEqual(new Set(ledger.assets.map((asset) => asset.review.status)), new Set(["approved"]));
   for (const asset of ledger.assets) {
+    assert.equal(asset.review.reviewedAt, "2026-07-21");
+    assert.equal(asset.review.reviewedBy, "OpenAI Codex (delegated by Dan Bretl)");
+    assert.equal(asset.review.subjectMatchesCatalog, true);
+    assert.equal(asset.review.nonCopyrightRestrictionsReviewed, true);
+    assert.ok(asset.review.rightsNotes.length >= 200);
     assert.equal(asset.delivery.status, "not_ready");
     assert.deepEqual(asset.delivery.variants, []);
     assert.equal(asset.uiDisplayAllowed, false);

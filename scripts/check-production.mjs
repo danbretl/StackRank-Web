@@ -240,7 +240,7 @@ for (const asset of [
   "data/suggestion-packs.json?v=5",
   "data/dogs/dog-catalog.json?v=3",
   "data/dogs/packs.json?v=2",
-  "data/dogs/image-rights.json?v=4",
+  "data/dogs/image-rights.json?v=5",
   "data/dogs/artwork-license-policy.json?v=1",
 ]) {
   const response = await request(new URL(assetPath(asset), productionOrigin).toString());

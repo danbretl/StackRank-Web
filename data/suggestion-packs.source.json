@@ -1781,7 +1781,7 @@
     "slug": "franchise-marvel-phase-one",
     "title": "Marvel Phase One",
     "subtitle": "The first MCU lap through The Avengers",
-    "category": "Franchise / saga",
+    "category": "Superhero / comics",
     "sortOrder": 300,
     "version": 1,
     "provenance": {
@@ -1819,14 +1819,18 @@
     "slug": "franchise-batman-on-film",
     "title": "Batman on Film",
     "subtitle": "The major live-action Batman features",
-    "category": "Franchise / saga",
+    "category": "Superhero / comics",
     "sortOrder": 310,
-    "version": 1,
+    "version": 2,
     "provenance": {
       "source": "hand-curated",
       "basis": "major live-action theatrical Batman-centered features"
     },
     "movies": [
+      {
+        "title": "Batman: The Movie",
+        "year": 1966
+      },
       {
         "title": "Batman",
         "year": 1989
@@ -7056,6 +7060,892 @@
         "title": "A Land Imagined",
         "year": 2019,
         "tmdbId": 537526
+      }
+    ]
+  },
+  {
+    "slug": "superhero-marvel-phase-two",
+    "title": "Marvel Phase Two",
+    "subtitle": "Six sequels and wild cards on the road to Ultron",
+    "category": "Superhero / comics",
+    "sortOrder": 1160,
+    "version": 1,
+    "provenance": {
+      "source": "hand-curated",
+      "basis": "Marvel Cinematic Universe Phase Two theatrical releases"
+    },
+    "movies": [
+      {
+        "title": "Iron Man 3",
+        "year": 2013
+      },
+      {
+        "title": "Thor: The Dark World",
+        "year": 2013
+      },
+      {
+        "title": "Captain America: The Winter Soldier",
+        "year": 2014
+      },
+      {
+        "title": "Guardians of the Galaxy",
+        "year": 2014
+      },
+      {
+        "title": "Avengers: Age of Ultron",
+        "year": 2015
+      },
+      {
+        "title": "Ant-Man",
+        "year": 2015
+      }
+    ]
+  },
+  {
+    "slug": "superhero-marvel-phase-three",
+    "title": "Marvel Phase Three",
+    "subtitle": "Civil War through the end of the Infinity Saga",
+    "category": "Superhero / comics",
+    "sortOrder": 1170,
+    "version": 1,
+    "provenance": {
+      "source": "hand-curated",
+      "basis": "Marvel Cinematic Universe Phase Three theatrical releases"
+    },
+    "movies": [
+      {
+        "title": "Captain America: Civil War",
+        "year": 2016
+      },
+      {
+        "title": "Doctor Strange",
+        "year": 2016
+      },
+      {
+        "title": "Guardians of the Galaxy Vol. 2",
+        "year": 2017
+      },
+      {
+        "title": "Spider-Man: Homecoming",
+        "year": 2017
+      },
+      {
+        "title": "Thor: Ragnarok",
+        "year": 2017
+      },
+      {
+        "title": "Black Panther",
+        "year": 2018
+      },
+      {
+        "title": "Avengers: Infinity War",
+        "year": 2018
+      },
+      {
+        "title": "Ant-Man and the Wasp",
+        "year": 2018
+      },
+      {
+        "title": "Captain Marvel",
+        "year": 2019
+      },
+      {
+        "title": "Avengers: Endgame",
+        "year": 2019
+      },
+      {
+        "title": "Spider-Man: Far From Home",
+        "year": 2019
+      }
+    ]
+  },
+  {
+    "slug": "superhero-marvel-phase-four",
+    "title": "Marvel Phase Four",
+    "subtitle": "The theatrical opening of the Multiverse Saga",
+    "category": "Superhero / comics",
+    "sortOrder": 1180,
+    "version": 1,
+    "provenance": {
+      "source": "hand-curated",
+      "basis": "Marvel Cinematic Universe Phase Four theatrical releases"
+    },
+    "movies": [
+      {
+        "title": "Black Widow",
+        "year": 2021
+      },
+      {
+        "title": "Shang-Chi and the Legend of the Ten Rings",
+        "year": 2021
+      },
+      {
+        "title": "Eternals",
+        "year": 2021
+      },
+      {
+        "title": "Spider-Man: No Way Home",
+        "year": 2021
+      },
+      {
+        "title": "Doctor Strange in the Multiverse of Madness",
+        "year": 2022
+      },
+      {
+        "title": "Thor: Love and Thunder",
+        "year": 2022
+      },
+      {
+        "title": "Black Panther: Wakanda Forever",
+        "year": 2022
+      }
+    ]
+  },
+  {
+    "slug": "superhero-marvel-phase-five",
+    "title": "Marvel Phase Five",
+    "subtitle": "Quantumania through the New Avengers",
+    "category": "Superhero / comics",
+    "sortOrder": 1190,
+    "version": 1,
+    "provenance": {
+      "source": "hand-curated",
+      "basis": "Marvel Cinematic Universe Phase Five theatrical releases"
+    },
+    "movies": [
+      {
+        "title": "Ant-Man and the Wasp: Quantumania",
+        "year": 2023
+      },
+      {
+        "title": "Guardians of the Galaxy Vol. 3",
+        "year": 2023
+      },
+      {
+        "title": "The Marvels",
+        "year": 2023
+      },
+      {
+        "title": "Deadpool & Wolverine",
+        "year": 2024
+      },
+      {
+        "title": "Captain America: Brave New World",
+        "year": 2025
+      },
+      {
+        "title": "Thunderbolts*",
+        "year": 2025
+      }
+    ]
+  },
+  {
+    "slug": "superhero-spider-man-on-film",
+    "title": "Spider-Man on Film",
+    "subtitle": "Peter and Miles across three live-action eras and the Spider-Verse",
+    "category": "Superhero / comics",
+    "sortOrder": 1200,
+    "version": 1,
+    "provenance": {
+      "source": "hand-curated",
+      "basis": "modern theatrical features centered on Peter Parker or Miles Morales"
+    },
+    "movies": [
+      {
+        "title": "Spider-Man",
+        "year": 2002
+      },
+      {
+        "title": "Spider-Man 2",
+        "year": 2004
+      },
+      {
+        "title": "Spider-Man 3",
+        "year": 2007
+      },
+      {
+        "title": "The Amazing Spider-Man",
+        "year": 2012
+      },
+      {
+        "title": "The Amazing Spider-Man 2",
+        "year": 2014
+      },
+      {
+        "title": "Spider-Man: Homecoming",
+        "year": 2017
+      },
+      {
+        "title": "Spider-Man: Into the Spider-Verse",
+        "year": 2018
+      },
+      {
+        "title": "Spider-Man: Far From Home",
+        "year": 2019
+      },
+      {
+        "title": "Spider-Man: No Way Home",
+        "year": 2021
+      },
+      {
+        "title": "Spider-Man: Across the Spider-Verse",
+        "year": 2023
+      },
+      {
+        "title": "Spider-Man: Brand New Day",
+        "year": 2026
+      }
+    ]
+  },
+  {
+    "slug": "superhero-fox-x-men-universe",
+    "title": "Fox X-Men Universe",
+    "subtitle": "Mutants, timelines, Wolverine, and Deadpool across thirteen films",
+    "category": "Superhero / comics",
+    "sortOrder": 1210,
+    "version": 1,
+    "provenance": {
+      "source": "hand-curated",
+      "basis": "the complete 2000-2020 Fox X-Men film continuity in release order"
+    },
+    "movies": [
+      {
+        "title": "X-Men",
+        "year": 2000
+      },
+      {
+        "title": "X2",
+        "year": 2003
+      },
+      {
+        "title": "X-Men: The Last Stand",
+        "year": 2006
+      },
+      {
+        "title": "X-Men Origins: Wolverine",
+        "year": 2009
+      },
+      {
+        "title": "X-Men: First Class",
+        "year": 2011
+      },
+      {
+        "title": "The Wolverine",
+        "year": 2013
+      },
+      {
+        "title": "X-Men: Days of Future Past",
+        "year": 2014
+      },
+      {
+        "title": "Deadpool",
+        "year": 2016
+      },
+      {
+        "title": "X-Men: Apocalypse",
+        "year": 2016
+      },
+      {
+        "title": "Logan",
+        "year": 2017
+      },
+      {
+        "title": "Deadpool 2",
+        "year": 2018
+      },
+      {
+        "title": "Dark Phoenix",
+        "year": 2019
+      },
+      {
+        "title": "The New Mutants",
+        "year": 2020
+      }
+    ]
+  },
+  {
+    "slug": "superhero-sony-spider-man-universe",
+    "title": "Sony’s Spider-Man Universe",
+    "subtitle": "Six villain-led swings from Venom through Kraven",
+    "category": "Superhero / comics",
+    "sortOrder": 1220,
+    "version": 1,
+    "provenance": {
+      "source": "hand-curated",
+      "basis": "the complete 2018-2024 Sony Spider-Man Universe film series"
+    },
+    "movies": [
+      {
+        "title": "Venom",
+        "year": 2018
+      },
+      {
+        "title": "Venom: Let There Be Carnage",
+        "year": 2021
+      },
+      {
+        "title": "Morbius",
+        "year": 2022
+      },
+      {
+        "title": "Madame Web",
+        "year": 2024
+      },
+      {
+        "title": "Venom: The Last Dance",
+        "year": 2024
+      },
+      {
+        "title": "Kraven the Hunter",
+        "year": 2024
+      }
+    ]
+  },
+  {
+    "slug": "superhero-fantastic-four-on-film",
+    "title": "Fantastic Four on Film",
+    "subtitle": "Marvel’s First Family across three screen universes",
+    "category": "Superhero / comics",
+    "sortOrder": 1230,
+    "version": 1,
+    "provenance": {
+      "source": "hand-curated",
+      "basis": "released live-action Fantastic Four theatrical features"
+    },
+    "movies": [
+      {
+        "title": "Fantastic Four",
+        "year": 2005
+      },
+      {
+        "title": "Fantastic Four: Rise of the Silver Surfer",
+        "year": 2007
+      },
+      {
+        "title": "Fantastic Four",
+        "year": 2015
+      },
+      {
+        "title": "The Fantastic Four: First Steps",
+        "year": 2025
+      }
+    ]
+  },
+  {
+    "slug": "superhero-blade-trilogy",
+    "title": "Blade Trilogy",
+    "subtitle": "The Daywalker’s original big-screen run",
+    "category": "Superhero / comics",
+    "sortOrder": 1240,
+    "version": 1,
+    "provenance": {
+      "source": "hand-curated",
+      "basis": "the complete Wesley Snipes Blade trilogy"
+    },
+    "movies": [
+      {
+        "title": "Blade",
+        "year": 1998
+      },
+      {
+        "title": "Blade II",
+        "year": 2002
+      },
+      {
+        "title": "Blade: Trinity",
+        "year": 2004
+      }
+    ]
+  },
+  {
+    "slug": "superhero-dc-extended-universe",
+    "title": "DC Extended Universe",
+    "subtitle": "The complete fifteen-film run from Man of Steel to Atlantis",
+    "category": "Superhero / comics",
+    "sortOrder": 1250,
+    "version": 1,
+    "provenance": {
+      "source": "hand-curated",
+      "basis": "the complete 2013-2023 DCEU feature-film continuity in release order"
+    },
+    "movies": [
+      {
+        "title": "Man of Steel",
+        "year": 2013
+      },
+      {
+        "title": "Batman v Superman: Dawn of Justice",
+        "year": 2016
+      },
+      {
+        "title": "Suicide Squad",
+        "year": 2016
+      },
+      {
+        "title": "Wonder Woman",
+        "year": 2017
+      },
+      {
+        "title": "Justice League",
+        "year": 2017
+      },
+      {
+        "title": "Aquaman",
+        "year": 2018
+      },
+      {
+        "title": "Shazam!",
+        "year": 2019
+      },
+      {
+        "title": "Birds of Prey (and the Fantabulous Emancipation of One Harley Quinn)",
+        "year": 2020
+      },
+      {
+        "title": "Wonder Woman 1984",
+        "year": 2020
+      },
+      {
+        "title": "The Suicide Squad",
+        "year": 2021
+      },
+      {
+        "title": "Black Adam",
+        "year": 2022
+      },
+      {
+        "title": "Shazam! Fury of the Gods",
+        "year": 2023
+      },
+      {
+        "title": "The Flash",
+        "year": 2023
+      },
+      {
+        "title": "Blue Beetle",
+        "year": 2023
+      },
+      {
+        "title": "Aquaman and the Lost Kingdom",
+        "year": 2023
+      }
+    ]
+  },
+  {
+    "slug": "superhero-superman-on-film",
+    "title": "Superman on Film",
+    "subtitle": "Live-action Man of Steel movies from George Reeves to David Corenswet",
+    "category": "Superhero / comics",
+    "sortOrder": 1260,
+    "version": 1,
+    "provenance": {
+      "source": "hand-curated",
+      "basis": "DC's live-action Superman feature guide, including major alternate cuts"
+    },
+    "movies": [
+      {
+        "title": "Superman and the Mole Men",
+        "year": 1951
+      },
+      {
+        "title": "Superman",
+        "year": 1978
+      },
+      {
+        "title": "Superman II",
+        "year": 1980
+      },
+      {
+        "title": "Superman II: The Richard Donner Cut",
+        "year": 2006
+      },
+      {
+        "title": "Superman III",
+        "year": 1983
+      },
+      {
+        "title": "Superman IV: The Quest for Peace",
+        "year": 1987
+      },
+      {
+        "title": "Superman Returns",
+        "year": 2006
+      },
+      {
+        "title": "Man of Steel",
+        "year": 2013
+      },
+      {
+        "title": "Batman v Superman: Dawn of Justice",
+        "year": 2016
+      },
+      {
+        "title": "Justice League",
+        "year": 2017
+      },
+      {
+        "title": "Zack Snyder's Justice League",
+        "year": 2021
+      },
+      {
+        "title": "Superman",
+        "year": 2025
+      }
+    ]
+  },
+  {
+    "slug": "superhero-dc-animated-movie-universe",
+    "title": "DC Animated Movie Universe",
+    "subtitle": "Flashpoint to Apokolips War in fifteen connected films",
+    "category": "Superhero / comics",
+    "sortOrder": 1270,
+    "version": 1,
+    "provenance": {
+      "source": "hand-curated",
+      "basis": "DC's official fifteen-film DC Animated Movie Universe list"
+    },
+    "movies": [
+      {
+        "title": "Justice League: The Flashpoint Paradox",
+        "year": 2013
+      },
+      {
+        "title": "Justice League: War",
+        "year": 2014
+      },
+      {
+        "title": "Son of Batman",
+        "year": 2014
+      },
+      {
+        "title": "Justice League: Throne of Atlantis",
+        "year": 2015
+      },
+      {
+        "title": "Batman vs. Robin",
+        "year": 2015
+      },
+      {
+        "title": "Batman: Bad Blood",
+        "year": 2016
+      },
+      {
+        "title": "Justice League vs. Teen Titans",
+        "year": 2016
+      },
+      {
+        "title": "Justice League Dark",
+        "year": 2017
+      },
+      {
+        "title": "Teen Titans: The Judas Contract",
+        "year": 2017
+      },
+      {
+        "title": "Suicide Squad: Hell to Pay",
+        "year": 2018
+      },
+      {
+        "title": "The Death of Superman",
+        "year": 2018
+      },
+      {
+        "title": "Reign of the Supermen",
+        "year": 2019
+      },
+      {
+        "title": "Batman: Hush",
+        "year": 2019
+      },
+      {
+        "title": "Wonder Woman: Bloodlines",
+        "year": 2019
+      },
+      {
+        "title": "Justice League Dark: Apokolips War",
+        "year": 2020
+      }
+    ]
+  },
+  {
+    "slug": "superhero-dc-tomorrowverse",
+    "title": "DC Tomorrowverse",
+    "subtitle": "A fresh animated continuity from Man of Tomorrow to Crisis",
+    "category": "Superhero / comics",
+    "sortOrder": 1280,
+    "version": 1,
+    "provenance": {
+      "source": "hand-curated",
+      "basis": "the complete 2020-2024 Tomorrowverse animated film continuity"
+    },
+    "movies": [
+      {
+        "title": "Superman: Man of Tomorrow",
+        "year": 2020
+      },
+      {
+        "title": "Justice Society: World War II",
+        "year": 2021
+      },
+      {
+        "title": "Batman: The Long Halloween, Part One",
+        "year": 2021
+      },
+      {
+        "title": "Batman: The Long Halloween, Part Two",
+        "year": 2021
+      },
+      {
+        "title": "Green Lantern: Beware My Power",
+        "year": 2022
+      },
+      {
+        "title": "Legion of Super-Heroes",
+        "year": 2023
+      },
+      {
+        "title": "Justice League: Warworld",
+        "year": 2023
+      },
+      {
+        "title": "Justice League: Crisis on Infinite Earths Part One",
+        "year": 2024
+      },
+      {
+        "title": "Justice League: Crisis on Infinite Earths Part Two",
+        "year": 2024
+      },
+      {
+        "title": "Justice League: Crisis on Infinite Earths Part Three",
+        "year": 2024
+      }
+    ]
+  },
+  {
+    "slug": "superhero-tmnt-on-film",
+    "title": "Teenage Mutant Ninja Turtles on Film",
+    "subtitle": "Eight trips to the sewer, from rubber suits to Mutant Mayhem",
+    "category": "Superhero / comics",
+    "sortOrder": 1290,
+    "version": 1,
+    "provenance": {
+      "source": "hand-curated",
+      "basis": "the seven theatrical TMNT features plus the Rise streaming feature"
+    },
+    "movies": [
+      {
+        "title": "Teenage Mutant Ninja Turtles",
+        "year": 1990
+      },
+      {
+        "title": "Teenage Mutant Ninja Turtles II: The Secret of the Ooze",
+        "year": 1991
+      },
+      {
+        "title": "Teenage Mutant Ninja Turtles III",
+        "year": 1993
+      },
+      {
+        "title": "TMNT",
+        "year": 2007
+      },
+      {
+        "title": "Teenage Mutant Ninja Turtles",
+        "year": 2014
+      },
+      {
+        "title": "Teenage Mutant Ninja Turtles: Out of the Shadows",
+        "year": 2016
+      },
+      {
+        "title": "Rise of the Teenage Mutant Ninja Turtles: The Movie",
+        "year": 2022
+      },
+      {
+        "title": "Teenage Mutant Ninja Turtles: Mutant Mayhem",
+        "year": 2023
+      }
+    ]
+  },
+  {
+    "slug": "superhero-hellboy-on-film",
+    "title": "Hellboy on Film",
+    "subtitle": "Six infernal live-action and animated features",
+    "category": "Superhero / comics",
+    "sortOrder": 1300,
+    "version": 1,
+    "provenance": {
+      "source": "hand-curated",
+      "basis": "released live-action and feature-length animated Hellboy films"
+    },
+    "movies": [
+      {
+        "title": "Hellboy",
+        "year": 2004
+      },
+      {
+        "title": "Hellboy Animated: Sword of Storms",
+        "year": 2006
+      },
+      {
+        "title": "Hellboy Animated: Blood and Iron",
+        "year": 2007
+      },
+      {
+        "title": "Hellboy II: The Golden Army",
+        "year": 2008
+      },
+      {
+        "title": "Hellboy",
+        "year": 2019
+      },
+      {
+        "title": "Hellboy: The Crooked Man",
+        "year": 2024
+      }
+    ]
+  },
+  {
+    "slug": "superhero-animated-essentials",
+    "title": "Animated Superhero Essentials",
+    "subtitle": "Fifteen caped, masked, and mutant standouts in animation",
+    "category": "Superhero / comics",
+    "sortOrder": 1310,
+    "version": 1,
+    "provenance": {
+      "source": "hand-curated",
+      "basis": "cross-studio animated superhero feature gateways"
+    },
+    "movies": [
+      {
+        "title": "Batman: Mask of the Phantasm",
+        "year": 1993
+      },
+      {
+        "title": "Batman Beyond: Return of the Joker",
+        "year": 2000
+      },
+      {
+        "title": "The Incredibles",
+        "year": 2004
+      },
+      {
+        "title": "TMNT",
+        "year": 2007
+      },
+      {
+        "title": "Megamind",
+        "year": 2010
+      },
+      {
+        "title": "Batman: Under the Red Hood",
+        "year": 2010
+      },
+      {
+        "title": "Big Hero 6",
+        "year": 2014
+      },
+      {
+        "title": "The Lego Batman Movie",
+        "year": 2017
+      },
+      {
+        "title": "Teen Titans Go! To the Movies",
+        "year": 2018
+      },
+      {
+        "title": "Spider-Man: Into the Spider-Verse",
+        "year": 2018
+      },
+      {
+        "title": "Incredibles 2",
+        "year": 2018
+      },
+      {
+        "title": "DC League of Super-Pets",
+        "year": 2022
+      },
+      {
+        "title": "Spider-Man: Across the Spider-Verse",
+        "year": 2023
+      },
+      {
+        "title": "Teenage Mutant Ninja Turtles: Mutant Mayhem",
+        "year": 2023
+      },
+      {
+        "title": "Ultraman: Rising",
+        "year": 2024
+      }
+    ]
+  },
+  {
+    "slug": "superhero-offbeat-and-deconstructed",
+    "title": "Superheroes, Offbeat & Deconstructed",
+    "subtitle": "Capes bent into satire, horror, and antihero stories",
+    "category": "Superhero / comics",
+    "sortOrder": 1320,
+    "version": 1,
+    "provenance": {
+      "source": "hand-curated",
+      "basis": "superhero satires, antihero stories, and genre deconstructions"
+    },
+    "movies": [
+      {
+        "title": "RoboCop",
+        "year": 1987
+      },
+      {
+        "title": "Darkman",
+        "year": 1990
+      },
+      {
+        "title": "The Meteor Man",
+        "year": 1993
+      },
+      {
+        "title": "Mystery Men",
+        "year": 1999
+      },
+      {
+        "title": "Unbreakable",
+        "year": 2000
+      },
+      {
+        "title": "Hancock",
+        "year": 2008
+      },
+      {
+        "title": "Watchmen",
+        "year": 2009
+      },
+      {
+        "title": "Kick-Ass",
+        "year": 2010
+      },
+      {
+        "title": "Super",
+        "year": 2010
+      },
+      {
+        "title": "Chronicle",
+        "year": 2012
+      },
+      {
+        "title": "Dredd",
+        "year": 2012
+      },
+      {
+        "title": "Birdman or (The Unexpected Virtue of Ignorance)",
+        "year": 2014
+      },
+      {
+        "title": "Brightburn",
+        "year": 2019
+      },
+      {
+        "title": "Glass",
+        "year": 2019
       }
     ]
   }

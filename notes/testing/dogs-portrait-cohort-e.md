@@ -7,7 +7,39 @@ The user authorized periodic commits and pushes, then explicitly requested visib
 live site. Verified milestones now go to `main`, which Vercel deploys. Database migrations, production
 Storage uploads and root routing changes are outside this artwork expansion.
 
-## Current published milestone E07
+## Current published milestone E08
+
+- Production commit: `bff7b132`; **238 / 1,239** portraits live, **1,001** unillustrated.
+- Cohort delivery: **186 / 250** accepted and integrated. E08 adds all **25** from **41 calls**,
+  with **13 rejected masters**, **3 failed calls**, and **16 retries**.
+- Cumulative: **244 calls**, **230 generated outputs**, **44 rejected masters**, **14 failed calls**,
+  **58 retries**. Fourteen frozen identities remain held. No new E08 holds.
+- Canonical discovery: **639** without ledger rows (**14** pack-engaged, **625** long-tail).
+- All 25 original masters and contact sheet passed primary review; all **426** prior WebPs and
+  batch D manifest bytes are unchanged.
+- `npm run verify`: **440 Node, 24 Deno, all validators, 38 Chrome flows passed**;
+  log `reports/dogs-generated-artwork/cohort-e/e08-verify.log`, Node report
+  `reports/runs/2026-09-22T233008Z`, Chrome report `reports/e2e/runs/2026-09-22T233025Z`.
+- Vercel deployment, **44 production smoke checks**, and eight live image hashes passed.
+  Evidence: `reports/dogs-generated-artwork/cohort-e/e08-production-smoke.log` and
+  `e08-production-artwork.json`. Root also inspected the live gallery in Chrome.
+
+### Internal artwork review
+
+`/dogs/artwork-review` is unlinked and noindex (not an authenticated private page). It shows all
+current generated portraits, 24 per page, searchable by breed/name/alias/id, with a larger image,
+field note, generator/date/template/reference, preserved scene/prompt and QA when available.
+Unrecorded older metadata and undisclosed image model names are stated as unavailable.
+Morphology reference photos are not rendered; only their Commons File-page links appear.
+
+Flags and bounded notes are stored only on this browser in `stackrank:dogs:artwork-review:v1`.
+They can be filtered, cleared, or exported to JSON with exact review-time identity/master hash/date.
+Changed masters mark old flags stale. Drafts survive closing/reopening within the tab; saving
+persists them. Storage failures warn and preserve a tab-only export path. Ranking and account data
+are untouched. Desktop/phone, pagination, search, metadata, keyboard focus, save/reload, export,
+network health and ranking-key isolation passed a new real-Chrome flow plus seven focused tests.
+
+## Earlier published milestone E07
 
 - Production commit: `95afac08`; **213 / 1,239** portraits live, **1,026** unillustrated.
 - Cohort delivery: **161 / 250** accepted and integrated. E07 adds **24** from **34 calls**,
@@ -186,10 +218,11 @@ public-snapshot artwork and raster export remain false. Movies, Books and `/` â†
 
 ## Work in progress
 
-E08-a/b have 17 candidates that passed primary full-resolution review; E08-c is preparing the
-remaining references and generations. E09-a/b have 13 candidates that passed primary review;
-E09-c has eight agent-reviewed candidates awaiting primary review. Phu Quoc, Sapsali, Bully Kutta
-and Telomian are reference-held. E10-a has nine prepared references/scenes; E10-b/c research continues.
+E09 has 21 and E10 has 23 accepted candidates. Primary full-resolution and contact-sheet review
+is complete for all 44; integration/release remain pending. Independent final audit reconciled the
+entire frozen selection: 230 accepted, 20 reference holds, 309 calls (63 rejects and 16 failures).
+All original/master/reference hashes match; no identities were substituted. Audit artifacts are
+`reports/dogs-generated-artwork/cohort-e/final-audit.json` and `.md`.
 
 At the user's request, routine reference/scene preparation, generation bookkeeping and first-pass
 QA now use GPT-5.6 Sol at High effort where available. The primary orchestrator retains difficult

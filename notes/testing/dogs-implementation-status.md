@@ -2,9 +2,12 @@
 
 Status date: **September 22, 2026**
 
-**Current artwork update:** Commit `95afac08` brings preserved batch D plus 161 newly accepted
-cohort-E portraits. Production now has **213** generated portraits; the larger 250-identity expansion
+**Current artwork update:** Commit `bff7b132` brings preserved batch D plus 186 newly accepted
+cohort-E portraits. Production now has **238** generated portraits; the larger 250-identity expansion
 is continuing. See `notes/testing/dogs-portrait-cohort-e.md` for current counts, blockers and checks.
+The new unlinked `/dogs/artwork-review` page provides pagination, search, a large-image dialog,
+generation provenance, local concern notes and export. Full verification passed 440 Node tests,
+24 Deno tests, all validators and 38 Chrome flows; 44 production checks passed.
 The original 52-portrait local-release sections below describe the earlier baseline.
 
 Durable continuation context for a new agent is recorded in

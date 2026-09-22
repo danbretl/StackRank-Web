@@ -16,9 +16,9 @@ active next-category initiative** and now has a comprehensive field-guide produc
 generated VBO catalog, 1,239 breed profiles, editorial packs, ranking/lists/backup/export flows, and
 responsive browser coverage.
 The additive production schema and Storage bucket have been applied and passed real two-user/RLS/
-snapshot/Storage probes. 213 art-directed generated breed portraits cover the promoted cohort
-plus 185 additional canonical breed portraits in normal UI. The rights ledger
-contains 28 licensed-photo fallback rows plus 185 separately gated morphology-reference rows. Dogs
+snapshot/Storage probes. 238 art-directed generated breed portraits cover the promoted cohort
+plus 210 additional canonical breed portraits in normal UI. The rights ledger
+contains 28 licensed-photo fallback rows plus 210 separately gated morphology-reference rows. Dogs
 account sync and public snapshot code is enabled, while public-snapshot artwork and raster export
 remain purpose-denied. The integrated release shipped to production on July 22, 2026 in commit
 `31267389`; the field-guide redesign shipped to production in commit `254810ae`. `/dogs` is public while the
@@ -26,10 +26,14 @@ production root continues to redirect to `/movies`. The
 authoritative plan is `notes/feature-ideas/dogs-launch-plan.md`; exact status and release gates live
 in `notes/testing/dogs-implementation-status.md`.
 
-The preserved 24-portrait batch D and the first 161 accepted portraits of expansion cohort E are
-published through `95afac08`, bringing production to **213 generated portraits**. The frozen 250-identity
+The preserved 24-portrait batch D and the first 186 accepted portraits of expansion cohort E are
+published through `bff7b132`, bringing production to **238 generated portraits**. The frozen 250-identity
 cohort remains in progress; exact counts, blockers, deployment and verification evidence live in
 `notes/testing/dogs-portrait-cohort-e.md` and `data/dogs/portrait-cohort-e.json`.
+
+The unlinked, noindex internal review page at `/dogs/artwork-review` provides 24-image pagination,
+search, 960px detail views, generation provenance, local concern flags/notes and JSON export.
+Review state stays only in `stackrank:dogs:artwork-review:v1`; it does not sync or change rankings.
 
 For durable product and artwork-continuation context, see
 `notes/feature-ideas/dogs-product-handoff-2026-09-22.md`,
@@ -116,7 +120,7 @@ Plain **static single-page app — no build system, no framework, no bundler, no
   pointer/touch/keyboard reorder, Review order, provenance-rich details, Curious about / Not for me,
   rank-weighted Taste patterns, category backup/restore/name import, and text/Markdown/JSON exports.
   Every selectable entry has a friendly field note and an honest dog-family label; 28 promoted
-  breeds have editor-reviewed deep profiles, and 213 canonical breeds have art-directed generated
+  breeds have editor-reviewed deep profiles, and 238 canonical breeds have art-directed generated
   portraits. Less-developed entries stay conservative rather than inventing temperament or suitability claims. Missing portraits
   use a neutral fallback. Account sync and revocable public snapshot links use the additive category
   tables. Public snapshots omit artwork because that purpose remains denied, and raster

@@ -5,6 +5,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
+import { preserveDogArtwork } from "./preserve-dog-artwork.mjs";
 
 const execFile = promisify(execFileCallback);
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -44,7 +45,7 @@ for (const entry of entries) {
   ids.add(entry?.catalogId);
   if (entry?.qa?.verdict !== "pass") errors.push(`${entry?.catalogId}: QA did not pass`);
   if (entry?.generator !== "OpenAI built-in imagegen") errors.push(`${entry?.catalogId}: unsupported generator`);
-  if (entry?.promptTemplateVersion !== "dogs-field-guide-v1") errors.push(`${entry?.catalogId}: prompt template mismatch`);
+  if (!["dogs-field-guide-v1", "dogs-field-guide-v2-cohort-e"].includes(entry?.promptTemplateVersion)) errors.push(`${entry?.catalogId}: prompt template mismatch`);
   const reference = rightsByAssetId.get(entry?.reference?.assetId);
   if (!reference || reference.catalogId !== entry.catalogId || reference.review?.status !== "approved") {
     errors.push(`${entry?.catalogId}: missing matching rights-reviewed reference`);
@@ -58,8 +59,8 @@ if (!policy?.purposeGates?.uiDisplay || policy?.purposeGates?.publicSnapshot || 
 }
 if (errors.length) throw new Error(errors.join("\n"));
 
-await fs.rm(outputDirectory, { recursive: true, force: true });
-await fs.mkdir(outputDirectory, { recursive: true });
+const checkOnly = process.argv.includes("--check");
+if (!checkOnly) await fs.mkdir(outputDirectory, { recursive: true });
 const assets = [];
 
 for (const entry of entries.sort((left, right) => left.catalogId.localeCompare(right.catalogId))) {
@@ -72,7 +73,7 @@ for (const entry of entries.sort((left, right) => left.catalogId.localeCompare(r
   for (const target of targets) {
     const filename = `${stem}-${target.width}.webp`;
     const outputPath = path.join(outputDirectory, filename);
-    await execFile("magick", [
+    const { stdout: outputBytes } = await execFile("magick", [
       sourcePath,
       "-strip",
       "-resize", `${target.width}x${target.height}^`,
@@ -80,9 +81,10 @@ for (const entry of entries.sort((left, right) => left.catalogId.localeCompare(r
       "-extent", `${target.width}x${target.height}`,
       "-quality", "84",
       "-define", "webp:method=6",
-      outputPath,
-    ]);
-    const output = await hashFile(outputPath);
+      "webp:-",
+    ], { encoding: "buffer", maxBuffer: 8 * 1024 * 1024 });
+    await preserveDogArtwork(outputPath, outputBytes, { checkOnly });
+    const output = { bytes: outputBytes.byteLength, sha256: createHash("sha256").update(outputBytes).digest("hex") };
     variants.push({
       ...target,
       mime: "image/webp",
@@ -117,14 +119,14 @@ for (const entry of entries.sort((left, right) => left.catalogId.localeCompare(r
 }
 const artifact = {
   schemaVersion: 1,
-  manifestVersion: "dogs-generated-artwork-2026-09-22.2",
+  manifestVersion: `dogs-generated-artwork-${assets.length}-${createHash("sha256").update(JSON.stringify(assets)).digest("hex").slice(0, 12)}`,
   policyVersion: policy.policyVersion,
   disclosure: policy.requiredDisclosure,
   assets,
 };
 const outputPath = path.join(root, "data", "dogs", "generated-artwork.json");
 const next = `${JSON.stringify(artifact, null, 2)}\n`;
-if (process.argv.includes("--check")) {
+if (checkOnly) {
   const current = await fs.readFile(outputPath, "utf8").catch(() => "");
   if (current !== next) throw new Error("Generated Dog artwork manifest or variants are stale");
   console.log(`Generated Dog artwork is current (${assets.length} approved portraits).`);

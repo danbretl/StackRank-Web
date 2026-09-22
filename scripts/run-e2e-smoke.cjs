@@ -991,6 +991,8 @@ const testFamilyHomePreview = async ({ baseUrl }) => {
 };
 
 const testDogsLocalProduct = async ({ baseUrl }) => {
+  const expectedPortraitCount = JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8")).assets.length;
+  const expectedDogsScript = fs.readFileSync(path.join(rootDir, "dogs.html"), "utf8").match(/src="(dogs\.js\?v=\d+)"/)[1];
   const page = await openChromePage({ name: "dogs-local-product", width: 1586, height: 992 });
   try {
     await page.send("Page.addScriptToEvaluateOnNewDocument", {
@@ -1029,12 +1031,12 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       initial.canonical !== "https://www.stackrankapp.com/dogs" ||
       initial.robots !== null ||
       initial.cssHref !== "dogs.css?v=7" ||
-      initial.scriptSrc !== "dogs.js?v=28" ||
+      initial.scriptSrc !== expectedDogsScript ||
       initial.searchRole !== "combobox" ||
       initial.searchAutocomplete !== "list" ||
       initial.searchControls !== "dogs-suggestions" ||
       !initial.catalogStatus?.includes("1,239 field notes") ||
-      !initial.catalogStatus?.includes("52 featured portraits") ||
+      !initial.catalogStatus?.includes(`${expectedPortraitCount} featured portraits`) ||
       /VBO:|vbo-|FCI|iDog|VeNom/.test(initial.catalogStatus || "") ||
       initial.featuredTitles.slice(0, 3).join("|") !== "Around the world|Shapes and coats|Familiar and beyond" ||
       initial.featuredTitles.length !== 6 ||
@@ -1050,13 +1052,13 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
 
     await page.evaluate(`(() => {
       const input = document.querySelector('#dogs-search');
-      input.value = 'Basset Hound';
+      input.value = 'Swedish Vallhund';
       input.dispatchEvent(new Event('input', { bubbles: true }));
       return true;
     })()`);
     await waitFor(
       page,
-      `document.querySelectorAll('#dogs-suggestions .search-option').length === 1 &&
+      `document.querySelector('#dogs-suggestions .search-option strong')?.textContent.trim() === 'Swedish Vallhund' &&
        document.querySelector('#dogs-suggestions .dog-media img')?.complete &&
        document.querySelector('#dogs-suggestions .dog-media img')?.naturalWidth > 0`,
       5000,
@@ -1068,9 +1070,9 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       missing: document.querySelector('#dogs-suggestions .dog-media')?.classList.contains('is-missing')
     }))()`);
     if (
-      newArtwork.name !== "Basset Hound" ||
-      !newArtwork.imageSrc.includes('/assets/dogs/generated/VBO-0200126-basset-hound-320.webp') ||
-      !newArtwork.imageAlt.includes('Basset Hound') ||
+      newArtwork.name !== "Swedish Vallhund" ||
+      !newArtwork.imageSrc.includes('/assets/dogs/generated/VBO-0201316-swedish-vallhund-320.webp') ||
+      !newArtwork.imageAlt.includes('Swedish Vallhund') ||
       newArtwork.missing
     ) {
       throw new Error(`Dogs new generated cohort did not render: ${JSON.stringify(newArtwork)}`);

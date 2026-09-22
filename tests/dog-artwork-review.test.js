@@ -17,7 +17,7 @@ test("artwork review report models every exact ledger candidate with promoted it
     catalog: await fixture("dog-catalog.json"),
     packs: await fixture("packs.json"),
   });
-  assert.equal(model.summary.candidates, 52);
+  assert.equal(model.summary.candidates, (await fixture("image-rights.json")).assets.length);
   assert.equal(model.summary.promoted, 27);
   assert.equal(model.summary.pending, 0);
   assert.equal(model.assets.every((asset) => asset.ledgerReviewStatus === "approved"), true);
@@ -42,7 +42,7 @@ test("artwork review HTML is local-only, export-only, and embeds the complete ev
   assert.match(html, /stackrank:dogs-artwork-review:v1/);
   assert.match(html, /Pinned file revision/);
   assert.match(html, /Non-copyright restrictions reviewed/);
-  assert.equal((html.match(/data-candidate(?:\s|>)/g) || []).length, 52);
+  assert.equal((html.match(/data-candidate(?:\s|>)/g) || []).length, (await fixture("image-rights.json")).assets.length);
   assert.doesNotMatch(html, />\s*Approve\s*</i);
   assert.doesNotMatch(html, />\s*Upload\s*</i);
   assert.doesNotMatch(html, /image-rights\.json['"]?\s*[,)]/);

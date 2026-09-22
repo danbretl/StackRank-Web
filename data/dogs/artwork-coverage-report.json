@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "ledgerVersion": "2026-09-22.e09",
+  "ledgerVersion": "2026-09-22.e10",
   "policyVersion": "2026-07-16.1",
   "catalogVersion": "vbo-2026-04-15.2",
   "sourceDates": {
@@ -16,8 +16,8 @@
     "missingPromotedCatalogIds": []
   },
   "ledger": {
-    "rows": 259,
-    "approvedRightsRows": 259,
+    "rows": 282,
+    "approvedRightsRows": 282,
     "pendingRows": 0,
     "quarantinedRows": 0,
     "readyDeliveryRows": 28,
@@ -25,27 +25,27 @@
       "CC-BY-2.0": 5,
       "CC-BY-2.5": 1,
       "CC-BY-3.0": 5,
-      "CC-BY-4.0": 16,
+      "CC-BY-4.0": 19,
       "CC-BY-SA-2.5": 1,
-      "CC-BY-SA-3.0": 90,
-      "CC-BY-SA-4.0": 132,
+      "CC-BY-SA-3.0": 94,
+      "CC-BY-SA-4.0": 148,
       "CC0-1.0": 9
     },
     "approvedLicenseDistribution": {
       "CC-BY-2.0": 5,
       "CC-BY-2.5": 1,
       "CC-BY-3.0": 5,
-      "CC-BY-4.0": 16,
+      "CC-BY-4.0": 19,
       "CC-BY-SA-2.5": 1,
-      "CC-BY-SA-3.0": 90,
-      "CC-BY-SA-4.0": 132,
+      "CC-BY-SA-3.0": 94,
+      "CC-BY-SA-4.0": 148,
       "CC0-1.0": 9
     },
     "allRowsSourceProviderDistribution": {
-      "wikimedia-commons": 259
+      "wikimedia-commons": 282
     },
     "approvedSourceProviderDistribution": {
-      "wikimedia-commons": 259
+      "wikimedia-commons": 282
     }
   },
   "coverage": {
@@ -85,8 +85,8 @@
   "unresolvedUiArtworkSummary": {
     "total": 1211,
     "byReason": {
-      "approved rights, delivery/purpose not ready": 231,
-      "no ledger row": 980
+      "approved rights, delivery/purpose not ready": 254,
+      "no ledger row": 957
     },
     "promotedTotal": 0
   },
@@ -100,7 +100,7 @@
     {
       "catalogId": "VBO:0000668",
       "primaryText": "Old Danish Pointing Dog",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0000670",
@@ -970,7 +970,7 @@
     {
       "catalogId": "VBO:0200186",
       "primaryText": "Bohemian Shepherd Dog",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200188",
@@ -1830,7 +1830,7 @@
     {
       "catalogId": "VBO:0200402",
       "primaryText": "Czechoslovakian Wolfdog",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200403",
@@ -2050,12 +2050,12 @@
     {
       "catalogId": "VBO:0200453",
       "primaryText": "Drentsche Patrijshond",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200454",
       "primaryText": "Drever",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200455",
@@ -2065,7 +2065,7 @@
     {
       "catalogId": "VBO:0200456",
       "primaryText": "Dunker",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200457",
@@ -2185,7 +2185,7 @@
     {
       "catalogId": "VBO:0200490",
       "primaryText": "English Foxhound",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200493",
@@ -2235,7 +2235,7 @@
     {
       "catalogId": "VBO:0200508",
       "primaryText": "Estonian Hound",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200509",
@@ -2650,7 +2650,7 @@
     {
       "catalogId": "VBO:0200615",
       "primaryText": "Grand Basset Griffon Vendeen",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200617",
@@ -2795,7 +2795,7 @@
     {
       "catalogId": "VBO:0200655",
       "primaryText": "Hamiltonstovare",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200656",
@@ -2895,7 +2895,7 @@
     {
       "catalogId": "VBO:0200678",
       "primaryText": "Hungarian Greyhound",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200679",
@@ -3090,12 +3090,12 @@
     {
       "catalogId": "VBO:0200732",
       "primaryText": "Jagdterrier",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200733",
       "primaryText": "Jämthund",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200734",
@@ -3310,7 +3310,7 @@
     {
       "catalogId": "VBO:0200786",
       "primaryText": "Kromfohrlander",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200787",
@@ -3435,7 +3435,7 @@
     {
       "catalogId": "VBO:0200814",
       "primaryText": "Lapponian Herder",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200815",
@@ -3445,7 +3445,7 @@
     {
       "catalogId": "VBO:0200816",
       "primaryText": "Large Munsterlander",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200817",
@@ -4480,7 +4480,7 @@
     {
       "catalogId": "VBO:0201064",
       "primaryText": "Porcelaine",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201067",
@@ -4505,7 +4505,7 @@
     {
       "catalogId": "VBO:0201071",
       "primaryText": "Portuguese Sheepdog",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201074",
@@ -4570,7 +4570,7 @@
     {
       "catalogId": "VBO:0201087",
       "primaryText": "Pudelpointer",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201088",
@@ -4795,7 +4795,7 @@
     {
       "catalogId": "VBO:0201141",
       "primaryText": "Romanian Mioritic Shepherd Dog",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201142",
@@ -5815,7 +5815,7 @@
     {
       "catalogId": "VBO:0201390",
       "primaryText": "Volpino Italiano",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201391",
@@ -5970,7 +5970,7 @@
     {
       "catalogId": "VBO:0201428",
       "primaryText": "Wirehaired Vizsla",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201430",
@@ -6085,7 +6085,7 @@
     {
       "catalogId": "VBO:0201454",
       "primaryText": "German Pinscher",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201455",

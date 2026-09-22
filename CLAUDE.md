@@ -11,14 +11,17 @@ deliberately excludes account sync, public snapshots, and raster cover exports w
 provider/artwork policy is evaluated. The cross-domain plan is in
 `notes/feature-ideas/multi-domain-expansion-plan.md`.
 
-As of July 22, 2026, Books expansion and provider outreach are paused. **StackRank Dogs is the active
-next-category initiative** and now has a comprehensive local-first product at `/dogs`: a generated
-VBO catalog, editorial packs, ranking/lists/backup/export flows, and responsive browser coverage.
+As of September 22, 2026, Books expansion and provider outreach are paused. **StackRank Dogs is the
+active next-category initiative** and now has a comprehensive field-guide product at `/dogs`: a
+generated VBO catalog, 1,239 breed profiles, editorial packs, ranking/lists/backup/export flows, and
+responsive browser coverage.
 The additive production schema and Storage bucket have been applied and passed real two-user/RLS/
-snapshot/Storage probes; 28 rights-reviewed photos are immutably delivered for UI display. Dogs
-account sync and public snapshot code is enabled, while public-snapshot artwork and raster export
+snapshot/Storage probes. Twenty-eight art-directed generated breed portraits cover the promoted
+cohort in normal UI, while the separate 28-photo rights ledger remains available as a licensed
+fallback. Dogs account sync and public snapshot code is enabled, while public-snapshot artwork and raster export
 remain purpose-denied. The integrated release shipped to production on July 22, 2026 in commit
-`31267389`; `/dogs` is public while the production root continues to redirect to `/movies`. The
+`31267389`; the field-guide redesign shipped to production in commit `254810ae`. `/dogs` is public while the
+production root continues to redirect to `/movies`. The
 authoritative plan is `notes/feature-ideas/dogs-launch-plan.md`; exact status and release gates live
 in `notes/testing/dogs-implementation-status.md`.
 
@@ -38,7 +41,8 @@ Plain **static single-page app — no build system, no framework, no bundler, no
   works through the shared entity/rank-session/list/backup primitives, stores only under the Books
   namespace, and has its own focused real-browser regression flow.
 - **`dogs.html` / `dogs.js` / `dogs.css`** — public-route-ready Dogs product. It loads
-  the generated static VBO catalog and editorial packs under `data/dogs/`, stores provider-qualified
+  the generated static VBO catalog, all-catalog breed profiles, generated-artwork manifest, and
+  editorial packs under `data/dogs/`, stores provider-qualified
   breed identities only in Dogs keys, syncs only through additive category tables when signed in,
   and can publish revocable read-only Dogs snapshots. Raster export remains disabled; public
   snapshots stay text-first until their separate artwork-purpose gate passes.
@@ -100,9 +104,11 @@ Plain **static single-page app — no build system, no framework, no bundler, no
   Recently ranked, 46 validated editorial packs, Detailed/Photos/Compact ranking views, safe facets,
   pointer/touch/keyboard reorder, Review order, provenance-rich details, Curious about / Not for me,
   rank-weighted Taste patterns, category backup/restore/name import, and text/Markdown/JSON exports.
-  Twenty-eight rights-reviewed display photos cover every promoted starter entity; missing photos
+  Every selectable entry has a friendly field note and an honest dog-family label; 28 promoted
+  breeds have editor-reviewed deep profiles and art-directed generated portraits, while less-developed
+  entries stay conservative rather than inventing temperament or suitability claims. Missing portraits
   use a neutral fallback. Account sync and revocable public snapshot links use the additive category
-  tables. Public snapshots omit photos because that artwork purpose remains denied, and raster
+  tables. Public snapshots omit artwork because that purpose remains denied, and raster
   sharing remains disabled.
 
 - **Experimental Books preview:** `/books` offers Open Library work search, three starter shelves,
@@ -177,7 +183,7 @@ Approximate line ranges (they drift; grep to confirm):
 - **Screenshots:** `npm run screenshots` (headless Chrome; flags `--label=`, `--only=desktop-comparison,ipad-main-portrait,mobile-comparison-landscape,...`). The harness has explicit desktop fine-pointer, iPad portrait/landscape touch, and iPhone portrait/landscape touch profiles and records their runtime capabilities in the manifest. Archives to `debug/screenshots/runs/<timestamp>/` + `latest/` (both gitignored).
 - **Social preview image:** `npm run build:og` regenerates `assets/og-preview.png` (1200×630) from the design embedded in `scripts/build-og-image.cjs` via headless Chrome. After regenerating, bump the `?v=N` on the `og:image`/`twitter:image` meta tags in `index.html` so unfurler caches refresh.
 - **Hosting:** Vercel project `stackrank` is connected to the GitHub repo and deploys `main` to production. `vercel.json` temporarily redirects `/` → `/movies` with 307, rewrites `/movies`, `/dogs`, and noindex `/books` to their static apps, rewrites `/privacy` to the standalone policy, and preserves legacy Movies `/s/:slug` in `shared.html`, then canonicalizes away trailing slashes. It also applies the production CSP, Permissions Policy, referrer policy, MIME-sniffing protection, and frame denial to every route; update the allowlist deliberately when adding an external runtime origin. `robots.txt` and `sitemap.xml` expose the canonical public routes; `/s/` is intentionally excluded from indexing because links are unlisted snapshots. Vercel Web Analytics is enabled on the Hobby plan (pageviews only; custom events use Supabase). Cloudflare Registrar/DNS owns `stackrankapp.com`; both apex and `www` use DNS-only CNAME records to Vercel, with Vercel issuing the apex → `www` 308 redirect and TLS certificates. GitHub Pages remains enabled temporarily as a browser-local-data recovery path; retirement criteria and remaining device/account checks are in `notes/testing/production-release-checklist.md`.
-- **Cache-busting:** when you change JS or CSS, **bump its `?v=N` reference** — otherwise browsers or an edge cache can serve stale assets. Current local worktree: `app.js?v=190`, `styles.css?v=161`, `shared.js?v=5`, `books.js?v=2`, `books.css?v=3`, `dogs.js?v=16`, `dogs.css?v=6`, `dogs-shared.js?v=2`, `dogs-shared.css?v=1`, `home.js?v=1`, `home.css?v=1`. Production serves these cache-busted payloads with year-long immutable caching. `npm run check:cache` hashes the versioned runtime assets and updates `data/asset-versions.json`; it fails when a file changes without its referenced `?v=N` changing. **Note:** each entry module imports local `lib/` modules with their own `?v=N`; bump those import queries too when the module changes, since bumping only the entry script will not refresh a cached dependency.
+- **Cache-busting:** when you change JS or CSS, **bump its `?v=N` reference** — otherwise browsers or an edge cache can serve stale assets. Current local worktree: `app.js?v=191`, `styles.css?v=161`, `shared.js?v=5`, `books.js?v=2`, `books.css?v=3`, `dogs.js?v=26`, `dogs.css?v=7`, `dogs-shared.js?v=7`, `dogs-shared.css?v=1`, `home.js?v=1`, `home.css?v=1`. Production serves these cache-busted payloads with year-long immutable caching. `npm run check:cache` hashes the versioned runtime assets and updates `data/asset-versions.json`; it fails when a file changes without its referenced `?v=N` changing. **Note:** each entry module imports local `lib/` modules with their own `?v=N`; bump those import queries too when the module changes, since bumping only the entry script will not refresh a cached dependency.
 
 ## Conventions
 

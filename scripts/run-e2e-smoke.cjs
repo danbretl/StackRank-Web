@@ -1588,15 +1588,20 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       input: DEVICE_INPUT_PROFILE.coarseTouch,
     });
     await page.evaluate(`document.querySelector('.dogs-nav [data-destination="ranking"]')?.click(); true;`);
-    const ipadPortrait = await page.evaluate(`(() => ({
-      overflow: document.documentElement.scrollWidth > innerWidth,
-      rowCount: document.querySelectorAll('#dogs-ranking .ranking-row').length,
-      minAction: Math.min(...[...document.querySelectorAll('#dogs-ranking .ranking-row__actions button')].map((button) => {
-        const box = button.getBoundingClientRect();
-        return Math.min(box.width, box.height);
-      }))
-    }))()`);
-    if (!ipadPortraitProfile.anyPointerCoarse || ipadPortrait.overflow || ipadPortrait.rowCount !== restored.ranking.length || ipadPortrait.minAction < 44) {
+    const ipadPortrait = await page.evaluate(`(() => {
+      // Move handles are intentionally hidden outside Move mode.
+      const actions = [...document.querySelectorAll('#dogs-ranking .ranking-row__actions button')]
+        .filter((button) => button.getClientRects().length > 0)
+        .map((button) => button.getBoundingClientRect());
+      return {
+        overflow: document.documentElement.scrollWidth > innerWidth,
+        rowCount: document.querySelectorAll('#dogs-ranking .ranking-row').length,
+        visibleActionCount: actions.length,
+        minAction: Math.min(...actions.map((box) => Math.min(box.width, box.height)))
+      };
+    })()`);
+    if (!ipadPortraitProfile.anyPointerCoarse || ipadPortrait.overflow || ipadPortrait.rowCount !== restored.ranking.length ||
+      ipadPortrait.visibleActionCount !== restored.ranking.length * 4 || ipadPortrait.minAction < 44) {
       throw new Error(`Dogs iPad portrait ranking is wrong: ${JSON.stringify({ ipadPortraitProfile, ipadPortrait })}`);
     }
     const ipadPortraitShot = await page.screenshot("dogs-ranking-ipad-portrait.png");

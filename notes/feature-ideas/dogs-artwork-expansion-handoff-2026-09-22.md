@@ -2,6 +2,11 @@
 
 Snapshot date: **September 22, 2026**
 
+**Superseding continuation:** Preserved batch D and the first 24 accepted cohort-E portraits are
+live in `37cc0e21` (76 total). Current progress and evidence are in
+`notes/testing/dogs-portrait-cohort-e.md` and `data/dogs/portrait-cohort-e.json`.
+The 52-portrait figures below are the frozen starting snapshot, not current production coverage.
+
 This document captures the exact continuation state for generating excellent field-guide portraits
 for the rest of the selectable Dogs catalog. Read the product handoff first:
 `notes/feature-ideas/dogs-product-handoff-2026-09-22.md`.
@@ -204,4 +209,3 @@ Do not assume this snapshot supersedes executable contracts.
 - Keep public-snapshot artwork and raster export false.
 - Do not upload production artwork, commit, push, deploy, apply migrations, or change the root
   redirect without explicit authorization for that distinct action.
-

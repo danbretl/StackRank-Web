@@ -1,5 +1,9 @@
 # StackRank Dogs product handoff
 
+Current artwork progress supersedes the baseline below: `37cc0e21` published batch D and cohort E01
+for 76 live portraits. Continue from `notes/testing/dogs-portrait-cohort-e.md` and the frozen
+machine-readable `data/dogs/portrait-cohort-e.json` ledger.
+
 Snapshot date: **September 22, 2026**
 
 This is a durable orientation document for a new primary agent. It is a snapshot, not a replacement
@@ -162,4 +166,3 @@ Future artwork work must rerun focused validators after every subwave and finish
 4. `notes/testing/dogs-implementation-status.md`
 5. `notes/feature-ideas/dogs-field-guide-v2.md`
 6. `notes/feature-ideas/dogs-artwork-expansion-handoff-2026-09-22.md`
-

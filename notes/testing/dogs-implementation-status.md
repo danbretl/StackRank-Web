@@ -2,6 +2,11 @@
 
 Status date: **September 22, 2026**
 
+**Current artwork update:** Commit `37cc0e21` published preserved batch D plus 24 newly accepted
+cohort-E portraits. Production now has **76** generated portraits; the larger 250-identity expansion
+is continuing. See `notes/testing/dogs-portrait-cohort-e.md` for current counts, blockers and checks.
+The original 52-portrait local-release sections below describe the earlier baseline.
+
 Durable continuation context for a new agent is recorded in
 `notes/feature-ideas/dogs-product-handoff-2026-09-22.md` and
 `notes/feature-ideas/dogs-artwork-expansion-handoff-2026-09-22.md`. A paste-ready large-cohort

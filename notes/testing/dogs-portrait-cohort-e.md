@@ -7,7 +7,30 @@ The user authorized periodic commits and pushes, then explicitly requested visib
 live site. Verified milestones now go to `main`, which Vercel deploys. Database migrations, production
 Storage uploads and root routing changes are outside this artwork expansion.
 
-## Current published milestone E03
+## Current published milestone E04
+
+- Production commit: `732ebacc`; **145 / 1,239** portraits live, **1,094** unillustrated.
+- Cohort delivery: **93 / 250** accepted and integrated. E04 adds **22** from **27 calls**,
+  with **5 rejected masters**, **0 failed calls**, and **5 retries**.
+- Cumulative: **119 calls**, **113 generated outputs**, **20 rejected masters**, **6 failed calls**,
+  **26 retries**. Seven frozen identities remain reference-blocked; E04 adds Bluetick Coonhound,
+  generic Cocker Spaniel and Murray River Retriever. No adjacent breed substitutions were made.
+- Next actionable identity: Dandie Dinmont Terrier (`VBO:0200429`, ordinal 101).
+- Canonical discovery: **732** without ledger rows (**68** pack-engaged, **664** long-tail).
+- Primary review inspected all 22 final originals and the contact sheet. Three additional primary
+  rejects were regenerated for distant settlements (Shar-Pei/Cirneco) and ambiguous coat/sex (Cimarrón).
+  All **246** previously published variants and batch D manifest bytes remain unchanged.
+- `npm run verify`: **432 Node, 24 Deno, all validators, 37 Chrome flows passed**;
+  log `reports/dogs-generated-artwork/cohort-e/e04-verify-final.log`, Node report
+  `reports/runs/2026-09-22T193200Z`, Chrome report `reports/e2e/runs/2026-09-22T193217Z`.
+- The E03 hosted checks revealed an iPad test-state regression introduced by the new phone capture:
+  the test measured an intentionally hidden Move handle. E04 checks the exact four visible actions
+  per row and their 44px targets; the full local suite now passes. No product layout was changed.
+- Vercel deployment and **35 production smoke checks** passed, and eight live variant hashes match
+  the reviewed manifest. Evidence: `reports/dogs-generated-artwork/cohort-e/e04-production-smoke.log`
+  and `e04-production-artwork.json` in the same directory.
+
+## Earlier published milestone E03
 
 - Production commit: `8c199b90`; **123 / 1,239** portraits live, **1,116** identities unillustrated.
 - Cohort delivery: **71 / 250** accepted and integrated. E03 adds **23** from **29 calls**,
@@ -101,10 +124,9 @@ public-snapshot artwork and raster export remain false. Movies, Books and `/` �
 
 ## Work in progress
 
-E04 has 22 candidates. Primary review requested three regenerations (Shar-Pei/Cirneco background
-settlements and Cimarrón coat/sex); all three replacements have now passed primary full-resolution
-review. Bluetick Coonhound, generic Cocker Spaniel and Murray River Retriever remain held.
-E05 has 21 reviewed-by-agent candidates; four rare/historical identities remain blocked. E06 is in
-generation/review, E07 reference research is underway. Isolated agent staging is under `reports/dogs-generated-artwork/cohort-e/eNN-a`,
-`eNN-b`, `eNN-c`; merge only reviewed updates into the authoritative cohort file. Full-resolution
-masters and rejected originals stay only under ignored `assets/dogs/generated-masters/`.
+E05 has 21 candidates that passed primary full-resolution and contact-sheet review; four rare or
+historical identities remain held. E06 has 23 agent-reviewed candidates undergoing primary review.
+E07-a has eight agent-reviewed candidates and one identity hold; E07-b/c and E08-a reference research
+is underway. Isolated staging is under `reports/dogs-generated-artwork/cohort-e/eNN-a`, `eNN-b`,
+`eNN-c`; merge only reviewed updates into the authoritative cohort file. Full-resolution masters
+and rejected originals stay only under ignored `assets/dogs/generated-masters/`.

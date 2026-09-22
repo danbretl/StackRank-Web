@@ -2,8 +2,8 @@
 
 Snapshot date: **September 22, 2026**
 
-**Superseding continuation:** Preserved batch D and the first 71 accepted cohort-E portraits are
-live in `8c199b90` (123 total). Current progress and evidence are in
+**Superseding continuation:** Preserved batch D and the first 93 accepted cohort-E portraits are
+live in `732ebacc` (145 total). Current progress and evidence are in
 `notes/testing/dogs-portrait-cohort-e.md` and `data/dogs/portrait-cohort-e.json`.
 The 52-portrait figures below are the frozen starting snapshot, not current production coverage.
 

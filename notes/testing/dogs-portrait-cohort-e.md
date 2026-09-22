@@ -7,7 +7,27 @@ The user authorized periodic commits and pushes, then explicitly requested visib
 live site. Verified milestones now go to `main`, which Vercel deploys. Database migrations, production
 Storage uploads and root routing changes are outside this artwork expansion.
 
-## Current published milestone E08
+## Current published milestone E09
+
+- Production commit: `424d3301`; **259 / 1,239** portraits live, **980** unillustrated.
+- Cohort delivery: **207 / 250** accepted and integrated. E09 adds **21** from **29 calls**,
+  with **8 rejected masters**, **0 failed calls**, and **8 retries**.
+- Cumulative: **273 calls**, **259 generated outputs**, **52 rejected masters**, **14 failed calls**,
+  **66 retries**. E09 adds four reference holds: Phu Quoc Ridgeback, Sapsali, Bully Kutta, Telomian.
+- Canonical discovery: **618** without ledger rows (**14** pack-engaged, **604** long-tail).
+- All 21 original masters and contact sheet passed primary review; all **476** prior WebPs and
+  batch D manifest bytes remain unchanged. Packet status aliases and a duplicate Telomian summary
+  were normalized without changing hold evidence or frozen identity selection.
+- `npm run verify`: **440 Node, 24 Deno, all validators, 38 Chrome flows passed**;
+  log `reports/dogs-generated-artwork/cohort-e/e09-verify.log`, Node report
+  `reports/runs/2026-09-22T234509Z`, Chrome report `reports/e2e/runs/2026-09-22T234526Z`.
+- Vercel deployment, **44 production smoke checks**, and eight live image hashes passed.
+  Evidence: `reports/dogs-generated-artwork/cohort-e/e09-production-smoke.log` and
+  `e09-production-artwork.json`. E08 product/documentation commits passed hosted CI.
+- The live review gallery automatically includes the 259 portraits; metadata list and cache versions
+  were advanced with this release. Next actionable frozen entry is Bohemian Shepherd, ordinal 226.
+
+## Earlier published milestone E08
 
 - Production commit: `bff7b132`; **238 / 1,239** portraits live, **1,001** unillustrated.
 - Cohort delivery: **186 / 250** accepted and integrated. E08 adds all **25** from **41 calls**,
@@ -218,8 +238,8 @@ public-snapshot artwork and raster export remain false. Movies, Books and `/` â†
 
 ## Work in progress
 
-E09 has 21 and E10 has 23 accepted candidates. Primary full-resolution and contact-sheet review
-is complete for all 44; integration/release remain pending. Independent final audit reconciled the
+E09 is published. E10 has 23 accepted candidates; primary full-resolution and contact-sheet review
+is complete, with integration/release pending. Independent final audit reconciled the
 entire frozen selection: 230 accepted, 20 reference holds, 309 calls (63 rejects and 16 failures).
 All original/master/reference hashes match; no identities were substituted. Audit artifacts are
 `reports/dogs-generated-artwork/cohort-e/final-audit.json` and `.md`.

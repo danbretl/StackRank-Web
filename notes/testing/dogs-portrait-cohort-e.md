@@ -7,7 +7,32 @@ The user authorized periodic commits and pushes, then explicitly requested visib
 live site. Verified milestones now go to `main`, which Vercel deploys. Database migrations, production
 Storage uploads and root routing changes are outside this artwork expansion.
 
-## Current published milestone E02
+## Current published milestone E03
+
+- Production commit: `8c199b90`; **123 / 1,239** portraits live, **1,116** identities unillustrated.
+- Cohort delivery: **71 / 250** accepted and integrated. E03 adds **23** from **29 calls**,
+  with **3 rejected masters**, **3 failed calls**, and **6 retries**.
+- Cumulative: **92 calls**, **86 generated outputs**, **15 rejected masters**, **6 failed calls**,
+  **21 retries**. The failed Weimaraner call is correctly counted only as a tool failure;
+  its earlier rejected-QA label was corrected while preserving the original failure evidence.
+- Four frozen identities are reference-blocked. E03 adds Rampur Greyhound (ineligible/weak adult
+  sources) and Abyssinian Sand Terrier (only taxidermy/historical reconstruction evidence).
+- Next actionable identity: American Hairless Terrier (`VBO:0200049`, ordinal 76).
+- Canonical discovery: **754** without ledger rows (**90** pack-engaged, **664** long-tail).
+- Primary orchestrator reviewed all 23 full-resolution originals and the E03 contact sheet;
+  all **200** previously published variants and batch D manifest bytes remain unchanged.
+- `npm run verify`: **432 Node, 24 Deno, all validators, 37 Chrome flows passed**;
+  log `reports/dogs-generated-artwork/cohort-e/e03-verify-final.log`, Node report
+  `reports/runs/2026-09-22T182509Z`, Chrome report `reports/e2e/runs/2026-09-22T182525Z`.
+- Real Chrome now also captures desktop comparison and phone ranking/detail. Primary visual review
+  covered Rank, comparison, ranking and detail on desktop and phone; full bodies remain legible,
+  cards fit their viewports and disclosure is retained. The phone detail assertion checks image
+  loading, horizontal bounds and the generated-artwork disclosure.
+- Production deployment and **35 smoke checks** passed; eight sampled live variant hashes match
+  the reviewed manifest. Evidence: `reports/dogs-generated-artwork/cohort-e/e03-production-smoke.log`
+  and `e03-production-artwork.json` in the same directory.
+
+## Earlier published milestone E02
 
 - Production commit: `699b2521`; **100 / 1,239** portraits live, **1,139** identities unillustrated.
 - Cohort delivery: **48 / 250** accepted and integrated. E02 contributes **24** from **29 calls**,
@@ -76,9 +101,10 @@ public-snapshot artwork and raster export remain false. Movies, Books and `/` ‚Ü
 
 ## Work in progress
 
-E03 has 23 candidate masters, all individually reviewed by the primary orchestrator; its contact
-sheet and integration are next. Rampur Greyhound and Abyssinian Sand Terrier remain held for
-dependable reference evidence. E04 is in generation/review, with Bluetick Coonhound, generic Cocker
-Spaniel and Murray River Retriever held for evidence or identity. E05 reference research is underway. Isolated agent staging is under `reports/dogs-generated-artwork/cohort-e/eNN-a`,
+E04 has 22 candidates. Primary review requested three regenerations (Shar-Pei/Cirneco background
+settlements and Cimarr√≥n coat/sex); all three replacements have now passed primary full-resolution
+review. Bluetick Coonhound, generic Cocker Spaniel and Murray River Retriever remain held.
+E05 has 21 reviewed-by-agent candidates; four rare/historical identities remain blocked. E06 is in
+generation/review, E07 reference research is underway. Isolated agent staging is under `reports/dogs-generated-artwork/cohort-e/eNN-a`,
 `eNN-b`, `eNN-c`; merge only reviewed updates into the authoritative cohort file. Full-resolution
 masters and rejected originals stay only under ignored `assets/dogs/generated-masters/`.

@@ -2,8 +2,8 @@
 
 Status date: **September 22, 2026**
 
-**Current artwork update:** Commit `699b2521` brings preserved batch D plus 48 newly accepted
-cohort-E portraits. Production now has **100** generated portraits; the larger 250-identity expansion
+**Current artwork update:** Commit `8c199b90` brings preserved batch D plus 71 newly accepted
+cohort-E portraits. Production now has **123** generated portraits; the larger 250-identity expansion
 is continuing. See `notes/testing/dogs-portrait-cohort-e.md` for current counts, blockers and checks.
 The original 52-portrait local-release sections below describe the earlier baseline.
 

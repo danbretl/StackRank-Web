@@ -141,7 +141,7 @@
     "attemptCount": 92,
     "completedGenerationCount": 86,
     "failedCallCount": 6,
-    "rejectedMasterCount": 16,
+    "rejectedMasterCount": 15,
     "retryCount": 21,
     "acceptedCount": 71,
     "integratedCount": 71,
@@ -8362,7 +8362,7 @@
             "number": 1,
             "id": "VBO:0201401-e03-c-1",
             "status": "failed",
-            "qaDecision": "rejected",
+            "qaDecision": "pending",
             "startedAt": "2026-09-22T16:50:14.567348Z",
             "prompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image at 1536x1024 pixels, 3:2 landscape.\nInput image is morphology and coat reference ONLY, never an edit target. Create a wholly new pose, composition, lighting and background. Do not reconstruct the reference photograph or copy its staging. Exclude all source humans, other animals, collars, leads, harnesses, bows, signs, furniture and props.\nScene: A central German beech-forest clearing in early autumn, a shallow stony brook curling through copper leaves behind the dog, pale smooth trunks and distant green canopy, cool filtered daylight with a warm opening beyond. The environment is specific, clearly readable and spatially layered, with coherent daylight and fine natural detail, not a uniform blur wall.\nSubject: One adult short-haired Weimaraner, medium-large sinewy athletic dog with smooth silver-gray coat, slightly lighter head and long broad pendant ears, refined long muzzle, light amber eyes and grayish flesh-toned nose. Strong deep chest, level back, muscular balanced long limbs, complete natural undocked tapering tail hanging low in a soft curve. Mature proportions and quiet attentive expression.\nComposition: one mature adult dog standing naturally in a relaxed three-quarter view at dog-eye level, head turned slightly toward camera, complete body comfortably framed. All FOUR paws visibly planted and separated; ears and entire tail safely inside frame. Frame deliberately ROOMY: dog including ears and tail occupies no more than 60 percent of canvas width and 64 percent of height. Leave at least 15 percent clear foreground below the lowest paw, 15 percent air above the highest ear and generous space beyond nose and tail. Step the camera back; do not crop close or enlarge the dog to fill the frame. Natural unstaged weight distribution, convincing ground contact, safe for card crops.\nStyle: exceptional photorealistic editorial field photography, natural soft daylight, restrained color, tactile individual fur strands, rich tonal detail and believable anatomy. Beautiful, quietly observational and specific to this breed. No people, other animals, clothing, collars, leashes, harnesses, bows, props, text, logos, watermarks, clipped extremities, duplicate legs, malformed paws, distorted face, exaggerated eyes, plastic CGI fur, studio backdrop, oversaturation or aggressive HDR.",
             "generator": "OpenAI built-in imagegen",
@@ -8372,7 +8372,8 @@
             "failure": "image generation failed: http 400 Bad Request: Some(\"{\\n  \\\"error\\\": {\\n    \\\"message\\\": \\\"Invalid image file or mode for image 1, please check your image file. If you believe this is an error, contact us at help.openai.com and include the request ID 90492867-3929-40bc-814e-45fe7270593c.\\\",\\n    \\\"type\\\": \\\"image_generation_user_error\\\",\\n    \\\"param\\\": null,\\n    \\\"code\\\": \\\"invalid_image_file\\\"\\n  }\\n}\")",
             "rejectionReason": "Image generation tool call failed.",
             "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
-            "reviewedAt": "2026-09-22T16:51:10.346042Z"
+            "reviewedAt": "2026-09-22T16:51:10.346042Z",
+            "auditCorrection": "Primary review: no output exists for this failed call; retain failure evidence and exclude it from rejected-master count."
           },
           {
             "catalogId": "VBO:0201401",

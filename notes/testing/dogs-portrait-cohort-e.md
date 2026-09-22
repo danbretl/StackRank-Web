@@ -7,7 +7,29 @@ The user authorized periodic commits and pushes, then explicitly requested visib
 live site. Verified milestones now go to `main`, which Vercel deploys. Database migrations, production
 Storage uploads and root routing changes are outside this artwork expansion.
 
-## Published milestone E01
+## Current published milestone E02
+
+- Production commit: `699b2521`; **100 / 1,239** portraits live, **1,139** identities unillustrated.
+- Cohort delivery: **48 / 250** accepted and integrated. E02 contributes **24** from **29 calls**,
+  with **5 rejected outputs**, **5 retries** and **0 failed calls**.
+- Cumulative: **63 calls**, **60 generated outputs**, **12 rejected outputs**, **3 failed calls**,
+  **15 retries**; **202** frozen identities remain, including **2** reference blockers.
+- Koolie (`VBO:0200782`, ordinal 42) joins Cantabrian Water Dog on hold: one source has a prohibited
+  breeder watermark; the alternate own-work rescue-dog photo cannot establish exact morphology.
+- Next actionable identity: Pharaoh Hound (`VBO:0201016`, ordinal 51). Selection/order remain frozen.
+- Canonical discovery: **777** without ledger rows (**113** pack-engaged, **664** long-tail).
+- All **152** previously published WebPs and the original batch D manifest are unchanged.
+- Primary orchestrator inspected all 24 full-resolution originals and
+  `reports/dogs-generated-artwork/cohort-e/e02-contact-sheet.jpg`.
+- `npm run verify`: **432 Node, 24 Deno, all validators, 37 Chrome flows passed**;
+  log `reports/dogs-generated-artwork/cohort-e/e02-verify.log`, browser evidence
+  `reports/e2e/runs/2026-09-22T173936Z`.
+- Vercel deployment succeeded; **35 production smoke checks** passed in
+  `reports/dogs-generated-artwork/cohort-e/e02-production-smoke.log`. Eight live variant hashes
+  passed for German Shepherd, Indian Pariah, Norwegian Elkhound and previously published Beagle;
+  record `reports/dogs-generated-artwork/cohort-e/e02-production-artwork.json`.
+
+## Earlier published milestone E01
 
 - Production commit: `37cc0e21` (also publishes the preserved batch D checkpoint `b9fd6532`).
 - Live generated portraits: **76 / 1,239**; **1,163** selectable identities remain unillustrated.
@@ -45,7 +67,7 @@ Its check mode does not repair output. Regression tests cover preservation and e
   and batch D Basset Hound; record `reports/dogs-generated-artwork/cohort-e/e01-production-artwork.json`.
 - Production Chrome `/dogs?debug=1` visibly shows 76 portraits and the new Swedish Vallhund image.
 - Initial hosted CI passed all Dogs tests but timed out in the unchanged Movies Share Studio swipe
-  test; the failed job was rerun. Track its result before final handoff.
+  test; the rerun passed. The subsequent documentation commit also passed hosted CI.
 
 The new Chrome assertion checks exact Swedish Vallhund identity and loaded 320px portrait while
 allowing the separately retained Swedish Cattle Dog alias result. Generated portraits remain
@@ -54,8 +76,9 @@ public-snapshot artwork and raster export remain false. Movies, Books and `/` â†
 
 ## Work in progress
 
-E02 has 24 individually reviewed candidate masters; Koolie is held for exact-source identity.
-E03 is in generation/review, with Rampur Greyhound and Abyssinian Sand Terrier held for dependable
-reference evidence. Isolated agent staging is under `reports/dogs-generated-artwork/cohort-e/eNN-a`,
+E03 has 23 candidate masters, all individually reviewed by the primary orchestrator; its contact
+sheet and integration are next. Rampur Greyhound and Abyssinian Sand Terrier remain held for
+dependable reference evidence. E04 is in generation/review, with Bluetick Coonhound, generic Cocker
+Spaniel and Murray River Retriever held for evidence or identity. E05 reference research is underway. Isolated agent staging is under `reports/dogs-generated-artwork/cohort-e/eNN-a`,
 `eNN-b`, `eNN-c`; merge only reviewed updates into the authoritative cohort file. Full-resolution
 masters and rejected originals stay only under ignored `assets/dogs/generated-masters/`.

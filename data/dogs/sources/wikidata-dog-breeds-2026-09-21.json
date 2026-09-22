@@ -1,0 +1,9150 @@
+{
+  "schemaVersion": 1,
+  "retrievedAt": "2026-09-22T06:10:17.090Z",
+  "source": {
+    "name": "Wikidata Query Service",
+    "url": "https://query.wikidata.org/sparql",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/"
+  },
+  "query": "SELECT ?item ?itemLabel (GROUP_CONCAT(DISTINCT ?alt; separator=\"|\") AS ?aliases) (GROUP_CONCAT(DISTINCT ?countryLabel; separator=\"|\") AS ?countries) WHERE {\n  ?item wdt:P31/wdt:P279* wd:Q39367.\n  OPTIONAL { ?item skos:altLabel ?alt FILTER(LANG(?alt)=\"en\") }\n  OPTIONAL { ?item wdt:P495 ?country. }\n  SERVICE wikibase:label { bd:serviceParam wikibase:language \"en\". ?item rdfs:label ?itemLabel. ?country rdfs:label ?countryLabel. }\n} GROUP BY ?item ?itemLabel",
+  "records": [
+    {
+      "id": "Q21074",
+      "label": "Abruzzo-Maremma Sheepdog",
+      "aliases": [],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q1806071",
+      "label": "Abyssinian Sand Terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11849763",
+      "label": "Adirondack Pointing Dog",
+      "aliases": [
+        "Canadian Pointer"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q7254",
+      "label": "Affenpinscher",
+      "aliases": [
+        "Monkey Dog"
+      ],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q21080",
+      "label": "Afghan Hound",
+      "aliases": [],
+      "countries": [
+        "Afghanistan"
+      ]
+    },
+    {
+      "id": "Q516648",
+      "label": "Afghan mastiff",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567732",
+      "label": "Afghan Spaniel",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q13548384",
+      "label": "African village dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q516079",
+      "label": "Africanis",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q136174423",
+      "label": "Agassaei",
+      "aliases": [],
+      "countries": [
+        "prehistoric Britain"
+      ]
+    },
+    {
+      "id": "Q390751",
+      "label": "Agassin",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37904",
+      "label": "Aidi",
+      "aliases": [
+        "Atlas Mountain Dog"
+      ],
+      "countries": [
+        "North Africa"
+      ]
+    },
+    {
+      "id": "Q37617",
+      "label": "Airedale Terrier",
+      "aliases": [],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q38175",
+      "label": "Akbash",
+      "aliases": [
+        "Akbaş",
+        "Akbaş köpeği"
+      ],
+      "countries": [
+        "Turkey"
+      ]
+    },
+    {
+      "id": "Q29164",
+      "label": "Akita",
+      "aliases": [
+        "Akita Inu",
+        "American Akita",
+        "Japanese Akita",
+        "Japanese Akitainu"
+      ],
+      "countries": [
+        "Japan",
+        "United States"
+      ]
+    },
+    {
+      "id": "Q16245559",
+      "label": "Aksaray Malaklisi dog",
+      "aliases": [
+        "Aksaray Malaklisi",
+        "Anatolian Lion",
+        "Anatolian Mastiff",
+        "Malaklı Karabaş"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q15782013",
+      "label": "Alano",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37690",
+      "label": "Alano Español",
+      "aliases": [
+        "Spanish Alano",
+        "Spanish Bulldog"
+      ],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q37489",
+      "label": "Alapaha Blue Blood Bulldog",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q38152",
+      "label": "Alaskan Klee Kai",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q21206",
+      "label": "Alaskan Malamute",
+      "aliases": [
+        "Malamute"
+      ],
+      "countries": [
+        "Alaska"
+      ]
+    },
+    {
+      "id": "Q124567696",
+      "label": "Albanian Mountain Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q17192231",
+      "label": "Albanian Wolfdog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567733",
+      "label": "Alicant Dog",
+      "aliases": [
+        "Andalusian Dog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q3635150",
+      "label": "Alopekis",
+      "aliases": [],
+      "countries": [
+        "Greece"
+      ]
+    },
+    {
+      "id": "Q37498",
+      "label": "Alpine Dachsbracke",
+      "aliases": [
+        "Alpenländische Dachsbracke"
+      ],
+      "countries": [
+        "Austria"
+      ]
+    },
+    {
+      "id": "Q22058498",
+      "label": "Ameri-Indian Alaskan Husky",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37534",
+      "label": "American Akita",
+      "aliases": [
+        "Great Japanese Dog"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q38145",
+      "label": "American Alsatian",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q15263587",
+      "label": "American Blue Gascon Hound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37604",
+      "label": "American Bulldog",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q5570",
+      "label": "American Bully",
+      "aliases": [
+        "Bully",
+        "Bully dog"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q38063",
+      "label": "American Cocker Spaniel",
+      "aliases": [
+        "Cocker Spaniel"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q37578",
+      "label": "American English Coonhound",
+      "aliases": [
+        "English Coonhound"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q37699",
+      "label": "American Eskimo Dog",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q37514",
+      "label": "American foxhound",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q37508",
+      "label": "American Hairless Terrier",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q465537",
+      "label": "American Leopard Hound",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q38192",
+      "label": "American Mastiff",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37612",
+      "label": "American Pit Bull Terrier",
+      "aliases": [
+        "Pit Bull",
+        "APBT"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q20379394",
+      "label": "American Squirrel Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37688",
+      "label": "American Staffordshire Terrier",
+      "aliases": [
+        "AST",
+        "AmStaff"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q37473",
+      "label": "American Staghound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37856",
+      "label": "American Water Spaniel",
+      "aliases": [
+        "AWS"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q56325548",
+      "label": "American Wolfdog",
+      "aliases": [
+        "American Tundra Shepherd"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q60691679",
+      "label": "American Working Red",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q25477063",
+      "label": "Anatolian Greyhound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37541",
+      "label": "Anatolian Shepherd",
+      "aliases": [
+        "Karabaş",
+        "Anadolulu karabaş",
+        "Anatolian Street Dog",
+        "Çoban köpeği",
+        "Turkish Shepherd"
+      ],
+      "countries": [
+        "Turkey"
+      ]
+    },
+    {
+      "id": "Q39262",
+      "label": "Andalusian Hound",
+      "aliases": [
+        "Andalusian Podenco",
+        "Andalusian Warren Hound",
+        "podenco andaluz"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q10411807",
+      "label": "Anglo-Russian Hound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q17192490",
+      "label": "Anglo-Spanish Greyhound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38134",
+      "label": "Antebellum Bulldog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567743",
+      "label": "Appalachian Sighthound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37697",
+      "label": "Appenzeller Sennenhund",
+      "aliases": [
+        "Blackberry Pink Justice"
+      ],
+      "countries": [
+        "Switzerland"
+      ]
+    },
+    {
+      "id": "Q11282857",
+      "label": "aquarius",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q3092983",
+      "label": "Argentine Pila Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q9058633",
+      "label": "Argentine Polar Dog",
+      "aliases": [],
+      "countries": [
+        "Argentina"
+      ]
+    },
+    {
+      "id": "Q37664",
+      "label": "Ariege Pointer",
+      "aliases": [
+        "Braque de l’ariège"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q37487",
+      "label": "Ariégeois",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q37872",
+      "label": "Armant dog",
+      "aliases": [],
+      "countries": [
+        "Egypt"
+      ]
+    },
+    {
+      "id": "Q38219",
+      "label": "Armenian Gampr dog",
+      "aliases": [],
+      "countries": [
+        "Armenia"
+      ]
+    },
+    {
+      "id": "Q20379411",
+      "label": "artésien-normand",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37758",
+      "label": "Artois Hound",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q113570342",
+      "label": "Assyrian Mastiff",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11293746",
+      "label": "Aurora Husky",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q108123375",
+      "label": "Aussiedoodle",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38455",
+      "label": "Australasian Bosdog",
+      "aliases": [
+        "Australian Bulldog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q11293235",
+      "label": "Australian Barb",
+      "aliases": [
+        "Black Kelpie"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q37595",
+      "label": "Australian Cattle Dog",
+      "aliases": [
+        "ACD",
+        "Heeler",
+        "Australian Heeler",
+        "Blue Heeler",
+        "Cattle Dog",
+        "Queensland Heeler",
+        "Red Heeler"
+      ],
+      "countries": [
+        "Australia"
+      ]
+    },
+    {
+      "id": "Q65229742",
+      "label": "Australian Cobberdog",
+      "aliases": [],
+      "countries": [
+        "Australia"
+      ]
+    },
+    {
+      "id": "Q37520",
+      "label": "Australian Kelpie",
+      "aliases": [],
+      "countries": [
+        "Australia"
+      ]
+    },
+    {
+      "id": "Q37629",
+      "label": "Australian Shepherd",
+      "aliases": [
+        "Aussie"
+      ],
+      "countries": [
+        "United States",
+        "Australia"
+      ]
+    },
+    {
+      "id": "Q37524",
+      "label": "Australian Silky Terrier",
+      "aliases": [
+        "Sydney Silky Terrier"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q11853557",
+      "label": "Australian Staghound",
+      "aliases": [],
+      "countries": [
+        "Australia"
+      ]
+    },
+    {
+      "id": "Q12208606",
+      "label": "Australian stock dog",
+      "aliases": [
+        "Working Kelpie"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q37503",
+      "label": "Australian Stumpy Tail Cattle Dog",
+      "aliases": [],
+      "countries": [
+        "Australia"
+      ]
+    },
+    {
+      "id": "Q37530",
+      "label": "Australian Terrier",
+      "aliases": [],
+      "countries": [
+        "Australia"
+      ]
+    },
+    {
+      "id": "Q11385",
+      "label": "Austrian Black and Tan Hound",
+      "aliases": [],
+      "countries": [
+        "Austria"
+      ]
+    },
+    {
+      "id": "Q38426",
+      "label": "Austrian Pinscher",
+      "aliases": [],
+      "countries": [
+        "Austria"
+      ]
+    },
+    {
+      "id": "Q28495327",
+      "label": "Auvergne Shepherd",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q11657560",
+      "label": "Awa Ken",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q37859",
+      "label": "Azawakh",
+      "aliases": [],
+      "countries": [
+        "Mali"
+      ]
+    },
+    {
+      "id": "Q37730",
+      "label": "Azores Cattle Dog",
+      "aliases": [
+        "Azores Cow Dog",
+        "Cão Fila de São Miguel",
+        "Saint Miguel Cattle Dog",
+        "São Miguel Catch Dog",
+        "São Miguel Cattle Dog"
+      ],
+      "countries": [
+        "Portugal"
+      ]
+    },
+    {
+      "id": "Q113640408",
+      "label": "Bắc Hà dog",
+      "aliases": [
+        "chó Bắc Hà",
+        "Vietspitz"
+      ],
+      "countries": [
+        "Vietnam"
+      ]
+    },
+    {
+      "id": "Q25615871",
+      "label": "badger dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11327564",
+      "label": "Baganda Dog",
+      "aliases": [],
+      "countries": [
+        "Uganda"
+      ]
+    },
+    {
+      "id": "Q11336781",
+      "label": "Bajan Toy Terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37653",
+      "label": "Bakharwal Dog",
+      "aliases": [],
+      "countries": [
+        "India"
+      ]
+    },
+    {
+      "id": "Q1770291",
+      "label": "Bakhmull",
+      "aliases": [],
+      "countries": [
+        "Russia",
+        "Afghanistan"
+      ]
+    },
+    {
+      "id": "Q124567760",
+      "label": "Balla Terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567715",
+      "label": "Bangara Mastiff",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37692",
+      "label": "Barak hound",
+      "aliases": [
+        "Bosnian Broken-haired Hound",
+        "Bosnian Coarse-haired Hound",
+        "Bosnian Rough-coated Hound",
+        "Bosnian Rough-haired Hound"
+      ],
+      "countries": [
+        "Bosnia and Herzegovina"
+      ]
+    },
+    {
+      "id": "Q168788",
+      "label": "Barbado da Terceira",
+      "aliases": [
+        "Terceira Cattle Dog"
+      ],
+      "countries": [
+        "Portugal"
+      ]
+    },
+    {
+      "id": "Q37585",
+      "label": "Barbet",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q9649372",
+      "label": "Barrocal Algarvio",
+      "aliases": [
+        "Algarvian Barrocal Dog",
+        "Cão do Barrocal Algarvio"
+      ],
+      "countries": [
+        "Portugal"
+      ]
+    },
+    {
+      "id": "Q121384636",
+      "label": "Basati alaunt",
+      "aliases": [
+        "Presa navarro"
+      ],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q37871",
+      "label": "Basenji",
+      "aliases": [],
+      "countries": [
+        "Democratic Republic of the Congo"
+      ]
+    },
+    {
+      "id": "Q38653",
+      "label": "Basque Shepherd Dog",
+      "aliases": [
+        "Euskal ardi-txakur",
+        "Euskal Artzain Txakurra"
+      ],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q2887401",
+      "label": "basset",
+      "aliases": [
+        "Basset"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q37561",
+      "label": "Basset Artésien Normand",
+      "aliases": [
+        "Basset Artesien Normand"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q37552",
+      "label": "Basset Bleu de Gascogne",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q810500",
+      "label": "basset d'Artois",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37716",
+      "label": "basset hound",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q11327736",
+      "label": "Batak Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37576",
+      "label": "Bavarian Mountain Hound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q21102",
+      "label": "beagle",
+      "aliases": [],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q37478",
+      "label": "Beagle-Harrier",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q16975130",
+      "label": "Beaglier",
+      "aliases": [],
+      "countries": [
+        "Australia"
+      ]
+    },
+    {
+      "id": "Q37619",
+      "label": "Bearded Collie",
+      "aliases": [],
+      "countries": [
+        "Scotland"
+      ]
+    },
+    {
+      "id": "Q37720",
+      "label": "Beauceron",
+      "aliases": [
+        "Bas rouge",
+        "Beaucenpaimenkoira",
+        "Berger de Beauce",
+        "Boseron",
+        "Boseronas",
+        "Cane da pastore di Beauce",
+        "Pastor de Beauce"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q37582",
+      "label": "Bedlington Terrier",
+      "aliases": [
+        "Rothbury Terrier"
+      ],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q11337107",
+      "label": "Belgian Griffons",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38494",
+      "label": "Belgian Malinois",
+      "aliases": [
+        "Malinois",
+        "Belgian Shepherd Malinois"
+      ],
+      "countries": [
+        "Belgium"
+      ]
+    },
+    {
+      "id": "Q1072469",
+      "label": "Belgian Mastiff",
+      "aliases": [
+        "Belgian Drafting Dog"
+      ],
+      "countries": [
+        "Belgium"
+      ]
+    },
+    {
+      "id": "Q898953",
+      "label": "Belgian Pointer",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37624",
+      "label": "Belgian Shepherd",
+      "aliases": [
+        "Belgian Malinois",
+        "Belgian Shepherd Dog",
+        "Belgian Tervuren"
+      ],
+      "countries": [
+        "Belgium"
+      ]
+    },
+    {
+      "id": "Q38238",
+      "label": "Bergamasco Shepherd",
+      "aliases": [],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q10428393",
+      "label": "Berger de Crau",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38773",
+      "label": "Berner Laufhund",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37491",
+      "label": "Bernese hound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37608",
+      "label": "Bernese Mountain Dog",
+      "aliases": [
+        "Berner Sennenhund"
+      ],
+      "countries": [
+        "Switzerland"
+      ]
+    },
+    {
+      "id": "Q11139299",
+      "label": "Beskydský bundáš",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37600",
+      "label": "Bichon Frisé",
+      "aliases": [
+        "Bichon Frise"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q11330541",
+      "label": "Bichon Yorkie",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37575",
+      "label": "Biewer Terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37637",
+      "label": "Billy",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q37546",
+      "label": "Bisben",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11330537",
+      "label": "Bisharin Greyhound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37537",
+      "label": "Black and Tan Coonhound",
+      "aliases": [
+        "Coonhound"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q1800312",
+      "label": "Black and Tan Terrier",
+      "aliases": [
+        "Old English Black and Tan Terrier",
+        "Old English Terrier"
+      ],
+      "countries": [
+        "England",
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q38353",
+      "label": "Black and Tan Virginia Foxhound",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q38556",
+      "label": "Black Mouth Cur",
+      "aliases": [
+        "Blackmouth Cur"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q124328904",
+      "label": "Black Norrlandshund",
+      "aliases": [],
+      "countries": [
+        "Sweden"
+      ]
+    },
+    {
+      "id": "Q38961",
+      "label": "Black Norwegian Elkhound",
+      "aliases": [],
+      "countries": [
+        "Norway"
+      ]
+    },
+    {
+      "id": "Q11334594",
+      "label": "Black Pointer",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38634",
+      "label": "Black Russian Terrier",
+      "aliases": [
+        "Chornyi Terrier",
+        "Tchiorny Terrier"
+      ],
+      "countries": [
+        "Soviet Union"
+      ]
+    },
+    {
+      "id": "Q38520",
+      "label": "Black Slovakian Shepherd",
+      "aliases": [
+        "Čierny šery"
+      ],
+      "countries": [
+        "Slovakia"
+      ]
+    },
+    {
+      "id": "Q136400684",
+      "label": "Black Spitz",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q21098",
+      "label": "bloodhound",
+      "aliases": [
+        "Saint Hubert's dog"
+      ],
+      "countries": [
+        "Belgium"
+      ]
+    },
+    {
+      "id": "Q37991",
+      "label": "Blue Gascony Griffon",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q37579",
+      "label": "Blue Lacy",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q37798",
+      "label": "Blue Picardy Spaniel",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q37568",
+      "label": "Bluetick Coonhound",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q37589",
+      "label": "Boerboel",
+      "aliases": [
+        "South African Mastiff",
+        "African Boerboel",
+        "African Mastiff",
+        "Boerbol",
+        "Boerbull",
+        "South African Boerboel"
+      ],
+      "countries": [
+        "South Africa"
+      ]
+    },
+    {
+      "id": "Q2446076",
+      "label": "Boerenfox terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37746",
+      "label": "Bohemian Shepherd",
+      "aliases": [
+        "Chodenhund",
+        "Chodský pes",
+        "Czech Sheepdog"
+      ],
+      "countries": [
+        "Czech Republic"
+      ]
+    },
+    {
+      "id": "Q3270663",
+      "label": "Bohemian Spotted Dog",
+      "aliases": [
+        "Český strakatý pes",
+        "Czech Spotted Dog",
+        "Horákův laboratorní pes",
+        "Strakáč"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q37566",
+      "label": "Bolognese",
+      "aliases": [],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q891548",
+      "label": "Bolonka Franzuska",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q14766993",
+      "label": "Bone-mouth",
+      "aliases": [
+        "Chinese Fighting Dog",
+        "Chinese Shar-pei",
+        "Guzui",
+        "Traditional Shar-pei"
+      ],
+      "countries": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "Q2910591",
+      "label": "Borador",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37710",
+      "label": "border collie",
+      "aliases": [],
+      "countries": [
+        "England",
+        "Scotland",
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q37558",
+      "label": "Border Terrier",
+      "aliases": [],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q11854538",
+      "label": "Borneo dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37866",
+      "label": "Borzoi",
+      "aliases": [
+        "Barzoi",
+        "Russian Wolfhound",
+        "Borzaya"
+      ],
+      "countries": [
+        "Russia"
+      ]
+    },
+    {
+      "id": "Q37550",
+      "label": "Boston Terrier",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q37741",
+      "label": "Bouvier des Ardennes",
+      "aliases": [],
+      "countries": [
+        "Belgium"
+      ]
+    },
+    {
+      "id": "Q37896",
+      "label": "Bouvier des Flandres",
+      "aliases": [],
+      "countries": [
+        "Belgium"
+      ]
+    },
+    {
+      "id": "Q5732926",
+      "label": "Boxador",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38496",
+      "label": "Boxer",
+      "aliases": [
+        "German Boxer",
+        "Deutscher Boxer"
+      ],
+      "countries": [
+        "German Empire"
+      ]
+    },
+    {
+      "id": "Q37848",
+      "label": "Boykin Spaniel",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q38255",
+      "label": "Bracco Italiano",
+      "aliases": [
+        "Braque italien",
+        "Italian Pointer",
+        "Italian Pointing Dog"
+      ],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q56325365",
+      "label": "Branchiero siciliano",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11307797",
+      "label": "Braque Charles X",
+      "aliases": [
+        "Charles Pointer",
+        "Charlesinseisoja"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q37727",
+      "label": "Braque d'Auvergne",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q37632",
+      "label": "Braque du Bourbonnais",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q37656",
+      "label": "Braque du Puy",
+      "aliases": [
+        "Braque dupuy"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q37728",
+      "label": "Braque Français",
+      "aliases": [
+        "Braque français"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q37657",
+      "label": "Braque Saint-Germain",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q18464858",
+      "label": "Brazilian Bull-mastiff",
+      "aliases": [
+        "Brazilian bandog",
+        "Brazilian Bullmastiff",
+        "Redcapo bandog"
+      ],
+      "countries": [
+        "Brazil"
+      ]
+    },
+    {
+      "id": "Q38621",
+      "label": "Brazilian Terrier",
+      "aliases": [],
+      "countries": [
+        "Brazil"
+      ]
+    },
+    {
+      "id": "Q37821",
+      "label": "Briard",
+      "aliases": [
+        "Berger de Brie"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q15789896",
+      "label": "Briquet de Provence",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37645",
+      "label": "Briquet Griffon Vendéen",
+      "aliases": [
+        "Briquet Griffon Vendeen"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q38156",
+      "label": "Brittany",
+      "aliases": [
+        "Breton",
+        "Brittany Spaniel",
+        "Bretagnenspanieli",
+        "Bretoni",
+        "Epagneul breton",
+        "Épagneul breton",
+        "French Brittany",
+        "Spaniel bretão",
+        "Spaniel breton",
+        "Spaniel bretón"
+      ],
+      "countries": [
+        "Brittany"
+      ]
+    },
+    {
+      "id": "Q11334726",
+      "label": "Brittany Spaniel",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q37737",
+      "label": "Broholmer",
+      "aliases": [
+        "Danish Mastiff"
+      ],
+      "countries": [
+        "Denmark"
+      ]
+    },
+    {
+      "id": "Q38038",
+      "label": "Bruno Jura Hound",
+      "aliases": [
+        "Bruno Saint Hubert français"
+      ],
+      "countries": [
+        "Switzerland"
+      ]
+    },
+    {
+      "id": "Q107303989",
+      "label": "Buckhound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37917",
+      "label": "Bucovina Shepherd Dog",
+      "aliases": [
+        "Romanian Bucovina Shepherd Dog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q12599182",
+      "label": "Bulgae",
+      "aliases": [
+        "Korean fire dog",
+        "Korean flame dog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q2503464",
+      "label": "Bulgarian Hound",
+      "aliases": [],
+      "countries": [
+        "Bulgaria"
+      ]
+    },
+    {
+      "id": "Q3621454",
+      "label": "Bulgarian Scenthound",
+      "aliases": [],
+      "countries": [
+        "Bulgaria"
+      ]
+    },
+    {
+      "id": "Q59617570",
+      "label": "Bulgarian Shepherd Dog",
+      "aliases": [
+        "Balgarsko ovcharsko kuche"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38510",
+      "label": "Bull and Terrier",
+      "aliases": [
+        "Bull & Terrier",
+        "Bull-and-terrier",
+        "Bull-terrier",
+        "Half-and-half"
+      ],
+      "countries": [
+        "British Isles"
+      ]
+    },
+    {
+      "id": "Q1106478",
+      "label": "Bull Arab",
+      "aliases": [],
+      "countries": [
+        "Australia"
+      ]
+    },
+    {
+      "id": "Q11334880",
+      "label": "Bull Boxer",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38322",
+      "label": "Bull Terrier",
+      "aliases": [
+        "English Bull Terrier",
+        "Hinks Bull Terrier"
+      ],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q57305587",
+      "label": "Bullbras",
+      "aliases": [
+        "Brazilian Bulldogge",
+        "New Age Bulldogge"
+      ],
+      "countries": [
+        "Brazil"
+      ]
+    },
+    {
+      "id": "Q38383",
+      "label": "Bulldog",
+      "aliases": [
+        "British Bulldog",
+        "English Bulldog"
+      ],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q38080",
+      "label": "Bullmastiff",
+      "aliases": [
+        "English Bullmastiff"
+      ],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q11334853",
+      "label": "Bullnese",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37680",
+      "label": "Bully Kutta",
+      "aliases": [
+        "Alangu Mastiff",
+        "Indian Mastiff",
+        "Pakistani Mastiff",
+        "Sindh Mastiff"
+      ],
+      "countries": [
+        "Pakistan"
+      ]
+    },
+    {
+      "id": "Q38199",
+      "label": "Burgos Retriever",
+      "aliases": [
+        "Perdiguero de Burgos"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q135442535",
+      "label": "Burmese Spitz Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q3343819",
+      "label": "Buryat-Mongolian Wolfhound",
+      "aliases": [
+        "Bankhar dog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q44116",
+      "label": "Ca de Conills",
+      "aliases": [
+        "Ca de Conills de Menorca",
+        "Can de Conejos de Menorca"
+      ],
+      "countries": [
+        "Menorca"
+      ]
+    },
+    {
+      "id": "Q59537",
+      "label": "Ca Mè Mallorquí",
+      "aliases": [
+        "Ca Me Mallorqui"
+      ],
+      "countries": [
+        "Mallorca"
+      ]
+    },
+    {
+      "id": "Q37888",
+      "label": "Cairn Terrier",
+      "aliases": [],
+      "countries": [
+        "Scotland"
+      ]
+    },
+    {
+      "id": "Q57257840",
+      "label": "Calupoh",
+      "aliases": [
+        "Mexican wolfdog",
+        "Perro lobo mexicano"
+      ],
+      "countries": [
+        "Mexico"
+      ]
+    },
+    {
+      "id": "Q11294751",
+      "label": "Camas Cur",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38509",
+      "label": "Campeiro Bulldog",
+      "aliases": [
+        "Buldogue campeiro",
+        "Pampas Bulldog"
+      ],
+      "countries": [
+        "Brazil"
+      ]
+    },
+    {
+      "id": "Q124567702",
+      "label": "Camus cur",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q3574099",
+      "label": "Can de Chira",
+      "aliases": [
+        "Pastor altoaragones",
+        "Pastor altoaragonés"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q3322296",
+      "label": "Can de Palleiro",
+      "aliases": [
+        "Galician Cattledog",
+        "Galician Palleiro Dog",
+        "Palleiro",
+        "Palleiro Shepherd Dog"
+      ],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q38602",
+      "label": "Canaan Dog",
+      "aliases": [],
+      "countries": [
+        "Palestine",
+        "Canaan"
+      ]
+    },
+    {
+      "id": "Q124567707",
+      "label": "Canadian cur",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q29040",
+      "label": "Canadian Eskimo Dog",
+      "aliases": [
+        "Canadian Inuit Dog",
+        "Kingmik",
+        "Qinmmik",
+        "Canis familiaris borealis"
+      ],
+      "countries": [
+        "Canada"
+      ]
+    },
+    {
+      "id": "Q21082",
+      "label": "Cane Corso",
+      "aliases": [
+        "Corso",
+        "Cane Corso Italiano",
+        "Italian Cane Corso",
+        "Italian Corso",
+        "Italian Corso Dog",
+        "Italian Mastiff"
+      ],
+      "countries": [
+        "Europe"
+      ]
+    },
+    {
+      "id": "Q30898853",
+      "label": "Cane Pecoraio Varbutu",
+      "aliases": [],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q5032220",
+      "label": "Cane Toccatore",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11294475",
+      "label": "Canis Panther",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q29047",
+      "label": "Cantabrian Water Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q326532",
+      "label": "Cão de gado transmontano",
+      "aliases": [
+        "Transmontano Cattle Dog",
+        "Transmontano Mastiff"
+      ],
+      "countries": [
+        "Portugal"
+      ]
+    },
+    {
+      "id": "Q20379450",
+      "label": "Capheaton Terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q29072",
+      "label": "Cardigan Welsh Corgi",
+      "aliases": [],
+      "countries": [
+        "Wales"
+      ]
+    },
+    {
+      "id": "Q22286992",
+      "label": "Carea Castellano Manchego",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567759",
+      "label": "Carolina cur",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37721",
+      "label": "Carolina Dog",
+      "aliases": [
+        "American dingo",
+        "Dixie dingo",
+        "North American native dog"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q1092646",
+      "label": "Carpathian Shepherd Dog",
+      "aliases": [],
+      "countries": [
+        "Romania"
+      ]
+    },
+    {
+      "id": "Q11294205",
+      "label": "Catahoula Leopard Dog",
+      "aliases": [
+        "Catahoula Cur",
+        "Louisiana Catahoula Leopard Dog"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q29058",
+      "label": "Catalan Sheepdog",
+      "aliases": [
+        "Pastor Català"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38576",
+      "label": "Caucasian Shepherd Dog",
+      "aliases": [
+        "Caucasian Mountain Dog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38072",
+      "label": "Cavalier King Charles Spaniel",
+      "aliases": [
+        "Cavalier",
+        "Cavi",
+        "CKCS"
+      ],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q3556229",
+      "label": "Celtic Hounds",
+      "aliases": [
+        "Cu"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38570",
+      "label": "Central Asian Shepherd Dog",
+      "aliases": [
+        "CAO",
+        "Alabai",
+        "Central Asia Ovcharka",
+        "Central Asian Shepherd"
+      ],
+      "countries": [
+        "Soviet Central Asia"
+      ]
+    },
+    {
+      "id": "Q37666",
+      "label": "Cesky Fousek",
+      "aliases": [],
+      "countries": [
+        "Czech Republic"
+      ]
+    },
+    {
+      "id": "Q39258",
+      "label": "Český horský pes",
+      "aliases": [
+        "Bohemian Mountain Dog",
+        "Czech Mountain Dog",
+        "Tschechischer Berghund"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38642",
+      "label": "Cesky Terrier",
+      "aliases": [],
+      "countries": [
+        "Czech Republic"
+      ]
+    },
+    {
+      "id": "Q18456185",
+      "label": "Cesky Wire-haired Pointing Griffon",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q18418019",
+      "label": "Chamuco",
+      "aliases": [
+        "Mexican Pitbull"
+      ],
+      "countries": [
+        "Mexico"
+      ]
+    },
+    {
+      "id": "Q29084",
+      "label": "Chesapeake Bay Retriever",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q107444456",
+      "label": "Chien Blanc du Roi",
+      "aliases": [
+        "King's White Hound"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q38468",
+      "label": "Chien Français Blanc et Noir",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q653",
+      "label": "Chihuahua",
+      "aliases": [
+        "Chihuahueño"
+      ],
+      "countries": [
+        "Mexico"
+      ]
+    },
+    {
+      "id": "Q107337867",
+      "label": "Chilean Dogo",
+      "aliases": [
+        "Dogo Chileno"
+      ],
+      "countries": [
+        "Chile"
+      ]
+    },
+    {
+      "id": "Q38563",
+      "label": "Chilean Fox Terrier",
+      "aliases": [],
+      "countries": [
+        "Chile"
+      ]
+    },
+    {
+      "id": "Q37673",
+      "label": "Chinese Chongqing Dog",
+      "aliases": [
+        "Chuandong Hound"
+      ],
+      "countries": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "Q37892",
+      "label": "Chinese Crested Dog",
+      "aliases": [],
+      "countries": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "Q33989855",
+      "label": "Chinese Happa Dog",
+      "aliases": [
+        "Happa",
+        "Happa Dog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q124567710",
+      "label": "Chinese Hound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38560",
+      "label": "Chinese Imperial Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37722",
+      "label": "Chinook",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q37667",
+      "label": "Chippiparai",
+      "aliases": [],
+      "countries": [
+        "India"
+      ]
+    },
+    {
+      "id": "Q9190332",
+      "label": "Chorkie",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37678",
+      "label": "Chortai",
+      "aliases": [
+        "Chortaj"
+      ],
+      "countries": [
+        "Ukraine"
+      ]
+    },
+    {
+      "id": "Q29013",
+      "label": "Chow Chow",
+      "aliases": [
+        "Chow",
+        "Chow-Chow"
+      ],
+      "countries": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "Q60983318",
+      "label": "Chuandong Hound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38440",
+      "label": "Chukotka sled dog",
+      "aliases": [],
+      "countries": [
+        "Russia"
+      ]
+    },
+    {
+      "id": "Q37644",
+      "label": "Cimarrón Uruguayo",
+      "aliases": [
+        "Cimarron Uruguayo",
+        "Uruguayan Cimarron"
+      ],
+      "countries": [
+        "Uruguay"
+      ]
+    },
+    {
+      "id": "Q11306146",
+      "label": "Circassian Orloff Wolfhound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38262",
+      "label": "Cirneco dell'Etna",
+      "aliases": [
+        "Etnahund",
+        "Sicilian Greyhound"
+      ],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q11299068",
+      "label": "Clallam-Indian Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37851",
+      "label": "Clumber Spaniel",
+      "aliases": [],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q4227301",
+      "label": "cocker spaniel",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q139500986",
+      "label": "Cojack",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11302754",
+      "label": "Colima Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q1196071",
+      "label": "collie",
+      "aliases": [
+        "Collie"
+      ],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q29028",
+      "label": "Combai",
+      "aliases": [],
+      "countries": [
+        "India"
+      ]
+    },
+    {
+      "id": "Q11294788",
+      "label": "Comforter",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11302708",
+      "label": "Common Indian Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37764",
+      "label": "continental bulldog",
+      "aliases": [],
+      "countries": [
+        "Switzerland"
+      ]
+    },
+    {
+      "id": "Q5165328",
+      "label": "Continental Toy Spaniel",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37766",
+      "label": "Coonhound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38566",
+      "label": "Cordoba Fighting Dog",
+      "aliases": [],
+      "countries": [
+        "Argentina"
+      ]
+    },
+    {
+      "id": "Q38295",
+      "label": "Coton de Tulear",
+      "aliases": [],
+      "countries": [
+        "Madagascar"
+      ]
+    },
+    {
+      "id": "Q124567761",
+      "label": "Creeper Terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38074",
+      "label": "Cretan Hound",
+      "aliases": [
+        "Cretan Harehound",
+        "Cretan Tracker",
+        "Kritikos Ichnilatis",
+        "Kritikos Lagonikos"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38537",
+      "label": "Croatian Sheepdog",
+      "aliases": [
+        "Hrvatski Ovčar"
+      ],
+      "countries": [
+        "Croatia"
+      ]
+    },
+    {
+      "id": "Q124567719",
+      "label": "Cur dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38375",
+      "label": "Curly Coated Retriever",
+      "aliases": [
+        "curly coated retriever"
+      ],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q37771",
+      "label": "Cursinu",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11296921",
+      "label": "Cyprus Poodle",
+      "aliases": [
+        "Cyprus poodle, Cyprus poodle terrier"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38651",
+      "label": "Czechoslovakian Wolfdog",
+      "aliases": [],
+      "countries": [
+        "Czechoslovakia"
+      ]
+    },
+    {
+      "id": "Q29099",
+      "label": "dachshund",
+      "aliases": [
+        "badger dog",
+        "dackel",
+        "sausage dog",
+        "teckel",
+        "wiener dog"
+      ],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q11436155",
+      "label": "Daitō Inu",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q17504",
+      "label": "Dalmatian",
+      "aliases": [],
+      "countries": [
+        "Croatia"
+      ]
+    },
+    {
+      "id": "Q29106",
+      "label": "Damchi",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38336",
+      "label": "Dandie Dinmont Terrier",
+      "aliases": [],
+      "countries": [
+        "Scotland"
+      ]
+    },
+    {
+      "id": "Q1779696",
+      "label": "Danish Spitz",
+      "aliases": [],
+      "countries": [
+        "Denmark"
+      ]
+    },
+    {
+      "id": "Q29127",
+      "label": "Danish Swedish Farmdog",
+      "aliases": [
+        "Danish-Swedish Farmdog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q16354627",
+      "label": "Decker Terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q130521262",
+      "label": "Deltari ilir",
+      "aliases": [],
+      "countries": [
+        "Kosovo"
+      ]
+    },
+    {
+      "id": "Q60792414",
+      "label": "Denmark Feist",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11320864",
+      "label": "DenMark Feist",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37838",
+      "label": "Deutsche Bracke",
+      "aliases": [],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q38584",
+      "label": "dingo",
+      "aliases": [
+        "Canis dingo",
+        "Canis familiaris dingo",
+        "Canis lupus dingo"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q11320176",
+      "label": "Dinka Greyhound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38358",
+      "label": "Dobermann",
+      "aliases": [
+        "Doberman",
+        "Doberman Pinscher",
+        "Dobermann Pinscher"
+      ],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q37909",
+      "label": "Dogo Argentino",
+      "aliases": [
+        "Dogo",
+        "Argentine Dogo",
+        "Argentine Mastiff",
+        "Argentinian Mastiff"
+      ],
+      "countries": [
+        "Argentina"
+      ]
+    },
+    {
+      "id": "Q24702349",
+      "label": "Dogo español",
+      "aliases": [
+        "Dogo español",
+        "Spanish bulldog",
+        "Spanish Dogo"
+      ],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q38459",
+      "label": "Dogo Sardesco",
+      "aliases": [
+        "Dogo Sardo",
+        "Sardinian Dogo",
+        "Sardinian Mastiff"
+      ],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q1780869",
+      "label": "Dogue Brasileiro",
+      "aliases": [
+        "Brazilian Dogge",
+        "Brazilian Dogo"
+      ],
+      "countries": [
+        "Brazil"
+      ]
+    },
+    {
+      "id": "Q37878",
+      "label": "Dogue de Bordeaux",
+      "aliases": [
+        "Bordeaux dog",
+        "French Mastiff"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q12593214",
+      "label": "Dong-gyeong",
+      "aliases": [
+        "Daeng gyeong"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q4355059",
+      "label": "Double-nosed Andean tiger hound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37827",
+      "label": "Drentse Patrijshond",
+      "aliases": [
+        "Drentsche patrijshond",
+        "Dutch Partridge Dog",
+        "Hollanninpeltopyykoira",
+        "Perdiguero de Drenthe",
+        "Spaniel perdigueiro de Drente"
+      ],
+      "countries": [
+        "Netherlands"
+      ]
+    },
+    {
+      "id": "Q37775",
+      "label": "Drever",
+      "aliases": [
+        "Swedish Beagle",
+        "Swedish Dachsbracke"
+      ],
+      "countries": [
+        "Sweden"
+      ]
+    },
+    {
+      "id": "Q11323390",
+      "label": "dropper",
+      "aliases": [],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q5313816",
+      "label": "Dumfriesshire Hound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37650",
+      "label": "Dunker",
+      "aliases": [
+        "Norwegian Hound"
+      ],
+      "countries": [
+        "Norway"
+      ]
+    },
+    {
+      "id": "Q29114",
+      "label": "Dutch Shepherd",
+      "aliases": [
+        "Dutch Shepherd Dog",
+        "Hollandse Herdershond"
+      ],
+      "countries": [
+        "Netherlands"
+      ]
+    },
+    {
+      "id": "Q37969",
+      "label": "Dutch Smoushond",
+      "aliases": [],
+      "countries": [
+        "Netherlands"
+      ]
+    },
+    {
+      "id": "Q38008",
+      "label": "Dutch Tulip Dog",
+      "aliases": [
+        "Markiesje"
+      ],
+      "countries": [
+        "Netherlands"
+      ]
+    },
+    {
+      "id": "Q38416",
+      "label": "East Siberian Laika",
+      "aliases": [],
+      "countries": [
+        "Russia"
+      ]
+    },
+    {
+      "id": "Q38504",
+      "label": "East-European Shepherd",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q4353907",
+      "label": "Ecuadorian Hairless Dog",
+      "aliases": [],
+      "countries": [
+        "Ecuador"
+      ]
+    },
+    {
+      "id": "Q11289968",
+      "label": "Egyptian Hairless Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q65328825",
+      "label": "English bull terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38533",
+      "label": "English Cocker Spaniel",
+      "aliases": [
+        "Cocker Spaniel"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q37789",
+      "label": "English Foxhound",
+      "aliases": [
+        "Foxhound"
+      ],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q38418",
+      "label": "English Mastiff",
+      "aliases": [
+        "Mastiff",
+        "British Mastiff",
+        "Old English Mastiff"
+      ],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q769804",
+      "label": "English Pointer",
+      "aliases": [
+        "Pointer"
+      ],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q38309",
+      "label": "English Setter",
+      "aliases": [],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q37830",
+      "label": "English Shepherd",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q29022",
+      "label": "English Springer Spaniel",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37782",
+      "label": "English Toy Terrier",
+      "aliases": [
+        "King Charles Spaniel"
+      ],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q38550",
+      "label": "English Water Spaniel",
+      "aliases": [],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q37986",
+      "label": "Entlebucher Mountain Dog",
+      "aliases": [
+        "Entlebucher Sennenhund",
+        "Entlebuch Mountain Dogs",
+        "Entlebucher Cattle Dogs"
+      ],
+      "countries": [
+        "Switzerland"
+      ]
+    },
+    {
+      "id": "Q12257588",
+      "label": "Erbi Txakur",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38729",
+      "label": "Estonian Hound",
+      "aliases": [],
+      "countries": [
+        "Estonia"
+      ]
+    },
+    {
+      "id": "Q38096",
+      "label": "Estrela Mountain Dog",
+      "aliases": [
+        "Portuguese Mountain Dog"
+      ],
+      "countries": [
+        "Portugal"
+      ]
+    },
+    {
+      "id": "Q37946",
+      "label": "Eurasier",
+      "aliases": [
+        "Eurasian"
+      ],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q5435550",
+      "label": "Farm collie",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q65044709",
+      "label": "Faroese Sheepdog",
+      "aliases": [],
+      "countries": [
+        "Faroe Islands"
+      ]
+    },
+    {
+      "id": "Q37570",
+      "label": "Fawn Brittany Basset",
+      "aliases": [
+        "Basset Fauve de Bretagne"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q37993",
+      "label": "Fawn Brittany Griffon",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q11332773",
+      "label": "Fell Hound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q12269704",
+      "label": "Field labrador",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q29177",
+      "label": "Field Spaniel",
+      "aliases": [],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q37808",
+      "label": "Fila Brasileiro",
+      "aliases": [
+        "Brazilian Mastiff"
+      ],
+      "countries": [
+        "Brazil"
+      ]
+    },
+    {
+      "id": "Q37840",
+      "label": "Finnish Hound",
+      "aliases": [],
+      "countries": [
+        "Finland"
+      ]
+    },
+    {
+      "id": "Q29188",
+      "label": "Finnish Lapphund",
+      "aliases": [
+        "Finnish Lapponian Dog",
+        "Lapphund"
+      ],
+      "countries": [
+        "Finland"
+      ]
+    },
+    {
+      "id": "Q29195",
+      "label": "Finnish Spitz",
+      "aliases": [
+        "Finnish Hunting Dog",
+        "Finnish Pom"
+      ],
+      "countries": [
+        "Finland"
+      ]
+    },
+    {
+      "id": "Q29200",
+      "label": "Flat-Coated Retriever",
+      "aliases": [],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q29212",
+      "label": "Formosan Mountain Dog",
+      "aliases": [
+        "Taiwan Dog",
+        "Huling Bale",
+        "Huling Seediq",
+        "National Dog",
+        "Taiwan Canis",
+        "Taiwanese Canis",
+        "Taiwanese Dog",
+        "Taiwanese Native Dog",
+        "Takasago Dog"
+      ],
+      "countries": [
+        "Taiwan Island"
+      ]
+    },
+    {
+      "id": "Q39220",
+      "label": "Fox Terrier",
+      "aliases": [],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q38472",
+      "label": "Français Blanc et Orange",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q29149",
+      "label": "French Bulldog",
+      "aliases": [
+        "Frenchie"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q2961129",
+      "label": "French Charnaigre Dog",
+      "aliases": [
+        "Charnaigre",
+        "Charnegre",
+        "Charnique"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q1450712",
+      "label": "French Hound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q15284257",
+      "label": "French Pointing Dog - Pyrenean type",
+      "aliases": [
+        "Braque francais type Pyrenees",
+        "French Pointing Dog Pyrenean Type"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q112086063",
+      "label": "French Pointing Dog Gascogne Type",
+      "aliases": [
+        "Braco francés, tipo «Gascuña»"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q29160",
+      "label": "French Spaniel",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38475",
+      "label": "French Tricolour Hound",
+      "aliases": [
+        "Chien Français Tricolore"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q108893184",
+      "label": "Frenchton",
+      "aliases": [
+        "boston frenchie",
+        "faux french bulldog",
+        "frenchbo",
+        "frenchy"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q124567749",
+      "label": "Friesian Windhund",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q123807528",
+      "label": "Fu Quan",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q6072879",
+      "label": "Fuegian dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37920",
+      "label": "Galgo Español",
+      "aliases": [
+        "Spanish Greyhound"
+      ],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q37997",
+      "label": "Gascon Saintongeois",
+      "aliases": [
+        "Virelade Hound"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q4354350",
+      "label": "Gaucho sheepdog",
+      "aliases": [
+        "Brazilian collie",
+        "Brazilian gaucho sheepdog",
+        "Ovelheiro gaucho"
+      ],
+      "countries": [
+        "Brazil"
+      ]
+    },
+    {
+      "id": "Q25881",
+      "label": "Gegar",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38691",
+      "label": "Georgian Shepherd",
+      "aliases": [
+        "Georgian Mountain Dog",
+        "Nagazi dog"
+      ],
+      "countries": [
+        "Georgia"
+      ]
+    },
+    {
+      "id": "Q99718718",
+      "label": "Gerberian Shepsky",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37834",
+      "label": "German Longhaired Pointer",
+      "aliases": [],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q37793",
+      "label": "German Pinscher",
+      "aliases": [
+        "Deutscher Pinscher"
+      ],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q38280",
+      "label": "German Shepherd",
+      "aliases": [
+        "Alsatian",
+        "GSD",
+        "Alsatian dog",
+        "Alsatian wolf dog",
+        "German Shepherd Dog",
+        "Berger Allemand",
+        "Deutscher Schäferhund",
+        "Schäferhund"
+      ],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q38084",
+      "label": "German Shorthaired Pointer",
+      "aliases": [
+        "German Shorthair Pointer"
+      ],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q124567757",
+      "label": "German Silky Pinscher",
+      "aliases": [
+        "Silky Pinscher"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q37824",
+      "label": "German Spaniel",
+      "aliases": [],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q38655",
+      "label": "German Spitz",
+      "aliases": [],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q5408020",
+      "label": "German Spitz Mittel",
+      "aliases": [],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q37811",
+      "label": "German Wirehaired Pointer",
+      "aliases": [],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q38688",
+      "label": "Giant Schnauzer",
+      "aliases": [
+        "Munich Schnauzer"
+      ],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q38189",
+      "label": "Glen of Imaal Terrier",
+      "aliases": [],
+      "countries": [
+        "Ireland"
+      ]
+    },
+    {
+      "id": "Q124567718",
+      "label": "Glenwherry Collie",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38686",
+      "label": "Golden Retriever",
+      "aliases": [
+        "Goldie",
+        "Golden"
+      ],
+      "countries": [
+        "Scotland",
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q12314116",
+      "label": "Gollie",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38301",
+      "label": "Gordon Setter",
+      "aliases": [],
+      "countries": [
+        "Scotland"
+      ]
+    },
+    {
+      "id": "Q11303705",
+      "label": "Gorskaja",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q44117",
+      "label": "Gos d'atura aranès",
+      "aliases": [
+        "Aranese Sheepdog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38206",
+      "label": "Gos Rater Valencià",
+      "aliases": [
+        "Gos Rater Valencia"
+      ],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q4353893",
+      "label": "Gotland Hound",
+      "aliases": [
+        "Gotlandsstövare"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q1398538",
+      "label": "gråhund",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38741",
+      "label": "Gran Mastín de Borínquen",
+      "aliases": [
+        "Gran Mastin de Borinquen"
+      ],
+      "countries": [
+        "Puerto Rico"
+      ]
+    },
+    {
+      "id": "Q96379844",
+      "label": "Grand Fauve de Bretagne",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q14309341",
+      "label": "Grand Gascon Saintongeois",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q37941",
+      "label": "Grand Griffon Vendéen",
+      "aliases": [
+        "Grand Griffon Vendeen"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q38724",
+      "label": "Great Anglo-French Tricolour Hound",
+      "aliases": [
+        "Grand Anglo-Français Tricolore"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q38722",
+      "label": "Great Anglo-French White and Black Hound",
+      "aliases": [
+        "Grand Anglo-Français Blanc et Noir"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q38734",
+      "label": "Great Anglo-French White and Orange Hound",
+      "aliases": [
+        "Grand Anglo-Français Blanc et Orange"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q5414",
+      "label": "Great Dane",
+      "aliases": [
+        "Deutsche Dogge",
+        "German Mastiff"
+      ],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q37769",
+      "label": "Great Gascony Blue",
+      "aliases": [
+        "Great Gascony Hound"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q38121",
+      "label": "Greater Swiss Mountain Dog",
+      "aliases": [
+        "Grosse",
+        "Gran boyero suizo",
+        "Grand bouvier suisse",
+        "Grande bovaro svizzero",
+        "Great Swiss Mountain Dog",
+        "Grosser Schweizer Sennenhund",
+        "Isosveitsinpaimenkoira",
+        "Swissy"
+      ],
+      "countries": [
+        "Switzerland"
+      ]
+    },
+    {
+      "id": "Q3272034",
+      "label": "Grecian Greyhound",
+      "aliases": [],
+      "countries": [
+        "Greece"
+      ]
+    },
+    {
+      "id": "Q11300750",
+      "label": "Gredin Spaniel",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38233",
+      "label": "Greek Harehound",
+      "aliases": [
+        "Hellenic Hound"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q10520346",
+      "label": "Greek Shepherd",
+      "aliases": [
+        "Greek sheepdodg"
+      ],
+      "countries": [
+        "Greece"
+      ]
+    },
+    {
+      "id": "Q38515",
+      "label": "Greenland Dog",
+      "aliases": [],
+      "countries": [
+        "Greenland"
+      ]
+    },
+    {
+      "id": "Q38571",
+      "label": "greyhound",
+      "aliases": [],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q11701407",
+      "label": "Greyster",
+      "aliases": [],
+      "countries": [
+        "Norway"
+      ]
+    },
+    {
+      "id": "Q1028186",
+      "label": "griffon",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38001",
+      "label": "Griffon à poil laineux",
+      "aliases": [
+        "Griffon a poil laineux"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38055",
+      "label": "Griffon Belge",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q26272045",
+      "label": "Griffon Bruxellois",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38889",
+      "label": "Griffon Bruxellois",
+      "aliases": [
+        "Brussels Griffon",
+        "Petit Brabançon"
+      ],
+      "countries": [
+        "Belgium"
+      ]
+    },
+    {
+      "id": "Q38409",
+      "label": "Griffon Nivernais",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q38399",
+      "label": "Groenendael",
+      "aliases": [
+        "Belgian Shepherd Dog (Groenendael)"
+      ],
+      "countries": [
+        "Belgium"
+      ]
+    },
+    {
+      "id": "Q16639970",
+      "label": "Großspitz",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38442",
+      "label": "Guatemalan Dogo",
+      "aliases": [
+        "Guatemalan Bull Terrier",
+        "Guatemalan Mastiff"
+      ],
+      "countries": [
+        "Guatemala"
+      ]
+    },
+    {
+      "id": "Q12390229",
+      "label": "Guicho",
+      "aliases": [],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q38744",
+      "label": "Gull Dong",
+      "aliases": [],
+      "countries": [
+        "Pakistan"
+      ]
+    },
+    {
+      "id": "Q38737",
+      "label": "Gull Terr",
+      "aliases": [],
+      "countries": [
+        "Pakistan"
+      ]
+    },
+    {
+      "id": "Q1958596",
+      "label": "hairless dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q1779842",
+      "label": "Hairless Khala",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37982",
+      "label": "Halden Hound",
+      "aliases": [],
+      "countries": [
+        "Norway"
+      ]
+    },
+    {
+      "id": "Q4353804",
+      "label": "Hälleforshund",
+      "aliases": [],
+      "countries": [
+        "Sweden"
+      ]
+    },
+    {
+      "id": "Q37978",
+      "label": "Hamiltonstövare",
+      "aliases": [
+        "Hamilton Hound",
+        "Swedish Foxhound"
+      ],
+      "countries": [
+        "Sweden"
+      ]
+    },
+    {
+      "id": "Q11327165",
+      "label": "Han Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38041",
+      "label": "Hanover Hound",
+      "aliases": [
+        "Hanoverian Hound",
+        "Hanoverian Scenthound"
+      ],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q38006",
+      "label": "Harlequin Pinscher",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38107",
+      "label": "Harrier",
+      "aliases": [],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q38449",
+      "label": "Havanese",
+      "aliases": [
+        "Havanese Bichon",
+        "Havanese dog"
+      ],
+      "countries": [
+        "Cuba"
+      ]
+    },
+    {
+      "id": "Q10519107",
+      "label": "Hedehund",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q15815452",
+      "label": "Hertha pointer",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38938",
+      "label": "Himalayan Sheepdog",
+      "aliases": [
+        "Kinnaur Sheepdog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q113714849",
+      "label": "Hmong bobtail dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q23853",
+      "label": "Hokkaido inu",
+      "aliases": [
+        "Seta",
+        "Ainu Dog",
+        "Ainu Ken"
+      ],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q38368",
+      "label": "Hovawart",
+      "aliases": [],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q38865",
+      "label": "Hungarian sheepdog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38425",
+      "label": "Huntaway",
+      "aliases": [],
+      "countries": [
+        "New Zealand"
+      ]
+    },
+    {
+      "id": "Q124567728",
+      "label": "Huslia Husky",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38016",
+      "label": "Hygen Hound",
+      "aliases": [
+        "Hygenhund"
+      ],
+      "countries": [
+        "Norway"
+      ]
+    },
+    {
+      "id": "Q37755",
+      "label": "Ibizan Hound",
+      "aliases": [
+        "Ibizan Podenco",
+        "Podenco Ibicenco"
+      ],
+      "countries": [
+        "Ibiza"
+      ]
+    },
+    {
+      "id": "Q38710",
+      "label": "Icelandic Sheepdog",
+      "aliases": [
+        "Islenskur Fjárhundur"
+      ],
+      "countries": [
+        "Iceland"
+      ]
+    },
+    {
+      "id": "Q8413492",
+      "label": "Illyrian Shepherd",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567692",
+      "label": "Inca Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11325204",
+      "label": "Indian Husky",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38921",
+      "label": "Indian Spitz",
+      "aliases": [],
+      "countries": [
+        "India"
+      ]
+    },
+    {
+      "id": "Q11287637",
+      "label": "Indian Tailles Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11864916",
+      "label": "Inn kwe",
+      "aliases": [],
+      "countries": [
+        "Myanmar"
+      ]
+    },
+    {
+      "id": "Q38289",
+      "label": "Irish Red and White Setter",
+      "aliases": [
+        "Setter",
+        "Irish Setter",
+        "Rossmore Setter"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38761",
+      "label": "Irish Setter",
+      "aliases": [
+        "Setter",
+        "Red Setter",
+        "Irish setter"
+      ],
+      "countries": [
+        "Ireland"
+      ]
+    },
+    {
+      "id": "Q21170233",
+      "label": "Irish Staffordshire Bull Terrier",
+      "aliases": [
+        "Irish Bull Terrier"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38644",
+      "label": "Irish Terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38162",
+      "label": "Irish Water Spaniel",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38668",
+      "label": "Irish wolfhound",
+      "aliases": [],
+      "countries": [
+        "Ireland"
+      ]
+    },
+    {
+      "id": "Q38211",
+      "label": "Istrian Coarse-haired Hound",
+      "aliases": [],
+      "countries": [
+        "Croatia"
+      ]
+    },
+    {
+      "id": "Q38638",
+      "label": "Istrian Shorthaired Hound",
+      "aliases": [],
+      "countries": [
+        "Croatia"
+      ]
+    },
+    {
+      "id": "Q38503",
+      "label": "Italian Greyhound",
+      "aliases": [],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q39273",
+      "label": "Italian Rough-haired Segugio",
+      "aliases": [
+        "Segugio Italiano a Pelo Forte"
+      ],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q11474636",
+      "label": "Iwate Inu",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11286620",
+      "label": "Izcuintli, itzcuintli",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38287",
+      "label": "Jack Russell Terrier",
+      "aliases": [],
+      "countries": [
+        "United Kingdom",
+        "Australia"
+      ]
+    },
+    {
+      "id": "Q37899",
+      "label": "Jagdterrier",
+      "aliases": [
+        "German Hunting Terrier"
+      ],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q38105",
+      "label": "Jämthund",
+      "aliases": [
+        "Swedish Elkhound"
+      ],
+      "countries": [
+        "Sweden"
+      ]
+    },
+    {
+      "id": "Q38146",
+      "label": "Japanese Chin",
+      "aliases": [
+        "Chin",
+        "Japanese Spaniel"
+      ],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q38126",
+      "label": "Japanese Spitz",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q37976",
+      "label": "Japanese Terrier",
+      "aliases": [
+        "Kobe Terrier",
+        "Mikado Terrier",
+        "Nippon Terrier",
+        "Oyuki Terrier"
+      ],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q492644",
+      "label": "Jeju dog",
+      "aliases": [],
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "id": "Q11608113",
+      "label": "Jōmon Dog",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q38013",
+      "label": "Jonangi",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567734",
+      "label": "Juan Fernández Sheepdog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38223",
+      "label": "Kai Ken",
+      "aliases": [
+        "Tora Inu"
+      ],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q124567727",
+      "label": "Kanawar Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38508",
+      "label": "Kangal Shepherd Dog",
+      "aliases": [
+        "Kangal",
+        "Kangal çoban köpeği",
+        "Kangal Dog",
+        "Kangal köpeği",
+        "Sivas Kangal Dog"
+      ],
+      "countries": [
+        "Turkey"
+      ]
+    },
+    {
+      "id": "Q38958",
+      "label": "Kanni",
+      "aliases": [],
+      "countries": [
+        "India"
+      ]
+    },
+    {
+      "id": "Q38452",
+      "label": "Karakachan Dog",
+      "aliases": [],
+      "countries": [
+        "Greece"
+      ]
+    },
+    {
+      "id": "Q37950",
+      "label": "Karelian Bear Dog",
+      "aliases": [
+        "Karelian Bear Laika"
+      ],
+      "countries": [
+        "Finland"
+      ]
+    },
+    {
+      "id": "Q2642504",
+      "label": "Karelo-Finnish Laika",
+      "aliases": [
+        "Karelo-Finskaya Laika",
+        "Karero-Finnish Laika",
+        "Karjalais-suomalainen laika",
+        "Laika Karelo-Finskaya",
+        "Suomenpystykorva"
+      ],
+      "countries": [
+        "Finland"
+      ]
+    },
+    {
+      "id": "Q101002797",
+      "label": "Kars dog",
+      "aliases": [],
+      "countries": [
+        "Turkey"
+      ]
+    },
+    {
+      "id": "Q37954",
+      "label": "Karst Shepherd",
+      "aliases": [],
+      "countries": [
+        "Slovenia"
+      ]
+    },
+    {
+      "id": "Q135329578",
+      "label": "Kattai dog",
+      "aliases": [
+        "Kattai Dog"
+      ],
+      "countries": [
+        "India"
+      ]
+    },
+    {
+      "id": "Q11477572",
+      "label": "Kawakami Ken",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38092",
+      "label": "Kazakh tazy",
+      "aliases": [
+        "Tazi",
+        "Central Asian Tazi",
+        "Middleasian greyhound"
+      ],
+      "countries": [
+        "Kazakhstan"
+      ]
+    },
+    {
+      "id": "Q38843",
+      "label": "Keeshond",
+      "aliases": [
+        "Wolfspitz"
+      ],
+      "countries": [
+        "Netherlands",
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q124567703",
+      "label": "Kemmer stock cur",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11301287",
+      "label": "Kentucky Shell Heap Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37974",
+      "label": "Kerry Beagle",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38025",
+      "label": "Kerry Blue Terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38132",
+      "label": "King Charles Spaniel",
+      "aliases": [
+        "English Toy Spaniel"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38899",
+      "label": "King Shepherd",
+      "aliases": [
+        "King Shepherd Dog"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q1742290",
+      "label": "Kintamani",
+      "aliases": [
+        "Bali Berghund"
+      ],
+      "countries": [
+        "Indonesia"
+      ]
+    },
+    {
+      "id": "Q38342",
+      "label": "Kishu",
+      "aliases": [
+        "Kishu Inu",
+        "Kumano Ken",
+        "Taichi Ken"
+      ],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q25746",
+      "label": "Kitler",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11299059",
+      "label": "Klamath-Indian Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38784",
+      "label": "Kleinspitz",
+      "aliases": [
+        "Miniature spitz",
+        "Small spitz"
+      ],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q39182",
+      "label": "Kokoni (dog)",
+      "aliases": [
+        "Small Greek Domestic Dog",
+        "Κοκονι"
+      ],
+      "countries": [
+        "Greece"
+      ]
+    },
+    {
+      "id": "Q38675",
+      "label": "Komondor",
+      "aliases": [
+        "Hungarian sheepdog"
+      ],
+      "countries": [
+        "Hungary"
+      ]
+    },
+    {
+      "id": "Q1796295",
+      "label": "Königsberger Paukenhund",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38716",
+      "label": "Kooikerhondje",
+      "aliases": [],
+      "countries": [
+        "Netherlands"
+      ]
+    },
+    {
+      "id": "Q38951",
+      "label": "Koolie",
+      "aliases": [],
+      "countries": [
+        "Australia"
+      ]
+    },
+    {
+      "id": "Q29170",
+      "label": "Korean Jindo Dog",
+      "aliases": [
+        "Jindo",
+        "Korean Jindo"
+      ],
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "id": "Q38924",
+      "label": "Korean Mastiff",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11636366",
+      "label": "Koshi",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11574216",
+      "label": "Koshikiyama Inu",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q18343866",
+      "label": "Koyun dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38403",
+      "label": "Kromfohrländer",
+      "aliases": [],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q6979096",
+      "label": "Kumiş",
+      "aliases": [],
+      "countries": [
+        "Kurdistan"
+      ]
+    },
+    {
+      "id": "Q135885052",
+      "label": "Kunma Dog",
+      "aliases": [],
+      "countries": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "Q38948",
+      "label": "Kunming wolfdog",
+      "aliases": [],
+      "countries": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "Q54869543",
+      "label": "Kurdish Mastiff",
+      "aliases": [
+        "Assyrian Mastiff",
+        "Assyrian Shepherd",
+        "Kurd Mastiff",
+        "Kurdish dog",
+        "Mesopotamian Mastiff",
+        "Pshdar dog"
+      ],
+      "countries": [
+        "Kurdistan"
+      ]
+    },
+    {
+      "id": "Q124567746",
+      "label": "Kurdistan Greyhound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38467",
+      "label": "Kuvasz",
+      "aliases": [],
+      "countries": [
+        "Hungary"
+      ]
+    },
+    {
+      "id": "L162427-S2",
+      "label": "L162427-S2",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38726",
+      "label": "Labrador Retriever",
+      "aliases": [
+        "Labrador",
+        "Lab"
+      ],
+      "countries": [
+        "Canada",
+        "England",
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q11874326",
+      "label": "Labrit",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q130313860",
+      "label": "Laconian",
+      "aliases": [],
+      "countries": [
+        "Ancient Greece"
+      ]
+    },
+    {
+      "id": "Q124567769",
+      "label": "Laconian Hound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37815",
+      "label": "Laekenois",
+      "aliases": [
+        "Belgian Shepherd Laekenois"
+      ],
+      "countries": [
+        "Belgium"
+      ]
+    },
+    {
+      "id": "Q38910",
+      "label": "Lagotto Romagnolo",
+      "aliases": [
+        "Italian Truffle Dog",
+        "Romagna Water Dog"
+      ],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q113697158",
+      "label": "Lài dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q123030292",
+      "label": "Laizhou Red Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q104623400",
+      "label": "Lakeland Foxhound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38110",
+      "label": "Lakeland Terrier",
+      "aliases": [],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q37972",
+      "label": "Lancashire Heeler",
+      "aliases": [
+        "Ormskirk Heeler"
+      ],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q38950",
+      "label": "Landseer",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q3217682",
+      "label": "Laobé",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38362",
+      "label": "Lapponian Herder",
+      "aliases": [
+        "Lapinporokoira",
+        "Lapland Reindeer Dog"
+      ],
+      "countries": [
+        "Finland"
+      ]
+    },
+    {
+      "id": "Q18345166",
+      "label": "Lapponian Shepherd",
+      "aliases": [
+        "Cockhill's Finnish Lapphound"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38777",
+      "label": "Large Münsterländer",
+      "aliases": [],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q38000",
+      "label": "Large Vendeen Griffon Basset",
+      "aliases": [
+        "GBGV",
+        "Grand Basset Griffon Vendeen",
+        "Grand Basset Griffon Vendéen"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q11347155",
+      "label": "Latvian Hound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q15444134",
+      "label": "Leavitt Bulldog",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q38487",
+      "label": "Leonberger",
+      "aliases": [],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q38032",
+      "label": "Leopard Tree Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q30896831",
+      "label": "Lessinia and Lagorai Shepherd",
+      "aliases": [],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q1821832",
+      "label": "Levesque",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q6535835",
+      "label": "Levriero meridionale",
+      "aliases": [
+        "levriero italiano centromeridionale",
+        "levriero italiano meridionale"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38352",
+      "label": "Lhasa Apso",
+      "aliases": [],
+      "countries": [
+        "Tibet"
+      ]
+    },
+    {
+      "id": "Q111913522",
+      "label": "Liangshan Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39283",
+      "label": "Limer",
+      "aliases": [
+        "Limier",
+        "Lymer",
+        "Lime-hound",
+        "Lyam"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38901",
+      "label": "Lithuanian Hound",
+      "aliases": [],
+      "countries": [
+        "Lithuania"
+      ]
+    },
+    {
+      "id": "Q11349153",
+      "label": "Llewellin Setter",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11698989",
+      "label": "Lobito Herreño",
+      "aliases": [
+        "Hierran Wolfdog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q3516970",
+      "label": "Long haired dachshund",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567691",
+      "label": "Long-haired Inca Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38045",
+      "label": "Longhaired Whippet",
+      "aliases": [
+        "Silken Windsprite"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q18126660",
+      "label": "Lottatore Brindisino",
+      "aliases": [],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q38027",
+      "label": "Löwchen",
+      "aliases": [],
+      "countries": [
+        "Europe"
+      ]
+    },
+    {
+      "id": "Q15618573",
+      "label": "Lucas Terrier",
+      "aliases": [],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q37964",
+      "label": "Lucernese Hound",
+      "aliases": [
+        "Lucern Hound"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38023",
+      "label": "Lupo Italiano",
+      "aliases": [],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q124567726",
+      "label": "Lyme Mastiff",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q12908317",
+      "label": "Macedonian Karaman",
+      "aliases": [
+        "Karaman",
+        "Macedonian Shepherd Dog",
+        "Makedonsko ovcharko kuche",
+        "караман",
+        "Македонско овчарско куче"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38871",
+      "label": "Magyar agár",
+      "aliases": [
+        "Magyar agar"
+      ],
+      "countries": [
+        "Hungary"
+      ]
+    },
+    {
+      "id": "Q6737720",
+      "label": "Majestic Tree Hound",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q37649",
+      "label": "Majorca Shepherd Dog",
+      "aliases": [
+        "CA DE BESTIAR, PERRO DE PASTOR MALLORQUIN"
+      ],
+      "countries": [
+        "Mallorca"
+      ]
+    },
+    {
+      "id": "Q37659",
+      "label": "Mallorcan ratter",
+      "aliases": [
+        "Majorca Ratter"
+      ],
+      "countries": [
+        "Mallorca"
+      ]
+    },
+    {
+      "id": "Q38751",
+      "label": "Maltese",
+      "aliases": [
+        "Maltese dog",
+        "Maltese terrier"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q124567762",
+      "label": "Maltese Fox Terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11341375",
+      "label": "Maltese Little Lion-dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11341373",
+      "label": "Maltese Pocket Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38387",
+      "label": "Manchester Terrier",
+      "aliases": [],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q38103",
+      "label": "Maneto",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q10346001",
+      "label": "Mantiqueira Shepherd",
+      "aliases": [
+        "Pastor da mantiqueira"
+      ],
+      "countries": [
+        "Brazil"
+      ]
+    },
+    {
+      "id": "Q2491457",
+      "label": "Marxdorfer Wolfshund",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11883725",
+      "label": "Mâtin",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q30891717",
+      "label": "Medelyan",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124083023",
+      "label": "Medium-sized Anglo-French Hound",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q37482",
+      "label": "Medium-sized Anglo-French Hound",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q137826232",
+      "label": "Meitei Hui",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q133854503",
+      "label": "Mexican lapdog",
+      "aliases": [
+        "Mexican lap dog",
+        "Mexican lap-dog"
+      ],
+      "countries": [
+        "Mexico"
+      ]
+    },
+    {
+      "id": "Q107210039",
+      "label": "Mi-Ki",
+      "aliases": [
+        "Miki"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q6865130",
+      "label": "Miniature American Shepherd",
+      "aliases": [
+        "Miniature Australian Shepherd",
+        "American Shepherd",
+        "Mini American",
+        "Mini Aussie",
+        "North American Shepherd"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q38004",
+      "label": "Miniature Australian Shepherd",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37967",
+      "label": "Miniature Bull Terrier",
+      "aliases": [],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q12664827",
+      "label": "miniature dachshund",
+      "aliases": [
+        "mini dachshund"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q6865135",
+      "label": "Miniature Fox Terrier",
+      "aliases": [],
+      "countries": [
+        "Australia"
+      ]
+    },
+    {
+      "id": "Q38990",
+      "label": "Miniature Pinscher",
+      "aliases": [
+        "Minpin"
+      ],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q38999",
+      "label": "Miniature Schnauzer",
+      "aliases": [],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q14533392",
+      "label": "Miniature Shar Pei",
+      "aliases": [
+        "Mini Pei"
+      ],
+      "countries": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "Q11342375",
+      "label": "Miniature Siberian Husky",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37832",
+      "label": "Mioritic",
+      "aliases": [
+        "Romanian Mioritic Shepherd Dog"
+      ],
+      "countries": [
+        "Romania"
+      ]
+    },
+    {
+      "id": "Q124022669",
+      "label": "Mojee",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38608",
+      "label": "Molossian",
+      "aliases": [
+        "Molossian hound"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q13217219",
+      "label": "Molossian hound",
+      "aliases": [
+        "Molosser",
+        "Molossus",
+        "Epirus mastiff"
+      ],
+      "countries": [
+        "Epirus"
+      ]
+    },
+    {
+      "id": "Q10587816",
+      "label": "Molossus of Epirus",
+      "aliases": [
+        "Epirus Molosser"
+      ],
+      "countries": [
+        "Greece"
+      ]
+    },
+    {
+      "id": "Q38945",
+      "label": "mongrel",
+      "aliases": [
+        "mutt",
+        "mutts",
+        "mongrels",
+        "muts",
+        "mongrel dog",
+        "mongrel dogs"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38631",
+      "label": "Montenegrin Mountain Hound",
+      "aliases": [],
+      "countries": [
+        "Montenegro"
+      ]
+    },
+    {
+      "id": "Q3324148",
+      "label": "Morkie",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q38518",
+      "label": "Moscow Watchdog",
+      "aliases": [],
+      "countries": [
+        "Soviet Union"
+      ]
+    },
+    {
+      "id": "Q6915548",
+      "label": "Moscow Water Dog",
+      "aliases": [],
+      "countries": [
+        "Russia"
+      ]
+    },
+    {
+      "id": "Q38892",
+      "label": "Mountain Cur",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q130439903",
+      "label": "Mountain Feist",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38894",
+      "label": "Mountain View Cur",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37963",
+      "label": "Mucuchies",
+      "aliases": [
+        "Nevado",
+        "Perro de los Paramos",
+        "Perro de los Páramos",
+        "Perro Gocho",
+        "Perro Paramero",
+        "Venezuelan Sheepdog"
+      ],
+      "countries": [
+        "Venezuela"
+      ]
+    },
+    {
+      "id": "Q37670",
+      "label": "Mudhol Hound",
+      "aliases": [],
+      "countries": [
+        "India"
+      ]
+    },
+    {
+      "id": "Q38690",
+      "label": "Mudi",
+      "aliases": [],
+      "countries": [
+        "Hungary"
+      ]
+    },
+    {
+      "id": "Q124567704",
+      "label": "Mullins' feist",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q113957592",
+      "label": "Multi-Colored Poodle",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q20735288",
+      "label": "Murcian Ratter",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39045",
+      "label": "Murray River Curly Coated Retriever",
+      "aliases": [
+        "Murray River Retriever"
+      ],
+      "countries": [
+        "Australia"
+      ]
+    },
+    {
+      "id": "Q11323744",
+      "label": "Naga Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q10389421",
+      "label": "National Deerhound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q117050890",
+      "label": "Native Irish Pedigree Dog Breeds",
+      "aliases": [],
+      "countries": [
+        "Ireland"
+      ]
+    },
+    {
+      "id": "Q38529",
+      "label": "Neapolitan Mastiff",
+      "aliases": [
+        "Italian Mastiff"
+      ],
+      "countries": [
+        "Ancient Rome"
+      ]
+    },
+    {
+      "id": "Q3438758",
+      "label": "Nenets Herding Laika",
+      "aliases": [
+        "Ненецкая оленегонная лайка",
+        "Оленегонный шпиц"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38884",
+      "label": "New Guinea singing dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q13551303",
+      "label": "New Zealand Heading Dog",
+      "aliases": [],
+      "countries": [
+        "New Zealand"
+      ]
+    },
+    {
+      "id": "Q38706",
+      "label": "Newfoundland dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11325171",
+      "label": "Nootka Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38940",
+      "label": "Norfolk Terrier",
+      "aliases": [
+        "Norfork Terrier"
+      ],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q107448371",
+      "label": "Norman Hound",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q23473",
+      "label": "Normand-Poitevin",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38925",
+      "label": "Norrbottenspets",
+      "aliases": [
+        "Norbottenspitz",
+        "Nordic Spitz",
+        "Pohjanpystykorva",
+        "Spitz de Norboten"
+      ],
+      "countries": [
+        "Sweden"
+      ]
+    },
+    {
+      "id": "Q19704923",
+      "label": "North-Easthrly Haaling Laika",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39113",
+      "label": "Northern Inuit Dog",
+      "aliases": [
+        "Northern Inuit"
+      ],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q124567763",
+      "label": "Northern terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567765",
+      "label": "Northwest farm terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38478",
+      "label": "Norwegian Buhund",
+      "aliases": [],
+      "countries": [
+        "Norway"
+      ]
+    },
+    {
+      "id": "Q38803",
+      "label": "Norwegian Elkhound",
+      "aliases": [],
+      "countries": [
+        "Norway"
+      ]
+    },
+    {
+      "id": "Q38895",
+      "label": "Norwegian Lundehund",
+      "aliases": [],
+      "countries": [
+        "Norway"
+      ]
+    },
+    {
+      "id": "Q38934",
+      "label": "Norwich Terrier",
+      "aliases": [],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q38824",
+      "label": "Nova Scotia Duck Tolling Retriever",
+      "aliases": [],
+      "countries": [
+        "Canada"
+      ]
+    },
+    {
+      "id": "Q1135818",
+      "label": "nureongi",
+      "aliases": [],
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "id": "Q20379893",
+      "label": "odis",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39118",
+      "label": "Old Croatian Sighthound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37494",
+      "label": "Old Danish Pointer",
+      "aliases": [
+        "Gammel Dansk Hønsehund"
+      ],
+      "countries": [
+        "Denmark"
+      ]
+    },
+    {
+      "id": "Q37704",
+      "label": "Old English sheepdog",
+      "aliases": [
+        "Shepherd's Dog"
+      ],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q7085220",
+      "label": "Old Time Farm Shepherd",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q7085403",
+      "label": "Old Welsh Grey Sheepdog",
+      "aliases": [],
+      "countries": [
+        "Wales"
+      ]
+    },
+    {
+      "id": "Q38168",
+      "label": "Olde English Bulldogge",
+      "aliases": [
+        "OEB"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q11292565",
+      "label": "Oriental Shar Pei",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567705",
+      "label": "Original Cajun Squirrel Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q57258179",
+      "label": "Original Fila Brasileiro",
+      "aliases": [
+        "OFB",
+        "Old Brazilian Fila",
+        "Old Brazilian Mastiff",
+        "Old Fila Brasileiro",
+        "Old Fila Dog"
+      ],
+      "countries": [
+        "Brazil"
+      ]
+    },
+    {
+      "id": "Q38922",
+      "label": "Otterhound",
+      "aliases": [
+        "Otter hound"
+      ],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q39334",
+      "label": "Pachón Navarro",
+      "aliases": [
+        "Nafar eper txakurra",
+        "Nafarroako eper txakur",
+        "Pachón",
+        "Pachón de Vitoria",
+        "Pachón español",
+        "Perdiguero común",
+        "Perdiguero navarro"
+      ],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q38980",
+      "label": "Paisley Terrier",
+      "aliases": [
+        "Clydesdale Terrier"
+      ],
+      "countries": [
+        "Scotland"
+      ]
+    },
+    {
+      "id": "Q10389422",
+      "label": "Pampas Deerhound",
+      "aliases": [
+        "Gaucho deer-hound",
+        "Pampeano Deer-hound",
+        "Veadeiro Pampeano"
+      ],
+      "countries": [
+        "Brazil"
+      ]
+    },
+    {
+      "id": "Q1990683",
+      "label": "Pandikona",
+      "aliases": [],
+      "countries": [
+        "India"
+      ]
+    },
+    {
+      "id": "Q38115",
+      "label": "Papillon",
+      "aliases": [],
+      "countries": [
+        "Belgium"
+      ]
+    },
+    {
+      "id": "Q3895786",
+      "label": "Pardog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q12206278",
+      "label": "Pariah dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38880",
+      "label": "Parson Russell Terrier",
+      "aliases": [],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q139764231",
+      "label": "Pashmi hound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q44008",
+      "label": "Pastor Americano",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q2410835",
+      "label": "Pastore Fonnese",
+      "aliases": [
+        "Sardinian Shepherd Dog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q124986589",
+      "label": "Patagonian Bearded Greyhound",
+      "aliases": [
+        "Patagonian Greyhound"
+      ],
+      "countries": [
+        "Argentina"
+      ]
+    },
+    {
+      "id": "Q9053651",
+      "label": "Patagonian Sheepdog",
+      "aliases": [],
+      "countries": [
+        "Chile"
+      ]
+    },
+    {
+      "id": "Q38800",
+      "label": "Patterdale Terrier",
+      "aliases": [],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q123243328",
+      "label": "Patti",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38959",
+      "label": "Pekingese",
+      "aliases": [
+        "Pekinese"
+      ],
+      "countries": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "Q38783",
+      "label": "Pembroke Welsh Corgi",
+      "aliases": [],
+      "countries": [
+        "Wales"
+      ]
+    },
+    {
+      "id": "Q15128787",
+      "label": "Perdigueiro Galego",
+      "aliases": [],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q38182",
+      "label": "Perro de pastor garafiano",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37676",
+      "label": "Perro de Presa Mallorquin",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q17446281",
+      "label": "Perro fino Colombiano",
+      "aliases": [],
+      "countries": [
+        "Colombia"
+      ]
+    },
+    {
+      "id": "Q37572",
+      "label": "Perro majorero",
+      "aliases": [],
+      "countries": [
+        "Canary Islands"
+      ]
+    },
+    {
+      "id": "Q107331639",
+      "label": "Perro pampa argentino",
+      "aliases": [],
+      "countries": [
+        "Argentina"
+      ]
+    },
+    {
+      "id": "Q38874",
+      "label": "Peruvian Hairless Dog",
+      "aliases": [
+        "Peruvian Inca Orchid"
+      ],
+      "countries": [
+        "Peru"
+      ]
+    },
+    {
+      "id": "Q11337512",
+      "label": "Peruvian Inca Orchid",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39080",
+      "label": "Petit Basset Griffon Vendéen",
+      "aliases": [
+        "PBGV",
+        "Petit Basset Griffon Vendeen"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q38176",
+      "label": "Petit Bleu de Gascogne",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q13631411",
+      "label": "Petit brabançon",
+      "aliases": [
+        "Griffon_Bruxellois"
+      ],
+      "countries": [
+        "Belgium"
+      ]
+    },
+    {
+      "id": "Q39331",
+      "label": "Petit Gascon Saintongeois",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q39254",
+      "label": "Phalène",
+      "aliases": [
+        "Phalene"
+      ],
+      "countries": [
+        "Belgium"
+      ]
+    },
+    {
+      "id": "Q38808",
+      "label": "Pharaoh Hound",
+      "aliases": [],
+      "countries": [
+        "Egypt"
+      ]
+    },
+    {
+      "id": "Q124567723",
+      "label": "Philippines Islands Dog",
+      "aliases": [
+        "Philippines Edible Dog",
+        "Philippines Native Dog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q39116",
+      "label": "Phu Quoc ridgeback dog",
+      "aliases": [
+        "Phu Quoc Ridgeback"
+      ],
+      "countries": [
+        "Vietnam"
+      ]
+    },
+    {
+      "id": "Q37635",
+      "label": "Picardy Shepherd",
+      "aliases": [
+        "Berger Picard"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q38030",
+      "label": "Picardy Spaniel",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q7190591",
+      "label": "Piccolo Segugio dell'Appennino",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11331516",
+      "label": "Pit Bullmastiff",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q58058018",
+      "label": "Pit Monster",
+      "aliases": [
+        "Brazilian Monster dog",
+        "Brazilian Monster Pit",
+        "Brazilian Pit Monster"
+      ],
+      "countries": [
+        "Brazil"
+      ]
+    },
+    {
+      "id": "Q11335964",
+      "label": "Plains-Indian Dog",
+      "aliases": [
+        "American Indian Dog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q39195",
+      "label": "Plott Hound",
+      "aliases": [],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q124567699",
+      "label": "pocket beagle",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38932",
+      "label": "Podenco Canario",
+      "aliases": [],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q123241766",
+      "label": "podenco palmero",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11860269",
+      "label": "Podengo Galego",
+      "aliases": [
+        "Galician Warren Hound",
+        "galicianpodenco",
+        "podenco gallego"
+      ],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q38185",
+      "label": "Poitevin hound",
+      "aliases": [
+        "Poitevin"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q124567693",
+      "label": "Poligar Hound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q5429",
+      "label": "Polish Greyhound",
+      "aliases": [],
+      "countries": [
+        "Poland"
+      ]
+    },
+    {
+      "id": "Q38217",
+      "label": "Polish Hound",
+      "aliases": [],
+      "countries": [
+        "Poland"
+      ]
+    },
+    {
+      "id": "Q38051",
+      "label": "Polish Hunting Dog",
+      "aliases": [
+        "gończy polski",
+        "Polish Hound",
+        "Polish Scenthound"
+      ],
+      "countries": [
+        "Poland"
+      ]
+    },
+    {
+      "id": "Q55454389",
+      "label": "Polish Hunting Spaniel",
+      "aliases": [
+        "Polski spaniel myśliwski"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38836",
+      "label": "Polish Lowland Sheepdog",
+      "aliases": [],
+      "countries": [
+        "Poland"
+      ]
+    },
+    {
+      "id": "Q11339332",
+      "label": "Poltalloch Terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q30594645",
+      "label": "Polynesian Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567735",
+      "label": "Pomeranian Wolf-dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q10351150",
+      "label": "Pomsky",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37844",
+      "label": "Pont-Audemer Spaniel",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q19698220",
+      "label": "Poochon",
+      "aliases": [
+        "Poochon ("
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38904",
+      "label": "poodle",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39083",
+      "label": "Porcelaine",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q38099",
+      "label": "Portuguese Cattle Dog",
+      "aliases": [
+        "Cão de Castro Laboreiro",
+        "Castro Laboreiro Dog",
+        "Portuguese Watch Dog"
+      ],
+      "countries": [
+        "Portugal"
+      ]
+    },
+    {
+      "id": "Q39063",
+      "label": "Portuguese Podengo",
+      "aliases": [
+        "Podengo Português",
+        "Portuguese Warren Hound"
+      ],
+      "countries": [
+        "Portugal"
+      ]
+    },
+    {
+      "id": "Q38165",
+      "label": "Portuguese Pointer",
+      "aliases": [],
+      "countries": [
+        "Portugal"
+      ]
+    },
+    {
+      "id": "Q37734",
+      "label": "Portuguese Sheepdog",
+      "aliases": [
+        "Cão da Serra de Aires"
+      ],
+      "countries": [
+        "Portugal"
+      ]
+    },
+    {
+      "id": "Q38559",
+      "label": "Portuguese water dog",
+      "aliases": [],
+      "countries": [
+        "Portugal"
+      ]
+    },
+    {
+      "id": "Q39078",
+      "label": "Posavac Hound",
+      "aliases": [],
+      "countries": [
+        "Croatia"
+      ]
+    },
+    {
+      "id": "Q11339009",
+      "label": "Powinder Dog",
+      "aliases": [],
+      "countries": [
+        "Afghanistan"
+      ]
+    },
+    {
+      "id": "Q11335525",
+      "label": "Prapsos",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38906",
+      "label": "Pražský Krysařík",
+      "aliases": [
+        "Prager Rattler",
+        "Prague Ratter",
+        "Ratier de Prague"
+      ],
+      "countries": [
+        "Czech Republic"
+      ]
+    },
+    {
+      "id": "Q37750",
+      "label": "Presa Canario",
+      "aliases": [
+        "Presa",
+        "Canary Dog",
+        "Canary Mastiff",
+        "Dogo Canario",
+        "Perro de Presa Canario"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38930",
+      "label": "Pudelpointer",
+      "aliases": [],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q11350809",
+      "label": "Pueblo Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38698",
+      "label": "pug",
+      "aliases": [
+        "mops",
+        "carlin"
+      ],
+      "countries": [
+        "China"
+      ]
+    },
+    {
+      "id": "Q38864",
+      "label": "Puli",
+      "aliases": [],
+      "countries": [
+        "Hungary"
+      ]
+    },
+    {
+      "id": "Q28063845",
+      "label": "Pulin",
+      "aliases": [
+        "Serbian Shepherd",
+        "Serbian Shepherd Dog",
+        "Vojvodina Shepherd",
+        "Vojvodina Shepherd Dog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38919",
+      "label": "Pumi",
+      "aliases": [
+        "Hungarian herding terrier"
+      ],
+      "countries": [
+        "Hungary"
+      ]
+    },
+    {
+      "id": "Q29174",
+      "label": "Pungsan",
+      "aliases": [
+        "Poongsan"
+      ],
+      "countries": [
+        "North Korea"
+      ]
+    },
+    {
+      "id": "Q38766",
+      "label": "Pyrenean Mastiff",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37803",
+      "label": "Pyrenean Mountain Dog",
+      "aliases": [
+        "Great Pyrenees"
+      ],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q10345998",
+      "label": "Pyrenean Sheepdog Long-haired",
+      "aliases": [
+        "Chien de Berger des Pyrénées à poil long",
+        "Pyrenean Sheepdog Long-Haired"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q16039619",
+      "label": "Pyrenean Sheepdog Smooth-faced",
+      "aliases": [
+        "Chien de Berger des Pyrénées a face rase",
+        "Pyrenean Sheepdog, Smooth-Faced"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q37786",
+      "label": "Pyrenean Shepherd",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q10291561",
+      "label": "Q10291561",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q10389420",
+      "label": "Q10389420",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q10389423",
+      "label": "Q10389423",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q10436068",
+      "label": "Q10436068",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q1060733",
+      "label": "Q1060733",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q109142989",
+      "label": "Q109142989",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q109364628",
+      "label": "Q109364628",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q10979505",
+      "label": "Q10979505",
+      "aliases": [],
+      "countries": [
+        "Estonia"
+      ]
+    },
+    {
+      "id": "Q110449119",
+      "label": "Q110449119",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q111379461",
+      "label": "Q111379461",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11282461",
+      "label": "Q11282461",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11284475",
+      "label": "Q11284475",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11284480",
+      "label": "Q11284480",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11285525",
+      "label": "Q11285525",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11287350",
+      "label": "Q11287350",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11291932",
+      "label": "Q11291932",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11292624",
+      "label": "Q11292624",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11294000",
+      "label": "Q11294000",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11295743",
+      "label": "Q11295743",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11296238",
+      "label": "Q11296238",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11296918",
+      "label": "Q11296918",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11297268",
+      "label": "Q11297268",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11297515",
+      "label": "Q11297515",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11299168",
+      "label": "Q11299168",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11300071",
+      "label": "Q11300071",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11302314",
+      "label": "Q11302314",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11302946",
+      "label": "Q11302946",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11303337",
+      "label": "Q11303337",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11305397",
+      "label": "Q11305397",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11305850",
+      "label": "Q11305850",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11307006",
+      "label": "Q11307006",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11307060",
+      "label": "Q11307060",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11308230",
+      "label": "Q11308230",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11308242",
+      "label": "Q11308242",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11308245",
+      "label": "Q11308245",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11308924",
+      "label": "Q11308924",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11310429",
+      "label": "Q11310429",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11312275",
+      "label": "Q11312275",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11313334",
+      "label": "Q11313334",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11314022",
+      "label": "Q11314022",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11314160",
+      "label": "Q11314160",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11315632",
+      "label": "Q11315632",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11316422",
+      "label": "Q11316422",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11317223",
+      "label": "Q11317223",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11317447",
+      "label": "Q11317447",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11318000",
+      "label": "Q11318000",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11318001",
+      "label": "Q11318001",
+      "aliases": [],
+      "countries": [
+        "Tibet"
+      ]
+    },
+    {
+      "id": "Q11318050",
+      "label": "Q11318050",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11319826",
+      "label": "Q11319826",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11321141",
+      "label": "Q11321141",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11324663",
+      "label": "Q11324663",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11327500",
+      "label": "Q11327500",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11327693",
+      "label": "Q11327693",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11328004",
+      "label": "Q11328004",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11328896",
+      "label": "Q11328896",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11334394",
+      "label": "Q11334394",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11334590",
+      "label": "Q11334590",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11335082",
+      "label": "Q11335082",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11336628",
+      "label": "Q11336628",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11336988",
+      "label": "Q11336988",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11337513",
+      "label": "Q11337513",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11340737",
+      "label": "Q11340737",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11341111",
+      "label": "Q11341111",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11344675",
+      "label": "Q11344675",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11347468",
+      "label": "Q11347468",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11347747",
+      "label": "Q11347747",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11350807",
+      "label": "Q11350807",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11350931",
+      "label": "Q11350931",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q113862101",
+      "label": "Q113862101",
+      "aliases": [],
+      "countries": [
+        "Brazil"
+      ]
+    },
+    {
+      "id": "Q11405154",
+      "label": "Q11405154",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11611581",
+      "label": "Q11611581",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q117006763",
+      "label": "Q117006763",
+      "aliases": [],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q117035825",
+      "label": "Q117035825",
+      "aliases": [],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q11716843",
+      "label": "Q11716843",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11852907",
+      "label": "Q11852907",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11853555",
+      "label": "Q11853555",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11854473",
+      "label": "Q11854473",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11854731",
+      "label": "Q11854731",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11859548",
+      "label": "Q11859548",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11860285",
+      "label": "Q11860285",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11862455",
+      "label": "Q11862455",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11864910",
+      "label": "Q11864910",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11864957",
+      "label": "Q11864957",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11864962",
+      "label": "Q11864962",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11875873",
+      "label": "Q11875873",
+      "aliases": [],
+      "countries": [
+        "Estonia"
+      ]
+    },
+    {
+      "id": "Q11881877",
+      "label": "Q11881877",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11888788",
+      "label": "Q11888788",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11892426",
+      "label": "Q11892426",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11893595",
+      "label": "Q11893595",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11897779",
+      "label": "Q11897779",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11899756",
+      "label": "Q11899756",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11899757",
+      "label": "Q11899757",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11989618",
+      "label": "Q11989618",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q123679308",
+      "label": "Q123679308",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q123786355",
+      "label": "Q123786355",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124262200",
+      "label": "Q124262200",
+      "aliases": [],
+      "countries": [
+        "Latvia"
+      ]
+    },
+    {
+      "id": "Q124567694",
+      "label": "Q124567694",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567709",
+      "label": "Q124567709",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567711",
+      "label": "Q124567711",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567713",
+      "label": "Q124567713",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567721",
+      "label": "Q124567721",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567725",
+      "label": "Q124567725",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567730",
+      "label": "Q124567730",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567738",
+      "label": "Q124567738",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567739",
+      "label": "Q124567739",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567740",
+      "label": "Q124567740",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567741",
+      "label": "Q124567741",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567742",
+      "label": "Q124567742",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567744",
+      "label": "Q124567744",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567745",
+      "label": "Q124567745",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567747",
+      "label": "Q124567747",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567748",
+      "label": "Q124567748",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567750",
+      "label": "Q124567750",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567751",
+      "label": "Q124567751",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567752",
+      "label": "Q124567752",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567753",
+      "label": "Q124567753",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567754",
+      "label": "Q124567754",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567756",
+      "label": "Q124567756",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567758",
+      "label": "Q124567758",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567766",
+      "label": "Q124567766",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567767",
+      "label": "Q124567767",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567768",
+      "label": "Q124567768",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567770",
+      "label": "Q124567770",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567771",
+      "label": "Q124567771",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567772",
+      "label": "Q124567772",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567773",
+      "label": "Q124567773",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q12646367",
+      "label": "Q12646367",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q129204854",
+      "label": "Q129204854",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q131444568",
+      "label": "Q131444568",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q1318864",
+      "label": "Q1318864",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q132167272",
+      "label": "Q132167272",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q132167275",
+      "label": "Q132167275",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q132167277",
+      "label": "Q132167277",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q132167280",
+      "label": "Q132167280",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q132167282",
+      "label": "Q132167282",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q132167284",
+      "label": "Q132167284",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q132167287",
+      "label": "Q132167287",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q132167289",
+      "label": "Q132167289",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q132167292",
+      "label": "Q132167292",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q132167294",
+      "label": "Q132167294",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q132167296",
+      "label": "Q132167296",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q132167298",
+      "label": "Q132167298",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q132167302",
+      "label": "Q132167302",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q132167303",
+      "label": "Q132167303",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q132229817",
+      "label": "Q132229817",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q136400685",
+      "label": "Q136400685",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q136400686",
+      "label": "Q136400686",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q136400688",
+      "label": "Q136400688",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q136400689",
+      "label": "Q136400689",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q136400690",
+      "label": "Q136400690",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q136823142",
+      "label": "Q136823142",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q137171347",
+      "label": "Q137171347",
+      "aliases": [],
+      "countries": [
+        "Belarus"
+      ]
+    },
+    {
+      "id": "Q140534206",
+      "label": "Q140534206",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q140534210",
+      "label": "Q140534210",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q140534213",
+      "label": "Q140534213",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q141104574",
+      "label": "Q141104574",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q1499225",
+      "label": "Q1499225",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q1588016",
+      "label": "Q1588016",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q16310417",
+      "label": "Q16310417",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q16679215",
+      "label": "Q16679215",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q17192482",
+      "label": "Q17192482",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q17239236",
+      "label": "Q17239236",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q17239447",
+      "label": "Q17239447",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q18011365",
+      "label": "Q18011365",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q18418098",
+      "label": "Q18418098",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q18450711",
+      "label": "Q18450711",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q1870415",
+      "label": "Q1870415",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q19702802",
+      "label": "Q19702802",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q19708791",
+      "label": "Q19708791",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q20379407",
+      "label": "Q20379407",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q20379415",
+      "label": "Q20379415",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q20379447",
+      "label": "Q20379447",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q20379483",
+      "label": "Q20379483",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q20379507",
+      "label": "Q20379507",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q20379518",
+      "label": "Q20379518",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q20379665",
+      "label": "Q20379665",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q20379992",
+      "label": "Q20379992",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q20380018",
+      "label": "Q20380018",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q20380084",
+      "label": "Q20380084",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q20638596",
+      "label": "Q20638596",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q20918442",
+      "label": "Q20918442",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q22126730",
+      "label": "Q22126730",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q22130213",
+      "label": "Q22130213",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q22131071",
+      "label": "Q22131071",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q2432776",
+      "label": "Q2432776",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q2651560",
+      "label": "Q2651560",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q2794532",
+      "label": "Q2794532",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q2923879",
+      "label": "Q2923879",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q2943777",
+      "label": "Q2943777",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q2963466",
+      "label": "Q2963466",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q30897603",
+      "label": "Q30897603",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q3284647",
+      "label": "Q3284647",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q4353767",
+      "label": "Q4353767",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q4354190",
+      "label": "Q4354190",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q46717548",
+      "label": "Q46717548",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q48803479",
+      "label": "Q48803479",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q5397419",
+      "label": "Q5397419",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q5402104",
+      "label": "Q5402104",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q5403422",
+      "label": "Q5403422",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q5476665",
+      "label": "Q5476665",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q5491882",
+      "label": "Q5491882",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q5495076",
+      "label": "Q5495076",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q5766204",
+      "label": "Q5766204",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q5947532",
+      "label": "Q5947532",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q6035138",
+      "label": "Q6035138",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q60969341",
+      "label": "Q60969341",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q62669252",
+      "label": "Q62669252",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q65229149",
+      "label": "Q65229149",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q65233752",
+      "label": "Q65233752",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q65238107",
+      "label": "Q65238107",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q65246659",
+      "label": "Q65246659",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q819594",
+      "label": "Q819594",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q9659446",
+      "label": "Q9659446",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q9663241",
+      "label": "Q9663241",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q97340903",
+      "label": "Q97340903",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q97341029",
+      "label": "Q97341029",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39073",
+      "label": "Rafeiro do Alentejo",
+      "aliases": [
+        "Portuguese Watch Dog",
+        "Alentejo Herder",
+        "Alentejo Mastiff",
+        "Portuguese Mastiff"
+      ],
+      "countries": [
+        "Portugal"
+      ]
+    },
+    {
+      "id": "Q38312",
+      "label": "Rajapalayam",
+      "aliases": [
+        "Rajapalayam dog",
+        "Rajapalayam Hound"
+      ],
+      "countries": [
+        "India"
+      ]
+    },
+    {
+      "id": "Q120207747",
+      "label": "Ramanadhapuram Mandai",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q64828740",
+      "label": "Ramanathapuram mandai dog",
+      "aliases": [
+        "manthai dog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38179",
+      "label": "Rampur Greyhound",
+      "aliases": [
+        "Rampur Hound"
+      ],
+      "countries": [
+        "India"
+      ]
+    },
+    {
+      "id": "Q7294537",
+      "label": "Rare breed",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38202",
+      "label": "Rastreador-brasileiro",
+      "aliases": [
+        "Rastreador brasileiro"
+      ],
+      "countries": [
+        "Brazil"
+      ]
+    },
+    {
+      "id": "Q38431",
+      "label": "Rat Terrier",
+      "aliases": [
+        "rat terrier"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q37711",
+      "label": "Ratonero Basco",
+      "aliases": [
+        "Basque Ratter",
+        "Enkarterriko billanuko",
+        "Villanuco de las Encartaciones",
+        "Villanuco de Las Encartaciones"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q38209",
+      "label": "Ratonero Bodeguero Andaluz COOPER",
+      "aliases": [
+        "Andalusian Mouse-Hunting Terrier"
+      ],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q104806099",
+      "label": "Ratonero Palmero",
+      "aliases": [],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q11349773",
+      "label": "Red Decoy Dog",
+      "aliases": [],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q38820",
+      "label": "Redbone Coonhound",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q134054153",
+      "label": "Renascence Bulldogge",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q39026",
+      "label": "Rhodesian Ridgeback",
+      "aliases": [
+        "African Lion Dog",
+        "Van Rooyen's Lion Dog"
+      ],
+      "countries": [
+        "Rhodesia"
+      ]
+    },
+    {
+      "id": "Q37795",
+      "label": "Romanian Raven Shepherd Dog",
+      "aliases": [],
+      "countries": [
+        "Romania"
+      ]
+    },
+    {
+      "id": "Q11350379",
+      "label": "Rothbury Terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39093",
+      "label": "Rottweiler",
+      "aliases": [
+        "Rottie"
+      ],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q38650",
+      "label": "Rough Collie",
+      "aliases": [],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q11349073",
+      "label": "Ruby Spaniel",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q18456988",
+      "label": "Running Walker Coonhound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q10657975",
+      "label": "Russian Hound",
+      "aliases": [],
+      "countries": [
+        "Russia"
+      ]
+    },
+    {
+      "id": "Q124567708",
+      "label": "Russian Setter",
+      "aliases": [
+        "Russian Braque",
+        "Russian Pointer"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q39103",
+      "label": "Russian Spaniel",
+      "aliases": [],
+      "countries": [
+        "Soviet Union"
+      ]
+    },
+    {
+      "id": "Q38263",
+      "label": "Russkaya tsvetnaya bolonka",
+      "aliases": [
+        "Bolonka",
+        "Russian Tsvetnaya Bolonka"
+      ],
+      "countries": [
+        "Russia"
+      ]
+    },
+    {
+      "id": "Q39176",
+      "label": "Russkiy Toy",
+      "aliases": [
+        "Moscovian Miniature Terrier",
+        "Moscow Toy Terrier",
+        "Russian Terrier",
+        "Russian Toy",
+        "Russian Toy Terrier"
+      ],
+      "countries": [
+        "Russia"
+      ]
+    },
+    {
+      "id": "Q39332",
+      "label": "Russo-European Laika",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q5401146",
+      "label": "Ryukyu Inu",
+      "aliases": [
+        "Okinawa Native Dog",
+        "Ryukyu Dog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q39306",
+      "label": "Saarloos wolfdog",
+      "aliases": [
+        "perro enojón"
+      ],
+      "countries": [
+        "Netherlands"
+      ]
+    },
+    {
+      "id": "Q39126",
+      "label": "Sabueso Español",
+      "aliases": [],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q4898",
+      "label": "Saint-Usuge Spaniel",
+      "aliases": [
+        "Saint usuge spaniel",
+        "St Usuge Spaniel"
+      ],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q39108",
+      "label": "Saluki",
+      "aliases": [],
+      "countries": [
+        "Arabian Peninsula"
+      ]
+    },
+    {
+      "id": "Q39002",
+      "label": "Samoyed",
+      "aliases": [
+        "Sammy",
+        "Bjelkier"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q11471124",
+      "label": "San'in Shiba Inu",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q2222597",
+      "label": "Sanshu",
+      "aliases": [
+        "Sanshu Inu"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q29178",
+      "label": "Sapsali",
+      "aliases": [
+        "Sabsal Gae"
+      ],
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "id": "Q19775816",
+      "label": "Sarabi Mastiff",
+      "aliases": [
+        "Iranian Mastiff",
+        "Persian Mastiff",
+        "Sarabi Dog"
+      ],
+      "countries": [
+        "Iran"
+      ]
+    },
+    {
+      "id": "Q107804694",
+      "label": "Sarail hound",
+      "aliases": [],
+      "countries": [
+        "Sarail Upazila"
+      ]
+    },
+    {
+      "id": "Q11622336",
+      "label": "Satsuma Dog",
+      "aliases": [
+        "Satsuma",
+        "Satsuma Inu"
+      ],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q819593",
+      "label": "Savoy Sheepdog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38436",
+      "label": "Schafpudel",
+      "aliases": [
+        "German Sheeppoodle"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q39157",
+      "label": "Schapendoes",
+      "aliases": [],
+      "countries": [
+        "Netherlands"
+      ]
+    },
+    {
+      "id": "Q38728",
+      "label": "Schillerstövare",
+      "aliases": [],
+      "countries": [
+        "Sweden"
+      ]
+    },
+    {
+      "id": "Q39010",
+      "label": "Schipperke",
+      "aliases": [],
+      "countries": [
+        "Belgium"
+      ]
+    },
+    {
+      "id": "Q1513816",
+      "label": "Schwarzer",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38975",
+      "label": "Schweizer Laufhund",
+      "aliases": [],
+      "countries": [
+        "Switzerland"
+      ]
+    },
+    {
+      "id": "Q38731",
+      "label": "Schweizerischer Niederlaufhund",
+      "aliases": [
+        "Small Swiss Hound"
+      ],
+      "countries": [
+        "Switzerland"
+      ]
+    },
+    {
+      "id": "Q39280",
+      "label": "Schwyz Hound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39587",
+      "label": "Scotch collie",
+      "aliases": [
+        "Scottish collie"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q37929",
+      "label": "Scottish Deerhound",
+      "aliases": [],
+      "countries": [
+        "Scotland"
+      ]
+    },
+    {
+      "id": "Q39035",
+      "label": "Scottish Terrier",
+      "aliases": [
+        "Scottie",
+        "Aberdeen Terrier",
+        "Scotty Dog"
+      ],
+      "countries": [
+        "Scotland"
+      ]
+    },
+    {
+      "id": "Q39068",
+      "label": "Sealyham Terrier",
+      "aliases": [],
+      "countries": [
+        "Wales"
+      ]
+    },
+    {
+      "id": "Q7446356",
+      "label": "Segugio Cravin",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q1762702",
+      "label": "Segugio dell'Appennino",
+      "aliases": [],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q17521154",
+      "label": "Segugio Italiano",
+      "aliases": [],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q39152",
+      "label": "Segugio Italiano a Pelo Raso",
+      "aliases": [
+        "Italian Short-haired Segugio",
+        "Segugio italiano a pelo raso"
+      ],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q1752116",
+      "label": "Segugio Maremmano",
+      "aliases": [],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q3955667",
+      "label": "Seppala Siberian Sleddog",
+      "aliases": [],
+      "countries": [
+        "Alaska"
+      ]
+    },
+    {
+      "id": "Q37574",
+      "label": "Serbian Hound",
+      "aliases": [],
+      "countries": [
+        "Serbia"
+      ]
+    },
+    {
+      "id": "Q10676839",
+      "label": "Serbian sheep dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37780",
+      "label": "Serbian Tricolour Hound",
+      "aliases": [],
+      "countries": [
+        "Serbia"
+      ]
+    },
+    {
+      "id": "Q136400687",
+      "label": "Serbian Yellow Hound",
+      "aliases": [
+        "Yellow Balkanite"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q10437609",
+      "label": "Serrano Bulldog",
+      "aliases": [
+        "Buldogue Serrano"
+      ],
+      "countries": [
+        "Brazil"
+      ]
+    },
+    {
+      "id": "Q25865",
+      "label": "Sertanejo Dog",
+      "aliases": [
+        "Brazilian Black-mouth Dog",
+        "Brazilian Cowboy dog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q16830750",
+      "label": "Seskar Seal Dog",
+      "aliases": [
+        "Seskar Dog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q11307644",
+      "label": "Shakhi",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38972",
+      "label": "Shar Pei",
+      "aliases": [
+        "Shar-Pei dog",
+        "沙皮",
+        "沙皮犬",
+        "沙皮狗"
+      ],
+      "countries": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "Q124567701",
+      "label": "Shelburne Terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q105429234",
+      "label": "Shepweiler",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39058",
+      "label": "Shetland Sheepdog",
+      "aliases": [
+        "Sheltie"
+      ],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q39315",
+      "label": "Shiba Inu",
+      "aliases": [],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q39357",
+      "label": "Shih Tzu",
+      "aliases": [
+        "Xi Shi",
+        "Xishi"
+      ],
+      "countries": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "Q39147",
+      "label": "Shikoku Ken",
+      "aliases": [
+        "Kochi Ken"
+      ],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q11308363",
+      "label": "Shilluk Greyhound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39229",
+      "label": "Shiloh Shepherd",
+      "aliases": [
+        "Shiloh shepherd",
+        "Shiloh Shepherd Dog"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q18484673",
+      "label": "Shorty Bull",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11308054",
+      "label": "Shropshre Terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39295",
+      "label": "Siberian Husky",
+      "aliases": [
+        "Husky",
+        "Huskie"
+      ],
+      "countries": [
+        "Siberia"
+      ]
+    },
+    {
+      "id": "Q124567737",
+      "label": "Siberian Sheepdog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q3655285",
+      "label": "Sicilian Sheepdog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q21193030",
+      "label": "Sila Shepherd",
+      "aliases": [
+        "Sila Sheepdog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q39207",
+      "label": "Silken Windhound",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q1719885",
+      "label": "Silken Windsprite",
+      "aliases": [
+        "Longhaired Whippet"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q110006522",
+      "label": "Silky Spitz",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11314025",
+      "label": "Sioux Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39052",
+      "label": "Skye Terrier",
+      "aliases": [],
+      "countries": [
+        "Scotland"
+      ]
+    },
+    {
+      "id": "Q37925",
+      "label": "Sloughi",
+      "aliases": [],
+      "countries": [
+        "North Africa"
+      ]
+    },
+    {
+      "id": "Q38963",
+      "label": "Slovak Cuvac",
+      "aliases": [],
+      "countries": [
+        "Czechoslovakia"
+      ]
+    },
+    {
+      "id": "Q39210",
+      "label": "Slovakian Rough-haired Pointer",
+      "aliases": [
+        "Slovakian Wirehaired Pointer"
+      ],
+      "countries": [
+        "Slovakia"
+      ]
+    },
+    {
+      "id": "Q38102",
+      "label": "Slovenský kopov",
+      "aliases": [],
+      "countries": [
+        "Slovakia"
+      ]
+    },
+    {
+      "id": "Q38738",
+      "label": "Smaland Hound",
+      "aliases": [
+        "Smålandsstövare"
+      ],
+      "countries": [
+        "Sweden"
+      ]
+    },
+    {
+      "id": "Q2943769",
+      "label": "Small Međimurje Dog",
+      "aliases": [],
+      "countries": [
+        "Croatia"
+      ]
+    },
+    {
+      "id": "Q38036",
+      "label": "Small Münsterländer",
+      "aliases": [],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q16861551",
+      "label": "Smithfield (dog)",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38790",
+      "label": "Smooth Collie",
+      "aliases": [],
+      "countries": [
+        "Scotland"
+      ]
+    },
+    {
+      "id": "Q38787",
+      "label": "Smooth Fox Terrier",
+      "aliases": [],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q38047",
+      "label": "Soft-coated Wheaten Terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q130520291",
+      "label": "South African Mastiff",
+      "aliases": [],
+      "countries": [
+        "South Africa"
+      ]
+    },
+    {
+      "id": "Q37939",
+      "label": "Spanish Mastiff",
+      "aliases": [
+        "mastín Español"
+      ],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q39200",
+      "label": "Spanish Water Dog",
+      "aliases": [
+        "Perro de agua español"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q11312704",
+      "label": "Sparta Sheepdog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q30898772",
+      "label": "Spino siciliano",
+      "aliases": [],
+      "countries": [
+        "Sicily"
+      ]
+    },
+    {
+      "id": "Q39161",
+      "label": "Spinone Italiano",
+      "aliases": [],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q7579584",
+      "label": "Sporting Lucas Terrier",
+      "aliases": [],
+      "countries": [
+        "Scotland"
+      ]
+    },
+    {
+      "id": "Q38090",
+      "label": "St. Bernard",
+      "aliases": [
+        "Bernhardiner",
+        "St. Bernard dog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q11314826",
+      "label": "St. Domingo Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124212270",
+      "label": "St. Hubert",
+      "aliases": [
+        "St. Hubert Hound",
+        "St. Hubert's Bloodhound",
+        "St. Hubert's Hound"
+      ],
+      "countries": [
+        "Belgium"
+      ]
+    },
+    {
+      "id": "Q11314828",
+      "label": "St. Hubert Jura Hound",
+      "aliases": [
+        "Bruno Jura hound"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q39192",
+      "label": "Stabijhoun",
+      "aliases": [
+        "Staby",
+        "Beike",
+        "Cão de aponte frisão",
+        "Frisian Pointer",
+        "Frisian Pointing Dog",
+        "Perdiguero frison",
+        "Perdiguero frisón",
+        "Stabij",
+        "Stabyhoun"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q39285",
+      "label": "Staffordshire Bull Terrier",
+      "aliases": [
+        "Staffbull",
+        "Staffie",
+        "Staffy"
+      ],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q107444250",
+      "label": "Staghound",
+      "aliases": [
+        "English Staghound"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q39605",
+      "label": "Standard Schnauzer",
+      "aliases": [
+        "Schnauzer"
+      ],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q1485154",
+      "label": "Steinbracke",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39139",
+      "label": "Stephens Cur",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q37773",
+      "label": "Stichelhaar",
+      "aliases": [],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q11312417",
+      "label": "Strathdoon dingo killer",
+      "aliases": [],
+      "countries": [
+        "Australia"
+      ]
+    },
+    {
+      "id": "Q2356500",
+      "label": "Strobel",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39214",
+      "label": "Styrian Coarse-haired Hound",
+      "aliases": [],
+      "countries": [
+        "Austria"
+      ]
+    },
+    {
+      "id": "Q2165917",
+      "label": "Sulimov dog",
+      "aliases": [],
+      "countries": [
+        "Russia"
+      ]
+    },
+    {
+      "id": "Q39138",
+      "label": "Sussex Spaniel",
+      "aliases": [],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q4356976",
+      "label": "Svensk vit älghund",
+      "aliases": [],
+      "countries": [
+        "Sweden"
+      ]
+    },
+    {
+      "id": "Q39130",
+      "label": "Swedish Lapphund",
+      "aliases": [],
+      "countries": [
+        "Sweden"
+      ]
+    },
+    {
+      "id": "Q39075",
+      "label": "Swedish Vallhund",
+      "aliases": [
+        "Länsigöötanmaanpystykorva",
+        "Spitz dos visigodos",
+        "Vallhund sueco",
+        "Vallhund suedois",
+        "Vallhund suédois",
+        "Västgötaspets"
+      ],
+      "countries": [
+        "Sweden"
+      ]
+    },
+    {
+      "id": "Q29033666",
+      "label": "Tahitian Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39239",
+      "label": "Taigan",
+      "aliases": [
+        "Kyrgyzskaya Borzaya Taigan"
+      ],
+      "countries": [
+        "Kyrgyzstan"
+      ]
+    },
+    {
+      "id": "Q109018451",
+      "label": "Taimyr",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11669145",
+      "label": "Takayasu Inu",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39390",
+      "label": "Talbot",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567729",
+      "label": "Targhee Hound)",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q5758089",
+      "label": "Tarsus Çatalburuns",
+      "aliases": [
+        "Çatalburun",
+        "Çatalburun Pointer",
+        "Pointer de Turquia",
+        "Pointer de Turquía",
+        "Tarsus Pointer",
+        "Tarsus-Mersin Pointer",
+        "Turkinseisoja",
+        "Turkish Fork-Nosed Pointer",
+        "Turkish Pointer",
+        "Turkish Split-Nosed Pointer"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q39096",
+      "label": "Tatra Shepherd Dog",
+      "aliases": [
+        "Polish Tatra Sheepdog"
+      ],
+      "countries": [
+        "Poland"
+      ]
+    },
+    {
+      "id": "Q111780168",
+      "label": "Tatranský durič",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q9356247",
+      "label": "Techichi",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39412",
+      "label": "Teddy Roosevelt Terrier",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q37464",
+      "label": "Telomian",
+      "aliases": [],
+      "countries": [
+        "Malaysia"
+      ]
+    },
+    {
+      "id": "Q39185",
+      "label": "Tenterfield Terrier",
+      "aliases": [],
+      "countries": [
+        "Australia"
+      ]
+    },
+    {
+      "id": "Q16893163",
+      "label": "Terceira Mastiff",
+      "aliases": [],
+      "countries": [
+        "Portugal"
+      ]
+    },
+    {
+      "id": "Q11319417",
+      "label": "Terry",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38679",
+      "label": "Tervuren",
+      "aliases": [],
+      "countries": [
+        "Belgium"
+      ]
+    },
+    {
+      "id": "Q37880",
+      "label": "Thai Bangkaew Dog",
+      "aliases": [
+        "Bangkaew Dog"
+      ],
+      "countries": [
+        "Thailand"
+      ]
+    },
+    {
+      "id": "Q39172",
+      "label": "Thai Ridgeback",
+      "aliases": [
+        "Mah Thai Lang Ahn",
+        "Thai Lang-An"
+      ],
+      "countries": [
+        "Thailand"
+      ]
+    },
+    {
+      "id": "Q124567697",
+      "label": "Tibetan Hound",
+      "aliases": [
+        "Tibetan Hunting Dog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q16892010",
+      "label": "Tibetan kyi apso",
+      "aliases": [],
+      "countries": [
+        "Tibet"
+      ]
+    },
+    {
+      "id": "Q39322",
+      "label": "Tibetan Mastiff",
+      "aliases": [
+        "Do-Khyi"
+      ],
+      "countries": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "Q39181",
+      "label": "Tibetan Spaniel",
+      "aliases": [],
+      "countries": [
+        "Tibet"
+      ]
+    },
+    {
+      "id": "Q38796",
+      "label": "Tibetan Terrier",
+      "aliases": [],
+      "countries": [
+        "Tibet"
+      ]
+    },
+    {
+      "id": "Q11319007",
+      "label": "Timber-wolf Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11318976",
+      "label": "Timon's Biter",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q17023476",
+      "label": "Tong gau",
+      "aliases": [
+        "Chinese dog",
+        "Tang dog",
+        "Tang Gou",
+        "Village dog"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q109535791",
+      "label": "Tonya Finosu",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39133",
+      "label": "Tornjak",
+      "aliases": [],
+      "countries": [
+        "Bosnia and Herzegovina"
+      ]
+    },
+    {
+      "id": "Q38991",
+      "label": "Tosa",
+      "aliases": [
+        "Japanese Fighting Dog",
+        "Japanese Mastiff",
+        "Japanese Tosa",
+        "Tosa Fighting Dog",
+        "Tosa Inu",
+        "Tosa Tōken"
+      ],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q11321010",
+      "label": "Toy Bull Terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q37510",
+      "label": "Toy Fox Terrier",
+      "aliases": [
+        "American Toy Terrier"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q39407",
+      "label": "Toy Manchester Terrier",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q11321009",
+      "label": "Toy Mi-Ki",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11321011",
+      "label": "Toy Munchkin",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11831662",
+      "label": "Toy Poodle",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q11322087",
+      "label": "Trailhound",
+      "aliases": [],
+      "countries": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q124567714",
+      "label": "Transcaucasian Mountain Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38394",
+      "label": "Transylvanian hound",
+      "aliases": [],
+      "countries": [
+        "Hungary"
+      ]
+    },
+    {
+      "id": "Q39148",
+      "label": "Treeing Cur",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q6924947",
+      "label": "Treeing Feist",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38443",
+      "label": "Treeing Tennessee Brindle",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q39244",
+      "label": "Treeing Walker Coonhound",
+      "aliases": [
+        "TWC",
+        "Walker hound"
+      ],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q11322026",
+      "label": "Tripuri Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11316517",
+      "label": "tumbler",
+      "aliases": [
+        "Canis Saltator"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q121029394",
+      "label": "Turkish Greyhound",
+      "aliases": [
+        "Chien Turc",
+        "Turkish Dog"
+      ],
+      "countries": [
+        "Turkey"
+      ]
+    },
+    {
+      "id": "Q1748928",
+      "label": "Turkmen Alabai",
+      "aliases": [
+        "Alabay",
+        "Alabai"
+      ],
+      "countries": [
+        "Turkmenistan"
+      ]
+    },
+    {
+      "id": "Q55664359",
+      "label": "Tuvinskaya ovcharka",
+      "aliases": [],
+      "countries": [
+        "Russia"
+      ]
+    },
+    {
+      "id": "Q39084",
+      "label": "Tyrolean Hound",
+      "aliases": [],
+      "countries": [
+        "Austria"
+      ]
+    },
+    {
+      "id": "Q1423562",
+      "label": "U.S. state dogs",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567731",
+      "label": "Ukrainian Sheepdog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38546",
+      "label": "Ukrainian Vivcharka",
+      "aliases": [],
+      "countries": [
+        "Ukraine"
+      ]
+    },
+    {
+      "id": "Q19394150",
+      "label": "Vaghari Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q113403824",
+      "label": "Valdueza",
+      "aliases": [],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q3435318",
+      "label": "Valley Bulldog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567712",
+      "label": "Victorian Bulldog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39251",
+      "label": "Villano de las Encartaciones",
+      "aliases": [
+        "Villano de carranza"
+      ],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q38819",
+      "label": "Vizsla",
+      "aliases": [
+        "Hungarian Vizsla"
+      ],
+      "countries": [
+        "Hungary"
+      ]
+    },
+    {
+      "id": "Q38196",
+      "label": "Volpino Italiano",
+      "aliases": [],
+      "countries": [
+        "Italy"
+      ]
+    },
+    {
+      "id": "Q39265",
+      "label": "Waeller",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567698",
+      "label": "Walker Foxhound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567722",
+      "label": "Water drawer",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38965",
+      "label": "Weimaraner",
+      "aliases": [
+        "Grey Ghost",
+        "Braco de Weimar",
+        "Braque de Weimar"
+      ],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q124567716",
+      "label": "Welsh Black-and-Tan Sheepdog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q124567717",
+      "label": "Welsh Blue-Grey",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q858459",
+      "label": "Welsh Corgi",
+      "aliases": [
+        "Corgi"
+      ],
+      "countries": [
+        "Wales",
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q104640130",
+      "label": "Welsh Harrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11288588",
+      "label": "Welsh Hillman",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q3398688",
+      "label": "Welsh Hound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q39278",
+      "label": "Welsh Sheepdog",
+      "aliases": [],
+      "countries": [
+        "Wales"
+      ]
+    },
+    {
+      "id": "Q39047",
+      "label": "Welsh Springer Spaniel",
+      "aliases": [],
+      "countries": [
+        "Wales"
+      ]
+    },
+    {
+      "id": "Q39041",
+      "label": "Welsh Terrier",
+      "aliases": [],
+      "countries": [
+        "Wales"
+      ]
+    },
+    {
+      "id": "Q107448399",
+      "label": "West Country Harrier",
+      "aliases": [
+        "Somerset Harrier"
+      ],
+      "countries": [
+        "England",
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "Q11288509",
+      "label": "West Greenland Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q17510",
+      "label": "West Highland White Terrier",
+      "aliases": [
+        "Poltallock Terrier",
+        "Westie"
+      ],
+      "countries": [
+        "Scotland"
+      ]
+    },
+    {
+      "id": "Q39435",
+      "label": "West Siberian Laika",
+      "aliases": [],
+      "countries": [
+        "Russia"
+      ]
+    },
+    {
+      "id": "Q11902355",
+      "label": "Westfal Terrier",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q99640545",
+      "label": "westiepoo",
+      "aliases": [
+        "westipoo"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q39095",
+      "label": "Westphalian Dachsbracke",
+      "aliases": [],
+      "countries": [
+        "Germany"
+      ]
+    },
+    {
+      "id": "Q20860",
+      "label": "Wetterhoun",
+      "aliases": [
+        "Dutch Spaniel",
+        "Dutch Water Dog",
+        "Frisian Water Dog",
+        "Otterhoun"
+      ],
+      "countries": [
+        "Netherlands"
+      ]
+    },
+    {
+      "id": "Q39122",
+      "label": "Whippet",
+      "aliases": [
+        "English Whippet",
+        "Snap dog"
+      ],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q39405",
+      "label": "White English Bulldog",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q11900149",
+      "label": "White Greek sheepdog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11698316",
+      "label": "White Shepherd Dog",
+      "aliases": [
+        "American white shepherd",
+        "White Canadian Shepherd",
+        "White german shepherd"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q37934",
+      "label": "White Swiss Shepherd",
+      "aliases": [
+        "Berger Blanc Suisse"
+      ],
+      "countries": [
+        "Switzerland"
+      ]
+    },
+    {
+      "id": "Q39491",
+      "label": "Wire Fox Terrier",
+      "aliases": [],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q124567700",
+      "label": "Wire-haired Beagle",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q3516971",
+      "label": "wire-haired dachshund",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38869",
+      "label": "Wirehaired Pointing Griffon",
+      "aliases": [],
+      "countries": [
+        "France"
+      ]
+    },
+    {
+      "id": "Q39608",
+      "label": "Wirehaired Vizsla",
+      "aliases": [
+        "Vizsla",
+        "Drotzörü Magyar Vizsla"
+      ],
+      "countries": [
+        "Hungary"
+      ]
+    },
+    {
+      "id": "Q60691642",
+      "label": "Working Pit Bulldog",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "id": "Q11902537",
+      "label": "Wurttemberg Pointer",
+      "aliases": [
+        "Württemberger",
+        "Württemberger Vorstehhund",
+        "Württemberginseisoja"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q59540",
+      "label": "Xarnego Valenciano",
+      "aliases": [],
+      "countries": [
+        "Spain"
+      ]
+    },
+    {
+      "id": "Q1000049",
+      "label": "Xiasi Dog",
+      "aliases": [],
+      "countries": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "Q10874713",
+      "label": "Xigou",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q38856",
+      "label": "Xoloitzcuintle",
+      "aliases": [
+        "Xolo",
+        "Mexican Hairless Dog",
+        "Xoloitzquintle"
+      ],
+      "countries": [
+        "Mexico"
+      ]
+    },
+    {
+      "id": "Q11345046",
+      "label": "Yakki Dog",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q11465645",
+      "label": "Yakushima Inu",
+      "aliases": [
+        "Yaku Inu"
+      ],
+      "countries": [
+        "Japan"
+      ]
+    },
+    {
+      "id": "Q38020",
+      "label": "Yakutian Laika",
+      "aliases": [],
+      "countries": [
+        "Sakha"
+      ]
+    },
+    {
+      "id": "Q39330",
+      "label": "Yorkshire Terrier",
+      "aliases": [
+        "Yorkie",
+        "Yorkie Terrier",
+        "Yorkshire terrier"
+      ],
+      "countries": [
+        "England"
+      ]
+    },
+    {
+      "id": "Q39408",
+      "label": "Yugoslavian Shepherd Dog",
+      "aliases": [
+        "Sharplanina"
+      ],
+      "countries": [
+        "North Macedonia"
+      ]
+    },
+    {
+      "id": "Q11324615",
+      "label": "Zande Dog",
+      "aliases": [
+        "Haute-Agooue Terrier",
+        "Nyam-Nyam"
+      ],
+      "countries": []
+    },
+    {
+      "id": "Q11306443",
+      "label": "Zanzibar Greyhound",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q6003137",
+      "label": "Zerdava",
+      "aliases": [],
+      "countries": [
+        "Turkey"
+      ]
+    },
+    {
+      "id": "Q11903191",
+      "label": "Zlatiborski ovčar",
+      "aliases": [],
+      "countries": []
+    },
+    {
+      "id": "Q19283661",
+      "label": "Zuchon",
+      "aliases": [],
+      "countries": [
+        "United States"
+      ]
+    }
+  ]
+}

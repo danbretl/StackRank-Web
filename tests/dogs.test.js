@@ -16,7 +16,9 @@ import {
 import {
   buildDogTasteSignals,
   buildDogsBackup,
+  dogProfileChips,
   dogsExportText,
+  normalizeDogProfile,
   normalizeDogPackProgress,
   normalizeDogPreferences,
   normalizeDogListState,
@@ -39,6 +41,25 @@ const entity = (id, name, overrides = {}) => ({
 });
 
 const ranked = (id, name) => dogEntityToCandidate(entity(id, name));
+
+test("Dog profiles normalize sourced field-guide copy and compact display chips", () => {
+  const profile = normalizeDogProfile({
+    summary: "The Great Dane is a giant German dog with an elegant, unmistakable outline.",
+    interestingFact: "Despite its English name, the modern breed was developed in Germany.",
+    sizeBand: "giant",
+    typeLabel: "Pinscher, Schnauzer & mountain dogs",
+    typeBasis: "registry",
+    originRegions: ["Germany", "Germany"],
+    editorialFamilies: ["mastiff-type"],
+    registryGroups: [{ scheme: "FCI", label: "Group 2 · Molossoids", sourceId: "fci" }],
+    sourceIds: ["vbo", "fci"],
+    reviewStatus: "editor-reviewed",
+  });
+  assert.equal(profile.sizeLabel, "Giant");
+  assert.deepEqual(profile.originRegions, ["Germany"]);
+  assert.deepEqual(dogProfileChips(profile), ["Giant", "Germany", "Pinscher, Schnauzer & mountain dogs"]);
+  assert.equal(normalizeDogProfile({ summary: "too short" }), null);
+});
 
 test("Dogs descriptor enables additive account sync and public snapshots without raster export", () => {
   assert.equal(DOGS_CATEGORY.path, "/dogs");

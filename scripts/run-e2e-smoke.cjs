@@ -1000,8 +1000,8 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     await waitFor(
       page,
       `document.readyState === 'complete' &&
-       document.querySelector('#dogs-catalog-status')?.textContent.includes('1,239 selectable') &&
-       document.querySelectorAll('.featured-pack').length === 3`,
+       document.querySelector('#dogs-catalog-status')?.textContent.includes('1,239 dogs to discover') &&
+       document.querySelectorAll('.featured-pack').length === 6`,
       15000,
     );
 
@@ -1028,15 +1028,17 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       initial.marker !== "dogs" ||
       initial.canonical !== "https://www.stackrankapp.com/dogs" ||
       initial.robots !== null ||
-      initial.cssHref !== "dogs.css?v=6" ||
-      initial.scriptSrc !== "dogs.js?v=23" ||
+      initial.cssHref !== "dogs.css?v=7" ||
+      initial.scriptSrc !== "dogs.js?v=26" ||
       initial.searchRole !== "combobox" ||
       initial.searchAutocomplete !== "list" ||
       initial.searchControls !== "dogs-suggestions" ||
-      !initial.catalogStatus?.includes("sourced from the Vertebrate Breed Ontology") ||
+      !initial.catalogStatus?.includes("1,239 field notes") ||
+      !initial.catalogStatus?.includes("28 featured portraits") ||
       /VBO:|vbo-|FCI|iDog|VeNom/.test(initial.catalogStatus || "") ||
-      initial.featuredTitles.join("|") !== "Around the world|Shapes and coats|Familiar and beyond" ||
-      initial.tileCount !== 9 ||
+      initial.featuredTitles.slice(0, 3).join("|") !== "Around the world|Shapes and coats|Familiar and beyond" ||
+      initial.featuredTitles.length !== 6 ||
+      initial.tileCount !== 24 ||
       initial.dogsStorage !== null ||
       initial.movieStorage !== null ||
       initial.booksStorage !== null ||
@@ -1314,31 +1316,35 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     await waitFor(page, `document.querySelector('#dogs-detail')?.open`, 3000);
     await waitFor(
       page,
-      `document.querySelector('#dogs-detail .dog-media img')?.complete && !document.querySelector('#dogs-detail .dog-media')?.classList.contains('is-missing')`,
+      `document.querySelector('#dogs-detail .dog-media img')?.complete &&
+       document.querySelector('#dogs-detail .dog-media img')?.naturalWidth > 0 &&
+       !document.querySelector('#dogs-detail .dog-media')?.classList.contains('is-missing')`,
       5000,
     );
+    await page.evaluate(`new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)))`);
     const detail = await page.evaluate(`(() => ({
       title: document.querySelector('#dogs-detail h1')?.textContent.trim(),
-      source: [...document.querySelectorAll('#dogs-detail .detail-fact')]
-        .find((node) => node.querySelector('span')?.textContent.trim() === 'Source')
-        ?.querySelector('strong')?.textContent.trim(),
-      coverage: [...document.querySelectorAll('#dogs-detail .detail-fact')]
-        .find((node) => node.querySelector('span')?.textContent.trim() === 'Catalog coverage')
-        ?.querySelector('strong')?.textContent.trim() || '',
-      rawMetadata: /VBO:|vbo-|FCI|iDog|VeNom/.test(document.querySelector('#dogs-detail .detail-copy')?.innerText || ''),
+      summary: document.querySelector('#dogs-detail .detail-copy__summary')?.textContent.trim() || '',
+      fact: document.querySelector('#dogs-detail .detail-fact-callout p')?.textContent.trim() || '',
+      chips: [...document.querySelectorAll('#dogs-detail .detail-copy__chips > span')].map((node) => node.textContent.trim()),
+      sourceNotes: document.querySelector('#dogs-detail .detail-sources')?.textContent.trim() || '',
+      rawMetadata: /VBO:|vbo-|FCI:\s*\d|iDog|VeNom/.test(document.querySelector('#dogs-detail .detail-copy')?.innerText || ''),
       imageSrc: document.querySelector('#dogs-detail .dog-media img')?.src || '',
       imageLoaded: document.querySelector('#dogs-detail .dog-media')?.classList.contains('is-missing') === false,
       attribution: document.querySelector('#dogs-detail .detail-attribution')?.textContent || ''
     }))()`);
     if (
       !detail.title ||
-      detail.source !== "Vertebrate Breed Ontology" ||
+      detail.summary.length < 80 ||
+      detail.fact.length < 20 ||
+      detail.chips.length < 2 ||
+      !detail.sourceNotes.includes("Vertebrate Breed Ontology") ||
       detail.rawMetadata ||
-      !detail.imageSrc.includes('/storage/v1/object/public/dogs-catalog/vbo-2026-04-15-r1/') ||
+      !detail.imageSrc.includes('/assets/dogs/generated/VBO-0000661-broholmer-960.webp') ||
       !detail.imageLoaded ||
-      !detail.attribution.includes('Modified: crop, resize, webp conversion')
+      !detail.attribution.includes('AI-generated breed portrait')
     ) {
-      throw new Error(`Dogs detail metadata is not public-facing: ${JSON.stringify(detail)}`);
+      throw new Error(`Dogs detail field-guide content is incomplete: ${JSON.stringify(detail)}`);
     }
     const detailShot = await page.screenshot("dogs-detail-desktop.png");
     await page.evaluate(`document.querySelector('#dogs-detail .detail-actions button:nth-child(2)')?.click(); true;`);
@@ -1458,6 +1464,13 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     });
     await page.evaluate(`document.querySelector('.featured-pack .breed-tile:not(:disabled)')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#dogs-comparison')?.hidden`, 3000);
+    await waitFor(
+      page,
+      `[...document.querySelectorAll('#dogs-comparison .dog-media img')].length === 2 &&
+       [...document.querySelectorAll('#dogs-comparison .dog-media img')].every((image) => image.complete && image.naturalWidth > 0) &&
+       !document.querySelector('#dogs-comparison .dog-media.is-missing')`,
+      5000,
+    );
     const mobile = await page.evaluate(`(() => {
       const choices = [...document.querySelectorAll('#dogs-comparison .comparison-card')].map((node) => {
         const box = node.getBoundingClientRect();
@@ -1534,7 +1547,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
         return Math.min(box.width, box.height);
       }))
     }))()`);
-    if (!ipadLandscapeProfile.anyPointerCoarse || ipadLandscape.overflow || ipadLandscape.packs !== 3 || ipadLandscape.minTile < 44) {
+    if (!ipadLandscapeProfile.anyPointerCoarse || ipadLandscape.overflow || ipadLandscape.packs !== 6 || ipadLandscape.minTile < 44) {
       throw new Error(`Dogs iPad landscape Rank view is wrong: ${JSON.stringify({ ipadLandscapeProfile, ipadLandscape })}`);
     }
     const ipadLandscapeShot = await page.screenshot("dogs-primary-ipad-landscape.png");
@@ -1570,8 +1583,8 @@ const testDogsPhoneViewport = async ({ baseUrl }) => {
     await page.send("Page.navigate", { url: `${baseUrl}/dogs?e2e=dogs-phone-viewport` });
     await waitFor(
       page,
-      `document.querySelector('#dogs-catalog-status')?.textContent.includes('1,239 selectable') &&
-       document.querySelectorAll('.featured-pack').length === 3`,
+      `document.querySelector('#dogs-catalog-status')?.textContent.includes('1,239 dogs to discover') &&
+       document.querySelectorAll('.featured-pack').length === 6`,
       15000,
     );
     const portraitProfile = await page.evaluate(`(() => ({
@@ -1588,6 +1601,7 @@ const testDogsPhoneViewport = async ({ baseUrl }) => {
     ) {
       throw new Error(`Dogs true phone viewport is wrong: ${JSON.stringify(portraitProfile)}`);
     }
+    const rankShot = await page.screenshot("dogs-phone-rank.png");
 
     await page.evaluate(`document.querySelector('.featured-pack .breed-tile:not(:disabled)')?.click(); true;`);
     await waitFor(
@@ -1597,6 +1611,13 @@ const testDogsPhoneViewport = async ({ baseUrl }) => {
     );
     await page.evaluate(`document.querySelector('.featured-pack .breed-tile:not(:disabled)')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#dogs-comparison')?.hidden`, 3000);
+    await waitFor(
+      page,
+      `[...document.querySelectorAll('#dogs-comparison .dog-media img')].length === 2 &&
+       [...document.querySelectorAll('#dogs-comparison .dog-media img')].every((image) => image.complete && image.naturalWidth > 0) &&
+       !document.querySelector('#dogs-comparison .dog-media.is-missing')`,
+      5000,
+    );
     const portrait = await page.evaluate(`(() => ({
       innerWidth,
       innerHeight,
@@ -1673,7 +1694,7 @@ const testDogsPhoneViewport = async ({ baseUrl }) => {
     if (health.errors.length) throw new Error(`Dogs phone browser errors: ${JSON.stringify(health.errors)}`);
     return {
       details: { portraitProfile, portrait, landscapeProfile, landscape, phoneRankingActions },
-      screenshots: [portraitShot, landscapeShot],
+      screenshots: [rankShot, portraitShot, landscapeShot],
     };
   } finally {
     await page.close();
@@ -1731,6 +1752,12 @@ const testDogsApprovedArtworkAttribution = async ({ baseUrl }) => {
               headers: { 'content-type': 'application/json' }
             }));
           }
+          if (String(input).includes('data/dogs/generated-artwork.json')) {
+            return Promise.resolve(new Response('{"schemaVersion":1,"assets":[]}', {
+              status: 200,
+              headers: { 'content-type': 'application/json' }
+            }));
+          }
           return nativeFetch(input, init);
         };
       `,
@@ -1738,7 +1765,7 @@ const testDogsApprovedArtworkAttribution = async ({ baseUrl }) => {
     await page.send("Page.navigate", { url: `${baseUrl}/dogs?e2e=dogs-approved-artwork` });
     await waitFor(
       page,
-      `document.querySelector('#dogs-catalog-status')?.textContent.includes('(1 available)')`,
+      `document.querySelector('#dogs-catalog-status')?.textContent.includes('1 featured portrait')`,
       15000,
     );
     await page.evaluate(`(() => {
@@ -1880,7 +1907,7 @@ const testDogsFailureRecovery = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('.dogs-nav [data-destination="rank"]')?.click(); document.querySelector('#dogs-retry-catalog')?.click(); true;`);
     await waitFor(
       page,
-      `document.querySelector('#dogs-catalog-status')?.textContent.includes('1,239 selectable') &&
+      `document.querySelector('#dogs-catalog-status')?.textContent.includes('1,239 dogs to discover') &&
        document.querySelector('#dogs-discovery-fallback')?.hidden`,
       15000,
     );

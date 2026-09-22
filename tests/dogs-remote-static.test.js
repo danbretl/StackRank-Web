@@ -67,7 +67,8 @@ test("ordinary Dogs metadata surfaces do not render internal catalog codes", () 
     assert.doesNotMatch(dogsSource, new RegExp(`addFact\\("${internalLabel}"`));
   }
   assert.doesNotMatch(dogsHtml, /pinned VBO release/);
-  assert.match(dogsSource, /addFact\("Source", "Vertebrate Breed Ontology"\)/);
+  assert.match(dogsSource, /"Breed identity: Vertebrate Breed Ontology \(CC BY 4\.0\)\."/);
+  assert.match(dogsSource, /addFact\("Dog family", profile\?\.typeLabel\)/);
   assert.match(dogsSource, /dogDisplayAliases\(entity\)/);
   assert.match(dogsSource, /dogEditorialDisplayText\(pack\.title\)/);
 });

@@ -37,7 +37,7 @@
             device-only and does not sync or publish book data. StackRank Dogs keeps a device copy
             while signed out and can sync its separate ranking and lists when you sign in.
           </p>
-          <p class="legal-updated">Effective July 21, 2026</p>
+          <p class="legal-updated">Effective September 22, 2026</p>
         </div>
 
         <section class="legal-section" aria-labelledby="privacy-stored">
@@ -82,10 +82,11 @@
               Supabase function; cover images load from Open Library’s cover service.
             </li>
             <li>
-              <strong>Vertebrate Breed Ontology (VBO)</strong> supplies the versioned identity and
-              alias foundation bundled with StackRank Dogs. Searching the bundled Dogs catalog does
-              not contact VBO. When rights-approved dog photos are available, each detail view names
-              the creator, source page, and exact license.
+              <strong>VBO, Wikidata, and the FCI</strong> inform the versioned identity, aliases,
+              origins, and classification notes bundled with StackRank Dogs. Searching the bundled
+              Dogs catalog does not contact those services. Featured breed portraits are generated
+              for StackRank from separately reviewed reference material and are disclosed as
+              illustrations rather than photographs of individual dogs.
             </li>
             <li>
               <strong>Supabase</strong> provides optional account sign-in, cross-device sync,
@@ -188,7 +189,7 @@
 
         <section class="legal-section legal-credits" aria-labelledby="dog-credits-title">
           <p class="legal-eyebrow">Service credits</p>
-          <h2 id="dog-credits-title">Dog catalog &amp; photography</h2>
+          <h2 id="dog-credits-title">Dog catalog, field notes &amp; portraits</h2>
           <p>
             StackRank Dogs identity and aliases are derived from the
             <a href="https://obofoundry.org/ontology/vbo.html" rel="noreferrer">Vertebrate Breed Ontology</a>,
@@ -198,9 +199,20 @@
             descendant below “Dog breed.”
           </p>
           <p>
-            Dog photos are shown only after their creator, source, exact license, file hash, human
-            subject review, and delivery artifact pass the purpose-specific rights ledger. Missing
-            photography uses a neutral fallback; catalog inclusion never depends on image availability.
+            Breed-note facts also draw on
+            <a href="https://www.wikidata.org/wiki/Wikidata:Licensing" rel="noreferrer">Wikidata’s CC0 data</a>
+            and cited pages in the
+            <a href="https://www.fci.be/en/nomenclature/" rel="noreferrer">FCI nomenclature</a>.
+            Popularity notes name their geography, source, and year rather than implying one global
+            ranking.
+          </p>
+          <p>
+            Featured breed portraits are AI-generated, art-directed illustrations built from
+            rights-reviewed reference photos and checked by a person for breed plausibility and
+            visual quality. They do not depict real individual dogs, and individual dogs vary.
+            StackRank keeps the original photo-rights ledger as a separate, fail-closed source for
+            any licensed photography. Missing portraits use a neutral fallback; catalog inclusion
+            never depends on image availability.
           </p>
         </section>
 

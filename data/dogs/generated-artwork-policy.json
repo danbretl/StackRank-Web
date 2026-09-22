@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "policyVersion": "dogs-generated-artwork-2026-09-21.1",
+  "purpose": "A separate policy for art-directed synthetic breed portraits; it does not alter or weaken the Wikimedia photography rights ledger.",
+  "requiredDisclosure": "AI-generated breed portrait, art-directed for StackRank. Individual dogs vary.",
+  "referenceRules": {
+    "allowedReferenceLedger": "data/dogs/image-rights.json",
+    "referencesMustBeRightsReviewed": true,
+    "referencesInformMorphologyOnly": true,
+    "copyingReferenceCompositionIsForbidden": true,
+    "unlicensedWebImagesAreForbidden": true
+  },
+  "generationRules": {
+    "oneAdultDog": true,
+    "photorealisticFieldPortrait": true,
+    "cropSafeLandscapeMaster": true,
+    "noPeopleOrBranding": true,
+    "breedIdentityReviewRequired": true,
+    "anatomyReviewRequired": true,
+    "cropReviewRequired": true,
+    "aestheticReviewRequired": true
+  },
+  "purposeGates": {
+    "uiDisplay": true,
+    "publicSnapshot": false,
+    "rasterExport": false
+  },
+  "note": "Generated imagery removes third-party photo-license dependencies from the normal UI, but accuracy, disclosure, model terms, and downstream sharing remain separate review obligations."
+}

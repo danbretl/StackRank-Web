@@ -77,10 +77,12 @@ import {
 import {
   buildDogTasteSignals,
   buildDogsBackup,
+  dogProfileChips,
   dogsExportText,
+  normalizeDogProfile,
   parseDogNameImport,
   parseDogsBackup,
-} from "./lib/dogs.js?v=3";
+} from "./lib/dogs.js?v=4";
 import { buildReviewQueue } from "./lib/review.js?v=1";
 import { createUndoController } from "./lib/undo.js?v=1";
 import {
@@ -102,6 +104,8 @@ const CATALOG_URL = "data/dogs/dog-catalog.json?v=4";
 const PACKS_URL = "data/dogs/packs.json?v=2";
 const RIGHTS_URL = "data/dogs/image-rights.json?v=6";
 const RIGHTS_POLICY_URL = "data/dogs/artwork-license-policy.json?v=1";
+const PROFILES_URL = "data/dogs/breed-profiles.json?v=1";
+const GENERATED_ARTWORK_URL = "data/dogs/generated-artwork.json?v=1";
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl";
 const AUTH_INIT_TIMEOUT_MS = 3200;
@@ -247,10 +251,15 @@ let rightsLedger = null;
 let rightsAssets = [];
 let rightsByAssetId = new Map();
 let rightsByCatalogId = new Map();
+let profileDocument = null;
+let profilesByCatalogId = new Map();
+let generatedArtwork = null;
+let generatedArtworkByCatalogId = new Map();
 
 let searchResults = [];
 let activeSuggestionIndex = -1;
 let browseOffset = 0;
+const featuredPackOffset = Math.floor(Math.random() * 997);
 let rankSession = null;
 let rankHistory = [];
 let rankOrigin = null;
@@ -843,11 +852,32 @@ const assetObjectUrl = (asset, role = "card") => {
   });
 };
 
+const generatedAssetUrl = (asset, role = "card") => {
+  const variants = Array.isArray(asset?.variants) ? asset.variants : [];
+  const variant = variants.find((entry) => entry.role === role) || variants[0];
+  const url = cleanText(variant?.url);
+  return /^assets\/dogs\/generated\/[a-zA-Z0-9._/-]+\.webp$/u.test(url) && !url.includes("..")
+    ? url
+    : "";
+};
+
 const approvedImageForCatalogId = (
   catalogId,
   role = "card",
   purpose = PROVIDER_PURPOSES.ARTWORK_UI_DISPLAY,
 ) => {
+  if (purpose === PROVIDER_PURPOSES.ARTWORK_UI_DISPLAY) {
+    const generated = generatedArtworkByCatalogId.get(catalogId);
+    const generatedUrl = generatedAssetUrl(generated, role);
+    if (generated && generatedUrl && generated.review?.status === "approved") {
+      return {
+        assetId: generated.assetId,
+        url: generatedUrl,
+        alt: `AI-generated field-guide portrait of a ${catalogById.get(catalogId)?.displayName || "dog breed"}`,
+        asset: generated,
+      };
+    }
+  }
   const candidates = rightsByCatalogId.get(catalogId) || [];
   const asset = candidates.find((entry) => canProviderPurpose(
     DOGS_RUNTIME_POLICY,
@@ -866,7 +896,18 @@ const approvedImageForCatalogId = (
 const candidateForCatalogId = (catalogId, role = "card") => {
   const entity = catalogById.get(catalogId);
   if (!entity) return null;
-  return dogEntityToCandidate(entity, approvedImageForCatalogId(catalogId, role));
+  const candidate = dogEntityToCandidate(entity, approvedImageForCatalogId(catalogId, role));
+  const profile = profilesByCatalogId.get(catalogId);
+  const secondaryText = [profile?.originRegions?.[0] || entity.originRegions?.[0], profile?.typeLabel]
+    .filter(Boolean)
+    .join(" · ");
+  return {
+    ...candidate,
+    snapshot: {
+      ...candidate.snapshot,
+      secondaryText: secondaryText || candidate.snapshot.secondaryText,
+    },
+  };
 };
 
 const displayItem = (item, role = "card") => {
@@ -909,7 +950,8 @@ const createDogMedia = (item, role = "card") => {
     image.src = url;
     image.alt = shown.snapshot.image.alt || `${shown.snapshot.primaryText} dog`;
     image.loading = role === "detail" ? "eager" : "lazy";
-    image.decoding = "async";
+    image.fetchPriority = role === "detail" ? "high" : "auto";
+    image.decoding = role === "detail" ? "sync" : "async";
     image.addEventListener("load", () => wrapper.classList.remove("is-missing"), { once: true });
     image.addEventListener("error", () => image.remove(), { once: true });
     wrapper.appendChild(image);
@@ -919,6 +961,12 @@ const createDogMedia = (item, role = "card") => {
 
 const appendArtworkCredit = (container, asset, displayName = "") => {
   const name = cleanText(displayName) || catalogById.get(asset?.catalogId)?.displayName || "Dog breed";
+  if (asset?.sourceType === "ai-generated") {
+    const disclosure = document.createElement("span");
+    disclosure.textContent = `AI-generated breed portrait for ${name}, art-directed for StackRank. Individual dogs vary.`;
+    container.appendChild(disclosure);
+    return;
+  }
   const credit = document.createElement("span");
   credit.textContent = `Photo for ${name}: ${asset?.attribution || asset?.creator || "Creator recorded"}`;
   const source = document.createElement("a");
@@ -937,6 +985,21 @@ const appendArtworkCredit = (container, asset, displayName = "") => {
   container.append(credit, " · ", source, " · ", license);
   if (modifications) container.append(` · Modified: ${modifications}.`);
 };
+
+const profileForCatalogId = (catalogId) => profilesByCatalogId.get(catalogId) || null;
+
+const createProfileChips = (catalogId, { limit = 3 } = {}) => {
+  const chips = document.createElement("span");
+  chips.className = "breed-chips";
+  dogProfileChips(profileForCatalogId(catalogId), { limit }).forEach((value) => {
+    const chip = document.createElement("span");
+    chip.textContent = value;
+    chips.appendChild(chip);
+  });
+  return chips;
+};
+
+const profileSummary = (catalogId) => cleanText(profileForCatalogId(catalogId)?.summary);
 
 const handledLocation = (id) => {
   const key = `dogs:breed:vbo:${id}`;
@@ -970,6 +1033,8 @@ const reconcilePackProgress = () => {
 
 const createBreedTile = (item, { showContext = true } = {}) => {
   const candidate = displayItem(item);
+  const article = document.createElement("article");
+  article.className = "breed-card";
   const button = document.createElement("button");
   button.type = "button";
   button.className = "breed-tile";
@@ -981,17 +1046,30 @@ const createBreedTile = (item, { showContext = true } = {}) => {
   const title = document.createElement("strong");
   title.textContent = candidate.snapshot.primaryText;
   const context = document.createElement("span");
+  context.className = "breed-tile__context";
   context.textContent = location
     ? location === "curious" ? "Curious about" : location === "not_for_me" ? "Not for me" : "Ranked"
     : candidate.snapshot.secondaryText;
+  const summary = document.createElement("span");
+  summary.className = "breed-tile__summary";
+  summary.textContent = profileSummary(candidate.entityRef.id);
   button.append(createDogMedia(candidate), title);
-  if (showContext) button.append(context);
+  if (showContext) button.append(context, summary);
   button.addEventListener("click", () => beginRanking(candidate));
-  button.addEventListener("contextmenu", (event) => {
-    event.preventDefault();
+  const footer = document.createElement("span");
+  footer.className = "breed-card__footer";
+  const chips = createProfileChips(candidate.entityRef.id, { limit: 2 });
+  const learn = document.createElement("button");
+  learn.type = "button";
+  learn.className = "breed-card__learn";
+  learn.textContent = "Meet this dog";
+  learn.setAttribute("aria-label", `Learn about ${candidate.snapshot.primaryText}`);
+  learn.addEventListener("click", () => {
     openDetail(candidate.entityRef.id);
   });
-  return button;
+  footer.append(chips, learn);
+  article.append(button, footer);
+  return article;
 };
 
 const renderRecent = () => {
@@ -1020,8 +1098,18 @@ const renderRecent = () => {
 
 const featuredPackSelection = () => {
   const starters = packs.filter((pack) => pack.placements?.includes("starter"));
-  if (starters.length >= 3) return starters.slice(0, 3);
-  return [...starters, ...packs.filter((pack) => !starters.includes(pack) && pack.placements?.includes("featured"))].slice(0, 3);
+  const continuations = packs.filter((pack) => {
+    const stats = packStats(pack);
+    return stats.handled > 0 && !stats.complete;
+  });
+  const rotated = packs.length
+    ? packs.map((_, index) => packs[(index + featuredPackOffset) % packs.length])
+    : [];
+  const selected = [];
+  [...continuations.slice(0, 2), ...starters, ...rotated].forEach((pack) => {
+    if (pack && !selected.some((entry) => entry.id === pack.id) && selected.length < 6) selected.push(pack);
+  });
+  return selected;
 };
 
 const renderFeaturedPacks = () => {
@@ -1029,7 +1117,7 @@ const renderFeaturedPacks = () => {
   const selected = featuredPackSelection();
   if (!selected.length) {
     if (!catalogLoadError && catalogIndex) {
-      const samples = searchCatalog(catalogIndex, "", { limit: 9 }).map((result) => candidateForCatalogId(result.item.entityRef.id)).filter(Boolean);
+      const samples = searchCatalog(catalogIndex, "", { limit: 12 }).map((result) => candidateForCatalogId(result.item.entityRef.id)).filter(Boolean);
       if (samples.length) {
         selected.push({ id: "catalog-gateway", title: "Catalog gateway", subtitle: "A varied place to begin", family: "gateway", items: samples.map((item) => item.entityRef.id), placements: ["starter"] });
       }
@@ -1046,9 +1134,11 @@ const renderFeaturedPacks = () => {
     const family = document.createElement("span");
     family.textContent = dogEditorialDisplayText(pack.subtitle || pack.family);
     heading.append(title, family);
+    const description = document.createElement("p");
+    description.textContent = dogEditorialDisplayText(pack.description);
     const rail = document.createElement("div");
     rail.className = "featured-pack__rail";
-    packItems(pack).slice(0, 3).forEach((item) => rail.append(createBreedTile(item)));
+    packItems(pack).slice(0, 4).forEach((item) => rail.append(createBreedTile(item, { showContext: false })));
     const stats = packStats(pack);
     const footer = document.createElement("div");
     footer.className = "featured-pack__footer";
@@ -1060,7 +1150,7 @@ const renderFeaturedPacks = () => {
     progress.className = "featured-pack__progress";
     progress.textContent = stats.complete ? "Complete" : stats.handled ? `${stats.handled}/${stats.total} handled` : `${stats.total} breeds`;
     footer.append(action, progress);
-    section.append(heading, rail, footer);
+    section.append(heading, description, rail, footer);
     featuredPacksEl.appendChild(section);
   });
   discoveryFallback.hidden = !catalogLoadError;
@@ -1220,7 +1310,10 @@ const renderRanking = () => {
     context.textContent = shown.snapshot.secondaryText || "Breed or type";
     const raw = catalogById.get(item.entityRef.id);
     const alternateNames = dogDisplayAliases(raw, { limit: 3 });
-    copy.append(name, context);
+    const summary = document.createElement("span");
+    summary.className = "ranking-row__summary";
+    summary.textContent = profileSummary(item.entityRef.id);
+    copy.append(name, context, summary, createProfileChips(item.entityRef.id));
     if (alternateNames.length) {
       const aliases = document.createElement("span");
       aliases.className = "ranking-row__aliases";
@@ -1379,9 +1472,12 @@ const comparisonCardContent = (item) => {
   name.textContent = shown.snapshot.primaryText;
   const context = document.createElement("span");
   context.textContent = shown.snapshot.secondaryText || "Breed or type";
+  const summary = document.createElement("span");
+  summary.className = "comparison-card__summary";
+  summary.textContent = profileSummary(shown.entityRef.id);
   const indicator = document.createElement("b");
   indicator.textContent = "Choose";
-  copy.append(name, context, indicator);
+  copy.append(name, context, summary, indicator);
   fragment.append(copy);
   return fragment;
 };
@@ -1578,9 +1674,16 @@ function openDetail(catalogId) {
   title.textContent = shown.snapshot.primaryText;
   const status = document.createElement("p");
   status.className = "detail-copy__status";
-  status.textContent = entity ? dogStatusLabel(entity.status) : "Saved breed or type";
+  const profile = profileForCatalogId(catalogId);
+  status.textContent = profile?.typeLabel || (entity ? dogStatusLabel(entity.status) : "Saved breed or type");
+  const summary = document.createElement("p");
+  summary.className = "detail-copy__summary";
+  summary.textContent = profile?.summary || "This field note is still growing. You can rank the breed now and return as more sourced details are added.";
+  const chips = createProfileChips(catalogId, { limit: 2 });
+  chips.classList.add("detail-copy__chips");
   const note = document.createElement("p");
-  note.textContent = "Rank this by personal affection or interest—not as a prediction about an individual dog or household fit.";
+  note.className = "detail-safety-note";
+  note.textContent = "Rank by affection or curiosity. Breed traditions never predict an individual dog or household fit.";
   const actions = document.createElement("div");
   actions.className = "detail-actions";
   const location = handledLocation(catalogId);
@@ -1611,20 +1714,44 @@ function openDetail(catalogId) {
     fact.append(key, content);
     facts.appendChild(fact);
   };
+  addFact("Size", profile?.sizeLabel);
+  addFact("Dog family", profile?.typeLabel);
+  addFact("Origin", profile?.originRegions?.join(", "));
+  addFact("Historical roots", profile?.historicalRoots);
+  addFact("Breed group", profile?.registryGroups?.map((group) => `${group.label} · ${group.scheme}`).join(", "));
+  if (profile?.popularity) {
+    addFact("Popularity", `#${profile.popularity.rank} of ${profile.popularity.total} · ${profile.popularity.geography}, ${profile.popularity.year}`);
+  }
   addFact("Also known as", dogDisplayAliases(entity).join(", "));
-  addFact("Origin regions", entity?.originRegions?.join(", "));
   addFact("Part of", catalogById.get(entity?.relationships?.parentId)?.displayName);
-  addFact("Source", "Vertebrate Breed Ontology");
-  addFact("Catalog coverage", dogRegistryCoverageLabel(entity));
+  const factCallout = document.createElement("section");
+  factCallout.className = "detail-fact-callout";
+  const factLabel = document.createElement("span");
+  factLabel.textContent = "Worth knowing";
+  const factCopy = document.createElement("p");
+  factCopy.textContent = profile?.interestingFact || "This catalog preserves alternate, regional, and historical names so uncommon dogs do not disappear from discovery.";
+  factCallout.append(factLabel, factCopy);
   const image = approvedImageForCatalogId(catalogId, "detail");
   const attribution = document.createElement("p");
   attribution.className = "detail-attribution";
   if (image?.asset) {
     appendArtworkCredit(attribution, image.asset, shown.snapshot.primaryText);
   } else {
-    attribution.textContent = "No rights-approved display photo is available yet. Catalog inclusion never depends on image availability.";
+    attribution.textContent = "Portrait coming soon. Every breed remains fully rankable while its image is art-directed and reviewed.";
   }
-  copy.append(title, status, note, actions, facts, attribution);
+  const sources = document.createElement("details");
+  sources.className = "detail-sources";
+  const sourcesSummary = document.createElement("summary");
+  sourcesSummary.textContent = "Sources & image notes";
+  const sourcesCopy = document.createElement("p");
+  const coverage = dogRegistryCoverageLabel(entity);
+  sourcesCopy.textContent = [
+    "Breed identity: Vertebrate Breed Ontology (CC BY 4.0).",
+    coverage,
+    profile?.reviewStatus === "editor-reviewed" ? "This field note received an editorial review." : "This field note is built from structured source context and is still being deepened.",
+  ].filter(Boolean).join(" ");
+  sources.append(sourcesSummary, sourcesCopy, attribution);
+  copy.append(title, status, chips, summary, factCallout, actions, facts, note, sources);
   layout.append(createDogMedia(shown, "detail"), copy);
   detailContent.appendChild(layout);
   showDialog(detailDialog);
@@ -2302,14 +2429,35 @@ const loadCatalog = async () => {
   catalogStatus.classList.remove("is-error");
   catalogStatus.textContent = "Loading the breed catalog…";
   try {
-    const [catalogResponse, packsResponse, rightsResponse, policyResponse] = await Promise.all([
+    const [catalogResponse, packsResponse, rightsResponse, policyResponse, profilesResponse, generatedArtworkResponse] = await Promise.all([
       fetch(CATALOG_URL, { cache: "force-cache" }),
       fetch(PACKS_URL, { cache: "force-cache" }),
       fetch(RIGHTS_URL, { cache: "force-cache" }),
       fetch(RIGHTS_POLICY_URL, { cache: "force-cache" }),
+      fetch(PROFILES_URL, { cache: "force-cache" }),
+      fetch(GENERATED_ARTWORK_URL, { cache: "force-cache" }),
     ]);
     if (!catalogResponse.ok) throw new Error(`catalog ${catalogResponse.status}`);
     catalogDocument = await catalogResponse.json();
+    profileDocument = profilesResponse.ok ? await profilesResponse.json() : null;
+    profilesByCatalogId = new Map(Object.entries(profileDocument?.profiles || {})
+      .map(([id, profile]) => [id, normalizeDogProfile(profile)])
+      .filter(([, profile]) => profile));
+    generatedArtwork = generatedArtworkResponse.ok ? await generatedArtworkResponse.json() : null;
+    generatedArtworkByCatalogId = new Map((Array.isArray(generatedArtwork?.assets) ? generatedArtwork.assets : [])
+      .filter((asset) => cleanText(asset?.catalogId) && cleanText(asset?.assetId))
+      .map((asset) => [asset.catalogId, asset]));
+    catalogDocument = {
+      ...catalogDocument,
+      entities: catalogDocument.entities.map((entity) => {
+        const profile = profilesByCatalogId.get(entity.id);
+        return profile ? {
+          ...entity,
+          originRegions: profile.originRegions.length ? profile.originRegions : entity.originRegions,
+          tags: [...new Set([...(entity.tags || []), ...profile.editorialFamilies])],
+        } : entity;
+      }),
+    };
     normalizedCatalog = normalizeCatalog(catalogDocument, DOG_CATALOG_ADAPTER, {
       supportedSchemaVersions: [1],
       expectedCatalogId: "stackrank-dogs",
@@ -2333,12 +2481,16 @@ const loadCatalog = async () => {
       if (!rightsByCatalogId.has(asset.catalogId)) rightsByCatalogId.set(asset.catalogId, []);
       rightsByCatalogId.get(asset.catalogId).push(asset);
     });
-    const approvedCount = rightsAssets.filter((asset) => canProviderPurpose(
+    const legacyApprovedCount = rightsAssets.filter((asset) => canProviderPurpose(
       DOGS_CATEGORY,
       PROVIDER_PURPOSES.ARTWORK_UI_DISPLAY,
       { asset, rightsPolicy },
     )).length;
-    catalogStatus.textContent = `${catalogDocument.entities.length.toLocaleString()} selectable breeds and types · sourced from the Vertebrate Breed Ontology · photography appears only after rights review${approvedCount ? ` (${approvedCount} available)` : ""}`;
+    const generatedApprovedCount = [...generatedArtworkByCatalogId.values()]
+      .filter((asset) => asset.review?.status === "approved" && generatedAssetUrl(asset)).length;
+    const profileCount = profilesByCatalogId.size;
+    const portraitCount = generatedApprovedCount || legacyApprovedCount;
+    catalogStatus.textContent = `${catalogDocument.entities.length.toLocaleString()} dogs to discover · ${profileCount.toLocaleString()} field notes · ${portraitCount} featured portrait${portraitCount === 1 ? "" : "s"}`;
     fillFilterOptions();
     canonicalizeCurrentCatalogState({ announceUpgrade: true });
   } catch (error) {
@@ -2353,6 +2505,10 @@ const loadCatalog = async () => {
     rightsAssets = [];
     rightsByAssetId = new Map();
     rightsByCatalogId = new Map();
+    profileDocument = null;
+    profilesByCatalogId = new Map();
+    generatedArtwork = null;
+    generatedArtworkByCatalogId = new Map();
     catalogStatus.textContent = "The catalog could not be verified. Your saved ranking remains available.";
     catalogStatus.classList.add("is-error");
   }

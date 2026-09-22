@@ -34,11 +34,11 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="dogs.css?v=6" />
+    <link rel="stylesheet" href="dogs.css?v=7" />
   </head>
   <body>
     <header class="dogs-header">
-      <a class="dogs-brand" href="/dogs" aria-label="StackRank Dogs home">STACKRANK</a>
+      <a class="dogs-brand" href="/dogs" aria-label="StackRank Dogs home"><strong>STACKRANK</strong><span>DOGS</span></a>
       <nav class="dogs-nav" aria-label="Dogs destinations">
         <button type="button" data-destination="rank" aria-current="page">Rank</button>
         <button type="button" data-destination="ranking">Ranking</button>
@@ -78,7 +78,9 @@
     <main class="dogs-app">
       <section id="dogs-view-rank" class="dogs-view" data-view="rank">
         <section class="rank-panel" aria-labelledby="dogs-rank-heading">
-          <h1 id="dogs-rank-heading">Rank dog breeds</h1>
+          <p class="rank-panel__eyebrow">A field guide you put in order</p>
+          <h1 id="dogs-rank-heading">Rank the dogs you love.</h1>
+          <p class="rank-panel__dek">Meet familiar favorites, wonderfully specific regional dogs, and breeds you never knew you needed to know.</p>
           <form id="dogs-search-form" role="search" autocomplete="off">
             <label class="sr-only" for="dogs-search">Search dog breeds, types, and aliases</label>
             <div class="search-control">
@@ -99,7 +101,7 @@
             </div>
             <ul id="dogs-suggestions" role="listbox" hidden></ul>
           </form>
-          <p class="rank-panel__explanation">Pick any breed to start. We’ll place each one through quick head-to-head choices.</p>
+          <p class="rank-panel__explanation">Pick a dog to start. A few quick head-to-head choices will find its exact place.</p>
           <p id="dogs-catalog-status" class="catalog-status" role="status" aria-live="polite">Loading the breed catalog…</p>
         </section>
 
@@ -114,8 +116,8 @@
         <section class="dogs-discovery" aria-labelledby="dogs-packs-heading">
           <div class="section-heading-row">
             <div>
-              <h2 id="dogs-packs-heading">Start with a pack</h2>
-              <p>Globally varied starting points, never suitability advice.</p>
+              <h2 id="dogs-packs-heading">Fresh ways in</h2>
+              <p>Dog-lover rabbit holes, from familiar faces to glorious oddballs.</p>
             </div>
             <button id="dogs-view-all-packs" type="button">View all dog packs <span aria-hidden="true">→</span></button>
           </div>
@@ -130,8 +132,8 @@
         <section id="dogs-browse-section" class="browse-panel" aria-labelledby="dogs-browse-heading" hidden>
           <div class="section-heading-row">
             <div>
-              <h2 id="dogs-browse-heading">Explore the catalog</h2>
-              <p>A few more selectable breeds and types from the verified catalog.</p>
+              <h2 id="dogs-browse-heading">Meet a dog you may not know</h2>
+              <p>Every name opens a field note—learn a little, rank it if you feel the spark.</p>
             </div>
             <button id="dogs-refresh-browse" type="button">Show different breeds</button>
           </div>
@@ -172,7 +174,7 @@
           </label>
           <label class="check-control">
             <input id="dogs-image-filter" type="checkbox" />
-            Has approved display photo
+            Has featured portrait
           </label>
           <button id="dogs-clear-filters" type="button">Clear filters</button>
         </div>
@@ -271,7 +273,7 @@
       <div class="dialog-heading">
         <p class="section-label">Explore</p>
         <h1>Dog packs</h1>
-        <p>Editorial starting points grounded in catalog status and provenance—not suitability claims.</p>
+        <p>Forty-six ways to wander through the dog world—by history, place, shape, and working tradition.</p>
       </div>
       <div class="pack-browser-tools">
         <label>
@@ -380,9 +382,9 @@
 
     <footer class="dogs-footer">
       <p>
-        Breed and type names come from the
+        Breed names and identities come from the
         <a href="https://obofoundry.org/ontology/vbo.html" target="_blank" rel="noreferrer">Vertebrate Breed Ontology</a>
-        (CC BY 4.0). Breed preference is not advice about an individual dog.
+        (CC BY 4.0). Field notes use sourced editorial research; portraits marked as generated are art-directed illustrations of a breed, never a promise about an individual dog.
       </p>
       <div>
         <a href="/privacy">Privacy</a>
@@ -390,6 +392,6 @@
       </div>
     </footer>
 
-    <script type="module" src="dogs.js?v=23"></script>
+    <script type="module" src="dogs.js?v=26"></script>
   </body>
 </html>

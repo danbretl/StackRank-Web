@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-root",
+  "images": [
+    {
+      "catalogId": "VBO:0200623",
+      "name": "Great Dane",
+      "reference": {
+        "assetId": "dogs:photo:commons:bef7de10251cfe2f",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Dog_niemiecki_profil.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/VBO-0200623-great-dane.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v1",
+      "generatedAt": "2026-09-22T06:04:00Z",
+      "prompt": "Photorealistic editorial field portrait of one adult harlequin Great Dane, using the reviewed reference only for morphology and coat cues; full-body eye-level three-quarter stance in a quiet meadow, landscape 3:2, soft overcast light, crop-safe, natural anatomy and fur, with no handler, collar, leash, text, logo, costume, show staging, HDR, or anatomy artifacts.",
+      "qa": {
+        "verdict": "pass",
+        "breedIdentity": "Clear Great Dane silhouette with a long-legged giant frame, deep chest, rectangular head, natural drop ears, and believable harlequin coat.",
+        "anatomy": "Four coherent weight-bearing legs and paws, plausible topline, muzzle, ears, and tail with no visible generation artifacts.",
+        "crop": "Full body is centered in a 1536×1024 landscape frame with generous crop-safe space around the ears, paws, and tail.",
+        "aesthetics": "Soft meadow light, restrained color, natural expression, and detailed coat meet the premium field-guide standard."
+      }
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "ledgerVersion": "2026-09-22.e08",
+  "ledgerVersion": "2026-09-22.e09",
   "policyVersion": "2026-07-16.1",
   "catalogVersion": "vbo-2026-04-15.2",
   "sourceDates": {
@@ -16,8 +16,8 @@
     "missingPromotedCatalogIds": []
   },
   "ledger": {
-    "rows": 238,
-    "approvedRightsRows": 238,
+    "rows": 259,
+    "approvedRightsRows": 259,
     "pendingRows": 0,
     "quarantinedRows": 0,
     "readyDeliveryRows": 28,
@@ -25,27 +25,27 @@
       "CC-BY-2.0": 5,
       "CC-BY-2.5": 1,
       "CC-BY-3.0": 5,
-      "CC-BY-4.0": 15,
+      "CC-BY-4.0": 16,
       "CC-BY-SA-2.5": 1,
-      "CC-BY-SA-3.0": 85,
-      "CC-BY-SA-4.0": 117,
+      "CC-BY-SA-3.0": 90,
+      "CC-BY-SA-4.0": 132,
       "CC0-1.0": 9
     },
     "approvedLicenseDistribution": {
       "CC-BY-2.0": 5,
       "CC-BY-2.5": 1,
       "CC-BY-3.0": 5,
-      "CC-BY-4.0": 15,
+      "CC-BY-4.0": 16,
       "CC-BY-SA-2.5": 1,
-      "CC-BY-SA-3.0": 85,
-      "CC-BY-SA-4.0": 117,
+      "CC-BY-SA-3.0": 90,
+      "CC-BY-SA-4.0": 132,
       "CC0-1.0": 9
     },
     "allRowsSourceProviderDistribution": {
-      "wikimedia-commons": 238
+      "wikimedia-commons": 259
     },
     "approvedSourceProviderDistribution": {
-      "wikimedia-commons": 238
+      "wikimedia-commons": 259
     }
   },
   "coverage": {
@@ -85,8 +85,8 @@
   "unresolvedUiArtworkSummary": {
     "total": 1211,
     "byReason": {
-      "approved rights, delivery/purpose not ready": 210,
-      "no ledger row": 1001
+      "approved rights, delivery/purpose not ready": 231,
+      "no ledger row": 980
     },
     "promotedTotal": 0
   },
@@ -255,7 +255,7 @@
     {
       "catalogId": "VBO:0200009",
       "primaryText": "Akbash",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200010",
@@ -290,7 +290,7 @@
     {
       "catalogId": "VBO:0200016",
       "primaryText": "Alaskan Klee Kai",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200017",
@@ -315,7 +315,7 @@
     {
       "catalogId": "VBO:0200023",
       "primaryText": "Alpine Dachsbracke",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200024",
@@ -415,7 +415,7 @@
     {
       "catalogId": "VBO:0200045",
       "primaryText": "American English Coonhound",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200046",
@@ -425,7 +425,7 @@
     {
       "catalogId": "VBO:0200047",
       "primaryText": "American Foxhound",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200049",
@@ -630,7 +630,7 @@
     {
       "catalogId": "VBO:0200100",
       "primaryText": "Austrian Black and Tan Hound",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200101",
@@ -645,7 +645,7 @@
     {
       "catalogId": "VBO:0200103",
       "primaryText": "Austrian Pinscher",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200104",
@@ -705,12 +705,12 @@
     {
       "catalogId": "VBO:0200118",
       "primaryText": "Barbado da Terceira",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200121",
       "primaryText": "Basque Shepherd Dog",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200122",
@@ -720,12 +720,12 @@
     {
       "catalogId": "VBO:0200124",
       "primaryText": "Basset Bleu de Gascogne",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200125",
       "primaryText": "Basset Fauve de Bretagne",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200126",
@@ -1310,7 +1310,7 @@
     {
       "catalogId": "VBO:0200273",
       "primaryText": "Can de Palleiro",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200274",
@@ -1560,7 +1560,7 @@
     {
       "catalogId": "VBO:0200344",
       "primaryText": "Chinese Chongqing Dog",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200346",
@@ -2315,7 +2315,7 @@
     {
       "catalogId": "VBO:0200529",
       "primaryText": "Formosan Mountain Dog",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200530",
@@ -2955,7 +2955,7 @@
     {
       "catalogId": "VBO:0200696",
       "primaryText": "Indian Spitz",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200697",
@@ -3125,7 +3125,7 @@
     {
       "catalogId": "VBO:0200741",
       "primaryText": "Japanese Terrier",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200743",
@@ -3255,7 +3255,7 @@
     {
       "catalogId": "VBO:0200772",
       "primaryText": "Kintamani-Bali Dog",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200773",
@@ -4165,7 +4165,7 @@
     {
       "catalogId": "VBO:0200989",
       "primaryText": "Patagonian Sheepdog",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200990",
@@ -4675,7 +4675,7 @@
     {
       "catalogId": "VBO:0201109",
       "primaryText": "Pungsan Dog",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201110",
@@ -6000,7 +6000,7 @@
     {
       "catalogId": "VBO:0201435",
       "primaryText": "Xiasi Dog",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201437",
@@ -6030,7 +6030,7 @@
     {
       "catalogId": "VBO:0201442",
       "primaryText": "Yakutian Laika",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201443",

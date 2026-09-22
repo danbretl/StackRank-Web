@@ -14,7 +14,7 @@ import {
 } from "/lib/dogs-artwork-review.js?v=1";
 
 const DATA_URLS = {
-  manifest: "/data/dogs/generated-artwork.json?v=11",
+  manifest: "/data/dogs/generated-artwork.json?v=12",
   catalog: "/data/dogs/dog-catalog.json?v=4",
   profiles: "/data/dogs/breed-profiles.json?v=1",
 };
@@ -25,7 +25,7 @@ const BATCH_METADATA_URLS = [
   "/data/dogs/generated-artwork-batch-b.json",
   "/data/dogs/generated-artwork-batch-c.json",
   "/data/dogs/generated-artwork-batch-d.json",
-  ...Array.from({ length: 8 }, (_, index) =>
+  ...Array.from({ length: 9 }, (_, index) =>
     `/data/dogs/generated-artwork-batch-e${String(index + 1).padStart(2, "0")}.json`),
 ];
 

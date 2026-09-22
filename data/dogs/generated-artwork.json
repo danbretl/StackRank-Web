@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "manifestVersion": "dogs-generated-artwork-238-877af04643b4",
+  "manifestVersion": "dogs-generated-artwork-259-43aeb1e9102f",
   "policyVersion": "dogs-generated-artwork-2026-09-21.1",
   "disclosure": "AI-generated breed portrait, art-directed for StackRank. Individual dogs vary.",
   "assets": [
@@ -320,6 +320,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200009:v1",
+      "catalogId": "VBO:0200009",
+      "name": "Akbash",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:55:56.765356+00:00",
+      "masterSha256": "f7c18b52a15881f6cdfe9345e929d3f8061078582d32a8609699b4c48e3ec556",
+      "reference": {
+        "assetId": "dogs:photo:commons:bbeafb33cbdcfb36",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Akbash_Dog_male_2016.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T20:55:56.765356+00:00",
+        "breedIdentity": "Large lean adult male Akbash with long functional legs, deep chest, elongated wedge head, natural pendant ears, white medium double coat and complete loose-curved bushy tail; athletic guardian rather than massive mastiff.",
+        "anatomy": "All four paws are visible and grounded, legs and hocks are coherent, topline and tuck-up plausible, eyes aligned and complete tail correctly attached.",
+        "crop": "Complete silhouette approximately x=350..1070 and y=187..891, about 704 pixels high; larger than target but fully contained with 187 pixels above, 133 below and broad plateau visible across the frame.",
+        "aesthetics": "Exceptional crisp white-coat detail without clipping, steady expression, natural morning illumination and expansive low rolling Anatolian plateau depth."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 20552,
+          "sha256": "272b51f940c18ac7afc9c5ea3d7ab3f06efa7a36a547d69f7a586485d978c479",
+          "url": "assets/dogs/generated/VBO-0200009-akbash-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 136646,
+          "sha256": "16951e08738e98173b5959b8c4028eeb10e1ac75223dc09cfba4288b2e3635f9",
+          "url": "assets/dogs/generated/VBO-0200009-akbash-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200010:v1",
       "catalogId": "VBO:0200010",
       "name": "Akita",
@@ -361,6 +406,51 @@
           "bytes": 108050,
           "sha256": "2e775cbe61b62a0d02a9a6259cf1d6183ffeda438a22f7e66741f5381e0f6d0d",
           "url": "assets/dogs/generated/VBO-0200010-akita-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200016:v1",
+      "catalogId": "VBO:0200016",
+      "name": "Alaskan Klee Kai",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:57:01.519906+00:00",
+      "masterSha256": "fcea66bd6467ae56bedbfba406bca636f105376bcb781d62d6a68772e3e96674",
+      "reference": {
+        "assetId": "dogs:photo:commons:868a2bcee3b6e82a",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Nakoa.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T20:57:01.519906+00:00",
+        "breedIdentity": "Adult grey-and-white Alaskan Klee Kai with compact small-spitz proportions, refined wedge head, erect well-furred ears, dark almond eyes, clean central blaze and mask, medium coat and complete plumed over-back tail; no merle effect.",
+        "anatomy": "Four individual paws and sound legs are clearly grounded on gravel; coherent topline and hocks, symmetrical alert face and complete correctly attached curl tail.",
+        "crop": "Complete silhouette approximately x=466..1058 and y=244..899, about 655 pixels high; larger than the requested ideal but fully contained with 244 pixels above, 125 below and extensive river landscape around it.",
+        "aesthetics": "Premium crisp coat and mask detail, restrained cool light, luminous autumn birch and willow, gravel texture and layered river bend with excellent field-guide clarity."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 23852,
+          "sha256": "fe49de54838d9b82d82266eab362b74d57d4a8875cb09ecacb8785a6d30e8e0c",
+          "url": "assets/dogs/generated/VBO-0200016-alaskan-klee-kai-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 164342,
+          "sha256": "6ffb7db53f17f90b23c7e6611f8efa7a66151c9a5fc1df3432ac3cba78e42e55",
+          "url": "assets/dogs/generated/VBO-0200016-alaskan-klee-kai-960.webp"
         }
       ]
     },
@@ -410,6 +500,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200023:v1",
+      "catalogId": "VBO:0200023",
+      "name": "Alpine Dachsbracke",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T21:33:56.091723+00:00",
+      "masterSha256": "d3b3ef340eda795a4d3bd1237362c8a16b5d70994146724f9242e25540fdab1b",
+      "reference": {
+        "assetId": "dogs:photo:commons:d32b1641e0bf34ec",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Alpejski_go%C5%84czy_kr%C3%B3tkono%C5%BCny_g99.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T21:33:56.091723+00:00",
+        "breedIdentity": "Adult Alpine Dachsbracke retains low elongated substantial frame, short strong legs, broad rounded pendant ears, strong muzzle and dark deer-red dense coat with black hair shading.",
+        "anatomy": "Four clear grounded paws, sensible joints and weight, readable brown eyes, closed mouth and complete long low natural brush tail.",
+        "crop": "Silhouette approximately x357..1279,y205..857, about652px high.205px upper margin and167px lower margin; tail and all paws comfortably contained.",
+        "aesthetics": "Rich but restrained red coat, fine dense hair and soft face light; airy golden larch glade with textured limestone foreground and layered woodland."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 30012,
+          "sha256": "e015334b4fb307b6913aeb3e428d6db6ae02956807e7abea99e609bcd4bb09be",
+          "url": "assets/dogs/generated/VBO-0200023-alpine-dachsbracke-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 199812,
+          "sha256": "0f5e3cdb01dcff026f7a2e5ae070d12dd65c7a6817964d9f91b8d580f442fa94",
+          "url": "assets/dogs/generated/VBO-0200023-alpine-dachsbracke-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200034:v1",
       "catalogId": "VBO:0200034",
       "name": "American Bulldog",
@@ -455,6 +590,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200045:v1",
+      "catalogId": "VBO:0200045",
+      "name": "American English Coonhound",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T21:36:48.891591+00:00",
+      "masterSha256": "bb88e13a2bdae5d1da7d0387c319c8c0e62498ac277801b09d023db3ec72c1cc",
+      "reference": {
+        "assetId": "dogs:photo:commons:b541d2503c7f41df",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Stacked_English_Coonhound.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T21:36:48.891591+00:00",
+        "breedIdentity": "Lean adult American English Coonhound with long pendant ears, square muzzle, tall athletic body and tricolour ticking: solid black patches, fine black/white flecks and warm tan face and legs. No merle or brindle substitution.",
+        "anatomy": "Four distinct planted paws with credible joints and balanced weight; dark brown eyes, closed mouth and complete natural slightly brushed tail in an open upward curve.",
+        "crop": "Approximate silhouette x395..1260,y185..889, about704px high.185px above and135px below, with no clipping and broad forest visible on both sides.",
+        "aesthetics": "Detailed smooth hound coat, kind adult expression and clear sunlit woodland depth; natural soil footing and restrained warm dappled light."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 31878,
+          "sha256": "31c0f356f7411b6612dd961ba73140651dcc484263dde5b2fee702f4b392279f",
+          "url": "assets/dogs/generated/VBO-0200045-american-english-coonhound-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 212908,
+          "sha256": "43843951c2ed546a0a09adaeae4c1058690be20018774c147daf911d159a69e3",
+          "url": "assets/dogs/generated/VBO-0200045-american-english-coonhound-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200046:v1",
       "catalogId": "VBO:0200046",
       "name": "American Eskimo Dog",
@@ -496,6 +676,51 @@
           "bytes": 151334,
           "sha256": "385a7aa8641c4ec172d70ed33af35496283fa2023834479579d8130a269d642b",
           "url": "assets/dogs/generated/VBO-0200046-american-eskimo-dog-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200047:v1",
+      "catalogId": "VBO:0200047",
+      "name": "American Foxhound",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T21:38:54.520150+00:00",
+      "masterSha256": "2db0ea37ab2e56e40ec5ae386633492c6a830f808db1439e0316dc409f072c04",
+      "reference": {
+        "assetId": "dogs:photo:commons:7fcf708968c5292b",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:American_Foxhound.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T21:38:54.520150+00:00",
+        "breedIdentity": "Tall lean adult male American Foxhound with long legs, deep narrow chest, long square muzzle, brown eyes, low pendant ears, tricolour saddle and white-tipped full tail; distinct from a compact Beagle.",
+        "anatomy": "Four separately planted complete paws, credible joints and adult proportions, closed mouth and a full correctly attached slightly curved tail with modest brush.",
+        "crop": "Approximate silhouette x286..1055,y223..880, about657px high.223px above and144px foreground below; substantial open meadow on right and complete tail clearance on left.",
+        "aesthetics": "Fine coat detail, composed expression and natural warm side light; spacious meadow and distant treeline give the portrait depth without clutter."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 22626,
+          "sha256": "e3713aa08b2088364ed411a14d72246de1619dc05d6a5b921cfb97d43a35991c",
+          "url": "assets/dogs/generated/VBO-0200047-american-foxhound-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 148878,
+          "sha256": "b9b1fc4a2f2327e85fd341f7d1d17593aea365757b1e653f4e48f360a0b278dd",
+          "url": "assets/dogs/generated/VBO-0200047-american-foxhound-960.webp"
         }
       ]
     },
@@ -1040,6 +1265,96 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200100:v1",
+      "catalogId": "VBO:0200100",
+      "name": "Austrian Black and Tan Hound",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T21:46:54.772970+00:00",
+      "masterSha256": "996298c83423d5ea628a42e1cc6f9394b10040916d132cbc342e340d941a32c4",
+      "reference": {
+        "assetId": "dogs:photo:commons:611b485dd7a9dcc6",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Austrian_Brandlbracke.JPG"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T21:46:54.772970+00:00",
+        "breedIdentity": "Strong supple long-bodied adult black-and-tan Austrian hound with paired tan eyebrows, tan muzzle/chest and lower legs, lustrous short smooth black coat, brown eyes, long natural drooping ears and complete low tapered tail. Slim long hound proportions preserve identity.",
+        "anatomy": "Four individually readable planted feet with plausible legs/joints; natural ears, complete long tail, coherent closed muzzle and eyes. No duplicated anatomy.",
+        "crop": "Approximate silhouette x305..1170 y161..865, about704px high. Top161/bottom159 exceed100px minimum. Still larger than490/580 prompt target, but materially more spacious than rejected782px first attempt, with broad leaf-strewn foreground and background visible.",
+        "aesthetics": "Crisp restrained fur detail, warm copper leaves against deep black coat, receding beech woodland; less dominant near-edge trunk and balanced three-quarter stance. Premium field portrait."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 30132,
+          "sha256": "e88fb30b17cff865251ee26b3c4ad14202656b8da96e9376243b870604435c71",
+          "url": "assets/dogs/generated/VBO-0200100-austrian-black-and-tan-hound-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 180982,
+          "sha256": "a0e469631d2cacdcf7be0c379ee25fa02f4e5f0d5e0ededee1d4c93f52545d3e",
+          "url": "assets/dogs/generated/VBO-0200100-austrian-black-and-tan-hound-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200103:v1",
+      "catalogId": "VBO:0200103",
+      "name": "Austrian Pinscher",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T21:48:44.333050+00:00",
+      "masterSha256": "820e5cf7f7c7ebcb17886ff4f3cf3f5933c0348d9e033ecf1393505958c9c5e7",
+      "reference": {
+        "assetId": "dogs:photo:commons:f61015e90eb9f8a1",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Austrianpinscherosterreich4.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T21:48:44.333050+00:00",
+        "breedIdentity": "Credible sturdy slightly rectangular Austrian Pinscher with broad pear-like head, strong moderate muzzle, dark brown eyes, natural folded ears, dense russet-gold coat with intermingled dark-tipped hair and small white chest mark. Full hairy natural open-curled tail matches reviewed breed morphology; coat is shaded hair, not merle patches or tiger brindle.",
+        "anatomy": "All four compact paws individually visible and grounded; coherent shoulder/hip/hock structure, natural paired ears, complete attached curled tail with visible tip. No visible extra limbs or malformed eyes/muzzle.",
+        "crop": "Approximate silhouette x391..1167 y200..896,696px high. Clear200px above and128px below, generous lateral meadow. Exceeds580px requested target but passes100px minimum and provides substantial scene.",
+        "aesthetics": "Warm detailed double coat, lucid eyes, airy spring meadow and restrained yellow flowers; balanced earthy foreground, green middle distance and blue-grey natural wooded hill. Premium natural portrait."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 22792,
+          "sha256": "4989edb756a29660de927162b536aeff3caf0726537ed6d1a3081c807bc33a2b",
+          "url": "assets/dogs/generated/VBO-0200103-austrian-pinscher-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 151952,
+          "sha256": "6cfc6f7bf75bdd2f4ee3784e45ff3b1b1a75d4ecf4a8bf9edbe0d9c2f501bb06",
+          "url": "assets/dogs/generated/VBO-0200103-austrian-pinscher-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200108:v1",
       "catalogId": "VBO:0200108",
       "name": "Azawakh",
@@ -1130,6 +1445,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200118:v1",
+      "catalogId": "VBO:0200118",
+      "name": "Barbado da Terceira",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:59:18.396205+00:00",
+      "masterSha256": "b37e5ae661226c3829481cf4f13f8fd45ca230296909e6c5c7de72866e9209db",
+      "reference": {
+        "assetId": "dogs:photo:commons:9b546e7bbcc43d6a",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Terceiracattlebarbado2.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T20:59:18.396205+00:00",
+        "breedIdentity": "Adult grey Barbado da Terceira with strong agile slightly elongated body, substantial muzzle, pendant hair-covered ears, warm brown eyes, abundant gently wavy grey-charcoal coat, lighter beard/chest/legs and full low-set hairy tail.",
+        "anatomy": "All four paws are distinct and grounded with plausible functional limbs and hocks; level back, clear face and complete correctly attached tail separated from hind legs.",
+        "crop": "Complete silhouette approximately x=341..1055 and y=239..833, about 594 pixels high (~58%); 239 pixels of scenery above and 191 pixels of real foreground below.",
+        "aesthetics": "Excellent tactile shaggy coat without corded or Poodle styling, calm direct expression, dark moist earth, basalt stones and luminous layered maritime mist."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 19502,
+          "sha256": "99d43ce3edb9f78dd4a2bb75566eb39fa4ffed9716538467549cda9805406f39",
+          "url": "assets/dogs/generated/VBO-0200118-barbado-da-terceira-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 132306,
+          "sha256": "36379dd2fc5f3d1e8ce9db93f8d35a415d03f59552c9c793d17a2fdb8467fdfb",
+          "url": "assets/dogs/generated/VBO-0200118-barbado-da-terceira-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200120:v1",
       "catalogId": "VBO:0200120",
       "name": "Basenji",
@@ -1171,6 +1531,141 @@
           "bytes": 124262,
           "sha256": "b6ae1bebbbcb0febb231d9e7b12695a54ae1a2bc75904f9c0b33f50d01e1fe16",
           "url": "assets/dogs/generated/VBO-0200120-basenji-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200121:v1",
+      "catalogId": "VBO:0200121",
+      "name": "Basque Shepherd Dog",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T21:41:02.750Z",
+      "masterSha256": "fcfd2ed21b4b7635d315e2a8e399de5983b70f531ace3a404f54880158b92dad",
+      "reference": {
+        "assetId": "dogs:photo:commons:91e146caae7cd3ae",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Basque_Herder_smooth-haired_1.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T21:49:40.494236+00:00",
+        "breedIdentity": "pass — convincing smooth-haired Gorbeiakoa type with red-fawn long-lined body, fine muzzle, dropped ears and full feathered tail",
+        "anatomy": "pass — sound adult herding structure with four planted paws and coherent complete tail",
+        "crop": "pass — approximately 55% frame height, below the hard 60% limit, with ample upper and lower margins",
+        "aesthetics": "pass — warm Basque foothill editorial scene with restrained autumn color and clear coat detail"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 22654,
+          "sha256": "a0365582d67ffc1629a412b431e10eac0f6ce09505576249033246702f7a4acb",
+          "url": "assets/dogs/generated/VBO-0200121-basque-shepherd-dog-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 150058,
+          "sha256": "11ece8bc1add3aa4eb22085d7ebda66660632179ff3673e4f20323b1427a4855",
+          "url": "assets/dogs/generated/VBO-0200121-basque-shepherd-dog-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200124:v1",
+      "catalogId": "VBO:0200124",
+      "name": "Basset Bleu de Gascogne",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T21:50:07.748097+00:00",
+      "masterSha256": "448cad603cc1fb3e86f375db622e39701b2337c636cdd48fa6a4c348d844ff5e",
+      "reference": {
+        "assetId": "dogs:photo:commons:79aba13ffb407aab",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Gascognenbassetti.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T21:50:07.748097+00:00",
+        "breedIdentity": "Low long substantial Basset Bleu de Gascogne with deep chest, short strong legs, long strong muzzle, very long low-set inward-folded natural ears, dark eyes, tan eyebrows/cheeks/lower legs and fine black-white ticking plus distinct solid black patches. Ticking remains small hair-level flecks rather than merle blotches. Complete tapering raised sabre tail.",
+        "anatomy": "Four separate planted compact paws; credible short sturdy hound legs, natural paired ears and complete attached tail. Coherent closed muzzle, eyes and joints, no visible distortions.",
+        "crop": "Approximate silhouette x224..1158 y193..876,683px including high tail; head y278. Top193/bottom148 clear scenery. Wider than850px prompt and taller than480/580px target, but roomy unclipped natural environmental composition exceeds100px margins.",
+        "aesthetics": "Luminous warm coat and subtle slate-blue ticking against pale sandy earth, dry grass and oak woodland. Fine ear texture and clear face, calm adult stance and expansive natural distance."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 27876,
+          "sha256": "4474d820b884026e1f4f340c342db85a7c2bdd6fbaff24971fff51b0d1ed0a56",
+          "url": "assets/dogs/generated/VBO-0200124-basset-bleu-de-gascogne-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 174584,
+          "sha256": "9141c89291bb4793bf2379460f32a908503bfafe36f21e3c9c83bf927e4b663d",
+          "url": "assets/dogs/generated/VBO-0200124-basset-bleu-de-gascogne-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200125:v1",
+      "catalogId": "VBO:0200125",
+      "name": "Basset Fauve de Bretagne",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T21:51:23.862409+00:00",
+      "masterSha256": "8a0435e4dc67426bb41956547bd5959219cd8d035e1de5e255b88b28b45e08ac",
+      "reference": {
+        "assetId": "dogs:photo:commons:70847cf257a9e4b1",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Bassetfauve1.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T21:51:23.862409+00:00",
+        "breedIdentity": "Small stocky low Basset Fauve de Bretagne with shorter strong back than exaggerated Basset types, short functional legs, harsh rather short rust-fawn coat, restrained brows/whiskers and unobscured dark brown eyes. Natural pendant inward-folded ears, black nose, complete medium bristly tail in gentle sickle. Coat is wiry rather than fluffy, curled or long-shaggy.",
+        "anatomy": "Four individually visible compact planted paws with plausible joints and stance; coherent closed muzzle, two clear eyes, complete natural ears and tail. No duplicates or deformities.",
+        "crop": "Approximate silhouette x405..1204 y275..858,583px high including tail; head y286. Clear275px above and166px beneath, with substantial lateral heath and foreground. Near580px framing target, safely exceeds100px margins.",
+        "aesthetics": "Beautiful rust coat against muted heather and pearl sky, individual harsh hairs resolved, open Breton heath with grey-pink granite and unobstructed paws; calm direct expression and layered natural terrain."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 20840,
+          "sha256": "db76c2e6f1342a7b62e007e8797fbd8ea388d0245bd74b3975bb2a82aedac498",
+          "url": "assets/dogs/generated/VBO-0200125-basset-fauve-de-bretagne-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 137296,
+          "sha256": "6f86eba1b816bc6976ccd5320ed607cc86db5441602f491956b4f18d9f121a8f",
+          "url": "assets/dogs/generated/VBO-0200125-basset-fauve-de-bretagne-960.webp"
         }
       ]
     },
@@ -2627,6 +3122,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200273:v1",
+      "catalogId": "VBO:0200273",
+      "name": "Can de Palleiro",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T21:40:18.584Z",
+      "masterSha256": "5502fd5b4881bcbd92146412e080cdf217023adaf1b0d54be3c2205611a459c0",
+      "reference": {
+        "assetId": "dogs:photo:commons:6abef40e29d54949",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Gaius_3_(1_von_1).jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T21:49:40.485805+00:00",
+        "breedIdentity": "pass — robust pale-fawn lupoïd Galician shepherd type with wedge head, upright ears and low saber tail",
+        "anatomy": "pass — sound coherent adult structure, four separate grounded paws and complete attached tail",
+        "crop": "pass — approximately 51% frame height with generous margins and complete ears, paws and tail",
+        "aesthetics": "pass — premium rain-bright Galician upland scene, tactile coat and natural depth"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 18676,
+          "sha256": "a28fa6fc9a031f1251616af1ee68f6b28bc3c562be99463d0301a594293fe9d8",
+          "url": "assets/dogs/generated/VBO-0200273-can-de-palleiro-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 117214,
+          "sha256": "51f53b19f0e6988c865aecffb93dded0fff680438f2a53de810d92215cd64450",
+          "url": "assets/dogs/generated/VBO-0200273-can-de-palleiro-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200274:v1",
       "catalogId": "VBO:0200274",
       "name": "Canaan Dog",
@@ -3034,6 +3574,51 @@
           "bytes": 108286,
           "sha256": "8f203b86c33bb9443cefbb21548700bbe17fc3d8ac96264a4cd599ef23d027bc",
           "url": "assets/dogs/generated/VBO-0200338-chihuahua-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200344:v1",
+      "catalogId": "VBO:0200344",
+      "name": "Chinese Chongqing Dog",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:52:57.179898+00:00",
+      "masterSha256": "4fe5cce050fe4629dfe2fa08f606f0c2b3a740b6ef2d33e7014fadcce7ed9702",
+      "reference": {
+        "assetId": "dogs:photo:commons:f4e56e881a67b6be",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Chongqing-red2.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T20:52:57.179898+00:00",
+        "breedIdentity": "Adult red-brown Chinese Chongqing Dog with compact athletic body, broad proportionate head, short strong muzzle, moderate vertical forehead wrinkles, natural erect ears and straight bamboo-like tail; avoids extreme mastiff bulk.",
+        "anatomy": "All four paws are individually readable and grounded; straight functional limbs, coherent topline and belly, symmetrical eyes, tight lips and fully attached complete tail.",
+        "crop": "Complete silhouette approximately x=462..1062 and y=257..853, about 596 pixels high (~58%); 257 pixels of woodland above and 171 pixels of real wet-earth foreground below.",
+        "aesthetics": "Rich but restrained red-brown coat texture, calm alert expression, convincing post-rain earth and beautifully layered broadleaf woodland with natural soft light."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 31138,
+          "sha256": "0a8c9bde4a73ee4dafe3649c217e1ec29c557874a2f5f5deb63a73ec2e18ac2d",
+          "url": "assets/dogs/generated/VBO-0200344-chinese-chongqing-dog-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 200690,
+          "sha256": "55b8d5a588b86f26ac0859f7aae63f8022fc24d7cc69ca1b44afd4c2f21b4d37",
+          "url": "assets/dogs/generated/VBO-0200344-chinese-chongqing-dog-960.webp"
         }
       ]
     },
@@ -4388,6 +4973,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200529:v1",
+      "catalogId": "VBO:0200529",
+      "name": "Formosan Mountain Dog",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T21:41:51.934Z",
+      "masterSha256": "f0d6aaf0da62a070b3d03cd6a57a53daf67f2391f34679e04068fdb4bfa438ea",
+      "reference": {
+        "assetId": "dogs:photo:commons:27ac96e0c569af6c",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Taiwandogblack1.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T21:49:40.502369+00:00",
+        "breedIdentity": "pass — dry sinewy black Taiwan Dog with triangular head, pricked ears and high sickle tail",
+        "anatomy": "pass — four sound independent limbs, tight feet, coherent joints and attached complete tail",
+        "crop": "pass — about 57% frame height with more than 100 pixels above and below and no cropped anatomy",
+        "aesthetics": "pass — legible Taiwan mountain clearing, excellent black-coat separation and natural atmospheric depth"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 23438,
+          "sha256": "d11d7e109b731b39a34e728668c98161f964ca0ce1b2bb5c301e3e9bd34ad00c",
+          "url": "assets/dogs/generated/VBO-0200529-formosan-mountain-dog-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 144890,
+          "sha256": "9c6e454238e5d832b15797b9d6e5c6a0b4a8dc8669edd608c03d08441edc7087",
+          "url": "assets/dogs/generated/VBO-0200529-formosan-mountain-dog-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200550:v1",
       "catalogId": "VBO:0200550",
       "name": "French Water Dog",
@@ -5468,6 +6098,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200696:v1",
+      "catalogId": "VBO:0200696",
+      "name": "Indian Spitz",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:54:57.463295+00:00",
+      "masterSha256": "5fdc04d1be0c628a700533f6417cb377fb0e7c0429dca338b72aabed6d0af5d9",
+      "reference": {
+        "assetId": "dogs:photo:commons:ee21a4d6c5e79d50",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Greater_indian_spitz.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T20:54:57.463295+00:00",
+        "breedIdentity": "Adult larger-variety white Indian Spitz with lean sturdy slightly rectangular frame, long wedge muzzle, erect pointed ears, modest frill and complete bushy over-back tail; neither toy Pomeranian nor heavy Samoyed.",
+        "anatomy": "All four paws and toes are separately visible on clear sandy ground; sound straight legs, coherent shoulder and hock angles, clean face and full correctly attached tail.",
+        "crop": "Complete silhouette approximately x=461..1061 and y=232..886, about 654 pixels high; larger than numeric target but fully contained with 232 pixels above, 138 pixels below and broad visible habitat on both sides.",
+        "aesthetics": "Fine natural double-coat texture, alert calm eyes, warm but restrained dry-season light, unobstructed sandy foreground and layered deciduous woodland depth."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 25606,
+          "sha256": "48ee53394b2857709cacbe5aa6fc86093978c4435ba44d884ef82e99df0bffea",
+          "url": "assets/dogs/generated/VBO-0200696-indian-spitz-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 163412,
+          "sha256": "ea8a48d73986cab141a9d8a653fd6572f39b7af37c3b18288803d98429b1ceac",
+          "url": "assets/dogs/generated/VBO-0200696-indian-spitz-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200702:v1",
       "catalogId": "VBO:0200702",
       "name": "Irish Setter",
@@ -5918,6 +6593,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200741:v1",
+      "catalogId": "VBO:0200741",
+      "name": "Japanese Terrier",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T21:44:50.022Z",
+      "masterSha256": "6151ee190b964851f247d60d2902ffa98a97f033957836972dcd87077f24aab7",
+      "reference": {
+        "assetId": "dogs:photo:commons:41c5437612374f20",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Nihon_teria_aka_Japanese_Terrier.JPG"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T21:49:40.530004+00:00",
+        "breedIdentity": "pass — small square fine-boned Japanese Terrier with tricolor head, white short-coated body and folded ears",
+        "anatomy": "pass — sound fine adult limbs, four distinct paws and complete slender attached tail",
+        "crop": "pass — about 56% frame height, below the hard 60% limit, with more than 100 pixels above and below",
+        "aesthetics": "pass — clean coastal Japanese scene, restrained color and crisp short-coat detail"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 19604,
+          "sha256": "4c9faf6ab1ba8dcabf31d679aff5bb41322833a9dc4765db6d3a193c94ce46fd",
+          "url": "assets/dogs/generated/VBO-0200741-japanese-terrier-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 131896,
+          "sha256": "ce56206a7fc2a7faebac0cde754fc0a45ee9318ff432c642fe5b9de1a0ab7ceb",
+          "url": "assets/dogs/generated/VBO-0200741-japanese-terrier-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200744:v1",
       "catalogId": "VBO:0200744",
       "name": "Jindo",
@@ -6274,6 +6994,51 @@
           "bytes": 119558,
           "sha256": "db695292aeca503b2cf80985248642ded51d86613aaf3a698088498bc455656e",
           "url": "assets/dogs/generated/VBO-0200764-kerry-blue-terrier-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200772:v1",
+      "catalogId": "VBO:0200772",
+      "name": "Kintamani-Bali Dog",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:49:30.456794+00:00",
+      "masterSha256": "a261f107d82251564052f433545eaf1a36cc5bc27788401c06be462c84cbeea4",
+      "reference": {
+        "assetId": "dogs:photo:commons:ee8cc88f8aa59d9c",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Kintamanibalianjing1.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T20:49:30.456794+00:00",
+        "breedIdentity": "Adult white Kintamani-Bali Dog with substantial medium spitz frame, broad wedge head, erect triangular biscuit-edged ears, dense white double coat, neck ruff and complete plumed curled tail; distinct from toy Spitz and giant Samoyed.",
+        "anatomy": "Four separated paws are fully grounded with coherent joints and sound straight legs; face, topline and tail attachment are plausible and complete.",
+        "crop": "Complete silhouette approximately x=485..995 and y=299..839, about 540 pixels high; roughly 299 pixels of scenery above and 185 pixels of foreground below.",
+        "aesthetics": "Premium restrained photorealism with crisp individual coat hairs, confident calm expression, dark volcanic ground and layered humid upland forest depth."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 18814,
+          "sha256": "bb065509ad974809039b2b29de19fda70107fb4768bf68d1c178ee4ec0247a78",
+          "url": "assets/dogs/generated/VBO-0200772-kintamani-bali-dog-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 122350,
+          "sha256": "fc4117eede651bdddf09f1fa43518c06f953157bac812766b63e662cab379501",
+          "url": "assets/dogs/generated/VBO-0200772-kintamani-bali-dog-960.webp"
         }
       ]
     },
@@ -7673,6 +8438,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200989:v1",
+      "catalogId": "VBO:0200989",
+      "name": "Patagonian Sheepdog",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T21:44:06.139Z",
+      "masterSha256": "f2823ee1c2002bf000fb5fd82250acc97bc18a7a5b829c70b8dfb457bd0406a0",
+      "reference": {
+        "assetId": "dogs:photo:commons:4c020086f0baf9f9",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Ovejero_magall%C3%A1nico_2.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T21:49:40.523179+00:00",
+        "breedIdentity": "pass — rustic medium Patagonian herder with shaggy dark coat, tan face/legs, elongated head and semi-dropped ears",
+        "anatomy": "pass — four coherent grounded limbs and complete naturally low furnished tail",
+        "crop": "pass — approximately 50% frame height with generous environmental margins and no clipped anatomy",
+        "aesthetics": "pass — art-directed Magallanes steppe, wind-tossed coat and nuanced cold sunset light"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 21820,
+          "sha256": "82e0a6e9d4836c4416727ff521b5ba854a14aeb72c15ea48a60e6ef6aea70516",
+          "url": "assets/dogs/generated/VBO-0200989-patagonian-sheepdog-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 137560,
+          "sha256": "e69e9dc008bcc0ad69108c179aaef13d361e226f6643776a512fb13e8871291f",
+          "url": "assets/dogs/generated/VBO-0200989-patagonian-sheepdog-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200994:v1",
       "catalogId": "VBO:0200994",
       "name": "Pekingese",
@@ -8299,6 +9109,51 @@
           "bytes": 106064,
           "sha256": "674027b4717714453c87b0bfe4c748c90155b020cec724115776e167ec146256",
           "url": "assets/dogs/generated/VBO-0201105-pumi-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201109:v1",
+      "catalogId": "VBO:0201109",
+      "name": "Pungsan Dog",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T21:46:27.459Z",
+      "masterSha256": "d9103b9e63e089df2435a485242e681d6ddd5bda62f6793a2074360af4c1bfd3",
+      "reference": {
+        "assetId": "dogs:photo:commons:62c6c520efa23079",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Poongsandogs.JPG"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T21:49:40.549763+00:00",
+        "breedIdentity": "pass — powerful compact white Pungsan type with small erect ears, wedge head, tight feet and broad curled tail",
+        "anatomy": "pass — sound adult structure, four separate paws and physically coherent complete tail",
+        "crop": "pass — approximately 44% frame height with generous margins above, below and around the tail",
+        "aesthetics": "pass — spacious Korean mountain meadow, crisp autumn depth and authentic dense coat"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 25054,
+          "sha256": "eb5e677b057603341197c8587fd6bace6310989a0b4ac6be5ec3f89a1109c3ed",
+          "url": "assets/dogs/generated/VBO-0201109-pungsan-dog-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 173090,
+          "sha256": "06c9a8cf9f2c8cae444c991a5f61a20fc5b2588c1febd469b938227cd8e47dd3",
+          "url": "assets/dogs/generated/VBO-0201109-pungsan-dog-960.webp"
         }
       ]
     },
@@ -10598,6 +11453,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0201435:v1",
+      "catalogId": "VBO:0201435",
+      "name": "Xiasi Dog",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T21:32:13.045108+00:00",
+      "masterSha256": "26d3715e34ef03c57a771fb41d3091884156e086e9e2764660695e86c3d1870d",
+      "reference": {
+        "assetId": "dogs:photo:commons:250086799efe8224",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Xiasi_Quan_dog.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T21:32:13.045108+00:00",
+        "breedIdentity": "Distinct adult Xiasi: sturdy body, coarse off-white double coat and rough beard, triangular upright ears, pink nose and eyelid pigment, readable brown eyes and complete upright natural tail.",
+        "anatomy": "All four feet separately grounded on gravel; credible shoulders, elbows, stifles and hocks; closed relaxed mouth and complete correctly attached tail.",
+        "crop": "Silhouette approximately x470..1125,y161..902: about741px high, larger than the 580px prompt target but with161px above and122px foreground below. All extremities clear; substantial landscape remains on both sides.",
+        "aesthetics": "Detailed wiry fur and clean facial expression against layered green woodland, shaded stream and articulated gravel; soft believable daylight and restrained colour."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 31862,
+          "sha256": "3bbaa54e755aecbf1789c4fabd10fa5feed384fab585eb72b2194d8345223967",
+          "url": "assets/dogs/generated/VBO-0201435-xiasi-dog-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 222196,
+          "sha256": "2df56c97e124561796cb19e0627166e670bd81786cc26ce3b2b96607368822dd",
+          "url": "assets/dogs/generated/VBO-0201435-xiasi-dog-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0201436:v1",
       "catalogId": "VBO:0201436",
       "name": "Xoloitzcuintli",
@@ -10639,6 +11539,51 @@
           "bytes": 114840,
           "sha256": "21761ab8232ecd90f843bf447e220faf3832bdcfe32c9ac544d38e9f13232666",
           "url": "assets/dogs/generated/VBO-0201436-xoloitzcuintli-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201442:v1",
+      "catalogId": "VBO:0201442",
+      "name": "Yakutian Laika",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T21:43:20.992Z",
+      "masterSha256": "12874d30a3738519effa53ee9b2d41f33ac1c534568e75f64e15c49a8ac1ee8d",
+      "reference": {
+        "assetId": "dogs:photo:commons:eea9417072239804",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Jakutianlai6.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22T21:49:40.515800+00:00",
+        "breedIdentity": "pass — strong compact Yakutian Laika type with correct dense brown-white coat, triangular ears and bushy high tail",
+        "anatomy": "pass — sound moderate structure, four distinct planted paws and complete attached tail",
+        "crop": "pass — approximately 50% frame height with over 200 pixels below and about 300 above",
+        "aesthetics": "pass — premium spacious Sakha river terrace with restrained winter palette and clean fur detail"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 15156,
+          "sha256": "191b358b0f5ee7be64afe60a4bc0aa25d39ae1313b436eaf8c816485fff04d9b",
+          "url": "assets/dogs/generated/VBO-0201442-yakutian-laika-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 88890,
+          "sha256": "2df7212c738ee6f2616a60b45ab896d036cc07eb6320610665a9c05209fa7158",
+          "url": "assets/dogs/generated/VBO-0201442-yakutian-laika-960.webp"
         }
       ]
     },

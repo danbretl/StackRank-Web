@@ -1029,12 +1029,12 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       initial.canonical !== "https://www.stackrankapp.com/dogs" ||
       initial.robots !== null ||
       initial.cssHref !== "dogs.css?v=7" ||
-      initial.scriptSrc !== "dogs.js?v=26" ||
+      initial.scriptSrc !== "dogs.js?v=28" ||
       initial.searchRole !== "combobox" ||
       initial.searchAutocomplete !== "list" ||
       initial.searchControls !== "dogs-suggestions" ||
       !initial.catalogStatus?.includes("1,239 field notes") ||
-      !initial.catalogStatus?.includes("28 featured portraits") ||
+      !initial.catalogStatus?.includes("52 featured portraits") ||
       /VBO:|vbo-|FCI|iDog|VeNom/.test(initial.catalogStatus || "") ||
       initial.featuredTitles.slice(0, 3).join("|") !== "Around the world|Shapes and coats|Familiar and beyond" ||
       initial.featuredTitles.length !== 6 ||
@@ -1047,6 +1047,42 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       throw new Error(`Dogs initial screen is wrong: ${JSON.stringify(initial)}`);
     }
     const initialShot = await page.screenshot("dogs-primary-desktop.png");
+
+    await page.evaluate(`(() => {
+      const input = document.querySelector('#dogs-search');
+      input.value = 'Basset Hound';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `document.querySelectorAll('#dogs-suggestions .search-option').length === 1 &&
+       document.querySelector('#dogs-suggestions .dog-media img')?.complete &&
+       document.querySelector('#dogs-suggestions .dog-media img')?.naturalWidth > 0`,
+      5000,
+    );
+    const newArtwork = await page.evaluate(`(() => ({
+      name: document.querySelector('#dogs-suggestions .search-option strong')?.textContent.trim(),
+      imageSrc: document.querySelector('#dogs-suggestions .dog-media img')?.src || '',
+      imageAlt: document.querySelector('#dogs-suggestions .dog-media img')?.alt || '',
+      missing: document.querySelector('#dogs-suggestions .dog-media')?.classList.contains('is-missing')
+    }))()`);
+    if (
+      newArtwork.name !== "Basset Hound" ||
+      !newArtwork.imageSrc.includes('/assets/dogs/generated/VBO-0200126-basset-hound-320.webp') ||
+      !newArtwork.imageAlt.includes('Basset Hound') ||
+      newArtwork.missing
+    ) {
+      throw new Error(`Dogs new generated cohort did not render: ${JSON.stringify(newArtwork)}`);
+    }
+    const newArtworkShot = await page.screenshot("dogs-new-artwork-search.png");
+    await page.evaluate(`(() => {
+      const input = document.querySelector('#dogs-search');
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      return true;
+    })()`);
+    await waitFor(page, `document.querySelector('#dogs-suggestions')?.hidden`, 3000);
 
     await page.evaluate(`document.querySelector('#dogs-view-all-packs')?.click(); true;`);
     await waitFor(
@@ -1562,7 +1598,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
         mobileProfile, mobile, landscapeProfile, landscape,
         ipadPortraitProfile, ipadPortrait, ipadLandscapeProfile, ipadLandscape,
       },
-      screenshots: [initialShot, rankingShot, detailShot, mobileShot, landscapeShot, ipadPortraitShot, ipadLandscapeShot],
+      screenshots: [initialShot, newArtworkShot, rankingShot, detailShot, mobileShot, landscapeShot, ipadPortraitShot, ipadLandscapeShot],
     };
   } finally {
     await page.close();

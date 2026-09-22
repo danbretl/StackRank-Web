@@ -53,8 +53,11 @@ const indexExactOriginals = async ({ directory, wantedHashes }) => {
 export const assertArtworkCropRecipeContract = ({ ledger, recipes }) => {
   if (recipes.catalogVersion !== ledger.catalogVersion) throw new Error("Crop recipe catalogVersion does not match ledger");
   if (recipes.ledgerVersion !== ledger.ledgerVersion) throw new Error("Crop recipe ledgerVersion does not match ledger");
-  if (recipes.recipes.length !== ledger.assets.length) throw new Error("Crop recipes must cover every exact ledger asset once");
-  const assets = new Map(ledger.assets.map((asset) => [asset.assetId, asset]));
+  const displayAssets = ledger.assets.filter((asset) => asset.uiDisplayAllowed === true);
+  if (recipes.recipes.length !== displayAssets.length) {
+    throw new Error("Crop recipes must cover every exact UI-display ledger asset once");
+  }
+  const assets = new Map(displayAssets.map((asset) => [asset.assetId, asset]));
   const seen = new Set();
   for (const recipe of recipes.recipes) {
     if (seen.has(recipe.assetId)) throw new Error(`Duplicate crop recipe ${recipe.assetId}`);
@@ -77,8 +80,10 @@ export const prepareDogArtworkBatch = async ({
   const ledger = JSON.parse(await readFile(ledgerPath, "utf8"));
   const recipes = JSON.parse(await readFile(recipesPath, "utf8"));
   assertArtworkCropRecipeContract({ ledger, recipes });
-  const assets = new Map(ledger.assets.map((asset) => [asset.assetId, asset]));
-  const wantedHashes = new Set(ledger.assets.map((asset) => asset.sourceSha256));
+  const assets = new Map(
+    ledger.assets.filter((asset) => asset.uiDisplayAllowed === true).map((asset) => [asset.assetId, asset]),
+  );
+  const wantedHashes = new Set([...assets.values()].map((asset) => asset.sourceSha256));
   const exactOriginals = await indexExactOriginals({ directory: originalsDirectory, wantedHashes });
   const manifests = [];
 

@@ -7,17 +7,22 @@ import { assertArtworkCropRecipeContract } from "../scripts/prepare-dog-artwork-
 const root = new URL("../", import.meta.url);
 const readJson = async (filename) => JSON.parse(await readFile(new URL(filename, root), "utf8"));
 
-test("tracked crop recipes cover every exact reviewed Dogs ledger asset once", async () => {
+test("tracked crop recipes cover every exact UI-display Dogs ledger asset once", async () => {
   const [ledger, recipes] = await Promise.all([
     readJson("data/dogs/image-rights.json"),
     readJson("data/dogs/artwork-crop-recipes.json"),
   ]);
 
   assert.doesNotThrow(() => assertArtworkCropRecipeContract({ ledger, recipes }));
+  assert.equal(ledger.assets.length, 52);
   assert.equal(recipes.recipes.length, 28);
   assert.equal(new Set(recipes.recipes.map((recipe) => recipe.assetId)).size, 28);
   assert.deepEqual(new Set(ledger.assets.map((asset) => asset.review.status)), new Set(["approved"]));
-  for (const asset of ledger.assets) {
+  const displayAssets = ledger.assets.filter((asset) => asset.uiDisplayAllowed);
+  const referenceOnlyAssets = ledger.assets.filter((asset) => !asset.uiDisplayAllowed);
+  assert.equal(displayAssets.length, 28);
+  assert.equal(referenceOnlyAssets.length, 24);
+  for (const asset of displayAssets) {
     assert.equal(asset.review.reviewedAt, "2026-07-21");
     assert.equal(asset.review.reviewedBy, "OpenAI Codex (delegated by Dan Bretl)");
     assert.equal(asset.review.subjectMatchesCatalog, true);
@@ -43,6 +48,21 @@ test("tracked crop recipes cover every exact reviewed Dogs ledger asset once", a
     } else {
       assert.equal(asset.shareAlikeCompliance, undefined);
     }
+  }
+  for (const asset of referenceOnlyAssets) {
+    assert.equal(asset.review.reviewedAt, "2026-09-22");
+    assert.equal(asset.review.reviewedBy, "OpenAI Codex (delegated by Dan Bretl)");
+    assert.equal(asset.review.subjectMatchesCatalog, true);
+    assert.equal(asset.review.nonCopyrightRestrictionsReviewed, true);
+    assert.match(asset.review.rightsNotes, /morphology reference/);
+    assert.equal(asset.delivery.status, "not_ready");
+    assert.deepEqual(asset.delivery.variants, []);
+    assert.equal(asset.uiDisplayAllowed, false);
+    assert.equal(asset.publicSnapshotAllowed, false);
+    assert.equal(asset.rasterExportAllowed, false);
+    assert.deepEqual(asset.modifications, ["none"]);
+    assert.equal(asset.attributionCompliance, undefined);
+    assert.equal(asset.shareAlikeCompliance, undefined);
   }
 });
 

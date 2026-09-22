@@ -16,14 +16,24 @@ active next-category initiative** and now has a comprehensive field-guide produc
 generated VBO catalog, 1,239 breed profiles, editorial packs, ranking/lists/backup/export flows, and
 responsive browser coverage.
 The additive production schema and Storage bucket have been applied and passed real two-user/RLS/
-snapshot/Storage probes. Twenty-eight art-directed generated breed portraits cover the promoted
-cohort in normal UI, while the separate 28-photo rights ledger remains available as a licensed
-fallback. Dogs account sync and public snapshot code is enabled, while public-snapshot artwork and raster export
+snapshot/Storage probes. Fifty-two art-directed generated breed portraits cover the promoted cohort
+plus the 24 highest-priority previously unillustrated pack breeds in normal UI. The rights ledger
+contains 28 licensed-photo fallback rows plus 24 separately gated morphology-reference rows. Dogs
+account sync and public snapshot code is enabled, while public-snapshot artwork and raster export
 remain purpose-denied. The integrated release shipped to production on July 22, 2026 in commit
 `31267389`; the field-guide redesign shipped to production in commit `254810ae`. `/dogs` is public while the
 production root continues to redirect to `/movies`. The
 authoritative plan is `notes/feature-ideas/dogs-launch-plan.md`; exact status and release gates live
 in `notes/testing/dogs-implementation-status.md`.
+
+The second 24-portrait cohort is complete and verified in the local working tree but is not yet
+committed, pushed, or deployed; production remains on the original 28-portrait release until that
+separate release step is authorized.
+
+For durable product and artwork-continuation context, see
+`notes/feature-ideas/dogs-product-handoff-2026-09-22.md`,
+`notes/feature-ideas/dogs-artwork-expansion-handoff-2026-09-22.md`, and the paste-ready
+`notes/feature-ideas/dogs-artwork-expansion-kickoff-prompt.md`.
 
 - **Live movies app:** https://www.stackrankapp.com/movies (Vercel; `stackrankapp.com` redirects to `www`, and the `www` root temporarily redirects to `/movies` until a cross-category home ships)
 - **Live Dogs app:** https://www.stackrankapp.com/dogs
@@ -105,8 +115,8 @@ Plain **static single-page app — no build system, no framework, no bundler, no
   pointer/touch/keyboard reorder, Review order, provenance-rich details, Curious about / Not for me,
   rank-weighted Taste patterns, category backup/restore/name import, and text/Markdown/JSON exports.
   Every selectable entry has a friendly field note and an honest dog-family label; 28 promoted
-  breeds have editor-reviewed deep profiles and art-directed generated portraits, while less-developed
-  entries stay conservative rather than inventing temperament or suitability claims. Missing portraits
+  breeds have editor-reviewed deep profiles, and 52 pack-visible breeds have art-directed generated
+  portraits. Less-developed entries stay conservative rather than inventing temperament or suitability claims. Missing portraits
   use a neutral fallback. Account sync and revocable public snapshot links use the additive category
   tables. Public snapshots omit artwork because that purpose remains denied, and raster
   sharing remains disabled.

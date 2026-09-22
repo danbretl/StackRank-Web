@@ -17,13 +17,12 @@ test("artwork review report models every exact ledger candidate with promoted it
     catalog: await fixture("dog-catalog.json"),
     packs: await fixture("packs.json"),
   });
-  assert.equal(model.summary.candidates, 28);
+  assert.equal(model.summary.candidates, 52);
   assert.equal(model.summary.promoted, 27);
   assert.equal(model.summary.pending, 0);
   assert.equal(model.assets.every((asset) => asset.ledgerReviewStatus === "approved"), true);
   assert.equal(model.assets[0].promoted, true);
-  assert.equal(model.assets.at(-1).displayName, "Broholmer");
-  assert.equal(model.assets.at(-1).promoted, false);
+  assert.equal(model.assets.some((asset) => asset.displayName === "Broholmer" && asset.promoted === false), true);
   assert.equal(model.assets.every((asset) =>
     asset.sourcePage.startsWith("https://commons.wikimedia.org/") &&
     asset.originalUrl.startsWith("https://upload.wikimedia.org/") &&
@@ -43,7 +42,7 @@ test("artwork review HTML is local-only, export-only, and embeds the complete ev
   assert.match(html, /stackrank:dogs-artwork-review:v1/);
   assert.match(html, /Pinned file revision/);
   assert.match(html, /Non-copyright restrictions reviewed/);
-  assert.equal((html.match(/data-candidate(?:\s|>)/g) || []).length, 28);
+  assert.equal((html.match(/data-candidate(?:\s|>)/g) || []).length, 52);
   assert.doesNotMatch(html, />\s*Approve\s*</i);
   assert.doesNotMatch(html, />\s*Upload\s*</i);
   assert.doesNotMatch(html, /image-rights\.json['"]?\s*[,)]/);

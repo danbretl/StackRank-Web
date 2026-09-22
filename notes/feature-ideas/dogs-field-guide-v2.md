@@ -2,6 +2,9 @@
 
 Status: implemented and pushed September 22, 2026 in `254810ae`.
 
+Portrait expansion status: second 24-breed cohort complete and verified locally on September 22,
+2026; not yet committed, pushed, or deployed.
+
 ## Product direction
 
 Dogs keeps Movies’ mature Rank / Ranking / You skeleton and binary-insertion behavior. Its own
@@ -25,7 +28,7 @@ Every selectable catalog identity has:
 - provenance and a review tier;
 - origin, size, historical roots, registry group, and scoped popularity only when supported.
 
-The 28 illustrated breeds have hand-reviewed original copy. Structured source matches may deepen the
+The original 28 deep-profile breeds have hand-reviewed original copy. Structured source matches may deepen the
 remaining profiles, but uncertain entries deliberately say less. Copy must not promise temperament,
 trainability, health, allergy safety, child compatibility, or household fit from breed identity.
 
@@ -36,7 +39,9 @@ names geography, year, source, rank, and denominator.
 
 ## Portrait contract
 
-The initial generated cohort contains the 27 promoted starter identities plus Broholmer. Each image
+The initial generated cohort contains the 27 promoted starter identities plus Broholmer. A second
+24-breed cohort covers every remaining breed appearing in at least three editorial packs, bringing
+the current generated set to 52. Each image
 uses a rights-reviewed photograph only as a morphology reference, while the prompt requires a new
 composition and a cohesive natural field-guide look. The review manifest records breed plausibility,
 anatomy, crop, aesthetics, prompt version, timestamps, master hashes, and optimized variant hashes.
@@ -57,8 +62,8 @@ separate and available as a fail-closed fallback rather than being discarded or 
 
 ## Next quality passes
 
-1. Expand the generated portrait cohort in coherent, human-reviewed batches rather than filling all
-   1,239 identities with weak or repetitive art.
+1. Continue expanding the generated portrait cohort in coherent, human-reviewed batches, prioritizing
+   the remaining 161 pack-engaged identities rather than filling all 1,239 identities with weak or repetitive art.
 2. Replace generated-baseline copy with source-reviewed or editor-reviewed notes, prioritizing dogs
    that appear in packs and user searches.
 3. Add deeper size and history evidence only when a stable source can be stored and cited without

@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
-  "ledgerVersion": "2026-07-22.1",
+  "ledgerVersion": "2026-09-22.2",
   "catalogVersion": "vbo-2026-04-15.2",
   "policyVersion": "2026-07-16.1",
   "storagePrefix": "dogs-catalog/vbo-2026-04-15-r1/",
   "publicAssetBaseUrl": "https://hrfhakrxsllrqmscxxpb.supabase.co/storage/v1/object/public/",
-  "updatedAt": "2026-07-22",
+  "updatedAt": "2026-09-22",
   "assets": [
     {
       "assetId": "dogs:photo:commons:30139e8a8c8a57ba",
@@ -2272,6 +2272,1158 @@
         "modificationsDisclosed": true,
         "attributionSurface": "detail-and-credits",
         "noAdditionalRestrictions": true
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:c643b46de04166ba",
+      "catalogId": "VBO:0200004",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Afghan_Hound_in_Tallinn.JPG",
+      "sourcePageRevision": {
+        "id": 1172896823,
+        "timestamp": "2026-02-27T16:55:46Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/5/56/Afghan_Hound_in_Tallinn.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Afghan Hound in Tallinn",
+      "creator": "Томасина",
+      "creatorUrl": "https://commons.wikimedia.org/wiki/User:%D0%A2%D0%BE%D0%BC%D0%B0%D1%81%D0%B8%D0%BD%D0%B0",
+      "licenseId": "CC-BY-SA-3.0",
+      "license": "CC BY-SA 3.0",
+      "licenseVersion": "3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceLicenseLabel": "CC BY-SA 3.0",
+      "sourceLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceCredit": "Own work",
+      "sourceAttributionRequired": true,
+      "attribution": "Afghan Hound in Tallinn — Томасина; CC BY-SA 3.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:25:50.852Z",
+      "sourceSha256": "c643b46de04166ba29c573072ddd72f5cebe357173b98e420307078082276d0c",
+      "sourceSha1": "4dd10c6c553bad015845a27d55ed82a00b2f1809",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 461760,
+      "sourceWidth": 1470,
+      "sourceHeight": 1062,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 3.0 chain verified. Visual review confirmed a breed-typical Afghan Hound; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:8f640b1b204cc27f",
+      "catalogId": "VBO:0200010",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Akita_inu_criado_por_Tsutsui_Kennel.jpg",
+      "sourcePageRevision": {
+        "id": 1093498616,
+        "timestamp": "2025-10-01T02:46:26Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Akita_inu_criado_por_Tsutsui_Kennel.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Akita inu criado por Tsutsui Kennel",
+      "creator": "TsutsuiKennel",
+      "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:TsutsuiKennel&action=edit&redlink=1",
+      "licenseId": "CC-BY-SA-4.0",
+      "license": "CC BY-SA 4.0",
+      "licenseVersion": "4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceLicenseLabel": "CC BY-SA 4.0",
+      "sourceLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceCredit": "Own work",
+      "sourceAttributionRequired": true,
+      "attribution": "Akita inu criado por Tsutsui Kennel — TsutsuiKennel; CC BY-SA 4.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:25:51.613Z",
+      "sourceSha256": "8f640b1b204cc27ff623655a2796f3c628d4d52e7b089c2c34c58dc7190b2444",
+      "sourceSha1": "d5eda27bb61b025f62f5279236cb429632381fda",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 3940085,
+      "sourceWidth": 4512,
+      "sourceHeight": 3000,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 4.0 chain verified. Visual review confirmed a breed-typical Akita; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:e99b3bda984420c6",
+      "catalogId": "VBO:0200017",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Alaskan_Malamute.jpg",
+      "sourcePageRevision": {
+        "id": 1064789022,
+        "timestamp": "2025-08-02T05:58:20Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Alaskan_Malamute.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Alaskan Malamute",
+      "creator": "SCMW",
+      "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:SCMW&action=edit&redlink=1",
+      "licenseId": "CC-BY-3.0",
+      "license": "CC BY 3.0",
+      "licenseVersion": "3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+      "sourceLicenseLabel": "CC BY 3.0",
+      "sourceLicenseUrl": "https://creativecommons.org/licenses/by/3.0",
+      "sourceCredit": "Own work",
+      "sourceAttributionRequired": true,
+      "attribution": "Alaskan Malamute — SCMW; CC BY 3.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:25:50.819Z",
+      "sourceSha256": "e99b3bda984420c68b895a264e418279a7494fe38045304b23ebe12aed39ce73",
+      "sourceSha1": "0d03362015a2e4224947166fac551945fbbcd6e2",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 80440,
+      "sourceWidth": 640,
+      "sourceHeight": 519,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY 3.0 chain verified. Visual review confirmed a breed-typical Alaskan Malamute; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:fee6924d5b7c34f9",
+      "catalogId": "VBO:0200126",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Bvdb-bassethound2.jpg",
+      "sourcePageRevision": {
+        "id": 840135421,
+        "timestamp": "2024-01-10T03:45:56Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Bvdb-bassethound2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Bvdb-bassethound2",
+      "creator": "Bonnie van den Born, http://www.bonfoto.nl",
+      "creatorUrl": null,
+      "licenseId": "CC-BY-SA-3.0",
+      "license": "CC BY-SA 3.0",
+      "licenseVersion": "3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceLicenseLabel": "CC BY-SA 3.0",
+      "sourceLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceCredit": "Own work",
+      "sourceAttributionRequired": true,
+      "attribution": "Bvdb-bassethound2 — Bonnie van den Born, http://www.bonfoto.nl; CC BY-SA 3.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:28:06.254Z",
+      "sourceSha256": "fee6924d5b7c34f946c00587f80dc70da0459a0e709cf5584191f72eea39c1d3",
+      "sourceSha1": "2448b932fc2f6cd12951555d8da498cf07ef8864",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 103681,
+      "sourceWidth": 600,
+      "sourceHeight": 401,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 3.0 chain verified. Visual review confirmed a breed-typical Basset Hound; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:74b2c9b9717be1d0",
+      "catalogId": "VBO:0200161",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Bouviers_Bernois_Ganjo.jpg",
+      "sourcePageRevision": {
+        "id": 830858630,
+        "timestamp": "2023-12-15T16:44:51Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d4/Bouviers_Bernois_Ganjo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Bouviers Bernois Ganjo",
+      "creator": "Ganjo http://fr.wikipedia.org/wiki/Utilisateur:Ganjo",
+      "creatorUrl": "https://fr.wikipedia.org/wiki/Utilisateur:Ganjo",
+      "licenseId": "CC-BY-SA-3.0",
+      "license": "CC BY-SA 3.0",
+      "licenseVersion": "3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceLicenseLabel": "CC BY-SA 3.0",
+      "sourceLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceCredit": "http://fr.wikipedia.org/wiki/Image:Bouviers_Bernois_Ganjo.jpg",
+      "sourceAttributionRequired": true,
+      "attribution": "Bouviers Bernois Ganjo — Ganjo http://fr.wikipedia.org/wiki/Utilisateur:Ganjo; CC BY-SA 3.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:25:52.009Z",
+      "sourceSha256": "74b2c9b9717be1d0f53668b78c3a25a61e3ba02eb6a1362e34ac600b3b57b163",
+      "sourceSha1": "c6850d6068360cd8cfee1b22e415ed639059c48d",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 90538,
+      "sourceWidth": 320,
+      "sourceHeight": 301,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 3.0 chain verified. Visual review confirmed a breed-typical Bernese Mountain Dog; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:7140f2d715a9835b",
+      "catalogId": "VBO:0200163",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Bichon_A_Poil_Frise.jpg",
+      "sourcePageRevision": {
+        "id": 1036593733,
+        "timestamp": "2025-05-27T14:32:56Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/6/69/Bichon_A_Poil_Frise.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Bichon A Poil Frise",
+      "creator": "Desaix83 , d'après le travail de Sannse",
+      "creatorUrl": null,
+      "licenseId": "CC-BY-SA-3.0",
+      "license": "CC BY-SA 3.0",
+      "licenseVersion": "3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceLicenseLabel": "CC BY-SA 3.0",
+      "sourceLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceCredit": "File:Bichon_Frise_600.jpg",
+      "sourceAttributionRequired": true,
+      "attribution": "Bichon A Poil Frise — Desaix83 , d'après le travail de Sannse; CC BY-SA 3.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:28:11.901Z",
+      "sourceSha256": "7140f2d715a9835bf2e7ff4a8588da3daada8f4688b7b2d071fbc956c4cef5e5",
+      "sourceSha1": "cc05bc8f773f9a6200ba00203828410584289f7f",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 23753,
+      "sourceWidth": 518,
+      "sourceHeight": 435,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 3.0 chain verified. Visual review confirmed a breed-typical Bichon Frise; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:8bf933e36635a9df",
+      "catalogId": "VBO:0200193",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Argentine_border_collie.jpg",
+      "sourcePageRevision": {
+        "id": 1175478963,
+        "timestamp": "2026-03-03T23:29:33Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9c/Argentine_border_collie.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Argentine border collie",
+      "creator": "Horacio Cambeiro",
+      "creatorUrl": "https://commons.wikimedia.org/wiki/User:Tubby3",
+      "licenseId": "CC-BY-SA-4.0",
+      "license": "CC BY-SA 4.0",
+      "licenseVersion": "4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceLicenseLabel": "CC BY-SA 4.0",
+      "sourceLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceCredit": "Own work",
+      "sourceAttributionRequired": true,
+      "attribution": "Argentine border collie — Horacio Cambeiro; CC BY-SA 4.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:25:52.357Z",
+      "sourceSha256": "8bf933e36635a9df11e9d4b80a750afadd5395c05afa294abe0fc86b42c4f296",
+      "sourceSha1": "18f22e95b1ccc8d658c2042ca88a3d08bf7bde1b",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 2971694,
+      "sourceWidth": 4000,
+      "sourceHeight": 3000,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 4.0 chain verified. Visual review confirmed a breed-typical Border Collie; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:9963755416721a98",
+      "catalogId": "VBO:0200197",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Borzoi_female.jpg",
+      "sourcePageRevision": {
+        "id": 1192124029,
+        "timestamp": "2026-04-05T17:17:18Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/8/87/Borzoi_female.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Borzoi female",
+      "creator": "Taru T Torpström",
+      "creatorUrl": null,
+      "licenseId": "CC-BY-SA-3.0",
+      "license": "CC BY-SA 3.0",
+      "licenseVersion": "3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceLicenseLabel": "CC BY-SA 3.0",
+      "sourceLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceCredit": "Own work",
+      "sourceAttributionRequired": true,
+      "attribution": "Borzoi female — Taru T Torpström; CC BY-SA 3.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:25:52.402Z",
+      "sourceSha256": "9963755416721a9871a9b9a3f816dcc681eab3c7c35a4264fed38fc3cbc56fab",
+      "sourceSha1": "483bffd98518d80d21a3b3c558cf445359f4164b",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 409643,
+      "sourceWidth": 600,
+      "sourceHeight": 447,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 3.0 chain verified. Visual review confirmed a breed-typical Borzoi; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:4bb4ebcd24f9c345",
+      "catalogId": "VBO:0200267",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Cairn-Terrier-Garten1.jpg",
+      "sourcePageRevision": {
+        "id": 1054494362,
+        "timestamp": "2025-07-09T07:05:14Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Cairn-Terrier-Garten1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Cairn-Terrier-Garten1",
+      "creator": "Ronald Müller-Hagen ( Ketterechts )",
+      "creatorUrl": "https://de.wikipedia.org/wiki/Benutzer:Ketterechts",
+      "licenseId": "CC-BY-SA-3.0",
+      "license": "CC BY-SA 3.0",
+      "licenseVersion": "3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceLicenseLabel": "CC BY-SA 3.0",
+      "sourceLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceCredit": "Picture by Ronald Müller-Hagen Original: de.wikipedia 22:48, 29. Okt 2005 . . Ketterechts . . 1600 x 1200 (1262792 Byte)",
+      "sourceAttributionRequired": true,
+      "attribution": "Cairn-Terrier-Garten1 — Ronald Müller-Hagen ( Ketterechts ); CC BY-SA 3.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:25:52.794Z",
+      "sourceSha256": "4bb4ebcd24f9c345a70f8a8be035da947bf89db5e37a54395999f960e7cd539b",
+      "sourceSha1": "38743df9ef03bbd0fbacd56befd8cbe48c21ad43",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 1262792,
+      "sourceWidth": 1600,
+      "sourceHeight": 1200,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 3.0 chain verified. Visual review confirmed a breed-typical Cairn Terrier; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:fdb21d0985314412",
+      "catalogId": "VBO:0200290",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Cardigan_Welsh_Corgi,_Profile.png",
+      "sourcePageRevision": {
+        "id": 1036769418,
+        "timestamp": "2025-05-27T20:49:10Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Cardigan_Welsh_Corgi%2C_Profile.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Cardigan Welsh Corgi, Profile",
+      "creator": "FatFairfax",
+      "creatorUrl": "https://commons.wikimedia.org/wiki/User:FatFairfax",
+      "licenseId": "CC-BY-SA-3.0",
+      "license": "CC BY-SA 3.0",
+      "licenseVersion": "3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceLicenseLabel": "CC BY-SA 3.0",
+      "sourceLicenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "sourceCredit": "Own work",
+      "sourceAttributionRequired": true,
+      "attribution": "Cardigan Welsh Corgi, Profile — FatFairfax; CC BY-SA 3.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:29:12.186Z",
+      "sourceSha256": "fdb21d098531441288024744e87c8a322977f3547951042bdc0ce2e6ccd11eea",
+      "sourceSha1": "b5f946cdd57e64f08a85b04576701978608791e9",
+      "sourceMime": "image/png",
+      "sourceBytes": 1018701,
+      "sourceWidth": 970,
+      "sourceHeight": 638,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 3.0 chain verified. Visual review confirmed a breed-typical Cardigan Welsh Corgi; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:ce17d9778ef167ae",
+      "catalogId": "VBO:0200361",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:01_Chow_Chow.jpg",
+      "sourcePageRevision": {
+        "id": 1181095792,
+        "timestamp": "2026-03-14T20:36:18Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2c/01_Chow_Chow.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "01 Chow Chow",
+      "creator": "Prayitno/more than 2.5 millions views: thank you!",
+      "creatorUrl": "https://www.flickr.com/people/34128007@N04",
+      "licenseId": "CC-BY-2.0",
+      "license": "CC BY 2.0",
+      "licenseVersion": "2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "sourceLicenseLabel": "CC BY 2.0",
+      "sourceLicenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "sourceCredit": "Flickr : Chow Chow",
+      "sourceAttributionRequired": true,
+      "attribution": "01 Chow Chow — Prayitno/more than 2.5 millions views: thank you!; CC BY 2.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:25:53.450Z",
+      "sourceSha256": "ce17d9778ef167aef1f3bf95cc9e7f1d84ee78ed988b12c6f4a4a3c18b6400c2",
+      "sourceSha1": "ee1310f4aa43150396a37b2ec7cda3a95fd6b0d8",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 2157259,
+      "sourceWidth": 2952,
+      "sourceHeight": 3690,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY 2.0 chain verified. Visual review confirmed a breed-typical Chow Chow; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:9eb8a9b144cbf4ac",
+      "catalogId": "VBO:0200442",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Dobermann_Father-and-son.jpg",
+      "sourcePageRevision": {
+        "id": 1207432778,
+        "timestamp": "2026-05-03T00:42:23Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3f/Dobermann_Father-and-son.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Dobermann Father-and-son",
+      "creator": "Fran Hogan",
+      "creatorUrl": null,
+      "licenseId": "CC-BY-2.5",
+      "license": "CC BY 2.5",
+      "licenseVersion": "2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+      "sourceLicenseLabel": "CC BY 2.5",
+      "sourceLicenseUrl": "https://creativecommons.org/licenses/by/2.5",
+      "sourceCredit": "http://www.publicdomainpictures.net/view-image.php?image=20541&picture=father-amp-son-ultimo-and-czar",
+      "sourceAttributionRequired": true,
+      "attribution": "Dobermann Father-and-son — Fran Hogan; CC BY 2.5; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:25:54.638Z",
+      "sourceSha256": "9eb8a9b144cbf4ac174023c0ebebb7ecd3777d1839e97cef1d9b767815c88c96",
+      "sourceSha1": "742b1619787bf58c0dd7470ff99dd5964cd70db4",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 99429,
+      "sourceWidth": 409,
+      "sourceHeight": 493,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY 2.5 chain verified. Visual review confirmed a breed-typical Doberman Pinscher; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:7eefb0edbf9ff7dd",
+      "catalogId": "VBO:0200638",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:GraceTheGreyhound.jpg",
+      "sourcePageRevision": {
+        "id": 1276197338,
+        "timestamp": "2026-09-14T00:52:37Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/e/ef/GraceTheGreyhound.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "GraceTheGreyhound",
+      "creator": "Neurodoc",
+      "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:Neurodoc&action=edit&redlink=1",
+      "licenseId": "CC-BY-SA-3.0",
+      "license": "CC BY-SA 3.0",
+      "licenseVersion": "3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceLicenseLabel": "CC BY-SA 3.0",
+      "sourceLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceCredit": "Own work",
+      "sourceAttributionRequired": true,
+      "attribution": "GraceTheGreyhound — Neurodoc; CC BY-SA 3.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:25:55.143Z",
+      "sourceSha256": "7eefb0edbf9ff7ddda0b319af6739851cee7ed3cf0d6b3715e4fc4c0258722b9",
+      "sourceSha1": "13d802de8377da30ce4f55b1380611bfe4ea7281",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 686872,
+      "sourceWidth": 1024,
+      "sourceHeight": 768,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 3.0 chain verified. Visual review confirmed a breed-typical Greyhound; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:ba0b0526f677ebec",
+      "catalogId": "VBO:0200705",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Irlandzki_spaniel_wodny_676.jpg",
+      "sourcePageRevision": {
+        "id": 1036802330,
+        "timestamp": "2025-05-27T22:16:10Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/6/67/Irlandzki_spaniel_wodny_676.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Irlandzki spaniel wodny 676",
+      "creator": "Pleple2000",
+      "creatorUrl": "https://commons.wikimedia.org/wiki/User:Pleple2000",
+      "licenseId": "CC-BY-SA-3.0",
+      "license": "CC BY-SA 3.0",
+      "licenseVersion": "3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceLicenseLabel": "CC BY-SA 3.0",
+      "sourceLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceCredit": "Own work",
+      "sourceAttributionRequired": true,
+      "attribution": "Irlandzki spaniel wodny 676 — Pleple2000; CC BY-SA 3.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:25:50.850Z",
+      "sourceSha256": "ba0b0526f677ebecac7847086034347930af3a35689c557847a5aecaf295abde",
+      "sourceSha1": "2f2ea2f03fb28c9048d27edb71fd53329792df0a",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 822400,
+      "sourceWidth": 2382,
+      "sourceHeight": 2304,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 3.0 chain verified. Visual review confirmed a breed-typical Irish Water Spaniel; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:551600228b0f7fda",
+      "catalogId": "VBO:0200706",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Irish_wolfhound_giaccomo.JPG",
+      "sourcePageRevision": {
+        "id": 1116422395,
+        "timestamp": "2025-11-16T00:25:39Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Irish_wolfhound_giaccomo.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Irish wolfhound giaccomo",
+      "creator": "Camillo 60",
+      "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:Camillo_60&action=edit&redlink=1",
+      "licenseId": "CC-BY-SA-3.0",
+      "license": "CC BY-SA 3.0",
+      "licenseVersion": "3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceLicenseLabel": "CC BY-SA 3.0",
+      "sourceLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceCredit": "Own work",
+      "sourceAttributionRequired": true,
+      "attribution": "Irish wolfhound giaccomo — Camillo 60; CC BY-SA 3.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:28:20.269Z",
+      "sourceSha256": "551600228b0f7fdab544fc85f2e8550f043be2b0d9c7d1452dfb892062a674c5",
+      "sourceSha1": "d0894ffbcb311059ab11e881da9f66c3f6a08a6c",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 2021785,
+      "sourceWidth": 2877,
+      "sourceHeight": 2361,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 3.0 chain verified. Visual review confirmed a breed-typical Irish Wolfhound; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:14416967c54bc131",
+      "catalogId": "VBO:0200735",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Japanese_Chin_adult.jpg",
+      "sourcePageRevision": {
+        "id": 678921538,
+        "timestamp": "2022-07-30T06:44:15Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/c/cd/Japanese_Chin_adult.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Japanese Chin adult",
+      "creator": "en:User:Trysha",
+      "creatorUrl": "https://en.wikipedia.org/wiki/User:Trysha",
+      "licenseId": "CC-BY-SA-3.0",
+      "license": "CC BY-SA 3.0",
+      "licenseVersion": "3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceLicenseLabel": "CC BY-SA 3.0",
+      "sourceLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceCredit": "Trysha",
+      "sourceAttributionRequired": true,
+      "attribution": "Japanese Chin adult — en:User:Trysha; CC BY-SA 3.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:28:27.086Z",
+      "sourceSha256": "14416967c54bc131ab033c09eb3d1ec63c0437792a70760c07a9ac1f36955fb0",
+      "sourceSha1": "f9e181d77c93175298fa1c5dc45323cecf892645",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 13750,
+      "sourceWidth": 300,
+      "sourceHeight": 292,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 3.0 chain verified. Visual review confirmed a breed-typical Japanese Chin; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:eaf6286b3a018645",
+      "catalogId": "VBO:0200779",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Komondor_Westminster_Dog_Show_crop.jpg",
+      "sourcePageRevision": {
+        "id": 1224210039,
+        "timestamp": "2026-06-01T18:12:06Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3d/Komondor_Westminster_Dog_Show_crop.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Komondor Westminster Dog Show crop",
+      "creator": "Photo taken by Flickr user whartonds . Edit (cropped) by Pharaoh Hound .",
+      "creatorUrl": "https://flickr.com/people/48685334@N00/",
+      "licenseId": "CC-BY-SA-2.5",
+      "license": "CC BY-SA 2.5",
+      "licenseVersion": "2.5",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.5/",
+      "sourceLicenseLabel": "CC BY-SA 2.5",
+      "sourceLicenseUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+      "sourceCredit": "Image:Komondor Westminster Dog Show.jpg",
+      "sourceAttributionRequired": true,
+      "attribution": "Komondor Westminster Dog Show crop — Photo taken by Flickr user whartonds . Edit (cropped) by Pharaoh Hound .; CC BY-SA 2.5; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:28:32.584Z",
+      "sourceSha256": "eaf6286b3a018645e5e81423bb7aae6130b52a4a8eda9a5290d5719679e87e01",
+      "sourceSha1": "c6eaa7f245b24c3d1a4a7c6efeb5d5d1f8fe1eb1",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 686819,
+      "sourceWidth": 941,
+      "sourceHeight": 1030,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 2.5 chain verified. Visual review confirmed a breed-typical Komondor; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:bc8767e032cae786",
+      "catalogId": "VBO:0200819",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Leonberger_male.jpg",
+      "sourcePageRevision": {
+        "id": 1192486119,
+        "timestamp": "2026-04-06T09:07:42Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/7/76/Leonberger_male.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Leonberger male",
+      "creator": "Kurre92",
+      "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:Kurre92&action=edit&redlink=1",
+      "licenseId": "CC-BY-SA-4.0",
+      "license": "CC BY-SA 4.0",
+      "licenseVersion": "4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceLicenseLabel": "CC BY-SA 4.0",
+      "sourceLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceCredit": "Own work",
+      "sourceAttributionRequired": true,
+      "attribution": "Leonberger male — Kurre92; CC BY-SA 4.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:25:56.642Z",
+      "sourceSha256": "bc8767e032cae7863cfa7d2435c6628cdaba969324fe960912c1a4df9f8c75d1",
+      "sourceSha1": "94092554463417e7b4dea9eaacbaa9608b4aeaea",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 53775,
+      "sourceWidth": 500,
+      "sourceHeight": 375,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 4.0 chain verified. Visual review confirmed a breed-typical Leonberger; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:9e2bf157fd8617da",
+      "catalogId": "VBO:0200969",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Bobtail.JPG",
+      "sourcePageRevision": {
+        "id": 1037049864,
+        "timestamp": "2025-05-28T10:35:31Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Bobtail.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Bobtail",
+      "creator": "Mona (uploaded by Caronna 08:14, 15 Apr 2005 (UTC))",
+      "creatorUrl": "https://commons.wikimedia.org/wiki/User:Caronna",
+      "licenseId": "CC-BY-SA-3.0",
+      "license": "CC BY-SA 3.0",
+      "licenseVersion": "3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceLicenseLabel": "CC BY-SA 3.0",
+      "sourceLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceCredit": "Own work",
+      "sourceAttributionRequired": true,
+      "attribution": "Bobtail — Mona (uploaded by Caronna 08:14, 15 Apr 2005 (UTC)); CC BY-SA 3.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:28:38.586Z",
+      "sourceSha256": "9e2bf157fd8617dafaa52daaf3a48a042375dc141c18ce51ce6f58b3156e004e",
+      "sourceSha1": "445bb300f77f15a22f2cf00558f0dafaea41705b",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 215040,
+      "sourceWidth": 900,
+      "sourceHeight": 603,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 3.0 chain verified. Visual review confirmed a breed-typical Old English Sheepdog; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:002fe7b02fc0885a",
+      "catalogId": "VBO:0200995",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Welsh_Pembroke_Corgi.jpg",
+      "sourcePageRevision": {
+        "id": 981356621,
+        "timestamp": "2025-01-09T07:01:17Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/9/99/Welsh_Pembroke_Corgi.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Welsh Pembroke Corgi",
+      "creator": "Dog breed facts",
+      "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:Dog_breed_facts&action=edit&redlink=1",
+      "licenseId": "CC-BY-SA-4.0",
+      "license": "CC BY-SA 4.0",
+      "licenseVersion": "4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "sourceLicenseLabel": "CC BY-SA 4.0",
+      "sourceLicenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourceCredit": "Own work",
+      "sourceAttributionRequired": true,
+      "attribution": "Welsh Pembroke Corgi — Dog breed facts; CC BY-SA 4.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:28:44.122Z",
+      "sourceSha256": "002fe7b02fc0885afb645be36e34941225e3e9aeb93f9ba1e99875fed32b8c07",
+      "sourceSha1": "3e263d191f4505e3942f68bf6dbd846ed9ce8781",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 499937,
+      "sourceWidth": 1377,
+      "sourceHeight": 1032,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 4.0 chain verified. Visual review confirmed a breed-typical Pembroke Welsh Corgi; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:12d18b6433560e2f",
+      "catalogId": "VBO:0201077",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:C%C3%A3o_de_agua_Portugu%C3%AAs_2.jpg",
+      "sourcePageRevision": {
+        "id": 1095580401,
+        "timestamp": "2025-10-05T19:54:44Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/0/09/C%C3%A3o_de_agua_Portugu%C3%AAs_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Cão de agua Português 2",
+      "creator": "Silke Hollje-Schumacher",
+      "creatorUrl": null,
+      "licenseId": "CC-BY-SA-3.0",
+      "license": "CC BY-SA 3.0",
+      "licenseVersion": "3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceLicenseLabel": "CC BY-SA 3.0",
+      "sourceLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceCredit": "Own work",
+      "sourceAttributionRequired": true,
+      "attribution": "Cão de agua Português 2 — Silke Hollje-Schumacher; CC BY-SA 3.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:25:56.871Z",
+      "sourceSha256": "12d18b6433560e2f0209a5975a2c7aa03cae13aeb657d112100f93e4ef8179c9",
+      "sourceSha1": "d33dea70d6d7bd244567519850d488a7660d5241",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 181929,
+      "sourceWidth": 1000,
+      "sourceHeight": 854,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 3.0 chain verified. Visual review confirmed a breed-typical Portuguese Water Dog; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:8470ed222a5adc67",
+      "catalogId": "VBO:0201174",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Samojed00.jpg",
+      "sourcePageRevision": {
+        "id": 1218717841,
+        "timestamp": "2026-05-23T07:15:39Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/1/18/Samojed00.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Samojed00",
+      "creator": "No machine-readable author provided. Pleple2000 assumed (based on copyright claims).",
+      "creatorUrl": "https://commons.wikimedia.org/wiki/User:Pleple2000",
+      "licenseId": "CC-BY-SA-3.0",
+      "license": "CC BY-SA 3.0",
+      "licenseVersion": "3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceLicenseLabel": "CC BY-SA 3.0",
+      "sourceLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceCredit": "No machine-readable source provided. Own work assumed (based on copyright claims).",
+      "sourceAttributionRequired": true,
+      "attribution": "Samojed00 — No machine-readable author provided. Pleple2000 assumed (based on copyright claims).; CC BY-SA 3.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:25:56.885Z",
+      "sourceSha256": "8470ed222a5adc673a214b1fbd3c1f454284b66749eac9be9a37667c9498b8fd",
+      "sourceSha1": "971670f9560bbba94c7a4c2c6b390f83c558565c",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 319610,
+      "sourceWidth": 1900,
+      "sourceHeight": 1954,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 3.0 chain verified. Visual review confirmed a breed-typical Samoyed; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:7b68b4d9225fa23a",
+      "catalogId": "VBO:0201198",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Scotish_terrier_burleska_2005.jpg",
+      "sourcePageRevision": {
+        "id": 1245717162,
+        "timestamp": "2026-07-09T17:19:05Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Scotish_terrier_burleska_2005.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Scotish terrier burleska 2005",
+      "creator": "Mider",
+      "creatorUrl": "https://commons.wikimedia.org/w/index.php?title=User:Mider&action=edit&redlink=1",
+      "licenseId": "CC-BY-SA-3.0",
+      "license": "CC BY-SA 3.0",
+      "licenseVersion": "3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceLicenseLabel": "CC BY-SA 3.0",
+      "sourceLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceCredit": "Own work",
+      "sourceAttributionRequired": true,
+      "attribution": "Scotish terrier burleska 2005 — Mider; CC BY-SA 3.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:28:49.795Z",
+      "sourceSha256": "7b68b4d9225fa23aeb1a3ccfce5eabf9a51639e7ab92ca71eae31383508b212f",
+      "sourceSha1": "9a5f0a8a21cb7501440a136d9dccfdf2034d032c",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 115027,
+      "sourceWidth": 700,
+      "sourceHeight": 700,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 3.0 chain verified. Visual review confirmed a breed-typical Scottish Terrier; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
+      }
+    },
+    {
+      "assetId": "dogs:photo:commons:758709d59decd75c",
+      "catalogId": "VBO:0201242",
+      "sourceProvider": "wikimedia-commons",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Sloughi.jpg",
+      "sourcePageRevision": {
+        "id": 1038330412,
+        "timestamp": "2025-05-31T05:28:59Z"
+      },
+      "originalUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Sloughi.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "title": "Sloughi",
+      "creator": "Dr. Sabine Schlenkrich",
+      "creatorUrl": null,
+      "licenseId": "CC-BY-SA-3.0",
+      "license": "CC BY-SA 3.0",
+      "licenseVersion": "3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceLicenseLabel": "CC BY-SA 3.0",
+      "sourceLicenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+      "sourceCredit": "Transferred from de.wikipedia to Commons.",
+      "sourceAttributionRequired": true,
+      "attribution": "Sloughi — Dr. Sabine Schlenkrich; CC BY-SA 3.0; via Wikimedia Commons.",
+      "retrievedAt": "2026-09-22T13:25:50.851Z",
+      "sourceSha256": "758709d59decd75c8893edeab6cc7540d39426ae999f83f7ccaef0d07f7c04a9",
+      "sourceSha1": "0796ccd8f0411ce01914b74e27abe535a4c3f205",
+      "sourceMime": "image/jpeg",
+      "sourceBytes": 831715,
+      "sourceWidth": 2048,
+      "sourceHeight": 1536,
+      "modifications": [
+        "none"
+      ],
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-22",
+        "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
+        "rightsNotes": "Pinned Commons revision, exact source hashes and bytes, creator credit, and CC BY-SA 3.0 chain verified. Visual review confirmed a breed-typical Sloughi; the file is retained only as a morphology reference for original generated artwork and is not enabled for product display, public snapshots, or raster export. No contradictory restriction, deletion warning, recognizable human face, or incompatible mark was identified.",
+        "subjectMatchesCatalog": true,
+        "nonCopyrightRestrictionsReviewed": true
+      },
+      "uiDisplayAllowed": false,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "delivery": {
+        "status": "not_ready",
+        "variants": []
       }
     }
   ]

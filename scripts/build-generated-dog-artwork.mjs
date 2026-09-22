@@ -9,12 +9,11 @@ import { fileURLToPath } from "node:url";
 const execFile = promisify(execFileCallback);
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const outputDirectory = path.join(root, "assets", "dogs", "generated");
-const batchPaths = [
-  "data/dogs/generated-artwork-batch-root.json",
-  "data/dogs/generated-artwork-batch-a.json",
-  "data/dogs/generated-artwork-batch-b.json",
-  "data/dogs/generated-artwork-batch-c.json",
-];
+const batchDirectory = path.join(root, "data", "dogs");
+const batchPaths = (await fs.readdir(batchDirectory))
+  .filter((filename) => /^generated-artwork-batch-[a-z0-9-]+\.json$/u.test(filename))
+  .sort((left, right) => left.localeCompare(right))
+  .map((filename) => path.join("data", "dogs", filename));
 const targets = [
   { role: "card", width: 320, height: 213 },
   { role: "detail", width: 960, height: 640 },
@@ -104,7 +103,7 @@ for (const entry of entries.sort((left, right) => left.catalogId.localeCompare(r
     reference: entry.reference,
     review: {
       status: "approved",
-      reviewedAt: "2026-09-21",
+      reviewedAt: entry.qa.reviewedAt || "2026-09-21",
       breedIdentity: entry.qa.breedIdentity,
       anatomy: entry.qa.anatomy,
       crop: entry.qa.crop,
@@ -118,7 +117,7 @@ for (const entry of entries.sort((left, right) => left.catalogId.localeCompare(r
 }
 const artifact = {
   schemaVersion: 1,
-  manifestVersion: "dogs-generated-artwork-2026-09-21.1",
+  manifestVersion: "dogs-generated-artwork-2026-09-22.2",
   policyVersion: policy.policyVersion,
   disclosure: policy.requiredDisclosure,
   assets,

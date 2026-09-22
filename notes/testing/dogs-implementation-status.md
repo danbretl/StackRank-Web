@@ -2,6 +2,11 @@
 
 Status date: **September 22, 2026**
 
+Durable continuation context for a new agent is recorded in
+`notes/feature-ideas/dogs-product-handoff-2026-09-22.md` and
+`notes/feature-ideas/dogs-artwork-expansion-handoff-2026-09-22.md`. A paste-ready large-cohort
+kickoff is in `notes/feature-ideas/dogs-artwork-expansion-kickoff-prompt.md`.
+
 StackRank Dogs is now a substantial public second product, not a demo. The `/dogs` route, complete
 generated catalog, editorial discovery library, ranking/list utilities, failure handling, shared
 category contracts, additive production persistence, family-home artifact, and regression coverage
@@ -10,11 +15,16 @@ artifact was promoted to production, then `main` was fast-forwarded to the same 
 production root still redirects to `/movies`, and Books remains noindex and local-only.
 
 The September field-guide release adds a warmer, image-forward product system, a friendly profile
-for every selectable catalog entry, and 28 art-directed generated breed portraits for the promoted
-cohort. The original 28-photo rights ledger remains intact as a separately governed fallback.
+for every selectable catalog entry, and 52 art-directed generated breed portraits for the promoted
+cohort plus the 24 highest-priority previously unillustrated pack breeds. The rights ledger keeps the
+original 28-photo fallback intact and adds 24 reference-only, purpose-denied morphology sources.
 Account sync and revocable public text snapshots are active after real
 production Auth/Data API/browser verification. Public-snapshot artwork and raster sharing remain
 separately denied by purpose policy.
+
+The 24-portrait expansion described below is complete in the local working tree and has not yet been
+committed, pushed, or deployed. Production therefore remains on the original 28-portrait field-guide
+release until a separate release action is authorized.
 
 ## Delivery phase status
 
@@ -22,7 +32,7 @@ separately denied by purpose policy.
 | --- | --- | --- |
 | 0 — orient and protect | Complete | Existing Books/cross-domain work and `logo-design-brief/` were preserved; Movies stayed on its existing routes, keys, tables, and payloads. |
 | 1 — catalog compiler | Complete | Pinned VBO release, 100% raw-term disposition, deterministic compiler, validator, difficult-case tests, and an accountable 2026-07-21 editorial audit of every generated review queue. |
-| 2 — artwork pipeline | Generated portrait cohort delivered | All 27 promoted entities plus Broholmer have art-directed generated portraits in 320/960 WebPs with source-reference provenance and recorded human QA. The separate licensed-photo import/process/ledger pipeline remains fail-closed. Public-snapshot and raster-export purposes remain denied for both systems. |
+| 2 — artwork pipeline | Second generated portrait cohort complete locally; release pending | All 27 promoted entities plus Broholmer and 24 additional high-visibility pack breeds have art-directed generated portraits in 320/960 WebPs with source-reference provenance and recorded human QA. The separate licensed-photo import/process/ledger pipeline remains fail-closed. Public-snapshot and raster-export purposes remain denied for both systems. |
 | 3 — shared category platform | Complete for demonstrated local behavior | Entity, catalog, ranking session, ranked-list, backup, provider-purpose, list transition, ranking operation, and remote-row contracts have focused tests. Books remains noindex and working. |
 | 4 — Dogs local product | Complete, field-guide V2 shipped | `/dogs` implements the Movies-parity interaction contract, a warm editorial visual system, six-pack discovery shelf, all-catalog field notes and dog-family labels, image-forward comparison/ranking/details, and responsive/failure browser flows. |
 | 5 — sync, links, family | Active in production | Account sync, per-list timestamps, account isolation, owner publish/update/copy/revoke, and the anonymous `/s/dogs/:slug` renderer are live and independently security-reviewed. Production probes and a post-deploy disposable-account browser pass verified remote ranking persistence plus active/revoked snapshot behavior with zero fixture residue. Raster sharing remains separately disabled. The noindex `home.html` artifact remains unrouted. |
@@ -99,7 +109,7 @@ starter composition, unlabeled crossbreed content, and suitability/behavior clai
 
 | Review tier | Profiles | Contract |
 | --- | ---: | --- |
-| Editor-reviewed | 28 | Original friendly summary, interesting fact, size band, historical roots, origins, and family context for the illustrated cohort. |
+| Editor-reviewed | 28 | Original friendly summary, interesting fact, size band, historical roots, origins, and family context for the deep-profile cohort. |
 | Source-reviewed | 546 | Unique structured source match and/or cited registry context, compiled conservatively. |
 | Generated baseline | 665 | Honest VBO/status/alias/pack context only; no invented temperament, suitability, or household-fit claims. |
 
@@ -127,10 +137,11 @@ Key artifacts:
 
 ## Generated portraits and licensed-photo fallback
 
-The normal UI now prefers 28 art-directed generated portraits covering every promoted starter entity
-plus Broholmer. Each manifest row records the exact rights-reviewed morphology reference, prompt
+The normal UI now prefers 52 art-directed generated portraits: every promoted starter entity plus
+Broholmer, then the 24 highest-priority previously unillustrated breeds that appear in at least three
+editorial packs. Each manifest row records the exact rights-reviewed morphology reference, prompt
 template version, master hash, generated timestamp, 320/960 WebP hashes, and four-part human review
-for breed identity, anatomy, crop, and aesthetics. The tracked variants total 56 files; full-resolution
+for breed identity, anatomy, crop, and aesthetics. The tracked variants total 104 files; full-resolution
 generation masters remain local and ignored. The UI visibly discloses that these are generated breed
 illustrations and that individual dogs vary.
 
@@ -139,8 +150,9 @@ It allows normal UI display only; public snapshots and raster export remain fals
 validator reject unreviewed assets, missing reference-ledger rows, unsafe paths, wrong dimensions,
 hash drift, or downstream-purpose expansion.
 
-The original licensed-photo system remains available as the fail-closed fallback. Its exact purpose
-coverage is:
+The original 28-row licensed-photo system remains available as the fail-closed fallback. The 24 new
+source rows are approved only as morphology references: they are not processed or enabled for UI,
+public snapshots, or raster exports. Exact licensed-photo purpose coverage is:
 
 Current exact purpose coverage is:
 
@@ -151,20 +163,21 @@ Current exact purpose coverage is:
 | Raster export | 0 / 877 current canonical |
 | Promoted starter entities with UI display | 27 / 27 |
 
-All 27 promoted entities now have a Wikimedia Commons candidate imported by exact file page and
-revision, plus one nonpromoted Broholmer row (`28` total). Every original was streamed and verified
-against SHA-256, Commons SHA-1, and byte count, then visually checked at thumbnail/crop level for a
-plausible single-breed subject. All 28 passed accountable subject, license, crop, and non-copyright
-review and were delivered for UI display:
+All 27 promoted entities have a Wikimedia Commons candidate imported by exact file page and revision,
+plus one nonpromoted Broholmer row (`28` display-ready fallbacks). The second cohort adds 24 separately
+gated reference-only rows, for `52` exact ledger records total. Every source was streamed and verified
+against SHA-256, Commons SHA-1, and byte count, then visually checked for a plausible single-breed
+subject. All 52 passed accountable subject, license, and non-copyright review; the original 28 also
+passed deliberate crop and delivery review and remain the only licensed photos enabled for UI display:
 
-| Current-ledger license | Rows |
+| UI-display fallback license | Rows |
 | --- | ---: |
 | CC BY 2.0 | 4 |
 | CC BY-SA 3.0 | 12 |
 | CC BY-SA 4.0 | 11 |
 | CC0 1.0 | 1 |
 
-The whole ledger adds the Broholmer CC BY-SA 3.0 row. An initial Basenji candidate using a regional
+The original display-ready set adds the Broholmer CC BY-SA 3.0 row. An initial Basenji candidate using a regional
 CC BY-SA 3.0 AT license was rejected rather than weakening policy; a generic CC BY-SA 4.0 file was
 selected instead.
 
@@ -176,20 +189,20 @@ records the UI-display purpose for all 28 assets while keeping public-snapshot a
 purpose booleans false. Openverse remains a discovery-only source and cannot write directly to the
 rights ledger.
 
-The UI prefers the 28 generated portraits, can fall back to the separately approved licensed
+The UI prefers the 52 generated portraits, can fall back to the 28 separately approved licensed
 photographs, and uses a polished code-native fallback everywhere else. Public-link artwork and
 raster sharing remain disabled because normal UI-display approval does not imply either additional
 purpose.
 
-A deterministic review-only discovery queue now accounts for all `849` current-canonical concepts
-that do not yet have any ledger row: `185` are prioritized by editorial-pack engagement and `664`
-form the catalog long tail. All `28` existing ledger ids are excluded regardless of approval state,
+A deterministic review-only discovery queue now accounts for all `825` current-canonical concepts
+that do not yet have any ledger row: `161` are prioritized by editorial-pack engagement and `664`
+form the catalog long tail. All `52` existing ledger ids are excluded regardless of approval state,
 so no pending candidate is accidentally rediscovered as “missing.” The queue embeds source versions
 and SHA-256 digests plus bounded Openverse/Commons search inputs; it performs no request, import,
 approval, or download by itself.
 
 `npm run review:dogs:artwork` builds a noindex local review workspace under
-`reports/dogs-artwork-review/`. It presents all 28 exact ledger candidates with uncropped Commons
+`reports/dogs-artwork-review/`. It presents all 52 exact ledger candidates with uncropped Commons
 originals, pinned/current source links, hashes, attribution, license text, and three separate human
 review dimensions. Work-in-progress notes stay in that browser and export as a review-aid JSON file;
 the workspace has no approval, upload, processing, or ledger-write capability.
@@ -199,7 +212,7 @@ Key artifacts:
 - `data/dogs/image-rights.json`
 - `data/dogs/generated-artwork.json`
 - `data/dogs/generated-artwork-policy.json`
-- `data/dogs/generated-artwork-batch-{root,a,b,c}.json`
+- `data/dogs/generated-artwork-batch-{root,a,b,c,d}.json`
 - `data/dogs/artwork-license-policy.json`
 - `data/dogs/artwork-coverage-report.json`
 - `data/dogs/artwork-review-guide.md`
@@ -363,6 +376,13 @@ syntax/cache/browser rerun after tightening synchronous detail-image painting:
   served `dogs.css?v=7`, `dogs.js?v=26`, and exact generated WebP bytes. `npm run test:production`
   then passed all 35 route, redirect, security-header, cache, metadata, catalog, privacy-credit, and
   sitemap checks.
+
+The local second-cohort expansion then passed the same full release gate: 424 / 424 Node tests
+(`reports/runs/2026-09-22T140321Z`), 24 / 24 Deno tests, syntax and all 59 cache-manifest assets,
+both pack validators, every Dogs catalog/profile/artwork/discovery validator, and 37 / 37 real-Chrome
+flows (`reports/e2e/runs/2026-09-22T140338Z`). The Dogs browser flow now asserts that a newly added
+Basset Hound result loads its exact generated 320px WebP from the real 52-portrait manifest; the
+desktop result, 24-up master contact sheet, and responsive existing flows were visually inspected.
 
 After production probes and artwork delivery passed, the local activation follow-up enabled only
 Dogs account sync and public snapshots, kept raster export false, and passed 36 focused

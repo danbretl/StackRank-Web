@@ -5,6 +5,8 @@ const productionOrigin = "https://www.stackrankapp.com";
 const apexOrigin = "https://stackrankapp.com";
 const localIndex = fs.readFileSync(new URL("../index.html", import.meta.url), "utf8");
 const localDogs = fs.readFileSync(new URL("../dogs.html", import.meta.url), "utf8");
+const localDogsArtworkReview = fs.readFileSync(new URL("../dogs-artwork-review.html", import.meta.url), "utf8");
+const localDogsArtworkReviewScript = fs.readFileSync(new URL("../dogs-artwork-review.js", import.meta.url), "utf8");
 const localDogsShared = fs.readFileSync(new URL("../dogs-shared.html", import.meta.url), "utf8");
 const localShared = fs.readFileSync(new URL("../shared.html", import.meta.url), "utf8");
 const localApp = fs.readFileSync(new URL("../app.js", import.meta.url), "utf8");
@@ -50,12 +52,15 @@ await expectRedirect(`${apexOrigin}/`, 308, `${productionOrigin}/`);
 await expectRedirect(`${productionOrigin}/`, 307, "/movies");
 await expectRedirect(`${productionOrigin}/movies/`, 308, "/movies");
 await expectRedirect(`${productionOrigin}/dogs/`, 308, "/dogs");
+await expectRedirect(`${productionOrigin}/dogs/artwork-review/`, 308, "/dogs/artwork-review");
 await expectRedirect(`${productionOrigin}/privacy/`, 308, "/privacy");
 
 const moviesResponse = await expectOk("/movies");
 const moviesHtml = await moviesResponse.text();
 const dogsResponse = await expectOk("/dogs");
 const dogsHtml = await dogsResponse.text();
+const dogsArtworkReviewResponse = await expectOk("/dogs/artwork-review");
+const dogsArtworkReviewHtml = await dogsArtworkReviewResponse.text();
 const privacyResponse = await expectOk("/privacy");
 const privacyHtml = await privacyResponse.text();
 const sharedResponse = await expectOk("/s/prodsmoke1");
@@ -69,12 +74,13 @@ const configuredHeaders = Object.fromEntries(
 for (const [key, expected] of Object.entries(configuredHeaders)) {
   assert.equal(moviesResponse.headers.get(key), expected, `/movies ${key}`);
   assert.equal(dogsResponse.headers.get(key), expected, `/dogs ${key}`);
+  assert.equal(dogsArtworkReviewResponse.headers.get(key), expected, `/dogs/artwork-review ${key}`);
   assert.equal(privacyResponse.headers.get(key), expected, `/privacy ${key}`);
   assert.equal(sharedResponse.headers.get(key), expected, `/s/prodsmoke1 ${key}`);
   assert.equal(dogsSharedResponse.headers.get(key), expected, `/s/dogs/prodsmoke123 ${key}`);
 }
 assert.match(moviesResponse.headers.get("strict-transport-security") || "", /max-age=/);
-record("security headers match vercel.json on /movies, /dogs, /privacy, and /s/:slug");
+record("security headers match vercel.json on /movies, /dogs, /dogs/artwork-review, /privacy, and /s/:slug");
 
 const expectedCanonical = attribute(
   localIndex,
@@ -121,6 +127,20 @@ const expectedDogsModule = attribute(
   /<script\b[^>]*\btype=["']module["'][^>]*>/i,
   "src",
 );
+const expectedDogsArtworkReviewCss = attribute(
+  localDogsArtworkReview,
+  /<link\b[^>]*\brel=["']stylesheet["'][^>]*>/i,
+  "href",
+);
+const expectedDogsArtworkReviewModule = attribute(
+  localDogsArtworkReview,
+  /<script\b[^>]*\btype=["']module["'][^>]*>/i,
+  "src",
+);
+const expectedDogsArtworkReviewLibrary = localDogsArtworkReviewScript.match(
+  /from\s+["'](\/lib\/dogs-artwork-review\.js(?:\?v=\d+)?)["']/,
+)?.[1];
+assert.ok(expectedDogsArtworkReviewLibrary, "Dogs artwork review helper import should be present");
 const expectedVendorModule = localApp.match(
   /from\s+["']\.\/(vendor\/supabase-js-2\.108\.2\.js\?v=\d+)["']/,
 )?.[1];
@@ -167,6 +187,22 @@ assert.equal(
 );
 assert.equal(attribute(dogsHtml, /<meta\b[^>]*\bname=["']robots["'][^>]*>/i, "content"), "");
 record("Dogs route serves public canonical metadata and cache-busted assets");
+
+assert.equal(
+  attribute(dogsArtworkReviewHtml, /<meta\b[^>]*\bname=["']robots["'][^>]*>/i, "content"),
+  "noindex,nofollow",
+);
+assert.equal(dogsArtworkReviewResponse.headers.get("x-robots-tag"), "noindex, nofollow");
+assert.equal(
+  attribute(dogsArtworkReviewHtml, /<link\b[^>]*\brel=["']stylesheet["'][^>]*>/i, "href"),
+  expectedDogsArtworkReviewCss,
+);
+assert.equal(
+  attribute(dogsArtworkReviewHtml, /<script\b[^>]*\btype=["']module["'][^>]*>/i, "src"),
+  expectedDogsArtworkReviewModule,
+);
+assert.match(dogsArtworkReviewHtml, /Flags and notes stay in this browser;/);
+record("Dogs artwork review route is noindex and serves the expected internal review artifact");
 
 assert.equal(
   attribute(sharedHtml, /<meta\b[^>]*\bproperty=["']og:title["'][^>]*>/i, "content"),
@@ -216,6 +252,9 @@ for (const asset of [
   expectedSharedModule,
   expectedDogsCss,
   expectedDogsModule,
+  expectedDogsArtworkReviewCss,
+  expectedDogsArtworkReviewModule,
+  expectedDogsArtworkReviewLibrary,
   expectedDogsSharedCss,
   expectedDogsSharedModule,
   expectedVendorModule,
@@ -234,6 +273,8 @@ for (const asset of [
   expectedSharedModule,
   expectedDogsCss,
   expectedDogsModule,
+  expectedDogsArtworkReviewCss,
+  expectedDogsArtworkReviewModule,
   expectedDogsSharedCss,
   expectedDogsSharedModule,
   expectedVendorModule,
@@ -252,6 +293,21 @@ for (const asset of [
   );
 }
 record("cache-busted app, vendor, CSS, and pack data are immutable");
+
+const generatedArtworkResponse = await expectOk("/data/dogs/generated-artwork.json");
+const generatedArtwork = await generatedArtworkResponse.json();
+const localGeneratedArtwork = JSON.parse(
+  fs.readFileSync(new URL("../data/dogs/generated-artwork.json", import.meta.url), "utf8"),
+);
+assert.equal(generatedArtwork.manifestVersion, localGeneratedArtwork.manifestVersion);
+assert.equal(generatedArtwork.assets?.length, localGeneratedArtwork.assets.length);
+assert.ok(generatedArtwork.assets?.every((asset) => asset.uiDisplayAllowed === true));
+assert.ok(generatedArtwork.assets?.every((asset) => asset.publicSnapshotAllowed === false));
+assert.ok(generatedArtwork.assets?.every((asset) => asset.rasterExportAllowed === false));
+const generatedArtworkBatchResponse = await expectOk("/data/dogs/generated-artwork-batch-root.json");
+const generatedArtworkBatch = await generatedArtworkBatchResponse.json();
+assert.ok(Array.isArray(generatedArtworkBatch.images) && generatedArtworkBatch.images.length > 0);
+record("Dogs artwork review manifest and preserved batch metadata are deployed with fail-closed purpose gates");
 
 const dogCatalogResponse = await request(new URL("/data/dogs/dog-catalog.json?v=3", productionOrigin));
 const dogCatalog = await dogCatalogResponse.json();

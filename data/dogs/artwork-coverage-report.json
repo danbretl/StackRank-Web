@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "ledgerVersion": "2026-09-22.e07",
+  "ledgerVersion": "2026-09-22.e08",
   "policyVersion": "2026-07-16.1",
   "catalogVersion": "vbo-2026-04-15.2",
   "sourceDates": {
@@ -16,36 +16,36 @@
     "missingPromotedCatalogIds": []
   },
   "ledger": {
-    "rows": 213,
-    "approvedRightsRows": 213,
+    "rows": 238,
+    "approvedRightsRows": 238,
     "pendingRows": 0,
     "quarantinedRows": 0,
     "readyDeliveryRows": 28,
     "allRowsLicenseDistribution": {
       "CC-BY-2.0": 5,
       "CC-BY-2.5": 1,
-      "CC-BY-3.0": 4,
+      "CC-BY-3.0": 5,
       "CC-BY-4.0": 15,
       "CC-BY-SA-2.5": 1,
-      "CC-BY-SA-3.0": 77,
-      "CC-BY-SA-4.0": 102,
-      "CC0-1.0": 8
+      "CC-BY-SA-3.0": 85,
+      "CC-BY-SA-4.0": 117,
+      "CC0-1.0": 9
     },
     "approvedLicenseDistribution": {
       "CC-BY-2.0": 5,
       "CC-BY-2.5": 1,
-      "CC-BY-3.0": 4,
+      "CC-BY-3.0": 5,
       "CC-BY-4.0": 15,
       "CC-BY-SA-2.5": 1,
-      "CC-BY-SA-3.0": 77,
-      "CC-BY-SA-4.0": 102,
-      "CC0-1.0": 8
+      "CC-BY-SA-3.0": 85,
+      "CC-BY-SA-4.0": 117,
+      "CC0-1.0": 9
     },
     "allRowsSourceProviderDistribution": {
-      "wikimedia-commons": 213
+      "wikimedia-commons": 238
     },
     "approvedSourceProviderDistribution": {
-      "wikimedia-commons": 213
+      "wikimedia-commons": 238
     }
   },
   "coverage": {
@@ -85,8 +85,8 @@
   "unresolvedUiArtworkSummary": {
     "total": 1211,
     "byReason": {
-      "approved rights, delivery/purpose not ready": 185,
-      "no ledger row": 1026
+      "approved rights, delivery/purpose not ready": 210,
+      "no ledger row": 1001
     },
     "promotedTotal": 0
   },
@@ -1140,7 +1140,7 @@
     {
       "catalogId": "VBO:0200232",
       "primaryText": "Brazilian Tracker",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200233",
@@ -1295,12 +1295,12 @@
     {
       "catalogId": "VBO:0200270",
       "primaryText": "Calupoh",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200271",
       "primaryText": "Campeiro Bulldog",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200272",
@@ -2020,7 +2020,7 @@
     {
       "catalogId": "VBO:0200447",
       "primaryText": "Dogo Guatemalteco",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200448",
@@ -2635,7 +2635,7 @@
     {
       "catalogId": "VBO:0200609",
       "primaryText": "Glen of Imaal Terrier",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200611",
@@ -2875,7 +2875,7 @@
     {
       "catalogId": "VBO:0200674",
       "primaryText": "Hovawart",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200675",
@@ -3120,7 +3120,7 @@
     {
       "catalogId": "VBO:0200740",
       "primaryText": "Japanese Spitz",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200741",
@@ -3170,7 +3170,7 @@
     {
       "catalogId": "VBO:0200754",
       "primaryText": "Karelian Bear Dog",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200755",
@@ -3545,7 +3545,7 @@
     {
       "catalogId": "VBO:0200836",
       "primaryText": "Lowchen",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200837",
@@ -3645,7 +3645,7 @@
     {
       "catalogId": "VBO:0200862",
       "primaryText": "Manchester Terrier",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200864",
@@ -3770,7 +3770,7 @@
     {
       "catalogId": "VBO:0200893",
       "primaryText": "Miniature Pinscher",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200894",
@@ -3935,7 +3935,7 @@
     {
       "catalogId": "VBO:0200930",
       "primaryText": "Neapolitan Mastiff",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200931",
@@ -3945,7 +3945,7 @@
     {
       "catalogId": "VBO:0200932",
       "primaryText": "Nederlandse Kooikerhondje",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200933",
@@ -3990,7 +3990,7 @@
     {
       "catalogId": "VBO:0200945",
       "primaryText": "Norfolk Terrier",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200946",
@@ -4050,7 +4050,7 @@
     {
       "catalogId": "VBO:0200962",
       "primaryText": "Norwich Terrier",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200964",
@@ -4655,7 +4655,7 @@
     {
       "catalogId": "VBO:0201105",
       "primaryText": "Pumi",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201106",
@@ -4740,7 +4740,7 @@
     {
       "catalogId": "VBO:0201125",
       "primaryText": "Rat Terrier",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201126",
@@ -4990,7 +4990,7 @@
     {
       "catalogId": "VBO:0201184",
       "primaryText": "Schipperke",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201185",
@@ -5055,7 +5055,7 @@
     {
       "catalogId": "VBO:0201200",
       "primaryText": "Sealyham Terrier",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201201",
@@ -5435,7 +5435,7 @@
     {
       "catalogId": "VBO:0201296",
       "primaryText": "Staffordshire Bull Terrier",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201297",
@@ -5660,12 +5660,12 @@
     {
       "catalogId": "VBO:0201352",
       "primaryText": "Tibetan Spaniel",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201353",
       "primaryText": "Tibetan Terrier",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201354",
@@ -5705,7 +5705,7 @@
     {
       "catalogId": "VBO:0201361",
       "primaryText": "Toy Fox Terrier",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201363",
@@ -5900,7 +5900,7 @@
     {
       "catalogId": "VBO:0201412",
       "primaryText": "Welsh Terrier",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201414",
@@ -5945,7 +5945,7 @@
     {
       "catalogId": "VBO:0201423",
       "primaryText": "White Swiss Shepherd Dog",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201424",

@@ -22,6 +22,10 @@
       "destination": "/dogs.html"
     },
     {
+      "source": "/dogs/artwork-review",
+      "destination": "/dogs-artwork-review.html"
+    },
+    {
       "source": "/privacy",
       "destination": "/privacy.html"
     },
@@ -197,6 +201,42 @@
     },
     {
       "source": "/vendor/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/dogs/artwork-review",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/dogs-artwork-review.html",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
+      "source": "/dogs-artwork-review.js",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/dogs-artwork-review.css",
       "headers": [
         {
           "key": "Cache-Control",

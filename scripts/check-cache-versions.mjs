@@ -16,12 +16,14 @@ const ROOT_SOURCE_FILES = [
   "dogs-shared.html",
   "books.html",
   "dogs.html",
+  "dogs-artwork-review.html",
   "home.html",
   "app.js",
   "shared.js",
   "dogs-shared.js",
   "books.js",
   "dogs.js",
+  "dogs-artwork-review.js",
   "home.js",
 ];
 const RUNTIME_SOURCE_DIRS = ["lib", "js"];

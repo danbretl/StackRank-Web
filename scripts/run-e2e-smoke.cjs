@@ -89,7 +89,12 @@ const serveStatic = async () => {
       response.end();
       return;
     }
-    if (pathname === "/movies/" || pathname === "/books/" || pathname === "/dogs/") {
+    if (
+      pathname === "/movies/" ||
+      pathname === "/books/" ||
+      pathname === "/dogs/" ||
+      pathname === "/dogs/artwork-review/"
+    ) {
       response.writeHead(308, { location: `${pathname.slice(0, -1)}${url.search}` });
       response.end();
       return;
@@ -103,6 +108,8 @@ const serveStatic = async () => {
           ? "books.html"
         : pathname === "/dogs"
           ? "dogs.html"
+        : pathname === "/dogs/artwork-review"
+          ? "dogs-artwork-review.html"
         : pathname === "/privacy"
           ? "privacy.html"
           : /^\/s\/dogs\/[a-z0-9]{12}$/.test(pathname)
@@ -11376,12 +11383,215 @@ const testDogsRemoteSyncAndShare = async ({ baseUrl }) => {
   }
 };
 
+const testDogsArtworkReview = async ({ baseUrl }) => {
+  const page = await openChromePage({ width: 1360, height: 940, name: "dogs-artwork-review" });
+  const expectedArtworkCount = JSON.parse(
+    fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8"),
+  ).assets.filter((asset) => asset.uiDisplayAllowed === true).length;
+  const rankingSentinel = JSON.stringify({ sentinel: "artwork-review-isolation" });
+  const reviewNote = "E2E review note: inspect the far hind paw.";
+  try {
+    await page.send("Page.navigate", { url: `${baseUrl}/dogs/artwork-review?e2e=artwork-review` });
+    await waitFor(
+      page,
+      `document.querySelectorAll('#artwork-gallery .artwork-card').length === 24 && document.querySelector('#asset-count')?.textContent === ${JSON.stringify(String(expectedArtworkCount))}`,
+      15000,
+    );
+    await page.evaluate(`localStorage.setItem('stackrank:dogs:ranking:v1', ${JSON.stringify(rankingSentinel)}); true;`);
+
+    const desktopInitial = await page.evaluate(`(() => ({
+      pathname: location.pathname,
+      robots: document.querySelector('meta[name="robots"]')?.content || '',
+      cards: document.querySelectorAll('#artwork-gallery .artwork-card').length,
+      pageStatus: document.querySelector('#page-status')?.textContent.trim() || '',
+      firstAssetId: document.querySelector('[data-asset-id]')?.dataset.assetId || '',
+      firstImageWidth: document.querySelector('.artwork-card img')?.naturalWidth || 0,
+      bodyOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
+    }))()`);
+    if (
+      desktopInitial.pathname !== "/dogs/artwork-review" ||
+      desktopInitial.robots !== "noindex,nofollow" ||
+      desktopInitial.cards !== 24 ||
+      !/^Page 1 of (?:[2-9]|\d{2,})$/u.test(desktopInitial.pageStatus) ||
+      !desktopInitial.firstAssetId ||
+      desktopInitial.firstImageWidth < 300 ||
+      desktopInitial.bodyOverflow > 1
+    ) {
+      throw new Error(`Artwork review desktop boot is wrong: ${JSON.stringify(desktopInitial)}`);
+    }
+
+    await page.evaluate(`document.querySelector('#next-page')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#page-status')?.textContent.startsWith('Page 2 of')`, 5000);
+    const secondPageFirst = await page.evaluate(`document.querySelector('[data-asset-id]')?.dataset.assetId || ''`);
+    if (!secondPageFirst || secondPageFirst === desktopInitial.firstAssetId) {
+      throw new Error(`Artwork pagination did not advance: ${JSON.stringify({ desktopInitial, secondPageFirst })}`);
+    }
+
+    await page.evaluate(`(() => {
+      const input = document.querySelector('#artwork-search');
+      input.value = 'VBO:0000661';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `document.querySelector('#visible-count')?.textContent === '1' && document.querySelector('[data-asset-id]')?.dataset.assetId === 'dogs:generated:vbo-0000661:v1'`,
+      5000,
+    );
+    await page.evaluate(`document.querySelector('[data-asset-id]')?.click(); true;`);
+    await waitFor(
+      page,
+      `document.querySelector('#artwork-dialog')?.open && document.querySelector('#dialog-image')?.naturalWidth >= 900 && document.querySelector('#generation-loading')?.hidden`,
+      15000,
+    );
+    const detail = await page.evaluate(`(() => ({
+      title: document.querySelector('#dialog-title')?.textContent.trim() || '',
+      imageWidth: document.querySelector('#dialog-image')?.naturalWidth || 0,
+      record: document.querySelector('#generation-record')?.innerText || '',
+      qa: document.querySelector('#dialog-qa')?.innerText || '',
+      prompt: document.querySelector('#generation-extra')?.innerText || '',
+      referenceHref: document.querySelector('#generation-record a')?.href || '',
+      referenceImages: document.querySelectorAll('.artwork-dialog img').length
+    }))()`);
+    if (
+      detail.title !== "Broholmer" ||
+      detail.imageWidth < 900 ||
+      !/Asset ID[\s\S]*dogs:generated:vbo-0000661:v1/u.test(detail.record) ||
+      !/Master SHA-256/u.test(detail.record) ||
+      !/Breed identity/u.test(detail.qa) ||
+      !/Exact prompt/u.test(detail.prompt) ||
+      !detail.referenceHref.startsWith("https://commons.wikimedia.org/wiki/File:") ||
+      detail.referenceImages !== 1
+    ) {
+      throw new Error(`Artwork detail metadata or large image is wrong: ${JSON.stringify(detail)}`);
+    }
+    const desktopScreenshot = await page.screenshot("dogs-artwork-review-detail-desktop.png");
+
+    await page.evaluate(`(() => {
+      const anatomy = document.querySelector('#concern-options input[value="anatomy"]');
+      anatomy.checked = true;
+      document.querySelector('#concern-note').value = ${JSON.stringify(reviewNote)};
+      document.querySelector('#concern-form').requestSubmit();
+      return true;
+    })()`);
+    await waitFor(
+      page,
+      `JSON.parse(localStorage.getItem('stackrank:dogs:artwork-review:v1') || '{}').reviews?.['dogs:generated:vbo-0000661:v1']?.note === ${JSON.stringify(reviewNote)}`,
+      5000,
+    );
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyDown",
+      key: "Escape",
+      code: "Escape",
+      windowsVirtualKeyCode: 27,
+    });
+    await page.send("Input.dispatchKeyEvent", {
+      type: "keyUp",
+      key: "Escape",
+      code: "Escape",
+      windowsVirtualKeyCode: 27,
+    });
+    await waitFor(page, `!document.querySelector('#artwork-dialog')?.open`, 3000);
+    await waitFor(
+      page,
+      `document.activeElement?.dataset.assetId === 'dogs:generated:vbo-0000661:v1' || document.activeElement?.dataset.reviewAssetId === 'dogs:generated:vbo-0000661:v1'`,
+      3000,
+    );
+    const focusAfterEscape = await page.evaluate(`(() => ({
+      assetId: document.activeElement?.dataset.assetId || document.activeElement?.dataset.reviewAssetId || '',
+      ranking: localStorage.getItem('stackrank:dogs:ranking:v1')
+    }))()`);
+    if (focusAfterEscape.assetId !== "dogs:generated:vbo-0000661:v1" || focusAfterEscape.ranking !== rankingSentinel) {
+      throw new Error(`Artwork dialog focus or ranking-key isolation failed: ${JSON.stringify(focusAfterEscape)}`);
+    }
+
+    await page.send("Page.reload", { ignoreCache: true });
+    await waitFor(page, `document.querySelector('#asset-count')?.textContent === ${JSON.stringify(String(expectedArtworkCount))}`, 15000);
+    await page.evaluate(`(() => {
+      const filter = document.querySelector('#artwork-filter');
+      filter.value = 'flagged';
+      filter.dispatchEvent(new Event('change', { bubbles: true }));
+      return true;
+    })()`);
+    await waitFor(page, `document.querySelectorAll('#artwork-gallery .artwork-card').length === 1`, 5000);
+    await page.evaluate(`document.querySelector('[data-review-asset-id]')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#artwork-dialog')?.open`, 3000);
+    const persisted = await page.evaluate(`(() => ({
+      note: document.querySelector('#concern-note')?.value || '',
+      anatomy: document.querySelector('#concern-options input[value="anatomy"]')?.checked || false,
+      ranking: localStorage.getItem('stackrank:dogs:ranking:v1'),
+      flagged: document.querySelector('#flagged-count')?.textContent || ''
+    }))()`);
+    if (persisted.note !== reviewNote || !persisted.anatomy || persisted.ranking !== rankingSentinel || persisted.flagged !== "1") {
+      throw new Error(`Artwork review did not survive reload safely: ${JSON.stringify(persisted)}`);
+    }
+    await page.evaluate(`document.querySelector('#dialog-close')?.click(); true;`);
+
+    const exportName = `stackrank-dogs-artwork-review-${new Date().toISOString().slice(0, 10)}.json`;
+    await page.evaluate(`document.querySelector('#export-review')?.click(); true;`);
+    const exportPath = await waitForDownload(page, exportName, 10000);
+    const exported = JSON.parse(fs.readFileSync(exportPath, "utf8"));
+    if (
+      exported.type !== "stackrank-dogs-artwork-review" ||
+      exported.reviewCount !== 1 ||
+      exported.reviews?.[0]?.catalogId !== "VBO:0000661" ||
+      exported.reviews?.[0]?.note !== reviewNote ||
+      !exported.reviews?.[0]?.concerns?.includes("anatomy") ||
+      !/^[a-f0-9]{64}$/u.test(exported.reviews?.[0]?.masterSha256 || "")
+    ) {
+      throw new Error(`Artwork review export is incomplete: ${JSON.stringify(exported)}`);
+    }
+
+    await page.evaluate(`(() => {
+      const filter = document.querySelector('#artwork-filter');
+      filter.value = 'all';
+      filter.dispatchEvent(new Event('change', { bubbles: true }));
+      return true;
+    })()`);
+    const phoneProfile = await setDeviceProfile(page, {
+      width: 390,
+      height: 844,
+      input: DEVICE_INPUT_PROFILE.coarseTouch,
+    });
+    await wait(250);
+    const phone = await page.evaluate(`(() => ({
+      cards: document.querySelectorAll('#artwork-gallery .artwork-card').length,
+      columns: getComputedStyle(document.querySelector('#artwork-gallery')).gridTemplateColumns.split(' ').length,
+      pageStatus: document.querySelector('#page-status')?.textContent.trim() || '',
+      horizontalOverflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      nextDisabled: document.querySelector('#next-page')?.disabled
+    }))()`);
+    if (
+      phone.cards !== 24 ||
+      phone.columns !== 1 ||
+      !/^Page 1 of (?:[2-9]|\d{2,})$/u.test(phone.pageStatus) ||
+      phone.horizontalOverflow > 1 ||
+      phone.nextDisabled ||
+      !phoneProfile.pointerCoarse
+    ) {
+      throw new Error(`Artwork review phone layout or pagination is wrong: ${JSON.stringify({ phone, phoneProfile })}`);
+    }
+    await page.evaluate(`document.querySelector('#next-page')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#page-status')?.textContent.startsWith('Page 2 of')`, 5000);
+    const phoneScreenshot = await page.screenshot("dogs-artwork-review-phone-page-2.png");
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Artwork review browser errors: ${JSON.stringify(health.errors)}`);
+    return {
+      details: { desktopInitial, detail, focusAfterEscape, persisted, exported, phone, phoneProfile },
+      screenshots: [desktopScreenshot, phoneScreenshot],
+    };
+  } finally {
+    await page.close();
+  }
+};
+
 const tests = [
   { name: "localStorage persistence round-trip", run: testLoadPersistence },
   { name: "Books work-level ranking vertical slice", run: testBooksVerticalSlice },
   { name: "noindex family home preview", run: testFamilyHomePreview },
   { name: "Dogs comprehensive local product", run: testDogsLocalProduct },
   { name: "Dogs mocked account sync and public snapshot", run: testDogsRemoteSyncAndShare },
+  { name: "Dogs generated artwork review workflow", run: testDogsArtworkReview },
   { name: "Dogs exact phone portrait and landscape viewport", run: testDogsPhoneViewport },
   { name: "Dogs approved artwork and attribution contract", run: testDogsApprovedArtworkAttribution },
   { name: "Dogs catalog and storage failure recovery", run: testDogsFailureRecovery },

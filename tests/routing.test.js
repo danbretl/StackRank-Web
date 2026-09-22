@@ -37,6 +37,10 @@ test("Vercel serves the static SPA at /movies without changing the visible URL",
       destination: "/dogs.html",
     },
     {
+      source: "/dogs/artwork-review",
+      destination: "/dogs-artwork-review.html",
+    },
+    {
       source: "/privacy",
       destination: "/privacy.html",
     },
@@ -88,6 +92,8 @@ test("Vercel gives cache-busted static payloads immutable browser caching", () =
     "/books.css",
     "/dogs.js",
     "/dogs.css",
+    "/dogs-artwork-review.js",
+    "/dogs-artwork-review.css",
     "/dogs-shared.js",
     "/dogs-shared.css",
     "/home.js",
@@ -124,6 +130,13 @@ test("Dogs is a public category route without weakening the Books noindex bounda
   assert.equal(vercelConfig.headers.some(({ source }) => source === "/dogs"), false);
 });
 
+test("the internal artwork review route and direct HTML stay noindex", () => {
+  for (const source of ["/dogs/artwork-review", "/dogs-artwork-review.html"]) {
+    const rule = vercelConfig.headers.find((entry) => entry.source === source);
+    assert.equal(rule?.headers.find(({ key }) => key === "X-Robots-Tag")?.value, "noindex, nofollow");
+  }
+});
+
 test("Dogs public snapshots use a category route without changing legacy Movies links", () => {
   assert.deepEqual(vercelConfig.rewrites.find(({ source }) => source === "/s/dogs/:slug"), {
     source: "/s/dogs/:slug",
@@ -158,6 +171,11 @@ test("Vercel previews exclude versioned source and audit files that are not brow
     "dogs.html",
     "dogs.js",
     "dogs.css",
+    "dogs-artwork-review.html",
+    "dogs-artwork-review.js",
+    "dogs-artwork-review.css",
+    "lib/dogs-artwork-review.js",
+    "data/dogs/generated-artwork-batch-e08.json",
     "dogs-shared.html",
     "dogs-shared.js",
     "dogs-shared.css",

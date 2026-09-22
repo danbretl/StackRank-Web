@@ -7,7 +7,26 @@ The user authorized periodic commits and pushes, then explicitly requested visib
 live site. Verified milestones now go to `main`, which Vercel deploys. Database migrations, production
 Storage uploads and root routing changes are outside this artwork expansion.
 
-## Current published milestone E05
+## Current published milestone E06
+
+- Production commit: `64e3a14e`; **189 / 1,239** portraits live, **1,050** unillustrated.
+- Cohort delivery: **137 / 250** accepted and integrated. E06 adds **23** from **29 calls**,
+  with **4 rejected masters**, **2 failed calls**, and **6 retries**.
+- Cumulative: **169 calls**, **161 generated outputs**, **24 rejected masters**, **8 failed calls**,
+  **32 retries**. Thirteen frozen identities remain blocked; E06 adds Tobet (weak adult morphology
+  evidence) and extinct Saint Johns (historical sources and modern Labrador substitutes excluded).
+- Next actionable identity: Shikoku (`VBO:0201225`, ordinal 151).
+- Canonical discovery: **688** without ledger rows (**24** pack-engaged, **664** long-tail).
+- All 23 full-resolution originals and the contact sheet passed primary review. Rajapalayam and
+  Schnauzer were regenerated for roomier framing. All **332** prior WebPs remain byte-identical.
+- `npm run verify`: **432 Node, 24 Deno, all validators, 37 Chrome flows passed**;
+  log `reports/dogs-generated-artwork/cohort-e/e06-verify.log`, Node report
+  `reports/runs/2026-09-22T210711Z`, Chrome report `reports/e2e/runs/2026-09-22T210728Z`.
+- Vercel deployment and **35 production smoke checks** passed; eight sampled live variant hashes
+  match. Evidence: `reports/dogs-generated-artwork/cohort-e/e06-production-smoke.log` and
+  `e06-production-artwork.json`. E05 documentation commit passed both hosted CI checks.
+
+## Earlier published milestone E05
 
 - Production commit: `de53ed31`; **166 / 1,239** portraits live, **1,073** unillustrated.
 - Cohort delivery: **114 / 250** accepted and integrated. E05 adds **21** from **21 calls**,
@@ -144,10 +163,19 @@ public-snapshot artwork and raster export remain false. Movies, Books and `/` â†
 
 ## Work in progress
 
-E06 has 23 candidates that passed primary full-resolution and contact-sheet review, including
-roomier regenerated Rajapalayam and Schnauzer portraits. Tobet and Saint Johns remain held.
-E07-a/b have 16 candidates that passed primary full-resolution review; E07-c generation is underway.
-E08-a has nine agent-reviewed candidates; E08-b and E09-a reference research is underway.
+E07 has 24 candidates that passed primary full-resolution and contact-sheet review; generic Welsh
+Corgi remains held because the catalog separately represents Cardigan and Pembroke identities.
+E08-a has nine candidates that passed primary full-resolution review. E08-b generation and E08-c
+preparation continue; E09-a has six agent-reviewed candidates, with Phu Quoc, Sapsali and Bully Kutta
+held for inadequate exact adult morphology evidence. E09-c reference research is underway.
+
+At the user's request, routine reference/scene preparation, generation bookkeeping and first-pass
+QA now use GPT-5.6 Sol at High effort where available. The primary orchestrator retains difficult
+identity/provenance decisions, full-resolution acceptance, contact-sheet review and release checks.
+An existing stronger-model lane handles bounded reference research while the session's agent limit
+prevents another model replacement. Generation remains one distinct asset per built-in call and no
+more than four calls concurrently; model routing does not relax quality or provenance gates.
+
 Isolated staging is under `reports/dogs-generated-artwork/cohort-e/eNN-a`, `eNN-b`, `eNN-c`;
 merge only reviewed updates into the authoritative ledger. Masters and rejected originals stay
 only under ignored `assets/dogs/generated-masters/`.

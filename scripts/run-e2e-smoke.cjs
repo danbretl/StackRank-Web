@@ -1495,12 +1495,16 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('#dogs-export-dialog')?.close(); true;`);
 
     await page.evaluate(`document.querySelector('.dogs-nav [data-destination="rank"]')?.click(); true;`);
+    await page.evaluate(`document.querySelector('.featured-pack .breed-tile:not(:disabled)')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#dogs-comparison')?.hidden &&
+      [...document.querySelectorAll('#dogs-comparison .dog-media img')].length === 2 &&
+      [...document.querySelectorAll('#dogs-comparison .dog-media img')].every((image) => image.complete && image.naturalWidth > 0)`, 5000);
+    const desktopComparisonShot = await page.screenshot("dogs-comparison-desktop.png");
     const mobileProfile = await setDeviceProfile(page, {
       width: 390,
       height: 844,
       input: DEVICE_INPUT_PROFILE.coarseTouch,
     });
-    await page.evaluate(`document.querySelector('.featured-pack .breed-tile:not(:disabled)')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#dogs-comparison')?.hidden`, 3000);
     await waitFor(
       page,
@@ -1552,6 +1556,32 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     const landscapeShot = await page.screenshot("dogs-comparison-landscape.png");
     await page.evaluate(`document.querySelector('#dogs-cancel-comparison')?.click(); true;`);
 
+    await setDeviceProfile(page, { width: 390, height: 844, input: DEVICE_INPUT_PROFILE.coarseTouch });
+    await page.evaluate(`document.querySelector('.dogs-nav [data-destination="ranking"]')?.click();
+      document.querySelector('[data-ranking-view="detailed"]')?.click();
+      if (!document.querySelector('#dogs-filters')?.hidden) document.querySelector('#dogs-filter-toggle')?.click();
+      if (document.querySelector('#dogs-move-mode')?.getAttribute('aria-pressed') === 'true') document.querySelector('#dogs-move-mode')?.click();
+      window.scrollTo(0, 0); true;`);
+    await waitFor(page, `document.querySelectorAll('#dogs-ranking .ranking-row').length > 0 &&
+      [...document.querySelectorAll('#dogs-ranking .dog-media img')].every((image) => image.complete && image.naturalWidth > 0)`, 5000);
+    await waitFor(page, `document.querySelector('#dogs-toast')?.hidden`, 6000);
+    const phoneRankingShot = await page.screenshot("dogs-ranking-phone.png");
+    await page.evaluate(`document.querySelector('#dogs-ranking button[data-action="detail"]')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#dogs-detail')?.open &&
+      document.querySelector('#dogs-detail .dog-media img')?.complete &&
+      document.querySelector('#dogs-detail .dog-media img')?.naturalWidth > 0`, 5000);
+    const phoneDetail = await page.evaluate(`(() => {
+      const box = document.querySelector('#dogs-detail .dog-media').getBoundingClientRect();
+      return { left: box.left, right: box.right, width: box.width, viewport: innerWidth,
+        disclosure: document.querySelector('#dogs-detail .detail-attribution')?.textContent || '' };
+    })()`);
+    if (phoneDetail.left < 0 || phoneDetail.right > phoneDetail.viewport || phoneDetail.width < 200 ||
+      !phoneDetail.disclosure.includes('AI-generated breed portrait')) {
+      throw new Error(`Dogs phone detail artwork is clipped or undisclosed: ${JSON.stringify(phoneDetail)}`);
+    }
+    const phoneDetailShot = await page.screenshot("dogs-detail-phone.png");
+    await page.evaluate(`document.querySelector('#dogs-detail')?.close(); true;`);
+
     const ipadPortraitProfile = await setDeviceProfile(page, {
       width: 1024,
       height: 1366,
@@ -1600,7 +1630,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
         mobileProfile, mobile, landscapeProfile, landscape,
         ipadPortraitProfile, ipadPortrait, ipadLandscapeProfile, ipadLandscape,
       },
-      screenshots: [initialShot, newArtworkShot, rankingShot, detailShot, mobileShot, landscapeShot, ipadPortraitShot, ipadLandscapeShot],
+      screenshots: [initialShot, newArtworkShot, rankingShot, detailShot, desktopComparisonShot, mobileShot, landscapeShot, phoneRankingShot, phoneDetailShot, ipadPortraitShot, ipadLandscapeShot],
     };
   } finally {
     await page.close();

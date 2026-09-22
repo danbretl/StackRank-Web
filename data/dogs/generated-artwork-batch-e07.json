@@ -1,0 +1,1193 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-e07",
+  "cohortId": "dogs-portraits-e",
+  "selectionSha256": "2dee8d3221097abe699cba2538d0d1d62da42b505027a81eb117caeb62e1b63c",
+  "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+  "review": {
+    "acceptedCount": 24,
+    "blockedCount": 1,
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+    "notes": "Primary personally inspected all 24 full-resolution masters and assembled contact sheet. Breed distinctions, four grounded paws, full tails and crop margins pass. Current FCI181 explicitly supports Giant Schnauzer black/silver variety. Chinook intentionally uses expansive landscape and still reads clearly on the contact sheet. Specific heath, wetland, spring river, autumn lake, southern pine, Welsh upland and late-thaw scenes preserve variety without palette drift; no disallowed props or infrastructure."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0201225",
+      "name": "Shikoku",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0201225-shikoku.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T19:11:36.279507+00:00",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs editorial field-guide portrait, disclosed as a generated illustration. Create ONE wholly original, mostly photorealistic image at exactly 1536 x 1024 pixels, 3:2 landscape. Input image 1 is an approved Commons morphology and coat reference ONLY, not an edit target. Do not reproduce its individual identity, pose, camera, lighting, composition, background or staging. Create a different breed-typical adult. One dog only, natural standing three-quarter pose, camera at dog-eye height, head and body readable, all FOUR legs and paws individually visible with believable joints and ground contact, complete correctly attached natural tail in frame. Premium documentary texture, individual hairs, restrained natural color, soft natural light and a beautiful articulated landscape whose foreground, midground and distance remain visible. CRITICAL FRAMING: camera stepped back, the entire dog including ears and tail contained approximately within x=350..1190 and y=220..800 on the 1536x1024 canvas. Leave at least 100px clear scenery above the highest extremity and at least 100px foreground below the lowest paw, targeting 220px above and 224px below. Medium subject scale within a generous environmental portrait; never fill the image height. No collars, leashes, harnesses, humans, other animals, livestock, objects, props, text, logos, watermark, flags, costumes, buildings, studio/show staging, plastic CGI fur, heavy artificial bokeh, hyper-saturation, HDR, clipped extremities or anatomical errors. No collage, panels or border. Produce only the final portrait. Entire dog including its tail must fit comfortably within no more than 580 pixels of image height. The landscape continues naturally to every edge, without borders or padding. Even distant horizon must contain no buildings, roofs, fences, roads, or people. Compose the landscape first and place a medium-sized dog within it. Do not zoom to the dog. Keep the complete silhouette below 57 percent of the canvas height.\n\nScene: A sheltered early-autumn broadleaf clearing in the hills of Shikoku, Japan. Short mossy grass and scattered copper leaves cover a wide level foreground; a low shoulder of weathered rock enters the far right midground, with a receding tapestry of green and rust foliage beyond. No heroic mountain skyline. A muted silver sky sends luminous soft light from upper left.\n\nSubject and light: Adult red-sesame Shikoku with black-tipped guard hairs over warm reddish brown, paler cream beneath the muzzle and chest, small forward upright triangular ears, dark gently slanted eyes, a substantial wedge muzzle and athletic moderate bone. Slightly longer than tall, neither oversized Akita nor tiny Shiba. Full dense natural curled tail visible over its back. Body angled toward the left with head calmly turned a little toward the camera, mouth closed; offset all four feet on open grass. Keep the reference's believable coat texture and proportions, replace the exhibition pose completely.\n\nWIDE ENVIRONMENTAL PORTRAIT: entire standing dog must be no more than 580 pixels high (57 percent of canvas height). Pull the camera back until there is spacious landscape around the whole silhouette. Keep ears and paws inside y=220..800. Use natural scenery to fill every edge; no added border or artificial padding.\n",
+      "scene": {
+        "catalogId": "VBO:0201225",
+        "name": "Shikoku",
+        "status": "ready",
+        "description": "A sheltered early-autumn broadleaf clearing in the hills of Shikoku, Japan. Short mossy grass and scattered copper leaves cover a wide level foreground; a low shoulder of weathered rock enters the far right midground, with a receding tapestry of green and rust foliage beyond. No heroic mountain skyline. A muted silver sky sends luminous soft light from upper left.",
+        "rationale": "Kochi mountain association supports a Japanese wooded hill setting. Season, vegetation placement and lighting are editorial choices, not a claim about this dog's photographed location.",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/319g05-en.pdf",
+            "evidence": "FCI Shikoku standard identifies Japan and the mountainous Kochi area; describes an athletic medium spitz with a slightly elongated body, small upright ears, sesame coat and curled or sickle tail.",
+            "reviewedAt": "2026-09-22"
+          }
+        ],
+        "sceneIsEditorialInference": true
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:e9ba1a4d3b894e40",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Shikokukendog1.jpg"
+      },
+      "masterSha256": "fcd72f6b77dccb080b4477d695e89060a6ff05859f66240aa35182148f76097e",
+      "originalToolPath": "/Users/danbretl/.codex/generated_images/01a0c9ad-fa93-7cf3-8b9b-f7df9550d06a/exec-d384c0ec-6983-49a2-8bda-cf13858c1457.png",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "reviewedAt": "2026-09-22T19:11:36.279507+00:00",
+        "fullSizeOutputViewed": true,
+        "width": 1536,
+        "height": 1024,
+        "breedIdentity": "Adult Shikoku proportions, small upright ears, wedge muzzle, dark eyes, natural curled tail and red-sesame black-tipped coat; no merle or false brindle pattern.",
+        "anatomy": "Four separately visible planted paws, believable joints and tail attachment, natural closed mouth and clear eyes.",
+        "crop": "Entire silhouette approximately x434..1099 y235..837; about235px top and187px below paws. Roomy landscape, modestly larger than580px target but well within minimum100px margins.",
+        "aesthetics": "Fine believable fur, quiet alert face, luminous autumn foliage and articulated rock/moss foreground. Natural restrained palette and premium field-guide presence.",
+        "backgroundReview": "Inspected full1536x1024 output including distant ridge and both edges: no visible buildings, towns, roads, fences, poles, human figures, signs or unwanted infrastructure.",
+        "referenceSeparation": "New adult appearance, three-quarter stance, closed mouth, outdoor lighting and original landscape; show lead, handler and floor absent.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0201237",
+      "name": "Silky Terrier",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0201237-silky-terrier.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T19:12:34.181268+00:00",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs editorial field-guide portrait, disclosed as a generated illustration. Create ONE wholly original, mostly photorealistic image at exactly 1536 x 1024 pixels, 3:2 landscape. Input image 1 is an approved Commons morphology and coat reference ONLY, not an edit target. Do not reproduce its individual identity, pose, camera, lighting, composition, background or staging. Create a different breed-typical adult. One dog only, natural standing three-quarter pose, camera at dog-eye height, head and body readable, all FOUR legs and paws individually visible with believable joints and ground contact, complete correctly attached natural tail in frame. Premium documentary texture, individual hairs, restrained natural color, soft natural light and a beautiful articulated landscape whose foreground, midground and distance remain visible. CRITICAL FRAMING: camera stepped back, the entire dog including ears and tail contained approximately within x=350..1190 and y=220..800 on the 1536x1024 canvas. Leave at least 100px clear scenery above the highest extremity and at least 100px foreground below the lowest paw, targeting 220px above and 224px below. Medium subject scale within a generous environmental portrait; never fill the image height. No collars, leashes, harnesses, humans, other animals, livestock, objects, props, text, logos, watermark, flags, costumes, buildings, studio/show staging, plastic CGI fur, heavy artificial bokeh, hyper-saturation, HDR, clipped extremities or anatomical errors. No collage, panels or border. Produce only the final portrait. Entire dog including its tail must fit comfortably within no more than 580 pixels of image height. The landscape continues naturally to every edge, without borders or padding. Even distant horizon must contain no buildings, roofs, fences, roads, or people. Compose the landscape first and place a medium-sized dog within it. Do not zoom to the dog. Keep the complete silhouette below 57 percent of the canvas height.\n\nScene: An airy Australian sandstone woodland clearing, with a broad pale ochre rock shelf embedded flush in the foreground and sparse dry leaves. Thin smooth eucalyptus trunks stand far back in a loose rhythm, separated by soft sage-green foliage and patches of open sky. Warm late-afternoon light arrives from the right; the foreground remains quietly open and shadow detail stays natural.\n\nSubject and light: A small adult Australian Silky Terrier, clearly a terrier rather than a plush toy. Moderately low, slightly elongated compact body; level back; medium wedge-shaped head with a definite muzzle and small dark oval eyes; two small upright V-shaped ears with tidy short hair. Fine straight parted steel-blue body hair and rich tan head and lower legs; silky hair falls naturally but leaves daylight under the body and every small paw visible. Full natural tail rises from its base with a gentle bend, never tightly curled or heavily feathered. Stand facing right in relaxed three-quarter view, looking slightly back toward the camera with both eyes readable and mouth closed. Gentle side light reveals individual silky strands.\n\nWIDE ENVIRONMENTAL PORTRAIT: entire standing dog must be no more than 580 pixels high (57 percent of canvas height). Pull the camera back until there is spacious landscape around the whole silhouette. Keep ears and paws inside y=220..800. Use natural scenery to fill every edge; no added border or artificial padding.\n",
+      "scene": {
+        "catalogId": "VBO:0201237",
+        "name": "Silky Terrier",
+        "status": "ready",
+        "description": "An airy Australian sandstone woodland clearing, with a broad pale ochre rock shelf embedded flush in the foreground and sparse dry leaves. Thin smooth eucalyptus trunks stand far back in a loose rhythm, separated by soft sage-green foliage and patches of open sky. Warm late-afternoon light arrives from the right; the foreground remains quietly open and shadow detail stays natural.",
+        "rationale": "The Australian origin and Sydney development support a broad eastern Australian setting. The sandstone, woodland and afternoon light are an editorial landscape inference, without an exclusive birthplace claim.",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/236g03-en.pdf",
+            "evidence": "FCI Australian Silky Terrier standard places development in Australia, including Sydney. It describes a compact, moderately low terrier with fine straight blue-and-tan hair, small erect ears, and a natural upright tail with a slight curve.",
+            "reviewedAt": "2026-09-22"
+          }
+        ],
+        "sceneIsEditorialInference": true
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:82e4f8ef5d2973e9",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Silky_Moletai_May_2014_5.jpg"
+      },
+      "masterSha256": "065c0caccb53941a1e1b72aee760e45175c6c0f0534a4b2bd1951be81cc7e546",
+      "originalToolPath": "/Users/danbretl/.codex/generated_images/01a0c9ad-fa93-7cf3-8b9b-f7df9550d06a/exec-92e71845-66c5-4da6-b61b-0497f0102f3d.png",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "reviewedAt": "2026-09-22T19:12:34.181268+00:00",
+        "fullSizeOutputViewed": true,
+        "width": 1536,
+        "height": 1024,
+        "breedIdentity": "Adult Silky Terrier with compact moderately low elongated shape, upright V ears, wedge muzzle and fine straight steel-blue/tan hair; natural tail rather than a docked substitute. Coat has correct color regions without merle or brindle.",
+        "anatomy": "Four individually readable planted feet despite natural fringe, sensible leg separation, expressive clear dark eyes, believable full tail attachment and closed mouth.",
+        "crop": "Complete dog approximately x405..1054 y241..830; around241px above and194px below, close to580px target. All ears, paws and tail well inside frame.",
+        "aesthetics": "Excellent silky hair separation, warm sandstone light and alert face. Eucalyptus and sandstone terrain give an Australian context with foreground/midground/distance legible.",
+        "backgroundReview": "Full native image inspected across ridgeline, rock shelf and trees. No visible buildings, fences, roads, poles, signs, humans or towns.",
+        "referenceSeparation": "New face, open natural stance, closed mouth and outdoor rock composition; no handler, lead, sponsor signage or copied show background.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0201278",
+      "name": "Spanish Mastiff",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0201278-spanish-mastiff.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T19:14:57.351464+00:00",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs editorial field-guide portrait, disclosed as a generated illustration. Create ONE wholly original, mostly photorealistic image at exactly 1536 x 1024 pixels, 3:2 landscape. Input image 1 is an approved Commons morphology and coat reference ONLY, not an edit target. Do not reproduce its individual identity, pose, camera, lighting, composition, background or staging. Create a different breed-typical adult. One dog only, natural standing three-quarter pose, camera at dog-eye height, head and body readable, all FOUR legs and paws individually visible with believable joints and ground contact, complete correctly attached natural tail in frame. Premium documentary texture, individual hairs, restrained natural color, soft natural light and a beautiful articulated landscape whose foreground, midground and distance remain visible. CRITICAL FRAMING: camera stepped back, the entire dog including ears and tail contained approximately within x=350..1190 and y=220..800 on the 1536x1024 canvas. Leave at least 100px clear scenery above the highest extremity and at least 100px foreground below the lowest paw, targeting 220px above and 224px below. Medium subject scale within a generous environmental portrait; never fill the image height. No collars, leashes, harnesses, humans, other animals, livestock, objects, props, text, logos, watermark, flags, costumes, buildings, studio/show staging, plastic CGI fur, heavy artificial bokeh, hyper-saturation, HDR, clipped extremities or anatomical errors. No collage, panels or border. Produce only the final portrait. Entire dog including its tail must fit comfortably within no more than 580 pixels of image height. The landscape continues naturally to every edge, without borders or padding. Even distant horizon must contain no buildings, roofs, fences, roads, or people. Compose the landscape first and place a medium-sized dog within it. Do not zoom to the dog. Keep the complete silhouette below 57 percent of the canvas height.\n\nScene: A wide Spanish interior plateau in dry late summer: soft straw-coloured grass, a level pale clay patch beneath the dog, and a shallow ochre earth bank crossing the distant middle ground. Low rounded terrain dissolves into a spacious pearl-grey sky. Early light from the left warms the fawn coat while the shadowed side stays legible. No framing trees or spectacular mountain peaks.\n\nSubject and light: An adult male Spanish Mastiff, very large and heavy-boned yet sound and naturally proportioned, longer in body than height. Warm fawn coat with dark mask and shading, broad substantial head with a muzzle appreciably longer than an English Mastiff's, medium triangular drop ears and dark clear eyes. Natural double dewlap without grotesque excess; muscular legs and large separated paws; dense medium-length practical coat. The complete long thick-rooted tail hangs well down to the hock and curves gently at its end. Stand three-quarter toward the right, head turned slightly left, closed relaxed mouth. Keep monumental scale through proportions, not by making the dog fill the canvas.\n\nWIDE ENVIRONMENTAL PORTRAIT: entire standing dog must be no more than 580 pixels high (57 percent of canvas height). Pull the camera back until there is spacious landscape around the whole silhouette. Keep ears and paws inside y=220..800. Use natural scenery to fill every edge; no added border or artificial padding.\n\nFraming correction for a rejected tight composition: move the camera substantially farther away, at least35percent farther than a conventional full-body dog portrait. Set the entire silhouette inside x500..1100 and y280..760. The dog occupies at most480pixels of canvas height. Make open plateau and sky visibly more abundant than the dog. Keep the animal large-breed proportions but small within this wide landscape.\n",
+      "scene": {
+        "catalogId": "VBO:0201278",
+        "name": "Spanish Mastiff",
+        "status": "ready",
+        "description": "A wide Spanish interior plateau in dry late summer: soft straw-coloured grass, a level pale clay patch beneath the dog, and a shallow ochre earth bank crossing the distant middle ground. Low rounded terrain dissolves into a spacious pearl-grey sky. Early light from the left warms the fawn coat while the shadowed side stays legible. No framing trees or spectacular mountain peaks.",
+        "rationale": "The Spanish livestock-working context supports open inland terrain. The plateau and dry season are broad editorial choices rather than a precise village or exclusive origin claim.",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/091g02-en.pdf",
+            "evidence": "FCI Spanish Mastiff standard identifies Spain and livestock migration work. It describes a very large elongated guardian, broad head, pendant ears, neck folds, dense medium coat and a long low tail reaching the hock.",
+            "reviewedAt": "2026-09-22"
+          }
+        ],
+        "sceneIsEditorialInference": true
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:0e2ca89af94ed9de",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Spanish_Mastiff_fawn_male_1.jpg"
+      },
+      "masterSha256": "868b24dd93d42d538ec8bd26bc225e83075d2500b2029a50e71e77533860435a",
+      "originalToolPath": "/Users/danbretl/.codex/generated_images/01a0c9ad-fa93-7cf3-8b9b-f7df9550d06a/exec-0b2f7f4f-45f9-4a94-8da8-6b56d5174035.png",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "reviewedAt": "2026-09-22T19:14:57.351464+00:00",
+        "fullSizeOutputViewed": true,
+        "width": 1536,
+        "height": 1024,
+        "breedIdentity": "Adult male Spanish Mastiff has substantial elongated body, broad masked head with adequate muzzle length, natural pendant ears, double dewlap and fawn medium coat without false merle or brindle.",
+        "anatomy": "Four separately readable planted paws and joints, sound weight distribution, long thick-rooted hanging tail with tip around hock level, natural eyes and closed mouth.",
+        "crop": "Revised complete silhouette approximately x504..1150 y255..853. Around255px above and171px below; about598px tall. Materially more spacious than rejected735px attempt with ample open plateau and sky.",
+        "aesthetics": "Calm substantial breed presence, natural golden fur and atmospheric open plateau. Well-separated foreground, earth bank, distant terrain and cloud sky.",
+        "backgroundReview": "Full native image inspected across horizontal terrain bands and horizon; vegetation/earth only, no visible buildings, towns, roads, signs, fences, poles or people.",
+        "referenceSeparation": "New three-quarter pose, head direction, illumination and landscape. No handler, collar, lead, rosettes or copied lawn staging.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0201315",
+      "name": "Swedish Lapphund",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0201315-swedish-lapphund.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T19:16:28.466027+00:00",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs editorial field-guide portrait, disclosed as a generated illustration. Create ONE wholly original, mostly photorealistic image at exactly 1536 x 1024 pixels, 3:2 landscape. Input image 1 is an approved Commons morphology and coat reference ONLY, not an edit target. Do not reproduce its individual identity, pose, camera, lighting, composition, background or staging. Create a different breed-typical adult. One dog only, natural standing three-quarter pose, camera at dog-eye height, head and body readable, all FOUR legs and paws individually visible with believable joints and ground contact, complete correctly attached natural tail in frame. Premium documentary texture, individual hairs, restrained natural color, soft natural light and a beautiful articulated landscape whose foreground, midground and distance remain visible. CRITICAL FRAMING: camera stepped back, the entire dog including ears and tail contained approximately within x=350..1190 and y=220..800 on the 1536x1024 canvas. Leave at least 100px clear scenery above the highest extremity and at least 100px foreground below the lowest paw, targeting 220px above and 224px below. Medium subject scale within a generous environmental portrait; never fill the image height. No collars, leashes, harnesses, humans, other animals, livestock, objects, props, text, logos, watermark, flags, costumes, buildings, studio/show staging, plastic CGI fur, heavy artificial bokeh, hyper-saturation, HDR, clipped extremities or anatomical errors. No collage, panels or border. Produce only the final portrait. Entire dog including its tail must fit comfortably within no more than 580 pixels of image height. The landscape continues naturally to every edge, without borders or padding. Even distant horizon must contain no buildings, roofs, fences, roads, or people. Compose the landscape first and place a medium-sized dog within it. Do not zoom to the dog. Keep the complete silhouette below 57 percent of the canvas height.\n\nScene: A quiet northern Swedish heath at the edge of sparse spruce woodland in early autumn. Lichen, low russet berry shrubs and short pale grass surround a broad clear mossy patch; the darker trees stay well behind the dog. A small irregular trace of first frost glints far right, while low morning sun from the left paints the black coat with soft warm highlights. Gentle land contours, no grand mountains or arching foreground tree.\n\nSubject and light: An adult Swedish Lapphund with a compact slightly rectangular build and ample but functional black double coat. Small upright triangular ears with subtly rounded tips, rounded dark brown eyes, a clear medium-short wedge muzzle, sturdy limbs and a completely visible bushy tail curled over the back. Allow slight natural brown warmth in sunlit hairs, keep the dog fundamentally black. Stand three-quarter toward the left, eyes attentive toward camera, mouth closed. Separate all four paws on the open moss. Delicate broad side light must reveal the black cheek, eyes, chest and legs instead of burying them in shadow; avoid a giant mane or Finnish Lapphund markings.\n\nWIDE ENVIRONMENTAL PORTRAIT: entire standing dog must be no more than 580 pixels high (57 percent of canvas height). Pull the camera back until there is spacious landscape around the whole silhouette. Keep ears and paws inside y=220..800. Use natural scenery to fill every edge; no added border or artificial padding.\n",
+      "scene": {
+        "catalogId": "VBO:0201315",
+        "name": "Swedish Lapphund",
+        "status": "ready",
+        "description": "A quiet northern Swedish heath at the edge of sparse spruce woodland in early autumn. Lichen, low russet berry shrubs and short pale grass surround a broad clear mossy patch; the darker trees stay well behind the dog. A small irregular trace of first frost glints far right, while low morning sun from the left paints the black coat with soft warm highlights. Gentle land contours, no grand mountains or arching foreground tree.",
+        "rationale": "The Swedish northern working context supports a restrained boreal landscape. First frost and seasonal colour are editorial atmosphere rather than a documented home location.",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/135g05-en.pdf",
+            "evidence": "FCI Swedish Lapphund standard identifies Sweden and northern herding history. It describes a compact slightly rectangular spitz with small upright ears, dark round eyes, a dense offstanding black coat and a bushy tail curled over the back.",
+            "reviewedAt": "2026-09-22"
+          }
+        ],
+        "sceneIsEditorialInference": true
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:018353a65101fced",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:SwedishLapp1.jpg"
+      },
+      "masterSha256": "ae945dc8f66aba0f37556bcf4da0b01846aaacfbf4bdad3f3575165842243b28",
+      "originalToolPath": "/Users/danbretl/.codex/generated_images/01a0c9ad-fa93-7cf3-8b9b-f7df9550d06a/exec-0ef9097c-029a-4a24-b6c4-6e13656b68c2.png",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "reviewedAt": "2026-09-22T19:16:28.466027+00:00",
+        "fullSizeOutputViewed": true,
+        "width": 1536,
+        "height": 1024,
+        "breedIdentity": "Swedish Lapphund has compact slightly rectangular frame, small erect ears, dark round eyes, medium-short wedge muzzle, black offstanding double coat and natural bushy curled tail. Warm tail highlights are mild sunlit bronze, not tan-point or merle markings.",
+        "anatomy": "Four separately readable grounded feet, natural limb alignment and tail attachment; clear alert eyes and relaxed closed mouth. Low lichen partly overlaps toes without hiding the paws.",
+        "crop": "Complete silhouette approximately x404..1089 y202..888; around202px above and136px below. Larger than580px target but sufficient clear margins and a generous visible boreal landscape.",
+        "aesthetics": "Readable black fur and expressive face, fine coat layers and vivid but restrained autumn lichen. Frost trace, distant lake and sparse trees articulate depth without overpowering the dog.",
+        "backgroundReview": "Inspected full native image, distant lake shoreline and horizon: no visible buildings, towns, roads, poles, fences, signs or human figures.",
+        "referenceSeparation": "Original alert three-quarter stance, ears upright, face toward viewer and new outdoor landscape; no lead, show pose or handler shadow.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0201342",
+      "name": "Tenterfield Terrier",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0201342-tenterfield-terrier.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T19:17:49.853943+00:00",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs editorial field-guide portrait, disclosed as a generated illustration. Create ONE wholly original, mostly photorealistic image at exactly 1536 x 1024 pixels, 3:2 landscape. Input image 1 is an approved Commons morphology and coat reference ONLY, not an edit target. Do not reproduce its individual identity, pose, camera, lighting, composition, background or staging. Create a different breed-typical adult. One dog only, natural standing three-quarter pose, camera at dog-eye height, head and body readable, all FOUR legs and paws individually visible with believable joints and ground contact, complete correctly attached natural tail in frame. Premium documentary texture, individual hairs, restrained natural color, soft natural light and a beautiful articulated landscape whose foreground, midground and distance remain visible. CRITICAL FRAMING: camera stepped back, the entire dog including ears and tail contained approximately within x=350..1190 and y=220..800 on the 1536x1024 canvas. Leave at least 100px clear scenery above the highest extremity and at least 100px foreground below the lowest paw, targeting 220px above and 224px below. Medium subject scale within a generous environmental portrait; never fill the image height. No collars, leashes, harnesses, humans, other animals, livestock, objects, props, text, logos, watermark, flags, costumes, buildings, studio/show staging, plastic CGI fur, heavy artificial bokeh, hyper-saturation, HDR, clipped extremities or anatomical errors. No collage, panels or border. Produce only the final portrait. Entire dog including its tail must fit comfortably within no more than 580 pixels of image height. The landscape continues naturally to every edge, without borders or padding. Even distant horizon must contain no buildings, roofs, fences, roads, or people. Compose the landscape first and place a medium-sized dog within it. Do not zoom to the dog. Keep the complete silhouette below 57 percent of the canvas height.\n\nScene: A dry creek flat in open Australian country after a clear cool night. Fine pale gravel and smooth sandy earth give way to scattered low tussocks; a broad curving gravel seam leads gently into the right distance. Muted river-red-gum foliage sits low on the far bank, with open pale blue sky above. Clean morning light comes from upper left, with soft reflected light from the sand.\n\nSubject and light: Small adult male Tenterfield Terrier, square and athletic with moderate bone and balanced working-terrier legs, not an exaggerated tall toy. Short smooth predominantly white coat, black-and-tan head markings and a narrow white blaze, dark almond-shaped eyes, a wedge head with muzzle about equal to skull length. Medium upright triangular ears with soft rounded tips. Full natural tapering tail held alert in an open upward curve, never docked, cropped or hidden. Stand three-quarter facing right, head calmly turned toward the viewer, all four compact paws clearly separate on the sand. Show healthy lean definition and a natural closed mouth.\n\nWIDE ENVIRONMENTAL PORTRAIT: entire standing dog must be no more than 580 pixels high (57 percent of canvas height). Pull the camera back until there is spacious landscape around the whole silhouette. Keep ears and paws inside y=220..800. Use natural scenery to fill every edge; no added border or artificial padding.\n",
+      "scene": {
+        "catalogId": "VBO:0201342",
+        "name": "Tenterfield Terrier",
+        "status": "ready",
+        "description": "A dry creek flat in open Australian country after a clear cool night. Fine pale gravel and smooth sandy earth give way to scattered low tussocks; a broad curving gravel seam leads gently into the right distance. Muted river-red-gum foliage sits low on the far bank, with open pale blue sky above. Clean morning light comes from upper left, with soft reflected light from the sand.",
+        "rationale": "Australia is source-supported; the dry creek clearing is a broad habitat-like editorial setting with no claim that the reference dog lived there. Its low gravel composition distinguishes it from the Silky Terrier woodland.",
+        "sources": [
+          {
+            "url": "https://dogsaustralia.org.au/members/breeds/breed-standards/Tenterfield-Terrier",
+            "evidence": "Dogs Australia identifies the Tenterfield Terrier as Australian and describes a small square balanced working terrier with wedge head, erect or semi-erect ears and predominantly white smooth coat with permitted black/tan markings. Natural tails vary; a full tail is valid.",
+            "reviewedAt": "2026-09-22"
+          }
+        ],
+        "sceneIsEditorialInference": true
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:a95a60652bb83cba",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Tenterfield_Terrier_1.jpg"
+      },
+      "masterSha256": "fbf3b52e17f5cf6c91d170e4317b7f434fdad5c4b8fe633f3b2534a4a3db1526",
+      "originalToolPath": "/Users/danbretl/.codex/generated_images/01a0c9ad-fa93-7cf3-8b9b-f7df9550d06a/exec-c1fdf503-564a-4bb5-8fcf-a214f0b58a83.png",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "reviewedAt": "2026-09-22T19:17:49.853943+00:00",
+        "fullSizeOutputViewed": true,
+        "width": 1536,
+        "height": 1024,
+        "breedIdentity": "Adult male Tenterfield Terrier shows square balanced small working-terrier build, wedge muzzle, upright ears, predominantly white smooth coat and clean black/tan head markings. No merle pattern, no artificially elongated toy legs.",
+        "anatomy": "All four feet separated with natural joints and ground contact; complete tapering natural upward tail, clear eyes and closed mouth. Healthy lean body proportions.",
+        "crop": "Full dog approximately x408..1037 y211..840, with about211px above and184px below. Complete extremities and clear roomy landscape.",
+        "aesthetics": "Fine short coat and attentive expression against warm gravel and eucalyptus creek terrain; restrained clear morning light and strong spatial depth.",
+        "backgroundReview": "Full native image checked including distant creek bank, tree gaps and horizon: no towns, buildings, roads, fences, signage, poles or people visible.",
+        "referenceSeparation": "New adult coat patches and pose, new natural light and original creek landscape; no collar, leash, luggage, indoor floor or handler.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0201351",
+      "name": "Tibetan Mastiff",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0201351-tibetan-mastiff.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T19:19:19.738163+00:00",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs editorial field-guide portrait, disclosed as a generated illustration. Create ONE wholly original, mostly photorealistic image at exactly 1536 x 1024 pixels, 3:2 landscape. Input image 1 is an approved Commons morphology and coat reference ONLY, not an edit target. Do not reproduce its individual identity, pose, camera, lighting, composition, background or staging. Create a different breed-typical adult. One dog only, natural standing three-quarter pose, camera at dog-eye height, head and body readable, all FOUR legs and paws individually visible with believable joints and ground contact, complete correctly attached natural tail in frame. Premium documentary texture, individual hairs, restrained natural color, soft natural light and a beautiful articulated landscape whose foreground, midground and distance remain visible. CRITICAL FRAMING: camera stepped back, the entire dog including ears and tail contained approximately within x=350..1190 and y=220..800 on the 1536x1024 canvas. Leave at least 100px clear scenery above the highest extremity and at least 100px foreground below the lowest paw, targeting 220px above and 224px below. Medium subject scale within a generous environmental portrait; never fill the image height. No collars, leashes, harnesses, humans, other animals, livestock, objects, props, text, logos, watermark, flags, costumes, buildings, studio/show staging, plastic CGI fur, heavy artificial bokeh, hyper-saturation, HDR, clipped extremities or anatomical errors. No collage, panels or border. Produce only the final portrait. Entire dog including its tail must fit comfortably within no more than 580 pixels of image height. The landscape continues naturally to every edge, without borders or padding. Even distant horizon must contain no buildings, roofs, fences, roads, or people. Compose the landscape first and place a medium-sized dog within it. Do not zoom to the dog. Keep the complete silhouette below 57 percent of the canvas height.\n\nScene: An expansive Tibetan highland grass bench with scattered low granite stones and a broad level tawny-green foreground. A shallow wind-shaped ridge runs diagonally away on the left; far across the open valley a modest pale snowline lies beneath a broken cool cloud bank. Late-day light breaks through from the upper right and gently warms the dog against the cooler distant landscape. No monastery, flags or cultural props.\n\nSubject and light: Adult sable-gold Tibetan Mastiff with substantial sound bone, strong separated limbs, broad head and a natural medium muzzle, brown almond-shaped eyes and triangular pendant ears. Thick straight harsh guard coat, warm golden face and legs, darker overlay on body, and a moderate authentic neck ruff rather than an enormous ornamental lion mane. Slightly longer than tall. Full plumed natural tail loosely curled over the back with its end readable. Stand in three-quarter facing left, calm closed mouth and an alert but unforced expression. Light must reveal face and coat layers without flash-red eyes, drool strings or exaggerated bulk.\n\nWIDE ENVIRONMENTAL PORTRAIT: entire standing dog must be no more than 580 pixels high (57 percent of canvas height). Pull the camera back until there is spacious landscape around the whole silhouette. Keep ears and paws inside y=220..800. Use natural scenery to fill every edge; no added border or artificial padding.\n",
+      "scene": {
+        "catalogId": "VBO:0201351",
+        "name": "Tibetan Mastiff",
+        "status": "ready",
+        "description": "An expansive Tibetan highland grass bench with scattered low granite stones and a broad level tawny-green foreground. A shallow wind-shaped ridge runs diagonally away on the left; far across the open valley a modest pale snowline lies beneath a broken cool cloud bank. Late-day light breaks through from the upper right and gently warms the dog against the cooler distant landscape. No monastery, flags or cultural props.",
+        "rationale": "The Tibet/Himalaya association supports an open highland landscape. The specific bench, season and cloud break are editorial choices and do not imply a precise origin settlement.",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/230g02-en.pdf",
+            "evidence": "FCI Tibetan Mastiff standard identifies Tibet and the Himalayan region. It describes a substantial slightly elongated guardian, broad head and drop ears, harsh dense coat with neck ruff, powerful legs and a loosely curled plume tail.",
+            "reviewedAt": "2026-09-22"
+          }
+        ],
+        "sceneIsEditorialInference": true
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:5a212047ed9471a2",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Tibetanmastiff-sable1.jpg"
+      },
+      "masterSha256": "7ea0faf5270c0d79bc541fd32b9147a3aea95971a34393c00f8a09fbbb2b437c",
+      "originalToolPath": "/Users/danbretl/.codex/generated_images/01a0c9ad-fa93-7cf3-8b9b-f7df9550d06a/exec-b608f08f-7426-413e-9343-e68fb66bc67b.png",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "reviewedAt": "2026-09-22T19:19:19.738163+00:00",
+        "fullSizeOutputViewed": true,
+        "width": 1536,
+        "height": 1024,
+        "breedIdentity": "Adult Tibetan Mastiff with broad head, adequate muzzle, pendant ears, strong bone, dense sable-gold coat with dark overlay, moderate natural ruff and full curled plume tail. No invented merle, brindle stripes or extreme ornamental mane.",
+        "anatomy": "Four distinct complete planted paws, sound limb joints and weight, natural tail attachment and clear brown eyes. No flash eye glow or saliva artifacts.",
+        "crop": "Complete dog approximately x450..1154 y204..879, with about204px above and145px below. Larger than580px target but complete generous margins and substantial visible highland scene.",
+        "aesthetics": "Rich individual coat texture, composed expression and warm light across a cool open highland valley. Clear foreground rocks, middle slopes and distant snowy range.",
+        "backgroundReview": "Full native image reviewed including valley bands, horizon and mountain slopes: no visible towns, buildings, roads, poles, fences, flags, people or other infrastructure.",
+        "referenceSeparation": "New closed-mouth adult appearance, stance, lighting and expansive highland composition. No lead, handler, hand-held tail or indoor show backdrop.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0201374",
+      "name": "Treeing Walker Coonhound",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0201374-treeing-walker-coonhound.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T19:20:55.083089+00:00",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs editorial field-guide portrait, disclosed as a generated illustration. Create ONE wholly original, mostly photorealistic image at exactly 1536 x 1024 pixels, 3:2 landscape. Input image 1 is an approved Commons morphology and coat reference ONLY, not an edit target. Do not reproduce its individual identity, pose, camera, lighting, composition, background or staging. Create a different breed-typical adult. One dog only, natural standing three-quarter pose, camera at dog-eye height, head and body readable, all FOUR legs and paws individually visible with believable joints and ground contact, complete correctly attached natural tail in frame. Premium documentary texture, individual hairs, restrained natural color, soft natural light and a beautiful articulated landscape whose foreground, midground and distance remain visible. CRITICAL FRAMING: camera stepped back, the entire dog including ears and tail contained approximately within x=350..1190 and y=220..800 on the 1536x1024 canvas. Leave at least 100px clear scenery above the highest extremity and at least 100px foreground below the lowest paw, targeting 220px above and 224px below. Medium subject scale within a generous environmental portrait; never fill the image height. No collars, leashes, harnesses, humans, other animals, livestock, objects, props, text, logos, watermark, flags, costumes, buildings, studio/show staging, plastic CGI fur, heavy artificial bokeh, hyper-saturation, HDR, clipped extremities or anatomical errors. No collage, panels or border. Produce only the final portrait. Entire dog including its tail must fit comfortably within no more than 580 pixels of image height. The landscape continues naturally to every edge, without borders or padding. Even distant horizon must contain no buildings, roofs, fences, roads, or people. Compose the landscape first and place a medium-sized dog within it. Do not zoom to the dog. Keep the complete silhouette below 57 percent of the canvas height.\n\nScene: An eastern United States hardwood floodplain clearing in early autumn. The dog stands on a wide open bed of ochre leaves and short grass; a slender dark ribbon of still creek water lies well behind it on the left, while oak and hickory foliage recede through soft amber-green layers. The right side remains open to pale light. Low morning sun softly lights the face from the front left, without deep theatrical shadows.\n\nSubject and light: Adult female Treeing Walker Coonhound with a graceful balanced athletic frame, substantial long legs, deep chest and mild tuck-up. Short sleek tricolour coat: white ground, distinct black body patches and rich tan on the head, with a restrained white facial marking. Long softly hanging rounded ears, a proportionate long substantial muzzle with a near-square end, warm dark eyes and relaxed closed mouth. Natural full tapering tail carried in an open upward sabre curve, never curled into a ring. Body faces three-quarter left with head turned gently toward camera; four paws separately grounded. Preserve feminine proportions and avoid a short-legged Beagle silhouette or drooping Bloodhound face.\n\nWIDE ENVIRONMENTAL PORTRAIT: entire standing dog must be no more than 580 pixels high (57 percent of canvas height). Pull the camera back until there is spacious landscape around the whole silhouette. Keep ears and paws inside y=220..800. Use natural scenery to fill every edge; no added border or artificial padding.\n",
+      "scene": {
+        "catalogId": "VBO:0201374",
+        "name": "Treeing Walker Coonhound",
+        "status": "ready",
+        "description": "An eastern United States hardwood floodplain clearing in early autumn. The dog stands on a wide open bed of ochre leaves and short grass; a slender dark ribbon of still creek water lies well behind it on the left, while oak and hickory foliage recede through soft amber-green layers. The right side remains open to pale light. Low morning sun softly lights the face from the front left, without deep theatrical shadows.",
+        "rationale": "The United States development history supports an eastern hardwood landscape; this is an editorial setting rather than an exclusive Kentucky birthplace statement or a reconstruction of a hunt.",
+        "sources": [
+          {
+            "url": "https://www.ukcdogs.com/breeds/coonhounds/treeing-walker-coonhound",
+            "evidence": "UKC's Treeing Walker Coonhound account identifies American development involving the Walker and Maupin lines and southeastern states. Its standard describes a balanced athletic hound, close tricolour coat, hanging ears, substantial muzzle and long upward-carried tapering tail.",
+            "reviewedAt": "2026-09-22"
+          }
+        ],
+        "sceneIsEditorialInference": true
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:dd8d4a7786ce1659",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Treeingwalkercoonhoundi2.jpg"
+      },
+      "masterSha256": "b5f3108b5c80993e5cf7a0f025f56701f5904e4d0a2d6937747a22a247707091",
+      "originalToolPath": "/Users/danbretl/.codex/generated_images/01a0c9ad-fa93-7cf3-8b9b-f7df9550d06a/exec-86554eb9-ad1a-4cb6-9636-33e472e1f4a5.png",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "reviewedAt": "2026-09-22T19:20:55.083089+00:00",
+        "fullSizeOutputViewed": true,
+        "width": 1536,
+        "height": 1024,
+        "breedIdentity": "Adult female Treeing Walker Coonhound has long athletic legs, balanced hound body, deep chest, long rounded hanging ears, substantial square-ended muzzle and short tricolour coat. Clean black patches and tan head are distinct from merle; light incidental ticking remains restrained.",
+        "anatomy": "Four individually separated feet, believable leg joints, natural female proportions and full tapering upward sabre tail. Clear eyes and relaxed closed mouth.",
+        "crop": "Complete dog including raised tail approximately x426..1165 y203..904; about203px above and120px below. Larger than580px target, but all extremities have more than100px clearance and landscape is clearly present on both sides.",
+        "aesthetics": "Strong breed-specific portrait with fine short coat, warm leaf foreground and gently reflective woodland creek. Natural color and crisp face with receding background detail.",
+        "backgroundReview": "Native image inspected including far grassy clearing, creek edges and tree gaps: no visible towns, buildings, roads, poles, fences, signs or human figures.",
+        "referenceSeparation": "New face-facing pose, natural unsupported tail carriage and original autumn lighting/landscape. No handler, lead, show floor or source staging.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0201411",
+      "name": "Welsh Springer Spaniel",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0201411-welsh-springer-spaniel.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T19:24:12.114755+00:00",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs editorial field-guide portrait, disclosed as a generated illustration. Create ONE wholly original, mostly photorealistic image at exactly 1536 x 1024 pixels, 3:2 landscape. Input image 1 is an approved Commons morphology and coat reference ONLY, not an edit target. Do not reproduce its individual identity, pose, camera, lighting, composition, background or staging. Create a different breed-typical adult. One dog only, natural standing three-quarter pose, camera at dog-eye height, head and body readable, all FOUR legs and paws individually visible with believable joints and ground contact, complete correctly attached natural tail in frame. Premium documentary texture, individual hairs, restrained natural color, soft natural light and a beautiful articulated landscape whose foreground, midground and distance remain visible. CRITICAL FRAMING: camera stepped back, the entire dog including ears and tail contained approximately within x=350..1190 and y=220..800 on the 1536x1024 canvas. Leave at least 100px clear scenery above the highest extremity and at least 100px foreground below the lowest paw, targeting 220px above and 224px below. Medium subject scale within a generous environmental portrait; never fill the image height. No collars, leashes, harnesses, humans, other animals, livestock, objects, props, text, logos, watermark, flags, costumes, buildings, studio/show staging, plastic CGI fur, heavy artificial bokeh, hyper-saturation, HDR, clipped extremities or anatomical errors. No collage, panels or border. Produce only the final portrait. Entire dog including its tail must fit comfortably within no more than 580 pixels of image height. The landscape continues naturally to every edge, without borders or padding. Even distant horizon must contain no buildings, roofs, fences, roads, or people. Compose the landscape first and place a medium-sized dog within it. Do not zoom to the dog. Keep the complete silhouette below 57 percent of the canvas height.\n\nScene: A Welsh upland edge just after rain, with a broad closely cropped green grassy shelf beneath the dog. Tawny bracken and a few muted violet heather patches sit low across the right midground; rounded blue-grey hills recede on the left beneath a luminous slate sky. Soft cool light from upper left is balanced by a faint warm reflection in the damp grass. No stone wall, cottage, path or dramatic mountain silhouette.\n\nSubject and light: Adult Welsh Springer Spaniel: medium, compact, symmetrical and strong without exaggerated legginess. Flat silky rich red-and-white coat with moderate chest, limb and tail feathering; medium muzzle with a fairly square end, softly domed skull, dark hazel eyes and small low-set pendant leaf-shaped ears. Complete natural feathered tail shown clearly in a gentle continuation from the back, carried moderately low. Stand three-quarter toward the right, head turned toward viewer, mouth closed and eyes bright. Separate all four paws on the short grass, avoid a huge English Springer coat, exaggerated droopy face or setter-like leg length.\n\nWIDE ENVIRONMENTAL PORTRAIT: entire standing dog must be no more than 580 pixels high (57 percent of canvas height). Pull the camera back until there is spacious landscape around the whole silhouette. Keep ears and paws inside y=220..800. Use natural scenery to fill every edge; no added border or artificial padding.\n\nBackground correction: replace any view down into a populated or cultivated valley with uninterrupted wild open moorland. Behind the dog show only a broad smooth slope of continuous bracken, heather and rough grass receding into low cloud, with a small soft rounded hill at the horizon. No lake, patchwork fields, rectangular divisions, hedgerow boundaries, straight lines, tracks, roads, structures or pale roof-like flecks anywhere. Keep the whole silhouette around480pixels high, camera far back, abundant grass foreground and open soft sky.\n",
+      "scene": {
+        "catalogId": "VBO:0201411",
+        "name": "Welsh Springer Spaniel",
+        "status": "ready",
+        "description": "A Welsh upland edge just after rain, with a broad closely cropped green grassy shelf beneath the dog. Tawny bracken and a few muted violet heather patches sit low across the right midground; rounded blue-grey hills recede on the left beneath a luminous slate sky. Soft cool light from upper left is balanced by a faint warm reflection in the damp grass. No stone wall, cottage, path or dramatic mountain silhouette.",
+        "rationale": "The breed identity and British standard support a broad Welsh landscape without an invented precise birthplace. The bracken, rain and rounded hills are editorial art direction.",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/126g08-en.pdf",
+            "evidence": "FCI Welsh Springer Spaniel standard identifies Great Britain and describes a compact symmetrical sporting dog with a moderate muzzle, small pendant leaf-shaped ears, flat silky rich-red-and-white coat and a feathered natural tail.",
+            "reviewedAt": "2026-09-22"
+          }
+        ],
+        "sceneIsEditorialInference": true
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:f467ff4b995b7b61",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:WelshSpringeri2.jpg"
+      },
+      "masterSha256": "60259f9246dfbb36e1301921c5425726c7bd691f5d2c0978259c1e0ff028dd00",
+      "originalToolPath": "/Users/danbretl/.codex/generated_images/01a0c9ad-fa93-7cf3-8b9b-f7df9550d06a/exec-824e5795-6fe0-4552-830e-3bf574f1da0c.png",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "reviewedAt": "2026-09-22T19:24:12.114755+00:00",
+        "fullSizeOutputViewed": true,
+        "width": 1536,
+        "height": 1024,
+        "breedIdentity": "Adult Welsh Springer Spaniel with balanced compact sporting frame, medium square-ended muzzle, small pendant ears, clear hazel eyes and flat rich-red/white silky coat. Moderate feathering and restrained red ticking; no merle or brindle substitution.",
+        "anatomy": "Four separated grounded paws, coherent joints and natural proportions. Complete low-carried feathered tail, clear eyes and closed mouth.",
+        "crop": "Entire dog including tail approximately x284..1007 y269..813; around269px above and211px below. About544px high, comfortably meeting the requested spacious environmental composition.",
+        "aesthetics": "Soft rain-cleared upland light, attentive face and detailed silky coat set within damp grass, bracken and subdued heather. Open rolling moor gives distinct depth and strong subject separation.",
+        "backgroundReview": "Revised native image inspected across every distant slope and horizon: continuous rough moorland vegetation, no visible field divisions, tracks, roads, buildings, towns, poles, fences, signs or humans.",
+        "referenceSeparation": "Original adult face, closed mouth, relaxed three-quarter stance and low tail carriage in new natural light. No handler, lead, show lawn or source framing.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0201419",
+      "name": "Wetterhoun",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0201419-wetterhoun.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T19:49:48.915Z",
+      "prompt": "Use case: photorealistic-natural. Premium StackRank Dogs field-guide portrait. Generate exactly ONE landscape 1536x1024 image, 3:2. Attached original is morphology/coat reference only. Create wholly new pose, composition, lighting, background and individual marking arrangement.\nSubject: One adult Wetterhoun, compact powerful square Frisian water dog, sturdy without heaviness. Black head and large black body patches over a white ground with restrained ticking, dense firm coarse bundled curls on body, smooth shorter hair on head and lower legs. Broad firm straight muzzle, dark brown oval eyes, moderately low hanging trowel-shaped ears with curls at their bases, and a complete long tail rolled in a spiral beside the croup. No fluffy poodle trim or spaniel feathering.\nPose: LEFT-facing relaxed three-quarter stand, level head turned gently toward camera, four separate grounded paws; dog just right of center.\nScene: A flat freshwater marsh bank in Friesland in early October, dry tawny short grass and firm dark peat beneath the paws, a broad shallow still water channel behind and bronze reed beds stretching horizontally beyond. Bright silver cloud cover reflected in the water, restrained brown-green palette; no hills, foreground trees, boats, windmills or buildings.\nComposition: Camera is FAR AWAY at dog eye level, a wide environmental portrait; dog height only 50-55% of frame, head near y260 and paws near y790, maximum 58% frame width. Entire adult body, ears, four clearly separated planted paws and complete natural tail visible with generous empty margins on every side. Clear grounded contact shadows, no grass hiding paws. Do not zoom in.\nStyle: premium photorealistic natural-history editorial portrait, believable anatomy and face, tactile coat, rich restrained colors and nuanced natural daylight. Regional setting stays legible with honest optical depth, no smeared generic bokeh. Preserve clear authentic coat pattern boundaries and fur detail.\nExclude people, other animals, collars, leads, harnesses, tack, props, fences, buildings, roads, towns or infrastructure even far in the background, text, logos, watermarks, show furniture, CGI fur, deformed paws, extra limbs, cropped ears/paws/tail, or copied source scenery.",
+      "scene": {
+        "status": "ready",
+        "setting": "A flat freshwater marsh bank in Friesland in early October, dry tawny short grass and firm dark peat beneath the paws, a broad shallow still water channel behind and bronze reed beds stretching horizontally beyond. Bright silver cloud cover reflected in the water, restrained brown-green palette; no hills, foreground trees, boats, windmills or buildings.",
+        "description": "A flat freshwater marsh bank in Friesland in early October, dry tawny short grass and firm dark peat beneath the paws, a broad shallow still water channel behind and bronze reed beds stretching horizontally beyond. Bright silver cloud cover reflected in the water, restrained brown-green palette; no hills, foreground trees, boats, windmills or buildings.",
+        "rationale": "FCI221 identifies Netherlands origin, traditional otter hunting and water-rich Friesland. The flat Frisian marsh bank follows this explicit geographic/work association; October, dry peat foreground, reed color and lighting are creative scene decisions.",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/221g08-en.pdf",
+            "evidence": "FCI221 identifies Netherlands origin, traditional otter hunting and water-rich Friesland. The flat Frisian marsh bank follows this explicit geographic/work association; October, dry peat foreground, reed color and lighting are creative scene decisions."
+          },
+          {
+            "url": "data/dogs/breed-profiles.json#VBO:0201419",
+            "evidence": "Source-reviewed origin: Netherlands; source IDs vbo-2026-04-15, stackrank-editorial-packs, wikidata-dog-breeds-2026-09-21"
+          }
+        ]
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:b12c12e9f09cca7c",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Frisianwaterdog-b%26w1.jpg"
+      },
+      "masterSha256": "8f4a103529966d226897431dac6c90147e1a1aa5f79fc74f3a65ee605a55bc88",
+      "originalToolPath": "/Users/danbretl/.codex/generated_images/01a0c9ae-b55d-7610-9ad1-2811619de956/exec-4998ba38-28b4-42a4-aaa5-2cdb2daf2b17.png",
+      "qa": {
+        "breedIdentity": "Full original reviewed: compact square robust Wetterhoun, coarse bundled black/white body curls, smoother face/lower legs, low drop ears, strong muzzle and rolled spiral tail. Pattern is clear with natural ticking; not a poodle or spaniel.",
+        "anatomy": "Four distinct planted paws, coherent strong limbs, sensible hocks and contact shadows. Complete curled tail joins croup cleanly; two eyes and muzzle natural. Source dark face/indoor noise and held pose are not copied.",
+        "crop": "Native 1536x1024. Entire dog and spiral tail comfortably inside frame; approximately 240px above head, 130px below lowest toes, 295px right and 550px left. Broad surrounding wetland remains legible.",
+        "aesthetics": "Bright silver Frisian wetland, restrained bronze reeds, detailed textured curls, calm alert expression and pleasing asymmetric composition. No people, tack, text, extra animals, buildings, roads or distant infrastructure.",
+        "verdict": "pass",
+        "reviewedAt": "2026-09-22T19:50:31.666654+00:00",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "status": "approved",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0201427",
+      "name": "Wirehaired Pointing Griffon",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0201427-wirehaired-pointing-griffon.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T19:53:10.256Z",
+      "prompt": "Use case: photorealistic-natural. Premium StackRank Dogs field-guide portrait. Generate exactly ONE landscape 1536x1024 image, 3:2. Attached original is morphology/coat reference only. Create wholly new pose, composition, lighting, background and individual marking arrangement.\nSubject: One adult Wirehaired Pointing Griffon Korthals, medium vigorous rustic gun dog, body slightly longer than tall, steel-gray harsh bristly coat with liver-brown head and patches. Long square bearded muzzle, brown nose, dark amber-brown eyes visibly clear below bushy brows, flat medium drop ears and strong straight sound limbs. Natural complete thick-haired tail carried horizontally with gently raised tip, no fringe. Coat distinctly harsh and wiry, never curly wool or silky setter hair.\nPose: RIGHT-facing natural three-quarter standing pose, level muzzle and quiet gaze angled slightly toward camera, all four paws visibly separate.\nScene: A French oak woodland opening in late November, broad smooth sandy ochre earth with scattered copper leaves underfoot, low hazel branches and a few slender dark trunks at the far rear, diffuse cool daylight with a gentle warm opening behind the coat. Intimate woodland depth, no river, panoramic mountain horizon or tree framing the left edge.\nComposition: Camera is FAR AWAY at dog eye level, a wide environmental portrait; dog height only 50-55% of frame, head near y260 and paws near y790, maximum 58% frame width. Entire adult body, ears, four clearly separated planted paws and complete natural tail visible with generous empty margins on every side. Clear grounded contact shadows, no grass hiding paws. Do not zoom in.\nStyle: premium photorealistic natural-history editorial portrait, believable anatomy and face, tactile coat, rich restrained colors and nuanced natural daylight. Regional setting stays legible with honest optical depth, no smeared generic bokeh. Preserve clear authentic coat pattern boundaries and fur detail.\nExclude people, other animals, collars, leads, harnesses, tack, props, fences, buildings, roads, towns or infrastructure even far in the background, text, logos, watermarks, show furniture, CGI fur, deformed paws, extra limbs, cropped ears/paws/tail, or copied source scenery.\nCritical correction: The source tail was docked. This new dog MUST have a FULL-LENGTH NATURAL UNDОCKED TAIL: long tapered tail, thick at root smoothly narrowing to fine tip, physically long enough to reach the hock if lowered, extended horizontally well behind the rump with a slight tip rise. No short blunt stub. Pull camera much farther back: dog and its extended long tail fit entirely within x360..1170 and y310..770 on the 1536x1024 canvas. Reserve at least 250 pixels below ALL paws and 300 pixels above the ears. Show expansive woodland floor and layered woodland all around the small complete dog. No close-up.",
+      "scene": {
+        "status": "ready",
+        "setting": "A French oak woodland opening in late November, broad smooth sandy ochre earth with scattered copper leaves underfoot, low hazel branches and a few slender dark trunks at the far rear, diffuse cool daylight with a gentle warm opening behind the coat. Intimate woodland depth, no river, panoramic mountain horizon or tree framing the left edge.",
+        "description": "A French oak woodland opening in late November, broad smooth sandy ochre earth with scattered copper leaves underfoot, low hazel branches and a few slender dark trunks at the far rear, diffuse cool daylight with a gentle warm opening behind the coat. Intimate woodland depth, no river, panoramic mountain horizon or tree framing the left edge.",
+        "rationale": "FCI107 assigns France and a versatile pointing/tracking role. French woodland is country-level field context for that role; the oak/hazel mix, sandy ground, November season and light are art direction, not an asserted exact historic birthplace.",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/107g07-en.pdf",
+            "evidence": "FCI107 assigns France and a versatile pointing/tracking role. French woodland is country-level field context for that role; the oak/hazel mix, sandy ground, November season and light are art direction, not an asserted exact historic birthplace."
+          },
+          {
+            "url": "data/dogs/breed-profiles.json#VBO:0201427",
+            "evidence": "Source-reviewed origin: France; source IDs vbo-2026-04-15, stackrank-editorial-packs, wikidata-dog-breeds-2026-09-21"
+          }
+        ]
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:7f306079cfb85c9a",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:DocFile_Korthals.jpg"
+      },
+      "masterSha256": "5fa82f50fe16d0a94e4d6fd47c8fa4e85ca3b4c6aeaf70a424706ff728b62f93",
+      "originalToolPath": "/Users/danbretl/.codex/generated_images/01a0c9ae-b55d-7610-9ad1-2811619de956/exec-fa25235f-aa84-4663-a654-4811c35f9ae0.png",
+      "qa": {
+        "breedIdentity": "Full original reviewed: mature rectangular rustic Griffon, harsh steel-gray/liver coat, long square bearded muzzle, brown nose, drooping ears, clear amber-brown eyes. Texture is wire rather than curly or woolly.",
+        "anatomy": "Four fully separated natural planted paws, coherent shoulder/hip/hock anatomy and contact shadows. Long natural horizontal tapering tail now fully visible with pointed raised tip, unlike rejected docked-looking first attempt.",
+        "crop": "Native 1536x1024; approximately 260px above head, 170px below feet, 260px left of tail and 455px right of muzzle. Comfortably broad woodland scene around complete dog.",
+        "aesthetics": "Tactile wiry coat, clear face, nuanced copper/green French woodland and leaf texture. No collars, props, people, text, buildings or distant infrastructure.",
+        "verdict": "pass",
+        "reviewedAt": "2026-09-22T19:54:02.532007+00:00",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "status": "approved",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0200003",
+      "name": "Affenpinscher",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0200003-affenpinscher.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:00:42.047Z",
+      "prompt": "Use case: photorealistic-natural. Premium StackRank Dogs field-guide portrait. Generate exactly ONE landscape 1536x1024 image, 3:2. Attached original is morphology/coat reference only. Create wholly new pose, composition, lighting, background and individual marking arrangement.\nSubject: One fully adult Affenpinscher, tiny but sturdy compact square black rough-haired dog, clearly adult rather than a puppy. Short straight muzzle, dark round eyes clearly visible in the bristly monkey-like facial wreath, modest beard, scruffy crown and small natural forward-folding ears. Harsh dense black body coat, sound small straight legs, complete natural sickle tail. Keep realistic small-dog proportions without a giant head, bulging eyes or a silky lapdog coat.\nPose: LEFT-facing natural three-quarter stand with head gently turned toward viewer, all four small paws separately visible; dog slightly right of center.\nScene: A quiet German sandy heath in late summer, muted lilac heather kept low and entirely behind the dog, gray-beige compact sand with small dry grass tufts underfoot, gently undulating low heath beyond under a wide pale blue sky. Clear soft morning light brings subtle charcoal detail in the black coat; no trees, mountains or structures.\nComposition: Camera is FAR AWAY at dog eye level, a wide environmental portrait; dog height only 45-50% of frame, ears near y300 and paws near y790, maximum 50% frame width. Entire adult body, ears, four clearly separated planted paws and complete natural tail visible with generous empty margins on every side. Clear grounded contact shadows, no grass hiding paws. Do not zoom in.\nStyle: premium photorealistic natural-history editorial portrait, believable anatomy and face, tactile coat, rich restrained colors and nuanced natural daylight. Regional setting stays legible with honest optical depth, no smeared generic bokeh. Preserve clear authentic coat pattern boundaries and fur detail.\nExclude people, other animals, collars, leads, harnesses, tack, props, fences, buildings, roads, towns or infrastructure even far in the background, text, logos, watermarks, show furniture, CGI fur, deformed paws, extra limbs, cropped ears/paws/tail, or copied source scenery.",
+      "scene": {
+        "status": "ready",
+        "setting": "A quiet German sandy heath in late summer, muted lilac heather kept low and entirely behind the dog, gray-beige compact sand with small dry grass tufts underfoot, gently undulating low heath beyond under a wide pale blue sky. Clear soft morning light brings subtle charcoal detail in the black coat; no trees, mountains or structures.",
+        "description": "A quiet German sandy heath in late summer, muted lilac heather kept low and entirely behind the dog, gray-beige compact sand with small dry grass tufts underfoot, gently undulating low heath beyond under a wide pale blue sky. Clear soft morning light brings subtle charcoal detail in the black coat; no trees, mountains or structures.",
+        "rationale": "FCI186 identifies Germany, historical southern German house-dog context, and companion use. German heath is geographic natural portrait art direction for a companion breed, not a claimed historic work habitat; heather, sand, late-summer season and sky are creative choices.",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/186g02-en.pdf",
+            "evidence": "FCI186 identifies Germany, historical southern German house-dog context, and companion use. German heath is geographic natural portrait art direction for a companion breed, not a claimed historic work habitat; heather, sand, late-summer season and sky are creative choices."
+          },
+          {
+            "url": "data/dogs/breed-profiles.json#VBO:0200003",
+            "evidence": "Source-reviewed origin: Germany; source IDs vbo-2026-04-15, wikidata-dog-breeds-2026-09-21"
+          }
+        ]
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:14cd1605418bf607",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Affenmonkeyterrier1.jpg"
+      },
+      "masterSha256": "ac3fea5713eeeb24081d7a30b7156f8006a19a2d6a622725481d834617d572fe",
+      "originalToolPath": "/Users/danbretl/.codex/generated_images/01a0c9ae-b55d-7610-9ad1-2811619de956/exec-73fa34ef-f8d9-43f4-8f5a-57060dc92f50.png",
+      "qa": {
+        "breedIdentity": "Full original reviewed: mature compact black Affenpinscher with bristly monkey face, short muzzle, dark visible eyes, modest beard, scruffy crown, small forward folded ears and harsh short body coat. Adult proportions and pure-black coat retained.",
+        "anatomy": "Four separate grounded paws, coherent straight forelimbs and naturally angled hindlegs. Complete sickle tail clearly attached to croup. Face/eyes natural, mouth closed. Standing source supplies full body/tail support; lead and pose omitted.",
+        "crop": "Native 1536x1024; about 215px above crown, 130px below feet, 600px left and 260px right. Dog fully surrounded by broad sky/heath and open sand; no clipping.",
+        "aesthetics": "Clear charcoal coat detail against muted lilac heather and blue sky, attractive calm expression and natural sand shadows. No people, tack, infrastructure, text or added animals.",
+        "verdict": "pass",
+        "reviewedAt": "2026-09-22T20:02:39.671839+00:00",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "status": "approved",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0200034",
+      "name": "American Bulldog",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0200034-american-bulldog.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:03:40.300Z",
+      "prompt": "Use case: photorealistic-natural. Premium StackRank Dogs field-guide portrait. Generate exactly ONE landscape 1536x1024 image, 3:2. Attached original is morphology/coat reference only. Create wholly new pose, composition, lighting, background and individual marking arrangement.\nSubject: One adult American Bulldog, powerful athletic large short-coated dog with substantial bone, broad head, deep wide muzzle of functional moderate length, dark brown eyes and small natural rose ears. Healthy strongly muscled body slightly longer than tall, predominantly white close coat with a few clean dark brown brindle patches on flank and hindquarters, broad chest and sound moderate-length limbs. Complete thick-based tapering natural tail relaxed near hock level. Athletic proportions, not an English Bulldog or exaggerated oversized American Bully.\nPose: RIGHT-facing relaxed three-quarter stand, calm closed mouth, level head slightly toward camera, four distinctly planted feet.\nScene: An open pine clearing in the American South in early spring, pale firm sandy earth and a thin russet pine-needle layer, restrained low wiregrass behind the dog, scattered slim pine trunks receding evenly into airy distance. Warm muted morning light with clear open sky filtering between crowns; no farm buildings, roads, fencing, equipment or distant town.\nComposition: Camera is FAR AWAY at dog eye level, a wide environmental portrait; dog height only 50-55% of frame, head near y260 and paws near y790, maximum 58% frame width. Entire adult body, ears, four clearly separated planted paws and complete natural tail visible with generous empty margins on every side. Clear grounded contact shadows, no grass hiding paws. Do not zoom in.\nStyle: premium photorealistic natural-history editorial portrait, believable anatomy and face, tactile coat, rich restrained colors and nuanced natural daylight. Regional setting stays legible with honest optical depth, no smeared generic bokeh. Preserve clear authentic coat pattern boundaries and fur detail.\nExclude people, other animals, collars, leads, harnesses, tack, props, fences, buildings, roads, towns or infrastructure even far in the background, text, logos, watermarks, show furniture, CGI fur, deformed paws, extra limbs, cropped ears/paws/tail, or copied source scenery.",
+      "scene": {
+        "status": "ready",
+        "setting": "An open pine clearing in the American South in early spring, pale firm sandy earth and a thin russet pine-needle layer, restrained low wiregrass behind the dog, scattered slim pine trunks receding evenly into airy distance. Warm muted morning light with clear open sky filtering between crowns; no farm buildings, roads, fencing, equipment or distant town.",
+        "description": "An open pine clearing in the American South in early spring, pale firm sandy earth and a thin russet pine-needle layer, restrained low wiregrass behind the dog, scattered slim pine trunks receding evenly into airy distance. Warm muted morning light with clear open sky filtering between crowns; no farm buildings, roads, fencing, equipment or distant town.",
+        "rationale": "UKC history places preservation of the working Bulldog in the American South among farmers and ranchers. Southern open pine terrain is geographic natural context; the specific sandy clearing, wiregrass and spring morning are restrained regional art direction rather than a claim of exclusive historical habitat.",
+        "sources": [
+          {
+            "url": "https://www.ukcdogs.com/american-bulldog",
+            "evidence": "UKC history places preservation of the working Bulldog in the American South among farmers and ranchers. Southern open pine terrain is geographic natural context; the specific sandy clearing, wiregrass and spring morning are restrained regional art direction rather than a claim of exclusive historical habitat."
+          },
+          {
+            "url": "data/dogs/breed-profiles.json#VBO:0200034",
+            "evidence": "Source-reviewed origin: United States; source IDs vbo-2026-04-15, wikidata-dog-breeds-2026-09-21"
+          }
+        ]
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:c7b1aa83065d190a",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Americanbulldogromping.jpg"
+      },
+      "masterSha256": "9ca422027f1b7c91e42cd3dee07c730dbece071803147e6d8740f0c9bd71e30b",
+      "originalToolPath": "/Users/danbretl/.codex/generated_images/01a0c9ae-b55d-7610-9ad1-2811619de956/exec-78753011-de6e-4f7f-9d1e-b0787f22a1db.png",
+      "qa": {
+        "breedIdentity": "Full original reviewed: adult powerful athletic American Bulldog with broad functional muzzle, natural folded ears, large balanced head, short white coat and clear brown brindle rump/back patches. Not squat English Bulldog or overbuilt American Bully.",
+        "anatomy": "Four separate sound planted paws and coherent straight forelegs/hocks, healthy torso/musculature, closed mouth and clear eyes. Complete low-carried tapering tail with white tip. Source running pose, blown ears, stick and other dog absent.",
+        "crop": "Native 1536x1024; roughly 225px above ears, 165px below feet, 315px left of tail and 425px right. Comfortable full-body environmental space on every side.",
+        "aesthetics": "Warm open southern pine clearing, crisp brindle boundaries and detailed white coat, good body modeling and natural shadows. No tack, props, buildings, towns, roads, fences, people or text.",
+        "verdict": "pass",
+        "reviewedAt": "2026-09-22T20:05:23.002464+00:00",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "status": "approved",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0200046",
+      "name": "American Eskimo Dog",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0200046-american-eskimo-dog.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:06:37.838Z",
+      "prompt": "Use case: photorealistic-natural. Premium StackRank Dogs field-guide portrait. Generate exactly ONE landscape 1536x1024 image, 3:2. Attached original is morphology/coat reference only. Create wholly new pose, composition, lighting, background and individual marking arrangement.\nSubject: One adult standard-size American Eskimo Dog, balanced small-to-medium spitz with mature proportions, wedge head, upright triangular ears, alert dark brown eyes and sharply defined black nose lips and eye rims. Dense pure-white straight double coat with a moderate neck ruff, feathered legs, and complete richly plumed tail carried over back. Four sound visible paws. Natural textured white coat with retained highlight detail, never a giant Samoyed or round baby Pomeranian.\nPose: LEFT-facing natural three-quarter stand, alert level head subtly turned toward viewer and all four paws clearly separated.\nScene: An American autumn meadow edge, short faded gold grass and clean warm-gray soil underfoot, low distant rust-red sumac and soft amber oak foliage beyond a broad open clearing. Quiet diffused afternoon light with pale cool sky accents, gently horizontal landscape; no snow, mountains, trees framing the foreground, fences or buildings.\nComposition: Camera is FAR AWAY at dog eye level, a wide environmental portrait; dog height only 50-55% of frame, head near y260 and paws near y790, maximum 58% frame width. Entire adult body, ears, four clearly separated planted paws and complete natural tail visible with generous empty margins on every side. Clear grounded contact shadows, no grass hiding paws. Do not zoom in.\nStyle: premium photorealistic natural-history editorial portrait, believable anatomy and face, tactile coat, rich restrained colors and nuanced natural daylight. Regional setting stays legible with honest optical depth, no smeared generic bokeh. Preserve clear authentic coat pattern boundaries and fur detail.\nExclude people, other animals, collars, leads, harnesses, tack, props, fences, buildings, roads, towns or infrastructure even far in the background, text, logos, watermarks, show furniture, CGI fur, deformed paws, extra limbs, cropped ears/paws/tail, or copied source scenery.",
+      "scene": {
+        "status": "ready",
+        "setting": "An American autumn meadow edge, short faded gold grass and clean warm-gray soil underfoot, low distant rust-red sumac and soft amber oak foliage beyond a broad open clearing. Quiet diffused afternoon light with pale cool sky accents, gently horizontal landscape; no snow, mountains, trees framing the foreground, fences or buildings.",
+        "description": "An American autumn meadow edge, short faded gold grass and clean warm-gray soil underfoot, low distant rust-red sumac and soft amber oak foliage beyond a broad open clearing. Quiet diffused afternoon light with pale cool sky accents, gently horizontal landscape; no snow, mountains, trees framing the foreground, fences or buildings.",
+        "rationale": "UKC history describes German-immigrant white spitz dogs in the United States as watchdogs and family pets. An American temperate autumn meadow is broad country-level natural context for that companion history, not an Arctic sled-dog setting; oak/sumac, season and light are creative choices.",
+        "sources": [
+          {
+            "url": "https://www.ukcdogs.com/american-eskimo",
+            "evidence": "UKC history describes German-immigrant white spitz dogs in the United States as watchdogs and family pets. An American temperate autumn meadow is broad country-level natural context for that companion history, not an Arctic sled-dog setting; oak/sumac, season and light are creative choices."
+          },
+          {
+            "url": "data/dogs/breed-profiles.json#VBO:0200046",
+            "evidence": "Source-reviewed origin: United States; source IDs vbo-2026-04-15, wikidata-dog-breeds-2026-09-21"
+          }
+        ]
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:83e8a66b3b4a68f4",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:An_American_Eskimo_Dog.jpg"
+      },
+      "masterSha256": "3a8a06bf23a30232d3b46586ebf587b11aa74b3203e9977b02f9f90464f55223",
+      "originalToolPath": "/Users/danbretl/.codex/generated_images/01a0c9ae-b55d-7610-9ad1-2811619de956/exec-22263320-74a9-4457-91dd-3c3c9e03afa3.png",
+      "qa": {
+        "breedIdentity": "Full original reviewed: mature balanced white American Eskimo spitz, wedge head, erect triangular ears, clear dark eyes with black rims/nose, straight dense coat and moderate ruff. Adult small-medium proportions rather than puppy or giant Samoyed.",
+        "anatomy": "Four visibly distinct planted paws, plausible forelimbs and hocks, complete natural plume carried over back with coherent root. White coat detail does not obscure face or feet; no extra limbs.",
+        "crop": "Native 1536x1024; around 270px above ears and 180px below paws, 365px left and 590px right. Comfortable environmental meadow framing with complete tail/ears.",
+        "aesthetics": "Soft white fur detail retained against rich restrained gold/oak/sumac autumn colors. Pleasant alert face, natural shadows, clean scene with no structures, roads, people, tack, text or other animals.",
+        "verdict": "pass",
+        "reviewedAt": "2026-09-22T20:08:28.619261+00:00",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "status": "approved",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0200055",
+      "name": "American Staffordshire Terrier",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0200055-american-staffordshire-terrier.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:09:35.264Z",
+      "prompt": "Use case: photorealistic-natural. Premium StackRank Dogs field-guide portrait. Generate exactly ONE landscape 1536x1024 image, 3:2. Attached original is morphology/coat reference only. Create wholly new pose, composition, lighting, background and individual marking arrangement.\nSubject: One adult American Staffordshire Terrier, medium compact muscular athletic dog with a broad medium-length head, strong cheek muscles, moderately short rounded muzzle, dark round eyes and small natural rose ears. Short glossy rich red-fawn coat with clean white chest blaze and modest white feet. Broad deep chest, strong moderate-length legs, firm slightly sloping topline and complete tapering tail carried low. Healthy balanced athletic substance, no extreme bulk, cropped ears or oversized head.\nPose: RIGHT-facing calm natural three-quarter stand, closed mouth and level muzzle gently toward camera, four feet clearly distinct.\nScene: A rocky eastern American woodland edge in late spring, broad flat warm-gray stone and firm earth underfoot, a shallow layered sandstone outcrop behind the dog, fresh green low ferns and sparse distant deciduous foliage. Soft cool open shade balanced by a small sunlit patch in the rear; no cliffs, water, paths, fences, buildings or town.\nComposition: Camera is FAR AWAY at dog eye level, a wide environmental portrait; dog height only 50-55% of frame, head near y260 and paws near y790, maximum 58% frame width. Entire adult body, ears, four clearly separated planted paws and complete natural tail visible with generous empty margins on every side. Clear grounded contact shadows, no grass hiding paws. Do not zoom in.\nStyle: premium photorealistic natural-history editorial portrait, believable anatomy and face, tactile coat, rich restrained colors and nuanced natural daylight. Regional setting stays legible with honest optical depth, no smeared generic bokeh. Preserve clear authentic coat pattern boundaries and fur detail.\nExclude people, other animals, collars, leads, harnesses, tack, props, fences, buildings, roads, towns or infrastructure even far in the background, text, logos, watermarks, show furniture, CGI fur, deformed paws, extra limbs, cropped ears/paws/tail, or copied source scenery.",
+      "scene": {
+        "status": "ready",
+        "setting": "A rocky eastern American woodland edge in late spring, broad flat warm-gray stone and firm earth underfoot, a shallow layered sandstone outcrop behind the dog, fresh green low ferns and sparse distant deciduous foliage. Soft cool open shade balanced by a small sunlit patch in the rear; no cliffs, water, paths, fences, buildings or town.",
+        "description": "A rocky eastern American woodland edge in late spring, broad flat warm-gray stone and firm earth underfoot, a shallow layered sandstone outcrop behind the dog, fresh green low ferns and sparse distant deciduous foliage. Soft cool open shade balanced by a small sunlit patch in the rear; no cliffs, water, paths, fences, buildings or town.",
+        "rationale": "FCI286 identifies U.S.A. origin and compact muscular agile conformation. Eastern American woodland-edge terrain is geographic portrait art direction only, not an asserted historical working habitat; sandstone, ferns, season and shade are creative choices.",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/286g03-en.pdf",
+            "evidence": "FCI286 identifies U.S.A. origin and compact muscular agile conformation. Eastern American woodland-edge terrain is geographic portrait art direction only, not an asserted historical working habitat; sandstone, ferns, season and shade are creative choices."
+          },
+          {
+            "url": "data/dogs/breed-profiles.json#VBO:0200055",
+            "evidence": "Source-reviewed origin: United States; source IDs vbo-2026-04-15, wikidata-dog-breeds-2026-09-21"
+          }
+        ]
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:b41989e0d7c786f4",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:American_staffordshire_terrier,_2021.jpg"
+      },
+      "masterSha256": "98783563ba333ba670167aaad17a7e0efc75fdb0797a605ed3280115ad5e9e84",
+      "originalToolPath": "/Users/danbretl/.codex/generated_images/01a0c9ae-b55d-7610-9ad1-2811619de956/exec-4cfbd9c1-f6f8-458c-92ed-3017a690365d.png",
+      "qa": {
+        "breedIdentity": "Athletic adult red-fawn and white American Staffordshire Terrier with broad head, moderate muzzle, natural folded ears, defined musculature, and source-consistent white blaze, collar and feet. Breed proportions remain balanced rather than exaggerated.",
+        "anatomy": "Four distinct planted paws support a coherent torso; shoulders and hindquarters connect naturally. Complete low tapering tail remains visible and anatomically supported.",
+        "crop": "Comfortably wide frame: roughly 295 px above head, 170 px beneath paws, 395 px at tail side and 465 px in front of muzzle. Entire adult body, all four paws and complete tail fit safely.",
+        "aesthetics": "Crisp coat pattern and calm clear face, believable natural light, textured sandstone and fern woodland with soft depth. No people, tack, props, text, distant buildings or infrastructure.",
+        "verdict": "pass",
+        "reviewedAt": "2026-09-22T20:13:58.492693+00:00",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "status": "approved",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0200194",
+      "name": "Border Terrier",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0200194-border-terrier.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:14:24.278Z",
+      "prompt": "Use case: photorealistic-natural. Premium StackRank Dogs field-guide portrait. Generate exactly ONE landscape 1536x1024 image, 3:2. Attached original is morphology/coat reference only. Create wholly new pose, composition, lighting, background and individual marking arrangement.\nSubject: One adult Border Terrier, small narrow athletic rough-coated terrier with red-grizzle coat, characteristic otter-like broad flat head, short strong dark muzzle, dark lively eyes and small V-shaped ears falling close to cheek. Body deep and fairly narrow with moderate leg length, harsh dense wiry coat and modest facial whiskers. Complete moderately short thick-based tapering tail carried cheerfully without curling over back. Four clearly separate small compact paws; not a miniature Schnauzer or short-legged Dandie.\nPose: LEFT-facing relaxed three-quarter standing pose, head level gently toward viewer, all four paws grounded and visibly separate.\nScene: A breezy British upland moor in early September, broad firm weathered stone and sparse short russet grass beneath the dog, a close low outcrop behind with a little dry bracken and faded heather, softly rising open ground beneath a luminous clouded sky. Restrained earthy color and cool afternoon light; no dramatic peaks, distant town or framing trees.\nComposition: Camera is FAR AWAY at dog eye level, a wide environmental portrait; dog height only 45-50% of frame, ears near y300 and paws near y790, maximum 50% frame width. Entire adult body, ears, four clearly separated planted paws and complete natural tail visible with generous empty margins on every side. Clear grounded contact shadows, no grass hiding paws. Do not zoom in.\nStyle: premium photorealistic natural-history editorial portrait, believable anatomy and face, tactile coat, rich restrained colors and nuanced natural daylight. Regional setting stays legible with honest optical depth, no smeared generic bokeh. Preserve clear authentic coat pattern boundaries and fur detail.\nExclude people, other animals, collars, leads, harnesses, tack, props, fences, buildings, roads, towns or infrastructure even far in the background, text, logos, watermarks, show furniture, CGI fur, deformed paws, extra limbs, cropped ears/paws/tail, or copied source scenery.",
+      "scene": {
+        "status": "ready",
+        "setting": "A breezy British upland moor in early September, broad firm weathered stone and sparse short russet grass beneath the dog, a close low outcrop behind with a little dry bracken and faded heather, softly rising open ground beneath a luminous clouded sky. Restrained earthy color and cool afternoon light; no dramatic peaks, distant town or framing trees.",
+        "description": "A breezy British upland moor in early September, broad firm weathered stone and sparse short russet grass beneath the dog, a close low outcrop behind with a little dry bracken and faded heather, softly rising open ground beneath a luminous clouded sky. Restrained earthy color and cool afternoon light; no dramatic peaks, distant town or framing trees.",
+        "rationale": "FCI10 identifies Great Britain and a working terrier with stamina to follow a horse. British moorland is geographic natural field context; exact outcrop, heather, bracken, September and cloud treatment are scene choices rather than a claim about one specific birthplace.",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/010g03-en.pdf",
+            "evidence": "FCI10 identifies Great Britain and a working terrier with stamina to follow a horse. British moorland is geographic natural field context; exact outcrop, heather, bracken, September and cloud treatment are scene choices rather than a claim about one specific birthplace."
+          },
+          {
+            "url": "data/dogs/breed-profiles.json#VBO:0200194",
+            "evidence": "Source-reviewed origin: United Kingdom; source IDs vbo-2026-04-15, wikidata-dog-breeds-2026-09-21"
+          }
+        ]
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:e52a7455bcdbec47",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Toby_Border_Terrier.jpg"
+      },
+      "masterSha256": "8bffcfa957f6ed2947a1afe7c51e502f655be4f29e4b2f80a0ead932dae69948",
+      "originalToolPath": "/Users/danbretl/.codex/generated_images/01a0c9ae-b55d-7610-9ad1-2811619de956/exec-2a5d876a-261b-4237-a3ae-cef256d01383.png",
+      "qa": {
+        "breedIdentity": "Red-grizzle adult Border Terrier with otter-like broad head, dark short muzzle, close small V ears, rough practical coat and narrow athletic body. Moderate whiskers stay distinct from a Schnauzer beard.",
+        "anatomy": "Four separate planted compact paws, coherent shoulder and hindquarter joints, natural balanced standing weight. Entire thick-based tapering cheerful tail connects clearly and does not curl over the back.",
+        "crop": "Generous environmental framing with approximately 260 px above ears, 170 px below paws, 350 px ahead of head and 410 px beyond tail. No paws are obscured by grass.",
+        "aesthetics": "Sharp natural wire coat and attentive face against richly textured open heather moor and low stone outcrop. Soft cloudy afternoon light, believable depth, no people, tack, buildings, roads or infrastructure.",
+        "verdict": "pass",
+        "reviewedAt": "2026-09-22T20:14:57.133248+00:00",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "status": "approved",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0200258",
+      "name": "Bulldog",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0200258-bulldog.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:16:44.692Z",
+      "prompt": "Use case: photorealistic-natural. Premium StackRank Dogs field-guide portrait. Generate exactly ONE landscape 1536x1024 image, 3:2. Attached original is morphology/coat reference only. Create wholly new pose, composition, lighting, background and individual marking arrangement.\nSubject: One adult English Bulldog, low broad compact muscular dog with smooth short warm red-fawn and white coat, large proportionate broad head, short broad muzzle and restrained facial folds, open black nostrils, clear dark round eyes and small natural rose ears. Wide chest and sturdy straight forelegs, slightly higher strong hindquarters, balanced healthy body without obesity. Four distinct planted paws and an entire visible naturally short low-set tapering tail, gently downward, not absent, docked-looking or a long hound tail. Calm closed mouth, no exaggerated folds or protruding tongue.\nPose: RIGHT-facing natural three-quarter stand, level quiet head turned slightly toward camera, four sturdy feet separate and complete short tail seen outside body silhouette.\nScene: A cool English coastal dune hollow in early summer, firm pale sand underfoot with low sea-green marram grass behind, a softly receding low dune ridge and a very narrow pearl-blue sea line beneath a bright cloudy sky. Fresh diffused marine light, quiet sand/green/blue palette; no cliffs, beach huts, boats, promenades or other infrastructure.\nComposition: Camera is FAR AWAY at dog eye level, a wide environmental portrait; dog height only 50-55% of frame, head near y260 and paws near y790, maximum 58% frame width. Entire adult body, ears, four clearly separated planted paws and complete natural tail visible with generous empty margins on every side. Clear grounded contact shadows, no grass hiding paws. Do not zoom in.\nStyle: premium photorealistic natural-history editorial portrait, believable anatomy and face, tactile coat, rich restrained colors and nuanced natural daylight. Regional setting stays legible with honest optical depth, no smeared generic bokeh. Preserve clear authentic coat pattern boundaries and fur detail.\nExclude people, other animals, collars, leads, harnesses, tack, props, fences, buildings, roads, towns or infrastructure even far in the background, text, logos, watermarks, show furniture, CGI fur, deformed paws, extra limbs, cropped ears/paws/tail, or copied source scenery.\nCRITICAL REFINEMENT: Make this unmistakably an English Bulldog, with a LOW, very broad compact body, moderately short sturdy legs, broad shoulders wider than hindquarters, slight breed-typical rise over the loin, and a proportionate broad short face. Preserve healthy visible nostrils, modest facial folds and natural rose ears. Do not create a tall American Bulldog or long-legged Boxer body. The head-to-paw silhouette must occupy ONLY 48 percent of the image height; the camera is much farther away, top of head at y310 and paw bottoms at y805. A large expanse of sand foreground, dunes and clouded sky is essential. Entire naturally short low-set downward tail must be visibly separate from the rump outline, four distinct planted feet.",
+      "scene": {
+        "status": "ready",
+        "setting": "A cool English coastal dune hollow in early summer, firm pale sand underfoot with low sea-green marram grass behind, a softly receding low dune ridge and a very narrow pearl-blue sea line beneath a bright cloudy sky. Fresh diffused marine light, quiet sand/green/blue palette; no cliffs, beach huts, boats, promenades or other infrastructure.",
+        "description": "A cool English coastal dune hollow in early summer, firm pale sand underfoot with low sea-green marram grass behind, a softly receding low dune ridge and a very narrow pearl-blue sea line beneath a bright cloudy sky. Fresh diffused marine light, quiet sand/green/blue palette; no cliffs, beach huts, boats, promenades or other infrastructure.",
+        "rationale": "FCI149 identifies Great Britain and companion use. English coastal dunes provide country-level natural portrait context for the companion breed, not a claimed traditional work habitat; summer, marram, sand and marine light are creative art direction.",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/149g02-en.pdf",
+            "evidence": "FCI149 identifies Great Britain and companion use. English coastal dunes provide country-level natural portrait context for the companion breed, not a claimed traditional work habitat; summer, marram, sand and marine light are creative art direction."
+          },
+          {
+            "url": "data/dogs/breed-profiles.json#VBO:0200258",
+            "evidence": "Source-reviewed origin: United Kingdom; source IDs vbo-2026-04-15, wikidata-dog-breeds-2026-09-21"
+          }
+        ]
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:23f1e1502445ba7f",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:English_Bulldog_red_%26_white.jpg"
+      },
+      "masterSha256": "48e133501bfacc81e86670241005cdbe1b386d4a7a5af28a4ccd53280bf3ef0d",
+      "originalToolPath": "/Users/danbretl/.codex/generated_images/01a0c9ae-b55d-7610-9ad1-2811619de956/exec-33b83240-8f1e-4a9c-ac27-2004eeccfe96.png",
+      "qa": {
+        "breedIdentity": "Mature low broad compact English Bulldog with warm fawn-white smooth coat, substantial front assembly, short broad muzzle, natural rose ears and restrained facial folds. Shorter stout legs and broader body correct the first attempt's overly tall proportions.",
+        "anatomy": "Four separate sturdy planted feet support coherent shoulders and rear. Entire naturally short tapering downward tail protrudes clearly from rump outline. Eyes and nostrils clear, mouth closed, no exaggerated facial distortion.",
+        "crop": "Comfortably wide environmental portrait: head approximately y300, feet y850, roughly 300 px above, 170 px below and 320/560 px side margins. Entire body, four paws and complete short natural tail remain clear.",
+        "aesthetics": "Natural marine light preserves white fur and fawn coat detail; pale sand, sea-green marram and narrow sea line create a distinctive quiet English coastal scene. No people, tack, props, boats, towns or infrastructure.",
+        "verdict": "pass",
+        "reviewedAt": "2026-09-22T20:17:55.369760+00:00",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "status": "approved",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0200174",
+      "name": "Black Russian Terrier",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0200174-black-russian-terrier.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:16:17.504Z",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, 1536x1024 pixels, 3:2 landscape.\n\nCRITICAL COMPOSITION: an expansive environmental FULL-BODY photograph with a moderately small adult dog in its middle distance. A natural 50mm view with camera well back. Landscape dominates. Dog occupies only about 40–45 percent of canvas height. Put the whole silhouette within approximately x=440..1100 and y=290..750; no ear/head above y=210 and no paw below y=800. Keep broad open clear ground across the bottom quarter and generous scenery above. The dog is not a close-up foreground subject. Fine subject detail stays sharp. One adult standing naturally in relaxed three-quarter view at dog-eye level, head gently toward camera. All FOUR coherent legs and all FOUR complete paws separately visible and firmly planted, entire ears and tail comfortably within frame.\n\nInput is a morphology and coat reference ONLY. Create a wholly NEW pose, composition, lighting and background; do not reconstruct the source photo or treat it as an edit target. Remove all source staging, people, other animals, collars, leads, harnesses, labels and props.\nScene: A quiet Moscow-region mixed woodland clearing during late-winter thaw: firm dark sandy soil scattered with dry grass and fine twigs, pale snow remnants along a shallow hollow on the RIGHT, thin distant birches mixed with dark spruce, a low level horizon in cold pearly daylight. Keep the foreground open and do not frame the dog with a large tree trunk. Give the landscape clear readable foreground, middle distance and horizon detail, not a featureless blur wall. Follow this individual layout instead of defaulting to a framing tree at left and distant mountains.\nSubject: One mature adult Black Russian Terrier: large powerfully built, deep voluminous chest, strong thick-boned legs and slightly rectangular body. Coarse thick BLACK double coat with loose waves, heavy black beard and brows framing visible dark oval eyes; long broad blunt rectangular muzzle, black nose and natural triangular hanging ears. Practical coat furnishing, no poodle curls or silver patches. Whole thick-rooted natural tail in a broad open sabre curve, not a tight ring or short stump. Body faces RIGHT, head gently toward camera.\nStyle: exceptional photorealistic editorial field photography, healthy believable adult breed anatomy, individual coat strands with subtle tonal detail, coherent gentle daylight and restrained natural color. Quietly observational, beautiful and geographically specific. Inspect the entire background: completely uninhabited natural landscape, absolutely no buildings, village/town silhouettes, roofs, roads, fences, bridges, utility poles, wires or other infrastructure, even far in the distance. No people, other animals, clothing, collar, leash, harness, bows, toys, props, text, logos, watermarks, duplicate legs, hidden/malformed paws, clipped extremities, distorted eyes/face, plastic CGI fur, studio backdrop, oversaturation or aggressive HDR.",
+      "scene": {
+        "status": "ready",
+        "description": "A quiet Moscow-region mixed woodland clearing during late-winter thaw: firm dark sandy soil scattered with dry grass and fine twigs, pale snow remnants along a shallow hollow on the RIGHT, thin distant birches mixed with dark spruce, a low level horizon in cold pearly daylight. Keep the foreground open and do not frame the dog with a large tree trunk.",
+        "rationale": "FCI327 identifies development outside Moscow. A low mixed woodland clearing is a regional artistic interpretation, with late-winter contrast chosen to separate the black coat; it is not a reconstructed historic site.",
+        "evidence": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/327g02-en.pdf",
+            "summary": "Russian breed developed outside Moscow; robust large slightly rectangular body, coarse waved black coat, beard and brows, hanging ears, dark oval eyes and preferred natural sabre/sickle tail.",
+            "accessedAt": "2026-09-22"
+          }
+        ]
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:c70f02722392b67d",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Wystawa_Rybnik_02.10.2011_czarny_terier_rosyjski_2pl.jpg"
+      },
+      "masterSha256": "c177710a30d0522994f8ce108d533b657cd92f123853c786462da0b983b6c62a",
+      "originalToolPath": null,
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-09-22T20:18:09.996365Z",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "breedIdentity": "Large mature robust Black Russian Terrier, slightly rectangular deep body, thick limbs, coarse black waved coat, strong bearded head, visible dark eyes and natural hanging ears. Full open-hook tail rather than source short tail. Body faces left despite requested right.",
+        "anatomy": "Four coherent legs and four complete grounded paw forms; natural fur covers toe detail without hiding paw locations. Tail complete and attached, open curve with no closed ring; healthy face and adult proportions.",
+        "crop": "Silhouette approximately x480..1168,y291..829,45% width and53% height,28% headroom and19% lower ground. Full ears, feet and tail comfortably clear with24% right margin.",
+        "aesthetics": "Full-resolution original inspected. Black coat retains rich strand detail against Moscow-region thaw woodland, natural birches/spruce, snow remnants and muted sky. Clear landscape depth, no people, gear, buildings or infrastructure.",
+        "status": "approved",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0200189",
+      "name": "Bolognese",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0200189-bolognese.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:20:05.975Z",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, 1536x1024 pixels, 3:2 landscape.\n\nCRITICAL COMPOSITION: an expansive environmental FULL-BODY photograph with a moderately small adult dog in its middle distance. A natural 50mm view with camera well back. Landscape dominates. Dog occupies only about 40–45 percent of canvas height. Put the whole silhouette within approximately x=440..1100 and y=290..750; no ear/head above y=210 and no paw below y=800. Keep broad open clear ground across the bottom quarter and generous scenery above. The dog is not a close-up foreground subject. Fine subject detail stays sharp. One adult standing naturally in relaxed three-quarter view at dog-eye level, head gently toward camera. All FOUR coherent legs and all FOUR complete paws separately visible and firmly planted, entire ears and tail comfortably within frame.\n\nInput is a morphology and coat reference ONLY. Create a wholly NEW pose, composition, lighting and background; do not reconstruct the source photo or treat it as an edit target. Remove all source staging, people, other animals, collars, leads, harnesses, labels and props.\nScene: An open Italian low-hill meadow edge in early May: a small firm patch of warm limestone grit and short fresh grass, tiny white daisies and a few pale blue flowers near the margins, soft rolling grass slopes leading to a distant band of deciduous woodland. Luminous warm overcast, no prominent foreground tree, buildings, garden ornaments or farm infrastructure. Give the landscape clear readable foreground, middle distance and horizon detail, not a featureless blur wall. Follow this individual layout instead of defaulting to a framing tree at left and distant mountains.\nSubject: One mature adult male Bolognese, small but fully adult compact square companion with sturdy fine limbs. Pure WHITE long airy flocked coat standing away from the body in soft irregular tufts, shorter on the muzzle; naturally tidy, not a sculpted poodle cut or silky flat Maltese coat. Black nose, healthy dark eyes clearly readable through the facial hair, naturally hanging ears. Complete fluffy tail gracefully curved over the back. Body faces LEFT, head softly turned toward camera. Four paws must show below the coat on clear footing.\nStyle: exceptional photorealistic editorial field photography, healthy believable adult breed anatomy, individual coat strands with subtle tonal detail, coherent gentle daylight and restrained natural color. Quietly observational, beautiful and geographically specific. Inspect the entire background: completely uninhabited natural landscape, absolutely no buildings, village/town silhouettes, roofs, roads, fences, bridges, utility poles, wires or other infrastructure, even far in the distance. No people, other animals, clothing, collar, leash, harness, bows, toys, props, text, logos, watermarks, duplicate legs, hidden/malformed paws, clipped extremities, distorted eyes/face, plastic CGI fur, studio backdrop, oversaturation or aggressive HDR.",
+      "scene": {
+        "status": "ready",
+        "description": "An open Italian low-hill meadow edge in early May: a small firm patch of warm limestone grit and short fresh grass, tiny white daisies and a few pale blue flowers near the margins, soft rolling grass slopes leading to a distant band of deciduous woodland. Luminous warm overcast, no prominent foreground tree, buildings, garden ornaments or farm infrastructure.",
+        "rationale": "FCI196 gives Italy as origin. The quiet low-hill meadow is an Italian regional art-direction inference rather than a claim of a particular historical town or working habitat.",
+        "evidence": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/196g09-en.pdf",
+            "summary": "Italian companion breed; small compact square build, white coat forming off-standing flocks, dark eyes, hanging ears and tail curved over the back.",
+            "accessedAt": "2026-09-22"
+          }
+        ]
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:9bb22a7f1a287727",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Male_adult_bolognese_dog.jpg"
+      },
+      "masterSha256": "b83e0207fc4ed88679a922c89e7e5f4b7096aeb6abb960403fd9485d847bdc13",
+      "originalToolPath": null,
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-09-22T20:22:03.482867Z",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "breedIdentity": "Adult compact square Bolognese, white soft flocked coat, hanging ears, clear dark eyes/black nose and complete back-curved fluffy tail. Slight natural muzzle staining follows source without coloring the body; adult proportions rather than puppy.",
+        "anatomy": "Four distinct coherent legs and four grounded paw forms visible beneath coat, tail attached and complete; healthy face and stance.",
+        "crop": "Silhouette about x550..1126,y281..792,38% width and50% height,27% headroom and23% foreground; generous side room and complete extremities.",
+        "aesthetics": "Full-resolution original inspected. Detailed white coat against low Italian spring hills, limestone grit, small daisies/blue flowers and natural woodland bands. All-natural setting, no structures, people or props. Bright soft daylight and readable regional depth.",
+        "status": "approved",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0200214",
+      "name": "Boykin Spaniel",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0200214-boykin-spaniel.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:26:28.068Z",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, 1536x1024 pixels, 3:2 landscape.\n\nCRITICAL COMPOSITION: an expansive environmental FULL-BODY photograph with a moderately small adult dog in its middle distance. A natural 50mm view with camera well back. Landscape dominates. Dog occupies only about 40–45 percent of canvas height. Put the whole silhouette within approximately x=440..1100 and y=290..750; no ear/head above y=210 and no paw below y=800. Keep broad open clear ground across the bottom quarter and generous scenery above. The dog is not a close-up foreground subject. Fine subject detail stays sharp. One adult standing naturally in relaxed three-quarter view at dog-eye level, head gently toward camera. All FOUR coherent legs and all FOUR complete paws separately visible and firmly planted, entire ears and tail comfortably within frame.\n\nInput is a morphology and coat reference ONLY. Create a wholly NEW pose, composition, lighting and background; do not reconstruct the source photo or treat it as an edit target. Remove all source staging, people, other animals, collars, leads, harnesses, labels and props.\nScene: A dry sandy terrace beside a South Carolina Piedmont river in early spring: broad exposed buff sand with a few fine pebbles under the dog, young fern tips and low sweetgum leaves to the RIGHT, a distant narrow dark oxbow on the LEFT, open loblolly pine and oak woodland farther back. Soft clear morning side-light and fresh green depth; dog is on dry ground, not in a flooded cypress swamp. Give the landscape clear readable foreground, middle distance and horizon detail, not a featureless blur wall. Follow this individual layout instead of defaulting to a framing tree at left and distant mountains.\nIMPORTANT TAIL CORRECTION: The reference individual has a shortened tail. Do not reproduce that individual alteration. Render a complete NATURAL UNDОCKED TAIL, about 35cm long, tapering smoothly with feathering, extending behind the rump and then DOWN to about the hind-hock level in a gentle open curve. It must be clearly long rather than a short horizontal stump. The whole tail is unobstructed.\nSubject: One mature adult Boykin Spaniel, medium sturdy athletic retriever-spaniel with slightly rectangular balanced body and deep chest. Solid rich CHOCOLATE-LIVER brown coat, moderately wavy with natural feathering on long hanging ears, chest and legs. Warm amber-brown eyes, liver-brown nose and balanced moderate muzzle. Full natural tapered feathered tail approximately to hock length in a relaxed low gentle curve. Body faces LEFT, head turned softly toward camera. No white chest blaze, no excessive curls, no docked stump; all four paws visible on dry sand.\nStyle: exceptional photorealistic editorial field photography, healthy believable adult breed anatomy, individual coat strands with subtle tonal detail, coherent gentle daylight and restrained natural color. Quietly observational, beautiful and geographically specific. Inspect the entire background: completely uninhabited natural landscape, absolutely no buildings, village/town silhouettes, roofs, roads, fences, bridges, utility poles, wires or other infrastructure, even far in the distance. No people, other animals, clothing, collar, leash, harness, bows, toys, props, text, logos, watermarks, duplicate legs, hidden/malformed paws, clipped extremities, distorted eyes/face, plastic CGI fur, studio backdrop, oversaturation or aggressive HDR.",
+      "scene": {
+        "status": "ready",
+        "description": "A dry sandy terrace beside a South Carolina Piedmont river in early spring: broad exposed buff sand with a few fine pebbles under the dog, young fern tips and low sweetgum leaves to the RIGHT, a distant narrow dark oxbow on the LEFT, open loblolly pine and oak woodland farther back. Soft clear morning side-light and fresh green depth; dog is on dry ground, not in a flooded cypress swamp.",
+        "rationale": "UKC connects the breed to South Carolina and Boykin near Camden. The sandy river terrace is a regional interpretation of that origin and retrieving history; it deliberately changes the source swamp composition.",
+        "evidence": [
+          {
+            "url": "https://www.ukcdogs.com/breed-standards/boykin-spaniel",
+            "summary": "South Carolina development near Camden; sturdy medium slightly rectangular spaniel, solid liver/chocolate coat, hanging ears and amber-to-brown eyes. Natural tail is not penalized.",
+            "accessedAt": "2026-09-22"
+          },
+          {
+            "url": "https://www.ukcdogs.com/boykin-spaniel",
+            "summary": "History identifies South Carolina and L. Whitaker Boykin near Camden.",
+            "accessedAt": "2026-09-22"
+          },
+          {
+            "url": "https://ckcusa.com/breeds/boykin-spaniel/",
+            "summary": "Natural tail reaches roughly the hock, thick at the base and tapered, carried level or in a gentle curve rather than over the back.",
+            "accessedAt": "2026-09-22"
+          }
+        ]
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:f58f4d8cb0fb6f07",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Gizbones.JPG"
+      },
+      "masterSha256": "59e95ec9ab488aa923f02d7fbe273af130fcc04d68b7a2f376394e994801640c",
+      "originalToolPath": null,
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-09-22T20:28:14.632123Z",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "breedIdentity": "Mature solid chocolate Boykin Spaniel, sturdy slightly rectangular frame, moderate waved feathered coat, long hanging ears, amber eyes and liver nose. Corrected full feathered natural tail reaches hock area. Body faces right despite left request.",
+        "anatomy": "Four separated complete paws, coherent limbs/hocks, sound ground contact and complete attached natural tail; healthy adult face.",
+        "crop": "Silhouette approximately x473..1055,y290..746,38% width and45% height;28% headroom and27% foreground, ample room around all extremities.",
+        "aesthetics": "Full-resolution original inspected. Lustrous natural chocolate coat with distinct waves, South Carolina sand terrace and river/pine/oak layers. No flooded-source reconstruction, collar, structures or infrastructure; quiet clear morning light.",
+        "status": "approved",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0200323",
+      "name": "Cesky Terrier",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0200323-cesky-terrier.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:29:42.694Z",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, 1536x1024 pixels, 3:2 landscape.\n\nCRITICAL COMPOSITION: an expansive environmental FULL-BODY photograph with a moderately small adult dog in its middle distance. A natural 50mm view with camera well back. Landscape dominates. Dog occupies only about 40–45 percent of canvas height. Put the whole silhouette within approximately x=440..1100 and y=290..750; no ear/head above y=210 and no paw below y=800. Keep broad open clear ground across the bottom quarter and generous scenery above. The dog is not a close-up foreground subject. Fine subject detail stays sharp. One adult standing naturally in relaxed three-quarter view at dog-eye level, head gently toward camera. All FOUR coherent legs and all FOUR complete paws separately visible and firmly planted, entire ears and tail comfortably within frame.\n\nInput is a morphology and coat reference ONLY. Create a wholly NEW pose, composition, lighting and background; do not reconstruct the source photo or treat it as an edit target. Remove all source staging, people, other animals, collars, leads, harnesses, labels and props.\nScene: A low Bohemian woodland clearing near the Prague region in early autumn: compact brown earth and pale sandstone chips, sparse moss and curled copper leaves around the perimeter, low bracken on the LEFT, slender birches and oak saplings receding to a small sunlit opening far RIGHT. A soft cool sky fills the face while mellow afternoon light brushes the ground; no dramatic mountain horizon. Give the landscape clear readable foreground, middle distance and horizon detail, not a featureless blur wall. Follow this individual layout instead of defaulting to a framing tree at left and distant mountains.\nSubject: One mature adult FEMALE Cesky Terrier, a long low well-muscled rectangular terrier with short sturdy legs, not a square Schnauzer. Gray-blue body coat clipped practical and short on the upper body, longer fine slightly wavy silky skirt and leg furnishing, pale gray beard and brows. Long blunt wedge-shaped head, black nose, clear dark-brown almond eyes and small triangular hanging ears. Complete approximately 20cm natural tail set low and carried down with a gentle curve. Body faces LEFT, head softly toward camera. Keep four paws visibly separate below the fine coat; no cords or tight curls.\nStyle: exceptional photorealistic editorial field photography, healthy believable adult breed anatomy, individual coat strands with subtle tonal detail, coherent gentle daylight and restrained natural color. Quietly observational, beautiful and geographically specific. Inspect the entire background: completely uninhabited natural landscape, absolutely no buildings, village/town silhouettes, roofs, roads, fences, bridges, utility poles, wires or other infrastructure, even far in the distance. No people, other animals, clothing, collar, leash, harness, bows, toys, props, text, logos, watermarks, duplicate legs, hidden/malformed paws, clipped extremities, distorted eyes/face, plastic CGI fur, studio backdrop, oversaturation or aggressive HDR.",
+      "scene": {
+        "status": "ready",
+        "description": "A low Bohemian woodland clearing near the Prague region in early autumn: compact brown earth and pale sandstone chips, sparse moss and curled copper leaves around the perimeter, low bracken on the LEFT, slender birches and oak saplings receding to a small sunlit opening far RIGHT. A soft cool sky fills the face while mellow afternoon light brushes the ground; no dramatic mountain horizon.",
+        "rationale": "FCI246 locates the breed’s development with Frantisek Horak in Klanovice near Prague. The low woodland clearing is a regional scene inference, not a reconstruction of a specific breeding or hunting site.",
+        "evidence": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/246g03-en.pdf",
+            "summary": "Czech breed developed in Klanovice near Prague; short-legged muscular rectangular terrier, long blunt wedge head, hanging ears, gray-blue silky coat and low-carried natural tail.",
+            "accessedAt": "2026-09-22"
+          }
+        ]
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:2b25f716f859a664",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Terier_czeski_suka_2009_pl2.jpg"
+      },
+      "masterSha256": "a2ff82b4a345068ffbecf8bd26f6beb273732eaea47bffc6b87858d70faece98",
+      "originalToolPath": null,
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-09-22T20:31:29.476118Z",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "breedIdentity": "Mature female Cesky Terrier, long low rectangular form, short strong legs, long blunt wedge head and natural hanging ears, gray-blue clipped upper body with pale silky skirt/beard/leg furnishings; complete low natural tail. Source female identity respected.",
+        "anatomy": "Four separate complete paws beneath furnishings, coherent short legs and level body, full attached tail, visible healthy brown eye and natural nose/muzzle.",
+        "crop": "Silhouette approximately x423..1212,y261..788,51% width and51% height;25% headroom and23% foreground,21% right margin. Full feet and tail clear.",
+        "aesthetics": "Full-resolution original inspected. Fine silky gray coat, practical clipped texture rather than merle pattern; warm Bohemian early-autumn birch/oak/bracken clearing with detailed leaf/stone footing and clear distant opening. No show props or infrastructure.",
+        "status": "approved",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0200353",
+      "name": "Chinook",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0200353-chinook.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:39:13.325Z",
+      "prompt": "Use case: photorealistic-natural. ONE 1536x1024 landscape premium field-guide photograph of an adult Chinook.\n\nFirst design a wide natural landscape with a VERY BROAD EMPTY FOREGROUND: the lowest 30% of the frame is only firm gray gravel and pine needles. The dog stands several meters beyond that foreground, in the central middle distance. Highest ear around pixel y300, lowest paw y730; entire animal only 40–45% image height. Every paw ABOVE y790. Position whole silhouette approximately x500..1050. Roomy scene above and on both sides, no close-up. Natural dog-eye-level 50mm view, relaxed three-quarter standing pose, head softly toward camera. All FOUR paws separate and complete, full tail.\n\nUse attached original ONLY for morphology and coat. Create a new pose, light and setting. Mature male Chinook: large strong athletic sled-dog build, slightly rectangular, medium dense TAWNY coat with paler belly, black muzzle/nose, dark-brown almond eyes, natural dropped or tipped triangular ears like source. Strong limbs and complete low-set sabre tail with softly upturned tip. No collar, leash or source roadside.\n\nScene: quiet New Hampshire maple-birch woodland opening after winter, exposed gray gravel and needles, modest snow patches in middle distance LEFT, russet beech twigs RIGHT, a distant low rounded wooded ridge. Cool dawn with gentle warm light from right. Clear layered regional landscape with no buildings, villages, roofs, roads, wires, poles, fences, bridges, people or animals anywhere.\n\nPhotoreal editorial quality, believable adult anatomy, healthy expression, grounded paws, fine natural coat texture and restrained color. No props, text, logos, watermarks, CGI or cut-off body parts. Entire dog including all four paws must sit well above the bottom-quarter empty foreground.",
+      "scene": {
+        "status": "ready",
+        "description": "A New Hampshire maple-and-birch woodland opening at the end of winter: firm gray gravel and pine needles beneath the dog, shallow snow patches farther to the LEFT, russet beech leaves still on a few low branches to the RIGHT, and a low rounded wooded ridge beyond. Clear cool dawn with a gentle warm edge from the right; no buildings, roads, utility lines or towering alpine peaks.",
+        "rationale": "UKC identifies Wonalancet, New Hampshire, and the breed’s early sled-dog development. The wooded late-winter clearing is a geographic and working-climate interpretation; it does not depict a historic event or reproduce the source roadside.",
+        "evidence": [
+          {
+            "url": "https://www.ukcdogs.com/breed-standards/chinook",
+            "summary": "Developed in Wonalancet, New Hampshire; tawny medium double-coated sled dog, strong athletic build, dark almond eyes, multiple natural ear carriages and low-set sabre tail.",
+            "accessedAt": "2026-09-22"
+          }
+        ]
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:bf8831a82433ecaa",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Chinook_2025.jpg"
+      },
+      "masterSha256": "16c8c882df9ef2699a79500bad46cf47e3c2ecf3af9124dc942150083d7fd474",
+      "originalToolPath": null,
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-09-22T20:41:34.519673Z",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "breedIdentity": "Mature tawny male Chinook, strong athletic slightly rectangular sled-dog form, black muzzle/nose, dark eyes and natural tipped/drop ears, full low sabre tail. No husky coloring or source collar.",
+        "anatomy": "Four complete visible grounded paws, coherent strong limbs, natural joints and adult frame, full attached tail with gentle upturn.",
+        "crop": "Whole silhouette approximately x457..953,y264..656,32% width and38% height,26% headroom and36% clear foreground. Deliberately expansive composition with still-readable adult morphology; ample clearance all sides.",
+        "aesthetics": "Full-resolution original inspected. Soft dawn highlights on tawny double coat, specific New Hampshire winter-thaw birches/conifers, beech leaves, snow patches and low wooded ridge. No houses, roads, wires or props. Broad textured natural ground resolves previous low placement.",
+        "status": "approved",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0200450",
+      "name": "Dogue de Bordeaux",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0200450-dogue-de-bordeaux.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:43:52.556Z",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, 1536x1024 pixels, 3:2 landscape.\n\nCRITICAL COMPOSITION: an expansive environmental FULL-BODY photograph with a moderately small adult dog in its middle distance. A natural 50mm view with camera well back. Landscape dominates. Dog occupies only about 40–45 percent of canvas height. Put the whole silhouette within approximately x=440..1100 and y=290..750; no ear/head above y=210 and no paw below y=800. Keep broad open clear ground across the bottom quarter and generous scenery above. The dog is not a close-up foreground subject. Fine subject detail stays sharp. One adult standing naturally in relaxed three-quarter view at dog-eye level, head gently toward camera. All FOUR coherent legs and all FOUR complete paws separately visible and firmly planted, entire ears and tail comfortably within frame.\n\nInput is a morphology and coat reference ONLY. Create a wholly NEW pose, composition, lighting and background; do not reconstruct the source photo or treat it as an edit target. Remove all source staging, people, other animals, collars, leads, harnesses, labels and props.\nScene: A quiet Aquitaine river floodplain in early September: a broad flat bank of pale fine alluvial sand and smooth beige pebbles, a narrow silver-blue channel running across the distant LEFT, low willow and reed clusters behind on the RIGHT and a flat tree-lined horizon. Soft pearly morning light, warm reflected earth tones and clear airy depth; no vineyards, boats, paths or buildings. Give the landscape clear readable foreground, middle distance and horizon detail, not a featureless blur wall. Follow this individual layout instead of defaulting to a framing tree at left and distant mountains.\nSubject: One mature adult male Dogue de Bordeaux, powerful muscular low-set molosser with slightly rectangular body, very deep broad chest, substantial straight limbs and firm broad paws. Short fine RED-FAWN coat, massive angular broad head, natural restrained folds, short broad square muzzle and brown-red nose/mask, healthy oval amber-brown eyes, small folded hanging ears. Robust and fit, no exaggerated loose skin, giant jowls or drool. Complete thick-rooted natural tapered tail hangs down with a small relaxed curve. Body faces LEFT, head gently toward camera.\nStyle: exceptional photorealistic editorial field photography, healthy believable adult breed anatomy, individual coat strands with subtle tonal detail, coherent gentle daylight and restrained natural color. Quietly observational, beautiful and geographically specific. Inspect the entire background: completely uninhabited natural landscape, absolutely no buildings, village/town silhouettes, roofs, roads, fences, bridges, utility poles, wires or other infrastructure, even far in the distance. No people, other animals, clothing, collar, leash, harness, bows, toys, props, text, logos, watermarks, duplicate legs, hidden/malformed paws, clipped extremities, distorted eyes/face, plastic CGI fur, studio backdrop, oversaturation or aggressive HDR.",
+      "scene": {
+        "status": "ready",
+        "description": "A quiet Aquitaine river floodplain in early September: a broad flat bank of pale fine alluvial sand and smooth beige pebbles, a narrow silver-blue channel running across the distant LEFT, low willow and reed clusters behind on the RIGHT and a flat tree-lined horizon. Soft pearly morning light, warm reflected earth tones and clear airy depth; no vineyards, boats, paths or buildings.",
+        "rationale": "FCI116 describes the breed’s historical concentration in southwestern France and Aquitaine. The river floodplain is a regional landscape interpretation rather than an asserted historical working site.",
+        "evidence": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/116g02-en.pdf",
+            "summary": "France, especially historical Aquitaine; powerful slightly rectangular molosser, broad deep chest, massive wrinkled head, short fine fawn coat and natural tapered tail.",
+            "accessedAt": "2026-09-22"
+          }
+        ]
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:a9edb5fc58a26011",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Dogue_de_Bordeaux_in_Riga.JPG"
+      },
+      "masterSha256": "9d0982d95f73c3068704d52b1e605df9ad0ad751436cd59d54057c8a3954e181",
+      "originalToolPath": null,
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-09-22T20:45:56.679199Z",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "breedIdentity": "Mature male Dogue de Bordeaux with powerful slightly rectangular body, deep chest, broad wrinkled head, short square muzzle, small folded ears, red-fawn short coat and brown nose/mask, complete thick tapered tail. Source indoor cast replaced by natural daylight.",
+        "anatomy": "Four separated complete grounded paws and coherent muscular limbs, full tail correctly attached, healthy eyes and relaxed pant. Natural folds and flews without extreme drool or loose body skin.",
+        "crop": "Whole silhouette approximately x516..1236,y302..831,47% width and52% height.29% headroom and19% lower ground,19% right margin. Complete extremities and substantial landscape room.",
+        "aesthetics": "Full-resolution original inspected. Natural fine fawn coat texture in soft morning light; Aquitaine alluvial gravel/sand, quiet river and willow edge with flat wooded horizon. No boats, buildings, bridges, roads, fences or people.",
+        "status": "approved",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0200512",
+      "name": "Eurasier",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0200512-eurasier.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:50:10.744Z",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, 1536x1024 pixels, 3:2 landscape.\n\nCRITICAL COMPOSITION: EXPANSIVE LAKESHORE LANDSCAPE. The bottom 30 percent of this canvas is ONLY empty open sand and small stones, no dog in that foreground band. Put dog in the middle distance, whole silhouette between approximately x=500..1070 and y=290..735, only about40–45 percent of image height. Lowest paw MUST be above y=780. Do not enlarge or push dog down in the picture. Lots of clear scenery above and to both sides. Natural dog-eye-level view, adult standing relaxed three-quarter, all FOUR distinct complete paws on dry sand; entire ears and full tail clear.\n\nInput is a morphology and coat reference ONLY. Create a wholly NEW pose, composition, lighting and background; do not reconstruct the source photo or treat it as an edit target. Remove all source staging, people, other animals, collars, leads, harnesses, labels and props.\nScene: A quiet German lake margin in mid-October: open compact ochre sand with small gray stones under the dog, a low reed bed on the LEFT, flat cool slate-blue water beyond, and copper beech woodland reaching down to the far RIGHT shore. Bright thin-cloud afternoon light creates cool water reflections and gentle warm fur edges. Keep the lake horizon low and entirely natural, without jetties, boats or settlement. Give the landscape clear readable foreground, middle distance and horizon detail, not a featureless blur wall. Follow this individual layout instead of defaulting to a framing tree at left and distant mountains.\nSubject: One mature adult Eurasier, medium balanced slightly rectangular spitz with moderate bone and visible body proportions. RED-FAWN / warm sable double coat, pale cream ruff and underbody, subtle dark tips and dark muzzle shading, as in the reference. Triangular upright ears, almond dark-brown eyes and black nose; moderately long wedge muzzle, not a Chow’s short broad face. Full bushy tail smoothly curved over back with visible connection and end. Body faces RIGHT, head turned softly toward camera. No white coat, no extreme mane or blue eyes.\nStyle: exceptional photorealistic editorial field photography, healthy believable adult breed anatomy, individual coat strands with subtle tonal detail, coherent gentle daylight and restrained natural color. Quietly observational, beautiful and geographically specific. Inspect the entire background: completely uninhabited natural landscape, absolutely no buildings, village/town silhouettes, roofs, roads, fences, bridges, utility poles, wires or other infrastructure, even far in the distance. No people, other animals, clothing, collar, leash, harness, bows, toys, props, text, logos, watermarks, duplicate legs, hidden/malformed paws, clipped extremities, distorted eyes/face, plastic CGI fur, studio backdrop, oversaturation or aggressive HDR.",
+      "scene": {
+        "status": "ready",
+        "description": "A quiet German lake margin in mid-October: open compact ochre sand with small gray stones under the dog, a low reed bed on the LEFT, flat cool slate-blue water beyond, and copper beech woodland reaching down to the far RIGHT shore. Bright thin-cloud afternoon light creates cool water reflections and gentle warm fur edges. Keep the lake horizon low and entirely natural, without jetties, boats or settlement.",
+        "rationale": "FCI291 gives Germany as origin. The temperate autumn lake edge is an artistic regional setting; no particular lake, birthplace or working role is claimed.",
+        "evidence": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/291g05-en.pdf",
+            "summary": "German companion breed, developed by Julius Wipfel; medium balanced slightly rectangular spitz, erect ears, body proportions visible beneath double coat and curled bushy tail.",
+            "accessedAt": "2026-09-22"
+          }
+        ]
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:22c6b0472512f4c8",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Eurasier_2009_pl.jpg"
+      },
+      "masterSha256": "38112cd5633d2abac4cab2e3a776a976b87746b12f2e9fdcdf534a312a109521",
+      "originalToolPath": null,
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-09-22T20:52:36.555014Z",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "breedIdentity": "Mature medium Eurasier with red-fawn/sable coat and cream underbody/ruff, erect triangular ears, dark eyes/nose and complete curled bushy tail. Slightly rectangular proportions remain visible; not white Samoyed or squat Chow.",
+        "anatomy": "Four complete separate grounded paws and coherent limbs, full attached tail, healthy face and relaxed pant. Natural coat volume without concealing foot placement.",
+        "crop": "Whole silhouette approximately x522..1003,y219..684,31% width and45% height;21% headroom and33% foreground. Strong clear margin around all extremities and expansive lake setting.",
+        "aesthetics": "Full-resolution original inspected. Warm red coat separated from cool German autumn lake, reeds left and copper woodland far right, clear water reflections and detailed sandy ground. No jetties, buildings, boats or other infrastructure. Corrects prior low placement.",
+        "status": "approved",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    },
+    {
+      "catalogId": "VBO:0200604",
+      "name": "Giant Schnauzer",
+      "generatedPath": "assets/dogs/generated-masters/VBO-0200604-giant-schnauzer.png",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v2-cohort-e",
+      "generatedAt": "2026-09-22T20:54:02.259Z",
+      "prompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, 1536x1024 pixels, 3:2 landscape.\n\nCRITICAL COMPOSITION: an expansive environmental FULL-BODY photograph with a moderately small adult dog in its middle distance. A natural 50mm view with camera well back. Landscape dominates. Dog occupies only about 40–45 percent of canvas height. Put the whole silhouette within approximately x=440..1100 and y=290..750; no ear/head above y=210 and no paw below y=800. Keep broad open clear ground across the bottom quarter and generous scenery above. The dog is not a close-up foreground subject. Fine subject detail stays sharp. One adult standing naturally in relaxed three-quarter view at dog-eye level, head gently toward camera. All FOUR coherent legs and all FOUR complete paws separately visible and firmly planted, entire ears and tail comfortably within frame.\n\nInput is a morphology and coat reference ONLY. Create a wholly NEW pose, composition, lighting and background; do not reconstruct the source photo or treat it as an edit target. Remove all source staging, people, other animals, collars, leads, harnesses, labels and props.\nScene: A southern German river meadow in late spring: a small open gravel-and-short-grass rise, smooth gray river stones scattered sparsely around the edges, low willow shoots on a distant shoal to the LEFT and a flat dark mixed-woodland bank beyond the water. Fresh bright diffuse daylight, subtle backlight from the LEFT, and clean pale ground around the black-and-silver legs; no mountains, fences, cattle, bridge or structures. Give the landscape clear readable foreground, middle distance and horizon detail, not a featureless blur wall. Follow this individual layout instead of defaulting to a framing tree at left and distant mountains.\nSubject: One mature adult Giant Schnauzer, LARGE powerful stocky square working dog, 60–70cm scale and substantial limbs, not a miniature. Harsh wiry BLACK AND SILVER coat: black body, neck, forehead and outer ears; pale silver eyebrows, cheeks and beard, two separate small pale chest triangles, silver lower limbs and feet as in the reference. Do not turn this into mottled pepper-and-salt or brindle. Long strong rectangular head with coarse beard and brows, visible dark oval eyes, black nose and natural dropped V ears. Complete natural tail in a loose open sabre curve. Body faces LEFT, head softly toward camera.\nStyle: exceptional photorealistic editorial field photography, healthy believable adult breed anatomy, individual coat strands with subtle tonal detail, coherent gentle daylight and restrained natural color. Quietly observational, beautiful and geographically specific. Inspect the entire background: completely uninhabited natural landscape, absolutely no buildings, village/town silhouettes, roofs, roads, fences, bridges, utility poles, wires or other infrastructure, even far in the distance. No people, other animals, clothing, collar, leash, harness, bows, toys, props, text, logos, watermarks, duplicate legs, hidden/malformed paws, clipped extremities, distorted eyes/face, plastic CGI fur, studio backdrop, oversaturation or aggressive HDR.",
+      "scene": {
+        "status": "ready",
+        "description": "A southern German river meadow in late spring: a small open gravel-and-short-grass rise, smooth gray river stones scattered sparsely around the edges, low willow shoots on a distant shoal to the LEFT and a flat dark mixed-woodland bank beyond the water. Fresh bright diffuse daylight, subtle backlight from the LEFT, and clean pale ground around the black-and-silver legs; no mountains, fences, cattle, bridge or structures.",
+        "rationale": "FCI181 describes southern Germany and the breed’s cattle-driving origin. The river meadow is a regional interpretation without staging cattle or historical work. The chosen black/silver coat is expressly recognized by the current FCI standard.",
+        "evidence": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/181g02-en.pdf",
+            "summary": "Southern Germany origin; large powerful square Schnauzer with wiry coat and natural sabre/sickle tail. Current 2021 standard explicitly includes black/silver, with pale brows, beard, divided chest triangles and lower-leg markings.",
+            "accessedAt": "2026-09-22"
+          }
+        ]
+      },
+      "reference": {
+        "assetId": "dogs:photo:commons:4f1dc9c34bb60e1e",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Giantschnauzerblacksilver3.jpg"
+      },
+      "masterSha256": "f83d94f4cdf44b8f015ad6d424f8f25d7d86c5577f1b38919cbbd6e2545625ba",
+      "originalToolPath": null,
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-09-22T20:57:46.560064Z",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "breedIdentity": "Mature large strong Giant Schnauzer with square compact body, long rectangular bearded head, natural dropped V ears, black nose and dark eyes. Black/silver pattern matches reviewed reference and current FCI181: black body/neck/ears with pale brows, beard, chest and lower legs, not pepper/salt or merle.",
+        "anatomy": "Four distinct complete grounded paws, coherent strong limbs/hocks and full attached open sabre tail. Healthy face, relaxed mouth and adult working-dog substance.",
+        "crop": "Silhouette approximately x486..1174,y255..852,45% width and58% height.25% headroom and17% lower ground,24% right margin. Slightly larger than requested numeric target but full feet/tail and surrounding landscape comfortably clear.",
+        "aesthetics": "Full-resolution original inspected. Fine coarse black coat with clean silver markings, clear natural spring river meadow and willow shoal, restrained sunlight and readable woodland backdrop. No infrastructure, people, other animals or props; no exaggerated grooming.",
+        "status": "approved",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-e/e07-contact-sheet.jpg",
+        "primaryReview": {
+          "reviewedBy": "primary orchestrator",
+          "reviewedAt": "2026-09-22T21:17:51.883943+00:00",
+          "fullResolutionViewed": true,
+          "contactSheetViewed": true,
+          "verdict": "pass"
+        }
+      }
+    }
+  ]
+}

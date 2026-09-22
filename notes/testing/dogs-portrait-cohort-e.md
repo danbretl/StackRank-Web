@@ -7,7 +7,30 @@ The user authorized periodic commits and pushes, then explicitly requested visib
 live site. Verified milestones now go to `main`, which Vercel deploys. Database migrations, production
 Storage uploads and root routing changes are outside this artwork expansion.
 
-## Current published milestone E06
+## Current published milestone E07
+
+- Production commit: `95afac08`; **213 / 1,239** portraits live, **1,026** unillustrated.
+- Cohort delivery: **161 / 250** accepted and integrated. E07 adds **24** from **34 calls**,
+  with **7 rejected masters**, **3 failed calls**, and **10 retries**.
+- Cumulative: **203 calls**, **192 generated outputs**, **31 rejected masters**, **11 failed calls**,
+  **42 retries**. Fourteen frozen identities remain blocked; E07 adds generic Welsh Corgi, which
+  coexists with distinct Cardigan and Pembroke entries and lacks a non-overlapping reference.
+- Next actionable identity: Glen of Imaal Terrier (`VBO:0200609`, ordinal 176).
+- Canonical discovery: **664** without ledger rows (**14** pack-engaged, **650** long-tail).
+  All 161 selected pack-priority identities have now been processed; 147 accepted and 14 held.
+- All 24 full-resolution originals and the contact sheet passed primary review. The Giant Schnauzer
+  black/silver variety is explicitly supported by current FCI181. All **378** prior WebPs are unchanged.
+- `npm run verify`: **432 Node, 24 Deno, all validators, 37 Chrome flows passed**;
+  final log `reports/dogs-generated-artwork/cohort-e/e07-verify-final.log`, Node report
+  `reports/runs/2026-09-22T214326Z`, Chrome report `reports/e2e/runs/2026-09-22T214343Z`.
+  The first full run hit an intermittent unchanged Movies lightbox preview-sync assertion. A focused
+  rerun and then the complete suite passed without code changes; original evidence remains in
+  `e07-verify.log` and `e07-share-studio-recheck.log`. This does not claim the intermittent issue fixed.
+- Vercel deployment and **35 production smoke checks** passed; eight sampled live variant hashes
+  match. Evidence: `reports/dogs-generated-artwork/cohort-e/e07-production-smoke.log` and
+  `e07-production-artwork.json`. Both E06 product and documentation commits passed hosted CI.
+
+## Earlier published milestone E06
 
 - Production commit: `64e3a14e`; **189 / 1,239** portraits live, **1,050** unillustrated.
 - Cohort delivery: **137 / 250** accepted and integrated. E06 adds **23** from **29 calls**,
@@ -163,11 +186,10 @@ public-snapshot artwork and raster export remain false. Movies, Books and `/` â†
 
 ## Work in progress
 
-E07 has 24 candidates that passed primary full-resolution and contact-sheet review; generic Welsh
-Corgi remains held because the catalog separately represents Cardigan and Pembroke identities.
-E08-a has nine candidates that passed primary full-resolution review. E08-b generation and E08-c
-preparation continue; E09-a has six agent-reviewed candidates, with Phu Quoc, Sapsali and Bully Kutta
-held for inadequate exact adult morphology evidence. E09-c reference research is underway.
+E08-a/b have 17 candidates that passed primary full-resolution review; E08-c is preparing the
+remaining references and generations. E09-a/b have 13 candidates that passed primary review;
+E09-c has eight agent-reviewed candidates awaiting primary review. Phu Quoc, Sapsali, Bully Kutta
+and Telomian are reference-held. E10-a has nine prepared references/scenes; E10-b/c research continues.
 
 At the user's request, routine reference/scene preparation, generation bookkeeping and first-pass
 QA now use GPT-5.6 Sol at High effort where available. The primary orchestrator retains difficult

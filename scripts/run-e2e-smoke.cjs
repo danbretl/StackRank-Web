@@ -1830,8 +1830,8 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
     unfinished,
     unfinishedCurious,
     unfinishedHidden,
-    newPortrait: "VBO:0201235",
-    newPeer: "VBO:0201338",
+    newPortrait: "VBO:0200132",
+    newPeer: "VBO:0200027",
   };
   const entity = (id) => catalog.entities.find((candidate) => candidate.id === id);
   const name = (id) => entity(id)?.displayName;

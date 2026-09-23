@@ -41,14 +41,18 @@ three new reference holds and three append-only reserve activations. Resume from
 `notes/testing/dogs-portrait-cohort-f.md`, `data/dogs/portrait-cohort-f.json` and
 `data/dogs/portrait-cohort-f-staging.json`; leave E's frozen evidence unchanged.
 
-Dogs discovery now leads with a compact “Find your kind of dog” header, Browse all dogs,
-Surprise me, and four shuffled portrait invitations; search is a small secondary control.
-The public browse gallery pages through the completed cohort in groups of 24, supports name/alias,
-family and ranking/list filters, and opens large portraits with full profiles plus previous/next
-navigation. Browsing alone never changes ranking or lists. Desktop comparisons show the full
-profile summary and size/origin facts; phone comparisons fit without scrolling and provide a
-separate About this dog dialog that preserves the active pair. Movies and Dogs share a quiet
-category dropdown beside the brand. See `notes/feature-ideas/dogs-discovery-refinement.md`.
+Dogs keeps ranking primary within a compact “Find your kind of dog” launchpad. “A few dogs
+to meet” combines a full-width search row with Surprise me and a highlighted Browse all dogs
+button. Four shuffled portraits open profiles; Rank this breed is the visually primary profile
+action. The public 24-portrait gallery supports name/alias, family and list filters plus full-profile
+previous/next navigation. Pack previews use portraits and names, with See all dogs opening every
+eligible breed in a pack. Rank next and individual portrait choices return to the same pack after
+ranking/cancel; progress reports ranked counts, with Curious and Not for me separate.
+Whole comparison cards choose a dog, except the separate About this dog button. About and Escape
+preserve the active pair; a second Escape from the comparison cancels. Desktop cards show full
+summaries and size/origin facts; phones keep both cards in one viewport and use About for prose.
+Movies and Dogs share a quiet category dropdown beside the brand. See
+`notes/feature-ideas/dogs-discovery-refinement.md`.
 
 The unlinked, noindex internal review page at `/dogs/artwork-review` provides 24-image pagination,
 search, 960px detail views, generation provenance, local concern flags/notes and JSON export.
@@ -230,7 +234,7 @@ Approximate line ranges (they drift; grep to confirm):
 - **Screenshots:** `npm run screenshots` (headless Chrome; flags `--label=`, `--only=desktop-comparison,ipad-main-portrait,mobile-comparison-landscape,...`). The harness has explicit desktop fine-pointer, iPad portrait/landscape touch, and iPhone portrait/landscape touch profiles and records their runtime capabilities in the manifest. Archives to `debug/screenshots/runs/<timestamp>/` + `latest/` (both gitignored).
 - **Social preview image:** `npm run build:og` regenerates `assets/og-preview.png` (1200×630) from the design embedded in `scripts/build-og-image.cjs` via headless Chrome. After regenerating, bump the `?v=N` on the `og:image`/`twitter:image` meta tags in `index.html` so unfurler caches refresh.
 - **Hosting:** Vercel project `stackrank` is connected to the GitHub repo and deploys `main` to production. `vercel.json` temporarily redirects `/` → `/movies` with 307, rewrites `/movies`, `/dogs`, and noindex `/books` to their static apps, rewrites `/privacy` to the standalone policy, and preserves legacy Movies `/s/:slug` in `shared.html`, then canonicalizes away trailing slashes. It also applies the production CSP, Permissions Policy, referrer policy, MIME-sniffing protection, and frame denial to every route; update the allowlist deliberately when adding an external runtime origin. `robots.txt` and `sitemap.xml` expose the canonical public routes; `/s/` is intentionally excluded from indexing because links are unlisted snapshots. Vercel Web Analytics is enabled on the Hobby plan (pageviews only; custom events use Supabase). Cloudflare Registrar/DNS owns `stackrankapp.com`; both apex and `www` use DNS-only CNAME records to Vercel, with Vercel issuing the apex → `www` 308 redirect and TLS certificates. GitHub Pages remains enabled temporarily as a browser-local-data recovery path; retirement criteria and remaining device/account checks are in `notes/testing/production-release-checklist.md`.
-- **Cache-busting:** when you change JS or CSS, **bump its `?v=N` reference** — otherwise browsers or an edge cache can serve stale assets. Current local worktree: `app.js?v=191`, `styles.css?v=161`, `shared.js?v=5`, `books.js?v=2`, `books.css?v=3`, `dogs.js?v=48`, `dogs.css?v=8`, `dogs-shared.js?v=7`, `dogs-shared.css?v=1`, `home.js?v=1`, `home.css?v=1`. Production serves these cache-busted payloads with year-long immutable caching. `npm run check:cache` hashes the versioned runtime assets and updates `data/asset-versions.json`; it fails when a file changes without its referenced `?v=N` changing. **Note:** each entry module imports local `lib/` modules with their own `?v=N`; bump those import queries too when the module changes, since bumping only the entry script will not refresh a cached dependency.
+- **Cache-busting:** when you change JS or CSS, **bump its `?v=N` reference** — otherwise browsers or an edge cache can serve stale assets. Current local worktree: `app.js?v=191`, `styles.css?v=161`, `shared.js?v=5`, `books.js?v=2`, `books.css?v=3`, `dogs.js?v=49`, `dogs.css?v=9`, `dogs-shared.js?v=7`, `dogs-shared.css?v=1`, `home.js?v=1`, `home.css?v=1`. Production serves these cache-busted payloads with year-long immutable caching. `npm run check:cache` hashes the versioned runtime assets and updates `data/asset-versions.json`; it fails when a file changes without its referenced `?v=N` changing. **Note:** each entry module imports local `lib/` modules with their own `?v=N`; bump those import queries too when the module changes, since bumping only the entry script will not refresh a cached dependency.
 
 ## Conventions
 

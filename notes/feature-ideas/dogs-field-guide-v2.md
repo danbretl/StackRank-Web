@@ -17,13 +17,15 @@ The visual direction is “modern field guide,” not pet-store whimsy: warm bon
 and moss accents, strong black typography, documentary-style landscapes, and generous editorial
 spacing.
 
-The September 22 discovery refinement supersedes the original oversized hero. The Rank page
-leads with “Find your kind of dog,” Browse all dogs, Surprise me, and four shuffled portrait
-invitations, followed by Recently ranked and six varied or resumable packs. A smaller search field
-supports people who already know a name. The public gallery browses all completed identities in
-24-image pages with full-profile navigation; ranking is optional. Desktop comparisons show full
-descriptions and supported size/origin facts, while phones use a separate About this dog dialog
-and keep both choices within one viewport. See `dogs-discovery-refinement.md`.
+The September 22 discovery refinement and follow-up keep ranking primary while replacing the
+oversized hero. “A few dogs to meet” groups a wide search row, Surprise me, a highlighted Browse
+all dogs button and four portrait invitations. Recently ranked and six varied or resumable packs
+follow. The public gallery browses completed identities in 24-image pages with full-profile
+navigation. Pack previews use pictures/names; See all dogs opens the full pack, and ranking from
+that view returns to its scroll position. Desktop comparisons show full descriptions and supported
+size/origin facts. The whole card chooses a dog except for About this dog; Escape dismisses About
+without canceling the comparison. Phones keep both choices in one viewport and disclose prose in
+About. Profile ranking actions are visually primary. See `dogs-discovery-refinement.md`.
 
 ## Content contract
 

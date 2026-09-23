@@ -1,6 +1,32 @@
 # StackRank Dogs implementation status
 
-## September 22 discovery and comparison refinement
+## September 22 ranking-priority feedback
+
+Product commit `d989cb7c` restores whole-card comparison choices, keeping About this dog as a
+separate control. Escape from About dismisses only the profile and returns focus to the same pair;
+Escape from the active comparison cancels it. Profile Rank this breed and pack Rank next have
+primary styling. The redundant profile disclaimer is removed.
+
+“A few dogs to meet” now groups a wide search row with Surprise me on the right and Browse all
+dogs highlighted above the portraits. Search/Browse remain available when there are no new rail
+suggestions. Packs use pictures and names without tags/Meet links; See all dogs opens every
+eligible breed in that pack. Ranking/cancel restores the full pack's scroll/focus. Progress reflects
+ranked counts, with Curious and Not for me separate; user-facing “handled” wording is removed.
+
+Full `npm run verify` passed: 455 Node tests, 24 Deno tests, syntax/cache checks, all catalog/data
+validators and 41/41 browser flows (`reports/e2e/runs/2026-09-23T060635Z`). New coverage uses real
+pointer clicks on comparison portraits/names, real Escape from About on desktop and phone,
+full-pack membership and ranking/cancel return, scroll/focus, progress refresh, grouped discovery
+geometry and primary action contrast. Desktop and phone layouts were visually inspected.
+Phone rank choices remain within one viewport; scrolling is confined to the separate About view.
+
+Runtime versions: `dogs.js?v=49`, `dogs.css?v=9`, `dogs-explore.js?v=3`,
+`dogs-explore.css?v=3`, `dogs-comparison.css?v=4`; shared category switcher stays at `v=1`.
+Vercel reported the deployment complete; all 49 `npm run test:production` checks passed.
+Rendered production `/dogs?debug=1` confirmed the grouped discovery controls, primary profile
+ranking action, loaded portrait and removal of the disclaimer, with no console warnings/errors.
+
+## September 22 discovery and comparison refinement (initial release)
 
 Product commit `cd85278c` makes discovery the main Dogs entry point, adds the public
 24-portrait browse gallery, compacts the header/search, repairs settings/Recently ranked styling,

@@ -94,10 +94,13 @@ decisions.
 
 ### Core interactions
 
-The discovery refinement in `dogs-discovery-refinement.md` replaces the oversized search-led hero.
-It adds a public 24-image gallery with filtering and sequential full profiles, makes breed portraits
-the first browsing surface, and adds unobtrusive category switching to both Movies and Dogs.
-Comparisons use full descriptions on desktop and a separate About this dog view on phones.
+The discovery refinement in `dogs-discovery-refinement.md` replaces the oversized hero while
+keeping ranking primary. Search spans the “A few dogs to meet” section, beside Surprise me;
+Browse all dogs is a highlighted section action. Full pack details show every eligible dog with
+portrait/name ranking and Rank next, preserving the pack after completion/cancel. Whole comparison
+cards choose a dog; About this dog is separate, and Escape from About returns to the same pair.
+Rank this breed is visually primary in profiles. Movies and Dogs share a quiet brand dropdown.
+The redundant profile disclaimer and user-facing “handled” wording are removed.
 
 `dogs.html`, `dogs.js`, and `dogs.css` implement:
 

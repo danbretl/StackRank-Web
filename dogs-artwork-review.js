@@ -17,7 +17,7 @@ import { dogProfileSourceLinks } from "/lib/dogs.js?v=6";
 const DATA_URLS = {
   manifest: "/data/dogs/generated-artwork.json?v=13",
   catalog: "/data/dogs/dog-catalog.json?v=4",
-  profiles: "/data/dogs/breed-profiles.json?v=3",
+  profiles: "/data/dogs/breed-profiles.json?v=4",
 };
 
 const BATCH_METADATA_URLS = [
@@ -260,7 +260,7 @@ function renderProfile(asset) {
   dom.dialogProfileSources.replaceChildren();
   const coverage = profile?.reviewStatus === "editor-reviewed"
     ? "Individually written breed profile."
-    : "Brief profile based on available name, classification, and origin records. A detailed breed history has not yet been added.";
+    : "Brief profile based on available name, classification, and origin records. A detailed breed profile has not yet been added.";
   dom.dialogProfileSources.append(make("summary", null, "Profile sources & notes"), make("p", "muted", coverage));
   for (const source of asset.profileSources) {
     const row = make("p");

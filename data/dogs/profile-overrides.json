@@ -1,203 +1,513 @@
 {
   "schemaVersion": 1,
-  "reviewedAt": "2026-09-21",
+  "reviewedAt": "2026-09-22",
   "reviewedBy": "OpenAI Codex (delegated by Dan Bretl)",
   "profiles": {
     "VBO:0000661": {
-      "summary": "The Broholmer is a large Danish mastiff with an old-estate silhouette: broad, substantial, and more quietly imposing than flashy. The modern breed was rebuilt from a very small population in the 1970s, so its story is as much about careful revival as it is about the manor houses and guarding work behind the name.",
-      "interestingFact": "The breed takes its name from Broholm, the Danish estate associated with Count Niels Frederik Sehested and the nineteenth-century effort to establish the type.",
+      "summary": "Broholmers tend to be calm, friendly and quietly watchful, combining a companion’s affection with a guardian’s self-confidence. Their Danish ancestors moved from stag hunting to watching over farms and manor houses. After the breed nearly disappeared following World War II, enthusiasts began rebuilding its population in the 1970s.",
+      "interestingFact": "The name comes from Broholm, the estate associated with Sehested’s early work to establish the breed.",
       "sizeBand": "giant",
       "historicalRoots": "Danish estate and guard dog; modern revival began in the 1970s.",
-      "editorialFamilies": ["mastiff-type", "working heritage"]
+      "editorialFamilies": [
+        "mastiff-type",
+        "working heritage"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/315g02-en.pdf",
+          "title": "FCI: Broholmer breed standard",
+          "evidence": "Calm, friendly, watchful, self-confident temperament; stag hunting followed by estate guarding; near extinction after WWII and revival around 1975; Broholm name."
+        }
+      ]
     },
     "VBO:0200088": {
-      "summary": "The Australian Cattle Dog is a compact, weather-ready drover built for moving cattle across enormous distances. Its alert expression, strong outline, and blue- or red-speckled coat make it instantly recognizable.",
-      "interestingFact": "The nickname “heeler” comes from the breed’s traditional habit of controlling cattle by working low around their heels.",
+      "summary": "Australian Cattle Dogs are intensely alert, devoted workers with a strong protective streak; they can be wary of unfamiliar people. Their task was to gather and move cattle across unfenced Australian country, where persistence and the ability to keep working over long distances mattered. That focus on a job remains central to the breed’s character.",
+      "interestingFact": "",
       "sizeBand": "medium",
       "historicalRoots": "Developed in Australia for long-distance cattle work.",
-      "editorialFamilies": ["herding", "working heritage"]
+      "editorialFamilies": [
+        "herding",
+        "working heritage"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/287g01-en.pdf",
+          "title": "FCI: Australian Cattle Dog breed standard",
+          "evidence": "Watchful intelligence, devotion to duty, protective instincts and suspicion of strangers; developed to muster and move wild cattle with stamina on unfenced properties."
+        }
+      ]
     },
     "VBO:0200108": {
-      "summary": "The Azawakh is a tall, exquisitely lean sighthound from the Sahel, with long legs, a tucked waist, and a silhouette that looks drawn in a single elegant line. It developed alongside pastoral communities including the Tuareg, and its history joins swift pursuit with life as a close camp companion.",
-      "interestingFact": "An Azawakh’s spare build is not an unfinished look—it is a defining feature of a desert-adapted sighthound whose muscles and bone structure remain clearly visible.",
+      "summary": "Azawakhs often reserve their affection for a trusted circle, showing a gentle side with familiar people while keeping their distance from strangers. They share camp life with pastoral communities of the Sahel, where their work has included pursuing game and defending against predators. Attentiveness and close family bonds are as much a part of their story as speed.",
+      "interestingFact": "In the Tuareg language, the Azawakh is known as Oska.",
       "sizeBand": "large",
       "historicalRoots": "Sahelian sighthound associated with pastoral communities of Mali, Niger, and Burkina Faso.",
-      "editorialFamilies": ["sighthound", "African heritage"]
+      "editorialFamilies": [
+        "sighthound",
+        "African heritage"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/307g10-en.pdf",
+          "title": "FCI: Azawakh breed standard",
+          "evidence": "Reserved with strangers, gentle and affectionate with accepted people; camp companionship, game pursuit and predator defense; Tuareg name Oska."
+        }
+      ]
     },
     "VBO:0200120": {
-      "summary": "The Basenji is a small, fine-boned hunting dog from Central Africa, famous for its curled tail, wrinkled brow, and unusually economical movement. It is often called “barkless,” though silence is not really the point: Basenjis have a distinctive voice all their own, along with a very ancient hunting-dog history.",
-      "interestingFact": "Instead of a conventional bark, many Basenjis make a rising, yodel-like sound often called a baroo, shaped in part by the breed’s larynx.",
+      "summary": "Basenjis tend to be independent, affectionate and keenly alert, with a reserved approach to strangers and unusually fastidious habits. These Central African hunting companions are famous for communicating without a conventional bark: their repertoire includes a chortling, rising yodel. “Barkless” certainly does not mean voiceless.",
+      "interestingFact": "",
       "sizeBand": "medium",
       "historicalRoots": "Central African hunting dog with long-established regional roots.",
-      "editorialFamilies": ["primitive type", "hunting heritage"]
+      "editorialFamilies": [
+        "primitive type",
+        "hunting heritage"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/043g05-en.pdf",
+          "title": "FCI: Basenji breed standard",
+          "evidence": "Independent, affectionate, alert, sometimes aloof; notable cleanliness; hunting/companion use and characteristic chortle-yodel rather than bark."
+        }
+      ]
     },
     "VBO:0200185": {
-      "summary": "The Boerboel is a powerful South African farm mastiff, squarely built and unmistakably substantial. Its history is tied to homesteads where a versatile large dog was expected to watch, accompany, and work around the property.",
-      "interestingFact": "Its Afrikaans name combines “boer,” meaning farmer, with a word for a large dog—an unusually direct description of the breed’s original setting.",
+      "summary": "Boerboels are confident, devoted guardians with a strong protective instinct and a character that combines watchfulness with composure. Their roots lie in South African homesteads, where dogs guarded the people and property around them. They are also attentive learners, a side of the breed that can be easy to overlook beside its formidable reputation.",
+      "interestingFact": "",
       "sizeBand": "giant",
       "historicalRoots": "South African farm and homestead dog developed from large guardian types.",
-      "editorialFamilies": ["mastiff-type", "African heritage"]
+      "editorialFamilies": [
+        "mastiff-type",
+        "African heritage"
+      ],
+      "sources": [
+        {
+          "url": "https://www.sabbs.co.za/_files/ugd/af9354_d677c91fd0e5433a8e7f135b5719c3b5.pdf",
+          "title": "SABBS: Boerboel breed standard, character section",
+          "evidence": "SABBS character section describes self-confidence, calmness, family loyalty, protective instincts and trainability."
+        },
+        {
+          "url": "https://www.akc.org/dog-breeds/boerboel/",
+          "title": "AKC: Boerboel working history and character",
+          "evidence": "AKC describes remote South African homestead guarding, confidence and eagerness to learn."
+        }
+      ]
     },
     "VBO:0200231": {
-      "summary": "The Brazilian Terrier is a brisk, fine-boned little terrier with a mostly white coat, crisp tricolor markings, and a ready-for-anything outline. Developed in Brazil, it became a practical farm and household dog whose small size belied its usefulness around vermin.",
-      "interestingFact": "The breed is one of Brazil’s internationally recognized native breeds, and its color pattern gives nearly every face a slightly different graphic mask.",
+      "summary": "Brazilian Terriers are lively, energetic workers who tend to be warm with familiar people and more suspicious of newcomers. Their background combines small-game hunting, keeping watch and companionship. The breed developed on Brazilian farms from imported terriers and local dogs, then followed farming families into the growing cities.",
+      "interestingFact": "",
       "sizeBand": "small",
       "historicalRoots": "Brazilian farm terrier shaped by imported terriers and local selection.",
-      "editorialFamilies": ["terrier", "South American heritage"]
+      "editorialFamilies": [
+        "terrier",
+        "South American heritage"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/341g03-en.pdf",
+          "title": "FCI: Brazilian Terrier breed standard",
+          "evidence": "Active, keen, alert, friendly with friends and suspicious of strangers; small-game hunting, guarding and companion use; development on farms and movement into cities."
+        }
+      ]
     },
     "VBO:0200338": {
-      "summary": "The Chihuahua packs an enormous visual identity into the smallest recognized dog-breed frame: round or deer-like head shapes, luminous eyes, and either a smooth or long coat. Its modern name comes from the Mexican state of Chihuahua, while its deeper ancestry is often connected—carefully, not conclusively—to earlier companion dogs of Mexico.",
-      "interestingFact": "Smooth- and long-coated Chihuahuas belong to the same breed, so coat length can change the entire first impression without changing the essential tiny silhouette.",
+      "summary": "Chihuahuas tend to be alert, lively and remarkably self-assured, with the bold, self-reliant character often associated with terriers. Companionship is their central role. The breed takes its name from the Mexican state of Chihuahua; its often-told connection to the older Techichi dogs of Mexico remains a proposed ancestry, not a settled family tree.",
+      "interestingFact": "",
       "sizeBand": "toy",
       "historicalRoots": "Mexican companion breed with debated links to pre-Columbian small dogs.",
-      "editorialFamilies": ["companion", "toy"]
+      "editorialFamilies": [
+        "companion",
+        "toy"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/218g09-en.pdf",
+          "title": "FCI: Chihuahua breed standard",
+          "evidence": "FCI describes quick, alert, lively, courageous companion character; names Chihuahua state and presents Techichi ancestry as an assumption."
+        },
+        {
+          "url": "https://www.akc.org/wp-content/uploads/2025/09/breed-temperament-guide-akc-fss-Sept-2025.pdf",
+          "title": "AKC: breed temperament guide, Chihuahua",
+          "evidence": "Chihuahua entry identifies alert temperament with terrier-like confidence and self-reliance."
+        }
+      ]
     },
     "VBO:0200345": {
-      "summary": "The Chinese Crested turns contrast into a whole breed: the hairless variety carries silky furnishings on the head, feet, and tail, while the Powderpuff wears a complete soft coat. Both can appear in the same litter. The result is less “two different dogs” than two dramatic expressions of one companion breed.",
-      "interestingFact": "Hairless and fully coated Powderpuff puppies can be born together, which makes this one of the clearest examples of a single breed containing two striking coat expressions.",
+      "summary": "Chinese Cresteds are affectionate, playful companions with an alert interest in what is happening around them. Many enjoy perching on a chair arm or the back of a sofa, a habit that has earned them comparisons with cats. Their eagerness to engage with people also finds an outlet in agility, where trained Cresteds tackle jumps and obstacles with enthusiasm.",
+      "interestingFact": "The entertainer Gypsy Rose Lee maintained an influential Chinese Crested breeding program.",
       "sizeBand": "toy",
       "historicalRoots": "Long-established hairless companion type developed under British patronage from dogs associated with China.",
-      "editorialFamilies": ["companion", "hairless breeds"]
+      "editorialFamilies": [
+        "companion",
+        "hairless breeds"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/288g09-en.pdf",
+          "title": "FCI: Chinese Crested breed standard",
+          "evidence": "FCI identifies happy companion temperament; not used to substantiate disputed ancient origin stories."
+        },
+        {
+          "url": "https://images.akc.org/pdf/judges/groups/Toy_Group.pdf",
+          "title": "AKC: Chinese Crested breed standard",
+          "evidence": "AKC Chinese Crested standard describes a loving, playful, entertaining companion and alert temperament."
+        },
+        {
+          "url": "https://www.akc.org/expert-advice/lifestyle/fun-facts-chinese-crested/",
+          "title": "AKC: Chinese Crested habits and history",
+          "evidence": "Breed article documents high-perching habits, agility and eagerness to please, plus Gypsy Rose Lee’s influential breeding program."
+        }
+      ]
     },
     "VBO:0200389": {
-      "summary": "The Coton de Tulear is a small Madagascar companion whose name says almost everything about its first impression: “coton” for the soft, cotton-like coat, and Tulear for the port city now called Toliara. Beneath all that white texture is a compact dog with a sturdy rather than fragile outline.",
-      "interestingFact": "The breed’s place-name survived a spelling change: Tulear is the older French name for today’s Toliara in southwestern Madagascar.",
+      "summary": "Cotons de Tulear are cheerful, sociable companions who tend to enjoy the company of both people and other dogs. Their adaptable, even-tempered character is central to the breed’s identity. From Madagascar, they became established companions in France before spreading more widely.",
+      "interestingFact": "",
       "sizeBand": "small",
       "historicalRoots": "Companion breed associated with Madagascar and the port of Tulear/Toliara.",
-      "editorialFamilies": ["companion", "island breeds"]
+      "editorialFamilies": [
+        "companion",
+        "island breeds"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/283g09-en.pdf",
+          "title": "FCI: Coton de Tulear breed standard",
+          "evidence": "Happy, stable, sociable with humans and other dogs, adaptable temperament; companion role; Madagascar origin and early establishment in France before wider spread."
+        }
+      ]
     },
     "VBO:0200406": {
-      "summary": "The Dachshund is a German earthdog built around one unforgettable idea: a long, powerful body carried low enough to follow quarry underground. The name literally points to badger work, while the breed’s three coats and multiple sizes create a surprisingly broad family of looks within that famous silhouette.",
-      "interestingFact": "“Dachshund” translates roughly to “badger dog,” a reminder that the short legs were working equipment before they became an icon.",
+      "summary": "Dachshunds combine a friendly, even-tempered side with the persistence of a serious hunter. They follow scent with determination, and their traditional work extends well beyond going underground: they also flush game, follow a trail while calling, and track wounded animals above ground. The familiar household companion still carries a remarkably varied hunting résumé.",
+      "interestingFact": "",
       "sizeBand": "small",
       "historicalRoots": "German hunting dog developed for work below ground.",
-      "editorialFamilies": ["earthdog", "hound"]
+      "editorialFamilies": [
+        "earthdog",
+        "hound"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/148g04-en.pdf",
+          "title": "FCI: Dachshund breed standard",
+          "evidence": "Friendly, even temperament and passionate persistent hunting; underground work plus above-ground flushing, hunting while giving tongue and wounded-game tracking."
+        }
+      ]
     },
     "VBO:0200526": {
-      "summary": "The Finnish Spitz is a fox-red Nordic hunting dog with a bright expression, square outline, and plume of a tail. Its traditional work is unusually audible: rather than silently retrieving game, the dog locates tree-dwelling birds and uses its voice to hold a hunter’s attention on the right spot.",
-      "interestingFact": "In traditional bird hunting, the dog’s rapid barking is part of the method—not a side effect—and skilled barking has even become the subject of competitions in Finland.",
+      "summary": "Finnish Spitz are lively, determined hunters with an independent streak; they can be reserved when meeting strangers. Their distinctive skill is locating game birds in trees and marking the spot by barking, working at a distance while keeping the hunter informed. That purposeful use of their voice is woven into the breed’s character and working tradition.",
+      "interestingFact": "Finland named the Finnish Spitz its national dog in 1979.",
       "sizeBand": "medium",
       "historicalRoots": "Finnish spitz-type hunting dog used to indicate game birds in trees.",
-      "editorialFamilies": ["spitz", "Nordic hunting"]
+      "editorialFamilies": [
+        "spitz",
+        "Nordic hunting"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/049g05-en.pdf",
+          "title": "FCI: Finnish Spitz breed standard",
+          "evidence": "Independent but cooperative hunting, game marked by barking, lively and determined character with stranger reserve; national dog in 1979."
+        }
+      ]
     },
     "VBO:0200610": {
-      "summary": "The Golden Retriever combines a soft, feathered outline with a very practical sporting history. Developed in nineteenth-century Scotland to retrieve game across land and water, it was selected for a useful coat and a gentle carrying mouth.",
-      "interestingFact": "The breed’s development is unusually well documented in the records of the Guisachan estate in the Scottish Highlands.",
+      "summary": "Golden Retrievers tend to be friendly, confident and eager to cooperate, with a strong interest in working alongside people. Their retrieving background calls for finding game and bringing it back over land or water. The breed’s Scottish beginnings are unusually well documented in the Guisachan estate records, where practical working ability and a pleasant character helped shape the dogs.",
+      "interestingFact": "An 1868 mating between Nous and the Tweed Water Spaniel Belle produced the four puppies at the center of the Golden Retriever’s recorded beginnings.",
       "sizeBand": "large",
       "historicalRoots": "Nineteenth-century Scottish retriever developed for land-and-water gundog work.",
-      "editorialFamilies": ["retriever", "sporting"]
+      "editorialFamilies": [
+        "retriever",
+        "sporting"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/111g08-en.pdf",
+          "title": "FCI: Golden Retriever breed standard",
+          "evidence": "FCI describes biddable, intelligent, naturally capable working character; friendly, kind and confident temperament; gundog role."
+        },
+        {
+          "url": "https://grca.org/about-the-breed/breed-history/early-ancestors-of-the-golden-retriever/",
+          "title": "Golden Retriever Club of America: early ancestors",
+          "evidence": "GRCA history documents water retrieving heritage, character and usability, Scottish Guisachan records and the four puppies from Nous/Belle’s 1868 litter."
+        }
+      ]
     },
     "VBO:0200623": {
-      "summary": "The Great Dane is a giant with an elegant outline and a habit of making ordinary furniture look miniature. Developed in Germany from large hunting and estate dogs, it became better known as a companion with a statuesque presence.",
-      "interestingFact": "Despite the English name, the modern breed was developed in Germany, where it is called Deutsche Dogge.",
+      "summary": "Great Danes tend to be affectionate and closely attached to their people, while sometimes taking a more reserved approach to strangers. Their modern companion role follows a history of boar hunting and guarding. Despite the English name, the breed was developed in Germany, where it is known as the Deutsche Dogge.",
+      "interestingFact": "",
       "sizeBand": "giant",
       "historicalRoots": "German giant dog descended from large hunting and estate types.",
-      "editorialFamilies": ["mastiff-type", "giant breeds"]
+      "editorialFamilies": [
+        "mastiff-type",
+        "giant breeds"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/235g02-en.pdf",
+          "title": "FCI: Great Dane breed standard",
+          "evidence": "Friendly, loving and devoted to owners, possible reserve toward strangers; companion/watch/guard use; boar-hound ancestry and German development/name."
+        }
+      ]
     },
     "VBO:0200670": {
-      "summary": "The Himalayan Sheepdog is better understood as a regional livestock-guardian population than as one perfectly uniform show-ring breed. Across Himalayan communities, large mountain dogs have worked around flocks, homes, and difficult terrain for generations. Coat, size, and local names vary between regional populations.",
-      "interestingFact": "“Himalayan Sheepdog” can cover related regional dogs with different local names and appearances—exactly the kind of diversity a global catalog should preserve instead of flattening.",
+      "summary": "Himalayan Sheepdogs have long worked alongside shepherds, protecting livestock in demanding mountain country. The wider regional group includes dogs maintained by different pastoral communities. Among them, Gaddi dogs accompany sheep and goat herders between high summer pastures and lower winter grazing, making the annual journey as working members of the camp.",
+      "interestingFact": "",
       "sizeBand": "large",
       "historicalRoots": "Himalayan regional livestock-guardian traditions.",
-      "editorialFamilies": ["livestock guardian", "regional population"]
+      "editorialFamilies": [
+        "livestock guardian",
+        "regional population"
+      ],
+      "sources": [
+        {
+          "url": "https://www.frontiersin.org/journals/animal-science/articles/10.3389/fanim.2026.1751875/full",
+          "title": "Frontiers: Gaddi dogs and Himalayan pastoral work",
+          "evidence": "Study introduction identifies the Himalayan sheepdog group and its livestock protection role; Gaddi community sheep/goat husbandry and seasonal high-pasture/lower-elevation migrations. Specific migration claims are scoped to Gaddi dogs, not every regional population."
+        }
+      ]
     },
     "VBO:0200744": {
-      "summary": "The Jindo is a medium Korean spitz from Jindo Island, clean-lined and athletic with a curled or sickle tail and alert triangular ears. Its island history helped preserve a recognizable local type.",
-      "interestingFact": "Korea protects the Jindo as a Natural Monument, tying the breed’s identity to Jindo Island as well as to its physical standard.",
+      "summary": "Jindos are alert, deliberate dogs known for strong attachment to familiar people and a pronounced hunting instinct. They also have a notable sense of direction and tend to keep themselves clean. Their history is rooted on Korea’s Jindo Island, where difficult transport links helped preserve the local dogs over generations.",
+      "interestingFact": "",
       "sizeBand": "medium",
       "historicalRoots": "Korean island spitz associated with Jindo County.",
-      "editorialFamilies": ["spitz", "island breeds"]
+      "editorialFamilies": [
+        "spitz",
+        "island breeds"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/334g05-en.pdf",
+          "title": "FCI: Jindo breed standard",
+          "evidence": "Strong hunting instinct, careful alert character, attachment to owner, sense of direction and cleanliness; island isolation and difficult transport preserving local type."
+        }
+      ]
     },
     "VBO:0200800": {
-      "summary": "The Labrador Retriever began with working water dogs from Newfoundland and was refined as a retriever in Great Britain. Its broad head, strong tail, and weather-resistant coat still advertise that aquatic past.",
-      "interestingFact": "The “otter tail” in breed descriptions is not just decorative: its thick, rounded shape is part of the Labrador’s water-working design.",
+      "summary": "Labrador Retrievers tend to be outgoing, cooperative and strongly motivated to work with people. A keen nose, enthusiasm for water and a gentle carrying grip are central to their retrieving skills. Their story links working dogs on the Newfoundland coast with British gundog development, where retrieving trials helped establish the breed’s reputation.",
+      "interestingFact": "",
       "sizeBand": "large",
       "historicalRoots": "Newfoundland water-dog roots; developed as a retriever in Great Britain.",
-      "editorialFamilies": ["retriever", "water dog"]
+      "editorialFamilies": [
+        "retriever",
+        "water dog"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/122g08-en.pdf",
+          "title": "FCI: Labrador Retriever breed standard",
+          "evidence": "Kindly, biddable character with strong will to please; excellent nose, soft mouth and love of water; Newfoundland coastal history and early fame in British field trials."
+        }
+      ]
     },
     "VBO:0200919": {
-      "summary": "The Mucuchies is a large, mountain-built Venezuelan dog associated with the high Andes around Mérida. Its mostly white coat and sturdy guardian outline suit a breed remembered alongside farms, flocks, and national history. Because populations have been limited, modern preservation is an important part of the story.",
-      "interestingFact": "Nevado, a dog traditionally described as a Mucuchies, became famous as a companion of Simón Bolívar and appears in the breed’s national folklore.",
+      "summary": "Mucuchies are known in Venezuela for loyalty, intelligence and a protective character, with their story closely tied to the Andean town that gave them their name. One dog, Nevado, holds a special place in national memory as Simón Bolívar’s companion. Cultural accounts of Nevado have helped make the breed a living symbol of Venezuelan history.",
+      "interestingFact": "",
       "sizeBand": "large",
       "historicalRoots": "Venezuelan Andean farm and livestock-guardian dog.",
-      "editorialFamilies": ["livestock guardian", "South American heritage"]
+      "editorialFamilies": [
+        "livestock guardian",
+        "South American heritage"
+      ],
+      "sources": [
+        {
+          "url": "https://cneh.gob.ve/museo-bolivariano-realizo-podcast-sobre-la-historia-y-el-valor-patrimonial-de-la-raza-mucuchies/",
+          "title": "Museo Bolivariano: Mucuchíes character and cultural history",
+          "evidence": "Museo Bolivariano/CNEH account identifies loyalty, intelligence, protection, Mucuchíes town origin and cultural association with Bolívar’s dog Nevado; story framed as national memory rather than every anecdote established fact."
+        }
+      ]
     },
     "VBO:0200934": {
-      "summary": "The New Guinea Singing Dog is a small, agile canine lineage known for flexible movement, a wedge-shaped head, and extraordinary vocalizations. Its relationship to free-ranging New Guinea dogs and long-managed captive populations makes the story more complicated than a conventional modern breed.",
-      "interestingFact": "Its famous call rises and shifts in pitch in a way listeners often compare to singing, and groups can blend their voices into striking choruses.",
+      "summary": "New Guinea Singing Dogs are remarkable communicators, producing wavering, musical howls. Their close wild relatives in the New Guinea highlands are shy and elusive, making field observation difficult. A 2020 genetic study linked those highland dogs with the captive singing-dog population, opening a new chapter in the conservation of this unusual canine lineage.",
+      "interestingFact": "",
       "sizeBand": "medium",
       "historicalRoots": "New Guinea free-ranging dog lineage represented by both wild-associated and captive populations.",
-      "editorialFamilies": ["primitive type", "island dogs"]
+      "editorialFamilies": [
+        "primitive type",
+        "island dogs"
+      ],
+      "sources": [
+        {
+          "url": "https://www.unsw.edu.au/news/2020/09/hey--cuz--dingo-relatives-alive-in-remote-new-guinea-highlands",
+          "title": "UNSW: singing dogs and their wild highland relatives",
+          "evidence": "UNSW researchers describe distinctive howls, shy and reclusive highland wild dogs and the 2020 genetic connection to captive singing dogs; reserve explicitly scoped to wild population."
+        }
+      ]
     },
     "VBO:0200938": {
-      "summary": "The Newfoundland is a giant Canadian water dog with a massive frame, webbed feet, and a dense coat made for cold, wet work. Its history includes hauling, retrieving, and dramatic water rescues.",
-      "interestingFact": "A Newfoundland’s swimming style uses a powerful down-and-out stroke that can look more like a breaststroke than the usual dog paddle.",
+      "summary": "Newfoundlands are known for a gentle, composed disposition, with a joyful side alongside their calmness. Their working history in Canada joins two demanding jobs: hauling heavy loads on land and helping people in the water, including rescue work. The breed’s reputation rests as much on that steady character and willingness to work as on its swimming ability.",
+      "interestingFact": "",
       "sizeBand": "giant",
       "historicalRoots": "Canadian working water dog associated with Newfoundland fisheries and rescue work.",
-      "editorialFamilies": ["water dog", "giant breeds"]
+      "editorialFamilies": [
+        "water dog",
+        "giant breeds"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/050g02-en.pdf",
+          "title": "FCI: Newfoundland breed standard",
+          "evidence": "FCI describes gentleness, serenity and joyful character; heavy-load sledge work and water/lifeguard roles in Newfoundland."
+        }
+      ]
     },
     "VBO:0201004": {
-      "summary": "The Peruvian Hairless Dog is an ancient Peruvian companion with a sleek, spare silhouette and skin that makes every line visible. Hairless and coated dogs can both occur, and the breed comes in more than one size. Archaeological images show similarly hairless dogs long before the modern standard gave them a formal frame.",
-      "interestingFact": "Pre-Columbian ceramics from several Peruvian cultures depict hairless dogs, giving the type an unusually visible archaeological trail.",
+      "summary": "Peruvian Hairless Dogs tend to be affectionate with their own people and more cautious around strangers, combining close companionship with an alert watchdog instinct. Their cultural history reaches far beyond the modern breed: depictions appear in the ceramics of several pre-Inca societies, including the Moche and Chancay.",
+      "interestingFact": "Viringo is another name for the Peruvian Hairless Dog.",
       "sizeBand": "varies",
       "historicalRoots": "Ancient Peruvian hairless-dog tradition documented in pre-Columbian art.",
-      "editorialFamilies": ["hairless breeds", "ancient heritage"]
+      "editorialFamilies": [
+        "hairless breeds",
+        "ancient heritage"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/310g05-en.pdf",
+          "title": "FCI: Peruvian Hairless Dog breed standard",
+          "evidence": "Affectionate with familiar people, lively/alert and potentially wary with strangers; watchdog role; pre-Inca ceramics including Mochica and Chancay; name viringo."
+        }
+      ]
     },
     "VBO:0201102": {
-      "summary": "The Puli is a compact Hungarian herding dog whose dense coat can form long cords, turning motion into a spectacular swish of texture. Underneath is a nimble, square-built worker rather than a walking mop. The cords are a coat structure, not a costume, and maintaining them is a serious piece of grooming craft.",
-      "interestingFact": "A mature corded coat forms as the soft undercoat and coarser outer coat intertwine; owners separate the cords by hand rather than brushing them flat.",
+      "summary": "Pulis tend to be lively, quick-learning dogs with a watchful streak. Their Hungarian sheep-herding heritage is still central to their identity, and their readiness to learn has carried over into dog sports. The breed’s early history is traditionally linked to the livestock-keeping Magyars who migrated into the Carpathian Basin.",
+      "interestingFact": "",
       "sizeBand": "medium",
       "historicalRoots": "Hungarian herding dog used around sheep.",
-      "editorialFamilies": ["herding", "corded coats"]
+      "editorialFamilies": [
+        "herding",
+        "corded coats"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/055g01-en.pdf",
+          "title": "FCI: Puli breed standard",
+          "evidence": "Lively temperament, ability to learn, watchdog tendency and sporting use; Hungarian herding role; Magyar ancestry framed as probable in standard, rendered as traditional link."
+        }
+      ]
     },
     "VBO:0201135": {
-      "summary": "The Rhodesian Ridgeback is a large southern African hound with one unmistakable signature: a narrow ridge of hair running forward along the back. Developed from European dogs and ridged local dogs, it was used for varied farm and hunting work.",
-      "interestingFact": "The ridge is made by hair growing in the opposite direction from the rest of the coat and is defined by a pair of symmetrical crowns near the shoulders.",
+      "summary": "Rhodesian Ridgebacks tend to be composed and self-possessed, with a reserved approach to unfamiliar people. Their hunting history involved tracking game in small groups and keeping it at bay until a hunter arrived. The famous “lion dog” story refers to that demanding tracking and holding work, which relied on the dogs’ agility.",
+      "interestingFact": "",
       "sizeBand": "large",
       "historicalRoots": "Southern African multipurpose hound developed from imported and local ridged dogs.",
-      "editorialFamilies": ["hound", "African heritage"]
+      "editorialFamilies": [
+        "hound",
+        "African heritage"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/146g06-en.pdf",
+          "title": "FCI: Rhodesian Ridgeback breed standard",
+          "evidence": "Dignified, intelligent, aloof with strangers; historical hunting in groups of two or three, tracking lions and keeping them at bay until the hunter arrived."
+        }
+      ]
     },
     "VBO:0201171": {
-      "summary": "The Saluki is a tall Middle Eastern sighthound whose long history is written in a light frame, deep chest, and effortless-looking stride. Both feathered and smooth coats occur. Across a vast region, related local types were valued for hunting by sight, so the breed’s story is broader than any single country or coat color.",
-      "interestingFact": "The familiar feathered ears are only one expression of the breed: smooth Salukis carry the same elegant structure without the long furnishings.",
+      "summary": "Salukis tend to be independent and dignified, often greeting strangers with reserve. They come from a long Middle Eastern tradition of hunting by sight, with local dogs valued for pursuing the game found in their own region. In Middle Eastern tradition, Salukis were presented as marks of honor.",
+      "interestingFact": "",
       "sizeBand": "large",
       "historicalRoots": "Ancient Middle Eastern sighthound tradition spanning multiple regions and local types.",
-      "editorialFamilies": ["sighthound", "ancient heritage"]
+      "editorialFamilies": [
+        "sighthound",
+        "ancient heritage"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/269g10-en.pdf",
+          "title": "FCI: Saluki breed standard",
+          "evidence": "Independent, intelligent, dignified and reserved temperament; long regional coursing tradition; local game specialization and presentation as gifts of honor."
+        }
+      ]
     },
     "VBO:0201220": {
-      "summary": "The Shiba Inu is the smallest of Japan’s native spitz breeds, with a compact frame, curled tail, and an expression that can move from solemn to mischievous in a heartbeat. It was historically used for hunting in mountainous terrain.",
-      "interestingFact": "The origin of “Shiba” is debated: it may refer to brushwood, an old regional word for small, or the reddish color of autumn brush.",
+      "summary": "Shiba Inus are keenly alert and attentive to their surroundings, with a strong sense of attachment to familiar people. Their roots lie in hunting birds and small animals in Japan’s mountain country. When local strains became scarce after widespread crossing with imported hunting dogs, Japanese hunters helped organize the effort to preserve them.",
+      "interestingFact": "",
       "sizeBand": "medium",
       "historicalRoots": "Japanese native hunting spitz associated with mountainous regions.",
-      "editorialFamilies": ["spitz", "Japanese native breeds"]
+      "editorialFamilies": [
+        "spitz",
+        "Japanese native breeds"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/257g05-en.pdf",
+          "title": "FCI: Shiba Inu breed standard",
+          "evidence": "Faithful temperament, keen senses and high alertness; mountain hunting for birds/small game; decline through imported-dog crosses and hunter-led preservation beginning around 1928."
+        }
+      ]
     },
     "VBO:0201280": {
-      "summary": "The Spanish Water Dog is a rustic, curly-coated worker from Spain with a long résumé: herding, water work, and help around farms and fishing communities. Its coat can form cords when left to grow, giving the dog a graphic, woolly outline.",
-      "interestingFact": "Traditional coat care avoids sculpting the curls into a showy shape—the coat is usually clipped to one even length and allowed to grow naturally.",
+      "summary": "Spanish Water Dogs tend to be lively, watchful and quick to grasp a task, with a strong willingness to work alongside people. Their traditional jobs ranged across herding, hunting and assisting fishermen. Readiness to learn and adapt to changing conditions was useful across that varied working life.",
+      "interestingFact": "",
       "sizeBand": "medium",
       "historicalRoots": "Spanish multipurpose working dog used for herding and water-related tasks.",
-      "editorialFamilies": ["water dog", "herding"]
+      "editorialFamilies": [
+        "water dog",
+        "herding"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/336g08-en.pdf",
+          "title": "FCI: Spanish Water Dog breed standard",
+          "evidence": "Lively, hardworking, watchful, faithful, obedient character and strong learning ability/adaptability; utilization as shepherd, hunter and fisherman’s assistant."
+        }
+      ]
     },
     "VBO:0201348": {
-      "summary": "The Thai Ridgeback is a lean, muscular dog from Thailand with a short coat and a ridge running against the grain along its back. Geographic isolation helped preserve a distinctive local type with upright ears and a clean, athletic silhouette. Modern dogs can vary, but the ridge remains the breed’s visual headline.",
-      "interestingFact": "Only a small group of breeds carries a dorsal hair ridge; in the Thai Ridgeback, its shape can vary from a narrow needle to broader leaf-like patterns.",
+      "summary": "Thai Ridgebacks are active, resilient dogs with a strong attachment to their families and a remarkable talent for jumping. In eastern Thailand they hunted, kept watch and accompanied carts on journeys. Difficult travel between communities helped preserve the local dogs, giving the breed a history tied to everyday work as well as companionship.",
+      "interestingFact": "",
       "sizeBand": "large",
       "historicalRoots": "Long-established Thai ridged dog associated with eastern regions of the country.",
-      "editorialFamilies": ["primitive type", "ridgeback"]
+      "editorialFamilies": [
+        "primitive type",
+        "ridgeback"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/338g05-en.pdf",
+          "title": "FCI: Thai Ridgeback breed standard",
+          "evidence": "Tough, active, loyal family character and excellent jumping; eastern Thailand hunting, cart escort and watchdog roles; limited transport reducing crossbreeding."
+        }
+      ]
     },
     "VBO:0201421": {
-      "summary": "The Whippet is a medium British sighthound: all sweeping curves, tucked waist, and surprising acceleration. It became closely associated with working-class racing and rabbit coursing, earning the affectionate nickname “the poor man’s racehorse.” At rest the outline can look delicate; in motion it makes perfect mechanical sense.",
-      "interestingFact": "Whippets were once raced down straight tracks toward a waving cloth, a working-class sport that helped shape both the breed and its enduring speed-dog image.",
+      "summary": "Whippets are often gentle, affectionate companions at home, with a very different intensity when something sets off their urge to chase. In northern England, working people developed them for small-game hunting and weekend racing. A favorite contest sent the dogs sprinting toward their owners, who waved a rag at the finish line.",
+      "interestingFact": "Modern lure coursing gives Whippets an outlet for their pursuit instinct by sending them after an artificial lure.",
       "sizeBand": "medium",
       "historicalRoots": "British sighthound developed for racing and small-game coursing.",
-      "editorialFamilies": ["sighthound", "racing heritage"]
+      "editorialFamilies": [
+        "sighthound",
+        "racing heritage"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/162g10-en.pdf",
+          "title": "FCI: Whippet breed standard",
+          "evidence": "FCI describes gentle, affectionate, even disposition and adaptability to domestic and sporting life; hunting heritage."
+        },
+        {
+          "url": "https://www.akc.org/expert-advice/dog-breeds/whippet-history/",
+          "title": "AKC: Whippet history and pursuit behavior",
+          "evidence": "AKC history documents home behavior and pursuit drive, northern English workers, small-game hunting, rag racing and modern lure coursing."
+        }
+      ]
     },
     "VBO:0201436": {
-      "summary": "The Xoloitzcuintli—usually shortened to Xolo—is an ancient Mexican breed with both hairless and coated varieties and three recognized sizes. The hairless form reveals every elegant angle, while the coated form is a reminder that the breed is more genetically and visually varied than its best-known image suggests.",
-      "interestingFact": "Its name joins Xolotl, an Aztec deity, with itzcuintli, a Nahuatl word for dog; saying “Xolo” is the friendly shortcut.",
+      "summary": "Xoloitzcuintlis tend to be calm and fairly quiet, yet attentive to unfamiliar arrivals and sometimes reserved with strangers. Their companionship has deep roots in Mexican culture: in pre-Hispanic belief, these dogs were associated with Xolotl and guided the souls of the dead on their onward journey. The breed’s story combines everyday watchfulness with an extraordinary spiritual role.",
+      "interestingFact": "",
       "sizeBand": "varies",
       "historicalRoots": "Ancient Mexican dog represented in pre-Columbian culture and modern hairless and coated forms.",
-      "editorialFamilies": ["hairless breeds", "ancient heritage"]
+      "editorialFamilies": [
+        "hairless breeds",
+        "ancient heritage"
+      ],
+      "sources": [
+        {
+          "url": "https://www.fci.be/Nomenclature/Standards/234g05-en.pdf",
+          "title": "FCI: Xoloitzcuintli breed standard",
+          "evidence": "Calm, silent, cheerful and alert character, possible suspicion of strangers and watchdog/companion roles; association with Xolotl and guiding the dead in pre-Hispanic belief."
+        }
+      ]
     }
   }
 }

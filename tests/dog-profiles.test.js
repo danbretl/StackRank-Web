@@ -37,7 +37,7 @@ test("Dog profile name matching is normalized but ambiguity fails closed", () =>
 
 test("generated Dog copy treats concept classes honestly", () => {
   const crossbreed = generatedProfileCopy({ displayName: "Example Cross", status: "crossbreed", aliases: [] });
-  assert.match(crossbreed.summary, /vary widely/i);
+  assert.equal(crossbreed.summary, "Example Cross is a named crossbreed.");
   const historical = generatedProfileCopy({ displayName: "Old Dog", status: "historical", aliases: [] });
   assert.match(historical.summary, /historical/i);
   const variety = generatedProfileCopy({ displayName: "Small Example", status: "variety", aliases: [] }, { parentName: "Example Dog" });

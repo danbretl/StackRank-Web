@@ -100,7 +100,7 @@ export function generatedProfileCopy(entity, { origins = [], parentName = "" } =
   if (status === "variety") {
     summary = `${name} is ${parentName ? `a variety of ${parentName}` : "a dog variety"}${originText}.`;
   } else if (status === "crossbreed") {
-    summary = `${name} is a named crossbreed${originText}. Dogs of this cross can vary widely in appearance and size, including within the same litter.`;
+    summary = `${name} is a named crossbreed${originText}.`;
   } else if (status === "historical") {
     summary = `${name} is a historical dog breed or type${originText}.`;
   } else {
@@ -231,7 +231,7 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, ref
 
   return {
     schemaVersion: 1,
-    profileVersion: "dogs-field-guide-2026-09-22.4",
+    profileVersion: "dogs-field-guide-2026-09-22.5",
     sources: [
       { id: "vbo-2026-04-15", name: "Vertebrate Breed Ontology", url: catalog.source.artifactUrl, license: catalog.source.license, retrievedAt: `${catalog.source.retrievedAt}T00:00:00.000Z` },
       { id: "wikidata-dog-breeds-2026-09-21", name: "Wikidata structured dog-breed statements", url: wikidata.source.url, license: wikidata.source.license, retrievedAt: wikidata.retrievedAt },

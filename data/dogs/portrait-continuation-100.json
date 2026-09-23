@@ -897,9 +897,9 @@
   "progress": {
     "accepted": 100,
     "integrated": 100,
-    "published": 75,
+    "published": 100,
     "stagedBeforeRun": 17,
-    "updatedAt": "2026-09-23T12:10:16.436532+00:00"
+    "updatedAt": "2026-09-23T12:17:14.978855+00:00"
   },
   "selectionAmendments": [
     {
@@ -963,7 +963,8 @@
         "reusedPriorOutputs": 17,
         "totalOutputsReviewed": 31,
         "rejectedOutputs": 6
-      }
+      },
+      "documentationCommit": "9b30305245b2cd37bf4782f182e77639e996599e"
     },
     {
       "subwave": "f03",
@@ -984,7 +985,8 @@
         "newCalls": 34,
         "totalOutputsReviewed": 34,
         "rejectedOutputs": 9
-      }
+      },
+      "documentationCommit": "750fbf82799527f8366b03701ec93474edb79e1a"
     },
     {
       "subwave": "f04",
@@ -1005,6 +1007,28 @@
         "newCalls": 30,
         "totalOutputsReviewed": 30,
         "rejectedOutputs": 5
+      },
+      "documentationCommit": "b32c0e6c2e5c3b000856026687aec6bd8c00038c"
+    },
+    {
+      "subwave": "g01",
+      "completedPairs": 25,
+      "totalCompletedPairs": 407,
+      "commit": "3ab129aefb4d73ed1b43fa7492ffe3260ad4988d",
+      "deploymentUrl": "https://stackrank-njx6w5esw-danbretl-2590s-projects.vercel.app",
+      "verifiedAt": "2026-09-23T12:17:14.978855+00:00",
+      "evidencePath": "notes/testing/dogs-portrait-continuation-100.md",
+      "verify": {
+        "node": 466,
+        "deno": 24,
+        "browser": 41,
+        "production": 49,
+        "productionByteMatches": 15
+      },
+      "generation": {
+        "newCalls": 36,
+        "totalOutputsReviewed": 36,
+        "rejectedOutputs": 11
       }
     }
   ],
@@ -1035,5 +1059,33 @@
       "scope": "Exact research, independent staged-packet review, image generation and first-pass QA"
     }
   ],
-  "selectionSha256": "1817c6548fdc677d29731ad42956dac23eb1dcf20f7557612eea3c02a8258af8"
+  "selectionSha256": "1817c6548fdc677d29731ad42956dac23eb1dcf20f7557612eea3c02a8258af8",
+  "completion": {
+    "status": "complete",
+    "verifiedAt": "2026-09-23T12:17:14.978855+00:00",
+    "additionalPairs": 100,
+    "totalCompletedPairs": 407,
+    "catalogTotal": 1239,
+    "hiddenIncomplete": 832,
+    "remainingActiveIds": [],
+    "holds": {
+      "e": 20,
+      "f": 5,
+      "g": 1
+    },
+    "reserveActivationsThisRun": 3,
+    "sourceEvidencePath": "notes/testing/dogs-portrait-continuation-100.md",
+    "generation": {
+      "newBuiltinCalls": 114,
+      "priorStagedOutputsReviewed": 17,
+      "totalGeneratedOutputsReviewed": 131,
+      "acceptedPairs": 100,
+      "rejectedOutputs": 31,
+      "attemptedCatalogIds": 101,
+      "extraAttemptsBeyondFirstPerAttemptedIdentity": 30,
+      "failedCalls": 0,
+      "cancelledBeforeCallExcluded": 2,
+      "auditPath": "reports/dogs-generated-artwork/continuation-100/final-accounting-audit.json"
+    }
+  }
 }

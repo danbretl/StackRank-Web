@@ -2,17 +2,20 @@
 
 ## Current continuation — September 23, 2026
 
-Dan requested another approximately 100 dogs, superseding the prior F01 stop. **F04 is now live:
-75 new completed pairs in this run; 382 of 1,239 overall, with 857 unfinished hidden identities.**
-Product `1e500f9b` is pushed and Vercel READY. Full verification passed 455 Node, 24 Deno and 41 Chrome
-flows; production passed 49 checks and 13 exact byte comparisons. All previous 357 artwork/profile
-records and 635 original protected files remain unchanged. F's 100 accepted pairs are now all published.
-G01's final 25 portraits and descriptions are independently approved in isolated staging; integrate and
-publish them to reach 407. See `notes/testing/dogs-portrait-continuation-100.md` and
-`data/dogs/portrait-continuation-100.json` for releases, frozen selections and current lessons.
-All 20 E holds and five F holds remain visible. Five F reserve activations are recorded (two new in this
-run); G has no hold or reserve activation. Hidden saved state and artwork-purpose restrictions stay intact.
-This supersedes historical stop text below.
+The new 100-pair continuation is complete and live: **100 additional accepted portraits and individually
+researched descriptions; 407 of 1,239 overall, with 832 unfinished identities hidden from the main site.**
+Final product `3ab129ae` is pushed and Vercel READY. Final full verification passed 466 Node, 24 Deno
+and 41 Chrome flows; production passed 49 checks and 15 exact byte comparisons. Previously published
+artwork, approved full profiles and sources remain unchanged. All four milestones have production receipts.
+See `notes/testing/dogs-portrait-continuation-100.md`, `notes/testing/dogs-portrait-cohort-g.md` and
+`data/dogs/portrait-continuation-100.json` for frozen selections, publications and latest lessons.
+E retains 20 holds, F retains 5, G retains 1; this run activated three ordered reserves. Grey Norwegian
+Elkhound 0200957 is held as a duplicate of already published 0200955, with Brindle Boxer 0200211 replacing
+it by append-only G amendment. No active identity remains unfinished in this run. Native outputs and
+rejected/held evidence are preserved. Future artwork should start from current 407 coverage and a fresh
+cohort (H if unused), verifying checkout counts first; do not rerun this completed selection.
+Hidden saved state, normal-UI-only generated artwork, denied snapshot/export purposes, Movies/Books,
+root redirect and the concurrent site improvements remain intact. Historical counts below are retained.
 
 ## Historical F01 stop — superseded
 

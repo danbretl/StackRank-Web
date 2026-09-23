@@ -1023,6 +1023,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
   const expectedFamilyCount = new Set(publicPacks.map((pack) => pack.family)).size;
   const expectedPortraitCount = JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8")).assets.length;
   const expectedDogsScript = fs.readFileSync(path.join(rootDir, "dogs.html"), "utf8").match(/src="(dogs\.js\?v=\d+)"/)[1];
+  const profileCopy = JSON.parse(fs.readFileSync(path.join(rootDir, 'data/dogs/breed-profiles.json'), 'utf8')).profiles;
   const page = await openChromePage({ name: "dogs-local-product", width: 1586, height: 992 });
   try {
     await page.send("Page.addScriptToEvaluateOnNewDocument", {
@@ -1190,15 +1191,18 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       facts: document.querySelectorAll('#dogs-new-choice .comparison-card__fact').length,
       structure: [...document.querySelectorAll('#dogs-comparison .comparison-card')].map((card) => ({
         tag: card.tagName, pick: card.querySelectorAll('.comparison-card__pick').length,
-        learn: card.querySelectorAll('.comparison-card__learn').length
+        learn: card.querySelectorAll('.comparison-card__media .comparison-card__learn').length,
+        pickLabelSize: getComputedStyle(card.querySelector('.comparison-card__pick')).fontSize,
+        pickPseudo: getComputedStyle(card.querySelector('.comparison-card__pick'), '::after').content,
+        infoLabelSize: getComputedStyle(card.querySelector('.comparison-card__learn')).fontSize
       }))
     }))()`);
     if (comparisonBeforeDetail.names.length !== 2 || !comparisonBeforeDetail.summary ||
       !comparisonBeforeDetail.summaryVisible || comparisonBeforeDetail.facts < 2 ||
-      comparisonBeforeDetail.structure.some((card) => card.tag !== 'ARTICLE' || card.pick !== 1 || card.learn !== 1)) {
+      comparisonBeforeDetail.structure.some((card) => card.tag !== 'ARTICLE' || card.pick !== 1 || card.learn !== 1 || card.pickLabelSize !== '0px' || card.infoLabelSize !== '0px' || !['none', 'normal', '""'].includes(card.pickPseudo))) {
       throw new Error(`Dogs desktop comparison cards lack profile context or separate actions: ${JSON.stringify(comparisonBeforeDetail)}`);
     }
-    await page.evaluate(`document.querySelector('#dogs-new-choice .comparison-card__learn')?.click(); true;`);
+    await clickCenter(page, '#dogs-new-choice .comparison-card__learn');
     await waitFor(page, `document.querySelector('#dogs-detail')?.open`, 3000);
     const comparisonDetail = await page.evaluate(`(() => ({
       title: document.querySelector('#dogs-detail h1')?.textContent.trim(),
@@ -1259,16 +1263,26 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('.dogs-nav [data-destination="ranking"]')?.click(); true;`);
     await waitFor(page, `document.querySelectorAll('#dogs-ranking .ranking-row').length === 3`, 5000);
     const rankingShot = await page.screenshot("dogs-ranking-desktop.png");
-    const beforeMove = await page.evaluate(`document.querySelector('#dogs-ranking .ranking-row strong')?.textContent.trim()`);
-    await page.evaluate(`(() => {
-      document.querySelector('#dogs-move-mode')?.click();
-      const handle = document.querySelector('#dogs-ranking .move-handle');
-      handle?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true, cancelable: true }));
-      return true;
-    })()`);
-    await waitFor(page, `document.querySelector('#dogs-ranking .ranking-row strong')?.textContent.trim() !== ${JSON.stringify(beforeMove)}`, 5000);
-    const afterMove = await page.evaluate(`document.querySelector('#dogs-ranking .ranking-row strong')?.textContent.trim()`);
-    if (!afterMove || afterMove === beforeMove) throw new Error(`Dogs keyboard reorder failed: ${beforeMove} -> ${afterMove}`);
+    await page.evaluate(`document.querySelector('#dogs-move-mode')?.click(); true;`);
+    for (const view of ['detailed', 'photos', 'compact']) {
+      const movingKey = await page.evaluate(`(() => {
+        document.querySelector('[data-ranking-view="${view}"]').click();
+        const row = document.querySelector('#dogs-ranking .ranking-row');
+        row.querySelector('.move-handle').focus();
+        return row.dataset.key;
+      })()`);
+      for (const [key, code, rank] of [['ArrowDown', 40, 1], ['ArrowUp', 38, 0]]) {
+        await page.send('Input.dispatchKeyEvent', { type: 'keyDown', key, code: key, windowsVirtualKeyCode: code });
+        await page.send('Input.dispatchKeyEvent', { type: 'keyUp', key, code: key, windowsVirtualKeyCode: code });
+        const moved = await page.evaluate(`({ key: document.activeElement?.closest('.ranking-row')?.dataset.key,
+          index: [...document.querySelectorAll('#dogs-ranking .ranking-row')].indexOf(document.activeElement?.closest('.ranking-row')),
+          handle: document.activeElement?.classList.contains('move-handle') })`);
+        if (!moved.handle || moved.key !== movingKey || moved.index !== rank) {
+          throw new Error('Dogs ' + view + ' keyboard reorder lost focus or order: ' + JSON.stringify(moved));
+        }
+      }
+    }
+    await page.evaluate(`document.querySelector('[data-ranking-view="detailed"]').click(); true;`);
 
     const beforePointerOrder = await page.evaluate(`
       [...document.querySelectorAll('#dogs-ranking .ranking-row strong')].map((node) => node.textContent.trim())
@@ -1351,19 +1365,33 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     const photoView = await page.evaluate(`(() => ({
       view: document.querySelector('#dogs-ranking')?.dataset.rankingView,
       columns: getComputedStyle(document.querySelector('#dogs-ranking')).gridTemplateColumns.split(' ').length,
-      mediaVisible: getComputedStyle(document.querySelector('#dogs-ranking .dog-media')).display !== 'none'
+      mediaVisible: getComputedStyle(document.querySelector('#dogs-ranking .dog-media')).display !== 'none',
+      extraCopy: [...document.querySelectorAll('#dogs-ranking .ranking-row__copy > :not(strong)')].some(node => node.getBoundingClientRect().height > 0)
     }))()`);
     await page.evaluate(`document.querySelector('[data-ranking-view="compact"]')?.click(); true;`);
     await waitFor(page, `document.querySelector('#dogs-ranking')?.dataset.rankingView === 'compact'`, 3000);
     const compactView = await page.evaluate(`(() => ({
       view: document.querySelector('#dogs-ranking')?.dataset.rankingView,
-      mediaHidden: getComputedStyle(document.querySelector('#dogs-ranking .dog-media')).display === 'none'
+      mediaVisible: getComputedStyle(document.querySelector('#dogs-ranking .dog-media')).display !== 'none',
+      rowHeight: document.querySelector('#dogs-ranking .ranking-row').getBoundingClientRect().height,
+      extraCopy: [...document.querySelectorAll('#dogs-ranking .ranking-row__copy > :not(strong)')].some(node => node.getBoundingClientRect().height > 0)
     }))()`);
-    if (photoView.view !== "photos" || photoView.columns < 3 || !photoView.mediaVisible || compactView.view !== "compact" || !compactView.mediaHidden) {
+    if (photoView.view !== "photos" || photoView.columns < 3 || !photoView.mediaVisible || photoView.extraCopy || compactView.view !== "compact" || !compactView.mediaVisible || compactView.rowHeight > 75 || compactView.extraCopy) {
       throw new Error(`Dogs ranking views are wrong: ${JSON.stringify({ photoView, compactView })}`);
     }
     await page.evaluate(`document.querySelector('[data-ranking-view="detailed"]')?.click(); true;`);
 
+    const shortCopy = await page.evaluate(`(() => {
+      const items = JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items;
+      return [...document.querySelectorAll('#dogs-ranking .ranking-row')].map((row, index) => {
+        const summary = row.querySelector('.ranking-row__summary');
+        return { id: items[index].entityRef.id, text: summary.textContent,
+          clipped: summary.scrollHeight > summary.clientHeight + 1 };
+      });
+    })()`);
+    if (shortCopy.some(row => !row.text || row.text !== profileCopy[row.id].shortDescription || row.clipped || row.text.length > 180)) {
+      throw new Error('Detailed ranking must use complete authored short descriptions: ' + JSON.stringify(shortCopy));
+    }
     const beforeReviewOrder = await page.evaluate(`
       [...document.querySelectorAll('#dogs-ranking .ranking-row strong')].map((node) => node.textContent.trim())
     `);
@@ -1597,12 +1625,12 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
         const learn = card.querySelector('.comparison-card__learn').getBoundingClientRect();
         const media = card.querySelector('.dog-media').getBoundingClientRect();
         return { contentBottom: content.bottom, summaryBottom: summary.bottom, factsBottom: facts.bottom,
-          footerTop: learn.top, pickBottom: pick.bottom, learnBottom: learn.bottom,
+          pickBottom: pick.bottom, learnBottom: learn.bottom, infoInsideImage: learn.top >= media.top && learn.right <= media.right && learn.bottom <= media.bottom,
           mediaBottom: media.bottom, imageFit: getComputedStyle(card.querySelector('.dog-media img')).objectFit };
       })
     }))()`);
     if (desktopComparisonFit.cards.some((card) => card.summaryBottom > card.contentBottom + 1 ||
-      card.factsBottom > card.footerTop + 1 || card.mediaBottom > card.footerTop + 1 ||
+      card.factsBottom > card.contentBottom + 1 || card.mediaBottom > card.contentBottom + 1 || !card.infoInsideImage ||
       card.pickBottom > desktopComparisonFit.viewportHeight || card.learnBottom > desktopComparisonFit.viewportHeight ||
       card.imageFit !== 'contain')) {
       throw new Error(`Dogs desktop comparison clipped profile content at 1280×720: ${JSON.stringify(desktopComparisonFit)}`);
@@ -1674,6 +1702,33 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       [...document.querySelectorAll('#dogs-ranking .dog-media img')].every((image) => image.complete && image.naturalWidth > 0)`, 5000);
     await waitFor(page, `document.querySelector('#dogs-toast')?.hidden`, 6000);
     const phoneRankingShot = await page.screenshot("dogs-ranking-phone.png");
+    const phoneShortCopy = await page.evaluate(`([...document.querySelectorAll('#dogs-ranking .ranking-row__summary')].map(node => ({
+      text: node.textContent, height: node.clientHeight, scrollHeight: node.scrollHeight
+    })))`);
+    if (phoneShortCopy.some(copy => !copy.text || copy.height < 1 || copy.scrollHeight > copy.height + 1)) {
+      throw new Error('Phone Detailed view clips its short descriptions: ' + JSON.stringify(phoneShortCopy));
+    }
+    const densityShots = [];
+    for (const view of ['photos', 'compact']) {
+      await page.evaluate(`document.querySelector('[data-ranking-view="${view}"]').click(); true;`);
+      const density = await page.evaluate(`(() => {
+        const rows = [...document.querySelectorAll('#dogs-ranking .ranking-row')];
+        return { overflow: document.documentElement.scrollWidth > innerWidth,
+          rows: rows.map(row => ({ height: row.getBoundingClientRect().height,
+            thumbnailWidth: row.querySelector('.dog-media').getBoundingClientRect().width,
+            infoRightInset: row.querySelector('.dog-media').getBoundingClientRect().right - row.querySelector('[data-action="detail"]').getBoundingClientRect().right,
+            extraCopy: [...row.querySelectorAll('.ranking-row__copy > :not(strong)')].some(node => node.getBoundingClientRect().height > 0)
+          })) };
+      })()`);
+      if (density.overflow || density.rows.some(row => row.extraCopy || row.thumbnailWidth < 40 ||
+        (view === 'compact' && (row.height > 80 || row.thumbnailWidth > 64)) ||
+        (view === 'photos' && (row.infoRightInset < 0 || row.infoRightInset > 12)))) {
+        throw new Error('Phone ' + view + ' ranking is not compact/image-only: ' + JSON.stringify(density));
+      }
+      densityShots.push(await page.screenshot('dogs-ranking-' + view + '-phone.png'));
+    }
+    await page.evaluate(`document.querySelector('[data-ranking-view="detailed"]').click(); true;`);
+
     await page.evaluate(`document.querySelector('#dogs-ranking button[data-action="detail"]')?.click(); true;`);
     await waitFor(page, `document.querySelector('#dogs-detail')?.open &&
       document.querySelector('#dogs-detail .dog-media img')?.complete &&
@@ -1738,12 +1793,13 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     return {
       details: {
         initial, packLibrary, packSearchCount, alias, aliasStored, progressed, undone, cancelCount,
-        beforeMove, afterMove, beforePointerOrder, afterPointerOrder, photoView, compactView, reviewPair,
+        keyboardMoveViews: ["detailed", "photos", "compact"],
+        beforePointerOrder, afterPointerOrder, photoView, compactView, reviewPair,
         filtered, detail, lists, importReview, importedOrder, restored,
         mobileProfile, mobile, landscapeProfile, landscape,
         ipadPortraitProfile, ipadPortrait, ipadLandscapeProfile, ipadLandscape,
       },
-      screenshots: [initialShot, newArtworkShot, rankingShot, detailShot, desktopComparisonShot, mobileShot, landscapeShot, phoneRankingShot, phoneDetailShot, ipadPortraitShot, ipadLandscapeShot],
+      screenshots: [initialShot, newArtworkShot, rankingShot, detailShot, desktopComparisonShot, mobileShot, landscapeShot, phoneRankingShot, ...densityShots, phoneDetailShot, ipadPortraitShot, ipadLandscapeShot],
     };
   } finally {
     await page.close();
@@ -1915,7 +1971,7 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
       })), overflow: document.documentElement.scrollWidth > innerWidth
     }))()`);
     const f01Row = ranked.rows.find((row) => row.name === name(ids.f01));
-    if (ranked.rows.length !== 3 || ranked.overflow || f01Row?.summary !== profiles.profiles[ids.f01].summary || f01Row?.src !== variant(ids.f01, "card")) {
+    if (ranked.rows.length !== 3 || ranked.overflow || f01Row?.summary !== profiles.profiles[ids.f01].shortDescription || f01Row?.src !== variant(ids.f01, "card")) {
       throw new Error(`F01 ranking summary/artwork disagrees with compiled data: ${JSON.stringify(ranked)}`);
     }
     screenshots.push(await page.screenshot("dogs-f01-ranking-desktop.png"));
@@ -2065,6 +2121,7 @@ const testDogsPhoneViewport = async ({ baseUrl }) => {
         const box = node.getBoundingClientRect();
         return { left: box.left, right: box.right, top: box.top, bottom: box.bottom, height: box.height };
       }),
+      mediaHeights: [...document.querySelectorAll('#dogs-comparison .dog-media')].map(node => node.getBoundingClientRect().height),
       progress: document.querySelector('#dogs-comparison-progress')?.textContent.trim(),
       footer: (() => {
         const box = document.querySelector('#dogs-comparison .comparison__footer')?.getBoundingClientRect();
@@ -2072,7 +2129,7 @@ const testDogsPhoneViewport = async ({ baseUrl }) => {
       })()
     }))()`);
     if (
-      portrait.choices.length !== 2 ||
+      portrait.choices.length !== 2 || portrait.mediaHeights.some(height => height < 120) ||
       portrait.choices.some((box) => box.left < 0 || box.right > portrait.innerWidth || box.top < 0 || box.bottom > portrait.innerHeight) ||
       portrait.controls.length !== 4 ||
       portrait.controls.some((box) => box.left < 0 || box.right > portrait.innerWidth || box.top < 0 || box.bottom > portrait.innerHeight || box.height < 44) ||
@@ -2081,7 +2138,7 @@ const testDogsPhoneViewport = async ({ baseUrl }) => {
       throw new Error(`Dogs 390px comparison is clipped: ${JSON.stringify(portrait)}`);
     }
     const portraitShot = await page.screenshot("dogs-phone-comparison-portrait.png");
-    await page.evaluate(`document.querySelector('#dogs-new-choice .comparison-card__learn')?.click(); true;`);
+    await clickCenter(page, '#dogs-new-choice .comparison-card__learn');
     await waitFor(page, `document.querySelector('#dogs-detail')?.open`, 3000);
     const portraitLearn = await page.evaluate(`({
       title: document.querySelector('#dogs-detail h1')?.textContent.trim(),
@@ -2113,9 +2170,11 @@ const testDogsPhoneViewport = async ({ baseUrl }) => {
         const box = node.getBoundingClientRect();
         return { left: box.left, right: box.right, top: box.top, bottom: box.bottom, height: box.height };
       }),
+      mediaHeights: [...document.querySelectorAll('#dogs-comparison .dog-media')].map(node => node.getBoundingClientRect().height),
       progress: document.querySelector('#dogs-comparison-progress')?.textContent.trim()
     }))()`);
     if (
+      landscape.mediaHeights.some(height => height < 120) ||
       landscapeProfile.innerWidth !== 844 ||
       landscapeProfile.innerHeight !== 390 ||
       !landscapeProfile.anyPointerCoarse ||
@@ -2127,7 +2186,7 @@ const testDogsPhoneViewport = async ({ baseUrl }) => {
       throw new Error(`Dogs true phone landscape is clipped: ${JSON.stringify({ landscapeProfile, landscape })}`);
     }
     const landscapeShot = await page.screenshot("dogs-phone-comparison-landscape.png");
-    await page.evaluate(`document.querySelector('#dogs-existing-choice .comparison-card__learn')?.click(); true;`);
+    await clickCenter(page, '#dogs-existing-choice .comparison-card__learn');
     await waitFor(page, `document.querySelector('#dogs-detail')?.open`, 3000);
     const landscapeLearn = await page.evaluate(`({
       title: document.querySelector('#dogs-detail h1')?.textContent.trim(),
@@ -12097,6 +12156,16 @@ const testDogsPackDetails = async ({ baseUrl }) => {
     await waitFor(page, `!document.querySelector('#dogs-comparison').hidden`, 3000);
     await clickCenter(page, '#dogs-new-choice .comparison-card__copy strong');
     await waitFor(page, `${detailOpen} && ${ranked}.length === 2`, 3000);
+    const rankedTreatment = await page.evaluate(`([...document.querySelectorAll('#dogs-pack-detail-grid .breed-card')].map(card => ({
+      ranked: card.classList.contains('is-ranked'),
+      grayscale: getComputedStyle(card.querySelector('.dog-media')).filter,
+      disabled: card.querySelector('.breed-tile').disabled
+    })))`);
+    if (rankedTreatment.slice(0, -2).some(card => card.ranked || card.grayscale !== 'none') ||
+      rankedTreatment.slice(-2).some(card => !card.ranked || !card.disabled || !card.grayscale.includes('grayscale(1)'))) {
+      throw new Error('Pack must show unranked dogs first and grayscale ranked portraits: ' + JSON.stringify(rankedTreatment));
+    }
+
     await page.evaluate(`document.querySelector('#dogs-pack-detail-back').click(); true;`);
     await waitFor(page, `!document.querySelector('#dogs-pack-browser-view').hidden && document.querySelector('#dogs-pack-detail').hidden`, 3000);
     const updatedProgress = await page.evaluate(`document.querySelector('#dogs-pack-browser .pack-card__actions span').textContent`);
@@ -12310,6 +12379,21 @@ const testDogsDiscoveryGallery = async ({ baseUrl }) => {
       phone.navTop < phone.brandBottom || phone.navTop < 844 - 75 || Math.abs(phone.navBottom - 844) > 1 || phone.overflow) {
       throw new Error(`Dogs phone discovery first screen is clipped or too tall: ${JSON.stringify(phone)}`);
     }
+    const railBefore = await page.evaluate(`([...document.querySelectorAll('#dogs-browse-rail .explore-dog')].map(node => node.dataset.dogId))`);
+    await page.evaluate(`document.querySelector('#dogs-refresh-browse').click(); true;`);
+    const railAfter = await page.evaluate(`([...document.querySelectorAll('#dogs-browse-rail .explore-dog')].map(node => node.dataset.dogId))`);
+    if (JSON.stringify(railBefore) === JSON.stringify(railAfter)) throw new Error('Shuffle dogs did not change the four discovery portraits');
+    const railChoice = await page.evaluate(`document.querySelector('#dogs-browse-rail .explore-dog strong').textContent`);
+    await clickCenter(page, '#dogs-browse-rail .explore-dog .dog-media');
+    await waitFor(page, `!document.querySelector('#dogs-comparison').hidden && !document.querySelector('#dogs-detail').open`, 3000);
+    if (await page.evaluate(`document.querySelector('#dogs-new-choice .comparison-card__copy strong').textContent`) !== railChoice) {
+      throw new Error('Discovery portrait did not initiate ranking for the clicked dog');
+    }
+    await pressEscape(page);
+    await page.evaluate(`document.querySelector('#dogs-surprise').click(); true;`);
+    await waitFor(page, `!document.querySelector('#dogs-comparison').hidden && !document.querySelector('#dogs-detail').open`, 3000);
+    await pressEscape(page);
+    if (await page.evaluate(`${rankingIds()}.length`) !== 1) throw new Error('Canceling discovery/surprise changed the saved ranking');
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Dogs discovery browser errors: ${JSON.stringify(health.errors)}`);
     return { details: { desktop, approved: allIds.length, alias, empty, familyResult, crossedBack, crossedForward,

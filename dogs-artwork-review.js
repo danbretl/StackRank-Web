@@ -12,12 +12,12 @@ import {
   preferredArtworkVariant,
   setArtworkReview,
 } from "/lib/dogs-artwork-review.js?v=1";
-import { dogProfileSourceLinks } from "/lib/dogs.js?v=6";
+import { dogProfileSourceLinks } from "/lib/dogs.js?v=7";
 
 const DATA_URLS = {
   manifest: "/data/dogs/generated-artwork.json?v=14",
   catalog: "/data/dogs/dog-catalog.json?v=4",
-  profiles: "/data/dogs/breed-profiles.json?v=5",
+  profiles: "/data/dogs/breed-profiles.json?v=6",
 };
 
 const BATCH_METADATA_URLS = [

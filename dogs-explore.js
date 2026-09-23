@@ -1,6 +1,6 @@
 import { filterDogGallery, dogGalleryPage } from "./lib/dogs-explore.js?v=1";
 
-export function createDogsExplorer({ entries, createMedia, openDetail }) {
+export function createDogsExplorer({ entries, createMedia, openDetail, rankDog }) {
   const $ = (selector) => document.querySelector(selector);
   const view = $("#dogs-view-rank");
   const gallery = $("#dogs-gallery");
@@ -45,12 +45,12 @@ export function createDogsExplorer({ entries, createMedia, openDetail }) {
     return shuffled.slice(0, size);
   };
 
-  const makePortraitCard = (entry) => {
+  const makePortraitCard = (entry, { browse = false } = {}) => {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "explore-dog";
     button.dataset.dogId = entry.id;
-    button.setAttribute("aria-label", `Meet ${entry.name}`);
+    button.setAttribute("aria-label", `${browse ? "About" : "Rank"} ${entry.name}`);
     const portrait = createMedia(entry.id);
     const name = document.createElement("strong");
     name.textContent = entry.name;
@@ -69,8 +69,10 @@ export function createDogsExplorer({ entries, createMedia, openDetail }) {
       if (state.textContent) button.append(state);
     }
     button.addEventListener("click", () => {
-      pendingGalleryDetailId = view.classList.contains("is-browsing") ? entry.id : "";
-      openDetail(entry.id);
+      if (browse) {
+        pendingGalleryDetailId = entry.id;
+        openDetail(entry.id);
+      } else rankDog(entry.id);
     });
     return button;
   };
@@ -78,7 +80,7 @@ export function createDogsExplorer({ entries, createMedia, openDetail }) {
   const renderRail = ({ reshuffle = false } = {}) => {
     const available = unhandled();
     rail.hidden = available.length === 0;
-    shuffle.parentElement.hidden = available.length <= 4;
+    shuffle.disabled = available.length <= 4;
     rail.replaceChildren();
     if (!available.length) {
       railIds = [];
@@ -118,7 +120,7 @@ export function createDogsExplorer({ entries, createMedia, openDetail }) {
     const shown = dogGalleryPage(filtered, page, 24);
     page = shown.page;
     grid.replaceChildren();
-    shown.items.forEach((entry) => grid.append(makePortraitCard(entry)));
+    shown.items.forEach((entry) => grid.append(makePortraitCard(entry, { browse: true })));
     count.textContent = shown.total
       ? `${shown.start}–${shown.end} of ${shown.total} ${shown.total === 1 ? "dog" : "dogs"}`
       : "0 dogs";
@@ -198,7 +200,7 @@ export function createDogsExplorer({ entries, createMedia, openDetail }) {
   shuffle.addEventListener("click", () => renderRail({ reshuffle: true }));
   surprise.addEventListener("click", () => {
     const candidates = unhandled();
-    if (candidates.length) openDetail(candidates[Math.floor(Math.random() * candidates.length)].id);
+    if (candidates.length) rankDog(candidates[Math.floor(Math.random() * candidates.length)].id);
   });
 
   detail.addEventListener("breed-detail-open", (event) => {

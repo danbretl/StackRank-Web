@@ -90,13 +90,23 @@ test("researched profiles preserve exact identities, primary origins and traceab
   const refresh = {
     schemaVersion: 1, reviewedAt: "2026-09-22", profiles: { [id]: {
       summary: "A sourced description of this specific breed, with its history and distinctive appearance.",
+      shortDescription: "A freshly researched note about this specific breed's character and its distinctive habits.",
       sizeBand: "small", originRegions: ["Germany"],
       sources: [{ title: "Official breed standard", url: "https://example.test/186.pdf", evidence: "Origin: Germany." }],
     } },
   };
-  const artifact = buildDogProfiles({ ...input, refreshes: [refresh] });
+  const shortDescriptions = { schemaVersion: 1, reviewedAt: "2026-09-22", descriptions: {
+    [id]: "An earlier short description about this breed's character and its old working tradition.",
+  } };
+  const artifact = buildDogProfiles({ ...input, refreshes: [refresh], shortDescriptions });
   const profile = artifact.profiles[id];
   assert.equal(profile.reviewStatus, "editor-reviewed");
+  assert.equal(profile.shortDescription, refresh.profiles[id].shortDescription,
+    "the latest researched entry takes priority over the additive baseline");
+  const withoutRefreshedShort = structuredClone(refresh);
+  delete withoutRefreshedShort.profiles[id].shortDescription;
+  assert.equal(buildDogProfiles({ ...input, refreshes: [withoutRefreshedShort], shortDescriptions })
+    .profiles[id].shortDescription, shortDescriptions.descriptions[id]);
   assert.deepEqual(profile.originRegions, ["Germany"]);
   assert.ok(profile.sourceIds.includes("stackrank-editorial-review-2026-09-22"));
   const reference = artifact.sources.find((source) => source.kind === "breed-reference");
@@ -109,4 +119,7 @@ test("researched profiles preserve exact identities, primary origins and traceab
   assert.throws(() => buildDogProfiles({ ...input, refreshes: [missingEvidence] }), /traceable sources/);
   const wrongIdentity = { ...refresh, profiles: { "VBO:9999999": refresh.profiles[id] } };
   assert.throws(() => buildDogProfiles({ ...input, refreshes: [wrongIdentity] }), /Unknown refreshed profile/);
+  assert.throws(() => buildDogProfiles({ ...input, shortDescriptions: {
+    ...shortDescriptions, descriptions: { "VBO:9999999": shortDescriptions.descriptions[id] },
+  } }), /Unknown short-description identity/);
 });

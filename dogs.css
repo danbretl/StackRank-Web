@@ -311,6 +311,8 @@ textarea:focus-visible,
 .breed-tile strong { margin-top: 11px; font-size: 1.02rem; line-height: 1.12; letter-spacing: -0.02em; }
 .breed-tile span { margin-top: 4px; color: var(--ink-soft); font-size: 0.73rem; line-height: 1.3; }
 .breed-tile .breed-tile__state { color: var(--ink-soft); font-size: 0.7rem; font-weight: 600; }
+.breed-card.is-ranked .dog-media { filter: grayscale(1); opacity: .55; }
+.breed-card.is-ranked .breed-tile strong { color: var(--ink-soft); }
 .breed-chips { display: flex !important; flex-wrap: wrap; gap: 5px; min-width: 0; }
 .breed-chips > span { display: inline-flex !important; width: max-content; max-width: 100%; margin: 0 !important; padding: 4px 7px; overflow: hidden; border: 1px solid #d8d2c7; border-radius: 999px; color: #56544f !important; background: #f7f3ec; font-size: 0.64rem !important; line-height: 1 !important; text-overflow: ellipsis; white-space: nowrap; }
 .dog-media {
@@ -406,7 +408,7 @@ textarea:focus-visible,
 .ranking-row__copy { display: grid; min-width: 0; gap: 5px; }
 .ranking-row__copy strong { font-size: 1.35rem; letter-spacing: -0.025em; }
 .ranking-row__copy span { color: var(--ink-soft); }
-.ranking-row__summary { display: -webkit-box; max-width: 760px; overflow: hidden; color: #45443f !important; line-height: 1.45; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.ranking-row__summary { display: block; max-width: 760px; color: #45443f !important; font-size: .9rem; line-height: 1.45; }
 .ranking-row__aliases { font-size: 0.72rem; }
 .ranking-row__actions { display: flex; align-items: center; gap: 7px; }
 .ranking-row__actions button {
@@ -422,26 +424,31 @@ body.is-move-mode .ranking-row__actions .move-handle { display: inline-grid; pla
 .ranking-row.is-dragging { z-index: 5; opacity: 0.75; background: #fff; box-shadow: var(--shadow-small); }
 .dogs-ranking[data-ranking-view="photos"] { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; padding: 24px 0; }
 .dogs-ranking[data-ranking-view="photos"] .ranking-row {
-  display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(0, 1fr);
   align-content: start;
   min-height: 0;
-  padding: 0 0 16px;
+  padding: 0;
   border-bottom: 0;
-  gap: 7px;
+  gap: 9px;
 }
-.dogs-ranking[data-ranking-view="photos"] .ranking-row__rank { grid-column: 1; grid-row: 2; font-size: 0.92rem; }
-.dogs-ranking[data-ranking-view="photos"] .dog-media { grid-column: 1 / -1; grid-row: 1; width: 100%; }
-.dogs-ranking[data-ranking-view="photos"] .ranking-row__copy { grid-column: 1 / -1; grid-row: 3; }
-.dogs-ranking[data-ranking-view="photos"] .ranking-row__copy strong { font-size: 1rem; }
-.dogs-ranking[data-ranking-view="photos"] .ranking-row__copy span { font-size: 0.76rem; }
-.dogs-ranking[data-ranking-view="photos"] .ranking-row__actions { grid-column: 2; grid-row: 2; }
-.dogs-ranking[data-ranking-view="photos"] .ranking-row__actions button:not([data-action="detail"]):not([data-action="remove"]):not(.move-handle) { display: none; }
-.dogs-ranking[data-ranking-view="compact"] .ranking-row { grid-template-columns: 54px minmax(0, 1fr) auto; min-height: 66px; padding: 8px 4px; }
-.dogs-ranking[data-ranking-view="compact"] .dog-media { display: none; }
-.dogs-ranking[data-ranking-view="compact"] .ranking-row__copy { grid-column: 2; }
-.dogs-ranking[data-ranking-view="compact"] .ranking-row__copy strong { font-size: 1rem; }
-.dogs-ranking[data-ranking-view="compact"] .ranking-row__aliases { display: none; }
+.dogs-ranking[data-ranking-view="photos"] .ranking-row__rank { position: absolute; z-index: 1; top: 8px; left: 8px; min-width: 28px; padding: 5px; border-radius: 5px; background: rgba(255,255,255,.92); text-align: center; font-size: .78rem; }
+.dogs-ranking[data-ranking-view="photos"] .dog-media { grid-column: 1; grid-row: 1; width: 100%; }
+.dogs-ranking[data-ranking-view="photos"] .ranking-row__copy { grid-column: 1; grid-row: 2; }
+.dogs-ranking[data-ranking-view="photos"] .ranking-row__copy strong { font-size: 1rem; line-height: 1.2; }
+.dogs-ranking[data-ranking-view="photos"] .ranking-row__copy > :not(strong),
+.dogs-ranking[data-ranking-view="compact"] .ranking-row__copy > :not(strong) { display: none !important; }
+.dogs-ranking[data-ranking-view="photos"] .ranking-row__actions { display: flex; position: absolute; z-index: 2; top: 4px; right: 4px; }
+.dogs-ranking[data-ranking-view="photos"] .ranking-row__actions button[data-action="detail"] { display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: transparent; font-size: 0; }
+.dogs-ranking[data-ranking-view="photos"] .ranking-row__actions button[data-action="detail"]::after { content: "i"; display: grid; place-items: center; width: 25px; height: 25px; border: 1px solid var(--border); border-radius: 50%; background: rgba(255,255,255,.94); color: var(--ink); font-size: .72rem; font-weight: 700; }
+.dogs-ranking[data-ranking-view="photos"] .ranking-row__actions button:not([data-action="detail"]):not(.move-handle),
+.dogs-ranking[data-ranking-view="compact"] .ranking-row__actions button[data-action="up"],
+.dogs-ranking[data-ranking-view="compact"] .ranking-row__actions button[data-action="down"],
+body.is-move-mode .dogs-ranking[data-ranking-view="photos"] .ranking-row__actions button[data-action="detail"] { display: none; }
+.dogs-ranking[data-ranking-view="compact"] .ranking-row { grid-template-columns: 40px 56px minmax(0, 1fr) auto; gap: 12px; min-height: 64px; padding: 8px 4px; }
+.dogs-ranking[data-ranking-view="compact"] .ranking-row__rank { font-size: .95rem; }
+.dogs-ranking[data-ranking-view="compact"] .dog-media { display: block; width: 56px; height: 42px; border-radius: 5px; }
+.dogs-ranking[data-ranking-view="compact"] .ranking-row__copy { grid-column: 3; }
+.dogs-ranking[data-ranking-view="compact"] .ranking-row__copy strong { font-size: .95rem; line-height: 1.2; }
 .ranking-empty { margin-top: 24px; padding: 60px 24px; text-align: center; }
 .ranking-empty h2 { margin: 0 0 8px; font-size: 1.6rem; }
 .ranking-empty p { margin: 0 auto 24px; max-width: 630px; color: var(--ink-soft); }
@@ -750,7 +757,14 @@ body.is-move-mode .ranking-row__actions .move-handle { display: inline-grid; pla
   .ranking-row__rank { font-size: 0.95rem; }
   .ranking-row__copy strong { font-size: 1rem; }
   .ranking-row__copy span { font-size: 0.72rem; }
-  .ranking-row__summary { -webkit-line-clamp: 2; }
+  .dogs-ranking[data-ranking-view="detailed"] .ranking-row { grid-template-columns: 28px 80px minmax(0, 1fr) 44px; gap: 10px; min-height: 0; padding: 14px 0; }
+  .dogs-ranking[data-ranking-view="detailed"] .ranking-row__rank { grid-column: 1; grid-row: 1; }
+  .dogs-ranking[data-ranking-view="detailed"] .dog-media { grid-column: 2; grid-row: 1; width: 80px; }
+  .dogs-ranking[data-ranking-view="detailed"] .ranking-row__copy { display: contents; }
+  .dogs-ranking[data-ranking-view="detailed"] .ranking-row__copy strong { grid-column: 3; grid-row: 1; }
+  .dogs-ranking[data-ranking-view="detailed"] .ranking-row__context { display: none; }
+  .dogs-ranking[data-ranking-view="detailed"] .ranking-row__summary { grid-column: 2 / 4; grid-row: 2; font-size: .8rem; }
+  .dogs-ranking[data-ranking-view="detailed"] .ranking-row__actions { grid-column: 4; grid-row: 1 / 3; grid-template-columns: 44px; align-self: start; }
   .ranking-row__copy .breed-chips,
   .ranking-row__aliases { display: none !important; }
   .ranking-row__actions { display: grid; grid-template-columns: repeat(2, 44px); }
@@ -760,7 +774,9 @@ body.is-move-mode .ranking-row__actions .move-handle { display: inline-grid; pla
   body.is-move-mode .ranking-row__actions button[data-action="detail"],
   body.is-move-mode .ranking-row__actions button[data-action="remove"] { display: none; }
   .dogs-ranking[data-ranking-view="photos"] { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-  .dogs-ranking[data-ranking-view="compact"] .ranking-row { grid-template-columns: 38px minmax(0, 1fr) auto; }
+  .dogs-ranking[data-ranking-view="compact"] .ranking-row { grid-template-columns: 26px 44px minmax(0, 1fr) auto; gap: 8px; min-height: 60px; padding: 7px 0; }
+  .dogs-ranking[data-ranking-view="compact"] .dog-media { width: 44px; height: 36px; }
+  .dogs-ranking[data-ranking-view="compact"] .ranking-row__copy strong { font-size: .86rem; }
   .you-stats { grid-template-columns: repeat(2, 1fr); }
   .you-stats article { min-height: 115px; padding: 18px; }
   .taste-signals { grid-template-columns: 1fr; }

@@ -2,9 +2,10 @@
 import fs from "node:fs/promises";
 
 const readJson = async (path) => JSON.parse(await fs.readFile(new URL(`../${path}`, import.meta.url), "utf8"));
-const [catalog, artifact] = await Promise.all([
+const [catalog, artifact, artwork] = await Promise.all([
   readJson("data/dogs/dog-catalog.json"),
   readJson("data/dogs/breed-profiles.json"),
+  readJson("data/dogs/generated-artwork.json"),
 ]);
 
 const errors = [];
@@ -12,6 +13,9 @@ const unsafe = /\b(?:perfect for|best for|safe with|aggressive|hypoallergenic|ea
 const sourceIds = new Set((artifact.sources || []).map((source) => source.id));
 const expected = new Set((catalog.entities || []).map((entity) => entity.id));
 const actual = new Set(Object.keys(artifact.profiles || {}));
+const illustratedIds = new Set((artwork.assets || [])
+  .filter((asset) => asset.uiDisplayAllowed === true && asset.review?.status === "approved")
+  .map((asset) => asset.catalogId));
 
 if (artifact.schemaVersion !== 1) errors.push("schemaVersion must be 1");
 if (!artifact.profileVersion) errors.push("profileVersion is required");
@@ -32,9 +36,16 @@ actual.forEach((id) => { if (!expected.has(id)) errors.push(`Unknown profile: ${
 for (const [id, profile] of Object.entries(artifact.profiles || {})) {
   if (typeof profile.summary !== "string" || profile.summary.length < 20 || profile.summary.length > 700) errors.push(`${id}: invalid summary length`);
   if (profile.reviewStatus === "editor-reviewed" && profile.summary.length < 80) errors.push(`${id}: individually written summary is incomplete`);
+  if (profile.shortDescription !== undefined &&
+    (typeof profile.shortDescription !== "string" || profile.shortDescription.trim().length < 80 || profile.shortDescription.length > 180)) {
+    errors.push(`${id}: invalid shortDescription length`);
+  }
+  if (illustratedIds.has(id) && profile.reviewStatus === "editor-reviewed" && !profile.shortDescription) {
+    errors.push(`${id}: illustrated reviewed profile needs shortDescription`);
+  }
   if (typeof profile.interestingFact !== "string" || (profile.interestingFact.length > 0 && profile.interestingFact.length < 20) || profile.interestingFact.length > 360) errors.push(`${id}: invalid interestingFact length`);
-  if (/first field note|confident invented|still being deepened|StackRank keeps|selectable (?:entry|breeds)|cartoonish copy/i.test(`${profile.summary} ${profile.interestingFact}`)) errors.push(`${id}: process commentary belongs in source notes`);
-  if (unsafe.test(`${profile.summary} ${profile.interestingFact}`)) errors.push(`${id}: unsafe suitability or behavior claim`);
+  if (/first field note|confident invented|still being deepened|StackRank keeps|selectable (?:entry|breeds)|cartoonish copy/i.test(`${profile.summary} ${profile.shortDescription || ""} ${profile.interestingFact}`)) errors.push(`${id}: process commentary belongs in source notes`);
+  if (unsafe.test(`${profile.summary} ${profile.shortDescription || ""} ${profile.interestingFact}`)) errors.push(`${id}: unsafe suitability or behavior claim`);
   if (!["toy", "small", "medium", "large", "giant", "varies", "unknown"].includes(profile.sizeBand)) errors.push(`${id}: invalid sizeBand`);
   if (typeof profile.typeLabel !== "string" || !profile.typeLabel.trim() || profile.typeLabel.length > 80) errors.push(`${id}: invalid typeLabel`);
   if (!["registry", "editorial", "catalog"].includes(profile.typeBasis)) errors.push(`${id}: invalid typeBasis`);

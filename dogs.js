@@ -1,4 +1,4 @@
-import { createDogsExplorer } from "./dogs-explore.js?v=3";
+import { createDogsExplorer } from "./dogs-explore.js?v=4";
 import { createClient } from "./vendor/supabase-js-2.108.2.js?v=1";
 import {
   categoryStorageKeys,
@@ -84,7 +84,7 @@ import {
   normalizeDogProfile,
   parseDogNameImport,
   parseDogsBackup,
-} from "./lib/dogs.js?v=6";
+} from "./lib/dogs.js?v=7";
 import {
   completedDogCatalogIds,
   projectPublicDogRanking,
@@ -112,7 +112,7 @@ const CATALOG_URL = "data/dogs/dog-catalog.json?v=4";
 const PACKS_URL = "data/dogs/packs.json?v=2";
 const RIGHTS_URL = "data/dogs/image-rights.json?v=19";
 const RIGHTS_POLICY_URL = "data/dogs/artwork-license-policy.json?v=1";
-const PROFILES_URL = "data/dogs/breed-profiles.json?v=5";
+const PROFILES_URL = "data/dogs/breed-profiles.json?v=6";
 const GENERATED_ARTWORK_URL = "data/dogs/generated-artwork.json?v=14";
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl";
@@ -1042,6 +1042,7 @@ const createBreedTile = (item, { packId = "" } = {}) => {
   button.type = "button";
   button.className = "breed-tile";
   const location = handledLocation(candidate.entityRef.id);
+  article.classList.toggle("is-ranked", location === "ranking");
   button.disabled = location === "ranking";
   button.setAttribute("aria-label", location === "ranking"
     ? `${candidate.snapshot.primaryText} is already ranked`
@@ -1160,6 +1161,7 @@ const explorer = createDogsExplorer({
   }),
   createMedia: (id) => createDogMedia(candidateForCatalogId(id)),
   openDetail,
+  rankDog: (id) => beginRanking(candidateForCatalogId(id)),
 });
 
 const renderBrowse = () => explorer.refresh();
@@ -1298,12 +1300,14 @@ const renderRanking = () => {
     const name = document.createElement("strong");
     name.textContent = shown.snapshot.primaryText;
     const context = document.createElement("span");
+    context.className = "ranking-row__context";
     context.textContent = shown.snapshot.secondaryText || "Breed or type";
     const raw = catalogById.get(item.entityRef.id);
     const alternateNames = dogDisplayAliases(raw, { limit: 3 });
     const summary = document.createElement("span");
     summary.className = "ranking-row__summary";
-    summary.textContent = profileSummary(item.entityRef.id);
+    summary.textContent = profileForCatalogId(item.entityRef.id)?.shortDescription || "";
+    summary.hidden = !summary.textContent;
     copy.append(name, context, summary, createProfileChips(item.entityRef.id));
     if (alternateNames.length) {
       const aliases = document.createElement("span");
@@ -1502,7 +1506,17 @@ const comparisonCardContent = (item, { selectable = false, eyebrow = "" } = {}) 
   addFact("Size", profile?.sizeLabel);
   addFact("Origin", profile?.originRegions?.join(", "));
   copy.append(position, name, context, summary, facts);
-  content.append(createDogMedia(shown, "detail"), copy);
+  const media = document.createElement("div");
+  media.className = "comparison-card__media";
+  media.append(createDogMedia(shown, "detail"));
+  const learn = document.createElement("button");
+  learn.type = "button";
+  learn.className = "comparison-card__learn";
+  learn.textContent = "About this dog";
+  learn.setAttribute("aria-label", `About ${shown.snapshot.primaryText}`);
+  learn.addEventListener("click", () => openComparisonDetail(shown.entityRef.id, learn));
+  media.append(learn);
+  content.append(media, copy);
   fragment.append(content);
   if (selectable) {
     const pick = document.createElement("button");
@@ -1512,13 +1526,6 @@ const comparisonCardContent = (item, { selectable = false, eyebrow = "" } = {}) 
     pick.setAttribute("aria-label", `Rank ${shown.snapshot.primaryText} higher`);
     fragment.append(pick);
   }
-  const learn = document.createElement("button");
-  learn.type = "button";
-  learn.className = "comparison-card__learn";
-  learn.textContent = "About this dog";
-  learn.setAttribute("aria-label", `Learn about ${shown.snapshot.primaryText}`);
-  learn.addEventListener("click", () => openComparisonDetail(shown.entityRef.id, learn));
-  fragment.append(learn);
   return fragment;
 };
 
@@ -1912,7 +1919,9 @@ const renderPackDetail = () => {
   rankNext.textContent = stats.complete ? "All dogs ranked" : next ? "Rank next dog" : "No dogs ready to rank";
   const grid = $("#dogs-pack-detail-grid");
   grid.replaceChildren();
-  items.forEach((item) => grid.append(createBreedTile(item, { packId: pack.id })));
+  [...items].sort((left, right) => Number(handledLocation(left.entityRef.id) === "ranking")
+    - Number(handledLocation(right.entityRef.id) === "ranking"))
+    .forEach((item) => grid.append(createBreedTile(item, { packId: pack.id })));
 };
 
 const startPack = (packId, origin = "browser") => {
@@ -2785,8 +2794,11 @@ rankingEl.addEventListener("keydown", (event) => {
   const row = event.target.closest(".ranking-row");
   if (!handle || !row || !["ArrowUp", "ArrowDown"].includes(event.key)) return;
   event.preventDefault();
-  const index = publicRanking().findIndex((item) => entityRefKey(item) === row.dataset.key);
-  performRankingMove(row.dataset.key, event.key === "ArrowUp" ? index - 1 : index + 1);
+  const key = row.dataset.key;
+  const index = publicRanking().findIndex((item) => entityRefKey(item) === key);
+  performRankingMove(key, event.key === "ArrowUp" ? index - 1 : index + 1);
+  $$(".ranking-row", rankingEl).find((candidate) => candidate.dataset.key === key)
+    ?.querySelector(".move-handle")?.focus();
 });
 rankingEl.addEventListener("pointerdown", onRankingPointerDown);
 rankingEl.addEventListener("pointermove", onRankingPointerMove);

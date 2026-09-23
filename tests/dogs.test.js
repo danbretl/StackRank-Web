@@ -59,6 +59,7 @@ test("Dog profile references expose only that breed's safe attributed sources", 
 test("Dog profiles normalize sourced field-guide copy and compact display chips", () => {
   const profile = normalizeDogProfile({
     summary: "The Great Dane is a giant German dog with an elegant, unmistakable outline.",
+    shortDescription: "A calm companion with a watchful streak, the Great Dane stays attentive to familiar people.",
     interestingFact: "Despite its English name, the modern breed was developed in Germany.",
     sizeBand: "giant",
     typeLabel: "Pinscher, Schnauzer & mountain dogs",
@@ -70,6 +71,7 @@ test("Dog profiles normalize sourced field-guide copy and compact display chips"
     reviewStatus: "editor-reviewed",
   });
   assert.equal(profile.sizeLabel, "Giant");
+  assert.equal(profile.shortDescription, "A calm companion with a watchful streak, the Great Dane stays attentive to familiar people.");
   assert.deepEqual(profile.originRegions, ["Germany"]);
   assert.deepEqual(dogProfileChips(profile), ["Giant", "Germany", "Pinscher, Schnauzer & mountain dogs"]);
   assert.equal(normalizeDogProfile({ summary: "too short" }), null);
@@ -77,6 +79,9 @@ test("Dog profiles normalize sourced field-guide copy and compact display chips"
     summary: "An example regional dog type associated with France.",
     interestingFact: "", sizeBand: "unknown",
   })?.summary, "An example regional dog type associated with France.", "a brief profile without a separate fact is still usable");
+  assert.equal(normalizeDogProfile({
+    summary: "An example regional dog type associated with France.", sizeBand: "unknown",
+  })?.shortDescription, "", "incomplete entries can omit a short description");
 });
 
 test("Dogs descriptor enables additive account sync and public snapshots without raster export", () => {

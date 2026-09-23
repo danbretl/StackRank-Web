@@ -34,9 +34,9 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="dogs.css?v=9" />
-    <link rel="stylesheet" href="dogs-explore.css?v=3" />
-    <link rel="stylesheet" href="dogs-comparison.css?v=4" />
+    <link rel="stylesheet" href="dogs.css?v=10" />
+    <link rel="stylesheet" href="dogs-explore.css?v=4" />
+    <link rel="stylesheet" href="dogs-comparison.css?v=5" />
     <link rel="stylesheet" href="category-switcher.css?v=1" />
   </head>
   <body>
@@ -123,10 +123,10 @@
               <ul id="dogs-suggestions" role="listbox" hidden></ul>
             </form>
             <button type="button" id="dogs-surprise">Surprise me</button>
+            <button type="button" id="dogs-refresh-browse" aria-controls="dogs-browse-rail">Shuffle dogs <span aria-hidden="true">↻</span></button>
           </div>
           <p id="dogs-catalog-status" class="catalog-status" role="status" aria-live="polite">Loading the breed catalog…</p>
           <div id="dogs-browse-rail" class="breed-rail"></div>
-          <div class="browse-refresh"><button id="dogs-refresh-browse" type="button">Meet a few more <span aria-hidden="true">↻</span></button></div>
         </section>
 
         <section id="dogs-recent-section" class="recent-panel" aria-labelledby="dogs-recent-heading" hidden>
@@ -140,7 +140,7 @@
         <section class="dogs-discovery" aria-labelledby="dogs-packs-heading">
           <div class="section-heading-row">
             <div>
-              <h2 id="dogs-packs-heading">Fresh ways in</h2>
+              <h2 id="dogs-packs-heading">Dog packs</h2>
               <p>Dog-lover rabbit holes, from familiar faces to glorious oddballs.</p>
             </div>
             <button id="dogs-view-all-packs" type="button">View all dog packs <span aria-hidden="true">→</span></button>
@@ -446,6 +446,6 @@
     </footer>
 
     <script type="module" src="category-switcher.js?v=1"></script>
-    <script type="module" src="dogs.js?v=49"></script>
+    <script type="module" src="dogs.js?v=50"></script>
   </body>
 </html>

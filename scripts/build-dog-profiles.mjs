@@ -4,16 +4,17 @@ import { buildDogProfiles } from "./dog-profiles-lib.mjs";
 
 const readJson = async (path) => JSON.parse(await fs.readFile(new URL(`../${path}`, import.meta.url), "utf8"));
 
-const [catalog, packs, wikidata, fci, overrides] = await Promise.all([
+const [catalog, packs, wikidata, fci, overrides, shortDescriptions] = await Promise.all([
   readJson("data/dogs/dog-catalog.json"),
   readJson("data/dogs/packs.json"),
   readJson("data/dogs/sources/wikidata-dog-breeds-2026-09-21.json"),
   readJson("data/dogs/sources/fci-promoted-profiles-2026-09-21.json"),
   readJson("data/dogs/profile-overrides.json"),
+  readJson("data/dogs/profile-short-descriptions.json"),
 ]);
 
 const refreshes = await Promise.all(["a", "b", "c", "f"].map((batch) => readJson(`data/dogs/profile-refresh-${batch}.json`)));
-const profiles = buildDogProfiles({ catalog, packs, wikidata, fci, overrides, refreshes });
+const profiles = buildDogProfiles({ catalog, packs, wikidata, fci, overrides, refreshes, shortDescriptions });
 const outputUrl = new URL("../data/dogs/breed-profiles.json", import.meta.url);
 const next = `${JSON.stringify(profiles, null, 2)}\n`;
 

@@ -138,11 +138,22 @@ export function packMembershipByCatalogId(packs) {
   return map;
 }
 
-export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, refreshes = [] }) {
+export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, refreshes = [], shortDescriptions = null }) {
   const wikidataIndex = buildWikidataMatchIndex(wikidata?.records);
   const packById = packMembershipByCatalogId(packs?.packs);
   const fciById = new Map((fci?.records || []).map((record) => [record.catalogId, record]));
   const entityById = new Map((catalog?.entities || []).map((entity) => [entity.id, entity]));
+  if (shortDescriptions && (shortDescriptions.schemaVersion !== 1 ||
+    !/^\d{4}-\d{2}-\d{2}$/.test(shortDescriptions.reviewedAt))) {
+    throw new Error("Invalid short-description metadata");
+  }
+  const baselineShortDescriptions = shortDescriptions?.descriptions || {};
+  for (const [id, copy] of Object.entries(baselineShortDescriptions)) {
+    if (!entityById.has(id)) throw new Error(`Unknown short-description identity: ${id}`);
+    if (typeof copy !== "string" || cleanText(copy).length < 80 || cleanText(copy).length > 180) {
+      throw new Error(`Invalid short description: ${id}`);
+    }
+  }
   const writtenProfiles = new Map(Object.entries(overrides?.profiles || {}).map(([id, profile]) => [id, {
     ...profile, reviewedAt: overrides.reviewedAt || "2026-09-21",
   }]));
@@ -169,6 +180,11 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, ref
     const fciRecord = fciById.get(entity.id);
     const pack = packById.get(entity.id) || { titles: [], families: [] };
     const override = writtenProfiles.get(entity.id) || null;
+    if (override?.shortDescription !== undefined &&
+      (typeof override.shortDescription !== "string" || cleanText(override.shortDescription).length > 180)) {
+      throw new Error(`Invalid refreshed short description: ${entity.id}`);
+    }
+    const shortDescription = cleanText(override?.shortDescription || baselineShortDescriptions[entity.id]);
     const origins = unique(override?.originRegions?.length ? override.originRegions : [
       ...(fciRecord?.country ? [titleCaseCountry(fciRecord.country)] : []),
       ...(matched?.countries || []),
@@ -215,6 +231,7 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, ref
     const type = dogTypeLabel({ entity, fciRecord, editorialFamilies });
     profiles[entity.id] = {
       summary: cleanText(override?.summary || generated.summary),
+      ...(shortDescription ? { shortDescription } : {}),
       interestingFact: cleanText(override?.interestingFact || generated.interestingFact),
       sizeBand: override?.sizeBand || "unknown",
       typeLabel: type.label,
@@ -231,7 +248,7 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, ref
 
   return {
     schemaVersion: 1,
-    profileVersion: "dogs-field-guide-2026-09-22.6",
+    profileVersion: "dogs-field-guide-2026-09-22.7",
     sources: [
       { id: "vbo-2026-04-15", name: "Vertebrate Breed Ontology", url: catalog.source.artifactUrl, license: catalog.source.license, retrievedAt: `${catalog.source.retrievedAt}T00:00:00.000Z` },
       { id: "wikidata-dog-breeds-2026-09-21", name: "Wikidata structured dog-breed statements", url: wikidata.source.url, license: wikidata.source.license, retrievedAt: wikidata.retrievedAt },

@@ -17,6 +17,7 @@ import {
   buildDogTasteSignals,
   buildDogsBackup,
   dogProfileChips,
+  dogProfileSourceLinks,
   dogsExportText,
   normalizeDogProfile,
   normalizeDogPackProgress,
@@ -41,6 +42,19 @@ const entity = (id, name, overrides = {}) => ({
 });
 
 const ranked = (id, name) => dogEntityToCandidate(entity(id, name));
+
+test("Dog profile references expose only that breed's safe attributed sources", () => {
+  const sources = [
+    { id: "standard", kind: "breed-reference", name: "Official standard", url: "https://example.test/standard.pdf" },
+    { id: "other-breed", kind: "breed-reference", name: "Other breed", url: "https://example.test/other" },
+    { id: "script", kind: "breed-reference", name: "Unsafe", url: "javascript:alert(1)" },
+    { id: "credentials", kind: "breed-reference", name: "Private", url: "https://user:password@example.test" },
+  ];
+  assert.deepEqual(dogProfileSourceLinks({ sourceIds: ["standard", "script", "credentials"] }, sources), [
+    { title: "Official standard", url: "https://example.test/standard.pdf" },
+  ]);
+  assert.deepEqual(dogProfileSourceLinks(null, sources), []);
+});
 
 test("Dog profiles normalize sourced field-guide copy and compact display chips", () => {
   const profile = normalizeDogProfile({

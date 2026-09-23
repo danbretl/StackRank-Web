@@ -15,11 +15,23 @@ const actual = new Set(Object.keys(artifact.profiles || {}));
 
 if (artifact.schemaVersion !== 1) errors.push("schemaVersion must be 1");
 if (!artifact.profileVersion) errors.push("profileVersion is required");
+if (sourceIds.size !== artifact.sources?.length) errors.push("Source ids must be unique");
+for (const source of artifact.sources || []) {
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(source.id)) errors.push(`Invalid source id: ${source.id}`);
+  if (typeof source.name !== "string" || !source.name.trim() || source.name.length > 120) errors.push(`${source.id}: invalid source name`);
+  if (source.kind !== undefined && source.kind !== "breed-reference") errors.push(`${source.id}: invalid source kind`);
+  try {
+    const url = new URL(source.url);
+    const allowed = source.kind === "breed-reference" ? ["https:"] : ["http:", "https:"];
+    if (!allowed.includes(url.protocol) || url.username || url.password) errors.push(`${source.id}: invalid source URL`);
+  } catch { errors.push(`${source.id}: invalid source URL`); }
+}
 expected.forEach((id) => { if (!actual.has(id)) errors.push(`Missing profile: ${id}`); });
 actual.forEach((id) => { if (!expected.has(id)) errors.push(`Unknown profile: ${id}`); });
 
 for (const [id, profile] of Object.entries(artifact.profiles || {})) {
   if (typeof profile.summary !== "string" || profile.summary.length < 20 || profile.summary.length > 700) errors.push(`${id}: invalid summary length`);
+  if (profile.reviewStatus === "editor-reviewed" && profile.summary.length < 80) errors.push(`${id}: individually written summary is incomplete`);
   if (typeof profile.interestingFact !== "string" || (profile.interestingFact.length > 0 && profile.interestingFact.length < 20) || profile.interestingFact.length > 360) errors.push(`${id}: invalid interestingFact length`);
   if (/first field note|confident invented|still being deepened|StackRank keeps|selectable (?:entry|breeds)|cartoonish copy/i.test(`${profile.summary} ${profile.interestingFact}`)) errors.push(`${id}: process commentary belongs in source notes`);
   if (unsafe.test(`${profile.summary} ${profile.interestingFact}`)) errors.push(`${id}: unsafe suitability or behavior claim`);

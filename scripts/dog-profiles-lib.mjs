@@ -138,20 +138,38 @@ export function packMembershipByCatalogId(packs) {
   return map;
 }
 
-export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides }) {
+export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, refreshes = [] }) {
   const wikidataIndex = buildWikidataMatchIndex(wikidata?.records);
   const packById = packMembershipByCatalogId(packs?.packs);
   const fciById = new Map((fci?.records || []).map((record) => [record.catalogId, record]));
   const entityById = new Map((catalog?.entities || []).map((entity) => [entity.id, entity]));
+  const writtenProfiles = new Map(Object.entries(overrides?.profiles || {}).map(([id, profile]) => [id, {
+    ...profile, reviewedAt: overrides.reviewedAt || "2026-09-21",
+  }]));
+  for (const refresh of refreshes) {
+    if (refresh?.schemaVersion !== 1 || !/^\d{4}-\d{2}-\d{2}$/.test(refresh.reviewedAt)) throw new Error("Invalid profile refresh metadata");
+    for (const [id, profile] of Object.entries(refresh.profiles || {})) {
+      if (!entityById.has(id)) throw new Error(`Unknown refreshed profile: ${id}`);
+      if (writtenProfiles.has(id)) throw new Error(`Duplicate written profile: ${id}`);
+      if (!Array.isArray(profile.sources) || !profile.sources.length || profile.sources.some((source) => {
+        try {
+          const url = new URL(source.url);
+          return url.protocol !== "https:" || !!url.username || !!url.password || !cleanText(source.title) || !cleanText(source.evidence);
+        } catch { return true; }
+      })) throw new Error(`Refreshed profile needs traceable sources: ${id}`);
+      writtenProfiles.set(id, { ...profile, reviewedAt: refresh.reviewedAt });
+    }
+  }
+  const editorialSources = new Map();
+  const breedSources = [];
   const profiles = {};
 
   (catalog?.entities || []).forEach((entity) => {
     const matched = uniqueWikidataMatch(entity, wikidataIndex);
     const fciRecord = fciById.get(entity.id);
     const pack = packById.get(entity.id) || { titles: [], families: [] };
-    const override = overrides?.profiles?.[entity.id] || null;
-    const origins = unique([
-      ...(override?.originRegions || []),
+    const override = writtenProfiles.get(entity.id) || null;
+    const origins = unique(override?.originRegions?.length ? override.originRegions : [
       ...(fciRecord?.country ? [titleCaseCountry(fciRecord.country)] : []),
       ...(matched?.countries || []),
     ]).slice(0, 8);
@@ -160,12 +178,24 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides }) {
       origins,
       parentName,
     });
+    const editorialSourceId = override ? `stackrank-editorial-review-${override.reviewedAt}` : "";
+    if (override) editorialSources.set(editorialSourceId, {
+      id: editorialSourceId, name: "StackRank Dogs profile review", url: "https://www.stackrankapp.com/dogs",
+      license: "Original StackRank editorial copy", retrievedAt: `${override.reviewedAt}T00:00:00.000Z`,
+    });
+    const references = (override?.sources || []).map((source, index) => ({
+      id: `breed-profile-${entity.id.toLowerCase().replace(":", "-")}-${index + 1}`,
+      kind: "breed-reference", name: cleanText(source.title), url: source.url,
+      license: "Citation-only factual reference", retrievedAt: `${override.reviewedAt}T00:00:00.000Z`,
+    }));
+    breedSources.push(...references);
     const sourceIds = unique([
       "vbo-2026-04-15",
       pack.titles.length ? "stackrank-editorial-packs" : "",
       matched ? "wikidata-dog-breeds-2026-09-21" : "",
       fciRecord?.groupNumber ? "fci-promoted-profiles-2026-09-21" : "",
-      override ? "stackrank-editorial-review-2026-09-21" : "",
+      editorialSourceId,
+      ...references.map((source) => source.id),
     ]);
     const registryGroups = fciRecord?.groupNumber
       ? [{
@@ -201,14 +231,15 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides }) {
 
   return {
     schemaVersion: 1,
-    profileVersion: "dogs-field-guide-2026-09-22.3",
+    profileVersion: "dogs-field-guide-2026-09-22.4",
     sources: [
       { id: "vbo-2026-04-15", name: "Vertebrate Breed Ontology", url: catalog.source.artifactUrl, license: catalog.source.license, retrievedAt: `${catalog.source.retrievedAt}T00:00:00.000Z` },
       { id: "wikidata-dog-breeds-2026-09-21", name: "Wikidata structured dog-breed statements", url: wikidata.source.url, license: wikidata.source.license, retrievedAt: wikidata.retrievedAt },
       { id: "fci-promoted-profiles-2026-09-21", name: "FCI breed nomenclature (promoted cohort)", url: fci.source.url, license: "Citation-only primary reference", retrievedAt: fci.retrievedAt },
       { id: "stackrank-editorial-packs", name: "StackRank Dogs editorial packs", url: "https://www.stackrankapp.com/dogs", license: "StackRank editorial data", retrievedAt: `${packs.updatedAt}T00:00:00.000Z` },
-      { id: "stackrank-editorial-review-2026-09-21", name: "StackRank Dogs profile review", url: "https://www.stackrankapp.com/dogs", license: "Original StackRank editorial copy", retrievedAt: "2026-09-21T00:00:00.000Z" },
-      { id: "akc-us-registrations-2025", name: "AKC 2025 U.S. registration ranking", url: "https://www.akc.org/most-popular-breeds/", license: "Citation-only factual reference", retrievedAt: "2026-09-21T00:00:00.000Z" }
+      { id: "akc-us-registrations-2025", name: "AKC 2025 U.S. registration ranking", url: "https://www.akc.org/most-popular-breeds/", license: "Citation-only factual reference", retrievedAt: "2026-09-21T00:00:00.000Z" },
+      ...editorialSources.values(),
+      ...breedSources,
     ],
     profiles,
   };

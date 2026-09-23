@@ -77,3 +77,36 @@ test("profile compiler covers every catalog entity and keeps popularity scoped",
     sourceId: "akc-us-registrations-2025",
   });
 });
+
+test("researched profiles preserve exact identities, primary origins and traceable review sources", () => {
+  const id = "VBO:0200003";
+  const input = {
+    catalog: { source: {}, entities: [{ id, displayName: "Affenpinscher", status: "canonical", aliases: [] }] },
+    packs: { updatedAt: "2026-09-22", packs: [] },
+    wikidata: { source: {}, records: [{ id: "Q1", label: "Affenpinscher", countries: ["Unverified place"] }] },
+    fci: { source: {}, records: [] },
+    overrides: { profiles: {} },
+  };
+  const refresh = {
+    schemaVersion: 1, reviewedAt: "2026-09-22", profiles: { [id]: {
+      summary: "A sourced description of this specific breed, with its history and distinctive appearance.",
+      sizeBand: "small", originRegions: ["Germany"],
+      sources: [{ title: "Official breed standard", url: "https://example.test/186.pdf", evidence: "Origin: Germany." }],
+    } },
+  };
+  const artifact = buildDogProfiles({ ...input, refreshes: [refresh] });
+  const profile = artifact.profiles[id];
+  assert.equal(profile.reviewStatus, "editor-reviewed");
+  assert.deepEqual(profile.originRegions, ["Germany"]);
+  assert.ok(profile.sourceIds.includes("stackrank-editorial-review-2026-09-22"));
+  const reference = artifact.sources.find((source) => source.kind === "breed-reference");
+  assert.equal(reference.url, "https://example.test/186.pdf");
+  assert.match(reference.id, /^[a-z0-9]+(?:-[a-z0-9]+)*$/, "source IDs follow the published schema");
+  assert.ok(profile.sourceIds.includes(reference.id));
+  assert.throws(() => buildDogProfiles({ ...input, refreshes: [refresh, refresh] }), /Duplicate written profile/);
+  const missingEvidence = structuredClone(refresh);
+  missingEvidence.profiles[id].sources[0].evidence = "";
+  assert.throws(() => buildDogProfiles({ ...input, refreshes: [missingEvidence] }), /traceable sources/);
+  const wrongIdentity = { ...refresh, profiles: { "VBO:9999999": refresh.profiles[id] } };
+  assert.throws(() => buildDogProfiles({ ...input, refreshes: [wrongIdentity] }), /Unknown refreshed profile/);
+});

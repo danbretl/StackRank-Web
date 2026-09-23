@@ -12,11 +12,12 @@ import {
   preferredArtworkVariant,
   setArtworkReview,
 } from "/lib/dogs-artwork-review.js?v=1";
+import { dogProfileSourceLinks } from "/lib/dogs.js?v=6";
 
 const DATA_URLS = {
   manifest: "/data/dogs/generated-artwork.json?v=13",
   catalog: "/data/dogs/dog-catalog.json?v=4",
-  profiles: "/data/dogs/breed-profiles.json?v=2",
+  profiles: "/data/dogs/breed-profiles.json?v=3",
 };
 
 const BATCH_METADATA_URLS = [
@@ -52,6 +53,7 @@ const dom = {
   dialogImage: document.querySelector("#dialog-image"),
   dialogProfile: document.querySelector("#dialog-profile"),
   dialogProfileTags: document.querySelector("#dialog-profile-tags"),
+  dialogProfileSources: document.querySelector("#dialog-profile-sources"),
   generationRecord: document.querySelector("#generation-record"),
   generationLoading: document.querySelector("#generation-loading"),
   generationExtra: document.querySelector("#generation-extra"),
@@ -169,6 +171,7 @@ function hydrateAssets(manifest, catalog, profiles) {
         aliases: Array.isArray(entity.aliases) ? entity.aliases : [],
         entity,
         profile: profileMap[asset.catalogId] || null,
+        profileSources: dogProfileSourceLinks(profileMap[asset.catalogId], profiles.sources),
       };
     })
     .sort((left, right) => left.name.localeCompare(right.name) || left.catalogId.localeCompare(right.catalogId));
@@ -254,6 +257,21 @@ function renderProfile(asset) {
   if (profile?.sizeBand && profile.sizeBand !== "unknown") tags.push(`${profile.sizeBand} size`);
   if (Array.isArray(profile?.originRegions)) tags.push(...profile.originRegions);
   dom.dialogProfileTags.replaceChildren(...tags.map((tag) => make("span", null, tag)));
+  dom.dialogProfileSources.replaceChildren();
+  const coverage = profile?.reviewStatus === "editor-reviewed"
+    ? "Individually written breed profile."
+    : "Brief profile based on available name, classification, and origin records. A detailed breed history has not yet been added.";
+  dom.dialogProfileSources.append(make("summary", null, "Profile sources & notes"), make("p", "muted", coverage));
+  for (const source of asset.profileSources) {
+    const row = make("p");
+    const link = make("a", null, source.title);
+    link.href = source.url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    row.append(link);
+    dom.dialogProfileSources.append(row);
+  }
+  dom.dialogProfileSources.open = false;
 }
 
 function renderGenerationRecord(asset, modelText = "Checking preserved batch metadata…") {

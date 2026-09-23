@@ -17,6 +17,7 @@
           "name": { "type": "string", "minLength": 1, "maxLength": 120 },
           "url": { "type": "string", "format": "uri" },
           "license": { "type": "string", "minLength": 1, "maxLength": 80 },
+          "kind": { "const": "breed-reference" },
           "retrievedAt": { "type": "string", "format": "date-time" }
         },
         "additionalProperties": false
@@ -30,7 +31,7 @@
           "required": ["summary", "interestingFact", "sizeBand", "typeLabel", "typeBasis", "originRegions", "editorialFamilies", "registryGroups", "sourceIds", "reviewStatus"],
           "properties": {
             "summary": { "type": "string", "minLength": 20, "maxLength": 700 },
-            "interestingFact": { "type": "string", "minLength": 10, "maxLength": 360 },
+            "interestingFact": { "oneOf": [{ "const": "" }, { "type": "string", "minLength": 20, "maxLength": 360 }] },
             "sizeBand": { "enum": ["toy", "small", "medium", "large", "giant", "varies", "unknown"] },
             "typeLabel": { "type": "string", "minLength": 1, "maxLength": 80 },
             "typeBasis": { "enum": ["registry", "editorial", "catalog"] },

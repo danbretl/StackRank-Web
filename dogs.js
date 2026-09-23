@@ -78,11 +78,12 @@ import {
   buildDogTasteSignals,
   buildDogsBackup,
   dogProfileChips,
+  dogProfileSourceLinks,
   dogsExportText,
   normalizeDogProfile,
   parseDogNameImport,
   parseDogsBackup,
-} from "./lib/dogs.js?v=5";
+} from "./lib/dogs.js?v=6";
 import { buildReviewQueue } from "./lib/review.js?v=1";
 import { createUndoController } from "./lib/undo.js?v=1";
 import {
@@ -104,7 +105,7 @@ const CATALOG_URL = "data/dogs/dog-catalog.json?v=4";
 const PACKS_URL = "data/dogs/packs.json?v=2";
 const RIGHTS_URL = "data/dogs/image-rights.json?v=18";
 const RIGHTS_POLICY_URL = "data/dogs/artwork-license-policy.json?v=1";
-const PROFILES_URL = "data/dogs/breed-profiles.json?v=2";
+const PROFILES_URL = "data/dogs/breed-profiles.json?v=3";
 const GENERATED_ARTWORK_URL = "data/dogs/generated-artwork.json?v=13";
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl";
@@ -1749,10 +1750,26 @@ function openDetail(catalogId) {
   const coverage = dogRegistryCoverageLabel(entity);
   sourcesCopy.textContent = [
     "Breed identity: Vertebrate Breed Ontology (CC BY 4.0).",
-    coverage,
+    coverage ? `${coverage}.` : "",
     profile?.reviewStatus === "editor-reviewed" ? "Individually written breed profile." : "Brief profile based on available name, classification, and origin records. A detailed breed history has not yet been added.",
   ].filter(Boolean).join(" ");
-  sources.append(sourcesSummary, sourcesCopy, attribution);
+  sources.append(sourcesSummary, sourcesCopy);
+  const profileReferences = dogProfileSourceLinks(profile, profileDocument?.sources);
+  if (profileReferences.length) {
+    const referenceList = document.createElement("ul");
+    for (const source of profileReferences) {
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      link.href = source.url;
+      link.textContent = source.title;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      item.append(link);
+      referenceList.append(item);
+    }
+    sources.append(referenceList);
+  }
+  sources.append(attribution);
   copy.append(title, status, chips, summary, factCallout, actions, facts, note, sources);
   layout.append(createDogMedia(shown, "detail"), copy);
   detailContent.appendChild(layout);

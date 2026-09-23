@@ -9,6 +9,13 @@ counts, blockers and checks.
 The new unlinked `/dogs/artwork-review` page provides pagination, search, a large-image dialog,
 generation provenance, local concern notes and export. Full verification passed 440 Node tests,
 24 Deno tests, all validators and 38 Chrome flows; 44 production checks passed.
+**Current profile update:** Commit `3dd3957a` is deployed; all 282 illustrated breeds have individually written descriptions.
+The September 22 correction removes inline research-process boilerplate across all 1,239 entries,
+adds 254 sourced profiles, and exposes 265 direct source references in expandable notes on both
+Dogs and the artwork reviewer. Final verification passed 443 Node tests, 24 Deno tests, all
+validators, 38 Chrome flows and 44 production checks. See
+`notes/feature-ideas/dogs-breed-profile-quality.md`.
+
 The original 52-portrait local-release sections below describe the earlier baseline.
 
 Durable continuation context for a new agent is recorded in
@@ -118,9 +125,9 @@ starter composition, unlabeled crossbreed content, and suitability/behavior clai
 
 | Review tier | Profiles | Contract |
 | --- | ---: | --- |
-| Editor-reviewed | 28 | Original friendly summary, interesting fact, size band, historical roots, origins, and family context for the deep-profile cohort. |
-| Source-reviewed | 546 | Unique structured source match and/or cited registry context, compiled conservatively. |
-| Generated baseline | 665 | Honest VBO/status/alias/pack context only; no invented temperament, suitability, or household-fit claims. |
+| Editor-reviewed | 282 | Individually written breed descriptions for every portrait-bearing identity; optional distinct facts, supported size/history/origin information, and traceable source notes. |
+| Source-reviewed | 314 | Unique structured source match and/or cited registry context, compiled conservatively. |
+| Generated baseline | 643 | Concise identity/classification/origin context; no process filler or invented temperament, suitability, or household-fit claims. |
 
 Every profile carries a human-readable dog-family label. Official FCI family context wins when it is
 available for the promoted cohort, a curated editorial family is next, and the remaining long tail
@@ -129,7 +136,9 @@ classification. Popularity appears only where its geography, year, source, rank,
 recorded; the initial release includes scoped 2025 U.S. AKC facts for three editor-reviewed breeds.
 
 The deterministic compiler combines the pinned VBO catalog, the bundled editorial packs, a 2026-09-21
-Wikidata CC0 snapshot, the citation-only promoted FCI snapshot, and the hand-reviewed override file.
+Wikidata CC0 snapshot, the citation-only promoted FCI snapshot, the original override file, and
+the three source-backed profile refresh batches. New source references preserve exact breed identity;
+explicitly researched origins take precedence over structured-source origin matches.
 `npm run validate:dogs:profiles` requires exact all-catalog coverage, bounded fields, declared sources,
 safe review states, and byte-for-byte current output.
 
@@ -138,6 +147,7 @@ Key artifacts:
 - `data/dogs/breed-profiles.json`
 - `data/dogs/breed-profiles.schema.json`
 - `data/dogs/profile-overrides.json`
+- `data/dogs/profile-refresh-a.json`, `profile-refresh-b.json`, and `profile-refresh-c.json`
 - `data/dogs/sources/wikidata-dog-breeds-2026-09-21.json`
 - `data/dogs/sources/fci-promoted-profiles-2026-09-21.json`
 - `scripts/build-dog-profiles.mjs`

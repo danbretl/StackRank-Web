@@ -30,8 +30,38 @@ all catalog/profile/artwork/pack validators, and 38 browser flows. A rendered Af
 check confirmed that the short description contains no process commentary, the empty fact box is
 hidden, and the coverage explanation appears only after expanding Sources & image notes.
 
-## Next depth pass
+## Illustrated-cohort depth pass
 
-The immediate priority is the illustrated cohort: research the 254 portrait-bearing breeds that
-lack individually written profiles, using official standards and breed organizations. Broader
-catalog entries retain concise sourced summaries until their own research is complete.
+Product commit `3dd3957a` adds individually written profiles for all 254 previously templated portrait-bearing breeds,
+bringing the total to 282. The source artifacts are `data/dogs/profile-refresh-a.json` (85),
+`profile-refresh-b.json` (85), and `profile-refresh-c.json` (84). They preserve 265 primary-source
+references with evidence supporting the original prose. Sources include FCI/AKC/UKC standards,
+national kennel and breed organizations, regional authorities, and original field studies.
+
+The main app and artwork reviewer display direct breed-source links in closed-by-default notes.
+Profile authors can omit a separate fact when it would repeat the summary; 49 individually written
+entries do so. The compiler rejects duplicate or unknown identities and incomplete source records,
+keeps review dates accurate, and gives explicit researched origins priority over structured matches.
+
+The compiled artifact is `dogs-field-guide-2026-09-22.4`, loaded with cache version 3 by both apps.
+All 1,239 records normalize successfully, all 282 portrait identities have written profiles, and
+none contains the reported process boilerplate. The remaining 957 entries are deliberately brief
+(314 structured-source matches and 643 catalog baselines); their full editorial research is still
+open.
+
+A source audit corrected the Bakharwal size against a regional survey, scoped Poodle sizes to the
+FCI scheme, and omitted a disputed year in the Chinook expedition story. Indian Spitz retains
+a conservative account of companion identity and native-breed show context rather than adding
+unsupported morphology or an origin legend.
+
+## Release verification
+
+The final `npm run verify` passed 443 Node tests, 24 Deno tests, all validators, and all 38 Chrome
+flows, including Dogs desktop/phone layouts and the artwork review workflow. Reports:
+`reports/runs/2026-09-23T004138Z` and `reports/e2e/runs/2026-09-23T004156Z`.
+
+Vercel deployed `3dd3957a` successfully; `npm run test:production` passed all 44 checks.
+A direct production payload check confirmed profile version `.4` and 282 written profiles.
+A rendered production Affenpinscher dialog showed the new breed-specific copy with a separate,
+expandable FCI source link. The source-record schema, URL filtering, identity matching, blank-fact
+behavior, and boilerplate exclusion have focused regression coverage.

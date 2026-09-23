@@ -4,6 +4,8 @@ Current artwork progress supersedes the baseline below: `635e54c7` includes batc
 for 282 live portraits and the unlinked noindex `/dogs/artwork-review` tool. Continue from `notes/testing/dogs-portrait-cohort-e.md` and the frozen
 machine-readable `data/dogs/portrait-cohort-e.json` ledger. The frozen cohort delivered 230 new
 portraits; 20 remain reference-held. All actionable selected work is complete.
+Profile update `3dd3957a` subsequently shipped individually written copy for all 282 illustrated
+breeds and removed inline research-process boilerplate from the entire catalog.
 
 Snapshot date: **September 22, 2026**
 
@@ -61,8 +63,12 @@ decisions.
 ### Profiles and editorial discovery
 
 - `data/dogs/breed-profiles.json` covers every selectable identity.
-- The profile tiers are 28 editor-reviewed, 546 source-reviewed, and 665 conservative generated
-  baselines. Baselines say less instead of inventing temperament, suitability, health, or size.
+- The profile tiers are 282 editor-reviewed, 314 source-reviewed, and 643 conservative generated
+  baselines. All illustrated breeds now have individually written copy. The 254 newly researched
+  entries preserve primary source URLs and evidence in `data/dogs/profile-refresh-{a,b,c}.json`;
+  265 source references appear in expandable notes in the app and artwork reviewer. Baselines
+  contain concise identity/origin facts, with no research-process filler or empty fact callouts.
+  See `notes/feature-ideas/dogs-breed-profile-quality.md`.
 - `data/dogs/packs.json` contains 46 validated editorial packs with 448 references across 251
   distinct VBO ids and 17 editorial families.
 - Every profile has a friendly field note and a human-readable dog-family label. Origins, historical

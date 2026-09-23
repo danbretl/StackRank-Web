@@ -1830,17 +1830,17 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
     unfinished,
     unfinishedCurious,
     unfinishedHidden,
-    f01: "VBO:0200146",
-    f01Peer: "VBO:0200147",
+    newPortrait: "VBO:0200810",
+    newPeer: "VBO:0200380",
   };
   const entity = (id) => catalog.entities.find((candidate) => candidate.id === id);
   const name = (id) => entity(id)?.displayName;
   const variant = (id, role) => artwork.assets.find((asset) => asset.catalogId === id)?.variants.find((item) => item.role === role)?.url;
   if (!expectedCount || Object.values(ids).some((id) => !entity(id)) ||
-    !profiles.profiles[ids.f01]?.summary || !profiles.profiles[ids.golden]?.summary ||
-    !profiles.profiles[ids.broholmer]?.summary || !variant(ids.f01, "card") || !variant(ids.f01, "detail") ||
+    !profiles.profiles[ids.newPortrait]?.summary || !profiles.profiles[ids.golden]?.summary ||
+    !profiles.profiles[ids.broholmer]?.summary || !variant(ids.newPortrait, "card") || !variant(ids.newPortrait, "detail") ||
     artwork.assets.some((asset) => [ids.unfinished, ids.unfinishedCurious, ids.unfinishedHidden].includes(asset.catalogId))) {
-    throw new Error("F01 visibility fixture is not the expected 307-pair release");
+    throw new Error("Current-wave visibility fixture is not the expected completed-pair release");
   }
 
   const fixtureItem = (id) => ({
@@ -1925,18 +1925,18 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
       hidden: document.querySelector('#dogs-suggestions')?.hidden
     })`);
     if (unfinishedSearch.names.includes(name(ids.unfinished))) throw new Error(`Unfinished entry appeared in search: ${JSON.stringify(unfinishedSearch)}`);
-    await search(name(ids.f01));
-    await waitFor(page, `document.querySelector('#dogs-suggestions .search-option strong')?.textContent.trim() === ${JSON.stringify(name(ids.f01))} && ${loadedImages('#dogs-suggestions .dog-media img')}`, 5000);
+    await search(name(ids.newPortrait));
+    await waitFor(page, `document.querySelector('#dogs-suggestions .search-option strong')?.textContent.trim() === ${JSON.stringify(name(ids.newPortrait))} && ${loadedImages('#dogs-suggestions .dog-media img')}`, 5000);
     const newSearch = await page.evaluate(`(() => ({
       names: [...document.querySelectorAll('#dogs-suggestions .search-option strong')].map((node) => node.textContent.trim()),
       src: document.querySelector('#dogs-suggestions .dog-media img')?.getAttribute('src')
     }))()`);
-    if (newSearch.names.length !== 1 || newSearch.src !== variant(ids.f01, "card")) throw new Error(`F01 search artwork is wrong: ${JSON.stringify(newSearch)}`);
-    screenshots.push(await page.screenshot("dogs-f01-visible-search-desktop.png"));
-    await search(name(ids.f01Peer));
-    await waitFor(page, `document.querySelector('#dogs-suggestions .search-option strong')?.textContent.trim() === ${JSON.stringify(name(ids.f01Peer))} && ${loadedImages('#dogs-suggestions .dog-media img')}`, 5000);
-    await search(name(ids.f01));
-    await waitFor(page, `document.querySelector('#dogs-suggestions .search-option strong')?.textContent.trim() === ${JSON.stringify(name(ids.f01))}`, 3000);
+    if (newSearch.names.length !== 1 || newSearch.src !== variant(ids.newPortrait, "card")) throw new Error(`Current-wave search artwork is wrong: ${JSON.stringify(newSearch)}`);
+    screenshots.push(await page.screenshot("dogs-newPortrait-visible-search-desktop.png"));
+    await search(name(ids.newPeer));
+    await waitFor(page, `document.querySelector('#dogs-suggestions .search-option strong')?.textContent.trim() === ${JSON.stringify(name(ids.newPeer))} && ${loadedImages('#dogs-suggestions .dog-media img')}`, 5000);
+    await search(name(ids.newPortrait));
+    await waitFor(page, `document.querySelector('#dogs-suggestions .search-option strong')?.textContent.trim() === ${JSON.stringify(name(ids.newPortrait))}`, 3000);
 
     await page.evaluate(`document.querySelector('#dogs-suggestions .search-option')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#dogs-comparison')?.hidden && ${loadedImages('#dogs-comparison .dog-media img')}`, 5000);
@@ -1945,23 +1945,23 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
       summaries: [...document.querySelectorAll('#dogs-comparison .comparison-card__summary')].map((node) => node.textContent.trim()),
       src: [...document.querySelectorAll('#dogs-comparison .dog-media img')].map((node) => node.getAttribute('src'))
     }))()`);
-    if (comparison.names[0] !== name(ids.f01) || comparison.summaries[0] !== profiles.profiles[ids.f01].summary ||
+    if (comparison.names[0] !== name(ids.newPortrait) || comparison.summaries[0] !== profiles.profiles[ids.newPortrait].summary ||
       comparison.summaries[1] !== profiles.profiles[comparison.names[1] === name(ids.golden) ? ids.golden : ids.broholmer]?.summary ||
-      comparison.src[0] !== variant(ids.f01, "detail")) throw new Error(`F01 comparison summary/artwork disagrees with compiled data: ${JSON.stringify(comparison)}`);
-    screenshots.push(await page.screenshot("dogs-f01-comparison-desktop.png"));
+      comparison.src[0] !== variant(ids.newPortrait, "detail")) throw new Error(`Current-wave comparison summary/artwork disagrees with compiled data: ${JSON.stringify(comparison)}`);
+    screenshots.push(await page.screenshot("dogs-newPortrait-comparison-desktop.png"));
     const phoneProfile = await setDeviceProfile(page, { width: 390, height: 844, input: DEVICE_INPUT_PROFILE.coarseTouch });
     await waitFor(page, loadedImages('#dogs-comparison .dog-media img'), 5000);
     const phoneComparison = await page.evaluate(`(() => ({ overflow: document.documentElement.scrollWidth > innerWidth,
       names: [...document.querySelectorAll('#dogs-comparison .comparison-card strong')].map((node) => node.textContent.trim()) }))()`);
-    if (!phoneProfile.anyPointerCoarse || phoneComparison.overflow || phoneComparison.names[0] !== name(ids.f01)) throw new Error(`F01 phone comparison failed: ${JSON.stringify(phoneComparison)}`);
-    screenshots.push(await page.screenshot("dogs-f01-comparison-phone.png"));
+    if (!phoneProfile.anyPointerCoarse || phoneComparison.overflow || phoneComparison.names[0] !== name(ids.newPortrait)) throw new Error(`Current-wave phone comparison failed: ${JSON.stringify(phoneComparison)}`);
+    screenshots.push(await page.screenshot("dogs-newPortrait-comparison-phone.png"));
     await setDeviceProfile(page, { width: 1440, height: 900 });
     for (let choice = 0; choice < 3; choice += 1) {
       if (await page.evaluate(`document.querySelector('#dogs-comparison')?.hidden`)) break;
       await page.evaluate(`document.querySelector('#dogs-new-choice .comparison-card__pick')?.click(); true;`);
     }
     await waitFor(page, `document.querySelector('#dogs-comparison')?.hidden && document.querySelectorAll('#dogs-ranking .ranking-row').length === 3`, 5000);
-    assertPreserved(await page.evaluate(storageState()), "new F01 insertion", 3);
+    assertPreserved(await page.evaluate(storageState()), "new Current-wave insertion", 3);
     await page.evaluate(`document.querySelector('.dogs-nav [data-destination="ranking"]')?.click(); true;`);
     await waitFor(page, loadedImages('#dogs-ranking .dog-media img'), 5000);
     const ranked = await page.evaluate(`(() => ({
@@ -1970,28 +1970,28 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
         src: row.querySelector('.dog-media img')?.getAttribute('src')
       })), overflow: document.documentElement.scrollWidth > innerWidth
     }))()`);
-    const f01Row = ranked.rows.find((row) => row.name === name(ids.f01));
-    if (ranked.rows.length !== 3 || ranked.overflow || f01Row?.summary !== profiles.profiles[ids.f01].shortDescription || f01Row?.src !== variant(ids.f01, "card")) {
-      throw new Error(`F01 ranking summary/artwork disagrees with compiled data: ${JSON.stringify(ranked)}`);
+    const newRow = ranked.rows.find((row) => row.name === name(ids.newPortrait));
+    if (ranked.rows.length !== 3 || ranked.overflow || newRow?.summary !== profiles.profiles[ids.newPortrait].shortDescription || newRow?.src !== variant(ids.newPortrait, "card")) {
+      throw new Error(`Current-wave ranking summary/artwork disagrees with compiled data: ${JSON.stringify(ranked)}`);
     }
-    screenshots.push(await page.screenshot("dogs-f01-ranking-desktop.png"));
-    await page.evaluate(`(() => { const row = [...document.querySelectorAll('#dogs-ranking .ranking-row')].find((r) => r.querySelector('strong')?.textContent.trim() === ${JSON.stringify(name(ids.f01))}); row?.querySelector('[data-action="detail"]')?.click(); return true; })()`);
+    screenshots.push(await page.screenshot("dogs-newPortrait-ranking-desktop.png"));
+    await page.evaluate(`(() => { const row = [...document.querySelectorAll('#dogs-ranking .ranking-row')].find((r) => r.querySelector('strong')?.textContent.trim() === ${JSON.stringify(name(ids.newPortrait))}); row?.querySelector('[data-action="detail"]')?.click(); return true; })()`);
     await waitFor(page, `document.querySelector('#dogs-detail')?.open && ${loadedImages('#dogs-detail .dog-media img')}`, 5000);
     const detail = await page.evaluate(`(() => ({ name: document.querySelector('#dogs-detail h1')?.textContent.trim(),
       summary: document.querySelector('#dogs-detail .detail-copy__summary')?.textContent.trim(),
       src: document.querySelector('#dogs-detail .dog-media img')?.getAttribute('src'),
       disclosure: document.querySelector('#dogs-detail .detail-attribution')?.textContent.trim() }))()`);
-    if (detail.name !== name(ids.f01) || detail.summary !== profiles.profiles[ids.f01].summary || detail.src !== variant(ids.f01, "detail") || !detail.disclosure?.includes("AI-generated breed portrait")) throw new Error(`F01 detail is wrong: ${JSON.stringify(detail)}`);
-    screenshots.push(await page.screenshot("dogs-f01-detail-desktop.png"));
+    if (detail.name !== name(ids.newPortrait) || detail.summary !== profiles.profiles[ids.newPortrait].summary || detail.src !== variant(ids.newPortrait, "detail") || !detail.disclosure?.includes("AI-generated breed portrait")) throw new Error(`Current-wave detail is wrong: ${JSON.stringify(detail)}`);
+    screenshots.push(await page.screenshot("dogs-newPortrait-detail-desktop.png"));
     await setDeviceProfile(page, { width: 390, height: 844, input: DEVICE_INPUT_PROFILE.coarseTouch });
     const phoneDetail = await page.evaluate(`(() => ({ overflow: document.documentElement.scrollWidth > innerWidth,
       summary: document.querySelector('#dogs-detail .detail-copy__summary')?.textContent.trim(),
       box: (() => { const b = document.querySelector('#dogs-detail .dog-media')?.getBoundingClientRect(); return b && { left: b.left, right: b.right }; })() }))()`);
-    if (phoneDetail.overflow || phoneDetail.summary !== profiles.profiles[ids.f01].summary || phoneDetail.box?.left < 0 || phoneDetail.box?.right > 390) throw new Error(`F01 phone detail is clipped: ${JSON.stringify(phoneDetail)}`);
-    screenshots.push(await page.screenshot("dogs-f01-detail-phone.png"));
+    if (phoneDetail.overflow || phoneDetail.summary !== profiles.profiles[ids.newPortrait].summary || phoneDetail.box?.left < 0 || phoneDetail.box?.right > 390) throw new Error(`Current-wave phone detail is clipped: ${JSON.stringify(phoneDetail)}`);
+    screenshots.push(await page.screenshot("dogs-newPortrait-detail-phone.png"));
     await page.evaluate(`document.querySelector('#dogs-detail')?.close(); true;`);
     await page.evaluate(`window.scrollTo(0, 0); true;`);
-    screenshots.push(await page.screenshot("dogs-f01-ranking-phone.png"));
+    screenshots.push(await page.screenshot("dogs-newPortrait-ranking-phone.png"));
     await setDeviceProfile(page, { width: 1440, height: 900 });
 
     const beforeMove = await page.evaluate(`JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.map((item) => item.entityRef.id)`);
@@ -2033,7 +2033,7 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('[data-export-format="json"]')?.click(); true;`);
     const exported = JSON.parse(fs.readFileSync(await waitForDownload(page, `stackrank-dogs-ranking-${date}.json`), "utf8"));
     if (exported.ranking.length !== 3 || exported.ranking.some((item) => item.id === ids.unfinished) ||
-      !exported.ranking.some((item) => item.id === ids.f01)) throw new Error(`Public export exposed unfinished item: ${JSON.stringify(exported)}`);
+      !exported.ranking.some((item) => item.id === ids.newPortrait)) throw new Error(`Public export exposed unfinished item: ${JSON.stringify(exported)}`);
     assertPreserved(await page.evaluate(storageState()), "public export", 3);
     await page.evaluate(`document.querySelector('#dogs-export-dialog')?.close(); document.querySelector('#dogs-open-backup')?.click(); true;`);
     await waitFor(page, `document.querySelector('#dogs-backup-dialog')?.open`, 3000);
@@ -12206,7 +12206,7 @@ const testDogsDiscoveryGallery = async ({ baseUrl }) => {
   const catalog = JSON.parse(fs.readFileSync(path.join(rootDir, 'data/dogs/dog-catalog.json'), 'utf8'));
   const approvedIds = artwork.assets.map((asset) => asset.catalogId).sort();
   const hiddenId = catalog.entities.find((entry) => entry.selectable && !approvedIds.includes(entry.id))?.id;
-  if (approvedIds.length !== 307 || !hiddenId) throw new Error('Dogs gallery fixture should have 307 completed pairs and at least one unfinished identity');
+  if (approvedIds.length < 25 || !hiddenId) throw new Error('Dogs gallery fixture should have at least 25 completed pairs and at least one unfinished identity');
   const page = await openChromePage({ name: 'dogs-discovery-gallery', width: 1440, height: 900 });
   const key = async (name, code) => {
     for (const type of ['keyDown', 'keyUp']) {
@@ -12309,14 +12309,14 @@ const testDogsDiscoveryGallery = async ({ baseUrl }) => {
       focusedId: document.querySelector('#dogs-gallery-grid .explore-dog:last-child')?.dataset.dogId,
       position: document.querySelector('#dogs-detail-position')?.textContent,
       scrollTop: document.querySelector('#dogs-detail')?.scrollTop })`);
-    if (!crossedBack.page.startsWith('Page 1') || crossedBack.position !== '24 of 307' || crossedBack.scrollTop !== 0) {
+    if (!crossedBack.page.startsWith('Page 1') || crossedBack.position !== `24 of ${approvedIds.length}` || crossedBack.scrollTop !== 0) {
       throw new Error(`Detail previous did not cross gallery page boundary: ${JSON.stringify(crossedBack)}`);
     }
     await page.evaluate(`document.querySelector('#dogs-detail-next').click(); true;`);
     const crossedForward = await page.evaluate(`({ page: document.querySelector('#dogs-gallery-page')?.textContent,
       firstId: document.querySelector('#dogs-gallery-grid .explore-dog')?.dataset.dogId,
       position: document.querySelector('#dogs-detail-position')?.textContent })`);
-    if (!crossedForward.page.startsWith('Page 2') || crossedForward.firstId !== page2First || crossedForward.position !== '25 of 307') {
+    if (!crossedForward.page.startsWith('Page 2') || crossedForward.firstId !== page2First || crossedForward.position !== `25 of ${approvedIds.length}`) {
       throw new Error(`Detail next did not cross back to page 2: ${JSON.stringify(crossedForward)}`);
     }
     await page.evaluate(`document.querySelector('#dogs-detail').close(); true;`);

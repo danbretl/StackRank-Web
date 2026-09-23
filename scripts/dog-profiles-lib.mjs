@@ -35,13 +35,6 @@ export function uniqueWikidataMatch(entity, index) {
   return [...found.values()][0];
 }
 
-const lowerFirst = (value) => {
-  const text = cleanText(value);
-  return text ? `${text[0].toLocaleLowerCase()}${text.slice(1)}` : "";
-};
-
-const quotedList = (values, limit = 2) => unique(values).slice(0, limit).map((value) => `“${value}”`).join(" and ");
-
 const FCI_FAMILY_LABELS = Object.freeze({
   1: "Herding dogs",
   2: "Pinscher, Schnauzer & mountain dogs",
@@ -98,37 +91,25 @@ export function dogTypeLabel({ entity, fciRecord, editorialFamilies = [] }) {
   };
 }
 
-export function generatedProfileCopy(entity, { origins = [], packTitles = [], parentName = "" } = {}) {
+export function generatedProfileCopy(entity, { origins = [], parentName = "" } = {}) {
   const name = cleanText(entity?.displayName) || "This dog";
-  const originText = origins.length ? ` associated with ${origins.slice(0, 3).join(", ")}` : "";
-  const packText = packTitles.length
-    ? ` You can meet it in StackRank’s ${quotedList(packTitles)} collection${packTitles.length > 1 ? "s" : ""}.`
-    : "";
+  const places = unique(origins).slice(0, 3);
+  const originText = places.length ? ` associated with ${new Intl.ListFormat("en").format(places)}` : "";
   const status = cleanText(entity?.status).toLowerCase();
   let summary;
   if (status === "variety") {
-    summary = `${name} is cataloged as a distinct dog variety${parentName ? ` within the wider ${parentName} family` : ""}${originText}. Varieties may reflect a documented difference in size, coat, working tradition, or registry treatment, so StackRank keeps this name visible rather than flattening it into a parent breed.${packText}`;
+    summary = `${name} is ${parentName ? `a variety of ${parentName}` : "a dog variety"}${originText}.`;
   } else if (status === "crossbreed") {
-    summary = `${name} is a named crossbreed or dog type${originText}. Crossbred dogs can vary widely in looks, size, and personality—even within one litter—so this field guide treats the name as a useful introduction, never a promise about an individual dog.${packText}`;
+    summary = `${name} is a named crossbreed${originText}. Dogs of this cross can vary widely in appearance and size, including within the same litter.`;
   } else if (status === "historical") {
-    summary = `${name} is preserved in the catalog as a historical dog breed or type${originText}. The name carries a piece of dog history even when a single modern population or standard no longer exists, and StackRank keeps that history discoverable without pretending it is a present-day personality profile.${packText}`;
+    summary = `${name} is a historical dog breed or type${originText}.`;
   } else {
-    summary = `${name} is a dog breed or type${originText}, with its own place in a wonderfully varied global catalog.${packText} This first field note stays close to verified names and source context while the deeper history is researched—because a short honest introduction is better than a confident invented one.`;
+    summary = `${name} is a dog breed or regional type${originText}.`;
   }
 
-  const aliases = unique(entity?.aliases || []).filter((alias) => normalizeProfileName(alias) !== normalizeProfileName(name));
-  let interestingFact;
-  if (aliases.length) {
-    interestingFact = `You may also meet ${name} under the name “${aliases[0]}”—dog names often change as breeds move between languages, regions, and registries.`;
-  } else if (parentName) {
-    interestingFact = `${name} is kept as its own selectable entry while remaining connected to ${parentName}, so the catalog preserves the distinction instead of hiding it.`;
-  } else if (packTitles.length) {
-    interestingFact = `${name} appears in ${quotedList(packTitles, 1)}, one of StackRank’s editorial trails for discovering dogs beyond the most familiar names.`;
-  } else {
-    interestingFact = `${name} is one of 1,239 selectable breeds, varieties, crossbreeds, and historical types in StackRank’s VBO-based worldwide dog catalog.`;
-  }
-
-  return { summary: cleanText(summary), interestingFact: cleanText(interestingFact) };
+  // Names, aliases and catalog relationships already have dedicated detail fields.
+  // Leave the optional fact empty until there is a distinct, sourced breed fact.
+  return { summary: cleanText(summary), interestingFact: "" };
 }
 
 export function titleCaseCountry(value) {
@@ -177,7 +158,6 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides }) {
     const parentName = entityById.get(entity?.relationships?.parentId)?.displayName || "";
     const generated = generatedProfileCopy(entity, {
       origins,
-      packTitles: pack.titles,
       parentName,
     });
     const sourceIds = unique([
@@ -221,7 +201,7 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides }) {
 
   return {
     schemaVersion: 1,
-    profileVersion: "dogs-field-guide-2026-09-21.2",
+    profileVersion: "dogs-field-guide-2026-09-22.3",
     sources: [
       { id: "vbo-2026-04-15", name: "Vertebrate Breed Ontology", url: catalog.source.artifactUrl, license: catalog.source.license, retrievedAt: `${catalog.source.retrievedAt}T00:00:00.000Z` },
       { id: "wikidata-dog-breeds-2026-09-21", name: "Wikidata structured dog-breed statements", url: wikidata.source.url, license: wikidata.source.license, retrievedAt: wikidata.retrievedAt },

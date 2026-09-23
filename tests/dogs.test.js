@@ -59,6 +59,10 @@ test("Dog profiles normalize sourced field-guide copy and compact display chips"
   assert.deepEqual(profile.originRegions, ["Germany"]);
   assert.deepEqual(dogProfileChips(profile), ["Giant", "Germany", "Pinscher, Schnauzer & mountain dogs"]);
   assert.equal(normalizeDogProfile({ summary: "too short" }), null);
+  assert.equal(normalizeDogProfile({
+    summary: "An example regional dog type associated with France.",
+    interestingFact: "", sizeBand: "unknown",
+  })?.summary, "An example regional dog type associated with France.", "a brief profile without a separate fact is still usable");
 });
 
 test("Dogs descriptor enables additive account sync and public snapshots without raster export", () => {

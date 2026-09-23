@@ -44,6 +44,18 @@ test("generated Dog copy treats concept classes honestly", () => {
   assert.match(variety.summary, /Example Dog/);
 });
 
+test("brief Dog profiles contain breed facts without editorial process or catalog filler", () => {
+  for (const status of ["canonical", "variety", "crossbreed", "historical"]) {
+    const copy = generatedProfileCopy({ displayName: "Example Dog", status, aliases: ["Other Name"] }, {
+      origins: ["France", "Belgium"], parentName: "Parent Breed", packTitles: ["Example Pack"],
+    });
+    assert.match(copy.summary, /Example Dog/);
+    assert.match(copy.summary, /France and Belgium/);
+    assert.doesNotMatch(copy.summary, /StackRank|catalog|field note|researched|invented|Example Pack/);
+    assert.equal(copy.interestingFact, "", "absence of a distinct fact must not become a filler callout");
+  }
+});
+
 test("profile compiler covers every catalog entity and keeps popularity scoped", () => {
   const catalog = {
     source: { artifactUrl: "https://example.test/vbo.json", license: "CC BY 4.0", retrievedAt: "2026-01-01" },

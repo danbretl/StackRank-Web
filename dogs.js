@@ -82,7 +82,7 @@ import {
   normalizeDogProfile,
   parseDogNameImport,
   parseDogsBackup,
-} from "./lib/dogs.js?v=4";
+} from "./lib/dogs.js?v=5";
 import { buildReviewQueue } from "./lib/review.js?v=1";
 import { createUndoController } from "./lib/undo.js?v=1";
 import {
@@ -104,7 +104,7 @@ const CATALOG_URL = "data/dogs/dog-catalog.json?v=4";
 const PACKS_URL = "data/dogs/packs.json?v=2";
 const RIGHTS_URL = "data/dogs/image-rights.json?v=18";
 const RIGHTS_POLICY_URL = "data/dogs/artwork-license-policy.json?v=1";
-const PROFILES_URL = "data/dogs/breed-profiles.json?v=1";
+const PROFILES_URL = "data/dogs/breed-profiles.json?v=2";
 const GENERATED_ARTWORK_URL = "data/dogs/generated-artwork.json?v=13";
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl";
@@ -1678,7 +1678,8 @@ function openDetail(catalogId) {
   status.textContent = profile?.typeLabel || (entity ? dogStatusLabel(entity.status) : "Saved breed or type");
   const summary = document.createElement("p");
   summary.className = "detail-copy__summary";
-  summary.textContent = profile?.summary || "This field note is still growing. You can rank the breed now and return as more sourced details are added.";
+  summary.textContent = profile?.summary || "";
+  summary.hidden = !profile?.summary;
   const chips = createProfileChips(catalogId, { limit: 2 });
   chips.classList.add("detail-copy__chips");
   const note = document.createElement("p");
@@ -1729,7 +1730,8 @@ function openDetail(catalogId) {
   const factLabel = document.createElement("span");
   factLabel.textContent = "Worth knowing";
   const factCopy = document.createElement("p");
-  factCopy.textContent = profile?.interestingFact || "This catalog preserves alternate, regional, and historical names so uncommon dogs do not disappear from discovery.";
+  factCopy.textContent = profile?.interestingFact || "";
+  factCallout.hidden = !profile?.interestingFact;
   factCallout.append(factLabel, factCopy);
   const image = approvedImageForCatalogId(catalogId, "detail");
   const attribution = document.createElement("p");
@@ -1748,7 +1750,7 @@ function openDetail(catalogId) {
   sourcesCopy.textContent = [
     "Breed identity: Vertebrate Breed Ontology (CC BY 4.0).",
     coverage,
-    profile?.reviewStatus === "editor-reviewed" ? "This field note received an editorial review." : "This field note is built from structured source context and is still being deepened.",
+    profile?.reviewStatus === "editor-reviewed" ? "Individually written breed profile." : "Brief profile based on available name, classification, and origin records. A detailed breed history has not yet been added.",
   ].filter(Boolean).join(" ");
   sources.append(sourcesSummary, sourcesCopy, attribution);
   copy.append(title, status, chips, summary, factCallout, actions, facts, note, sources);

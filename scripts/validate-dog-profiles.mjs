@@ -19,8 +19,9 @@ expected.forEach((id) => { if (!actual.has(id)) errors.push(`Missing profile: ${
 actual.forEach((id) => { if (!expected.has(id)) errors.push(`Unknown profile: ${id}`); });
 
 for (const [id, profile] of Object.entries(artifact.profiles || {})) {
-  if (typeof profile.summary !== "string" || profile.summary.length < 80 || profile.summary.length > 700) errors.push(`${id}: invalid summary length`);
-  if (typeof profile.interestingFact !== "string" || profile.interestingFact.length < 20 || profile.interestingFact.length > 360) errors.push(`${id}: invalid interestingFact length`);
+  if (typeof profile.summary !== "string" || profile.summary.length < 20 || profile.summary.length > 700) errors.push(`${id}: invalid summary length`);
+  if (typeof profile.interestingFact !== "string" || (profile.interestingFact.length > 0 && profile.interestingFact.length < 20) || profile.interestingFact.length > 360) errors.push(`${id}: invalid interestingFact length`);
+  if (/first field note|confident invented|still being deepened|StackRank keeps|selectable (?:entry|breeds)|cartoonish copy/i.test(`${profile.summary} ${profile.interestingFact}`)) errors.push(`${id}: process commentary belongs in source notes`);
   if (unsafe.test(`${profile.summary} ${profile.interestingFact}`)) errors.push(`${id}: unsafe suitability or behavior claim`);
   if (!["toy", "small", "medium", "large", "giant", "varies", "unknown"].includes(profile.sizeBand)) errors.push(`${id}: invalid sizeBand`);
   if (typeof profile.typeLabel !== "string" || !profile.typeLabel.trim() || profile.typeLabel.length > 80) errors.push(`${id}: invalid typeLabel`);

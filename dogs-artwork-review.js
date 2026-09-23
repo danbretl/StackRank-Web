@@ -16,7 +16,7 @@ import {
 const DATA_URLS = {
   manifest: "/data/dogs/generated-artwork.json?v=13",
   catalog: "/data/dogs/dog-catalog.json?v=4",
-  profiles: "/data/dogs/breed-profiles.json?v=1",
+  profiles: "/data/dogs/breed-profiles.json?v=2",
 };
 
 const BATCH_METADATA_URLS = [

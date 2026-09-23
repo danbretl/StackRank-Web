@@ -94,10 +94,15 @@ decisions.
 
 ### Core interactions
 
+The discovery refinement in `dogs-discovery-refinement.md` replaces the oversized search-led hero.
+It adds a public 24-image gallery with filtering and sequential full profiles, makes breed portraits
+the first browsing surface, and adds unobtrusive category switching to both Movies and Dogs.
+Comparisons use full descriptions on desktop and a separate About this dog view on phones.
+
 `dogs.html`, `dogs.js`, and `dogs.css` implement:
 
-- accessible canonical/alias search across all 1,239 identities;
-- first-run education, rotating and resumable packs, browse prompts, and Recently ranked;
+- accessible canonical/alias search and gallery across the 307 completed public identities;
+- compact discovery introduction, four shuffled portraits, Surprise me, rotating/resumable packs, and Recently ranked;
 - exact binary insertion with opening jitter, Undo, Cancel, and origin restoration;
 - Detailed, Photos, and Compact ranking views;
 - safe filters plus mouse, touch, and keyboard reordering;

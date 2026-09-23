@@ -17,9 +17,13 @@ The visual direction is “modern field guide,” not pet-store whimsy: warm bon
 and moss accents, strong black typography, documentary-style landscapes, and generous editorial
 spacing.
 
-The Rank page leads with “Rank the dogs you love,” six varied or resumable packs, and a rotating
-“Meet a dog you may not know” rail. Comparison, ranking, and detail surfaces carry the breed portrait,
-name, concise field note, origin, and family forward so ranking doubles as low-friction learning.
+The September 22 discovery refinement supersedes the original oversized hero. The Rank page
+leads with “Find your kind of dog,” Browse all dogs, Surprise me, and four shuffled portrait
+invitations, followed by Recently ranked and six varied or resumable packs. A smaller search field
+supports people who already know a name. The public gallery browses all completed identities in
+24-image pages with full-profile navigation; ranking is optional. Desktop comparisons show full
+descriptions and supported size/origin facts, while phones use a separate About this dog dialog
+and keep both choices within one viewport. See `dogs-discovery-refinement.md`.
 
 ## Content contract
 

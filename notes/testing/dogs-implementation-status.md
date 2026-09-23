@@ -1,5 +1,29 @@
 # StackRank Dogs implementation status
 
+## September 22 discovery and comparison refinement
+
+Product commit `cd85278c` makes discovery the main Dogs entry point, adds the public
+24-portrait browse gallery, compacts the header/search, repairs settings/Recently ranked styling,
+adds desktop comparison descriptions and mobile profile disclosure, and shares a quiet category
+switcher across Movies and Dogs. Details: [design record](../feature-ideas/dogs-discovery-refinement.md).
+
+Validation passed: full `npm run verify` with 455 Node tests, 24 Deno tests, 69 versioned runtime
+assets, all Movies/Dogs data validators, and 40/40 browser flows
+(`reports/e2e/runs/2026-09-23T052801Z`). The gallery regression passed again after the final
+scroll-restoration refinement (`reports/e2e/runs/2026-09-23T053021Z`).
+In-app desktop and phone screenshots and real interactions were inspected; the automated suite
+also covers exact phone portrait/landscape and iPad geometry. No portrait/profile content,
+database schema, artwork rights gate, or root-route change is included.
+
+Vercel completed the production deployment of `cd85278c`. `npm run test:production` passed
+all 49 checks, including the new discovery/comparison/switcher assets and immutable cache headers.
+Rendered production `/dogs?debug=1` showed the compact header and gallery; opening a breed
+displayed its full portrait/profile with sequential navigation and no console warnings/errors.
+The public cohort remains 307. Runtime versions are `dogs.js?v=48`, `dogs.css?v=8`,
+`dogs-explore.js?v=2`, `dogs-explore.css?v=2`, `dogs-comparison.css?v=3`, and shared
+category-switcher JS/CSS at `v=1`.
+
+
 Status date: **September 22, 2026**
 
 **Latest release — September 22, 2026:** Cohort F01 adds **25 accepted portraits and 25

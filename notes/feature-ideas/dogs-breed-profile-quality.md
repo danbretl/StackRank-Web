@@ -37,6 +37,11 @@ reviewer use the refreshed profile artifact.
 - Individually written copy requires traceable sources; generated portraits and their prompts are
   not evidence for breed history or morphology.
 - Keep the general individual-dog caveat in its shared footnote rather than repeating it in each profile.
+- For condensed UI, author a separate `shortDescription`: one character-led sentence, usually
+  80–150 characters and never more than 180. It must stand alone, preserve identity and calibrated
+  tendencies, and use only claims supported by the full profile’s recorded sources. Do not derive
+  it by slicing or clipping the full summary. Detailed ranking displays this sentence completely;
+  full details and desktop comparisons keep the complete `summary`.
 - The optional fact should add a distinct nonvisual insight; leave it empty when it would repeat the
   summary. Recognition dates and name etymologies should not displace richer character information.
 - Apply this contract to the main app and artwork reviewer. Image prompts still need accurate
@@ -49,11 +54,19 @@ Its installed entry point is `/Users/danbretl/.codex/skills/stackrank-dog-profil
 this document remains the versioned writing contract for every collaborator.
 
 Edit the exact VBO identity in `data/dogs/profile-overrides.json` or the assigned
-`data/dogs/profile-refresh-{a,b,c}.json`, preserving unrelated fields. Keep `sources` records with
+`data/dogs/profile-refresh-{a,b,c,f}.json`, preserving unrelated fields. Keep `sources` records with
 HTTPS URL, title, and claim-specific evidence and accurate review dates. Build the compiled artifact
 with `npm run build:dogs:profiles`; do not hand-edit it. Update dataset/entry-point cache versions,
 run `npm run verify`, and inspect both rendered detail surfaces. During editorial review, read every
 opening and compare nearby entries for repeated adjective lists or interchangeable prose.
+
+The initial 307 short descriptions live in the additive
+`data/dogs/profile-short-descriptions.json` (`schemaVersion: 1`, `reviewedAt`, and
+`descriptions` keyed by catalog ID). New profile-refresh entries should carry their own reviewed
+`shortDescription`; that value takes precedence over the additive source. The compiler rejects
+unknown identities and invalid lengths, and the profile validator requires approved illustrated
+profiles to have short copy. Keep image/full-profile preparation in its assigned worktree and
+coordinate compiled data, builder and cache versions before integrating concurrent releases.
 
 ## Verification
 
@@ -144,3 +157,13 @@ is explicitly loaded by the builder; compiled profile version is `.6`, shared da
 The main site hides the remaining 932 brief entries until both their portrait and description pass
 review. Research limitations remain in expandable notes. Exact evidence, calibration, review and
 production receipts are in `notes/testing/dogs-portrait-cohort-f.md`.
+
+## Condensed ranking descriptions
+
+Product commit `610c2eea` adds individually authored short descriptions for all 307 currently
+illustrated breeds (89–142
+characters), based on their approved full profiles and existing claim evidence. The compiled
+artifact is `dogs-field-guide-2026-09-22.7`, dataset cache version 6. Existing full summaries and
+all other profile fields/sources are unchanged. Both the main app and artwork reviewer load the
+updated artifact, while full detail content stays intact. New portrait/profile batches must include
+their own reviewed short copy under the contract above.

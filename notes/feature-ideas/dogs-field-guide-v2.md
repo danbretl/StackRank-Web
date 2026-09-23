@@ -18,14 +18,17 @@ and moss accents, strong black typography, documentary-style landscapes, and gen
 spacing.
 
 The September 22 discovery refinement and follow-up keep ranking primary while replacing the
-oversized hero. “A few dogs to meet” groups a wide search row, Surprise me, a highlighted Browse
-all dogs button and four portrait invitations. Recently ranked and six varied or resumable packs
-follow. The public gallery browses completed identities in 24-image pages with full-profile
-navigation. Pack previews use pictures/names; See all dogs opens the full pack, and ranking from
-that view returns to its scroll position. Desktop comparisons show full descriptions and supported
-size/origin facts. The whole card chooses a dog except for About this dog; Escape dismisses About
-without canceling the comparison. Phones keep both choices in one viewport and disclose prose in
-About. Profile ranking actions are visually primary. See `dogs-discovery-refinement.md`.
+oversized hero. “A few dogs to meet” groups a wide search row, Surprise me, Shuffle dogs, a
+highlighted Browse all dogs button and four portraits that begin ranking directly. Recently
+ranked and six varied or resumable packs follow. The public gallery browses completed identities
+in 24-image pages with full-profile navigation. Pack previews use pictures/names; See all dogs
+opens the full pack, and ranking from that view returns to its scroll position. Unranked dogs
+precede grayscale ranked dogs. Desktop comparisons show full descriptions and supported size/origin
+facts. The whole card chooses a dog except for its image-corner info control; Escape dismisses
+About without canceling the comparison. Phones keep both choices in one viewport and disclose
+prose in About. Detailed ranking uses authored short descriptions without clipping; Photos shows
+portraits and names, and Compact keeps small thumbnails in a dense list. Profile ranking actions
+are visually primary. See `dogs-discovery-refinement.md`.
 
 ## Content contract
 
@@ -36,7 +39,7 @@ but hidden until both image and description pass review. The writing contract in
 
 Supporting profile fields:
 
-- a short, bounded introduction;
+- a full character-first summary and a separately authored short description for condensed UI;
 - one interesting fact or honest catalog-context note;
 - a human-readable dog-family label;
 - provenance and a review tier;

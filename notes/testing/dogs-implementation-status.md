@@ -1,5 +1,46 @@
 # StackRank Dogs implementation status
 
+## September 22 direct ranking and compact views
+
+Product commit `610c2eea` makes unranked discovery portraits and Surprise me start ranking directly;
+All dogs keeps opening profiles. The discovery toolbar groups search, Surprise me and Shuffle dogs
+(full-width search above the buttons on phones). The pack section is now titled Dog packs. Full
+packs show unranked dogs before visibly grayscale/dimmed ranked dogs.
+
+Comparison cards choose a dog everywhere except a small image-corner info control, with a 44px
+hit target. The old footer buttons are gone. Escape closes About and restores the active pair;
+phone portrait and landscape keep both choices and useful portrait sizes inside one viewport.
+
+All 307 approved profiles have authored `shortDescription` values (89–142 characters). Detailed
+ranking displays those complete sentences without clipping; Photos contains portraits/names,
+and Compact keeps small thumbnails in a dense list. Full summaries and other profile fields and
+sources remain unchanged. Keyboard Move controls retain focus through repeated arrow presses.
+The source/model and future-batch writing contract are documented in `dogs-breed-profile-quality.md`.
+
+Full `npm run verify` passed: 455 Node tests, 24 Deno tests, 69 cache-checked runtime assets,
+all catalog/data validators and 41/41 Chrome flows. Reports: `reports/runs/2026-09-23T064353Z`
+and `reports/e2e/runs/2026-09-23T064410Z`. Coverage includes real discovery/Surprise clicks,
+All dogs detail behavior, ranked-last/grayscale pack state, profile disclosure and Escape,
+no clipped short descriptions, Photos/Compact density, and repeated keyboard moves in all views.
+Desktop, exact phone portrait/landscape, and iPad layouts were checked; mobile screenshots and
+the grouped mobile discovery controls were visually inspected.
+
+Runtime versions: `dogs.js?v=50`, `dogs.css?v=10`, `dogs-explore.js?v=4`,
+`dogs-explore.css?v=4`, `dogs-comparison.css?v=5`, `lib/dogs.js?v=7`,
+`breed-profiles.json?v=6` (profile version `.7`), and `dogs-artwork-review.js?v=9`.
+The shared category switcher remains at `v=1`. No image, rights-ledger, database, persistence,
+or public-completion-gate changes are part of this release.
+
+Vercel completed the deployment of `610c2eea`; all 49 `npm run test:production` checks passed.
+Rendered production `/dogs?debug=1` confirmed the updated toolbar and Dog packs title, an authored
+short description in Detailed ranking, and the unchanged full Great Dane profile with its portrait
+and source disclosure. No console warnings/errors were recorded, and no ranking data was changed.
+Production log: `/tmp/stackrank-dogs-ui-production.log`.
+
+Concurrent portrait/profile preparation remains in the separate artwork worktree. That task
+agreed to add reviewed short descriptions directly to new profile-refresh entries and integrate
+its compiled artifact/cache changes only after this UI release.
+
 ## September 22 ranking-priority feedback
 
 Product commit `d989cb7c` restores whole-card comparison choices, keeping About this dog as a

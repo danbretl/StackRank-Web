@@ -95,10 +95,12 @@ decisions.
 ### Core interactions
 
 The discovery refinement in `dogs-discovery-refinement.md` replaces the oversized hero while
-keeping ranking primary. Search spans the “A few dogs to meet” section, beside Surprise me;
-Browse all dogs is a highlighted section action. Full pack details show every eligible dog with
-portrait/name ranking and Rank next, preserving the pack after completion/cancel. Whole comparison
-cards choose a dog; About this dog is separate, and Escape from About returns to the same pair.
+keeping ranking primary. Search spans the “A few dogs to meet” section, beside Surprise me and
+Shuffle dogs; both discovery portraits and Surprise me rank directly. Browse all dogs is a
+highlighted section action whose portraits open details. Full pack details show every eligible dog with
+portrait/name ranking and Rank next, preserving the pack after completion/cancel. Unranked dogs
+come first, followed by grayscale ranked dogs. Whole comparison cards choose a dog; the small
+image-corner info button opens About, and Escape from About returns to the same pair.
 Rank this breed is visually primary in profiles. Movies and Dogs share a quiet brand dropdown.
 The redundant profile disclaimer and user-facing “handled” wording are removed.
 
@@ -107,7 +109,8 @@ The redundant profile disclaimer and user-facing “handled” wording are remov
 - accessible canonical/alias search and gallery across the 307 completed public identities;
 - compact discovery introduction, four shuffled portraits, Surprise me, rotating/resumable packs, and Recently ranked;
 - exact binary insertion with opening jitter, Undo, Cancel, and origin restoration;
-- Detailed, Photos, and Compact ranking views;
+- Detailed ranking with authored short descriptions, Photos with portraits/names, and Compact
+  with small thumbnails; repeated keyboard moves retain focus in all three views;
 - safe filters plus mouse, touch, and keyboard reordering;
 - adjacent-pair Review order with session undo;
 - image-forward comparisons, ranking rows, discovery cards, and breed details;

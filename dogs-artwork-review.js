@@ -47,7 +47,11 @@ const dom = {
   pageStatus: document.querySelector("#page-status"),
   export: document.querySelector("#export-review"),
   dialog: document.querySelector("#artwork-dialog"),
+  dialogFrame: document.querySelector(".dialog-frame"),
   dialogClose: document.querySelector("#dialog-close"),
+  dialogPrevious: document.querySelector("#dialog-previous"),
+  dialogNext: document.querySelector("#dialog-next"),
+  dialogPosition: document.querySelector("#dialog-position"),
   dialogTitle: document.querySelector("#dialog-title"),
   dialogCatalogId: document.querySelector("#dialog-catalog-id"),
   dialogImage: document.querySelector("#dialog-image"),
@@ -73,6 +77,7 @@ const state = {
   flaggedOnly: false,
   page: 1,
   activeAssetId: null,
+  dialogAssetIds: [],
   dialogRequest: 0,
   drafts: new Map(),
   opener: null,
@@ -212,13 +217,16 @@ function createCard(asset) {
   return article;
 }
 
-function render() {
-  const filtered = filterArtworkAssets(state.assets, {
+function filteredAssets() {
+  return filterArtworkAssets(state.assets, {
     query: state.query,
     flaggedOnly: state.flaggedOnly,
     reviews: state.reviews.reviews,
   });
-  const page = paginateArtworkAssets(filtered, state.page, ARTWORK_REVIEW_PAGE_SIZE);
+}
+
+function render() {
+  const page = paginateArtworkAssets(filteredAssets(), state.page, ARTWORK_REVIEW_PAGE_SIZE);
   state.page = page.page;
   dom.gallery.replaceChildren(...page.items.map(createCard));
   dom.gallery.setAttribute("aria-busy", "false");
@@ -407,11 +415,17 @@ async function openArtwork(assetId, { focusReview = false, opener = null } = {})
   const asset = state.assets.find((candidate) => candidate.assetId === assetId);
   if (!asset) return;
   captureActiveDraft();
+  // Keep this review sequence stable even when a flag is cleared in the dialog.
+  if (!dom.dialog.open) state.dialogAssetIds = filteredAssets().map((item) => item.assetId);
   const requestId = ++state.dialogRequest;
   state.activeAssetId = assetId;
   if (opener) state.opener = opener;
   dom.dialogTitle.textContent = asset.name;
   dom.dialogCatalogId.textContent = asset.catalogId;
+  const position = state.dialogAssetIds.indexOf(assetId);
+  dom.dialogPosition.textContent = `${position + 1} of ${state.dialogAssetIds.length}`;
+  dom.dialogPrevious.disabled = position <= 0;
+  dom.dialogNext.disabled = position < 0 || position >= state.dialogAssetIds.length - 1;
   const detailVariant = preferredArtworkVariant(asset, "detail");
   dom.dialogImage.src = rootUrl(detailVariant?.url);
   dom.dialogImage.alt = `Generated portrait of ${asset.name}`;
@@ -430,6 +444,7 @@ async function openArtwork(assetId, { focusReview = false, opener = null } = {})
     ? "This flag belongs to an older generated master. Review and save again to refresh it."
     : "";
   if (!dom.dialog.open) dom.dialog.showModal();
+  dom.dialogFrame.scrollTop = 0;
   (focusReview ? dom.concernOptions.querySelector("input") : dom.dialogClose)?.focus();
 
   try {
@@ -451,9 +466,18 @@ async function openArtwork(assetId, { focusReview = false, opener = null } = {})
 
 function closeDialog() {
   captureActiveDraft();
+  const position = filteredAssets().findIndex((asset) => asset.assetId === state.activeAssetId);
+  if (position >= 0) {
+    const page = Math.floor(position / ARTWORK_REVIEW_PAGE_SIZE) + 1;
+    if (page !== state.page) {
+      state.page = page;
+      render();
+    }
+  }
   const opener = state.opener;
   state.dialogRequest += 1;
   state.activeAssetId = null;
+  state.dialogAssetIds = [];
   if (dom.dialog.open) dom.dialog.close();
   dom.dialogImage.removeAttribute("src");
   requestAnimationFrame(() => {
@@ -462,6 +486,24 @@ function closeDialog() {
       element.dataset.reviewAssetId === opener?.assetId || element.dataset.assetId === opener?.assetId);
     (target || dom.search || dom.filter)?.focus();
   });
+}
+
+function moveArtwork(direction) {
+  if (!dom.dialog.open) return;
+  const index = state.dialogAssetIds.indexOf(state.activeAssetId);
+  const assetId = state.dialogAssetIds[index + direction];
+  if (index < 0 || !assetId) return;
+  openArtwork(assetId, { opener: { assetId, kind: "open" } });
+}
+
+function movePage(direction) {
+  const control = direction < 0 ? dom.previous : dom.next;
+  if (control.disabled) return;
+  state.page += direction;
+  render();
+  // Rendering replaces focused cards, so give the new page a reliable keyboard target.
+  dom.gallery.querySelector("[data-asset-id]")?.focus({ preventScroll: true });
+  dom.gallery.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function activeAsset() {
@@ -534,15 +576,19 @@ dom.filter.addEventListener("change", () => {
   state.page = 1;
   render();
 });
-dom.previous.addEventListener("click", () => {
-  state.page -= 1;
-  render();
-  dom.gallery.scrollIntoView({ behavior: "smooth", block: "start" });
-});
-dom.next.addEventListener("click", () => {
-  state.page += 1;
-  render();
-  dom.gallery.scrollIntoView({ behavior: "smooth", block: "start" });
+dom.previous.addEventListener("click", () => movePage(-1));
+dom.next.addEventListener("click", () => movePage(1));
+dom.dialogPrevious.addEventListener("click", () => moveArtwork(-1));
+dom.dialogNext.addEventListener("click", () => moveArtwork(1));
+document.addEventListener("keydown", (event) => {
+  if (event.defaultPrevented || event.isComposing || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+  if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+  const field = event.target.closest("input, textarea, select");
+  if ((field && field.type !== "checkbox") || event.target.isContentEditable) return;
+  event.preventDefault();
+  const direction = event.key === "ArrowLeft" ? -1 : 1;
+  if (dom.dialog.open) moveArtwork(direction);
+  else movePage(direction);
 });
 dom.dialogClose.addEventListener("click", closeDialog);
 dom.dialog.addEventListener("cancel", (event) => {

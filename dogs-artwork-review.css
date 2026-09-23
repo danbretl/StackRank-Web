@@ -227,11 +227,18 @@ textarea:focus-visible {
   backdrop-filter: blur(12px);
 }
 .dialog-header h2 { margin: 0; font-size: clamp(1.5rem, 2.5vw, 2.4rem); letter-spacing: -0.045em; }
+.dialog-header > div:first-child { min-width: 0; }
 .dialog-header .eyebrow { margin-bottom: 3px; }
+.dialog-controls { display: grid; grid-template-columns: 1fr auto; gap: 4px 14px; flex-shrink: 0; align-items: center; }
+.dialog-navigation { display: flex; align-items: center; gap: 10px; }
+.dialog-navigation span { min-width: 68px; text-align: center; font-size: .8rem; font-variant-numeric: tabular-nums; }
+.keyboard-hint { color: var(--ink-soft); text-align: center; font-size: .74rem; }
+.dialog-controls .keyboard-hint { grid-column: 1 / -1; }
 .icon-button { width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--surface); cursor: pointer; font-size: 2rem; line-height: 1; }
+.icon-button:disabled { cursor: not-allowed; opacity: .35; }
 .dialog-layout { display: grid; grid-template-columns: minmax(0, 1.22fr) minmax(380px, .78fr); }
-.dialog-image-frame { position: sticky; top: 81px; align-self: start; margin: 0; padding: 22px; }
-.dialog-image-frame img { display: block; width: 100%; max-height: calc(100vh - 155px); aspect-ratio: 3/2; object-fit: contain; border-radius: 13px; background: #ded8cc; }
+.dialog-image-frame { position: sticky; top: 104px; align-self: start; margin: 0; padding: 22px; }
+.dialog-image-frame img { display: block; width: 100%; max-height: calc(100vh - 178px); aspect-ratio: 3/2; object-fit: contain; border-radius: 13px; background: #ded8cc; }
 .dialog-image-frame figcaption { margin-top: 8px; color: var(--ink-soft); font-size: 0.74rem; }
 .dialog-content { display: grid; align-content: start; gap: 18px; padding: 22px 22px 44px 0; }
 .dialog-content > section,
@@ -304,7 +311,10 @@ textarea:focus-visible {
   .artwork-card__review { width: calc(100% - 24px); margin: 0 12px 12px; font-size: 0.76rem; }
   .artwork-dialog { width: 100vw; max-height: 100dvh; height: 100dvh; border: 0; border-radius: 0; }
   .dialog-frame { max-height: 100dvh; }
-  .dialog-header { padding: 14px; }
+  .dialog-header { padding: 14px; flex-wrap: wrap; gap: 10px; }
+  .dialog-header > div:first-child { flex: 1 1 100%; }
+  .dialog-controls { width: 100%; }
+  .dialog-navigation { justify-content: start; }
   .dialog-image-frame { padding: 14px 14px 0; }
   .dialog-content { padding: 14px 14px 36px; }
 }

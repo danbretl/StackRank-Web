@@ -15,7 +15,7 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="/dogs-artwork-review.css?v=1" />
+    <link rel="stylesheet" href="/dogs-artwork-review.css?v=2" />
   </head>
   <body>
     <header class="review-header">
@@ -72,6 +72,7 @@
         <p>Adjust the breed search or review-status filter.</p>
       </div>
 
+      <p class="keyboard-hint">Use ← → to change pages. Open a portrait to browse images with the same keys.</p>
       <nav class="pagination" aria-label="Artwork pages">
         <button id="previous-page" class="button" type="button">Previous</button>
         <span id="page-status">Page 1 of 1</span>
@@ -86,7 +87,15 @@
             <p id="dialog-catalog-id" class="eyebrow"></p>
             <h2 id="dialog-title"></h2>
           </div>
-          <button id="dialog-close" class="icon-button" type="button" aria-label="Close artwork details">×</button>
+          <div class="dialog-controls">
+            <nav class="dialog-navigation" aria-label="Portrait navigation">
+              <button id="dialog-previous" class="icon-button" type="button" aria-label="Previous portrait" aria-keyshortcuts="ArrowLeft">←</button>
+              <span id="dialog-position" role="status" aria-live="polite"></span>
+              <button id="dialog-next" class="icon-button" type="button" aria-label="Next portrait" aria-keyshortcuts="ArrowRight">→</button>
+            </nav>
+            <button id="dialog-close" class="icon-button" type="button" aria-label="Close artwork details" aria-keyshortcuts="Escape" title="Close (Esc)">×</button>
+            <span class="keyboard-hint">← → Browse · Esc Close</span>
+          </div>
         </header>
         <div class="dialog-layout">
           <figure class="dialog-image-frame">
@@ -134,6 +143,6 @@
       </div>
     </dialog>
 
-    <script type="module" src="/dogs-artwork-review.js?v=6"></script>
+    <script type="module" src="/dogs-artwork-review.js?v=7"></script>
   </body>
 </html>

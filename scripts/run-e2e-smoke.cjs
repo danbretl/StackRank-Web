@@ -11390,6 +11390,11 @@ const testDogsArtworkReview = async ({ baseUrl }) => {
   ).assets.filter((asset) => asset.uiDisplayAllowed === true).length;
   const rankingSentinel = JSON.stringify({ sentinel: "artwork-review-isolation" });
   const reviewNote = "E2E review note: inspect the far hind paw.";
+  const pressReviewKey = async (key, code, modifiers = 0) => {
+    for (const type of ["keyDown", "keyUp"]) {
+      await page.send("Input.dispatchKeyEvent", { type, key, code: key, windowsVirtualKeyCode: code, modifiers });
+    }
+  };
   try {
     await page.send("Page.navigate", { url: `${baseUrl}/dogs/artwork-review?e2e=artwork-review` });
     await waitFor(
@@ -11426,6 +11431,96 @@ const testDogsArtworkReview = async ({ baseUrl }) => {
     if (!secondPageFirst || secondPageFirst === desktopInitial.firstAssetId) {
       throw new Error(`Artwork pagination did not advance: ${JSON.stringify({ desktopInitial, secondPageFirst })}`);
     }
+
+    await pressReviewKey("ArrowLeft", 37);
+    await waitFor(page, `document.querySelector('#page-status')?.textContent.startsWith('Page 1 of')`, 3000);
+    const lastFirstPage = await page.evaluate(`(() => {
+      const card = [...document.querySelectorAll('[data-asset-id]')].at(-1);
+      const id = card.dataset.assetId;
+      card.click();
+      return id;
+    })()`);
+    await waitFor(page, `document.querySelector('#artwork-dialog')?.open`, 3000);
+    await page.evaluate(`(() => {
+      const note = document.querySelector('#concern-note');
+      note.value = 'Unsaved navigation draft';
+      note.focus();
+      note.setSelectionRange(7, 7);
+      document.querySelector('#concern-options input[value="scene"]').checked = true;
+      return true;
+    })()`);
+    await pressReviewKey("ArrowRight", 39);
+    const editingArrow = await page.evaluate(`({
+      image: document.querySelector('#dialog-image')?.src,
+      position: document.querySelector('#dialog-position')?.textContent,
+      caret: document.querySelector('#concern-note')?.selectionStart
+    })`);
+    if (!editingArrow.position.startsWith('24 of ') || editingArrow.caret !== 8) {
+      throw new Error(`Artwork shortcut interrupted note editing: ${JSON.stringify(editingArrow)}`);
+    }
+    await page.evaluate(`document.querySelector('#dialog-close').focus(); true;`);
+    await pressReviewKey("ArrowRight", 39, 2);
+    if (await page.evaluate(`document.querySelector('#dialog-position').textContent`) !== editingArrow.position) {
+      throw new Error("Modified arrow shortcut navigated artwork");
+    }
+    await pressReviewKey("ArrowRight", 39);
+    await waitFor(page, `document.querySelector('#dialog-position')?.textContent.startsWith('25 of ')`, 3000);
+    const crossedPage = await page.evaluate(`({
+      record: document.querySelector('#generation-record')?.textContent,
+      note: document.querySelector('#concern-note')?.value,
+      scene: document.querySelector('#concern-options input[value="scene"]')?.checked,
+      scrollTop: document.querySelector('.dialog-frame')?.scrollTop
+    })`);
+    if (!crossedPage.record.includes(secondPageFirst) || crossedPage.note || crossedPage.scene || crossedPage.scrollTop > 1) {
+      throw new Error(`Artwork navigation mixed portraits or drafts: ${JSON.stringify(crossedPage)}`);
+    }
+    await pressReviewKey("ArrowLeft", 37);
+    const restoredDraft = await page.evaluate(`({
+      note: document.querySelector('#concern-note')?.value,
+      scene: document.querySelector('#concern-options input[value="scene"]')?.checked,
+      record: document.querySelector('#generation-record')?.textContent
+    })`);
+    if (restoredDraft.note !== 'Unsaved navigation draft' || !restoredDraft.scene || !restoredDraft.record.includes(lastFirstPage)) {
+      throw new Error(`Artwork navigation lost a draft: ${JSON.stringify(restoredDraft)}`);
+    }
+    await page.evaluate(`document.querySelector('#concern-options input[value="scene"]').focus(); true;`);
+    await pressReviewKey("ArrowRight", 39);
+    await pressReviewKey("Escape", 27);
+    await waitFor(page, `!document.querySelector('#artwork-dialog')?.open && document.activeElement?.dataset.assetId === ${JSON.stringify(secondPageFirst)}`, 3000);
+    if (!(await page.evaluate(`document.querySelector('#page-status').textContent`)).startsWith('Page 2 of')) {
+      throw new Error("Closing navigated artwork did not reveal its gallery page");
+    }
+    await page.evaluate(`document.querySelector('#artwork-search').focus(); true;`);
+    await pressReviewKey("ArrowLeft", 37);
+    if (!(await page.evaluate(`document.querySelector('#page-status').textContent`)).startsWith('Page 2 of')) {
+      throw new Error("Gallery shortcut interrupted search editing");
+    }
+
+    await page.evaluate(`(() => {
+      const input = document.querySelector('#artwork-search');
+      input.value = 'retriever';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      return true;
+    })()`);
+    const filteredPortraits = await page.evaluate(`(() => {
+      const cards = [...document.querySelectorAll('[data-asset-id]')];
+      const ids = cards.map(card => card.dataset.assetId);
+      cards[0].click();
+      return ids;
+    })()`);
+    await pressReviewKey("ArrowLeft", 37);
+    if (!(await page.evaluate(`document.querySelector('#dialog-previous').disabled`))) {
+      throw new Error("First filtered portrait should not wrap backward");
+    }
+    await pressReviewKey("ArrowRight", 39);
+    if (filteredPortraits.length < 2 || !(await page.evaluate(`document.querySelector('#generation-record').textContent`)).includes(filteredPortraits[1])) {
+      throw new Error("Artwork arrows did not follow the filtered portrait order");
+    }
+    await page.evaluate(`document.querySelector('#dialog-previous').click(); true;`);
+    if (!(await page.evaluate(`document.querySelector('#generation-record').textContent`)).includes(filteredPortraits[0])) {
+      throw new Error("Artwork previous button did not match keyboard navigation");
+    }
+    await pressReviewKey("Escape", 27);
 
     await page.evaluate(`(() => {
       const input = document.querySelector('#artwork-search');
@@ -11466,6 +11561,10 @@ const testDogsArtworkReview = async ({ baseUrl }) => {
       throw new Error(`Artwork detail metadata or large image is wrong: ${JSON.stringify(detail)}`);
     }
     const desktopScreenshot = await page.screenshot("dogs-artwork-review-detail-desktop.png");
+    await pressReviewKey("ArrowRight", 39);
+    if (!(await page.evaluate(`document.querySelector('#dialog-next').disabled && document.querySelector('#dialog-previous').disabled && document.querySelector('#dialog-title').textContent === 'Broholmer'`))) {
+      throw new Error("Single-result artwork navigation should stop at both ends");
+    }
 
     await page.evaluate(`(() => {
       const anatomy = document.querySelector('#concern-options input[value="anatomy"]');
@@ -11574,11 +11673,24 @@ const testDogsArtworkReview = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('#next-page')?.click(); true;`);
     await waitFor(page, `document.querySelector('#page-status')?.textContent.startsWith('Page 2 of')`, 5000);
     const phoneScreenshot = await page.screenshot("dogs-artwork-review-phone-page-2.png");
+    await page.evaluate(`document.querySelector('[data-asset-id]').click(); true;`);
+    await waitFor(page, `document.querySelector('#artwork-dialog')?.open && document.querySelector('#dialog-image')?.naturalWidth >= 900`, 5000);
+    const phoneDialog = await page.evaluate(`({
+      overflow: document.querySelector('.dialog-frame').scrollWidth - document.querySelector('.dialog-frame').clientWidth,
+      nextVisible: document.querySelector('#dialog-next').getBoundingClientRect().right <= innerWidth,
+      closeVisible: document.querySelector('#dialog-close').getBoundingClientRect().right <= innerWidth,
+      before: document.querySelector('#dialog-position').textContent
+    })`);
+    await page.evaluate(`document.querySelector('#dialog-next').click(); true;`);
+    if (phoneDialog.overflow > 1 || !phoneDialog.nextVisible || !phoneDialog.closeVisible || phoneDialog.before === await page.evaluate(`document.querySelector('#dialog-position').textContent`)) {
+      throw new Error(`Artwork phone navigation layout or action is wrong: ${JSON.stringify(phoneDialog)}`);
+    }
+    const phoneDialogScreenshot = await page.screenshot("dogs-artwork-review-navigation-phone.png");
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Artwork review browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { desktopInitial, detail, focusAfterEscape, persisted, exported, phone, phoneProfile },
-      screenshots: [desktopScreenshot, phoneScreenshot],
+      details: { desktopInitial, detail, focusAfterEscape, persisted, exported, phone, phoneProfile, editingArrow, crossedPage, restoredDraft, filteredPortraits, phoneDialog },
+      screenshots: [desktopScreenshot, phoneScreenshot, phoneDialogScreenshot],
     };
   } finally {
     await page.close();

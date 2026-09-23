@@ -7,7 +7,7 @@
 ## Status at a glance
 
 **Phases 0–6 plus persistence hardening complete; Phase 7 has a growing
-browser-smoke slice.** `npm test` runs 188 fast unit/structural tests.
+browser-smoke slice.** `npm test` runs 453 unit/structural tests (verified September 22, 2026).
 The entire pure logic core is
 extracted into `lib/` and covered: ZIP writer, text-fit/SVG-text, formatters,
 movie identity + merge, persistence payload parsing + timestamp/no-loss merge
@@ -19,7 +19,7 @@ full-screen ranking filter/navigation/2-D reorder math, the binary-insertion
 ranking search, the pure Share SVG composition layer, and backup/title-import
 parsing + validation. Product telemetry tests cover production/DNT gating,
 ephemeral payload validation, property allowlisting, and count bucketing.
-`npm run test:e2e` now drives 20 headless-Chrome flows against the real static
+`npm run test:e2e` now drives 39 headless-Chrome flows against the real static
 app. Coverage includes localStorage hydration; queue ranking and comparison
 undo/cancel; review swap/Escape/session undo; keyboard autocomplete; exact
 portrait and landscape comparison viewports; Share Studio preview and real
@@ -27,8 +27,12 @@ PNG/ZIP downloads; backup download/restore and title import; a mocked signed-in
 Supabase load/no-loss merge/write round trip; async suggestion reasons;
 full-screen interactions including 2-D drag; and a mobile pack-layout
 regression. `npm run verify` runs both suites plus syntax/type checks.
-The shared Edge Function publishable-key gate also has three focused Deno tests
-covering configuration parsing and exact-key authorization.
+The Edge Function suite has 24 Deno tests across provider requests, HTTP guards, mood parsing,
+publishable-key authorization and rate limits. Current Dogs coverage includes completed-pair
+visibility, preservation of hidden saved entries through comparisons/reorder/review/import/backup,
+profile and artwork agreement on desktop/phone, and artwork-review navigation/flags/drafts.
+F01 release reports: `reports/runs/2026-09-23T045034Z` and
+`reports/e2e/runs/2026-09-23T045053Z`.
 
 Modules: `lib/{zip,text,format,movie,persistence,pack-progress,insights,packs,suggestions,fullscreen-ranking,share-options,share-export,share-svg,ranking,review,undo,backup,telemetry,ftue,taste,auth}.js`.
 Tests: matching focused files under `tests/`.

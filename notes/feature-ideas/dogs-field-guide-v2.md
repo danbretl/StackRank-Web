@@ -2,8 +2,11 @@
 
 Status: implemented and pushed September 22, 2026 in `254810ae`.
 
-Portrait expansion status: second 24-breed cohort complete and verified locally on September 22,
-2026; not yet committed, pushed, or deployed.
+Current portrait expansion: F01 is published in `19221e09`, bringing the field guide
+to **307 complete portrait/profile pairs**. The public app now shows completed pairs only; the full
+1,239-record source catalog and saved hidden entries remain intact for future completion. See
+`notes/testing/dogs-portrait-cohort-f.md` for release evidence and the explicit stop/handoff.
+The original 28/52 counts below describe the design's historical launch stages.
 
 ## Product direction
 
@@ -20,7 +23,12 @@ name, concise field note, origin, and family forward so ranking doubles as low-f
 
 ## Content contract
 
-Every selectable catalog identity has:
+Every currently visible identity has an approved generated portrait, an independently researched
+personality-first description, and the supporting fields below. Unfinished source records are retained
+but hidden until both image and description pass review. The writing contract in
+`dogs-breed-profile-quality.md` supersedes the original brief-profile approach.
+
+Supporting profile fields:
 
 - a short, bounded introduction;
 - one interesting fact or honest catalog-context note;

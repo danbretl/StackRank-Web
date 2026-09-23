@@ -135,3 +135,12 @@ payload reports `.5` with 282 developed profiles. A rendered production Chinese 
 panel leads with affection/playfulness, high-perching habits and engagement in agility, with the
 distinct historical fact below it. Production verification log:
 `/tmp/stackrank-character-profiles-production.log`.
+
+## Cohort F01 continuation
+
+`19221e09` adds 25 individually researched, independently reviewed descriptions,
+bringing developed coverage to **307**. Existing 282 summaries remain unchanged. `profile-refresh-f.json`
+is explicitly loaded by the builder; compiled profile version is `.6`, shared data cache version 5.
+The main site hides the remaining 932 brief entries until both their portrait and description pass
+review. Research limitations remain in expandable notes. Exact evidence, calibration, review and
+production receipts are in `notes/testing/dogs-portrait-cohort-f.md`.

@@ -16,9 +16,11 @@ active next-category initiative** and now has a comprehensive field-guide produc
 generated VBO catalog, 1,239 breed profiles, editorial packs, ranking/lists/backup/export flows, and
 responsive browser coverage.
 The additive production schema and Storage bucket have been applied and passed real two-user/RLS/
-snapshot/Storage probes. 282 art-directed generated breed portraits cover the promoted cohort
-plus 254 additional canonical breed portraits in normal UI. The rights ledger
-contains 28 licensed-photo fallback rows plus 254 separately gated morphology-reference rows. Dogs
+snapshot/Storage probes. 307 art-directed generated breed portraits and individually researched descriptions cover the
+promoted cohort plus 279 additional breeds and varieties in normal UI. The main Dogs site temporarily
+shows only completed portrait/profile pairs; all 1,239 source records and saved hidden entries remain
+intact, and each identity returns automatically when both completion gates pass. The rights ledger
+contains 28 licensed-photo fallback rows plus 279 separately gated morphology-reference rows. Dogs
 account sync and public snapshot code is enabled, while public-snapshot artwork and raster export
 remain purpose-denied. The integrated release shipped to production on July 22, 2026 in commit
 `31267389`; the field-guide redesign shipped to production in commit `254810ae`. `/dogs` is public while the
@@ -30,6 +32,14 @@ The preserved 24-portrait batch D and the 230 accepted portraits of expansion co
 published through `635e54c7`, bringing production to **282 generated portraits**. The frozen 250-identity
 cohort has been fully reviewed, with 20 reference holds. Counts, deployment and verification evidence live in
 `notes/testing/dogs-portrait-cohort-e.md` and `data/dogs/portrait-cohort-e.json`.
+
+Cohort F01 adds 25 completed pairs in `19221e09`, bringing production to **307**.
+Dan then requested stopping around 300 total; no further generation is authorized by this handoff.
+The 932 unfinished identities are hidden on the main Dogs site, not deleted from the catalog or saved
+state. F retains its frozen 100-primary selection for future use, 17 unaccepted F02 native outputs,
+three new reference holds and three append-only reserve activations. Resume from
+`notes/testing/dogs-portrait-cohort-f.md`, `data/dogs/portrait-cohort-f.json` and
+`data/dogs/portrait-cohort-f-staging.json`; leave E's frozen evidence unchanged.
 
 The unlinked, noindex internal review page at `/dogs/artwork-review` provides 24-image pagination,
 search, 960px detail views, generation provenance, local concern flags/notes and JSON export.
@@ -117,15 +127,16 @@ Plain **static single-page app — no build system, no framework, no bundler, no
 
 ## Feature map (what exists)
 
-- **StackRank Dogs:** `/dogs` searches 1,239 selectable VBO-derived breeds/types through canonical
+- **StackRank Dogs:** `/dogs` currently searches 307 completed VBO-derived breeds/types through canonical
   names and aliases, then uses the shared binary-insertion mechanics with undo/cancel. It includes
-  Recently ranked, 46 validated editorial packs, Detailed/Photos/Compact ranking views, safe facets,
+  Recently ranked, 42 visible editorial packs (46 retained source packs), Detailed/Photos/Compact ranking views, safe facets,
   pointer/touch/keyboard reorder, Review order, provenance-rich details, Curious about / Not for me,
   rank-weighted Taste patterns, category backup/restore/name import, and text/Markdown/JSON exports.
-  Every selectable entry has a concise field note and an honest dog-family label. All 282 illustrated
+  Every selectable entry has a concise field note and an honest dog-family label. All 307 illustrated
   breeds have individually written profiles, and their art-directed generated portraits include
-  breed-specific natural settings. Less-developed entries stay conservative rather than inventing
-  temperament or suitability claims. Missing portraits use a neutral fallback. Account sync and revocable public snapshot links use the additive category
+  breed-specific natural settings. The other 932 source entries stay conservative and hidden until individually researched copy and
+  approved artwork are ready. Saved hidden entries remain in sync and backups without entering
+  comparisons or public exports. Account sync and revocable public snapshot links use the additive category
   tables. Public snapshots omit artwork because that purpose remains denied, and raster
   sharing remains disabled.
   Breed descriptions lead with sourced personality and character: what the dog is like, followed by
@@ -208,7 +219,7 @@ Approximate line ranges (they drift; grep to confirm):
 - **Screenshots:** `npm run screenshots` (headless Chrome; flags `--label=`, `--only=desktop-comparison,ipad-main-portrait,mobile-comparison-landscape,...`). The harness has explicit desktop fine-pointer, iPad portrait/landscape touch, and iPhone portrait/landscape touch profiles and records their runtime capabilities in the manifest. Archives to `debug/screenshots/runs/<timestamp>/` + `latest/` (both gitignored).
 - **Social preview image:** `npm run build:og` regenerates `assets/og-preview.png` (1200×630) from the design embedded in `scripts/build-og-image.cjs` via headless Chrome. After regenerating, bump the `?v=N` on the `og:image`/`twitter:image` meta tags in `index.html` so unfurler caches refresh.
 - **Hosting:** Vercel project `stackrank` is connected to the GitHub repo and deploys `main` to production. `vercel.json` temporarily redirects `/` → `/movies` with 307, rewrites `/movies`, `/dogs`, and noindex `/books` to their static apps, rewrites `/privacy` to the standalone policy, and preserves legacy Movies `/s/:slug` in `shared.html`, then canonicalizes away trailing slashes. It also applies the production CSP, Permissions Policy, referrer policy, MIME-sniffing protection, and frame denial to every route; update the allowlist deliberately when adding an external runtime origin. `robots.txt` and `sitemap.xml` expose the canonical public routes; `/s/` is intentionally excluded from indexing because links are unlisted snapshots. Vercel Web Analytics is enabled on the Hobby plan (pageviews only; custom events use Supabase). Cloudflare Registrar/DNS owns `stackrankapp.com`; both apex and `www` use DNS-only CNAME records to Vercel, with Vercel issuing the apex → `www` 308 redirect and TLS certificates. GitHub Pages remains enabled temporarily as a browser-local-data recovery path; retirement criteria and remaining device/account checks are in `notes/testing/production-release-checklist.md`.
-- **Cache-busting:** when you change JS or CSS, **bump its `?v=N` reference** — otherwise browsers or an edge cache can serve stale assets. Current local worktree: `app.js?v=191`, `styles.css?v=161`, `shared.js?v=5`, `books.js?v=2`, `books.css?v=3`, `dogs.js?v=42`, `dogs.css?v=7`, `dogs-shared.js?v=7`, `dogs-shared.css?v=1`, `home.js?v=1`, `home.css?v=1`. Production serves these cache-busted payloads with year-long immutable caching. `npm run check:cache` hashes the versioned runtime assets and updates `data/asset-versions.json`; it fails when a file changes without its referenced `?v=N` changing. **Note:** each entry module imports local `lib/` modules with their own `?v=N`; bump those import queries too when the module changes, since bumping only the entry script will not refresh a cached dependency.
+- **Cache-busting:** when you change JS or CSS, **bump its `?v=N` reference** — otherwise browsers or an edge cache can serve stale assets. Current local worktree: `app.js?v=191`, `styles.css?v=161`, `shared.js?v=5`, `books.js?v=2`, `books.css?v=3`, `dogs.js?v=44`, `dogs.css?v=7`, `dogs-shared.js?v=7`, `dogs-shared.css?v=1`, `home.js?v=1`, `home.css?v=1`. Production serves these cache-busted payloads with year-long immutable caching. `npm run check:cache` hashes the versioned runtime assets and updates `data/asset-versions.json`; it fails when a file changes without its referenced `?v=N` changing. **Note:** each entry module imports local `lib/` modules with their own `?v=N`; bump those import queries too when the module changes, since bumping only the entry script will not refresh a cached dependency.
 
 ## Conventions
 

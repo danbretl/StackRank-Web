@@ -1,11 +1,19 @@
 # StackRank Dogs product handoff
 
-Current artwork progress supersedes the baseline below: `635e54c7` includes batch D and cohort E01–E10
-for 282 live portraits and the unlinked noindex `/dogs/artwork-review` tool. Continue from `notes/testing/dogs-portrait-cohort-e.md` and the frozen
-machine-readable `data/dogs/portrait-cohort-e.json` ledger. The frozen cohort delivered 230 new
-portraits; 20 remain reference-held. All actionable selected work is complete.
-Profile update `3dd3957a` subsequently shipped individually written copy for all 282 illustrated
-breeds and removed inline research-process boilerplate from the entire catalog.
+**Latest release — September 22, 2026:** Cohort F01 adds **25 accepted portraits and 25
+independently reviewed personality-first descriptions**, for **307 completed pairs**. Product commit
+`19221e09` also limits the main Dogs site to those 307 completed identities.
+The full 1,239-record catalog is retained; 932 unfinished identities are hidden, with saved rankings,
+queues and backups preserved. Completing both gates restores an identity automatically. There are
+42 nonempty public packs from 46 source packs. Existing public snapshots are not rewritten; new
+snapshots and exports use visible entries. Artwork sharing remains denied.
+
+Dan requested stopping after this batch around 300 total. The original 100-identity F selection stays
+frozen for future use; do not start further work without a new request. Seventeen additional native
+F02 outputs are staged only, unaccepted and unpublished. Start next session with
+`notes/testing/dogs-portrait-cohort-f.md`, `data/dogs/portrait-cohort-f.json` and
+`data/dogs/portrait-cohort-f-staging.json`. All 20 E holds remain; three F holds and three ordered
+reserve activations are recorded. Prior 282 portraits, rights rows and approved profiles are unchanged.
 
 Snapshot date: **September 22, 2026**
 
@@ -26,7 +34,7 @@ Breed descriptions should nevertheless prioritize sourced personality and charac
 the breed is like as documented tendencies, then add distinctive habits, skills and history. A
 portrait already shows appearance; it should occupy only a minor functional note in the prose.
 
-## Current release and working-tree state
+## Historical release and working-tree snapshot (superseded above)
 
 - Production `/dogs` is public and the production root still redirects to `/movies`.
 - The substantial Dogs launch shipped in `31267389`; the field-guide redesign shipped in

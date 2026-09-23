@@ -2,14 +2,35 @@
 
 Status date: **September 22, 2026**
 
-**Current artwork update:** Commit `635e54c7` brings preserved batch D plus 230 newly accepted
+**Latest release — September 22, 2026:** Cohort F01 adds **25 accepted portraits and 25
+independently reviewed personality-first descriptions**, for **307 completed pairs**. Product commit
+`19221e09` also limits the main Dogs site to those 307 completed identities.
+The full 1,239-record catalog is retained; 932 unfinished identities are hidden, with saved rankings,
+queues and backups preserved. Completing both gates restores an identity automatically. There are
+42 nonempty public packs from 46 source packs. Existing public snapshots are not rewritten; new
+snapshots and exports use visible entries. Artwork sharing remains denied.
+
+Dan requested stopping after this batch around 300 total. The original 100-identity F selection stays
+frozen for future use; do not start further work without a new request. Seventeen additional native
+F02 outputs are staged only, unaccepted and unpublished. Start next session with
+`notes/testing/dogs-portrait-cohort-f.md`, `data/dogs/portrait-cohort-f.json` and
+`data/dogs/portrait-cohort-f-staging.json`. All 20 E holds remain; three F holds and three ordered
+reserve activations are recorded. Prior 282 portraits, rights rows and approved profiles are unchanged.
+
+Verification for F01: **453 Node tests, 24 Deno tests, all validators, 39 Chrome flows and 44
+production checks passed**. Vercel deployment `dpl_BSPUEzBLdn6E9RK2t223KYV9oVkX` is READY;
+all 50 new WebPs and current runtime/profile/provenance artifacts match production byte hashes.
+Live desktop/phone checks confirmed matching descriptions in both surfaces and completed-only search.
+Committed receipt: `data/dogs/portrait-cohort-f-release-f01.json`.
+
+**Previous artwork update (historical):** Commit `635e54c7` brings preserved batch D plus 230 newly accepted
 cohort-E portraits. Production now has **282** generated portraits; all 250 selected identities have
 been reviewed, with 20 reference holds. See `notes/testing/dogs-portrait-cohort-e.md` for current
 counts, blockers and checks.
 The new unlinked `/dogs/artwork-review` page provides pagination, search, a large-image dialog,
 generation provenance, local concern notes and export. Full verification passed 440 Node tests,
 24 Deno tests, all validators and 38 Chrome flows; 44 production checks passed.
-**Current profile update:** Deployed commit `ce6687ff` rewrites all 282 illustrated profiles around personality
+**Previous profile update (historical):** Deployed commit `ce6687ff` rewrites all 282 illustrated profiles around personality
 and character, with habits, instincts, skills and history supporting that introduction. It follows
 the earlier boilerplate cleanup (`82a69801`) and sourced depth pass (`3dd3957a`). Both Dogs and the
 artwork reviewer use artifact `.5` / dataset cache version 4 and expose 310 breed-source references

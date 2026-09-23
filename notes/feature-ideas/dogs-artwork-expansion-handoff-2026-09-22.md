@@ -2,13 +2,23 @@
 
 Snapshot date: **September 22, 2026**
 
-**Superseding continuation:** Preserved batch D and the 230 accepted cohort-E portraits are
-live in `635e54c7` (282 total). Current progress and evidence are in
-`notes/testing/dogs-portrait-cohort-e.md` and `data/dogs/portrait-cohort-e.json`.
-All 250 frozen identities were reviewed: 230 accepted/integrated, 20 reference holds, no substitutions.
-There are 957 selectable identities still unillustrated. The next cohort must deliberately include
-coverage for the 362 varieties, crossbreeds and historical types outside canonical discovery.
-The 52-portrait figures below are the frozen starting snapshot, not current production coverage.
+**Latest release — September 22, 2026:** Cohort F01 adds **25 accepted portraits and 25
+independently reviewed personality-first descriptions**, for **307 completed pairs**. Product commit
+`19221e09` also limits the main Dogs site to those 307 completed identities.
+The full 1,239-record catalog is retained; 932 unfinished identities are hidden, with saved rankings,
+queues and backups preserved. Completing both gates restores an identity automatically. There are
+42 nonempty public packs from 46 source packs. Existing public snapshots are not rewritten; new
+snapshots and exports use visible entries. Artwork sharing remains denied.
+
+Dan requested stopping after this batch around 300 total. The original 100-identity F selection stays
+frozen for future use; do not start further work without a new request. Seventeen additional native
+F02 outputs are staged only, unaccepted and unpublished. Start next session with
+`notes/testing/dogs-portrait-cohort-f.md`, `data/dogs/portrait-cohort-f.json` and
+`data/dogs/portrait-cohort-f-staging.json`. All 20 E holds remain; three F holds and three ordered
+reserve activations are recorded. Prior 282 portraits, rights rows and approved profiles are unchanged.
+
+The 52-portrait sections below are the historical starting snapshot; they do not authorize the old
+approximately-250 kickoff or supersede the current stop request.
 
 This document captures the exact continuation state for generating excellent field-guide portraits
 for the rest of the selectable Dogs catalog. Read the product handoff first:

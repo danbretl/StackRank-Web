@@ -997,6 +997,11 @@ const testFamilyHomePreview = async ({ baseUrl }) => {
   }
 };
 
+const dogsCatalogReady = (count) =>
+  `document.querySelector('#dogs-catalog-status')?.dataset.ready === 'true' &&
+   Number(document.querySelector('#dogs-catalog-status')?.dataset.count) === ${count} &&
+   document.querySelector('#dogs-catalog-status')?.hidden === true`;
+
 const testDogsLocalProduct = async ({ baseUrl }) => {
   const approvedIds = new Set(JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8")).assets.map((asset) => asset.catalogId));
   const publicPacks = JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/packs.json"), "utf8")).packs.filter((pack) => pack.items.some((id) => approvedIds.has(id)));
@@ -1013,7 +1018,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     await waitFor(
       page,
       `document.readyState === 'complete' &&
-       document.querySelector('#dogs-catalog-status')?.textContent.includes('${JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8")).assets.length} dogs to discover') &&
+       ${dogsCatalogReady(expectedPortraitCount)} &&
        document.querySelectorAll('.featured-pack').length === 6`,
       15000,
     );
@@ -1024,11 +1029,13 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       canonical: document.querySelector('link[rel="canonical"]')?.href,
       robots: document.querySelector('meta[name="robots"]')?.content || null,
       cssHref: document.querySelector('link[rel="stylesheet"]')?.getAttribute('href'),
-      scriptSrc: document.querySelector('script[type="module"]')?.getAttribute('src'),
+      scriptSrc: document.querySelector('script[src^="dogs.js"]')?.getAttribute('src'),
       searchRole: document.querySelector('#dogs-search')?.getAttribute('role'),
       searchAutocomplete: document.querySelector('#dogs-search')?.getAttribute('aria-autocomplete'),
       searchControls: document.querySelector('#dogs-search')?.getAttribute('aria-controls'),
-      catalogStatus: document.querySelector('#dogs-catalog-status')?.textContent.trim(),
+      catalogReady: document.querySelector('#dogs-catalog-status')?.dataset.ready,
+      catalogCount: document.querySelector('#dogs-catalog-status')?.dataset.count,
+      catalogStatusHidden: document.querySelector('#dogs-catalog-status')?.hidden,
       featuredTitles: [...document.querySelectorAll('.featured-pack h3')].map((node) => node.textContent.trim()),
       tileCount: document.querySelectorAll('.featured-pack .breed-tile').length,
       dogsStorage: localStorage.getItem('stackrank:dogs:ranking:v1'),
@@ -1041,14 +1048,14 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       initial.marker !== "dogs" ||
       initial.canonical !== "https://www.stackrankapp.com/dogs" ||
       initial.robots !== null ||
-      initial.cssHref !== "dogs.css?v=7" ||
+      !/^dogs\.css\?v=\d+$/.test(initial.cssHref || "") ||
       initial.scriptSrc !== expectedDogsScript ||
       initial.searchRole !== "combobox" ||
       initial.searchAutocomplete !== "list" ||
       initial.searchControls !== "dogs-suggestions" ||
-      !initial.catalogStatus?.includes(`${expectedPortraitCount} field notes`) ||
-      !initial.catalogStatus?.includes(`${expectedPortraitCount} featured portraits`) ||
-      /VBO:|vbo-|FCI|iDog|VeNom/.test(initial.catalogStatus || "") ||
+      initial.catalogReady !== "true" ||
+      Number(initial.catalogCount) !== expectedPortraitCount ||
+      !initial.catalogStatusHidden ||
       initial.featuredTitles.slice(0, 3).join("|") !== "Around the world|Shapes and coats|Familiar and beyond" ||
       initial.featuredTitles.length !== 6 ||
       initial.tileCount !== 24 ||
@@ -1161,7 +1168,41 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
 
     await page.evaluate(`document.querySelector('.featured-pack .breed-tile:not(:disabled)')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#dogs-comparison')?.hidden`, 5000);
-    await page.evaluate(`document.querySelector('#dogs-new-choice')?.click(); true;`);
+    const comparisonBeforeDetail = await page.evaluate(`(() => ({
+      names: [...document.querySelectorAll('#dogs-comparison .comparison-card__copy strong')].map((node) => node.textContent.trim()),
+      progress: document.querySelector('#dogs-comparison-progress')?.textContent.trim(),
+      summary: document.querySelector('#dogs-new-choice .comparison-card__summary')?.textContent.trim(),
+      summaryVisible: getComputedStyle(document.querySelector('#dogs-new-choice .comparison-card__summary')).display !== 'none',
+      facts: document.querySelectorAll('#dogs-new-choice .comparison-card__fact').length,
+      structure: [...document.querySelectorAll('#dogs-comparison .comparison-card')].map((card) => ({
+        tag: card.tagName, pick: card.querySelectorAll('.comparison-card__pick').length,
+        learn: card.querySelectorAll('.comparison-card__learn').length
+      }))
+    }))()`);
+    if (comparisonBeforeDetail.names.length !== 2 || !comparisonBeforeDetail.summary ||
+      !comparisonBeforeDetail.summaryVisible || comparisonBeforeDetail.facts < 2 ||
+      comparisonBeforeDetail.structure.some((card) => card.tag !== 'ARTICLE' || card.pick !== 1 || card.learn !== 1)) {
+      throw new Error(`Dogs desktop comparison cards lack profile context or separate actions: ${JSON.stringify(comparisonBeforeDetail)}`);
+    }
+    await page.evaluate(`document.querySelector('#dogs-new-choice .comparison-card__learn')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#dogs-detail')?.open`, 3000);
+    const comparisonDetail = await page.evaluate(`(() => ({
+      title: document.querySelector('#dogs-detail h1')?.textContent.trim(),
+      summary: document.querySelector('#dogs-detail .detail-copy__summary')?.textContent.trim(),
+      actionsHidden: document.querySelector('#dogs-detail .detail-actions')?.hidden,
+      progress: document.querySelector('#dogs-comparison-progress')?.textContent.trim(),
+      comparisonVisible: !document.querySelector('#dogs-comparison')?.hidden,
+      rankingCount: JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.length
+    }))()`);
+    if (comparisonDetail.title !== comparisonBeforeDetail.names[0] ||
+      comparisonDetail.summary !== comparisonBeforeDetail.summary || !comparisonDetail.actionsHidden ||
+      comparisonDetail.progress !== comparisonBeforeDetail.progress || !comparisonDetail.comparisonVisible ||
+      comparisonDetail.rankingCount !== 1) {
+      throw new Error(`Dogs comparison Learn changed the pending choice: ${JSON.stringify({ comparisonBeforeDetail, comparisonDetail })}`);
+    }
+    await page.evaluate(`document.querySelector('#dogs-detail .dialog-close-form button')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#dogs-detail')?.open && document.activeElement === document.querySelector('#dogs-new-choice .comparison-card__learn')`, 3000);
+    await page.evaluate(`document.querySelector('#dogs-new-choice .comparison-card__pick')?.click(); true;`);
     await waitFor(
       page,
       `document.querySelector('#dogs-comparison')?.hidden && JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.length === 2`,
@@ -1170,20 +1211,29 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
 
     await page.evaluate(`document.querySelector('.featured-pack .breed-tile:not(:disabled)')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#dogs-comparison')?.hidden`, 5000);
-    await page.evaluate(`document.querySelector('#dogs-existing-choice')?.click(); true;`);
+    await waitFor(page, `document.activeElement === document.querySelector('#dogs-new-choice .comparison-card__pick')`, 3000);
+    await page.evaluate(`(() => {
+      const pick = document.querySelector('#dogs-existing-choice .comparison-card__pick');
+      pick.focus();
+      pick.click();
+      return true;
+    })()`);
     await waitFor(page, `!document.querySelector('#dogs-undo-choice')?.hidden`, 5000);
-    const progressed = await page.evaluate(`document.querySelector('#dogs-comparison-progress')?.textContent.trim()`);
+    const progressed = await page.evaluate(`({
+      progress: document.querySelector('#dogs-comparison-progress')?.textContent.trim(),
+      focusPreserved: document.activeElement === document.querySelector('#dogs-existing-choice .comparison-card__pick')
+    })`);
     await page.evaluate(`document.querySelector('#dogs-undo-choice')?.click(); true;`);
     const undone = await page.evaluate(`(() => ({
       progress: document.querySelector('#dogs-comparison-progress')?.textContent.trim(),
       undoHidden: document.querySelector('#dogs-undo-choice')?.hidden
     }))()`);
-    if (!/^Choice 2/.test(progressed) || !/^Choice 1/.test(undone.progress) || !undone.undoHidden) {
+    if (!/^Choice 2/.test(progressed.progress) || !progressed.focusPreserved || !/^Choice 1/.test(undone.progress) || !undone.undoHidden) {
       throw new Error(`Dogs comparison undo failed: ${JSON.stringify({ progressed, undone })}`);
     }
-    await page.evaluate(`document.querySelector('#dogs-existing-choice')?.click(); true;`);
+    await page.evaluate(`document.querySelector('#dogs-existing-choice .comparison-card__pick')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#dogs-undo-choice')?.hidden`, 5000);
-    await page.evaluate(`document.querySelector('#dogs-existing-choice')?.click(); true;`);
+    await page.evaluate(`document.querySelector('#dogs-existing-choice .comparison-card__pick')?.click(); true;`);
     await waitFor(
       page,
       `document.querySelector('#dogs-comparison')?.hidden && JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.length === 3`,
@@ -1315,6 +1365,23 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       second: document.querySelector('#dogs-review-second strong')?.textContent.trim(),
       progress: document.querySelector('#dogs-review-progress')?.textContent.trim()
     }))()`);
+    await page.evaluate(`document.querySelector('#dogs-review-first .comparison-card__learn')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#dogs-detail')?.open`, 3000);
+    const reviewDetail = await page.evaluate(`(() => ({
+      title: document.querySelector('#dogs-detail h1')?.textContent.trim(),
+      actionsHidden: document.querySelector('#dogs-detail .detail-actions')?.hidden,
+      pair: [...document.querySelectorAll('#dogs-review .comparison-card__copy strong')].map((node) => node.textContent.trim()),
+      progress: document.querySelector('#dogs-review-progress')?.textContent.trim(),
+      rankingOrder: [...document.querySelectorAll('#dogs-ranking .ranking-row strong')].map((node) => node.textContent.trim())
+    }))()`);
+    if (reviewDetail.title !== reviewPair.first || !reviewDetail.actionsHidden ||
+      reviewDetail.pair.join('|') !== `${reviewPair.first}|${reviewPair.second}` ||
+      reviewDetail.progress !== reviewPair.progress ||
+      JSON.stringify(reviewDetail.rankingOrder) !== JSON.stringify(beforeReviewOrder)) {
+      throw new Error(`Dogs review Learn changed the pending pair: ${JSON.stringify({ reviewPair, reviewDetail })}`);
+    }
+    await page.evaluate(`document.querySelector('#dogs-detail .dialog-close-form button')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#dogs-detail')?.open && document.activeElement === document.querySelector('#dogs-review-first .comparison-card__learn')`, 3000);
     await page.evaluate(`document.querySelector('#dogs-review-swap')?.click(); document.querySelector('#dogs-end-review')?.click(); true;`);
     await waitFor(page, `document.querySelector('#dogs-review')?.hidden && document.querySelector('#dogs-toast-message')?.textContent.includes('swaps were saved')`, 3000);
     const afterReviewOrder = await page.evaluate(`
@@ -1510,6 +1577,27 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     await waitFor(page, `!document.querySelector('#dogs-comparison')?.hidden &&
       [...document.querySelectorAll('#dogs-comparison .dog-media img')].length === 2 &&
       [...document.querySelectorAll('#dogs-comparison .dog-media img')].every((image) => image.complete && image.naturalWidth > 0)`, 5000);
+    await setDeviceProfile(page, { width: 1280, height: 720 });
+    const desktopComparisonFit = await page.evaluate(`(() => ({
+      viewportHeight: innerHeight,
+      cards: [...document.querySelectorAll('#dogs-comparison .comparison-card')].map((card) => {
+        const content = card.querySelector('.comparison-card__content').getBoundingClientRect();
+        const summary = card.querySelector('.comparison-card__summary').getBoundingClientRect();
+        const facts = card.querySelector('.comparison-card__facts').getBoundingClientRect();
+        const pick = card.querySelector('.comparison-card__pick').getBoundingClientRect();
+        const learn = card.querySelector('.comparison-card__learn').getBoundingClientRect();
+        const media = card.querySelector('.dog-media').getBoundingClientRect();
+        return { contentBottom: content.bottom, summaryBottom: summary.bottom, factsBottom: facts.bottom,
+          pickTop: pick.top, pickBottom: pick.bottom, learnBottom: learn.bottom,
+          mediaBottom: media.bottom, imageFit: getComputedStyle(card.querySelector('.dog-media img')).objectFit };
+      })
+    }))()`);
+    if (desktopComparisonFit.cards.some((card) => card.summaryBottom > card.contentBottom + 1 ||
+      card.factsBottom > card.pickTop + 1 || card.mediaBottom > card.pickTop + 1 ||
+      card.pickBottom > desktopComparisonFit.viewportHeight || card.learnBottom > desktopComparisonFit.viewportHeight ||
+      card.imageFit !== 'contain')) {
+      throw new Error(`Dogs desktop comparison clipped profile content at 1280×720: ${JSON.stringify(desktopComparisonFit)}`);
+    }
     const desktopComparisonShot = await page.screenshot("dogs-comparison-desktop.png");
     const mobileProfile = await setDeviceProfile(page, {
       width: 390,
@@ -1749,7 +1837,7 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
       localStorage.setItem('stackrank:books:ranking:v1', ${JSON.stringify(booksSentinel)});
     })();` });
     await page.send("Page.navigate", { url: `${baseUrl}/dogs?e2e=dogs-completed-visibility` });
-    await waitFor(page, `document.querySelector('#dogs-catalog-status')?.textContent.includes('${expectedCount} dogs to discover') &&
+    await waitFor(page, `${dogsCatalogReady(expectedCount)} &&
       document.querySelectorAll('#dogs-ranking .ranking-row').length === 2`, 15000);
     const initialState = await page.evaluate(storageState());
     assertPreserved(initialState, "load", 2);
@@ -1805,7 +1893,7 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
     await setDeviceProfile(page, { width: 1440, height: 900 });
     for (let choice = 0; choice < 3; choice += 1) {
       if (await page.evaluate(`document.querySelector('#dogs-comparison')?.hidden`)) break;
-      await page.evaluate(`document.querySelector('#dogs-new-choice')?.click(); true;`);
+      await page.evaluate(`document.querySelector('#dogs-new-choice .comparison-card__pick')?.click(); true;`);
     }
     await waitFor(page, `document.querySelector('#dogs-comparison')?.hidden && document.querySelectorAll('#dogs-ranking .ranking-row').length === 3`, 5000);
     assertPreserved(await page.evaluate(storageState()), "new F01 insertion", 3);
@@ -1857,7 +1945,7 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
     if (afterReview.ranking[beforeMove.indexOf(ids.unfinished)]?.entityRef.id !== ids.unfinished) throw new Error("Review swap displaced the unfinished raw slot");
 
     await page.send("Page.reload", { ignoreCache: true });
-    await waitFor(page, `document.querySelector('#dogs-catalog-status')?.textContent.includes('${expectedCount} dogs to discover') && document.querySelectorAll('#dogs-ranking .ranking-row').length === 3`, 15000);
+    await waitFor(page, `${dogsCatalogReady(expectedCount)} && document.querySelectorAll('#dogs-ranking .ranking-row').length === 3`, 15000);
     assertPreserved(await page.evaluate(storageState()), "reload", 3);
     const date = new Date().toISOString().slice(0, 10);
     await page.evaluate(`document.querySelector('#dogs-settings-toggle')?.click(); document.querySelector('#dogs-open-backup')?.click(); true;`);
@@ -1922,7 +2010,7 @@ const testDogsPhoneViewport = async ({ baseUrl }) => {
     await page.send("Page.navigate", { url: `${baseUrl}/dogs?e2e=dogs-phone-viewport` });
     await waitFor(
       page,
-      `document.querySelector('#dogs-catalog-status')?.textContent.includes('${JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8")).assets.length} dogs to discover') &&
+      `${dogsCatalogReady(JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8")).assets.length)} &&
        document.querySelectorAll('.featured-pack').length === 6`,
       15000,
     );
@@ -1964,6 +2052,11 @@ const testDogsPhoneViewport = async ({ baseUrl }) => {
         const box = node.getBoundingClientRect();
         return { left: box.left, right: box.right, top: box.top, bottom: box.bottom, height: box.height };
       }),
+      controls: [...document.querySelectorAll('#dogs-comparison .comparison-card__pick, #dogs-comparison .comparison-card__learn')].map((node) => {
+        const box = node.getBoundingClientRect();
+        return { left: box.left, right: box.right, top: box.top, bottom: box.bottom, height: box.height };
+      }),
+      progress: document.querySelector('#dogs-comparison-progress')?.textContent.trim(),
       footer: (() => {
         const box = document.querySelector('#dogs-comparison .comparison__footer')?.getBoundingClientRect();
         return box ? { top: box.top, bottom: box.bottom } : null;
@@ -1972,11 +2065,27 @@ const testDogsPhoneViewport = async ({ baseUrl }) => {
     if (
       portrait.choices.length !== 2 ||
       portrait.choices.some((box) => box.left < 0 || box.right > portrait.innerWidth || box.top < 0 || box.bottom > portrait.innerHeight) ||
+      portrait.controls.length !== 4 ||
+      portrait.controls.some((box) => box.left < 0 || box.right > portrait.innerWidth || box.top < 0 || box.bottom > portrait.innerHeight || box.height < 44) ||
       portrait.footer?.bottom > portrait.innerHeight
     ) {
       throw new Error(`Dogs 390px comparison is clipped: ${JSON.stringify(portrait)}`);
     }
     const portraitShot = await page.screenshot("dogs-phone-comparison-portrait.png");
+    await page.evaluate(`document.querySelector('#dogs-new-choice .comparison-card__learn')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#dogs-detail')?.open`, 3000);
+    const portraitLearn = await page.evaluate(`({
+      title: document.querySelector('#dogs-detail h1')?.textContent.trim(),
+      choice: document.querySelector('#dogs-new-choice .comparison-card__copy strong')?.textContent.trim(),
+      actionsHidden: document.querySelector('#dogs-detail .detail-actions')?.hidden
+    })`);
+    if (portraitLearn.title !== portraitLearn.choice || !portraitLearn.actionsHidden) {
+      throw new Error(`Dogs portrait Learn did not open the current breed: ${JSON.stringify(portraitLearn)}`);
+    }
+    await page.evaluate(`document.querySelector('#dogs-detail .dialog-close-form button')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#dogs-detail')?.open && document.activeElement === document.querySelector('#dogs-new-choice .comparison-card__learn')`, 3000);
+    const portraitReturned = await page.evaluate(`document.querySelector('#dogs-comparison-progress')?.textContent.trim()`);
+    if (portraitReturned !== portrait.progress) throw new Error(`Dogs portrait Learn changed comparison progress: ${portraitReturned}`);
 
     const landscapeProfile = await setDeviceProfile(page, {
       width: 844,
@@ -1990,18 +2099,39 @@ const testDogsPhoneViewport = async ({ baseUrl }) => {
       choices: [...document.querySelectorAll('#dogs-comparison .comparison-card')].map((node) => {
         const box = node.getBoundingClientRect();
         return { left: box.left, right: box.right, top: box.top, bottom: box.bottom };
-      })
+      }),
+      controls: [...document.querySelectorAll('#dogs-comparison .comparison-card__pick, #dogs-comparison .comparison-card__learn')].map((node) => {
+        const box = node.getBoundingClientRect();
+        return { left: box.left, right: box.right, top: box.top, bottom: box.bottom, height: box.height };
+      }),
+      progress: document.querySelector('#dogs-comparison-progress')?.textContent.trim()
     }))()`);
     if (
       landscapeProfile.innerWidth !== 844 ||
       landscapeProfile.innerHeight !== 390 ||
       !landscapeProfile.anyPointerCoarse ||
       landscape.overflow ||
-      landscape.choices.some((box) => box.left < 0 || box.right > landscape.innerWidth || box.top < 0 || box.bottom > landscape.innerHeight)
+      landscape.choices.some((box) => box.left < 0 || box.right > landscape.innerWidth || box.top < 0 || box.bottom > landscape.innerHeight) ||
+      landscape.controls.length !== 4 ||
+      landscape.controls.some((box) => box.left < 0 || box.right > landscape.innerWidth || box.top < 0 || box.bottom > landscape.innerHeight || box.height < 44)
     ) {
       throw new Error(`Dogs true phone landscape is clipped: ${JSON.stringify({ landscapeProfile, landscape })}`);
     }
     const landscapeShot = await page.screenshot("dogs-phone-comparison-landscape.png");
+    await page.evaluate(`document.querySelector('#dogs-existing-choice .comparison-card__learn')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#dogs-detail')?.open`, 3000);
+    const landscapeLearn = await page.evaluate(`({
+      title: document.querySelector('#dogs-detail h1')?.textContent.trim(),
+      choice: document.querySelector('#dogs-existing-choice .comparison-card__copy strong')?.textContent.trim(),
+      actionsHidden: document.querySelector('#dogs-detail .detail-actions')?.hidden
+    })`);
+    if (landscapeLearn.title !== landscapeLearn.choice || !landscapeLearn.actionsHidden) {
+      throw new Error(`Dogs landscape Learn did not open the current breed: ${JSON.stringify(landscapeLearn)}`);
+    }
+    await page.evaluate(`document.querySelector('#dogs-detail .dialog-close-form button')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#dogs-detail')?.open && document.activeElement === document.querySelector('#dogs-existing-choice .comparison-card__learn')`, 3000);
+    const landscapeReturned = await page.evaluate(`document.querySelector('#dogs-comparison-progress')?.textContent.trim()`);
+    if (landscapeReturned !== landscape.progress) throw new Error(`Dogs landscape Learn changed comparison progress: ${landscapeReturned}`);
     await setDeviceProfile(page, {
       width: 390,
       height: 844,
@@ -2102,7 +2232,7 @@ const testDogsApprovedArtworkAttribution = async ({ baseUrl }) => {
       `,
     });
     await page.send("Page.navigate", { url: `${baseUrl}/dogs?e2e=dogs-approved-artwork` });
-    await waitFor(page, `document.querySelector('#dogs-catalog-status')?.textContent.includes('0 dogs to discover')`, 15000);
+    await waitFor(page, dogsCatalogReady(0), 15000);
     await page.evaluate(`(() => {
       const input = document.querySelector('#dogs-search');
       input.value = 'Broholmer';
@@ -2197,7 +2327,7 @@ const testDogsFailureRecovery = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('.dogs-nav [data-destination="rank"]')?.click(); document.querySelector('#dogs-retry-catalog')?.click(); true;`);
     await waitFor(
       page,
-      `document.querySelector('#dogs-catalog-status')?.textContent.includes('${JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8")).assets.length} dogs to discover') &&
+      `${dogsCatalogReady(JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8")).assets.length)} &&
        document.querySelector('#dogs-discovery-fallback')?.hidden`,
       15000,
     );
@@ -2227,7 +2357,7 @@ const testDogsFailureRecovery = async ({ baseUrl }) => {
     await waitFor(page, `document.querySelectorAll('#dogs-suggestions .search-option').length === 1`, 3000);
     await page.evaluate(`document.querySelector('#dogs-search')?.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true })); true;`);
     await waitFor(page, `!document.querySelector('#dogs-comparison')?.hidden`, 3000);
-    await page.evaluate(`document.querySelector('#dogs-new-choice')?.click(); true;`);
+    await page.evaluate(`document.querySelector('#dogs-new-choice .comparison-card__pick')?.click(); true;`);
     await waitFor(page, `document.querySelector('#dogs-toast-message')?.textContent.includes('changes may be temporary')`, 3000);
     await page.evaluate(`document.querySelector('.dogs-nav [data-destination="ranking"]')?.click(); true;`);
     const storageFailure = await page.evaluate(`(() => ({
@@ -4887,7 +5017,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       importHidden: !!document.querySelector('#quick-start-import')?.hidden,
       packTitle: document.querySelector('#pack-section-title')?.textContent.trim(),
       starterSlugs: [...document.querySelectorAll('#pack-row .pack-card')].map((card) => card.dataset.slug),
-      moduleSrc: document.querySelector('script[type="module"]')?.getAttribute('src'),
+      moduleSrc: document.querySelector('script[src^="app.js?"]')?.getAttribute('src'),
       cssHref: document.querySelector('link[rel="stylesheet"]')?.getAttribute('href'),
       suggestRequests: window.__e2eSuggestRequests,
       h1Text: document.querySelector('h1')?.textContent.trim(),
@@ -11907,12 +12037,186 @@ const testDogsArtworkReview = async ({ baseUrl }) => {
   }
 };
 
+const testDogsDiscoveryGallery = async ({ baseUrl }) => {
+  const artwork = JSON.parse(fs.readFileSync(path.join(rootDir, 'data/dogs/generated-artwork.json'), 'utf8'));
+  const catalog = JSON.parse(fs.readFileSync(path.join(rootDir, 'data/dogs/dog-catalog.json'), 'utf8'));
+  const approvedIds = artwork.assets.map((asset) => asset.catalogId).sort();
+  const hiddenId = catalog.entities.find((entry) => entry.selectable && !approvedIds.includes(entry.id))?.id;
+  if (approvedIds.length !== 307 || !hiddenId) throw new Error('Dogs gallery fixture should have 307 completed pairs and at least one unfinished identity');
+  const page = await openChromePage({ name: 'dogs-discovery-gallery', width: 1440, height: 900 });
+  const key = async (name, code) => {
+    for (const type of ['keyDown', 'keyUp']) {
+      await page.send('Input.dispatchKeyEvent', { type, key: name, code: name, windowsVirtualKeyCode: code });
+    }
+  };
+  const rankingIds = () => `JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1') || '{"items":[]}').items.map(item => item.entityRef.id)`;
+  const countCards = () => `document.querySelectorAll('#dogs-gallery-grid .explore-dog').length`;
+  const setInput = (selector, value, type = 'input') => page.evaluate(`(() => {
+    const input = document.querySelector(${JSON.stringify(selector)});
+    input.value = ${JSON.stringify(value)};
+    input.dispatchEvent(new Event(${JSON.stringify(type)}, { bubbles: true }));
+    return true;
+  })()`);
+  try {
+    await page.send('Page.navigate', { url: `${baseUrl}/dogs?e2e=dogs-discovery-gallery` });
+    await waitFor(page, `${dogsCatalogReady(approvedIds.length)} && document.querySelectorAll('#dogs-browse-rail .explore-dog').length === 4`, 15000);
+    const desktop = await page.evaluate(`(() => {
+      const hero = document.querySelector('.rank-panel').getBoundingClientRect();
+      const portrait = document.querySelector('#dogs-browse-rail .dog-media').getBoundingClientRect();
+      return { heroBottom: hero.bottom, portraitTop: portrait.top, portraitBottom: portrait.bottom,
+        railCards: document.querySelectorAll('#dogs-browse-rail .explore-dog').length,
+        category: document.querySelector('.category-switcher__trigger')?.textContent.trim(),
+        overflow: document.documentElement.scrollWidth > innerWidth };
+    })()`);
+    if (desktop.heroBottom > 390 || desktop.portraitTop >= 900 || desktop.portraitBottom <= 0 ||
+      desktop.railCards !== 4 || desktop.category !== 'DOGS' && desktop.category !== 'Dogs' || desktop.overflow) {
+      throw new Error(`Dogs discovery first screen is not compact: ${JSON.stringify(desktop)}`);
+    }
+
+    await page.evaluate(`document.querySelector('[data-open-dog-gallery]').click(); true;`);
+    await waitFor(page, `document.querySelector('#dogs-view-rank').classList.contains('is-browsing') && ${countCards()} === 24`, 3000);
+    const allIds = [];
+    for (let pageIndex = 0; pageIndex < Math.ceil(approvedIds.length / 24); pageIndex += 1) {
+      const slice = await page.evaluate(`([...document.querySelectorAll('#dogs-gallery-grid .explore-dog')].map(card => card.dataset.dogId))`);
+      allIds.push(...slice);
+      if (pageIndex < Math.ceil(approvedIds.length / 24) - 1) {
+        await page.evaluate(`document.querySelector('#dogs-gallery-next').click(); true;`);
+      }
+    }
+    if (JSON.stringify(allIds.slice().sort()) !== JSON.stringify(approvedIds) || allIds.includes(hiddenId)) {
+      throw new Error(`Gallery did not display exactly the approved portrait/profile cohort: ${allIds.length} cards`);
+    }
+    await page.evaluate(`document.querySelector('#dogs-gallery-search').value = ''; document.querySelector('#dogs-gallery-search').dispatchEvent(new Event('input', { bubbles: true })); true;`);
+    await waitFor(page, `document.querySelector('#dogs-gallery-page').textContent.startsWith('Page 1')`, 3000);
+    const firstId = await page.evaluate(`document.querySelector('#dogs-gallery-grid .explore-dog')?.dataset.dogId`);
+    await page.evaluate(`document.querySelector('#dogs-gallery-grid .explore-dog')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#dogs-detail')?.open && !document.querySelector('#dogs-detail-navigation')?.hidden`, 3000);
+    const detailBefore = await page.evaluate(`({ id: document.querySelector('#dogs-gallery-grid .explore-dog')?.dataset.dogId,
+      title: document.querySelector('#dogs-detail h1')?.textContent.trim(), ranking: ${rankingIds()} })`);
+    if (detailBefore.id !== firstId || detailBefore.ranking.length !== 0 || !detailBefore.title) {
+      throw new Error(`Viewing a portrait ranked it or failed to open detail: ${JSON.stringify(detailBefore)}`);
+    }
+    await page.evaluate(`document.querySelector('#dogs-detail').close(); true;`);
+    await waitFor(page, `!document.querySelector('#dogs-detail')?.open && document.activeElement?.dataset.dogId === ${JSON.stringify(firstId)}`, 3000);
+    const returnedFocus = await page.evaluate(`document.activeElement?.dataset.dogId`);
+    if (returnedFocus !== firstId) throw new Error(`Closing detail did not return focus to portrait: ${returnedFocus}`);
+
+    await setInput('#dogs-gallery-search', 'Broholmeren');
+    const alias = await page.evaluate(`({ count: document.querySelectorAll('#dogs-gallery-grid .explore-dog').length,
+      name: document.querySelector('#dogs-gallery-grid .explore-dog strong')?.textContent.trim() })`);
+    if (alias.count !== 1 || alias.name !== 'Broholmer') throw new Error(`Alias search failed: ${JSON.stringify(alias)}`);
+    await setInput('#dogs-gallery-search', 'zzzz-no-dog-zzzz');
+    const empty = await page.evaluate(`({ count: document.querySelectorAll('#dogs-gallery-grid .explore-dog').length,
+      message: !document.querySelector('#dogs-gallery-empty')?.hidden, clear: !document.querySelector('#dogs-gallery-clear')?.hidden })`);
+    if (empty.count !== 0 || !empty.message || !empty.clear) throw new Error(`Gallery empty state failed: ${JSON.stringify(empty)}`);
+    await page.evaluate(`document.querySelector('#dogs-gallery-clear').click(); true;`);
+    if (await page.evaluate(countCards()) !== 24) throw new Error('Clear filters did not restore gallery');
+    const chosenFamily = await page.evaluate(`document.querySelector('#dogs-gallery-family option:nth-child(2)')?.value`);
+    if (!chosenFamily) throw new Error('Gallery has no family choices');
+    await setInput('#dogs-gallery-family', chosenFamily, 'change');
+    const familyResult = await page.evaluate(`({ total: document.querySelector('#dogs-gallery-count')?.textContent,
+      cards: [...document.querySelectorAll('#dogs-gallery-grid .explore-dog__meta')].map(node => node.textContent) })`);
+    if (!familyResult.cards.length || familyResult.cards.some((value) => !value.includes(chosenFamily))) {
+      throw new Error(`Family filter failed: ${JSON.stringify(familyResult)}`);
+    }
+    await page.evaluate(`document.querySelector('#dogs-gallery-clear').click(); true;`);
+
+    await page.evaluate(`document.querySelector('#dogs-gallery-next').click(); true;`);
+    await waitFor(page, `document.querySelector('#dogs-gallery-page').textContent.startsWith('Page 2')`, 3000);
+    const page2First = await page.evaluate(`document.querySelector('#dogs-gallery-grid .explore-dog')?.dataset.dogId`);
+    await page.evaluate(`document.querySelector('#dogs-gallery-grid .explore-dog')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#dogs-detail')?.open`, 3000);
+    await page.evaluate(`document.querySelector('#dogs-detail-prev').click(); true;`);
+    const crossedBack = await page.evaluate(`({ page: document.querySelector('#dogs-gallery-page')?.textContent,
+      focusedId: document.querySelector('#dogs-gallery-grid .explore-dog:last-child')?.dataset.dogId,
+      position: document.querySelector('#dogs-detail-position')?.textContent,
+      scrollTop: document.querySelector('#dogs-detail')?.scrollTop })`);
+    if (!crossedBack.page.startsWith('Page 1') || crossedBack.position !== '24 of 307' || crossedBack.scrollTop !== 0) {
+      throw new Error(`Detail previous did not cross gallery page boundary: ${JSON.stringify(crossedBack)}`);
+    }
+    await page.evaluate(`document.querySelector('#dogs-detail-next').click(); true;`);
+    const crossedForward = await page.evaluate(`({ page: document.querySelector('#dogs-gallery-page')?.textContent,
+      firstId: document.querySelector('#dogs-gallery-grid .explore-dog')?.dataset.dogId,
+      position: document.querySelector('#dogs-detail-position')?.textContent })`);
+    if (!crossedForward.page.startsWith('Page 2') || crossedForward.firstId !== page2First || crossedForward.position !== '25 of 307') {
+      throw new Error(`Detail next did not cross back to page 2: ${JSON.stringify(crossedForward)}`);
+    }
+    await page.evaluate(`document.querySelector('#dogs-detail').close(); true;`);
+    await waitFor(page, `!document.querySelector('#dogs-detail')?.open && document.activeElement?.dataset.dogId === ${JSON.stringify(page2First)}`, 3000);
+    if (await page.evaluate(`document.activeElement?.dataset.dogId`) !== page2First) throw new Error('Detail return focus lost across page boundary');
+
+    // First rank settles immediately; a second rank opens the comparison and can be canceled back to page 2.
+    await page.evaluate(`document.querySelector('#dogs-gallery-grid .explore-dog')?.click(); true;`);
+    await page.evaluate(`document.querySelector('#dogs-detail .detail-actions button')?.click(); true;`);
+    await waitFor(page, `${rankingIds()}.length === 1`, 3000);
+    const rankedId = await page.evaluate(`${rankingIds()}[0]`);
+    if (rankedId !== page2First || !await page.evaluate(`document.querySelector('#dogs-view-rank')?.classList.contains('is-browsing')`)) {
+      throw new Error('Ranking from gallery lost the gallery context');
+    }
+    await page.evaluate(`document.querySelector('#dogs-gallery-grid .explore-dog:nth-child(2)')?.click(); true;`);
+    await page.evaluate(`document.querySelector('#dogs-detail .detail-actions button')?.click(); true;`);
+    await waitFor(page, `document.body.classList.contains('is-comparing')`, 3000);
+    await page.evaluate(`document.querySelector('#dogs-cancel-comparison').click(); true;`);
+    await waitFor(page, `!document.body.classList.contains('is-comparing')`, 3000);
+    const afterCancel = await page.evaluate(`({ page: document.querySelector('#dogs-gallery-page')?.textContent,
+      browsing: document.querySelector('#dogs-view-rank')?.classList.contains('is-browsing'), ranking: ${rankingIds()} })`);
+    if (!afterCancel.page.startsWith('Page 2') || !afterCancel.browsing || afterCancel.ranking.length !== 1 || afterCancel.ranking[0] !== rankedId) {
+      throw new Error(`Cancel ranking did not restore gallery context: ${JSON.stringify(afterCancel)}`);
+    }
+
+    const dogsStorage = await page.evaluate(`localStorage.getItem('stackrank:dogs:ranking:v1')`);
+    await page.evaluate(`document.querySelector('.category-switcher__trigger').click(); true;`);
+    await key('Escape', 27);
+    if (await page.evaluate(`document.querySelector('.category-switcher__trigger').getAttribute('aria-expanded')`) !== 'false') {
+      throw new Error('Escape failed to close Dogs category switcher');
+    }
+    await page.evaluate(`document.querySelector('.category-switcher__trigger').click(); document.body.dispatchEvent(new PointerEvent('pointerdown', { bubbles: true })); true;`);
+    if (await page.evaluate(`document.querySelector('.category-switcher__trigger').getAttribute('aria-expanded')`) !== 'false') {
+      throw new Error('Outside click failed to close Dogs category switcher');
+    }
+    await page.evaluate(`document.querySelector('.category-switcher__trigger').click(); document.querySelector('.category-switcher__menu a[href="/movies"]').click(); true;`);
+    await waitFor(page, `location.pathname === '/movies' && document.querySelector('.category-switcher__trigger')`, 15000);
+    const movies = await page.evaluate(`({ dogs: localStorage.getItem('stackrank:dogs:ranking:v1'),
+      category: document.querySelector('.category-switcher__trigger')?.textContent.trim() })`);
+    if (movies.dogs !== dogsStorage || !/^movies$/i.test(movies.category)) throw new Error(`Dogs data changed on Movies route: ${JSON.stringify(movies)}`);
+    await page.evaluate(`document.querySelector('.category-switcher__trigger').click(); document.querySelector('.category-switcher__menu a[href="/dogs"]').click(); true;`);
+    await waitFor(page, `location.pathname === '/dogs' && ${dogsCatalogReady(approvedIds.length)}`, 15000);
+    const dogsAfterSwitch = await page.evaluate(`localStorage.getItem('stackrank:dogs:ranking:v1')`);
+    const rankSignature = (payload) => JSON.parse(payload).items.map((item) => [item.entityRef.id, item.rankedAt, item.comparisons]);
+    if (JSON.stringify(rankSignature(dogsAfterSwitch)) !== JSON.stringify(rankSignature(dogsStorage))) {
+      throw new Error(`Dogs ranking changed after Movies → Dogs switch: ${JSON.stringify({ before: dogsStorage, after: dogsAfterSwitch })}`);
+    }
+
+    await setDeviceProfile(page, { width: 390, height: 844, input: DEVICE_INPUT_PROFILE.coarseTouch });
+    const phone = await page.evaluate(`(() => {
+      const hero = document.querySelector('.rank-panel').getBoundingClientRect();
+      const portrait = document.querySelector('#dogs-browse-rail .dog-media').getBoundingClientRect();
+      const nav = document.querySelector('.dogs-nav').getBoundingClientRect();
+      const brand = document.querySelector('.dogs-brand').getBoundingClientRect();
+      return { width: innerWidth, heroBottom: hero.bottom, portraitTop: portrait.top, portraitBottom: portrait.bottom,
+        navTop: nav.top, navBottom: nav.bottom, brandBottom: brand.bottom,
+        overflow: document.documentElement.scrollWidth > innerWidth };
+    })()`);
+    if (phone.width !== 390 || phone.heroBottom > 500 || phone.portraitTop >= 844 || phone.portraitBottom <= 0 ||
+      phone.navTop < phone.brandBottom || phone.navTop < 844 - 75 || Math.abs(phone.navBottom - 844) > 1 || phone.overflow) {
+      throw new Error(`Dogs phone discovery first screen is clipped or too tall: ${JSON.stringify(phone)}`);
+    }
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Dogs discovery browser errors: ${JSON.stringify(health.errors)}`);
+    return { details: { desktop, approved: allIds.length, alias, empty, familyResult, crossedBack, crossedForward,
+      afterCancel, moviesCategory: movies.category, phone }, screenshots: [] };
+  } finally {
+    await page.close();
+  }
+};
+
 const tests = [
   { name: "localStorage persistence round-trip", run: testLoadPersistence },
   { name: "Books work-level ranking vertical slice", run: testBooksVerticalSlice },
   { name: "noindex family home preview", run: testFamilyHomePreview },
   { name: "Dogs completed-pair visibility", run: testDogsCompletedVisibility },
   { name: "Dogs comprehensive local product", run: testDogsLocalProduct },
+  { name: "Dogs discovery gallery and category switching", run: testDogsDiscoveryGallery },
   { name: "Dogs mocked account sync and public snapshot", run: testDogsRemoteSyncAndShare },
   { name: "Dogs generated artwork review workflow", run: testDogsArtworkReview },
   { name: "Dogs exact phone portrait and landscape viewport", run: testDogsPhoneViewport },

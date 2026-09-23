@@ -1,7 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "check": "node --check app.js && node --check books.js && node --check dogs.js && node --check dogs-shared.js && node --check home.js && node --check shared.js && node --check dogs-artwork-review.js && node --check lib/dogs-artwork-review.js",
+    "check": "node --check app.js && node --check books.js && node --check dogs.js && node --check dogs-shared.js && node --check home.js && node --check shared.js && node --check dogs-artwork-review.js && node --check lib/dogs-artwork-review.js && node --check dogs-explore.js && node --check category-switcher.js && node --check lib/dogs-explore.js",
     "check:cache": "node scripts/check-cache-versions.mjs",
     "check:functions": "deno check --no-lock supabase/functions/*/index.ts supabase/functions/_shared/*.ts",
     "test:functions": "deno test --no-lock supabase/functions/_shared/*_test.ts",

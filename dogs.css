@@ -74,7 +74,7 @@ textarea:focus-visible,
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   width: min(var(--content), calc(100% - 80px));
-  min-height: 88px;
+  min-height: 64px;
   margin: 0 auto;
 }
 .dogs-brand {
@@ -101,7 +101,7 @@ textarea:focus-visible,
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 17px;
+  bottom: 9px;
   height: 2px;
   background: var(--ink);
 }
@@ -126,7 +126,7 @@ textarea:focus-visible,
 .icon-button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; }
 .dogs-settings {
   position: absolute;
-  top: 72px;
+  top: 60px;
   right: 0;
   width: min(340px, calc(100vw - 32px));
   padding: 20px;
@@ -269,7 +269,7 @@ textarea:focus-visible,
 }
 .recent-item:first-child { padding-left: 0; border-left: 0; }
 .recent-item:last-child { padding-right: 0; }
-.recent-item__copy { min-width: 0; display: grid; gap: 3px; }
+.recent-item__copy { min-width: 0; display: grid; gap: 3px; padding: 0; border: 0; background: transparent; text-align: left; cursor: pointer; }
 .recent-item__copy strong { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .recent-item__copy span { color: var(--ink-soft); font-size: 0.82rem; }
 .recent-item b { font-size: 1.1rem; }

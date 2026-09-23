@@ -23,6 +23,8 @@ const ROOT_SOURCE_FILES = [
   "dogs-shared.js",
   "books.js",
   "dogs.js",
+  "dogs-explore.js",
+  "category-switcher.js",
   "dogs-artwork-review.js",
   "home.js",
 ];

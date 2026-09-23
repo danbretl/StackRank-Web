@@ -59,6 +59,7 @@
       crossorigin
     />
     <link rel="stylesheet" href="styles.css?v=161" />
+    <link rel="stylesheet" href="category-switcher.css?v=1" />
   </head>
   <body>
     <svg class="icon-sprite" aria-hidden="true">
@@ -160,7 +161,16 @@
       <header class="topbar">
         <div class="brand-lockup">
           <h1 class="brand">StackRank</h1>
-          <span class="brand-category">Movies</span>
+          <div class="category-switcher" data-category-switcher>
+            <button class="category-switcher__trigger brand-category" type="button" aria-label="Movies, switch category" aria-expanded="false" aria-controls="movies-category-menu">
+              <span>Movies</span>
+              <svg aria-hidden="true" viewBox="0 0 12 12"><path d="m2.5 4.5 3.5 3 3.5-3" /></svg>
+            </button>
+            <nav class="category-switcher__menu" id="movies-category-menu" aria-label="Categories" hidden>
+              <a href="/movies" aria-current="page">Movies <span aria-hidden="true">✓</span></a>
+              <a href="/dogs">Dogs</a>
+            </nav>
+          </div>
         </div>
         <nav class="app-nav app-nav--top" aria-label="Primary">
           <button class="app-nav__item is-active" type="button" data-app-destination-target="rank" aria-current="page">
@@ -1417,6 +1427,7 @@
 
     <div class="panel__feedback" id="add-feedback" role="status" aria-live="polite"></div>
 
+    <script type="module" src="category-switcher.js?v=1"></script>
     <script type="module" src="app.js?v=191"></script>
   </body>
 </html>

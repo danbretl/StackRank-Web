@@ -34,18 +34,31 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="dogs.css?v=7" />
+    <link rel="stylesheet" href="dogs.css?v=8" />
+    <link rel="stylesheet" href="dogs-explore.css?v=2" />
+    <link rel="stylesheet" href="dogs-comparison.css?v=3" />
+    <link rel="stylesheet" href="category-switcher.css?v=1" />
   </head>
   <body>
     <header class="dogs-header">
-      <a class="dogs-brand" href="/dogs" aria-label="StackRank Dogs home"><strong>STACKRANK</strong><span>DOGS</span></a>
+      <div class="dogs-brand">
+        <a href="/dogs" aria-label="StackRank Dogs home"><strong>STACKRANK</strong></a>
+        <div class="category-switcher" data-category-switcher>
+          <button class="category-switcher__trigger" type="button" aria-label="Dogs, switch category" aria-expanded="false" aria-controls="dogs-category-menu">
+            Dogs <svg aria-hidden="true" viewBox="0 0 12 12"><path d="m2.5 4.5 3.5 3 3.5-3" /></svg>
+          </button>
+          <nav class="category-switcher__menu" id="dogs-category-menu" aria-label="Categories" hidden>
+            <a href="/movies">Movies</a>
+            <a href="/dogs" aria-current="page">Dogs <span aria-hidden="true">✓</span></a>
+          </nav>
+        </div>
+      </div>
       <nav class="dogs-nav" aria-label="Dogs destinations">
         <button type="button" data-destination="rank" aria-current="page">Rank</button>
         <button type="button" data-destination="ranking">Ranking</button>
         <button type="button" data-destination="you">You</button>
       </nav>
       <div class="dogs-header__actions">
-        <a href="/movies">Movies</a>
         <button
           id="dogs-settings-toggle"
           class="icon-button"
@@ -54,9 +67,10 @@
           aria-expanded="false"
           aria-controls="dogs-settings"
         >
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 8.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z" />
-            <path d="M19.1 13.4c.04-.46.04-.92 0-1.38l1.75-1.36-1.8-3.12-2.06.83a7.8 7.8 0 0 0-1.2-.7L15.48 5h-3.6l-.32 2.67c-.42.2-.82.43-1.2.7l-2.05-.83-1.8 3.12 1.74 1.36a8 8 0 0 0 0 1.38l-1.74 1.36 1.8 3.12 2.05-.83c.38.27.78.5 1.2.7l.32 2.67h3.6l.32-2.67c.42-.2.82-.43 1.2-.7l2.05.83 1.8-3.12-1.75-1.36Z" />
+          <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+            <circle cx="10" cy="10" r="2.5" />
+            <path d="M10 2.5v2M10 15.5v2M2.5 10h2M15.5 10h2M4.7 4.7l1.4 1.4M13.9 13.9l1.4 1.4M15.3 4.7l-1.4 1.4M6.1 13.9l-1.4 1.4" />
+            <circle cx="10" cy="10" r="5.5" />
           </svg>
         </button>
       </div>
@@ -78,31 +92,46 @@
     <main class="dogs-app">
       <section id="dogs-view-rank" class="dogs-view" data-view="rank">
         <section class="rank-panel" aria-labelledby="dogs-rank-heading">
-          <p class="rank-panel__eyebrow">A field guide you put in order</p>
-          <h1 id="dogs-rank-heading">Rank the dogs you love.</h1>
-          <p class="rank-panel__dek">Meet familiar favorites, wonderfully specific regional dogs, and breeds you never knew you needed to know.</p>
-          <form id="dogs-search-form" role="search" autocomplete="off">
-            <label class="sr-only" for="dogs-search">Search dog breeds, types, and aliases</label>
-            <div class="search-control">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <circle cx="10.5" cy="10.5" r="6.5" />
-                <path d="m15.5 15.5 5 5" />
-              </svg>
-              <input
-                id="dogs-search"
-                type="search"
-                role="combobox"
-                placeholder="Search breeds, types, and aliases"
-                aria-autocomplete="list"
-                aria-controls="dogs-suggestions"
-                aria-expanded="false"
-                aria-activedescendant=""
-              />
+          <h1 id="dogs-rank-heading">Find your kind of dog.</h1>
+          <p class="rank-panel__dek">Meet a new favorite. Explore their stories. Rank the ones you love.</p>
+          <div class="discovery-toolbar">
+            <div class="discovery-actions">
+              <button type="button" class="browse-all-button" data-open-dog-gallery>Browse all dogs <span aria-hidden="true">→</span></button>
+              <button type="button" id="dogs-surprise">Surprise me</button>
             </div>
-            <ul id="dogs-suggestions" role="listbox" hidden></ul>
-          </form>
-          <p class="rank-panel__explanation">Pick a dog to start. A few quick head-to-head choices will find its exact place.</p>
+            <form id="dogs-search-form" role="search" autocomplete="off">
+              <label class="sr-only" for="dogs-search">Search dog breeds, types, and aliases</label>
+              <div class="search-control">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <circle cx="10.5" cy="10.5" r="6.5" />
+                  <path d="m15.5 15.5 5 5" />
+                </svg>
+                <input
+                  id="dogs-search"
+                  type="search"
+                  role="combobox"
+                  placeholder="Find a breed"
+                  aria-autocomplete="list"
+                  aria-controls="dogs-suggestions"
+                  aria-expanded="false"
+                  aria-activedescendant=""
+                />
+              </div>
+              <ul id="dogs-suggestions" role="listbox" hidden></ul>
+            </form>
+          </div>
           <p id="dogs-catalog-status" class="catalog-status" role="status" aria-live="polite">Loading the breed catalog…</p>
+        </section>
+
+        <section id="dogs-browse-section" class="browse-panel" aria-labelledby="dogs-browse-heading" hidden>
+          <div class="section-heading-row">
+            <div>
+              <h2 id="dogs-browse-heading">A few dogs to meet</h2>
+              <p>Open a portrait and get to know the dog.</p>
+            </div>
+            <button id="dogs-refresh-browse" type="button">Shuffle</button>
+          </div>
+          <div id="dogs-browse-rail" class="breed-rail"></div>
         </section>
 
         <section id="dogs-recent-section" class="recent-panel" aria-labelledby="dogs-recent-heading" hidden>
@@ -129,15 +158,24 @@
           </div>
         </section>
 
-        <section id="dogs-browse-section" class="browse-panel" aria-labelledby="dogs-browse-heading" hidden>
-          <div class="section-heading-row">
-            <div>
-              <h2 id="dogs-browse-heading">Meet a dog you may not know</h2>
-              <p>Every name opens a field note—learn a little, rank it if you feel the spark.</p>
-            </div>
-            <button id="dogs-refresh-browse" type="button">Show different breeds</button>
+        <section id="dogs-gallery" class="dog-gallery" aria-labelledby="dogs-gallery-heading" hidden>
+          <button type="button" id="dogs-gallery-back" class="gallery-back">← Back to discover</button>
+          <div class="gallery-heading">
+            <div><h1 id="dogs-gallery-heading" tabindex="-1">All dogs</h1><p>Wander a while. Ranking is optional.</p></div>
           </div>
-          <div id="dogs-browse-rail" class="breed-rail"></div>
+          <div class="gallery-filters">
+            <label>Find a dog<input id="dogs-gallery-search" type="search" placeholder="Name or alias" /></label>
+            <label>Dog family<select id="dogs-gallery-family"><option value="">Every family</option></select></label>
+            <label>Your dogs<select id="dogs-gallery-status"><option value="">All dogs</option><option value="unranked">Not ranked yet</option><option value="ranking">Ranked</option><option value="curious">Curious about</option><option value="not_for_me">Not for me</option></select></label>
+          </div>
+          <div class="gallery-result-row"><p id="dogs-gallery-count" role="status" aria-live="polite"></p><button type="button" id="dogs-gallery-clear" hidden>Clear filters</button></div>
+          <div id="dogs-gallery-grid" class="dog-gallery-grid"></div>
+          <p id="dogs-gallery-empty" hidden>No dogs match these filters. Try another name or family.</p>
+          <nav class="gallery-pagination" aria-label="Dog gallery pages">
+            <button type="button" id="dogs-gallery-prev">← Previous</button>
+            <span id="dogs-gallery-page" aria-live="polite"></span>
+            <button type="button" id="dogs-gallery-next">Next →</button>
+          </nav>
         </section>
       </section>
 
@@ -233,9 +271,9 @@
         <button id="dogs-cancel-comparison" type="button">Cancel ranking</button>
       </div>
       <div class="comparison__choices">
-        <button id="dogs-new-choice" class="comparison-card" type="button"></button>
+        <article id="dogs-new-choice" class="comparison-card"></article>
         <div class="comparison__or" aria-hidden="true"><span>OR</span></div>
-        <button id="dogs-existing-choice" class="comparison-card" type="button"></button>
+        <article id="dogs-existing-choice" class="comparison-card"></article>
       </div>
       <div class="comparison__footer">
         <button id="dogs-undo-choice" type="button" hidden>Undo last choice</button>
@@ -265,6 +303,11 @@
 
     <dialog id="dogs-detail" class="dogs-dialog detail-dialog">
       <form method="dialog" class="dialog-close-form"><button aria-label="Close breed details">×</button></form>
+      <nav id="dogs-detail-navigation" class="detail-navigation" aria-label="Browse dog profiles" hidden>
+        <button type="button" id="dogs-detail-prev" aria-label="Previous dog">← Previous</button>
+        <span id="dogs-detail-position" aria-live="polite"></span>
+        <button type="button" id="dogs-detail-next" aria-label="Next dog">Next →</button>
+      </nav>
       <div id="dogs-detail-content"></div>
     </dialog>
 
@@ -392,6 +435,7 @@
       </div>
     </footer>
 
-    <script type="module" src="dogs.js?v=44"></script>
+    <script type="module" src="category-switcher.js?v=1"></script>
+    <script type="module" src="dogs.js?v=48"></script>
   </body>
 </html>

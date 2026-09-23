@@ -1,0 +1,102 @@
+/* Exploration takes the first screen; the familiar ranking shell stays in place. */
+.dogs-brand { align-items: center; gap: 9px; }
+.dogs-brand > a { text-decoration: none; }
+.dogs-brand .category-switcher { color: var(--clay); }
+.dogs-brand .category-switcher__menu { color: var(--ink); }
+.dogs-brand .category-switcher__menu span { color: inherit; margin: 0; font-size: inherit; }
+.rank-panel { padding: 25px 0 21px; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.rank-panel h1 { max-width: none; font-size: clamp(2.6rem, 5.6vw, 5rem); line-height: 1; letter-spacing: -0.065em; }
+.rank-panel__dek { margin: 12px 0 22px; max-width: none; font-size: 1rem; }
+.discovery-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.discovery-actions { display: flex; align-items: center; gap: 18px; }
+.discovery-actions button { min-height: 46px; padding: 0 16px; border: 0; background: transparent; cursor: pointer; font-size: 0.9rem; white-space: nowrap; }
+.discovery-actions .browse-all-button { border: 1px solid var(--ink); border-radius: 8px; background: #fffdf8; box-shadow: inset 0 0 0 3px #fffdf8, inset 0 0 0 4px var(--ink); font-weight: 700; padding: 0 22px; }
+.browse-all-button span { margin-left: 12px; }
+#dogs-search-form { width: min(300px, 32%); }
+.search-control { min-height: 44px; padding: 0; border: 1px solid #b6b0a5; border-radius: 8px; box-shadow: none; background: rgba(255,253,248,.65); }
+.search-control svg { width: 18px; height: 18px; margin-left: 13px; }
+.search-control input { height: 44px; font-size: 0.9rem; padding: 0 12px; }
+#dogs-suggestions { left: auto; right: 0; min-width: min(420px, calc(100vw - 40px)); }
+.catalog-status { margin: 12px 0 0; }
+.browse-panel, .recent-panel, .dogs-discovery { padding: 22px 0; border: 0; border-top: 1px solid var(--border-soft); border-radius: 0; background: transparent; box-shadow: none; }
+#dogs-view-rank { gap: 0; }
+.browse-panel .section-heading-row p { display: none; }
+.breed-rail { margin-top: 16px; gap: 18px; }
+.explore-dog { position: relative; display: block; min-width: 0; width: 100%; padding: 0; border: 0; background: transparent; text-align: left; color: var(--ink); cursor: pointer; }
+.explore-dog > strong { display: block; margin-top: 11px; font-size: 1.1rem; line-height: 1.2; letter-spacing: -.025em; }
+.explore-dog .dog-media { aspect-ratio: 3 / 2; border-radius: 10px; }
+.explore-dog__meta { display: block; margin-top: 5px; color: var(--ink-soft); font-size: .76rem; line-height: 1.35; }
+.explore-dog__state { display: block; margin-top: 7px; color: var(--clay); font-size: .72rem; font-weight: 650; }
+.recent-panel .section-heading-row h2 { font-size: .95rem; }
+.recent-item { grid-template-columns: 65px minmax(0, 1fr) auto; }
+.recent-item .dog-media { width: 65px; }
+.recent-item__copy { min-height: 44px; align-content: center; }
+.recent-item__copy span { font-size: .72rem; }
+.recent-item__copy strong { font-size: .86rem; }
+.dogs-discovery { padding-top: 26px; }
+.dogs-view.is-browsing > :not(.dog-gallery) { display: none; }
+.dog-gallery { padding: 20px 0 30px; }
+.gallery-back { min-height: 44px; padding: 0; border: 0; background: transparent; color: var(--ink-soft); cursor: pointer; }
+.gallery-heading h1 { margin: 12px 0 8px; font-size: clamp(3rem, 6vw, 5rem); line-height: 1; letter-spacing: -.065em; }
+.gallery-heading p { margin: 0 0 24px; color: var(--ink-soft); }
+.gallery-filters { display: grid; grid-template-columns: minmax(180px, 1.5fr) 1fr 1fr; gap: 16px; }
+.gallery-filters label { display: grid; gap: 7px; min-width: 0; color: var(--ink-soft); font-size: .76rem; }
+.gallery-filters input, .gallery-filters select { min-width: 0; width: 100%; height: 46px; padding: 0 12px; border: 1px solid var(--border-soft); border-radius: 7px; background: var(--panel); color: var(--ink); font-size: .95rem; }
+.gallery-result-row { display: flex; justify-content: space-between; align-items: center; min-height: 60px; color: var(--ink-soft); font-size: .8rem; }
+.gallery-result-row button { min-height: 44px; border: 0; background: transparent; text-decoration: underline; cursor: pointer; }
+.dog-gallery-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 30px 20px; scroll-margin-top: 20px; }
+.gallery-pagination, .detail-navigation { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.gallery-pagination { padding: 30px 0 0; }
+.gallery-pagination button, .detail-navigation button { min-height: 44px; padding: 0 15px; border: 1px solid var(--border-soft); border-radius: 7px; background: var(--panel); cursor: pointer; }
+.gallery-pagination button:disabled, .detail-navigation button:disabled { opacity: .4; cursor: default; }
+.gallery-pagination span, .detail-navigation span { color: var(--ink-soft); font-size: .8rem; }
+.detail-navigation { margin: 0 56px 24px 0; }
+.detail-dialog.is-exploring { width: min(1400px, calc(100% - 32px)); }
+.is-exploring .detail-layout { grid-template-columns: minmax(0, 1.3fr) minmax(300px, 1fr); gap: 32px; }
+.is-exploring .detail-copy h1 { font-size: clamp(2rem, 3.5vw, 3.4rem); padding-right: 0; }
+.is-exploring .detail-copy__summary { font-size: 1.1rem; }
+@media (hover: hover) and (pointer: fine) {
+  .explore-dog:hover .dog-media { border-color: var(--ink); }
+  .explore-dog:hover > strong { text-decoration: underline; text-underline-offset: 3px; }
+}
+@media (max-width: 1050px) and (min-width: 721px) {
+  .breed-rail { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .dog-gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 720px) {
+  .dogs-header { min-height: 52px; backdrop-filter: none; }
+  .dogs-brand { display: flex; gap: 8px; }
+  .dogs-brand strong { font-size: .8rem; }
+  .dogs-settings { top: 52px; }
+  .dogs-app, .dogs-footer { width: calc(100% - 32px); }
+  .rank-panel { padding: 22px 0 20px; }
+  .rank-panel h1 { font-size: clamp(2rem, 8vw, 3.4rem); letter-spacing: -.06em; }
+  .rank-panel__dek { margin: 11px 0 17px; font-size: .85rem; line-height: 1.4; max-width: 340px; }
+  .discovery-toolbar { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .discovery-actions { gap: 6px; }
+  .discovery-actions button { font-size: .82rem; padding: 0 12px; }
+  .discovery-actions .browse-all-button { padding: 0 18px; }
+  #dogs-search-form { width: 100%; }
+  .search-control { max-width: none; }
+  .search-control input { font-size: 16px; }
+  #dogs-suggestions { min-width: 0; width: 100%; }
+  .browse-panel, .recent-panel, .dogs-discovery { padding: 18px 0; }
+  .breed-rail { gap: 14px; margin: 14px -16px 0; padding: 0 16px 4px; }
+  .breed-rail .explore-dog { flex: 0 0 76%; scroll-snap-align: start; }
+  .explore-dog > strong { font-size: 1rem; }
+  .recent-rail { margin-top: 10px; }
+  .recent-item { flex-basis: 90%; }
+  .dog-gallery { padding-top: 10px; }
+  .gallery-heading h1 { margin-top: 8px; }
+  .gallery-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .gallery-filters label:first-child { grid-column: 1 / -1; }
+  .gallery-filters input, .gallery-filters select { font-size: 16px; }
+  .dog-gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 12px; }
+  .dog-gallery-grid .explore-dog > strong { font-size: .9rem; }
+  .dog-gallery-grid .explore-dog__meta { font-size: .7rem; }
+  .detail-navigation { gap: 7px; margin: 0 42px 18px 0; }
+  .detail-navigation button { font-size: .76rem; padding: 0 9px; }
+  .detail-navigation span { font-size: .7rem; }
+  .is-exploring .detail-layout { grid-template-columns: 1fr; gap: 20px; }
+  .is-exploring .detail-layout > .dog-media { max-height: none; }
+}

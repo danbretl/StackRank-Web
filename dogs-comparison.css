@@ -1,0 +1,193 @@
+/* Portrait and profile stay visible; the two actions have their own card row. */
+.comparison__choices { min-height: min-content; }
+.comparison-card {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  cursor: default;
+}
+
+.comparison-card__content {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-rows: minmax(0, 1fr) auto;
+  height: 100%;
+  gap: 10px;
+  min-width: 0;
+  min-height: 0;
+  padding: 12px;
+}
+
+.comparison-card .dog-media {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  max-height: none;
+  aspect-ratio: auto;
+}
+.comparison-card .dog-media img { object-fit: contain; background: #f5f1e9; }
+
+.comparison-card__copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+}
+
+.comparison-card__copy > * { min-width: 0; }
+.comparison-card__eyebrow {
+  color: var(--clay) !important;
+  font-size: 0.72rem !important;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.comparison-card__copy strong { font-size: clamp(1.35rem, 2.1vw, 1.9rem); line-height: 1.08; }
+.comparison-card__context { color: var(--ink-soft); font-size: 0.85rem; }
+.comparison-card__copy .comparison-card__summary {
+  display: block;
+  max-width: none;
+  margin: 4px 0 0;
+  overflow: visible;
+  font-size: 0.84rem;
+  line-height: 1.35;
+  -webkit-line-clamp: unset;
+}
+.comparison-card__facts { display: flex; flex-wrap: wrap; gap: 5px 12px; margin-top: 5px; }
+.comparison-card__fact { display: flex; flex-wrap: wrap; gap: 4px; color: #45443f; font-size: 0.77rem; line-height: 1.25; }
+.comparison-card__fact-label { color: var(--ink-soft); font-size: inherit; font-weight: 700; }
+
+.comparison-card__pick {
+  grid-column: 1;
+  grid-row: 2;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 0;
+  border-top: 1px solid var(--border-soft);
+  background: #fff;
+  box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 3px var(--ink);
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.comparison-card__pick:focus-visible { outline: 3px solid var(--clay); outline-offset: -5px; }
+.comparison-card__learn {
+  grid-column: 2;
+  grid-row: 2;
+  display: block;
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 0;
+  border-top: 1px solid var(--border-soft);
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.review .comparison-card__content { padding-bottom: 12px; }
+.review .comparison-card__learn { grid-column: 1 / -1; }
+.detail-actions[hidden] { display: none; }
+
+@media (hover: hover) and (pointer: fine) {
+  .comparison-card__pick:hover,
+  .comparison-card__learn:hover { background: var(--surface-soft); }
+}
+
+@media (max-width: 720px) {
+  .comparison { height: 100dvh; overflow: hidden; }
+  .comparison__choices {
+    height: auto;
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) 20px minmax(0, 1fr);
+    gap: 4px;
+    margin: 8px auto;
+  }
+  .comparison-card { min-height: 0; }
+  .comparison-card__content,
+  .review .comparison-card__content {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    align-items: stretch;
+    gap: 5px;
+    height: 100%;
+    padding: 7px;
+    overflow: hidden;
+  }
+  .comparison-card .dog-media {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+    aspect-ratio: auto;
+  }
+  .comparison-card__copy { align-self: end; gap: 2px; width: 100%; overflow: hidden; }
+  .comparison-card__copy strong { display: -webkit-box; overflow: hidden; font-size: clamp(1rem, 5vw, 1.35rem); line-height: 1.08; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .comparison-card__context { overflow: hidden; font-size: 0.69rem; text-overflow: ellipsis; white-space: nowrap; }
+  .comparison-card__eyebrow { font-size: 0.61rem !important; }
+  .comparison-card__copy .comparison-card__summary,
+  .comparison-card__facts { display: none; }
+  .comparison-card__pick { min-height: 44px; padding: 6px 8px; font-size: 0.72rem; }
+  .comparison-card__learn { min-height: 44px; padding: 6px 8px; overflow: hidden; font-size: 0.72rem; text-overflow: ellipsis; white-space: nowrap; }
+  .comparison__or { min-height: 0; }
+  .comparison__or::before,
+  .comparison__or::after { height: 1px; }
+  .review__actions { min-height: 44px; }
+}
+
+@media (max-width: 720px) and (orientation: portrait) and (max-height: 650px) {
+  .comparison-card__content,
+  .review .comparison-card__content {
+    grid-template-columns: minmax(70px, 42%) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    align-items: center;
+  }
+  .comparison-card__copy { align-self: center; }
+}
+
+@media (any-pointer: coarse) and (orientation: landscape) and (max-height: 600px) {
+  .comparison { height: 100dvh; overflow: hidden; }
+  .comparison__choices {
+    grid-template-columns: minmax(0, 1fr) 32px minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    gap: 5px;
+    height: auto;
+    min-height: 0;
+    margin: 5px auto;
+  }
+  .comparison-card__content,
+  .review .comparison-card__content {
+    grid-template-columns: minmax(75px, 40%) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    align-items: center;
+    gap: 7px;
+    height: 100%;
+    padding: 6px;
+    overflow: hidden;
+  }
+  .comparison-card .dog-media { width: 100%; height: 100%; min-height: 0; max-height: none; aspect-ratio: auto; }
+  .comparison-card__copy { align-self: center; gap: 3px; width: 100%; overflow: hidden; }
+  .comparison-card__copy strong { display: -webkit-box; overflow: hidden; font-size: clamp(0.9rem, 2.3vw, 1.15rem); line-height: 1.08; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .comparison-card__eyebrow { font-size: 0.57rem !important; }
+  .comparison-card__context { overflow: hidden; font-size: 0.63rem; text-overflow: ellipsis; white-space: nowrap; }
+  .comparison-card__copy .comparison-card__summary,
+  .comparison-card__facts { display: none; }
+  .comparison-card__pick { min-height: 44px; padding: 5px; font-size: 0.68rem; }
+  .comparison-card__learn { min-height: 44px; padding: 5px; overflow: hidden; font-size: 0.68rem; text-overflow: ellipsis; white-space: nowrap; }
+  .comparison__or { grid-template-columns: auto; grid-template-rows: 1fr auto 1fr; }
+  .comparison__or::before,
+  .comparison__or::after { width: 1px; height: 100%; }
+  .comparison__topbar h1 { font-size: clamp(1rem, 2.7vw, 1.4rem); }
+  .comparison__footer p { font-size: 0.65rem; }
+}

@@ -99,7 +99,7 @@ const expectedCss = attribute(
 );
 const expectedModule = attribute(
   localIndex,
-  /<script\b[^>]*\btype=["']module["'][^>]*>/i,
+  /<script\b[^>]*\bsrc=["']app\.js\?[^>]*>/i,
   "src",
 );
 const expectedSharedCss = attribute(
@@ -124,9 +124,14 @@ const expectedDogsCss = attribute(
 );
 const expectedDogsModule = attribute(
   localDogs,
-  /<script\b[^>]*\btype=["']module["'][^>]*>/i,
+  /<script\b[^>]*\bsrc=["']dogs\.js\?[^>]*>/i,
   "src",
 );
+const expectedDiscoveryAssets = [
+  ...localDogs.matchAll(/(?:href|src)=["']((?:dogs-explore|dogs-comparison|category-switcher)\.(?:css|js)\?v=\d+)["']/g),
+].map((match) => match[1]);
+const localDogsScript = fs.readFileSync(new URL("../dogs.js", import.meta.url), "utf8");
+expectedDiscoveryAssets.push(localDogsScript.match(/"\.\/(dogs-explore\.js\?v=\d+)"/)[1]);
 const expectedDogsArtworkReviewCss = attribute(
   localDogsArtworkReview,
   /<link\b[^>]*\brel=["']stylesheet["'][^>]*>/i,
@@ -163,7 +168,7 @@ assert.equal(
   expectedCss,
 );
 assert.equal(
-  attribute(moviesHtml, /<script\b[^>]*\btype=["']module["'][^>]*>/i, "src"),
+  attribute(moviesHtml, /<script\b[^>]*\bsrc=["']app\.js\?[^>]*>/i, "src"),
   expectedModule,
 );
 record("canonical, social metadata, and cache-busted assets match the repository");
@@ -182,7 +187,7 @@ assert.equal(
   expectedDogsCss,
 );
 assert.equal(
-  attribute(dogsHtml, /<script\b[^>]*\btype=["']module["'][^>]*>/i, "src"),
+  attribute(dogsHtml, /<script\b[^>]*\bsrc=["']dogs\.js\?[^>]*>/i, "src"),
   expectedDogsModule,
 );
 assert.equal(attribute(dogsHtml, /<meta\b[^>]*\bname=["']robots["'][^>]*>/i, "content"), "");
@@ -247,6 +252,7 @@ assert.equal(
 record("Dogs shared-list route preserves the distinct noindex category artifact");
 
 for (const asset of [
+  ...expectedDiscoveryAssets,
   expectedCss,
   expectedModule,
   expectedSharedModule,
@@ -268,6 +274,7 @@ for (const asset of [
 }
 
 for (const asset of [
+  ...expectedDiscoveryAssets,
   expectedCss,
   expectedModule,
   expectedSharedModule,

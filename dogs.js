@@ -1,3 +1,4 @@
+import { createDogsExplorer } from "./dogs-explore.js?v=2";
 import { createClient } from "./vendor/supabase-js-2.108.2.js?v=1";
 import {
   categoryStorageKeys,
@@ -163,8 +164,6 @@ const recentSection = $("#dogs-recent-section");
 const recentEl = $("#dogs-recent");
 const featuredPacksEl = $("#dogs-featured-packs");
 const discoveryFallback = $("#dogs-discovery-fallback");
-const browseSection = $("#dogs-browse-section");
-const browseRail = $("#dogs-browse-rail");
 const rankingEl = $("#dogs-ranking");
 const rankingEmpty = $("#dogs-ranking-empty");
 const rankingSubtitle = $("#dogs-ranking-subtitle");
@@ -269,7 +268,6 @@ let generatedArtworkByCatalogId = new Map();
 
 let searchResults = [];
 let activeSuggestionIndex = -1;
-let browseOffset = 0;
 const featuredPackOffset = Math.floor(Math.random() * 997);
 let rankSession = null;
 let rankHistory = [];
@@ -1155,23 +1153,24 @@ const renderFeaturedPacks = () => {
   discoveryFallback.hidden = !catalogLoadError;
 };
 
-const renderBrowse = () => {
-  browseRail.replaceChildren();
-  if (!catalogIndex) {
-    browseSection.hidden = true;
-    return;
-  }
-  const editorialIds = [...new Set(packs.flatMap((pack) => pack.items || []))];
-  const available = editorialIds
-    .map((id) => candidateForCatalogId(id))
-    .filter((item) => item && !handledLocation(item.entityRef.id));
-  browseSection.hidden = available.length === 0;
-  if (!available.length) return;
-  const count = Math.min(8, available.length);
-  for (let offset = 0; offset < count; offset += 1) {
-    browseRail.append(createBreedTile(available[(browseOffset + offset) % available.length]));
-  }
-};
+const explorer = createDogsExplorer({
+  entries: () => [...publicCatalogIds].map((id) => {
+    const entity = catalogById.get(id);
+    const profile = profileForCatalogId(id);
+    return {
+      id,
+      name: entity?.displayName || "",
+      aliases: dogDisplayAliases(entity),
+      family: profile?.typeLabel || "",
+      origin: profile?.originRegions?.join(", ") || "",
+      location: handledLocation(id),
+    };
+  }),
+  createMedia: (id) => createDogMedia(candidateForCatalogId(id)),
+  openDetail,
+});
+
+const renderBrowse = () => explorer.refresh();
 
 const renderSearchResults = (results) => {
   searchResults = results
@@ -1467,28 +1466,79 @@ const transitionItem = (item, destination) => {
   detailDialog.close();
 };
 
-const comparisonCardContent = (item) => {
+let comparisonDetailReturnTarget = null;
+
+const openComparisonDetail = (catalogId, trigger) => {
+  comparisonDetailReturnTarget = trigger;
+  openDetail(catalogId);
+};
+
+const comparisonCardContent = (item, { selectable = false, eyebrow = "" } = {}) => {
   const shown = displayItem(item, "detail");
+  const profile = profileForCatalogId(shown.entityRef.id);
   const fragment = document.createDocumentFragment();
-  fragment.append(createDogMedia(shown, "detail"));
-  const copy = document.createElement("span");
+  const content = document.createElement("div");
+  content.className = "comparison-card__content";
+  const copy = document.createElement("div");
   copy.className = "comparison-card__copy";
+  const position = document.createElement("span");
+  position.className = "comparison-card__eyebrow";
+  position.textContent = eyebrow;
   const name = document.createElement("strong");
   name.textContent = shown.snapshot.primaryText;
   const context = document.createElement("span");
+  context.className = "comparison-card__context";
   context.textContent = shown.snapshot.secondaryText || "Breed or type";
-  const summary = document.createElement("span");
+  const summary = document.createElement("p");
   summary.className = "comparison-card__summary";
   summary.textContent = profileSummary(shown.entityRef.id);
-  const indicator = document.createElement("b");
-  indicator.textContent = "Choose";
-  copy.append(name, context, summary, indicator);
-  fragment.append(copy);
+  const facts = document.createElement("div");
+  facts.className = "comparison-card__facts";
+  const addFact = (label, value) => {
+    if (!cleanText(value)) return;
+    const fact = document.createElement("span");
+    fact.className = "comparison-card__fact";
+    fact.dataset.label = label.toLowerCase();
+    const key = document.createElement("span");
+    key.className = "comparison-card__fact-label";
+    key.textContent = label;
+    const text = document.createElement("span");
+    text.textContent = value;
+    fact.append(key, text);
+    facts.appendChild(fact);
+  };
+  addFact("Size", profile?.sizeLabel);
+  addFact("Origin", profile?.originRegions?.join(", "));
+  copy.append(position, name, context, summary, facts);
+  content.append(createDogMedia(shown, "detail"), copy);
+  fragment.append(content);
+  if (selectable) {
+    const pick = document.createElement("button");
+    pick.type = "button";
+    pick.className = "comparison-card__pick";
+    pick.textContent = "Rank higher";
+    pick.setAttribute("aria-label", `Rank ${shown.snapshot.primaryText} higher`);
+    fragment.append(pick);
+  }
+  const learn = document.createElement("button");
+  learn.type = "button";
+  learn.className = "comparison-card__learn";
+  learn.textContent = "About this dog";
+  learn.setAttribute("aria-label", `Learn about ${shown.snapshot.primaryText}`);
+  learn.addEventListener("click", () => openComparisonDetail(shown.entityRef.id, learn));
+  fragment.append(learn);
   return fragment;
 };
 
 const renderComparison = () => {
   if (!rankSession || rankSession.status !== "comparing") return;
+  const entering = comparisonEl.hidden;
+  const focusedSide = newChoiceEl.contains(document.activeElement)
+    ? newChoiceEl
+    : existingChoiceEl.contains(document.activeElement) ? existingChoiceEl : null;
+  const focusedAction = document.activeElement?.classList.contains("comparison-card__learn")
+    ? ".comparison-card__learn"
+    : ".comparison-card__pick";
   const existing = publicRanking()[rankSession.comparisonIndex];
   if (!existing) {
     cancelRanking();
@@ -1496,13 +1546,15 @@ const renderComparison = () => {
   }
   const estimated = Math.ceil(Math.log2(publicRanking().length + 1)) + 1;
   comparisonProgress.textContent = `Choice ${rankSession.comparisons + 1} of about ${estimated}`;
-  newChoiceEl.replaceChildren(comparisonCardContent(rankSession.item));
-  existingChoiceEl.replaceChildren(comparisonCardContent(existing));
-  newChoiceEl.setAttribute("aria-label", `Rank ${rankSession.item.snapshot.primaryText} higher`);
-  existingChoiceEl.setAttribute("aria-label", `Rank ${existing.snapshot.primaryText} higher`);
+  newChoiceEl.replaceChildren(comparisonCardContent(rankSession.item, { selectable: true, eyebrow: "New breed" }));
+  existingChoiceEl.replaceChildren(comparisonCardContent(existing, { selectable: true, eyebrow: `Currently #${rankSession.comparisonIndex + 1}` }));
   undoChoiceButton.hidden = rankHistory.length === 0;
   comparisonEl.hidden = false;
   document.body.classList.add("is-comparing");
+  if (focusedSide) focusedSide.querySelector(focusedAction)?.focus();
+  else if (entering) requestAnimationFrame(() => {
+    if (!comparisonEl.hidden && !detailDialog.open) newChoiceEl.querySelector(".comparison-card__pick")?.focus();
+  });
 };
 
 const settleRanking = (session) => {
@@ -1614,8 +1666,8 @@ const renderReview = () => {
   }
   const pairIndex = reviewSession.queue[reviewSession.cursor];
   reviewProgress.textContent = `Pair ${reviewSession.cursor + 1} of ${reviewSession.queue.length}`;
-  reviewFirst.replaceChildren(comparisonCardContent(publicRanking()[pairIndex]));
-  reviewSecond.replaceChildren(comparisonCardContent(publicRanking()[pairIndex + 1]));
+  reviewFirst.replaceChildren(comparisonCardContent(publicRanking()[pairIndex], { eyebrow: `Currently #${pairIndex + 1}` }));
+  reviewSecond.replaceChildren(comparisonCardContent(publicRanking()[pairIndex + 1], { eyebrow: `Currently #${pairIndex + 2}` }));
 };
 
 const advanceReview = (swap) => {
@@ -1701,6 +1753,7 @@ function openDetail(catalogId) {
   note.textContent = "Rank by affection or curiosity. Breed traditions never predict an individual dog or household fit.";
   const actions = document.createElement("div");
   actions.className = "detail-actions";
+  actions.hidden = Boolean(comparisonDetailReturnTarget);
   const location = handledLocation(catalogId);
   const addAction = (text, handler, disabled = false) => {
     const button = document.createElement("button");
@@ -1787,6 +1840,7 @@ function openDetail(catalogId) {
   layout.append(createDogMedia(shown, "detail"), copy);
   detailContent.appendChild(layout);
   showDialog(detailDialog);
+  detailDialog.dispatchEvent(new CustomEvent("breed-detail-open", { detail: { catalogId } }));
 }
 
 const renderCredits = () => {
@@ -2463,6 +2517,8 @@ const clearAllDogsData = () => {
 const loadCatalog = async () => {
   catalogLoadError = null;
   catalogStatus.classList.remove("is-error");
+  catalogStatus.hidden = false;
+  catalogStatus.dataset.ready = "false";
   catalogStatus.textContent = "Loading the breed catalog…";
   try {
     const [catalogResponse, packsResponse, rightsResponse, policyResponse, profilesResponse, generatedArtworkResponse] = await Promise.all([
@@ -2525,8 +2581,10 @@ const loadCatalog = async () => {
       if (!rightsByCatalogId.has(asset.catalogId)) rightsByCatalogId.set(asset.catalogId, []);
       rightsByCatalogId.get(asset.catalogId).push(asset);
     });
-    const publicCount = publicCatalogIds.size;
-    catalogStatus.textContent = `${publicCount.toLocaleString()} dogs to discover · ${publicCount.toLocaleString()} field notes · ${publicCount} featured portrait${publicCount === 1 ? "" : "s"}`;
+    catalogStatus.dataset.count = String(publicCatalogIds.size);
+    catalogStatus.dataset.ready = "true";
+    catalogStatus.textContent = "";
+    catalogStatus.hidden = true;
     fillFilterOptions();
     canonicalizeCurrentCatalogState({ announceUpgrade: true });
   } catch (error) {
@@ -2648,8 +2706,17 @@ settingsToggle.addEventListener("click", () => {
   settings.hidden = !settings.hidden;
   settingsToggle.setAttribute("aria-expanded", String(!settings.hidden));
 });
-newChoiceEl.addEventListener("click", () => handleChoice(true));
-existingChoiceEl.addEventListener("click", () => handleChoice(false));
+newChoiceEl.addEventListener("click", (event) => {
+  if (event.target.closest(".comparison-card__pick")) handleChoice(true);
+});
+existingChoiceEl.addEventListener("click", (event) => {
+  if (event.target.closest(".comparison-card__pick")) handleChoice(false);
+});
+detailDialog.addEventListener("close", () => {
+  const returnTarget = comparisonDetailReturnTarget;
+  comparisonDetailReturnTarget = null;
+  if (returnTarget?.isConnected && (!comparisonEl.hidden || !reviewEl.hidden)) returnTarget.focus();
+});
 $("#dogs-cancel-comparison").addEventListener("click", cancelRanking);
 undoChoiceButton.addEventListener("click", undoLastChoice);
 $("#dogs-review-order").addEventListener("click", startReview);
@@ -2729,10 +2796,6 @@ $("#dogs-move-mode").addEventListener("click", (event) => {
 $("#dogs-view-all-packs").addEventListener("click", openPackBrowser);
 $("#dogs-pack-search").addEventListener("input", renderPackBrowser);
 $("#dogs-pack-family").addEventListener("change", renderPackBrowser);
-$("#dogs-refresh-browse").addEventListener("click", () => {
-  browseOffset += 8;
-  renderBrowse();
-});
 $("#dogs-retry-catalog").addEventListener("click", loadCatalog);
 $("#dogs-open-credits").addEventListener("click", renderCredits);
 

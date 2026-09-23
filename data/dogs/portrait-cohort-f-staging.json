@@ -1,0 +1,1730 @@
+{
+  "schemaVersion": 1,
+  "cohortId": "dogs-portraits-f",
+  "selectionSha256": "0b3022a1a5de921fbc9974032ba105f8660b3b8b5611c902852754896caafc83",
+  "createdAt": "2026-09-23T04:46:42.898781Z",
+  "scopeBoundary": "User stopped further cohort F work after the F01 release at 307 total published portraits. All F02 calls listed here finished before the stop. This is preserved staging evidence only.",
+  "counts": {
+    "completedBuiltInImageCalls": 17,
+    "f02a": 7,
+    "f02b": 8,
+    "f02c": 2,
+    "preparedOrHeldUngeneratedPrimaryIds": 8,
+    "partialReserveUngeneratedIds": 1,
+    "cancelledBeforeImageCallReceiptsExcludedFromCount": 1
+  },
+  "releaseStatus": {
+    "primaryReview": "none of these 17 has been reviewed/accepted by the primary agent",
+    "accepted": false,
+    "integrated": false,
+    "published": false
+  },
+  "generatedAttempts": [
+    {
+      "catalogId": "VBO:0200810",
+      "displayName": "Landseer (European Continental Type)",
+      "batch": "f02-a",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-a/packet.json",
+      "sourceAttemptReceiptPath": "reports/dogs-generated-artwork/cohort-f/f02-a/generation-updates.json",
+      "preCallCheckpointPath": "reports/dogs-generated-artwork/cohort-f/f02-a/generation-checkpoint-0810.json",
+      "attemptId": "f02a-0200810-a1",
+      "exactPrompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is morphology and coat reference ONLY: create a wholly NEW mature adult individual, pose, composition, lighting and setting. Do not reconstruct the source photograph or copy its person, show lead or backdrop.\nScene: On a broad natural lakeshore meadow below distant Swiss foothills, with a calm blue lake, soft grass, low reeds and open sky in gentle morning light. No people, boat, buildings or livestock. Give the landscape readable foreground, middle ground and distance.\nSubject: One fully mature European Continental Landseer, not merely a black-and-white Newfoundland: very large but balanced and comparatively high-legged mountain-type dog, deep chest, substantial broad head and kindly dark eyes. White long dense coat with clearly separated large black body patches, black head with a white blaze and muzzle, medium hanging ears, and a complete long feathered tail extending around the hocks. Calm alert expression with closed mouth or subtle relaxed openness.\nComposition: exactly one adult standing naturally in a relaxed three-quarter view at dog-eye height; body angled right and head turned gently toward camera. Complete paired ears, four separate anatomically coherent legs and grounded paws, and ENTIRE natural tail well inside the landscape frame. Leave clear ground below paws and open room around all extremities; dog unmistakable but not frame-filling. Natural unstaged weight distribution and believable ground contact.\nStyle: exceptional photorealistic editorial field photography, individually resolved coat texture, subtle natural color and coherent soft daylight. Quietly observational, specific to this breed and region. No people, other animals, clothing, collar, leash, harness, prop, fence, sign, text, logo, watermark, clipped extremities, duplicate legs, warped paws, malformed face, CGI fur, studio backdrop, oversaturation or aggressive HDR.",
+      "exactPromptSha256": "1be38d3f3555f6899f166ab6a75776bd10d8fbca9d6220b184c5a59eed15c59a",
+      "startedAt": "2026-09-23T04:23:25.305834Z",
+      "startedAtBasis": "actual pre-call persisted checkpoint",
+      "completedAt": null,
+      "completedAtBasis": "exact call completion not separately recorded; do not infer it from mtime",
+      "outputFileMtime": "2026-09-23T04:23:49.133977Z",
+      "worker": "OpenAI Codex delegated agent",
+      "agentModel": "gpt-6-sol",
+      "agentReasoningEffort": "high",
+      "imageGenerator": "built-in imagegen",
+      "imageModel": "not disclosed",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-a/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-a/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-a/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200810-alt-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200810-alt-reference.jpg",
+        "originalSha256": "8dfac2ce873abaa6ede48072dad2d7f66aa068c16e972325603fb85ac72084a7",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200810-file-rev-1037008697.wikitext",
+        "pinnedFileWikitextSha256": "6aa513c46bc4d29371ce92ef5e7d3d03b383d52ecdd1f727c502bbb753ca2caf",
+        "pinnedRevision": {
+          "id": 1037008697,
+          "timestamp": "2025-05-28T08:39:40Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Landseer_2018.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "path": "sources/VBO-0200810-fci-226g02-en.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/226g02-en.pdf",
+            "sha256": "37af201f3fa09b21845f0518c805510e504dc9f519cc00295e63e4f887be2c97"
+          },
+          {
+            "path": "sources/landseer-vdh.html",
+            "url": "https://welpen.vdh.de/hunderassen/rasselexikon/ergebnis/landseer",
+            "sha256": "5d721eecf9eb6f78795b5b99c7c0b0e27b60154149cc93fb54cb03d539957ae6"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200810-reference-input.png",
+        "compatibilityInputSha256": "d23c694f84ca3a88a7908d2df75cca371764e92704416d6cabd955412659e729"
+      },
+      "nativeOutput": {
+        "nativeMasterPath": "assets/dogs/generated-masters/cohort-f/VBO-0200810-landseer-european-continental.png",
+        "nativeMasterSha256": "47f1baa0827c95430ce0132920f93efb67d5945c06582a07b81b85a304ba9885",
+        "nativeDimensions": [
+          1536,
+          1024
+        ],
+        "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0cc3c-7833-7632-9569-c07cfe45b54f/exec-e9e47903-ada1-4204-9449-df2c341ec41f.png",
+        "originalOutputSha256": "47f1baa0827c95430ce0132920f93efb67d5945c06582a07b81b85a304ba9885",
+        "byteIdenticalToOriginalOutput": true
+      },
+      "workerProvisionalAssessment": {
+        "verdict": "worker_first_pass_staged_pending_root",
+        "reviewedAt": "2026-09-23T04:32:26.479955Z",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "notes": "Mature high-legged white-and-black ECT Landseer; full ears, tail and four paws; Swiss lake/foothill scene. Independent final root review pending.",
+        "scopeStop": "User stopped further cohort F work at F01 release; F02-a is staged and not integrated."
+      },
+      "primaryReviewStatus": "unreviewed_by_primary",
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0200380",
+      "displayName": "Continental Bulldog",
+      "batch": "f02-a",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-a/packet.json",
+      "sourceAttemptReceiptPath": "reports/dogs-generated-artwork/cohort-f/f02-a/generation-updates.json",
+      "preCallCheckpointPath": "reports/dogs-generated-artwork/cohort-f/f02-a/generation-checkpoint-0380.json",
+      "attemptId": "f02a-0200380-a1",
+      "exactPrompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is morphology and coat reference ONLY: create a wholly NEW mature adult individual, pose, composition, lighting and setting. Do not reconstruct the source photograph or copy its person, show lead or backdrop.\nScene: A quiet open grassy Swiss foothill slope, with low wildflowers and rounded green hills under clear softened daylight. No chalets, fences, people or livestock. Give the landscape readable foreground, middle ground and distance.\nSubject: One mature Swiss Continental Bulldog, medium-sized smooth-coated bull-type of athletic, almost square build, deep but not barrel-heavy chest, broad but proportionate square head, moderate muzzle and open nostrils, small naturally folded ears, sturdy straight legs, fawn coat and black nose. Keep a complete low-set tapering natural tail. Not an English Bulldog or an extreme brachycephalic caricature. Calm alert expression with closed mouth or subtle relaxed openness.\nComposition: exactly one adult standing naturally in a relaxed three-quarter view at dog-eye height; body angled right and head turned gently toward camera. Complete paired ears, four separate anatomically coherent legs and grounded paws, and ENTIRE natural tail well inside the landscape frame. Leave clear ground below paws and open room around all extremities; dog unmistakable but not frame-filling. Natural unstaged weight distribution and believable ground contact.\nStyle: exceptional photorealistic editorial field photography, individually resolved coat texture, subtle natural color and coherent soft daylight. Quietly observational, specific to this breed and region. No people, other animals, clothing, collar, leash, harness, prop, fence, sign, text, logo, watermark, clipped extremities, duplicate legs, warped paws, malformed face, CGI fur, studio backdrop, oversaturation or aggressive HDR.",
+      "exactPromptSha256": "ecf16c7b8482f191f38bff628a8af667b72bd5953a21470d17a03740849155d0",
+      "startedAt": "2026-09-23T04:24:07.887755Z",
+      "startedAtBasis": "actual pre-call persisted checkpoint",
+      "completedAt": null,
+      "completedAtBasis": "exact call completion not separately recorded; do not infer it from mtime",
+      "outputFileMtime": "2026-09-23T04:24:33.070497Z",
+      "worker": "OpenAI Codex delegated agent",
+      "agentModel": "gpt-6-sol",
+      "agentReasoningEffort": "high",
+      "imageGenerator": "built-in imagegen",
+      "imageModel": "not disclosed",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-a/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-a/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-a/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200380-alt-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200380-alt-reference.jpg",
+        "originalSha256": "7405a55838880e3d5e78126ff57fc1541103a3423683c8c74f05437924198d41",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200380-file-rev-867849739.wikitext",
+        "pinnedFileWikitextSha256": "7c739f51da36c3819c9395fb62ac88257c8cd28b6af94e07443fa53676290ded",
+        "pinnedRevision": {
+          "id": 867849739,
+          "timestamp": "2024-04-13T01:46:35Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Continentalbulldog-fawn.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "path": "sources/VBO-0200380-fci-369g02-en.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/369g02-en.pdf",
+            "sha256": "475c7f738516704b222ba070a743c198e459cbe70bf5e81ed5b2b278159034bc"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200380-reference-input.png",
+        "compatibilityInputSha256": "e296d19769cd4e4055c084427dd18e96e5b1c22e2b621ec07f89b16f1b75be98"
+      },
+      "nativeOutput": {
+        "nativeMasterPath": "assets/dogs/generated-masters/cohort-f/VBO-0200380-continental-bulldog.png",
+        "nativeMasterSha256": "2bf91748775a1d2c794155a6799774af6fedc57a6d6a10bfb1be33d2b661ebfa",
+        "nativeDimensions": [
+          1536,
+          1024
+        ],
+        "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0cc3c-7833-7632-9569-c07cfe45b54f/exec-a161ad20-b9b5-4ee9-8639-c95a2e22c858.png",
+        "originalOutputSha256": "2bf91748775a1d2c794155a6799774af6fedc57a6d6a10bfb1be33d2b661ebfa",
+        "byteIdenticalToOriginalOutput": true
+      },
+      "workerProvisionalAssessment": {
+        "verdict": "worker_first_pass_staged_pending_root",
+        "reviewedAt": "2026-09-23T04:32:26.495735Z",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "notes": "Mature square athletic fawn Continental Bulldog; natural ears/tail, four paws and foothill scene. Independent final root review pending.",
+        "scopeStop": "User stopped further cohort F work at F01 release; F02-a is staged and not integrated."
+      },
+      "primaryReviewStatus": "unreviewed_by_primary",
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0200703",
+      "displayName": "Irish Soft Coated Wheaten Terrier",
+      "batch": "f02-a",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-a/packet.json",
+      "sourceAttemptReceiptPath": "reports/dogs-generated-artwork/cohort-f/f02-a/generation-updates.json",
+      "preCallCheckpointPath": "reports/dogs-generated-artwork/cohort-f/f02-a/generation-checkpoint-0703.json",
+      "attemptId": "f02a-0200703-a1",
+      "exactPrompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is morphology and coat reference ONLY: create a wholly NEW mature adult individual, pose, composition, lighting and setting. Do not reconstruct the source photograph or copy its person, show lead or backdrop.\nScene: An open Irish green meadow edging a low rough hedgerow, with wet-looking grass and distant softly rolling farmland beneath bright overcast light. No people, buildings, animals or dominant fence. Give the landscape readable foreground, middle ground and distance.\nSubject: One fully mature Irish Soft Coated Wheaten Terrier: medium hardy active terrier, short-coupled but not low, rectangular shaggy head with beard and brows, dark eyes, small folded ears and silky soft gently waved golden-wheaten single coat, never fluffy white or clipped into a sculpted poodle shape. Complete natural tail carried gaily but not curled over the back. Calm alert expression with closed mouth or subtle relaxed openness.\nComposition: exactly one adult standing naturally in a relaxed three-quarter view at dog-eye height; body angled right and head turned gently toward camera. Complete paired ears, four separate anatomically coherent legs and grounded paws, and ENTIRE natural tail well inside the landscape frame. Leave clear ground below paws and open room around all extremities; dog unmistakable but not frame-filling. Natural unstaged weight distribution and believable ground contact.\nStyle: exceptional photorealistic editorial field photography, individually resolved coat texture, subtle natural color and coherent soft daylight. Quietly observational, specific to this breed and region. No people, other animals, clothing, collar, leash, harness, prop, fence, sign, text, logo, watermark, clipped extremities, duplicate legs, warped paws, malformed face, CGI fur, studio backdrop, oversaturation or aggressive HDR.",
+      "exactPromptSha256": "1c014901410c7edededcd15cda5c83a970cb9747261490d4134cb2171029135d",
+      "startedAt": "2026-09-23T04:24:54.552387Z",
+      "startedAtBasis": "actual pre-call persisted checkpoint",
+      "completedAt": null,
+      "completedAtBasis": "exact call completion not separately recorded; do not infer it from mtime",
+      "outputFileMtime": "2026-09-23T04:25:13.897930Z",
+      "worker": "OpenAI Codex delegated agent",
+      "agentModel": "gpt-6-sol",
+      "agentReasoningEffort": "high",
+      "imageGenerator": "built-in imagegen",
+      "imageModel": "not disclosed",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-a/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-a/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-a/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200703-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200703-reference.jpg",
+        "originalSha256": "130f60cb2076b85785103508544d6beea2cde63c718a3dbc2737c1e0121cf88e",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200703-file-rev-1179543491.wikitext",
+        "pinnedFileWikitextSha256": "dcbafc42af33fc383a251be1d76d6c90cf56016e7f7a59415685aee2a256ddfa",
+        "pinnedRevision": {
+          "id": 1179543491,
+          "timestamp": "2026-03-11T19:42:05Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Soft-Coated_Wheaten_Terrier.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "path": "sources/VBO-0200703-fci-040g03-en.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/040g03-en.pdf",
+            "sha256": "a966fa17d1879e61e73eb68753d8d1173bf3eb3468dfcc82cae7ea491fb20bac"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200703-reference-input.png",
+        "compatibilityInputSha256": "3a6b5d19b4cda7584e0b6b262bfe4182d373feb0fe5e7fab7f96659a1dda02bd"
+      },
+      "nativeOutput": {
+        "nativeMasterPath": "assets/dogs/generated-masters/cohort-f/VBO-0200703-irish-soft-coated-wheaten-terrier.png",
+        "nativeMasterSha256": "84ad742afaa39ab4c91107f7b4b903d55fcf350f92fb497f2142ea6234f402d8",
+        "nativeDimensions": [
+          1536,
+          1024
+        ],
+        "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0cc3c-7833-7632-9569-c07cfe45b54f/exec-d38410ae-430b-47a8-97fb-495e117ae630.png",
+        "originalOutputSha256": "84ad742afaa39ab4c91107f7b4b903d55fcf350f92fb497f2142ea6234f402d8",
+        "byteIdenticalToOriginalOutput": true
+      },
+      "workerProvisionalAssessment": {
+        "verdict": "worker_first_pass_staged_pending_root",
+        "reviewedAt": "2026-09-23T04:32:26.509201Z",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "notes": "Mature wheaten terrier with complete body and Irish meadow. Tail curls high and coat reads somewhat shaggy; independent root review needed against FCI tail carriage and soft coat.",
+        "scopeStop": "User stopped further cohort F work at F01 release; F02-a is staged and not integrated."
+      },
+      "primaryReviewStatus": "unreviewed_by_primary",
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0200340",
+      "displayName": "Chihuahua, Smooth-Haired",
+      "batch": "f02-a",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-a/packet.json",
+      "sourceAttemptReceiptPath": "reports/dogs-generated-artwork/cohort-f/f02-a/generation-updates.json",
+      "preCallCheckpointPath": "reports/dogs-generated-artwork/cohort-f/f02-a/generation-checkpoint-0340.json",
+      "attemptId": "f02a-0200340-a1",
+      "exactPrompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is morphology and coat reference ONLY: create a wholly NEW mature adult individual, pose, composition, lighting and setting. Do not reconstruct the source photograph or copy its person, show lead or backdrop.\nScene: A sunlit dry-grass opening in Mexican highland woodland, with a few warm natural rocks, airy pine silhouettes far behind and plenty of clean open ground at the dog’s scale. No people, path markers, buildings or oversized decorative objects. Give the landscape readable foreground, middle ground and distance.\nSubject: One clearly mature smooth-haired Chihuahua, extremely small but fully adult and proportionate, compact body, distinctive rounded apple head, moderately short tapering muzzle, large separated upright ears, luminous dark eyes, close soft smooth fawn coat, fine but sound legs. Complete moderate-length tail carried high in a gentle curve. Not a long-coated Chihuahua, puppy, Miniature Pinscher or generic terrier. Calm alert expression with closed mouth or subtle relaxed openness.\nComposition: exactly one adult standing naturally in a relaxed three-quarter view at dog-eye height; body angled right and head turned gently toward camera. Complete paired ears, four separate anatomically coherent legs and grounded paws, and ENTIRE natural tail well inside the landscape frame. Leave clear ground below paws and open room around all extremities; dog unmistakable but not frame-filling. Natural unstaged weight distribution and believable ground contact.\nStyle: exceptional photorealistic editorial field photography, individually resolved coat texture, subtle natural color and coherent soft daylight. Quietly observational, specific to this breed and region. No people, other animals, clothing, collar, leash, harness, prop, fence, sign, text, logo, watermark, clipped extremities, duplicate legs, warped paws, malformed face, CGI fur, studio backdrop, oversaturation or aggressive HDR.",
+      "exactPromptSha256": "e0b30de27e5632795a22eda57b83a050a0a887ffd0115e6e05873525c523f858",
+      "startedAt": "2026-09-23T04:25:50.556958Z",
+      "startedAtBasis": "actual pre-call persisted checkpoint",
+      "completedAt": null,
+      "completedAtBasis": "exact call completion not separately recorded; do not infer it from mtime",
+      "outputFileMtime": "2026-09-23T04:26:39.515063Z",
+      "worker": "OpenAI Codex delegated agent",
+      "agentModel": "gpt-6-sol",
+      "agentReasoningEffort": "high",
+      "imageGenerator": "built-in imagegen",
+      "imageModel": "not disclosed",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-a/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-a/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-a/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200340-fourth-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200340-fourth-reference.jpg",
+        "originalSha256": "3a330b3e86e64bf8cef806aaf79e30626b541b72fca35d9d5c2890153a7fd0a1",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200340-file-rev-1084570930.wikitext",
+        "pinnedFileWikitextSha256": "8ce85be8eab905e811125d378a7748245c9c67016c765fa9478487f50ed11b38",
+        "pinnedRevision": {
+          "id": 1084570930,
+          "timestamp": "2025-09-12T12:25:20Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Chihuahueno-macho-adulto.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "path": "sources/VBO-0200340-fci-218g09-en.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/218g09-en.pdf",
+            "sha256": "95e2dd7afc2cced56567d7d9f9494be3150ae4cb07157705aa8ce3513ab21612"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200340-reference-input.png",
+        "compatibilityInputSha256": "2f25f18161c812b108bfb4df80ad90a32f5a55b5db7f70cf12df921f9c6eb871"
+      },
+      "nativeOutput": {
+        "nativeMasterPath": "assets/dogs/generated-masters/cohort-f/VBO-0200340-chihuahua-smooth-haired.png",
+        "nativeMasterSha256": "0e804d0615219b3fd6355cb31575b7ce8d77b3bab4cdfe699e8588493dd49aab",
+        "nativeDimensions": [
+          1536,
+          1024
+        ],
+        "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0cc3c-7833-7632-9569-c07cfe45b54f/exec-66287639-b269-4219-8cf6-32e49073e99a.png",
+        "originalOutputSha256": "0e804d0615219b3fd6355cb31575b7ce8d77b3bab4cdfe699e8588493dd49aab",
+        "byteIdenticalToOriginalOutput": true
+      },
+      "workerProvisionalAssessment": {
+        "verdict": "worker_first_pass_staged_pending_root",
+        "reviewedAt": "2026-09-23T04:32:26.542737Z",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "notes": "Mature smooth-haired fawn Chihuahua with large upright ears, complete high curved tail and four feet; Mexican highland scene. Independent final root review pending.",
+        "scopeStop": "User stopped further cohort F work at F01 release; F02-a is staged and not integrated."
+      },
+      "primaryReviewStatus": "unreviewed_by_primary",
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0201357",
+      "displayName": "Tosa",
+      "batch": "f02-a",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-a/packet.json",
+      "sourceAttemptReceiptPath": "reports/dogs-generated-artwork/cohort-f/f02-a/generation-updates.json",
+      "preCallCheckpointPath": "reports/dogs-generated-artwork/cohort-f/f02-a/generation-checkpoint-1357.json",
+      "attemptId": "f02a-0201357-a1",
+      "exactPrompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is morphology and coat reference ONLY: create a wholly NEW mature adult individual, pose, composition, lighting and setting. Do not reconstruct the source photograph or copy its person, show lead or backdrop.\nScene: A quiet natural grassy hillside in southwestern Japan, with distant forested slopes fading into humid soft morning light. No people, fighting imagery, buildings, collars or ceremonial props. Give the landscape readable foreground, middle ground and distance.\nSubject: One fully mature Japanese Tosa, large imposing but quietly balanced mastiff, broad strong head, proportionate squared muzzle, small high-set hanging ears, dark eyes, substantial neck and chest, strong long legs, short dense warm red coat with a subtle dark muzzle. Full thick natural tail tapers to the hocks. Not a Pit Bull, Boxer or generic red mastiff. Calm alert expression with closed mouth or subtle relaxed openness.\nComposition: exactly one adult standing naturally in a relaxed three-quarter view at dog-eye height; body angled right and head turned gently toward camera. Complete paired ears, four separate anatomically coherent legs and grounded paws, and ENTIRE natural tail well inside the landscape frame. Leave clear ground below paws and open room around all extremities; dog unmistakable but not frame-filling. Natural unstaged weight distribution and believable ground contact.\nStyle: exceptional photorealistic editorial field photography, individually resolved coat texture, subtle natural color and coherent soft daylight. Quietly observational, specific to this breed and region. No people, other animals, clothing, collar, leash, harness, prop, fence, sign, text, logo, watermark, clipped extremities, duplicate legs, warped paws, malformed face, CGI fur, studio backdrop, oversaturation or aggressive HDR.",
+      "exactPromptSha256": "15d79aafb1f85da0316bb971d3cc1f7d328dedb16fde3c5e60f0ef6fb86af9be",
+      "startedAt": "2026-09-23T04:27:09.250344Z",
+      "startedAtBasis": "actual pre-call persisted checkpoint",
+      "completedAt": null,
+      "completedAtBasis": "exact call completion not separately recorded; do not infer it from mtime",
+      "outputFileMtime": "2026-09-23T04:27:36.370627Z",
+      "worker": "OpenAI Codex delegated agent",
+      "agentModel": "gpt-6-sol",
+      "agentReasoningEffort": "high",
+      "imageGenerator": "built-in imagegen",
+      "imageModel": "not disclosed",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-a/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-a/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-a/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0201357-alt-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0201357-alt-reference.jpg",
+        "originalSha256": "b169aae65011ade17c646b815aaaad2e1a13ec5e3cb3a14552b0f2c8b5bf509c",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0201357-file-rev-1197148329.wikitext",
+        "pinnedFileWikitextSha256": "3a7909f1740c2e3213ec9c18fd167b3fba133e5a42a00d331ce807389fc7e49c",
+        "pinnedRevision": {
+          "id": 1197148329,
+          "timestamp": "2026-04-14T04:20:01Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Red_Tosa.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "path": "sources/VBO-0201357-fci-260g02-en.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/260g02-en.pdf",
+            "sha256": "c0decbc1f0ef43bd628a6a631c0b5c3b0e9e2a9d90caf3e2a949929fbd07cad6"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0201357-reference-input.png",
+        "compatibilityInputSha256": "de54f21492f21339a0db7474458e1406dff457e0f3e201a422ad554e98d8e4f2"
+      },
+      "nativeOutput": {
+        "nativeMasterPath": "assets/dogs/generated-masters/cohort-f/VBO-0201357-tosa.png",
+        "nativeMasterSha256": "4dd1dc2e3cff33261534b164552a064eede277c98fecdb04118465e15a045aa2",
+        "nativeDimensions": [
+          1536,
+          1024
+        ],
+        "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0cc3c-7833-7632-9569-c07cfe45b54f/exec-73861049-d9ce-4b2a-88b8-1b7721a2aeb6.png",
+        "originalOutputSha256": "4dd1dc2e3cff33261534b164552a064eede277c98fecdb04118465e15a045aa2",
+        "byteIdenticalToOriginalOutput": true
+      },
+      "workerProvisionalAssessment": {
+        "verdict": "worker_first_pass_staged_pending_root",
+        "reviewedAt": "2026-09-23T04:32:26.560374Z",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "notes": "Mature red Japanese Tosa with hanging ears, whole full tail and four paws; wooded mountain scene. Independent final root review pending.",
+        "scopeStop": "User stopped further cohort F work at F01 release; F02-a is staged and not integrated."
+      },
+      "primaryReviewStatus": "unreviewed_by_primary",
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0200712",
+      "displayName": "Italian Cane Corso",
+      "batch": "f02-a",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-a/packet.json",
+      "sourceAttemptReceiptPath": "reports/dogs-generated-artwork/cohort-f/f02-a/generation-updates.json",
+      "preCallCheckpointPath": "reports/dogs-generated-artwork/cohort-f/f02-a/generation-checkpoint-0712.json",
+      "attemptId": "f02a-0200712-a1",
+      "exactPrompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is morphology and coat reference ONLY: create a wholly NEW mature adult individual, pose, composition, lighting and setting. Do not reconstruct the source photograph or copy its person, show lead or backdrop.\nScene: An open sunlit limestone grassland in southern Italy with sparse low scrub and distant olive-green hills under mild afternoon light. No people, livestock, structures, collars or fences. Give the landscape readable foreground, middle ground and distance.\nSubject: One mature Italian Cane Corso: large strong but lean and agile Italian molossoid, rectangular outline, broad head and square muzzle of proper length, dark calm eyes, glossy short black coat, deep chest, dry muscular limbs and four grounded paws. Crucial: NATURAL uncropped triangular DROOPING ears and FULL undocked natural tail with broad root. No cropped ears, docked tail, exaggerated folds or American Bully proportions. Calm alert expression with closed mouth or subtle relaxed openness.\nComposition: exactly one adult standing naturally in a relaxed three-quarter view at dog-eye height; body angled right and head turned gently toward camera. Complete paired ears, four separate anatomically coherent legs and grounded paws, and ENTIRE natural tail well inside the landscape frame. Leave clear ground below paws and open room around all extremities; dog unmistakable but not frame-filling. Natural unstaged weight distribution and believable ground contact.\nStyle: exceptional photorealistic editorial field photography, individually resolved coat texture, subtle natural color and coherent soft daylight. Quietly observational, specific to this breed and region. No people, other animals, clothing, collar, leash, harness, prop, fence, sign, text, logo, watermark, clipped extremities, duplicate legs, warped paws, malformed face, CGI fur, studio backdrop, oversaturation or aggressive HDR.",
+      "exactPromptSha256": "1d30abd45ae9f5e2544e175e646be266272b0b292b6190322e88dab3725a2c6b",
+      "startedAt": "2026-09-23T04:28:20.714205Z",
+      "startedAtBasis": "actual pre-call persisted checkpoint",
+      "completedAt": null,
+      "completedAtBasis": "exact call completion not separately recorded; do not infer it from mtime",
+      "outputFileMtime": "2026-09-23T04:29:07.805305Z",
+      "worker": "OpenAI Codex delegated agent",
+      "agentModel": "gpt-6-sol",
+      "agentReasoningEffort": "high",
+      "imageGenerator": "built-in imagegen",
+      "imageModel": "not disclosed",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-a/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-a/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-a/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200712-sixth-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200712-sixth-reference.jpg",
+        "originalSha256": "df245de5311f29d17bb458632a33908dc30e7d4abf2cc5814e8174b9169f0278",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200712-file-rev-1127401276.wikitext",
+        "pinnedFileWikitextSha256": "48ad16a5deaa378d03e93526feb5f1472b4e9db08bba8adf493920cfdde87c8d",
+        "pinnedRevision": {
+          "id": 1127401276,
+          "timestamp": "2025-12-07T22:47:14Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Anita_Cane_Corso_Italiano_allevato_in_Italia.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "path": "sources/VBO-0200712-fci-343g02-en.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/343g02-en.pdf",
+            "sha256": "3ee85186ac7985fdb83ecfa8d863383f6eecf7dc334d9fce477ed596481a950f"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200712-reference-input.png",
+        "compatibilityInputSha256": "236bbe1f954898c94df046b1c8214b9f8a2dfc5cd33360b881f06a4bf1babbf0"
+      },
+      "nativeOutput": {
+        "nativeMasterPath": "assets/dogs/generated-masters/cohort-f/VBO-0200712-italian-cane-corso.png",
+        "nativeMasterSha256": "c5736a0576cecabe57e9b78749344895e98d34f9b48e7ffbfcb2cde2cc9861ee",
+        "nativeDimensions": [
+          1536,
+          1024
+        ],
+        "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0cc3c-7833-7632-9569-c07cfe45b54f/exec-a5e453dd-ee0c-4cf9-8f58-c51917d52aa9.png",
+        "originalOutputSha256": "c5736a0576cecabe57e9b78749344895e98d34f9b48e7ffbfcb2cde2cc9861ee",
+        "byteIdenticalToOriginalOutput": true
+      },
+      "workerProvisionalAssessment": {
+        "verdict": "worker_first_pass_staged_pending_root",
+        "reviewedAt": "2026-09-23T04:32:26.596393Z",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "notes": "Mature black Cane Corso with natural undocked tail and naturally hanging ears despite altered reference; four paws, southern Italian landscape. Independent final root review pending.",
+        "scopeStop": "User stopped further cohort F work at F01 release; F02-a is staged and not integrated."
+      },
+      "primaryReviewStatus": "unreviewed_by_primary",
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0201085",
+      "displayName": "Presa Canario",
+      "batch": "f02-a",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-a/packet.json",
+      "sourceAttemptReceiptPath": "reports/dogs-generated-artwork/cohort-f/f02-a/generation-updates.json",
+      "preCallCheckpointPath": "reports/dogs-generated-artwork/cohort-f/f02-a/generation-checkpoint-1085.json",
+      "attemptId": "f02a-0201085-a1",
+      "exactPrompt": "Use case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is morphology and coat reference ONLY: create a wholly NEW mature adult individual, pose, composition, lighting and setting. Do not reconstruct the source photograph or copy its person, show lead or backdrop.\nScene: An open Canary Island volcanic slope with dry golden grasses, dark basalt stones used sparingly, distant rugged hills and soft Atlantic haze. No people, cattle, walls, buildings or signs. Give the landscape readable foreground, middle ground and distance.\nSubject: One fully mature Presa Canario: robust medium-large Canary Islands molossoid of rectangular proportion, strong broad head with black facial mask and moderate muzzle, naturally hanging medium ears, powerful neck and deep chest, muscular but not over-heavy legs, short rich brindle coat and full natural tail reaching hock. Not Cane Corso, Bullmastiff or generic mastiff. Calm alert expression with closed mouth or subtle relaxed openness.\nComposition: exactly one adult standing naturally in a relaxed three-quarter view at dog-eye height; body angled right and head turned gently toward camera. Complete paired ears, four separate anatomically coherent legs and grounded paws, and ENTIRE natural tail well inside the landscape frame. Leave clear ground below paws and open room around all extremities; dog unmistakable but not frame-filling. Natural unstaged weight distribution and believable ground contact.\nStyle: exceptional photorealistic editorial field photography, individually resolved coat texture, subtle natural color and coherent soft daylight. Quietly observational, specific to this breed and region. No people, other animals, clothing, collar, leash, harness, prop, fence, sign, text, logo, watermark, clipped extremities, duplicate legs, warped paws, malformed face, CGI fur, studio backdrop, oversaturation or aggressive HDR.",
+      "exactPromptSha256": "8eb7241db1fbaa9d9ffd5a9ab97c4c0553943da88473b25f94ff2f6da4a1fd99",
+      "startedAt": "2026-09-23T04:29:48.946885Z",
+      "startedAtBasis": "actual pre-call persisted checkpoint",
+      "completedAt": null,
+      "completedAtBasis": "exact call completion not separately recorded; do not infer it from mtime",
+      "outputFileMtime": "2026-09-23T04:30:14.074467Z",
+      "worker": "OpenAI Codex delegated agent",
+      "agentModel": "gpt-6-sol",
+      "agentReasoningEffort": "high",
+      "imageGenerator": "built-in imagegen",
+      "imageModel": "not disclosed",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-a/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-a/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-a/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0201085-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0201085-reference.jpg",
+        "originalSha256": "d36e7b7f53990eed1a5a9c2687a746ee2b0f72ecde2a0dcf65f9a1416c8e8781",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0201085-file-rev-1127406357.wikitext",
+        "pinnedFileWikitextSha256": "02b8d2dd829df456b77b2328feb583367d09cd1241bc49f16c2b1a9bb91ed37a",
+        "pinnedRevision": {
+          "id": 1127406357,
+          "timestamp": "2025-12-07T22:57:31Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Presa-brindle1.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "path": "sources/VBO-0201085-fci-346g02-en.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/346g02-en.pdf",
+            "sha256": "9df35672cd2280cf7c3b21eb5afbfb34a7615381c9c879a11730948497041ff1"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0201085-reference-input.png",
+        "compatibilityInputSha256": "776bcb84884a2c505f50488deb54c4fc4219734951674651b470a6c07fadef26"
+      },
+      "nativeOutput": {
+        "nativeMasterPath": "assets/dogs/generated-masters/cohort-f/VBO-0201085-presa-canario.png",
+        "nativeMasterSha256": "7fe319bebf1956fd82562b15ac40b3499e6e51b678b6461ad6876c9323e578ee",
+        "nativeDimensions": [
+          1536,
+          1024
+        ],
+        "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0cc3c-7833-7632-9569-c07cfe45b54f/exec-02c60d1a-e812-486f-a5e7-25644025b5b3.png",
+        "originalOutputSha256": "7fe319bebf1956fd82562b15ac40b3499e6e51b678b6461ad6876c9323e578ee",
+        "byteIdenticalToOriginalOutput": true
+      },
+      "workerProvisionalAssessment": {
+        "verdict": "worker_first_pass_staged_pending_root",
+        "reviewedAt": "2026-09-23T04:32:26.614652Z",
+        "reviewedBy": "OpenAI Codex delegated by Dan Bretl",
+        "notes": "Mature brindle Presa Canario with mask, hanging ears, complete tail and four paws; Canary volcanic landscape. Independent final root review pending.",
+        "scopeStop": "User stopped further cohort F work at F01 release; F02-a is staged and not integrated."
+      },
+      "primaryReviewStatus": "unreviewed_by_primary",
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0201158",
+      "displayName": "Saarloos Wolfhond",
+      "batch": "f02-b",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-b/packet.json",
+      "sourceAttemptReceiptPath": "reports/dogs-generated-artwork/cohort-f/f02-b/generation-updates.json",
+      "attemptId": "a1",
+      "exactPrompt": "Use case: photorealistic-natural\nAsset type: StackRank Dogs premium field-guide portrait\nPrimary request: Create a new exquisite editorial photograph of one adult Saarloos Wolfhond, native 1536x1024 pixels, 3:2 landscape.\nInput image: The attached Commons photo is a MORPHOLOGY-ONLY reference for exact breed proportions, head, ears, coat and tail. Create a different adult dog in a wholly new outdoor composition. Ignore source handler, leash and show grass.\nScene/backdrop: A quiet Dutch dune heath at first light, with pale sand, marram grass and distant scrub under a soft cloud sky. Open level ground separates all four feet.\nSubject: One adult Saarloos Wolfhond standing naturally in a relaxed three-quarter view at dog-eye camera height. Large lean wolf-grey adult, long balanced legs, wedge head with flat skull, light amber-yellow almond eyes, medium erect triangular ears with rounded tips, pale undersides, thick double coat, full straight or gently sabre-shaped low tail—not curled over back.\nComposition/framing: Generous environmental 3:2 landscape with the ENTIRE dog, both ears, complete natural tail and FOUR distinct grounded paws comfortably inside all image edges. Pull back for ample safety margin on every side, clear space behind the tail, and ground vegetation below paw height. The dog is the clear subject without filling the frame.\nLighting/mood: Soft natural light, nuanced field-guide color, layered environmental depth and credible fur texture; refined documentary photograph, never plastic or CGI.\nConstraints: Exact adult breed morphology, natural coherent limb anatomy and separate four paws; no collar, harness, leash, handlers, people, extra dogs, other animals, prey, buildings, pavement, text, logo, signature, watermark or border. No copied source setting or composition, fused limbs, missing paws, duplicate paws, clipped ears or tail.",
+      "exactPromptSha256": "066f793306e83183bddff25e41c849aaef985d366c7929249c5ace52043e1230",
+      "startedAt": "2026-09-23T04:11:52.819Z",
+      "startedAtBasis": "actual worker attempt receipt",
+      "completedAt": "2026-09-23T04:12:32.202Z",
+      "completedAtBasis": "actual worker attempt receipt",
+      "worker": "OpenAI Codex delegated agent",
+      "agentModel": "gpt-6-sol",
+      "agentReasoningEffort": "high",
+      "imageGenerator": "built-in imagegen",
+      "imageModel": "not disclosed",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-b/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-b/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-b/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0201158-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0201158-reference.jpg",
+        "originalSha256": "1d469fadaa169c7cae8c84323a457d84e2a8edf3a0f02eeb89f47b6eed5e44e7",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0201158-filepage.wikitext",
+        "pinnedFileWikitextSha256": "1642e98070753c30faf4e657c726eb2263cee1c47f253a0494d1b497a208cc26",
+        "pinnedRevision": {
+          "id": 1054873210,
+          "timestamp": "2025-07-09T23:33:13Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:SaarloosWolf2.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "path": "sources/VBO-0201158-fci-standard.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/311g01-en.pdf",
+            "sha256": "218ed612c43d13bac78fc9c3cdfc43a560588cc40d9f689c9f29639079795f5d"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0201158-reference-input.png",
+        "compatibilityInputSha256": "297bef0e8588531a82cf6b73452201fd603b500039dbe7d3685b11532b01cb80"
+      },
+      "nativeOutput": {
+        "nativeMasterPath": "assets/dogs/generated-masters/cohort-f/VBO-0201158-f02-b-a1.png",
+        "nativeMasterSha256": "ebe1c9a0c1c10bc78fbc9546fbd30718d34bf80642da78d89e400c0599bcf459",
+        "nativeDimensions": [
+          1536,
+          1024
+        ],
+        "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0cc3f-121a-78f2-9d25-aeae3427f410/exec-84646c70-b718-4262-bdf1-c3e6b1c1904b.png",
+        "originalOutputSha256": "ebe1c9a0c1c10bc78fbc9546fbd30718d34bf80642da78d89e400c0599bcf459",
+        "byteIdenticalToOriginalOutput": true
+      },
+      "workerProvisionalAssessment": {
+        "status": "accepted_first_pass",
+        "reviewedAt": "2026-09-23T04:12:45.161Z",
+        "breed": "Adult Saarloos wolfdog identity: wolf-grey double coat, wedge head, amber eyes, erect ears, lean longer frame and low sabre tail align with FCI311.",
+        "anatomy": "Four coherent grounded paws and natural separate limbs; no collar or copied handler.",
+        "crop": "Both ears, all four feet and complete tail have generous native 3:2 safe margins.",
+        "aesthetics": "Distinct natural dune heath under soft first light, nuanced texture and credible documentary finish.",
+        "reason": "Full-resolution first pass accepted provisionally; root final QA pending."
+      },
+      "workerReceiptStatus": "accepted_first_pass",
+      "primaryReviewStatus": "unreviewed_by_primary",
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0200472",
+      "displayName": "East Siberian Laika",
+      "batch": "f02-b",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-b/packet.json",
+      "sourceAttemptReceiptPath": "reports/dogs-generated-artwork/cohort-f/f02-b/generation-updates.json",
+      "attemptId": "a1",
+      "exactPrompt": "Use case: photorealistic-natural\nAsset type: StackRank Dogs premium field-guide portrait\nPrimary request: Create a new exquisite editorial photograph of one adult East Siberian Laika, native 1536x1024 pixels, 3:2 landscape.\nInput image: The attached Commons photo is a MORPHOLOGY-ONLY reference for exact breed proportions, head, ears, coat and tail. Create a different adult dog in a wholly new outdoor composition. Ignore source collar, house, second dog and show-like side-on pose.\nScene/backdrop: A forest clearing near a broad East Siberian river in cool morning light, dark larch trunks and pale stones behind low ground vegetation.\nSubject: One adult East Siberian Laika standing naturally in a relaxed three-quarter view at dog-eye camera height. Substantial medium-large adult spitz, strong slightly rectangular frame and broad wedge head, dark brown eyes, wide-set V-shaped erect ears, straight harsh black-and-white double coat with dense pale undercoat, full bushy sickle tail raised over the back.\nComposition/framing: Generous environmental 3:2 landscape with the ENTIRE dog, both ears, complete natural tail and FOUR distinct grounded paws comfortably inside all image edges. Pull back for ample safety margin on every side, clear space behind the tail, and ground vegetation below paw height. The dog is the clear subject without filling the frame.\nLighting/mood: Soft natural light, nuanced field-guide color, layered environmental depth and credible fur texture; refined documentary photograph, never plastic or CGI.\nConstraints: Exact adult breed morphology, natural coherent limb anatomy and separate four paws; no collar, harness, leash, handlers, people, extra dogs, other animals, prey, buildings, pavement, text, logo, signature, watermark or border. No copied source setting or composition, fused limbs, missing paws, duplicate paws, clipped ears or tail.",
+      "exactPromptSha256": "099192466945bac88f9ebaacaf7db1a5564f6448ffc02a2491e8d777adc23a4e",
+      "startedAt": "2026-09-23T04:12:53.608Z",
+      "startedAtBasis": "actual worker attempt receipt",
+      "completedAt": "2026-09-23T04:13:31.856Z",
+      "completedAtBasis": "actual worker attempt receipt",
+      "worker": "OpenAI Codex delegated agent",
+      "agentModel": "gpt-6-sol",
+      "agentReasoningEffort": "high",
+      "imageGenerator": "built-in imagegen",
+      "imageModel": "not disclosed",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-b/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-b/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-b/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200472-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200472-reference.jpg",
+        "originalSha256": "36d17a67e9ddbb086107a6f4cbd06da486a2e86a26c2661b9c87842cada6d3f6",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200472-filepage.wikitext",
+        "pinnedFileWikitextSha256": "62cb93c01cc2a932b1b262dc22d1422188f031463999ee20c4538365f1c420d1",
+        "pinnedRevision": {
+          "id": 1247156638,
+          "timestamp": "2026-07-13T03:22:15Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Eastsiberianlaika.JPG",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "path": "sources/VBO-0200472-fci-standard.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/305g05-en.pdf",
+            "sha256": "103524ab3094a38606a2d8bcec403a914a297cc38937fd0513b9e3fb253b2e91"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200472-reference-input.png",
+        "compatibilityInputSha256": "ca7b0ab275675d8cae1101a3e4f9a581f5eb24762a8e52fd393e5aab1c17d258"
+      },
+      "nativeOutput": {
+        "nativeMasterPath": "assets/dogs/generated-masters/cohort-f/VBO-0200472-f02-b-a1.png",
+        "nativeMasterSha256": "7fa2611869aa325e460de88f9823ff2d84fa9c1e8a05040fe8378bc43aa71615",
+        "nativeDimensions": [
+          1536,
+          1024
+        ],
+        "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0cc3f-121a-78f2-9d25-aeae3427f410/exec-0c2f24b2-2d48-4958-a027-9dfaed5e0f15.png",
+        "originalOutputSha256": "7fa2611869aa325e460de88f9823ff2d84fa9c1e8a05040fe8378bc43aa71615",
+        "byteIdenticalToOriginalOutput": true
+      },
+      "workerProvisionalAssessment": {
+        "status": "accepted_first_pass",
+        "reviewedAt": "2026-09-23T04:13:45.173Z",
+        "breed": "Substantial adult black-and-white East Siberian Laika with wide-set V ears, strong wedge head, dense harsh coat and raised sickle tail consistent with FCI305; no breed swap evident.",
+        "anatomy": "Four coherent grounded paws, separate front and rear limbs and natural tail attachment.",
+        "crop": "Whole body, ears, paws and tail inside generous 3:2 margins.",
+        "aesthetics": "Specific stony taiga riverbank, larches and soft cool light; credible texture and no copied house or second dog.",
+        "reason": "Full-resolution provisional accept; root final QA pending."
+      },
+      "workerReceiptStatus": "accepted_first_pass",
+      "primaryReviewStatus": "unreviewed_by_primary",
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0201416",
+      "displayName": "West Siberian Laika",
+      "batch": "f02-b",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-b/packet.json",
+      "sourceAttemptReceiptPath": "reports/dogs-generated-artwork/cohort-f/f02-b/generation-updates.json",
+      "attemptId": "a1",
+      "exactPrompt": "Use case: photorealistic-natural\nAsset type: StackRank Dogs premium field-guide portrait\nPrimary request: Create a new exquisite editorial photograph of one adult West Siberian Laika, native 1536x1024 pixels, 3:2 landscape.\nInput image: The attached Commons photo is a MORPHOLOGY-ONLY reference for exact breed proportions, head, ears, coat and tail. Create a different adult dog in a wholly new outdoor composition. Ignore source fence, house and hard flash; retain the complete curled tail.\nScene/backdrop: An open Ural birch and pine forest glade after light snow, with muted moss and slender trunks; soft overcast daylight and clear firm ground.\nSubject: One adult West Siberian Laika standing naturally in a relaxed three-quarter view at dog-eye camera height. Adult medium-large lean powerful spitz, wedge head narrower than East Siberian Laika, brown intent eyes, high-set pointed V-shaped upright ears, shaded grey-and-cream harsh double coat, pronounced ruff, complete thick tight-curled tail over the back or hip.\nComposition/framing: Generous environmental 3:2 landscape with the ENTIRE dog, both ears, complete natural tail and FOUR distinct grounded paws comfortably inside all image edges. Pull back for ample safety margin on every side, clear space behind the tail, and ground vegetation below paw height. The dog is the clear subject without filling the frame.\nLighting/mood: Soft natural light, nuanced field-guide color, layered environmental depth and credible fur texture; refined documentary photograph, never plastic or CGI.\nConstraints: Exact adult breed morphology, natural coherent limb anatomy and separate four paws; no collar, harness, leash, handlers, people, extra dogs, other animals, prey, buildings, pavement, text, logo, signature, watermark or border. No copied source setting or composition, fused limbs, missing paws, duplicate paws, clipped ears or tail.",
+      "exactPromptSha256": "5e6510a06259eb97668edc0b67fb6091a3fe63fe6b3fad6000216ae3b8bb7e82",
+      "startedAt": "2026-09-23T04:13:52.978Z",
+      "startedAtBasis": "actual worker attempt receipt",
+      "completedAt": "2026-09-23T04:14:37.043Z",
+      "completedAtBasis": "actual worker attempt receipt",
+      "worker": "OpenAI Codex delegated agent",
+      "agentModel": "gpt-6-sol",
+      "agentReasoningEffort": "high",
+      "imageGenerator": "built-in imagegen",
+      "imageModel": "not disclosed",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-b/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-b/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-b/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0201416-alternative2-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0201416-alternative2-reference.jpg",
+        "originalSha256": "a608d060cc494ea6ab2426a07963d386d4e5f1352d624459095161583626a8ae",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0201416-alternative2-filepage.wikitext",
+        "pinnedFileWikitextSha256": "31af7dc5ed9b264060a38a062b8eb47cc0cefe8b152c9e83fdc9aba7e2e2b95e",
+        "pinnedRevision": {
+          "id": 1194715530,
+          "timestamp": "2026-04-10T06:32:52Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Westsibirischer_Laika.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "path": "sources/VBO-0201416-fci-standard.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/306g05-en.pdf",
+            "sha256": "702617ddb83a9e0f76f16c672b42e676b6b7a3e90b7e7ff3e0613c766172f189"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0201416-reference-input.png",
+        "compatibilityInputSha256": "244b0925497d35a2fe75cd2d42549764d202faa395db7aa03292fc9ff2e81afa"
+      },
+      "nativeOutput": {
+        "nativeMasterPath": "assets/dogs/generated-masters/cohort-f/VBO-0201416-f02-b-a1.png",
+        "nativeMasterSha256": "56cb8e808d84d60517d9ae443b6d48b65988187ce2b5df2a2788803650d268a1",
+        "nativeDimensions": [
+          1536,
+          1024
+        ],
+        "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0cc3f-121a-78f2-9d25-aeae3427f410/exec-bbebada2-d310-4aca-8619-92bcb518408a.png",
+        "originalOutputSha256": "56cb8e808d84d60517d9ae443b6d48b65988187ce2b5df2a2788803650d268a1",
+        "byteIdenticalToOriginalOutput": true
+      },
+      "workerProvisionalAssessment": {
+        "status": "accepted_first_pass",
+        "reviewedAt": "2026-09-23T04:14:49.939Z",
+        "breed": "Adult West Siberian Laika with lean frame, narrow wedge head, pointed pricked ears and tight tail curl, consistent with FCI306 and distinct from the broader East Siberian portrait.",
+        "anatomy": "Four separate coherent grounded paws, natural limb articulations and correct tail root.",
+        "crop": "Complete adult, ears, tail and four paws comfortably within native 3:2 frame.",
+        "aesthetics": "Specific snowy birch-pine Ural glade, subdued natural light and credible coat texture.",
+        "reason": "Full-resolution provisional accept; root final QA pending."
+      },
+      "workerReceiptStatus": "accepted_first_pass",
+      "primaryReviewStatus": "unreviewed_by_primary",
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0200383",
+      "displayName": "Phalène",
+      "batch": "f02-b",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-b/packet.json",
+      "sourceAttemptReceiptPath": "reports/dogs-generated-artwork/cohort-f/f02-b/generation-updates.json",
+      "attemptId": "a1",
+      "exactPrompt": "Use case: photorealistic-natural\nAsset type: StackRank Dogs premium field-guide portrait\nPrimary request: Create a new exquisite editorial photograph of one adult Phalène, native 1536x1024 pixels, 3:2 landscape.\nInput image: The attached Commons photo is a MORPHOLOGY-ONLY reference for exact breed proportions, head, ears, coat and tail. Create a different adult dog in a wholly new outdoor composition. Ignore source sand path; do not raise the ears into a Papillon.\nScene/backdrop: A spring meadow beside a shallow French stream, short grass and scattered wildflowers with soft willow foliage, gentle natural light.\nSubject: One adult Phalène standing naturally in a relaxed three-quarter view at dog-eye camera height. Small fine-boned adult Phalène, slightly longer than tall, white-dominant chestnut-and-white long glossy wavy coat, short fine muzzle, dark almond eyes, BOTH ears high-set but fully DROOPING with long wavy fringes, fine legs, full plumed tail raised in soft arc over back—not a stiff ring.\nComposition/framing: Generous environmental 3:2 landscape with the ENTIRE dog, both ears, complete natural tail and FOUR distinct grounded paws comfortably inside all image edges. Pull back for ample safety margin on every side, clear space behind the tail, and ground vegetation below paw height. The dog is the clear subject without filling the frame.\nLighting/mood: Soft natural light, nuanced field-guide color, layered environmental depth and credible fur texture; refined documentary photograph, never plastic or CGI.\nConstraints: Exact adult breed morphology, natural coherent limb anatomy and separate four paws; no collar, harness, leash, handlers, people, extra dogs, other animals, prey, buildings, pavement, text, logo, signature, watermark or border. No copied source setting or composition, fused limbs, missing paws, duplicate paws, clipped ears or tail.",
+      "exactPromptSha256": "13d6bea3185696c0fb1bc6f7b4c91d321c0a453c3d26c7bdce4bd3405bbfee09",
+      "startedAt": "2026-09-23T04:14:58.156Z",
+      "startedAtBasis": "actual worker attempt receipt",
+      "completedAt": "2026-09-23T04:15:30.158Z",
+      "completedAtBasis": "actual worker attempt receipt",
+      "worker": "OpenAI Codex delegated agent",
+      "agentModel": "gpt-6-sol",
+      "agentReasoningEffort": "high",
+      "imageGenerator": "built-in imagegen",
+      "imageModel": "not disclosed",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-b/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-b/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-b/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200383-alternative-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200383-alternative-reference.jpg",
+        "originalSha256": "a24eec0420e0fc871b046da3e9a2d1fd90ddbfd97dd2a029475343ffe5c8c10d",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200383-alternative-filepage.wikitext",
+        "pinnedFileWikitextSha256": "7fc5a742817dabee7c7293e2702227d5d11c29c541f38c2f8bcfa142226c785f",
+        "pinnedRevision": {
+          "id": 1137444930,
+          "timestamp": "2025-12-27T08:19:29Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Outdoor-Continental-Toy-Spaniel-Phalene.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "path": "sources/VBO-0200383-fci-standard.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/077g09-en.pdf",
+            "sha256": "703e7c84ae24b41f8b97fe34dfd975bfe878cc1ea8db4ee3d853c487771aafa9"
+          },
+          {
+            "path": "sources/VBO-0200383-papillon-club-history.html",
+            "url": "https://papillonclub.org/articles-a-brief-history-of-the-papillon/",
+            "sha256": "62b668f5343d55bd1ccd7288593020c19d71be1f5473b3f64c2bb99421418fbc"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200383-reference-input.png",
+        "compatibilityInputSha256": "81963efeaeebb43f71dca918b9c4806297621db8e2fce19c7696bd36b4de9866"
+      },
+      "nativeOutput": {
+        "nativeMasterPath": "assets/dogs/generated-masters/cohort-f/VBO-0200383-f02-b-a1.png",
+        "nativeMasterSha256": "fc6d57a1990b0841e754e578b86106fb89972d8fdc1465b68a8d529bc4b629ff",
+        "nativeDimensions": [
+          1536,
+          1024
+        ],
+        "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0cc3f-121a-78f2-9d25-aeae3427f410/exec-3cd5c71d-7f44-4db4-b27d-c956a26a248c.png",
+        "originalOutputSha256": "fc6d57a1990b0841e754e578b86106fb89972d8fdc1465b68a8d529bc4b629ff",
+        "byteIdenticalToOriginalOutput": true
+      },
+      "workerProvisionalAssessment": {
+        "status": "accepted_first_pass",
+        "reviewedAt": "2026-09-23T04:15:44.469Z",
+        "breed": "Exact Phalène variety: BOTH high-set ears hang fully beside cheeks with long fringe, no erect or half-pricked Papillon ears; fine toy proportions and white-dominant coat align with FCI77.",
+        "anatomy": "Four grounded paws emerge coherently from leg feathering; full plumed tail attached naturally.",
+        "crop": "Whole body, drooping ears, paws and tail safely inside 3:2 frame.",
+        "aesthetics": "Distinct natural stream meadow and willow light, rich yet credible coat texture.",
+        "reason": "Full-resolution provisional accept; root final QA pending."
+      },
+      "workerReceiptStatus": "accepted_first_pass",
+      "primaryReviewStatus": "unreviewed_by_primary",
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0200838",
+      "displayName": "Lundehund",
+      "batch": "f02-b",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-b/packet.json",
+      "sourceAttemptReceiptPath": "reports/dogs-generated-artwork/cohort-f/f02-b/generation-updates.json",
+      "attemptId": "a1",
+      "exactPrompt": "Use case: photorealistic-natural\nAsset type: StackRank Dogs premium field-guide portrait\nPrimary request: Create a new exquisite editorial photograph of one adult Lundehund, native 1536x1024 pixels, 3:2 landscape.\nInput image: The attached Commons photo is a MORPHOLOGY-ONLY reference for exact breed proportions, head, ears, coat and tail. Create a different adult dog in a wholly new outdoor composition. Ignore source leash, blue studio floor and distant side-view.\nScene/backdrop: A grassy ledge on a Norwegian coastal island, weathered stone and distant sea under gentle cloud-filtered light; safe flat foreground with four grounded paws and no cliffs at the feet.\nSubject: One adult Lundehund standing naturally in a relaxed three-quarter view at dog-eye camera height. Small agile adult Norwegian Lundehund with lightly rectangular frame, red-fawn and white dense coat with modest black tips, wedge muzzle, amber-brown eyes, upright triangular mobile ears, full medium-length tail carried in loose ring over back, subtly broad multi-toed paws grounded naturally—no exaggerated feet.\nComposition/framing: Generous environmental 3:2 landscape with the ENTIRE dog, both ears, complete natural tail and FOUR distinct grounded paws comfortably inside all image edges. Pull back for ample safety margin on every side, clear space behind the tail, and ground vegetation below paw height. The dog is the clear subject without filling the frame.\nLighting/mood: Soft natural light, nuanced field-guide color, layered environmental depth and credible fur texture; refined documentary photograph, never plastic or CGI.\nConstraints: Exact adult breed morphology, natural coherent limb anatomy and separate four paws; no collar, harness, leash, handlers, people, extra dogs, other animals, prey, buildings, pavement, text, logo, signature, watermark or border. No copied source setting or composition, fused limbs, missing paws, duplicate paws, clipped ears or tail.",
+      "exactPromptSha256": "12b098f5f949e4a19a9a612581d11e5417228570bf47c084473cabfd9e06eb94",
+      "startedAt": "2026-09-23T04:15:52.702Z",
+      "startedAtBasis": "actual worker attempt receipt",
+      "completedAt": "2026-09-23T04:16:26.071Z",
+      "completedAtBasis": "actual worker attempt receipt",
+      "worker": "OpenAI Codex delegated agent",
+      "agentModel": "gpt-6-sol",
+      "agentReasoningEffort": "high",
+      "imageGenerator": "built-in imagegen",
+      "imageModel": "not disclosed",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-b/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-b/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-b/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200838-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200838-reference.jpg",
+        "originalSha256": "bf1fd8d51dd3599e9073f87bc7b1a2db0edbe6c7388d5f785aa4f1f145b31f6f",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200838-filepage.wikitext",
+        "pinnedFileWikitextSha256": "b318f16771a42ab700dc00737a581bdf79d8477cdf2c7684bafd8742bb7ecdff",
+        "pinnedRevision": {
+          "id": 1218329222,
+          "timestamp": "2026-05-22T14:47:38Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Lunnikoira3.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "path": "sources/VBO-0200838-fci-standard.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/265g05-en.pdf",
+            "sha256": "deb939fa41c0b3c54c8e6b39fe5a11cc26bdf89d041a3639efc6180f62f5e2ff"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200838-reference-input.png",
+        "compatibilityInputSha256": "53be9a6b8293819c3c66962500478b106c001cae4c03acbd5be84aba2423a229"
+      },
+      "nativeOutput": {
+        "nativeMasterPath": "assets/dogs/generated-masters/cohort-f/VBO-0200838-f02-b-a1.png",
+        "nativeMasterSha256": "817341c3ac88fbfc5b954748bf2b586b6e53ce31f899b147102a4b96c20d5057",
+        "nativeDimensions": [
+          1536,
+          1024
+        ],
+        "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0cc3f-121a-78f2-9d25-aeae3427f410/exec-ee952f3c-753a-48bc-944f-32bfc5241809.png",
+        "originalOutputSha256": "817341c3ac88fbfc5b954748bf2b586b6e53ce31f899b147102a4b96c20d5057",
+        "byteIdenticalToOriginalOutput": true
+      },
+      "workerProvisionalAssessment": {
+        "status": "accepted_first_pass",
+        "reviewedAt": "2026-09-23T04:16:38.981Z",
+        "breed": "Adult small rectangular Norwegian Lundehund with red-fawn-white coat, erect mobile ears and loose ring tail per FCI265; broad forefeet are plausible though individual extra toes cannot be counted at portrait scale.",
+        "anatomy": "Four coherent grounded paws, no duplicated limbs or distorted joints; do not claim visible six-toe count.",
+        "crop": "Entire dog, complete ears, ring tail and four feet safely framed.",
+        "aesthetics": "Specific grassy Norwegian island coastline with sea and rocky inlets under soft cloud light.",
+        "reason": "Full-resolution provisional accept; root final QA pending."
+      },
+      "workerReceiptStatus": "accepted_first_pass",
+      "primaryReviewStatus": "unreviewed_by_primary",
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0200775",
+      "displayName": "Kleiner Münsterländer",
+      "batch": "f02-b",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-b/packet.json",
+      "sourceAttemptReceiptPath": "reports/dogs-generated-artwork/cohort-f/f02-b/generation-updates.json",
+      "attemptId": "a1",
+      "exactPrompt": "Use case: photorealistic-natural\nAsset type: StackRank Dogs premium field-guide portrait\nPrimary request: Create a new exquisite editorial photograph of one adult Kleiner Münsterländer, native 1536x1024 pixels, 3:2 landscape.\nInput image: The attached Commons photo is a MORPHOLOGY-ONLY reference for exact breed proportions, head, ears, coat and tail. Create a different adult dog in a wholly new outdoor composition. Ignore source leash and buildings; distinguish the smaller brown-and-white breed from black-and-white Groß Münsterländer.\nScene/backdrop: A quiet Münsterland meadow beside a narrow reed-lined brook, late summer grasses and distant mixed woodland in soft morning light.\nSubject: One adult Kleiner Münsterländer standing naturally in a relaxed three-quarter view at dog-eye camera height. Medium adult brown-and-white Kleiner Münsterländer, slightly longer than tall, athletic not heavy, brown head with close hanging ears, white body with rich liver-brown patches and light ticking, straight to slightly wavy medium coat, feathered legs, natural medium flagged tail held near horizontal or gently lowered—not curled.\nComposition/framing: Generous environmental 3:2 landscape with the ENTIRE dog, both ears, complete natural tail and FOUR distinct grounded paws comfortably inside all image edges. Pull back for ample safety margin on every side, clear space behind the tail, and ground vegetation below paw height. The dog is the clear subject without filling the frame.\nLighting/mood: Soft natural light, nuanced field-guide color, layered environmental depth and credible fur texture; refined documentary photograph, never plastic or CGI.\nConstraints: Exact adult breed morphology, natural coherent limb anatomy and separate four paws; no collar, harness, leash, handlers, people, extra dogs, other animals, prey, buildings, pavement, text, logo, signature, watermark or border. No copied source setting or composition, fused limbs, missing paws, duplicate paws, clipped ears or tail.",
+      "exactPromptSha256": "d0e9acad585f9cd9fceeaa8389c56b3aefd1cff534aa09c88fc7ac41ea7b7a0f",
+      "startedAt": "2026-09-23T04:16:48.726Z",
+      "startedAtBasis": "actual worker attempt receipt",
+      "completedAt": "2026-09-23T04:17:24.139Z",
+      "completedAtBasis": "actual worker attempt receipt",
+      "worker": "OpenAI Codex delegated agent",
+      "agentModel": "gpt-6-sol",
+      "agentReasoningEffort": "high",
+      "imageGenerator": "built-in imagegen",
+      "imageModel": "not disclosed",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-b/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-b/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-b/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200775-alternative-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200775-alternative-reference.jpg",
+        "originalSha256": "57473451df5ad6eef910dacb9e18fd243918fdb254cd5913b44a6477b115c6ab",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200775-alternative-filepage.wikitext",
+        "pinnedFileWikitextSha256": "899528d1adb355e3cceecd349acfb025c7a16582d44a3850ad742254d0173856",
+        "pinnedRevision": {
+          "id": 1159164105,
+          "timestamp": "2026-02-04T03:54:47Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Kleiner_M%C3%BCnsterl%C3%A4nder,_2_years_old.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "path": "sources/VBO-0200775-fci-standard.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/102g07-en.pdf",
+            "sha256": "bc638dfb3b0ab705231a3e9f8f6b4ff0da91d133e53444c3bdd5f96fdc4ad880"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200775-reference-input.png",
+        "compatibilityInputSha256": "c658b2b60fdfe983aade75c944bddb7d1c2e1fd11e1c4c1622f89d2b9025e095"
+      },
+      "nativeOutput": {
+        "nativeMasterPath": "assets/dogs/generated-masters/cohort-f/VBO-0200775-f02-b-a1.png",
+        "nativeMasterSha256": "bc2cef694c934830c10b820d5817a18319a8f9249e374ad0baba37c51c5b5c60",
+        "nativeDimensions": [
+          1536,
+          1024
+        ],
+        "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0cc3f-121a-78f2-9d25-aeae3427f410/exec-40c28e34-a709-4fae-810e-6020defbfb75.png",
+        "originalOutputSha256": "bc2cef694c934830c10b820d5817a18319a8f9249e374ad0baba37c51c5b5c60",
+        "byteIdenticalToOriginalOutput": true
+      },
+      "workerProvisionalAssessment": {
+        "status": "accepted_first_pass",
+        "reviewedAt": "2026-09-23T04:17:38.417Z",
+        "breed": "Adult Kleiner Münsterländer identity clear: compact medium gundog, rich brown head, brown-white patching, hanging ears, feathering and near-level flagged tail; avoids black-and-white Groß Münsterländer.",
+        "anatomy": "Four separate grounded paws and coherent natural limbs.",
+        "crop": "Entire body, ears, complete tail and all feet have safe native 3:2 margins.",
+        "aesthetics": "Natural Münsterland meadow and reed-lined brook with gentle warm field light.",
+        "reason": "Full-resolution provisional accept; root final QA pending."
+      },
+      "workerReceiptStatus": "accepted_first_pass",
+      "primaryReviewStatus": "unreviewed_by_primary",
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0200464",
+      "displayName": "Dutch Shepherd Dog, Long-Haired",
+      "batch": "f02-b",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-b/packet.json",
+      "sourceAttemptReceiptPath": "reports/dogs-generated-artwork/cohort-f/f02-b/generation-updates.json",
+      "attemptId": "a1",
+      "exactPrompt": "Use case: photorealistic-natural\nAsset type: StackRank Dogs premium field-guide portrait\nPrimary request: Create a new exquisite editorial photograph of one adult Dutch Shepherd Dog, Long-Haired, native 1536x1024 pixels, 3:2 landscape.\nInput image: The attached Commons photo is a MORPHOLOGY-ONLY reference for exact breed proportions, head, ears, coat and tail. Create a different adult dog in a wholly new outdoor composition. Ignore source flower garden; do not substitute the short-haired variety or solid black coat.\nScene/backdrop: A grassy Dutch heath-field edge with low heather, reed-framed drainage channel and distant alder trees, soft diffuse early light.\nSubject: One adult Dutch Shepherd Dog, Long-Haired standing naturally in a relaxed three-quarter view at dog-eye camera height. Medium-large adult long-haired Dutch Shepherd, athletic slightly longer than tall, clearly GOLDEN BRINDLE long straight harsh outer coat with dense undercoat, visible ruff and breeches, black mask, high-set erect triangular ears, dark almond eyes, full abundantly coated tail reaching hock and hanging with gentle curve—never curled.\nComposition/framing: Generous environmental 3:2 landscape with the ENTIRE dog, both ears, complete natural tail and FOUR distinct grounded paws comfortably inside all image edges. Pull back for ample safety margin on every side, clear space behind the tail, and ground vegetation below paw height. The dog is the clear subject without filling the frame.\nLighting/mood: Soft natural light, nuanced field-guide color, layered environmental depth and credible fur texture; refined documentary photograph, never plastic or CGI.\nConstraints: Exact adult breed morphology, natural coherent limb anatomy and separate four paws; no collar, harness, leash, handlers, people, extra dogs, other animals, prey, buildings, pavement, text, logo, signature, watermark or border. No copied source setting or composition, fused limbs, missing paws, duplicate paws, clipped ears or tail.",
+      "exactPromptSha256": "cd3028090f2d8b1ae3c79042d04b099573ddd8e8196414ab46ba8562178f285e",
+      "startedAt": "2026-09-23T04:17:49.358Z",
+      "startedAtBasis": "actual worker attempt receipt",
+      "completedAt": "2026-09-23T04:18:23.496Z",
+      "completedAtBasis": "actual worker attempt receipt",
+      "worker": "OpenAI Codex delegated agent",
+      "agentModel": "gpt-6-sol",
+      "agentReasoningEffort": "high",
+      "imageGenerator": "built-in imagegen",
+      "imageModel": "not disclosed",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-b/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-b/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-b/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200464-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200464-reference.jpg",
+        "originalSha256": "2e6c23cb95b8eaaff2dd75a74b490d4ef4d7775c54899ce7fb04cb8a7568a5ed",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200464-filepage.wikitext",
+        "pinnedFileWikitextSha256": "a775dc3f70125d35acf8c77fb41a79d33d4b86d9ba7b4d56e7b1a0123162b060",
+        "pinnedRevision": {
+          "id": 964428250,
+          "timestamp": "2024-12-01T21:46:29Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:2014-03-22-16-28-15.djennarechts.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "path": "sources/VBO-0200464-fci-standard.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/223g01-en.pdf",
+            "sha256": "7bd86bd2837061350275854b2be24dd759b27f765e69ca2cb088e1d5e8c8a7e6"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200464-reference-input.png",
+        "compatibilityInputSha256": "1a3b6241385e3f61361fa79d3a92edda6b35efa06ca3eae034b081691b8e98a8"
+      },
+      "nativeOutput": {
+        "nativeMasterPath": "assets/dogs/generated-masters/cohort-f/VBO-0200464-f02-b-a1.png",
+        "nativeMasterSha256": "d42986b65b2749c276f065fa682f2a7fd5da66c7e19fd296c4da9884d6c95d35",
+        "nativeDimensions": [
+          1536,
+          1024
+        ],
+        "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0cc3f-121a-78f2-9d25-aeae3427f410/exec-615c0c12-6571-478d-8d5c-f380a0eeef6c.png",
+        "originalOutputSha256": "d42986b65b2749c276f065fa682f2a7fd5da66c7e19fd296c4da9884d6c95d35",
+        "byteIdenticalToOriginalOutput": true
+      },
+      "workerProvisionalAssessment": {
+        "status": "accepted_first_pass",
+        "reviewedAt": "2026-09-23T04:18:38.677Z",
+        "breed": "Correct adult long-haired Dutch Shepherd variety: clear golden brindle through long straight coat, ruff, breeches, erect ears, black mask and full low tail per FCI223; not a short-haired substitution.",
+        "anatomy": "Four coherent grounded paws and separate limbs visible despite leg feathering.",
+        "crop": "Entire body, ears, tail and paws safe inside native 3:2 landscape.",
+        "aesthetics": "Natural Dutch heath-field edge and drainage channel under soft diffused light, no built structures.",
+        "reason": "Full-resolution provisional accept; root final QA pending."
+      },
+      "workerReceiptStatus": "accepted_first_pass",
+      "primaryReviewStatus": "unreviewed_by_primary",
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0200548",
+      "displayName": "French Spaniel",
+      "batch": "f02-b",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-b/packet.json",
+      "sourceAttemptReceiptPath": "reports/dogs-generated-artwork/cohort-f/f02-b/generation-updates.json",
+      "attemptId": "a1",
+      "exactPrompt": "Use case: photorealistic-natural\nAsset type: StackRank Dogs premium field-guide portrait\nPrimary request: Create a new exquisite editorial photograph of one adult French Spaniel, native 1536x1024 pixels, 3:2 landscape.\nInput image: The attached Commons photo is a MORPHOLOGY-ONLY reference for exact breed proportions, head, ears, coat and tail. Create a different adult dog in a wholly new outdoor composition. Ignore source show handler and dark studio; render dark liver as brown, not black.\nScene/backdrop: A quiet French woodland meadow edge in late afternoon, tall but sparse seed grass, oak shade and a soft open clearing; firm low foreground grass leaves all four feet visible.\nSubject: One adult French Spaniel standing naturally in a relaxed three-quarter view at dog-eye camera height. Medium-large athletic French Spaniel, white and DARK LIVER-BROWN patches with light flecking (not true black), cinnamon-to-brown eyes, brown nose, low-set close hanging ears with wavy fringes, silky flat body coat with modest feathering on legs, full undocked low-set flagged tail reaching hock and curved softly downward with upturned tip.\nComposition/framing: Generous environmental 3:2 landscape with the ENTIRE dog, both ears, complete natural tail and FOUR distinct grounded paws comfortably inside all image edges. Pull back for ample safety margin on every side, clear space behind the tail, and ground vegetation below paw height. The dog is the clear subject without filling the frame.\nLighting/mood: Soft natural light, nuanced field-guide color, layered environmental depth and credible fur texture; refined documentary photograph, never plastic or CGI.\nConstraints: Exact adult breed morphology, natural coherent limb anatomy and separate four paws; no collar, harness, leash, handlers, people, extra dogs, other animals, prey, buildings, pavement, text, logo, signature, watermark or border. No copied source setting or composition, fused limbs, missing paws, duplicate paws, clipped ears or tail.",
+      "exactPromptSha256": "0ae3e316db6e7b91ef8a9ae36c8c77e01d3b92f119052bc22335a376b64980ce",
+      "startedAt": "2026-09-23T04:18:49.219Z",
+      "startedAtBasis": "actual worker attempt receipt",
+      "completedAt": "2026-09-23T04:19:25.279Z",
+      "completedAtBasis": "actual worker attempt receipt",
+      "worker": "OpenAI Codex delegated agent",
+      "agentModel": "gpt-6-sol",
+      "agentReasoningEffort": "high",
+      "imageGenerator": "built-in imagegen",
+      "imageModel": "not disclosed",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-b/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-b/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-b/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200548-alternative-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200548-alternative-reference.jpg",
+        "originalSha256": "384e56477fb84f235d5ea772f3a7576c1bb4ce76547b9e98bdf5974a52a437c6",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200548-alternative-filepage.wikitext",
+        "pinnedFileWikitextSha256": "edd041f701471945c9c4d642499f1df6b0fa696e5362d7308836656b1ed76db2",
+        "pinnedRevision": {
+          "id": 1036788896,
+          "timestamp": "2025-05-27T21:42:20Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:04031137_Epagneul_Francais.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "path": "sources/VBO-0200548-fci-standard.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/175g07-en.pdf",
+            "sha256": "2638b6af1e86c66fa49f27776bbcb069dc0743622b30f591ff02559ab746a4de"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200548-reference-input.png",
+        "compatibilityInputSha256": "352eb469e60814f344d890c53c92efbe1be9cb585fd3fd68954315e0fd784b86"
+      },
+      "nativeOutput": {
+        "nativeMasterPath": "assets/dogs/generated-masters/cohort-f/VBO-0200548-f02-b-a1.png",
+        "nativeMasterSha256": "f014ee40d9118a4cf31c7bac8e3b5e7fbec5024fe965ee08352ba846e4809cb9",
+        "nativeDimensions": [
+          1536,
+          1024
+        ],
+        "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0cc3f-121a-78f2-9d25-aeae3427f410/exec-55303164-fd06-4c28-842f-ca5f1bc70e61.png",
+        "originalOutputSha256": "f014ee40d9118a4cf31c7bac8e3b5e7fbec5024fe965ee08352ba846e4809cb9",
+        "byteIdenticalToOriginalOutput": true
+      },
+      "workerProvisionalAssessment": {
+        "status": "accepted_first_pass",
+        "reviewedAt": "2026-09-23T04:19:39.592Z",
+        "breed": "Adult French Spaniel with dark liver-brown (not black) and white spotting, brown nose/eyes, long fringed ears, taller athletic form and full undocked feathered tail; consistent with FCI175.",
+        "anatomy": "Four separate grounded paws and coherent standing limbs, tail attached naturally.",
+        "crop": "Complete head, all paws and full feathered tail inside generous native 3:2 margins.",
+        "aesthetics": "French oak woodland meadow in soft natural late light; credible coat texture and strong environmental depth.",
+        "reason": "Full-resolution provisional accept; root final QA pending."
+      },
+      "workerReceiptStatus": "accepted_first_pass",
+      "primaryReviewStatus": "unreviewed_by_primary",
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0200182",
+      "displayName": "Blue Picardy Spaniel",
+      "batch": "f02-c",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-c/packet.json",
+      "sourceAttemptReceiptPath": "reports/dogs-generated-artwork/cohort-f/f02-c/generation-attempts.json",
+      "attemptId": "f02-c-0200182-01",
+      "exactPrompt": "Use case: photorealistic-natural\nAsset type: StackRank Dogs premium field-guide portrait\nPrimary request: Create ONE wholly new editorial photograph of an adult Blue Picardy Spaniel, native 1536x1024, 3:2 landscape.\nInput image: The attached exact Commons adult is a morphology and coat reference ONLY. Create a different individual with a new pose, camera angle, composition, light and setting. Do not copy the show floor, person, lead, collar, markings or scene. Where the source obscures a paw or tail, follow the supplied standard morphology.\nSubject: One adult medium athletic Blue Picardy Spaniel, slightly longer than tall, silver-gray to black-gray finely speckled coat with a blue cast and a few black patches, flat to slightly wavy hair and silky leg/ear/tail feathering. Calm dark eyes, broad long muzzle, substantial drooping ears set at eye level and framing head; complete natural undocked feathered tail reaches near hock and hangs low without hook.\nPose: right-facing open three-quarter stand with head gently toward camera and all four paws distinct; natural watchful but relaxed expression, sound mature proportions, four separate planted paws.\nScene: Firm short grass at the edge of a Picardy wet meadow, a narrow silver watercourse and low reeds well behind the dog, cool clear dawn over distant open fields.\nComposition: Wide crop-safe environmental portrait at dog-eye height, with a readable landscape and generous clear sky/ground/side margins. Entire ears, body, complete tail and FOUR distinct grounded paws fully visible; no foot concealed by grass, feathering or another leg. A believable open three-quarter view with chest and far limbs showing, rather than a flat copied show profile.\nLight/style: Natural believable light and anatomy, tactile authentic blue-gray speckled with black patches coat, restrained premium field-guide documentary photograph, legible depth and local atmosphere, no generic smeared bokeh.\nExclude people, other animals, collars, leads, harnesses, props, show furniture, buildings, roads, text, logos, watermarks, copied source scenery, cropped ears/paws/tail, fused or extra limbs, plastic fur, and any ear or tail carriage outside the specified standard.",
+      "exactPromptSha256": "b83753a1a9804614d06859aa69df8c1619d542cc727ae938d9c5c442b360772a",
+      "queuedAt": "2026-09-23T04:27:18.778Z",
+      "startedAt": "2026-09-23T04:27:18.785Z",
+      "startedAtBasis": "actual pre-call worker receipt",
+      "completedAt": "2026-09-23T04:28:18.490Z",
+      "completedAtBasis": "actual worker result receipt",
+      "worker": "OpenAI Codex delegated agent",
+      "agentModel": "gpt-6-sol",
+      "agentReasoningEffort": "high",
+      "imageGenerator": "built-in imagegen",
+      "imageModel": "not disclosed",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-c/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-c/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-c/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200182-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200182-original.jpg",
+        "originalSha256": "f1eeb62cdbd10afa25baf09d0ce5f2b6ea68d58e0130d21d4e9a9dee763484fc",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200182-pinned-wikitext.txt",
+        "pinnedFileWikitextSha256": "3e85a6347c2430b36a0415e981f085d4c5dcadb156e544ed7b2cfb3158e9c64e",
+        "pinnedRevision": {
+          "id": 1199750063,
+          "timestamp": "2026-04-18T21:06:46Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Sininenpicardienspa3.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "file": "fci-106g07-en.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/106g07-en.pdf",
+            "title": "FCI: Blue Picardy Spaniel (Standard No. 106)",
+            "evidence": "Gentle even temperament, athletic daily-walk need, work within gun range and particular woodcock skill; line of northern black/white spaniels given separate standard in 1938; silver-gray-black speckled coat, full low tail and eye-level feathered ears.",
+            "snapshotPath": "fci-106g07-en.pdf",
+            "sha256": "5d6c1355b829a0a93350f618b796d9d345f11137873b822931150e19ad63dbff"
+          },
+          {
+            "file": "ceppa-nos-races.html",
+            "url": "https://ceppa.fr/nos-races/",
+            "title": "Club des Épagneuls de Picardie et Pont-Audemer: Our Breeds",
+            "evidence": "Official French breed club describes the Picardy spaniels as close-working hunting dogs across plain, woodland and marsh terrain.",
+            "snapshotPath": "ceppa-nos-races.html",
+            "sha256": "63c59a45c617be8e04ad80e647c7cc66bd3d2815575ee7ef6f3d48cf0928b6e9"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200182-reference-input.png",
+        "compatibilityInputSha256": "dd367cfdf85305e34cb2971cab222ea8529c94a61a9a16709e89f2883effebf7"
+      },
+      "nativeOutput": {
+        "nativeMasterPath": "assets/dogs/generated-masters/cohort-f/VBO-0200182-f02-c-0200182-01.png",
+        "nativeMasterSha256": "fdc746fd57994cab8c4668b1ee78454b93f9639bdfa702ba1e8fbc2d7b841cc8",
+        "nativeDimensions": [
+          1536,
+          1024
+        ],
+        "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0cc3c-cb95-7db0-a558-a31396faa904/exec-41e71d8b-34db-4de8-944b-b3d5e602290f.png",
+        "originalOutputSha256": "fdc746fd57994cab8c4668b1ee78454b93f9639bdfa702ba1e8fbc2d7b841cc8",
+        "byteIdenticalToOriginalOutput": true
+      },
+      "workerProvisionalAssessment": {
+        "reviewedAt": "2026-09-23T04:28:18.495Z",
+        "decision": "accept_for_root_review",
+        "breedIdentity": "Exact adult Blue Picardy Spaniel: blue-gray black-speckled slightly wavy feathered coat, long eye-level hanging ears, full low feathered tail and four distinct paws. One back paw overlaps body silhouette only minimally. Full dog complete with about 80 px ear and 100 px foot margins; natural dawn marsh setting. Larger dog scale than ideal but usable crop; root decides.",
+        "anatomy": "Personally reviewed at full native 1536×1024; see concern note.",
+        "crop": "Personally reviewed complete dog and crop at full native resolution; see concern note.",
+        "aesthetics": "Personally reviewed natural scene and image quality at full native resolution; see concern note.",
+        "concerns": "Exact adult Blue Picardy Spaniel: blue-gray black-speckled slightly wavy feathered coat, long eye-level hanging ears, full low feathered tail and four distinct paws. One back paw overlaps body silhouette only minimally. Full dog complete with about 80 px ear and 100 px foot margins; natural dawn marsh setting. Larger dog scale than ideal but usable crop; root decides."
+      },
+      "workerReceiptStatus": "accepted_pending_root_review",
+      "primaryReviewStatus": "unreviewed_by_primary",
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0201046",
+      "displayName": "Pont-Audemer Spaniel",
+      "batch": "f02-c",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-c/packet.json",
+      "sourceAttemptReceiptPath": "reports/dogs-generated-artwork/cohort-f/f02-c/generation-attempts.json",
+      "attemptId": "f02-c-0201046-01",
+      "exactPrompt": "Use case: photorealistic-natural\nAsset type: StackRank Dogs premium field-guide portrait\nPrimary request: Create ONE wholly new editorial photograph of an adult Pont-Audemer Spaniel, native 1536x1024, 3:2 landscape.\nInput image: The attached exact Commons adult is a morphology and coat reference ONLY. Create a different individual with a new pose, camera angle, composition, light and setting. Do not copy the show floor, person, lead, collar, markings or scene. Where the source obscures a paw or tail, follow the supplied standard morphology.\nSubject: One adult sturdy medium Pont-Audemer Spaniel, somewhat low on the leg but not a Cocker, substantial body, rich brown with gray mottling and muted dead-leaf glints; close curly slightly ruffled coat, rounded skull crowned by a distinct tight curly topknot that leaves forehead visible, long low-set hanging ears with silky curls framing face, brown nose and hazel eyes. Complete natural undocked medium tail, thick at root, curly feathering and only a slight curve.\nPose: left-facing three-quarter stand, head softly toward lens, four paws on firm dry grass; natural watchful but relaxed expression, sound mature proportions, four separate planted paws.\nScene: A firm grassy bank in the lower Normandy countryside, pale river glimmer and spaced alder trunks far behind, mist lifting from water in gentle midmorning light.\nComposition: Wide crop-safe environmental portrait at dog-eye height, with a readable landscape and generous clear sky/ground/side margins. Entire ears, body, complete tail and FOUR distinct grounded paws fully visible; no foot concealed by grass, feathering or another leg. A believable open three-quarter view with chest and far limbs showing, rather than a flat copied show profile.\nLight/style: Natural believable light and anatomy, tactile authentic curly brown and gray mottling coat, restrained premium field-guide documentary photograph, legible depth and local atmosphere, no generic smeared bokeh.\nExclude people, other animals, collars, leads, harnesses, props, show furniture, buildings, roads, text, logos, watermarks, copied source scenery, cropped ears/paws/tail, fused or extra limbs, plastic fur, and any ear or tail carriage outside the specified standard.",
+      "exactPromptSha256": "e655907d61cd30d3bbefb8e383f7953a5e08afccd626f75717462f4b843d9516",
+      "queuedAt": "2026-09-23T04:28:58.255Z",
+      "startedAt": "2026-09-23T04:28:58.256Z",
+      "startedAtBasis": "actual pre-call worker receipt",
+      "completedAt": "2026-09-23T04:30:03.549Z",
+      "completedAtBasis": "actual worker result receipt",
+      "worker": "OpenAI Codex delegated agent",
+      "agentModel": "gpt-6-sol",
+      "agentReasoningEffort": "high",
+      "imageGenerator": "built-in imagegen",
+      "imageModel": "not disclosed",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-c/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-c/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-c/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-c/0201046-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0201046-original.jpg",
+        "originalSha256": "ef4f4cd99c8b3be487c7c8d08e1a07d3dbc2034448ea407c77b24044e1fd46d5",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0201046-pinned-wikitext.txt",
+        "pinnedFileWikitextSha256": "78401b16fd698af245396f12f9ef0a34959f07d8d6bf7d344fd14f3760344922",
+        "pinnedRevision": {
+          "id": 1219265447,
+          "timestamp": "2026-05-24T04:12:12Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Pont-Audemer_Spaniel.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "file": "fci-114g07-en.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/114g07-en.pdf",
+            "title": "FCI: Pont-Audemer Spaniel (Standard No. 114)",
+            "evidence": "French pointing breed; stocky spaniel with characteristic curly topknot and ears, brown-gray mottled coat, low sturdy legs, and medium natural tail carried slightly curved if undocked.",
+            "snapshotPath": "fci-114g07-en.pdf",
+            "sha256": "0f5ad4ec6aeabac7a320c4d7c3c12d38d1d6b5423957b9d1d36f1f47900fc5d6"
+          },
+          {
+            "file": "ceppa-nos-races.html",
+            "url": "https://ceppa.fr/nos-races/",
+            "title": "Club des Épagneuls de Picardie et Pont-Audemer: Our Breeds",
+            "evidence": "Official club characterizes its spaniels as close-working dogs rather than distant-ranging hunters.",
+            "snapshotPath": "ceppa-nos-races.html",
+            "sha256": "63c59a45c617be8e04ad80e647c7cc66bd3d2815575ee7ef6f3d48cf0928b6e9"
+          },
+          {
+            "file": "ceppa-pont-audemer.html",
+            "url": "https://ceppa.fr/epagneul-de-pont-audemer/",
+            "title": "Club des Épagneuls de Picardie et Pont-Audemer: Pont-Audemer Spaniel",
+            "evidence": "French parent club records waterfowl use in the Vernier marshes, water work with pointing and retrieving, plus woodland and plain hunting.",
+            "snapshotPath": "ceppa-pont-audemer.html",
+            "sha256": "9cf47f7b10e1cfdac525a6fb0e40aea8dfc74c96f8469c33b9d777ae4cb59dc9"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0201046-reference-input.png",
+        "compatibilityInputSha256": "49f783ff0e0c85eeabdebad206f1ce81ef59f6ab8a64b05c8341280ce2202492"
+      },
+      "nativeOutput": {
+        "nativeMasterPath": "assets/dogs/generated-masters/cohort-f/VBO-0201046-f02-c-0201046-01.png",
+        "nativeMasterSha256": "1036a95871022c3738cd10b392a00dec41486e3bef05cd8786fd99193b78ea39",
+        "nativeDimensions": [
+          1536,
+          1024
+        ],
+        "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0cc3c-cb95-7db0-a558-a31396faa904/exec-fa055ff9-f78f-4cdc-8874-fa3a2769227d.png",
+        "originalOutputSha256": "1036a95871022c3738cd10b392a00dec41486e3bef05cd8786fd99193b78ea39",
+        "byteIdenticalToOriginalOutput": true
+      },
+      "workerProvisionalAssessment": {
+        "reviewedAt": "2026-09-23T04:30:03.554Z",
+        "decision": "accept_for_root_review",
+        "breedIdentity": "Exact adult Pont-Audemer curly topknot and ear wig, brown/gray mottled close curls, sturdy low body; four separate paws and full medium tail. Natural Normandy riverbank, no human. Borderline large scale with crown about 50 px from top and paws about 70 px above bottom but whole dog complete; root to judge.",
+        "anatomy": "Personally reviewed at full native 1536×1024; see concern note.",
+        "crop": "Personally reviewed complete dog and crop at full native resolution; see concern note.",
+        "aesthetics": "Personally reviewed natural scene and image quality at full native resolution; see concern note.",
+        "concerns": "Exact adult Pont-Audemer curly topknot and ear wig, brown/gray mottled close curls, sturdy low body; four separate paws and full medium tail. Natural Normandy riverbank, no human. Borderline large scale with crown about 50 px from top and paws about 70 px above bottom but whole dog complete; root to judge."
+      },
+      "workerReceiptStatus": "accepted_pending_root_review",
+      "primaryReviewStatus": "unreviewed_by_primary",
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    }
+  ],
+  "ungeneratedPrimaryIds": [
+    {
+      "catalogId": "VBO:0200382",
+      "displayName": "Continental Toy Spaniel, Papillon - With Erect Ears",
+      "batch": "f02-a",
+      "state": "prepared_no_image_call",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-a/packet.json",
+      "exactPromptPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200382-exact-prompt.txt",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-a/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-a/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-a/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200382-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200382-reference.jpg",
+        "originalSha256": "31869f25adc7f86661c0c72101d8c26bcdeb2134fd279a2d2cf8f6b36aa04234",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200382-file-rev-1081357202.wikitext",
+        "pinnedFileWikitextSha256": "bcd7347d604f5543ad665a80b783a44d6316d40143d07506b82bfd14e054c4ec",
+        "pinnedRevision": {
+          "id": 1081357202,
+          "timestamp": "2025-09-05T19:24:11Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Outdoor_Continental_Toy_Spaniel_Papillon.jpeg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "path": "sources/VBO-0200382-fci-077g09-en.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/077g09-en.pdf",
+            "sha256": "703e7c84ae24b41f8b97fe34dfd975bfe878cc1ea8db4ee3d853c487771aafa9"
+          },
+          {
+            "path": "sources/papillon-pca-history.html",
+            "url": "https://papillonclub.org/articles-a-brief-history-of-the-papillon/",
+            "sha256": "62b668f5343d55bd1ccd7288593020c19d71be1f5473b3f64c2bb99421418fbc"
+          },
+          {
+            "path": "sources/papillon-pca-profile.html",
+            "url": "https://papillonclub.org/articles-dog-or-butterfly-a-breed-profile/",
+            "sha256": "c72dc2af1d140ba66c1a925660327f9333b96999bada7d8102b2340c20ed2c4c"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-a/VBO-0200382-reference-input.png",
+        "compatibilityInputSha256": "e20e4a7ae8ad82e0b557ad0c47614efca85c646c74accef77a82da76125c2b08"
+      },
+      "imageCallCount": 0,
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0200467",
+      "displayName": "Dutch Smoushond",
+      "batch": "f02-b",
+      "state": "reference_hold_no_image_call",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-b/packet.json",
+      "exactPromptPath": null,
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-b/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-b/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-b/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200467-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200467-reference.jpg",
+        "originalSha256": "b581eae58582cf84339fda17e86f036a13fe0b1ed1dc4bbc1c3d31228b89a71f",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-b/VBO-0200467-filepage.wikitext",
+        "pinnedFileWikitextSha256": "a09f8fc7ad31e296a1ca0c75729f092fb4fca92863b5e14658b0ed6706c56072",
+        "pinnedRevision": {
+          "id": 1087766139,
+          "timestamp": "2025-09-19T13:45:01Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Hollandsche_smoushonden_2.JPG",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "path": "sources/VBO-0200467-fci-standard.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/308g02-en.pdf",
+            "sha256": "363ecc521d79b01a3ddfdef0527504a18ec001f2c95b49b37ebb25942cad6df7"
+          }
+        ]
+      },
+      "imageCallCount": 0,
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0200465",
+      "displayName": "Dutch Shepherd Dog, Rough-Haired",
+      "batch": "f02-c",
+      "state": "precall_receipt_cancelled_without_submission",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-c/packet.json",
+      "exactPromptPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200465-exact-prompt.txt",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-c/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-c/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-c/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200465-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200465-original.jpg",
+        "originalSha256": "8354409406bea37e1e6a201c5e8a7c1cae38b18905236fe58007318bfe11ee9d",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200465-pinned-wikitext.txt",
+        "pinnedFileWikitextSha256": "e959c5f045227df8b0bc47de5c3b8e3c655f662854f2003faeb787518294fd65",
+        "pinnedRevision": {
+          "id": 1127447695,
+          "timestamp": "2025-12-08T00:37:04Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Dutch_Shepherd_wire-haired.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "file": "fci-223g01-en.pdf",
+            "url": "https://www.fci.be/medias/223g01-en-11157.pdf",
+            "title": "FCI: Dutch Shepherd Dog (Standard No. 223)",
+            "evidence": "Shared loyal, alert, active, independent working temperament; detailed Dutch farm duties and later police/search/guide uses; short, long and wire-coated varieties; rough coat has harsh beard and brows, visible brindle, erect ears and tail low to hock, never curled.",
+            "snapshotPath": "fci-223g01-en.pdf",
+            "sha256": "1f39a37da6def323e36f1ce1b0cab812955e928ac1f8b01b5f880cea9124ef03"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200465-reference-input.png",
+        "compatibilityInputSha256": "81760f82869fe839f3f51792240a13b648d6a4535b1e9e6ae8560080ddb258f5"
+      },
+      "imageCallCount": 0,
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0201019",
+      "displayName": "Picardy Spaniel",
+      "batch": "f02-c",
+      "state": "prepared_no_image_call",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-c/packet.json",
+      "exactPromptPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0201019-exact-prompt.txt",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-c/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-c/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-c/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-c/0201019-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0201019-original.jpg",
+        "originalSha256": "46672428017e58264079b3b2dd388410edfadadeea3a4ce0d652638d6733eb76",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0201019-pinned-wikitext.txt",
+        "pinnedFileWikitextSha256": "b06d73dfecdc51b7e802f9d21ac15792d74cf387eca9ff176765b39811b7b3f8",
+        "pinnedRevision": {
+          "id": 1186805861,
+          "timestamp": "2026-03-25T20:40:55Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Picardienspa1.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "file": "fci-108g07-en.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/108g07-en.pdf",
+            "title": "FCI: Picardy Spaniel (Standard No. 108)",
+            "evidence": "Gentle even temperament, athletic daily-walk need, local Picardy pointing and keen scent for small game, long regional obscurity and renewed hunter interest; brown mottled autumn-leaf coat, eye-level long wavy ears and low tail with two gentle curves.",
+            "snapshotPath": "fci-108g07-en.pdf",
+            "sha256": "a62b085f4da3519e2558921b906709a052335f0e4dfd7a5fb853d26ac31a422b"
+          },
+          {
+            "file": "ceppa-picardy.html",
+            "url": "https://ceppa.fr/epagneul-picard/",
+            "title": "Club des Épagneuls de Picardie et Pont-Audemer: Picardy Spaniel",
+            "evidence": "French breed club describes Picardy's plains, woods and marshes as the backdrop to this local hunting dog's development.",
+            "snapshotPath": "ceppa-picardy.html",
+            "sha256": "41ca1144353285aa208028344d0059e718cdd39c6a3ea8fa07eee99ed3ee13d4"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0201019-reference-input.png",
+        "compatibilityInputSha256": "ae023fa35d758fba63da570053a9e65f2bcfcae875e9c8f9af388cbbd2c0ed1e"
+      },
+      "imageCallCount": 0,
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0200847",
+      "displayName": "Majorca Shepherd Dog",
+      "batch": "f02-c",
+      "state": "prepared_no_image_call",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-c/packet.json",
+      "exactPromptPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200847-exact-prompt.txt",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-c/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-c/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-c/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200847-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200847-original.jpg",
+        "originalSha256": "f62b44e134363e4ba73986d5a499262e8d47e4206ed55db6aedeb0a420bf776a",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200847-pinned-wikitext.txt",
+        "pinnedFileWikitextSha256": "367111b3efb90d331c3c8c0412278add5afe85ea4b71494f6f875968665f6a5d",
+        "pinnedRevision": {
+          "id": 1145270115,
+          "timestamp": "2026-01-10T05:23:07Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Majorcanshepherdshort.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "file": "fci-321g01-es.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/321g01-es.pdf",
+            "title": "FCI: Majorca Shepherd Dog (Standard No. 321, Spanish)",
+            "evidence": "Spanish standard identifies Mallorcan pastoral/guard use, intelligence, strong loyalty and affection for familiar people, reserve with strangers and marked shyness in youth; black short/long coat varieties, folded drop ears and full undocked tail to hock.",
+            "snapshotPath": "fci-321g01-es.pdf",
+            "sha256": "1177cdcc30a2078916a2a34cf68c87d1432210ce53b33ead415164d42496379e"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200847-reference-input.png",
+        "compatibilityInputSha256": "e463adfc00215d0ac82ae60605b110fc453eb90f4cbb4218dcfb0ae9f8f7a0a6"
+      },
+      "imageCallCount": 0,
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0200845",
+      "displayName": "Ca de Bou (Majorca Mastiff)",
+      "batch": "f02-c",
+      "state": "prepared_no_image_call",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-c/packet.json",
+      "exactPromptPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200845-exact-prompt.txt",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-c/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-c/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-c/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200845-alternate-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200845-alternate-original.jpg",
+        "originalSha256": "acf5fb4575771974feae9141767f64929e78144224a2806ea5511e3c7e1be61b",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200845-alternate-pinned-wikitext.txt",
+        "pinnedFileWikitextSha256": "b5fa7c26b71b33c001b536f6f09b6f44804b70db910a636529a57cc02ab07c16",
+        "pinnedRevision": {
+          "id": 1183038067,
+          "timestamp": "2026-03-18T12:28:37Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Ca_de_Bou_aka_Majorca_Mastiff_2.JPG",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "file": "fci-249g02-en.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/249g02-en.pdf",
+            "title": "FCI: Ca de Bou (Standard No. 249)",
+            "evidence": "Quiet, trusting and self-assured at rest but courageous and watchful when roused; historical Balearic guard and bull-fighting accounts; compact medium mastiff body, massive square head, small rose ears, short brindle/fawn/black coat and full low-set tail.",
+            "snapshotPath": "fci-249g02-en.pdf",
+            "sha256": "d6e02504336d4a6eb5273e256d9ca38e49b2c56699d6628f1413d9c98feaa828"
+          },
+          {
+            "file": "rsce-ca-de-bou.html",
+            "url": "https://www.rsce.es/razas-espanolas-dogo-mallorquin/",
+            "title": "Royal Canine Society of Spain: Dogo Mallorquín (Ca de Bou)",
+            "evidence": "Spanish national registry describes cattle work, guarding farms and historical bull spectacles on Mallorca; complements FCI history without romanticizing fighting.",
+            "snapshotPath": "rsce-ca-de-bou.html",
+            "sha256": "7594c6f7a270bf7f85f851a64bea001a8c9de33c3e0993d1764b2cdc73669a50"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200845-reference-input.png",
+        "compatibilityInputSha256": "b77d144f4bb5eb27a37d4ae8968b57e5598da57fe8183aee9088bd740b8c455b"
+      },
+      "imageCallCount": 0,
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0200466",
+      "displayName": "Dutch Shepherd Dog, Short-Haired",
+      "batch": "f02-c",
+      "state": "prepared_no_image_call",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-c/packet.json",
+      "exactPromptPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200466-exact-prompt.txt",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-c/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-c/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-c/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200466-alternate-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200466-alternate-original.jpg",
+        "originalSha256": "43aa9954e4221cddd0e2955f23f5e8825773a5ca386257f5e58c8a063340d4c2",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200466-alternate-pinned-wikitext.txt",
+        "pinnedFileWikitextSha256": "b61be51ba9ff14ae3cdac0bd934150e4d3f2ef0a63b771cbf213737cfcaf69ea",
+        "pinnedRevision": {
+          "id": 1192012510,
+          "timestamp": "2026-04-05T12:48:30Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Short-haired_Dutch_Shepherd_2.JPG",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "file": "fci-223g01-en.pdf",
+            "url": "https://www.fci.be/medias/223g01-en-11157.pdf",
+            "title": "FCI: Dutch Shepherd Dog (Standard No. 223)",
+            "evidence": "Shared loyal, watchful, active and independently cooperative character; Dutch farm boundary, cattle, police/search/guide tasks; short close harsh coat clearly brindled, upright ears and full tail low to hock at rest.",
+            "snapshotPath": "fci-223g01-en.pdf",
+            "sha256": "1f39a37da6def323e36f1ce1b0cab812955e928ac1f8b01b5f880cea9124ef03"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200466-reference-input.png",
+        "compatibilityInputSha256": "0155d114f2f0501ad761583d7c9172235e0f9c0c2d681cc83a164a4b75195fc2"
+      },
+      "imageCallCount": 0,
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    },
+    {
+      "catalogId": "VBO:0200285",
+      "displayName": "Cao de Castro Laboreiro",
+      "batch": "f02-c",
+      "state": "prepared_no_image_call",
+      "sourcePacketPath": "reports/dogs-generated-artwork/cohort-f/f02-c/packet.json",
+      "exactPromptPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200285-exact-prompt.txt",
+      "referenceEvidence": {
+        "packetPath": "reports/dogs-generated-artwork/cohort-f/f02-c/packet.json",
+        "profilesPath": "reports/dogs-generated-artwork/cohort-f/f02-c/profiles.json",
+        "rightsReviewedPath": "reports/dogs-generated-artwork/cohort-f/f02-c/rights-reviewed.json",
+        "candidatePath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200285-candidate.json",
+        "originalPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200285-original.jpg",
+        "originalSha256": "d82024a888a02319fdb79c6dfee7440681e120524c95bb1df1c6af6cf6502660",
+        "pinnedFileWikitextPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200285-pinned-wikitext.txt",
+        "pinnedFileWikitextSha256": "f03ec14c55d805999082a404601eb9a1b30d0e18a5b92c3bc5feffd92769d045",
+        "pinnedRevision": {
+          "id": 1117331501,
+          "timestamp": "2025-11-17T11:14:24Z"
+        },
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Castrolaboreiro1.jpg",
+        "morphologyOnly": true,
+        "photoDeliveryPurposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "primarySourcePointers": [
+          {
+            "file": "fci-170g02-en.pdf",
+            "url": "https://www.fci.be/Nomenclature/Standards/170g02-en.pdf",
+            "title": "FCI: Castro Laboreiro Dog (Standard No. 170)",
+            "evidence": "Loyal and docile with family, vigilant patrolling sentinel, flock protection against wolves and distinctive rising alarm bark; northern Portugal origin, wolf/tiger brindle coat, natural low scimitar tail and hanging triangular ears.",
+            "snapshotPath": "fci-170g02-en.pdf",
+            "sha256": "9c17549ff75445420b24dac7c3f42fcefc459fbec94eae95526935bc4d602033"
+          }
+        ],
+        "compatibilityInputPath": "reports/dogs-generated-artwork/cohort-f/f02-c/0200285-reference-input.png",
+        "compatibilityInputSha256": "277e16108ef52f2c6714f4b09d3e295e6220276a64d4ba30337baf6d32f4a9b1"
+      },
+      "imageCallCount": 0,
+      "accepted": false,
+      "integrated": false,
+      "published": false
+    }
+  ],
+  "partialReserve": {
+    "catalogId": "VBO:0200235",
+    "displayName": "Briquet Griffon Vendeen",
+    "batch": "f02-reserve-03",
+    "state": "reference_discovery_partial_no_packet_no_generation",
+    "candidatePaths": [
+      "reports/dogs-generated-artwork/cohort-f/f02-reserve-03/VBO-0200235-candidate.json",
+      "reports/dogs-generated-artwork/cohort-f/f02-reserve-03/VBO-0200235-alternative-candidate.json"
+    ],
+    "note": "Two Commons source families and original/pinned evidence exist, but no completed packet, profile, rights approval, exact prompt or image call; do not treat as generation-ready.",
+    "imageCallCount": 0,
+    "accepted": false,
+    "integrated": false,
+    "published": false
+  },
+  "cancelledPreCallReceipt": {
+    "catalogId": "VBO:0200465",
+    "attemptId": "f02-c-0200465-01",
+    "sourceReceiptPath": "reports/dogs-generated-artwork/cohort-f/f02-c/generation-attempts.json",
+    "recordedStartedAt": "2026-09-23T04:30:49.565Z",
+    "truth": "cancelled before submission to imagegen; zero generated images and zero image calls",
+    "nextAttemptIdIfAuthorized": "f02-c-0200465-02"
+  },
+  "resumeCautions": [
+    "First obtain the primary agent’s full-resolution review of every staged native master; worker accepted/provisional labels do not constitute primary acceptance.",
+    "Irish Soft Coated Wheaten Terrier VBO:0200703 has high curling tail and shaggy coat in the first pass; review against the FCI carriage and soft coat before any selection.",
+    "Pont-Audemer Spaniel VBO:0201046 is complete but has comparatively close crown and paw margins; inspect at native resolution before deciding.",
+    "Blue Picardy Spaniel VBO:0200182 is complete but relatively large in frame; inspect at native resolution.",
+    "Do not automatically reroll on percentage margins or worker notes. Reroll only for an actual identity, anatomy, framing or aesthetic defect established in review.",
+    "Papillon VBO:0200382 is prepared but ungenerated. Dutch Smoushond VBO:0200467 remains a reference hold. Briquet Griffon Vendeen reserve VBO:0200235 has only partial reference discovery.",
+    "Dutch Shepherd Rough-Haired VBO:0200465 pre-call receipt was cancelled without submission. If later authorized, retain the cancelled record and begin a new attempt 02.",
+    "No F02 data, profile, rights ledger, derivatives, runtime manifest or public release changes are authorized by this checkpoint."
+  ]
+}

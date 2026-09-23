@@ -84,6 +84,12 @@ import {
   parseDogNameImport,
   parseDogsBackup,
 } from "./lib/dogs.js?v=6";
+import {
+  completedDogCatalogIds,
+  projectPublicDogRanking,
+  insertPublicDogRanking,
+  reorderPublicDogRanking,
+} from "./lib/dogs-public-visibility.js?v=1";
 import { buildReviewQueue } from "./lib/review.js?v=1";
 import { createUndoController } from "./lib/undo.js?v=1";
 import {
@@ -103,10 +109,10 @@ if (!ACTIVE_CATEGORY) throw new Error("Unknown or mismatched StackRank Dogs cate
 const STORAGE_KEYS = categoryStorageKeys(ACTIVE_CATEGORY);
 const CATALOG_URL = "data/dogs/dog-catalog.json?v=4";
 const PACKS_URL = "data/dogs/packs.json?v=2";
-const RIGHTS_URL = "data/dogs/image-rights.json?v=18";
+const RIGHTS_URL = "data/dogs/image-rights.json?v=19";
 const RIGHTS_POLICY_URL = "data/dogs/artwork-license-policy.json?v=1";
-const PROFILES_URL = "data/dogs/breed-profiles.json?v=4";
-const GENERATED_ARTWORK_URL = "data/dogs/generated-artwork.json?v=13";
+const PROFILES_URL = "data/dogs/breed-profiles.json?v=5";
+const GENERATED_ARTWORK_URL = "data/dogs/generated-artwork.json?v=14";
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl";
 const AUTH_INIT_TIMEOUT_MS = 3200;
@@ -246,6 +252,10 @@ let catalogIndex = null;
 let catalogById = new Map();
 let catalogItemById = new Map();
 let catalogLoadError = null;
+let publicCatalogIds = new Set();
+// Keep the full saved state for sync and backup; only completed pairs enter public views.
+const publicItems = (items) => items.filter((item) => publicCatalogIds.has(item.entityRef.id));
+const publicRanking = () => publicItems(ranking);
 let packs = [];
 let rightsPolicy = null;
 let rightsLedger = null;
@@ -896,7 +906,7 @@ const approvedImageForCatalogId = (
 
 const candidateForCatalogId = (catalogId, role = "card") => {
   const entity = catalogById.get(catalogId);
-  if (!entity) return null;
+  if (!entity || !publicCatalogIds.has(catalogId)) return null;
   const candidate = dogEntityToCandidate(entity, approvedImageForCatalogId(catalogId, role));
   const profile = profilesByCatalogId.get(catalogId);
   const secondaryText = [profile?.originRegions?.[0] || entity.originRegions?.[0], profile?.typeLabel]
@@ -1020,18 +1030,6 @@ const packStats = (pack) => {
   return { total: items.length, handled, remaining: items.length - handled, complete: items.length > 0 && handled === items.length };
 };
 
-const reconcilePackProgress = () => {
-  packs.forEach((pack) => {
-    const stats = packStats(pack);
-    const entry = packProgress[pack.id] || {};
-    if (stats.complete && !entry.completedAt) {
-      packProgress[pack.id] = { ...entry, completedAt: new Date().toISOString(), versionSeen: 1 };
-    } else if (!stats.complete && entry.completedAt) {
-      packProgress[pack.id] = { ...entry, completedAt: null };
-    }
-  });
-};
-
 const createBreedTile = (item, { showContext = true } = {}) => {
   const candidate = displayItem(item);
   const article = document.createElement("article");
@@ -1074,7 +1072,7 @@ const createBreedTile = (item, { showContext = true } = {}) => {
 };
 
 const renderRecent = () => {
-  const recent = recentRankedEntities(ranking, 3);
+  const recent = recentRankedEntities(publicRanking(), 3);
   recentEl.replaceChildren();
   recentSection.hidden = recent.length === 0;
   recent.forEach(({ item, rank }) => {
@@ -1260,8 +1258,8 @@ const runLocalSearch = () => {
 
 const rankingFilterActive = () => Boolean(preferences.statusFilter || preferences.regionFilter || preferences.imageOnly);
 
-const filteredRanking = () => ranking
-  .map((item, index) => ({ item, index, entity: catalogById.get(item.entityRef.id) }))
+const filteredRanking = () => projectPublicDogRanking(ranking, publicCatalogIds)
+  .map((entry) => ({ ...entry, entity: catalogById.get(entry.item.entityRef.id) }))
   .filter(({ item, entity }) => {
     if (preferences.statusFilter && entity?.status !== preferences.statusFilter) return false;
     if (preferences.regionFilter && !(entity?.originRegions || []).includes(preferences.regionFilter)) return false;
@@ -1282,19 +1280,20 @@ const rankingActionButton = (label, action, text, disabled = false, className = 
 };
 
 const renderRanking = () => {
+  const publicCount = publicRanking().length;
   rankingEl.replaceChildren();
   rankingEl.dataset.rankingView = preferences.rankingView;
-  rankingEmpty.hidden = ranking.length > 0;
-  rankingEl.hidden = ranking.length === 0;
+  rankingEmpty.hidden = publicCount > 0;
+  rankingEl.hidden = publicCount === 0;
   const visible = filteredRanking();
-  rankingSubtitle.textContent = ranking.length
-    ? `${ranking.length} breed${ranking.length === 1 ? "" : "s"} and type${ranking.length === 1 ? "" : "s"}, in your exact order${visible.length !== ranking.length ? ` · ${visible.length} shown` : ""}.`
+  rankingSubtitle.textContent = publicCount
+    ? `${publicCount} breed${publicCount === 1 ? "" : "s"} and type${publicCount === 1 ? "" : "s"}, in your exact order${visible.length !== publicCount ? ` · ${visible.length} shown` : ""}.`
     : "No breeds ranked yet.";
-  $("#dogs-review-order").disabled = ranking.length < 2;
+  $("#dogs-review-order").disabled = publicCount < 2;
   rankingEl.classList.toggle("is-filtered", rankingFilterActive());
   $("#dogs-filter-note").hidden = !rankingFilterActive();
 
-  visible.forEach(({ item, index }) => {
+  visible.forEach(({ item, publicIndex: index }) => {
     const shown = displayItem(item);
     const row = document.createElement("li");
     row.className = "ranking-row";
@@ -1327,7 +1326,7 @@ const renderRanking = () => {
       rankingActionButton(`Move ${shown.snapshot.primaryText}`, "move", "↕", rankingFilterActive(), "move-handle"),
       rankingActionButton(`Details for ${shown.snapshot.primaryText}`, "detail", "i"),
       rankingActionButton(`Move ${shown.snapshot.primaryText} up`, "up", "↑", index === 0 || rankingFilterActive()),
-      rankingActionButton(`Move ${shown.snapshot.primaryText} down`, "down", "↓", index === ranking.length - 1 || rankingFilterActive()),
+      rankingActionButton(`Move ${shown.snapshot.primaryText} down`, "down", "↓", index === publicCount - 1 || rankingFilterActive()),
       rankingActionButton(`Remove ${shown.snapshot.primaryText}`, "remove", "×"),
     );
     row.append(rank, createDogMedia(shown), copy, actions);
@@ -1348,6 +1347,8 @@ const fillFilterOptions = () => {
     regionSelect.append(new Option(`${value} (${count})`, value)));
   statusSelect.value = selectedStatus;
   regionSelect.value = selectedRegion;
+  preferences.statusFilter = statusSelect.value || "";
+  preferences.regionFilter = regionSelect.value || "";
   regionSelect.disabled = regionSelect.options.length === 1;
   $("#dogs-image-filter").checked = preferences.imageOnly;
 };
@@ -1389,10 +1390,12 @@ const createSecondaryItem = (item, listType) => {
 const renderLists = () => {
   const curiousEl = $("#dogs-curious-list");
   const hiddenEl = $("#dogs-hidden-list");
-  curiousEl.replaceChildren(...lists.curious.map((item) => createSecondaryItem(item, "curious")));
-  hiddenEl.replaceChildren(...lists.not_for_me.map((item) => createSecondaryItem(item, "not_for_me")));
-  $("#dogs-curious-empty").hidden = lists.curious.length > 0;
-  $("#dogs-hidden-empty").hidden = lists.not_for_me.length > 0;
+  const curious = publicItems(lists.curious);
+  const hidden = publicItems(lists.not_for_me);
+  curiousEl.replaceChildren(...curious.map((item) => createSecondaryItem(item, "curious")));
+  hiddenEl.replaceChildren(...hidden.map((item) => createSecondaryItem(item, "not_for_me")));
+  $("#dogs-curious-empty").hidden = curious.length > 0;
+  $("#dogs-hidden-empty").hidden = hidden.length > 0;
 };
 
 const catalogWithPackTags = () => {
@@ -1409,12 +1412,13 @@ const catalogWithPackTags = () => {
 };
 
 const renderYou = () => {
-  const stats = categoryRankingStats(ranking);
+  const visible = publicRanking();
+  const stats = categoryRankingStats(visible);
   $("#dogs-stat-count").textContent = String(stats.count);
   $("#dogs-stat-top").textContent = stats.top?.snapshot?.primaryText || "—";
   $("#dogs-stat-comparisons").textContent = String(stats.totalComparisons);
-  $("#dogs-stat-curious").textContent = String(lists.curious.length);
-  const signals = ranking.length >= 5 ? buildDogTasteSignals(ranking, catalogWithPackTags()) : [];
+  $("#dogs-stat-curious").textContent = String(publicItems(lists.curious).length);
+  const signals = visible.length >= 5 ? buildDogTasteSignals(visible, catalogWithPackTags()) : [];
   const signalsEl = $("#dogs-taste-signals");
   signalsEl.replaceChildren();
   signals.forEach((signal) => {
@@ -1434,7 +1438,6 @@ const renderYou = () => {
 };
 
 const renderAll = () => {
-  reconcilePackProgress();
   renderRecent();
   renderFeaturedPacks();
   renderBrowse();
@@ -1443,6 +1446,7 @@ const renderAll = () => {
 };
 
 const transitionItem = (item, destination) => {
+  if (!publicCatalogIds.has(item?.entityRef?.id)) return;
   const before = stateSnapshot();
   const transition = transitionCategoryEntity(
     { ranking, lists },
@@ -1485,12 +1489,12 @@ const comparisonCardContent = (item) => {
 
 const renderComparison = () => {
   if (!rankSession || rankSession.status !== "comparing") return;
-  const existing = ranking[rankSession.comparisonIndex];
+  const existing = publicRanking()[rankSession.comparisonIndex];
   if (!existing) {
     cancelRanking();
     return;
   }
-  const estimated = Math.ceil(Math.log2(ranking.length + 1)) + 1;
+  const estimated = Math.ceil(Math.log2(publicRanking().length + 1)) + 1;
   comparisonProgress.textContent = `Choice ${rankSession.comparisons + 1} of about ${estimated}`;
   newChoiceEl.replaceChildren(comparisonCardContent(rankSession.item));
   existingChoiceEl.replaceChildren(comparisonCardContent(existing));
@@ -1503,12 +1507,13 @@ const renderComparison = () => {
 
 const settleRanking = (session) => {
   const before = stateSnapshot();
-  const inserted = insertSettledRankSession(ranking, session, (item, meta) => createRankedEntity({
+  const visibleInserted = insertSettledRankSession(publicRanking(), session, (item, meta) => createRankedEntity({
     entityRef: item.entityRef,
     snapshot: item.snapshot,
     rankedAt: new Date().toISOString(),
     comparisons: meta.comparisons,
   }));
+  const inserted = visibleInserted && insertPublicDogRanking(ranking, publicCatalogIds, visibleInserted[session.insertionIndex], session.insertionIndex);
   if (!inserted) {
     cancelRanking();
     showToast("The ranking changed before this breed could be placed. Try again.");
@@ -1538,7 +1543,8 @@ const settleRanking = (session) => {
 };
 
 function beginRanking(item) {
-  const candidate = candidateForCatalogId(item?.entityRef?.id) || item;
+  const candidate = candidateForCatalogId(item?.entityRef?.id);
+  if (!candidate) return;
   const normalized = createRankedEntity(candidate);
   if (!normalized) return;
   if (isDuplicateEntity(ranking, normalized)) {
@@ -1551,7 +1557,7 @@ function beginRanking(item) {
   searchInput.blur();
   rankOrigin = { destination: activeDestination(), scrollY: window.scrollY };
   rankHistory = [];
-  rankSession = createRankSession({ item: normalized, rankingLength: ranking.length });
+  rankSession = createRankSession({ item: normalized, rankingLength: publicRanking().length });
   if (rankSession.status === "settled") settleRanking(rankSession);
   else renderComparison();
 }
@@ -1588,9 +1594,9 @@ function cancelRanking() {
 }
 
 const startReview = () => {
-  if (ranking.length < 2) return;
+  if (publicRanking().length < 2) return;
   reviewSession = {
-    queue: buildReviewQueue(ranking, { max: 8 }),
+    queue: buildReviewQueue(publicRanking(), { max: 8 }),
     cursor: 0,
     before: stateSnapshot(),
     changed: false,
@@ -1608,15 +1614,19 @@ const renderReview = () => {
   }
   const pairIndex = reviewSession.queue[reviewSession.cursor];
   reviewProgress.textContent = `Pair ${reviewSession.cursor + 1} of ${reviewSession.queue.length}`;
-  reviewFirst.replaceChildren(comparisonCardContent(ranking[pairIndex]));
-  reviewSecond.replaceChildren(comparisonCardContent(ranking[pairIndex + 1]));
+  reviewFirst.replaceChildren(comparisonCardContent(publicRanking()[pairIndex]));
+  reviewSecond.replaceChildren(comparisonCardContent(publicRanking()[pairIndex + 1]));
 };
 
 const advanceReview = (swap) => {
   if (!reviewSession) return;
   const pairIndex = reviewSession.queue[reviewSession.cursor];
   if (swap) {
-    [ranking[pairIndex], ranking[pairIndex + 1]] = [ranking[pairIndex + 1], ranking[pairIndex]];
+    const visible = publicRanking();
+    [visible[pairIndex], visible[pairIndex + 1]] = [visible[pairIndex + 1], visible[pairIndex]];
+    const reordered = reorderPublicDogRanking(ranking, publicCatalogIds, visible);
+    if (!reordered) return;
+    ranking = reordered;
     reviewSession.changed = true;
     saveAll({ changedSurfaces: ["ranking"] });
   }
@@ -1639,9 +1649,11 @@ function endReview() {
 const performRankingMove = (key, toIndex, label) => {
   if (rankingFilterActive()) return;
   const before = stateSnapshot();
-  const result = moveRankedEntity(ranking, key, toIndex);
+  const result = moveRankedEntity(publicRanking(), key, toIndex);
   if (!result.changed) return;
-  ranking = result.items;
+  const reordered = reorderPublicDogRanking(ranking, publicCatalogIds, result.items);
+  if (!reordered) return;
+  ranking = reordered;
   saveAll({ changedSurfaces: ["ranking"] });
   renderAll();
   announce(`${result.item.snapshot.primaryText} moved to rank ${result.toIndex + 1}.`);
@@ -1660,6 +1672,7 @@ const removeFromRanking = (key) => {
 };
 
 function openDetail(catalogId) {
+  if (!publicCatalogIds.has(catalogId)) return;
   const entity = catalogById.get(catalogId);
   const fallbackItem = [...ranking, ...lists.curious, ...lists.not_for_me].find((item) => item.entityRef.id === catalogId);
   const candidate = candidateForCatalogId(catalogId, "detail") || fallbackItem;
@@ -1740,7 +1753,7 @@ function openDetail(catalogId) {
   if (image?.asset) {
     appendArtworkCredit(attribution, image.asset, shown.snapshot.primaryText);
   } else {
-    attribution.textContent = "Portrait coming soon. Every breed remains fully rankable while its image is art-directed and reviewed.";
+    attribution.textContent = "Portrait unavailable. Try reloading the field guide.";
   }
   const sources = document.createElement("details");
   sources.className = "detail-sources";
@@ -1783,7 +1796,6 @@ const renderCredits = () => {
     PROVIDER_PURPOSES.ARTWORK_UI_DISPLAY,
     { asset, rightsPolicy },
   ) && assetObjectUrl(asset, "detail"));
-  const approved = approvedAssets.length;
   detailContent.innerHTML = "";
   const heading = document.createElement("div");
   heading.className = "dialog-heading";
@@ -1793,7 +1805,7 @@ const renderCredits = () => {
   const title = document.createElement("h1");
   title.textContent = "Dogs sources";
   const summary = document.createElement("p");
-  summary.textContent = `${catalogDocument?.entities?.length || 0} selectable breed and type records sourced from the Vertebrate Breed Ontology. ${approved} rights-approved display photo${approved === 1 ? "" : "s"} currently delivered; missing imagery uses a neutral fallback.`;
+  summary.textContent = `${publicCatalogIds.size} fully illustrated breeds and types, with researched field notes. Catalog identities are sourced from the Vertebrate Breed Ontology. Portraits are AI-generated; licensed reference-photo credits are retained below.`;
   const source = document.createElement("p");
   source.className = "detail-attribution";
   source.innerHTML = "Catalog: Vertebrate Breed Ontology, CC BY 4.0. Every source descendant has an auditable disposition in the generated coverage report. Photo credits appear on each detail view; public and raster sharing remain disabled unless their separate rights gates pass.";
@@ -1981,9 +1993,14 @@ const applyImport = () => {
     }));
   });
   if (!candidates.length) return;
-  if (ranking.length && !window.confirm("Replace your current Dogs ranking with these matched names in the shown order?")) return;
+  if (ranking.length && !window.confirm("Replace the visible Dogs ranking with these matched names? Saved breeds awaiting completion will be kept.")) return;
   const before = stateSnapshot();
-  ranking = candidates;
+  const replacements = [...candidates];
+  ranking = ranking.flatMap((item) => {
+    if (!publicCatalogIds.has(item.entityRef.id)) return [item];
+    return replacements.length ? [replacements.shift()] : [];
+  });
+  ranking.push(...replacements);
   const normalized = normalizeCategoryListState({ ranking, lists }, LIST_OPTIONS);
   ranking = normalized.ranking;
   lists = normalized.lists;
@@ -1994,7 +2011,7 @@ const applyImport = () => {
   renderAll();
   backupDialog.close();
   showDestination("ranking");
-  showToast(`Imported ${ranking.length} breed${ranking.length === 1 ? "" : "s"} in the reviewed order.`, { undoSnapshot: before });
+  showToast(`Imported ${candidates.length} breed${candidates.length === 1 ? "" : "s"} in the reviewed order.`, { undoSnapshot: before });
 };
 
 const updateAccountUi = () => {
@@ -2200,7 +2217,7 @@ const initAuth = async () => {
 
 const sharedSnapshotPayload = () => normalizeCategorySharedPayload({
   catalogVersion: catalogDocument?.catalogVersion || "",
-  items: ranking.map((item) => {
+  items: publicRanking().map((item) => {
     const current = candidateForCatalogId(item.entityRef.id) || item;
     const publicImage = approvedImageForCatalogId(
       item.entityRef.id,
@@ -2233,8 +2250,8 @@ const updateShareLinkUi = () => {
   shareCopy.hidden = !active;
   shareRevoke.hidden = !active;
   shareLinkCard.hidden = !active;
-  sharePublish.disabled = busy || !ranking.length;
-  shareUpdate.disabled = busy || !ranking.length;
+  sharePublish.disabled = busy || !publicRanking().length;
+  shareUpdate.disabled = busy || !publicRanking().length;
   shareCopy.disabled = busy;
   shareRevoke.disabled = busy;
   if (!available) {
@@ -2415,7 +2432,7 @@ const openExport = () => {
     showToast("Text export is disabled by category policy.");
     return;
   }
-  $("#dogs-export-preview").textContent = dogsExportText(ranking, catalogDocument?.catalogVersion, "text");
+  $("#dogs-export-preview").textContent = dogsExportText(publicRanking(), catalogDocument?.catalogVersion, "text");
   showDialog(exportDialog);
   void loadShareLinkState();
 };
@@ -2423,7 +2440,7 @@ const openExport = () => {
 const exportRanking = (format) => {
   const extension = format === "markdown" ? "md" : format === "json" ? "json" : "txt";
   const mime = format === "json" ? "application/json" : "text/plain";
-  const content = dogsExportText(ranking, catalogDocument?.catalogVersion, format);
+  const content = dogsExportText(publicRanking(), catalogDocument?.catalogVersion, format);
   downloadBlob(content, `stackrank-dogs-ranking-${new Date().toISOString().slice(0, 10)}.${extension}`, mime);
   $("#dogs-export-preview").textContent = content;
   showToast(`${format === "markdown" ? "Markdown" : format.toUpperCase()} ranking downloaded.`);
@@ -2457,6 +2474,7 @@ const loadCatalog = async () => {
       fetch(GENERATED_ARTWORK_URL, { cache: "force-cache" }),
     ]);
     if (!catalogResponse.ok) throw new Error(`catalog ${catalogResponse.status}`);
+    if (!profilesResponse.ok || !generatedArtworkResponse.ok) throw new Error("Completed breed data unavailable");
     catalogDocument = await catalogResponse.json();
     profileDocument = profilesResponse.ok ? await profilesResponse.json() : null;
     profilesByCatalogId = new Map(Object.entries(profileDocument?.profiles || {})
@@ -2484,12 +2502,19 @@ const loadCatalog = async () => {
     if (!normalizedCatalog.valid || normalizedCatalog.rejectedCount) {
       throw new Error(`invalid catalog: ${normalizedCatalog.reason || `${normalizedCatalog.rejectedCount} rejected`}`);
     }
-    catalogIndex = buildCatalogIndex(normalizedCatalog);
+    publicCatalogIds = completedDogCatalogIds({
+      entities: catalogDocument.entities, profiles: profileDocument, artwork: generatedArtwork,
+    });
+    catalogIndex = buildCatalogIndex({ ...normalizedCatalog,
+      items: normalizedCatalog.items.filter((item) => publicCatalogIds.has(item.entityRef.id)),
+    });
     catalogById = new Map(catalogDocument.entities.map((entity) => [entity.id, normalizeDogCatalogEntity(entity)]).filter(([, entity]) => entity));
     catalogItemById = new Map(normalizedCatalog.items.map((item) => [item.entityRef.id, item]));
     const packsPayload = packsResponse.ok ? await packsResponse.json() : { packs: [] };
     packs = (Array.isArray(packsPayload?.packs) ? packsPayload.packs : []).filter((pack) =>
-      cleanText(pack?.id) && Array.isArray(pack?.items) && pack.items.every((id) => catalogById.get(id)?.selectable));
+      cleanText(pack?.id) && Array.isArray(pack?.items) && pack.items.every((id) => catalogById.get(id)?.selectable))
+      .map((pack) => ({ ...pack, items: pack.items.filter((id) => publicCatalogIds.has(id)) }))
+      .filter((pack) => pack.items.length);
     const rightsPayload = rightsResponse.ok ? await rightsResponse.json() : { assets: [] };
     rightsLedger = rightsPayload && typeof rightsPayload === "object" ? rightsPayload : null;
     rightsAssets = Array.isArray(rightsLedger?.assets) ? rightsLedger.assets : [];
@@ -2500,20 +2525,13 @@ const loadCatalog = async () => {
       if (!rightsByCatalogId.has(asset.catalogId)) rightsByCatalogId.set(asset.catalogId, []);
       rightsByCatalogId.get(asset.catalogId).push(asset);
     });
-    const legacyApprovedCount = rightsAssets.filter((asset) => canProviderPurpose(
-      DOGS_CATEGORY,
-      PROVIDER_PURPOSES.ARTWORK_UI_DISPLAY,
-      { asset, rightsPolicy },
-    )).length;
-    const generatedApprovedCount = [...generatedArtworkByCatalogId.values()]
-      .filter((asset) => asset.review?.status === "approved" && generatedAssetUrl(asset)).length;
-    const profileCount = profilesByCatalogId.size;
-    const portraitCount = generatedApprovedCount || legacyApprovedCount;
-    catalogStatus.textContent = `${catalogDocument.entities.length.toLocaleString()} dogs to discover · ${profileCount.toLocaleString()} field notes · ${portraitCount} featured portrait${portraitCount === 1 ? "" : "s"}`;
+    const publicCount = publicCatalogIds.size;
+    catalogStatus.textContent = `${publicCount.toLocaleString()} dogs to discover · ${publicCount.toLocaleString()} field notes · ${publicCount} featured portrait${publicCount === 1 ? "" : "s"}`;
     fillFilterOptions();
     canonicalizeCurrentCatalogState({ announceUpgrade: true });
   } catch (error) {
     catalogLoadError = error;
+    publicCatalogIds = new Set();
     catalogDocument = null;
     normalizedCatalog = null;
     catalogIndex = null;
@@ -2528,7 +2546,7 @@ const loadCatalog = async () => {
     profilesByCatalogId = new Map();
     generatedArtwork = null;
     generatedArtworkByCatalogId = new Map();
-    catalogStatus.textContent = "The catalog could not be verified. Your saved ranking remains available.";
+    catalogStatus.textContent = "The field guide could not be loaded. Your saved data is safe. Reload to try again.";
     catalogStatus.classList.add("is-error");
   }
   renderAll();
@@ -2595,7 +2613,7 @@ const finishRankingDrag = (event) => {
   if (!dragState || event.pointerId !== dragState.pointerId) return;
   const current = clearRankingDrag();
   if (!current.dragging || current.sourceKey === current.targetKey) return;
-  const targetIndex = ranking.findIndex((item) => entityRefKey(item) === current.targetKey);
+  const targetIndex = publicRanking().findIndex((item) => entityRefKey(item) === current.targetKey);
   performRankingMove(current.sourceKey, targetIndex);
 };
 
@@ -2643,9 +2661,9 @@ rankingEl.addEventListener("click", (event) => {
   const button = event.target.closest("button[data-action]");
   const row = event.target.closest(".ranking-row");
   if (!button || !row) return;
-  const index = ranking.findIndex((item) => entityRefKey(item) === row.dataset.key);
+  const index = publicRanking().findIndex((item) => entityRefKey(item) === row.dataset.key);
   if (index < 0) return;
-  if (button.dataset.action === "detail") openDetail(ranking[index].entityRef.id);
+  if (button.dataset.action === "detail") openDetail(publicRanking()[index].entityRef.id);
   else if (button.dataset.action === "up") performRankingMove(row.dataset.key, index - 1);
   else if (button.dataset.action === "down") performRankingMove(row.dataset.key, index + 1);
   else if (button.dataset.action === "remove") removeFromRanking(row.dataset.key);
@@ -2655,7 +2673,7 @@ rankingEl.addEventListener("keydown", (event) => {
   const row = event.target.closest(".ranking-row");
   if (!handle || !row || !["ArrowUp", "ArrowDown"].includes(event.key)) return;
   event.preventDefault();
-  const index = ranking.findIndex((item) => entityRefKey(item) === row.dataset.key);
+  const index = publicRanking().findIndex((item) => entityRefKey(item) === row.dataset.key);
   performRankingMove(row.dataset.key, event.key === "ArrowUp" ? index - 1 : index + 1);
 });
 rankingEl.addEventListener("pointerdown", onRankingPointerDown);

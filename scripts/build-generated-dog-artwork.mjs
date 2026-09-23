@@ -45,7 +45,7 @@ for (const entry of entries) {
   ids.add(entry?.catalogId);
   if (entry?.qa?.verdict !== "pass") errors.push(`${entry?.catalogId}: QA did not pass`);
   if (entry?.generator !== "OpenAI built-in imagegen") errors.push(`${entry?.catalogId}: unsupported generator`);
-  if (!["dogs-field-guide-v1", "dogs-field-guide-v2-cohort-e"].includes(entry?.promptTemplateVersion)) errors.push(`${entry?.catalogId}: prompt template mismatch`);
+  if (!["dogs-field-guide-v1", "dogs-field-guide-v2-cohort-e", "dogs-field-guide-v3-cohort-f"].includes(entry?.promptTemplateVersion)) errors.push(`${entry?.catalogId}: prompt template mismatch`);
   const reference = rightsByAssetId.get(entry?.reference?.assetId);
   if (!reference || reference.catalogId !== entry.catalogId || reference.review?.status !== "approved") {
     errors.push(`${entry?.catalogId}: missing matching rights-reviewed reference`);

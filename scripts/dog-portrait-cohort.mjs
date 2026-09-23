@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { readFile, rename, writeFile } from "node:fs/promises";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import { summarizePortraitCohortF, validatePortraitCohortF } from "./dog-portrait-cohort-f.mjs";
 
 const root = new URL("../", import.meta.url);
 const digest = (value) => createHash("sha256").update(JSON.stringify(value)).digest("hex");
@@ -143,16 +144,17 @@ export function validatePortraitCohort(cohort, { catalog, rightsLedger, generate
 async function main() {
   const args = process.argv.slice(2);
   if (args.includes("--help")) {
-    console.log("Usage: node scripts/dog-portrait-cohort.mjs [--check|--refresh-progress]\nChecks the frozen 250-entry selection and evidence-gated progress against current catalog, rights, and generated manifests. --refresh-progress only refreshes derived counters and nextIdentity after valid evidence changes.");
+    console.log("Usage: node scripts/dog-portrait-cohort.mjs [--cohort=f] [--check|--refresh-progress]\nDefaults to frozen cohort E. F checks 100 completed pairs and append-only reserves. --refresh-progress refreshes derived counters after evidence changes.");
     return;
   }
-  if (args.some((arg) => !["--check", "--refresh-progress"].includes(arg))) throw new Error("Unknown option; use --help");
-  const path = new URL("data/dogs/portrait-cohort-e.json", root);
-  const [cohort, catalog, rightsLedger, generatedArtwork] = await Promise.all([
-    path, new URL("data/dogs/dog-catalog.json", root), new URL("data/dogs/image-rights.json", root), new URL("data/dogs/generated-artwork.json", root),
+  if (args.some((arg) => !["--check", "--refresh-progress", "--cohort=f"].includes(arg))) throw new Error("Unknown option; use --help");
+  const isF = args.includes("--cohort=f");
+  const path = new URL(`data/dogs/portrait-cohort-${isF ? "f" : "e"}.json`, root);
+  const [cohort, catalog, rightsLedger, generatedArtwork, profiles] = await Promise.all([
+    path, new URL("data/dogs/dog-catalog.json", root), new URL("data/dogs/image-rights.json", root), new URL("data/dogs/generated-artwork.json", root), new URL("data/dogs/breed-profiles.json", root),
   ].map(async (file) => JSON.parse(await readFile(file, "utf8"))));
-  if (args.includes("--refresh-progress")) cohort.progress = summarizePortraitCohort(cohort);
-  const errors = validatePortraitCohort(cohort, { catalog, rightsLedger, generatedArtwork });
+  if (args.includes("--refresh-progress")) cohort.progress = (isF ? summarizePortraitCohortF : summarizePortraitCohort)(cohort);
+  const errors = (isF ? validatePortraitCohortF : validatePortraitCohort)(cohort, { catalog, rightsLedger, generatedArtwork, profiles });
   if (errors.length) throw new Error(errors.join("\n"));
   if (args.includes("--refresh-progress")) {
     const temporaryPath = `${fileURLToPath(path)}.tmp-${process.pid}`;

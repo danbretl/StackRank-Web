@@ -12,7 +12,7 @@ const [catalog, packs, wikidata, fci, overrides] = await Promise.all([
   readJson("data/dogs/profile-overrides.json"),
 ]);
 
-const refreshes = await Promise.all(["a", "b", "c"].map((batch) => readJson(`data/dogs/profile-refresh-${batch}.json`)));
+const refreshes = await Promise.all(["a", "b", "c", "f"].map((batch) => readJson(`data/dogs/profile-refresh-${batch}.json`)));
 const profiles = buildDogProfiles({ catalog, packs, wikidata, fci, overrides, refreshes });
 const outputUrl = new URL("../data/dogs/breed-profiles.json", import.meta.url);
 const next = `${JSON.stringify(profiles, null, 2)}\n`;

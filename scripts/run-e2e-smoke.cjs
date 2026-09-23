@@ -998,6 +998,10 @@ const testFamilyHomePreview = async ({ baseUrl }) => {
 };
 
 const testDogsLocalProduct = async ({ baseUrl }) => {
+  const approvedIds = new Set(JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8")).assets.map((asset) => asset.catalogId));
+  const publicPacks = JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/packs.json"), "utf8")).packs.filter((pack) => pack.items.some((id) => approvedIds.has(id)));
+  const expectedPackCount = publicPacks.length;
+  const expectedFamilyCount = new Set(publicPacks.map((pack) => pack.family)).size;
   const expectedPortraitCount = JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8")).assets.length;
   const expectedDogsScript = fs.readFileSync(path.join(rootDir, "dogs.html"), "utf8").match(/src="(dogs\.js\?v=\d+)"/)[1];
   const page = await openChromePage({ name: "dogs-local-product", width: 1586, height: 992 });
@@ -1009,7 +1013,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     await waitFor(
       page,
       `document.readyState === 'complete' &&
-       document.querySelector('#dogs-catalog-status')?.textContent.includes('1,239 dogs to discover') &&
+       document.querySelector('#dogs-catalog-status')?.textContent.includes('${JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8")).assets.length} dogs to discover') &&
        document.querySelectorAll('.featured-pack').length === 6`,
       15000,
     );
@@ -1042,7 +1046,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       initial.searchRole !== "combobox" ||
       initial.searchAutocomplete !== "list" ||
       initial.searchControls !== "dogs-suggestions" ||
-      !initial.catalogStatus?.includes("1,239 field notes") ||
+      !initial.catalogStatus?.includes(`${expectedPortraitCount} field notes`) ||
       !initial.catalogStatus?.includes(`${expectedPortraitCount} featured portraits`) ||
       /VBO:|vbo-|FCI|iDog|VeNom/.test(initial.catalogStatus || "") ||
       initial.featuredTitles.slice(0, 3).join("|") !== "Around the world|Shapes and coats|Familiar and beyond" ||
@@ -1097,7 +1101,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     await waitFor(
       page,
       `document.querySelector('#dogs-packs-dialog')?.open &&
-       document.querySelectorAll('#dogs-pack-browser .pack-card').length === 46`,
+       document.querySelectorAll('#dogs-pack-browser .pack-card').length === ${expectedPackCount}`,
       5000,
     );
     const packLibrary = await page.evaluate(`(() => ({
@@ -1106,7 +1110,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       firstTitles: [...document.querySelectorAll('#dogs-pack-browser .pack-card h2')].slice(0, 3).map((node) => node.textContent.trim()),
       rawMetadata: /VBO:|vbo-|FCI|iDog|VeNom/.test(document.querySelector('#dogs-pack-browser')?.innerText || '')
     }))()`);
-    if (packLibrary.cards !== 46 || packLibrary.families !== 17 || packLibrary.firstTitles.some((title) => !title) || packLibrary.rawMetadata) {
+    if (packLibrary.cards !== expectedPackCount || packLibrary.families !== expectedFamilyCount || packLibrary.firstTitles.some((title) => !title) || packLibrary.rawMetadata) {
       throw new Error(`Dogs editorial pack library is incomplete: ${JSON.stringify(packLibrary)}`);
     }
     await page.evaluate(`(() => {
@@ -1115,7 +1119,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       input.dispatchEvent(new Event('input', { bubbles: true }));
       return true;
     })()`);
-    await waitFor(page, `document.querySelectorAll('#dogs-pack-browser .pack-card').length > 0 && document.querySelectorAll('#dogs-pack-browser .pack-card').length < 46`, 3000);
+    await waitFor(page, `document.querySelectorAll('#dogs-pack-browser .pack-card').length > 0 && document.querySelectorAll('#dogs-pack-browser .pack-card').length < ${expectedPackCount}`, 3000);
     const packSearchCount = await page.evaluate(`document.querySelectorAll('#dogs-pack-browser .pack-card').length`);
     await page.evaluate(`document.querySelector('#dogs-packs-dialog')?.close(); true;`);
 
@@ -1649,6 +1653,261 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
   }
 };
 
+// Paste this function beside the other testDogs* functions in scripts/run-e2e-smoke.cjs,
+// then add { name: "Dogs completed-pair visibility", run: testDogsCompletedVisibility }
+// to its tests array. It uses that harness's fs/path/rootDir, openChromePage,
+// waitFor, setDeviceProfile, DEVICE_INPUT_PROFILE, waitForDownload, and pageHealth.
+const testDogsCompletedVisibility = async ({ baseUrl }) => {
+  const catalog = JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/dog-catalog.json"), "utf8"));
+  const profiles = JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/breed-profiles.json"), "utf8"));
+  const artwork = JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8"));
+  const expectedCount = artwork.assets.length;
+  const illustratedIds = new Set(artwork.assets.map((asset) => asset.catalogId));
+  const unillustratedIds = catalog.entities.filter((item) => item.selectable && !illustratedIds.has(item.id)).map((item) => item.id);
+  const chooseUnillustrated = (preferred, excluded = []) =>
+    unillustratedIds.includes(preferred) && !excluded.includes(preferred)
+      ? preferred
+      : unillustratedIds.find((id) => !excluded.includes(id));
+  const unfinished = chooseUnillustrated("VBO:0200038");
+  const unfinishedCurious = chooseUnillustrated("VBO:0200039", [unfinished]);
+  const unfinishedHidden = chooseUnillustrated("VBO:0200040", [unfinished, unfinishedCurious]);
+  const ids = {
+    golden: "VBO:0200610",
+    broholmer: "VBO:0000661",
+    unfinished,
+    unfinishedCurious,
+    unfinishedHidden,
+    f01: "VBO:0200146",
+    f01Peer: "VBO:0200147",
+  };
+  const entity = (id) => catalog.entities.find((candidate) => candidate.id === id);
+  const name = (id) => entity(id)?.displayName;
+  const variant = (id, role) => artwork.assets.find((asset) => asset.catalogId === id)?.variants.find((item) => item.role === role)?.url;
+  if (!expectedCount || Object.values(ids).some((id) => !entity(id)) ||
+    !profiles.profiles[ids.f01]?.summary || !profiles.profiles[ids.golden]?.summary ||
+    !profiles.profiles[ids.broholmer]?.summary || !variant(ids.f01, "card") || !variant(ids.f01, "detail") ||
+    artwork.assets.some((asset) => [ids.unfinished, ids.unfinishedCurious, ids.unfinishedHidden].includes(asset.catalogId))) {
+    throw new Error("F01 visibility fixture is not the expected 307-pair release");
+  }
+
+  const fixtureItem = (id) => ({
+    entityRef: { domain: "dogs", type: "breed", source: "vbo", id },
+    snapshot: { primaryText: name(id), secondaryText: "Saved before completed-pair release", year: null,
+      image: { url: "", alt: `${name(id)} dog`, assetId: "" } },
+    rankedAt: "2026-09-20T12:00:00.000Z", comparisons: 1,
+  });
+  const seededRanking = [fixtureItem(ids.golden), fixtureItem(ids.unfinished), fixtureItem(ids.broholmer)];
+  const seededCurious = fixtureItem(ids.unfinishedCurious);
+  const seededHidden = fixtureItem(ids.unfinishedHidden);
+  const packProgressState = { "visibility-probe": { startedAt: "2026-09-20T12:00:00.000Z" } };
+  const seededPackProgress = JSON.stringify({ state: packProgressState, updated_at: "2026-09-20T12:00:00.000Z" });
+  const moviesSentinel = JSON.stringify({ sentinel: "movies-must-survive-dogs-visibility" });
+  const booksSentinel = JSON.stringify({ sentinel: "books-must-survive-dogs-visibility" });
+  const page = await openChromePage({ name: "dogs-completed-visibility", width: 1440, height: 900 });
+  const screenshots = [];
+  const storageState = () => `(() => ({
+    ranking: JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1') || '{"items":[]}').items,
+    queues: JSON.parse(localStorage.getItem('stackrank:dogs:queues:v1') || '{}'),
+    packProgress: JSON.parse(localStorage.getItem('stackrank:dogs:pack-progress:v1') || '{}').state,
+    movies: localStorage.getItem('stackrank:movies:v1'),
+    books: localStorage.getItem('stackrank:books:ranking:v1')
+  }))()`;
+  // Catalog refresh can update display context without changing saved identity or ranking metadata.
+  const stableSavedItem = (item) => item && ({ ...item, snapshot: { ...item.snapshot, secondaryText: "" } });
+  const assertPreserved = (state, phase, expectedVisibleCount) => {
+    const rawIds = state.ranking.map((item) => item.entityRef.id);
+    if (state.movies !== moviesSentinel || state.books !== booksSentinel || JSON.stringify(state.packProgress) !== JSON.stringify(packProgressState) ||
+      rawIds.length !== expectedVisibleCount + 1 || rawIds.filter((id) => id === ids.unfinished).length !== 1 ||
+      JSON.stringify(stableSavedItem(state.ranking.find((item) => item.entityRef.id === ids.unfinished))) !== JSON.stringify(stableSavedItem(seededRanking[1])) ||
+      JSON.stringify(stableSavedItem(state.queues.curious?.find((item) => item.entityRef.id === ids.unfinishedCurious))) !== JSON.stringify(stableSavedItem(seededCurious)) ||
+      JSON.stringify(stableSavedItem(state.queues.not_for_me?.find((item) => item.entityRef.id === ids.unfinishedHidden))) !== JSON.stringify(stableSavedItem(seededHidden))) {
+      throw new Error(`Unfinished saved data or category sentinels changed after ${phase}: ${JSON.stringify(state)}`);
+    }
+    return rawIds;
+  };
+  const loadedImages = (selector) => `(() => {
+    const nodes = [...document.querySelectorAll(${JSON.stringify(selector)})];
+    return nodes.length > 0 && nodes.every((img) => img.complete && img.naturalWidth > 0 && !img.closest('.dog-media')?.classList.contains('is-missing'));
+  })()`;
+  const search = async (query) => page.evaluate(`(() => {
+    document.querySelector('.dogs-nav [data-destination="rank"]')?.click();
+    const input = document.querySelector('#dogs-search');
+    input.value = ${JSON.stringify(query)};
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    return true;
+  })()`);
+
+  try {
+    await page.send("Page.addScriptToEvaluateOnNewDocument", { source: `(() => {
+      Math.random = () => 0.5;
+      if (sessionStorage.getItem('dogs-completed-visibility-seeded')) return;
+      sessionStorage.setItem('dogs-completed-visibility-seeded', '1');
+      localStorage.setItem('stackrank:dogs:ranking:v1', JSON.stringify({ items: ${JSON.stringify(seededRanking)}, updated_at: '2026-09-20T12:00:00.000Z' }));
+      localStorage.setItem('stackrank:dogs:queues:v1', JSON.stringify({ curious: [${JSON.stringify(seededCurious)}], not_for_me: [${JSON.stringify(seededHidden)}], updated_at: '2026-09-20T12:00:00.000Z' }));
+      localStorage.setItem('stackrank:dogs:pack-progress:v1', ${JSON.stringify(seededPackProgress)});
+      localStorage.setItem('stackrank:movies:v1', ${JSON.stringify(moviesSentinel)});
+      localStorage.setItem('stackrank:books:ranking:v1', ${JSON.stringify(booksSentinel)});
+    })();` });
+    await page.send("Page.navigate", { url: `${baseUrl}/dogs?e2e=dogs-completed-visibility` });
+    await waitFor(page, `document.querySelector('#dogs-catalog-status')?.textContent.includes('${expectedCount} dogs to discover') &&
+      document.querySelectorAll('#dogs-ranking .ranking-row').length === 2`, 15000);
+    const initialState = await page.evaluate(storageState());
+    assertPreserved(initialState, "load", 2);
+    const initialVisible = await page.evaluate(`(() => ({
+      rankNames: [...document.querySelectorAll('#dogs-ranking .ranking-row strong')].map((node) => node.textContent.trim()),
+      subtitle: document.querySelector('#dogs-ranking-subtitle')?.textContent.trim(),
+      curious: document.querySelectorAll('#dogs-curious-list .secondary-item').length,
+      hidden: document.querySelectorAll('#dogs-hidden-list .secondary-item').length,
+      count: document.querySelector('#dogs-stat-count')?.textContent.trim()
+    }))()`);
+    if (initialVisible.rankNames.join("|") !== `${name(ids.golden)}|${name(ids.broholmer)}` ||
+      initialVisible.curious !== 0 || initialVisible.hidden !== 0 || initialVisible.count !== "2" ||
+      !initialVisible.subtitle?.startsWith("2 breeds and types")) {
+      throw new Error(`Unfinished entries leaked into public surfaces: ${JSON.stringify(initialVisible)}`);
+    }
+
+    await search(name(ids.unfinished));
+    const unfinishedSearch = await page.evaluate(`({
+      names: [...document.querySelectorAll('#dogs-suggestions .search-option strong')].map((node) => node.textContent.trim()),
+      hidden: document.querySelector('#dogs-suggestions')?.hidden
+    })`);
+    if (unfinishedSearch.names.includes(name(ids.unfinished))) throw new Error(`Unfinished entry appeared in search: ${JSON.stringify(unfinishedSearch)}`);
+    await search(name(ids.f01));
+    await waitFor(page, `document.querySelector('#dogs-suggestions .search-option strong')?.textContent.trim() === ${JSON.stringify(name(ids.f01))} && ${loadedImages('#dogs-suggestions .dog-media img')}`, 5000);
+    const newSearch = await page.evaluate(`(() => ({
+      names: [...document.querySelectorAll('#dogs-suggestions .search-option strong')].map((node) => node.textContent.trim()),
+      src: document.querySelector('#dogs-suggestions .dog-media img')?.getAttribute('src')
+    }))()`);
+    if (newSearch.names.length !== 1 || newSearch.src !== variant(ids.f01, "card")) throw new Error(`F01 search artwork is wrong: ${JSON.stringify(newSearch)}`);
+    screenshots.push(await page.screenshot("dogs-f01-visible-search-desktop.png"));
+    await search(name(ids.f01Peer));
+    await waitFor(page, `document.querySelector('#dogs-suggestions .search-option strong')?.textContent.trim() === ${JSON.stringify(name(ids.f01Peer))} && ${loadedImages('#dogs-suggestions .dog-media img')}`, 5000);
+    await search(name(ids.f01));
+    await waitFor(page, `document.querySelector('#dogs-suggestions .search-option strong')?.textContent.trim() === ${JSON.stringify(name(ids.f01))}`, 3000);
+
+    await page.evaluate(`document.querySelector('#dogs-suggestions .search-option')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#dogs-comparison')?.hidden && ${loadedImages('#dogs-comparison .dog-media img')}`, 5000);
+    const comparison = await page.evaluate(`(() => ({
+      names: [...document.querySelectorAll('#dogs-comparison .comparison-card strong')].map((node) => node.textContent.trim()),
+      summaries: [...document.querySelectorAll('#dogs-comparison .comparison-card__summary')].map((node) => node.textContent.trim()),
+      src: [...document.querySelectorAll('#dogs-comparison .dog-media img')].map((node) => node.getAttribute('src'))
+    }))()`);
+    if (comparison.names[0] !== name(ids.f01) || comparison.summaries[0] !== profiles.profiles[ids.f01].summary ||
+      comparison.summaries[1] !== profiles.profiles[comparison.names[1] === name(ids.golden) ? ids.golden : ids.broholmer]?.summary ||
+      comparison.src[0] !== variant(ids.f01, "detail")) throw new Error(`F01 comparison summary/artwork disagrees with compiled data: ${JSON.stringify(comparison)}`);
+    screenshots.push(await page.screenshot("dogs-f01-comparison-desktop.png"));
+    const phoneProfile = await setDeviceProfile(page, { width: 390, height: 844, input: DEVICE_INPUT_PROFILE.coarseTouch });
+    await waitFor(page, loadedImages('#dogs-comparison .dog-media img'), 5000);
+    const phoneComparison = await page.evaluate(`(() => ({ overflow: document.documentElement.scrollWidth > innerWidth,
+      names: [...document.querySelectorAll('#dogs-comparison .comparison-card strong')].map((node) => node.textContent.trim()) }))()`);
+    if (!phoneProfile.anyPointerCoarse || phoneComparison.overflow || phoneComparison.names[0] !== name(ids.f01)) throw new Error(`F01 phone comparison failed: ${JSON.stringify(phoneComparison)}`);
+    screenshots.push(await page.screenshot("dogs-f01-comparison-phone.png"));
+    await setDeviceProfile(page, { width: 1440, height: 900 });
+    for (let choice = 0; choice < 3; choice += 1) {
+      if (await page.evaluate(`document.querySelector('#dogs-comparison')?.hidden`)) break;
+      await page.evaluate(`document.querySelector('#dogs-new-choice')?.click(); true;`);
+    }
+    await waitFor(page, `document.querySelector('#dogs-comparison')?.hidden && document.querySelectorAll('#dogs-ranking .ranking-row').length === 3`, 5000);
+    assertPreserved(await page.evaluate(storageState()), "new F01 insertion", 3);
+    await page.evaluate(`document.querySelector('.dogs-nav [data-destination="ranking"]')?.click(); true;`);
+    await waitFor(page, loadedImages('#dogs-ranking .dog-media img'), 5000);
+    const ranked = await page.evaluate(`(() => ({
+      rows: [...document.querySelectorAll('#dogs-ranking .ranking-row')].map((row) => ({
+        name: row.querySelector('strong')?.textContent.trim(), summary: row.querySelector('.ranking-row__summary')?.textContent.trim(),
+        src: row.querySelector('.dog-media img')?.getAttribute('src')
+      })), overflow: document.documentElement.scrollWidth > innerWidth
+    }))()`);
+    const f01Row = ranked.rows.find((row) => row.name === name(ids.f01));
+    if (ranked.rows.length !== 3 || ranked.overflow || f01Row?.summary !== profiles.profiles[ids.f01].summary || f01Row?.src !== variant(ids.f01, "card")) {
+      throw new Error(`F01 ranking summary/artwork disagrees with compiled data: ${JSON.stringify(ranked)}`);
+    }
+    screenshots.push(await page.screenshot("dogs-f01-ranking-desktop.png"));
+    await page.evaluate(`(() => { const row = [...document.querySelectorAll('#dogs-ranking .ranking-row')].find((r) => r.querySelector('strong')?.textContent.trim() === ${JSON.stringify(name(ids.f01))}); row?.querySelector('[data-action="detail"]')?.click(); return true; })()`);
+    await waitFor(page, `document.querySelector('#dogs-detail')?.open && ${loadedImages('#dogs-detail .dog-media img')}`, 5000);
+    const detail = await page.evaluate(`(() => ({ name: document.querySelector('#dogs-detail h1')?.textContent.trim(),
+      summary: document.querySelector('#dogs-detail .detail-copy__summary')?.textContent.trim(),
+      src: document.querySelector('#dogs-detail .dog-media img')?.getAttribute('src'),
+      disclosure: document.querySelector('#dogs-detail .detail-attribution')?.textContent.trim() }))()`);
+    if (detail.name !== name(ids.f01) || detail.summary !== profiles.profiles[ids.f01].summary || detail.src !== variant(ids.f01, "detail") || !detail.disclosure?.includes("AI-generated breed portrait")) throw new Error(`F01 detail is wrong: ${JSON.stringify(detail)}`);
+    screenshots.push(await page.screenshot("dogs-f01-detail-desktop.png"));
+    await setDeviceProfile(page, { width: 390, height: 844, input: DEVICE_INPUT_PROFILE.coarseTouch });
+    const phoneDetail = await page.evaluate(`(() => ({ overflow: document.documentElement.scrollWidth > innerWidth,
+      summary: document.querySelector('#dogs-detail .detail-copy__summary')?.textContent.trim(),
+      box: (() => { const b = document.querySelector('#dogs-detail .dog-media')?.getBoundingClientRect(); return b && { left: b.left, right: b.right }; })() }))()`);
+    if (phoneDetail.overflow || phoneDetail.summary !== profiles.profiles[ids.f01].summary || phoneDetail.box?.left < 0 || phoneDetail.box?.right > 390) throw new Error(`F01 phone detail is clipped: ${JSON.stringify(phoneDetail)}`);
+    screenshots.push(await page.screenshot("dogs-f01-detail-phone.png"));
+    await page.evaluate(`document.querySelector('#dogs-detail')?.close(); true;`);
+    await page.evaluate(`window.scrollTo(0, 0); true;`);
+    screenshots.push(await page.screenshot("dogs-f01-ranking-phone.png"));
+    await setDeviceProfile(page, { width: 1440, height: 900 });
+
+    const beforeMove = await page.evaluate(`JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.map((item) => item.entityRef.id)`);
+    await page.evaluate(`document.querySelector('#dogs-ranking [data-action="down"]:not(:disabled)')?.click(); true;`);
+    await waitFor(page, `JSON.stringify(JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.map((item) => item.entityRef.id)) !== ${JSON.stringify(JSON.stringify(beforeMove))}`, 3000);
+    const afterMove = await page.evaluate(storageState());
+    assertPreserved(afterMove, "visible move", 3);
+    if (afterMove.ranking[beforeMove.indexOf(ids.unfinished)]?.entityRef.id !== ids.unfinished) throw new Error("Visible move displaced the unfinished raw slot");
+
+    await page.evaluate(`document.querySelector('#dogs-review-order')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#dogs-review')?.hidden`, 3000);
+    await page.evaluate(`document.querySelector('#dogs-review-swap')?.click(); document.querySelector('#dogs-end-review')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#dogs-review')?.hidden`, 3000);
+    const afterReview = await page.evaluate(storageState());
+    assertPreserved(afterReview, "review swap", 3);
+    if (afterReview.ranking[beforeMove.indexOf(ids.unfinished)]?.entityRef.id !== ids.unfinished) throw new Error("Review swap displaced the unfinished raw slot");
+
+    await page.send("Page.reload", { ignoreCache: true });
+    await waitFor(page, `document.querySelector('#dogs-catalog-status')?.textContent.includes('${expectedCount} dogs to discover') && document.querySelectorAll('#dogs-ranking .ranking-row').length === 3`, 15000);
+    assertPreserved(await page.evaluate(storageState()), "reload", 3);
+    const date = new Date().toISOString().slice(0, 10);
+    await page.evaluate(`document.querySelector('#dogs-settings-toggle')?.click(); document.querySelector('#dogs-open-backup')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#dogs-backup-dialog')?.open`, 3000);
+    await page.evaluate(`document.querySelector('#dogs-download-backup')?.click(); true;`);
+    const backupPath = await waitForDownload(page, `stackrank-dogs-backup-${date}.json`);
+    const backup = JSON.parse(fs.readFileSync(backupPath, "utf8"));
+    if (backup.ranking.length !== 4 || !backup.ranking.some((item) => item.entityRef.id === ids.unfinished) ||
+      backup.lists.curious[0]?.entityRef.id !== ids.unfinishedCurious || backup.lists.not_for_me[0]?.entityRef.id !== ids.unfinishedHidden) {
+      throw new Error(`Backup lost unfinished raw items: ${JSON.stringify(backup)}`);
+    }
+    await page.evaluate(`window.confirm = () => true; true;`);
+    await page.evaluate(`(() => { const file = new File([${JSON.stringify(JSON.stringify(backup))}], 'visibility-backup.json', { type: 'application/json' });
+      const transfer = new DataTransfer(); transfer.items.add(file); const input = document.querySelector('#dogs-restore-file');
+      input.files = transfer.files; input.dispatchEvent(new Event('change', { bubbles: true })); return true; })()`);
+    await waitFor(page, `document.querySelector('#dogs-toast-message')?.textContent.includes('Restored 4 ranked breeds')`, 5000);
+    assertPreserved(await page.evaluate(storageState()), "backup restore", 3);
+    await page.evaluate(`document.querySelector('#dogs-open-export')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#dogs-export-dialog')?.open`, 3000);
+    await page.evaluate(`document.querySelector('[data-export-format="json"]')?.click(); true;`);
+    const exported = JSON.parse(fs.readFileSync(await waitForDownload(page, `stackrank-dogs-ranking-${date}.json`), "utf8"));
+    if (exported.ranking.length !== 3 || exported.ranking.some((item) => item.id === ids.unfinished) ||
+      !exported.ranking.some((item) => item.id === ids.f01)) throw new Error(`Public export exposed unfinished item: ${JSON.stringify(exported)}`);
+    assertPreserved(await page.evaluate(storageState()), "public export", 3);
+    await page.evaluate(`document.querySelector('#dogs-export-dialog')?.close(); document.querySelector('#dogs-open-backup')?.click(); true;`);
+    await waitFor(page, `document.querySelector('#dogs-backup-dialog')?.open`, 3000);
+    await page.evaluate(`(() => {
+      const input = document.querySelector('#dogs-import-text');
+      input.value = 'Golden Retriever\\nBroholmer';
+      document.querySelector('#dogs-import-form')?.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+      return true;
+    })()`);
+    await waitFor(page, `document.querySelector('#dogs-import-review')?.textContent.includes('2 of 2 names matched')`, 3000);
+    await page.evaluate(`document.querySelector('#dogs-import-review button')?.click(); true;`);
+    await waitFor(page, `document.querySelectorAll('#dogs-ranking .ranking-row').length === 2`, 3000);
+    const afterImport = await page.evaluate(storageState());
+    assertPreserved(afterImport, "name import", 2);
+    const importedVisible = await page.evaluate(`([...document.querySelectorAll('#dogs-ranking .ranking-row strong')].map((node) => node.textContent.trim()))`);
+    if (importedVisible.join('|') !== `${name(ids.golden)}|${name(ids.broholmer)}`) throw new Error(`Name import did not replace only visible slots: ${JSON.stringify(importedVisible)}`);
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Dogs completed visibility browser errors: ${JSON.stringify(health.errors)}`);
+    return { details: { initialVisible, newSearch, comparison, ranked, detail, phoneProfile, phoneComparison, phoneDetail,
+      beforeMove, afterMove: afterMove.ranking.map((item) => item.entityRef.id),
+      afterReview: afterReview.ranking.map((item) => item.entityRef.id), backupRawCount: backup.ranking.length,
+      exportPublicCount: exported.ranking.length, importedVisible }, screenshots };
+  } finally {
+    await page.close();
+  }
+};
+
 const testDogsPhoneViewport = async ({ baseUrl }) => {
   const page = await openChromePage({ name: "dogs-phone-viewport", width: 390, height: 844 });
   try {
@@ -1663,7 +1922,7 @@ const testDogsPhoneViewport = async ({ baseUrl }) => {
     await page.send("Page.navigate", { url: `${baseUrl}/dogs?e2e=dogs-phone-viewport` });
     await waitFor(
       page,
-      `document.querySelector('#dogs-catalog-status')?.textContent.includes('1,239 dogs to discover') &&
+      `document.querySelector('#dogs-catalog-status')?.textContent.includes('${JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8")).assets.length} dogs to discover') &&
        document.querySelectorAll('.featured-pack').length === 6`,
       15000,
     );
@@ -1843,64 +2102,15 @@ const testDogsApprovedArtworkAttribution = async ({ baseUrl }) => {
       `,
     });
     await page.send("Page.navigate", { url: `${baseUrl}/dogs?e2e=dogs-approved-artwork` });
-    await waitFor(
-      page,
-      `document.querySelector('#dogs-catalog-status')?.textContent.includes('1 featured portrait')`,
-      15000,
-    );
+    await waitFor(page, `document.querySelector('#dogs-catalog-status')?.textContent.includes('0 dogs to discover')`, 15000);
     await page.evaluate(`(() => {
       const input = document.querySelector('#dogs-search');
       input.value = 'Broholmer';
       input.dispatchEvent(new Event('input', { bubbles: true }));
       return true;
     })()`);
-    await waitFor(page, `document.querySelectorAll('#dogs-suggestions .search-option').length === 1`, 3000);
-    await page.evaluate(`document.querySelector('#dogs-suggestions .search-option')?.click(); true;`);
-    await waitFor(
-      page,
-      `JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1') || '{"items":[]}').items.length === 1`,
-      3000,
-    );
-    await page.evaluate(`document.querySelector('.dogs-nav [data-destination="ranking"]')?.click(); true;`);
-    await waitFor(
-      page,
-      `document.querySelector('#dogs-ranking .dog-media img')?.complete &&
-       !document.querySelector('#dogs-ranking .dog-media')?.classList.contains('is-missing')`,
-      3000,
-    );
-    const card = await page.evaluate(`(() => {
-      const image = document.querySelector('#dogs-ranking .dog-media img');
-      return {
-        src: image?.src,
-        visible: Boolean(image && image.getBoundingClientRect().width > 0),
-        fallback: image?.closest('.dog-media')?.classList.contains('is-missing')
-      };
-    })()`);
-    const expectedCardUrl = `${baseUrl}/${cardPath}`;
-    if (card.src !== expectedCardUrl || !card.visible || card.fallback) {
-      throw new Error(`Dogs approved card artwork did not load: ${JSON.stringify({ card, expectedCardUrl })}`);
-    }
-
-    await page.evaluate(`document.querySelector('#dogs-ranking [data-action="detail"]')?.click(); true;`);
-    await waitFor(page, `document.querySelector('#dogs-detail')?.open`, 3000);
-    const detail = await page.evaluate(`(() => {
-      const credit = document.querySelector('#dogs-detail .detail-attribution');
-      const links = [...credit.querySelectorAll('a')];
-      return {
-        imageSrc: document.querySelector('#dogs-detail .dog-media img')?.src,
-        text: credit.textContent,
-        sourceHref: links.find((link) => link.textContent === 'Source')?.href,
-        licenseHref: links.find((link) => link.textContent === 'CC BY-SA 3.0')?.href
-      };
-    })()`);
-    if (
-      detail.imageSrc !== `${baseUrl}/${detailPath}` ||
-      detail.sourceHref !== sourcePage ||
-      detail.licenseHref !== licenseUrl ||
-      !detail.text.includes("Modified: crop, resize, webp conversion.")
-    ) {
-      throw new Error(`Dogs detail attribution is incomplete: ${JSON.stringify(detail)}`);
-    }
+    const hiddenWithoutGeneratedPortrait = await page.evaluate(`document.querySelectorAll('#dogs-suggestions .search-option').length === 0`);
+    if (!hiddenWithoutGeneratedPortrait) throw new Error("A licensed fallback alone must not make an unfinished breed public");
 
     await page.evaluate(`document.querySelector('#dogs-open-credits')?.click(); true;`);
     await waitFor(page, `document.querySelectorAll('#dogs-detail .artwork-credit-list li').length === 1`, 3000);
@@ -1924,7 +2134,7 @@ const testDogsApprovedArtworkAttribution = async ({ baseUrl }) => {
     const screenshot = await page.screenshot("dogs-approved-artwork-credits.png");
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Dogs approved artwork browser errors: ${JSON.stringify(health.errors)}`);
-    return { details: { card, detail, credits }, screenshots: [screenshot] };
+    return { details: { hiddenWithoutGeneratedPortrait, credits }, screenshots: [screenshot] };
   } finally {
     await page.close();
   }
@@ -1971,13 +2181,13 @@ const testDogsFailureRecovery = async ({ baseUrl }) => {
     const failedCatalog = await page.evaluate(`(() => ({
       status: document.querySelector('#dogs-catalog-status')?.textContent.trim(),
       rows: document.querySelectorAll('#dogs-ranking .ranking-row').length,
-      savedName: document.querySelector('#dogs-ranking .ranking-row strong')?.textContent.trim(),
+      storedName: JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items[0]?.snapshot.primaryText,
       fallbackVisible: !document.querySelector('#dogs-discovery-fallback')?.hidden,
       renderedImages: document.querySelectorAll('#dogs-ranking .dog-media img').length
     }))()`);
     if (
-      failedCatalog.rows !== 1 ||
-      failedCatalog.savedName !== "Broholmer" ||
+      failedCatalog.rows !== 0 ||
+      failedCatalog.storedName !== "Broholmer" ||
       !failedCatalog.fallbackVisible ||
       failedCatalog.renderedImages !== 0
     ) {
@@ -1987,7 +2197,7 @@ const testDogsFailureRecovery = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('.dogs-nav [data-destination="rank"]')?.click(); document.querySelector('#dogs-retry-catalog')?.click(); true;`);
     await waitFor(
       page,
-      `document.querySelector('#dogs-catalog-status')?.textContent.includes('1,239 dogs to discover') &&
+      `document.querySelector('#dogs-catalog-status')?.textContent.includes('${JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8")).assets.length} dogs to discover') &&
        document.querySelector('#dogs-discovery-fallback')?.hidden`,
       15000,
     );
@@ -11193,7 +11403,7 @@ const testDogsRemoteSyncAndShare = async ({ baseUrl }) => {
                 window.__e2eReleaseDogsRanking = () => resolve(json({
                   list_id: 'user:${userId}',
                   category: 'dogs',
-                  items: [${JSON.stringify(ranked("VBO:0001150", "Saluki"))}],
+                  items: [${JSON.stringify(ranked("VBO:0201171", "Saluki"))}],
                   updated_at: '2026-07-20T10:00:00.000Z'
                 }, 200, { 'Content-Range': '0-0/1' }));
               });
@@ -11701,6 +11911,7 @@ const tests = [
   { name: "localStorage persistence round-trip", run: testLoadPersistence },
   { name: "Books work-level ranking vertical slice", run: testBooksVerticalSlice },
   { name: "noindex family home preview", run: testFamilyHomePreview },
+  { name: "Dogs completed-pair visibility", run: testDogsCompletedVisibility },
   { name: "Dogs comprehensive local product", run: testDogsLocalProduct },
   { name: "Dogs mocked account sync and public snapshot", run: testDogsRemoteSyncAndShare },
   { name: "Dogs generated artwork review workflow", run: testDogsArtworkReview },

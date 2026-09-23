@@ -1,8 +1,9 @@
 # StackRank Dogs product handoff
 
-Current artwork progress supersedes the baseline below: `424d3301` includes batch D and cohort E01–E09
-for 259 live portraits and the unlinked noindex `/dogs/artwork-review` tool. Continue from `notes/testing/dogs-portrait-cohort-e.md` and the frozen
-machine-readable `data/dogs/portrait-cohort-e.json` ledger.
+Current artwork progress supersedes the baseline below: `635e54c7` includes batch D and cohort E01–E10
+for 282 live portraits and the unlinked noindex `/dogs/artwork-review` tool. Continue from `notes/testing/dogs-portrait-cohort-e.md` and the frozen
+machine-readable `data/dogs/portrait-cohort-e.json` ledger. The frozen cohort delivered 230 new
+portraits; 20 remain reference-held. All actionable selected work is complete.
 
 Snapshot date: **September 22, 2026**
 

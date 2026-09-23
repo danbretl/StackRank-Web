@@ -2,9 +2,12 @@
 
 Snapshot date: **September 22, 2026**
 
-**Superseding continuation:** Preserved batch D and the first 207 accepted cohort-E portraits are
-live in `424d3301` (259 total). Current progress and evidence are in
+**Superseding continuation:** Preserved batch D and the 230 accepted cohort-E portraits are
+live in `635e54c7` (282 total). Current progress and evidence are in
 `notes/testing/dogs-portrait-cohort-e.md` and `data/dogs/portrait-cohort-e.json`.
+All 250 frozen identities were reviewed: 230 accepted/integrated, 20 reference holds, no substitutions.
+There are 957 selectable identities still unillustrated. The next cohort must deliberately include
+coverage for the 362 varieties, crossbreeds and historical types outside canonical discovery.
 The 52-portrait figures below are the frozen starting snapshot, not current production coverage.
 
 This document captures the exact continuation state for generating excellent field-guide portraits

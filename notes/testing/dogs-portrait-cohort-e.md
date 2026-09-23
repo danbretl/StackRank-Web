@@ -7,7 +7,41 @@ The user authorized periodic commits and pushes, then explicitly requested visib
 live site. Verified milestones now go to `main`, which Vercel deploys. Database migrations, production
 Storage uploads and root routing changes are outside this artwork expansion.
 
-## Current published milestone E09
+## Final published milestone E10
+
+- Final portrait product commit: `635e54c7`; **282 / 1,239** portraits live (**22.76%**),
+  **957** unillustrated. This preserves the original 52 and adds **230 accepted new portraits**.
+- All **250 frozen identities** have been reviewed: **230 accepted/integrated**, **20 reference holds**.
+  The shortfall from the approximate 250 accepted target is explicit; held identities were neither
+  replaced with adjacent breeds nor counted as finished artwork. No actionable selected entry remains.
+- E10 adds **23** from **36 calls**, with **11 rejected masters**, **2 failed calls**, **13 retries**.
+  PBGV and Polish Tatra remain held; independent second-look review recovered Mioritic and Volpino.
+- Final generation accounting: **309 calls = 293 generated outputs + 16 failed calls**;
+  **293 outputs = 230 accepted + 63 rejected masters**. **79 calls beyond first attempts** are retries.
+- Canonical discovery: **595** without ledger rows (**14** pack-engaged, **581** long-tail), including
+  all 20 holds. The **575 other canonical identities** and **362 noncanonical selectable identities**
+  make up the rest of the 957 unillustrated entries.
+- All 230 native masters and all ten contact sheets passed primary visual review. An independent
+  audit verified accepted/rejected copies against original tool outputs, exact reference hashes,
+  all 250 frozen identities and the purpose gates. Every native accepted master is 1536×1024.
+- The final build has **564 WebP variants**. All **518** variants published before E10 and the
+  preserved batch D manifest are byte-identical to their prior versions.
+- Final `npm run verify`: **440 Node tests, 24 Deno tests, all validators, 38 Chrome flows passed**.
+  Log: `reports/dogs-generated-artwork/cohort-e/e10-verify.log`.
+  Node report: `reports/runs/2026-09-22T235503Z`.
+  Chrome report/screenshots: `reports/e2e/runs/2026-09-22T235520Z`.
+- Vercel deployment succeeded; **44 production checks** and eight exact live image hashes passed.
+  Evidence: `reports/dogs-generated-artwork/cohort-e/e10-production-smoke.log` and
+  `e10-production-artwork.json`. Both hosted checks passed for the final product commit.
+  Root personally inspected the live review page showing all **282** portraits / **12** pages.
+- Machine ledger: `data/dogs/portrait-cohort-e.json`. Independent audit snapshot:
+  `reports/dogs-generated-artwork/cohort-e/final-audit.json` and `.md` (taken before E09/E10
+  integration); the final receipt `completion.json` in that directory records the released totals.
+- Final runtime versions: Dogs JS **40**, rights **18**, generated manifest **13**, review JS **3**.
+  Morphology reference UI/public/raster purposes remain false. Generated UI display is allowed;
+  public snapshots and raster export remain denied. Movies, Books and the production root are intact.
+
+## Earlier published milestone E09
 
 - Production commit: `424d3301`; **259 / 1,239** portraits live, **980** unillustrated.
 - Cohort delivery: **207 / 250** accepted and integrated. E09 adds **21** from **29 calls**,
@@ -213,7 +247,7 @@ Selection SHA-256: `2dee8d3221097abe699cba2538d0d1d62da42b505027a81eb117caeb62e1
 The first 161 are the exact original pack-priority order; the final 89 are selected source-reviewed
 canonical long-tail breeds. Do not reselect as the discovery queue shrinks.
 
-## Verification and review
+## E01 verification and review (historical)
 
 Primary orchestrator inspected all 24 full-resolution masters and the rebuilt contact sheet.
 The image builder creates only missing variants and refuses to overwrite differing existing bytes.
@@ -236,21 +270,57 @@ allowing the separately retained Swedish Cattle Dog alias result. Generated port
 disclosed and normal-Dogs-UI-only. Morphology references deny all display/export purposes; generated
 public-snapshot artwork and raster export remain false. Movies, Books and `/` → `/movies` are intact.
 
-## Work in progress
+## Completion and continuation
 
-E09 is published. E10 has 23 accepted candidates; primary full-resolution and contact-sheet review
-is complete, with integration/release pending. Independent final audit reconciled the
-entire frozen selection: 230 accepted, 20 reference holds, 309 calls (63 rejects and 16 failures).
-All original/master/reference hashes match; no identities were substituted. Audit artifacts are
-`reports/dogs-generated-artwork/cohort-e/final-audit.json` and `.md`.
+All ten selected subwaves are released. No generation, visual review, integration or release work
+remains for the 230 accepted identities. The earliest unresolved selected identity is **Cantabrian
+Water Dog (`VBO:0200283`, ordinal 14)**; `nextActionableIdentity` is null because all remaining
+selected identities are reference-held. A hold may reopen only with new qualifying evidence.
+
+The first unselected entry in the raw canonical discovery order is **Aberdeen Terrier
+(`VBO:0200000`, current queue rank 15)**. It is a discovery lead, not a preapproved next generation;
+resolve identity overlap before freezing another cohort. The next cohort should deliberately expand
+the 362 selectable variety/crossbreed/historical identities omitted from canonical-only discovery,
+then freeze its selection without changing cohort E. Keep all 20 E holds visible.
+
+The live `/dogs/artwork-review` tool is available for user review. Flags/notes remain local until
+exported; receiving a JSON export does not automatically approve a source or a replacement image.
+Future batch releases must update the review page's batch metadata list and matching cache versions
+alongside the main Dogs page, then run the browser/provenance/production checks.
 
 At the user's request, routine reference/scene preparation, generation bookkeeping and first-pass
-QA now use GPT-5.6 Sol at High effort where available. The primary orchestrator retains difficult
+QA used GPT-5.6 Sol at High effort where available. The primary orchestrator retained difficult
 identity/provenance decisions, full-resolution acceptance, contact-sheet review and release checks.
-An existing stronger-model lane handles bounded reference research while the session's agent limit
-prevents another model replacement. Generation remains one distinct asset per built-in call and no
-more than four calls concurrently; model routing does not relax quality or provenance gates.
+An existing stronger-model lane handled bounded reference research and independent final auditing.
+One built-in call produced one asset, with no more than four calls concurrently. Exact image model
+names are not exposed by the built-in tool and were not invented in generation metadata.
 
-Isolated staging is under `reports/dogs-generated-artwork/cohort-e/eNN-a`, `eNN-b`, `eNN-c`;
-merge only reviewed updates into the authoritative ledger. Masters and rejected originals stay
-only under ignored `assets/dogs/generated-masters/`.
+Isolated staging and rejected-candidate evidence remain under
+`reports/dogs-generated-artwork/cohort-e/eNN-a`, `eNN-b`, `eNN-c`; accepted and rejected native
+masters remain under ignored `assets/dogs/generated-masters/`. Shared ledgers retain exact prompts,
+reference hashes, source links, attempts, scene rationales, QA and integration verification.
+
+### Twenty retained reference holds
+
+| Ordinal / identity | Reason | Evidence packet |
+|---|---|---|
+| 14 · Cantabrian Water Dog (VBO:0200283) | Watermark, disputed subject identification, or unresolved third-party licensing chain. | [e01-b](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e01-b/cohort-updates.json) |
+| 42 · Koolie (VBO:0200782) | Breeder-watermarked strong candidate; alternate rescue-dog identity uncertain. | [e02-b](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e02-b/cohort-updates.json) |
+| 55 · Rampur Greyhound (VBO:0201123) | Modern adult source blocked by ambiguous public-domain metadata; remaining material historical. | [e03-a](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e03-a/cohort-updates.json) |
+| 73 · Abyssinian Sand Terrier (VBO:0200002) | Only taxidermy/historical evidence; no dependable living-adult morphology anchor. | [e03-c](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e03-c/cohort-updates.json) |
+| 86 · Bluetick Coonhound (VBO:0200183) | Clean candidates fail creator/license checks; stronger alternatives have prohibited social origin. | [e04-b](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e04-b/cohort-updates.json) |
+| 98 · Cocker Spaniel (VBO:0200372) | Unspecified Cocker identity overlaps separately cataloged American and English breeds. | [e04-c](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e04-c/cohort-updates.json) |
+| 99 · Curly Coated Murray River Retriever (VBO:0200396) | Whole-adult Murray morphology obscured by motion, shadow, low detail or group context. | [e04-c](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e04-c/cohort-updates.json) |
+| 105 · Ecuadorian Hairless Dog (VBO:0200475) | Adult proportions and natural tail unresolved; one candidate appears juvenile. | [e05-a](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e05-a/cohort-updates.json) |
+| 106 · Egyptian Sheepdog (VBO:0200476) | Tiny source has unresolved prior TrainPetDog.org origin chain. | [e05-a](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e05-a/cohort-updates.json) |
+| 109 · English Water Spaniel (VBO:0200500) | Extinct identity; historical art/scans lack a qualifying resolved reference route. | [e05-a](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e05-a/cohort-updates.json) |
+| 120 · Hairless Khala (VBO:0200650) | Exact Khala identity and adult standing/tail morphology unresolved; Pila is a different type. | [e05-c](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e05-c/cohort-updates.json) |
+| 127 · Kazakhski Tobet (VBO:0007991) | Tobet reference has cropped ears, short tail and unresolved older origin chain. | [e06-a](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e06-a/cohort-updates.json) |
+| 146 · Saint John's Water Dog (VBO:0201166) | Historic source blocked by ambiguous license; alternatives are breeder-origin, Labrador or mix. | [e06-c](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e06-c/cohort-updates.json) |
+| 158 · Welsh Corgi (VBO:0201406) | Unspecified Welsh Corgi cannot silently become Cardigan or Pembroke. | [e07-a](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e07-a/cohort-updates.json) |
+| 201 · Phu Quoc Ridgeback (VBO:0201017) | Available views do not jointly establish clear adult body, ridge and tail. | [e09-a](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e09-a/cohort-updates.json) |
+| 203 · Sapsali (VBO:0201176) | Seated/shaggy reference leaves standing anatomy unresolved; stronger alternatives are Flickr. | [e09-a](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e09-a/cohort-updates.json) |
+| 207 · Bully Kutta (VBO:0200262) | Dyed coat or cropped ears/obscured limbs; another source has Facebook origin. | [e09-a](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e09-a/cohort-updates.json) |
+| 213 · Telomian (VBO:0201341) | Exact Telomian photo is Flickr; own-work alternatives are explicitly unidentified/lookalike dogs. | [e09-b](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e09-b/cohort-updates.json) |
+| 243 · Petit Basset Griffon Vendeen (VBO:0201009) | Full adult morphology still obscured or soft; independent second look upheld hold. | [e10-c](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e10-c/cohort-updates.json) |
+| 244 · Polish Tatra Sheepdog (VBO:0201037) | Tail/feet, stance, exposure or license limitations; independent second look upheld hold. | [e10-c](/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-e/e10-c/cohort-updates.json) |

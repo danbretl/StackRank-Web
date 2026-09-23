@@ -1,4 +1,4 @@
-/* Exploration takes the first screen; the familiar ranking shell stays in place. */
+/* A compact ranking launchpad with discovery close at hand. */
 .dogs-brand { align-items: center; gap: 9px; }
 .dogs-brand > a { text-decoration: none; }
 .dogs-brand .category-switcher { color: var(--clay); }
@@ -6,21 +6,23 @@
 .dogs-brand .category-switcher__menu span { color: inherit; margin: 0; font-size: inherit; }
 .rank-panel { padding: 25px 0 21px; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
 .rank-panel h1 { max-width: none; font-size: clamp(2.6rem, 5.6vw, 5rem); line-height: 1; letter-spacing: -0.065em; }
-.rank-panel__dek { margin: 12px 0 22px; max-width: none; font-size: 1rem; }
-.discovery-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.discovery-actions { display: flex; align-items: center; gap: 18px; }
-.discovery-actions button { min-height: 46px; padding: 0 16px; border: 0; background: transparent; cursor: pointer; font-size: 0.9rem; white-space: nowrap; }
-.discovery-actions .browse-all-button { border: 1px solid var(--ink); border-radius: 8px; background: #fffdf8; box-shadow: inset 0 0 0 3px #fffdf8, inset 0 0 0 4px var(--ink); font-weight: 700; padding: 0 22px; }
-.browse-all-button span { margin-left: 12px; }
-#dogs-search-form { width: min(300px, 32%); }
+.rank-panel__dek { margin: 12px 0 0; max-width: none; font-size: 1rem; }
+.discovery-toolbar { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
+.browse-panel { position: relative; z-index: 2; }
+.browse-panel .browse-all-button { min-height: 44px; border: 1px solid var(--ink); border-radius: 8px; background: #fffdf8; box-shadow: inset 0 0 0 3px #fffdf8, inset 0 0 0 4px var(--ink); font-weight: 700; padding: 0 18px; white-space: nowrap; }
+.browse-all-button span { margin-left: 8px; }
+#dogs-surprise { flex: 0 0 auto; min-height: 46px; padding: 0 20px; border: 1px solid var(--border-soft); border-radius: 8px; background: transparent; cursor: pointer; white-space: nowrap; font-size: .9rem; }
+#dogs-search-form { flex: 1; min-width: 0; width: auto; }
 .search-control { min-height: 44px; padding: 0; border: 1px solid #b6b0a5; border-radius: 8px; box-shadow: none; background: rgba(255,253,248,.65); }
 .search-control svg { width: 18px; height: 18px; margin-left: 13px; }
 .search-control input { height: 44px; font-size: 0.9rem; padding: 0 12px; }
-#dogs-suggestions { left: auto; right: 0; min-width: min(420px, calc(100vw - 40px)); }
+#dogs-suggestions { left: 0; right: 0; min-width: min(420px, calc(100vw - 40px)); }
 .catalog-status { margin: 12px 0 0; }
 .browse-panel, .recent-panel, .dogs-discovery { padding: 22px 0; border: 0; border-top: 1px solid var(--border-soft); border-radius: 0; background: transparent; box-shadow: none; }
 #dogs-view-rank { gap: 0; }
-.browse-panel .section-heading-row p { display: none; }
+.browse-refresh { display: flex; justify-content: flex-end; margin-top: 8px; }
+.browse-refresh button { min-height: 44px; border: 0; padding: 0; background: transparent; font-size: .8rem; color: var(--ink-soft); cursor: pointer; }
+.browse-refresh span { margin-left: 6px; }
 .breed-rail { margin-top: 16px; gap: 18px; }
 .explore-dog { position: relative; display: block; min-width: 0; width: 100%; padding: 0; border: 0; background: transparent; text-align: left; color: var(--ink); cursor: pointer; }
 .explore-dog > strong { display: block; margin-top: 11px; font-size: 1.1rem; line-height: 1.2; letter-spacing: -.025em; }
@@ -71,17 +73,18 @@
   .dogs-app, .dogs-footer { width: calc(100% - 32px); }
   .rank-panel { padding: 22px 0 20px; }
   .rank-panel h1 { font-size: clamp(2rem, 8vw, 3.4rem); letter-spacing: -.06em; }
-  .rank-panel__dek { margin: 11px 0 17px; font-size: .85rem; line-height: 1.4; max-width: 340px; }
-  .discovery-toolbar { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
-  .discovery-actions { gap: 6px; }
-  .discovery-actions button { font-size: .82rem; padding: 0 12px; }
-  .discovery-actions .browse-all-button { padding: 0 18px; }
-  #dogs-search-form { width: 100%; }
+  .rank-panel__dek { margin: 11px 0 0; font-size: .85rem; line-height: 1.4; max-width: 340px; }
+  .browse-panel .section-heading-row { align-items: center; gap: 10px; }
+  .browse-panel .section-heading-row h2 { font-size: 1.12rem; }
+  .browse-panel .browse-all-button { font-size: .76rem; padding: 0 12px; }
+  .browse-all-button span { margin-left: 3px; }
+  .discovery-toolbar { gap: 8px; margin-top: 14px; }
+  #dogs-surprise { padding: 0 12px; font-size: .82rem; }
   .search-control { max-width: none; }
   .search-control input { font-size: 16px; }
-  #dogs-suggestions { min-width: 0; width: 100%; }
+  #dogs-suggestions { min-width: 0; width: calc(100vw - 32px); }
   .browse-panel, .recent-panel, .dogs-discovery { padding: 18px 0; }
-  .breed-rail { gap: 14px; margin: 14px -16px 0; padding: 0 16px 4px; }
+  .breed-rail { gap: 14px; margin: 14px -16px 0; padding: 0 16px 4px; scroll-padding-inline: 16px; }
   .breed-rail .explore-dog { flex: 0 0 76%; scroll-snap-align: start; }
   .explore-dog > strong { font-size: 1rem; }
   .recent-rail { margin-top: 10px; }
@@ -98,5 +101,6 @@
   .detail-navigation button { font-size: .76rem; padding: 0 9px; }
   .detail-navigation span { font-size: .7rem; }
   .is-exploring .detail-layout { grid-template-columns: 1fr; gap: 20px; }
+  .detail-dialog.is-exploring { width: 100%; }
   .is-exploring .detail-layout > .dog-media { max-height: none; }
 }

@@ -16,7 +16,6 @@ export function createDogsExplorer({ entries, createMedia, openDetail }) {
   const pageLabel = $("#dogs-gallery-page");
   const prev = $("#dogs-gallery-prev");
   const next = $("#dogs-gallery-next");
-  const railSection = $("#dogs-browse-section");
   const rail = $("#dogs-browse-rail");
   const shuffle = $("#dogs-refresh-browse");
   const surprise = $("#dogs-surprise");
@@ -78,7 +77,8 @@ export function createDogsExplorer({ entries, createMedia, openDetail }) {
 
   const renderRail = ({ reshuffle = false } = {}) => {
     const available = unhandled();
-    railSection.hidden = available.length === 0;
+    rail.hidden = available.length === 0;
+    shuffle.parentElement.hidden = available.length <= 4;
     rail.replaceChildren();
     if (!available.length) {
       railIds = [];

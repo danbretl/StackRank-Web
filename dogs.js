@@ -1,4 +1,4 @@
-import { createDogsExplorer } from "./dogs-explore.js?v=2";
+import { createDogsExplorer } from "./dogs-explore.js?v=3";
 import { createClient } from "./vendor/supabase-js-2.108.2.js?v=1";
 import {
   categoryStorageKeys,
@@ -1024,14 +1024,20 @@ const packItems = (pack) => (Array.isArray(pack?.items) ? pack.items : [])
 
 const packStats = (pack) => {
   const items = packItems(pack);
-  const handled = items.filter((item) => handledLocation(item.entityRef.id)).length;
-  return { total: items.length, handled, remaining: items.length - handled, complete: items.length > 0 && handled === items.length };
+  const locations = items.map((item) => handledLocation(item.entityRef.id));
+  const ranked = locations.filter((location) => location === "ranking").length;
+  const curious = locations.filter((location) => location === "curious").length;
+  const notForMe = locations.filter((location) => location === "not_for_me").length;
+  return { total: items.length, ranked, curious, notForMe, remaining: items.length - ranked,
+    complete: items.length > 0 && ranked === items.length };
 };
 
-const createBreedTile = (item, { showContext = true } = {}) => {
+const createBreedTile = (item, { packId = "" } = {}) => {
   const candidate = displayItem(item);
   const article = document.createElement("article");
   article.className = "breed-card";
+  article.dataset.dogId = candidate.entityRef.id;
+  article.tabIndex = -1;
   const button = document.createElement("button");
   button.type = "button";
   button.className = "breed-tile";
@@ -1042,30 +1048,15 @@ const createBreedTile = (item, { showContext = true } = {}) => {
     : `Rank ${candidate.snapshot.primaryText}`);
   const title = document.createElement("strong");
   title.textContent = candidate.snapshot.primaryText;
-  const context = document.createElement("span");
-  context.className = "breed-tile__context";
-  context.textContent = location
-    ? location === "curious" ? "Curious about" : location === "not_for_me" ? "Not for me" : "Ranked"
-    : candidate.snapshot.secondaryText;
-  const summary = document.createElement("span");
-  summary.className = "breed-tile__summary";
-  summary.textContent = profileSummary(candidate.entityRef.id);
   button.append(createDogMedia(candidate), title);
-  if (showContext) button.append(context, summary);
-  button.addEventListener("click", () => beginRanking(candidate));
-  const footer = document.createElement("span");
-  footer.className = "breed-card__footer";
-  const chips = createProfileChips(candidate.entityRef.id, { limit: 2 });
-  const learn = document.createElement("button");
-  learn.type = "button";
-  learn.className = "breed-card__learn";
-  learn.textContent = "Meet this dog";
-  learn.setAttribute("aria-label", `Learn about ${candidate.snapshot.primaryText}`);
-  learn.addEventListener("click", () => {
-    openDetail(candidate.entityRef.id);
-  });
-  footer.append(chips, learn);
-  article.append(button, footer);
+  if (location) {
+    const state = document.createElement("span");
+    state.className = "breed-tile__state";
+    state.textContent = location === "ranking" ? "Ranked" : location === "curious" ? "Curious about" : "Not for me";
+    button.append(state);
+  }
+  button.addEventListener("click", () => rankFromPack(candidate, packId));
+  article.append(button);
   return article;
 };
 
@@ -1094,13 +1085,14 @@ const renderRecent = () => {
 };
 
 const featuredPackSelection = () => {
-  const starters = packs.filter((pack) => pack.placements?.includes("starter"));
-  const continuations = packs.filter((pack) => {
+  const availablePacks = packs.filter((pack) => packItems(pack).length);
+  const starters = availablePacks.filter((pack) => pack.placements?.includes("starter"));
+  const continuations = availablePacks.filter((pack) => {
     const stats = packStats(pack);
-    return stats.handled > 0 && !stats.complete;
+    return stats.ranked > 0 && !stats.complete;
   });
-  const rotated = packs.length
-    ? packs.map((_, index) => packs[(index + featuredPackOffset) % packs.length])
+  const rotated = availablePacks.length
+    ? availablePacks.map((_, index) => availablePacks[(index + featuredPackOffset) % availablePacks.length])
     : [];
   const selected = [];
   [...continuations.slice(0, 2), ...starters, ...rotated].forEach((pack) => {
@@ -1135,17 +1127,17 @@ const renderFeaturedPacks = () => {
     description.textContent = dogEditorialDisplayText(pack.description);
     const rail = document.createElement("div");
     rail.className = "featured-pack__rail";
-    packItems(pack).slice(0, 4).forEach((item) => rail.append(createBreedTile(item, { showContext: false })));
+    packItems(pack).slice(0, 4).forEach((item) => rail.append(createBreedTile(item, { packId: pack.id })));
     const stats = packStats(pack);
     const footer = document.createElement("div");
     footer.className = "featured-pack__footer";
     const action = document.createElement("button");
     action.type = "button";
-    action.textContent = stats.handled ? `Continue ${displayTitle} →` : `Explore ${displayTitle} →`;
-    action.addEventListener("click", () => startPack(pack.id));
+    action.textContent = `See all ${stats.total} dogs →`;
+    action.addEventListener("click", () => startPack(pack.id, "featured"));
     const progress = document.createElement("span");
     progress.className = "featured-pack__progress";
-    progress.textContent = stats.complete ? "Complete" : stats.handled ? `${stats.handled}/${stats.total} handled` : `${stats.total} breeds`;
+    progress.textContent = stats.complete ? "All ranked" : `${stats.ranked} of ${stats.total} ranked`;
     footer.append(action, progress);
     section.append(heading, description, rail, footer);
     featuredPacksEl.appendChild(section);
@@ -1214,9 +1206,9 @@ const renderSearchResults = (results) => {
     }
     const meta = document.createElement("span");
     meta.className = "search-option__meta";
-    meta.textContent = handledLocation(result.candidate.entityRef.id)
-      ? "Already handled"
-      : dogStatusLabel(result.candidate.catalog.status);
+    const location = handledLocation(result.candidate.entityRef.id);
+    meta.textContent = ({ ranking: "Ranked", curious: "Curious about", not_for_me: "Not for me" })[location]
+      || dogStatusLabel(result.candidate.catalog.status);
     option.append(media, copy, meta);
     option.addEventListener("pointerdown", (event) => event.preventDefault());
     option.addEventListener("click", () => beginRanking(result.candidate));
@@ -1592,6 +1584,7 @@ const settleRanking = (session) => {
     showDestination(origin.destination, { restoreScroll: false });
     requestAnimationFrame(() => window.scrollTo({ top: origin.scrollY, behavior: "instant" }));
   }
+  restorePackAfterRanking();
 };
 
 function beginRanking(item) {
@@ -1642,6 +1635,7 @@ function cancelRanking() {
     showDestination(origin.destination, { restoreScroll: false });
     requestAnimationFrame(() => window.scrollTo({ top: origin.scrollY, behavior: "instant" }));
   }
+  restorePackAfterRanking();
   showToast("Ranking canceled. Your lists were not changed.");
 }
 
@@ -1748,25 +1742,23 @@ function openDetail(catalogId) {
   summary.hidden = !profile?.summary;
   const chips = createProfileChips(catalogId, { limit: 2 });
   chips.classList.add("detail-copy__chips");
-  const note = document.createElement("p");
-  note.className = "detail-safety-note";
-  note.textContent = "Rank by affection or curiosity. Breed traditions never predict an individual dog or household fit.";
   const actions = document.createElement("div");
   actions.className = "detail-actions";
   actions.hidden = Boolean(comparisonDetailReturnTarget);
   const location = handledLocation(catalogId);
-  const addAction = (text, handler, disabled = false) => {
+  const addAction = (text, handler, disabled = false, primary = false) => {
     const button = document.createElement("button");
     button.type = "button";
     button.textContent = text;
     button.disabled = disabled;
+    if (primary) button.className = "detail-actions__rank";
     button.addEventListener("click", handler);
     actions.appendChild(button);
   };
   addAction(location === "ranking" ? "Ranked" : "Rank this breed", () => {
     detailDialog.close();
     beginRanking(shown);
-  }, location === "ranking");
+  }, location === "ranking", true);
   addAction(location === "curious" ? "Saved to Curious" : "Curious about", () => transitionItem(shown, "curious"), location === "curious");
   addAction(location === "not_for_me" ? "In Not for me" : "Not for me", () => transitionItem(shown, "not_for_me"), location === "not_for_me");
   const facts = document.createElement("div");
@@ -1836,7 +1828,7 @@ function openDetail(catalogId) {
     sources.append(referenceList);
   }
   sources.append(attribution);
-  copy.append(title, status, chips, summary, factCallout, actions, facts, note, sources);
+  copy.append(title, status, chips, summary, factCallout, actions, facts, sources);
   layout.append(createDogMedia(shown, "detail"), copy);
   detailContent.appendChild(layout);
   showDialog(detailDialog);
@@ -1884,27 +1876,77 @@ const renderCredits = () => {
   showDialog(detailDialog);
 };
 
-const startPack = (packId) => {
+let packReturnContext = null;
+
+const rankFromPack = (item, packId, { fromNext = false } = {}) => {
+  packReturnContext = packsDialog.open && !$("#dogs-pack-detail").hidden
+    ? { packId, origin: packDetailOrigin, scrollTop: packsDialog.scrollTop,
+      focusId: fromNext ? "" : item.entityRef.id }
+    : null;
   const pack = packs.find((entry) => entry.id === packId);
-  if (!pack) return;
-  const before = stateSnapshot();
-  packProgress[pack.id] = {
-    ...(packProgress[pack.id] || {}),
-    startedAt: packProgress[pack.id]?.startedAt || new Date().toISOString(),
-    versionSeen: 1,
-  };
-  const next = packItems(pack).find((item) => !handledLocation(item.entityRef.id));
-  saveAll({ changedSurfaces: ["packProgress"] });
-  renderAll();
+  if (pack && !packProgress[pack.id]?.startedAt) {
+    packProgress[pack.id] = { ...(packProgress[pack.id] || {}), startedAt: new Date().toISOString(), versionSeen: 1 };
+    saveAll({ changedSurfaces: ["packProgress"] });
+  }
   if (packsDialog.open) packsDialog.close();
-  if (next) beginRanking(next);
-  else showToast(`${dogEditorialDisplayText(pack.title)} is complete.`, { undoSnapshot: before });
+  beginRanking(item);
+};
+
+let activePackId = "";
+let packDetailOrigin = "browser";
+
+const renderPackDetail = () => {
+  const pack = packs.find((entry) => entry.id === activePackId);
+  if (!pack) return;
+  const items = packItems(pack);
+  const stats = packStats(pack);
+  $("#dogs-pack-detail-title").textContent = dogEditorialDisplayText(pack.title);
+  $("#dogs-pack-detail-description").textContent = dogEditorialDisplayText(pack.description || pack.subtitle);
+  const progress = [`${stats.total} dogs`, `${stats.ranked} ranked`];
+  if (stats.curious) progress.push(`${stats.curious} Curious about`);
+  if (stats.notForMe) progress.push(`${stats.notForMe} Not for me`);
+  $("#dogs-pack-detail-progress").textContent = progress.join(" · ");
+  const rankNext = $("#dogs-pack-rank-next");
+  const next = items.find((item) => !["ranking", "not_for_me"].includes(handledLocation(item.entityRef.id)));
+  rankNext.disabled = !next;
+  rankNext.textContent = stats.complete ? "All dogs ranked" : next ? "Rank next dog" : "No dogs ready to rank";
+  const grid = $("#dogs-pack-detail-grid");
+  grid.replaceChildren();
+  items.forEach((item) => grid.append(createBreedTile(item, { packId: pack.id })));
+};
+
+const startPack = (packId, origin = "browser") => {
+  if (!packs.some((entry) => entry.id === packId)) return;
+  activePackId = packId;
+  packDetailOrigin = origin;
+  $("#dogs-pack-browser-view").hidden = true;
+  $("#dogs-pack-detail").hidden = false;
+  $("#dogs-pack-detail-back").textContent = origin === "featured" ? "← Back to discover" : "← Back to packs";
+  renderPackDetail();
+  showDialog(packsDialog);
+  packsDialog.scrollTop = 0;
+  $("#dogs-pack-detail-title").setAttribute("tabindex", "-1");
+  $("#dogs-pack-detail-title").focus({ preventScroll: true });
+};
+
+const restorePackAfterRanking = () => {
+  const context = packReturnContext;
+  packReturnContext = null;
+  if (!context) return;
+  requestAnimationFrame(() => {
+    startPack(context.packId, context.origin);
+    packsDialog.scrollTop = context.scrollTop;
+    const card = [...$("#dogs-pack-detail-grid").querySelectorAll(".breed-card")]
+      .find((entry) => entry.dataset.dogId === context.focusId);
+    (card || $("#dogs-pack-rank-next")).focus({ preventScroll: true });
+  });
 };
 
 const renderPackBrowser = () => {
   const query = cleanText($("#dogs-pack-search").value).toLocaleLowerCase();
   const family = $("#dogs-pack-family").value;
   const visible = packs.filter((pack) => {
+    if (!packItems(pack).length) return false;
     if (family && pack.family !== family) return false;
     if (!query) return true;
     const names = packItems(pack).map((item) => item.snapshot.primaryText).join(" ");
@@ -1921,15 +1963,16 @@ const renderPackBrowser = () => {
     description.textContent = dogEditorialDisplayText(pack.description || pack.subtitle);
     const rail = document.createElement("div");
     rail.className = "pack-card__rail";
-    packItems(pack).slice(0, 4).forEach((item) => rail.append(createBreedTile(item, { showContext: false })));
+    packItems(pack).slice(0, 4).forEach((item) => rail.append(createBreedTile(item, { packId: pack.id })));
     const stats = packStats(pack);
     const actions = document.createElement("div");
     actions.className = "pack-card__actions";
     const status = document.createElement("span");
-    status.textContent = stats.complete ? "Complete" : `${stats.handled}/${stats.total} handled`;
+    status.textContent = `${stats.total} dogs · ${stats.ranked} ranked`;
     const start = document.createElement("button");
     start.type = "button";
-    start.textContent = stats.complete ? "Review breeds" : stats.handled ? "Continue" : "Start pack";
+    start.textContent = `See all ${stats.total} dogs`;
+    start.disabled = stats.total === 0;
     start.addEventListener("click", () => startPack(pack.id));
     actions.append(status, start);
     card.append(title, description, rail, actions);
@@ -1941,10 +1984,12 @@ const openPackBrowser = () => {
   const familySelect = $("#dogs-pack-family");
   const selected = familySelect.value;
   familySelect.replaceChildren(new Option("All families", ""));
-  [...new Set(packs.map((pack) => pack.family).filter(Boolean))].sort()
+  [...new Set(packs.filter((pack) => packItems(pack).length).map((pack) => pack.family).filter(Boolean))].sort()
     .forEach((family) => familySelect.append(new Option(family.replace(/-/g, " "), family)));
   familySelect.value = selected;
   renderPackBrowser();
+  $("#dogs-pack-browser-view").hidden = false;
+  $("#dogs-pack-detail").hidden = true;
   showDialog(packsDialog);
 };
 
@@ -2707,10 +2752,10 @@ settingsToggle.addEventListener("click", () => {
   settingsToggle.setAttribute("aria-expanded", String(!settings.hidden));
 });
 newChoiceEl.addEventListener("click", (event) => {
-  if (event.target.closest(".comparison-card__pick")) handleChoice(true);
+  if (!event.target.closest(".comparison-card__learn")) handleChoice(true);
 });
 existingChoiceEl.addEventListener("click", (event) => {
-  if (event.target.closest(".comparison-card__pick")) handleChoice(false);
+  if (!event.target.closest(".comparison-card__learn")) handleChoice(false);
 });
 detailDialog.addEventListener("close", () => {
   const returnTarget = comparisonDetailReturnTarget;
@@ -2796,6 +2841,22 @@ $("#dogs-move-mode").addEventListener("click", (event) => {
 $("#dogs-view-all-packs").addEventListener("click", openPackBrowser);
 $("#dogs-pack-search").addEventListener("input", renderPackBrowser);
 $("#dogs-pack-family").addEventListener("change", renderPackBrowser);
+$("#dogs-pack-detail-back").addEventListener("click", () => {
+  if (packDetailOrigin === "featured") {
+    packsDialog.close();
+    return;
+  }
+  renderPackBrowser();
+  $("#dogs-pack-detail").hidden = true;
+  $("#dogs-pack-browser-view").hidden = false;
+  packsDialog.scrollTop = 0;
+  $("#dogs-pack-search").focus({ preventScroll: true });
+});
+$("#dogs-pack-rank-next").addEventListener("click", () => {
+  const pack = packs.find((entry) => entry.id === activePackId);
+  const next = packItems(pack).find((item) => !["ranking", "not_for_me"].includes(handledLocation(item.entityRef.id)));
+  if (next) rankFromPack(next, pack.id, { fromNext: true });
+});
 $("#dogs-retry-catalog").addEventListener("click", loadCatalog);
 $("#dogs-open-credits").addEventListener("click", renderCredits);
 
@@ -2840,7 +2901,10 @@ toastAction.addEventListener("click", () => {
 
 document.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
-  if (cancelRankingDrag()) event.preventDefault();
+  if (detailDialog.open) {
+    event.preventDefault();
+    detailDialog.close();
+  } else if (cancelRankingDrag()) event.preventDefault();
   else if (!comparisonEl.hidden) cancelRanking();
   else if (!reviewEl.hidden) endReview();
   else if (!settings.hidden) closeSettings();

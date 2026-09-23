@@ -1,6 +1,7 @@
-/* Portrait and profile stay visible; the two actions have their own card row. */
+/* A native choice button covers the card; About stays a separate sibling action. */
 .comparison__choices { min-height: min-content; }
 .comparison-card {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-rows: minmax(0, 1fr) auto;
@@ -62,22 +63,37 @@
 .comparison-card__fact-label { color: var(--ink-soft); font-size: inherit; font-weight: 700; }
 
 .comparison-card__pick {
-  grid-column: 1;
-  grid-row: 2;
+  position: absolute;
+  z-index: 1;
+  inset: 0;
   width: 100%;
-  min-height: 44px;
-  padding: 8px 12px;
+  padding: 0;
   border: 0;
+  background: transparent;
+  color: transparent;
+  font-size: 0;
+  cursor: pointer;
+}
+.comparison-card__pick::after {
+  content: "Rank higher";
+  position: absolute;
+  right: 50%;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  min-height: 44px;
   border-top: 1px solid var(--border-soft);
   background: #fff;
   box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 3px var(--ink);
   color: var(--ink);
   font-size: 0.78rem;
   font-weight: 700;
-  cursor: pointer;
 }
 .comparison-card__pick:focus-visible { outline: 3px solid var(--clay); outline-offset: -5px; }
 .comparison-card__learn {
+  position: relative;
+  z-index: 2;
   grid-column: 2;
   grid-row: 2;
   display: block;
@@ -100,7 +116,7 @@
 .detail-actions[hidden] { display: none; }
 
 @media (hover: hover) and (pointer: fine) {
-  .comparison-card__pick:hover,
+  .comparison-card__pick:hover::after,
   .comparison-card__learn:hover { background: var(--surface-soft); }
 }
 
@@ -138,7 +154,7 @@
   .comparison-card__eyebrow { font-size: 0.61rem !important; }
   .comparison-card__copy .comparison-card__summary,
   .comparison-card__facts { display: none; }
-  .comparison-card__pick { min-height: 44px; padding: 6px 8px; font-size: 0.72rem; }
+  .comparison-card__pick::after { font-size: 0.72rem; }
   .comparison-card__learn { min-height: 44px; padding: 6px 8px; overflow: hidden; font-size: 0.72rem; text-overflow: ellipsis; white-space: nowrap; }
   .comparison__or { min-height: 0; }
   .comparison__or::before,
@@ -183,7 +199,7 @@
   .comparison-card__context { overflow: hidden; font-size: 0.63rem; text-overflow: ellipsis; white-space: nowrap; }
   .comparison-card__copy .comparison-card__summary,
   .comparison-card__facts { display: none; }
-  .comparison-card__pick { min-height: 44px; padding: 5px; font-size: 0.68rem; }
+  .comparison-card__pick::after { font-size: 0.68rem; }
   .comparison-card__learn { min-height: 44px; padding: 5px; overflow: hidden; font-size: 0.68rem; text-overflow: ellipsis; white-space: nowrap; }
   .comparison__or { grid-template-columns: auto; grid-template-rows: 1fr auto 1fr; }
   .comparison__or::before,

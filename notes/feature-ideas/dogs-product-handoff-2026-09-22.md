@@ -2,36 +2,24 @@
 
 ## Current continuation — September 23, 2026
 
-Dan requested another approximately 100 dogs, superseding the prior F01 stop. **F02 is now live with
-25 additional completed portrait/profile pairs: 332 of 1,239, with 907 unfinished hidden identities.**
-Product commit `8a5a5c71` is pushed and Vercel READY; 455 Node, 24 Deno, 41 browser and 49 production checks
-passed. All 635 protected files and prior 307 portraits/full descriptions/sources remain unchanged.
-The new run targets 407 total; 75 pairs remain. F03/F04 preparation continues in isolated staging.
-See `notes/testing/dogs-portrait-continuation-100.md` and `data/dogs/portrait-continuation-100.json`
-for release evidence, exact ordered selections, source/QA receipts, current holds and lessons.
-All 20 E holds remain; F now has five holds/five append-only reserve activations. Existing hidden saved
-state and all sharing-purpose restrictions remain intact. This update supersedes historical stop text below.
+Dan requested another approximately 100 dogs, superseding the prior F01 stop. **F03 is now live:
+50 new completed pairs in this run; 357 of 1,239 overall, with 882 unfinished hidden identities.**
+Latest product commit `9c804111` is pushed and Vercel READY; 455 Node, 24 Deno, 41 browser and 49 production
+checks passed. Thirteen production byte comparisons matched. All 635 original protected files and all
+previous 332 artwork/profile records remain unchanged. The target is 407 total; 50 pairs remain.
+F04 and G01 are in isolated staging pending final review. See `notes/testing/dogs-portrait-continuation-100.md`
+and `data/dogs/portrait-continuation-100.json` for exact selections, release evidence and current lessons.
+All 20 E holds and five F holds remain visible; F has five append-only reserve activations. Hidden saved
+state and artwork-purpose restrictions remain intact. This supersedes historical stop text below.
 
-**Latest release — September 22, 2026:** Cohort F01 adds **25 accepted portraits and 25
-independently reviewed personality-first descriptions**, for **307 completed pairs**. Product commit
-`19221e09` also limits the main Dogs site to those 307 completed identities.
-The full 1,239-record catalog is retained; 932 unfinished identities are hidden, with saved rankings,
-queues and backups preserved. Completing both gates restores an identity automatically. There are
-42 nonempty public packs from 46 source packs. Existing public snapshots are not rewritten; new
-snapshots and exports use visible entries. Artwork sharing remains denied.
-
-Dan requested stopping after this batch around 300 total. The original 100-identity F selection stays
-frozen for future use; do not start further work without a new request. Seventeen additional native
-F02 outputs are staged only, unaccepted and unpublished. Start next session with
-`notes/testing/dogs-portrait-cohort-f.md`, `data/dogs/portrait-cohort-f.json` and
-`data/dogs/portrait-cohort-f-staging.json`. All 20 E holds remain; three F holds and three ordered
-reserve activations are recorded. Prior 282 portraits, rights rows and approved profiles are unchanged.
+## Historical F01 stop — superseded
 
 Snapshot date: **September 22, 2026**
 
 This is a durable orientation document for a new primary agent. It is a snapshot, not a replacement
 for `AGENTS.md`, the code, or the authoritative launch/status documents. If they disagree, inspect
 the current implementation and update this handoff rather than silently following stale prose.
+
 
 ## Product in one paragraph
 

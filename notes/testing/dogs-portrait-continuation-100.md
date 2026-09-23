@@ -5,7 +5,8 @@
 Dan explicitly requested another approximately 100 dogs after the F01 stop. This supersedes the prior
 stop request. Baseline was verified at **307 accepted portraits and individually researched full profiles,
 1,239 source identities, 932 unfinished**. The target is **407 completed pairs**, delivered in four waves.
-The first milestone is live: **F02 adds 25 pairs; 332 completed, 907 unfinished**. **75 remain** in this run.
+The first two milestones are live: **F02 and F03 add 50 pairs; 357 completed, 882 unfinished**.
+**50 remain** in this run.
 All unfinished entries remain hidden from normal Dogs UI, with source records and saved state retained.
 
 `data/dogs/portrait-continuation-100.json` freezes the ordered 100 primary identities and 15 additional
@@ -46,6 +47,34 @@ F cumulatively has **63 image calls, 62 originals, one failed call, 11 rejected 
 acceptable duplicate, 13 retries, 50 accepted/published pairs** through F02. These totals exclude current
 F03/F04 staging until reconciled; attempts never count as completed pairs.
 
+## F03 publication receipt
+
+- Product **`9c804111`**, pushed directly to main; Vercel READY deployment
+  `dpl_Gwhh8GViqQGjSfHfTbZQxZmp4kWD`:
+  https://stackrank-gvrfoxhq6-danbretl-2590s-projects.vercel.app
+- Full `npm run verify`: **455 Node, 24 Deno, 41 Chrome flows passed**. Browser report
+  `reports/e2e/runs/2026-09-23T093823Z`; log `continuation-100/f03-verify-final.log` under portrait reports.
+  Primary inspected desktop/phone search, comparison, ranking and detail screenshots for Silken Windhound.
+  Reviewer arrows, Escape, flags and draft behavior remain covered.
+- Production: **49 checks passed**, plus **13 exact byte matches** for compiled manifests, generation
+  metadata, consumers and four representative 320/960 portrait pairs; `f03-live-receipt.json`.
+- All prior **332** artwork/full-profile/source records and variant bytes unchanged; all **635** baseline
+  protected files unchanged (`f03-preservation-receipt.json`).
+- F03: **34 actual calls and originals, 25 accepted pairs, nine rejected originals**. One pre-call
+  cancellation is excluded. Rejections cover sheep, crop/ear margins, and the Standard Poodle reference
+  whose filename implied size without explicit source identification. The replacement uses an explicitly
+  identified adult Standard Poodle. Old sources, prompts and originals remain archived.
+- F cumulative: **97 calls, 96 originals, one failed call, 20 rejected, one acceptable unselected duplicate,
+  22 retries, 75 published pairs**. F04/G01 staging is excluded until reconciled.
+- Current caches: Dogs JS54, reviewer12, profiles9, generated manifest16, rights23; profile version `.2`.
+
+F03 lessons: read exact source descriptions rather than inferring variety from a filename. Keep archived
+reference-input paths when a replacement becomes active, so old call hashes remain verifiable. Rights
+acquisition timestamps must be full ISO values; when only file acquisition metadata survives, record that
+basis explicitly. Rights notes must retain the validator's literal “morphology reference” scope. Run the
+focused checks before cache/version finalization. F04 review also caught a source described in Spanish as
+a Shepherd cross; its image was replaced from an explicit eight-year-old German Shepherd source.
+
 ## Holds, selection decisions and pipeline
 
 All **20 E holds** remain. F now has five holds and five ordered activations, including the original three.
@@ -73,15 +102,14 @@ Movies/Books routes and isolation, root redirect and unrelated `logo-design-brie
 
 ## Next wave and current lessons
 
-F03 and F04 preparation stays in ignored `reports/dogs-generated-artwork/continuation-100/f03-*` and
-`f04-*`; immutable native outputs are in ignored `assets/dogs/generated-masters/cohort-f/`.
+F04 and G01 preparation stays in ignored `reports/dogs-generated-artwork/continuation-100/f03-*` and
+`f04-*` and `g01-*`; immutable native outputs are in ignored `assets/dogs/generated-masters/cohort-f/`.
 All source packets include pinned Commons revisions, creators/licenses/original-chain evidence,
 source hashes, morphology/scene rationale, exact prompts and pre-call receipts. Primary image reviews,
 profile reviews, contacts and release receipts are in the continuation report root.
 
-- Finish F03 independent native review, source/long-and-short-copy review and whole-wave contact sheet
-  before integration. Initial primary review rejected four F03-a originals for background sheep or
-  insufficient ear clearance; targeted replacements are staged. No weak output is counted to keep pace.
+- F03 is published. Finish F04 and G01 independent native/source/full-and-short-copy reviews and
+  contact sheets before integration. Review G01 Harrier public-domain source mapping before acceptance.
 - A prompt's exclusion list is not an acceptance check: inspect the whole background for extra animals
   and the native top/bottom margins. Prefer dog height about 75–80% of frame and explicit 100px clearance.
   Preserve every rejected native and its concrete reason. Do not reroll a good image speculatively.
@@ -98,5 +126,5 @@ profile reviews, contacts and release receipts are in the continuation report ro
 - Preserve native input/output hashes. Compatibility PNG conversions must preserve decoded original
   pixels and retain the licensed original. A prelogged cancelled request is not an image call.
 
-Continue through F03, F04 and G01 to the user-authorized total 407, with product and separate documentation
+Continue through F04 and G01 to the user-authorized total 407, with product and separate documentation
 commits at each milestone. Do not stop at F02 or count staged/rejected/held identities as completed.

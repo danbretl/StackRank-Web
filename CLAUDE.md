@@ -16,11 +16,11 @@ active next-category initiative** and now has a comprehensive field-guide produc
 generated VBO catalog, 1,239 breed profiles, editorial packs, ranking/lists/backup/export flows, and
 responsive browser coverage.
 The additive production schema and Storage bucket have been applied and passed real two-user/RLS/
-snapshot/Storage probes. 332 art-directed generated breed portraits and individually researched descriptions cover the
-promoted cohort plus 304 additional breeds and varieties in normal UI. The main Dogs site temporarily
+snapshot/Storage probes. 357 art-directed generated breed portraits and individually researched descriptions cover the
+promoted cohort plus 329 additional breeds and varieties in normal UI. The main Dogs site temporarily
 shows only completed portrait/profile pairs; all 1,239 source records and saved hidden entries remain
 intact, and each identity returns automatically when both completion gates pass. The rights ledger
-contains 28 licensed-photo fallback rows plus 304 separately gated morphology-reference rows. Dogs
+contains 28 licensed-photo fallback rows plus 329 separately gated morphology-reference rows. Dogs
 account sync and public snapshot code is enabled, while public-snapshot artwork and raster export
 remain purpose-denied. The integrated release shipped to production on July 22, 2026 in commit
 `31267389`; the field-guide redesign shipped to production in commit `254810ae`. `/dogs` is public while the
@@ -34,8 +34,8 @@ cohort has been fully reviewed, with 20 reference holds. Counts, deployment and 
 `notes/testing/dogs-portrait-cohort-e.md` and `data/dogs/portrait-cohort-e.json`.
 
 Cohort F01 added 25 pairs in `19221e09`; after its stop Dan requested another approximately 100.
-F02 adds 25 in `8a5a5c71`, now **332 completed pairs** with 907 unfinished identities hidden.
-The active continuation targets 407 total; 75 additional pairs remain after F02. F's frozen selection
+F02 and F03 add 50 through `9c804111`, now **357 completed pairs** with 882 unfinished identities hidden.
+The active continuation targets 407 total; 50 additional pairs remain after F03. F's frozen selection
 and E's evidence remain intact; five F holds and five ordered reserve activations are recorded.
 Start with `notes/testing/dogs-portrait-continuation-100.md` and
 `data/dogs/portrait-continuation-100.json` for current release evidence, isolated staging and lessons.
@@ -141,7 +141,7 @@ Plain **static single-page app — no build system, no framework, no bundler, no
 
 ## Feature map (what exists)
 
-- **StackRank Dogs:** `/dogs` browses and searches 332 completed VBO-derived breeds/types through canonical
+- **StackRank Dogs:** `/dogs` browses and searches 357 completed VBO-derived breeds/types through canonical
   names and aliases, then uses the shared binary-insertion mechanics with undo/cancel. It includes
   Recently ranked, 42 visible editorial packs (46 retained source packs), Detailed/Photos/Compact ranking views, safe facets,
   pointer/touch/keyboard reorder, Review order, provenance-rich details, Curious about / Not for me,
@@ -154,9 +154,9 @@ Plain **static single-page app — no build system, no framework, no bundler, no
   Discovery portraits and Surprise me start ranking directly; the All dogs gallery opens details.
   Search, Surprise me and Shuffle dogs share the discovery toolbar. Full packs list unranked dogs
   before grayscale ranked dogs. Whole comparison cards choose a dog, with a separate image-corner
-  info control; Escape closes that profile before canceling a comparison. All 332 illustrated
+  info control; Escape closes that profile before canceling a comparison. All 357 illustrated
   breeds have individually written profiles, and their art-directed generated portraits include
-  breed-specific natural settings. The other 907 source entries stay conservative and hidden until individually researched copy and
+  breed-specific natural settings. The other 882 source entries stay conservative and hidden until individually researched copy and
   approved artwork are ready. Saved hidden entries remain in sync and backups without entering
   comparisons or public exports. Account sync and revocable public snapshot links use the additive category
   tables. Public snapshots omit artwork because that purpose remains denied, and raster

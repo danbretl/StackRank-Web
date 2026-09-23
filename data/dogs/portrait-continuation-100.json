@@ -102,7 +102,7 @@
     {
       "ordinal": 12,
       "catalogId": "VBO:0200383",
-      "displayName": "Continental Toy Spaniel, Phal\u00e8ne - With Drooping Ears",
+      "displayName": "Continental Toy Spaniel, Phalène - With Drooping Ears",
       "cohort": "f",
       "subwave": "f02",
       "basis": "Previously frozen exact F selection including ordered reserve activations"
@@ -126,7 +126,7 @@
     {
       "ordinal": 15,
       "catalogId": "VBO:0200775",
-      "displayName": "Kleiner M\u00fcnsterl\u00e4nder",
+      "displayName": "Kleiner Münsterländer",
       "cohort": "f",
       "subwave": "f02",
       "basis": "Previously frozen exact F selection including ordered reserve activations"
@@ -214,7 +214,7 @@
     {
       "ordinal": 26,
       "catalogId": "VBO:0200286",
-      "displayName": "C\u00e3o de Gado Transmontano",
+      "displayName": "Cão de Gado Transmontano",
       "cohort": "f",
       "subwave": "f03",
       "basis": "Previously frozen exact F selection including ordered reserve activations"
@@ -302,7 +302,7 @@
     {
       "ordinal": 37,
       "catalogId": "VBO:0201381",
-      "displayName": "Gos Rater Valenci\u00e0",
+      "displayName": "Gos Rater Valencià",
       "cohort": "f",
       "subwave": "f03",
       "basis": "Previously frozen exact F selection including ordered reserve activations"
@@ -414,7 +414,7 @@
     {
       "ordinal": 51,
       "catalogId": "VBO:0200013",
-      "displayName": "Alano Espa\u00f1ol",
+      "displayName": "Alano Español",
       "cohort": "f",
       "subwave": "f04",
       "basis": "Previously frozen exact F selection including ordered reserve activations"
@@ -897,9 +897,9 @@
   "progress": {
     "accepted": 25,
     "integrated": 25,
-    "published": 0,
+    "published": 25,
     "stagedBeforeRun": 17,
-    "updatedAt": "2026-09-23T07:38:55.021433+00:00"
+    "updatedAt": "2026-09-23T08:04:52.793066+00:00"
   },
   "selectionAmendments": [
     {
@@ -930,7 +930,30 @@
       ]
     }
   ],
-  "releases": [],
+  "releases": [
+    {
+      "subwave": "f02",
+      "completedPairs": 25,
+      "totalCompletedPairs": 332,
+      "commit": "8a5a5c71acb4056378855754cdc0eff0fcdf1373",
+      "deploymentUrl": "https://stackrank-6so2nugds-danbretl-2590s-projects.vercel.app",
+      "verifiedAt": "2026-09-23T07:53:01.710241+00:00",
+      "evidencePath": "notes/testing/dogs-portrait-continuation-100.md",
+      "verify": {
+        "node": 455,
+        "deno": 24,
+        "browser": 41,
+        "production": 49,
+        "productionByteMatches": 13
+      },
+      "generation": {
+        "newCalls": 14,
+        "reusedPriorOutputs": 17,
+        "totalOutputsReviewed": 31,
+        "rejectedOutputs": 6
+      }
+    }
+  ],
   "coordination": {
     "siteThread": "01a0cca8-8360-7c93-9139-b08a91b777d4",
     "isolatedWorktree": "/Users/danbretl/.codex/worktrees/dogs-portraits-f-continuation/stackrank",

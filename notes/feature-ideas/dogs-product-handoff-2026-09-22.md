@@ -1,5 +1,17 @@
 # StackRank Dogs product handoff
 
+## Current continuation — September 23, 2026
+
+Dan requested another approximately 100 dogs, superseding the prior F01 stop. **F02 is now live with
+25 additional completed portrait/profile pairs: 332 of 1,239, with 907 unfinished hidden identities.**
+Product commit `8a5a5c71` is pushed and Vercel READY; 455 Node, 24 Deno, 41 browser and 49 production checks
+passed. All 635 protected files and prior 307 portraits/full descriptions/sources remain unchanged.
+The new run targets 407 total; 75 pairs remain. F03/F04 preparation continues in isolated staging.
+See `notes/testing/dogs-portrait-continuation-100.md` and `data/dogs/portrait-continuation-100.json`
+for release evidence, exact ordered selections, source/QA receipts, current holds and lessons.
+All 20 E holds remain; F now has five holds/five append-only reserve activations. Existing hidden saved
+state and all sharing-purpose restrictions remain intact. This update supersedes historical stop text below.
+
 **Latest release — September 22, 2026:** Cohort F01 adds **25 accepted portraits and 25
 independently reviewed personality-first descriptions**, for **307 completed pairs**. Product commit
 `19221e09` also limits the main Dogs site to those 307 completed identities.

@@ -13,7 +13,7 @@ const [catalog, packs, wikidata, fci, overrides, shortDescriptions] = await Prom
   readJson("data/dogs/profile-short-descriptions.json"),
 ]);
 
-const refreshes = await Promise.all(["a", "b", "c", "f", "f02", "f03", "f04", "g01"].map((batch) => readJson(`data/dogs/profile-refresh-${batch}.json`)));
+const refreshes = await Promise.all(["a", "b", "c", "f", "f02", "f03", "f04", "g01", "h01"].map((batch) => readJson(`data/dogs/profile-refresh-${batch}.json`)));
 const profiles = buildDogProfiles({ catalog, packs, wikidata, fci, overrides, refreshes, shortDescriptions });
 const outputUrl = new URL("../data/dogs/breed-profiles.json", import.meta.url);
 const next = `${JSON.stringify(profiles, null, 2)}\n`;

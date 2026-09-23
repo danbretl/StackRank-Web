@@ -23,6 +23,7 @@ First read these documents completely, in order:
 5. `notes/feature-ideas/dogs-launch-plan.md`
 6. `notes/testing/dogs-implementation-status.md`
 7. `notes/feature-ideas/dogs-field-guide-v2.md`
+8. `notes/feature-ideas/dogs-breed-profile-quality.md`
 
 Then inspect the working tree, current manifests, relevant scripts, tests, reports, and actual image
 files before editing. The tree is intentionally dirty. Preserve all existing user work, Books and
@@ -53,6 +54,9 @@ variety, crossbreed, and historical identities not covered by the current canoni
 
 For every breed/type:
 
+- bring its profile up to the writing contract: lead with sourced personality and character, then
+  distinctive habits, skills and history. Use `stackrank-dog-profiles` when available. Keep physical
+  description minor in the profile even though the separate image prompt needs precise morphology;
 - obtain and visually inspect one exact, rights-reviewed Wikimedia Commons morphology reference;
 - import its stable File-page metadata with the existing safe acquisition script;
 - add it to the rights ledger as morphology-reference-only with UI display, public snapshot, and
@@ -110,4 +114,3 @@ task. Frequent progress updates and durable checkpoints are required. Continue w
 meaningful generation, visual review, integration, or verification work remains.
 
 ---
-

@@ -299,10 +299,15 @@ V1 safe detail fields:
 - geographic/historical origin only when sourced;
 - related/parent concepts;
 - photo credit/license/source;
-- brief curated history only when well sourced.
+- source-backed personality/character tendencies, distinctive habits and working skills, followed by
+  memorable history; lead with what the dog is like rather than describing the portrait;
+- a minor functional physical detail when useful, without an appearance-led summary.
 
 Do not populate temperament, health, lifespan, child compatibility, trainability, exercise need, or
 housing suitability just because a public dog API exposes them.
+This restriction on unexamined API fields is not a ban on personality. Individually researched
+profiles should prioritize documented character and instincts, phrased as tendencies rather than
+predictions about an individual dog. Follow `dogs-breed-profile-quality.md` for writing and evidence.
 
 ### You / Taste
 

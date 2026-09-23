@@ -26,6 +26,9 @@ Drive the implementation toward a genuinely usable, deeply tested Dogs product.
 5. Understand the existing experimental Books slice and cross-domain modules before deciding what to
    reuse. Books is paused and must remain working/noindex, but no provider outreach or Books feature
    expansion is requested.
+6. Before writing breed profiles, read `notes/feature-ideas/dogs-breed-profile-quality.md` and use
+   the `stackrank-dog-profiles` skill when available. Personality and character are the primary
+   content; skills, habits and history support them. Appearance is only a minor functional note.
 
 ## Direction and non-negotiable decisions
 
@@ -41,7 +44,9 @@ Drive the implementation toward a genuinely usable, deeply tested Dogs product.
   Reject NC, no-derivatives, scraped, uncertain, breeder, social, stock-search, or provenance-free
   imagery. Image rights must be purpose-specific and fail closed.
 - StackRank Dogs ranks personal affection/interest in breeds and types. It must not become adoption
-  matching, buying, veterinary advice, household suitability, or behavior/temperament prediction.
+  matching, buying, veterinary advice, household suitability, or predictions about an individual
+  dog's behavior. Source-backed breed personality and character tendencies are explicitly welcome
+  and should lead the descriptions; the restriction does not mean avoiding temperament entirely.
 - Preserve every Movies route, localStorage key, payload shape, Supabase table, public-link format,
   and mature browser behavior. Do not perform an in-place Movies schema migration.
 - Keep the app static/no-framework/no-bundler unless Dan explicitly changes that architectural

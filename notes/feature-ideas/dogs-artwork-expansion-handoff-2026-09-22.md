@@ -137,6 +137,9 @@ Complete one cohort of about 250 previously unillustrated identities, but make i
 3. **Research each scene.** Use the existing profile's cited origin/history when adequate. Consult
    primary registry or other authoritative sources when it is not. Save a short scene rationale;
    never make an unsupported cultural or behavioral claim.
+   For accompanying breed copy, follow `dogs-breed-profile-quality.md`: personality and character
+   lead; distinctive skills, habits and history follow. Keep appearance minor in that prose, while
+   retaining precise morphology in the separate image prompt. Use `stackrank-dog-profiles` when available.
 4. **Generate in subwaves of 20–30.** Within a subwave, up to four independent image-generation
    calls may run concurrently. Use one call per distinct final asset. Persist the full-resolution
    returned original under the gitignored `assets/dogs/generated-masters/` path.

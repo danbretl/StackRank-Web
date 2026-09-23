@@ -9,12 +9,16 @@ counts, blockers and checks.
 The new unlinked `/dogs/artwork-review` page provides pagination, search, a large-image dialog,
 generation provenance, local concern notes and export. Full verification passed 440 Node tests,
 24 Deno tests, all validators and 38 Chrome flows; 44 production checks passed.
-**Current profile update:** Commit `3dd3957a` is deployed; all 282 illustrated breeds have individually written descriptions.
-The September 22 correction removes inline research-process boilerplate across all 1,239 entries,
-adds 254 sourced profiles, and exposes 265 direct source references in expandable notes on both
-Dogs and the artwork reviewer. Final verification passed 443 Node tests, 24 Deno tests, all
-validators, 38 Chrome flows and 44 production checks. See
-`notes/feature-ideas/dogs-breed-profile-quality.md`.
+**Current profile update:** Deployed commit `ce6687ff` rewrites all 282 illustrated profiles around personality
+and character, with habits, instincts, skills and history supporting that introduction. It follows
+the earlier boilerplate cleanup (`82a69801`) and sourced depth pass (`3dd3957a`). Both Dogs and the
+artwork reviewer use artifact `.5` / dataset cache version 4 and expose 310 breed-source references
+in expandable notes. The other 957 catalog entries remain brief pending individual research.
+Verification passed 443 Node tests, 24 Deno tests, all validators and 38 Chrome flows; reports are
+`reports/runs/2026-09-23T011459Z` and `reports/e2e/runs/2026-09-23T011516Z`. The shared authoring
+contract and installed `stackrank-dog-profiles` skill now require personality-first copy. See
+`notes/feature-ideas/dogs-breed-profile-quality.md` for release evidence.
+All 44 production smoke checks passed, and the live detail panel was visually verified.
 
 The original 52-portrait local-release sections below describe the earlier baseline.
 

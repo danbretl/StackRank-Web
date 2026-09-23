@@ -22,6 +22,9 @@ dog-family context, origins and history where supported, editorial discovery pac
 personality that browsing unfamiliar dogs is fun. It ranks personal affection or interest. It is not
 an adoption matcher, veterinary guide, buyer's guide, or predictor of an individual dog's behavior
 or household suitability.
+Breed descriptions should nevertheless prioritize sourced personality and character. Explain what
+the breed is like as documented tendencies, then add distinctive habits, skills and history. A
+portrait already shows appearance; it should occupy only a minor functional note in the prose.
 
 ## Current release and working-tree state
 
@@ -64,11 +67,12 @@ decisions.
 
 - `data/dogs/breed-profiles.json` covers every selectable identity.
 - The profile tiers are 282 editor-reviewed, 314 source-reviewed, and 643 conservative generated
-  baselines. All illustrated breeds now have individually written copy. The 254 newly researched
-  entries preserve primary source URLs and evidence in `data/dogs/profile-refresh-{a,b,c}.json`;
-  265 source references appear in expandable notes in the app and artwork reviewer. Baselines
+  baselines. All 282 illustrated breeds have been rewritten to prioritize sourced personality and
+  character, with working habits and history secondary. The original 28 preserve their new source
+  evidence in `data/dogs/profile-overrides.json`; the other 254 use `profile-refresh-{a,b,c}.json`.
+  All 310 breed-source references appear in expandable notes in the app and artwork reviewer. Baselines
   contain concise identity/origin facts, with no research-process filler or empty fact callouts.
-  See `notes/feature-ideas/dogs-breed-profile-quality.md`.
+  See `notes/feature-ideas/dogs-breed-profile-quality.md` and the `stackrank-dog-profiles` skill.
 - `data/dogs/packs.json` contains 46 validated editorial packs with 448 references across 251
   distinct VBO ids and 17 editorial families.
 - Every profile has a friendly field note and a human-readable dog-family label. Origins, historical

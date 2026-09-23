@@ -125,9 +125,13 @@ Plain **static single-page app — no build system, no framework, no bundler, no
   temperament or suitability claims. Missing portraits use a neutral fallback. Account sync and revocable public snapshot links use the additive category
   tables. Public snapshots omit artwork because that purpose remains denied, and raster
   sharing remains disabled.
-  Breed descriptions contain dog-specific information only. Brief entries omit empty “Worth knowing”
+  Breed descriptions lead with sourced personality and character: what the dog is like, followed by
+  distinctive habits, skills and history. Physical description is a minor functional detail only.
+  Describe documented tendencies, without predicting an individual dog's behavior or suitability.
+  Brief entries omit empty “Worth knowing”
   callouts; research-coverage notes belong in the expandable Sources & image notes section. See
-  `notes/feature-ideas/dogs-breed-profile-quality.md` for the profile-writing contract.
+  `notes/feature-ideas/dogs-breed-profile-quality.md` for the profile-writing contract; use the
+  project-specific `stackrank-dog-profiles` skill for profile authoring when available.
 
 - **Experimental Books preview:** `/books` offers Open Library work search, three starter shelves,
   binary-insertion ranking, reorder/remove, simple stats, and category-bound backup/restore. It is

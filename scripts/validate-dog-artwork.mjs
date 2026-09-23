@@ -36,6 +36,7 @@ const ALLOWED_ASSET_KEYS = new Set([
   "attribution",
   "retrievedAt",
   "sourceSha256",
+  "sharedMorphologySource",
   "sourceSha1",
   "sourceMime",
   "sourceBytes",
@@ -295,6 +296,44 @@ const validateObjectKeys = (object, allowed, label, errors) => {
   Object.keys(object).forEach((key) => {
     if (!allowed.has(key)) errors.push(`${label} has unsupported field ${key}`);
   });
+};
+
+// Explicit source reuse is limited to reviewed private morphology references for
+// distinct catalog identities. Public photo assets retain the uniqueness rule.
+const validateSharedMorphologySources = (assets, errors) => {
+  const valid = new Set();
+  const keys = new Set(["assetId", "identityBasis", "evidenceUrl", "reviewedAt", "reviewedBy"]);
+  const privateReference = (asset) => asset &&
+    ["uiDisplayAllowed", "publicSnapshotAllowed", "rasterExportAllowed"].every(key => asset[key] === false) &&
+    asset.review?.status === "approved" && asset.review.subjectMatchesCatalog === true &&
+    asset.review.nonCopyrightRestrictionsReviewed === true &&
+    asset.delivery?.status === "not_ready" && asset.delivery.variants?.length === 0;
+  for (const asset of assets) {
+    if (asset?.sharedMorphologySource === undefined) continue;
+    const shared = asset.sharedMorphologySource;
+    const label = `${asset.assetId}: shared morphology source`;
+    validateObjectKeys(shared, keys, label, errors);
+    const original = assets.find(other => other.assetId === shared?.assetId);
+    const sameSource = original && ["sourceProvider", "sourcePage", "originalUrl", "sourceSha256", "sourceSha1",
+      "sourceMime", "sourceBytes", "sourceWidth", "sourceHeight", "creator", "creatorUrl", "sourceCredit",
+      "sourceLicenseLabel", "sourceAttributionRequired", "licenseId", "licenseVersion"]
+      .every(key => asset[key] === original[key]) &&
+      asset.sourcePageRevision?.id === original.sourcePageRevision?.id &&
+      asset.sourcePageRevision?.timestamp === original.sourcePageRevision?.timestamp &&
+      normalizeLicenseUrl(asset.licenseUrl) === normalizeLicenseUrl(original.licenseUrl) &&
+      normalizeLicenseUrl(asset.sourceLicenseUrl) === normalizeLicenseUrl(original.sourceLicenseUrl);
+    if (!isObject(shared) || !original || original === asset || original.sharedMorphologySource ||
+      original.catalogId === asset.catalogId || !sameSource || !privateReference(asset) || !privateReference(original) ||
+      !cleanString(shared.identityBasis) || !isHttpsUrl(shared.evidenceUrl) ||
+      !isDate(shared.reviewedAt) || !cleanString(shared.reviewedBy)) {
+      errors.push(`${label} requires an exact, private, separately reviewed identity reuse with a non-shared original`);
+    } else valid.add(asset.assetId);
+  }
+  return (group) => {
+    const originals = group.filter(asset => asset.sharedMorphologySource === undefined);
+    return originals.length === 1 && new Set(group.map(asset => asset.catalogId)).size === group.length &&
+      group.every(asset => asset === originals[0] || (valid.has(asset.assetId) && asset.sharedMorphologySource.assetId === originals[0].assetId));
+  };
 };
 
 const validateAsset = ({ asset, index, ledger, policy, catalogById, errors, warnings }) => {
@@ -804,12 +843,12 @@ export const validateArtworkLedger = ({ ledger, policy, catalog = null, packs = 
   duplicateValues(assets.map((asset) => asset?.assetId)).forEach((assetId) => {
     errors.push(`duplicate assetId ${assetId}`);
   });
-  duplicateValues(assets.map((asset) => asset?.sourceSha256)).forEach((hash) => {
-    errors.push(`duplicate sourceSha256 ${hash}`);
-  });
-  duplicateValues(assets.map((asset) => asset?.originalUrl)).forEach((url) => {
-    errors.push(`duplicate originalUrl ${url}`);
-  });
+  const allowedSourceReuse = validateSharedMorphologySources(assets, errors);
+  for (const key of ["sourceSha256", "originalUrl"]) {
+    duplicateValues(assets.map(asset => asset?.[key])).forEach(value => {
+      if (!allowedSourceReuse(assets.filter(asset => asset?.[key] === value))) errors.push(`duplicate ${key} ${value}`);
+    });
+  }
 
   if (catalogById) {
     records.forEach((record) => {

@@ -895,11 +895,11 @@
     "cohortF": 3
   },
   "progress": {
-    "accepted": 75,
-    "integrated": 75,
+    "accepted": 100,
+    "integrated": 100,
     "published": 75,
     "stagedBeforeRun": 17,
-    "updatedAt": "2026-09-23T11:18:48.761762+00:00"
+    "updatedAt": "2026-09-23T12:10:16.436532+00:00"
   },
   "selectionAmendments": [
     {
@@ -927,6 +927,18 @@
       "reason": "The long-haired Pyrenean Sheepdog variety label duplicates canonical VBO:0200832, already frozen for G01; official FCI 141 provides no separate identity. Preserve canonical selection and hold this alias without generating a duplicate.",
       "evidencePaths": [
         "reports/dogs-generated-artwork/continuation-100/f04-a/identity-holds.json"
+      ]
+    },
+    {
+      "cohortId": "dogs-portraits-g",
+      "cohortAmendmentSha256": "6ecd9b337a514d9d8028bc44172945538272c361baa1b069eacd20e7c73e2a42",
+      "blockedCatalogId": "VBO:0200957",
+      "activatedCatalogId": "VBO:0200211",
+      "subwave": "g01",
+      "recordedAt": "2026-09-23T11:35:18.418475+00:00",
+      "reason": "Grey Norwegian Elkhound VBO:0200957 duplicates published Norwegian Elkhound VBO:0200955, whose aliases explicitly include Gray Norwegian Elkhound and whose approved source depicts the same FCI 242 grey breed. This is a catalog synonym artifact, not a distinct color variety; do not count it as new coverage.",
+      "evidencePaths": [
+        "reports/dogs-generated-artwork/continuation-100/g01-elkhound-identity-hold.json"
       ]
     }
   ],

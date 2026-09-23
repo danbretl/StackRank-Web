@@ -3,6 +3,8 @@ import { readFile, rename, writeFile } from "node:fs/promises";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { summarizePortraitCohortF, validatePortraitCohortF } from "./dog-portrait-cohort-f.mjs";
 
+import { summarizePortraitCohortG, validatePortraitCohortG } from "./dog-portrait-cohort-g.mjs";
+
 const root = new URL("../", import.meta.url);
 const digest = (value) => createHash("sha256").update(JSON.stringify(value)).digest("hex");
 const nonempty = (value) => typeof value === "string" && value.trim().length > 0;
@@ -144,17 +146,20 @@ export function validatePortraitCohort(cohort, { catalog, rightsLedger, generate
 async function main() {
   const args = process.argv.slice(2);
   if (args.includes("--help")) {
-    console.log("Usage: node scripts/dog-portrait-cohort.mjs [--cohort=f] [--check|--refresh-progress]\nDefaults to frozen cohort E. F checks 100 completed pairs and append-only reserves. --refresh-progress refreshes derived counters after evidence changes.");
+    console.log("Usage: node scripts/dog-portrait-cohort.mjs [--cohort=f|--cohort=g] [--check|--refresh-progress]\nDefaults to frozen cohort E. F checks 100 completed pairs; G checks 25. Both retain append-only reserves. --refresh-progress refreshes derived counters after evidence changes.");
     return;
   }
-  if (args.some((arg) => !["--check", "--refresh-progress", "--cohort=f"].includes(arg))) throw new Error("Unknown option; use --help");
+  if (args.some((arg) => !["--check", "--refresh-progress", "--cohort=f", "--cohort=g"].includes(arg))) throw new Error("Unknown option; use --help");
   const isF = args.includes("--cohort=f");
-  const path = new URL(`data/dogs/portrait-cohort-${isF ? "f" : "e"}.json`, root);
+  const isG = args.includes("--cohort=g");
+  if (isF && isG) throw new Error("Choose one cohort per invocation");
+  const path = new URL(`data/dogs/portrait-cohort-${isG ? "g" : isF ? "f" : "e"}.json`, root);
   const [cohort, catalog, rightsLedger, generatedArtwork, profiles] = await Promise.all([
     path, new URL("data/dogs/dog-catalog.json", root), new URL("data/dogs/image-rights.json", root), new URL("data/dogs/generated-artwork.json", root), new URL("data/dogs/breed-profiles.json", root),
   ].map(async (file) => JSON.parse(await readFile(file, "utf8"))));
-  if (args.includes("--refresh-progress")) cohort.progress = (isF ? summarizePortraitCohortF : summarizePortraitCohort)(cohort);
-  const errors = (isF ? validatePortraitCohortF : validatePortraitCohort)(cohort, { catalog, rightsLedger, generatedArtwork, profiles });
+  if (args.includes("--refresh-progress")) cohort.progress = (isG ? summarizePortraitCohortG : isF ? summarizePortraitCohortF : summarizePortraitCohort)(cohort);
+  const runSelection = isG ? JSON.parse(await readFile(new URL("data/dogs/portrait-continuation-100.json", root), "utf8")) : undefined;
+  const errors = (isG ? validatePortraitCohortG : isF ? validatePortraitCohortF : validatePortraitCohort)(cohort, { catalog, rightsLedger, generatedArtwork, profiles, runSelection });
   if (errors.length) throw new Error(errors.join("\n"));
   if (args.includes("--refresh-progress")) {
     const temporaryPath = `${fileURLToPath(path)}.tmp-${process.pid}`;

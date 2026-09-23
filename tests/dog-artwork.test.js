@@ -558,3 +558,48 @@ test("strict launch validation reports honest missing-image coverage without wea
   assert.ok(strict.errors.some((error) => /current canonical UI coverage is 0%/.test(error)));
   assert.ok(strict.errors.some((error) => /promoted UI coverage is 0%/.test(error)));
 });
+
+const sharedMorphologyFixture = () => {
+  const original = approvedAsset({ uiDisplayAllowed: false,
+    delivery: { status: "not_ready", variants: [] },
+    review: { ...approvedAsset().review, rightsNotes: "Reviewed private morphology reference only." } });
+  delete original.attributionCompliance;
+  const variety = structuredClone(original);
+  variety.assetId = "dogs:photo:commons-variety:aaaaaaaaaaaaaaaa";
+  variety.catalogId = "VBO:0000662";
+  variety.sharedMorphologySource = { assetId: original.assetId,
+    identityBasis: "An exact documented color variety of the parent breed.",
+    evidenceUrl: "https://www.fci.be/Nomenclature/Standards/144g02-en.pdf",
+    reviewedAt: "2026-07-16", reviewedBy: "Independent reviewer" };
+  return [original, variety];
+};
+
+test("explicit private morphology source reuse preserves separate variety records", () => {
+  const assets = sharedMorphologyFixture();
+  assert.deepEqual(validateArtworkLedger({ ledger: baseLedger(assets), policy }).errors, []);
+  delete assets[1].sharedMorphologySource;
+  const errors = validateArtworkLedger({ ledger: baseLedger(assets), policy }).errors;
+  assert.ok(errors.some(error => error.includes("duplicate sourceSha256")));
+  assert.ok(errors.some(error => error.includes("duplicate originalUrl")));
+});
+
+test("shared morphology references fail closed for permission, identity, provenance and evidence drift", () => {
+  for (const mutate of [
+    assets => { assets[1].uiDisplayAllowed = true; },
+    assets => { assets[0].publicSnapshotAllowed = true; },
+    assets => { assets[1].rasterExportAllowed = true; },
+    assets => { assets[1].catalogId = assets[0].catalogId; },
+    assets => { assets[1].creator = "Different author"; },
+    assets => { assets[1].creatorUrl = "https://commons.wikimedia.org/wiki/User:Different"; },
+    assets => { assets[1].sourceCredit = "Third-party import"; },
+    assets => { assets[1].sourcePageRevision.id += 1; },
+    assets => { assets[1].sourceSha256 = "d".repeat(64); },
+    assets => { assets[1].sharedMorphologySource.identityBasis = ""; },
+    assets => { assets[1].sharedMorphologySource.assetId = assets[1].assetId; },
+    assets => { assets[0].sharedMorphologySource = structuredClone(assets[1].sharedMorphologySource); },
+  ]) {
+    const assets = sharedMorphologyFixture(); mutate(assets);
+    const errors = validateArtworkLedger({ ledger: baseLedger(assets), policy }).errors;
+    assert.ok(errors.some(error => error.includes("shared morphology source requires")), JSON.stringify(errors));
+  }
+});

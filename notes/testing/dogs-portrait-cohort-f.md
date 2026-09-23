@@ -2,15 +2,18 @@
 
 ## Current continuation — September 23, 2026
 
-Dan requested another approximately 100 dogs, superseding the prior F01 stop. **F03 is now live:
-50 new completed pairs in this run; 357 of 1,239 overall, with 882 unfinished hidden identities.**
-Latest product commit `9c804111` is pushed and Vercel READY; 455 Node, 24 Deno, 41 browser and 49 production
-checks passed. Thirteen production byte comparisons matched. All 635 original protected files and all
-previous 332 artwork/profile records remain unchanged. The target is 407 total; 50 pairs remain.
-F04 and G01 are in isolated staging pending final review. See `notes/testing/dogs-portrait-continuation-100.md`
-and `data/dogs/portrait-continuation-100.json` for exact selections, release evidence and current lessons.
-All 20 E holds and five F holds remain visible; F has five append-only reserve activations. Hidden saved
-state and artwork-purpose restrictions remain intact. This supersedes historical stop text below.
+Dan requested another approximately 100 dogs, superseding the prior F01 stop. **F04 is now live:
+75 new completed pairs in this run; 382 of 1,239 overall, with 857 unfinished hidden identities.**
+Product `1e500f9b` is pushed and Vercel READY. Full verification passed 455 Node, 24 Deno and 41 Chrome
+flows; production passed 49 checks and 13 exact byte comparisons. All previous 357 artwork/profile
+records and 635 original protected files remain unchanged. F's 100 accepted pairs are now all published.
+G01's final 25 portraits and descriptions are independently approved in isolated staging; integrate and
+publish them to reach 407. See `notes/testing/dogs-portrait-continuation-100.md` and
+`data/dogs/portrait-continuation-100.json` for releases, frozen selections and current lessons.
+All 20 E holds and five F holds remain visible. Five F reserve activations are recorded (two new in this
+run); G has no hold or reserve activation. Hidden saved state and artwork-purpose restrictions stay intact.
+This supersedes historical stop text below.
+
 ## Current stop point — September 22, 2026
 
 Dan superseded the original 100-pair request with: finish the current batch or stop around 300 total,

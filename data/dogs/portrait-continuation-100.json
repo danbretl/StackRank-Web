@@ -897,9 +897,9 @@
   "progress": {
     "accepted": 75,
     "integrated": 75,
-    "published": 50,
+    "published": 75,
     "stagedBeforeRun": 17,
-    "updatedAt": "2026-09-23T10:27:42.187039+00:00"
+    "updatedAt": "2026-09-23T11:18:48.761762+00:00"
   },
   "selectionAmendments": [
     {
@@ -972,6 +972,27 @@
         "newCalls": 34,
         "totalOutputsReviewed": 34,
         "rejectedOutputs": 9
+      }
+    },
+    {
+      "subwave": "f04",
+      "completedPairs": 25,
+      "totalCompletedPairs": 382,
+      "commit": "1e500f9be779f91f0033110238665b277e4c0aaf",
+      "deploymentUrl": "https://stackrank-4fkcx2iqv-danbretl-2590s-projects.vercel.app",
+      "verifiedAt": "2026-09-23T11:18:48.761762+00:00",
+      "evidencePath": "notes/testing/dogs-portrait-continuation-100.md",
+      "verify": {
+        "node": 455,
+        "deno": 24,
+        "browser": 41,
+        "production": 49,
+        "productionByteMatches": 13
+      },
+      "generation": {
+        "newCalls": 30,
+        "totalOutputsReviewed": 30,
+        "rejectedOutputs": 5
       }
     }
   ],

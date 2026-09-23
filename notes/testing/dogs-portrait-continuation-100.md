@@ -5,8 +5,8 @@
 Dan explicitly requested another approximately 100 dogs after the F01 stop. This supersedes the prior
 stop request. Baseline was verified at **307 accepted portraits and individually researched full profiles,
 1,239 source identities, 932 unfinished**. The target is **407 completed pairs**, delivered in four waves.
-The first two milestones are live: **F02 and F03 add 50 pairs; 357 completed, 882 unfinished**.
-**50 remain** in this run.
+Three milestones are live: **F02–F04 add 75 pairs; 382 completed, 857 unfinished**.
+**25 remain** in G01.
 All unfinished entries remain hidden from normal Dogs UI, with source records and saved state retained.
 
 `data/dogs/portrait-continuation-100.json` freezes the ordered 100 primary identities and 15 additional
@@ -75,6 +75,31 @@ basis explicitly. Rights notes must retain the validator's literal “morphology
 focused checks before cache/version finalization. F04 review also caught a source described in Spanish as
 a Shepherd cross; its image was replaced from an explicit eight-year-old German Shepherd source.
 
+## F04 publication receipt
+
+- Product **`1e500f9b`** pushed; READY deployment `dpl_Bi3ECdQBVZprkvMv17XCDTGJ3RL4`:
+  https://stackrank-4fkcx2iqv-danbretl-2590s-projects.vercel.app
+- Full verify: **455 Node, 24 Deno, 41 Chrome flows passed** (`f04-verify-release.log`);
+  browser run `reports/e2e/runs/2026-09-23T110440Z`. Primary inspected new Beagle-Harrier desktop
+  comparison and phone detail/ranking, plus reviewer phone navigation. Both long and short copy match.
+- Production: **49 checks and 13 exact live byte matches**, receipts `f04-production.log` and
+  `f04-live-receipt.json`. All prior **357** approved records and variants and **635** baseline files
+  unchanged (`f04-preservation-receipt.json`).
+- **30 calls/originals; 25 accepted pairs; five rejected outputs**: Spanish Hound coat, Bourbonnais
+  and Grand Griffon Vendéen framing, Styrian coat/tail and the German Shepherd cross-reference.
+  Final German Shepherd uses explicit adult stock-coat own-work reference; all old evidence remains.
+- F closes with **127 calls, 126 originals, one failed call, 25 rejected originals, one acceptable
+  unselected duplicate, 27 retries, 100 accepted/integrated/published pairs** and five holds.
+- Caches: Dogs JS55, reviewer JS13/CSS3, profiles10, generated manifest17, rights24; profile version `.3`.
+
+The first F04 full suite found a real reviewer overflow: an unbroken FCI source URL forced the phone
+layout 30px wider. `overflow-wrap:anywhere` on source links fixes it at 390px and 320px. The next full
+run passed Dogs but hit an unrelated Movies Share Studio timing failure; focused reproduction passed
+and the final full suite passed all41. Movies code is unchanged. Logs and the async-observation-race
+investigation remain under `f04-reviewer-fix/`; do not repeatedly run a passing focused test without a
+new hypothesis. Rights normalization also corrected CC0 identifiers/versions and attribution before
+release; source URLs and copyright facts were retained, with no policy weakening.
+
 ## Holds, selection decisions and pipeline
 
 All **20 E holds** remain. F now has five holds and five ordered activations, including the original three.
@@ -108,8 +133,11 @@ All source packets include pinned Commons revisions, creators/licenses/original-
 source hashes, morphology/scene rationale, exact prompts and pre-call receipts. Primary image reviews,
 profile reviews, contacts and release receipts are in the continuation report root.
 
-- F03 is published. Finish F04 and G01 independent native/source/full-and-short-copy reviews and
-  contact sheets before integration. Review G01 Harrier public-domain source mapping before acceptance.
+- F04 is published. G01 has final primary native/prose/contact approval and independent peer evidence.
+  Harrier and Grey Norwegian Elkhound now use explicit own-work CC references; old PD metadata lacked
+  canonical source URLs. Preserve both discarded sources and their image-call receipts. Three additional
+  identities needed tail corrections; all current selected masters passed native review. Integrate G01
+  with its separate 25-primary/15-reserve cohort validator, without changing E/F frozen checks.
 - A prompt's exclusion list is not an acceptance check: inspect the whole background for extra animals
   and the native top/bottom margins. Prefer dog height about 75–80% of frame and explicit 100px clearance.
   Preserve every rejected native and its concrete reason. Do not reroll a good image speculatively.
@@ -126,5 +154,5 @@ profile reviews, contacts and release receipts are in the continuation report ro
 - Preserve native input/output hashes. Compatibility PNG conversions must preserve decoded original
   pixels and retain the licensed original. A prelogged cancelled request is not an image call.
 
-Continue through F04 and G01 to the user-authorized total 407, with product and separate documentation
+Continue through G01 to the user-authorized total 407, with product and separate documentation
 commits at each milestone. Do not stop at F02 or count staged/rejected/held identities as completed.

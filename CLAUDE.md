@@ -33,6 +33,9 @@ cohort has been fully reviewed, with 20 reference holds. Counts, deployment and 
 
 The unlinked, noindex internal review page at `/dogs/artwork-review` provides 24-image pagination,
 search, 960px detail views, generation provenance, local concern flags/notes and JSON export.
+Left/right arrows navigate the current filtered portrait sequence in the dialog and gallery pages
+when it is closed. Escape closes the dialog and returns focus to the current portrait; navigation
+preserves unsaved review drafts. Visible previous/next controls also support touch browsing.
 Review state stays only in `stackrank:dogs:artwork-review:v1`; it does not sync or change rankings.
 
 For durable product and artwork-continuation context, see

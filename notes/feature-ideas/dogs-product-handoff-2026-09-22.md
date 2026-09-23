@@ -65,6 +65,11 @@ decisions.
 
 ### Profiles and editorial discovery
 
+- The unlinked `/dogs/artwork-review` viewer supports left/right arrows through the filtered
+  portrait sequence, including page boundaries, and Escape to close. Outside the dialog, arrows
+  turn gallery pages. Visible controls and a counter support touch use; shortcuts leave text editing
+  alone and keep unsaved drafts associated with each portrait. Closing reveals and focuses the
+  current portrait. The review sequence stays fixed while open even if a flag is cleared.
 - `data/dogs/breed-profiles.json` covers every selectable identity.
 - The profile tiers are 282 editor-reviewed, 314 source-reviewed, and 643 conservative generated
   baselines. All 282 illustrated breeds have been rewritten to prioritize sourced personality and

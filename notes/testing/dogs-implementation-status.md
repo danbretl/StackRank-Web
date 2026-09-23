@@ -20,6 +20,20 @@ contract and installed `stackrank-dog-profiles` skill now require personality-fi
 `notes/feature-ideas/dogs-breed-profile-quality.md` for release evidence.
 All 44 production smoke checks passed, and the live detail panel was visually verified.
 
+**Artwork reviewer keyboard update:** Deployed commit `c44768b2` adds left/right navigation through
+the filtered portrait sequence, including across gallery pages, and visible previous/next controls
+with a position counter. Outside the dialog, arrows turn gallery pages. Escape closes and restores
+focus to the current portrait. Unsaved drafts remain attached to their portrait; text editing keeps
+native arrow behavior, while focused concern checkboxes permit portrait navigation.
+Final `npm run verify` passed 443 Node tests, 24 Deno tests, all validators and 38 Chrome flows
+(`reports/runs/2026-09-23T024746Z`, `reports/e2e/runs/2026-09-23T024803Z`). Coverage includes
+filtered sequences, page boundaries, draft restoration, editing guards, Escape/focus and phone
+navigation controls; desktop and phone screenshots were visually inspected. Vercel reported a
+successful deployment; all 44 production smoke checks passed. Real keyboard input on the live
+`/dogs/artwork-review?debug=1` page verified next/previous portraits and Escape with focus restoration.
+Dan's approval of the personality-first descriptions is recorded in the authoring contract for
+future profiles and revisions.
+
 The original 52-portrait local-release sections below describe the earlier baseline.
 
 Durable continuation context for a new agent is recorded in

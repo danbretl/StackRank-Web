@@ -102,6 +102,10 @@ behavior, and boilerplate exclusion have focused regression coverage.
 
 ## Personality-first revision
 
+Dan approved the revised descriptions. This is the default direction for subsequent breeds and
+future revisions; retain personality and character as the main content rather than drifting back
+to appearance descriptions or history-led introductions.
+
 Dan clarified that personality and character are the primary reason people unfamiliar with a breed
 read its description. All 282 developed profiles, including the original 28, have therefore been
 rewritten. Documented character usually leads; habits, instincts, working techniques and history

@@ -1,6 +1,18 @@
 # StackRank Dogs product handoff
 
-## Current continuation — September 23, 2026
+## Current cohort H — September 23, 2026
+
+H01 is complete and live: **25 additional accepted portrait/profile pairs bring production to 432 of 1,239; 807 unfinished identities remain hidden.** H02 has 18 accepted native portraits and independently reviewed full/short descriptions awaiting integration and release to reach 450.
+Product `43fce77b` is pushed and Vercel READY. Full `npm run verify` passed **475 Node tests, 24 Deno tests and 41 Chrome flows**; production passed **49 checks and 15 exact byte comparisons**, including new image variants, descriptions and generation metadata. Desktop and phone Rank, browse/detail, comparison, ranking and artwork-review surfaces were checked. Prior artwork and approved profiles remain unchanged.
+
+H keeps its frozen 43-primary/10-reserve selection and append-only amendment. Smooth Saluki `VBO:0201173` is held: its proposed original duplicates an existing public fallback, and three distinct alternatives failed morphology/readability gates. Ordered reserve Petit Bleu de Gascogne `VBO:0201010` replaces it. **27 holds remain visible: E20, F5, G1, H1.** No historical hold was reopened. H used three reused **gpt-6-sol/high** workers; primary runtime configuration and the built-in image model were not disclosed.
+
+H01 used 29 built-in calls for 25 accepted masters and four quality rejections. H02 has 19 calls, 18 outputs and one failed Hällefors input call followed by a documented compatibility retry; there were no H02 native quality rejections. Continue with H02 only after the H01 documentation follow-up is pushed.
+See `notes/testing/dogs-portrait-cohort-h.md` and `data/dogs/portrait-cohort-h.json` for selection, acceptance, publication and next-session details. Evidence and local native masters live under `reports/dogs-generated-artwork/cohort-h/` and `assets/dogs/generated-masters/cohort-h/`.
+
+All 1,239 source records and hidden saved entries remain intact. Generated artwork stays disclosed and permitted only in normal Dogs UI; public-snapshot and raster-export purposes remain false. Movies, Books, the root redirect, database/Storage and concurrent site improvements are preserved. Dan explicitly authorized direct-main commits, pushes and their normal Vercel deployments for this run; historical release prohibitions below are superseded within that scope.
+
+## Historical 100-pair continuation — completed before H
 
 The new 100-pair continuation is complete and live: **100 additional accepted portraits and individually
 researched descriptions; 407 of 1,239 overall, with 832 unfinished identities hidden from the main site.**

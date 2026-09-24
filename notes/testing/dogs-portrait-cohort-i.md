@@ -1,6 +1,16 @@
 # Dogs portrait cohort I — reach 500 completed pairs
 
-## Current preparation — September 23, 2026
+## Current cohort I — September 23, 2026
+
+I01 is live: **25 additional accepted portrait/profile pairs bring production to 475 of 1,239; 764 unfinished identities remain hidden.** Product `e21b426b` is pushed and Vercel READY (`dpl_FA2DgXYXZR7kR8FBEzLTWg8q13Pz`). Full verification passed **484 Node tests, 24 Deno tests and 41 Chrome flows**. Production passed **49 checks and 15 exact byte comparisons**, including new portraits, descriptions and generation metadata. All 942 protected baseline files and the 450 previously published artwork/profile records remain unchanged.
+
+Cohort I freezes 50 primary identities and ten ordered reserves. I01 used 27 built-in image calls for 25 accepted natives, with two targeted tail corrections. I02 is in isolated final review for the remaining 25 additions to reach 500; all 25 full/short descriptions are approved. No reserve has been activated and no new hold added. All 27 E/F/G/H holds remain visible. Three reused workers run **gpt-6-sol/high**; primary runtime configuration and the built-in image model are undisclosed.
+
+Start with `notes/testing/dogs-portrait-cohort-i.md` and `data/dogs/portrait-cohort-i.json`. Working evidence and native masters are in `reports/dogs-generated-artwork/cohort-i/` and `assets/dogs/generated-masters/cohort-i/`. Keep E/F/G/H frozen; do not rerun completed selections or excluded source chains. Only the integration owner changes shared artifacts. The first I01 generation timestamp was recovered from an observed enclosing tool invocation and explicitly marked as a bound; never invent an exact nested service time.
+
+All 1,239 source identities and saved hidden entries remain intact. Generated images are disclosed and allowed only in normal Dogs UI; public snapshots and raster export remain denied. Movies, Books, root redirect, database/Storage and the concurrent site improvements are preserved. Direct-main commits, pushes and normal Vercel deployments remain authorized for this task.
+
+## Historical preparation — September 23, 2026
 
 Dan requested approximately 500 completed dogs and authorized committing and pushing the finished work. Cohort I targets **50 additional accepted portrait/profile pairs** from a freshly verified **450-pair baseline**, in two 25-pair waves. A pair counts only after its image and authored full/short descriptions pass independent review, integration and publication verification.
 
@@ -35,3 +45,9 @@ All 25 full and short profiles were independently reviewed against primary evide
 The first Bracco generation lacked a separately logged pre-call timestamp. Its durable runtime transcript provides the observed enclosing tool invocation at `2026-09-24T02:36:43.324Z`; the ledger labels this as an outer-call bound, preserves the original missing value and points to a hashed audit receipt. Exact nested image-service start remains undisclosed. Never backfill an invented precise service time.
 
 I02 preparation has 25 independently approved descriptions. Its four-entry A2 packet was prepared by A and handed to C for generation while A handled five separate identities; all workers remained gpt-6-sol/high. Operational assignments are distinct from frozen discovery ownership.
+
+## I01 published milestone
+
+Product `e21b426b5ab0a7d4c149c2502c19b555349b447f` is live. Deployment `dpl_FA2DgXYXZR7kR8FBEzLTWg8q13Pz` is READY. The full stable-candidate verification passed484 Node,24 Deno and41 browser flows; the production smoke passed49 checks and all15 representative byte comparisons matched exactly. Desktop1440×1000 and phone390×844 checks covered Rank, full profiles, comparisons/About, authored short copy in ranking, and reviewer provenance/Escape. Existing reviewer arrows, flags and draft behavior passed the browser suite. Receipts: `i01-{preservation,live,publication}-receipt.json`, `i01-browser/`, `i01-verify.log` and `i01-production-test.log` under the working evidence folder.
+
+Preparation caught and corrected stale discovery-queue source hashes after rights normalization, and a negated aggression term in the new Međimurje summary. No validator was weakened. Final prose states supported watchdog/rodent-catching history naturally. Run focused validators after all shared source mutations, then full verification on a stable candidate. Update cache hashes only after final artifacts settle; an unreleased cache receipt can be rebuilt from the published baseline without repeatedly increasing versions.

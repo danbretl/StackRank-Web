@@ -1,6 +1,16 @@
 # StackRank Dogs artwork expansion handoff
 
-## Current cohort H — September 23, 2026
+## Current cohort I — September 23, 2026
+
+I01 is live: **25 additional accepted portrait/profile pairs bring production to 475 of 1,239; 764 unfinished identities remain hidden.** Product `e21b426b` is pushed and Vercel READY (`dpl_FA2DgXYXZR7kR8FBEzLTWg8q13Pz`). Full verification passed **484 Node tests, 24 Deno tests and 41 Chrome flows**. Production passed **49 checks and 15 exact byte comparisons**, including new portraits, descriptions and generation metadata. All 942 protected baseline files and the 450 previously published artwork/profile records remain unchanged.
+
+Cohort I freezes 50 primary identities and ten ordered reserves. I01 used 27 built-in image calls for 25 accepted natives, with two targeted tail corrections. I02 is in isolated final review for the remaining 25 additions to reach 500; all 25 full/short descriptions are approved. No reserve has been activated and no new hold added. All 27 E/F/G/H holds remain visible. Three reused workers run **gpt-6-sol/high**; primary runtime configuration and the built-in image model are undisclosed.
+
+Start with `notes/testing/dogs-portrait-cohort-i.md` and `data/dogs/portrait-cohort-i.json`. Working evidence and native masters are in `reports/dogs-generated-artwork/cohort-i/` and `assets/dogs/generated-masters/cohort-i/`. Keep E/F/G/H frozen; do not rerun completed selections or excluded source chains. Only the integration owner changes shared artifacts. The first I01 generation timestamp was recovered from an observed enclosing tool invocation and explicitly marked as a bound; never invent an exact nested service time.
+
+All 1,239 source identities and saved hidden entries remain intact. Generated images are disclosed and allowed only in normal Dogs UI; public snapshots and raster export remain denied. Movies, Books, root redirect, database/Storage and the concurrent site improvements are preserved. Direct-main commits, pushes and normal Vercel deployments remain authorized for this task.
+
+## Historical cohort H — completed before I
 
 Cohort H is complete and live: **43 additional accepted portrait/profile pairs bring production to 450 of 1,239; 789 unfinished identities remain hidden.**
 Product `e2af3ef0` is pushed and Vercel READY. Full `npm run verify` passed **475 Node tests, 24 Deno tests and 41 Chrome flows**; production passed **49 checks and 15 exact byte comparisons**, including new image variants, descriptions and generation metadata. Desktop and phone Rank, browse/detail, comparison, ranking and artwork-review surfaces were checked. Prior artwork and approved profiles remain unchanged.

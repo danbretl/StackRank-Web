@@ -1,0 +1,1765 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-h02",
+  "cohortId": "dogs-portraits-h",
+  "selectionSha256": "e68cbba5b52c60bf637ce91a858a0553683ca4fd2919276338adb3a6e904ae47",
+  "reviewedAt": "2026-09-24",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+    "contactSheetSha256": "289635f2624391e9e8ffdb5358a347cf074f59f40f871be06389c7e384344752",
+    "acceptedCount": 18,
+    "reviewedAt": "2026-09-24T01:06:06.355787+00:00",
+    "notes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0200651",
+      "name": "Halden Hound",
+      "reference": {
+        "assetId": "dogs:photo:commons:86ee6dd200f1ec2f",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Haldeninajokoira1.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-h/h02-a/VBO-0200651-h02-a-a1.png",
+      "masterSha256": "e20e9ca3c69c5c6fc65e98fa63e396ef010395440d943aaa8837fdb9d18d49f9",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0ccda-1d42-7341-9290-00ccfae941c6/exec-3485329d-0d2c-4429-96fa-e13d895df56c.png",
+      "originalOutputSha256": "e20e9ca3c69c5c6fc65e98fa63e396ef010395440d943aaa8837fdb9d18d49f9",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "attemptId": "h02-a-0200651-a1",
+      "startedAt": "2026-09-23T18:46:10.103917Z",
+      "generatedAt": "2026-09-23T18:48:02.001135Z",
+      "timeEvidence": "Recorded after built-in tool return and native visual inspection; service-side completion instant unavailable.",
+      "prompt": "COMPOSITION FIRST: pull the camera far back. The ENTIRE standing dog must occupy only about 65–70% of the native image height, centered amid clear surrounding landscape, with at least 140 native pixels of open scenery above the highest ear and below the lowest paw and broad space beyond nose and complete tail.\nUse case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is an exact adult breed/variety morphology reference ONLY. Create a wholly NEW individual, pose, composition, lighting and background. Do not recreate the source photograph.\nScene: A mossy birch-and-pine woodland track near Halden in southeastern Norway, with low autumn grasses and clear cool morning light, no people or animals.\nSubject: Adult Halden Hound: medium lean but sturdy rectangular scent-hound frame, mostly white short dense coat, large black saddle patch, tan/red-brown head and long natural drop ears, dark nose and eyes, four distinct long hound legs, complete natural medium tail hanging low to about hock length. Do not copy source people or show floor.\nComposition: exactly one adult dog standing in a relaxed open three-quarter view at dog-eye height, body slightly angled and head gently turned toward camera. Four separate anatomically coherent grounded paws and ENTIRE visible natural tail from attachment to tip. Preserve the wide 65–70% framing and clear margins specified first. Clear leg/joint separation, natural weight and believable ground contact.\nStyle: exceptional photorealistic editorial field photography, tactile breed-specific coat texture, restrained natural color, coherent soft daylight and quiet observational character.\nAvoid: No people, other animals, livestock, collar, lead, harness, wardrobe, text, logo, watermark, clipped ears/paws/tail, duplicate or fused limbs, extra toes, artificial stance, painted texture, or show-floor background.\n",
+      "promptSha256": "8295c824e81fa865713208dab9f7a01844dc57ae360734337cc2e70d44c716d1",
+      "scene": {
+        "description": "A mossy birch-and-pine woodland track near Halden in southeastern Norway, with low autumn grasses and clear cool morning light, no people or animals.",
+        "rationale": "NKK places the breed's development around Halden and describes its hare-hunting role; the woodland track is a plausible fresh regional setting, not a reproduction of the show image.",
+        "sources": [
+          {
+            "url": "https://www.nkk.no/hunderaser-og-kjop-av-hund/hundevelger/raser/haldenstover",
+            "title": "Norwegian Kennel Club: Haldenstøver",
+            "evidence": "NKK Haldenstøver page supports friendly, trusting and sociable character plus hare-hunting drive; records late-1800s crosses of local hounds with English foxhounds and beagles, 1931 canine plague and World War II decline, and postwar rebuilding."
+          }
+        ],
+        "status": "ready"
+      },
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "fullSizeOutputViewed": true,
+        "width": 1536,
+        "height": 1024,
+        "breedIdentity": "White-black patched adult Halden Hound with tan head and correct drop ears.",
+        "anatomy": "Four coherent grounded paws and complete low tail.",
+        "crop": "Generous body clearance, approximately 210px above and 150px below.",
+        "aesthetics": "Soft autumn Norwegian woodland and lake, restrained natural finish.",
+        "reviewedBy": "primary orchestrator",
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "primaryReviewNotes": "White-black patched adult Halden Hound with tan head and correct drop ears. Four coherent grounded paws and complete low tail. Generous body clearance, approximately 210px above and 150px below. Soft autumn Norwegian woodland and lake, restrained natural finish.",
+        "primaryReviewPath": "reports/dogs-generated-artwork/cohort-h/primary-image-review.json",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+        "contactSheetReviewedAt": "2026-09-24T01:03:48.898092+00:00",
+        "contactSheetNotes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found."
+      },
+      "referenceEvidence": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:86ee6dd200f1ec2f",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Haldeninajokoira1.jpg",
+        "sourcePageRevision": {
+          "id": 1212299554,
+          "timestamp": "2026-05-11T14:28:25Z"
+        },
+        "sourceSha256": "86ee6dd200f1ec2f2c753e9ecc2aac9c156e5546f49590528282c5babdc93e73",
+        "originalPath": "reports/dogs-generated-artwork/cohort-h/discovery-a/broad-originals/0200651.jpg",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-h/h02-a/VBO-0200651-pinned-wikitext.txt",
+        "filePageWikitextSha256": "613bc2329e399beee6644222be47116f3189a3239d6111f15672402c5ebcd6b3",
+        "visualReview": "Full native original individually viewed. Adult white hound with black saddle patch, tan head and ears, long drop ears, lean rectangular body, four paws and long complete low tail. Source is dog-show floor with people around, to exclude from generation.",
+        "rightsReview": "Pinned Commons own-work/self-license wikitext; adult original individually inspected. Full native original individually viewed. Adult white hound with black saddle patch, tan head and ears, long drop ears, lean rectangular body, four paws and long complete low tail. Source is dog-show floor with people around, to exclude from generation. Acquisition time basis: Local original-file write-completion mtime after Commons acquisition; exact network completion not separately recorded. Independent primary review approved this exact pinned Commons original for morphology reference only; all photo delivery purposes remain false.",
+        "primaryReviewedAt": "2026-09-24T01:06:06.355787+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "sourcePath": "data/dogs/profile-refresh-h02.json",
+        "stagingPath": "reports/dogs-generated-artwork/cohort-h/h02-a/profiles.json",
+        "sha256": "a65a9fa945b143175f35ab1998a8764ef0ac3fb4acabf6e9db92ed0b2ce1cae0",
+        "summarySha256": "2831a40fda00649f7ba050877ea9535631ff98b1a5baa17f03b756a6505c7e3f",
+        "shortDescriptionSha256": "38e79b9a1427cdf9d6d747422fc77ba0c781152e24f6e3a626b594cd7c151f7b",
+        "shortDescription": "Friendly and trusting off the trail, this Norwegian hound comes alive on a hare trail.",
+        "author": "OpenAI Codex worker a (gpt-6-sol/high)",
+        "reviewer": "OpenAI Codex peer b plus primary orchestrator",
+        "reviewedAt": "2026-09-24T01:02:44.784977+00:00",
+        "reviewNotes": "Root independently read final full and short copy, archived primary behavioral/history evidence and scene rationale. Exact identity, sourced character/work insights, restrained tendencies and natural prose pass. Coat varieties do not acquire invented distinct temperaments. Smooth Saluki copy approval does not resolve its separate reference hold.",
+        "sourcePacketPath": "reports/dogs-generated-artwork/cohort-h/h02-a/profiles.json"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0200588",
+      "name": "German Spitz, Giant Spitz White",
+      "reference": {
+        "assetId": "dogs:photo:commons:7e3a32d37aa7cdbf",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Grosspitz_white.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-h/h02-c/VBO-0200588-attempt01.png",
+      "masterSha256": "63d88caed0f2309a356a299d9d6b6e529f127d3c73f39f0c050e163a2bc3aff8",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0ccda-b585-7c32-97cf-bc1ec57a3e62/exec-545c8a52-1ede-4c82-8f8d-f170cc4a4a0a.png",
+      "originalOutputSha256": "63d88caed0f2309a356a299d9d6b6e529f127d3c73f39f0c050e163a2bc3aff8",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "attemptId": "h02-c-0200588-01",
+      "startedAt": "2026-09-23T18:36:25.454960Z",
+      "generatedAt": "2026-09-23T18:37:00.601114Z",
+      "timeEvidence": "original output file mtime after tool completion",
+      "prompt": "Create one premium, mostly photorealistic landscape field-guide portrait of ONE adult German Spitz, Giant Spitz White. Native 1536×1024 pixels, 3:2 landscape composition at dog-eye height. FIRST compose a roomy view: the WHOLE dog occupies at most 65–70% of frame height, with at least 140 pixels of clear scene above the highest ear and below every paw, plus generous room around nose and the entire natural tail. The attached licensed Commons photograph is ONLY a private morphology guide for exact identity and coat; create a new pose, light and setting. An adult white German Giant Spitz (Grossspitz), about 45 cm breed-standard stature rather than a tiny Pomeranian, balanced nearly square body, pure-white double coat with straight stand-off guard hair, substantial mane, foxlike wedge head, small erect pointed ears, dark eyes, four clear paws and full bushy tail rolled forward over the back. Show the dog standing in a free three-quarter view with the head slightly turned toward the viewer on a broad German riverside meadow with alders and quiet water in the distance under soft overcast daylight. All four anatomically coherent paws separately grounded and visible; complete head, ears, legs and tail inside the frame. Crisp believable coat texture, natural soft light, restrained color. ONE dog only. No people, other animals, collars, leads, harnesses, show props, benches, signs, text, watermark, copied reference pose/background, cut-off limbs or stylized caricature.",
+      "promptSha256": "ff24c339cb623fc34f38362501e918d18ccacbad5eb84c8ced14f7f3a38f01c0",
+      "scene": {
+        "description": "a broad German riverside meadow with alders and quiet water in the distance under soft overcast daylight",
+        "rationale": "FCI 97 gives German origin and a home-and-farm watchdog role; the open riparian meadow is an attractive neutral setting, not a claimed historic site.",
+        "evidence": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/097g05-en.pdf",
+            "title": "FCI Standard No. 97 — German Spitz (Giant section)",
+            "evidence": "FCI 97 Giant/Medium/Miniature section pp. 8–9 states attentive, lively, attached, teachable character, stranger reserve, lack of hunting instinct, home-and-farm watch role, weather indifference and robustness; pp. 12–13 define Giant size and white coat."
+          }
+        ],
+        "status": "ready",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/097g05-en.pdf",
+            "title": "FCI Standard No. 97 — German Spitz (Giant section)",
+            "evidence": "FCI 97 Giant/Medium/Miniature section pp. 8–9 states attentive, lively, attached, teachable character, stranger reserve, lack of hunting instinct, home-and-farm watch role, weather indifference and robustness; pp. 12–13 define Giant size and white coat."
+          }
+        ]
+      },
+      "qa": {
+        "reviewedAt": "2026-09-24",
+        "reviewedBy": "primary orchestrator",
+        "verdict": "pass",
+        "decision": "root_independent_native_accepted",
+        "nativeOriginalViewed": true,
+        "notes": "Native original viewed: adult white Giant Spitz with wedge face, upright ears, substantial white stand-off coat and complete bushy tail arched over back; four coherent grounded paws. Complete roomy frame and German river meadow setting. White coat body is heavily dense but shape/legs read.",
+        "status": "approved",
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "primaryReviewNotes": "Substantial adult white Giant Spitz with wedge head, upright ears and full plumed curl. Four coherent grounded paws and complete tail. Roomy full-body composition. River meadow and alders with soft natural light.",
+        "primaryReviewPath": "reports/dogs-generated-artwork/cohort-h/primary-image-review.json",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+        "contactSheetReviewedAt": "2026-09-24T01:03:48.898092+00:00",
+        "contactSheetNotes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found.",
+        "breedIdentity": "Substantial adult white Giant Spitz with wedge head, upright ears and full plumed curl.",
+        "anatomy": "Four coherent grounded paws and complete tail.",
+        "crop": "Roomy full-body composition.",
+        "aesthetics": "River meadow and alders with soft natural light."
+      },
+      "referenceEvidence": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:7e3a32d37aa7cdbf",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Grosspitz_white.jpg",
+        "sourcePageRevision": {
+          "id": 1195088082,
+          "timestamp": "2026-04-10T20:12:04Z"
+        },
+        "sourceSha256": "7e3a32d37aa7cdbfb19def46e9573e44da93e66355f24a652537bea614242e22",
+        "originalPath": "reports/dogs-generated-artwork/cohort-h/discovery-c/VBO:0200588-original.jpg",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-h/h02-c/VBO-0200588-filepage.wikitext",
+        "filePageWikitextSha256": "5a76c3e90cc415fc8f006d6b33a42cf51a97f13cd2a4ccbe0f06b437e2eb8456",
+        "visualReview": "Pinned English own-work description says male Grosspitz, white. Full standing side outline, four paws and complete back-curled bushy tail readable though 560x600 source is modest resolution; generated native must resolve clean detail.",
+        "rightsReview": "Pinned own-work English page says white male Grosspitz, creator Canarian, CC BY-SA 4.0. Original is small but full dog morphology readable. Pinned Commons revision 1195088082, source original SHA-256 and full native reference visually checked. Pinned English own-work description says male Grosspitz, white. Full standing side outline, four paws and complete back-curled bushy tail readable though 560x600 source is modest resolution; generated native must resolve clean detail. Private morphology only; all display, public snapshot and raster purposes denied. Acquisition completion time is original local file mtime, not an invented network response time. Independent primary review approved this exact pinned Commons original for morphology reference only; all photo delivery purposes remain false.",
+        "primaryReviewedAt": "2026-09-24T01:06:06.355787+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "sourcePath": "data/dogs/profile-refresh-h02.json",
+        "stagingPath": "reports/dogs-generated-artwork/cohort-h/h02-c/profiles.json",
+        "sha256": "be4175eb726e8b8eddfd25979727a117203de3994ff66299d1e9d3dac6d13193",
+        "summarySha256": "6a66d7c47697c8bcaef5dc35b32d871730fb515c6d6c12546575b602ba9f9709",
+        "shortDescriptionSha256": "0a20332bd7f37c3bfc2f0b2803b9c392a6ec5b4cf50ef2064a4318be33cd2853",
+        "shortDescription": "Lively and attentive, the white Giant Spitz shares a German home-and-farm watchdog heritage.",
+        "author": "OpenAI Codex worker c (gpt-6-sol/high)",
+        "reviewer": "OpenAI Codex peer a plus primary orchestrator",
+        "reviewedAt": "2026-09-24T01:02:44.784977+00:00",
+        "reviewNotes": "Root independently read final full and short copy, archived primary behavioral/history evidence and scene rationale. Exact identity, sourced character/work insights, restrained tendencies and natural prose pass. Coat varieties do not acquire invented distinct temperaments. Smooth Saluki copy approval does not resolve its separate reference hold.",
+        "sourcePacketPath": "reports/dogs-generated-artwork/cohort-h/h02-c/profiles.json"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0201149",
+      "name": "Russian Hound",
+      "reference": {
+        "assetId": "dogs:photo:commons:d302b71c7a8a311f",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:6gRG.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-h/h02-b/h02-b-0201149-01.png",
+      "masterSha256": "b233edd5cc037aa7a8c4170ff1cf5f8d02dd657bf2bd8289fc9a73bf9bdd4748",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0ccda-637c-7751-b8d1-fa4a46305e47/exec-74b5cafb-3f2d-4132-a2c3-a69bcb24fc0b.png",
+      "originalOutputSha256": "b233edd5cc037aa7a8c4170ff1cf5f8d02dd657bf2bd8289fc9a73bf9bdd4748",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "attemptId": "h02-b-0201149-01",
+      "startedAt": "2026-09-23T18:41:34.853+00:00",
+      "generatedAt": "2026-09-23T18:42:28.121+00:00",
+      "timeEvidence": "Recorded after imagegen return; exact service-side instant unavailable.",
+      "prompt": "PRIORITY COMPOSITION: Wide environmental portrait at dog-eye height. Pull the camera well back before placing subject details: the whole dog occupies about 65–70% of native image height, highest ear below pixel y130, lowest paw above y880, with generous scenery on every side. Complete silhouette, four separate grounded paws and full tail are essential.\nUse case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is an exact adult breed/variety morphology reference ONLY. Create a wholly NEW individual, pose, composition, lighting and background. Do not recreate the source photograph.\nScene: A leaf-strewn clearing in Russian mixed birch and pine woodland with soft autumn overcast light and a distant open trail.\nSubject: Mature Russian Hound (not the Russian Pied/Harlequin Hound), sturdy large fawn and gray-black saddle coat, broad clean muzzle, medium long dropped ears, strong athletic legs and a full low natural tail. Preserve plainer Russian Hound color pattern, not white-ground pied patches.\nPose: exactly one adult standing naturally in relaxed open three-quarter view, body slightly angled, head gently turned toward camera. Entire natural tail from base to tip and four individually legible anatomically coherent grounded paws; believable joints, weight and ground contact. Keep ample margin above head and below feet, with side room past muzzle and tail.\nStyle: exceptional photorealistic editorial field photography, tactile breed-specific fur and restrained color, coherent soft natural light and quiet observational character.\nAvoid: No pack, game, hunter, collar, leash or gun. No people, other animals, wardrobe, collar, leash, harness, text, logo, watermark, clipped extremities, extra or fused limbs, warped feet, plastic or CGI fur, studio backdrop, oversaturation or aggressive HDR.\n",
+      "promptSha256": "6f0637f09ac951adbfc7608e2b2e440f5020601663986137525c23a07a632aa7",
+      "scene": {
+        "description": "A leaf-strewn clearing in Russian mixed birch and pine woodland with soft autumn overcast light and a distant open trail.",
+        "rationale": "RKF documents Russian hare/fox scent-hound hunting. Woodland trail is a regional editorial inference, not a claimed exact hunt site.",
+        "sources": [
+          {
+            "url": "https://help.rkf.online/ru/knowledge_base/art/199/cat/19/russkaja-gonchaja-poroda-priznana-rkf",
+            "title": "Russian Cynological Federation: Russian Hound standard",
+            "evidence": "RKF behavior gives calm, balanced temperament. Utilization says hunting singly, in a pair or pack on hare, fox and other game. History emphasizes stamina and a strong far-carrying musical voice that changes notes during chase."
+          }
+        ],
+        "status": "ready"
+      },
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "breedIdentity": "Sturdy adult fawn-saddled Russian Hound, correctly distinct from Harlequin identity.",
+        "anatomy": "Coherent drop ears, four grounded paws and full low tail.",
+        "crop": "Comfortable approximately 140px top and 145px bottom clearance.",
+        "aesthetics": "Autumn birch-pine scene with believable adult stance.",
+        "reviewedBy": "primary orchestrator",
+        "notes": "Worker full-native pass; root final QA recorded separately.",
+        "reviewedAt": "2026-09-24",
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "primaryReviewNotes": "Sturdy adult fawn-saddled Russian Hound, correctly distinct from Harlequin identity. Coherent drop ears, four grounded paws and full low tail. Comfortable approximately 140px top and 145px bottom clearance. Autumn birch-pine scene with believable adult stance.",
+        "primaryReviewPath": "reports/dogs-generated-artwork/cohort-h/primary-image-review.json",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+        "contactSheetReviewedAt": "2026-09-24T01:03:48.898092+00:00",
+        "contactSheetNotes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found."
+      },
+      "referenceEvidence": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:d302b71c7a8a311f",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:6gRG.jpg",
+        "sourcePageRevision": {
+          "id": 1142114657,
+          "timestamp": "2026-01-05T04:15:17Z"
+        },
+        "sourceSha256": "d302b71c7a8a311f14ed026e915e1c7a0c6452d6ee9cd0f49859bf056b80ab19",
+        "originalPath": "reports/dogs-generated-artwork/cohort-h/discovery-b/VBO:0201149-alt7-original.jpg",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-h/h02-b/VBO-0201149-pinned-wikitext.txt",
+        "filePageWikitextSha256": "3ed6cd5cefbf98def412a0d41dd06c022fcdee38c7266bee9fb368427e2b9ed7",
+        "visualReview": "Full original opened and inspected by worker; Adult sturdy fawn Russian Hound with black saddle, drop ears, clean broad muzzle and complete low tail. Standing side profile; legs readable though far legs overlap slightly.",
+        "rightsReview": "own-work uploader Full original opened and inspected by worker; Adult sturdy fawn Russian Hound with black saddle, drop ears, clean broad muzzle and complete low tail. Standing side profile; legs readable though far legs overlap slightly. Acquisition time basis: Local original-file write-completion mtime after Commons acquisition; exact network completion instant not separately recorded. Independent primary review approved this exact pinned Commons original for morphology reference only; all photo delivery purposes remain false.",
+        "primaryReviewedAt": "2026-09-24T01:06:06.355787+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "sourcePath": "data/dogs/profile-refresh-h02.json",
+        "stagingPath": "reports/dogs-generated-artwork/cohort-h/h02-b/profiles.json",
+        "sha256": "83c1bad2b9b5a00d42c597a676df45aac2a5d792fb87ec8b11c40185b34ee1c7",
+        "summarySha256": "61dd0ed5f5aaade53f61289449679f34d42e5e2f85ccf89f587c0dbc8ebcb423",
+        "shortDescriptionSha256": "6ce6518766a74b5c23c86c5f3156d720eb9e68a36c2de04c34f7f0682ab7b70e",
+        "shortDescription": "Calm off the trail and enduring on it, the Russian Hound has a far-carrying musical hunting voice.",
+        "author": "OpenAI Codex worker b (gpt-6-sol/high)",
+        "reviewer": "OpenAI Codex peer a plus primary orchestrator",
+        "reviewedAt": "2026-09-24T01:02:44.784977+00:00",
+        "reviewNotes": "Root independently read final full and short copy, archived primary behavioral/history evidence and scene rationale. Exact identity, sourced character/work insights, restrained tendencies and natural prose pass. Coat varieties do not acquire invented distinct temperaments. Smooth Saluki copy approval does not resolve its separate reference hold.",
+        "sourcePacketPath": "reports/dogs-generated-artwork/cohort-h/h02-b/profiles.json"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0201010",
+      "name": "Petit Bleu de Gascogne",
+      "reference": {
+        "assetId": "dogs:photo:commons:8e62419b94f557c4",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Petitbleu3.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-h/h02-reserve-c/VBO-0201010-attempt01.png",
+      "masterSha256": "e8c3b639606ba0108e462d5ae99ca5be277402072395ca8bc83389b18717e62c",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0ccda-b585-7c32-97cf-bc1ec57a3e62/exec-c531e058-fe7b-4f6d-85e8-d79c56ab6590.png",
+      "originalOutputSha256": "e8c3b639606ba0108e462d5ae99ca5be277402072395ca8bc83389b18717e62c",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "attemptId": "h02-reserve-c-0201010-01",
+      "startedAt": "2026-09-23T18:45:58.395026Z",
+      "generatedAt": "2026-09-23T18:46:50.937221Z",
+      "timeEvidence": "original output file mtime after tool completion",
+      "prompt": "Create one premium, mostly photorealistic landscape field-guide portrait of ONE mature adult female Petit Bleu de Gascogne. Use the attached licensed Commons photograph ONLY as a private morphology reference for exact identity and coat; create a wholly new individual, pose, light and setting. A medium adult female Petit Bleu de Gascogne, compact well-proportioned French hound, short dense white-and-black mottling that reads slate blue, black head patches, tan eyebrow and cheek points, very long fine ears curling gently inward, gentle oval brown eyes, four strong grounded paws and an entire slender natural hock-length tail carried in a modest sabre curve. Show her standing calmly in an easy three-quarter view on a quiet grassy trail through mixed woodland near Gascony, with low scrub and soft morning haze. Native 1536×1024 pixels, 3:2 landscape composition at dog-eye height. Pull the camera back: the WHOLE dog occupies at most 65–70% of frame height with at least 140 pixels clear scene above the highest ear and below all paws, plus ample side room around nose and complete tail. All four anatomically coherent paws separately grounded and visible; complete head, ears, legs and tail inside the frame. Crisp believable mottled coat texture, natural soft light and restrained color. Exactly ONE dog. No people, other animals, hare, collars, leads, harnesses, show-room backdrop, signs, text, watermark, copied source pose/background, cropped limbs or stylized caricature.",
+      "promptSha256": "84eced4c4738135254f14d6bcd491f501ee8098a3114569655bce037aaec4dac",
+      "scene": {
+        "description": "a quiet grassy trail through mixed woodland near Gascony, with low scrub and soft morning haze",
+        "rationale": "FCI31 names France and a hare-hunting scent-hound role; a Gascony woodland trail is a restrained illustrative regional setting, with no game or pack shown.",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/031g06-en.pdf",
+            "title": "FCI Standard No. 31 — Petit Bleu de Gascogne",
+            "evidence": "FCI31 pp. 2–4: calm, affectionate, fine nose, voice and pack work; hare favored, big game possible; deliberate reduction from Grand Bleu de Gascogne; French origin; medium hound morphology, dense slate-blue mottling, curled-in ears and hock-length sabre tail."
+          }
+        ],
+        "status": "ready"
+      },
+      "qa": {
+        "reviewedAt": "2026-09-24",
+        "reviewedBy": "primary orchestrator",
+        "verdict": "pass",
+        "decision": "worker_pass_pending_root_native_review",
+        "nativeOriginalViewed": true,
+        "notes": "Native original viewed: adult female-looking Petit Bleu de Gascogne, dark slate-blue mottled short coat, tan head/legs, long pendulous curled-in ears, complete tapered tail and four coherent grounded paws. Readable hound proportions and roomy Gascony oak path scene. Slightly straight tail pose is natural and within frame.",
+        "status": "approved",
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "primaryReviewNotes": "Compact medium adult Petit Bleu, blue-black mottling, tan points, long rolled fine ears. Four coherent paws and complete hock-length tail. Comfortable approximately 150px top and 70px bottom clearance. Gascony oak path and misty background; distinct pose, head angle and leg placement from source.",
+        "primaryReviewPath": "reports/dogs-generated-artwork/cohort-h/primary-image-review.json",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+        "contactSheetReviewedAt": "2026-09-24T01:03:48.898092+00:00",
+        "contactSheetNotes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found.",
+        "breedIdentity": "Compact medium adult Petit Bleu, blue-black mottling, tan points, long rolled fine ears.",
+        "anatomy": "Four coherent paws and complete hock-length tail.",
+        "crop": "Comfortable approximately 150px top and 70px bottom clearance.",
+        "aesthetics": "Gascony oak path and misty background; distinct pose, head angle and leg placement from source."
+      },
+      "referenceEvidence": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:8e62419b94f557c4",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Petitbleu3.jpg",
+        "sourcePageRevision": {
+          "id": 1135772323,
+          "timestamp": "2025-12-24T01:45:15Z"
+        },
+        "sourceSha256": "8e62419b94f557c4bf845ff1c3a3070c7cb056369141b9e2d03fd453fba2ce96",
+        "originalPath": "reports/dogs-generated-artwork/cohort-h/discovery-b/VBO:0201010-additional-original.jpg",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-h/h02-reserve-c/VBO-0201010-pinned-wikitext.txt",
+        "filePageWikitextSha256": "473a7265f63b4a09514122bf67421aebf9c7d6e625215ab3c8f5ad4791c24e35",
+        "visualReview": "Native 1749×1858 own-work original individually viewed. An adult female Petit Bleu de Gascogne stands in full body with four readable paws, long curled-in ears, mottled slate-blue coat and tan facial/leg markings. The tail extends toward the right edge, but its very tip is not reliably resolved; FCI31 supplies hock-length sabre carriage. Dark show room and people/lead must not be reproduced.",
+        "rightsReview": "Pinned File-page revision 1135772323 identifies “Small Blue Gascony Hound female,” Canarian own work and self CC BY-SA 4.0. Original bytes/SHA-1/SHA-256, 1749×1858 dimensions and full native image inspected. Tail-tip limitation stated; FCI31 supports the complete natural tail. Private morphology only; all display, public snapshot and raster purposes false. Source retrievedAt is the archived acquisition timestamp, not an inferred midnight. Root independently read pinned wikitext, inspected original, approved source and activated append-only amendment 981b3baac5f0b1d02f91d849e1e5dea554fd44912a3783332889ae95663268f4. Independent primary review approved this exact pinned Commons original for morphology reference only; all photo delivery purposes remain false.",
+        "primaryReviewedAt": "2026-09-24T01:06:06.355787+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "sourcePath": "data/dogs/profile-refresh-h02.json",
+        "stagingPath": "reports/dogs-generated-artwork/cohort-h/h02-reserve-c/profiles.json",
+        "sha256": "5832602bd04ca925ebb427d76f122959dbb90df9ce95315b5fc7431b8465e141",
+        "summarySha256": "27b335a7f8636a0f0cf3ce0ea4444c4920eb8d637184861095aec89cd37a4b85",
+        "shortDescriptionSha256": "324f1f11c61c44a2dbc3b0f4c78b6104c115562d588af3c2ae9dae2c334170cb",
+        "shortDescription": "Calm and affectionate, this French pack hound follows hare with a fine nose and distinctive voice.",
+        "author": "OpenAI Codex worker c (gpt-6-sol/high)",
+        "reviewer": "OpenAI Codex peer a plus primary orchestrator",
+        "reviewedAt": "2026-09-24T01:02:44.784977+00:00",
+        "reviewNotes": "Root independently read final full and short copy, archived primary behavioral/history evidence and scene rationale. Exact identity, sourced character/work insights, restrained tendencies and natural prose pass. Coat varieties do not acquire invented distinct temperaments. Smooth Saluki copy approval does not resolve its separate reference hold.",
+        "sourcePacketPath": "reports/dogs-generated-artwork/cohort-h/h02-reserve-c/profiles.json"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0200687",
+      "name": "Hygenhund",
+      "reference": {
+        "assetId": "dogs:photo:commons:a32272b3062867d8",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Norwegian_Hygenhound.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-h/h02-a/VBO-0200687-h02-a-a1.png",
+      "masterSha256": "68dde967dbc5013e7c69ce273f2b2c9d330d39d99e3148d26957ca382860bc37",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0ccda-1d42-7341-9290-00ccfae941c6/exec-3a459bcb-8a46-4164-89b2-4ad34d070887.png",
+      "originalOutputSha256": "68dde967dbc5013e7c69ce273f2b2c9d330d39d99e3148d26957ca382860bc37",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "attemptId": "h02-a-0200687-a1",
+      "startedAt": "2026-09-23T18:38:17.671361Z",
+      "generatedAt": "2026-09-23T18:39:08.916812Z",
+      "timeEvidence": "Recorded after built-in tool return and native visual inspection; service-side completion instant unavailable.",
+      "prompt": "COMPOSITION FIRST: pull the camera far back. The ENTIRE standing dog must occupy only about 65–70% of the native image height, centered amid clear surrounding landscape, with at least 140 native pixels of open scenery above the highest ear and below the lowest paw and broad space beyond nose and complete tail.\nUse case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is an exact adult breed/variety morphology reference ONLY. Create a wholly NEW individual, pose, composition, lighting and background. Do not recreate the source photograph.\nScene: A Ringerike forest-edge path in early summer, short open grass, pale birch trunks and distant low Norwegian hills under gentle clear morning light, no people or animals.\nSubject: Adult Hygenhund, a medium strong yet lean Norwegian hound with a rich red-tan short smooth coat, clear white blaze, chest and lower-leg markings, medium long drooping ears, soft brown eyes and a complete natural tapering tail carried gently low. Show all four properly formed paws outside grass cover; source far feet are partly hidden.\nComposition: exactly one adult dog standing in a relaxed open three-quarter view at dog-eye height, body slightly angled and head gently turned toward camera. Four separate anatomically coherent grounded paws and ENTIRE visible natural tail from attachment to tip. Preserve the wide 65–70% framing and clear margins specified first. Clear leg/joint separation, natural weight and believable ground contact.\nStyle: exceptional photorealistic editorial field photography, tactile breed-specific coat texture, restrained natural color, coherent soft daylight and quiet observational character.\nAvoid: No people, other animals, livestock, collar, lead, harness, wardrobe, text, logo, watermark, clipped ears/paws/tail, duplicate or fused limbs, extra toes, artificial stance, painted texture, or show-floor background.\n",
+      "promptSha256": "463b585333fefb2b821f5485dac4d7c40dfc257cd9d4adeb784a9e6ef398ffe5",
+      "scene": {
+        "description": "A Ringerike forest-edge path in early summer, short open grass, pale birch trunks and distant low Norwegian hills under gentle clear morning light, no people or animals.",
+        "rationale": "NKK records the breed's Ringerike hare-hunting development; short grass keeps all feet visible unlike the source photograph.",
+        "sources": [
+          {
+            "url": "https://www.nkk.no/hunderaser-og-kjop-av-hund/hundevelger/raser/hygenhund",
+            "title": "Norwegian Kennel Club: Hygenhund",
+            "evidence": "NKK Hygenhund page describes friendly, trainable, work-willing hare hound, calm family behavior, distinct vocal signals of distance to quarry, and Hans Fredrik Hygen breeding local hounds around Ringerike beginning in the 1830s."
+          }
+        ],
+        "status": "ready"
+      },
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "fullSizeOutputViewed": true,
+        "width": 1536,
+        "height": 1024,
+        "breedIdentity": "Red-white adult Hygenhound with breed-typical drop ears and proportions.",
+        "anatomy": "Four coherent grounded paws and full low tail.",
+        "crop": "Very generous margins above and below.",
+        "aesthetics": "Summer birch and Norwegian lake create a specific soft natural scene.",
+        "reviewedBy": "primary orchestrator",
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "primaryReviewNotes": "Red-white adult Hygenhound with breed-typical drop ears and proportions. Four coherent grounded paws and full low tail. Very generous margins above and below. Summer birch and Norwegian lake create a specific soft natural scene.",
+        "primaryReviewPath": "reports/dogs-generated-artwork/cohort-h/primary-image-review.json",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+        "contactSheetReviewedAt": "2026-09-24T01:03:48.898092+00:00",
+        "contactSheetNotes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found."
+      },
+      "referenceEvidence": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:a32272b3062867d8",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Norwegian_Hygenhound.jpg",
+        "sourcePageRevision": {
+          "id": 1267828610,
+          "timestamp": "2026-08-26T18:10:22Z"
+        },
+        "sourceSha256": "a32272b3062867d83c1a786e93c68296e8be4dec38f9150d74e830e40c3b2bde",
+        "originalPath": "reports/dogs-generated-artwork/cohort-h/discovery-a/broad-originals/0200687.jpg",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-h/h02-a/VBO-0200687-pinned-wikitext.txt",
+        "filePageWikitextSha256": "8dbefe59153f1df835139ae427fdab4a1c5d3224549f50a918c311026bc06979",
+        "visualReview": "Full native original individually viewed. Standing adult red-and-white Norwegian hound with drop ears, strong lean body and complete tapering tail. Four limb shafts readable; grass partly overlaps far paw endpoints, so review for morph sufficiency.",
+        "rightsReview": "Pinned Commons own-work/self-license wikitext; adult original individually inspected. Full native original individually viewed. Standing adult red-and-white Norwegian hound with drop ears, strong lean body and complete tapering tail. Four limb shafts readable; grass partly overlaps far paw endpoints, so review for morph sufficiency. Acquisition time basis: Local original-file write-completion mtime after Commons acquisition; exact network completion not separately recorded. Independent primary review approved this exact pinned Commons original for morphology reference only; all photo delivery purposes remain false.",
+        "primaryReviewedAt": "2026-09-24T01:06:06.355787+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "sourcePath": "data/dogs/profile-refresh-h02.json",
+        "stagingPath": "reports/dogs-generated-artwork/cohort-h/h02-a/profiles.json",
+        "sha256": "ad6f8e174b639211b7c8747ab2627d56629413c8bbd0fcda35433cfec2f633f0",
+        "summarySha256": "2a392a9ae5b92c70d7eb4affb3c0e63b5cbba1570a4790dc2f39a4817b8cd79d",
+        "shortDescriptionSha256": "e45e25ccbc9f0bf20642e4bb3e837bbfefc76b1334c87285bf75c31c907b73b7",
+        "shortDescription": "Calm indoors but eager on a hare trail, this Norwegian hound signals distance with its voice.",
+        "author": "OpenAI Codex worker a (gpt-6-sol/high)",
+        "reviewer": "OpenAI Codex peer b plus primary orchestrator",
+        "reviewedAt": "2026-09-24T01:02:44.784977+00:00",
+        "reviewNotes": "Root independently read final full and short copy, archived primary behavioral/history evidence and scene rationale. Exact identity, sourced character/work insights, restrained tendencies and natural prose pass. Coat varieties do not acquire invented distinct temperaments. Smooth Saluki copy approval does not resolve its separate reference hold.",
+        "sourcePacketPath": "reports/dogs-generated-artwork/cohort-h/h02-a/profiles.json"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0201188",
+      "name": "Schnauzer, Pure Black With Black Undercoat",
+      "reference": {
+        "assetId": "dogs:photo:commons:85f1ae1e9c133132",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:BlkStdSchnauzer1.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-h/h02-c/VBO-0201188-attempt01.png",
+      "masterSha256": "9e90dbe4365999dfa4e833b8030e68c8e547524b14d9592b9239d9a716f34148",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0ccda-b585-7c32-97cf-bc1ec57a3e62/exec-3b7651fe-c6e0-4d85-a9f6-46bb10d50138.png",
+      "originalOutputSha256": "9e90dbe4365999dfa4e833b8030e68c8e547524b14d9592b9239d9a716f34148",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "attemptId": "h02-c-0201188-01",
+      "startedAt": "2026-09-23T18:34:34.055612Z",
+      "generatedAt": "2026-09-23T18:35:05.809444Z",
+      "timeEvidence": "original output file mtime after tool completion",
+      "prompt": "Create one premium, mostly photorealistic landscape field-guide portrait of ONE adult Schnauzer, Pure Black With Black Undercoat. Native 1536×1024 pixels, 3:2 landscape composition at dog-eye height. FIRST compose a roomy view: the WHOLE dog occupies at most 65–70% of frame height, with at least 140 pixels of clear scene above the highest ear and below every paw, plus generous room around nose and the entire natural tail. The attached licensed Commons photograph is ONLY a private morphology guide for exact identity and coat; create a new pose, light and setting. An adult pure-black Standard Schnauzer of medium square sturdy build, dense harsh wiry black topcoat and black undercoat, rectangular bearded muzzle and bushy brows, NATURAL high-set V-shaped drop ears instead of the cropped source ears, complete NATURAL undocked sabre or sickle tail instead of its docked stub, four strong visible paws. Show the dog standing calmly at a slight three-quarter turn, alert but relaxed on a natural grassy meadow edge near an old southern German stable, with a low stone wall only in the distance and soft morning light. All four anatomically coherent paws separately grounded and visible; complete head, ears, legs and tail inside the frame. Crisp believable coat texture, natural soft light, restrained color. ONE dog only. No people, other animals, collars, leads, harnesses, show props, benches, signs, text, watermark, copied reference pose/background, cut-off limbs or stylized caricature.",
+      "promptSha256": "5c9331f8db3f030bee72a4d01753804443d55f1736c89fdc94491b93b3bad15f",
+      "scene": {
+        "description": "a natural grassy meadow edge near an old southern German stable, with a low stone wall only in the distance and soft morning light",
+        "rationale": "FCI 182 records the breed around Southern German stables; open grass and a distant wall evoke that history without recreating an indoor stable or adding people, horses or rodents.",
+        "evidence": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/182g02-en.pdf",
+            "title": "FCI Standard No. 182 — Schnauzer",
+            "evidence": "FCI 182 pp. 2–3 describes lively yet placid, playful, devoted, alert temperament; Southern German stable work and rodent nickname Rattler; pp. 4–5 black coat, natural drop ears and tail."
+          }
+        ],
+        "status": "ready",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/182g02-en.pdf",
+            "title": "FCI Standard No. 182 — Schnauzer",
+            "evidence": "FCI 182 pp. 2–3 describes lively yet placid, playful, devoted, alert temperament; Southern German stable work and rodent nickname Rattler; pp. 4–5 black coat, natural drop ears and tail."
+          }
+        ]
+      },
+      "qa": {
+        "reviewedAt": "2026-09-24",
+        "reviewedBy": "primary orchestrator",
+        "verdict": "pass",
+        "decision": "root_independent_native_accepted",
+        "nativeOriginalViewed": true,
+        "notes": "Native original viewed: one adult black Standard Schnauzer with wiry coat, eyebrows and beard, natural drop ears, full sickle/sabre tail and four coherent grounded paws. Complete framing. Building/stable occupies right background more strongly than the intended mostly natural meadow edge, but the scene remains outdoors and plausible; root to judge final art direction.",
+        "status": "approved",
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "primaryReviewNotes": "Sturdy medium adult black Standard Schnauzer, wiry coat, beard and natural ears. Four coherent paws and complete natural curled tail. Comfortable approximately 100px clearance above and below. Grass, wildflowers and trees with a stable at one side; documented stable work supports scene, no artificial staging.",
+        "primaryReviewPath": "reports/dogs-generated-artwork/cohort-h/primary-image-review.json",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+        "contactSheetReviewedAt": "2026-09-24T01:03:48.898092+00:00",
+        "contactSheetNotes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found.",
+        "breedIdentity": "Sturdy medium adult black Standard Schnauzer, wiry coat, beard and natural ears.",
+        "anatomy": "Four coherent paws and complete natural curled tail.",
+        "crop": "Comfortable approximately 100px clearance above and below.",
+        "aesthetics": "Grass, wildflowers and trees with a stable at one side; documented stable work supports scene, no artificial staging."
+      },
+      "referenceEvidence": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:85f1ae1e9c133132",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:BlkStdSchnauzer1.jpg",
+        "sourcePageRevision": {
+          "id": 1203351021,
+          "timestamp": "2026-04-25T12:26:06Z"
+        },
+        "sourceSha256": "85f1ae1e9c133132bc73de84c1876691fdea98745bca60d7cda976a9e596cc21",
+        "originalPath": "reports/dogs-generated-artwork/cohort-h/discovery-c/VBO:0201188-original.jpg",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-h/h02-c/VBO-0201188-filepage.wikitext",
+        "filePageWikitextSha256": "9e03c47e6357ce8a85f9c113476cbb2096d86ba8d91b2b1af9512420cb5d9bb1",
+        "visualReview": "Pinned own-work English description explicitly says adult black Standard Schnauzer female with cropped ears and docked tail; full side proportions and four feet are readable. Replace alterations with FCI natural drop ears and full sabre/sickle tail; original only 667x544.",
+        "rightsReview": "Pinned own-work English page names a black Standard Schnauzer female and explicitly notes cropped ears and docked tail; creator Madwren, CC BY-SA 3.0. FCI 182 controls natural features. Pinned Commons revision 1203351021, source original SHA-256 and full native reference visually checked. Pinned own-work English description explicitly says adult black Standard Schnauzer female with cropped ears and docked tail; full side proportions and four feet are readable. Replace alterations with FCI natural drop ears and full sabre/sickle tail; original only 667x544. Private morphology only; all display, public snapshot and raster purposes denied. Acquisition completion time is original local file mtime, not an invented network response time. Independent primary review approved this exact pinned Commons original for morphology reference only; all photo delivery purposes remain false.",
+        "primaryReviewedAt": "2026-09-24T01:06:06.355787+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "sourcePath": "data/dogs/profile-refresh-h02.json",
+        "stagingPath": "reports/dogs-generated-artwork/cohort-h/h02-c/profiles.json",
+        "sha256": "b0fa4fb91ab2738fdbf9155a74a6505bb95f8ade2ecd6062d7e6a78d1b7575fa",
+        "summarySha256": "1c8b61255d09a283d8e768b40c3ee04622d991feac276e2337ec7bb553a8b1ce",
+        "shortDescriptionSha256": "af148dcde484430ddeb2145cf208e4f04fece53cfb9bace69f2b26954ff3a65c",
+        "shortDescription": "Playful, alert and devoted, this German stable dog once earned the nickname “Rattler.”",
+        "author": "OpenAI Codex worker c (gpt-6-sol/high)",
+        "reviewer": "OpenAI Codex peer a plus primary orchestrator",
+        "reviewedAt": "2026-09-24T01:02:44.784977+00:00",
+        "reviewNotes": "Root independently read final full and short copy, archived primary behavioral/history evidence and scene rationale. Exact identity, sourced character/work insights, restrained tendencies and natural prose pass. Coat varieties do not acquire invented distinct temperaments. Smooth Saluki copy approval does not resolve its separate reference hold.",
+        "sourcePacketPath": "reports/dogs-generated-artwork/cohort-h/h02-c/profiles.json"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0201168",
+      "name": "Saint-Usuge Spaniel",
+      "reference": {
+        "assetId": "dogs:photo:commons:988773d9d7275f1b",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Stusuge2.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-h/h02-b/h02-b-0201168-01.png",
+      "masterSha256": "55ad2868f3cf1785c224afb0c431329365239e8dea738bcaaed41fb1842b7341",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0ccda-637c-7751-b8d1-fa4a46305e47/exec-2707315f-3604-4202-9d14-0a36ac398d70.png",
+      "originalOutputSha256": "55ad2868f3cf1785c224afb0c431329365239e8dea738bcaaed41fb1842b7341",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "attemptId": "h02-b-0201168-01",
+      "startedAt": "2026-09-23T18:42:52.170+00:00",
+      "generatedAt": "2026-09-23T18:43:28.228+00:00",
+      "timeEvidence": "Recorded after imagegen return; exact service-side instant unavailable.",
+      "prompt": "PRIORITY COMPOSITION: Wide environmental portrait at dog-eye height. Pull the camera well back before placing subject details: the whole dog occupies about 65–70% of native image height, highest ear below pixel y130, lowest paw above y880, with generous scenery on every side. Complete silhouette, four separate grounded paws and full tail are essential.\nUse case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is an exact adult breed/variety morphology reference ONLY. Create a wholly NEW individual, pose, composition, lighting and background. Do not recreate the source photograph.\nScene: A Bresse woodland-margin path beside still marsh reeds, fresh green understory and pale spring daylight filtered through trees.\nSubject: Mature Saint-Usuge Spaniel, elegant medium brown-roan pointing spaniel, medium-length slightly waved silky coat, finely shaped head, long low-set feathered ears, hazel eyes, sturdy but light legs and a full feathered sabre tail. Do not turn into a Brittany or generic Cocker.\nPose: exactly one adult standing naturally in relaxed open three-quarter view, body slightly angled, head gently turned toward camera. Entire natural tail from base to tip and four individually legible anatomically coherent grounded paws; believable joints, weight and ground contact. Keep ample margin above head and below feet, with side room past muzzle and tail.\nStyle: exceptional photorealistic editorial field photography, tactile breed-specific fur and restrained color, coherent soft natural light and quiet observational character.\nAvoid: No woodcock, other bird, waterfowl, person, gear or show ring. No people, other animals, wardrobe, collar, leash, harness, text, logo, watermark, clipped extremities, extra or fused limbs, warped feet, plastic or CGI fur, studio backdrop, oversaturation or aggressive HDR.\n",
+      "promptSha256": "de33782dfebe4b0f9c472bc4825cc0d2dc3ad71d938494eccae8cd607a29e61c",
+      "scene": {
+        "description": "A Bresse woodland-margin path beside still marsh reeds, fresh green understory and pale spring daylight filtered through trees.",
+        "rationale": "SCC annotated standard locates the breed in Bresse forests and marshes and describes close-range woodcock/waterfowl work; empty marsh woodland is an editorial interpretation.",
+        "sources": [
+          {
+            "url": "https://www.centrale-canine.fr/sites/default/files/inline-files/Standard-Commente_Saint-Usuge_FR.pdf",
+            "title": "Société Centrale Canine: annotated Saint-Usuge Spaniel standard",
+            "evidence": "Character/function section describes notably gentle and affectionate, close to owners; short-ranging continental pointing search maintaining handler contact, retracing steps to verify scent, specialization in woodcock. Historical section places breed in Bresse forest/marsh and recounts recovery by Abbé Robert Billard."
+          },
+          {
+            "url": "https://www.epagneuldesaintusuge.org/styled-7/standart/saintusuge.html",
+            "title": "Société Centrale Canine: annotated Saint-Usuge Spaniel standard",
+            "evidence": ""
+          }
+        ],
+        "status": "ready"
+      },
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "breedIdentity": "Brown-roan adult Saint-Usuge pointing spaniel with long feathered ears.",
+        "anatomy": "Four coherent paws and long complete natural tail.",
+        "crop": "Comfortable approximately 130px top and 70px bottom clearance.",
+        "aesthetics": "Specific Bresse marsh woodland, convincing coat and soft light.",
+        "reviewedBy": "primary orchestrator",
+        "notes": "Worker full-native pass; root final QA recorded separately.",
+        "reviewedAt": "2026-09-24",
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "primaryReviewNotes": "Brown-roan adult Saint-Usuge pointing spaniel with long feathered ears. Four coherent paws and long complete natural tail. Comfortable approximately 130px top and 70px bottom clearance. Specific Bresse marsh woodland, convincing coat and soft light.",
+        "primaryReviewPath": "reports/dogs-generated-artwork/cohort-h/primary-image-review.json",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+        "contactSheetReviewedAt": "2026-09-24T01:03:48.898092+00:00",
+        "contactSheetNotes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found."
+      },
+      "referenceEvidence": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:988773d9d7275f1b",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Stusuge2.jpg",
+        "sourcePageRevision": {
+          "id": 1133891160,
+          "timestamp": "2025-12-20T06:43:23Z"
+        },
+        "sourceSha256": "988773d9d7275f1be4379e9eb4f4c994ca24834fe0dd45be71c80e35aa76098f",
+        "originalPath": "reports/dogs-generated-artwork/cohort-h/discovery-b/VBO:0201168-alt3-original.jpg",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-h/h02-b/VBO-0201168-pinned-wikitext.txt",
+        "filePageWikitextSha256": "a47b2868496b214ad15e3703a0c012a268f1f5f7d43f5616f14b46b5f75ac52b",
+        "visualReview": "Full original opened and inspected by worker; Adult brown-roan Saint-Usuge Spaniel with long hanging ears, silky slight wave and full feathered saber tail; four paws and body profile legible.",
+        "rightsReview": "own-work uploader Full original opened and inspected by worker; Adult brown-roan Saint-Usuge Spaniel with long hanging ears, silky slight wave and full feathered saber tail; four paws and body profile legible. Acquisition time basis: Local original-file write-completion mtime after Commons acquisition; exact network completion instant not separately recorded. Independent primary review approved this exact pinned Commons original for morphology reference only; all photo delivery purposes remain false.",
+        "primaryReviewedAt": "2026-09-24T01:06:06.355787+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "sourcePath": "data/dogs/profile-refresh-h02.json",
+        "stagingPath": "reports/dogs-generated-artwork/cohort-h/h02-b/profiles.json",
+        "sha256": "a2adcba2c10f0c7bc8f0b4c136ae95e18b2f25b71a319b7d9f028027df75a079",
+        "summarySha256": "ee2feb3f6936ae67da87f2caa93f470f073e045b5f9a05789b87829b02c4ff25",
+        "shortDescriptionSha256": "4d421d04760e4392eb7816dae2d386b7771a9afbfba5d95080dfa108f4a47b16",
+        "shortDescription": "Gentle and close-working, this Bresse pointing spaniel checks scent carefully in woodcock country.",
+        "author": "OpenAI Codex worker b (gpt-6-sol/high)",
+        "reviewer": "OpenAI Codex peer a plus primary orchestrator",
+        "reviewedAt": "2026-09-24T01:02:44.784977+00:00",
+        "reviewNotes": "Root independently read final full and short copy, archived primary behavioral/history evidence and scene rationale. Exact identity, sourced character/work insights, restrained tendencies and natural prose pass. Coat varieties do not acquire invented distinct temperaments. Smooth Saluki copy approval does not resolve its separate reference hold.",
+        "sourcePacketPath": "reports/dogs-generated-artwork/cohort-h/h02-b/profiles.json"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0201172",
+      "name": "Saluki, Fringed",
+      "reference": {
+        "assetId": "dogs:photo:commons:4f30ef2d1243d292",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Saluki_Fringed.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-h/h02-c/VBO-0201172-attempt01.png",
+      "masterSha256": "159e1cb3a80d474147e72b5b3fcf59c4bdf5cdc2e906d878a05f3b29b1418323",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0ccda-b585-7c32-97cf-bc1ec57a3e62/exec-1d21810f-d9b4-4da1-872f-f5f6dbcbeb13.png",
+      "originalOutputSha256": "159e1cb3a80d474147e72b5b3fcf59c4bdf5cdc2e906d878a05f3b29b1418323",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "attemptId": "h02-c-0201172-01",
+      "startedAt": "2026-09-23T18:32:31.457573Z",
+      "generatedAt": "2026-09-23T18:32:59.004017Z",
+      "timeEvidence": "original output file mtime after tool completion",
+      "prompt": "Create one premium, mostly photorealistic landscape field-guide portrait of ONE adult Saluki, Fringed. Native 1536×1024 pixels, 3:2 landscape composition at dog-eye height. FIRST compose a roomy view: the WHOLE dog occupies at most 65–70% of frame height, with at least 140 pixels of clear scene above the highest ear and below every paw, plus generous room around nose and the entire natural tail. The attached licensed Commons photograph is ONLY a private morphology guide for exact identity and coat; create a new pose, light and setting. An adult fringed grizzle Saluki: graceful athletic sighthound with long narrow noble head, deep chest and slender strong legs, soft grizzle coat, long silky feathering on pendant ears, backs of legs and underside of complete low curved tail reaching at least the hock, four coherent visible paws. Show the dog standing in a relaxed three-quarter view with head turned toward the horizon on a broad open Middle Eastern plateau with dry grasses and warm limestone outcrops in diffuse late-day light. All four anatomically coherent paws separately grounded and visible; complete head, ears, legs and tail inside the frame. Crisp believable coat texture, natural soft light, restrained color. ONE dog only. No people, other animals, collars, leads, harnesses, show props, benches, signs, text, watermark, copied reference pose/background, cut-off limbs or stylized caricature.",
+      "promptSha256": "3338f0f0407d8aebd7988c06540f8f15677b26a070d3029e638b6768f9902676",
+      "scene": {
+        "description": "a broad open Middle Eastern plateau with dry grasses and warm limestone outcrops in diffuse late-day light",
+        "rationale": "FCI 269 describes coursing hounds across varied Middle Eastern terrain; plateau and limestone are a plausible neutral setting, not a claim about the reference photo.",
+        "evidence": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/269g10-en.pdf",
+            "title": "FCI Standard No. 269 — Saluki",
+            "evidence": "FCI 269 pp. 2–3 supports dignity, independence, Middle Eastern coursing, honour-gift tradition and broad 1923 British standard covering regional types; pp. 3–4 define silky feathering of fringed coat."
+          }
+        ],
+        "status": "ready",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/269g10-en.pdf",
+            "title": "FCI Standard No. 269 — Saluki",
+            "evidence": "FCI 269 pp. 2–3 supports dignity, independence, Middle Eastern coursing, honour-gift tradition and broad 1923 British standard covering regional types; pp. 3–4 define silky feathering of fringed coat."
+          }
+        ]
+      },
+      "qa": {
+        "reviewedAt": "2026-09-24",
+        "reviewedBy": "primary orchestrator",
+        "verdict": "pass",
+        "decision": "root_independent_native_accepted",
+        "nativeOriginalViewed": true,
+        "notes": "Native original viewed: adult fringed grizzle Saluki, long feathered ears/legs and full low feathered tail; four coherent grounded paws, graceful proportions, no props or anatomy defect. Framing is comfortable but less spacious than exact 65–70% target (highest ear about 85px from top, lowest paw about 110px from bottom); root to judge crop.",
+        "status": "approved",
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "primaryReviewNotes": "Graceful adult grizzle fringed Saluki with correct feathering. Four coherent paws with plausible minor overlap and complete low feathered tail. Comfortable approximately 85px top and 110px bottom clearance. Middle Eastern plateau at evening, elegant natural field-guide finish.",
+        "primaryReviewPath": "reports/dogs-generated-artwork/cohort-h/primary-image-review.json",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+        "contactSheetReviewedAt": "2026-09-24T01:03:48.898092+00:00",
+        "contactSheetNotes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found.",
+        "breedIdentity": "Graceful adult grizzle fringed Saluki with correct feathering.",
+        "anatomy": "Four coherent paws with plausible minor overlap and complete low feathered tail.",
+        "crop": "Comfortable approximately 85px top and 110px bottom clearance.",
+        "aesthetics": "Middle Eastern plateau at evening, elegant natural field-guide finish."
+      },
+      "referenceEvidence": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:4f30ef2d1243d292",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Saluki_Fringed.jpg",
+        "sourcePageRevision": {
+          "id": 967589809,
+          "timestamp": "2024-12-08T11:03:34Z"
+        },
+        "sourceSha256": "4f30ef2d1243d292777b29b5a85ea83387a3818678aa5ec5b967b99f9ab98301",
+        "originalPath": "reports/dogs-generated-artwork/cohort-h/discovery-c/VBO:0201172-original.jpg",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-h/h02-c/VBO-0201172-filepage.wikitext",
+        "filePageWikitextSha256": "bba866881d6606834f1898572dc1fc4a698344730d4c77f78804701603e91d1d",
+        "visualReview": "Pinned own-work English description explicitly names fringed grizzle Saluki. Full standing adult profile with ear and leg feathering, four paws; tail fringe partly overlaps near hind leg, so FCI provides complete tail length and carriage.",
+        "rightsReview": "Pinned own-work English page explicitly identifies a fringed grizzle Saluki, creator Canarian, CC BY-SA 4.0; original tail furnishing is partially overlapped. Pinned Commons revision 967589809, source original SHA-256 and full native reference visually checked. Pinned own-work English description explicitly names fringed grizzle Saluki. Full standing adult profile with ear and leg feathering, four paws; tail fringe partly overlaps near hind leg, so FCI provides complete tail length and carriage. Private morphology only; all display, public snapshot and raster purposes denied. Acquisition completion time is original local file mtime, not an invented network response time. Independent primary review approved this exact pinned Commons original for morphology reference only; all photo delivery purposes remain false.",
+        "primaryReviewedAt": "2026-09-24T01:06:06.355787+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "sourcePath": "data/dogs/profile-refresh-h02.json",
+        "stagingPath": "reports/dogs-generated-artwork/cohort-h/h02-c/profiles.json",
+        "sha256": "6d6f92cf93241fc2e0d073fbfb18808a5553b41f3d3b13e3a9b9f71a9a9e15a7",
+        "summarySha256": "c818641e6fcd329f2114372aea2e5655487db1df1cab20627c4129705ca17f9f",
+        "shortDescriptionSha256": "aa910409a7c81ca59339d70aa3978cae1b5b6de6b7d0069887a24510988a600d",
+        "shortDescription": "Dignified and independent, this fringed Saluki carries a long coursing history and silky feathering.",
+        "author": "OpenAI Codex worker c (gpt-6-sol/high)",
+        "reviewer": "OpenAI Codex peer a plus primary orchestrator",
+        "reviewedAt": "2026-09-24T01:02:44.784977+00:00",
+        "reviewNotes": "Root independently read final full and short copy, archived primary behavioral/history evidence and scene rationale. Exact identity, sourced character/work insights, restrained tendencies and natural prose pass. Coat varieties do not acquire invented distinct temperaments. Smooth Saluki copy approval does not resolve its separate reference hold.",
+        "sourcePacketPath": "reports/dogs-generated-artwork/cohort-h/h02-c/profiles.json"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0200652",
+      "name": "Hällefors Elkhound",
+      "reference": {
+        "assetId": "dogs:photo:commons:be07e2bba50f8050",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Hades_Mosshult_Hälleforsare.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-h/h02-a/VBO-0200652-h02-a-a2.png",
+      "masterSha256": "3c7299bbc9c27c0df454a4b8d2fb91ff0e0c4639284bca3cbee0bc0f6457848d",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0ccda-1d42-7341-9290-00ccfae941c6/exec-928c0b99-5e35-4c5b-9058-9360bd0da7f3.png",
+      "originalOutputSha256": "3c7299bbc9c27c0df454a4b8d2fb91ff0e0c4639284bca3cbee0bc0f6457848d",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "attemptId": "h02-a-0200652-a2",
+      "startedAt": "2026-09-23T18:43:36.075246Z",
+      "generatedAt": "2026-09-23T18:45:36.949618Z",
+      "timeEvidence": "Recorded after built-in tool return and native visual inspection; service-side completion instant unavailable.",
+      "prompt": "COMPOSITION FIRST: pull the camera far back. The ENTIRE standing dog must occupy only about 65–70% of the native image height, centered amid clear surrounding landscape, with at least 140 native pixels of open scenery above the highest ear and below the lowest paw and broad space beyond nose and complete tail.\nUse case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is an exact adult breed/variety morphology reference ONLY. Create a wholly NEW individual, pose, composition, lighting and background. Do not recreate the source photograph.\nScene: A Swedish spruce-and-birch forest margin near Hällefors, mossy stones and low scrub in warm early-autumn afternoon light, no elk or other animals.\nSubject: Adult Hälleforshund / Hällefors Elkhound, robust rectangular Swedish hunting spitz with erect triangular ears, strong neck and a longer coarse dense yellow-red/fawn coat, cream lower legs, dark shaded muzzle and a FULL fluffy natural tail set high and loosely curling over the back. Four separate grounded paws; not a pale Jämthund or white elkhound. Remove source leash and collar.\nComposition: exactly one adult dog standing in a relaxed open three-quarter view at dog-eye height, body slightly angled and head gently turned toward camera. Four separate anatomically coherent grounded paws and ENTIRE visible natural tail from attachment to tip. Preserve the wide 65–70% framing and clear margins specified first. Clear leg/joint separation, natural weight and believable ground contact.\nStyle: exceptional photorealistic editorial field photography, tactile breed-specific coat texture, restrained natural color, coherent soft daylight and quiet observational character.\nAvoid: No people, other animals, livestock, collar, lead, harness, wardrobe, text, logo, watermark, clipped ears/paws/tail, duplicate or fused limbs, extra toes, artificial stance, painted texture, or show-floor background.\n",
+      "promptSha256": "91e2897ac16f3f626f218d3d06ccc228ebb9b12e52713e9e86920bc05955d861",
+      "scene": {
+        "description": "A Swedish spruce-and-birch forest margin near Hällefors, mossy stones and low scrub in warm early-autumn afternoon light, no elk or other animals.",
+        "rationale": "The Swedish Kennel Club describes this large elk-hunting spitz and Hällefors-region development; forest habitat is a regional artistic interpretation without game animals.",
+        "sources": [
+          {
+            "url": "https://www.skk.se/en/swedish-dog-breeds/halleforshund/",
+            "title": "Swedish Kennel Club: Hälleforshund",
+            "evidence": "SKK Hälleforshund breed page supports high energy, courage, hardy strength, elk-hunting drive, marked one-handler attachment, Hällefors-region origins and recognition in 2000; coat, dark muzzle and high loosely curved tail support morphology."
+          }
+        ],
+        "status": "ready"
+      },
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "fullSizeOutputViewed": true,
+        "width": 1536,
+        "height": 1024,
+        "breedIdentity": "Robust adult fawn-yellow Hällefors spitz, dark muzzle, upright ears.",
+        "anatomy": "Four coherent paws and full curled tail.",
+        "crop": "Comfortable approximately 150px top and 125px bottom clearance.",
+        "aesthetics": "Believable Swedish forest-lake setting and textured natural coat.",
+        "reviewedBy": "primary orchestrator",
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "primaryReviewNotes": "Robust adult fawn-yellow Hällefors spitz, dark muzzle, upright ears. Four coherent paws and full curled tail. Comfortable approximately 150px top and 125px bottom clearance. Believable Swedish forest-lake setting and textured natural coat.",
+        "primaryReviewPath": "reports/dogs-generated-artwork/cohort-h/primary-image-review.json",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+        "contactSheetReviewedAt": "2026-09-24T01:03:48.898092+00:00",
+        "contactSheetNotes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found."
+      },
+      "referenceEvidence": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:be07e2bba50f8050",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Hades_Mosshult_Hälleforsare.jpg",
+        "sourcePageRevision": {
+          "id": 1242720024,
+          "timestamp": "2026-07-02T21:40:27Z"
+        },
+        "sourceSha256": "be07e2bba50f80504d847f5075d089689cc47c227069f02d4ada7dc0ca0b39b4",
+        "originalPath": "reports/dogs-generated-artwork/cohort-h/discovery-a/broad-originals/0200652.jpg",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-h/h02-a/VBO-0200652-pinned-wikitext.txt",
+        "filePageWikitextSha256": "78b67350fc1352f5adc6406fc49091f007235202a508773aed7c66fb331d1d86",
+        "visualReview": "Full native original individually viewed. Named adult fawn Hälleforshund Hades, erect ears, sturdy square-ish elk-hound frame, dark muzzle, all four paws individually visible and complete high curled bushy tail. Source leash excluded from generation.",
+        "rightsReview": "Pinned Commons own-work/self-license wikitext; adult original individually inspected. Full native original individually viewed. Named adult fawn Hälleforshund Hades, erect ears, sturdy square-ish elk-hound frame, dark muzzle, all four paws individually visible and complete high curled bushy tail. Source leash excluded from generation. Acquisition time basis: Local original-file write-completion mtime after Commons acquisition; exact network completion not separately recorded. Independent primary review approved this exact pinned Commons original for morphology reference only; all photo delivery purposes remain false.",
+        "primaryReviewedAt": "2026-09-24T01:06:06.355787+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "sourcePath": "data/dogs/profile-refresh-h02.json",
+        "stagingPath": "reports/dogs-generated-artwork/cohort-h/h02-a/profiles.json",
+        "sha256": "32f72893673aebfc9995b8282c2fa53a751b8053077f5ff6a710dced16210e75",
+        "summarySha256": "9fa724474de0053cc5f64af4097b1a4418d2b3c37be5ee29850091a2d5682bb6",
+        "shortDescriptionSha256": "0d40b0ee01f6573f6feec31d77d2140b4a11ac91259d91cf25570ff950b30fee",
+        "shortDescription": "Courageous and enduring in elk country, this Swedish spitz bonds closely with one handler.",
+        "author": "OpenAI Codex worker a (gpt-6-sol/high)",
+        "reviewer": "OpenAI Codex peer b plus primary orchestrator",
+        "reviewedAt": "2026-09-24T01:02:44.784977+00:00",
+        "reviewNotes": "Root independently read final full and short copy, archived primary behavioral/history evidence and scene rationale. Exact identity, sourced character/work insights, restrained tendencies and natural prose pass. Coat varieties do not acquire invented distinct temperaments. Smooth Saluki copy approval does not resolve its separate reference hold.",
+        "sourcePacketPath": "reports/dogs-generated-artwork/cohort-h/h02-a/profiles.json"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0201322",
+      "name": "Swiss Hound, Schwyz Hound",
+      "reference": {
+        "assetId": "dogs:photo:commons:01f4ec18f849c6d6",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Schwyz_Hound.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-h/h02-a/VBO-0201322-h02-a-a1.png",
+      "masterSha256": "678b370d16d7df7de07d22b8e14a803914e83cf905c8c742f992932d1f8f4957",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0ccda-1d42-7341-9290-00ccfae941c6/exec-abd2bded-4b67-416f-8fac-7368ad1ff009.png",
+      "originalOutputSha256": "678b370d16d7df7de07d22b8e14a803914e83cf905c8c742f992932d1f8f4957",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "attemptId": "h02-a-0201322-a1",
+      "startedAt": "2026-09-23T18:49:31.686110Z",
+      "generatedAt": "2026-09-23T18:52:04.190388Z",
+      "timeEvidence": "Recorded after built-in tool return and native visual inspection; service-side completion instant unavailable.",
+      "prompt": "COMPOSITION FIRST: pull the camera far back. The ENTIRE standing dog must occupy only about 65–70% of the native image height, centered amid clear surrounding landscape, with at least 140 native pixels of open scenery above the highest ear and below the lowest paw and broad space beyond nose and complete tail.\nUse case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is an exact adult breed/variety morphology reference ONLY. Create a wholly NEW individual, pose, composition, lighting and background. Do not recreate the source photograph.\nScene: A grassy path across open Swiss foothills with pale limestone and distant gentle ridges in clean late-spring light, no livestock, people or extra dogs.\nSubject: Adult SCHWYZ Swiss Hound with elegant medium long-legged build, narrow lean head, very long low-set folded drooping ears, white short smooth coat with warm ORANGE patches and broad orange saddle, no black patches or tri-color coat, soft brown eyes and complete medium tapering natural tail hanging low with only a slight upward curve. Reference original is clearly orange and white, despite erroneous discovery shorthand 'tricolored head'.\nComposition: exactly one adult dog standing in a relaxed open three-quarter view at dog-eye height, body slightly angled and head gently turned toward camera. Four separate anatomically coherent grounded paws and ENTIRE visible natural tail from attachment to tip. Preserve the wide 65–70% framing and clear margins specified first. Clear leg/joint separation, natural weight and believable ground contact.\nStyle: exceptional photorealistic editorial field photography, tactile breed-specific coat texture, restrained natural color, coherent soft daylight and quiet observational character.\nAvoid: No people, other animals, livestock, collar, lead, harness, wardrobe, text, logo, watermark, clipped ears/paws/tail, duplicate or fused limbs, extra toes, artificial stance, painted texture, or show-floor background.\n",
+      "promptSha256": "61582cfe9b574397c0da75b63ddf54f38710836b79bd0e0aa8cfde762b2ff95f",
+      "scene": {
+        "description": "A grassy path across open Swiss foothills with pale limestone and distant gentle ridges in clean late-spring light, no livestock, people or extra dogs.",
+        "rationale": "FCI 059 specifies Swiss origin, difficult-terrain scent hunting and the Schwyz white-orange pattern; an open foothill path contrasts with the dark source show floor.",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/059g06-en.pdf",
+            "title": "FCI Standard No. 59: Swiss Hound",
+            "evidence": "FCI 059 describes Swiss Hounds as lively, scent-keen, sensitive, docile and attached to the handler, hunting independently with voice on difficult terrain; lists Schwyz as white with orange patches/saddle and records four-variety unified standard in 1933. No coat-specific temperament claim."
+          }
+        ],
+        "status": "ready"
+      },
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "fullSizeOutputViewed": true,
+        "width": 1536,
+        "height": 1024,
+        "breedIdentity": "Correct white-orange adult Schwyz hound, long fine folded ears and elegant build.",
+        "anatomy": "Four coherent grounded paws and full tapering tail.",
+        "crop": "Comfortable approximately 125px top and 145px bottom clearance.",
+        "aesthetics": "Swiss foothill meadow and lake, soft natural light.",
+        "reviewedBy": "primary orchestrator",
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "primaryReviewNotes": "Correct white-orange adult Schwyz hound, long fine folded ears and elegant build. Four coherent grounded paws and full tapering tail. Comfortable approximately 125px top and 145px bottom clearance. Swiss foothill meadow and lake, soft natural light.",
+        "primaryReviewPath": "reports/dogs-generated-artwork/cohort-h/primary-image-review.json",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+        "contactSheetReviewedAt": "2026-09-24T01:03:48.898092+00:00",
+        "contactSheetNotes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found."
+      },
+      "referenceEvidence": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:01f4ec18f849c6d6",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Schwyz_Hound.jpg",
+        "sourcePageRevision": {
+          "id": 1127441939,
+          "timestamp": "2025-12-08T00:23:07Z"
+        },
+        "sourceSha256": "01f4ec18f849c6d6c60d924d0e2d21fd59835a7a02d576675a62a68b56944810",
+        "originalPath": "reports/dogs-generated-artwork/cohort-h/discovery-c/VBO:0201322-original.jpg",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-h/h02-a/VBO-0201322-pinned-wikitext.txt",
+        "filePageWikitextSha256": "fb2c0e844454a2c5f2866d76aac6d836d894bf1923e2eb39949929baf47d74df",
+        "visualReview": "Adult Schwyz Swiss Hound; original visually shows white coat with orange head/patches and orange saddle, four paws and full natural tail. Discovery shorthand called head tricolored in error; FCI 059 and original confirm orange-white.",
+        "rightsReview": "Pinned Commons own-work/self-license wikitext; adult original individually inspected. Adult Schwyz Swiss Hound; original visually shows white coat with orange head/patches and orange saddle, four paws and full natural tail. Discovery shorthand called head tricolored in error; FCI 059 and original confirm orange-white. Acquisition time basis: Discovery acquisition receipt; exact network completion may be unavailable. Independent primary review approved this exact pinned Commons original for morphology reference only; all photo delivery purposes remain false.",
+        "primaryReviewedAt": "2026-09-24T01:06:06.355787+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "sourcePath": "data/dogs/profile-refresh-h02.json",
+        "stagingPath": "reports/dogs-generated-artwork/cohort-h/h02-a/profiles.json",
+        "sha256": "43416df2e35e8e0d88c71843c4db7db75eaca6991c84e7b6e541636d955855ad",
+        "summarySha256": "7744a04e234ef1a5cf7e0edfa64cb5cca856e6836ee92cb462700969ffead934",
+        "shortDescriptionSha256": "ed48bfb1e562c85273e20b28ce70c6c43919055f58aadd5fac37e5030de18cab",
+        "shortDescription": "Lively on scent yet sensitive with its handler, this orange-and-white Swiss hound hunts independently.",
+        "author": "OpenAI Codex worker a (gpt-6-sol/high)",
+        "reviewer": "OpenAI Codex peer b plus primary orchestrator",
+        "reviewedAt": "2026-09-24T01:02:44.784977+00:00",
+        "reviewNotes": "Root independently read final full and short copy, archived primary behavioral/history evidence and scene rationale. Exact identity, sourced character/work insights, restrained tendencies and natural prose pass. Coat varieties do not acquire invented distinct temperaments. Smooth Saluki copy approval does not resolve its separate reference hold.",
+        "sourcePacketPath": "reports/dogs-generated-artwork/cohort-h/h02-a/profiles.json"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0201317",
+      "name": "Swedish White Elkhound",
+      "reference": {
+        "assetId": "dogs:photo:commons:d60e25a3432226b7",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Swedish_White_Elkhound.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-h/h02-b/h02-b-0201317-01.png",
+      "masterSha256": "7238438ab667f5235b8797b75b28cdd791cf0a35f6bf1c9f97104da599217473",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0ccda-637c-7751-b8d1-fa4a46305e47/exec-bebb6e1c-ec82-4ab3-8d5e-b0f18a5607b6.png",
+      "originalOutputSha256": "7238438ab667f5235b8797b75b28cdd791cf0a35f6bf1c9f97104da599217473",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "attemptId": "h02-b-0201317-01",
+      "startedAt": "2026-09-23T18:43:59.368+00:00",
+      "generatedAt": "2026-09-23T18:44:39.456+00:00",
+      "timeEvidence": "Recorded after imagegen return; exact service-side instant unavailable.",
+      "prompt": "PRIORITY COMPOSITION: Wide environmental portrait at dog-eye height. Pull the camera well back before placing subject details: the whole dog occupies about 65–70% of native image height, highest ear below pixel y130, lowest paw above y880, with generous scenery on every side. Complete silhouette, four separate grounded paws and full tail are essential.\nUse case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is an exact adult breed/variety morphology reference ONLY. Create a wholly NEW individual, pose, composition, lighting and background. Do not recreate the source photograph.\nScene: A Swedish spruce-and-birch forest opening with lightly snow-dusted ground and clear footing under cool soft morning light.\nSubject: Mature Swedish White Elkhound, medium strong Scandinavian hunting-spitz build, cream-white dense double coat, pricked triangular ears, sturdy deep chest, straight legs and complete bushy low-curved natural tail. Distinct from a pure-white Samoyed, Finnish Spitz or gray Norwegian Elkhound.\nPose: exactly one adult standing naturally in relaxed open three-quarter view, body slightly angled, head gently turned toward camera. Entire natural tail from base to tip and four individually legible anatomically coherent grounded paws; believable joints, weight and ground contact. Keep ample margin above head and below feet, with side room past muzzle and tail.\nStyle: exceptional photorealistic editorial field photography, tactile breed-specific fur and restrained color, coherent soft natural light and quiet observational character.\nAvoid: No elk, bear, other animal, hunter, collar, lead, show handler or snow covering paws. No people, other animals, wardrobe, collar, leash, harness, text, logo, watermark, clipped extremities, extra or fused limbs, warped feet, plastic or CGI fur, studio backdrop, oversaturation or aggressive HDR.\n",
+      "promptSha256": "c5982a97993add2077bcdcc9cf2049c8e3c8257ed6577e97346356beae07fe44",
+      "scene": {
+        "description": "A Swedish spruce-and-birch forest opening with lightly snow-dusted ground and clear footing under cool soft morning light.",
+        "rationale": "SKK describes a Swedish hunting spitz with strong game drive; northern forest is a regional landscape inference, not a documented photo site.",
+        "sources": [
+          {
+            "url": "https://www.skk.se/en/hundraser/svensk-vit-alghund/",
+            "title": "Swedish Kennel Club: Svensk vit älghund",
+            "evidence": "SKK character section says calm but alert impression, energetic, enduring and strong hunting interest; history says branch of Norwegian gray Elkhound and Jämthund, formally recognized by SKK in 1993."
+          }
+        ],
+        "status": "ready"
+      },
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "breedIdentity": "Cream-white adult Swedish White Elkhound, strong hunting-spitz build and pointed ears.",
+        "anatomy": "Four coherent paws and complete bushy low tail matching reference morphology.",
+        "crop": "Spacious full-body composition.",
+        "aesthetics": "Snow-dusted forest gives a distinct cool seasonal setting.",
+        "reviewedBy": "primary orchestrator",
+        "notes": "Worker full-native pass; root final QA recorded separately.",
+        "reviewedAt": "2026-09-24",
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "primaryReviewNotes": "Cream-white adult Swedish White Elkhound, strong hunting-spitz build and pointed ears. Four coherent paws and complete bushy low tail matching reference morphology. Spacious full-body composition. Snow-dusted forest gives a distinct cool seasonal setting.",
+        "primaryReviewPath": "reports/dogs-generated-artwork/cohort-h/primary-image-review.json",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+        "contactSheetReviewedAt": "2026-09-24T01:03:48.898092+00:00",
+        "contactSheetNotes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found."
+      },
+      "referenceEvidence": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:d60e25a3432226b7",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Swedish_White_Elkhound.jpg",
+        "sourcePageRevision": {
+          "id": 1209429454,
+          "timestamp": "2026-05-06T13:39:49Z"
+        },
+        "sourceSha256": "d60e25a3432226b7ce4e7921e685d26e07d27fe7c1df1453f30ba4b80d27dd89",
+        "originalPath": "reports/dogs-generated-artwork/cohort-h/discovery-b/VBO:0201317-alt2-original.jpg",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-h/h02-b/VBO-0201317-pinned-wikitext.txt",
+        "filePageWikitextSha256": "cd35c9b37c9aa2d9114034005781d4e7482f80ae13d2de603d84e30607c90a10",
+        "visualReview": "Full original opened and inspected by worker; Adult cream-white Nordic spitz with pricked ears, strong deep chest, straight limbs and complete low bushy tail; original show setting excludes handler and backdrop.",
+        "rightsReview": "own-work uploader Full original opened and inspected by worker; Adult cream-white Nordic spitz with pricked ears, strong deep chest, straight limbs and complete low bushy tail; original show setting excludes handler and backdrop. Acquisition time basis: Local original-file write-completion mtime after Commons acquisition; exact network completion instant not separately recorded. Independent primary review approved this exact pinned Commons original for morphology reference only; all photo delivery purposes remain false.",
+        "primaryReviewedAt": "2026-09-24T01:06:06.355787+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "sourcePath": "data/dogs/profile-refresh-h02.json",
+        "stagingPath": "reports/dogs-generated-artwork/cohort-h/h02-b/profiles.json",
+        "sha256": "38f13a7a01237b2b625cc63be91031a7675bdf4c0dd7ea54eb5b8e79cd870216",
+        "summarySha256": "fd638fe0b85766c491210067bfc90b673855ae07e2799c5edfe66dc87a523d10",
+        "shortDescriptionSha256": "c47e1bb11caa22ab88f9478abc0187c555108c44ce74edeca2895b602ac507b5",
+        "shortDescription": "Calm-looking yet alert and energetic, this Swedish hunting spitz has a strong drive for game.",
+        "author": "OpenAI Codex worker b (gpt-6-sol/high)",
+        "reviewer": "OpenAI Codex peer a plus primary orchestrator",
+        "reviewedAt": "2026-09-24T01:02:44.784977+00:00",
+        "reviewNotes": "Root independently read final full and short copy, archived primary behavioral/history evidence and scene rationale. Exact identity, sourced character/work insights, restrained tendencies and natural prose pass. Coat varieties do not acquire invented distinct temperaments. Smooth Saluki copy approval does not resolve its separate reference hold.",
+        "sourcePacketPath": "reports/dogs-generated-artwork/cohort-h/h02-b/profiles.json"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0201319",
+      "name": "Swiss Hound, Bernese Hound",
+      "reference": {
+        "assetId": "dogs:photo:commons:6f712a58f6d643f6",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Go%C5%84czy_059.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-h/h02-b/h02-b-0201319-01.png",
+      "masterSha256": "4dd3fb921655f509b9a32547eaa9f54da3c41a858a13154835f52482a75d9a56",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0ccda-637c-7751-b8d1-fa4a46305e47/exec-235c83aa-f958-4372-a466-421e04dcbd1c.png",
+      "originalOutputSha256": "4dd3fb921655f509b9a32547eaa9f54da3c41a858a13154835f52482a75d9a56",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "attemptId": "h02-b-0201319-01",
+      "startedAt": "2026-09-23T18:49:09.072+00:00",
+      "generatedAt": "2026-09-23T18:50:03.718+00:00",
+      "timeEvidence": "Recorded after imagegen return; exact service-side instant unavailable.",
+      "prompt": "PRIORITY COMPOSITION: Wide environmental portrait at dog-eye height. Pull the camera well back before placing subject details: the whole dog occupies about 65–70% of native image height, highest ear below pixel y130, lowest paw above y880, with generous scenery on every side. Complete silhouette, four separate grounded paws and full tail are essential.\nUse case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is an exact adult breed/variety morphology reference ONLY. Create a wholly NEW individual, pose, composition, lighting and background. Do not recreate the source photograph.\nScene: An open Swiss alpine foothill meadow path with distant wooded slopes under clear soft summer morning light.\nSubject: Mature Bernese variety Swiss Hound, graceful medium scent-hound body, white ground with broad black saddle and patches, restrained tan eyebrow and cheek markings, long narrow hanging ears, lean elongated muzzle, four clean legs and a complete medium tapering tail with slight upward curve. Distinct from Bernese Mountain Dog and other Swiss Hound coat varieties.\nPose: exactly one adult standing naturally in relaxed open three-quarter view, body slightly angled, head gently turned toward camera. Entire natural tail from base to tip and four individually legible anatomically coherent grounded paws; believable joints, weight and ground contact. Keep ample margin above head and below feet, with side room past muzzle and tail.\nStyle: exceptional photorealistic editorial field photography, tactile breed-specific fur and restrained color, coherent soft natural light and quiet observational character.\nAvoid: No collar, leash, person, second hound, mountain rescue gear, livestock or prey. No people, other animals, wardrobe, collar, leash, harness, text, logo, watermark, clipped extremities, extra or fused limbs, warped feet, plastic or CGI fur, studio backdrop, oversaturation or aggressive HDR.\n",
+      "promptSha256": "7cf5feb72178d818ab0649912150824acf0224c7d60f41c972b4770fa0f36ca3",
+      "scene": {
+        "description": "An open Swiss alpine foothill meadow path with distant wooded slopes under clear soft summer morning light.",
+        "rationale": "FCI standard places the Bernese variety in Swiss scent-hound hunting and determined work over difficult terrain. Meadow foothill is an editorial regional interpretation.",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/059g06-en.pdf",
+            "title": "FCI Standard No. 59: Swiss Hound, Bernese variety",
+            "evidence": "FCI temperament describes lively, passionately keen hunter, sensitive, docile and attached to owner. Utilization states independent voiced hunting on hare, roe deer, fox and sometimes boar with determined searching on difficult ground. FCI lists Bernese as one of four Swiss Hound varieties."
+          }
+        ],
+        "status": "ready"
+      },
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "breedIdentity": "Lean adult Bernese Hound, white-black blanket and tan points with very long dark ears.",
+        "anatomy": "Four coherent grounded paws and complete tail.",
+        "crop": "Comfortable approximately 160px top and 75px bottom clearance.",
+        "aesthetics": "Swiss meadow and mountain landscape, natural coat and lighting.",
+        "reviewedBy": "primary orchestrator",
+        "notes": "Worker full-native pass; root final QA recorded separately.",
+        "reviewedAt": "2026-09-24",
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "primaryReviewNotes": "Lean adult Bernese Hound, white-black blanket and tan points with very long dark ears. Four coherent grounded paws and complete tail. Comfortable approximately 160px top and 75px bottom clearance. Swiss meadow and mountain landscape, natural coat and lighting.",
+        "primaryReviewPath": "reports/dogs-generated-artwork/cohort-h/primary-image-review.json",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+        "contactSheetReviewedAt": "2026-09-24T01:03:48.898092+00:00",
+        "contactSheetNotes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found."
+      },
+      "referenceEvidence": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:6f712a58f6d643f6",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Go%C5%84czy_059.jpg",
+        "sourcePageRevision": {
+          "id": 1276029050,
+          "timestamp": "2026-09-13T17:26:37Z"
+        },
+        "sourceSha256": "6f712a58f6d643f6bb4fae906618f91b8355367b10a1fa28809307a379fa9ea7",
+        "originalPath": "reports/dogs-generated-artwork/cohort-h/discovery-c/VBO:0201319-alt2-original.jpg",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-h/h02-b/VBO-0201319-pinned-wikitext.txt",
+        "filePageWikitextSha256": "eb8c59c94ca861a357a0654b8ea13534965fd5aa95c2bb7b407ff34a963ce256",
+        "visualReview": "Adult Bernese Swiss Hound male, explicit Polish original-language identification; standing full side profile and all paws. Black tail runs along the hind leg so tip detail is limited.",
+        "rightsReview": "Full pinned File-page wikitext in sourcePageEvidencePath; own-work and author/creator chain reconciled with original-language description. Adult Bernese Swiss Hound male, explicit Polish original-language identification; standing full side profile and all paws. Black tail runs along the hind leg so tip detail is limited. Acquisition time basis: local original file write-completion mtime; acquisition script did not record a separate timestamp Independent primary review approved this exact pinned Commons original for morphology reference only; all photo delivery purposes remain false.",
+        "primaryReviewedAt": "2026-09-24T01:06:06.355787+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "sourcePath": "data/dogs/profile-refresh-h02.json",
+        "stagingPath": "reports/dogs-generated-artwork/cohort-h/h02-b/profiles.json",
+        "sha256": "fe97975349b93461e71c7843d3a7b7ca6e20a151bd27f705d2f1556075d524b6",
+        "summarySha256": "b76b6a4ce681f78d3c95bb03f886053b00fee81f36b26b59a84779b4e67edef7",
+        "shortDescriptionSha256": "5a23f74e9e0a83e779bd90e6f9892db91fb3121ec6738c6ce40ec7d6628e4204",
+        "shortDescription": "Lively and attached to its handler, this Bernese Hound follows scent independently and gives voice.",
+        "author": "OpenAI Codex worker b (gpt-6-sol/high)",
+        "reviewer": "OpenAI Codex peer a plus primary orchestrator",
+        "reviewedAt": "2026-09-24T01:02:44.784977+00:00",
+        "reviewNotes": "Root independently read final full and short copy, archived primary behavioral/history evidence and scene rationale. Exact identity, sourced character/work insights, restrained tendencies and natural prose pass. Coat varieties do not acquire invented distinct temperaments. Smooth Saluki copy approval does not resolve its separate reference hold.",
+        "sourcePacketPath": "reports/dogs-generated-artwork/cohort-h/h02-b/profiles.json"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0201156",
+      "name": "Ryukyu Inu",
+      "reference": {
+        "assetId": "dogs:photo:commons:f1eaa3564f21f9e8",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Ryukyu_dog_pair.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-h/h02-b/h02-b-0201156-01.png",
+      "masterSha256": "8680759db8b62a47f4a3dc7a32b527ec5ae17051408ed82657bace27a332421e",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0ccda-637c-7751-b8d1-fa4a46305e47/exec-281ef52c-7891-4c03-b710-4dcd0b96ce6d.png",
+      "originalOutputSha256": "8680759db8b62a47f4a3dc7a32b527ec5ae17051408ed82657bace27a332421e",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "attemptId": "h02-b-0201156-01",
+      "startedAt": "2026-09-23T18:45:36.516+00:00",
+      "generatedAt": "2026-09-23T18:46:21.153+00:00",
+      "timeEvidence": "Recorded after imagegen return; exact service-side instant unavailable.",
+      "prompt": "PRIORITY COMPOSITION: Wide environmental portrait at dog-eye height. Pull the camera well back before placing subject details: the whole dog occupies about 65–70% of native image height, highest ear below pixel y130, lowest paw above y880, with generous scenery on every side. Complete silhouette, four separate grounded paws and full tail are essential.\nUse case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is an exact adult breed/variety morphology reference ONLY. Create a wholly NEW individual, pose, composition, lighting and background. Do not recreate the source photograph.\nScene: A warm Okinawan coastal woodland clearing with weathered limestone, low subtropical scrub and glimpses of sea beyond, under soft late-day light.\nSubject: Mature dark-brindled Ryukyu Inu from Okinawa, compact lightly built primitive island dog, sharply upright triangular ears, clear athletic limbs, dark eyes and complete natural tightly curled tail over rump. Render one different individual from the left adult in the two-dog reference; do not copy the second dog or source beach scene.\nPose: exactly one adult standing naturally in relaxed open three-quarter view, body slightly angled, head gently turned toward camera. Entire natural tail from base to tip and four individually legible anatomically coherent grounded paws; believable joints, weight and ground contact. Keep ample margin above head and below feet, with side room past muzzle and tail.\nStyle: exceptional photorealistic editorial field photography, tactile breed-specific fur and restrained color, coherent soft natural light and quiet observational character.\nAvoid: No second dog, beach recreation, person, collar, rope, building or wildlife. No people, other animals, wardrobe, collar, leash, harness, text, logo, watermark, clipped extremities, extra or fused limbs, warped feet, plastic or CGI fur, studio backdrop, oversaturation or aggressive HDR.\n",
+      "promptSha256": "1c0d51ba7bb9fa42d68866523ba58800f6e1568a09fc7da0b8501908deeea9f0",
+      "scene": {
+        "description": "A warm Okinawan coastal woodland clearing with weathered limestone, low subtropical scrub and glimpses of sea beyond, under soft late-day light.",
+        "rationale": "First-person source identifies native Okinawan Ryukyu dogs; coastal scrub is a regional editorial interpretation rather than a documented original setting.",
+        "sources": [
+          {
+            "url": "https://hojinkai.zenkokuhojinkai.or.jp/okinawamiyako/files/2018/03/%E5%BA%83%E5%A0%B1%E3%81%BF%E3%82%84%E3%81%93%E7%AC%AC46%E5%8F%B7%E3%80%80%E6%96%B0%E5%B9%B4%E5%8F%B7.pdf",
+            "title": "Miyako Association bulletin: interview with Ryukyu Dog Preservation Society founder Yoshio Arakaki",
+            "evidence": "Founder interview describes Ryukyu dogs as quiet and obedient with owners, territorial, agile and strong in scenting; discusses the preservation society and Okinawan native identity."
+          }
+        ],
+        "status": "ready"
+      },
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "breedIdentity": "Light athletic adult brindle Ryukyu dog with upright ears and curled tail.",
+        "anatomy": "Four coherent grounded paws and full tail.",
+        "crop": "Comfortable approximately 180px top and 130px bottom clearance.",
+        "aesthetics": "Okinawan coastal rock and scrub, natural restrained palette.",
+        "reviewedBy": "primary orchestrator",
+        "notes": "Worker full-native pass; root final QA recorded separately.",
+        "reviewedAt": "2026-09-24",
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "primaryReviewNotes": "Light athletic adult brindle Ryukyu dog with upright ears and curled tail. Four coherent grounded paws and full tail. Comfortable approximately 180px top and 130px bottom clearance. Okinawan coastal rock and scrub, natural restrained palette.",
+        "primaryReviewPath": "reports/dogs-generated-artwork/cohort-h/primary-image-review.json",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+        "contactSheetReviewedAt": "2026-09-24T01:03:48.898092+00:00",
+        "contactSheetNotes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found."
+      },
+      "referenceEvidence": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:f1eaa3564f21f9e8",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Ryukyu_dog_pair.jpg",
+        "sourcePageRevision": {
+          "id": 1157711771,
+          "timestamp": "2026-02-01T17:48:05Z"
+        },
+        "sourceSha256": "f1eaa3564f21f9e86f220aedda9640e67886c2c0174977e2c613941bf354d88c",
+        "originalPath": "reports/dogs-generated-artwork/cohort-h/discovery-b/VBO:0201156-original.jpg",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-h/h02-b/VBO-0201156-pinned-wikitext.txt",
+        "filePageWikitextSha256": "81e3e45191b11ed8cd0485f3881721e1cefdcabf9bf467e5966b54c6c54315e7",
+        "visualReview": "Full original opened and inspected by worker; One adult dark brindled Ryukyu dog from the two-dog source: upright triangular ears, lightly built frame, four leg positions and tightly curled tail. The second dog is excluded from generated portrait.",
+        "rightsReview": "own-work uploader Full original opened and inspected by worker; One adult dark brindled Ryukyu dog from the two-dog source: upright triangular ears, lightly built frame, four leg positions and tightly curled tail. The second dog is excluded from generated portrait. Acquisition time basis: Local original-file write-completion mtime after Commons acquisition; exact network completion instant not separately recorded. Independent primary review approved this exact pinned Commons original for morphology reference only; all photo delivery purposes remain false.",
+        "primaryReviewedAt": "2026-09-24T01:06:06.355787+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "sourcePath": "data/dogs/profile-refresh-h02.json",
+        "stagingPath": "reports/dogs-generated-artwork/cohort-h/h02-b/profiles.json",
+        "sha256": "0fcbd436b98cdff385254658dcfb778a5bfdddb96020875c896f1d96cc3a0134",
+        "summarySha256": "0053607b0ea71a47db8c3597b2a08f6e5f75a58564ebbe827bf43f14721389b6",
+        "shortDescriptionSha256": "44cfbd8c99779525d5f5d4006c513c2521776731ce7754019863b1bc92e71662",
+        "shortDescription": "Quiet with its own people but territorial and agile, this Okinawan dog is keen on scent.",
+        "author": "OpenAI Codex worker b (gpt-6-sol/high)",
+        "reviewer": "OpenAI Codex peer a plus primary orchestrator",
+        "reviewedAt": "2026-09-24T01:02:44.784977+00:00",
+        "reviewNotes": "Root independently read final full and short copy, archived primary behavioral/history evidence and scene rationale. Exact identity, sourced character/work insights, restrained tendencies and natural prose pass. Coat varieties do not acquire invented distinct temperaments. Smooth Saluki copy approval does not resolve its separate reference hold.",
+        "sourcePacketPath": "reports/dogs-generated-artwork/cohort-h/h02-b/profiles.json"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0201320",
+      "name": "Swiss Hound, Jura Hound",
+      "reference": {
+        "assetId": "dogs:photo:commons:9aebc6666a960705",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:09057110_Jura_Laufhund.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-h/h02-a/VBO-0201320-h02-a-a1.png",
+      "masterSha256": "f8f809f2795a730eb15385a0a2126e250d9a8ad1dc0b3e100b3f21c99f8a0b3d",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0ccda-1d42-7341-9290-00ccfae941c6/exec-70e2e24d-81b8-4df2-86e0-8753a1472e5d.png",
+      "originalOutputSha256": "f8f809f2795a730eb15385a0a2126e250d9a8ad1dc0b3e100b3f21c99f8a0b3d",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "attemptId": "h02-a-0201320-a1",
+      "startedAt": "2026-09-23T18:53:09.161895Z",
+      "generatedAt": "2026-09-23T18:55:52.820971Z",
+      "timeEvidence": "Recorded after built-in tool return and native visual inspection; service-side completion instant unavailable.",
+      "prompt": "COMPOSITION FIRST: pull the camera far back. The ENTIRE standing dog must occupy only about 65–70% of the native image height, centered amid clear surrounding landscape, with at least 140 native pixels of open scenery above the highest ear and below the lowest paw and broad space beyond nose and complete tail.\nUse case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is an exact adult breed/variety morphology reference ONLY. Create a wholly NEW individual, pose, composition, lighting and background. Do not recreate the source photograph.\nScene: A dry limestone trail through open Swiss Jura beech woodland, filtered early-autumn light and low ferns, with no people, hunters or animals.\nSubject: Adult JURA Swiss Hound, elegant medium athletic scenthound with narrow lean head, long very low-set folded drooping ears, short smooth rich tan coat under a broad BLACK blanket/saddle, tan face and legs, at most a tiny white chest mark, brown eyes and complete medium tapering natural tail hanging or gently upward-curved; never a curled spitz tail. Source original shows moving dog with one hind foot lifted and other feet in grass; create a new clear standing pose with all four grounded paws.\nComposition: exactly one adult dog standing in a relaxed open three-quarter view at dog-eye height, body slightly angled and head gently turned toward camera. Four separate anatomically coherent grounded paws and ENTIRE visible natural tail from attachment to tip. Preserve the wide 65–70% framing and clear margins specified first. Clear leg/joint separation, natural weight and believable ground contact.\nStyle: exceptional photorealistic editorial field photography, tactile breed-specific coat texture, restrained natural color, coherent soft daylight and quiet observational character.\nAvoid: No people, other animals, livestock, collar, lead, harness, wardrobe, text, logo, watermark, clipped ears/paws/tail, duplicate or fused limbs, extra toes, artificial stance, painted texture, or show-floor background.\n",
+      "promptSha256": "3aaaf97b38dc91e166c3b7d9af89a170cd46f4b807ccc87a7d32492324cd6b61",
+      "scene": {
+        "description": "A dry limestone trail through open Swiss Jura beech woodland, filtered early-autumn light and low ferns, with no people, hunters or animals.",
+        "rationale": "FCI 059 describes determined independent scent work on difficult terrain and the Jura tan-black color; limestone woodland is a plausible distinct Swiss regional interpretation.",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/059g06-en.pdf",
+            "title": "FCI Standard No. 59: Swiss Hound",
+            "evidence": "FCI 059 supports independent, vocal, determined scent hunting on difficult terrain and breed-wide sensitive/docile/handler-attached character; recognizes the Jura tan-with-black-blanket variety. No variety-specific temperament claim."
+          }
+        ],
+        "status": "ready"
+      },
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "fullSizeOutputViewed": true,
+        "width": 1536,
+        "height": 1024,
+        "breedIdentity": "Tan adult Jura Hound with black mantle and long low ears.",
+        "anatomy": "Four coherent paws, full gently curved low tail.",
+        "crop": "Ample approximately 210px top and 170px bottom clearance.",
+        "aesthetics": "Distinctive limestone and beech trail with restrained color.",
+        "reviewedBy": "primary orchestrator",
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "primaryReviewNotes": "Tan adult Jura Hound with black mantle and long low ears. Four coherent paws, full gently curved low tail. Ample approximately 210px top and 170px bottom clearance. Distinctive limestone and beech trail with restrained color.",
+        "primaryReviewPath": "reports/dogs-generated-artwork/cohort-h/primary-image-review.json",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+        "contactSheetReviewedAt": "2026-09-24T01:03:48.898092+00:00",
+        "contactSheetNotes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found."
+      },
+      "referenceEvidence": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:9aebc6666a960705",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:09057110_Jura_Laufhund.jpg",
+        "sourcePageRevision": {
+          "id": 1127442432,
+          "timestamp": "2025-12-08T00:24:20Z"
+        },
+        "sourceSha256": "9aebc6666a9607059178e3fdb8c8677ed53eee52aec71aa859b31bffef9f4bbc",
+        "originalPath": "reports/dogs-generated-artwork/cohort-h/discovery-c/VBO:0201320-alt2-original.jpg",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-h/h02-a/VBO-0201320-pinned-wikitext.txt",
+        "filePageWikitextSha256": "7fa48975b656e92093ed35568ad1c9de0918403c92ace15430b301d85361397c",
+        "visualReview": "Adult Jura Swiss Hound male, exact English and German source description; moving full side profile with natural tail, one hind leg lifted and far feet partially overlapped.",
+        "rightsReview": "Pinned Commons own-work/self-license wikitext; adult original individually inspected. Adult Jura Swiss Hound male, exact English and German source description; moving full side profile with natural tail, one hind leg lifted and far feet partially overlapped. Acquisition time basis: Discovery acquisition receipt; exact network completion may be unavailable. Independent primary review approved this exact pinned Commons original for morphology reference only; all photo delivery purposes remain false.",
+        "primaryReviewedAt": "2026-09-24T01:06:06.355787+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "sourcePath": "data/dogs/profile-refresh-h02.json",
+        "stagingPath": "reports/dogs-generated-artwork/cohort-h/h02-a/profiles.json",
+        "sha256": "36d260f0a62480cbcf1655dc96e9ab376ce3bfa41bde62100285755825226674",
+        "summarySha256": "a7f842ab0731e1f82ac003342b038859650d4537150f6493c1a7361962af39a6",
+        "shortDescriptionSha256": "ea1eb1e89328960467bf491e569bac6f835233129b9e716feb382bc2c513cca7",
+        "shortDescription": "Determined on difficult scent trails, this tan-and-black Swiss hound keeps a close handler bond.",
+        "author": "OpenAI Codex worker a (gpt-6-sol/high)",
+        "reviewer": "OpenAI Codex peer b plus primary orchestrator",
+        "reviewedAt": "2026-09-24T01:02:44.784977+00:00",
+        "reviewNotes": "Root independently read final full and short copy, archived primary behavioral/history evidence and scene rationale. Exact identity, sourced character/work insights, restrained tendencies and natural prose pass. Coat varieties do not acquire invented distinct temperaments. Smooth Saluki copy approval does not resolve its separate reference hold.",
+        "sourcePacketPath": "reports/dogs-generated-artwork/cohort-h/h02-a/profiles.json"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0201148",
+      "name": "Russian Harlequin Hound",
+      "reference": {
+        "assetId": "dogs:photo:commons:0c1a1c8c6f56ba45",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Englantilais-ven%C3%A4l%C3%A4inenajokoira.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-h/h02-b/h02-b-0201148-01.png",
+      "masterSha256": "d9ed7b10cf5f73415cc4da684f11cc71f3cac4d0792a22b1b5705e2885655792",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0ccda-637c-7751-b8d1-fa4a46305e47/exec-72a14df9-9217-4cb9-a7ee-9e4c145ed880.png",
+      "originalOutputSha256": "d9ed7b10cf5f73415cc4da684f11cc71f3cac4d0792a22b1b5705e2885655792",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "attemptId": "h02-b-0201148-01",
+      "startedAt": "2026-09-23T18:47:15.859+00:00",
+      "generatedAt": "2026-09-23T18:47:58.103+00:00",
+      "timeEvidence": "Recorded after imagegen return; exact service-side instant unavailable.",
+      "prompt": "PRIORITY COMPOSITION: Wide environmental portrait at dog-eye height. Pull the camera well back before placing subject details: the whole dog occupies about 65–70% of native image height, highest ear below pixel y130, lowest paw above y880, with generous scenery on every side. Complete silhouette, four separate grounded paws and full tail are essential.\nUse case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is an exact adult breed/variety morphology reference ONLY. Create a wholly NEW individual, pose, composition, lighting and background. Do not recreate the source photograph.\nScene: A beaten path through Russian birch woodland with early autumn gold in the canopy and muted soft daylight.\nSubject: Mature Russian Harlequin Hound, also Russian Pied/Anglo-Russian Hound, athletic large scent-hound proportions, white ground with black saddle patches, tan head and brow marks, clean broad muzzle, dropped ears, four strong legs and full long low natural tail. Distinct from the plainer fawn Russian Hound.\nPose: exactly one adult standing naturally in relaxed open three-quarter view, body slightly angled, head gently turned toward camera. Entire natural tail from base to tip and four individually legible anatomically coherent grounded paws; believable joints, weight and ground contact. Keep ample margin above head and below feet, with side room past muzzle and tail.\nStyle: exceptional photorealistic editorial field photography, tactile breed-specific fur and restrained color, coherent soft natural light and quiet observational character.\nAvoid: No pack, second dog, hare, fox, wolf, hunter, collar or lead. No people, other animals, wardrobe, collar, leash, harness, text, logo, watermark, clipped extremities, extra or fused limbs, warped feet, plastic or CGI fur, studio backdrop, oversaturation or aggressive HDR.\n",
+      "promptSha256": "80b53167f7f67a36d321523a423b95ba62140c66e33f3cd88389d858f58f7c43",
+      "scene": {
+        "description": "A beaten path through Russian birch woodland with early autumn gold in the canopy and muted soft daylight.",
+        "rationale": "RKF describes pack scent-hound work and the alias study establishes exact Harlequin identity; woodland path is an editorial landscape inference.",
+        "sources": [
+          {
+            "url": "https://help.rkf.online/ru/knowledge_base/art/200/cat/19/russkaja-pegaja-gonchaja-poroda-priznana-rkf",
+            "title": "Russian Cynological Federation: Russian Pied Hound standard",
+            "evidence": "RKF behavior says balanced. Use/history describes pack work and crossing Russian hounds with imported English foxhounds to combine stamina, scent and strong musical voice; current breed name Russian Pied Hound."
+          },
+          {
+            "url": "https://real.mtak.hu/75665/1/MagyarNyelvor2017.3.Beliv_368_383_u.pdf",
+            "title": "Magyar Nyelvőr 2017 study of breed nomenclature, pp. 368–383",
+            "evidence": "Linguistic source equates Russian Harlequin, Russian Piebald/Pied and Anglo-Russian hound names with Finnish englantilais-venäläinen ajokoira, establishing exact selected VBO alias for the Commons original."
+          }
+        ],
+        "status": "ready"
+      },
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "breedIdentity": "White-ground black-and-tan adult Russian Harlequin Hound, distinct from plain Russian Hound.",
+        "anatomy": "Four coherent paws and full tail; ventral contour is plausible male sheath, not an extra limb.",
+        "crop": "Roomy full-body composition.",
+        "aesthetics": "Birch track with natural ground contact and soft light.",
+        "reviewedBy": "primary orchestrator",
+        "notes": "Worker full-native pass; root final QA recorded separately.",
+        "reviewedAt": "2026-09-24",
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "primaryReviewNotes": "White-ground black-and-tan adult Russian Harlequin Hound, distinct from plain Russian Hound. Four coherent paws and full tail; ventral contour is plausible male sheath, not an extra limb. Roomy full-body composition. Birch track with natural ground contact and soft light.",
+        "primaryReviewPath": "reports/dogs-generated-artwork/cohort-h/primary-image-review.json",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+        "contactSheetReviewedAt": "2026-09-24T01:03:48.898092+00:00",
+        "contactSheetNotes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found."
+      },
+      "referenceEvidence": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:0c1a1c8c6f56ba45",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Englantilais-ven%C3%A4l%C3%A4inenajokoira.jpg",
+        "sourcePageRevision": {
+          "id": 1226026033,
+          "timestamp": "2026-06-05T02:46:33Z"
+        },
+        "sourceSha256": "0c1a1c8c6f56ba45b181b84eef0c54146ee288c59c059c8372d697415fc2489b",
+        "originalPath": "reports/dogs-generated-artwork/cohort-h/discovery-b/VBO:0201148-alt-original.jpg",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-h/h02-b/VBO-0201148-pinned-wikitext.txt",
+        "filePageWikitextSha256": "f1206e471ae7d85e035fe3d8edc90ef142a683e0b21899a9e2a1276b4fd08d40",
+        "visualReview": "Full original opened and inspected by worker; Adult Anglo-Russian/Russian Pied Hound with white ground, tan head, black saddle patches, drop ears and long complete low tail; all four paws and full standing side silhouette visible.",
+        "rightsReview": "Commons uploader own-work Full original opened and inspected by worker; Adult Anglo-Russian/Russian Pied Hound with white ground, tan head, black saddle patches, drop ears and long complete low tail; all four paws and full standing side silhouette visible. Acquisition time basis: Local original-file write-completion mtime after Commons acquisition; exact network completion instant not separately recorded. Independent primary review approved this exact pinned Commons original for morphology reference only; all photo delivery purposes remain false.",
+        "primaryReviewedAt": "2026-09-24T01:06:06.355787+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "sourcePath": "data/dogs/profile-refresh-h02.json",
+        "stagingPath": "reports/dogs-generated-artwork/cohort-h/h02-b/profiles.json",
+        "sha256": "d52fe380b92ea9fa8323f012ec883becdfd888826a504bae6b4ee2643a5e6648",
+        "summarySha256": "be3bf642d31e2fb8c70a736e78dfcdff105e39b3607ab76a46d32288a10403b1",
+        "shortDescriptionSha256": "8c2cba9b5bf65e1bc0c86dba6d52d8eab8b80294d3552d46c29288e86e41c942",
+        "shortDescription": "Balanced in temperament, this Russian pack hound was bred for endurance, scent and a musical voice.",
+        "author": "OpenAI Codex worker b (gpt-6-sol/high)",
+        "reviewer": "OpenAI Codex peer a plus primary orchestrator",
+        "reviewedAt": "2026-09-24T01:02:44.784977+00:00",
+        "reviewNotes": "Root independently read final full and short copy, archived primary behavioral/history evidence and scene rationale. Exact identity, sourced character/work insights, restrained tendencies and natural prose pass. Coat varieties do not acquire invented distinct temperaments. Smooth Saluki copy approval does not resolve its separate reference hold.",
+        "sourcePacketPath": "reports/dogs-generated-artwork/cohort-h/h02-b/profiles.json"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0201321",
+      "name": "Swiss Hound, Lucerne Hound",
+      "reference": {
+        "assetId": "dogs:photo:commons:3ceeb0babfde4c2f",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Lucernenak1.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-h/h02-a/VBO-0201321-h02-a-a1.png",
+      "masterSha256": "9a222bde72a3bc4c4b6f9eaef981961cf7314ec37459f7fb936a2d84e7d95c8e",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0ccda-1d42-7341-9290-00ccfae941c6/exec-2c843f90-9587-4a33-99cf-8edf651b2dee.png",
+      "originalOutputSha256": "9a222bde72a3bc4c4b6f9eaef981961cf7314ec37459f7fb936a2d84e7d95c8e",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "attemptId": "h02-a-0201321-a1",
+      "startedAt": "2026-09-23T18:57:04.387697Z",
+      "generatedAt": "2026-09-23T19:01:02.753684Z",
+      "timeEvidence": "Recorded after built-in tool return and native visual inspection; service-side completion instant unavailable.",
+      "prompt": "COMPOSITION FIRST: pull the camera far back. The ENTIRE standing dog must occupy only about 65–70% of the native image height, centered amid clear surrounding landscape, with at least 140 native pixels of open scenery above the highest ear and below the lowest paw and broad space beyond nose and complete tail.\nUse case: photorealistic-natural. Asset type: premium StackRank Dogs field-guide portrait. Generate exactly ONE finished image, native 1536x1024 pixels, 3:2 landscape.\nInput is an exact adult breed/variety morphology reference ONLY. Create a wholly NEW individual, pose, composition, lighting and background. Do not recreate the source photograph.\nScene: A quiet Swiss lake-country foothill path edged by short meadow grass and dark fir trees, with distant soft blue ridges in cool spring morning light, no boats, people or animals.\nSubject: Adult LUCERNE Swiss Hound, elegant medium long-legged scenthound with narrow lean head, very long low-set drooping folded ears, SHORT smooth coat heavily BLUE-SPECKLED from mixed black and white hairs, distinct black saddle or patches, rich tan points on face/chest/legs, brown eyes and complete natural medium tapering tail low or gently upward-curved, never curled over back. Source is a veteran show dog; create a fresh mature adult with all four separate grounded paws and no handler/show background.\nComposition: exactly one adult dog standing in a relaxed open three-quarter view at dog-eye height, body slightly angled and head gently turned toward camera. Four separate anatomically coherent grounded paws and ENTIRE visible natural tail from attachment to tip. Preserve the wide 65–70% framing and clear margins specified first. Clear leg/joint separation, natural weight and believable ground contact.\nStyle: exceptional photorealistic editorial field photography, tactile breed-specific coat texture, restrained natural color, coherent soft daylight and quiet observational character.\nAvoid: No people, other animals, livestock, collar, lead, harness, wardrobe, text, logo, watermark, clipped ears/paws/tail, duplicate or fused limbs, extra toes, artificial stance, painted texture, or show-floor background.\n",
+      "promptSha256": "5d772f286d4acca2c16edf4c1cf3061e157a2957df156f9413811d541c27b642",
+      "scene": {
+        "description": "A quiet Swiss lake-country foothill path edged by short meadow grass and dark fir trees, with distant soft blue ridges in cool spring morning light, no boats, people or animals.",
+        "rationale": "FCI 059 identifies Swiss origin, hard-ground scent work and Lucerne's blue-speckled black-and-tan pattern; the lake-country foothill setting is a distinct artistic Swiss scene, not a claim about the exact source dog.",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/059g06-en.pdf",
+            "title": "FCI Standard No. 59: Swiss Hound",
+            "evidence": "FCI 059 supports lively, scent-keen, sensitive, docile, handler-attached temperament and independent vocal search on difficult terrain; lists Lucerne blue speckling with black patches/saddle and tan points. No color-specific behavior claim."
+          }
+        ],
+        "status": "ready"
+      },
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "fullSizeOutputViewed": true,
+        "width": 1536,
+        "height": 1024,
+        "breedIdentity": "Blue-speckled adult Lucerne Hound, black patches, tan points, very long low ears.",
+        "anatomy": "Four coherent grounded paws and complete tail.",
+        "crop": "Comfortable approximately 180px top and 100px bottom clearance.",
+        "aesthetics": "Swiss lakeside grass path, soft natural light and believable coat.",
+        "reviewedBy": "primary orchestrator",
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "primaryReviewNotes": "Blue-speckled adult Lucerne Hound, black patches, tan points, very long low ears. Four coherent grounded paws and complete tail. Comfortable approximately 180px top and 100px bottom clearance. Swiss lakeside grass path, soft natural light and believable coat.",
+        "primaryReviewPath": "reports/dogs-generated-artwork/cohort-h/primary-image-review.json",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+        "contactSheetReviewedAt": "2026-09-24T01:03:48.898092+00:00",
+        "contactSheetNotes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found."
+      },
+      "referenceEvidence": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:3ceeb0babfde4c2f",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Lucernenak1.jpg",
+        "sourcePageRevision": {
+          "id": 1037009358,
+          "timestamp": "2025-05-28T08:41:31Z"
+        },
+        "sourceSha256": "3ceeb0babfde4c2ffc6e9ab77089b9a2538e4b8827464566969282bf8a08ebbb",
+        "originalPath": "reports/dogs-generated-artwork/cohort-h/discovery-c/VBO:0201321-alt3-original.jpg",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-h/h02-a/VBO-0201321-pinned-wikitext.txt",
+        "filePageWikitextSha256": "17d88267e91dc185993a3fc75419560d867715bcec130d4095b579d323100db2",
+        "visualReview": "Adult veteran Lucerne Swiss Hound in standing full side profile; blue-speckled pattern, all four paws and full tail visible.",
+        "rightsReview": "Pinned Commons own-work/self-license wikitext; adult original individually inspected. Adult veteran Lucerne Swiss Hound in standing full side profile; blue-speckled pattern, all four paws and full tail visible. Acquisition time basis: Discovery acquisition receipt; exact network completion may be unavailable. Independent primary review approved this exact pinned Commons original for morphology reference only; all photo delivery purposes remain false.",
+        "primaryReviewedAt": "2026-09-24T01:06:06.355787+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "sourcePath": "data/dogs/profile-refresh-h02.json",
+        "stagingPath": "reports/dogs-generated-artwork/cohort-h/h02-a/profiles.json",
+        "sha256": "e121320d89ffe46338efbcd7ddbf3852061da345d9632cd3741c1ac3c37e5a1a",
+        "summarySha256": "750c9e9caaa37645f2bded56a59b3e188fe81cab2f467e6fae7b37568f594ee1",
+        "shortDescriptionSha256": "c7adb5893c0fc8d8f55b7256ac702cbcddc51721112f6eef57ffc00b91e1155e",
+        "shortDescription": "Lively and handler-attached, this blue-speckled Swiss hound follows difficult trails with voice.",
+        "author": "OpenAI Codex worker a (gpt-6-sol/high)",
+        "reviewer": "OpenAI Codex peer b plus primary orchestrator",
+        "reviewedAt": "2026-09-24T01:02:44.784977+00:00",
+        "reviewNotes": "Root independently read final full and short copy, archived primary behavioral/history evidence and scene rationale. Exact identity, sourced character/work insights, restrained tendencies and natural prose pass. Coat varieties do not acquire invented distinct temperaments. Smooth Saluki copy approval does not resolve its separate reference hold.",
+        "sourcePacketPath": "reports/dogs-generated-artwork/cohort-h/h02-a/profiles.json"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0201403",
+      "name": "Weimaraner, Short-Haired",
+      "reference": {
+        "assetId": "dogs:photo:commons:387b70d7d68f185d",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Weimaranershort2.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-h/h02-c/VBO-0201403-attempt01.png",
+      "masterSha256": "2e1c841d57274ed12888af184d52040ef47a92cd4b04e9cc539ab53a4273e125",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0ccda-b585-7c32-97cf-bc1ec57a3e62/exec-b630f010-db7b-4b90-8e0c-767ee1833cd6.png",
+      "originalOutputSha256": "2e1c841d57274ed12888af184d52040ef47a92cd4b04e9cc539ab53a4273e125",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "attemptId": "h02-c-0201403-01",
+      "startedAt": "2026-09-23T18:38:33.265830Z",
+      "generatedAt": "2026-09-23T18:39:10.615344Z",
+      "timeEvidence": "original output file mtime after tool completion",
+      "prompt": "Create one premium, mostly photorealistic landscape field-guide portrait of ONE adult Weimaraner, Short-Haired. Native 1536×1024 pixels, 3:2 landscape composition at dog-eye height. FIRST compose a roomy view: the WHOLE dog occupies at most 65–70% of frame height, with at least 140 pixels of clear scene above the highest ear and below every paw, plus generous room around nose and the entire natural tail. The attached licensed Commons photograph is ONLY a private morphology guide for exact identity and coat; create a new pose, light and setting. An adult shorthaired Weimaraner: sinewy athletic German pointer with sleek dense short silver-grey coat, lighter head and long natural pendant ears, strong long muzzle, deep but not barrel chest, four clear straight limbs and paws, complete natural tail carried level or lower. Show the dog standing alert in a loose three-quarter view, nose raised toward open air on a quiet Thuringian beech-wood clearing beside a shallow stream and field edge in cool morning light. All four anatomically coherent paws separately grounded and visible; complete head, ears, legs and tail inside the frame. Crisp believable coat texture, natural soft light, restrained color. ONE dog only. No people, other animals, collars, leads, harnesses, show props, benches, signs, text, watermark, copied reference pose/background, cut-off limbs or stylized caricature.",
+      "promptSha256": "21a5e4b0c4423be2957569239df4b85498844f3121bf5f3d005898d155c92253",
+      "scene": {
+        "description": "a quiet Thuringian beech-wood clearing beside a shallow stream and field edge in cool morning light",
+        "rationale": "FCI 99 states development around Weimar/Thuringia and versatile field, wood and water work; this setting combines those contexts without prey or people.",
+        "evidence": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/099g07-en.pdf",
+            "title": "FCI Standard No. 99 — Weimaraner",
+            "evidence": "FCI 99 pp. 2–3 documents steady passionate hunting temperament, scent and systematic search; Weimar court by early 19th century, professional gamekeeper development, short/long coat chronology; pp. 5–6 defines short coat."
+          }
+        ],
+        "status": "ready",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/099g07-en.pdf",
+            "title": "FCI Standard No. 99 — Weimaraner",
+            "evidence": "FCI 99 pp. 2–3 documents steady passionate hunting temperament, scent and systematic search; Weimar court by early 19th century, professional gamekeeper development, short/long coat chronology; pp. 5–6 defines short coat."
+          }
+        ]
+      },
+      "qa": {
+        "reviewedAt": "2026-09-24",
+        "reviewedBy": "primary orchestrator",
+        "verdict": "pass",
+        "decision": "root_independent_native_accepted",
+        "nativeOriginalViewed": true,
+        "notes": "Native original viewed: adult shorthaired silver-grey Weimaraner with athletic deep-chested form, natural pendulous ears, complete tapered tail, amber eye and four coherent grounded paws. Comfortable complete frame at German woodland-stream edge; no show handler or collar. Tiny pale shape under jaw appears throat fold/light, not a clear anatomy defect.",
+        "status": "approved",
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "primaryReviewNotes": "Silver-grey adult shorthaired Weimaraner, athletic body and long drop ears. Four coherent paws and full natural low tail; small throat fold is anatomically plausible. Roomy full-body composition. Beech woodland stream, restrained coat color and believable ground contact.",
+        "primaryReviewPath": "reports/dogs-generated-artwork/cohort-h/primary-image-review.json",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+        "contactSheetReviewedAt": "2026-09-24T01:03:48.898092+00:00",
+        "contactSheetNotes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found.",
+        "breedIdentity": "Silver-grey adult shorthaired Weimaraner, athletic body and long drop ears.",
+        "anatomy": "Four coherent paws and full natural low tail; small throat fold is anatomically plausible.",
+        "crop": "Roomy full-body composition.",
+        "aesthetics": "Beech woodland stream, restrained coat color and believable ground contact."
+      },
+      "referenceEvidence": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:387b70d7d68f185d",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Weimaranershort2.jpg",
+        "sourcePageRevision": {
+          "id": 1198158057,
+          "timestamp": "2026-04-16T00:44:29Z"
+        },
+        "sourceSha256": "387b70d7d68f185d1f6b24cfaf21fbe1c408580dec386d86a1371835f33b14b5",
+        "originalPath": "reports/dogs-generated-artwork/cohort-h/discovery-c/VBO:0201403-alt1-original.jpg",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-h/h02-c/VBO-0201403-filepage.wikitext",
+        "filePageWikitextSha256": "c9887829e9faf0ff8be4d4f245dfc15934e8529bb787b5a01a883c227795064e",
+        "visualReview": "Pinned own-work File page explicitly says Weimaraner Shorthaired. Full standing side proportions, natural ears, tail and all paws visible; original phone image soft/compressed and handler overlaps far foreleg. Do not copy blur, show-ring prop or handler.",
+        "rightsReview": "Pinned own-work English page identifies shorthaired Weimaraner, creator Canarian, CC BY 4.0; moderately soft original still resolves adult proportions. Pinned Commons revision 1198158057, source original SHA-256 and full native reference visually checked. Pinned own-work File page explicitly says Weimaraner Shorthaired. Full standing side proportions, natural ears, tail and all paws visible; original phone image soft/compressed and handler overlaps far foreleg. Do not copy blur, show-ring prop or handler. Private morphology only; all display, public snapshot and raster purposes denied. Acquisition completion time is original local file mtime, not an invented network response time. Independent primary review approved this exact pinned Commons original for morphology reference only; all photo delivery purposes remain false.",
+        "primaryReviewedAt": "2026-09-24T01:06:06.355787+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "sourcePath": "data/dogs/profile-refresh-h02.json",
+        "stagingPath": "reports/dogs-generated-artwork/cohort-h/h02-c/profiles.json",
+        "sha256": "bc61bcfa760946a6c44ed602afef68d11fb235e9ebf72325402a5c888cf020a9",
+        "summarySha256": "c52f965cf9150712ce61c3e0b56937f65fa5f6dacaccb73aa8db65c645e94661",
+        "shortDescriptionSha256": "2d3227fbe5871b0b2c4101b28bb7cdba2fab503e64368b10f309d35b8c385884",
+        "shortDescription": "Steady yet keen on a scent, this shorthaired German pointer traces its story to the Weimar court.",
+        "author": "OpenAI Codex worker c (gpt-6-sol/high)",
+        "reviewer": "OpenAI Codex peer a plus primary orchestrator",
+        "reviewedAt": "2026-09-24T01:02:44.784977+00:00",
+        "reviewNotes": "Root independently read final full and short copy, archived primary behavioral/history evidence and scene rationale. Exact identity, sourced character/work insights, restrained tendencies and natural prose pass. Coat varieties do not acquire invented distinct temperaments. Smooth Saluki copy approval does not resolve its separate reference hold.",
+        "sourcePacketPath": "reports/dogs-generated-artwork/cohort-h/h02-c/profiles.json"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0201108",
+      "name": "Pumi, Grey In Various Shades",
+      "reference": {
+        "assetId": "dogs:photo:commons:5c4d765b4938ece7",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Pumi_grey.jpg"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-h/h02-c/VBO-0201108-attempt01.png",
+      "masterSha256": "0f6227cd37c139ad0b9a1301d2d7ba1bd861eeedf5aecef0c52b66f1fbc49fc0",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a0ccda-b585-7c32-97cf-bc1ec57a3e62/exec-8d40a3ef-5508-4298-abcc-83312dd16140.png",
+      "originalOutputSha256": "0f6227cd37c139ad0b9a1301d2d7ba1bd861eeedf5aecef0c52b66f1fbc49fc0",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "attemptId": "h02-c-0201108-01",
+      "startedAt": "2026-09-23T18:40:56.105241Z",
+      "generatedAt": "2026-09-23T18:41:41.410947Z",
+      "timeEvidence": "original output file mtime after tool completion",
+      "prompt": "Create one premium, mostly photorealistic landscape field-guide portrait of ONE adult Pumi, Grey In Various Shades. Native 1536×1024 pixels, 3:2 landscape composition at dog-eye height. FIRST compose a roomy view: the WHOLE dog occupies at most 65–70% of frame height, with at least 140 pixels of clear scene above the highest ear and below every paw, plus generous room around nose and the entire natural tail. The attached licensed Commons photograph is ONLY a private morphology guide for exact identity and coat; create a new pose, light and setting. An adult grey Pumi of lively medium herding build: almost square, wiry wavy-curly grey tufts rather than Puli cords, elongated muzzle with clear eyes, prick ears whose upper tips bend forward, four visible strong paws, full natural tail making a broad elevated circle over the croup, not a bobtail or tight coil. Show the dog standing naturally with all four paws grounded in a relaxed three-quarter view and an alert forward glance on a gently sloping Hungarian pasture lane with dry grasses and a low wooden fence under clear morning light. All four anatomically coherent paws separately grounded and visible; complete head, ears, legs and tail inside the frame. Crisp believable coat texture, natural soft light, restrained color. ONE dog only. No people, other animals, collars, leads, harnesses, show props, benches, signs, text, watermark, copied reference pose/background, cut-off limbs or stylized caricature.",
+      "promptSha256": "d4a20faaf275156c3aaf590f81d9407612f1d18974274f04bc9e99b027d62b8e",
+      "scene": {
+        "description": "a gently sloping Hungarian pasture lane with dry grasses and a low wooden fence under clear morning light",
+        "rationale": "FCI 56 gives Hungary and herding work; an empty pasture lane is a plausible regional work setting without livestock or humans.",
+        "evidence": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/056g01-en.pdf",
+            "title": "FCI Standard No. 56 — Pumi",
+            "evidence": "FCI 56 pp. 2–3 documents lively, bold, expressive and noisy herding character, Hungarian 17th–18th-century Puli/German-French terrier-type origins, livestock/rodent work and restless readiness; p. 6 permits grey."
+          }
+        ],
+        "status": "ready",
+        "sources": [
+          {
+            "url": "https://www.fci.be/Nomenclature/Standards/056g01-en.pdf",
+            "title": "FCI Standard No. 56 — Pumi",
+            "evidence": "FCI 56 pp. 2–3 documents lively, bold, expressive and noisy herding character, Hungarian 17th–18th-century Puli/German-French terrier-type origins, livestock/rodent work and restless readiness; p. 6 permits grey."
+          }
+        ]
+      },
+      "qa": {
+        "reviewedAt": "2026-09-24",
+        "reviewedBy": "primary orchestrator",
+        "verdict": "pass",
+        "decision": "root_independent_native_accepted",
+        "nativeOriginalViewed": true,
+        "notes": "Native original viewed: one adult grey Pumi, expressive half-pricked furry ears, wavy curly textured coat, complete high circular tail, four coherent grounded paws. Complete sunny Hungarian pasture frame with ample horizontal room; head and lower paws leave comfortable though less than numeric 140px vertical target. Root independently confirmed correct half-pricked tipped ears, four paws and complete ring tail; accepted a1 without retry.",
+        "status": "approved",
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "primaryReviewNotes": "Adult grey Pumi, wavy-curly coat and correct half-pricked forward ear tips. Four coherent paws and full high ring tail. Comfortable approximately 70px top and 100px bottom clearance. Hungarian pasture and wood fence, natural fur and soft light.",
+        "primaryReviewPath": "reports/dogs-generated-artwork/cohort-h/primary-image-review.json",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-h/h02-contact-sheet.jpg",
+        "contactSheetReviewedAt": "2026-09-24T01:03:48.898092+00:00",
+        "contactSheetNotes": "All 18 accepted native masters independently inspected individually before this full-sheet review. Correct full adult dogs, comfortable crop margins, coherent anatomy and premium natural finish. Nordic forest-lake settings differ in season and vegetation; alpine meadow, marsh, plateau, Okinawan coast, stable meadow and Hungarian pasture vary landscape and palette. Related Swiss Hound varieties remain morphologically distinct. No further defect found.",
+        "breedIdentity": "Adult grey Pumi, wavy-curly coat and correct half-pricked forward ear tips.",
+        "anatomy": "Four coherent paws and full high ring tail.",
+        "crop": "Comfortable approximately 70px top and 100px bottom clearance.",
+        "aesthetics": "Hungarian pasture and wood fence, natural fur and soft light."
+      },
+      "referenceEvidence": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:5c4d765b4938ece7",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Pumi_grey.jpg",
+        "sourcePageRevision": {
+          "id": 1249986406,
+          "timestamp": "2026-07-21T01:59:40Z"
+        },
+        "sourceSha256": "5c4d765b4938ece7a4692ea4997616f401381a8c1b07accc1924f81285ef1528",
+        "originalPath": "reports/dogs-generated-artwork/cohort-h/discovery-c/VBO:0201108-original.jpg",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-h/h02-c/VBO-0201108-filepage.wikitext",
+        "filePageWikitextSha256": "a5f70fd2abb445aa8c06a857a0dccf867a6faa8abac44c82c6d63cd7cb9af335",
+        "visualReview": "Pinned own-work English description explicitly says adult-looking female grey Pumi. Full 600x522 standing silhouette, ears, four paws and complete circling tail; far hind leg overlaps, facial detail dark. Use FCI open ears and natural full ring tail, not source noise.",
+        "rightsReview": "Pinned own-work English description says female Pumi, grey, creator Canarian, CC BY-SA 4.0; source is small but complete coat/ears/tail silhouette. Pinned Commons revision 1249986406, source original SHA-256 and full native reference visually checked. Pinned own-work English description explicitly says adult-looking female grey Pumi. Full 600x522 standing silhouette, ears, four paws and complete circling tail; far hind leg overlaps, facial detail dark. Use FCI open ears and natural full ring tail, not source noise. Private morphology only; all display, public snapshot and raster purposes denied. Acquisition completion time is original local file mtime, not an invented network response time. Independent primary review approved this exact pinned Commons original for morphology reference only; all photo delivery purposes remain false.",
+        "primaryReviewedAt": "2026-09-24T01:06:06.355787+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "sourcePath": "data/dogs/profile-refresh-h02.json",
+        "stagingPath": "reports/dogs-generated-artwork/cohort-h/h02-c/profiles.json",
+        "sha256": "84ec55f8f4b2b2d6a902c3ca98b9d08c6912e91d8af48ea71c23b8aec02a98af",
+        "summarySha256": "fc779e82cf272c1df277a9a71ae444e58c9c8462774fdd4c0f27535a80871fa8",
+        "shortDescriptionSha256": "958f779c2bc4912f70e390bbf6c4fdbafefe03b44a44cb226a53b4131a430982",
+        "shortDescription": "Lively and bold, this vocal Hungarian herder grew from Puli and terrier-type working stock.",
+        "author": "OpenAI Codex worker c (gpt-6-sol/high)",
+        "reviewer": "OpenAI Codex peer a plus primary orchestrator",
+        "reviewedAt": "2026-09-24T01:02:44.784977+00:00",
+        "reviewNotes": "Root independently read final full and short copy, archived primary behavioral/history evidence and scene rationale. Exact identity, sourced character/work insights, restrained tendencies and natural prose pass. Coat varieties do not acquire invented distinct temperaments. Smooth Saluki copy approval does not resolve its separate reference hold.",
+        "sourcePacketPath": "reports/dogs-generated-artwork/cohort-h/h02-c/profiles.json"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    }
+  ]
+}

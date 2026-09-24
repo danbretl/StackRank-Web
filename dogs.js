@@ -110,10 +110,10 @@ if (!ACTIVE_CATEGORY) throw new Error("Unknown or mismatched StackRank Dogs cate
 const STORAGE_KEYS = categoryStorageKeys(ACTIVE_CATEGORY);
 const CATALOG_URL = "data/dogs/dog-catalog.json?v=4";
 const PACKS_URL = "data/dogs/packs.json?v=2";
-const RIGHTS_URL = "data/dogs/image-rights.json?v=27";
+const RIGHTS_URL = "data/dogs/image-rights.json?v=28";
 const RIGHTS_POLICY_URL = "data/dogs/artwork-license-policy.json?v=1";
-const PROFILES_URL = "data/dogs/breed-profiles.json?v=12";
-const GENERATED_ARTWORK_URL = "data/dogs/generated-artwork.json?v=19";
+const PROFILES_URL = "data/dogs/breed-profiles.json?v=13";
+const GENERATED_ARTWORK_URL = "data/dogs/generated-artwork.json?v=20";
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl";
 const AUTH_INIT_TIMEOUT_MS = 3200;

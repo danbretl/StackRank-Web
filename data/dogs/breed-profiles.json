@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "profileVersion": "dogs-field-guide-2026-09-23.5",
+  "profileVersion": "dogs-field-guide-2026-09-23.6",
   "sources": [
     {
       "id": "vbo-2026-04-15",
@@ -50,6 +50,13 @@
       "url": "https://www.stackrankapp.com/dogs",
       "license": "Original StackRank editorial copy",
       "retrievedAt": "2026-09-23T00:00:00.000Z"
+    },
+    {
+      "id": "stackrank-editorial-review-2026-09-24",
+      "name": "StackRank Dogs profile review",
+      "url": "https://www.stackrankapp.com/dogs",
+      "license": "Original StackRank editorial copy",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
     },
     {
       "id": "breed-profile-vbo-0000661-1",
@@ -1884,6 +1891,14 @@
       "retrievedAt": "2026-09-22T00:00:00.000Z"
     },
     {
+      "id": "breed-profile-vbo-0200588-1",
+      "kind": "breed-reference",
+      "name": "FCI Standard No. 97 — German Spitz (Giant section)",
+      "url": "https://www.fci.be/Nomenclature/Standards/097g05-en.pdf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
+    },
+    {
       "id": "breed-profile-vbo-0200602-1",
       "kind": "breed-reference",
       "name": "FCI breed standard No. 98: German Wirehaired Pointer",
@@ -2012,6 +2027,22 @@
       "retrievedAt": "2026-09-23T00:00:00.000Z"
     },
     {
+      "id": "breed-profile-vbo-0200651-1",
+      "kind": "breed-reference",
+      "name": "Norwegian Kennel Club: Haldenstøver",
+      "url": "https://www.nkk.no/hunderaser-og-kjop-av-hund/hundevelger/raser/haldenstover",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0200652-1",
+      "kind": "breed-reference",
+      "name": "Swedish Kennel Club: Hälleforshund",
+      "url": "https://www.skk.se/en/swedish-dog-breeds/halleforshund/",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
+    },
+    {
       "id": "breed-profile-vbo-0200655-1",
       "kind": "breed-reference",
       "name": "FCI breed standard No. 132: Hamiltonstovare",
@@ -2122,6 +2153,14 @@
       "url": "https://teara.govt.nz/en/farm-dogs/page-1",
       "license": "Citation-only factual reference",
       "retrievedAt": "2026-09-22T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0200687-1",
+      "kind": "breed-reference",
+      "name": "Norwegian Kennel Club: Hygenhund",
+      "url": "https://www.nkk.no/hunderaser-og-kjop-av-hund/hundevelger/raser/hygenhund",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
     },
     {
       "id": "breed-profile-vbo-0200688-1",
@@ -2980,6 +3019,14 @@
       "retrievedAt": "2026-09-22T00:00:00.000Z"
     },
     {
+      "id": "breed-profile-vbo-0201010-1",
+      "kind": "breed-reference",
+      "name": "FCI Standard No. 31 — Petit Bleu de Gascogne",
+      "url": "https://www.fci.be/Nomenclature/Standards/031g06-en.pdf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
+    },
+    {
       "id": "breed-profile-vbo-0201016-1",
       "kind": "breed-reference",
       "name": "FCI breed standard No. 248: Pharaoh Hound",
@@ -3268,6 +3315,14 @@
       "retrievedAt": "2026-09-22T00:00:00.000Z"
     },
     {
+      "id": "breed-profile-vbo-0201108-1",
+      "kind": "breed-reference",
+      "name": "FCI Standard No. 56 — Pumi",
+      "url": "https://www.fci.be/Nomenclature/Standards/056g01-en.pdf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
+    },
+    {
       "id": "breed-profile-vbo-0201109-1",
       "kind": "breed-reference",
       "name": "Official breed standard: Pungsan Dog",
@@ -3380,6 +3435,30 @@
       "retrievedAt": "2026-09-22T00:00:00.000Z"
     },
     {
+      "id": "breed-profile-vbo-0201148-1",
+      "kind": "breed-reference",
+      "name": "Russian Cynological Federation: Russian Pied Hound standard",
+      "url": "https://help.rkf.online/ru/knowledge_base/art/200/cat/19/russkaja-pegaja-gonchaja-poroda-priznana-rkf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0201148-2",
+      "kind": "breed-reference",
+      "name": "Magyar Nyelvőr 2017 breed-nomenclature study",
+      "url": "https://real.mtak.hu/75665/1/MagyarNyelvor2017.3.Beliv_368_383_u.pdf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0201149-1",
+      "kind": "breed-reference",
+      "name": "Russian Cynological Federation: Russian Hound standard",
+      "url": "https://help.rkf.online/ru/knowledge_base/art/199/cat/19/russkaja-gonchaja-poroda-priznana-rkf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
+    },
+    {
       "id": "breed-profile-vbo-0201150-1",
       "kind": "breed-reference",
       "name": "Russian Spaniel Club: Breed Standard",
@@ -3420,6 +3499,14 @@
       "retrievedAt": "2026-09-23T00:00:00.000Z"
     },
     {
+      "id": "breed-profile-vbo-0201156-1",
+      "kind": "breed-reference",
+      "name": "Miyako Association bulletin: interview with Ryukyu Dog Preservation Society founder Yoshio Arakaki",
+      "url": "https://hojinkai.zenkokuhojinkai.or.jp/okinawamiyako/files/2018/03/%E5%BA%83%E5%A0%B1%E3%81%BF%E3%82%84%E3%81%93%E7%AC%AC46%E5%8F%B7%E3%80%80%E6%96%B0%E5%B9%B4%E5%8F%B7.pdf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
+    },
+    {
       "id": "breed-profile-vbo-0201158-1",
       "kind": "breed-reference",
       "name": "FCI standard No. 311: Saarloos Wolfhond",
@@ -3444,12 +3531,28 @@
       "retrievedAt": "2026-09-23T00:00:00.000Z"
     },
     {
+      "id": "breed-profile-vbo-0201168-1",
+      "kind": "breed-reference",
+      "name": "Société Centrale Canine: annotated Saint-Usuge Spaniel standard",
+      "url": "https://www.centrale-canine.fr/sites/default/files/inline-files/Standard-Commente_Saint-Usuge_FR.pdf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
+    },
+    {
       "id": "breed-profile-vbo-0201171-1",
       "kind": "breed-reference",
       "name": "FCI: Saluki breed standard",
       "url": "https://www.fci.be/Nomenclature/Standards/269g10-en.pdf",
       "license": "Citation-only factual reference",
       "retrievedAt": "2026-09-22T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0201172-1",
+      "kind": "breed-reference",
+      "name": "FCI Standard No. 269 — Saluki",
+      "url": "https://www.fci.be/Nomenclature/Standards/269g10-en.pdf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
     },
     {
       "id": "breed-profile-vbo-0201174-1",
@@ -3490,6 +3593,14 @@
       "url": "https://www.fci.be/Nomenclature/Standards/182g02-en.pdf",
       "license": "Citation-only factual reference",
       "retrievedAt": "2026-09-22T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0201188-1",
+      "kind": "breed-reference",
+      "name": "FCI Standard No. 182 — Schnauzer",
+      "url": "https://www.fci.be/Nomenclature/Standards/182g02-en.pdf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
     },
     {
       "id": "breed-profile-vbo-0201195-1",
@@ -3748,6 +3859,46 @@
       "retrievedAt": "2026-09-22T00:00:00.000Z"
     },
     {
+      "id": "breed-profile-vbo-0201317-1",
+      "kind": "breed-reference",
+      "name": "Swedish Kennel Club: Svensk vit älghund",
+      "url": "https://www.skk.se/en/hundraser/svensk-vit-alghund/",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0201319-1",
+      "kind": "breed-reference",
+      "name": "FCI Standard No. 59: Swiss Hound, Bernese variety",
+      "url": "https://www.fci.be/Nomenclature/Standards/059g06-en.pdf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0201320-1",
+      "kind": "breed-reference",
+      "name": "FCI Standard No. 59: Swiss Hound",
+      "url": "https://www.fci.be/Nomenclature/Standards/059g06-en.pdf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0201321-1",
+      "kind": "breed-reference",
+      "name": "FCI Standard No. 59: Swiss Hound",
+      "url": "https://www.fci.be/Nomenclature/Standards/059g06-en.pdf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0201322-1",
+      "kind": "breed-reference",
+      "name": "FCI Standard No. 59: Swiss Hound",
+      "url": "https://www.fci.be/Nomenclature/Standards/059g06-en.pdf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
+    },
+    {
       "id": "breed-profile-vbo-0201331-1",
       "kind": "breed-reference",
       "name": "Official breed standard: Taigan",
@@ -3922,6 +4073,14 @@
       "url": "https://www.fci.be/Nomenclature/Standards/099g07-en.pdf",
       "license": "Citation-only factual reference",
       "retrievedAt": "2026-09-23T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0201403-1",
+      "kind": "breed-reference",
+      "name": "FCI Standard No. 99 — Weimaraner",
+      "url": "https://www.fci.be/Nomenclature/Standards/099g07-en.pdf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-09-24T00:00:00.000Z"
     },
     {
       "id": "breed-profile-vbo-0201411-1",
@@ -13510,19 +13669,24 @@
       "reviewStatus": "generated"
     },
     "VBO:0200588": {
-      "summary": "German Spitz, Giant Spitz White is a variety of German Spitz.",
+      "summary": "German Giant Spitz dogs are lively, attentive and strongly attached to their people. Their teachability and natural reserve with strangers suit a home-and-farm watchdog role, while the breed standard describes little hunting instinct. The same standard also prizes their weather hardiness and robust constitution.",
+      "shortDescription": "Lively and attentive, the white Giant Spitz shares a German home-and-farm watchdog heritage.",
       "interestingFact": "",
-      "sizeBand": "unknown",
+      "sizeBand": "medium",
       "typeLabel": "Breed variety",
       "typeBasis": "catalog",
       "originRegions": [],
-      "historicalRoots": "",
-      "editorialFamilies": [],
+      "historicalRoots": "German home and farm watchdog",
+      "editorialFamilies": [
+        "German spitz"
+      ],
       "registryGroups": [],
       "sourceIds": [
-        "vbo-2026-04-15"
+        "vbo-2026-04-15",
+        "stackrank-editorial-review-2026-09-24",
+        "breed-profile-vbo-0200588-1"
       ],
-      "reviewStatus": "generated"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0200589": {
       "summary": "German Spitz, Keeshond (Wolfspitz) is a variety of German Spitz.",
@@ -14470,37 +14634,49 @@
       "reviewStatus": "source-reviewed"
     },
     "VBO:0200651": {
-      "summary": "Halden Hound is a dog breed or regional type associated with Norway.",
+      "summary": "Halden Hounds tend to be friendly, trusting and open with people, while retaining a strong appetite for the hare trail. Breeders near Halden shaped the hound from local dogs and imported foxhounds and beagles in the late 1800s; enthusiasts rebuilt the line after disease and World War II nearly ended it.",
+      "shortDescription": "Friendly and trusting off the trail, this Norwegian hound comes alive on a hare trail.",
       "interestingFact": "",
-      "sizeBand": "unknown",
-      "typeLabel": "Recognized breed or regional type",
-      "typeBasis": "catalog",
+      "sizeBand": "medium",
+      "typeLabel": "Scent hounds",
+      "typeBasis": "editorial",
       "originRegions": [
         "Norway"
       ],
-      "historicalRoots": "",
-      "editorialFamilies": [],
+      "historicalRoots": "Norwegian hare-hound developed around Halden in the late nineteenth century.",
+      "editorialFamilies": [
+        "scent hound",
+        "Norwegian hare-hunting heritage"
+      ],
       "registryGroups": [],
       "sourceIds": [
         "vbo-2026-04-15",
-        "wikidata-dog-breeds-2026-09-21"
+        "wikidata-dog-breeds-2026-09-21",
+        "stackrank-editorial-review-2026-09-24",
+        "breed-profile-vbo-0200651-1"
       ],
-      "reviewStatus": "source-reviewed"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0200652": {
-      "summary": "Hällefors Elkhound is a dog breed or regional type.",
+      "summary": "The Hällefors Elkhound is an energetic, courageous hunting spitz with endurance for demanding forest work. It is noted for strong elk-hunting instinct and a close bond with one handler. Developed from Hällefors-area dogs in Sweden, this distinct Nordic breed gained Swedish Kennel Club recognition in 2000.",
+      "shortDescription": "Courageous and enduring in elk country, this Swedish spitz bonds closely with one handler.",
       "interestingFact": "",
-      "sizeBand": "unknown",
+      "sizeBand": "large",
       "typeLabel": "Recognized breed or regional type",
       "typeBasis": "catalog",
       "originRegions": [],
-      "historicalRoots": "",
-      "editorialFamilies": [],
+      "historicalRoots": "Swedish elk-hunting spitz shaped from Hällefors-area stock and recognized in 2000.",
+      "editorialFamilies": [
+        "Nordic hunting spitz",
+        "Swedish elk-hunting heritage"
+      ],
       "registryGroups": [],
       "sourceIds": [
-        "vbo-2026-04-15"
+        "vbo-2026-04-15",
+        "stackrank-editorial-review-2026-09-24",
+        "breed-profile-vbo-0200652-1"
       ],
-      "reviewStatus": "generated"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0200653": {
       "summary": "Halls Heeler is a historical dog breed or type.",
@@ -15016,22 +15192,28 @@
       "reviewStatus": "generated"
     },
     "VBO:0200687": {
-      "summary": "Hygenhund is a dog breed or regional type associated with Norway.",
+      "summary": "Hygenhounds are friendly, willing hare hunters that are often calm in the house. Their varied calls tell a hunter how far they are from the quarry, making their voice part of the work rather than a background trait. The breed takes its name from Hans Fredrik Hygen, who bred local hounds in Norway from the 1830s.",
+      "shortDescription": "Calm indoors but eager on a hare trail, this Norwegian hound signals distance with its voice.",
       "interestingFact": "",
-      "sizeBand": "unknown",
-      "typeLabel": "Recognized breed or regional type",
-      "typeBasis": "catalog",
+      "sizeBand": "medium",
+      "typeLabel": "Scent hounds",
+      "typeBasis": "editorial",
       "originRegions": [
         "Norway"
       ],
-      "historicalRoots": "",
-      "editorialFamilies": [],
+      "historicalRoots": "Norwegian hare-hound developed from local lines by Hans Fredrik Hygen from the 1830s.",
+      "editorialFamilies": [
+        "scent hound",
+        "Norwegian hare-hunting heritage"
+      ],
       "registryGroups": [],
       "sourceIds": [
         "vbo-2026-04-15",
-        "wikidata-dog-breeds-2026-09-21"
+        "wikidata-dog-breeds-2026-09-21",
+        "stackrank-editorial-review-2026-09-24",
+        "breed-profile-vbo-0200687-1"
       ],
-      "reviewStatus": "source-reviewed"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0200688": {
       "summary": "Keenly alert to sound, scent, and movement, Ibizan Hounds hunt rabbits across the Balearic Islands with more than sight alone. When one dog finds quarry, others can join the search, turning pursuit into coordinated work over rocky ground and dense cover. That sensory range and cooperation make their island hunting tradition distinctive.",
@@ -20062,22 +20244,27 @@
       "reviewStatus": "source-reviewed"
     },
     "VBO:0201010": {
-      "summary": "Petit Bleu de Gascogne is a dog breed or regional type associated with France.",
+      "summary": "Petit Bleu de Gascogne hounds are calm and affectionate, yet intent when working a scent. They cooperate well in a pack and are known for a fine nose and a beautiful voice; hare is a favored quarry, though the standard also records big-game work. The breed came from a deliberate reduction in size of the Grand Bleu de Gascogne, shaped by hunting needs in France.",
+      "shortDescription": "Calm and affectionate, this French pack hound follows hare with a fine nose and distinctive voice.",
       "interestingFact": "",
-      "sizeBand": "unknown",
+      "sizeBand": "medium",
       "typeLabel": "Recognized breed or regional type",
       "typeBasis": "catalog",
       "originRegions": [
         "France"
       ],
-      "historicalRoots": "",
-      "editorialFamilies": [],
+      "historicalRoots": "French Gascony scent hound selected in a smaller size",
+      "editorialFamilies": [
+        "French scent hound"
+      ],
       "registryGroups": [],
       "sourceIds": [
         "vbo-2026-04-15",
-        "wikidata-dog-breeds-2026-09-21"
+        "wikidata-dog-breeds-2026-09-21",
+        "stackrank-editorial-review-2026-09-24",
+        "breed-profile-vbo-0201010-1"
       ],
-      "reviewStatus": "source-reviewed"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0201011": {
       "summary": "Petit Brabançon is a variety of Brussels Griffon.",
@@ -21678,19 +21865,24 @@
       "reviewStatus": "generated"
     },
     "VBO:0201108": {
-      "summary": "Pumi, Grey In Various Shades is a variety of Pumi.",
+      "summary": "Pumis are lively, bold herders with an expressive, often vocal way of meeting the world. They developed in Hungary during the 17th and 18th centuries from older Puli stock and imported German and French terrier-type dogs. Herding larger livestock and dealing with rodents are both documented uses; the breed standard also describes a dog restless and ready for action.",
+      "shortDescription": "Lively and bold, this vocal Hungarian herder grew from Puli and terrier-type working stock.",
       "interestingFact": "",
-      "sizeBand": "unknown",
+      "sizeBand": "medium",
       "typeLabel": "Breed variety",
       "typeBasis": "catalog",
       "originRegions": [],
-      "historicalRoots": "",
-      "editorialFamilies": [],
+      "historicalRoots": "Hungarian terrier-type herding dog",
+      "editorialFamilies": [
+        "Hungarian herder"
+      ],
       "registryGroups": [],
       "sourceIds": [
-        "vbo-2026-04-15"
+        "vbo-2026-04-15",
+        "stackrank-editorial-review-2026-09-24",
+        "breed-profile-vbo-0201108-1"
       ],
-      "reviewStatus": "generated"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0201109": {
       "summary": "Cooperative group hunting is a documented skill of Pungsan Dogs in Korea’s northern mountains. A university account describes several dogs surrounding large quarry and using barking to hold it in place until a hunter arrives. That coordinated behavior gives the breed a distinctive working tradition in difficult mountain country.",
@@ -22295,37 +22487,50 @@
       "reviewStatus": "generated"
     },
     "VBO:0201148": {
-      "summary": "Russian Harlequin Hound is a dog breed or regional type.",
+      "summary": "Russian Harlequin Hounds have a balanced working temperament and were developed for hunts that used coordinated packs. Breeders combined Russian hounds with English foxhound blood, seeking endurance, a keen nose and the strong musical voice needed to follow game through forest.",
+      "shortDescription": "Balanced in temperament, this Russian pack hound was bred for endurance, scent and a musical voice.",
       "interestingFact": "",
-      "sizeBand": "unknown",
-      "typeLabel": "Recognized breed or regional type",
-      "typeBasis": "catalog",
+      "sizeBand": "large",
+      "typeLabel": "Scent hounds",
+      "typeBasis": "editorial",
       "originRegions": [],
-      "historicalRoots": "",
-      "editorialFamilies": [],
-      "registryGroups": [],
-      "sourceIds": [
-        "vbo-2026-04-15"
+      "historicalRoots": "Russian Pied/Anglo-Russian hound developed through Russian hound and English foxhound crosses.",
+      "editorialFamilies": [
+        "scent hound",
+        "Anglo-Russian hunting heritage"
       ],
-      "reviewStatus": "generated"
-    },
-    "VBO:0201149": {
-      "summary": "Russian Hound is a dog breed or regional type associated with Russia.",
-      "interestingFact": "",
-      "sizeBand": "unknown",
-      "typeLabel": "Recognized breed or regional type",
-      "typeBasis": "catalog",
-      "originRegions": [
-        "Russia"
-      ],
-      "historicalRoots": "",
-      "editorialFamilies": [],
       "registryGroups": [],
       "sourceIds": [
         "vbo-2026-04-15",
-        "wikidata-dog-breeds-2026-09-21"
+        "stackrank-editorial-review-2026-09-24",
+        "breed-profile-vbo-0201148-1",
+        "breed-profile-vbo-0201148-2"
       ],
-      "reviewStatus": "source-reviewed"
+      "reviewStatus": "editor-reviewed"
+    },
+    "VBO:0201149": {
+      "summary": "Russian Hounds tend to be calm and balanced between hunts, yet are valued for endurance once on a trail. Traditionally they followed hare or fox alone, in a pair or with a pack; hunters prized their far-carrying, musical voice, which shifts tone as the chase unfolds.",
+      "shortDescription": "Calm off the trail and enduring on it, the Russian Hound has a far-carrying musical hunting voice.",
+      "interestingFact": "",
+      "sizeBand": "large",
+      "typeLabel": "Scent hounds",
+      "typeBasis": "editorial",
+      "originRegions": [
+        "Russia"
+      ],
+      "historicalRoots": "Long Russian scent-hound tradition for hare, fox and other game.",
+      "editorialFamilies": [
+        "scent hound",
+        "Russian hunting heritage"
+      ],
+      "registryGroups": [],
+      "sourceIds": [
+        "vbo-2026-04-15",
+        "wikidata-dog-breeds-2026-09-21",
+        "stackrank-editorial-review-2026-09-24",
+        "breed-profile-vbo-0201149-1"
+      ],
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0201150": {
       "summary": "Russian Spaniels tend to be friendly with people, energetic in the field and responsive to a handler. Developed for bird hunting, they search cover, flush game and retrieve it across varied terrain; their work calls for close cooperation as well as the stamina to keep moving.",
@@ -22447,20 +22652,26 @@
       "reviewStatus": "editor-reviewed"
     },
     "VBO:0201156": {
-      "summary": "Ryukyu Inu is a dog breed or regional type.",
+      "summary": "Ryukyu dogs can be quiet and responsive with their own people while remaining territorial, agile and keen on scent. Native to Okinawa, they were the focus of a preservation society founded by Yoshio Arakaki, who worked to sustain this distinct island breed.",
+      "shortDescription": "Quiet with its own people but territorial and agile, this Okinawan dog is keen on scent.",
       "interestingFact": "",
-      "sizeBand": "unknown",
+      "sizeBand": "medium",
       "typeLabel": "Recognized breed or regional type",
       "typeBasis": "catalog",
       "originRegions": [],
-      "historicalRoots": "",
-      "editorialFamilies": [],
+      "historicalRoots": "Native Okinawan dog preserved through the Ryukyu Dog Preservation Society.",
+      "editorialFamilies": [
+        "island hunting dog",
+        "Okinawan native heritage"
+      ],
       "registryGroups": [],
       "sourceIds": [
         "vbo-2026-04-15",
-        "wikidata-dog-breeds-2026-09-21"
+        "wikidata-dog-breeds-2026-09-21",
+        "stackrank-editorial-review-2026-09-24",
+        "breed-profile-vbo-0201156-1"
       ],
-      "reviewStatus": "source-reviewed"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0201158": {
       "summary": "Saarloos Wolfhonden are lively, independent dogs whose devotion to familiar people can sit beside reserve with strangers and a preference to avoid unfamiliar situations. Leendert Saarloos developed the breed from a German Shepherd–wolf cross; although he sought a working dog, the resulting breed became known for its own distinct character.",
@@ -22645,22 +22856,28 @@
       "reviewStatus": "editor-reviewed"
     },
     "VBO:0201168": {
-      "summary": "Saint-Usuge Spaniel is a dog breed or regional type associated with France.",
+      "summary": "Saint-Usuge Spaniels are gentle and affectionate dogs that tend to stay close to their people. In the Bresse woodlands and marshes, they search close to a handler and may retrace their steps to check a scent; they are especially associated with woodcock.",
+      "shortDescription": "Gentle and close-working, this Bresse pointing spaniel checks scent carefully in woodcock country.",
       "interestingFact": "",
-      "sizeBand": "unknown",
+      "sizeBand": "medium",
       "typeLabel": "Recognized breed or regional type",
       "typeBasis": "catalog",
       "originRegions": [
         "France"
       ],
-      "historicalRoots": "",
-      "editorialFamilies": [],
+      "historicalRoots": "Bresse woodland-and-marsh pointing spaniel preserved after World War II by Abbé Robert Billard.",
+      "editorialFamilies": [
+        "pointing spaniel",
+        "Bresse hunting heritage"
+      ],
       "registryGroups": [],
       "sourceIds": [
         "vbo-2026-04-15",
-        "wikidata-dog-breeds-2026-09-21"
+        "wikidata-dog-breeds-2026-09-21",
+        "stackrank-editorial-review-2026-09-24",
+        "breed-profile-vbo-0201168-1"
       ],
-      "reviewStatus": "source-reviewed"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0201169": {
       "summary": "Sakhalin Husky is a dog breed or regional type.",
@@ -22730,19 +22947,24 @@
       "reviewStatus": "editor-reviewed"
     },
     "VBO:0201172": {
-      "summary": "Saluki, Fringed is a variety of Saluki.",
+      "summary": "Fringed Salukis pair a dignified, independent manner with a long history of coursing across the Middle East. In Arab tradition they were valued rather than traded, and a Saluki presented to someone was a mark of honour. Dogs from many regions and terrains reached Europe this way; the first British standard in 1923 was written broadly enough to embrace those varied types.",
+      "shortDescription": "Dignified and independent, this fringed Saluki carries a long coursing history and silky feathering.",
       "interestingFact": "",
-      "sizeBand": "unknown",
+      "sizeBand": "large",
       "typeLabel": "Breed variety",
       "typeBasis": "catalog",
       "originRegions": [],
-      "historicalRoots": "",
-      "editorialFamilies": [],
+      "historicalRoots": "Middle Eastern coursing hound",
+      "editorialFamilies": [
+        "Middle Eastern sighthound"
+      ],
       "registryGroups": [],
       "sourceIds": [
-        "vbo-2026-04-15"
+        "vbo-2026-04-15",
+        "stackrank-editorial-review-2026-09-24",
+        "breed-profile-vbo-0201172-1"
       ],
-      "reviewStatus": "generated"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0201173": {
       "summary": "Saluki, Smooth is a variety of Saluki.",
@@ -23006,19 +23228,24 @@
       "reviewStatus": "generated"
     },
     "VBO:0201188": {
-      "summary": "Schnauzer, Pure Black With Black Undercoat is a variety of Schnauzer.",
+      "summary": "Standard Schnauzers are playful, alert and devoted, yet the breed standard also describes a composed side. In southern Germany they worked around stables, where their quick response to rodents earned them the name “Rattler.” Keen senses and trainability later supported their place as watch and companion dogs.",
+      "shortDescription": "Playful, alert and devoted, this German stable dog once earned the nickname “Rattler.”",
       "interestingFact": "",
-      "sizeBand": "unknown",
+      "sizeBand": "medium",
       "typeLabel": "Breed variety",
       "typeBasis": "catalog",
       "originRegions": [],
-      "historicalRoots": "",
-      "editorialFamilies": [],
+      "historicalRoots": "Southern German stable dog and ratter",
+      "editorialFamilies": [
+        "German schnauzer"
+      ],
       "registryGroups": [],
       "sourceIds": [
-        "vbo-2026-04-15"
+        "vbo-2026-04-15",
+        "stackrank-editorial-review-2026-09-24",
+        "breed-profile-vbo-0201188-1"
       ],
-      "reviewStatus": "generated"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0201189": {
       "summary": "Schnauzer, Standard is a variety of Schnauzer associated with Germany.",
@@ -24890,19 +25117,25 @@
       "reviewStatus": "editor-reviewed"
     },
     "VBO:0201317": {
-      "summary": "Swedish White Elkhound is a dog breed or regional type.",
+      "summary": "Swedish White Elkhounds give a calm but alert impression, with energy and endurance behind a strong hunting drive. This Swedish hunting spitz developed from the gray Norwegian Elkhound and Jämthund lines, then gained Swedish Kennel Club recognition in 1993 as a distinct breed.",
+      "shortDescription": "Calm-looking yet alert and energetic, this Swedish hunting spitz has a strong drive for game.",
       "interestingFact": "",
-      "sizeBand": "unknown",
+      "sizeBand": "medium",
       "typeLabel": "Recognized breed or regional type",
       "typeBasis": "catalog",
       "originRegions": [],
-      "historicalRoots": "",
-      "editorialFamilies": [],
+      "historicalRoots": "Swedish hunting spitz derived from gray Norwegian Elkhound and Jämthund lines; recognized in 1993.",
+      "editorialFamilies": [
+        "hunting spitz",
+        "Swedish forest heritage"
+      ],
       "registryGroups": [],
       "sourceIds": [
-        "vbo-2026-04-15"
+        "vbo-2026-04-15",
+        "stackrank-editorial-review-2026-09-24",
+        "breed-profile-vbo-0201317-1"
       ],
-      "reviewStatus": "generated"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0201318": {
       "summary": "Swiss Hound is a dog breed or regional type associated with Switzerland.",
@@ -24923,64 +25156,88 @@
       "reviewStatus": "source-reviewed"
     },
     "VBO:0201319": {
-      "summary": "Swiss Hound, Bernese Hound is a variety of Swiss Hound.",
+      "summary": "Bernese Hounds are lively and passionately keen on hunting, yet sensitive and strongly attached to their handler. They follow hare, fox or roe deer independently while giving voice, and they search difficult ground with determination.",
+      "shortDescription": "Lively and attached to its handler, this Bernese Hound follows scent independently and gives voice.",
       "interestingFact": "",
-      "sizeBand": "unknown",
-      "typeLabel": "Breed variety",
-      "typeBasis": "catalog",
+      "sizeBand": "medium",
+      "typeLabel": "Scent hounds",
+      "typeBasis": "editorial",
       "originRegions": [],
-      "historicalRoots": "",
-      "editorialFamilies": [],
+      "historicalRoots": "Bernese variety of the Swiss Hound, with deep Swiss hunting roots.",
+      "editorialFamilies": [
+        "scent hound",
+        "Swiss hunting heritage"
+      ],
       "registryGroups": [],
       "sourceIds": [
-        "vbo-2026-04-15"
+        "vbo-2026-04-15",
+        "stackrank-editorial-review-2026-09-24",
+        "breed-profile-vbo-0201319-1"
       ],
-      "reviewStatus": "generated"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0201320": {
-      "summary": "Swiss Hound, Jura Hound is a variety of Swiss Hound.",
+      "summary": "The Jura Hound is a keen, determined scent worker that can follow a trail independently and give voice as it goes. Like the other Swiss Hounds, it is also sensitive, docile and closely attached to its handler. Its tan-and-black coat marks the Jura variety of a breed long prized for hunting hare across difficult ground.",
+      "shortDescription": "Determined on difficult scent trails, this tan-and-black Swiss hound keeps a close handler bond.",
       "interestingFact": "",
-      "sizeBand": "unknown",
+      "sizeBand": "medium",
       "typeLabel": "Breed variety",
       "typeBasis": "catalog",
       "originRegions": [],
-      "historicalRoots": "",
-      "editorialFamilies": [],
+      "historicalRoots": "Tan-and-black Jura variety of the Swiss Hound, used for hare and other quarry.",
+      "editorialFamilies": [
+        "Swiss scent hound",
+        "Jura variety"
+      ],
       "registryGroups": [],
       "sourceIds": [
-        "vbo-2026-04-15"
+        "vbo-2026-04-15",
+        "stackrank-editorial-review-2026-09-24",
+        "breed-profile-vbo-0201320-1"
       ],
-      "reviewStatus": "generated"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0201321": {
-      "summary": "Swiss Hound, Lucerne Hound is a variety of Swiss Hound.",
+      "summary": "Lucerne Hounds are lively and passionate about following scent, but sensitive and attached to their handlers. They can search independently with voice over difficult ground for hare and other quarry. Their blue-speckled coat with black patches and tan points sets this Swiss Hound variety apart within the shared working breed.",
+      "shortDescription": "Lively and handler-attached, this blue-speckled Swiss hound follows difficult trails with voice.",
       "interestingFact": "",
-      "sizeBand": "unknown",
+      "sizeBand": "medium",
       "typeLabel": "Breed variety",
       "typeBasis": "catalog",
       "originRegions": [],
-      "historicalRoots": "",
-      "editorialFamilies": [],
+      "historicalRoots": "Blue-speckled Lucerne variety of the Swiss Hound, sharing its independent scent-hunting role.",
+      "editorialFamilies": [
+        "Swiss scent hound",
+        "Lucerne variety"
+      ],
       "registryGroups": [],
       "sourceIds": [
-        "vbo-2026-04-15"
+        "vbo-2026-04-15",
+        "stackrank-editorial-review-2026-09-24",
+        "breed-profile-vbo-0201321-1"
       ],
-      "reviewStatus": "generated"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0201322": {
-      "summary": "Swiss Hound, Schwyz Hound is a variety of Swiss Hound.",
+      "summary": "Schwyz Hounds share the Swiss Hound's lively interest in scent, sensitivity and attachment to their handlers. They hunt independently and give voice while searching difficult terrain. White with orange patches or an orange saddle, the Schwyz is one of four varieties brought under a single Swiss Hound standard in 1933.",
+      "shortDescription": "Lively on scent yet sensitive with its handler, this orange-and-white Swiss hound hunts independently.",
       "interestingFact": "",
-      "sizeBand": "unknown",
+      "sizeBand": "medium",
       "typeLabel": "Breed variety",
       "typeBasis": "catalog",
       "originRegions": [],
-      "historicalRoots": "",
-      "editorialFamilies": [],
+      "historicalRoots": "Orange-and-white Schwyz variety of the Swiss Hound, unified under one standard in 1933.",
+      "editorialFamilies": [
+        "Swiss scent hound",
+        "Schwyz variety"
+      ],
       "registryGroups": [],
       "sourceIds": [
-        "vbo-2026-04-15"
+        "vbo-2026-04-15",
+        "stackrank-editorial-review-2026-09-24",
+        "breed-profile-vbo-0201322-1"
       ],
-      "reviewStatus": "generated"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0201323": {
       "summary": "Swiss Mountain Dog is a dog breed or regional type.",
@@ -26159,19 +26416,24 @@
       "reviewStatus": "editor-reviewed"
     },
     "VBO:0201403": {
-      "summary": "Weimaraner, Short-Haired is a variety of Weimaraner.",
+      "summary": "Weimaraners are steady yet passionate hunting dogs, known for methodical searching and keen scenting. They were kept at the Weimar court by the early 1800s; professional hunters and gamekeepers then shaped the breed across central Germany. The shorthaired variety was established before the rarer longhaired form appeared around the turn of the 20th century.",
+      "shortDescription": "Steady yet keen on a scent, this shorthaired German pointer traces its story to the Weimar court.",
       "interestingFact": "",
-      "sizeBand": "unknown",
+      "sizeBand": "large",
       "typeLabel": "Breed variety",
       "typeBasis": "catalog",
       "originRegions": [],
-      "historicalRoots": "",
-      "editorialFamilies": [],
+      "historicalRoots": "German versatile pointing and hunting dog",
+      "editorialFamilies": [
+        "German pointing dog"
+      ],
       "registryGroups": [],
       "sourceIds": [
-        "vbo-2026-04-15"
+        "vbo-2026-04-15",
+        "stackrank-editorial-review-2026-09-24",
+        "breed-profile-vbo-0201403-1"
       ],
-      "reviewStatus": "generated"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0201404": {
       "summary": "Weimardoodle is a named crossbreed.",

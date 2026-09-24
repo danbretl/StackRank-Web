@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "manifestVersion": "dogs-generated-artwork-432-fbe6eb8447ed",
+  "manifestVersion": "dogs-generated-artwork-450-8d721af89af0",
   "policyVersion": "dogs-generated-artwork-2026-09-21.1",
   "disclosure": "AI-generated breed portrait, art-directed for StackRank. Individual dogs vary.",
   "assets": [
@@ -8573,6 +8573,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200588:v1",
+      "catalogId": "VBO:0200588",
+      "name": "German Spitz, Giant Spitz White",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "generatedAt": "2026-09-23T18:37:00.601114Z",
+      "masterSha256": "63d88caed0f2309a356a299d9d6b6e529f127d3c73f39f0c050e163a2bc3aff8",
+      "reference": {
+        "assetId": "dogs:photo:commons:7e3a32d37aa7cdbf",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Grosspitz_white.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "breedIdentity": "Substantial adult white Giant Spitz with wedge head, upright ears and full plumed curl.",
+        "anatomy": "Four coherent grounded paws and complete tail.",
+        "crop": "Roomy full-body composition.",
+        "aesthetics": "River meadow and alders with soft natural light."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 18594,
+          "sha256": "f2bbe22dc0f74e39b0a66e4b86a48b40ef6c0a8252fc4539d49f1b7de4e8030c",
+          "url": "assets/dogs/generated/VBO-0200588-attempt01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 119770,
+          "sha256": "27c0715ef290c90a382f1e3005b17489baa17fe4d294526c21def642440be288",
+          "url": "assets/dogs/generated/VBO-0200588-attempt01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200602:v1",
       "catalogId": "VBO:0200602",
       "name": "German Wirehaired Pointer",
@@ -9203,6 +9248,96 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200651:v1",
+      "catalogId": "VBO:0200651",
+      "name": "Halden Hound",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "generatedAt": "2026-09-23T18:48:02.001135Z",
+      "masterSha256": "e20e9ca3c69c5c6fc65e98fa63e396ef010395440d943aaa8837fdb9d18d49f9",
+      "reference": {
+        "assetId": "dogs:photo:commons:86ee6dd200f1ec2f",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Haldeninajokoira1.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "breedIdentity": "White-black patched adult Halden Hound with tan head and correct drop ears.",
+        "anatomy": "Four coherent grounded paws and complete low tail.",
+        "crop": "Generous body clearance, approximately 210px above and 150px below.",
+        "aesthetics": "Soft autumn Norwegian woodland and lake, restrained natural finish."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 27822,
+          "sha256": "6c6fbcdd812d02a930f6a3d2e3a1c681ab68e23fc09cbf6189698d6183c2527c",
+          "url": "assets/dogs/generated/VBO-0200651-h02-a-a1-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 168062,
+          "sha256": "a12e59ffe43150f6be150b223510ffcb189b6d415c52f9014182e7522f22ae1b",
+          "url": "assets/dogs/generated/VBO-0200651-h02-a-a1-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200652:v1",
+      "catalogId": "VBO:0200652",
+      "name": "Hällefors Elkhound",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "generatedAt": "2026-09-23T18:45:36.949618Z",
+      "masterSha256": "3c7299bbc9c27c0df454a4b8d2fb91ff0e0c4639284bca3cbee0bc0f6457848d",
+      "reference": {
+        "assetId": "dogs:photo:commons:be07e2bba50f8050",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Hades_Mosshult_Hälleforsare.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "breedIdentity": "Robust adult fawn-yellow Hällefors spitz, dark muzzle, upright ears.",
+        "anatomy": "Four coherent paws and full curled tail.",
+        "crop": "Comfortable approximately 150px top and 125px bottom clearance.",
+        "aesthetics": "Believable Swedish forest-lake setting and textured natural coat."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 28718,
+          "sha256": "b2cff5767ef91311f4833587dd293086998bbd87f07500f41668d2f01df5ace9",
+          "url": "assets/dogs/generated/VBO-0200652-h02-a-a2-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 200436,
+          "sha256": "3e487e5676f23c0837f37ba4373ab54c3c2f403d64a215791beb48ed4b8b2fa1",
+          "url": "assets/dogs/generated/VBO-0200652-h02-a-a2-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200655:v1",
       "catalogId": "VBO:0200655",
       "name": "Hamiltonstovare",
@@ -9739,6 +9874,51 @@
           "bytes": 146556,
           "sha256": "aff44ec6171174cb6a95ba84ecf128ca2bfca1a0531244b58d8e9aa7a2b92385",
           "url": "assets/dogs/generated/VBO-0200683-huntaway-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200687:v1",
+      "catalogId": "VBO:0200687",
+      "name": "Hygenhund",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "generatedAt": "2026-09-23T18:39:08.916812Z",
+      "masterSha256": "68dde967dbc5013e7c69ce273f2b2c9d330d39d99e3148d26957ca382860bc37",
+      "reference": {
+        "assetId": "dogs:photo:commons:a32272b3062867d8",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Norwegian_Hygenhound.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "breedIdentity": "Red-white adult Hygenhound with breed-typical drop ears and proportions.",
+        "anatomy": "Four coherent grounded paws and full low tail.",
+        "crop": "Very generous margins above and below.",
+        "aesthetics": "Summer birch and Norwegian lake create a specific soft natural scene."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 26986,
+          "sha256": "b357c294b301aaf6a47cf5f588a998530da5beb2f8fbdfbb9b2a35c5a01ef5eb",
+          "url": "assets/dogs/generated/VBO-0200687-h02-a-a1-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 182394,
+          "sha256": "3bf4c22e7d2880a10f4a540a4aa88e311553673a1481b1b63c7d80ad4d256581",
+          "url": "assets/dogs/generated/VBO-0200687-h02-a-a1-960.webp"
         }
       ]
     },
@@ -14108,6 +14288,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0201010:v1",
+      "catalogId": "VBO:0201010",
+      "name": "Petit Bleu de Gascogne",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "generatedAt": "2026-09-23T18:46:50.937221Z",
+      "masterSha256": "e8c3b639606ba0108e462d5ae99ca5be277402072395ca8bc83389b18717e62c",
+      "reference": {
+        "assetId": "dogs:photo:commons:8e62419b94f557c4",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Petitbleu3.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "breedIdentity": "Compact medium adult Petit Bleu, blue-black mottling, tan points, long rolled fine ears.",
+        "anatomy": "Four coherent paws and complete hock-length tail.",
+        "crop": "Comfortable approximately 150px top and 70px bottom clearance.",
+        "aesthetics": "Gascony oak path and misty background; distinct pose, head angle and leg placement from source."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 25312,
+          "sha256": "59fa1777e6e1d7466b42d6e85d2a5c2ffc722704f9feecaf83ba82257291d5fe",
+          "url": "assets/dogs/generated/VBO-0201010-attempt01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 158628,
+          "sha256": "49075527e5351108b3c47ff8030e5a488d9fb09ea0ec8904f511420c71379395",
+          "url": "assets/dogs/generated/VBO-0201010-attempt01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0201016:v1",
       "catalogId": "VBO:0201016",
       "name": "Pharaoh Hound",
@@ -15368,6 +15593,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0201108:v1",
+      "catalogId": "VBO:0201108",
+      "name": "Pumi, Grey In Various Shades",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "generatedAt": "2026-09-23T18:41:41.410947Z",
+      "masterSha256": "0f6227cd37c139ad0b9a1301d2d7ba1bd861eeedf5aecef0c52b66f1fbc49fc0",
+      "reference": {
+        "assetId": "dogs:photo:commons:5c4d765b4938ece7",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Pumi_grey.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "breedIdentity": "Adult grey Pumi, wavy-curly coat and correct half-pricked forward ear tips.",
+        "anatomy": "Four coherent paws and full high ring tail.",
+        "crop": "Comfortable approximately 70px top and 100px bottom clearance.",
+        "aesthetics": "Hungarian pasture and wood fence, natural fur and soft light."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 22440,
+          "sha256": "e9cdcbe3e9e12964abb8258844235bc0f06054854d56c7833859205a84fcb5dc",
+          "url": "assets/dogs/generated/VBO-0201108-attempt01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 143666,
+          "sha256": "584b88d266eac5fa6f8825c8c914b871a749bd0930f05aaa9522432b4082c032",
+          "url": "assets/dogs/generated/VBO-0201108-attempt01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0201109:v1",
       "catalogId": "VBO:0201109",
       "name": "Pungsan Dog",
@@ -15998,6 +16268,96 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0201148:v1",
+      "catalogId": "VBO:0201148",
+      "name": "Russian Harlequin Hound",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "generatedAt": "2026-09-23T18:47:58.103+00:00",
+      "masterSha256": "d9ed7b10cf5f73415cc4da684f11cc71f3cac4d0792a22b1b5705e2885655792",
+      "reference": {
+        "assetId": "dogs:photo:commons:0c1a1c8c6f56ba45",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Englantilais-ven%C3%A4l%C3%A4inenajokoira.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "breedIdentity": "White-ground black-and-tan adult Russian Harlequin Hound, distinct from plain Russian Hound.",
+        "anatomy": "Four coherent paws and full tail; ventral contour is plausible male sheath, not an extra limb.",
+        "crop": "Roomy full-body composition.",
+        "aesthetics": "Birch track with natural ground contact and soft light."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 27992,
+          "sha256": "83802732edcac28f4fc7c79e84a9cbf6ccedaf45cf15df00bebeebf42544f8e5",
+          "url": "assets/dogs/generated/h02-b-0201148-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 148702,
+          "sha256": "36f8742b86c39ac4fe05f1c1738e98b7a32f76e54cd78b57fc33b42d80ff1f97",
+          "url": "assets/dogs/generated/h02-b-0201148-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201149:v1",
+      "catalogId": "VBO:0201149",
+      "name": "Russian Hound",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "generatedAt": "2026-09-23T18:42:28.121+00:00",
+      "masterSha256": "b233edd5cc037aa7a8c4170ff1cf5f8d02dd657bf2bd8289fc9a73bf9bdd4748",
+      "reference": {
+        "assetId": "dogs:photo:commons:d302b71c7a8a311f",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:6gRG.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "breedIdentity": "Sturdy adult fawn-saddled Russian Hound, correctly distinct from Harlequin identity.",
+        "anatomy": "Coherent drop ears, four grounded paws and full low tail.",
+        "crop": "Comfortable approximately 140px top and 145px bottom clearance.",
+        "aesthetics": "Autumn birch-pine scene with believable adult stance."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 29356,
+          "sha256": "5ced3fdf4cebe9dd609c35a785e126ab2604123174465b1fa220ab564f6a28b6",
+          "url": "assets/dogs/generated/h02-b-0201149-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 187634,
+          "sha256": "5306335e5445842ccb51b8e3bffa0d558b28ca722616958608f01eea51b876d8",
+          "url": "assets/dogs/generated/h02-b-0201149-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0201150:v1",
       "catalogId": "VBO:0201150",
       "name": "Russian Spaniel",
@@ -16129,6 +16489,51 @@
           "bytes": 194518,
           "sha256": "15518d0961ecc0a8fde07beb06c1102b6e6082956c35cafb6179890f7d92823b",
           "url": "assets/dogs/generated/VBO-0201155-g01-a-a1-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201156:v1",
+      "catalogId": "VBO:0201156",
+      "name": "Ryukyu Inu",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "generatedAt": "2026-09-23T18:46:21.153+00:00",
+      "masterSha256": "8680759db8b62a47f4a3dc7a32b527ec5ae17051408ed82657bace27a332421e",
+      "reference": {
+        "assetId": "dogs:photo:commons:f1eaa3564f21f9e8",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Ryukyu_dog_pair.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "breedIdentity": "Light athletic adult brindle Ryukyu dog with upright ears and curled tail.",
+        "anatomy": "Four coherent grounded paws and full tail.",
+        "crop": "Comfortable approximately 180px top and 130px bottom clearance.",
+        "aesthetics": "Okinawan coastal rock and scrub, natural restrained palette."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 30182,
+          "sha256": "e25ad15844fe85e3667023556095c055c1f11f5a6e653de91d943d58d134eaa9",
+          "url": "assets/dogs/generated/h02-b-0201156-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 182328,
+          "sha256": "2744ab4570b78f55b61ecebb607bdf88a3a3a11806c7ef039e838ee145f6e155",
+          "url": "assets/dogs/generated/h02-b-0201156-01-960.webp"
         }
       ]
     },
@@ -16268,6 +16673,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0201168:v1",
+      "catalogId": "VBO:0201168",
+      "name": "Saint-Usuge Spaniel",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "generatedAt": "2026-09-23T18:43:28.228+00:00",
+      "masterSha256": "55ad2868f3cf1785c224afb0c431329365239e8dea738bcaaed41fb1842b7341",
+      "reference": {
+        "assetId": "dogs:photo:commons:988773d9d7275f1b",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Stusuge2.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "breedIdentity": "Brown-roan adult Saint-Usuge pointing spaniel with long feathered ears.",
+        "anatomy": "Four coherent paws and long complete natural tail.",
+        "crop": "Comfortable approximately 130px top and 70px bottom clearance.",
+        "aesthetics": "Specific Bresse marsh woodland, convincing coat and soft light."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 26924,
+          "sha256": "bb09508ba4f7c39d9dafb9e4ca5704448e56d970da906353f5fac1af193e2f95",
+          "url": "assets/dogs/generated/h02-b-0201168-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 161198,
+          "sha256": "db83b4ba9b2303289b0be280f3bb3c62bdc73d507c80827340175bcf1aab02db",
+          "url": "assets/dogs/generated/h02-b-0201168-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0201171:v1",
       "catalogId": "VBO:0201171",
       "name": "Saluki",
@@ -16309,6 +16759,51 @@
           "bytes": 96594,
           "sha256": "041cad2655d09227ca2d0dec08a4499aaa691fca0516ac2adceb461c44fdb9b5",
           "url": "assets/dogs/generated/VBO-0201171-saluki-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201172:v1",
+      "catalogId": "VBO:0201172",
+      "name": "Saluki, Fringed",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "generatedAt": "2026-09-23T18:32:59.004017Z",
+      "masterSha256": "159e1cb3a80d474147e72b5b3fcf59c4bdf5cdc2e906d878a05f3b29b1418323",
+      "reference": {
+        "assetId": "dogs:photo:commons:4f30ef2d1243d292",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Saluki_Fringed.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "breedIdentity": "Graceful adult grizzle fringed Saluki with correct feathering.",
+        "anatomy": "Four coherent paws with plausible minor overlap and complete low feathered tail.",
+        "crop": "Comfortable approximately 85px top and 110px bottom clearance.",
+        "aesthetics": "Middle Eastern plateau at evening, elegant natural field-guide finish."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 18734,
+          "sha256": "92e4cede09c25b8113930763f972e1d5d7fdceb7270aa3ab705d697747301231",
+          "url": "assets/dogs/generated/VBO-0201172-attempt01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 113230,
+          "sha256": "ce0603dfa679b8e947b476b1e138ac8fcdcde35914c14ad51303bf26717a7b55",
+          "url": "assets/dogs/generated/VBO-0201172-attempt01-960.webp"
         }
       ]
     },
@@ -16534,6 +17029,51 @@
           "bytes": 201658,
           "sha256": "8102acd14c8ba3ffbe8f99ab20a7457ca638648433f1f807fae396a1e0f57316",
           "url": "assets/dogs/generated/VBO-0201185-schnauzer-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201188:v1",
+      "catalogId": "VBO:0201188",
+      "name": "Schnauzer, Pure Black With Black Undercoat",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "generatedAt": "2026-09-23T18:35:05.809444Z",
+      "masterSha256": "9e90dbe4365999dfa4e833b8030e68c8e547524b14d9592b9239d9a716f34148",
+      "reference": {
+        "assetId": "dogs:photo:commons:85f1ae1e9c133132",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:BlkStdSchnauzer1.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "breedIdentity": "Sturdy medium adult black Standard Schnauzer, wiry coat, beard and natural ears.",
+        "anatomy": "Four coherent paws and complete natural curled tail.",
+        "crop": "Comfortable approximately 100px clearance above and below.",
+        "aesthetics": "Grass, wildflowers and trees with a stable at one side; documented stable work supports scene, no artificial staging."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 25140,
+          "sha256": "5880b38ad862369f6d8559ca460ddf9739b100a7a7009564c226c407f1ad85e5",
+          "url": "assets/dogs/generated/VBO-0201188-attempt01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 159986,
+          "sha256": "a7e00a9d21a341ec020f1c7d176a7e8750a8fd8eb590256623ceea797e1b2a37",
+          "url": "assets/dogs/generated/VBO-0201188-attempt01-960.webp"
         }
       ]
     },
@@ -17843,6 +18383,231 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0201317:v1",
+      "catalogId": "VBO:0201317",
+      "name": "Swedish White Elkhound",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "generatedAt": "2026-09-23T18:44:39.456+00:00",
+      "masterSha256": "7238438ab667f5235b8797b75b28cdd791cf0a35f6bf1c9f97104da599217473",
+      "reference": {
+        "assetId": "dogs:photo:commons:d60e25a3432226b7",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Swedish_White_Elkhound.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "breedIdentity": "Cream-white adult Swedish White Elkhound, strong hunting-spitz build and pointed ears.",
+        "anatomy": "Four coherent paws and complete bushy low tail matching reference morphology.",
+        "crop": "Spacious full-body composition.",
+        "aesthetics": "Snow-dusted forest gives a distinct cool seasonal setting."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 26448,
+          "sha256": "8b531875d713b74d745610c8507ac05d888fa42208a2ee83212837875ef2bff8",
+          "url": "assets/dogs/generated/h02-b-0201317-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 151618,
+          "sha256": "952aac1bdf2ee13d044b2ce195979fb8964c211c453eeb25a41c323b7e04bb50",
+          "url": "assets/dogs/generated/h02-b-0201317-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201319:v1",
+      "catalogId": "VBO:0201319",
+      "name": "Swiss Hound, Bernese Hound",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "generatedAt": "2026-09-23T18:50:03.718+00:00",
+      "masterSha256": "4dd3fb921655f509b9a32547eaa9f54da3c41a858a13154835f52482a75d9a56",
+      "reference": {
+        "assetId": "dogs:photo:commons:6f712a58f6d643f6",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Go%C5%84czy_059.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "breedIdentity": "Lean adult Bernese Hound, white-black blanket and tan points with very long dark ears.",
+        "anatomy": "Four coherent grounded paws and complete tail.",
+        "crop": "Comfortable approximately 160px top and 75px bottom clearance.",
+        "aesthetics": "Swiss meadow and mountain landscape, natural coat and lighting."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 25942,
+          "sha256": "01b4592c5bef564ea6f7fa14caa200008fab0c680e743f4cdc604c71c11d9a17",
+          "url": "assets/dogs/generated/h02-b-0201319-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 158824,
+          "sha256": "b41dea0c36eb2585f1b5011cda47e4616d82cefdf4299c6d7e4e373192cedc52",
+          "url": "assets/dogs/generated/h02-b-0201319-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201320:v1",
+      "catalogId": "VBO:0201320",
+      "name": "Swiss Hound, Jura Hound",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "generatedAt": "2026-09-23T18:55:52.820971Z",
+      "masterSha256": "f8f809f2795a730eb15385a0a2126e250d9a8ad1dc0b3e100b3f21c99f8a0b3d",
+      "reference": {
+        "assetId": "dogs:photo:commons:9aebc6666a960705",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:09057110_Jura_Laufhund.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "breedIdentity": "Tan adult Jura Hound with black mantle and long low ears.",
+        "anatomy": "Four coherent paws, full gently curved low tail.",
+        "crop": "Ample approximately 210px top and 170px bottom clearance.",
+        "aesthetics": "Distinctive limestone and beech trail with restrained color."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 33604,
+          "sha256": "d8f092a81ce7eae80da602ec1276f3a976d68495c47d4f41d5e2a0cf05a77fcd",
+          "url": "assets/dogs/generated/VBO-0201320-h02-a-a1-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 221578,
+          "sha256": "ac0b4b532e29a24b007bf6c0e90878a197e875f46916cb487d004d58b2b565d7",
+          "url": "assets/dogs/generated/VBO-0201320-h02-a-a1-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201321:v1",
+      "catalogId": "VBO:0201321",
+      "name": "Swiss Hound, Lucerne Hound",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "generatedAt": "2026-09-23T19:01:02.753684Z",
+      "masterSha256": "9a222bde72a3bc4c4b6f9eaef981961cf7314ec37459f7fb936a2d84e7d95c8e",
+      "reference": {
+        "assetId": "dogs:photo:commons:3ceeb0babfde4c2f",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Lucernenak1.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "breedIdentity": "Blue-speckled adult Lucerne Hound, black patches, tan points, very long low ears.",
+        "anatomy": "Four coherent grounded paws and complete tail.",
+        "crop": "Comfortable approximately 180px top and 100px bottom clearance.",
+        "aesthetics": "Swiss lakeside grass path, soft natural light and believable coat."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 20344,
+          "sha256": "5f7572f4740b87ca14be10a3c1c0b0c70409d7a523cacdd71c5cc14ec8273f89",
+          "url": "assets/dogs/generated/VBO-0201321-h02-a-a1-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 135958,
+          "sha256": "4b81bb4a2cd80e1e667ee82c2be2b82e938221de90330ca7139c331bdea87b07",
+          "url": "assets/dogs/generated/VBO-0201321-h02-a-a1-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201322:v1",
+      "catalogId": "VBO:0201322",
+      "name": "Swiss Hound, Schwyz Hound",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "generatedAt": "2026-09-23T18:52:04.190388Z",
+      "masterSha256": "678b370d16d7df7de07d22b8e14a803914e83cf905c8c742f992932d1f8f4957",
+      "reference": {
+        "assetId": "dogs:photo:commons:01f4ec18f849c6d6",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Schwyz_Hound.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "breedIdentity": "Correct white-orange adult Schwyz hound, long fine folded ears and elegant build.",
+        "anatomy": "Four coherent grounded paws and full tapering tail.",
+        "crop": "Comfortable approximately 125px top and 145px bottom clearance.",
+        "aesthetics": "Swiss foothill meadow and lake, soft natural light."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 23932,
+          "sha256": "ac20a4725371e6a7448add772fa07004f38687845d471e6220cc188cd65f1d89",
+          "url": "assets/dogs/generated/VBO-0201322-h02-a-a1-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 148948,
+          "sha256": "e41772d230bb9dbcd931a3f91f7bdcb22e7d3b29882bae98003c6c2060d457e2",
+          "url": "assets/dogs/generated/VBO-0201322-h02-a-a1-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0201331:v1",
       "catalogId": "VBO:0201331",
       "name": "Taigan",
@@ -18694,6 +19459,51 @@
           "bytes": 131684,
           "sha256": "1ae1110992dbcceba54f3d2475281311accb4969c4e4ba803269b46dca27c901",
           "url": "assets/dogs/generated/VBO-0201402-f03-a-a1-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201403:v1",
+      "catalogId": "VBO:0201403",
+      "name": "Weimaraner, Short-Haired",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v5-cohort-h",
+      "generatedAt": "2026-09-23T18:39:10.615344Z",
+      "masterSha256": "2e1c841d57274ed12888af184d52040ef47a92cd4b04e9cc539ab53a4273e125",
+      "reference": {
+        "assetId": "dogs:photo:commons:387b70d7d68f185d",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Weimaranershort2.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-09-24",
+        "breedIdentity": "Silver-grey adult shorthaired Weimaraner, athletic body and long drop ears.",
+        "anatomy": "Four coherent paws and full natural low tail; small throat fold is anatomically plausible.",
+        "crop": "Roomy full-body composition.",
+        "aesthetics": "Beech woodland stream, restrained coat color and believable ground contact."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 28024,
+          "sha256": "d6c7bd398b65ef46ba5510079443158e5e78e4537312ada07e96a0a61786dea8",
+          "url": "assets/dogs/generated/VBO-0201403-attempt01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 162482,
+          "sha256": "d210cabbe0f984088bf7b63e7a56ad1e7a29365f6040b4e331af83d16aab2f7b",
+          "url": "assets/dogs/generated/VBO-0201403-attempt01-960.webp"
         }
       ]
     },

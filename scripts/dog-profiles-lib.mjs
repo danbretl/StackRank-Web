@@ -248,7 +248,7 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, ref
 
   return {
     schemaVersion: 1,
-    profileVersion: "dogs-field-guide-2026-09-23.6",
+    profileVersion: "dogs-field-guide-2026-09-23.7",
     sources: [
       { id: "vbo-2026-04-15", name: "Vertebrate Breed Ontology", url: catalog.source.artifactUrl, license: catalog.source.license, retrievedAt: `${catalog.source.retrievedAt}T00:00:00.000Z` },
       { id: "wikidata-dog-breeds-2026-09-21", name: "Wikidata structured dog-breed statements", url: wikidata.source.url, license: wikidata.source.license, retrievedAt: wikidata.retrievedAt },

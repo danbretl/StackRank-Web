@@ -1,6 +1,20 @@
 # StackRank Dogs implementation status
 
-## Current cohort I — completed September 23, 2026
+## Current cohort J — October 1, 2026
+
+**528 completed portrait/profile pairs are live out of 1,239 source identities (42.62%); 711 unfinished identities remain hidden.** Dan requested approximately250 additions from the freshly verified500 baseline. J01 published28 individually accepted native portraits and researched full/short descriptions in `5175c014`; Vercel `dpl_EiRTZpQypVs5RXvouhy6dobLnwLH` is READY. The continuation remains active toward750; preparation or attempts do not count as publications.
+
+J01 passed504 Node tests,24 Deno tests and41 Chrome flows,49 production checks and15 exact live byte comparisons. Primary inspected every full-resolution master, subpacket and release sheet, plus desktop/phone Rank, comparison, detail, authored short ranking copy and artwork-review rendering. Reconciliation preserves1050 protected baseline files and all500 previously published artwork/profile records and source links. Its29 built-in calls include one rejected black-and-tan King Charles output and one targeted retry; no failed call.
+
+The frozen250-primary/61-reserve selection and append-only Catahoula Bulldog activation remain intact. All27 earlier E/F/G/H holds are retained, with17 recordedJ source holds. Frozen preparation groups and explicit release membership are separate: excellent completed pairs may ship across preparation groups, while held slots retain their evidence. Three reused workers explicitly use `gpt-6.1-sol/high`, following Dan's model steering; primary runtime settings and underlying image model are undisclosed.
+
+Continue with `notes/testing/dogs-portrait-cohort-j.md`, `data/dogs/portrait-cohort-j.json` and ignored `reports/dogs-generated-artwork/cohort-j/checkpoint.json`. Additional accepted/prepared packets remain in staging; recheck their source/profile/native hashes and latest receipts rather than restarting research. Shared-IP Commons API rate limiting has been observed: stagger new acquisitions and use retained local source work, with no parallel retry bursts. Do not reuse rejected chains absent new qualifying evidence or claim bounded negative searches prove global absence.
+
+`data/dogs/regeneration-manifest-j01.json` inventories471 retained source/evidence paths as318 verified objects in a155,346,548-byte content-addressed archive. Originals, pinned File metadata/text/creator/license chains, primary claim snapshots, exact prompts, all native outputs including rejection, and independent reviews are retained. Two public citation labels were shortened after archive creation to satisfy the120-character source-name gate; their complete original titles and unchanged full/short prose remain archived, with explicit metadata amendments in the tracked manifest. Local ignored archives are **not verified off-machine backups**. Earlier regeneration audit limitations are preserved.
+
+All1,239 source records and saved hidden state remain intact. Artwork stays disclosed and allowed in normal Dogs UI only; snapshot artwork and raster export stay denied. Movies, Books, the root redirect, database/Storage and unrelated `logo-design-brief/` are preserved. Direct-main commits/pushes and normal Vercel deployments are authorized for this continuation; historical restrictions below are superseded within that scope.
+
+## Historical cohort I — completed September 23, 2026
 
 **500 completed portrait/profile pairs are live out of 1,239 source identities (40.36%); 739 unfinished identities remain hidden.** Cohort I added 50 individually reviewed portraits plus researched full and short descriptions. I01 product `e21b426b` published 475; documentation follow-up `ceb5b49c` recorded that milestone. I02 product `ad17a640` published 500 and Vercel deployment `dpl_Egmvv1bWBDmccAReEGTX6JiXKnv8` is READY.
 

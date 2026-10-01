@@ -625,3 +625,54 @@ test("country-specific reference licenses retain their jurisdiction and deny del
     }
   }
 });
+
+test("creator PD-self references require manual evidence and keep every delivery purpose denied", () => {
+  const url = "https://commons.wikimedia.org/wiki/Template:PD-self";
+  const license = resolveAllowedLicense(policy, { license: "Public domain", licenseUrl: url });
+  assert.equal(license?.id, "PD-SELF");
+  assert.equal(license?.version, "unversioned");
+  assert.equal(resolveAllowedLicense(policy, { license: "Public domain", licenseUrl: "" }), null);
+  assert.throws(() => buildCommonsLedgerCandidate({
+    catalogId: "VBO:0000661", hashes: { sha256, sha1, bytes: 1000 }, policy,
+    metadata: { sourceSha1: sha1, sourceBytes: 1000, sourceLicenseLabel: "Public domain", sourceLicenseUrl: url },
+  }), /separate human evidence review/);
+  const asset = approvedAsset({
+    licenseId: license.id, license: license.label, licenseVersion: license.version,
+    licenseUrl: url, sourceLicenseLabel: "Public domain", sourceLicenseUrl: url,
+    sourceAttributionRequired: false,
+    publicDomainBasis: "Original parent-zero upload declares own creator work and PD-self; exact original and current release checked manually.",
+    attribution: "Example dog — Example Photographer; Public domain (creator release); via Wikimedia Commons.",
+    uiDisplayAllowed: false, publicSnapshotAllowed: false, rasterExportAllowed: false,
+    modifications: ["none"], delivery: { status: "not_ready", variants: [] },
+  });
+  assert.deepEqual(validateArtworkLedger({ ledger: baseLedger([asset]), policy, catalog: null }).errors, []);
+  const missingBasis = { ...asset, publicDomainBasis: "" };
+  assert.ok(validateArtworkLedger({ ledger: baseLedger([missingBasis]), policy, catalog: null }).errors.some(error => error.includes("publicDomainBasis")));
+  for (const field of ["uiDisplayAllowed", "publicSnapshotAllowed", "rasterExportAllowed"]) {
+    assert.ok(validateArtworkLedger({ ledger: baseLedger([{ ...asset, [field]: true }]), policy, catalog: null }).errors.some(error => error.includes("private morphology only")), field);
+  }
+});
+
+test("KOGL Type 1 morphology references retain exact attribution and reject restricted types", () => {
+  const url = "https://www.kogl.or.kr/info/licenseType1.do";
+  const license = resolveAllowedLicense(policy, { license: "KOGL Type 1", licenseUrl: url });
+  assert.equal(license?.id, "KOGL-TYPE-1");
+  assert.equal(license?.requiresAttribution, true);
+  assert.equal(resolveAllowedLicense(policy, { license: "KOGL Type 2", licenseUrl: url }), null);
+  assert.equal(resolveAllowedLicense(policy, { license: "KOGL Type 1", licenseUrl: "https://www.kogl.or.kr/info/licenseType2.do" }), null);
+  assert.equal(resolveAllowedLicense(policy, { license: "CC BY 4.0", licenseUrl: url }), null);
+  const asset = approvedAsset({
+    licenseId: license.id, license: license.label, licenseVersion: license.version,
+    licenseUrl: url, sourceLicenseLabel: license.label, sourceLicenseUrl: "http://www.kogl.or.kr/info/licenseType1.do",
+    sourceAttributionRequired: true,
+    creator: "Example Public Institution",
+    attribution: "Example dog (2020) — Example Public Institution; KOGL Type 1; source item link; via Wikimedia Commons.",
+    uiDisplayAllowed: false, publicSnapshotAllowed: false, rasterExportAllowed: false,
+    modifications: ["none"], delivery: { status: "not_ready", variants: [] },
+  });
+  assert.deepEqual(validateArtworkLedger({ ledger: baseLedger([asset]), policy, catalog: null }).errors, []);
+  assert.ok(validateArtworkLedger({ ledger: baseLedger([{ ...asset, sourceAttributionRequired: false }]), policy, catalog: null }).errors.some(error => error.includes("attribution metadata")));
+  for (const field of ["uiDisplayAllowed", "publicSnapshotAllowed", "rasterExportAllowed"]) {
+    assert.ok(validateArtworkLedger({ ledger: baseLedger([{ ...asset, [field]: true }]), policy, catalog: null }).errors.some(error => error.includes("private morphology only")), field);
+  }
+});

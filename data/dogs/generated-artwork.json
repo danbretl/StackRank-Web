@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "manifestVersion": "dogs-generated-artwork-549-286fc7bbfa72",
+  "manifestVersion": "dogs-generated-artwork-560-98c581554759",
   "policyVersion": "dogs-generated-artwork-2026-09-21.1",
   "disclosure": "AI-generated breed portrait, art-directed for StackRank. Individual dogs vary.",
   "assets": [
@@ -185,6 +185,96 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0008005:v1",
+      "catalogId": "VBO:0008005",
+      "name": "Bulgarian Barak",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v7-cohort-j",
+      "generatedAt": "2026-10-01T13:00:48.508889+00:00",
+      "masterSha256": "e958fcd569a9b1234f1db42ec5f77ea9a43b69d74b19b8650fc8d4399bcfaaae",
+      "reference": {
+        "assetId": "dogs:photo:commons:e87de540c2f67d60",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Bulgarian_barak.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-01",
+        "breedIdentity": "Adult rough Bulgarian Barak, warm tan and black saddle with textured rough coat, hound ears and balanced body match exact approved source.",
+        "anatomy": "Four separate coherent grounded paws, believable shoulders/hips/joints, entire outward sabre tail and free tip.",
+        "crop": "Complete ears/nose/paws/tail comfortably inside native1536x1024 frame.",
+        "aesthetics": "Soft natural light, textured coat and specific Bulgarian wooded hillside pass."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 26584,
+          "sha256": "6f02bc1b643df719fdc80af33c32999295cdcb951285c9ede460848c9ed24a0f",
+          "url": "assets/dogs/generated/VBO-0008005-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 175236,
+          "sha256": "89efee2f46252c3c54efa7d0dbbc0fb3e95bd612eedaa32a893e977dccaa40e1",
+          "url": "assets/dogs/generated/VBO-0008005-native-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0008006:v1",
+      "catalogId": "VBO:0008006",
+      "name": "Balgarsko ludogorsko gonche",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v7-cohort-j",
+      "generatedAt": "2026-10-01T13:02:17.062074+00:00",
+      "masterSha256": "89c645eabcbb174fa9ba4b15d52c032b59e8e49d322f063d3162b30a4eef0c24",
+      "reference": {
+        "assetId": "dogs:photo:commons:1831b23442bef225",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Bulgarsko_gonche.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-01",
+        "breedIdentity": "Adult smooth black-and-tan Bulgarian Ludogorian Hound, substantial scent-hound body/head/ears and source-specific tan points match.",
+        "anatomy": "Four separate grounded coherent paws, natural joints and complete moderate sabre tail visibly separated from body.",
+        "crop": "Complete body and extremities with safe native3:2 margins.",
+        "aesthetics": "Restrained natural color, convincing smooth fur and Bulgarian forest leaf-litter setting pass."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 27888,
+          "sha256": "fc8911c3408ebe206fcd72f132ddb86fbacb3416329a2a8497f3e6ecd041c203",
+          "url": "assets/dogs/generated/VBO-0008006-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 189662,
+          "sha256": "49f3d2c3f9b46306945426c7ebc49053ffa7c74f7cc7dc78316d25f2caa8e498",
+          "url": "assets/dogs/generated/VBO-0008006-native-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0008017:v1",
       "catalogId": "VBO:0008017",
       "name": "Euskal Artzain Txakurra (variedad Gorbeiakoa)",
@@ -316,6 +406,51 @@
           "bytes": 142300,
           "sha256": "014f9fb23053140099f0bbefe0cb18bf9f931bb481abea980b1422961cecc02d",
           "url": "assets/dogs/generated/VBO-0008049-native-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0008064:v1",
+      "catalogId": "VBO:0008064",
+      "name": "Jeju native dog",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v7-cohort-j",
+      "generatedAt": "2026-10-01T13:15:20.893Z",
+      "masterSha256": "11e5aaafae3d89b047aa6b4550c02bc5b223801318dab75c42e7b66033ac33db",
+      "reference": {
+        "assetId": "dogs:photo:commons:6627daaaae24920b",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Jeju_dog.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-01",
+        "breedIdentity": "Mature Jeju native dog, compact slightly elongated sturdy island spitz-type build, broad foxlike forehead/muzzle, upright ears and source-specific russet/cream short dense coat match exact government source.",
+        "anatomy": "Four separate complete grounded paws and believable joints/weight; full thick upright natural tail and pale free endpoint visible.",
+        "crop": "Whole body and extremities comfortably inside native1536x1024 with open nose/tail/ear/paw margins.",
+        "aesthetics": "Soft overcast light, believable coat texture and visible Jeju basalt/short-grass/island woodland landscape pass."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 24740,
+          "sha256": "ab6bf803b70336096de4c2a2bbbab2496cd9c28b8bcaeda78728b736a220d192",
+          "url": "assets/dogs/generated/VBO-0008064-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 169080,
+          "sha256": "c5fe81835b1df9e1146123d332d24abfb38ad2c8124f3cda0fddc893ed00599a",
+          "url": "assets/dogs/generated/VBO-0008064-native-01-960.webp"
         }
       ]
     },
@@ -1081,6 +1216,51 @@
           "bytes": 145662,
           "sha256": "d328ef4b3a4e7b20853959b0c7ca13e442dbf32e1be677a7534305e4189274c2",
           "url": "assets/dogs/generated/VBO-0200041-native-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200044:v1",
+      "catalogId": "VBO:0200044",
+      "name": "American Dingo",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v7-cohort-j",
+      "generatedAt": "2026-10-01T13:06:56.061Z",
+      "masterSha256": "14399377eb3127ac51dbb03e19b2de9605e705555a2f210221c6244ddca8a804",
+      "reference": {
+        "assetId": "dogs:photo:commons:5635b84e17bd4ffe",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Karol%C3%ADnsk%C3%BD_Pes2.jpeg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-01",
+        "breedIdentity": "Mature lean rectangular ginger/cream Carolina Dog, wedge muzzle and mobile upright ears match exact source and UKC morphology.",
+        "anatomy": "Four distinct complete grounded paws, natural joints and weight; full natural tail now has defining broad open fishhook distal curve back toward head, free pale endpoint separated from back, no closed curl.",
+        "crop": "Complete body/ears/paws/nose/tail with ample native3:2 margins.",
+        "aesthetics": "Tactile short coat, soft natural late-afternoon light and specific sandy pine clearing pass."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 29016,
+          "sha256": "baafef50dfd158c6c87aa0ed1bb2f7d9f478134254f5223fa18e76fd30309f92",
+          "url": "assets/dogs/generated/VBO-0200044-native-02-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 188228,
+          "sha256": "54db963b893d0088f4c0545ecf5219f16d607f81e8fde4f5ab471b00a5c4ac17",
+          "url": "assets/dogs/generated/VBO-0200044-native-02-960.webp"
         }
       ]
     },
@@ -5149,6 +5329,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200291:v1",
+      "catalogId": "VBO:0200291",
+      "name": "Carea Leonés",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v7-cohort-j",
+      "generatedAt": "2026-10-01T13:10:55.701339+00:00",
+      "masterSha256": "8ff1737f798e56d641db47000867b191ee1003c78c18b371f63dd3b368a53350",
+      "reference": {
+        "assetId": "dogs:photo:commons:c0d543813dec35b7",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Carealeonesmerle4.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-01",
+        "breedIdentity": "Mature medium-sized rustic blue-merle Carea Leonés, semi-drop ears, moderately long strong shepherd body and medium feathered coat match exact source and RSCE.",
+        "anatomy": "Four separate complete grounded paws, coherent joints/weight and complete long low plume tail through free pale endpoint.",
+        "crop": "Whole dog with generous safe margins on ears/paws/nose/tail in native1536x1024.",
+        "aesthetics": "Natural tactile coat and soft winter morning light in specific León fallow-field margin pass."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 21046,
+          "sha256": "6af267b0945648b14e5d2cb5fcb72e78868a2162077405d21e606134c14889dd",
+          "url": "assets/dogs/generated/VBO-0200291-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 146162,
+          "sha256": "948662c51d30b9bb8c21079a1e31a391af59119ba74dd01f448a901d83f68091",
+          "url": "assets/dogs/generated/VBO-0200291-native-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200297:v1",
       "catalogId": "VBO:0200297",
       "name": "Catahoula Bulldog",
@@ -7808,6 +8033,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200449:v1",
+      "catalogId": "VBO:0200449",
+      "name": "Dogue Brasileiro",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v7-cohort-j",
+      "generatedAt": "2026-10-01T13:23:57.158703+00:00",
+      "masterSha256": "ff887f5518277a923ee67db2da608359ff14e0fdd0faca0ee0ea467219241081",
+      "reference": {
+        "assetId": "dogs:photo:commons:4a6982cd30dd9c0f",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Doguebrasileiro.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-01",
+        "breedIdentity": "Mature athletic powerful white Dogue Brasileiro with source-specific dark eye/ear patch, substantial head/muzzle and natural semi-drop ears, matching exact source/CBKC.",
+        "anatomy": "Four distinct complete grounded paws, credible joints/weight; complete natural intact tapering tail beyond source docked endpoint, matching separately read CBKC natural-tail clause.",
+        "crop": "Entire body/ears/paws/nose/free-tail tip with comfortable native3:2 margins.",
+        "aesthetics": "Tactile short coat and soft late-afternoon light in new Brazilian rural woodland path pass."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 28210,
+          "sha256": "2acb11b91ad6676066cb13f9f63b4d8194c96eeecd942c0c3a29fef02d12a95a",
+          "url": "assets/dogs/generated/VBO-0200449-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 179244,
+          "sha256": "b8fca6a86d4e6fa14d1d1776ca3b649980fe42bbc6878aa6b8291f3e3204c5da",
+          "url": "assets/dogs/generated/VBO-0200449-native-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200450:v1",
       "catalogId": "VBO:0200450",
       "name": "Dogue de Bordeaux",
@@ -8209,6 +8479,51 @@
           "bytes": 159070,
           "sha256": "951986967853ffe7b6e23bdeb1468445a2843b9842f3b921eaaa9ce5c0ad8da0",
           "url": "assets/dogs/generated/VBO-0200472-f02-b-a1-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200473:v1",
+      "catalogId": "VBO:0200473",
+      "name": "East-European Shepherd Dog",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v7-cohort-j",
+      "generatedAt": "2026-10-01T13:26:18.715Z",
+      "masterSha256": "99defc747baf90698b04e54f6dd04d55e5a09602b1ea805a890ad3a9dc94a0a0",
+      "reference": {
+        "assetId": "dogs:photo:commons:d27b00d6222b5e1d",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:EastEuropean-b%26t1.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-01",
+        "breedIdentity": "Tall robust mature East-European Shepherd, substantial wedge head/upright ears, straight topline and exact black/pale-grey coat match approved adult source/RKF and CBKC.",
+        "anatomy": "Four distinct complete grounded paws, natural joints and stance; complete densely-haired low sabre tail with free tapered endpoint clear of hindlegs.",
+        "crop": "Whole head/ears/paws/body/tail with safe native1536x1024 margins.",
+        "aesthetics": "Natural spring morning birch woodland, credible fur/light/ground contact and restrained palette pass."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 26426,
+          "sha256": "263df126e5c66b9e6ee87c41b1d2a58761104f73b2a17e3802318b4b1f019cbe",
+          "url": "assets/dogs/generated/VBO-0200473-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 157418,
+          "sha256": "97e9677e78eba1d87cdeef49f502d5419d9189569d405946f6bf71aa9a9e95d1",
+          "url": "assets/dogs/generated/VBO-0200473-native-01-960.webp"
         }
       ]
     },
@@ -14648,6 +14963,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200833:v1",
+      "catalogId": "VBO:0200833",
+      "name": "Long-Haired Whippet",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v7-cohort-j",
+      "generatedAt": "2026-10-01T12:08:28.336608+00:00",
+      "masterSha256": "aa727143e3d8eef87ca31f967d7a38e5d638ed650da7283fa6be7614e8a23492",
+      "reference": {
+        "assetId": "dogs:photo:commons:f59bff7974c6ad74",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Windsprite-red1.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-01",
+        "breedIdentity": "Mature lean Windsprite with deep chest, tucked abdomen, golden-fawn soft coat and natural rose ears; independent distinct coated-sighthound identity matches approved source.",
+        "anatomy": "Four coherent grounded paws and believable long limb axes; complete long feathered tail with free open swept endpoint.",
+        "crop": "Whole adult, ear/paw/tail extremities and generous side/top/bottom margins preserved in native1536x1024.",
+        "aesthetics": "Natural tactile fur, quiet wooded short-grass trail, restrained warm morning light; new three-quarter composition, no gear or people."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 20846,
+          "sha256": "f11d520d65c6d6ef80ef81225de7fafc6b98fab25d441bc81267e83bf230a5b6",
+          "url": "assets/dogs/generated/VBO-0200833-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 126774,
+          "sha256": "43247765e0e183533bd05a22631eb6d6019b9ab6952b56e5de0d29b3b4baa35c",
+          "url": "assets/dogs/generated/VBO-0200833-native-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200835:v1",
       "catalogId": "VBO:0200835",
       "name": "Louisiana Catahoula Leopard Dog",
@@ -15188,6 +15548,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200884:v1",
+      "catalogId": "VBO:0200884",
+      "name": "Miniature Cockapoo",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v7-cohort-j",
+      "generatedAt": "2026-10-01T12:12:26.952682+00:00",
+      "masterSha256": "f56172d43ee9ba703280658268bdf3c272c14fe090b02f2292041915cdf60e30",
+      "reference": {
+        "assetId": "dogs:photo:commons:6b9f7833ae3b11fa",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Blue_Merle_American_Miniature_Cockapoo.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-01",
+        "breedIdentity": "Mature compact slightly rectangular miniature Cockapoo with hanging spaniel ears and exact sourced gray/charcoal merle, cream-gray muzzle and lower legs.",
+        "anatomy": "Four separately coherent grounded paws, plausible knees and contact; complete long feathered tail raised in a free open curve.",
+        "crop": "Entire body, paws, ears and tail have comfortable native1536x1024 margins.",
+        "aesthetics": "Believable soft coat and face, gentle daylight on specific short-grass hedgerow path; new pose/background, no source equipment or people."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 28856,
+          "sha256": "0959818d48dbc3af04b9f59fd2c5c41c2c52ce4fe34ee99e70a7ef443abb002d",
+          "url": "assets/dogs/generated/VBO-0200884-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 182880,
+          "sha256": "f489d79d9d74eaf27dab82e4643dc8ca62499b6192baa89cb907f7acd4aa9c0a",
+          "url": "assets/dogs/generated/VBO-0200884-native-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200887:v1",
       "catalogId": "VBO:0200887",
       "name": "Miniature English Bull Terrier, Coloured",
@@ -15274,6 +15679,51 @@
           "bytes": 115714,
           "sha256": "638762dbda9ff7fada1f62e7bf40c9b9c3767c40482b03b1c7ddb976a5b55cca",
           "url": "assets/dogs/generated/VBO-0200888-attempt02-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200892:v1",
+      "catalogId": "VBO:0200892",
+      "name": "Miniature Labradoodle",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v7-cohort-j",
+      "generatedAt": "2026-10-01T12:25:48.623Z",
+      "masterSha256": "dc2ce0d85441b89d473d8455263e08cceb7e43f8ad4967eba0d1636cff182e73",
+      "reference": {
+        "assetId": "dogs:photo:commons:08ac303a0ba4b77f",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Mini_Labradoodle_and_Standard_Labradoodle.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-01",
+        "breedIdentity": "Mature small balanced miniature Labradoodle with moderate muzzle, pendant ears, apricot/cream furnishings and whole adult build, avoiding heavier standard-reference companion proportions. Natural fuller curls than clipped source are a plausible grooming/coat presentation within sourced Labrador-Poodle morphology, not an identity defect.",
+        "anatomy": "Four distinct complete grounded paws, credible limb axes/weight/contact; whole raised natural feathered tail with free open endpoint.",
+        "crop": "Whole body, all ears/paws/tail crop-safe in native1536x1024, broad landscape margins and about69percent adult height.",
+        "aesthetics": "Specific quiet river gravel bank, restrained cloudy daylight, tactile natural soft curls and expressive believable face; new pose/scene and no source harness/handler."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 25356,
+          "sha256": "53b7cfcd6453bf47bb2f0772e4fc5c5f7a94c76dc3301360a0264e7e5b16cfbc",
+          "url": "assets/dogs/generated/VBO-0200892-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 146932,
+          "sha256": "1b42eb0b894358f74543b14d11543fcca31e943438642f0a87cfc38cd07831f9",
+          "url": "assets/dogs/generated/VBO-0200892-native-01-960.webp"
         }
       ]
     },
@@ -17704,6 +18154,51 @@
           "bytes": 124046,
           "sha256": "4cdc44e0bd1dbed3839c2aeec97e48ef22ad03e874fb36db61986f74e4d67fb1",
           "url": "assets/dogs/generated/VBO-0201019-f02-review-c-0201019-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201020:v1",
+      "catalogId": "VBO:0201020",
+      "name": "Pila",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v7-cohort-j",
+      "generatedAt": "2026-10-01T11:53:40.240Z",
+      "masterSha256": "97bac429424513cf9793b96bd3bd98e32589c1c00c8b5d3974ab9c3c6003aec6",
+      "reference": {
+        "assetId": "dogs:photo:commons:c4b9072902b49499",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Perro-pila-pilichy.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-01",
+        "breedIdentity": "Mature medium Argentine Pila with lean agile frame, long elegant neck, wedge head, upright mobile ears and smooth charcoal/pale-marked skin.",
+        "anatomy": "Four complete separate coherent grounded paws and credible leg joints; complete long fine natural tail with readable root and free endpoint.",
+        "crop": "Entire ears/body/paws/tail comfortably crop-safe within native1536x1024 landscape.",
+        "aesthetics": "Specific mild morning northwestern Argentine dry woodland and low clear grass, restrained skin texture and plausible natural weight/contact."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 27236,
+          "sha256": "f86d1b21ab504bd42589420bb399ca49d5d60178439e326ea323e19dc97f6fec",
+          "url": "assets/dogs/generated/VBO-0201020-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 187212,
+          "sha256": "de2e6a2329e0c92b2f8090b5cdd28b1c1e8cb866ed5124d56caa6034dd1dbf75",
+          "url": "assets/dogs/generated/VBO-0201020-native-01-960.webp"
         }
       ]
     },

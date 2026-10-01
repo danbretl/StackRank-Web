@@ -25,6 +25,22 @@ export function activeCohortJIds(cohort) {
   return ids;
 }
 
+// A direct user stop may finish an already started, smaller release. It does
+// not rewrite the selection, admit unfinished pairs, or authorize later batches.
+export function portraitCohortJStopAllowsBatch(cohort, batch) {
+  const stop = cohort.stopAfterCurrentBatch;
+  if (!stop) return false;
+  const { sha256, ...content } = stop;
+  const ids = stop.catalogIds;
+  return sha256 === jDigest(content) && stop.action === 'finish-current-batch-and-stop' &&
+    stop.authority === 'direct-user-instruction' && iso(stop.requestedAt) && text(stop.instruction) &&
+    stop.selectionSha256 === cohort.selectionSha256 && /^j(?:0[1-9]|10)$/.test(stop.subwave) &&
+    Array.isArray(ids) && ids.length > 0 && ids.length <= 30 && new Set(ids).size === ids.length &&
+    Number.isSafeInteger(stop.completedPairLimit) && stop.completedPairLimit <= cohort.targetCompletedCount &&
+    batch.subwave === stop.subwave && batch.count === ids.length &&
+    JSON.stringify(batch.catalogIds) === JSON.stringify(ids);
+}
+
 export function summarizePortraitCohortJ(cohort) {
   const all = Object.values(cohort.entries);
   const active = activeCohortJIds(cohort).map(id => cohort.entries[id]).filter(Boolean);
@@ -32,6 +48,7 @@ export function summarizePortraitCohortJ(cohort) {
   const accepted = active.filter(entry => entry.qa.status === 'approved' && entry.profile.status === 'approved');
   const integrated = active.filter(entry => entry.integration.status === 'integrated');
   const published = active.filter(entry => entry.publication.status === 'published');
+  const stop = cohort.stopAfterCurrentBatch;
   return { targetCount: cohort.targetCompletedCount,
     workerReferenceReadyCount: active.filter(entry => inSet(entry.reference.status, ['worker-approved', 'approved'])).length,
     primaryReferenceApprovedCount: active.filter(entry => entry.reference.status === 'approved').length,
@@ -47,7 +64,10 @@ export function summarizePortraitCohortJ(cohort) {
     blockedCount: all.filter(entry => entry.hold?.status === 'blocked').length,
     reserveActivationCount: cohort.amendments.length,
     remainingCount: cohort.targetCompletedCount - published.length,
-    nextCatalogId: active.find(entry => entry.publication.status !== 'published' && entry.hold?.status !== 'blocked')?.catalogId || null };
+    nextCatalogId: (stop ? stop.catalogIds.map(id => cohort.entries[id]) : active).find(entry => entry?.publication.status !== 'published' && entry?.hold?.status !== 'blocked')?.catalogId || null,
+    ...(stop ? { authorizedCompletedPairLimit: stop.completedPairLimit,
+      remainingAuthorizedCount: stop.completedPairLimit - published.length,
+      runStatus: published.length === stop.completedPairLimit ? 'stopped-after-user-requested-batch' : 'finishing-user-requested-batch' } : {}) };
 }
 
 export function validatePortraitCohortJ(cohort, { catalog, rightsLedger, generatedArtwork, profiles } = {}) {
@@ -104,11 +124,18 @@ export function validatePortraitCohortJ(cohort, { catalog, rightsLedger, generat
   const releaseById = new Map();
   const batches = cohort.integrationBatches || [];
   const releasedCount = batches.reduce((sum, batch) => sum + (batch.catalogIds?.length || 0), 0);
+  if (cohort.stopAfterCurrentBatch) {
+    const stop = cohort.stopAfterCurrentBatch;
+    fail(portraitCohortJStopAllowsBatch(cohort, { subwave: stop.subwave, count: stop.catalogIds?.length, catalogIds: stop.catalogIds }), 'J user stop requires a hashed direct instruction and exact final batch membership');
+    fail(stop.catalogIds?.every((id, i, ids) => active.includes(id) && (i === 0 || active.indexOf(ids[i - 1]) < active.indexOf(id))), 'J user stop must retain active frozen order');
+    fail(releasedCount <= stop.completedPairLimit && batches.every(batch => batch.subwave <= stop.subwave), 'J cannot release beyond the user-requested stop');
+    if (batches.some(batch => batch.subwave === stop.subwave)) fail(releasedCount === stop.completedPairLimit, 'J stopped release count must match its recorded limit');
+  }
   for (const [index, batch] of batches.entries()) {
     const wave = `j${String(index + 1).padStart(2, '0')}`;
     const ids = batch.catalogIds || [];
     fail(batch.subwave === wave && batch.batchManifest === `data/dogs/generated-artwork-batch-${wave}.json` && iso(batch.integratedAt), `${wave}: sequential release receipt required`);
-    fail(batch.count === ids.length && ids.length <= 30 && (ids.length >= 20 || releasedCount === cohort.targetCompletedCount) && new Set(ids).size === ids.length, `${wave}: distinct approximately 25-pair release membership required`);
+    fail(batch.count === ids.length && ids.length <= 30 && (ids.length >= 20 || releasedCount === cohort.targetCompletedCount || portraitCohortJStopAllowsBatch(cohort, batch)) && new Set(ids).size === ids.length, `${wave}: distinct approximately 25-pair release membership required`);
     fail(ids.every((id, i) => active.includes(id) && (i === 0 || active.indexOf(ids[i - 1]) < active.indexOf(id))), `${wave}: release membership must follow the active frozen order`);
     for (const id of ids) {
       fail(!releaseById.has(id), `${id}: duplicate release membership`);

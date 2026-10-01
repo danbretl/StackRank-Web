@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { jDigest, portraitCohortJSelectionDigest, activeCohortJIds, summarizePortraitCohortJ, validatePortraitCohortJ } from '../scripts/dog-portrait-cohort-j.mjs';
 const seed=JSON.parse(await readFile(new URL('../data/dogs/portrait-cohort-j.json',import.meta.url),'utf8'));
-const baseline=()=>{const c=structuredClone(seed); c.amendments=[];c.reserveAssessments={};c.integrationBatches=[];c.publicationMilestones=[];c.entries=Object.fromEntries(c.primary.map(p=>[p.catalogId,{catalogId:p.catalogId,reference:{status:'pending'},scene:{status:'pending'},profile:{status:'pending'},generation:{status:'pending',acceptedAttemptId:null,attempts:[]},qa:{status:'pending'},integration:{status:'pending'},publication:{status:'pending'}}]));c.progress=summarizePortraitCohortJ(c);return c;};
+const baseline=()=>{const c=structuredClone(seed); delete c.stopAfterCurrentBatch; c.amendments=[];c.reserveAssessments={};c.integrationBatches=[];c.publicationMilestones=[];c.entries=Object.fromEntries(c.primary.map(p=>[p.catalogId,{catalogId:p.catalogId,reference:{status:'pending'},scene:{status:'pending'},profile:{status:'pending'},generation:{status:'pending',acceptedAttemptId:null,attempts:[]},qa:{status:'pending'},integration:{status:'pending'},publication:{status:'pending'}}]));c.progress=summarizePortraitCohortJ(c);return c;};
 const refresh=c=>(c.progress=summarizePortraitCohortJ(c),c);
 const hash='a'.repeat(64),date='2026-10-01T07:00:00Z';
 const prepared=c=>{const e=c.entries[c.primary[0].catalogId];e.reference={status:'worker-approved',assetId:'private-reference',originalPath:'original.jpg',filePageWikitextPath:'pinned.txt',filePageWikitextSha256:hash,metadataPath:'metadata.json',metadataSha256:hash,sourcePage:'https://commons.wikimedia.org/wiki/File:Exact_adult.jpg',sourceSha256:hash,visualReview:'Individual native adult reference read.',rightsReview:'Pinned own work, creator and exact license read.',sourcePageRevision:{id:123,timestamp:date},purposes:{uiDisplayAllowed:false,publicSnapshotAllowed:false,rasterExportAllowed:false}};e.scene={status:'worker-ready',description:'An open natural meadow.',rationale:'Documented regional field work.',sources:[{url:'https://www.fci.be/standard.pdf'}]};e.profile={status:'draft',shortDescription:'An individually researched character note with distinct historical context and supported working habits.',sourceSnapshots:[{url:'https://www.fci.be/standard.pdf',snapshotPath:'primary.pdf',snapshotSha256:hash,evidence:'Specific behavior and work claims read.'}]};return e;};
@@ -63,4 +63,25 @@ test('compiled short prose must match the independently approved text and digest
   const {c,compiled,ids}=releaseFixture();assert.deepEqual(validatePortraitCohortJ(c,{profiles:compiled}),[]);
   compiled.profiles[ids[0]].shortDescription='Unsupported replacement copy.';
   assert.ok(validatePortraitCohortJ(c,{profiles:compiled}).some(s=>/full\/short description mismatch/.test(s)));
+});
+
+function stoppedReleaseFixture() {
+  const {c, compiled, ids}=releaseFixture();
+  const removed=ids.splice(11);
+  for (const id of removed) { c.entries[id]=baseline().entries[id]; delete compiled.profiles[id]; }
+  c.integrationBatches[0].catalogIds=ids; c.integrationBatches[0].count=ids.length;
+  const stop={action:'finish-current-batch-and-stop',authority:'direct-user-instruction',requestedAt:date,instruction:'Finish the current batch and stop.',selectionSha256:c.selectionSha256,subwave:'j01',catalogIds:ids,completedPairLimit:11};
+  stop.sha256=jDigest(stop); c.stopAfterCurrentBatch=stop;
+  return {c:refresh(c),compiled,ids};
+}
+test('an explicit hashed user stop permits only its complete smaller final batch',()=>{
+  const {c,compiled,ids}=stoppedReleaseFixture();
+  assert.deepEqual(validatePortraitCohortJ(c,{profiles:compiled}),[]);
+  assert.equal(c.primary.length,250);assert.equal(c.progress.authorizedCompletedPairLimit,11);
+  delete c.stopAfterCurrentBatch;assert.ok(validatePortraitCohortJ(refresh(c)).some(s=>/release membership/.test(s)));
+});
+test('user stop rejects changed instruction, membership, limits and later releases',()=>{
+  for(const mutate of [c=>c.stopAfterCurrentBatch.instruction='Different instruction',c=>c.stopAfterCurrentBatch.catalogIds=[c.primary[11].catalogId],c=>c.stopAfterCurrentBatch.completedPairLimit=12,c=>c.integrationBatches.push({...c.integrationBatches[0],subwave:'j02'})]){
+    const {c}=stoppedReleaseFixture();mutate(c);assert.ok(validatePortraitCohortJ(refresh(c)).length);
+  }
 });

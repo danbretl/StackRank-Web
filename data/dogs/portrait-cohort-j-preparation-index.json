@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-10-01T13:52:44.102069+00:00",
+  "runStatus": "finish-current-j03-batch-and-stop-at-560-by-direct-user-instruction",
+  "selectionSha256": "3939e68cd9af8d6eb22728c7e243ca90f9208a904ff5d286e5ac41ea4733fde0",
+  "requiresFreshUserAuthorizationForContinuation": true,
+  "actualResearchAndEditorialModel": "gpt-6.1-sol",
+  "reasoningEffort": "high",
+  "rootModelDisclosure": "Runtime does not disclose the primary model/effort; no confirmed identifier asserted.",
+  "imageModelDisclosure": "Built-in image tool did not disclose its underlying model.",
+  "archiveInventory": {
+    "path": "reports/dogs-generated-artwork/cohort-j/j03-external-sources.json",
+    "sha256": "7aea449b9e482527a60ca494344353287354bf0bef1d954a10773e022b0f3129"
+  },
+  "previousArchives": [
+    {
+      "path": "data/dogs/regeneration-manifest-j01.json",
+      "sha256": "5bd0f0779beb09a261e510120edcfaa78a7225c624cc2ad8579327babe7fe5b3",
+      "archiveSha256": "b3f40c87898477ebabc51420c037c75620f2ff86974e02f97fccd8ce3859fa1f"
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-j02.json",
+      "sha256": "a320cd57e9b0674660a608a01c434fa28b3253d8e8e56a79dcd21bf52a2c1817",
+      "archiveSha256": "6188cdf54f60220ceee55f896139afdb105bb8e57f107cce7fe61c68bba9e416"
+    }
+  ],
+  "reviewedEditorialPackets": [
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/discovery-c/j08-first10-reviewed-packets/packet-001.json",
+      "sha256": "3c4e97c4547a11deb64f21372a86eeed9d0b617a0907b4f2b305538b3f050048",
+      "catalogIds": [
+        "VBO:0200056",
+        "VBO:0200156",
+        "VBO:0200279",
+        "VBO:0200281",
+        "VBO:0200661"
+      ],
+      "status": "independently reviewed editorial preparation; exact morphology reference approval and root final acceptance still required",
+      "imageGenerationStarted": false
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/discovery-c/j08-reviewed-packets/packet-001.json",
+      "sha256": "4f81af52acb452fa8da65a4b7d390ea99ff645716034cfd9b88182f71ae75c15",
+      "catalogIds": [
+        "VBO:0200666",
+        "VBO:0200718",
+        "VBO:0200757",
+        "VBO:0200822",
+        "VBO:0200827",
+        "VBO:0200830",
+        "VBO:0200837",
+        "VBO:0200839",
+        "VBO:0200844"
+      ],
+      "status": "independently reviewed editorial preparation; exact morphology reference approval and root final acceptance still required",
+      "imageGenerationStarted": false
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/discovery-b/j09-j10-reviewed-packets/packet.json",
+      "sha256": "5de975f1d0f261bc05e654cc44e93818c4715124d959ae9b89fdfb8906d1df00",
+      "catalogIds": [
+        "VBO:0200875",
+        "VBO:0200918",
+        "VBO:0201239",
+        "VBO:0201256",
+        "VBO:0201284",
+        "VBO:0201302",
+        "VBO:0200116"
+      ],
+      "status": "independently reviewed editorial preparation; exact morphology reference approval and root final acceptance still required",
+      "imageGenerationStarted": false
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/discovery-b/j09-remaining15-reviewed-packets/packet.json",
+      "sha256": "ab83934d76a64aa7a5758be167ae1c13c7f7494ec383c5785bf6b223dc05bb1b",
+      "catalogIds": [
+        "VBO:0201355",
+        "VBO:0201368",
+        "VBO:0201371",
+        "VBO:0201372",
+        "VBO:0201382",
+        "VBO:0201387",
+        "VBO:0201388",
+        "VBO:0201409",
+        "VBO:0201452",
+        "VBO:0201458",
+        "VBO:0201459",
+        "VBO:0201460"
+      ],
+      "status": "independently reviewed editorial preparation; exact morphology reference approval and root final acceptance still required",
+      "imageGenerationStarted": false
+    }
+  ],
+  "retainedWriterPackets": [
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/discovery-a/j06-first10/packet.json",
+      "sha256": "53f78172f894f8ec3081fbc0d882ce2b0021c8bc44e93644970331c33570c913",
+      "status": "retained writer draft/source packet; use subsequent peer-review and acquisition dispositions before any generation"
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/discovery-a/j06-remaining15/packet.json",
+      "sha256": "8908f28403456360d6d5fbcfc2e69d6191c4db6493a911f98a51f9a7199f54c0",
+      "status": "retained writer draft/source packet; use subsequent peer-review and acquisition dispositions before any generation"
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/discovery-a/j08-first10/packet.json",
+      "sha256": "b1995133d3ffdea96a901ecd82ec85624e5e19afe7165ae6d8d5b39b61515451",
+      "status": "retained writer draft/source packet; use subsequent peer-review and acquisition dispositions before any generation"
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/discovery-b/j07-remaining15/packet.json",
+      "sha256": "2afc1f4a476d5cbfa8aeffe352878f05c22fce96dae03785cdefb0404fd6ad14",
+      "status": "retained writer draft/source packet; use subsequent peer-review and acquisition dispositions before any generation"
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/discovery-b/j08-last5/packet.json",
+      "sha256": "d5e66cae73df61c8088ee4888cbfbc7d7e370e91bde33c10c654af3a163c894f",
+      "status": "retained writer draft/source packet; use subsequent peer-review and acquisition dispositions before any generation"
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/discovery-b/j08-mid10/packet.json",
+      "sha256": "07745188c45fa4385aa25667f535c55d0aa4ea0714a295e1dffdfdc304006e27",
+      "status": "retained writer draft/source packet; use subsequent peer-review and acquisition dispositions before any generation"
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/discovery-b/j10-first10/packet.json",
+      "sha256": "2c5fdb07e761d7c74fdb0abdad1584882dabc838926488ee7048e3fbc6f5d838",
+      "status": "retained writer draft/source packet; use subsequent peer-review and acquisition dispositions before any generation"
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/discovery-c/j09-first10/packet-002.json",
+      "sha256": "d61570c8fd116bceb44b04d90e00fb2dae5c968b3bf1fe6c32668e04c78551df",
+      "status": "retained writer draft/source packet; use subsequent peer-review and acquisition dispositions before any generation"
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/discovery-c/j09-first10/packet.json",
+      "sha256": "87fe906a7ec3284370a0ee7574d5b90f4e87a18764dafbfe27961876ef36e9c8",
+      "status": "retained writer draft/source packet; use subsequent peer-review and acquisition dispositions before any generation"
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/discovery-c/j09-remaining15/packet-002.json",
+      "sha256": "e8a850f5958e1ea870b625af202275d05268991950ce83b0709744a70b260736",
+      "status": "retained writer draft/source packet; use subsequent peer-review and acquisition dispositions before any generation"
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/discovery-c/j09-remaining15/packet.json",
+      "sha256": "69f49864ec5c6eb12bcfbeb34fd50a677869bf97ba5ee62ff747b33147d994c5",
+      "status": "retained writer draft/source packet; use subsequent peer-review and acquisition dispositions before any generation"
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/discovery-c/j10-last15/packet-002.json",
+      "sha256": "8ce8f54d7e4c537f824ab31755af92e8c43c40e3dd117549615778aeed5f4e08",
+      "status": "retained writer draft/source packet; use subsequent peer-review and acquisition dispositions before any generation"
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/discovery-c/j10-last15/packet.json",
+      "sha256": "5f369f569c60bc442c319fe763b9aeab4ce4f84648638ea76b8aad4e50a7fde1",
+      "status": "retained writer draft/source packet; use subsequent peer-review and acquisition dispositions before any generation"
+    }
+  ],
+  "acquisitionAndNegativeInventory": {
+    "path": "reports/dogs-generated-artwork/cohort-j/discovery-a/j03-final-release-preflight/next-session-inventory-001.json",
+    "sha256": "5f269d1e67009ebafd01feacbfb4bda740e7d72d04e6127154fd280494ca0cb8"
+  },
+  "reuseRules": [
+    "Generate worker identity briefs directly from catalog IDs; VBO:0200156 is Berger de Savoie and VBO:0201368 is Trail Hound, not Briquet de Savoie or Treeing Tennessee Brindle.",
+    "Reuse exact title and rejected-original hash registry; cache absence and bounded searches do not prove a breed has no qualifying reference.",
+    "Keep original writer packets immutable; peer-reviewed corrected packets and subsequent source dispositions supersede them.",
+    "Editorial approval does not approve references, prompts, portrait generation, suitability claims or crossbreed predictability.",
+    "PD-self and KOGL Type 1 grants are exact manually reviewed private-morphology-only cases. Do not relabel custom grants or use uploader as creator.",
+    "All three morphology-photo delivery purposes remain false. Local archives have no verified off-machine backup."
+  ]
+}

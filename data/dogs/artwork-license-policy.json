@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "policyVersion": "2026-10-01.1",
+  "policyVersion": "2026-10-01.3",
   "reviewedAt": "2026-10-01",
-  "reviewScope": "StackRank Dogs catalog photography; country-specific licenses added for private morphology references only",
+  "reviewScope": "StackRank Dogs catalog photography; exact country-specific licenses, creator PD-self releases and KOGL Type 1 government sources added for private morphology references only",
   "disclaimer": "Engineering policy, not legal advice. Each source and any non-copyright restrictions still require human review.",
   "sources": [
     {
@@ -52,6 +52,18 @@
       "url": "https://creativecommons.org/licenses/by-sa/3.0/de/",
       "accessedAt": "2026-10-01",
       "reviewScope": "Exact localized license; private morphology only, all photo delivery purposes denied"
+    },
+    {
+      "title": "Wikimedia Commons — creator PD-self release",
+      "url": "https://commons.wikimedia.org/wiki/Template:PD-self?oldid=708258897",
+      "accessedAt": "2026-10-01",
+      "reviewScope": "Exact own-creator release, manual original-creator evidence required; private morphology only, all photo delivery purposes denied. Unversioned release, wrapper revision708258897; English interface text retained at acquisition time."
+    },
+    {
+      "title": "Korea Open Government License — Type 1 deed and terms",
+      "url": "https://www.kogl.or.kr/info/licenseType1.do",
+      "accessedAt": "2026-10-01",
+      "reviewScope": "Exact Type 1 permits sharing, commercial use and derivatives with attribution, link and no implied sponsorship; moral rights remain applicable. Private morphology only; no delivery purpose enabled."
     }
   ],
   "sourceRules": {
@@ -95,6 +107,21 @@
     "currentCanonicalUiCoverage": 0.95
   },
   "licenses": [
+    {
+      "id": "PD-SELF",
+      "label": "Public domain (creator release)",
+      "acceptedSourceLabels": [
+        "Public domain"
+      ],
+      "version": "unversioned",
+      "url": "https://commons.wikimedia.org/wiki/Template:PD-self",
+      "requiresAttribution": false,
+      "shareAlike": false,
+      "commercialUse": true,
+      "derivatives": true,
+      "manualPublicDomainEvidence": true,
+      "privateMorphologyOnly": true
+    },
     {
       "id": "CC0-1.0",
       "label": "CC0 1.0",
@@ -309,6 +336,21 @@
       "url": "https://creativecommons.org/licenses/by-sa/3.0/de/",
       "requiresAttribution": true,
       "shareAlike": true,
+      "commercialUse": true,
+      "derivatives": true,
+      "manualPublicDomainEvidence": false,
+      "privateMorphologyOnly": true
+    },
+    {
+      "id": "KOGL-TYPE-1",
+      "label": "KOGL Type 1",
+      "acceptedSourceLabels": [
+        "KOGL Type 1"
+      ],
+      "version": "unversioned",
+      "url": "https://www.kogl.or.kr/info/licenseType1.do",
+      "requiresAttribution": true,
+      "shareAlike": false,
       "commercialUse": true,
       "derivatives": true,
       "manualPublicDomainEvidence": false,

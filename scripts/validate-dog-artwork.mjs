@@ -406,6 +406,9 @@ const validateAsset = ({ asset, index, ledger, policy, catalogById, errors, warn
     if (!license.commercialUse || !license.derivatives) {
       errors.push(`${label}: license does not explicitly permit commercial use and derivatives`);
     }
+    if (license.privateMorphologyOnly && ["uiDisplayAllowed", "publicSnapshotAllowed", "rasterExportAllowed"].some(field => asset[field] !== false)) {
+      errors.push(`${label}: this license is approved for private morphology only; every delivery purpose must be false`);
+    }
     if (license.manualPublicDomainEvidence && !cleanString(asset.publicDomainBasis)) {
       errors.push(`${label}: public-domain rows require publicDomainBasis`);
     }

@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "ledgerVersion": "2026-09-22.f01",
-  "policyVersion": "2026-07-16.1",
+  "policyVersion": "2026-09-30.1",
   "catalogVersion": "vbo-2026-04-15.2",
   "sourceDates": {
     "ledgerUpdatedAt": "2026-09-22",
-    "policyReviewedAt": "2026-07-16"
+    "policyReviewedAt": "2026-09-30"
   },
   "catalog": {
     "records": 1239,
@@ -16,38 +16,40 @@
     "missingPromotedCatalogIds": []
   },
   "ledger": {
-    "rows": 500,
-    "approvedRightsRows": 500,
+    "rows": 528,
+    "approvedRightsRows": 528,
     "pendingRows": 0,
     "quarantinedRows": 0,
     "readyDeliveryRows": 28,
     "allRowsLicenseDistribution": {
-      "CC-BY-2.0": 6,
+      "CC-BY-2.0": 10,
       "CC-BY-2.5": 2,
       "CC-BY-3.0": 9,
-      "CC-BY-4.0": 45,
+      "CC-BY-4.0": 46,
       "CC-BY-SA-2.5": 1,
-      "CC-BY-SA-3.0": 152,
-      "CC-BY-SA-4.0": 272,
-      "CC0-1.0": 12,
+      "CC-BY-SA-3.0": 161,
+      "CC-BY-SA-3.0-LU": 1,
+      "CC-BY-SA-4.0": 284,
+      "CC0-1.0": 13,
       "PDM-1.0": 1
     },
     "approvedLicenseDistribution": {
-      "CC-BY-2.0": 6,
+      "CC-BY-2.0": 10,
       "CC-BY-2.5": 2,
       "CC-BY-3.0": 9,
-      "CC-BY-4.0": 45,
+      "CC-BY-4.0": 46,
       "CC-BY-SA-2.5": 1,
-      "CC-BY-SA-3.0": 152,
-      "CC-BY-SA-4.0": 272,
-      "CC0-1.0": 12,
+      "CC-BY-SA-3.0": 161,
+      "CC-BY-SA-3.0-LU": 1,
+      "CC-BY-SA-4.0": 284,
+      "CC0-1.0": 13,
       "PDM-1.0": 1
     },
     "allRowsSourceProviderDistribution": {
-      "wikimedia-commons": 500
+      "wikimedia-commons": 528
     },
     "approvedSourceProviderDistribution": {
-      "wikimedia-commons": 500
+      "wikimedia-commons": 528
     }
   },
   "coverage": {
@@ -87,8 +89,8 @@
   "unresolvedUiArtworkSummary": {
     "total": 1211,
     "byReason": {
-      "approved rights, delivery/purpose not ready": 472,
-      "no ledger row": 739
+      "approved rights, delivery/purpose not ready": 500,
+      "no ledger row": 711
     },
     "promotedTotal": 0
   },
@@ -147,7 +149,7 @@
     {
       "catalogId": "VBO:0008017",
       "primaryText": "Euskal Artzain Txakurra (variedad Gorbeiakoa)",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0008018",
@@ -397,7 +399,7 @@
     {
       "catalogId": "VBO:0200041",
       "primaryText": "American Cocker Spaniel, Parti-Colour",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200042",
@@ -507,7 +509,7 @@
     {
       "catalogId": "VBO:0200066",
       "primaryText": "Anglo-Francais de Petite Venerie",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200068",
@@ -602,7 +604,7 @@
     {
       "catalogId": "VBO:0200092",
       "primaryText": "Australian Labradoodle",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200093",
@@ -892,7 +894,7 @@
     {
       "catalogId": "VBO:0200165",
       "primaryText": "Biewer Terrier",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200166",
@@ -1387,7 +1389,7 @@
     {
       "catalogId": "VBO:0200297",
       "primaryText": "Catahoula Bulldog",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200299",
@@ -1687,7 +1689,7 @@
     {
       "catalogId": "VBO:0200370",
       "primaryText": "Cockapoo",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200371",
@@ -1872,7 +1874,7 @@
     {
       "catalogId": "VBO:0200411",
       "primaryText": "Dachshund, Miniature Wire-Haired",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200413",
@@ -1882,7 +1884,7 @@
     {
       "catalogId": "VBO:0200414",
       "primaryText": "Dachshund, Rabbit Long-Haired",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200415",
@@ -1907,17 +1909,17 @@
     {
       "catalogId": "VBO:0200419",
       "primaryText": "Dachshund, Standard Long-Haired",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200420",
       "primaryText": "Dachshund, Standard Smooth-Haired",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200421",
       "primaryText": "Dachshund, Standard Wire-Haired",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200422",
@@ -2177,7 +2179,7 @@
     {
       "catalogId": "VBO:0200487",
       "primaryText": "English Cocker Spaniel, Particolours (Bicolours, Tricolours, Roans)",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200488",
@@ -2247,7 +2249,7 @@
     {
       "catalogId": "VBO:0200510",
       "primaryText": "Estrela Mountain Dog, Long-Haired",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200511",
@@ -2387,7 +2389,7 @@
     {
       "catalogId": "VBO:0200549",
       "primaryText": "French Tricolour Hound",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200550",
@@ -2422,7 +2424,7 @@
     {
       "catalogId": "VBO:0200559",
       "primaryText": "Gascogne Braque Français",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200561",
@@ -2477,7 +2479,7 @@
     {
       "catalogId": "VBO:0200576",
       "primaryText": "German Sheeppoodle",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200577",
@@ -2697,7 +2699,7 @@
     {
       "catalogId": "VBO:0200627",
       "primaryText": "Great Gascony Blue",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200629",
@@ -2742,7 +2744,7 @@
     {
       "catalogId": "VBO:0200640",
       "primaryText": "Griffon Belge",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200642",
@@ -2882,7 +2884,7 @@
     {
       "catalogId": "VBO:0200675",
       "primaryText": "Hovawart, Black",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200676",
@@ -3227,7 +3229,7 @@
     {
       "catalogId": "VBO:0200766",
       "primaryText": "King Charles Spaniel, Black And Tan",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200767",
@@ -3372,7 +3374,7 @@
     {
       "catalogId": "VBO:0200798",
       "primaryText": "Labradoodle",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200799",
@@ -3982,7 +3984,7 @@
     {
       "catalogId": "VBO:0200942",
       "primaryText": "Nivernais Griffon",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200944",
@@ -3997,7 +3999,7 @@
     {
       "catalogId": "VBO:0200946",
       "primaryText": "Norman Artesien Basset",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0200947",
@@ -4242,7 +4244,7 @@
     {
       "catalogId": "VBO:0201011",
       "primaryText": "Petit Brabançon",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201013",
@@ -4397,7 +4399,7 @@
     {
       "catalogId": "VBO:0201045",
       "primaryText": "Pomsky",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201046",
@@ -4607,7 +4609,7 @@
     {
       "catalogId": "VBO:0201094",
       "primaryText": "Pug, Fawn",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201095",
@@ -4857,7 +4859,7 @@
     {
       "catalogId": "VBO:0201154",
       "primaryText": "Russian Tsvetnaya Bolonka",
-      "reason": "no ledger row"
+      "reason": "approved rights, delivery/purpose not ready"
     },
     {
       "catalogId": "VBO:0201155",

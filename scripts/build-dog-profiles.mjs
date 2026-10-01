@@ -14,6 +14,9 @@ const [catalog, packs, wikidata, fci, overrides, shortDescriptions] = await Prom
 ]);
 
 const refreshes = await Promise.all(["a", "b", "c", "f", "f02", "f03", "f04", "g01", "h01", "h02", "i01", "i02"].map((batch) => readJson(`data/dogs/profile-refresh-${batch}.json`)));
+const jPaths = (await fs.readdir(new URL("../data/dogs/", import.meta.url)))
+  .filter((filename) => /^profile-refresh-j(?:0[1-9]|10)\.json$/u.test(filename)).sort();
+refreshes.push(...await Promise.all(jPaths.map((filename) => readJson(`data/dogs/${filename}`))));
 const profiles = buildDogProfiles({ catalog, packs, wikidata, fci, overrides, refreshes, shortDescriptions });
 const outputUrl = new URL("../data/dogs/breed-profiles.json", import.meta.url);
 const next = `${JSON.stringify(profiles, null, 2)}\n`;

@@ -603,3 +603,25 @@ test("shared morphology references fail closed for permission, identity, provena
     assert.ok(errors.some(error => error.includes("shared morphology source requires")), JSON.stringify(errors));
   }
 });
+
+
+test("country-specific reference licenses retain their jurisdiction and deny delivery purposes", () => {
+  for (const [version, country] of [["3.0", "lu"], ["2.0", "de"]]) {
+    const label = `CC BY-SA ${version} ${country}`;
+    const licenseUrl = `https://creativecommons.org/licenses/by-sa/${version}/${country}/deed.en`;
+    const license = resolveAllowedLicense(policy, { license: label, licenseUrl });
+    assert.equal(license?.id, `CC-BY-SA-${version}-${country.toUpperCase()}`);
+    assert.equal(resolveAllowedLicense(policy, { license: label, licenseUrl: `https://creativecommons.org/licenses/by-sa/${version}/` }), null);
+    const asset = approvedAsset({ licenseId: license.id, license: label, licenseVersion: version,
+      licenseUrl, sourceLicenseLabel: label, sourceLicenseUrl: licenseUrl,
+      uiDisplayAllowed: false, publicSnapshotAllowed: false, rasterExportAllowed: false,
+      attribution: `Example dog — Example Photographer; ${license.label}; via Wikimedia Commons.`,
+      modifications: ["none"], delivery: { status: "not_ready", variants: [] } });
+    const denied = validateArtworkLedger({ ledger: baseLedger([asset]), policy, catalog: null });
+    assert.ok(!denied.errors.some(error => /license|private morphology only/.test(error)), denied.errors.join("\n"));
+    for (const field of ["uiDisplayAllowed", "publicSnapshotAllowed", "rasterExportAllowed"]) {
+      const promoted = validateArtworkLedger({ ledger: baseLedger([{ ...asset, [field]: true }]), policy, catalog: null });
+      assert.ok(promoted.errors.some(error => /private morphology only/.test(error)), field);
+    }
+  }
+});

@@ -7,6 +7,7 @@ import { summarizePortraitCohortG, validatePortraitCohortG } from "./dog-portrai
 
 import { summarizePortraitCohortH, validatePortraitCohortH } from "./dog-portrait-cohort-h.mjs";
 import { summarizePortraitCohortI, validatePortraitCohortI } from "./dog-portrait-cohort-i.mjs";
+import { summarizePortraitCohortJ, validatePortraitCohortJ } from "./dog-portrait-cohort-j.mjs";
 
 const root = new URL("../", import.meta.url);
 const digest = (value) => createHash("sha256").update(JSON.stringify(value)).digest("hex");
@@ -149,22 +150,23 @@ export function validatePortraitCohort(cohort, { catalog, rightsLedger, generate
 async function main() {
   const args = process.argv.slice(2);
   if (args.includes("--help")) {
-    console.log("Usage: node scripts/dog-portrait-cohort.mjs [--cohort=f|--cohort=g|--cohort=h|--cohort=i] [--check|--refresh-progress]\nDefaults to frozen cohort E. F checks 100 completed pairs; G checks 25; H checks 43; I checks 50. All retain append-only reserves. --refresh-progress refreshes derived counters after evidence changes.");
+    console.log("Usage: node scripts/dog-portrait-cohort.mjs [--cohort=f|--cohort=g|--cohort=h|--cohort=i|--cohort=j] [--check|--refresh-progress]\nDefaults to frozen cohort E. F checks 100 completed pairs; G checks 25; H checks 43; I checks 50; J checks 250. All retain append-only reserves. --refresh-progress refreshes derived counters after evidence changes.");
     return;
   }
-  if (args.some((arg) => !["--check", "--refresh-progress", "--cohort=f", "--cohort=g", "--cohort=h", "--cohort=i"].includes(arg))) throw new Error("Unknown option; use --help");
+  if (args.some((arg) => !["--check", "--refresh-progress", "--cohort=f", "--cohort=g", "--cohort=h", "--cohort=i", "--cohort=j"].includes(arg))) throw new Error("Unknown option; use --help");
   const isF = args.includes("--cohort=f");
   const isG = args.includes("--cohort=g");
   const isH = args.includes("--cohort=h");
   const isI = args.includes("--cohort=i");
-  if ([isF, isG, isH, isI].filter(Boolean).length > 1) throw new Error("Choose one cohort per invocation");
-  const path = new URL(`data/dogs/portrait-cohort-${isI ? "i" : isH ? "h" : isG ? "g" : isF ? "f" : "e"}.json`, root);
+  const isJ = args.includes("--cohort=j");
+  if ([isF, isG, isH, isI, isJ].filter(Boolean).length > 1) throw new Error("Choose one cohort per invocation");
+  const path = new URL(`data/dogs/portrait-cohort-${isJ ? "j" : isI ? "i" : isH ? "h" : isG ? "g" : isF ? "f" : "e"}.json`, root);
   const [cohort, catalog, rightsLedger, generatedArtwork, profiles] = await Promise.all([
     path, new URL("data/dogs/dog-catalog.json", root), new URL("data/dogs/image-rights.json", root), new URL("data/dogs/generated-artwork.json", root), new URL("data/dogs/breed-profiles.json", root),
   ].map(async (file) => JSON.parse(await readFile(file, "utf8"))));
-  if (args.includes("--refresh-progress")) cohort.progress = (isI ? summarizePortraitCohortI : isH ? summarizePortraitCohortH : isG ? summarizePortraitCohortG : isF ? summarizePortraitCohortF : summarizePortraitCohort)(cohort);
+  if (args.includes("--refresh-progress")) cohort.progress = (isJ ? summarizePortraitCohortJ : isI ? summarizePortraitCohortI : isH ? summarizePortraitCohortH : isG ? summarizePortraitCohortG : isF ? summarizePortraitCohortF : summarizePortraitCohort)(cohort);
   const runSelection = isG ? JSON.parse(await readFile(new URL("data/dogs/portrait-continuation-100.json", root), "utf8")) : undefined;
-  const errors = (isI ? validatePortraitCohortI : isH ? validatePortraitCohortH : isG ? validatePortraitCohortG : isF ? validatePortraitCohortF : validatePortraitCohort)(cohort, { catalog, rightsLedger, generatedArtwork, profiles, runSelection });
+  const errors = (isJ ? validatePortraitCohortJ : isI ? validatePortraitCohortI : isH ? validatePortraitCohortH : isG ? validatePortraitCohortG : isF ? validatePortraitCohortF : validatePortraitCohort)(cohort, { catalog, rightsLedger, generatedArtwork, profiles, runSelection });
   if (errors.length) throw new Error(errors.join("\n"));
   if (args.includes("--refresh-progress")) {
     const temporaryPath = `${fileURLToPath(path)}.tmp-${process.pid}`;

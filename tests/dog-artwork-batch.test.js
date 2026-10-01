@@ -50,7 +50,8 @@ test("tracked crop recipes cover every exact UI-display Dogs ledger asset once",
     }
   }
   for (const asset of referenceOnlyAssets) {
-    assert.match(asset.review.reviewedAt, /^2026-09-/);
+    assert.match(asset.review.reviewedAt, /^\d{4}-\d{2}-\d{2}$/);
+    assert.equal(new Date(`${asset.review.reviewedAt}T00:00:00Z`).toISOString().slice(0, 10), asset.review.reviewedAt);
     assert.match(asset.review.reviewedBy, /OpenAI Codex.*delegated by Dan Bretl/);
     assert.equal(asset.review.subjectMatchesCatalog, true);
     assert.equal(asset.review.nonCopyrightRestrictionsReviewed, true);

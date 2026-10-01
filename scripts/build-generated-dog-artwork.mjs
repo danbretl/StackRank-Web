@@ -6,6 +6,7 @@ import path from "node:path";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import { preserveDogArtwork } from "./preserve-dog-artwork.mjs";
+import { canReuseDogArtworkVariant } from "./dog-generated-artwork-cache.mjs";
 
 const execFile = promisify(execFileCallback);
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -45,7 +46,7 @@ for (const entry of entries) {
   ids.add(entry?.catalogId);
   if (entry?.qa?.verdict !== "pass") errors.push(`${entry?.catalogId}: QA did not pass`);
   if (entry?.generator !== "OpenAI built-in imagegen") errors.push(`${entry?.catalogId}: unsupported generator`);
-  if (!["dogs-field-guide-v1", "dogs-field-guide-v2-cohort-e", "dogs-field-guide-v3-cohort-f", "dogs-field-guide-v4-cohort-g", "dogs-field-guide-v5-cohort-h", "dogs-field-guide-v6-cohort-i"].includes(entry?.promptTemplateVersion)) errors.push(`${entry?.catalogId}: prompt template mismatch`);
+  if (!["dogs-field-guide-v1", "dogs-field-guide-v2-cohort-e", "dogs-field-guide-v3-cohort-f", "dogs-field-guide-v4-cohort-g", "dogs-field-guide-v5-cohort-h", "dogs-field-guide-v6-cohort-i", "dogs-field-guide-v7-cohort-j"].includes(entry?.promptTemplateVersion)) errors.push(`${entry?.catalogId}: prompt template mismatch`);
   const reference = rightsByAssetId.get(entry?.reference?.assetId);
   if (!reference || reference.catalogId !== entry.catalogId || reference.review?.status !== "approved") {
     errors.push(`${entry?.catalogId}: missing matching rights-reviewed reference`);
@@ -62,6 +63,9 @@ if (errors.length) throw new Error(errors.join("\n"));
 const checkOnly = process.argv.includes("--check");
 if (!checkOnly) await fs.mkdir(outputDirectory, { recursive: true });
 const assets = [];
+const priorManifest = await readJson("data/dogs/generated-artwork.json").catch(() => ({ assets: [] }));
+const priorById = new Map(priorManifest.assets.map((asset) => [asset.catalogId, asset]));
+let preservedVariants = 0;
 
 for (const entry of entries.sort((left, right) => left.catalogId.localeCompare(right.catalogId))) {
   const sourcePath = path.join(root, entry.generatedPath);
@@ -73,6 +77,15 @@ for (const entry of entries.sort((left, right) => left.catalogId.localeCompare(r
   for (const target of targets) {
     const filename = `${stem}-${target.width}.webp`;
     const outputPath = path.join(outputDirectory, filename);
+    const previous = priorById.get(entry.catalogId);
+    const existing = previous?.variants?.find((variant) => variant.role === target.role);
+    const existingBytes = existing ? await fs.readFile(outputPath).catch(() => null) : null;
+    if (canReuseDogArtworkVariant({ asset: previous, masterSha256: source.sha256, variant: existing,
+      target, expectedUrl: `assets/dogs/generated/${filename}`, bytes: existingBytes })) {
+      variants.push(existing);
+      preservedVariants += 1;
+      continue;
+    }
     const { stdout: outputBytes } = await execFile("magick", [
       sourcePath,
       "-strip",
@@ -132,5 +145,5 @@ if (checkOnly) {
   console.log(`Generated Dog artwork is current (${assets.length} approved portraits).`);
 } else {
   await fs.writeFile(outputPath, next);
-  console.log(`Built ${assets.length} approved generated Dog portraits (${assets.length * targets.length} WebP variants).`);
+  console.log(`Built ${assets.length} approved generated Dog portraits (${assets.length * targets.length} WebP variants; ${preservedVariants} preserved after byte verification).`);
 }

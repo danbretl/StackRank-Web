@@ -606,7 +606,7 @@ test("shared morphology references fail closed for permission, identity, provena
 
 
 test("country-specific reference licenses retain their jurisdiction and deny delivery purposes", () => {
-  for (const [version, country] of [["3.0", "lu"], ["2.0", "de"]]) {
+  for (const [version, country] of [["3.0", "lu"], ["2.0", "de"], ["3.0", "de"]]) {
     const label = `CC BY-SA ${version} ${country}`;
     const licenseUrl = `https://creativecommons.org/licenses/by-sa/${version}/${country}/deed.en`;
     const license = resolveAllowedLicense(policy, { license: label, licenseUrl });

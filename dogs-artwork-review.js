@@ -15,9 +15,9 @@ import {
 import { dogProfileSourceLinks } from "/lib/dogs.js?v=7";
 
 const DATA_URLS = {
-  manifest: "/data/dogs/generated-artwork.json?v=23",
+  manifest: "/data/dogs/generated-artwork.json?v=24",
   catalog: "/data/dogs/dog-catalog.json?v=4",
-  profiles: "/data/dogs/breed-profiles.json?v=17",
+  profiles: "/data/dogs/breed-profiles.json?v=18",
 };
 
 const BATCH_METADATA_URLS = [
@@ -38,6 +38,7 @@ const BATCH_METADATA_URLS = [
   "/data/dogs/generated-artwork-batch-i01.json",
   "/data/dogs/generated-artwork-batch-i02.json",
   "/data/dogs/generated-artwork-batch-j01.json",
+  "/data/dogs/generated-artwork-batch-j02.json",
 ];
 
 const dom = {
@@ -461,7 +462,7 @@ async function openArtwork(assetId, { focusReview = false, opener = null } = {})
     const index = await loadBatchMetadata(state.manifestVersion);
     if (state.activeAssetId !== assetId || state.dialogRequest !== requestId) return;
     const batchImage = batchForAsset(index, asset);
-    renderGenerationRecord(asset, batchImage?.model || "Not recorded in preserved metadata");
+    renderGenerationRecord(asset, batchImage?.imageModel || batchImage?.model || "Not recorded in preserved metadata");
     renderBatchExtra(batchImage);
     renderQa(asset, batchImage);
     dom.generationLoading.hidden = true;

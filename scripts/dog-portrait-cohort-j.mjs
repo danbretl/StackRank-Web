@@ -156,7 +156,16 @@ export function validatePortraitCohortJ(cohort, { catalog, rightsLedger, generat
       fail(attempt.number === index + 1 && text(attempt.id) && !allAttemptIds.has(attempt.id), `${id}: unique sequential attempt missing`); allAttemptIds.add(attempt.id);
       fail(inSet(attempt.status, ['running', 'generated', 'failed']) && inSet(attempt.qaDecision, ['pending', 'accepted', 'rejected', 'unselected']), `${id}: invalid attempt state`);
       fail(iso(attempt.startedAt) && text(attempt.prompt) && promptDigest(attempt.prompt) === attempt.promptSha256 && hash(attempt.referenceInputSha256) && text(attempt.referenceInputPath) && attempt.agentModel === 'gpt-6.1-sol' && attempt.reasoningEffort === 'high' && attempt.imageGenerator === 'built-in imagegen' && attempt.imageModel === 'undisclosed', `${id}: exact pre-call prompt/reference/operator receipt required`);
-      if (attempt.status === 'generated') fail(iso(attempt.completedAt) && Date.parse(attempt.completedAt) >= Date.parse(attempt.startedAt) && attempt.masterPath?.startsWith('assets/dogs/generated-masters/cohort-j/') && hash(attempt.masterSha256) && attempt.masterSha256 === attempt.originalOutputSha256 && text(attempt.originalOutputPath) && attempt.width === 1536 && attempt.height === 1024, `${id}: native generated master/hash receipt invalid`);
+      if (attempt.status === 'generated') {
+        // Retain an erroneous tool output at its actual dimensions. This archival
+        // exception can never qualify an accepted or unreviewed portrait.
+        const rejectedFormat = attempt.qaDecision === 'rejected' &&
+          attempt.validationFailure === 'nonconforming-native-dimensions' &&
+          Number.isInteger(attempt.width) && attempt.width > 0 &&
+          Number.isInteger(attempt.height) && attempt.height > 0;
+        const nativeFormat = attempt.width === 1536 && attempt.height === 1024;
+        fail(iso(attempt.completedAt) && Date.parse(attempt.completedAt) >= Date.parse(attempt.startedAt) && attempt.masterPath?.startsWith('assets/dogs/generated-masters/cohort-j/') && hash(attempt.masterSha256) && attempt.masterSha256 === attempt.originalOutputSha256 && text(attempt.originalOutputPath) && (nativeFormat || rejectedFormat), `${id}: native generated master/hash receipt invalid`);
+      }
       if (attempt.status === 'failed') fail(text(attempt.failure), `${id}: failed call evidence missing`);
       if (inSet(attempt.qaDecision, ['rejected', 'unselected'])) fail(text(attempt.rejectionReason), `${id}: rejected/unselected output needs reason`);
     }

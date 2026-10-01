@@ -16,11 +16,11 @@ active next-category initiative** and now has a comprehensive field-guide produc
 generated VBO catalog, 1,239 breed profiles, editorial packs, ranking/lists/backup/export flows, and
 responsive browser coverage.
 The additive production schema and Storage bucket have been applied and passed real two-user/RLS/
-snapshot/Storage probes. 549 art-directed generated breed portraits and individually researched descriptions cover the
-promoted cohort plus 521 additional breeds and varieties in normal UI. The main Dogs site temporarily
+snapshot/Storage probes. 560 art-directed generated breed portraits and individually researched descriptions cover the
+promoted cohort plus 532 additional breeds and varieties in normal UI. The main Dogs site temporarily
 shows only completed portrait/profile pairs; all 1,239 source records and saved hidden entries remain
 intact, and each identity returns automatically when both completion gates pass. The rights ledger
-contains 28 licensed-photo fallback rows plus 521 separately gated morphology-reference rows. Dogs
+contains 28 licensed-photo fallback rows plus 532 separately gated morphology-reference rows. Dogs
 account sync and public snapshot code is enabled, while public-snapshot artwork and raster export
 remain purpose-denied. The integrated release shipped to production on July 22, 2026 in commit
 `31267389`; the field-guide redesign shipped to production in commit `254810ae`. `/dogs` is public while the
@@ -48,14 +48,16 @@ Start with `notes/testing/dogs-portrait-cohort-i.md` and `data/dogs/portrait-coh
 for historical release evidence and lessons. Cohort J now owns the active continuation.
 All prior frozen cohorts remain unchanged.
 
-Cohort J is active: **549 published pairs**, with **690 unfinished identities hidden**.
-Latest product `a9a9d040` is Vercel READY; 505 Node, 24 Deno,
-41 Chrome flows and 49 production checks pass, with 15 exact live byte matches.
-The target is 750 from J's frozen 250-primary/61-reserve selection. 1 accepted pairs
-remain staged; J records 54 built-in calls, 4 rejected outputs and 4 retries.
-All 27 earlier holds remain, with 3 explicit J reserve activations. Workers use `gpt-6.1-sol/high`.
-Read `notes/testing/dogs-portrait-cohort-j.md` and `data/dogs/portrait-cohort-j.json` first;
-continue existing J staging. Retained source/master archives are local; no off-machine backup is asserted.
+Cohort J stopped after the user-requested current batch: **560 published pairs**, with **679 unfinished identities hidden**.
+J01/J02/J03 added 28/21/11 pairs. Product `d327c29f` is Vercel READY;
+509 Node, 24 Deno, 41 Chrome flows, 49 production checks and 15 exact live byte matches pass.
+The original 250-primary/61-reserve selection remains frozen; a hashed direct-user stop ends this run at 60 additions.
+No accepted pair or active generation remains. J used 65 built-in calls, five rejects and five targeted retries.
+All 27 earlier holds and 17 J shared holds remain, with three append-only reserve activations.
+Workers explicitly used `gpt-6.1-sol/high`; primary runtime and underlying image model were undisclosed.
+Read `notes/testing/dogs-portrait-cohort-j.md`, `data/dogs/portrait-cohort-j.json` and
+`data/dogs/portrait-cohort-j-preparation-index.json`. Already-started later research is preserved;
+further acquisition/generation requires fresh user authorization. Local archives have no verified off-machine backup.
 
 Dogs keeps ranking primary within a compact “Find your kind of dog” launchpad. “A few dogs
 to meet” combines a full-width search row with Surprise me and a highlighted Browse all dogs
@@ -158,12 +160,12 @@ Plain **static single-page app — no build system, no framework, no bundler, no
 
 ## Feature map (what exists)
 
-- **StackRank Dogs:** `/dogs` browses and searches 549 completed VBO-derived breeds/types through canonical
+- **StackRank Dogs:** `/dogs` browses and searches 560 completed VBO-derived breeds/types through canonical
   names and aliases, then uses the shared binary-insertion mechanics with undo/cancel. It includes
   Recently ranked, 42 visible editorial packs (46 retained source packs), Detailed/Photos/Compact ranking views, safe facets,
   pointer/touch/keyboard reorder, Review order, provenance-rich details, Curious about / Not for me,
   rank-weighted Taste patterns, category backup/restore/name import, and text/Markdown/JSON exports.
-  Every selectable entry has a concise field note and an honest dog-family label. All 549 current
+  Every selectable entry has a concise field note and an honest dog-family label. All 560 current
   breeds also have an authored `shortDescription` for Detailed ranking, shown without clipping;
   full details and desktop comparisons keep the full summary. Photos shows portraits/names, and
   Compact keeps small thumbnails in a dense list. New profile-refresh entries must include their
@@ -171,9 +173,9 @@ Plain **static single-page app — no build system, no framework, no bundler, no
   Discovery portraits and Surprise me start ranking directly; the All dogs gallery opens details.
   Search, Surprise me and Shuffle dogs share the discovery toolbar. Full packs list unranked dogs
   before grayscale ranked dogs. Whole comparison cards choose a dog, with a separate image-corner
-  info control; Escape closes that profile before canceling a comparison. All 549 illustrated
+  info control; Escape closes that profile before canceling a comparison. All 560 illustrated
   breeds have individually written profiles, and their art-directed generated portraits include
-  breed-specific natural settings. The other 690 source entries stay conservative and hidden until individually researched copy and
+  breed-specific natural settings. The other 679 source entries stay conservative and hidden until individually researched copy and
   approved artwork are ready. Saved hidden entries remain in sync and backups without entering
   comparisons or public exports. Account sync and revocable public snapshot links use the additive category
   tables. Public snapshots omit artwork because that purpose remains denied, and raster

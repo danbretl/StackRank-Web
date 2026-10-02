@@ -95,3 +95,15 @@ shared integration, approximately 25-pair releases, commits, pushes and producti
 The tracked preparation index contains exact receipt paths and hashes. Ignored snapshots,
 native masters and local archives are not verified off-machine backups. This checkpoint is
 an active preparation milestone, not a completion report.
+
+## Frozen checkpoint publication
+
+Exact product commit `37c6229e3a5101ac721bada0f1e9d37511181c65` is READY in deployment
+`dpl_HmuvSM3YTupWJXJMRfEHz9jVHjC8`, with both production aliases verified.
+All 49 production checks pass. Four exact live payloads (breed profiles, generated artwork,
+private-reference rights ledger and Dogs application script) match local bytes.
+The checkpoint preserves 560 published pairs and 679 hidden identities; it adds no selectable
+K pair. Its exact four-call ledger remains the checkpoint basis. Later individually accepted
+natives and completed five-worker calibration are retained in private immutable receipts and
+will be normalized into the next ledger checkpoint. Evidence files and hashes are recorded
+under `frozenCheckpointPublication` in the preparation index and durable continuation context.

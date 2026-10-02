@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "cohortId": "dogs-portraits-k",
-  "savedAt": "2026-10-02T07:18:58.437184+00:00",
+  "savedAt": "2026-10-02T07:53:54.617073+00:00",
   "status": "active-frozen-selection-and-calibration",
   "authorizedAdditionalAcceptedPairs": 250,
   "targetPerWorker": 50,
@@ -535,6 +535,36 @@
       "path": "reports/dogs-generated-artwork/cohort-k/support-production.log",
       "sha256": "2db4f71d45c7014cd24987c83408fd90156394e175251685152e4b7eaa038fa1",
       "bytes": 2652
+    }
+  },
+  "frozenCheckpointPublication": {
+    "commit": "37c6229e3a5101ac721bada0f1e9d37511181c65",
+    "deploymentId": "dpl_HmuvSM3YTupWJXJMRfEHz9jVHjC8",
+    "deploymentStatus": "READY",
+    "productionAliases": [
+      "www.stackrankapp.com",
+      "stackrankapp.com"
+    ],
+    "productionChecks": 49,
+    "exactLiveByteMatches": 4,
+    "publishedPairs": 560,
+    "hiddenIdentities": 679,
+    "kIntegratedPairs": 0,
+    "kPublishedPairs": 0,
+    "deploymentEvidence": {
+      "path": "reports/dogs-generated-artwork/cohort-k/freeze-deployment.json",
+      "sha256": "5a871cdd17e4fb06e37845f5fb5260e24e1c828f3b19a77d2585ca1165eafe61",
+      "bytes": 1076
+    },
+    "productionEvidence": {
+      "path": "reports/dogs-generated-artwork/cohort-k/freeze-production.log",
+      "sha256": "0cf40d0be87c72c83a15ef504e51b687e0eb6b265efdbbfa341279cabf10b6c7",
+      "bytes": 2652
+    },
+    "liveByteEvidence": {
+      "path": "reports/dogs-generated-artwork/cohort-k/freeze-live-bytes.json",
+      "sha256": "ef94d805df57e7d0e4a05b450f4dec648cef5027692e74476fc8887d92623f07",
+      "bytes": 1093
     }
   }
 }

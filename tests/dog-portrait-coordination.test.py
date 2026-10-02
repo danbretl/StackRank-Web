@@ -164,6 +164,38 @@ class CoordinationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'root-owned'):
             self.coordinator.image_preflight('A', 'thread-A', 'breed-A', fake)
 
+    def supplemental_approval(self, **changes):
+        original = self.approval()
+        receipt = json.loads(original.read_text())
+        extra = self.root / 'supplemental-original.jpg'
+        extra.write_bytes(b'exact separately approved natural ear evidence')
+        item = {'path': str(extra), 'sha256': MODULE.digest(extra.read_bytes()),
+                'rootReferenceViewed': True, 'rootIdentityAndRightsApproved': True,
+                'limitedPurpose': 'Natural ear geometry only; whole-body primary remains separately qualified',
+                'referencePurposes': receipt['referencePurposes']}
+        item.update(changes)
+        receipt['additionalReferences'] = [item]
+        raw = json.dumps(receipt).encode()
+        path = original.parent / (MODULE.digest(raw) + '.json')
+        path.write_bytes(raw)
+        return path, extra
+
+    def test_supplemental_input_is_hash_bound_and_returned_in_exact_order(self):
+        p, extra = self.supplemental_approval()
+        result = self.coordinator.image_preflight('A', 'thread-A', 'breed-A', p)
+        self.assertEqual(result['referencePaths'], [str(self.root / 'reference.txt'), str(extra)])
+        self.assertEqual(len(result['referenceInputs']), 2)
+        extra.write_bytes(b'different unreviewed image')
+        with self.assertRaisesRegex(ValueError, 'approved bytes changed'):
+            self.coordinator.image_preflight('A', 'thread-A', 'breed-A', p)
+
+    def test_supplemental_input_cannot_skip_root_review_or_expand_photo_purposes(self):
+        for changes in [{'rootReferenceViewed': False}, {'rootIdentityAndRightsApproved': False},
+                        {'limitedPurpose': ''}, {'referencePurposes': {'uiDisplayAllowed': True}}]:
+            p, _ = self.supplemental_approval(**changes)
+            with self.assertRaises(ValueError):
+                self.coordinator.image_preflight('A', 'thread-A', 'breed-A', p)
+
     def test_fetch_rejects_unrelated_host_output_and_overwriting_before_any_network(self):
         with self.assertRaisesRegex(ValueError, 'HTTPS'):
             self.coordinator.commons_fetch('A', 'thread-A', 'breed-A', 'https://example.com/photo.jpg', self.root / 'A/x.jpg')

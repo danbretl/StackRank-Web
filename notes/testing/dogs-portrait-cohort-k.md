@@ -1,8 +1,9 @@
 # Cohort K: five independent 50-pair workers
 
 Dan invoked the saved kickoff on October 1, 2026, freshly authorizing 250 additional
-root-accepted portrait/profile pairs. K is active in source research and selection preparation.
-No K image call, accepted pair, integration or publication has occurred at this checkpoint.
+root-accepted portrait/profile pairs. K is active with its ordered selection frozen and
+individual calibration underway. This checkpoint records four completed built-in calls,
+two accepted pairs, two preserved rejected outputs and no K integration or publication.
 The verified baseline is 560 published pairs, 679 unfinished hidden identities and 1,239
 source identities. Completion would reach 810 published and 429 hidden.
 
@@ -30,8 +31,10 @@ access to the Codex app, so no configuration bypass was attempted.
 
 ## Baseline, recovery and shared limits
 
-Production alias `www.stackrankapp.com` points to exact baseline commit `012c1e4f`, READY
-deployment `dpl_CiSumGW91i7cVGXLmpn2ZbCLtmKY`. All 18 saved contract/data hashes, 47 research
+The starting production alias pointed to exact baseline commit `012c1e4f`, READY
+deployment `dpl_CiSumGW91i7cVGXLmpn2ZbCLtmKY`. Support milestone `2811988d` subsequently
+shipped as exact READY deployment `dpl_Awpp5Aom94cpCn9oiUTfnYNQLAfK`, with production aliases
+and 49 checks verified; published portrait/profile coverage stayed at 560. All 18 saved contract/data hashes, 47 research
 recovery pointers and 1,131 protected prior files were verified. Three live data payloads and
 three representative image payloads match local bytes; 49 production checks pass.
 The 33 pending peer-reviewed editorials and writer/source packets were recovered.
@@ -41,8 +44,11 @@ J remains frozen and stopped at 60 additions. Its ledger hash remains
 all 44 earlier holds remain. Aliases of published or held identities cannot count as new pairs.
 
 The central ignored stage is `reports/dogs-generated-artwork/cohort-k/`. Five disjoint audit
-pools cover 631 candidates. This audit allocation is immutable; the final ordered 250-primary
-selection, ordered reserves and five 50-slot acceptance assignments have not yet been frozen.
+pools cover 631 candidates. This audit allocation is immutable. The ordered 250-primary
+selection and 27 ordered reserves are frozen in `data/dogs/portrait-cohort-k.json`, with
+selection digest `f747510afacb4f9a6c7c08d634f9b8423f7a0a7f778569d3461f0bf8b5d660f6`.
+All five workers acknowledged their exact disjoint 50-slot assignments. Conditional research
+slots are pending their individual identity/source gates, not asserted qualified references.
 Initial triage nominations are research evidence, not completion or exhaustive source-absence claims.
 
 `scripts/dog-portrait-coordination.py` uses atomic SQLite permits: one Commons acquirer,
@@ -56,7 +62,10 @@ earlier rows without rewriting their dispositions.
 
 Image acquisition requires a dedicated immutable root approval binding exact packet, prompt
 and original bytes to the frozen worker/identity assignment. All photograph display, public
-snapshot and raster permissions remain false. No image preflight has yet been authorized.
+snapshot and raster permissions remain false. Four exact first-call approvals and successful
+preflights bind Pequeno, Villano, black Mudi and Miniature Poodle to immutable input bytes.
+An optional supplemental input also requires root visual/identity/rights review, an explicit
+limited purpose, exact bytes and the same photograph purpose denials.
 
 ## Support verification and next actions
 
@@ -64,18 +73,23 @@ Deliberate K support adds its separate cohort validator, five-worker ownership c
 `v8-cohort-k` template, K profile discovery and private archive closure. Prior J checks and
 stop receipt remain intact. Full `npm run verify` passes 520 Node tests, 24 Deno tests,
 41 Chrome flows and 11 initial coordination tests; the subsequent Wiki-chain/cadence/upload
-checks bring focused coordination coverage to 13 passing tests.
+checks brought focused coordination coverage to 13 passing tests; supplemental input closure
+adds two more passing tests. The stable frozen-checkpoint suite passes all 520 Node tests,
+15 coordination tests, 24 Deno tests and 41 Chrome flows. Earlier failed logs retain the
+rights-note wording and cache-key corrections; no acceptance requirement was weakened.
 
-Root individually viewed the five saved accepted J native calibration examples. Villano's
-first source/editorial proposal has actual root source review and independent B→C editorial
-review; muzzle instructions require revision and natural-ear limits remain explicit. A
-Miniature Poodle reclining original is provisionally adequate for exact coat/identity with
-its pose limitations recorded and standing conformation grounded in the actual standard.
-Neither proposal authorizes generation.
+Root individually viewed five saved accepted J native calibration examples and all four new
+native outputs. Pequeno and Miniature Poodle pass independent native and complete-pair gates.
+Villano's cropped-looking pinnae and compact muzzle fail morphology; black Mudi's approximately
+20px ear headroom fails the generous crop margin. Both rejected outputs remain untouched.
+Four exact source photographs are approved as private morphology rows, with all public
+photograph purposes false. A Miniature Poodle reclining pose qualifies alongside actual FCI
+standing conformation; its age/height/pose limits remain recorded. No K pair is yet selectable
+in production. Subsequent running calls and research are retained in live coordination and
+immutable worker receipts and will enter the next checkpoint after root adjudication.
 
-Root next reconciles ordered candidate priorities and exact identity boundaries, freezes the
-250 research/acceptance slots and reserves, then approves qualified source/profile/prompt
-packets before any built-in call. Workers continue research and immutable staging; root owns
+Root next finishes calibration across the five workers and individually approves qualified
+source/profile/prompt packets before every subsequent built-in call. Workers continue research and immutable staging; root owns
 shared integration, approximately 25-pair releases, commits, pushes and production verification.
 
 The tracked preparation index contains exact receipt paths and hashes. Ignored snapshots,

@@ -137,9 +137,26 @@ class Coordinator:
             raise ValueError('All morphology-reference purposes must remain denied')
         if receipt.get('nativeDimensions') != [1536, 1024]:
             raise ValueError('Native 1536x1024 portrait contract changed')
+        additional = receipt.get('additionalReferences', [])
+        if not isinstance(additional, list) or len(additional) > 2:
+            raise ValueError('At most two explicitly approved supplemental reference inputs')
+        inputs = [receipt['reference']]
+        for item in additional:
+            source = pathlib.Path(item['path']).resolve()
+            if digest(source.read_bytes()) != item['sha256']:
+                raise ValueError('supplemental reference: approved bytes changed')
+            if item.get('rootReferenceViewed') is not True or item.get('rootIdentityAndRightsApproved') is not True or not str(item.get('limitedPurpose', '')).strip():
+                raise ValueError('Supplemental reference requires explicit root identity/rights/visual review and limited purpose')
+            if item.get('referencePurposes') != receipt['referencePurposes']:
+                raise ValueError('Supplemental photograph purpose gates must remain denied')
+            if source in [pathlib.Path(previous['path']).resolve() for previous in inputs]:
+                raise ValueError('Duplicate reference input')
+            inputs.append(item)
         return {'approvalPath': str(p), 'approvalSha256': digest(raw), 'prompt': prompt,
                 'promptPath': receipt['prompt']['path'], 'promptSha256': receipt['prompt']['sha256'],
                 'referencePath': receipt['reference']['path'], 'referenceSha256': receipt['reference']['sha256'],
+                'referencePaths': [item['path'] for item in inputs],
+                'referenceInputs': [{'path': item['path'], 'sha256': item['sha256']} for item in inputs],
                 'packetPath': receipt['packet']['path'], 'packetSha256': receipt['packet']['sha256'],
                 'catalogId': catalog_id, 'worker': worker, 'threadId': thread,
                 'selectionSha256': receipt['selectionSha256'], 'nativeDimensions': [1536, 1024]}

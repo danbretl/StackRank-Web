@@ -9,7 +9,7 @@
     "catalogVersion": "vbo-2026-04-15.2",
     "catalogSha256": "7f6c4c053584a8cdbda0cefaf654fe7d66febf16d6f9a8eab9ca9ae388ebbd13",
     "ledgerVersion": "2026-09-22.f01",
-    "ledgerSha256": "95959cd2b878443f68743692f8f8783dfb5490db20949e205e73a1991bd446db",
+    "ledgerSha256": "97e628198531313b265519857b6e53c5421bb3301251868b96fb04e097183909",
     "packsEditorialVersion": "2026-07-16.1",
     "packsSha256": "e91104204ded1e76f825295070d7d4ac9757bea7faf49abb3a314ca6332a1719",
     "policyVersion": "2026-10-01.3",
@@ -130,11 +130,11 @@
   },
   "summary": {
     "currentCanonicalCount": 877,
-    "catalogIdsWithLedgerRows": 560,
-    "queuedMissingLedgerRows": 441,
+    "catalogIdsWithLedgerRows": 564,
+    "queuedMissingLedgerRows": 439,
     "promoted": 0,
     "packEngaged": 14,
-    "catalogLongTail": 427
+    "catalogLongTail": 425
   },
   "items": [
     {
@@ -18226,64 +18226,6 @@
     },
     {
       "priorityRank": 317,
-      "catalogId": "VBO:0201068",
-      "displayName": "Portuguese Podengo Pequeno",
-      "catalogStatus": "canonical",
-      "aliases": [
-        "Portuguese Podengo, Small",
-        "Portuguese Podengo, Small (Portuguese Podengo Pequeno)"
-      ],
-      "sourceIds": [
-        "VBO:0201068"
-      ],
-      "priority": {
-        "tier": "catalog-long-tail",
-        "promoted": false,
-        "promotedPackCount": 0,
-        "packCount": 0,
-        "promotedPackIds": [],
-        "packIds": []
-      },
-      "discovery": {
-        "query": "\"Portuguese Podengo Pequeno\" dog",
-        "openverse": {
-          "requestUrl": "https://api.openverse.org/v1/images/?q=%22Portuguese+Podengo+Pequeno%22+dog&license=cc0%2Cpdm%2Cby%2Cby-sa&license_type=commercial%2Cmodification&page_size=10&page=1&mature=false&filter_dead=true&source=wikimedia",
-          "source": "wikimedia",
-          "resultLimit": 10,
-          "page": 1,
-          "allowedAdvertisedLicenses": [
-            "cc0",
-            "pdm",
-            "by",
-            "by-sa"
-          ],
-          "requiredLicenseTypes": [
-            "commercial",
-            "modification"
-          ],
-          "mature": false,
-          "filterDead": true,
-          "status": "unverified-discovery-only"
-        },
-        "commons": {
-          "query": "\"Portuguese Podengo Pequeno\" dog",
-          "mediaSearchUrl": "https://commons.wikimedia.org/w/index.php?search=%22Portuguese+Podengo+Pequeno%22+dog&title=Special%3AMediaSearch&type=image",
-          "apiSearchUrl": "https://commons.wikimedia.org/w/api.php?action=query&format=json&formatversion=2&generator=search&gsrsearch=%22Portuguese+Podengo+Pequeno%22+dog&gsrnamespace=6&gsrlimit=10&gsrwhat=text&prop=info&inprop=url&maxlag=5",
-          "resultLimit": 10,
-          "licenseFiltering": "none",
-          "warning": "Commons search results are discovery leads only. Verify one exact File page and its current Imageinfo metadata before creating a pending candidate."
-        }
-      },
-      "evidenceContractId": "dogs-artwork-ledger-v1",
-      "reviewState": "no-ledger-row",
-      "permissions": {
-        "uiDisplayAllowed": false,
-        "publicSnapshotAllowed": false,
-        "rasterExportAllowed": false
-      }
-    },
-    {
-      "priorityRank": 318,
       "catalogId": "VBO:0201070",
       "displayName": "Portuguese Rabbit Dog",
       "catalogStatus": "canonical",
@@ -18338,7 +18280,7 @@
       }
     },
     {
-      "priorityRank": 319,
+      "priorityRank": 318,
       "catalogId": "VBO:0201082",
       "displayName": "Posavina Hound",
       "catalogStatus": "canonical",
@@ -18395,7 +18337,7 @@
       }
     },
     {
-      "priorityRank": 320,
+      "priorityRank": 319,
       "catalogId": "VBO:0201083",
       "displayName": "Potsdam Greyhound",
       "catalogStatus": "canonical",
@@ -18452,7 +18394,7 @@
       }
     },
     {
-      "priorityRank": 321,
+      "priorityRank": 320,
       "catalogId": "VBO:0201086",
       "displayName": "Pshdar Dog",
       "catalogStatus": "canonical",
@@ -18507,7 +18449,7 @@
       }
     },
     {
-      "priorityRank": 322,
+      "priorityRank": 321,
       "catalogId": "VBO:0201088",
       "displayName": "Puerto Rican Mastiff",
       "catalogStatus": "canonical",
@@ -18567,7 +18509,7 @@
       }
     },
     {
-      "priorityRank": 323,
+      "priorityRank": 322,
       "catalogId": "VBO:0201114",
       "displayName": "Pyrenean Sheepdog",
       "catalogStatus": "canonical",
@@ -18622,7 +18564,7 @@
       }
     },
     {
-      "priorityRank": 324,
+      "priorityRank": 323,
       "catalogId": "VBO:0201117",
       "displayName": "Pyrenean Shepherd",
       "catalogStatus": "canonical",
@@ -18686,7 +18628,7 @@
       }
     },
     {
-      "priorityRank": 325,
+      "priorityRank": 324,
       "catalogId": "VBO:0201118",
       "displayName": "Pyrénées Braque Français",
       "catalogStatus": "canonical",
@@ -18741,7 +18683,7 @@
       }
     },
     {
-      "priorityRank": 326,
+      "priorityRank": 325,
       "catalogId": "VBO:0201119",
       "displayName": "Rache",
       "catalogStatus": "canonical",
@@ -18796,7 +18738,7 @@
       }
     },
     {
-      "priorityRank": 327,
+      "priorityRank": 326,
       "catalogId": "VBO:0201121",
       "displayName": "Raibs Suns",
       "catalogStatus": "canonical",
@@ -18851,7 +18793,7 @@
       }
     },
     {
-      "priorityRank": 328,
+      "priorityRank": 327,
       "catalogId": "VBO:0201128",
       "displayName": "Ratonero Murciano",
       "catalogStatus": "canonical",
@@ -18906,7 +18848,7 @@
       }
     },
     {
-      "priorityRank": 329,
+      "priorityRank": 328,
       "catalogId": "VBO:0201129",
       "displayName": "Ratonero Valenciano",
       "catalogStatus": "canonical",
@@ -18961,7 +18903,7 @@
       }
     },
     {
-      "priorityRank": 330,
+      "priorityRank": 329,
       "catalogId": "VBO:0201130",
       "displayName": "Ratter",
       "catalogStatus": "canonical",
@@ -19018,7 +18960,7 @@
       }
     },
     {
-      "priorityRank": 331,
+      "priorityRank": 330,
       "catalogId": "VBO:0201134",
       "displayName": "Retriever",
       "catalogStatus": "canonical",
@@ -19075,7 +19017,7 @@
       }
     },
     {
-      "priorityRank": 332,
+      "priorityRank": 331,
       "catalogId": "VBO:0201138",
       "displayName": "Roman Rottweiler",
       "catalogStatus": "canonical",
@@ -19134,7 +19076,7 @@
       }
     },
     {
-      "priorityRank": 333,
+      "priorityRank": 332,
       "catalogId": "VBO:0201144",
       "displayName": "Rough Beagle",
       "catalogStatus": "canonical",
@@ -19191,7 +19133,7 @@
       }
     },
     {
-      "priorityRank": 334,
+      "priorityRank": 333,
       "catalogId": "VBO:0201145",
       "displayName": "Russell Terrier",
       "catalogStatus": "canonical",
@@ -19249,7 +19191,7 @@
       }
     },
     {
-      "priorityRank": 335,
+      "priorityRank": 334,
       "catalogId": "VBO:0201147",
       "displayName": "Russian Bolonka",
       "catalogStatus": "canonical",
@@ -19308,7 +19250,7 @@
       }
     },
     {
-      "priorityRank": 336,
+      "priorityRank": 335,
       "catalogId": "VBO:0201159",
       "displayName": "Sage",
       "catalogStatus": "canonical",
@@ -19365,7 +19307,7 @@
       }
     },
     {
-      "priorityRank": 337,
+      "priorityRank": 336,
       "catalogId": "VBO:0201164",
       "displayName": "Saint Hubert Bloodhound",
       "catalogStatus": "canonical",
@@ -19423,7 +19365,7 @@
       }
     },
     {
-      "priorityRank": 338,
+      "priorityRank": 337,
       "catalogId": "VBO:0201165",
       "displayName": "Saint Hubert Jura Hound",
       "catalogStatus": "canonical",
@@ -19478,7 +19420,7 @@
       }
     },
     {
-      "priorityRank": 339,
+      "priorityRank": 338,
       "catalogId": "VBO:0201169",
       "displayName": "Sakhalin Husky",
       "catalogStatus": "canonical",
@@ -19535,7 +19477,7 @@
       }
     },
     {
-      "priorityRank": 340,
+      "priorityRank": 339,
       "catalogId": "VBO:0201456",
       "displayName": "Sangsari",
       "catalogStatus": "canonical",
@@ -19590,7 +19532,7 @@
       }
     },
     {
-      "priorityRank": 341,
+      "priorityRank": 340,
       "catalogId": "VBO:0201175",
       "displayName": "Sanshu Dog",
       "catalogStatus": "canonical",
@@ -19645,7 +19587,7 @@
       }
     },
     {
-      "priorityRank": 342,
+      "priorityRank": 341,
       "catalogId": "VBO:0201176",
       "displayName": "Sapsali",
       "catalogStatus": "canonical",
@@ -19700,7 +19642,7 @@
       }
     },
     {
-      "priorityRank": 343,
+      "priorityRank": 342,
       "catalogId": "VBO:0201177",
       "displayName": "Sapsari",
       "catalogStatus": "canonical",
@@ -19758,7 +19700,7 @@
       }
     },
     {
-      "priorityRank": 344,
+      "priorityRank": 343,
       "catalogId": "VBO:0201178",
       "displayName": "Sarabi Dog",
       "catalogStatus": "canonical",
@@ -19815,7 +19757,7 @@
       }
     },
     {
-      "priorityRank": 345,
+      "priorityRank": 344,
       "catalogId": "VBO:0008004",
       "displayName": "Sarail",
       "catalogStatus": "canonical",
@@ -19872,7 +19814,7 @@
       }
     },
     {
-      "priorityRank": 346,
+      "priorityRank": 345,
       "catalogId": "VBO:0201179",
       "displayName": "Sardinian Shepherd Dog",
       "catalogStatus": "canonical",
@@ -19927,7 +19869,7 @@
       }
     },
     {
-      "priorityRank": 347,
+      "priorityRank": 346,
       "catalogId": "VBO:0201196",
       "displayName": "Scottish Rough Collie",
       "catalogStatus": "canonical",
@@ -19984,7 +19926,7 @@
       }
     },
     {
-      "priorityRank": 348,
+      "priorityRank": 347,
       "catalogId": "VBO:0201197",
       "displayName": "Scottish Smooth Collie",
       "catalogStatus": "canonical",
@@ -20041,7 +19983,7 @@
       }
     },
     {
-      "priorityRank": 349,
+      "priorityRank": 348,
       "catalogId": "VBO:0201199",
       "displayName": "Sealydale Terrier",
       "catalogStatus": "canonical",
@@ -20098,7 +20040,7 @@
       }
     },
     {
-      "priorityRank": 350,
+      "priorityRank": 349,
       "catalogId": "VBO:0201202",
       "displayName": "Segugio Italiano",
       "catalogStatus": "canonical",
@@ -20158,7 +20100,7 @@
       }
     },
     {
-      "priorityRank": 351,
+      "priorityRank": 350,
       "catalogId": "VBO:0201204",
       "displayName": "Serbian Balkan Hound",
       "catalogStatus": "canonical",
@@ -20216,7 +20158,7 @@
       }
     },
     {
-      "priorityRank": 352,
+      "priorityRank": 351,
       "catalogId": "VBO:0201208",
       "displayName": "Serbian Mountain Dog",
       "catalogStatus": "canonical",
@@ -20275,7 +20217,7 @@
       }
     },
     {
-      "priorityRank": 353,
+      "priorityRank": 352,
       "catalogId": "VBO:0201210",
       "displayName": "Serrano Bulldog",
       "catalogStatus": "canonical",
@@ -20330,7 +20272,7 @@
       }
     },
     {
-      "priorityRank": 354,
+      "priorityRank": 353,
       "catalogId": "VBO:0201211",
       "displayName": "Setter",
       "catalogStatus": "canonical",
@@ -20387,7 +20329,7 @@
       }
     },
     {
-      "priorityRank": 355,
+      "priorityRank": 354,
       "catalogId": "VBO:0201215",
       "displayName": "Sheepdog",
       "catalogStatus": "canonical",
@@ -20444,7 +20386,7 @@
       }
     },
     {
-      "priorityRank": 356,
+      "priorityRank": 355,
       "catalogId": "VBO:0201216",
       "displayName": "Shepherd Dog",
       "catalogStatus": "canonical",
@@ -20501,7 +20443,7 @@
       }
     },
     {
-      "priorityRank": 357,
+      "priorityRank": 356,
       "catalogId": "VBO:0201218",
       "displayName": "Shi-Jug",
       "catalogStatus": "canonical",
@@ -20559,7 +20501,7 @@
       }
     },
     {
-      "priorityRank": 358,
+      "priorityRank": 357,
       "catalogId": "VBO:0201226",
       "displayName": "Shiloh Shepherd",
       "catalogStatus": "canonical",
@@ -20616,7 +20558,7 @@
       }
     },
     {
-      "priorityRank": 359,
+      "priorityRank": 358,
       "catalogId": "VBO:0201231",
       "displayName": "Shropshire Terrier",
       "catalogStatus": "canonical",
@@ -20673,7 +20615,7 @@
       }
     },
     {
-      "priorityRank": 360,
+      "priorityRank": 359,
       "catalogId": "VBO:0201234",
       "displayName": "Sicillian Hound",
       "catalogStatus": "canonical",
@@ -20730,7 +20672,7 @@
       }
     },
     {
-      "priorityRank": 361,
+      "priorityRank": 360,
       "catalogId": "VBO:0201236",
       "displayName": "Silky Spitz",
       "catalogStatus": "canonical",
@@ -20790,7 +20732,7 @@
       }
     },
     {
-      "priorityRank": 362,
+      "priorityRank": 361,
       "catalogId": "VBO:0201238",
       "displayName": "Simaku",
       "catalogStatus": "canonical",
@@ -20845,7 +20787,7 @@
       }
     },
     {
-      "priorityRank": 363,
+      "priorityRank": 362,
       "catalogId": "VBO:0201239",
       "displayName": "Sinhala Hound",
       "catalogStatus": "canonical",
@@ -20900,7 +20842,7 @@
       }
     },
     {
-      "priorityRank": 364,
+      "priorityRank": 363,
       "catalogId": "VBO:0201241",
       "displayName": "Sleuth Hound",
       "catalogStatus": "canonical",
@@ -20955,7 +20897,7 @@
       }
     },
     {
-      "priorityRank": 365,
+      "priorityRank": 364,
       "catalogId": "VBO:0201247",
       "displayName": "Smaland Hound",
       "catalogStatus": "canonical",
@@ -21015,7 +20957,7 @@
       }
     },
     {
-      "priorityRank": 366,
+      "priorityRank": 365,
       "catalogId": "VBO:0201250",
       "displayName": "Small Munsterlander",
       "catalogStatus": "canonical",
@@ -21074,7 +21016,7 @@
       }
     },
     {
-      "priorityRank": 367,
+      "priorityRank": 366,
       "catalogId": "VBO:0201251",
       "displayName": "Small Swiss Hound",
       "catalogStatus": "canonical",
@@ -21133,7 +21075,7 @@
       }
     },
     {
-      "priorityRank": 368,
+      "priorityRank": 367,
       "catalogId": "VBO:0201256",
       "displayName": "Smithfield",
       "catalogStatus": "canonical",
@@ -21188,7 +21130,7 @@
       }
     },
     {
-      "priorityRank": 369,
+      "priorityRank": 368,
       "catalogId": "VBO:0201257",
       "displayName": "Smooth Beagle",
       "catalogStatus": "canonical",
@@ -21245,7 +21187,7 @@
       }
     },
     {
-      "priorityRank": 370,
+      "priorityRank": 369,
       "catalogId": "VBO:0008093",
       "displayName": "South African Greyhound",
       "catalogStatus": "canonical",
@@ -21303,7 +21245,7 @@
       }
     },
     {
-      "priorityRank": 371,
+      "priorityRank": 370,
       "catalogId": "VBO:0201265",
       "displayName": "South Russian Steppe Hound",
       "catalogStatus": "canonical",
@@ -21360,7 +21302,7 @@
       }
     },
     {
-      "priorityRank": 372,
+      "priorityRank": 371,
       "catalogId": "VBO:0201267",
       "displayName": "Southern Blackmouth Cur",
       "catalogStatus": "canonical",
@@ -21417,7 +21359,7 @@
       }
     },
     {
-      "priorityRank": 373,
+      "priorityRank": 372,
       "catalogId": "VBO:0201268",
       "displayName": "Southern Bloodhound",
       "catalogStatus": "canonical",
@@ -21474,7 +21416,7 @@
       }
     },
     {
-      "priorityRank": 374,
+      "priorityRank": 373,
       "catalogId": "VBO:0201271",
       "displayName": "Spaniel",
       "catalogStatus": "canonical",
@@ -21531,7 +21473,7 @@
       }
     },
     {
-      "priorityRank": 375,
+      "priorityRank": 374,
       "catalogId": "VBO:0201276",
       "displayName": "Spanish Hound, Large",
       "catalogStatus": "canonical",
@@ -21591,7 +21533,7 @@
       }
     },
     {
-      "priorityRank": 376,
+      "priorityRank": 375,
       "catalogId": "VBO:0201277",
       "displayName": "Spanish Hound, Small",
       "catalogStatus": "canonical",
@@ -21651,7 +21593,7 @@
       }
     },
     {
-      "priorityRank": 377,
+      "priorityRank": 376,
       "catalogId": "VBO:0201460",
       "displayName": "Spino Degli Iblei",
       "catalogStatus": "canonical",
@@ -21708,7 +21650,7 @@
       }
     },
     {
-      "priorityRank": 378,
+      "priorityRank": 377,
       "catalogId": "VBO:0201282",
       "displayName": "Spitz",
       "catalogStatus": "canonical",
@@ -21765,7 +21707,7 @@
       }
     },
     {
-      "priorityRank": 379,
+      "priorityRank": 378,
       "catalogId": "VBO:0201284",
       "displayName": "Sporting Lucas Terrier",
       "catalogStatus": "canonical",
@@ -21820,7 +21762,7 @@
       }
     },
     {
-      "priorityRank": 380,
+      "priorityRank": 379,
       "catalogId": "VBO:0201287",
       "displayName": "Springer Spaniel",
       "catalogStatus": "canonical",
@@ -21878,7 +21820,7 @@
       }
     },
     {
-      "priorityRank": 381,
+      "priorityRank": 380,
       "catalogId": "VBO:0201300",
       "displayName": "Staghound",
       "catalogStatus": "canonical",
@@ -21933,7 +21875,7 @@
       }
     },
     {
-      "priorityRank": 382,
+      "priorityRank": 381,
       "catalogId": "VBO:0201302",
       "displayName": "Stephens' Cur",
       "catalogStatus": "canonical",
@@ -21992,7 +21934,7 @@
       }
     },
     {
-      "priorityRank": 383,
+      "priorityRank": 382,
       "catalogId": "VBO:0201306",
       "displayName": "Styrian Rough-Haired Mountain Dog",
       "catalogStatus": "canonical",
@@ -22049,7 +21991,7 @@
       }
     },
     {
-      "priorityRank": 384,
+      "priorityRank": 383,
       "catalogId": "VBO:0201307",
       "displayName": "Styrian Wire-Haired Mountain Dog",
       "catalogStatus": "canonical",
@@ -22106,7 +22048,7 @@
       }
     },
     {
-      "priorityRank": 385,
+      "priorityRank": 384,
       "catalogId": "VBO:0201308",
       "displayName": "Sussex Bulldog",
       "catalogStatus": "canonical",
@@ -22163,7 +22105,7 @@
       }
     },
     {
-      "priorityRank": 386,
+      "priorityRank": 385,
       "catalogId": "VBO:0201311",
       "displayName": "Swedish Cattle Dog",
       "catalogStatus": "canonical",
@@ -22222,7 +22164,7 @@
       }
     },
     {
-      "priorityRank": 387,
+      "priorityRank": 386,
       "catalogId": "VBO:0201318",
       "displayName": "Swiss Hound",
       "catalogStatus": "canonical",
@@ -22285,7 +22227,7 @@
       }
     },
     {
-      "priorityRank": 388,
+      "priorityRank": 387,
       "catalogId": "VBO:0201323",
       "displayName": "Swiss Mountain Dog",
       "catalogStatus": "canonical",
@@ -22344,7 +22286,7 @@
       }
     },
     {
-      "priorityRank": 389,
+      "priorityRank": 388,
       "catalogId": "VBO:0201324",
       "displayName": "Swiss Short-Haired Pinscher",
       "catalogStatus": "canonical",
@@ -22403,7 +22345,7 @@
       }
     },
     {
-      "priorityRank": 390,
+      "priorityRank": 389,
       "catalogId": "VBO:0201325",
       "displayName": "Swiss White Shepherd Dog",
       "catalogStatus": "canonical",
@@ -22462,7 +22404,7 @@
       }
     },
     {
-      "priorityRank": 391,
+      "priorityRank": 390,
       "catalogId": "VBO:0201327",
       "displayName": "Sydney Terrier",
       "catalogStatus": "canonical",
@@ -22519,7 +22461,7 @@
       }
     },
     {
-      "priorityRank": 392,
+      "priorityRank": 391,
       "catalogId": "VBO:0201328",
       "displayName": "Tahitian Dog",
       "catalogStatus": "canonical",
@@ -22574,7 +22516,7 @@
       }
     },
     {
-      "priorityRank": 393,
+      "priorityRank": 392,
       "catalogId": "VBO:0201335",
       "displayName": "Tamaskan Husky",
       "catalogStatus": "canonical",
@@ -22633,7 +22575,7 @@
       }
     },
     {
-      "priorityRank": 394,
+      "priorityRank": 393,
       "catalogId": "VBO:0201336",
       "displayName": "Tang Dog",
       "catalogStatus": "canonical",
@@ -22688,7 +22630,7 @@
       }
     },
     {
-      "priorityRank": 395,
+      "priorityRank": 394,
       "catalogId": "VBO:0201464",
       "displayName": "Tarsus çatalburun",
       "catalogStatus": "canonical",
@@ -22750,7 +22692,7 @@
       }
     },
     {
-      "priorityRank": 396,
+      "priorityRank": 395,
       "catalogId": "VBO:0201337",
       "displayName": "Tasy",
       "catalogStatus": "canonical",
@@ -22805,7 +22747,7 @@
       }
     },
     {
-      "priorityRank": 397,
+      "priorityRank": 396,
       "catalogId": "VBO:0201339",
       "displayName": "Teacup Pomeranian",
       "catalogStatus": "canonical",
@@ -22862,7 +22804,7 @@
       }
     },
     {
-      "priorityRank": 398,
+      "priorityRank": 397,
       "catalogId": "VBO:0201341",
       "displayName": "Telomian",
       "catalogStatus": "canonical",
@@ -22917,7 +22859,7 @@
       }
     },
     {
-      "priorityRank": 399,
+      "priorityRank": 398,
       "catalogId": "VBO:0201343",
       "displayName": "Terrier",
       "catalogStatus": "canonical",
@@ -22974,7 +22916,7 @@
       }
     },
     {
-      "priorityRank": 400,
+      "priorityRank": 399,
       "catalogId": "VBO:0201349",
       "displayName": "Tiara Teddy Bear",
       "catalogStatus": "canonical",
@@ -23029,7 +22971,7 @@
       }
     },
     {
-      "priorityRank": 401,
+      "priorityRank": 400,
       "catalogId": "VBO:0201350",
       "displayName": "Tibetan Kyi Apso",
       "catalogStatus": "canonical",
@@ -23086,7 +23028,7 @@
       }
     },
     {
-      "priorityRank": 402,
+      "priorityRank": 401,
       "catalogId": "VBO:0201354",
       "displayName": "Titan Terrier",
       "catalogStatus": "canonical",
@@ -23143,7 +23085,7 @@
       }
     },
     {
-      "priorityRank": 403,
+      "priorityRank": 402,
       "catalogId": "VBO:0201355",
       "displayName": "Tonya Finosu",
       "catalogStatus": "canonical",
@@ -23198,7 +23140,7 @@
       }
     },
     {
-      "priorityRank": 404,
+      "priorityRank": 403,
       "catalogId": "VBO:0201358",
       "displayName": "Toy American Eskimo Dog",
       "catalogStatus": "canonical",
@@ -23255,7 +23197,7 @@
       }
     },
     {
-      "priorityRank": 405,
+      "priorityRank": 404,
       "catalogId": "VBO:0201359",
       "displayName": "Toy Australian Shepherd Dog",
       "catalogStatus": "canonical",
@@ -23312,7 +23254,7 @@
       }
     },
     {
-      "priorityRank": 406,
+      "priorityRank": 405,
       "catalogId": "VBO:0201360",
       "displayName": "Toy Bulldog",
       "catalogStatus": "canonical",
@@ -23367,7 +23309,7 @@
       }
     },
     {
-      "priorityRank": 407,
+      "priorityRank": 406,
       "catalogId": "VBO:0201363",
       "displayName": "Toy Manchester Terrier",
       "catalogStatus": "canonical",
@@ -23425,7 +23367,7 @@
       }
     },
     {
-      "priorityRank": 408,
+      "priorityRank": 407,
       "catalogId": "VBO:0201364",
       "displayName": "Toy Rat Terrier",
       "catalogStatus": "canonical",
@@ -23483,7 +23425,7 @@
       }
     },
     {
-      "priorityRank": 409,
+      "priorityRank": 408,
       "catalogId": "VBO:0201368",
       "displayName": "Trail Hound",
       "catalogStatus": "canonical",
@@ -23540,7 +23482,7 @@
       }
     },
     {
-      "priorityRank": 410,
+      "priorityRank": 409,
       "catalogId": "VBO:0201371",
       "displayName": "Treeing Cur",
       "catalogStatus": "canonical",
@@ -23597,7 +23539,7 @@
       }
     },
     {
-      "priorityRank": 411,
+      "priorityRank": 410,
       "catalogId": "VBO:0201372",
       "displayName": "Treeing Feist",
       "catalogStatus": "canonical",
@@ -23654,7 +23596,7 @@
       }
     },
     {
-      "priorityRank": 412,
+      "priorityRank": 411,
       "catalogId": "VBO:0201373",
       "displayName": "Treeing Tennessee Brindle",
       "catalogStatus": "canonical",
@@ -23709,7 +23651,7 @@
       }
     },
     {
-      "priorityRank": 413,
+      "priorityRank": 412,
       "catalogId": "VBO:0201375",
       "displayName": "Trigg Hound",
       "catalogStatus": "canonical",
@@ -23766,7 +23708,7 @@
       }
     },
     {
-      "priorityRank": 414,
+      "priorityRank": 413,
       "catalogId": "VBO:0008086",
       "displayName": "Turkish Greyhound",
       "catalogStatus": "canonical",
@@ -23823,7 +23765,7 @@
       }
     },
     {
-      "priorityRank": 415,
+      "priorityRank": 414,
       "catalogId": "VBO:0201379",
       "displayName": "Tyrolean Hound",
       "catalogStatus": "canonical",
@@ -23884,7 +23826,7 @@
       }
     },
     {
-      "priorityRank": 416,
+      "priorityRank": 415,
       "catalogId": "VBO:0201380",
       "displayName": "Utonagan",
       "catalogStatus": "canonical",
@@ -23939,7 +23881,7 @@
       }
     },
     {
-      "priorityRank": 417,
+      "priorityRank": 416,
       "catalogId": "VBO:0201382",
       "displayName": "Valley Bulldog",
       "catalogStatus": "canonical",
@@ -23996,7 +23938,7 @@
       }
     },
     {
-      "priorityRank": 418,
+      "priorityRank": 417,
       "catalogId": "VBO:0201383",
       "displayName": "Verelade",
       "catalogStatus": "canonical",
@@ -24051,7 +23993,7 @@
       }
     },
     {
-      "priorityRank": 419,
+      "priorityRank": 418,
       "catalogId": "VBO:0201384",
       "displayName": "Victorian Bulldog",
       "catalogStatus": "canonical",
@@ -24108,7 +24050,7 @@
       }
     },
     {
-      "priorityRank": 420,
+      "priorityRank": 419,
       "catalogId": "VBO:0201385",
       "displayName": "Vikhan",
       "catalogStatus": "canonical",
@@ -24163,69 +24105,7 @@
       }
     },
     {
-      "priorityRank": 421,
-      "catalogId": "VBO:0201387",
-      "displayName": "Villano de Las Encartaciones",
-      "catalogStatus": "canonical",
-      "aliases": [
-        "Bulldog - Vilano",
-        "Bulldog - Vilano (Villano De Las Encartaciones)",
-        "Vilano Bulldog",
-        "Villano de las Encartaciones, Spain"
-      ],
-      "sourceIds": [
-        "VBO:0008037",
-        "VBO:0201386",
-        "VBO:0201387"
-      ],
-      "priority": {
-        "tier": "catalog-long-tail",
-        "promoted": false,
-        "promotedPackCount": 0,
-        "packCount": 0,
-        "promotedPackIds": [],
-        "packIds": []
-      },
-      "discovery": {
-        "query": "\"Villano de Las Encartaciones\" dog",
-        "openverse": {
-          "requestUrl": "https://api.openverse.org/v1/images/?q=%22Villano+de+Las+Encartaciones%22+dog&license=cc0%2Cpdm%2Cby%2Cby-sa&license_type=commercial%2Cmodification&page_size=10&page=1&mature=false&filter_dead=true&source=wikimedia",
-          "source": "wikimedia",
-          "resultLimit": 10,
-          "page": 1,
-          "allowedAdvertisedLicenses": [
-            "cc0",
-            "pdm",
-            "by",
-            "by-sa"
-          ],
-          "requiredLicenseTypes": [
-            "commercial",
-            "modification"
-          ],
-          "mature": false,
-          "filterDead": true,
-          "status": "unverified-discovery-only"
-        },
-        "commons": {
-          "query": "\"Villano de Las Encartaciones\" dog",
-          "mediaSearchUrl": "https://commons.wikimedia.org/w/index.php?search=%22Villano+de+Las+Encartaciones%22+dog&title=Special%3AMediaSearch&type=image",
-          "apiSearchUrl": "https://commons.wikimedia.org/w/api.php?action=query&format=json&formatversion=2&generator=search&gsrsearch=%22Villano+de+Las+Encartaciones%22+dog&gsrnamespace=6&gsrlimit=10&gsrwhat=text&prop=info&inprop=url&maxlag=5",
-          "resultLimit": 10,
-          "licenseFiltering": "none",
-          "warning": "Commons search results are discovery leads only. Verify one exact File page and its current Imageinfo metadata before creating a pending candidate."
-        }
-      },
-      "evidenceContractId": "dogs-artwork-ledger-v1",
-      "reviewState": "no-ledger-row",
-      "permissions": {
-        "uiDisplayAllowed": false,
-        "publicSnapshotAllowed": false,
-        "rasterExportAllowed": false
-      }
-    },
-    {
-      "priorityRank": 422,
+      "priorityRank": 420,
       "catalogId": "VBO:0201388",
       "displayName": "Villanuco de Las Encartaciones",
       "catalogStatus": "canonical",
@@ -24280,7 +24160,7 @@
       }
     },
     {
-      "priorityRank": 423,
+      "priorityRank": 421,
       "catalogId": "VBO:0201391",
       "displayName": "Vucciriscu",
       "catalogStatus": "canonical",
@@ -24335,7 +24215,7 @@
       }
     },
     {
-      "priorityRank": 424,
+      "priorityRank": 422,
       "catalogId": "VBO:0201394",
       "displayName": "Waller",
       "catalogStatus": "canonical",
@@ -24390,7 +24270,7 @@
       }
     },
     {
-      "priorityRank": 425,
+      "priorityRank": 423,
       "catalogId": "VBO:0201396",
       "displayName": "Water Dog",
       "catalogStatus": "canonical",
@@ -24447,7 +24327,7 @@
       }
     },
     {
-      "priorityRank": 426,
+      "priorityRank": 424,
       "catalogId": "VBO:0201397",
       "displayName": "Water Spaniel",
       "catalogStatus": "canonical",
@@ -24505,7 +24385,7 @@
       }
     },
     {
-      "priorityRank": 427,
+      "priorityRank": 425,
       "catalogId": "VBO:0201408",
       "displayName": "Welsh Hillman",
       "catalogStatus": "canonical",
@@ -24560,7 +24440,7 @@
       }
     },
     {
-      "priorityRank": 428,
+      "priorityRank": 426,
       "catalogId": "VBO:0201409",
       "displayName": "Welsh Hound",
       "catalogStatus": "canonical",
@@ -24615,7 +24495,7 @@
       }
     },
     {
-      "priorityRank": 429,
+      "priorityRank": 427,
       "catalogId": "VBO:0201414",
       "displayName": "West Country Harrier",
       "catalogStatus": "canonical",
@@ -24670,7 +24550,7 @@
       }
     },
     {
-      "priorityRank": 430,
+      "priorityRank": 428,
       "catalogId": "VBO:0201420",
       "displayName": "Wheaten Terrier",
       "catalogStatus": "canonical",
@@ -24725,7 +24605,7 @@
       }
     },
     {
-      "priorityRank": 431,
+      "priorityRank": 429,
       "catalogId": "VBO:0201422",
       "displayName": "White Shepherd",
       "catalogStatus": "canonical",
@@ -24785,7 +24665,7 @@
       }
     },
     {
-      "priorityRank": 432,
+      "priorityRank": 430,
       "catalogId": "VBO:0201425",
       "displayName": "Wire Haired Whippet",
       "catalogStatus": "canonical",
@@ -24842,7 +24722,7 @@
       }
     },
     {
-      "priorityRank": 433,
+      "priorityRank": 431,
       "catalogId": "VBO:0201426",
       "displayName": "Wire-Haired Jack Russell Terrier",
       "catalogStatus": "canonical",
@@ -24901,7 +24781,7 @@
       }
     },
     {
-      "priorityRank": 434,
+      "priorityRank": 432,
       "catalogId": "VBO:0201431",
       "displayName": "Wolfhound",
       "catalogStatus": "canonical",
@@ -24958,7 +24838,7 @@
       }
     },
     {
-      "priorityRank": 435,
+      "priorityRank": 433,
       "catalogId": "VBO:0201433",
       "displayName": "Working Cocker Spaniel",
       "catalogStatus": "canonical",
@@ -25016,7 +24896,7 @@
       }
     },
     {
-      "priorityRank": 436,
+      "priorityRank": 434,
       "catalogId": "VBO:0201463",
       "displayName": "Xigou",
       "catalogStatus": "canonical",
@@ -25077,7 +24957,7 @@
       }
     },
     {
-      "priorityRank": 437,
+      "priorityRank": 435,
       "catalogId": "VBO:0201441",
       "displayName": "Yajivy",
       "catalogStatus": "canonical",
@@ -25132,7 +25012,7 @@
       }
     },
     {
-      "priorityRank": 438,
+      "priorityRank": 436,
       "catalogId": "VBO:0201443",
       "displayName": "Yellow Black Mouth Cur",
       "catalogStatus": "canonical",
@@ -25189,7 +25069,7 @@
       }
     },
     {
-      "priorityRank": 439,
+      "priorityRank": 437,
       "catalogId": "VBO:0201450",
       "displayName": "Yugoslavian Hound",
       "catalogStatus": "canonical",
@@ -25246,7 +25126,7 @@
       }
     },
     {
-      "priorityRank": 440,
+      "priorityRank": 438,
       "catalogId": "VBO:0201452",
       "displayName": "Zerdava",
       "catalogStatus": "canonical",
@@ -25301,7 +25181,7 @@
       }
     },
     {
-      "priorityRank": 441,
+      "priorityRank": 439,
       "catalogId": "VBO:0201453",
       "displayName": "de Pont-Audemer Spaniel",
       "catalogStatus": "canonical",

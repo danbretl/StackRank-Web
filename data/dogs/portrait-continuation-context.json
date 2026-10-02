@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "savedAt": "2026-10-02T06:34:54.456963+00:00",
-  "status": "active-cohort-k-source-audit-before-freeze",
+  "savedAt": "2026-10-02T07:18:58.437184+00:00",
+  "status": "active-cohort-k-frozen-selection-and-calibration",
   "baseline": {
     "catalogIdentities": 1239,
     "publishedPortraits": 560,
@@ -54,13 +54,13 @@
   "contractsAndCurrentData": [
     {
       "path": "AGENTS.md",
-      "sha256": "bfa94a1c44ad90442b5ac382fb5b7d6c4bc1a7a073b3612f568796b045a24f56",
-      "bytes": 52096
+      "sha256": "c9fa089f59c8e07e8678fc9a0d6ad092b26ca144988f71ec0b1a02fd7dcb9bd2",
+      "bytes": 52218
     },
     {
       "path": "CLAUDE.md",
-      "sha256": "bfa94a1c44ad90442b5ac382fb5b7d6c4bc1a7a073b3612f568796b045a24f56",
-      "bytes": 52096
+      "sha256": "c9fa089f59c8e07e8678fc9a0d6ad092b26ca144988f71ec0b1a02fd7dcb9bd2",
+      "bytes": 52218
     },
     {
       "path": "notes/feature-ideas/dogs-breed-profile-quality.md",
@@ -129,8 +129,8 @@
     },
     {
       "path": "data/dogs/image-rights.json",
-      "sha256": "95959cd2b878443f68743692f8f8783dfb5490db20949e205e73a1991bd446db",
-      "bytes": 1618919
+      "sha256": "97e628198531313b265519857b6e53c5421bb3301251868b96fb04e097183909",
+      "bytes": 1632901
     },
     {
       "path": "data/dogs/artwork-license-policy.json",
@@ -139,7 +139,7 @@
     },
     {
       "path": "data/asset-versions.json",
-      "sha256": "8d0a64c99a3fb609ccb9996070286d7ea3f8e529d77e8859200189f75a0e9ac8",
+      "sha256": "97094c2f4c94d8be7a35ee2c55c203cc75419f672768fbb9f3d042508de088ea",
       "bytes": 8398
     }
   ],
@@ -1368,10 +1368,33 @@
     "newPairsAuthorized": 250,
     "publishedTarget": 810,
     "hiddenTarget": 429,
-    "selectionFrozen": false,
-    "generationCalls": 0,
-    "acceptedPairs": 0,
+    "selectionFrozen": true,
+    "generationCalls": 4,
+    "acceptedPairs": 2,
     "publishedPairs": 0,
-    "nextAction": "Root reconcile ordered candidate-priority packets, freeze250+orderedreserves/disjoint50slots, independently approve exact packets/prompt/reference before built-in calls."
+    "nextAction": "Finish individual five-worker calibration; qualified per-call root approvals, exact native inspection and pair acceptance, then first approximately25-pair integration/release. Continue each disjoint50-slot assignment.",
+    "cohortLedgerPath": "data/dogs/portrait-cohort-k.json",
+    "selectionSha256": "f747510afacb4f9a6c7c08d634f9b8423f7a0a7f778569d3461f0bf8b5d660f6",
+    "primaryCount": 250,
+    "reserveCount": 27,
+    "rejectedNativeOutputs": 2,
+    "retryCount": 0,
+    "integratedPairs": 0,
+    "progressCheckpointBasis": "Exact four completed calls normalized at this checkpoint; subsequent running/staged calls remain in live coordination and immutable worker receipts until next checkpoint.",
+    "supportPublication": {
+      "commit": "2811988d8f7b47906044443e997ba650cb5b7326",
+      "deploymentId": "dpl_Awpp5Aom94cpCn9oiUTfnYNQLAfK",
+      "deploymentStatus": "READY",
+      "productionAliases": [
+        "www.stackrankapp.com",
+        "stackrankapp.com"
+      ],
+      "productionChecks": 49,
+      "evidence": {
+        "path": "reports/dogs-generated-artwork/cohort-k/support-production.log",
+        "sha256": "2db4f71d45c7014cd24987c83408fd90156394e175251685152e4b7eaa038fa1",
+        "bytes": 2652
+      }
+    }
   }
 }

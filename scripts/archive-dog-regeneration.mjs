@@ -5,14 +5,32 @@ import { spawnSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
-const privatePrefixes = ['reports/dogs-generated-artwork/cohort-j/', 'assets/dogs/generated-masters/cohort-j/'];
+const privatePrefixes = ['reports/dogs-generated-artwork/cohort-j/', 'assets/dogs/generated-masters/cohort-j/', 'reports/dogs-generated-artwork/cohort-k/', 'assets/dogs/generated-masters/cohort-k/'];
 
 export function collectRegenerationFiles(root, entry, packetPaths) {
   const files = new Map();
   const walk = value => {
     if (Array.isArray(value)) return value.forEach(walk);
     if (value && typeof value === 'object') return Object.values(value).forEach(walk);
-    if (typeof value !== 'string' || !privatePrefixes.some(prefix => value.startsWith(prefix))) return;
+    if (typeof value !== 'string') return;
+    // Independent K tasks use absolute shared-artifact paths. Bind those paths
+    // to an actually reachable private prefix, retaining canonical restore paths.
+    if (path.isAbsolute(value)) {
+      let relativeValue = null;
+      for (const prefix of privatePrefixes) {
+        const base = path.join(root, prefix);
+        const realBase = fs.existsSync(base) ? fs.realpathSync(base) : base;
+        const realValue = fs.existsSync(value) ? fs.realpathSync(value) : value;
+        const relative = path.relative(realBase, realValue);
+        if (relative && !relative.startsWith('..') && !path.isAbsolute(relative)) {
+          relativeValue = prefix + relative.split(path.sep).join('/');
+          break;
+        }
+      }
+      if (!relativeValue) return;
+      value = relativeValue;
+    }
+    if (!privatePrefixes.some(prefix => value.startsWith(prefix))) return;
     const normalized = path.posix.normalize(value);
     if (normalized !== value || value.includes('..') || !privatePrefixes.some(prefix => normalized.startsWith(prefix))) throw Error(`Unsafe archive path: ${value}`);
     if (files.has(value)) return;
@@ -24,7 +42,7 @@ export function collectRegenerationFiles(root, entry, packetPaths) {
       const record = JSON.parse(bytes.toString());
       // Global review ledgers are retained as snapshots, without pulling prior
       // milestones' native masters into every later archive.
-      if (Object.hasOwn(record, 'entries') || value.endsWith('/generation-attempts.json')) walk(record);
+      if (value.startsWith('reports/dogs-generated-artwork/cohort-k/') || Object.hasOwn(record, 'entries') || value.endsWith('/generation-attempts.json')) walk(record);
     }
   };
   walk(entry);
@@ -33,8 +51,9 @@ export function collectRegenerationFiles(root, entry, packetPaths) {
 }
 
 export function createRegenerationArchive(root, wave) {
-  if (!/^j(?:0[1-9]|10)$/.test(wave)) throw Error('Expected J wave j01–j10');
-  const ledgerPath = 'data/dogs/portrait-cohort-j.json';
+  if (!/^[jk](?:0[1-9]|10)$/.test(wave)) throw Error('Expected J/K wave j01–j10 or k01–k10');
+  const letter = wave[0];
+  const ledgerPath = `data/dogs/portrait-cohort-${letter}.json`;
   const cohort = JSON.parse(fs.readFileSync(path.join(root, ledgerPath)));
   const batchPath = `data/dogs/generated-artwork-batch-${wave}.json`;
   const profilePath = `data/dogs/profile-refresh-${wave}.json`;
@@ -47,7 +66,9 @@ export function createRegenerationArchive(root, wave) {
     const entry = cohort.entries[id];
     if (entry?.integration?.subwave !== wave || entry.qa.status !== 'approved' || entry.profile.status !== 'approved') throw Error(`Unapproved archive identity: ${id}`);
     const packetDir = path.posix.dirname(entry.preparation.packetPath);
-    const packetPaths = ['packet.json', 'profiles.json', 'rights-reviewed.json', 'generation-attempts.json', 'batch-candidate.json'].map(name => `${packetDir}/${name}`);
+    const packetPaths = letter === 'j'
+      ? ['packet.json', 'profiles.json', 'rights-reviewed.json', 'generation-attempts.json', 'batch-candidate.json'].map(name => `${packetDir}/${name}`)
+      : [entry.preparation.packetPath, ...(entry.preparation.archiveEvidencePaths || [])];
     packetPaths.push(...(entry.reference.supplementalEvidencePaths || []));
     for (const file of collectRegenerationFiles(root, entry, packetPaths)) files.set(file.path, file);
   }
@@ -59,7 +80,7 @@ export function createRegenerationArchive(root, wave) {
   }
   const list = [...files.values()].sort((a, b) => a.path.localeCompare(b.path));
   const objects = [...new Map(list.map(file => [file.sha256, file])).values()];
-  const archivePath = `reports/dogs-generated-artwork/cohort-j/regeneration-archives/${wave}.tar.gz`;
+  const archivePath = `reports/dogs-generated-artwork/cohort-${letter}/regeneration-archives/${wave}.tar.gz`;
   const manifestPath = `data/dogs/regeneration-manifest-${wave}.json`;
   if (fs.existsSync(path.join(root, archivePath)) || fs.existsSync(path.join(root, manifestPath))) throw Error('Refusing to replace an existing regeneration archive');
   fs.mkdirSync(path.dirname(path.join(root, archivePath)), { recursive: true });

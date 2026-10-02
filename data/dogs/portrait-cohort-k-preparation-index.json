@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 1,
+  "cohortId": "dogs-portraits-k",
+  "savedAt": "2026-10-02T06:34:54.456963+00:00",
+  "status": "active-source-audit-before-selection-freeze",
+  "authorizedAdditionalAcceptedPairs": 250,
+  "targetPerWorker": 50,
+  "baseline": {
+    "commit": "012c1e4f94fa64c1407f36d5b3a32adb200b628a",
+    "publishedPairs": 560,
+    "catalogIdentities": 1239,
+    "hiddenIncomplete": 679,
+    "targetPublishedPairs": 810,
+    "targetHiddenIncomplete": 429,
+    "deploymentId": "dpl_CiSumGW91i7cVGXLmpn2ZbCLtmKY",
+    "deploymentStatus": "READY",
+    "productionChecks": 49,
+    "dataByteMatches": 3,
+    "imageByteMatches": 3
+  },
+  "orchestrator": {
+    "threadId": "01a0fb1a-a276-71a1-a589-44be5e408e6c",
+    "workspace": "/Users/danbretl/.codex/worktrees/dogs-cohort-k-integration/stackrank",
+    "requestedModel": "gpt-6.1-sol",
+    "requestedReasoningEffort": "xhigh",
+    "actualRuntimeModel": "not disclosed in runtime",
+    "actualRuntimeEffort": "not disclosed in runtime",
+    "permissions": {
+      "sandboxMode": "danger-full-access",
+      "approvalPolicy": "never",
+      "networkAccess": "enabled"
+    }
+  },
+  "workers": [
+    {
+      "worker": "A",
+      "threadId": "01a0fb26-ba3a-7531-af72-16e73094cbd1",
+      "stageRoot": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-a",
+      "workspace": "/Users/danbretl/.codex/worktrees/dogs-cohort-k-worker-a/stackrank",
+      "fullAccessVerified": true,
+      "actualPermissionPolicy": {
+        "sandboxMode": "danger-full-access",
+        "approvalPolicy": "never",
+        "networkAccess": "enabled"
+      },
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "xhigh",
+      "modelEffortEvidence": "explicit root follow-up settings; runtime identifiers undisclosed",
+      "setupReceipt": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-a/setup.json",
+        "sha256": "06fc7db768c05b61d7341ce35e5e6b2ade8c8f7e9e5da5f493277cc24f5d8fe9"
+      },
+      "acceptedPairTarget": 50
+    },
+    {
+      "worker": "B",
+      "threadId": "01a0fb26-e93a-7200-97fc-91ec2a92abf9",
+      "stageRoot": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-b",
+      "workspace": "/Users/danbretl/.codex/worktrees/dogs-cohort-k-worker-b/stackrank",
+      "fullAccessVerified": true,
+      "actualPermissionPolicy": {
+        "sandboxMode": "danger-full-access",
+        "approvalPolicy": "never",
+        "networkAccess": "enabled"
+      },
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "xhigh",
+      "modelEffortEvidence": "explicit root follow-up settings; runtime identifiers undisclosed",
+      "setupReceipt": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-b/setup.json",
+        "sha256": "db6e8e7820fd4ba910e248761408b78c0a331f805630882d9d1317dcae8637fc"
+      },
+      "acceptedPairTarget": 50
+    },
+    {
+      "worker": "C",
+      "threadId": "01a0fb27-0462-7901-adb5-4786eb3aa0c0",
+      "stageRoot": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c",
+      "workspace": "/Users/danbretl/.codex/worktrees/dogs-cohort-k-worker-c/stackrank",
+      "fullAccessVerified": true,
+      "actualPermissionPolicy": {
+        "sandboxMode": "danger-full-access",
+        "approvalPolicy": "never",
+        "networkAccess": "enabled"
+      },
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "xhigh",
+      "modelEffortEvidence": "explicit root follow-up settings; runtime identifiers undisclosed",
+      "setupReceipt": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/setup.json",
+        "sha256": "337ed252427cae0b0ac47c2e722ce2ca2aa81fde4276beede50a0ee0269f0ad7"
+      },
+      "acceptedPairTarget": 50
+    },
+    {
+      "worker": "D",
+      "threadId": "01a0fb27-1fd3-7120-8034-76b972bade55",
+      "stageRoot": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-d",
+      "workspace": "/Users/danbretl/.codex/worktrees/dogs-k-worker-4/stackrank",
+      "fullAccessVerified": true,
+      "actualPermissionPolicy": {
+        "sandboxMode": "danger-full-access",
+        "approvalPolicy": "never",
+        "networkAccess": "enabled"
+      },
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "xhigh",
+      "modelEffortEvidence": "explicit root follow-up settings; runtime identifiers undisclosed",
+      "setupReceipt": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-d/setup.json",
+        "sha256": "13ad8cfdcde47fc335274a9ed98a7a17ee752a1b9aeaf6721500d9d7d72fbd89"
+      },
+      "acceptedPairTarget": 50
+    },
+    {
+      "worker": "E",
+      "threadId": "01a0fb27-3947-7731-8481-a1abb237dff6",
+      "stageRoot": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-e",
+      "workspace": "/Users/danbretl/.codex/worktrees/dogs-cohort-k-worker-e/stackrank",
+      "fullAccessVerified": true,
+      "actualPermissionPolicy": {
+        "sandboxMode": "danger-full-access",
+        "approvalPolicy": "never",
+        "networkAccess": "enabled"
+      },
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "xhigh",
+      "modelEffortEvidence": "explicit root follow-up settings; runtime identifiers undisclosed",
+      "setupReceipt": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-e/setup.json",
+        "sha256": "8f81fdca0bd9df8ce30e1887f577c16c9c703e35b4603c1b7f841f1c6caa859d"
+      },
+      "acceptedPairTarget": 50
+    }
+  ],
+  "auditAllocation": {
+    "path": "reports/dogs-generated-artwork/cohort-k/preselection-readiness-assignments.json",
+    "sha256": "ca2430cba10392c12e0c59856281348a5775dd94acfda6da4ede5aa5336cce00",
+    "bytes": 18358
+  },
+  "selectionFrozen": false,
+  "generationCalls": 0,
+  "acceptedPairs": 0,
+  "integratedPairs": 0,
+  "publishedPairs": 0,
+  "recoveredResearchFiles": 47,
+  "preparedEditorialEntriesRecovered": 33,
+  "protectedPriorFiles": 1131,
+  "protectedJLedgerSha256": "08a2145cfd174bb61af4b21d4f6cde46eb4bbdcfdc813d774c04db83df887cfd",
+  "priorHoldsPreserved": 44,
+  "reserveActivations": 0,
+  "operationalRegistry": {
+    "path": "reports/dogs-generated-artwork/cohort-k/operational-registry.json",
+    "sha256": "71475483566b1260f45f7b399cb89f36b3f945947a10121185a1857b72696d3e",
+    "bytes": 20445
+  },
+  "negativeRegistry": {
+    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/known-negative-titles-002.json",
+    "sha256": "c7af8cc9b7cbf0b1b764f7cccaeccb72fba138151f05eb7592a71d3420408c6b"
+  },
+  "negativeEvidenceRows": 83,
+  "uniqueNegativeTitles": 82,
+  "fullVerification": {
+    "nodeTests": 520,
+    "denoTests": 24,
+    "chromeFlows": 41,
+    "coordinationTests": 13,
+    "fullSuiteLog": {
+      "path": "reports/dogs-generated-artwork/cohort-k/support-verify.log",
+      "sha256": "659f99f4268e7cd70a3892467ed034e841d51f72777cf06b3d68d284c4a72698",
+      "bytes": 54410
+    },
+    "coordinationAdditions": "13 pass after full-suite support milestone; latest edits covered by focused tests"
+  },
+  "calibration": {
+    "path": "reports/dogs-generated-artwork/cohort-k/root-calibration-examples-001.json",
+    "sha256": "04cd55f6bbd54ee9c5e985cc1dffe712c4ccc90475e10d5300b6a6df53cdac2e",
+    "bytes": 3349
+  },
+  "sourceReview": {
+    "path": "reports/dogs-generated-artwork/cohort-k/root-source-review-villano-001.json",
+    "sha256": "fda52153bff0683e2cfeb9f3db9e099b32fa19128af2d520fc469828b01bdb7b",
+    "bytes": 1832
+  },
+  "workerAuditPackets": [
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-a/pool-audit-001.json",
+      "sha256": "500f1f70e5f29fad32e1c717f3e3ab17cd9d87bc18163a74c1c8dcc2d6a19ce4",
+      "bytes": 65225
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/readiness-002-all126-triage.json",
+      "sha256": "f09bb92997d3775cbe6e2348e967a56202697d8a232217e57a33e6d5f7b33a2f",
+      "bytes": 118890
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-c/readiness-003.json",
+      "sha256": "b4d9c77d9bb0dac233d9cdedf5b47ec1140af5722eb212af71d97ed0b41befc2",
+      "bytes": 118363
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-d/readiness-003-all126-triage.json",
+      "sha256": "c320616ec72990d5437ca2522919c2567c158b48eddc6f72634d6fb8d356b8a8",
+      "bytes": 107649
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-e/readiness-pool-002.json",
+      "sha256": "c735d2994ad9ed7501424fe047168d23ba51111714151271ec5df4b44594207e",
+      "bytes": 155505
+    }
+  ],
+  "retention": "Ignored source/native archives are local and not verified off-machine backups. No K image/native output yet.",
+  "nextAction": "Root reconcile ordered candidate-priority packets, freeze250+orderedreserves/disjoint50slots, independently approve exact packets/prompt/reference before built-in calls."
+}

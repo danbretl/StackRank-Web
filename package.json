@@ -5,6 +5,7 @@
     "check:cache": "node scripts/check-cache-versions.mjs",
     "check:functions": "deno check --no-lock supabase/functions/*/index.ts supabase/functions/_shared/*.ts",
     "test:functions": "deno test --no-lock supabase/functions/_shared/*_test.ts",
+    "test:dogs:coordination": "python3 tests/dog-portrait-coordination.test.py",
     "test": "node scripts/run-tests-with-report.mjs",
     "test:e2e": "node scripts/run-e2e-smoke.cjs",
     "test:production": "node scripts/check-production.mjs",
@@ -27,7 +28,7 @@
     "deliver:dogs:artwork": "node scripts/deliver-dog-artwork.mjs",
     "activate:dogs:artwork": "node scripts/activate-dog-artwork-deliveries.mjs",
     "probe:dogs:production": "node scripts/probe-dogs-supabase-production.mjs",
-    "verify": "npm test && npm run check && npm run check:cache && npm run check:functions && npm run test:functions && npm run validate:packs && npm run validate:dogs && npm run test:e2e",
+    "verify": "npm test && npm run test:dogs:coordination && npm run check && npm run check:cache && npm run check:functions && npm run test:functions && npm run validate:packs && npm run validate:dogs && npm run test:e2e",
     "author:packs": "node scripts/author-suggestion-packs.mjs",
     "screenshots": "node scripts/capture-screenshots.cjs",
     "build:og": "node scripts/build-og-image.cjs"

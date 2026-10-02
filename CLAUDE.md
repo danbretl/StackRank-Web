@@ -64,7 +64,11 @@ A prepared future five-thread/50-pairs-each run is documented in
 `notes/feature-ideas/dogs-parallel-50-kickoff-prompt.md` and
 `data/dogs/portrait-continuation-context.json`. It requests `gpt-6.1-sol/xhigh` and
 Full access for all six tasks; thread creation cannot itself set permission mode.
-This plan has not started and does not override J’s stop until Dan invokes the new kickoff.
+Dan invoked the fresh kickoff on October 1, 2026. Cohort K is active: five independent
+`gpt-6.1-sol/xhigh` tasks have verified Full access and isolated worktrees, with 50 accepted pairs
+authorized per task. Baseline remains 560 published / 679 hidden; no K portrait has been generated
+or accepted yet. Read `notes/testing/dogs-portrait-cohort-k.md` and
+`data/dogs/portrait-cohort-k-preparation-index.json` for operational receipts. K does not alter J’s stop.
 
 Dogs keeps ranking primary within a compact “Find your kind of dog” launchpad. “A few dogs
 to meet” combines a full-width search row with Surprise me and a highlighted Browse all dogs

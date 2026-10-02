@@ -1,0 +1,445 @@
+{
+  "schemaVersion": 1,
+  "savedAt": "2026-10-02T04:59:14.837087+00:00",
+  "type": "stopped-J-final-context-and-future-five-thread-plan",
+  "archivePath": "reports/dogs-generated-artwork/cohort-j/regeneration-archives/context-handoff-2026-10-01.tar.gz",
+  "archiveSha256": "feb994ce3500bacf18b17b604b5e342f72dd72f8c1e0ccc789520339cbdc7c9b",
+  "archiveBytes": 8832453,
+  "fileCount": 82,
+  "uniqueObjectCount": 81,
+  "uniqueObjectBytes": 22082865,
+  "storage": "Local ignored archive; no off-machine backup asserted",
+  "contents": "Current contracts/context index, saved skill snapshots, current helper versions, final held/QA/source ledgers, publication/deployment/production/rendering receipts and new or changed post-J03 evidence. Earlier raw research/native objects remain in the three immutable J release archives.",
+  "parentArchives": [
+    {
+      "path": "data/dogs/regeneration-manifest-j01.json",
+      "sha256": "5bd0f0779beb09a261e510120edcfaa78a7225c624cc2ad8579327babe7fe5b3",
+      "archivePath": "reports/dogs-generated-artwork/cohort-j/regeneration-archives/j01.tar.gz",
+      "archiveSha256": "b3f40c87898477ebabc51420c037c75620f2ff86974e02f97fccd8ce3859fa1f"
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-j02.json",
+      "sha256": "a320cd57e9b0674660a608a01c434fa28b3253d8e8e56a79dcd21bf52a2c1817",
+      "archivePath": "reports/dogs-generated-artwork/cohort-j/regeneration-archives/j02.tar.gz",
+      "archiveSha256": "6188cdf54f60220ceee55f896139afdb105bb8e57f107cce7fe61c68bba9e416"
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-j03.json",
+      "sha256": "53dbb2eb48984049e9b258d757e1c8adc0d2c9cc666fe73ec8d46f85bdf66d93",
+      "archivePath": "reports/dogs-generated-artwork/cohort-j/regeneration-archives/j03.tar.gz",
+      "archiveSha256": "fbad6f3da4d914bbadd8bfce29423915f9ce9da682a4fc8dc2206507f9c64d07"
+    }
+  ],
+  "files": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "a63271473336d844078afc2e350d39416bb6809fe04c72940826df6c720bc4fc",
+      "bytes": 51729
+    },
+    {
+      "path": "CLAUDE.md",
+      "sha256": "a63271473336d844078afc2e350d39416bb6809fe04c72940826df6c720bc4fc",
+      "bytes": 51729
+    },
+    {
+      "path": "data/asset-versions.json",
+      "sha256": "8d0a64c99a3fb609ccb9996070286d7ea3f8e529d77e8859200189f75a0e9ac8",
+      "bytes": 8398
+    },
+    {
+      "path": "data/dogs/artwork-license-policy.json",
+      "sha256": "cbfc39daaac54be7e5c530c1162da7e9c303b00dad6bcbeb8332b6f7fa1e90e6",
+      "bytes": 11438
+    },
+    {
+      "path": "data/dogs/breed-profiles.json",
+      "sha256": "63adfb164ef2bdfca736b530b12ee2bb6a5bca2fb1ef1c97ba358f5b65e98155",
+      "bytes": 1169931
+    },
+    {
+      "path": "data/dogs/dog-catalog.json",
+      "sha256": "7f6c4c053584a8cdbda0cefaf654fe7d66febf16d6f9a8eab9ca9ae388ebbd13",
+      "bytes": 697958
+    },
+    {
+      "path": "data/dogs/generated-artwork.json",
+      "sha256": "0872c39cf460f9816df235726a56abd30173d43a35aaf89ef9f0056a393b6d70",
+      "bytes": 1220373
+    },
+    {
+      "path": "data/dogs/image-rights.json",
+      "sha256": "95959cd2b878443f68743692f8f8783dfb5490db20949e205e73a1991bd446db",
+      "bytes": 1618919
+    },
+    {
+      "path": "data/dogs/portrait-cohort-j-preparation-index.json",
+      "sha256": "73ca704aad33f274fac7f45454629d44c3216fe378e7cd289f98b5a6053d70e4",
+      "bytes": 9156
+    },
+    {
+      "path": "data/dogs/portrait-cohort-j.json",
+      "sha256": "08a2145cfd174bb61af4b21d4f6cde46eb4bbdcfdc813d774c04db83df887cfd",
+      "bytes": 8389943
+    },
+    {
+      "path": "data/dogs/portrait-continuation-context.json",
+      "sha256": "9dedc63e937d2edd671ce8161404cdfd2818020a812db21ce6cbb7c4c3b908b7",
+      "bytes": 77995
+    },
+    {
+      "path": "notes/feature-ideas/dogs-artwork-expansion-handoff-2026-09-22.md",
+      "sha256": "13e2fa86cb260ee09e5cd6d2e9491bf12e4df5c7daf983055b01d3ecf47c1935",
+      "bytes": 22769
+    },
+    {
+      "path": "notes/feature-ideas/dogs-breed-profile-quality.md",
+      "sha256": "37dcc36fc26887756429e74a6ee5b34b6e6a014e1c60ee9395db3d543efea371",
+      "bytes": 11848
+    },
+    {
+      "path": "notes/feature-ideas/dogs-field-guide-v2.md",
+      "sha256": "d14d228ed3bdf76a50db3b4d47ea262adc5618c22a17ab38639835e1febba26e",
+      "bytes": 5725
+    },
+    {
+      "path": "notes/feature-ideas/dogs-parallel-50-kickoff-prompt.md",
+      "sha256": "51ef5c94d25fc2bc8e6edfdd2d0dc27be7625f6eadee333f965dda7dd397fe67",
+      "bytes": 12755
+    },
+    {
+      "path": "notes/feature-ideas/dogs-parallel-continuation-handoff-2026-10-01.md",
+      "sha256": "416cfa8d5760bb2af43a4c76fed39e2ac241a4b6dd7d6f416dc9ed250947540b",
+      "bytes": 27135
+    },
+    {
+      "path": "notes/feature-ideas/dogs-product-handoff-2026-09-22.md",
+      "sha256": "3cabd958bf4e87f81ba18e8f2643f4a20d0382a69cfe64928e39aaf4355aa21b",
+      "bytes": 20556
+    },
+    {
+      "path": "notes/testing/dogs-implementation-status.md",
+      "sha256": "ae2b0ad01d7256cc7f4bcd61896440d16c0f350cbbc1f22014e576cdd0bd657e",
+      "bytes": 48189
+    },
+    {
+      "path": "notes/testing/dogs-portrait-cohort-j.md",
+      "sha256": "587fab21f2c40b10db501dc4a7ade45735ef6dc9afdfc809c3a4bcc4633a7540",
+      "bytes": 20754
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/calibration-primary-assessment.json",
+      "sha256": "68f830a25cb8a55e1f8a95236f235d48cfddaff0044c93bc3bd4ba21080b6991",
+      "bytes": 1271
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/check-preservation.py",
+      "sha256": "4bb6c78e74c0a1c999a97070b5541d7ddc9be5810404534a84a92c45e6f59745",
+      "bytes": 4850
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/checkpoint.json",
+      "sha256": "154dc272863b358423f12391e33b14fa18c5c4706a2e4c7c8be7f2cd62f98c2f",
+      "bytes": 1255
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/context-handoff-2026-10-01/imagegen-skill.md",
+      "sha256": "681ddb4ad6d06a2acc78a3535b583f8d0c1ea800ecda3d56370d3310fd2cd4ba",
+      "bytes": 19201
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/context-handoff-2026-10-01/older-regeneration-audit-scan.json",
+      "sha256": "a073aae522f0142fde14ef5a167d80873e33ff698467e4d08fa8ce14f902800c",
+      "bytes": 88284
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/context-handoff-2026-10-01/stackrank-dog-profiles-skill.md",
+      "sha256": "ecf718344d72202563d40d8a89161baacf8a365d783e749f825c79daf4613d0c",
+      "bytes": 3502
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/context-handoff-2026-10-01/thread-controls.json",
+      "sha256": "efcf33cafacda68f736ce93e01dbb7666a3eae519989a089a5390eb9aa938ec8",
+      "bytes": 1289
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/existing-holds.json",
+      "sha256": "b308583d8151368a8664eb26efdfa255d1e5f8c4a904ba86f6a65940014f0cda",
+      "bytes": 97175
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/finish-j-docs.py",
+      "sha256": "f914787eb26360bcf51e04d2ba5d6d1b4ac6d2c884a5c0a0483f33c90e3438c1",
+      "bytes": 12866
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/generation-preflight.py",
+      "sha256": "aa7b41b412f6bf4d2b83c551105041d14e8fd88655893c0cc60aee7f12cd7434",
+      "bytes": 4544
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/integrate-j.py",
+      "sha256": "72fdfbb4f8050174dbc6df3a36d6a4975d826ab983404746d24f85aa152656be",
+      "bytes": 37455
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-archive.log",
+      "sha256": "7bc19a319affc7583264c29c5040937685d1ef303e81b251704ac236391a8a61",
+      "bytes": 124
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-browser-primary-review.json",
+      "sha256": "d83d2097399c2d020cb0767eb09a5945e3a489a8e7ac9e211c2e2bfc914766ea",
+      "bytes": 1833
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-browser.log",
+      "sha256": "98f120a5e2edf57202c7f91427acd5980b1dd53f8f92a66fe8ecbda5fddd81cf",
+      "bytes": 614
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-browser/desktop-comparison.png",
+      "sha256": "d52bb277ae735ad959015c0dd74d2fdf136c047cca76aa8e82d6f6455f476a0c",
+      "bytes": 971984
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-browser/desktop-detail-0.png",
+      "sha256": "07a7f6ffe9b28fa2e110dd27f2f47b6db2c42be2b2eee9fe10b6ca11ee3ba03f",
+      "bytes": 792482
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-browser/desktop-detail-1.png",
+      "sha256": "ee0d8f6ab01678aefe7bc7ebea1aad6c9f4125335a56874b0b62c2666111b325",
+      "bytes": 914594
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-browser/desktop-rank.png",
+      "sha256": "dd2c1afa36dfddc8a22ee276dd7715ba146d14e4fb3831963e00aba0cd599acf",
+      "bytes": 1095140
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-browser/desktop-ranking.png",
+      "sha256": "d157d595c4116913791836e15b27d9898df53d47b6a53af45742ba1929e72091",
+      "bytes": 559025
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-browser/desktop-reviewer.png",
+      "sha256": "da7d68b6c33e508fe818b9d3a57bcd00a962f219f518402abeec465178e95288",
+      "bytes": 898435
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-browser/phone-comparison-about.png",
+      "sha256": "0163d758cad78b8fae1627befa1e4ab64a144e948779d7c7bf2b6611d4707ca1",
+      "bytes": 246597
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-browser/phone-comparison.png",
+      "sha256": "9003c85326da0025ccfa57956032e6f167b4d92089051c48e67deb14ee80ae3d",
+      "bytes": 394801
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-browser/phone-detail-0.png",
+      "sha256": "2d5bf1ef91e3762364d8a33cca30f9d15942f0f56142f2c98bd223abc299cda3",
+      "bytes": 228978
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-browser/phone-detail-1.png",
+      "sha256": "9ecdf7ae3ccd46d143c3413deb6a8b60c6f34eeaa9689bdb10b1ffe209f36d47",
+      "bytes": 252405
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-browser/phone-rank.png",
+      "sha256": "eea748f9075392860a65c72d72d643ec83113a2ad0173493fcbbe71beea82722",
+      "bytes": 242187
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-browser/phone-ranking.png",
+      "sha256": "5332af83d55bca37448722aca7d1b287acd4e994fe5e700861aa3660c920f000",
+      "bytes": 191333
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-browser/phone-reviewer.png",
+      "sha256": "6cf1d385b7e22fcecdc95ad43060234557233b3a47e5fa9a5daf7234b4d12a14",
+      "bytes": 230512
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-browser/receipt.json",
+      "sha256": "9d511d852198e5c1fcd8dd694ce364e63d2bbaddfe9783b9a133d4ea432994cd",
+      "bytes": 883
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-contact-sheet-review.json",
+      "sha256": "a761dac741d99528c1d9801c14c4414b44d95bc079f97176af6de052cb2f99a3",
+      "bytes": 1071
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-deployment.json",
+      "sha256": "a520ea500a267cddd46fc98a7c11e38e5b60d6a72e378d39a8eba8f79165eca3",
+      "bytes": 686
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-discovery-focused.log",
+      "sha256": "08fd9d8ed7dfb9e0d916c8f6ef4471af3dc3d11df1fd1d6a4d002a52769446f2",
+      "bytes": 679
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-documentation-deployment.json",
+      "sha256": "85f0340c2e2d76c5126d317f036ee72ebd74312a8c2a949f77e2c6945adb2024",
+      "bytes": 477
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-external-sources.json",
+      "sha256": "7aea449b9e482527a60ca494344353287354bf0bef1d954a10773e022b0f3129",
+      "bytes": 871019
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-integration-receipt.json",
+      "sha256": "c054d4cad9e9540132480a52b6bcda5b513d4104864f684c17d8a5790fb7121f",
+      "bytes": 2044
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-live-receipt.json",
+      "sha256": "0a284019ca0e870c089e2ef1fb78413213e2f89e298f258f0911f34dadf99a8d",
+      "bytes": 3250
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-policy-additions-root-approved.json",
+      "sha256": "2fe94c945ba948849645cd11d3b571c66a0d77b717854bc52e80836a584635b0",
+      "bytes": 1703
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-preservation-receipt.json",
+      "sha256": "7e1f832835acecb865ad5e936a93eea84c0151b3075c0f42790374e2826980a1",
+      "bytes": 418
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-production-test.log",
+      "sha256": "2db4f71d45c7014cd24987c83408fd90156394e175251685152e4b7eaa038fa1",
+      "bytes": 2652
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-publication-receipt.json",
+      "sha256": "d7ca70a13d593fd14ab751b4c5270e7cbd06f7220823f8b32767076ec505d1b4",
+      "bytes": 746
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-published-ledger-focused.log",
+      "sha256": "5ee5ae8145f58422ed11900520c45b1222c59c819e9704e60f1a36719ef47cef",
+      "bytes": 1577
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-user-stop-receipt.json",
+      "sha256": "813080ddd5556d64868e6e29661bcf977918f30862c194f3265ca6b4bdce5839",
+      "bytes": 737
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-verify-before-discovery-rebuild.log",
+      "sha256": "4325adaee929073219a5eadba7a6f1f71d2028b25b0f476a643eb80b0bbf4856",
+      "bytes": 67560
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j03-verify.log",
+      "sha256": "31f5ade04116cf66b0496cd35e5b14ec2cda1c01ce147e74922c44a718ae40e3",
+      "bytes": 53182
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j05-jeju-kogl-type1-root-adjudication-001.json",
+      "sha256": "6c565d41e1987a88d53eee6459944dc1119870049797fb7c15a737da696c658d",
+      "bytes": 2365
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/j05-pd-self-policy-root-adjudication-001.json",
+      "sha256": "772672464353bba2a601b1a0b56722a8291382f05c59bcf05a65561e0167f107",
+      "bytes": 1743
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/make-contact.py",
+      "sha256": "9e2f5cd962d74aeeca4f03cb86aa8ff0140441829acffa0c2fef66542d9cebe9",
+      "bytes": 842
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/preflight-staged-packets.py",
+      "sha256": "133021a39d3ba52711b8e52356b9ded008293c1b2116bb8044725c5d42e3379c",
+      "bytes": 4696
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/primary-image-rejections.json",
+      "sha256": "7741b60c43d4f2f83467a30c56f22181c1ea16e9246fd1f05db10c85f3a54f94",
+      "bytes": 3358
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/primary-image-review.json",
+      "sha256": "0bc30da27327c3716a746e7c8f231c865d951c5000204f38e702240b2aec24fa",
+      "bytes": 87999
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/primary-profile-review.json",
+      "sha256": "3c5b999b745312fd98df489f969f227990437de539c6d654475287b95a471b4a",
+      "bytes": 76465
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/read-packet-sources.py",
+      "sha256": "d6e77558913106c0aa9777a28a0644571326502720f6a120ccabccc149133709",
+      "bytes": 1388
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/record-approved-packet.py",
+      "sha256": "ff7c4318491e86996ac1ff7abd499f8b78c3fb67c86861bddc5fb7a391707166",
+      "bytes": 2946
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/record-publication.py",
+      "sha256": "3f2c2a01152fad757988aa37881840815d05bea738023adcdeeb69755bad6d9e",
+      "bytes": 2047
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/record-root-images.py",
+      "sha256": "a8f0666013534d8d59df8555b8fe4c3bcddadf9bec1a50252e89884fd042de4b",
+      "bytes": 1252
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/release-main.py",
+      "sha256": "b4690c38e163983070306633616651ff6768d790f364b9f4eb987937bd8f9028",
+      "bytes": 2062
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/render-wave.cjs",
+      "sha256": "9f34823d99249129be705b86d36ea5f4377bfcfaabfcb89e0830149ad2b5471d",
+      "bytes": 5734
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/root-reference-review.json",
+      "sha256": "37444909563c1c4981afdfb3f20f2d319b50626ca7cfe419866060aacbf67f8a",
+      "bytes": 46389
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/root-source-review.json",
+      "sha256": "50b09b34211b8259d3091c6fb9fe67ebf6e9d48814b09242efc765876b57df7c",
+      "bytes": 66688
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/save-continuation-context.py",
+      "sha256": "76950419ca2ef3650b0c07336438ff2666b17bd5c6fce9de008e712af842b6d4",
+      "bytes": 15832
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/subpacket-contact-sheet-reviews.json",
+      "sha256": "787624fe5b9bc242a5fa258093520c93bad11e8c36e84fefda8b0fc4b6704dc3",
+      "bytes": 20736
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/update-j-docs.py",
+      "sha256": "49a8c9b71284f70e468a7bf141cbd3ec1deac5202cf9806d49bba7748686922c",
+      "bytes": 10065
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/verify-live-before-user-stop.py",
+      "sha256": "defbc76ae0d2f720d0299d93e2aee9521cf7142592b0ca08a3216ea4936210e7",
+      "bytes": 1493
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-j/verify-live.py",
+      "sha256": "8fbf3b8e4dbab34778a2a9199ca46a8ba04eabd71deada59786d7531170d2491",
+      "bytes": 1774
+    }
+  ]
+}

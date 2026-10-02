@@ -45,7 +45,7 @@ I01 and I02 delivered all 50 additions; final product `ad17a640` is Vercel READY
 The run used 54 built-in image calls, four rejected outputs and four targeted retries.
 All 27 E/F/G/H holds remain; I added no hold and activated no reserve.
 Start with `notes/testing/dogs-portrait-cohort-i.md` and `data/dogs/portrait-cohort-i.json`
-for historical release evidence and lessons. Cohort J now owns the active continuation.
+for historical release evidence and lessons. Cohort J records the subsequent stopped continuation.
 All prior frozen cohorts remain unchanged.
 
 Cohort J stopped after the user-requested current batch: **560 published pairs**, with **679 unfinished identities hidden**.
@@ -58,6 +58,13 @@ Workers explicitly used `gpt-6.1-sol/high`; primary runtime and underlying image
 Read `notes/testing/dogs-portrait-cohort-j.md`, `data/dogs/portrait-cohort-j.json` and
 `data/dogs/portrait-cohort-j-preparation-index.json`. Already-started later research is preserved;
 further acquisition/generation requires fresh user authorization. Local archives have no verified off-machine backup.
+
+A prepared future five-thread/50-pairs-each run is documented in
+`notes/feature-ideas/dogs-parallel-continuation-handoff-2026-10-01.md`,
+`notes/feature-ideas/dogs-parallel-50-kickoff-prompt.md` and
+`data/dogs/portrait-continuation-context.json`. It requests `gpt-6.1-sol/xhigh` and
+Full access for all six tasks; thread creation cannot itself set permission mode.
+This plan has not started and does not override J’s stop until Dan invokes the new kickoff.
 
 Dogs keeps ranking primary within a compact “Find your kind of dog” launchpad. “A few dogs
 to meet” combines a full-width search row with Surprise me and a highlighted Browse all dogs

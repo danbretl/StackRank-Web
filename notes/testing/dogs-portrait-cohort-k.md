@@ -123,7 +123,7 @@ Product `6608aacc804f1b678b0d953ae83a301987efe855` is pushed to main and READY i
 K01 leaves A47/B43/C45/D48/E47 pairs, or 230 additional pairs overall, to publish. The run continues toward 810/429. Later private Gull/Trailhound attempts and QA remain outside this immutable 27-call checkpoint; the next ledger update will bind their actual receipts.
 
 
-## K02 — 21 accepted additions, production verification pending
+## K02 — 21 published additions
 
 K02 freezes 21 private pairs in canonical active order. Cohort K now records 41 accepted/integrated pairs from 49 completed built-in image calls, eight rejected outputs and eight targeted retries; 20 K pairs remain published until K02 production is verified. Worker accepted counts are A7/B12/C11/D8/E3. One Kunming reference hold and one append-only Labralas reserve activation preserve the frozen selection; all 44 earlier holds and J’s hashed stop remain unchanged.
 
@@ -132,3 +132,11 @@ The candidate contains 601 completed portrait/full/short pairs and 638 hidden id
 The Gull Terrier source display title is shortened to the existing 120-character limit. Boerenfox’s unsigned farm source is consistently labeled as a publisher account, with named original authorship and personal observation unverified; full and short descriptions are unchanged and explicitly attributed. Smaland’s retained I original matches actual current Commons SHA1/size/dimensions; its historical download status/time/headers remain unknown. The typed current metadata audit is preserved separately. Earlier archive attempts are preserved as superseded; the final archive includes the exact retained I original, typed acquisition disclosure and compiled publisher-role correction. Local ignored archives have no verified off-machine backup.
 
 Stable validation, manual browser, owned product commit and READY production evidence will follow before publication counters change. The user subsequently requested finish-current-work and pause. K02 will be published; the sole already-underway Lab Pei packet will receive a bounded final decision. All other partial research will be preserved. The +250 target is no longer pursued.
+
+K02 product `5f55d692d475b1904319c778141ca0a413cbf464` is READY on the exact production aliases. All49 production checks,14 exact live byte matches and all21 new full/short/provenance checks pass. Stable verification passed522 Node,22 coordination,24 Deno and41 Chrome flows; manual desktop/phone comparison, About/Escape and reviewer metadata pass. The final K02 archive binds3,101 paths/2,817 objects with SHA `b88298d63e3b4cb4a41fa536a6755016e465f5089ea5de5253ba34517d6bd8db`. Publication receipt `k02-publication-receipt-001.json` binds actual evidence.
+
+## K03 — bounded current-work closeout, production pending
+
+The direct-user pause instruction is hashed and preserved; it ends the250-pair objective. Only the already-underway Lab Pei0200797 packet received one final dedicated built-in call. Exact original creator ownCC0 parent-zero886946276, later PD-self metadata, full actual CC0 terms, directly attributed institutional care accounts, independent C peer, root source/prose/native review and untouched native bytes are retained. The portrait passes four-paw/full-tail anatomy and source fidelity; tighter nominal80%height/62px-bottom framing is disclosed and remains qualitatively crop-safe. No extra retry or new source chain is authorized.
+
+K03 stages one accepted pair under an exact hashed user-stop42cap. K totals42accepted/integrated from50actual calls/50outputs,8rejects/8targeted retries/0failures. Worker totals A7/B13/C11/D8/E3;1Khold/1reserve and44earlier holds unchanged. Candidate602pairs/637hidden/1,204WebPs; production remains601until exact READY and live verification pass. Four workers are paused; B is completing its final immutable inventories/stop receipt. All partial work is retained.

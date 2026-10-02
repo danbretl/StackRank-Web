@@ -64,16 +64,16 @@ A prepared future five-thread/50-pairs-each run is documented in
 `notes/feature-ideas/dogs-parallel-50-kickoff-prompt.md` and
 `data/dogs/portrait-continuation-context.json`. It requests `gpt-6.1-sol/xhigh` and
 Full access for all six tasks; thread creation cannot itself set permission mode.
-Dan invoked the fresh kickoff on October 1, 2026. Cohort K is active: five independent
-`gpt-6.1-sol/xhigh` tasks have verified Full access and isolated worktrees, with 50 accepted pairs
-authorized per task. The starting baseline was 560 published pairs and 679 hidden identities.
-K01 product `6608aacc` is READY with **580 published pairs and 659 hidden identities**: 20 additions,
-49 production checks, 11 exact live byte matches and all 20 profile/provenance checks passing.
-The ordered 250-primary/27-reserve selection remains frozen; K01 records 27 calls, 20 published
-pairs, seven rejected outputs and seven targeted retries. Later private attempts await ledger
-normalization. Continue the remaining 230 additions to 810/429. Read
-`notes/testing/dogs-portrait-cohort-k.md` and `data/dogs/portrait-cohort-k-preparation-index.json`.
-K preserves J’s frozen stop and all 44 prior holds.
+Dan invoked the fresh kickoff on October 1, 2026, then requested finish-current-work and pause.
+K01/K02 published41 additions: **601 published pairs and638 hidden identities**; K02 product
+`5f55d692` is READY with49 production checks and14 exact live byte matches. K03 stages the
+sole already-underway final Lab Pei pair, pending production verification. The hashed direct-user
+stop limits K to42 pairs and ends the250-pair objective. Five configured `gpt-6.1-sol/xhigh`
+workers have verified Full access and isolated worktrees; all partial research is retained.
+K records50 calls,42accepted/integrated,8rejects/8targeted retries,1hold and1append-only reserve.
+The250-primary/27-reserve selection, J frozen stop and44earlier holds remain unchanged.
+Read `notes/testing/dogs-portrait-cohort-k.md` and `data/dogs/portrait-continuation-context.json`.
+No further acquisition/generation is authorized after current-work closeout.
 
 Dogs keeps ranking primary within a compact “Find your kind of dog” launchpad. “A few dogs
 to meet” combines a full-width search row with Surprise me and a highlighted Browse all dogs

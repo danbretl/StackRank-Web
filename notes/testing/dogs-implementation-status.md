@@ -1,12 +1,8 @@
 # StackRank Dogs implementation status
 
-## Current cohort K — K01 published, October 2, 2026
+## Current cohort K — user pause closeout, October 2, 2026
 
-**580 completed portrait/profile pairs are live out of 1,239 source identities (46.81%); 659 unfinished identities remain hidden.** Fresh human authorization covers 250 additions across five independent 50-pair tasks, targeting 810 published pairs and 429 hidden identities. K01 adds 20 pairs (A3/B7/C5/D2/E3). Product `6608aacc` is READY in `dpl_89BLYMfUvePgZNbp4ZJgwMYg1ApZ`, with both production aliases verified. All 49 production checks, 11 exact live byte matches and all 20 copy/provenance checks pass. The stable candidate passes 521 Node tests, 15 coordination tests, 24 Deno tests and 41 Chrome flows; manual desktop, phone and reviewer controls pass.
-
-K01 records 27 built-in calls, seven rejected outputs, seven targeted retries and 20 accepted/integrated/published pairs. Later private attempts await normalization. All 560 prior records, 1,131 protected files, J’s frozen stop and 44 older holds are preserved; K has no identity hold or reserve activation yet. The five workers are configured as gpt-6.1-sol/xhigh and attest Full access, approval never and enabled network. Actual runtime and image-engine identifiers remain undisclosed. References remain private; generated artwork is allowed only in normal Dogs UI, with snapshot artwork and raster export denied.
-
-Continue the remaining 230 accepted and published additions. Start with `notes/testing/dogs-portrait-cohort-k.md`, the K ledger/preparation index and durable continuation context. Ignored local archives have no verified off-machine backup.
+K01/K02 are READY:601publishedpairs/638hidden,41additions. K03 contains the sole final already-underway Lab Pei pair, pending production verification; candidate602/637. Exact hashed stop ends K at42, preserving the250-primary/27-reserve freeze.50actual image calls,8rejects/8targeted retries,0failures,1Khold/1append-only reserve. All44earlier holds and J frozen stop remain unchanged. All five workers are finishing existing receipts and pausing; no new work is authorized. See `dogs-portrait-cohort-k.md` and the durable continuation context.
 
 ## Historical cohort J — stopped after J03, October 1, 2026
 

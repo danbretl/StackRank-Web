@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "savedAt": "2026-10-02T11:16:37.217008+00:00",
-  "status": "active-cohort-k-first20-integrated-awaiting-production",
+  "savedAt": "2026-10-02T11:26:58.535194+00:00",
+  "status": "active-cohort-k-k01-published20",
   "baseline": {
     "catalogIdentities": 1239,
     "publishedPortraits": 560,
@@ -1371,8 +1371,8 @@
     "selectionFrozen": true,
     "generationCalls": 27,
     "acceptedPairs": 20,
-    "publishedPairs": 0,
-    "nextAction": "Complete stable K01 twenty-pair fullverification/manual desktop+phone controls, commit/push exactproduct and confirmREADY/aliases/prod49/livebytes. Then normalize later privately staged native attempts and continue allfive50-slotassignments to250published additions.",
+    "publishedPairs": 20,
+    "nextAction": "Normalize subsequent immutable worker/root QA attempts after K01 publication. Review pending Jug, Spino and Malti-Poo references, primary bodies, prompts and independent peers. Continue all five disjoint 50-slot assignments through root-owned milestone releases to 810 published pairs and 429 hidden identities.",
     "cohortLedgerPath": "data/dogs/portrait-cohort-k.json",
     "selectionSha256": "f747510afacb4f9a6c7c08d634f9b8423f7a0a7f778569d3461f0bf8b5d660f6",
     "primaryCount": 250,
@@ -1380,7 +1380,7 @@
     "rejectedNativeOutputs": 7,
     "retryCount": 7,
     "integratedPairs": 20,
-    "progressCheckpointBasis": "Immutable release candidate: exact27 completed calls/20 rootaccepted pairs/7rejectedoutputs/7targetedretries normalized before K01 freeze. Subsequent Gull/Trailhound/privateattempts intentionally excluded until this release publishes.",
+    "progressCheckpointBasis": "K01 immutable checkpoint: 27 completed calls, 20 accepted/integrated/published pairs, seven rejected outputs and seven targeted retries. Subsequent private Gull/Trailhound attempts await normalization and are not counted here.",
     "supportPublication": {
       "commit": "2811988d8f7b47906044443e997ba650cb5b7326",
       "deploymentId": "dpl_Awpp5Aom94cpCn9oiUTfnYNQLAfK",
@@ -1428,6 +1428,71 @@
     },
     "calibrationComplete": true,
     "candidatePublishedTotal": 580,
-    "candidateHiddenIncomplete": 659
+    "candidateHiddenIncomplete": 659,
+    "currentPublishedTotal": 580,
+    "currentHiddenIncomplete": 659,
+    "remainingPairsToPublish": 230,
+    "k01Publication": {
+      "schemaVersion": 1,
+      "subwave": "k01",
+      "verifiedAt": "2026-10-02T11:26:58.535194+00:00",
+      "productCommit": "6608aacc804f1b678b0d953ae83a301987efe855",
+      "deploymentId": "dpl_89BLYMfUvePgZNbp4ZJgwMYg1ApZ",
+      "deploymentStatus": "READY",
+      "deploymentUrl": "https://stackrank-gco4vgvrz-danbretl-2590s-projects.vercel.app",
+      "productionAliases": [
+        "www.stackrankapp.com",
+        "stackrankapp.com"
+      ],
+      "newPairs": 20,
+      "totalPairs": 580,
+      "hiddenIncomplete": 659,
+      "productionChecks": 49,
+      "exactLiveByteMatches": 11,
+      "all20LiveCopyAndProvenanceChecks": 20,
+      "verification": {
+        "nodeTests": 521,
+        "coordinationTests": 15,
+        "denoTests": 24,
+        "chromeFlows": 41
+      },
+      "evidence": [
+        {
+          "path": "reports/dogs-generated-artwork/cohort-k/k01-deployment-001.json",
+          "sha256": "e8baf3179788d9a289051d6382432e395dcdc0c90693b55fa87e9da33a1a287e",
+          "bytes": 1070
+        },
+        {
+          "path": "reports/dogs-generated-artwork/cohort-k/k01-production-001.log",
+          "sha256": "5add614e93bdb4ba06818aa0224290b660c2888ff8db2b612e4eed16fdf758e9",
+          "bytes": 2652
+        },
+        {
+          "path": "reports/dogs-generated-artwork/cohort-k/k01-live-bytes-001.json",
+          "sha256": "e92eb7ea67cf5ddf5049ac82679eb80f718c4c4d9b482ce5408dcf1051f8e4e1",
+          "bytes": 5313
+        },
+        {
+          "path": "reports/dogs-generated-artwork/cohort-k/k01-verify-003.log",
+          "sha256": "ccbdc1184aecd6afa73df8b3db47fbe795d279a5cd1bcf1aa2c5ffd2ae5f1c75",
+          "bytes": 54486
+        },
+        {
+          "path": "reports/dogs-generated-artwork/cohort-k/root-k01-manual-browser-001.json",
+          "sha256": "5a86e48351a50ad63ada161e276cd618cbfa902f338ed9c301a650ffa6aa5646",
+          "bytes": 2312
+        },
+        {
+          "path": "reports/dogs-generated-artwork/cohort-k/root-k01-protected-file-check-001.json",
+          "sha256": "3b54e90fbca937656b5902988d9ace2a03025e669d3fa6aeeab8d3956ec513f0",
+          "bytes": 276
+        },
+        {
+          "path": "reports/dogs-generated-artwork/cohort-k/root-k01-protected-record-check-001.json",
+          "sha256": "9c375fdd8e19c292c8ad64e5fe7009782459465ed316ff8bbda274bad10ea7e6",
+          "bytes": 235
+        }
+      ]
+    }
   }
 }

@@ -1,6 +1,14 @@
 # StackRank Dogs implementation status
 
-## Current cohort J — stopped after J03, October 1, 2026
+## Current cohort K — K01 published, October 2, 2026
+
+**580 completed portrait/profile pairs are live out of 1,239 source identities (46.81%); 659 unfinished identities remain hidden.** Fresh human authorization covers 250 additions across five independent 50-pair tasks, targeting 810 published pairs and 429 hidden identities. K01 adds 20 pairs (A3/B7/C5/D2/E3). Product `6608aacc` is READY in `dpl_89BLYMfUvePgZNbp4ZJgwMYg1ApZ`, with both production aliases verified. All 49 production checks, 11 exact live byte matches and all 20 copy/provenance checks pass. The stable candidate passes 521 Node tests, 15 coordination tests, 24 Deno tests and 41 Chrome flows; manual desktop, phone and reviewer controls pass.
+
+K01 records 27 built-in calls, seven rejected outputs, seven targeted retries and 20 accepted/integrated/published pairs. Later private attempts await normalization. All 560 prior records, 1,131 protected files, J’s frozen stop and 44 older holds are preserved; K has no identity hold or reserve activation yet. The five workers are configured as gpt-6.1-sol/xhigh and attest Full access, approval never and enabled network. Actual runtime and image-engine identifiers remain undisclosed. References remain private; generated artwork is allowed only in normal Dogs UI, with snapshot artwork and raster export denied.
+
+Continue the remaining 230 accepted and published additions. Start with `notes/testing/dogs-portrait-cohort-k.md`, the K ledger/preparation index and durable continuation context. Ignored local archives have no verified off-machine backup.
+
+## Historical cohort J — stopped after J03, October 1, 2026
 
 **560 completed portrait/profile pairs are live out of 1,239 source identities (45.20%); 679 unfinished identities remain hidden.** Dan's latest direct instruction was: “Finish the batch you’re on - definitely don’t waste any efforts started - and stop after that rather than getting to 750.” J03 finishes the 11 pairs already underway and ends this run at 560. No further breed acquisition or image generation is active or authorized. The original 250-primary/61-reserve selection and its 750-pair historical target remain frozen; a hashed append-only stop receipt records the final batch and limits this run to 60 additions.
 

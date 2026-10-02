@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
   "cohortId": "dogs-portraits-k",
-  "savedAt": "2026-10-02T07:53:54.617073+00:00",
-  "status": "active-frozen-selection-and-calibration",
+  "savedAt": "2026-10-02T11:26:58.535194+00:00",
+  "status": "active-cohort-k-k01-published20",
   "authorizedAdditionalAcceptedPairs": 250,
   "targetPerWorker": 50,
   "baseline": {
@@ -139,10 +139,10 @@
     "bytes": 18358
   },
   "selectionFrozen": true,
-  "generationCalls": 4,
-  "acceptedPairs": 2,
-  "integratedPairs": 0,
-  "publishedPairs": 0,
+  "generationCalls": 27,
+  "acceptedPairs": 20,
+  "integratedPairs": 20,
+  "publishedPairs": 20,
   "recoveredResearchFiles": 47,
   "preparedEditorialEntriesRecovered": 33,
   "protectedPriorFiles": 1131,
@@ -151,31 +151,29 @@
   "reserveActivations": 0,
   "operationalRegistry": {
     "path": "reports/dogs-generated-artwork/cohort-k/operational-registry.json",
-    "sha256": "9ecf5377cc4ab0fd99f0032922be1fc7fb741870c9733b67748f4b6bc7d2b8b4",
-    "bytes": 26484
+    "sha256": "2db11117beda15dfb529868180e0b9059971d939cc71d66566b92dadf51ebd54",
+    "bytes": 26504
   },
   "negativeRegistry": {
-    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/known-negative-titles-002.json",
-    "sha256": "c7af8cc9b7cbf0b1b764f7cccaeccb72fba138151f05eb7592a71d3420408c6b"
+    "path": "reports/dogs-generated-artwork/cohort-k/known-negative-titles-006.json",
+    "sha256": "8029f234d15aa3bbef89a443cff7204aa55bbef26ece9a2e2ad8bc6877fa46d6",
+    "bytes": 85999
   },
-  "negativeEvidenceRows": 83,
-  "uniqueNegativeTitles": 82,
+  "negativeEvidenceRows": 94,
+  "uniqueNegativeTitles": 93,
   "fullVerification": {
-    "nodeTests": 520,
-    "denoTests": 24,
-    "chromeFlows": 41,
+    "nodeTests": 521,
     "coordinationTests": 15,
-    "fullSuiteLog": {
-      "path": "reports/dogs-generated-artwork/cohort-k/freeze-verify-003.log",
-      "sha256": "abf801bed5c4f3b04e3a33beb4851d3c3e9e2aede8fc69bba0da268b36e8dc2a",
-      "bytes": 54393
-    },
-    "coordinationAdditions": "15 coordination tests pass in complete stable candidate suite"
+    "denoTests": 24,
+    "chromeFlows": 41
   },
   "calibration": {
-    "path": "reports/dogs-generated-artwork/cohort-k/root-calibration-examples-001.json",
-    "sha256": "04cd55f6bbd54ee9c5e985cc1dffe712c4ccc90475e10d5300b6a6df53cdac2e",
-    "bytes": 3349
+    "status": "complete",
+    "receipt": {
+      "path": "reports/dogs-generated-artwork/cohort-k/root-calibration-first-five-pass-001.json",
+      "sha256": "fba2526a73522feff1e537a19f73a709b59d3a39593da1f70760a93a6a39e4ee",
+      "bytes": 3154
+    }
   },
   "sourceReview": {
     "path": "reports/dogs-generated-artwork/cohort-k/root-source-review-villano-001.json",
@@ -209,15 +207,15 @@
       "bytes": 155505
     }
   ],
-  "retention": "All four exact native outputs, including two rejects, are retained byte-for-byte. Ignored local source/native archives have no verified off-machine backup.",
-  "nextAction": "Finish individual five-worker calibration; qualified per-call root approvals, exact native inspection and pair acceptance, then first approximately25-pair integration/release. Continue each disjoint50-slot assignment.",
+  "retention": "K01 all20 source/prompt/native/rejected/QAclosure retained in trackedmanifest1,445files/1,263verifiedobjects. Allignoredlocalarchives lackverifiedoff-machinebackup. Laterprivateevidence remains staged separately.",
+  "nextAction": "Normalize subsequent immutable worker/root QA attempts after K01 publication. Review pending Jug, Spino and Malti-Poo references, primary bodies, prompts and independent peers. Continue all five disjoint 50-slot assignments through root-owned milestone releases to 810 published pairs and 429 hidden identities.",
   "cohortLedgerPath": "data/dogs/portrait-cohort-k.json",
   "selectionSha256": "f747510afacb4f9a6c7c08d634f9b8423f7a0a7f778569d3461f0bf8b5d660f6",
   "primaryCount": 250,
   "reserveCount": 27,
-  "rejectedNativeOutputs": 2,
-  "retryCount": 0,
-  "progressCheckpointBasis": "Exact four completed calls normalized at this checkpoint; subsequent running/staged calls remain in live coordination and immutable worker receipts until next checkpoint.",
+  "rejectedNativeOutputs": 7,
+  "retryCount": 7,
+  "progressCheckpointBasis": "K01 immutable checkpoint: 27 completed calls, 20 accepted/integrated/published pairs, seven rejected outputs and seven targeted retries. Subsequent private Gull/Trailhound attempts await normalization and are not counted here.",
   "frozenAssignments": [
     {
       "worker": "k_worker_a",
@@ -566,5 +564,70 @@
       "sha256": "ef94d805df57e7d0e4a05b450f4dec648cef5027692e74476fc8887d92623f07",
       "bytes": 1093
     }
+  },
+  "currentPublishedTotal": 580,
+  "currentHiddenIncomplete": 659,
+  "remainingPairsToPublish": 230,
+  "k01Publication": {
+    "schemaVersion": 1,
+    "subwave": "k01",
+    "verifiedAt": "2026-10-02T11:26:58.535194+00:00",
+    "productCommit": "6608aacc804f1b678b0d953ae83a301987efe855",
+    "deploymentId": "dpl_89BLYMfUvePgZNbp4ZJgwMYg1ApZ",
+    "deploymentStatus": "READY",
+    "deploymentUrl": "https://stackrank-gco4vgvrz-danbretl-2590s-projects.vercel.app",
+    "productionAliases": [
+      "www.stackrankapp.com",
+      "stackrankapp.com"
+    ],
+    "newPairs": 20,
+    "totalPairs": 580,
+    "hiddenIncomplete": 659,
+    "productionChecks": 49,
+    "exactLiveByteMatches": 11,
+    "all20LiveCopyAndProvenanceChecks": 20,
+    "verification": {
+      "nodeTests": 521,
+      "coordinationTests": 15,
+      "denoTests": 24,
+      "chromeFlows": 41
+    },
+    "evidence": [
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/k01-deployment-001.json",
+        "sha256": "e8baf3179788d9a289051d6382432e395dcdc0c90693b55fa87e9da33a1a287e",
+        "bytes": 1070
+      },
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/k01-production-001.log",
+        "sha256": "5add614e93bdb4ba06818aa0224290b660c2888ff8db2b612e4eed16fdf758e9",
+        "bytes": 2652
+      },
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/k01-live-bytes-001.json",
+        "sha256": "e92eb7ea67cf5ddf5049ac82679eb80f718c4c4d9b482ce5408dcf1051f8e4e1",
+        "bytes": 5313
+      },
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/k01-verify-003.log",
+        "sha256": "ccbdc1184aecd6afa73df8b3db47fbe795d279a5cd1bcf1aa2c5ffd2ae5f1c75",
+        "bytes": 54486
+      },
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/root-k01-manual-browser-001.json",
+        "sha256": "5a86e48351a50ad63ada161e276cd618cbfa902f338ed9c301a650ffa6aa5646",
+        "bytes": 2312
+      },
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/root-k01-protected-file-check-001.json",
+        "sha256": "3b54e90fbca937656b5902988d9ace2a03025e669d3fa6aeeab8d3956ec513f0",
+        "bytes": 276
+      },
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/root-k01-protected-record-check-001.json",
+        "sha256": "9c375fdd8e19c292c8ad64e5fe7009782459465ed316ff8bbda274bad10ea7e6",
+        "bytes": 235
+      }
+    ]
   }
 }

@@ -35,6 +35,9 @@ export function collectRegenerationFiles(root, entry, packetPaths) {
     if (normalized !== value || value.includes('..') || !privatePrefixes.some(prefix => normalized.startsWith(prefix))) throw Error(`Unsafe archive path: ${value}`);
     if (files.has(value)) return;
     const absolute = path.join(root, value);
+    // Operational registries also describe existing worker staging directories.
+    // They are metadata, not files to recurse through or archive wholesale.
+    if (fs.existsSync(absolute) && fs.statSync(absolute).isDirectory()) return;
     if (!fs.existsSync(absolute) || !fs.statSync(absolute).isFile()) throw Error(`Missing regeneration material: ${value}`);
     const bytes = fs.readFileSync(absolute);
     files.set(value, { path: value, sha256: hash(bytes), bytes: bytes.length });

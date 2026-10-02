@@ -69,3 +69,19 @@ test('K absolute evidence is recovered through the integration worktree shared-r
     assert.equal(rows.length, 1); assert.equal(rows[0].path, prefix + 'worker-a/original.jpg');
   } finally { fs.rmSync(parent, { recursive: true, force: true }); }
 });
+
+
+test('K registry staging directories do not pull unselected source files into an archive', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'dogs-k-registry-archive-'));
+  try {
+    const prefix = 'reports/dogs-generated-artwork/cohort-k/';
+    const stageRoot = path.join(root, prefix, 'worker-a');
+    fs.mkdirSync(stageRoot, { recursive: true });
+    fs.writeFileSync(path.join(stageRoot, 'unselected-native.png'), 'unselected private image');
+    const registry = path.join(root, prefix, 'registry.json');
+    fs.writeFileSync(registry, JSON.stringify({ workers: [{ stageRoot }] }));
+    const rows = collectRegenerationFiles(root, { registryPath: registry }, []);
+    assert.deepEqual(rows.map(row => row.path), [prefix + 'registry.json']);
+    assert.throws(() => collectRegenerationFiles(root, { evidence: prefix + 'missing.jpg' }, []), /Missing regeneration material/);
+  } finally { fs.rmSync(root, { recursive: true, force: true }); }
+});

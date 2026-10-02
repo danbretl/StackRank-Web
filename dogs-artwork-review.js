@@ -15,9 +15,9 @@ import {
 import { dogProfileSourceLinks } from "/lib/dogs.js?v=7";
 
 const DATA_URLS = {
-  manifest: "/data/dogs/generated-artwork.json?v=25",
+  manifest: "/data/dogs/generated-artwork.json?v=26",
   catalog: "/data/dogs/dog-catalog.json?v=4",
-  profiles: "/data/dogs/breed-profiles.json?v=19",
+  profiles: "/data/dogs/breed-profiles.json?v=21",
 };
 
 const BATCH_METADATA_URLS = [
@@ -40,6 +40,7 @@ const BATCH_METADATA_URLS = [
   "/data/dogs/generated-artwork-batch-j01.json",
   "/data/dogs/generated-artwork-batch-j02.json",
   "/data/dogs/generated-artwork-batch-j03.json",
+  "/data/dogs/generated-artwork-batch-k01.json",
 ];
 
 const dom = {

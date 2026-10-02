@@ -107,3 +107,13 @@ K pair. Its exact four-call ledger remains the checkpoint basis. Later individua
 natives and completed five-worker calibration are retained in private immutable receipts and
 will be normalized into the next ledger checkpoint. Evidence files and hashes are recorded
 under `frozenCheckpointPublication` in the preparation index and durable continuation context.
+
+## K01 release candidate —20pairs
+
+All20 distinct pairs have independent editorial peer reviews and individual root source/rights/prompt/native and wholecontact-sheet approval. The stable candidate records27built-in calls, seven rejected outputs and seven targeted retries; all native outputs remain unchanged. Worker accepted/integrated allocation is A3/B7/C5/D2/E3, with no K identity hold or reserve activation. Later private worker calls are excluded until this candidate publishes.
+
+Generated artwork now contains580approved entries and1,160WebP variants. All1,120priorvariants passed byte comparison; all1,131protectedfiles,560wholeartwork/profile records and560baseline rights rows remain unchanged, including J’s frozen stop. The source-name120-character validator required shortening two compiled source-credit labels; immutable original source titles/evidence and full/short copy hashes remain retained. The pre-label archive is preserved as superseded, and the final archive binds the source-label delta.
+
+The product candidate includes k01 reviewer metadata, main/reviewer synchronized profilesv21/artworkv26 cache keys and rightsv36; discovery queue and artwork coverage are rebuilt. Publication is still pending. Required fullverify and manual desktop/phone flows are recorded below once completed. Local ignored archives are not verified off-machine backups.
+
+The final stable candidate passes `npm run verify`:521Node tests,15atomiccoordination tests,24Deno tests and41Chrome flows; allsyntax/cache/catalog/profile/artwork/discovery/pack checks pass. Evidence: `reports/dogs-generated-artwork/cohort-k/k01-verify-003.log` and E2E `reports/e2e/runs/2026-10-02T111656Z/summary.json`. Earlier validator failures and archive-preparation errors remain preserved. Manual desktop1440×1000 and supported mobile390×844 checks pass Rank/search, exact new short/fullcopy, comparison/About/Escape, review arrows/unsaveddrafts/save/clearflags/focus; see `root-k01-manual-browser-001.json`. Final archive:1,445files/1,263verifiedobjects, SHA256 `1c4504a6e8976f50355434aac5ff15d2b23577a5c947413b66ff952afdae31b5`.

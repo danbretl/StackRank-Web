@@ -16691,7 +16691,13 @@
         "integratedAt": "2026-10-02T16:37:57.608592+00:00"
       },
       "publication": {
-        "status": "pending"
+        "status": "published",
+        "commit": "9a965ad52c735501c31afc29d446b8addb6d89f8",
+        "deploymentId": "dpl_DvQ1ENwHWyZnbUAFfXRKnGgprrwj",
+        "deploymentUrl": "https://stackrank-n47zafucs-danbretl-2590s-projects.vercel.app",
+        "verifiedAt": "2026-10-02T16:51:19.505816+00:00",
+        "evidencePath": "reports/dogs-generated-artwork/cohort-k/k03-publication-receipt-001.json",
+        "evidenceSha256": "2b5a7906764a6a7f64d6e2aded0097ba2af769abefb0f992d75f80981abc2596"
       }
     },
     "VBO:0201221": {
@@ -18174,7 +18180,9 @@
       "contactSheetPath": "assets/dogs/generated-masters/cohort-k/worker-b/VBO-0200797-native-01.png",
       "contactSheetSha256": "94e00f67301c0be9452f1775ad6e8cf1b3974ab25a40b6c4c5bc93675ad088e0",
       "rootReleaseReceiptPath": "reports/dogs-generated-artwork/cohort-k/root-k03-release-membership-001.json",
-      "rootReleaseReceiptSha256": "950ae7112c5abaaf8023e61040c263aeec0978b9b0ab984061da76759bcec3ad"
+      "rootReleaseReceiptSha256": "950ae7112c5abaaf8023e61040c263aeec0978b9b0ab984061da76759bcec3ad",
+      "publicationReceiptPath": "reports/dogs-generated-artwork/cohort-k/k03-publication-receipt-001.json",
+      "publicationReceiptSha256": "2b5a7906764a6a7f64d6e2aded0097ba2af769abefb0f992d75f80981abc2596"
     }
   ],
   "publicationMilestones": [
@@ -18255,7 +18263,7 @@
     "retryCount": 8,
     "acceptedPairCount": 42,
     "integratedPairCount": 42,
-    "publishedPairCount": 41,
+    "publishedPairCount": 42,
     "blockedCount": 1,
     "workers": [
       {
@@ -18270,7 +18278,7 @@
         "targetCount": 50,
         "acceptedPairCount": 13,
         "integratedPairCount": 13,
-        "publishedPairCount": 12
+        "publishedPairCount": 13
       },
       {
         "worker": "k_worker_c",
@@ -18295,11 +18303,11 @@
       }
     ],
     "reserveActivationCount": 1,
-    "remainingCount": 209,
-    "nextCatalogId": "VBO:0200797",
+    "remainingCount": 208,
+    "nextCatalogId": null,
     "authorizedCompletedPairLimit": 42,
-    "remainingAuthorizedCount": 1,
-    "runStatus": "finishing-user-requested-batch"
+    "remainingAuthorizedCount": 0,
+    "runStatus": "stopped-after-user-requested-batch"
   },
   "stopAfterCurrentBatch": {
     "action": "finish-current-batch-and-stop",

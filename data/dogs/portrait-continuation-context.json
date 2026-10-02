@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "savedAt": "2026-10-02T16:46:19.824651+00:00",
-  "status": "pausing-cohort-k-finish-current-work",
+  "savedAt": "2026-10-02T16:52:51.885560+00:00",
+  "status": "paused-cohort-k-current-work-complete",
   "baseline": {
     "catalogIdentities": 1239,
     "publishedPortraits": 560,
@@ -1321,6 +1321,36 @@
       "fileCount": 5333,
       "uniqueObjectCount": 4172,
       "offMachineBackupVerified": false
+    },
+    {
+      "wave": "k01",
+      "manifestPath": "data/dogs/regeneration-manifest-k01.json",
+      "archivePath": "reports/dogs-generated-artwork/cohort-k/regeneration-archives/k01.tar.gz",
+      "archiveSha256": "1c4504a6e8976f50355434aac5ff15d2b23577a5c947413b66ff952afdae31b5",
+      "archiveBytes": 360892242,
+      "fileCount": 1445,
+      "uniqueObjectCount": 1263,
+      "storage": "Local ignored archive; no off-machine backup is asserted"
+    },
+    {
+      "wave": "k02",
+      "manifestPath": "data/dogs/regeneration-manifest-k02.json",
+      "archivePath": "reports/dogs-generated-artwork/cohort-k/regeneration-archives/k02.tar.gz",
+      "archiveSha256": "b88298d63e3b4cb4a41fa536a6755016e465f5089ea5de5253ba34517d6bd8db",
+      "archiveBytes": 941536355,
+      "fileCount": 3101,
+      "uniqueObjectCount": 2817,
+      "storage": "Local ignored archive; no off-machine backup is asserted"
+    },
+    {
+      "wave": "k03",
+      "manifestPath": "data/dogs/regeneration-manifest-k03.json",
+      "archivePath": "reports/dogs-generated-artwork/cohort-k/regeneration-archives/k03.tar.gz",
+      "archiveSha256": "c391d910cbfdbec07f7d70c0a9a7eb13cd635d0c1f715d0ad736a6bfc3a20b21",
+      "archiveBytes": 890879064,
+      "fileCount": 2678,
+      "uniqueObjectCount": 2414,
+      "storage": "Local ignored archive; no off-machine backup is asserted"
     }
   ],
   "contextFilesManifestPath": "data/dogs/portrait-continuation-context-files.json",
@@ -1365,14 +1395,13 @@
     ],
     "baselineCommit": "012c1e4f94fa64c1407f36d5b3a32adb200b628a",
     "publishedBaselinePairs": 560,
-    "newPairsAuthorized": 250,
     "publishedTarget": 810,
     "hiddenTarget": 429,
     "selectionFrozen": true,
     "generationCalls": 50,
     "acceptedPairs": 42,
-    "publishedPairs": 41,
-    "nextAction": "Root publishes and verifies exact existing K03 Lab Pei, records final stop/context/report, then pauses. No new acquisition/generation or allocation.",
+    "publishedPairs": 42,
+    "nextAction": "PAUSED. Read finalstop/efficiencyreport; fresh userauthorization required for any further research, acquisition, generation or allocations.",
     "cohortLedgerPath": "data/dogs/portrait-cohort-k.json",
     "selectionSha256": "f747510afacb4f9a6c7c08d634f9b8423f7a0a7f778569d3461f0bf8b5d660f6",
     "primaryCount": 250,
@@ -1380,7 +1409,7 @@
     "rejectedNativeOutputs": 8,
     "retryCount": 8,
     "integratedPairs": 42,
-    "progressCheckpointBasis": "50actually completed built-in calls;42accepted/integrated,41published. Exact final K03 Lab Pei awaits READY and production verification. No active permits, all five workers paused; root final release/report only.",
+    "progressCheckpointBasis": "Final current-work stop:50actual calls/50outputs,42accepted/integrated/published,8rejects/8targeted retries/0failed.0activepermits,0pendingacceptedpairs,all5workerspaused.602live/637hidden; exactREADYand49production/10livebytesverified.",
     "supportPublication": {
       "commit": "2811988d8f7b47906044443e997ba650cb5b7326",
       "deploymentId": "dpl_Awpp5Aom94cpCn9oiUTfnYNQLAfK",
@@ -1429,9 +1458,9 @@
     "calibrationComplete": true,
     "candidatePublishedTotal": 602,
     "candidateHiddenIncomplete": 637,
-    "currentPublishedTotal": 601,
-    "currentHiddenIncomplete": 638,
-    "remainingPairsToPublish": 1,
+    "currentPublishedTotal": 602,
+    "currentHiddenIncomplete": 637,
+    "remainingPairsToPublish": 0,
     "k01Publication": {
       "schemaVersion": 1,
       "subwave": "k01",
@@ -1495,8 +1524,8 @@
       ]
     },
     "remainingPairsToAccept": 0,
-    "latestPrivateCheckpointPath": "reports/dogs-generated-artwork/cohort-k/root-checkpoints/041-accepted/checkpoint.json",
-    "latestPrivateCheckpointSha256": "7815bca006199da1801fea9d0a9b3586ba2b4be4bb19d2bd13b3a2c4b656762d",
+    "latestPrivateCheckpointPath": "reports/dogs-generated-artwork/cohort-k/root-final-native-permit-audit-001.json",
+    "latestPrivateCheckpointSha256": "4cc1c196aaff0b8bd35d040acdc4eca710af3dd14923c0dd41b4f44c3d1f71f9",
     "coordinationHelperSha256": "39be4a25fa778a6608242b2f115685b8a2a023764ab686d474ad2b1acc277376",
     "operationalRegistrySha256": "447a3cb82b61bdcb84f53df234b78141dc03dee35ddd9cd6c9afb61dfb584182",
     "reserveActivations": 1,
@@ -1514,7 +1543,7 @@
         "targetCount": 50,
         "acceptedPairCount": 13,
         "integratedPairCount": 13,
-        "publishedPairCount": 12
+        "publishedPairCount": 13
       },
       {
         "worker": "k_worker_c",
@@ -1600,7 +1629,7 @@
         }
       ]
     },
-    "remainingAuthorizedCount": 1,
+    "remainingAuthorizedCount": 0,
     "authorizedCompletedPairLimit": 42,
     "originalRequestedNewPairs": 250,
     "currentWorkCloseoutOnly": true,
@@ -1654,6 +1683,83 @@
         "bytes": 5173,
         "status": "PAUSED_AT_DIRECT_USER_REQUEST"
       }
-    ]
+    ],
+    "unusedOriginal250Slots": 208,
+    "stopReceipt": {
+      "path": "data/dogs/portrait-cohort-k-stop.json",
+      "sha256": "ed5fc234871ba8adcb10e7d414095db377eef1961f525dbc5f22e5e335e42e60",
+      "bytes": 6991
+    },
+    "k03Publication": {
+      "schemaVersion": 1,
+      "subwave": "k03",
+      "verifiedAt": "2026-10-02T16:51:19.505816+00:00",
+      "productCommit": "9a965ad52c735501c31afc29d446b8addb6d89f8",
+      "deploymentId": "dpl_DvQ1ENwHWyZnbUAFfXRKnGgprrwj",
+      "deploymentStatus": "READY",
+      "deploymentUrl": "https://stackrank-n47zafucs-danbretl-2590s-projects.vercel.app",
+      "productionAliases": [
+        "www.stackrankapp.com",
+        "stackrankapp.com"
+      ],
+      "newPairs": 1,
+      "totalPairs": 602,
+      "hiddenIncomplete": 637,
+      "productionChecks": 49,
+      "exactLiveByteMatches": 10,
+      "allNewLiveCopyAndProvenanceChecks": 1,
+      "verification": {
+        "nodeTests": 522,
+        "coordinationTests": 22,
+        "denoTests": 24,
+        "chromeFlows": 41
+      },
+      "archiveSha256": "c391d910cbfdbec07f7d70c0a9a7eb13cd635d0c1f715d0ad736a6bfc3a20b21",
+      "evidence": [
+        {
+          "path": "reports/dogs-generated-artwork/cohort-k/k03-deployment-001.json",
+          "sha256": "162e2b30c379017c88186879699d8efa3e0637c4479c769c4bb194d339efacaf",
+          "bytes": 1075
+        },
+        {
+          "path": "reports/dogs-generated-artwork/cohort-k/k03-production-001.log",
+          "sha256": "6b3d6a922b032a0f6079301b53b3e6669a25362b7f112f3b918aa0bb2f4008d4",
+          "bytes": 2652
+        },
+        {
+          "path": "reports/dogs-generated-artwork/cohort-k/k03-live-bytes-001.json",
+          "sha256": "cbca22517942f365433f38f285e3a0b57539ad134f07efbfe77d8f98ef068e5e",
+          "bytes": 2363
+        },
+        {
+          "path": "reports/dogs-generated-artwork/cohort-k/k03-verify-002.log",
+          "sha256": "264e94a2c91180d1de2f99c6a608c81f56d9b4cc798b1c72c300f9dc4bf8ce2a",
+          "bytes": 54535
+        },
+        {
+          "path": "reports/dogs-generated-artwork/cohort-k/root-k03-manual-browser-001.json",
+          "sha256": "cb21fb4c1c722f31ac9fc78789392107ea1692e9616f90a02ba22a3db0d9b00c",
+          "bytes": 825
+        },
+        {
+          "path": "reports/dogs-generated-artwork/cohort-k/root-k03-protected-record-and-file-check-001.json",
+          "sha256": "41345117756d5dc66540ba0feb9e12d79b009fa7a44af179babf746b2811c9b2",
+          "bytes": 331
+        },
+        {
+          "path": "reports/dogs-generated-artwork/cohort-k/root-final-native-permit-audit-001.json",
+          "sha256": "4cc1c196aaff0b8bd35d040acdc4eca710af3dd14923c0dd41b4f44c3d1f71f9",
+          "bytes": 294
+        },
+        {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-k-integration/stackrank/data/dogs/regeneration-manifest-k03.json",
+          "sha256": "eef627d752d7b09ee00983d7d79d147c9ab343523f51844839ad932d9753b36b",
+          "bytes": 612358
+        }
+      ]
+    },
+    "currentlyAuthorizedNewWork": 0,
+    "efficiencyReportPath": "notes/testing/dogs-cohort-k-efficiency-review-2026-10-02.md",
+    "latestPrivateCheckpointMeaning": "Final actual50native+permit+allapprovalreceipts audit; rootstop and trackedledger contain publication/partial-state completion."
   }
 }

@@ -1,9 +1,8 @@
 {
   "schemaVersion": 1,
   "cohortId": "dogs-portraits-k",
-  "savedAt": "2026-10-02T11:26:58.535194+00:00",
-  "status": "active-cohort-k-k01-published20",
-  "authorizedAdditionalAcceptedPairs": 250,
+  "savedAt": "2026-10-02T16:52:51.885560+00:00",
+  "status": "paused-cohort-k-current-work-complete",
   "targetPerWorker": 50,
   "baseline": {
     "commit": "012c1e4f94fa64c1407f36d5b3a32adb200b628a",
@@ -139,16 +138,16 @@
     "bytes": 18358
   },
   "selectionFrozen": true,
-  "generationCalls": 27,
-  "acceptedPairs": 20,
-  "integratedPairs": 20,
-  "publishedPairs": 20,
+  "generationCalls": 50,
+  "acceptedPairs": 42,
+  "integratedPairs": 42,
+  "publishedPairs": 42,
   "recoveredResearchFiles": 47,
   "preparedEditorialEntriesRecovered": 33,
   "protectedPriorFiles": 1131,
   "protectedJLedgerSha256": "08a2145cfd174bb61af4b21d4f6cde46eb4bbdcfdc813d774c04db83df887cfd",
   "priorHoldsPreserved": 44,
-  "reserveActivations": 0,
+  "reserveActivations": 1,
   "operationalRegistry": {
     "path": "reports/dogs-generated-artwork/cohort-k/operational-registry.json",
     "sha256": "2db11117beda15dfb529868180e0b9059971d939cc71d66566b92dadf51ebd54",
@@ -162,8 +161,8 @@
   "negativeEvidenceRows": 94,
   "uniqueNegativeTitles": 93,
   "fullVerification": {
-    "nodeTests": 521,
-    "coordinationTests": 15,
+    "nodeTests": 522,
+    "coordinationTests": 22,
     "denoTests": 24,
     "chromeFlows": 41
   },
@@ -208,14 +207,14 @@
     }
   ],
   "retention": "K01 all20 source/prompt/native/rejected/QAclosure retained in trackedmanifest1,445files/1,263verifiedobjects. Allignoredlocalarchives lackverifiedoff-machinebackup. Laterprivateevidence remains staged separately.",
-  "nextAction": "Normalize subsequent immutable worker/root QA attempts after K01 publication. Review pending Jug, Spino and Malti-Poo references, primary bodies, prompts and independent peers. Continue all five disjoint 50-slot assignments through root-owned milestone releases to 810 published pairs and 429 hidden identities.",
+  "nextAction": "PAUSED. Read finalstop/efficiencyreport; fresh userauthorization required for any further research, acquisition, generation or allocations.",
   "cohortLedgerPath": "data/dogs/portrait-cohort-k.json",
   "selectionSha256": "f747510afacb4f9a6c7c08d634f9b8423f7a0a7f778569d3461f0bf8b5d660f6",
   "primaryCount": 250,
   "reserveCount": 27,
-  "rejectedNativeOutputs": 7,
-  "retryCount": 7,
-  "progressCheckpointBasis": "K01 immutable checkpoint: 27 completed calls, 20 accepted/integrated/published pairs, seven rejected outputs and seven targeted retries. Subsequent private Gull/Trailhound attempts await normalization and are not counted here.",
+  "rejectedNativeOutputs": 8,
+  "retryCount": 8,
+  "progressCheckpointBasis": "Final current-work stop:50actual calls/50outputs,42accepted/integrated/published,8rejects/8targeted retries/0failed.0activepermits,0pendingacceptedpairs,all5workerspaused.602live/637hidden; exactREADYand49production/10livebytesverified.",
   "frozenAssignments": [
     {
       "worker": "k_worker_a",
@@ -565,9 +564,9 @@
       "bytes": 1093
     }
   },
-  "currentPublishedTotal": 580,
-  "currentHiddenIncomplete": 659,
-  "remainingPairsToPublish": 230,
+  "currentPublishedTotal": 602,
+  "currentHiddenIncomplete": 637,
+  "remainingPairsToPublish": 0,
   "k01Publication": {
     "schemaVersion": 1,
     "subwave": "k01",
@@ -627,6 +626,178 @@
         "path": "reports/dogs-generated-artwork/cohort-k/root-k01-protected-record-check-001.json",
         "sha256": "9c375fdd8e19c292c8ad64e5fe7009782459465ed316ff8bbda274bad10ea7e6",
         "bytes": 235
+      }
+    ]
+  },
+  "remainingAuthorizedCount": 0,
+  "originalRequestedNewPairs": 250,
+  "currentlyAuthorizedNewWork": 0,
+  "newIdentityHolds": 1,
+  "stopReceipt": {
+    "path": "data/dogs/portrait-cohort-k-stop.json",
+    "sha256": "ed5fc234871ba8adcb10e7d414095db377eef1961f525dbc5f22e5e335e42e60",
+    "bytes": 6991
+  },
+  "workerStopReceipts": [
+    {
+      "worker": "A",
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-a/stop-receipt-001.json",
+      "sha256": "d725f4382812f3e1554e59f5f6959b457672b62294819e9802a5a186d691b27c",
+      "bytes": 5462,
+      "status": "paused"
+    },
+    {
+      "worker": "B",
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/stop-receipt-001.json",
+      "sha256": "bd0033766ca96d3182706705d66b30dd06b7c05d420ee9d0cd4ca2fc55c32b6f",
+      "bytes": 6669,
+      "status": "paused-by-direct-user"
+    },
+    {
+      "worker": "C",
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-c/stop-receipt-001.json",
+      "sha256": "726e363df4e8c8903342c3534df14b8d84ca695eb14397e0a79a685a4b28789f",
+      "bytes": 13650,
+      "status": "PAUSED_BY_DIRECT_USER_STOP_RELAYED_BY_ORCHESTRATOR"
+    },
+    {
+      "worker": "D",
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-d/direct-user-stop-receipt-002.json",
+      "sha256": "d3008567fccbb7b71b2903bb20f033fd6afe8b3acc4c1151a11d4c7963a2d88f",
+      "bytes": 6283,
+      "status": "paused_at_direct_user_stop"
+    },
+    {
+      "worker": "E",
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-e/worker-e-direct-user-pause-closeout-302.json",
+      "sha256": "cc47359696bed2af462c5b52e7fbded0246cc85e7cd35df0eae466c3f0d8cfef",
+      "bytes": 5173,
+      "status": "PAUSED_AT_DIRECT_USER_REQUEST"
+    }
+  ],
+  "k02Publication": {
+    "schemaVersion": 1,
+    "subwave": "k02",
+    "verifiedAt": "2026-10-02T16:25:24.099601+00:00",
+    "productCommit": "5f55d692d475b1904319c778141ca0a413cbf464",
+    "deploymentId": "dpl_58cKZSWHUKWhE1PefbrRBMjqScMc",
+    "deploymentStatus": "READY",
+    "deploymentUrl": "https://stackrank-ka6713zyp-danbretl-2590s-projects.vercel.app",
+    "productionAliases": [
+      "www.stackrankapp.com",
+      "stackrankapp.com"
+    ],
+    "newPairs": 21,
+    "totalPairs": 601,
+    "hiddenIncomplete": 638,
+    "productionChecks": 49,
+    "exactLiveByteMatches": 14,
+    "allNewLiveCopyAndProvenanceChecks": 21,
+    "verification": {
+      "nodeTests": 522,
+      "coordinationTests": 22,
+      "denoTests": 24,
+      "chromeFlows": 41
+    },
+    "archiveSha256": "b88298d63e3b4cb4a41fa536a6755016e465f5089ea5de5253ba34517d6bd8db",
+    "evidence": [
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/k02-production-001.log",
+        "sha256": "41b834c8be9886ef7d17c5d2fa363fadb00996d6e0422b03e37549a58ef68c13",
+        "bytes": 2652
+      },
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/k02-live-bytes-001.json",
+        "sha256": "18aacd547d63eecbe0d174853c55414966310e39ee71070d1bb9588e73384763",
+        "bytes": 3307
+      },
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/k02-verify-003.log",
+        "sha256": "d40a5f593323e1abcc3051dbc9b9951d9f8035718bbd00d7651b23d4293a21e4",
+        "bytes": 54618
+      },
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/root-k02-manual-browser-001.json",
+        "sha256": "f5ee723feb058d7eb996ad5e4d04b4e0773de83b06d3ec7ec78faae4b683d927",
+        "bytes": 1313
+      },
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/root-k02-protected-record-and-file-check-001.json",
+        "sha256": "b4e0c1e81a3ea3959660cce525ddf81262c775cad15d94ae728e50e8bff456ca",
+        "bytes": 323
+      },
+      {
+        "path": "data/dogs/regeneration-manifest-k02.json",
+        "sha256": "383f06d14f4e3ba327d4a5830b7179a1353c3464cb46867cdb1d83d2abc3247c",
+        "bytes": 710414
+      }
+    ]
+  },
+  "k03Publication": {
+    "schemaVersion": 1,
+    "subwave": "k03",
+    "verifiedAt": "2026-10-02T16:51:19.505816+00:00",
+    "productCommit": "9a965ad52c735501c31afc29d446b8addb6d89f8",
+    "deploymentId": "dpl_DvQ1ENwHWyZnbUAFfXRKnGgprrwj",
+    "deploymentStatus": "READY",
+    "deploymentUrl": "https://stackrank-n47zafucs-danbretl-2590s-projects.vercel.app",
+    "productionAliases": [
+      "www.stackrankapp.com",
+      "stackrankapp.com"
+    ],
+    "newPairs": 1,
+    "totalPairs": 602,
+    "hiddenIncomplete": 637,
+    "productionChecks": 49,
+    "exactLiveByteMatches": 10,
+    "allNewLiveCopyAndProvenanceChecks": 1,
+    "verification": {
+      "nodeTests": 522,
+      "coordinationTests": 22,
+      "denoTests": 24,
+      "chromeFlows": 41
+    },
+    "archiveSha256": "c391d910cbfdbec07f7d70c0a9a7eb13cd635d0c1f715d0ad736a6bfc3a20b21",
+    "evidence": [
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/k03-deployment-001.json",
+        "sha256": "162e2b30c379017c88186879699d8efa3e0637c4479c769c4bb194d339efacaf",
+        "bytes": 1075
+      },
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/k03-production-001.log",
+        "sha256": "6b3d6a922b032a0f6079301b53b3e6669a25362b7f112f3b918aa0bb2f4008d4",
+        "bytes": 2652
+      },
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/k03-live-bytes-001.json",
+        "sha256": "cbca22517942f365433f38f285e3a0b57539ad134f07efbfe77d8f98ef068e5e",
+        "bytes": 2363
+      },
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/k03-verify-002.log",
+        "sha256": "264e94a2c91180d1de2f99c6a608c81f56d9b4cc798b1c72c300f9dc4bf8ce2a",
+        "bytes": 54535
+      },
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/root-k03-manual-browser-001.json",
+        "sha256": "cb21fb4c1c722f31ac9fc78789392107ea1692e9616f90a02ba22a3db0d9b00c",
+        "bytes": 825
+      },
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/root-k03-protected-record-and-file-check-001.json",
+        "sha256": "41345117756d5dc66540ba0feb9e12d79b009fa7a44af179babf746b2811c9b2",
+        "bytes": 331
+      },
+      {
+        "path": "reports/dogs-generated-artwork/cohort-k/root-final-native-permit-audit-001.json",
+        "sha256": "4cc1c196aaff0b8bd35d040acdc4eca710af3dd14923c0dd41b4f44c3d1f71f9",
+        "bytes": 294
+      },
+      {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-k-integration/stackrank/data/dogs/regeneration-manifest-k03.json",
+        "sha256": "eef627d752d7b09ee00983d7d79d147c9ab343523f51844839ad932d9753b36b",
+        "bytes": 612358
       }
     ]
   }

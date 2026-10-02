@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "measuredAt": "2026-10-02T16:38:41.383773+00:00",
+  "permitCounts": [
+    {
+      "kind": "commons",
+      "status": "completed",
+      "count": 1003
+    },
+    {
+      "kind": "commons",
+      "status": "failed",
+      "count": 6
+    },
+    {
+      "kind": "image",
+      "status": "completed",
+      "count": 50
+    }
+  ],
+  "activeOperations": [],
+  "firstCommonsPermit": "2026-10-02T05:59:52.740309+00:00",
+  "lastCommonsPermit": "2026-10-02T16:14:13.941320+00:00",
+  "imageAttemptCount": 50,
+  "sumObservedAttemptSpanSeconds": 1293.807702,
+  "medianObservedAttemptSpanSeconds": 22.966,
+  "timingDisclosure": "Normalized worker start/result observation span, including tool/UI/copy overhead where disclosed, not exact underlying image service latency; spans can overlap and are not total elapsed or utilization.",
+  "cohortFreeze": "2026-10-02T06:51:48.997152+00:00",
+  "acceptedPairs": 42,
+  "workerPairs": [
+    {
+      "worker": "k_worker_a",
+      "targetCount": 50,
+      "acceptedPairCount": 7,
+      "integratedPairCount": 7,
+      "publishedPairCount": 7
+    },
+    {
+      "worker": "k_worker_b",
+      "targetCount": 50,
+      "acceptedPairCount": 13,
+      "integratedPairCount": 13,
+      "publishedPairCount": 13
+    },
+    {
+      "worker": "k_worker_c",
+      "targetCount": 50,
+      "acceptedPairCount": 11,
+      "integratedPairCount": 11,
+      "publishedPairCount": 11
+    },
+    {
+      "worker": "k_worker_d",
+      "targetCount": 50,
+      "acceptedPairCount": 8,
+      "integratedPairCount": 8,
+      "publishedPairCount": 8
+    },
+    {
+      "worker": "k_worker_e",
+      "targetCount": 50,
+      "acceptedPairCount": 3,
+      "integratedPairCount": 3,
+      "publishedPairCount": 3
+    }
+  ],
+  "tokenCreditAccounting": "unavailable",
+  "primaryRuntimeModel": "undisclosed",
+  "historicalComparisons": [
+    {
+      "cohort": "I",
+      "acceptedPairs": 50,
+      "calls": 54,
+      "rejects": 4,
+      "freezeToFinalIntegrationHours": 2.204676314722222,
+      "acceptedPairsPerHour": 22.679066158652745,
+      "frozenAt": "2026-09-24T02:27:20.520Z",
+      "finalIntegratedAt": "2026-09-24T04:39:37.354733+00:00",
+      "basis": "Matched freeze-to-last-integration timestamps; excludes pre-freeze preparation and subsequent production/docs verification."
+    },
+    {
+      "cohort": "J",
+      "acceptedPairs": 60,
+      "calls": 65,
+      "rejects": 5,
+      "freezeToFinalIntegrationHours": 6.9712515986111105,
+      "acceptedPairsPerHour": 8.606775863885598,
+      "frozenAt": "2026-10-01T06:55:11.870Z",
+      "finalIntegratedAt": "2026-10-01T13:53:28.375755+00:00",
+      "basis": "Matched freeze-to-last-integration timestamps; excludes pre-freeze preparation and subsequent production/docs verification."
+    },
+    {
+      "cohort": "K",
+      "acceptedPairs": 42,
+      "calls": 50,
+      "rejects": 8,
+      "freezeToFinalIntegrationHours": 9.769058733333333,
+      "acceptedPairsPerHour": 4.299288308779472,
+      "frozenAt": "2026-10-02T06:51:48.997152+00:00",
+      "finalIntegratedAt": "2026-10-02T16:37:57.608592+00:00",
+      "basis": "Matched freeze-to-last-integration timestamps; excludes pre-freeze preparation and subsequent production/docs verification."
+    }
+  ],
+  "comparisonThreadId": "01a0cc3b-8c41-7950-80a3-be47df9c6a88",
+  "comparisonLimits": "Recent and older available thread summaries plus immutable cohort I/J/K ledgers and status notes, not a full historical raw-tool trace. Primary actual model undisclosed in I/J/K; Astra attribution is user recollection. Identity difficulty/readiness and available prepared copy differ; no controlled model benchmark or task cost accounting.",
+  "firstSourceOperationToFinalPublicationHours": 10.857434863055554,
+  "publishedPairsPerHourFromFirstSourceOperation": 3.86831701315684,
+  "finalPublicationVerifiedAt": "2026-10-02T16:51:19.505816+00:00"
+}

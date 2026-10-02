@@ -1,8 +1,8 @@
 # StackRank Dogs implementation status
 
-## Current cohort K — user pause closeout, October 2, 2026
+## Current cohort K — paused after current-work closeout, October 2, 2026
 
-K01/K02 are READY:601publishedpairs/638hidden,41additions. K03 contains the sole final already-underway Lab Pei pair, pending production verification; candidate602/637. Exact hashed stop ends K at42, preserving the250-primary/27-reserve freeze.50actual image calls,8rejects/8targeted retries,0failures,1Khold/1append-only reserve. All44earlier holds and J frozen stop remain unchanged. All five workers are finishing existing receipts and pausing; no new work is authorized. See `dogs-portrait-cohort-k.md` and the durable continuation context.
+**602 published pairs/637 unfinished hidden**, 42 new in K01/K02/K03 (20/21/1). Final product `9a965ad5` is Vercel READY; 522 Node/22 coordination/24 Deno/41 Chrome/49 production checks and 10 exact final live byte matches pass. 50 actual calls/50 outputs, 8 rejects/8 targeted retries/0 failures; one K hold/one append-only reserve plus 44 unchanged earlier holds. All five workers are paused, with no active permit or accepted pair pending integration/publication. Every partial artifact/worktree is preserved. The exact hashed 42-pair stop ends the 250 target; 208 unused slots carry no authorization. Local archives have no verified off-machine backup. Read `dogs-portrait-cohort-k.md`, `dogs-cohort-k-efficiency-review-2026-10-02.md`, `data/dogs/portrait-cohort-k-stop.json` and durable continuation context. Fresh user authorization is required before further research/acquisition/generation.
 
 ## Historical cohort J — stopped after J03, October 1, 2026
 

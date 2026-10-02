@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "recordedAt": "2026-10-02T16:52:51.885560+00:00",
+  "authority": "direct-user-instruction",
+  "status": "paused-after-completed-current-work",
+  "instructionReceipt": {
+    "path": "reports/dogs-generated-artwork/cohort-k/direct-user-pause-request-001.json",
+    "sha256": "46e46570a518b07abbbd2aebe0a98783111c85f12c1f022917eacc776db4d248"
+  },
+  "hashedStop": {
+    "action": "finish-current-batch-and-stop",
+    "authority": "direct-user-instruction",
+    "requestedAt": "2026-10-02T16:17:45.042705+00:00",
+    "instruction": "This approach is taking far too long. Please you and all your worker threads, finish whatever you're working on right now - don't waste any partial effort - and then pause. We are not going to get to our goal of total +250. Once you've finished everything as the orchestrator, I want you to reflect on the process you did here, how fast/slow it went, how that compares to the previous efforts here codex://threads/01a0cc3b-8c41-7950-80a3-be47df9c6a88 and what your best recommendation would be going forward to drastically improve efficiency while maintaining high quality with no degradation / corners cut. Please generate a concise densely packed informational report and provide a recommendation for the next iteration to try. Maybe it is a different approach with different models, different orchestrator / worker setups, different autonomy for workers, more plugins and skills, I don't know. Think creatively and holistically. We have proven at least that *this* approach does not scale. A single 6.1 Sol thread with sub-agents was more efficient for whatever reason. I don't know, but I believe a single 6.0 Astra thread with sub-agents was even more efficient than that.",
+    "selectionSha256": "f747510afacb4f9a6c7c08d634f9b8423f7a0a7f778569d3461f0bf8b5d660f6",
+    "subwave": "k03",
+    "catalogIds": [
+      "VBO:0200797"
+    ],
+    "completedPairLimit": 42,
+    "sha256": "5d72260c692ce672161bb456ad1b04da2cae6d9f256d3c21f5e7f784047dc6a6"
+  },
+  "selectionSha256": "f747510afacb4f9a6c7c08d634f9b8423f7a0a7f778569d3461f0bf8b5d660f6",
+  "acceptedPairs": 42,
+  "integratedPairs": 42,
+  "publishedPairs": 42,
+  "totalPublishedPairs": 602,
+  "hiddenUnfinished": 637,
+  "generationCalls": 50,
+  "rejectedOutputs": 8,
+  "targetedRetries": 8,
+  "failedCalls": 0,
+  "unusedOriginal250Slots": 208,
+  "remainingAuthorizedPairs": 0,
+  "workerStopReceipts": [
+    {
+      "worker": "A",
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-a/stop-receipt-001.json",
+      "sha256": "d725f4382812f3e1554e59f5f6959b457672b62294819e9802a5a186d691b27c",
+      "bytes": 5462,
+      "status": "paused"
+    },
+    {
+      "worker": "B",
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/stop-receipt-001.json",
+      "sha256": "bd0033766ca96d3182706705d66b30dd06b7c05d420ee9d0cd4ca2fc55c32b6f",
+      "bytes": 6669,
+      "status": "paused-by-direct-user"
+    },
+    {
+      "worker": "C",
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-c/stop-receipt-001.json",
+      "sha256": "726e363df4e8c8903342c3534df14b8d84ca695eb14397e0a79a685a4b28789f",
+      "bytes": 13650,
+      "status": "PAUSED_BY_DIRECT_USER_STOP_RELAYED_BY_ORCHESTRATOR"
+    },
+    {
+      "worker": "D",
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-d/direct-user-stop-receipt-002.json",
+      "sha256": "d3008567fccbb7b71b2903bb20f033fd6afe8b3acc4c1151a11d4c7963a2d88f",
+      "bytes": 6283,
+      "status": "paused_at_direct_user_stop"
+    },
+    {
+      "worker": "E",
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-e/worker-e-direct-user-pause-closeout-302.json",
+      "sha256": "cc47359696bed2af462c5b52e7fbded0246cc85e7cd35df0eae466c3f0d8cfef",
+      "bytes": 5173,
+      "status": "PAUSED_AT_DIRECT_USER_REQUEST"
+    }
+  ],
+  "workerPublishedCounts": [
+    {
+      "worker": "k_worker_a",
+      "targetCount": 50,
+      "acceptedPairCount": 7,
+      "integratedPairCount": 7,
+      "publishedPairCount": 7
+    },
+    {
+      "worker": "k_worker_b",
+      "targetCount": 50,
+      "acceptedPairCount": 13,
+      "integratedPairCount": 13,
+      "publishedPairCount": 13
+    },
+    {
+      "worker": "k_worker_c",
+      "targetCount": 50,
+      "acceptedPairCount": 11,
+      "integratedPairCount": 11,
+      "publishedPairCount": 11
+    },
+    {
+      "worker": "k_worker_d",
+      "targetCount": 50,
+      "acceptedPairCount": 8,
+      "integratedPairCount": 8,
+      "publishedPairCount": 8
+    },
+    {
+      "worker": "k_worker_e",
+      "targetCount": 50,
+      "acceptedPairCount": 3,
+      "integratedPairCount": 3,
+      "publishedPairCount": 3
+    }
+  ],
+  "activeOperations": 0,
+  "unintegratedAcceptedPairs": 0,
+  "unpublishedAcceptedPairs": 0,
+  "priorHoldsPreserved": 44,
+  "newIdentityHolds": 1,
+  "reserveActivations": 1,
+  "jFrozenLedgerSha256": "08a2145cfd174bb61af4b21d4f6cde46eb4bbdcfdc813d774c04db83df887cfd",
+  "productCommit": "9a965ad52c735501c31afc29d446b8addb6d89f8",
+  "publicationReceipt": {
+    "path": "reports/dogs-generated-artwork/cohort-k/k03-publication-receipt-001.json",
+    "sha256": "2b5a7906764a6a7f64d6e2aded0097ba2af769abefb0f992d75f80981abc2596"
+  },
+  "allPartialResearchPreserved": true,
+  "preservationRoots": [
+    "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k",
+    "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-k"
+  ],
+  "worktreesPreserved": true,
+  "offMachineBackupVerified": false,
+  "resumeRule": "Fresh direct user authorization required before any additional allocation, source acquisition or image generation. The original250target is frozen history and does not authorize208remaining slots. Read stop receipts and exact partial-packet statuses; do not infer qualification from effort or saved files.",
+  "efficiencyReportPath": "notes/testing/dogs-cohort-k-efficiency-review-2026-10-02.md",
+  "finalHelpers": [
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/root-authorize-reviewed.py",
+      "sha256": "3c2511894a552cc2821e85ae44e5da7a14f7eda40023a57ef9745ccfa7faecd8",
+      "bytes": 5609
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/root-record-reviewed-native.py",
+      "sha256": "ed9952c15c777d29020e95af82693cd78bd75a63c7062da636fa1d3939547981",
+      "bytes": 2112
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/root-normalize-attempts.py",
+      "sha256": "9ea8181d7204761a989bcd1544cfc1770fc440dec94fa86444ae157f23c8e17b",
+      "bytes": 35321
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/root-prepare-integration.py",
+      "sha256": "a7833004a32bc069160d1a429cf6730466dbd47d630b26be9551a58e84b80b10",
+      "bytes": 7469
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/root-release-main.py",
+      "sha256": "9747acfaec0e0e46c4bdd1786a73d564e52a334ad5db4564a99d918f65657856",
+      "bytes": 2389
+    }
+  ],
+  "processMetricsPath": "data/dogs/portrait-cohort-k-process-review.json"
+}

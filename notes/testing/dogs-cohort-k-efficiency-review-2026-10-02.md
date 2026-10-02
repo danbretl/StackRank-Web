@@ -1,0 +1,29 @@
+# Dogs portrait run: efficiency review — October 2, 2026
+
+**Recommendation: return to one primary thread with three reused, narrowly assigned subagents; qualify a small production queue before promising a large cohort.** Try GPT-6 Astra / High for the primary and GPT-6.1 Sol / High for workers, all Full access. This is a proposed next experiment; the current run is paused.
+
+| Run | Recorded worker configuration | Accepted pairs / calls / rejects | Freeze → final integration | Pairs/hour |
+|---|---|---:|---:|---:|
+| I | Three reused GPT-6 Sol / High subagents | 50 / 54 / 4 | 2.20 h | 22.7 |
+| J | GPT-6.1 Sol / High workers in the previous thread | 60 / 65 / 5 | 6.97 h | 8.6 |
+| K | Five independent GPT-6.1 Sol / Extra High threads | 42 / 50 / 8 | 9.77 h | 4.3 |
+
+These matched ledger intervals exclude preparation before freeze and deployment/documentation afterward. K was approximately twice as slow as J and five times as slow as I on this measure. K's first source operation preceded freeze by 52 minutes. I started with 25 reviewed profiles and included well-supported varieties; K faced more difficult rare types/crosses. This is not a controlled model benchmark. Historical primary model identifiers and task-specific tokens/credits were not disclosed; the Astra attribution is your recollection, not independently verified runtime evidence. The previous thread's available summaries and saved I/J ledgers support the workflow comparison.
+
+**What consumed time.** K made 1,003 completed and 6 failed Commons operations for 42 pairs—about 24 operations/pair. The one-owner Commons broker and 5.1-second spacing alone imply about 86 minutes of serialized spacing, before network and review. Conversely, all 50 observed image-attempt spans sum to only 21.6 minutes, median 23 seconds; these are tool observation windows, sometimes including copying, and can overlap. Rendering latency alone cannot explain the 10.86-hour source-to-publication window (3.87 published pairs/hour). The unmeasured remainder includes research, reading, reasoning, handoffs, approvals and integration.
+
+Five nominally autonomous 50-pair queues converged on the same Commons broker and root source-policy/release gate. Accepted worker totals 7/13/11/8/3 show substantial readiness imbalance. More threads increased work in progress and evidence traffic without increasing bottleneck capacity. Extra High was applied to routine execution as well as difficult judgment; this experiment does not isolate its cost.
+
+**My avoidable overhead.** Workers produced different receipt shapes, requiring repeated root adapters and context reconstruction. Large source/terms bundles and binding reports circulated repeatedly. Source-role decisions arrived late. I rebuilt archives after discovering a retained-original omission and a publisher-label correction; I also repeated verification after cache/derived-discovery preparation omissions. These were real orchestration costs. The checks caught the mistakes before publication, but the preparation should have caught them before expensive release work. K's rejected-output fraction was 16%, versus approximately 7–8% in I/J; stricter source-tail calibration and difficult identities contributed, so it is not evidence of a weaker image model.
+
+For the next iteration:
+
+1. **Qualify before production allocation.** Run a bounded research pass; keep exact identity, mature body/full tail, original creator grant and credible primary-copy evidence together. Freeze 20 qualified identities plus qualified reserves. Preserve unresolved research in a separate backlog; exhausted search effort never becomes approval.
+2. **Use one compact shared workflow.** Three reused Sol/High subagents handle small 5–10-identity source/writing packets, independent review and authorized generation. Reassign ready packets dynamically. Root owns exceptional policy decisions, every dedicated image approval, final visual acceptance and releases. Reserve Extra High for specific difficult cases.
+3. **Standardize once.** One versioned packet/receipt schema and a machine validator check hashes, paths, actual HTTP/native evidence, grant provenance, final full/short text, prompts and permit completion before handoff. Cache identical terms and failed chains by hash; retain every file-specific rights/identity judgment. Batch root reviews of complete packets and keep 3–5 approved calls ready.
+4. **Prepare releases atomically.** One command builds profiles/artwork/discovery, derives reviewer metadata/cache keys, verifies per-pair archive closure and protects prior records. Use focused checks while preparing; run the required full suite once on the stable candidate, then READY/production/live-byte checks. Preserve independent source/prose/native/contact-sheet review, rejected originals and purpose gates.
+5. **Measure a 20-pair pilot.** Include qualification time in end-to-end throughput; record root waiting, source operations, schema failures, repeated checks, image yield and actual cost if exposed. Aim for at least 3× K's end-to-end throughput with the same acceptance gates and no unresolved release findings before scaling to 50. Then compare primary models on equally ready, similarly difficult packets.
+
+Use the existing imagegen and StackRank profile skills; a small project workflow skill/CLI is more promising than adding general plugins. The largest opportunity is less uncertain work in flight and less manual evidence plumbing. No research, generation or new pilot is started by this recommendation.
+
+Evidence: [measured comparison](../../data/dogs/portrait-cohort-k-process-review.json), [K release record](dogs-portrait-cohort-k.md), [I](dogs-portrait-cohort-i.md), [J](dogs-portrait-cohort-j.md), and previous task `codex://threads/01a0cc3b-8c41-7950-80a3-be47df9c6a88`. Private source/attempt/stop receipts remain in the preserved cohort K staging directory; local archives have no verified off-machine backup.

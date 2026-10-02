@@ -85,3 +85,18 @@ test('K registry staging directories do not pull unselected source files into an
     assert.throws(() => collectRegenerationFiles(root, { evidence: prefix + 'missing.jpg' }, []), /Missing regeneration material/);
   } finally { fs.rmSync(root, { recursive: true, force: true }); }
 });
+
+test('K archives retain reused I originals at their canonical restore paths', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'dogs-k-reused-i-archive-'));
+  try {
+    const prefix = 'reports/dogs-generated-artwork/cohort-i/discovery-a/originals/';
+    fs.mkdirSync(path.join(root, prefix), { recursive: true });
+    const original = path.join(root, prefix, 'retained.jpg');
+    fs.writeFileSync(original, 'unchanged retained original');
+    const rows = collectRegenerationFiles(root, { reference: { originalPath: original } }, []);
+    assert.equal(rows.length, 1);
+    assert.equal(rows[0].path, prefix + 'retained.jpg');
+    assert.throws(() => collectRegenerationFiles(root, { source: prefix + 'missing.jpg' }, []), /Missing regeneration material/);
+    assert.throws(() => collectRegenerationFiles(root, { source: prefix + '../../../../../../private.txt' }, []), /Unsafe archive path/);
+  } finally { fs.rmSync(root, { recursive: true, force: true }); }
+});

@@ -111,6 +111,54 @@ class CoordinationTests(unittest.TestCase):
         with self.assertRaises(MODULE.Busy):
             c.acquire('image', 'C', 'thread-C', 'C', {}, 'breed-C')
 
+    def test_frozen_reserve_research_allows_only_owned_commons_and_never_images(self):
+        self.registry['commonsReserveReadinessAuthorized'] = True
+        self.registry['workers'][0]['auditCatalogIds'] = ['breed-A', 'reserve-A', 'other-audit-A']
+        self.registry['workers'][0]['commonsResearchCatalogIds'] = ['reserve-A']
+        self.registry_path.write_text(json.dumps(self.registry))
+        c = MODULE.Coordinator(self.registry_path)
+        self.assertTrue(c.acquire('commons', 'A', 'thread-A', 'owned-reserve', {}, 'reserve-A'))
+        for kind, worker, identity in [('image', 'A', 'reserve-A'), ('commons', 'B', 'reserve-A'), ('commons', 'A', 'other-audit-A')]:
+            with self.assertRaises(ValueError):
+                c.acquire(kind, worker, 'thread-' + worker, 'forbidden-' + kind + worker + identity, {}, identity)
+        with self.assertRaises(ValueError):
+            c.image_preflight('A', 'thread-A', 'reserve-A', self.root / 'irrelevant-approval.json')
+        self.assertEqual(self.registry['workers'][0]['activeCatalogIds'], ['breed-A'])
+
+    def test_reserve_research_needs_explicit_authorization_and_valid_audit_subset(self):
+        self.registry['workers'][0]['commonsResearchCatalogIds'] = ['reserve-A']
+        self.registry_path.write_text(json.dumps(self.registry))
+        c = MODULE.Coordinator(self.registry_path)
+        with self.assertRaises(ValueError):
+            c.acquire('commons', 'A', 'thread-A', 'not-authorized', {}, 'reserve-A')
+        self.registry['commonsReserveReadinessAuthorized'] = True
+        self.registry_path.write_text(json.dumps(self.registry))
+        c = MODULE.Coordinator(self.registry_path)
+        with self.assertRaisesRegex(ValueError, 'Invalid root-owned'):
+            c.acquire('commons', 'A', 'thread-A', 'outside-audit', {}, 'reserve-A')
+
+    def test_reserve_commons_fetch_retains_actual_owner_finish_and_immutable_output(self):
+        self.registry['commonsReserveReadinessAuthorized'] = True
+        self.registry['workers'][0]['auditCatalogIds'] = ['breed-A', 'reserve-A']
+        self.registry['workers'][0]['commonsResearchCatalogIds'] = ['reserve-A']
+        self.registry_path.write_text(json.dumps(self.registry))
+        c = MODULE.Coordinator(self.registry_path)
+        class Response:
+            code = 200
+            headers = {}
+            def __enter__(self): return self
+            def __exit__(self, *args): pass
+            def read(self): return b'{"query":{"pages":[]}}'
+        target = self.root / 'A/reserve.json'
+        with patch.object(MODULE.urllib.request, 'build_opener') as opener:
+            opener.return_value.open.return_value = Response()
+            result = c.commons_fetch('A', 'thread-A', 'reserve-A', 'https://commons.wikimedia.org/w/api.php', target)
+        self.assertEqual(result['catalogId'], 'reserve-A')
+        self.assertEqual(target.read_bytes(), b'{"query":{"pages":[]}}')
+        self.assertEqual(c.status()['permits'][0]['status'], 'completed')
+        with self.assertRaisesRegex(ValueError, 'fresh immutable'):
+            c.commons_fetch('A', 'thread-A', 'reserve-A', 'https://commons.wikimedia.org/w/api.php', target)
+
     def test_negative_file_titles_cannot_be_reacquired_under_url_encoding(self):
         raw = json.dumps({'rows': [{'title': 'File:Rejected Adult Dog.jpg', 'originalSha256': 'b' * 64}]}).encode()
         path = self.root / 'negatives.json'
@@ -124,6 +172,129 @@ class CoordinationTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, 'previously rejected'):
                 c.commons_fetch('A', 'thread-A', 'breed-A', url, self.root / 'A/x.json')
         self.assertEqual(c.status()['permits'], [])
+
+    def test_file_case_after_first_character_is_distinct(self):
+        raw = json.dumps({'rows': [{'title': 'File:Sarail Hound.jpg'}]}).encode()
+        path = self.root / 'negatives.json'
+        path.write_bytes(raw)
+        self.registry['negativeRegistry'] = {'path': str(path), 'sha256': MODULE.digest(raw)}
+        self.registry_path.write_text(json.dumps(self.registry))
+        c = MODULE.Coordinator(self.registry_path)
+        class Response:
+            code = 200
+            headers = {}
+            def __enter__(self): return self
+            def __exit__(self, *args): pass
+            def read(self): return b'distinct original bytes'
+        with patch.object(MODULE.urllib.request, 'build_opener') as opener:
+            opener.return_value.open.return_value = Response()
+            result = c.commons_fetch('A', 'thread-A', 'breed-A', 'https://upload.wikimedia.org/wikipedia/commons/8/87/Sarail_hound.jpg', self.root / 'A/distinct.jpg')
+            self.assertEqual(result['httpStatus'], 200)
+            self.assertEqual(opener.return_value.open.call_count, 1)
+        with self.assertRaisesRegex(ValueError, 'previously rejected'):
+            c.commons_fetch('A', 'thread-A', 'breed-A', 'https://upload.wikimedia.org/wikipedia/commons/4/4c/sarail_Hound.jpg', self.root / 'A/rejected.jpg')
+
+    def test_rejected_image_alias_hash_preserved_and_owner_finished(self):
+        body = b'exact rejected image bytes'
+        for row in ({'originalSha256': MODULE.digest(body)},
+                    {'sourcePath': 'retained.jpg', 'sourceSha256': MODULE.digest(body)},
+                    {'sourcePath': 'source.json', 'originalSha1': MODULE.hashlib.sha1(body).hexdigest()}):
+            with self.subTest(row=row):
+                raw = json.dumps({'rows': [{'title': 'File:Rejected.jpg', **row}]}).encode()
+                path = self.root / 'negatives.json'; path.write_bytes(raw)
+                self.registry['negativeRegistry'] = {'path': str(path), 'sha256': MODULE.digest(raw)}
+                self.registry_path.write_text(json.dumps(self.registry))
+                c = MODULE.Coordinator(self.registry_path)
+                class Response:
+                    code = 200
+                    headers = {}
+                    def __enter__(self): return self
+                    def __exit__(self, *args): pass
+                    def read(self): return body
+                target = self.root / ('A/alias-' + str(len(c.status()['permits'])) + '.jpg')
+                with patch.object(MODULE.time, 'sleep'), patch.object(MODULE.urllib.request, 'build_opener') as opener:
+                    opener.return_value.open.return_value = Response()
+                    with self.assertRaisesRegex(RuntimeError, 'match a rejected original'):
+                        c.commons_fetch('A', 'thread-A', 'breed-A', 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Other_title.jpg', target)
+                receipt = json.loads(target.with_name(target.name + '.receipt.json').read_text())
+                self.assertTrue(receipt['knownRejectedOriginal'])
+                self.assertEqual(target.read_bytes(), body)
+                self.assertFalse(any(p['status'] == 'active' for p in c.status()['permits']))
+
+    def test_exact_root_adjudication_only_allows_native_metadata(self):
+        original = self.root / 'retained.jpg'; original.write_bytes(b'retained original')
+        decision = {'receiptType': 'root-known-negative-retained-source-metadata-adjudication',
+                    'worker': 'A', 'catalogId': 'breed-A', 'fileTitle': 'File:Rejected.jpg',
+                    'original': {'path': str(original), 'sha256': MODULE.digest(original.read_bytes())},
+                    'sourceBodyReassessment': 'PASS', 'rootWholeOriginalPersonallyViewed': True, 'metadataReadinessOnly': True,
+                    'generationAuthorized': False, 'sourcePurposePermissions': {
+                        'uiDisplayAllowed': False, 'publicSnapshotAllowed': False, 'rasterExportAllowed': False}}
+        dp = self.root / 'decision.json'; dp.write_text(json.dumps(decision))
+        raw = json.dumps({'rows': [{'title': 'File:Rejected.jpg'}]}).encode()
+        np = self.root / 'negatives.json'; np.write_bytes(raw)
+        self.registry['negativeRegistry'] = {'path': str(np), 'sha256': MODULE.digest(raw)}
+        self.registry['knownNegativeMetadataAdjudications'] = [{
+            'worker': 'A', 'catalogId': 'breed-A', 'fileTitle': 'File:Rejected.jpg',
+            'originalSha256': decision['original']['sha256'],
+            'rootDecision': {'path': str(dp), 'sha256': MODULE.digest(dp.read_bytes())}}]
+        self.registry_path.write_text(json.dumps(self.registry)); c = MODULE.Coordinator(self.registry_path)
+        class Response:
+            code = 200
+            headers = {}
+            def __enter__(self): return self
+            def __exit__(self, *args): pass
+            def read(self): return b'{"query":{"pages":[]}}'
+        url = 'https://commons.wikimedia.org/w/api.php?action=query&format=json&titles=File%3ARejected.jpg&prop=revisions'
+        with patch.object(MODULE.urllib.request, 'build_opener') as opener:
+            opener.return_value.open.return_value = Response()
+            self.assertEqual(c.commons_fetch('A', 'thread-A', 'breed-A', url, self.root / 'A/history.json')['httpStatus'], 200)
+        for bad in ('https://upload.wikimedia.org/wikipedia/commons/a/aa/Rejected.jpg',
+                    url.replace('prop=revisions', 'prop=categories'), url.replace('titles=File%3ARejected.jpg', 'titles=File%3ARejected.jpg|File%3AOther.jpg')):
+            with self.assertRaises(ValueError):
+                c.commons_fetch('A', 'thread-A', 'breed-A', bad, self.root / 'A/blocked.json')
+        with self.assertRaises(ValueError):
+            c.commons_fetch('B', 'thread-B', 'breed-B', url, self.root / 'B/blocked.json')
+        original.write_bytes(b'tampered')
+        with self.assertRaisesRegex(ValueError, 'Invalid exact'):
+            c.commons_fetch('A', 'thread-A', 'breed-A', url, self.root / 'A/tampered.json')
+
+    def test_explicit_root_metadata_filepath_is_immutable_scoped_and_logged(self):
+        original = self.root / 'retained.jpg'; original.write_bytes(b'retained original')
+        value = {'receiptType': 'root-known-negative-retained-source-metadata-adjudication',
+                 'worker': 'A', 'catalogId': 'breed-A', 'fileTitle': 'File:Rejected.jpg',
+                 'original': {'path': str(original), 'sha256': MODULE.digest(original.read_bytes())},
+                 'sourceBodyReassessment': 'PASS', 'rootWholeOriginalPersonallyViewed': True,
+                 'metadataReadinessOnly': True, 'generationAuthorized': False,
+                 'sourcePurposePermissions': {'uiDisplayAllowed': False, 'publicSnapshotAllowed': False, 'rasterExportAllowed': False}}
+        raw = json.dumps(value).encode()
+        folder = self.root / 'root-metadata-adjudications'; folder.mkdir()
+        dp = folder / (MODULE.digest(raw) + '.json'); dp.write_bytes(raw)
+        negative = json.dumps({'rows': [{'title': 'File:Rejected.jpg'}]}).encode()
+        np = self.root / 'negatives.json'; np.write_bytes(negative)
+        self.registry['negativeRegistry'] = {'path': str(np), 'sha256': MODULE.digest(negative)}
+        self.registry_path.write_text(json.dumps(self.registry)); c = MODULE.Coordinator(self.registry_path)
+        class Response:
+            code = 200
+            headers = {}
+            def __enter__(self): return self
+            def __exit__(self, *args): pass
+            def read(self): return b'{"query":{"pages":[]}}'
+        url = 'https://commons.wikimedia.org/w/api.php?action=query&format=json&titles=File%3ARejected.jpg&prop=revisions'
+        with patch.object(MODULE.urllib.request, 'build_opener') as opener:
+            opener.return_value.open.return_value = Response()
+            result = c.commons_fetch('A', 'thread-A', 'breed-A', url, self.root / 'A/history.json', dp)
+            self.assertEqual(result['rootMetadataAdjudication']['sha256'], dp.stem)
+        for wrong in (self.root / 'outside.json', folder / 'incorrect-name.json'):
+            wrong.write_bytes(raw)
+            with self.assertRaises(ValueError):
+                c.commons_fetch('A', 'thread-A', 'breed-A', url, self.root / 'A/rejected.json', wrong)
+        with self.assertRaisesRegex(ValueError, 'Invalid exact'):
+            c.commons_fetch('B', 'thread-B', 'breed-B', url, self.root / 'B/rejected.json', dp)
+        with self.assertRaises(ValueError):
+            c.commons_fetch('A', 'thread-A', 'breed-A', 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Rejected.jpg', self.root / 'A/image.jpg', dp)
+        dp.write_bytes(b'tampered')
+        with self.assertRaisesRegex(ValueError, 'filename/hash'):
+            c.commons_fetch('A', 'thread-A', 'breed-A', url, self.root / 'A/tampered.json', dp)
 
     def approval(self):
         root = self.root / 'root-approvals'

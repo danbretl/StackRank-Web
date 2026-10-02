@@ -53,11 +53,16 @@ class Coordinator:
         finally:
             db.close()
 
-    def owner(self, worker, thread, catalog_id=None):
+    def owner(self, worker, thread, catalog_id=None, kind=None):
         row = next((x for x in self.registry['workers'] if x['worker'] == worker), None)
         if not row or row['threadId'] != thread or row.get('fullAccessVerified') is not True:
             raise ValueError('Unregistered worker/thread or unverified Full access')
         allocation = row.get('activeCatalogIds', []) if self.registry.get('selectionFrozen') else row.get('auditCatalogIds', [])
+        if kind == 'commons' and self.registry.get('selectionFrozen') and self.registry.get('commonsReserveReadinessAuthorized') is True:
+            research = row.get('commonsResearchCatalogIds', [])
+            if not isinstance(research, list) or len(research) != len(set(research)) or not set(research).issubset(row.get('auditCatalogIds', [])):
+                raise ValueError('Invalid root-owned Commons research allocation')
+            allocation = allocation + research
         if catalog_id is not None and catalog_id not in allocation:
             raise ValueError('Identity is outside this worker\'s frozen active assignment')
         return row
@@ -66,7 +71,7 @@ class Coordinator:
         db.execute('INSERT INTO events(at,action,payload) VALUES(?,?,?)', (now(), action, json.dumps(payload, sort_keys=True)))
 
     def acquire(self, kind, worker, thread, request, evidence, catalog_id=None):
-        self.owner(worker, thread, catalog_id)
+        self.owner(worker, thread, catalog_id, kind)
         if kind not in ('commons', 'image') or not request:
             raise ValueError('Invalid permit request')
         if not self.registry.get('selectionFrozen') and not (kind == 'commons' and self.registry.get('auditAllocationFrozen') is True and self.registry.get('commonsAuditAuthorized') is True):
@@ -161,8 +166,8 @@ class Coordinator:
                 'catalogId': catalog_id, 'worker': worker, 'threadId': thread,
                 'selectionSha256': receipt['selectionSha256'], 'nativeDimensions': [1536, 1024]}
 
-    def commons_fetch(self, worker, thread, catalog_id, url, output):
-        row = self.owner(worker, thread, catalog_id)
+    def commons_fetch(self, worker, thread, catalog_id, url, output, root_metadata_adjudication=None):
+        row = self.owner(worker, thread, catalog_id, 'commons')
         parsed = urllib.parse.urlparse(url)
         allowed_hosts = {'commons.wikimedia.org', 'upload.wikimedia.org'}
         chain_hosts = set(self.registry.get('wikipediaChainHosts', []))
@@ -180,15 +185,62 @@ class Coordinator:
             if digest(raw) != item['sha256']:
                 raise ValueError('Preserved negative-registry bytes changed')
             negative = json.loads(raw)
-        normalize = lambda title: urllib.parse.unquote(title).replace('_', ' ').strip().casefold()
+        def normalize(title):
+            title = urllib.parse.unquote(title).replace('_', ' ').strip()
+            namespace, separator, name = title.partition(':')
+            if separator and namespace.casefold() in ('file', 'image'):
+                name = name.strip()
+                return 'File:' + (name[:1].upper() + name[1:])
+            return title
         banned_titles = {normalize(x['title']) for x in negative['rows']}
         requested_titles = urllib.parse.parse_qs(parsed.query).get('titles', [])
         if parsed.path.startswith('/wiki/File:'):
             requested_titles.append(parsed.path.removeprefix('/wiki/'))
         if parsed.hostname == 'upload.wikimedia.org':
             requested_titles.append('File:' + parsed.path.rsplit('/', 1)[-1])
-        if any(normalize(t) in banned_titles for group in requested_titles for t in group.split('|')):
-            raise ValueError('Exact previously rejected File title: reuse disposition; new qualifying evidence requires root adjudication')
+        metadata_decision_bound = None
+        blocked = [normalize(t) for group in requested_titles for t in group.split('|') if normalize(t) in banned_titles]
+        if blocked:
+            query = urllib.parse.parse_qs(parsed.query)
+            requested = [normalize(t) for group in requested_titles for t in group.split('|')]
+            props = set('|'.join(query.get('prop', [])).split('|'))
+            eligible = (parsed.hostname == 'commons.wikimedia.org' and parsed.path == '/w/api.php'
+                        and query.get('action') == ['query'] and query.get('format') == ['json']
+                        and len(requested) == 1 and props and props.issubset({'revisions', 'imageinfo'}))
+            adjudication = next((x for x in self.registry.get('knownNegativeMetadataAdjudications', [])
+                                 if x.get('worker') == worker and x.get('catalogId') == catalog_id
+                                 and normalize(x.get('fileTitle', '')) == requested[0]), None) if eligible else None
+            if root_metadata_adjudication and eligible:
+                decision_path = pathlib.Path(root_metadata_adjudication).resolve()
+                if not decision_path.is_relative_to(self.root / 'root-metadata-adjudications'):
+                    raise ValueError('Root-owned immutable metadata adjudication path required')
+                decision_bytes = decision_path.read_bytes()
+                if decision_path.stem != digest(decision_bytes):
+                    raise ValueError('Immutable metadata adjudication filename/hash mismatch')
+                proposed = json.loads(decision_bytes)
+                adjudication = {'originalSha256': proposed.get('original', {}).get('sha256'),
+                                'rootDecision': {'path': str(decision_path), 'sha256': digest(decision_bytes)}}
+            if not adjudication:
+                raise ValueError('Exact previously rejected File title: reuse disposition; new qualifying evidence requires root adjudication')
+            bound = adjudication['rootDecision']
+            raw = pathlib.Path(bound['path']).read_bytes()
+            if digest(raw) != bound['sha256']:
+                raise ValueError('Root metadata adjudication bytes changed')
+            decision = json.loads(raw)
+            source = decision['original']
+            if (decision.get('receiptType') != 'root-known-negative-retained-source-metadata-adjudication'
+                    or decision.get('worker') != worker or decision.get('catalogId') != catalog_id
+                    or normalize(decision.get('fileTitle', '')) != requested[0]
+                    or decision.get('sourceBodyReassessment') != 'PASS'
+                    or decision.get('rootWholeOriginalPersonallyViewed') is not True
+                    or decision.get('metadataReadinessOnly') is not True
+                    or decision.get('generationAuthorized') is not False
+                    or any(decision.get('sourcePurposePermissions', {}).get(k) is not False
+                           for k in ('uiDisplayAllowed', 'publicSnapshotAllowed', 'rasterExportAllowed'))
+                    or digest(pathlib.Path(source['path']).read_bytes()) != source['sha256']
+                    or source['sha256'] != adjudication.get('originalSha256')):
+                raise ValueError('Invalid exact retained-source metadata adjudication')
+            metadata_decision_bound = bound
         target = pathlib.Path(output).resolve()
         worker_root = pathlib.Path(row['stageRoot']).resolve()
         if not target.is_relative_to(worker_root) or target.exists():
@@ -218,7 +270,13 @@ class Coordinator:
             evidence = {'catalogId': catalog_id, 'url': url, 'startedAt': started, 'completedAt': now(),
                         'httpStatus': status, 'headers': headers, 'path': str(target), 'sha256': digest(body),
                         'bytes': len(body), 'permit': permit, 'redirectsFollowed': False}
-            if digest(body) in {x.get('originalSha256') for x in negative['rows']}:
+            if metadata_decision_bound:
+                evidence['rootMetadataAdjudication'] = metadata_decision_bound
+            rejected_sha256 = {x.get('originalSha256') for x in negative['rows']}
+            rejected_sha256.update(x.get('sourceSha256') for x in negative['rows']
+                                   if pathlib.Path(x.get('sourcePath', '')).suffix.lower() in ('.jpg', '.jpeg', '.png', '.webp'))
+            rejected_sha1 = {x.get('originalSha1') for x in negative['rows']}
+            if digest(body) in rejected_sha256 or hashlib.sha1(body).hexdigest() in rejected_sha1:
                 evidence['knownRejectedOriginal'] = True
             target.with_name(target.name + '.receipt.json').write_text(json.dumps(evidence, indent=2) + '\n')
             self.finish(permit, worker, thread, 'completed' if status == 200 else 'failed', evidence)
@@ -248,6 +306,7 @@ def main():
         p.add_argument('--catalog-id', required=True)
     fetch.add_argument('--url', required=True)
     fetch.add_argument('--output', required=True)
+    fetch.add_argument('--root-metadata-adjudication')
     image.add_argument('--approval', required=True)
     image.add_argument('--attempt', required=True)
     finish.add_argument('--permit', required=True)
@@ -258,7 +317,7 @@ def main():
     if args.action == 'status':
         value = c.status()
     elif args.action == 'commons-fetch':
-        value = c.commons_fetch(args.worker, args.thread, args.catalog_id, args.url, args.output)
+        value = c.commons_fetch(args.worker, args.thread, args.catalog_id, args.url, args.output, args.root_metadata_adjudication)
     elif args.action == 'image-acquire':
         evidence = c.image_preflight(args.worker, args.thread, args.catalog_id, args.approval)
         permit = c.acquire('image', args.worker, args.thread, args.attempt, evidence, args.catalog_id)

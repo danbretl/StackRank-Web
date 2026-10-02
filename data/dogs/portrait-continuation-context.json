@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "savedAt": "2026-10-02T11:26:58.535194+00:00",
-  "status": "active-cohort-k-k01-published20",
+  "savedAt": "2026-10-02T16:19:14.333656+00:00",
+  "status": "pausing-cohort-k-finish-current-work",
   "baseline": {
     "catalogIdentities": 1239,
     "publishedPortraits": 560,
@@ -1369,18 +1369,18 @@
     "publishedTarget": 810,
     "hiddenTarget": 429,
     "selectionFrozen": true,
-    "generationCalls": 27,
-    "acceptedPairs": 20,
+    "generationCalls": 49,
+    "acceptedPairs": 41,
     "publishedPairs": 20,
-    "nextAction": "Normalize subsequent immutable worker/root QA attempts after K01 publication. Review pending Jug, Spino and Malti-Poo references, primary bodies, prompts and independent peers. Continue all five disjoint 50-slot assignments through root-owned milestone releases to 810 published pairs and 429 hidden identities.",
+    "nextAction": "Direct user pause: finish K02 already-integrated21-pair release; assess the sole already-underway Lab Pei packet under unchanged gates, preserve all partial research, then pause all five workers and orchestrator. Do not pursue +250 or acquire new identities. Final hashed stop membership after the current-pair decision.",
     "cohortLedgerPath": "data/dogs/portrait-cohort-k.json",
     "selectionSha256": "f747510afacb4f9a6c7c08d634f9b8423f7a0a7f778569d3461f0bf8b5d660f6",
     "primaryCount": 250,
     "reserveCount": 27,
-    "rejectedNativeOutputs": 7,
-    "retryCount": 7,
-    "integratedPairs": 20,
-    "progressCheckpointBasis": "K01 immutable checkpoint: 27 completed calls, 20 accepted/integrated/published pairs, seven rejected outputs and seven targeted retries. Subsequent private Gull/Trailhound attempts await normalization and are not counted here.",
+    "rejectedNativeOutputs": 8,
+    "retryCount": 8,
+    "integratedPairs": 41,
+    "progressCheckpointBasis": "K02 candidate: 49 actually completed built-in calls, 41 accepted/integrated pairs, 20 production-published K pairs, eight rejected outputs and eight targeted retries. K02 exact21-pair publication remains pending READY and production checks.",
     "supportPublication": {
       "commit": "2811988d8f7b47906044443e997ba650cb5b7326",
       "deploymentId": "dpl_Awpp5Aom94cpCn9oiUTfnYNQLAfK",
@@ -1427,8 +1427,8 @@
       }
     },
     "calibrationComplete": true,
-    "candidatePublishedTotal": 580,
-    "candidateHiddenIncomplete": 659,
+    "candidatePublishedTotal": 601,
+    "candidateHiddenIncomplete": 638,
     "currentPublishedTotal": 580,
     "currentHiddenIncomplete": 659,
     "remainingPairsToPublish": 230,
@@ -1493,6 +1493,54 @@
           "bytes": 235
         }
       ]
+    },
+    "remainingPairsToAccept": 209,
+    "latestPrivateCheckpointPath": "reports/dogs-generated-artwork/cohort-k/root-checkpoints/041-accepted/checkpoint.json",
+    "latestPrivateCheckpointSha256": "7815bca006199da1801fea9d0a9b3586ba2b4be4bb19d2bd13b3a2c4b656762d",
+    "coordinationHelperSha256": "39be4a25fa778a6608242b2f115685b8a2a023764ab686d474ad2b1acc277376",
+    "operationalRegistrySha256": "447a3cb82b61bdcb84f53df234b78141dc03dee35ddd9cd6c9afb61dfb584182",
+    "reserveActivations": 1,
+    "newIdentityHolds": 1,
+    "workerProgress": [
+      {
+        "worker": "k_worker_a",
+        "targetCount": 50,
+        "acceptedPairCount": 7,
+        "integratedPairCount": 7,
+        "publishedPairCount": 3
+      },
+      {
+        "worker": "k_worker_b",
+        "targetCount": 50,
+        "acceptedPairCount": 12,
+        "integratedPairCount": 12,
+        "publishedPairCount": 7
+      },
+      {
+        "worker": "k_worker_c",
+        "targetCount": 50,
+        "acceptedPairCount": 11,
+        "integratedPairCount": 11,
+        "publishedPairCount": 5
+      },
+      {
+        "worker": "k_worker_d",
+        "targetCount": 50,
+        "acceptedPairCount": 8,
+        "integratedPairCount": 8,
+        "publishedPairCount": 2
+      },
+      {
+        "worker": "k_worker_e",
+        "targetCount": 50,
+        "acceptedPairCount": 3,
+        "integratedPairCount": 3,
+        "publishedPairCount": 3
+      }
+    ],
+    "pauseRequest": {
+      "path": "reports/dogs-generated-artwork/cohort-k/direct-user-pause-request-001.json",
+      "sha256": "46e46570a518b07abbbd2aebe0a98783111c85f12c1f022917eacc776db4d248"
     }
   }
 }

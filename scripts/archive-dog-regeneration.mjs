@@ -5,7 +5,7 @@ import { spawnSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
-const privatePrefixes = ['reports/dogs-generated-artwork/cohort-j/', 'assets/dogs/generated-masters/cohort-j/', 'reports/dogs-generated-artwork/cohort-k/', 'assets/dogs/generated-masters/cohort-k/'];
+const privatePrefixes = ['reports/dogs-generated-artwork/cohort-i/', 'reports/dogs-generated-artwork/cohort-j/', 'assets/dogs/generated-masters/cohort-j/', 'reports/dogs-generated-artwork/cohort-k/', 'assets/dogs/generated-masters/cohort-k/'];
 
 export function collectRegenerationFiles(root, entry, packetPaths) {
   const files = new Map();

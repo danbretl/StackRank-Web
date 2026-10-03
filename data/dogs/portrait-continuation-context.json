@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "savedAt": "2026-10-03T08:22:54.357646+00:00",
-  "status": "active-cohort-l-qualifying-first-tranche",
+  "savedAt": "2026-10-03T11:24:58.450864+00:00",
+  "status": "blocked-cohort-l-first-tranche-qualification",
   "baseline": {
     "catalogIdentities": 1239,
     "publishedPortraits": 560,
@@ -1764,7 +1764,7 @@
   },
   "currentAuthorizedRun": {
     "cohortId": "dogs-portraits-l",
-    "status": "qualifying-first-tranche",
+    "status": "blocked-first-tranche-qualification",
     "authority": "Fresh direct-user invocation of dogs-overnight-100-kickoff-prompt.md",
     "targetAdditionalPublishedPairs": 100,
     "baselinePublishedPairs": 602,
@@ -1783,6 +1783,15 @@
     "primaryModelEffortDisclosure": "Requested gpt-6-astra/high; runtime identifiers undisclosed",
     "permissions": "Actual root and all workers danger-full-access, approval never, network enabled",
     "offMachineBackupVerified": false,
-    "qualifiedIdentities": 13
+    "qualifiedIdentities": 13,
+    "qualificationBlocker": {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualification-blocker-001.json",
+      "sha256": "d40da108884f7381d49ad5b71adcda7c6e89b2dc63298f52af0476ee4288f88f",
+      "bytes": 5578
+    },
+    "shortfallToMinimumFirstQueue": 10,
+    "userAmendmentPending": true,
+    "userStop": false,
+    "objectiveComplete": false
   }
 }

@@ -22,8 +22,8 @@ are under `/Users/danbretl/.codex/worktrees/dogs-cohort-l-worker-{a,b,c}/stackra
 
 ## Current stage
 
-Qualification is underway. No production tranche is frozen, no image call is authorized or
-started, and no new pair is accepted/integrated/published. Thirteen identities across twelve complete
+The run is blocked before generation: **0/100 new pairs published**. No production tranche is
+frozen and no image call is authorized or started. Thirteen identities across twelve complete
 source/profile/prompt packets have passed independent and root review:
 
 - Multi-Colored Poodle (VBO:0201055), writer C / peer A.
@@ -103,7 +103,7 @@ staging have no verified off-machine backup.
 - `reports/dogs-generated-artwork/cohort-l/qualified-poodle-001.json`
 - `scripts/dog-portrait-packet.py` and `scripts/dog-portrait-coordination.py`
 
-Continue the authorized run. Qualify distinct exact identities before freeze/generation, then
+On recovery, continue the authorized run. Qualify distinct exact identities before freeze/generation, then
 publish approximately 20 accepted pairs per milestone with full verification, archives, live byte
 checks and separate product/documentation receipts. Do not resume paused K workers or count
 aliases, attempts, drafts, holds or unpublished acceptance toward the 100-pair target.
@@ -136,3 +136,29 @@ genuinely new originals per allocated identity and proceed to normal source/prim
 visual gates pass. Root still approves every image call. An older J array-shaped search wrapper
 was missed by receipt-only coverage scans; two repeated Pomapug/Pug-Zu queries are disclosed
 and added no candidates. Subsequent triage checks those wrappers before proposing new queries.
+
+## Evidence blocker and recovery checkpoint
+
+The final bounded pass closed with **13 qualified identities, 10 short of the minimum 23**
+required by the kickoff: “Start with a tranche of 20 qualified identities plus 3–5 genuinely
+qualified reserves.” A pending user question asks to amend only that first-tranche size to 13;
+no answer or approval has been received. The 100-pair target is incomplete, and this is neither
+a user stop nor a completion record. The qualified list above is the concrete proposed smaller
+tranche; each source/profile/prompt has independent and root review, but no pre-call approval.
+
+There were 186 research-only allocations and 360 completed gated Commons/Wikipedia operations
+(A 131 / B 100 / C 129), no active permits and no image calls, rejects, retries or failures. The last
+extra pass added no qualifications. All three workers are idle with their worktrees and evidence
+preserved; latest checkpoints are A012, B003 and C221. The final registry/database snapshots and
+exact recovery requirements are bound by private `qualification-blocker-001.json` and the tracked
+ledger/preparation index. This bounded coverage is not an exhaustive claim about all remaining
+sources; unconsumed continuations and unresolved identities remain disclosed.
+
+Published throughput is 0 additional pairs per hour over 4.58 hours through the blocker checkpoint.
+Root review/wait time was not separately instrumented; tokens and credits were not exposed.
+All prior 45 holds and J/K stop/frozen records remain intact; no production reserve was activated.
+The 602 published pairs and 637 hidden entries remain unchanged. Preparation archives 004/005
+retain the 13 qualified identities locally, with no verified off-machine backup. The last
+verified documentation checkpoint 943726599d0ef3c571693342418b591d6c0ee643 is Vercel READY
+in `dpl_9ZCG8Gyc71b2qhonTDu4C7oysz2q`; it is not a product publication. The final documentation
+head receives its own exact deployment receipt after push.

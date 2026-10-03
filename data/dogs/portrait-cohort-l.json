@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "cohortId": "dogs-portraits-l",
-  "status": "qualifying-first-tranche",
+  "status": "blocked-first-tranche-qualification",
   "startedAt": "2026-10-03T06:50:10.588924+00:00",
   "baseline": {
     "schemaVersion": 1,
@@ -166,5 +166,10 @@
       "generationAuthorized": false
     }
   ],
-  "updatedAt": "2026-10-03T10:37:28.903889+00:00"
+  "updatedAt": "2026-10-03T10:37:28.903889+00:00",
+  "qualificationBlocker": {
+    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualification-blocker-001.json",
+    "sha256": "d40da108884f7381d49ad5b71adcda7c6e89b2dc63298f52af0476ee4288f88f",
+    "bytes": 5578
+  }
 }

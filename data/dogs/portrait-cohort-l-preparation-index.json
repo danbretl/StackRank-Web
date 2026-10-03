@@ -40,7 +40,7 @@
   "acceptedPairs": 0,
   "publishedPairs": 0,
   "offMachineBackupVerified": false,
-  "qualifiedPackets": 6,
+  "qualifiedPackets": 8,
   "screeningAmendments": [
     {
       "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-001.json",
@@ -111,27 +111,167 @@
       "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-014.json",
       "sha256": "9240fb84db119b610dd2587bd44e57dff60f9a1458252136b92c43992e834efb",
       "bytes": 1420
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-015.json",
+      "sha256": "05e0ec6f9b4d86e3c3b91cf5e204c5a7343e321a1384013ea192fc845c6a9eb5",
+      "bytes": 1131
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-016.json",
+      "sha256": "74ebef69851df383b13cc8c58a4287075575073c6514244a3fb213d14c1e5ea8",
+      "bytes": 1349
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-017.json",
+      "sha256": "8f0db97ce5f9a0dc36d343bbe8ece0c38eec230ccc701c0ed4694011bd5119af",
+      "bytes": 1171
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-018.json",
+      "sha256": "af13d60be5472fd02fa27ab2c8cae08fb73d9730ee40bb490a1201ea0bd0d801",
+      "bytes": 1200
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-019.json",
+      "sha256": "3484b6da25535db3624df567f49ea5df92712a8cda488dd28ccd9e8a9e083638",
+      "bytes": 1216
     }
   ],
-  "updatedAt": "2026-10-03T08:22:54.356888+00:00",
+  "updatedAt": "2026-10-03T09:01:49.054537+00:00",
   "supportVerification": {
     "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/setup-verification-001.json",
     "sha256": "b58f41af0424975d6e83d04dc87133819f66f0e3c9bd99248de2842d42393191",
     "bytes": 884
   },
   "currentResearchStage": {
-    "qualified": 7,
+    "qualified": 9,
     "newPreliminaryVisualPassPendingOtherGates": [],
     "knownNegativeReconfirmed": [
       {
         "catalogId": "VBO:0200469",
         "source": "File:Markiesje 3.jpg",
         "reason": "Discovered exact earlier K worker negative; no new source evidence, remains blocked"
+      },
+      {
+        "catalogId": "VBO:0200396",
+        "source": "File:Murray River Curly Coated Retriever, Stella.jpg",
+        "reason": "Exact native matches E-held source; no new qualifying source evidence."
       }
     ],
     "generationCalls": 0,
     "activeProductionIds": [],
-    "nextAction": "Screen A014 next five and newly nominated B/C source avenues; all current qualification gates complete for seven identities. No generation until first20+3–5 qualified."
+    "nextAction": "Allocate next bounded local nominations from A/B/C; nine fully qualified, no generation until20 plus3–5.",
+    "sourceGrantHold": {
+      "catalogId": "VBO:0201363",
+      "source": "ToyManchester pair094 right dog visual pass",
+      "reason": "Copied importer GFDL statement but actual originating creator grant unavailable; not qualified."
+    }
   },
-  "qualifiedIdentities": 7
+  "qualifiedIdentities": 9,
+  "screeningDispositions": {
+    "scope": "Immutable worker bounded-screen reports for recovery; these are evidence/disposition records, not root image-call approval or proof that every remaining source is absent. Earlier provisional reports remain on disk.",
+    "records": [
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/screening-001.json",
+        "sha256": "ea70b66076000241fe40fe18dff4a6948cc058fb3289f1c7c480b2238787f45f",
+        "bytes": 13404
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/screening-002.json",
+        "sha256": "67db4f127304cf6cd40aa0f9da5c157dbeb1ee6498f66c2fd3ade6500a722006",
+        "bytes": 16220
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/screening-003.json",
+        "sha256": "075f5fff2f0eeabbee2a03547c3fae958261cc5f29924d2c45fb03f6c6c44d6f",
+        "bytes": 18076
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/screening-004.json",
+        "sha256": "b0e7f78221034b19f3a9a5cfc8ce31e11e14f7085b1b3b208fdc624ee28d2701",
+        "bytes": 20221
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/screening-005-remaining-012.json",
+        "sha256": "00cc29676a718790c286c12673d2a2c301efadf8c493218a0301688ca7947dee",
+        "bytes": 9604
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/screening-006-amendment014.json",
+        "sha256": "cfe40c9d38e5ecf45cbbe7a3b807d5cc23aaa57448b188b2813d4e9e5e8a2efd",
+        "bytes": 10687
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/bounded-eighth5-screen-001.json",
+        "sha256": "0961b16419b4c3cc01e2769de01ce0bcd7e0130b1ab37e221ce62619e46a8f3e",
+        "bytes": 4910
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/bounded-fifth6-screen-001.json",
+        "sha256": "fc5673c4ae65b6fe9e2936eb3698362280464c66b7247bf05cf7a0dde5e04851",
+        "bytes": 8318
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/bounded-fourth5-screen-001.json",
+        "sha256": "5969ad4e5ca6948a6c247d948228a6e1f03a6b5ea6faf0eb49de6cf528bd6664",
+        "bytes": 4943
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/bounded-initial7-screen-001.json",
+        "sha256": "5f28a3b5552105a435b25081e18489d2a55f7ca0055a8545122e804e6655c066",
+        "bytes": 6629
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/bounded-second5-screen-001.json",
+        "sha256": "8a1630459a24b64669c406a03d4a3438f8c0f64f3c44e22c5c89fa78109dda55",
+        "bytes": 4271
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/bounded-seventh6-screen-001.json",
+        "sha256": "9156cbc3b943e3632db591ebd9752508bf099029ea3ee0ee594233c4e9531088",
+        "bytes": 6548
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/bounded-sixth5-screen-001.json",
+        "sha256": "e41e962274c9b4c8566918288b92b554b3e6ef8e2e27e006595d2ae4e1803855",
+        "bytes": 3420
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/bounded-third5-screen-001.json",
+        "sha256": "bcd4c68759ce2aa94c61d58f7944a7357fbe45a3e0382e22a36f7385c0d85356",
+        "bytes": 5234
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/amendment015-final-dispositions-103.json",
+        "sha256": "d72d6d709eee867ea64130af1572a0c11dcc09117951537c9994cce1626fae6d",
+        "bytes": 6312
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/amendment018-final-dispositions-112.json",
+        "sha256": "e0eafa133a16c05f0827702e3c92e3a14c255fc8721a75596e7a413bc1e09c18",
+        "bytes": 6931
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/ten-final-dispositions-058.json",
+        "sha256": "6f6854b1f2ef4b43f234b5895e0ce399a68d95da83f078ef08ecac2b2fb656d8",
+        "bytes": 10870
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/bounded-dispositions-025.json",
+        "sha256": "e533dcc45053b015f86e38c6693f5eb95d55e7ee6c051eb8074b6be05e5086ae",
+        "bytes": 3728
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/cross-ten-bounded-dispositions-085.json",
+        "sha256": "d0e9e8f8b5b12e44007ae8a98377354727000720299b92b3fef2ad88d245c56c",
+        "bytes": 19971
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/five-bounded-dispositions-095.json",
+        "sha256": "6c300d885ddfee7c5f112de9b35cd7d969fd02a93e27c8b4ec4d9694e549f431",
+        "bytes": 9932
+      }
+    ]
+  }
 }

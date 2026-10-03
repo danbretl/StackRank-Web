@@ -36,11 +36,11 @@
   "actualRuntimeModel": "undisclosed",
   "primaryRequestedModel": "gpt-6-astra",
   "primaryRequestedEffort": "high",
-  "generationCalls": 15,
-  "acceptedPairs": 14,
-  "publishedPairs": 14,
+  "generationCalls": 85,
+  "acceptedPairs": 77,
+  "publishedPairs": 75,
   "offMachineBackupVerified": false,
-  "qualifiedPackets": 13,
+  "qualifiedPackets": 60,
   "screeningAmendments": [
     {
       "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-001.json",
@@ -228,30 +228,26 @@
       "bytes": 1289
     }
   ],
-  "updatedAt": "2026-10-03T16:34:13.147527+00:00",
+  "updatedAt": "2026-10-03T22:37:17.125253+00:00",
   "supportVerification": {
     "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/setup-verification-001.json",
     "sha256": "b58f41af0424975d6e83d04dc87133819f66f0e3c9bd99248de2842d42393191",
     "bytes": 884
   },
   "currentResearchStage": {
-    "qualified": 14,
-    "generationCalls": 15,
-    "accepted": 14,
-    "published": 14,
-    "acceptedUnpublished": 0,
+    "qualified": 79,
+    "generationCalls": 85,
+    "accepted": 77,
+    "published": 75,
+    "acceptedUnpublished": 2,
     "imagePermitsActiveAtLastBoundary": 0,
-    "catalogTotal": 616,
-    "hidden": 623,
-    "remainingTarget": 86,
-    "nextAction": "Obtain a new exact qualifying Commons original under current rules, or receive explicit source-pool amendment allowing verified openly licensed creator/Flickr/museum/breed-organization originals. No approval inferred from silence. Reuse retained five reviewed-copy candidates, complete every reference/peer/root/attempt/archive/release gate, and continue toward100.",
-    "latestSourceReadiness": {
-      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/recovery-source-gap-checkpoint-016.json",
-      "sha256": "4d15244669a205cb607d2390ab1c45f17e287cc212bc55d363430d8007168404",
-      "bytes": 4603
-    }
+    "catalogTotal": 677,
+    "hidden": 562,
+    "remainingTarget": 25,
+    "nextAction": "Continue authorized text-only researched portraits with independent source/full-short review, exact root-approved built-in calls, full native QA, batch archive/tests and verified production publication until100 new pairs. Direct photo inputs require appropriate licenses; research-only visuals are never input or presented as licensed.",
+    "policy": "Approved rolling queue and text-only factual morphology research; no pending source-policy permission. Preserve individual source, editorial, native, archive and release gates."
   },
-  "qualifiedIdentities": 14,
+  "qualifiedIdentities": 79,
   "screeningDispositions": {
     "scope": "Immutable worker bounded-screen reports for recovery; these are evidence/disposition records, not root image-call approval or proof that every remaining source is absent. Earlier provisional reports remain on disk.",
     "records": [
@@ -817,14 +813,79 @@
   ],
   "latestPublications": [
     {
-      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l02-001.json",
-      "sha256": "7c358bff1c10501ac7f89b668ed0d44e33c16b7709a346df6025776b087c6ff0",
-      "bytes": 7743
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l26-001.json",
+      "sha256": "fd6bc123c734c0eb0973927b66eb481e3a0e9d7c2bd892c2b5fbe15a077d2eb4",
+      "bytes": 1916
     },
     {
-      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l03-001.json",
-      "sha256": "8960630dc12aacf8ec4f8ce31ee8247b970a13a643cf10fcbbccd509bd7a38e6",
-      "bytes": 1936
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l27-001.json",
+      "sha256": "0a59e08980c3973066ccdab5dc4212451fe28636d9851db96a4be27f07736653",
+      "bytes": 1935
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l28-001.json",
+      "sha256": "7152989f32b9e9f7d19d29d5d800a66e034c87f13ad04492bbc92d5995ef4e52",
+      "bytes": 3608
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l29-001.json",
+      "sha256": "2e3690137c673b73728ca7e267d9f6f04522d42b83edbc44797d48135d725bb4",
+      "bytes": 3594
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l30-001.json",
+      "sha256": "3b953d34ae7547dfd24dae099da86aa82917ae358c43ed1b2fe313146dd692b8",
+      "bytes": 2773
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l31-001.json",
+      "sha256": "1a86ad4bf2bfbff3229d1159d506e5edad46688bcd91e85eae1475c8a3c35f4d",
+      "bytes": 1916
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l32-001.json",
+      "sha256": "e5c3ae9b779e6d52c5aafaf865b63520cefc968a6df8d54386f089c5aec48bfd",
+      "bytes": 2755
     }
-  ]
+  ],
+  "historicalPreSourcePolicyResearchStage": {
+    "qualified": 14,
+    "generationCalls": 15,
+    "accepted": 14,
+    "published": 14,
+    "acceptedUnpublished": 0,
+    "imagePermitsActiveAtLastBoundary": 0,
+    "catalogTotal": 616,
+    "hidden": 623,
+    "remainingTarget": 86,
+    "nextAction": "Obtain a new exact qualifying Commons original under current rules, or receive explicit source-pool amendment allowing verified openly licensed creator/Flickr/museum/breed-organization originals. No approval inferred from silence. Reuse retained five reviewed-copy candidates, complete every reference/peer/root/attempt/archive/release gate, and continue toward100.",
+    "latestSourceReadiness": {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/recovery-source-gap-checkpoint-016.json",
+      "sha256": "4d15244669a205cb607d2390ab1c45f17e287cc212bc55d363430d8007168404",
+      "bytes": 4603
+    }
+  },
+  "completedGenerationCalls": 85,
+  "integratedPairs": 75,
+  "counterAsOf": "2026-10-03T22:37:17.125253+00:00",
+  "rejectedOutputs": 8,
+  "targetedRetries": 6,
+  "failedCalls": 0,
+  "currentPublishedTotal": 677,
+  "currentHidden": 562,
+  "acceptedUnpublishedIds": [
+    "VBO:0200795",
+    "VBO:0201177"
+  ],
+  "imagePermitsActiveAtBoundary": 0,
+  "currentStageEvidence": {
+    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/current-stage-75-publications-001.json",
+    "sha256": "5fac563ca16497ff5abf87adc46a5e3935f68e6c16fc0651bb9a650341cc986f",
+    "bytes": 39736
+  },
+  "sourcePolicyAuthorization": {
+    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/source-policy-user-authorization-002.json",
+    "sha256": "f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091",
+    "bytes": 1817
+  }
 }

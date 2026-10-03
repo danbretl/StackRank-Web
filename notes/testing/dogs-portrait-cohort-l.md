@@ -20,7 +20,40 @@ with no history fork, and all attested the same actual Full access policy. Their
 names are `/root/l_worker_a`, `/root/l_worker_b`, `/root/l_worker_c`; separate isolated worktrees
 are under `/Users/danbretl/.codex/worktrees/dogs-cohort-l-worker-{a,b,c}/stackrank`.
 
-## Current stage — 62 published additions, October 3, 2026
+## Current stage — 75 published additions, October 3, 2026
+
+L26–L32 added13 pairs (1/1/3/3/2/1/2): Lupo Italiano, Chukotka Sled Dog,
+Black American Cocker, French Pied Hound, Treeing Tennessee Brindle, Australian Bulldog,
+Shiloh Shepherd, Harlequin Pinscher, Zerdava, Lupino del Gigante, Chilean Terrier,
+American Mastiff and Aksaray Malaklisi. Product `0f3dfa30e3a1c469accf171f51895557fd09559e`
+is pushed main; Vercel `dpl_7yBFA3bXiGZRBmxv1FTfzCAzQcju` is READY on both production aliases.
+Every new full/short profile, generated provenance and purpose record matched live;
+all26 new320/960 WebPs matched exact bytes. Seven receipts bind one shared49-check production run.
+
+One stable verification passed533 Node,25 coordination,6 packet,24 Deno and41 Chrome flows.
+Root individually inspected every unchanged native and the complete13-image contact sheet.
+Desktop677-count reviewer search,960px detail/source/model disclosures, draft-preserving
+arrows and Escape focus passed. Phone390×844 Zerdava comparison, full About/Escape preserving
+the active pair, cancellation and authored short ranking copy passed. Browser screenshots were
+viewed inline; a tool file-save restriction prevented local screenshot retention and is disclosed.
+All664 prior artwork/profile records,1,328 WebPs and14 earlier frozen ledgers/stops remain unchanged.
+Tracked L26–L32 regeneration archives verified30/25/70/84/52/30/50 objects respectively.
+Local archives are not verified off-machine backups.
+
+Both Puli varieties remain generation-quality holds after three rejected calls each.
+Their six unchanged masters and root verdicts are closed in the75-file/74-object hold archive.
+Immutable qualified replacements Harlequin Pinscher and Shiloh Shepherd are now published;
+prior memberships and rejections remain intact. One focused regression verifies valid replacement
+and rejects missing/unqualified/duplicate/held-publication cases, retaining the100 active target.
+
+At the bound checkpoint,85 completed calls produced77 root-accepted and8 rejected outputs,
+with6 targeted retries and0 failures. Kyi-Leo and Sapsari are accepted pending the next release;
+79 identities are qualified, including the two held Puli entries. No image permit was active
+at that checkpoint. Continuing research, independent review and release batching remains authorized.
+
+**75/100 new pairs are live:677 published,562 hidden. Continue until702;25 publications remain.**
+
+## Historical milestone — 62 published additions, October 3, 2026
 
 L19–L25 added12 pairs (1/2/2/3/1/2/1): Pomchi, Bull Arab, Boxador, Ruby and Tricolour King Charles,
 three Small Swiss hound colour varieties, Chortai, Murray River Retriever, Toy Australian Shepherd

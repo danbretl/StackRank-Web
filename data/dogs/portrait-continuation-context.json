@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "savedAt": "2026-10-03T07:10:08.775742+00:00",
+  "savedAt": "2026-10-03T08:22:54.357646+00:00",
   "status": "active-cohort-l-qualifying-first-tranche",
   "baseline": {
     "catalogIdentities": 1239,
@@ -1777,11 +1777,12 @@
     "generationCalls": 0,
     "acceptedPairs": 0,
     "publishedPairs": 0,
-    "qualifiedPackets": 1,
+    "qualifiedPackets": 6,
     "requiredBeforeGeneration": "Freeze 20 qualified identities plus 3–5 qualified reserves; dedicated immutable root pre-call approval and successful preflight",
     "configuredWorkers": "Exactly three internal gpt-6.1-sol/high agents; no nested agents or K worker resumes",
     "primaryModelEffortDisclosure": "Requested gpt-6-astra/high; runtime identifiers undisclosed",
     "permissions": "Actual root and all workers danger-full-access, approval never, network enabled",
-    "offMachineBackupVerified": false
+    "offMachineBackupVerified": false,
+    "qualifiedIdentities": 7
   }
 }

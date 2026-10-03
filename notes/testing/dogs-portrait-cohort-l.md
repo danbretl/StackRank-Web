@@ -23,13 +23,25 @@ are under `/Users/danbretl/.codex/worktrees/dogs-cohort-l-worker-{a,b,c}/stackra
 ## Current stage
 
 Qualification is underway. No production tranche is frozen, no image call is authorized or
-started, and no new pair is accepted/integrated/published. One complete source/profile/prompt
-packet (Multi-Colored Poodle, VBO:0201055) has passed independent A review and root source,
-visual, primary-evidence, full/short-copy and prompt review. It is preparation, not a completed
-portrait/profile pair. The first production allocation still requires 20 qualified identities plus
-3–5 qualified reserves. Source scarcity is being measured honestly; prior research is not treated
-as inherited approval. Fresh failed sources remain bounded dispositions rather than claims of
-worldwide absence.
+started, and no new pair is accepted/integrated/published. Seven identities across six complete
+source/profile/prompt packets have passed independent and root review:
+
+- Multi-Colored Poodle (VBO:0201055), writer C / peer A.
+- Goldendoodle (VBO:0200611), writer A / peer B.
+- Beaglier (VBO:0200133), writer C / peer A.
+- Markiesje / Dutch Tulip Hound (VBO:0200469), writer B / peer C.
+- Great Dane Black and Harlequin (VBO:0200624, using a black adult), writer A / peer B.
+- Bracco Italiano Chestnut Roan (VBO:0200216), writer A / peer B.
+- Pshdar Dog (VBO:0201086), writer B / peer C.
+
+Root read actual source/primary/grant/terms evidence, viewed each original, and reviewed every
+final full/short description and prompt. These are preparation, not completed pairs. The first
+production allocation still requires 20 qualified identities plus 3–5 qualified reserves. Source
+scarcity is being measured honestly; prior research is not inherited approval. Fresh failed
+sources remain bounded dispositions rather than claims of worldwide absence. At the third
+process checkpoint, 108 identities had research-only allocation and 201 gated source operations
+had completed in 1.389 hours; there were no active permits or image calls. Tokens and credits
+were not exposed. These numbers do not imply that all 108 screens were complete.
 
 The separate L registry/database is in `reports/dogs-generated-artwork/cohort-l/`. It uses the
 shared atomic Commons gate (one owner, at least 5.1 seconds after completion, global HTTP429 stop)

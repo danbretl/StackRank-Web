@@ -40,7 +40,7 @@
   "acceptedPairs": 0,
   "publishedPairs": 0,
   "offMachineBackupVerified": false,
-  "qualifiedPackets": 1,
+  "qualifiedPackets": 6,
   "screeningAmendments": [
     {
       "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-001.json",
@@ -71,12 +71,67 @@
       "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-006.json",
       "sha256": "3e9f6184f24b5b171da648ff61d064ac215b8103c252e1abcb546f4a023b6473",
       "bytes": 1019
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-007.json",
+      "sha256": "8d8821b523eceb7429db4ed2332375365b853a2bada0b0b57373a1d1b8b51885",
+      "bytes": 1724
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-008.json",
+      "sha256": "fe4ca70eb8e2adfb924b93286f91c769059550cd4e3bfb7efc5c22e6fe1e771e",
+      "bytes": 1401
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-009.json",
+      "sha256": "133138d4bf8a6a7ec1eea5061159020b5faaf635df4608cf63c4904791e4a358",
+      "bytes": 1885
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-010.json",
+      "sha256": "9b3f4539d6da279e63763769ce670e18bedc3ba2ba40f103b54e39e2b5a0bc05",
+      "bytes": 1231
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-011.json",
+      "sha256": "8030eb9939d32871f6c514151fb32fe3abfdc8af4386d825fd035a9fa276dec4",
+      "bytes": 1428
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-012.json",
+      "sha256": "561654abb0e63ac21cb774c7e596bd4858ea270b0444b3b147fcf2a17070b9e5",
+      "bytes": 1436
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-013.json",
+      "sha256": "5d2554dddcf7c7bc0e23d92acdc31bf23ffd70223fa67f37de45460e18b44ee4",
+      "bytes": 1274
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-014.json",
+      "sha256": "9240fb84db119b610dd2587bd44e57dff60f9a1458252136b92c43992e834efb",
+      "bytes": 1420
     }
   ],
-  "updatedAt": "2026-10-03T07:17:54.970015+00:00",
+  "updatedAt": "2026-10-03T08:22:54.356888+00:00",
   "supportVerification": {
     "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/setup-verification-001.json",
     "sha256": "b58f41af0424975d6e83d04dc87133819f66f0e3c9bd99248de2842d42393191",
     "bytes": 884
-  }
+  },
+  "currentResearchStage": {
+    "qualified": 7,
+    "newPreliminaryVisualPassPendingOtherGates": [],
+    "knownNegativeReconfirmed": [
+      {
+        "catalogId": "VBO:0200469",
+        "source": "File:Markiesje 3.jpg",
+        "reason": "Discovered exact earlier K worker negative; no new source evidence, remains blocked"
+      }
+    ],
+    "generationCalls": 0,
+    "activeProductionIds": [],
+    "nextAction": "Screen A014 next five and newly nominated B/C source avenues; all current qualification gates complete for seven identities. No generation until first20+3–5 qualified."
+  },
+  "qualifiedIdentities": 7
 }

@@ -20,7 +20,31 @@ with no history fork, and all attested the same actual Full access policy. Their
 names are `/root/l_worker_a`, `/root/l_worker_b`, `/root/l_worker_c`; separate isolated worktrees
 are under `/Users/danbretl/.codex/worktrees/dogs-cohort-l-worker-{a,b,c}/stackrank`.
 
-## Current stage — 19 published additions, October 3, 2026
+## Current stage — 29 published additions, October 3, 2026
+
+L06–L10 added Staghound, Tonya, Kars, Smithfield, Mi-Ki, Lucas Terrier, Lithuanian Hound,
+fawn Pumi, apricot Pug and American Leopard Hound. Product
+`cb914b7b0e6b3822651aaff2d5e23f5602d5f549` is pushed main; deployment
+`dpl_383bSk49XG7MJ8vsLnoA1q6f2T1H` is READY on both production aliases.
+All ten full/short profiles, provenance and purpose records matched production; all20 new WebPs
+matched exact live bytes. One shared49-check production run is bound by the five publication
+receipts; copied per-wave logs do not represent five separate runs.
+
+The stable candidate passed532 Node,25 coordination,6 packet,24 Deno and41 Chrome checks.
+Root whole-native and ten-image contact-sheet review passed, alongside desktop reviewer search,
+960px detail/provenance, draft-preserving arrows/focus restoration and phone390×844 comparison/
+About/Escape checks. All621 prior artwork/profile records and1,242 prior WebP files are unchanged.
+Local archives retain43/49/67/47/27 verified objects for L06/L07/L08/L09/L10 respectively; their
+hashes and closure are in the five tracked regeneration manifests. No off-machine backup is verified.
+The coordinator now validates earlier immutable tranche membership when a later tranche is appended,
+so approved calls keep running while root reviews the next packet.
+
+**29/100 new pairs are verified live:631 published,608 hidden;71 publications remain.**
+At the recorded boundary,35 completed call receipts yielded34 root-accepted portraits,
+including five awaiting the next release. One earlier rejected output/targeted retry and zero
+failures remain; additional authorized calls and research are active. Continue to100.
+
+## Historical 19-pair milestone, October 3, 2026
 
 L04/L05 contain Heideterrier, Treeing Cur, Treeing Feist, Welsh Hound and Stephens’ Cur.
 All five have exact text-only approvals, independent editorial reviews and accepted full-native/root

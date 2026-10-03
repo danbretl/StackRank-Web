@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "savedAt": "2026-10-03T19:40:30.710364+00:00",
+  "savedAt": "2026-10-03T20:38:39.975673+00:00",
   "status": "active-cohort-l-rolling-production",
   "baseline": {
     "catalogIdentities": 1239,
@@ -1774,16 +1774,16 @@
     "preparationIndexPath": "data/dogs/portrait-cohort-l-preparation-index.json",
     "statusNotePath": "notes/testing/dogs-portrait-cohort-l.md",
     "previousJAndKStoppedHistoryUnchanged": true,
-    "generationCalls": 35,
-    "acceptedPairs": 34,
-    "publishedPairs": 29,
-    "qualifiedPackets": 30,
+    "generationCalls": 52,
+    "acceptedPairs": 51,
+    "publishedPairs": 50,
+    "qualifiedPackets": 42,
     "requiredBeforeGeneration": "Frozen qualified identity, dedicated immutable root pre-call approval and successful preflight; rolling queue directly authorized by user",
     "configuredWorkers": "Exactly three internal gpt-6.1-sol/high agents; no nested agents or K worker resumes",
     "primaryModelEffortDisclosure": "Requested gpt-6-astra/high; runtime identifiers undisclosed",
     "permissions": "Actual root and all workers danger-full-access, approval never, network enabled",
     "offMachineBackupVerified": false,
-    "qualifiedIdentities": 35,
+    "qualifiedIdentities": 53,
     "qualificationBlocker": {
       "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualification-blocker-001.json",
       "sha256": "d40da108884f7381d49ad5b71adcda7c6e89b2dc63298f52af0476ee4288f88f",
@@ -1797,42 +1797,57 @@
       "sha256": "e1ffc149b5fe0e6cc1c3b1dd0d4dfec06466bf8ddfe05369134fbd745ca2d2eb",
       "bytes": 1091
     },
-    "completedGenerationCalls": 35,
-    "counterAsOf": "2026-10-03T19:40:30.710364+00:00",
+    "completedGenerationCalls": 52,
+    "counterAsOf": "2026-10-03T20:38:39.975673+00:00",
     "rejectedOutputs": 1,
     "targetedRetries": 1,
     "failedCalls": 0,
-    "currentPublishedTotal": 631,
-    "currentHidden": 608,
-    "productCommit": "cb914b7b0e6b3822651aaff2d5e23f5602d5f549",
-    "deploymentId": "dpl_383bSk49XG7MJ8vsLnoA1q6f2T1H",
+    "currentPublishedTotal": 652,
+    "currentHidden": 587,
+    "productCommit": "a5ab706854a3b8e061fe2c159c1f38cba3823199",
+    "deploymentId": "dpl_BpPHdY37XVW1w4BndFENFUCLtr84",
     "qualificationBlockerSupersededByDirectUserAmendment": true,
     "nextAction": "Continue authorized text-only researched portraits with independent source/full-short review, exact root-approved built-in calls, full native QA, batch archive/tests and verified production publication until100 new pairs. Direct photo inputs require appropriate licenses; research-only visuals are never input or presented as licensed.",
     "lastPublications": [
       {
-        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l06-001.json",
-        "sha256": "5658cbfe93ac377ae503aaeeb222c5a89c0cf464475651c86d4b5477ac90fa64",
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l11-001.json",
+        "sha256": "caed4e9d3b4eccd6a97e8255c32bb6084c10b4b51216141134e35d62a1be674b",
+        "bytes": 2771
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l12-001.json",
+        "sha256": "18f6bb98d4edae4872547c15e3cce70a09183bc4afd9bfd11951c484b60bf70a",
+        "bytes": 2735
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l13-001.json",
+        "sha256": "b5fd33b84c00645bb31a4f6732844dc90d926aa54da45ec5f22ce692aa7a6246",
         "bytes": 2775
       },
       {
-        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l07-001.json",
-        "sha256": "fdced426b049d2e88cf4bfab38d8279c1d951f0c7bbc4a11f38c781668b62404",
-        "bytes": 2735
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l14-001.json",
+        "sha256": "caeb6a3d8187e603273a3feff977c27c523a6fefa0fa4f26a4c92b3df07d7947",
+        "bytes": 2771
       },
       {
-        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l08-001.json",
-        "sha256": "4dac05d03d56559e946e8a6a1148acf8235b9801ceab2d88bc76d52ee667adc4",
-        "bytes": 3610
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l15-001.json",
+        "sha256": "6c68c5451e79972bf7af8279db0564daffeda2e90a058b6585ba3c1641e86bae",
+        "bytes": 4373
       },
       {
-        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l09-001.json",
-        "sha256": "312e7fd16ada280083ea94b3fb656dda46616242d728bec48532f024d554b68b",
-        "bytes": 2735
-      },
-      {
-        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l10-001.json",
-        "sha256": "8bd9b16e03027f0aade2a2b39e5f4c890fd04efd79eee85afb3118c7be5a60d6",
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l16-001.json",
+        "sha256": "5650a3218e003e4e766e9ce4de2fb401ef34c2d8802e8da3af92e8674bb65e67",
         "bytes": 1936
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l17-001.json",
+        "sha256": "eba58cc0c07171970f3ca375b9bc1f3361412ffcaaccae35a78927b88d812e91",
+        "bytes": 4373
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l18-001.json",
+        "sha256": "6b44d49ee67d6a0858bdf9b3bf6e369b51e8ab02dc7f3eef0a46aab626e40514",
+        "bytes": 4447
       }
     ],
     "latestSourceReadiness": {
@@ -1847,14 +1862,10 @@
       "bytes": 1817
     },
     "sourcePolicyDocument": "notes/feature-ideas/dogs-reference-research-policy.md",
-    "integratedPairs": 29,
-    "stage": "29 verified published; 5 further root-accepted natives await next batch. Workers continue active researched generation toward100; active calls may be ahead of completed receipts.",
+    "integratedPairs": 50,
+    "stage": "50 verified published; next researched pairs are being generated and individually reviewed. Original100 target active;50 publications remain.",
     "acceptedUnpublishedIds": [
-      "VBO:0200661",
-      "VBO:0200924",
-      "VBO:0201128",
-      "VBO:0201161",
-      "VBO:0201284"
+      "VBO:0201041"
     ]
   }
 }

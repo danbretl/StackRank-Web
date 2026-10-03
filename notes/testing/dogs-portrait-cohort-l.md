@@ -20,7 +20,36 @@ with no history fork, and all attested the same actual Full access policy. Their
 names are `/root/l_worker_a`, `/root/l_worker_b`, `/root/l_worker_c`; separate isolated worktrees
 are under `/Users/danbretl/.codex/worktrees/dogs-cohort-l-worker-{a,b,c}/stackrank`.
 
-## Current stage — 29 published additions, October 3, 2026
+## Current stage — 50 published additions, October 3, 2026
+
+L11–L18 added21 pairs (2/2/2/2/4/1/4/4), including the Havana Silk Dog, Italian Shepherd,
+Latvian Hound, Ca Mè Mallorquí, Borador, Chorkie and separately researched Mudi/Eskimo varieties.
+Product `a5ab706854a3b8e061fe2c159c1f38cba3823199` is pushed main; deployment
+`dpl_BpPHdY37XVW1w4BndFENFUCLtr84` is READY on both production aliases.
+Every new full/short profile, generated provenance and purpose record matched live;
+all42 new320/960 WebPs matched exact bytes. One shared49-check production run serves eight
+publication receipts; per-wave copies explicitly identify the shared run.
+
+The stable candidate passed532 Node,25 coordination,6 packet,24 Deno and41 Chrome checks.
+Root individually viewed every untouched native and all three complete contact sheets, then
+verified desktop652-count reviewer search,960px detail/source/model disclosures, draft-preserving
+arrows and Escape focus, plus phone390×844 Chorkie comparison, About/Escape and authored short
+ranking text. A transient localhost module connection reset resolved on one reload; no product
+change or production failure was inferred. All631 previous artwork/profile records,1,262 WebPs
+and14 earlier frozen ledgers/stops remain unchanged.
+
+Tracked regeneration manifests L11–L18 close50/47/49/54/87/34/63/84 verified objects respectively.
+Source/input distinctions and earlier photo-grant/anatomy negatives remain intact; generated
+artwork is normal-UI-only. Archives remain local without verified off-machine backup.
+
+**50/100 new pairs are live:652 published,587 hidden. Continue until702;50 publications remain.**
+At 2026-10-03T20:38:39.975673+00:00, 52 completed attempt receipts and51 root-accepted natives are recorded,
+with50 published and1 accepted pending; one earlier rejected output/targeted retry and zero
+failures. Other source qualifications and authorized generation continue in parallel. Reusing
+shared actual standards and combining21 pairs into one build/test/deployment reduced repeated
+release work without removing any individual source/editorial/native approval.
+
+## Historical 29-pair milestone, October 3, 2026
 
 L06–L10 added Staghound, Tonya, Kars, Smithfield, Mi-Ki, Lucas Terrier, Lithuanian Hound,
 fawn Pumi, apricot Pug and American Leopard Hound. Product

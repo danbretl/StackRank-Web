@@ -7,14 +7,13 @@ continues toward100 additions; batching must preserve each identity’s source, 
 
 > Shared project brief for AI coding assistants. `AGENTS.md` is a symlink to this file, so Codex and Claude Code read the same context. This was distilled from the original Codex build transcripts (Dec 2025 – Jun 2026) on 2026-06-23; if anything here conflicts with the code, the code wins — fix this file.
 
-Current cohort L milestone: **631 published pairs / 608 hidden; 29 of 100 new pairs live**, product `cb914b7b` is Vercel READY. Further accepted portraits and generation are underway; the run remains active. See `notes/testing/dogs-portrait-cohort-l.md`.
+Current cohort L milestone: **652 published pairs / 587 hidden; 50 of 100 new pairs live**, product `a5ab7068` is Vercel READY. Further accepted portraits and generation are underway; the run remains active. See `notes/testing/dogs-portrait-cohort-l.md`.
 
 ## What it is
 
-Cohort L is active under fresh100-pair authorization and a direct-user rolling-queue amendment.
-L01/L02/L03 add5/8/1 verified live pairs: **616 published/623 hidden**, product `e9ad1a5a` Vercel READY.
-15built-in calls yielded14accepted/published,1reject/targetedretry,0failures; noacceptedpair ispending.
-Further research/generation continues toward702total/537hidden;86additions remain.
+Cohort L is active under fresh100-pair authorization and direct-user rolling-queue/source-policy amendments.
+L01–L18 have delivered50 verified additions: **652 published/587 hidden**, product `a5ab7068` Vercel READY.
+The next researched pairs are in progress; continue until100 additions/702 total/537 hidden.
 Read `notes/testing/dogs-portrait-cohort-l.md` and `data/dogs/portrait-cohort-l.json` first.
 Earlier602/K pause statements below describe the historical baseline, not an L stop.
 

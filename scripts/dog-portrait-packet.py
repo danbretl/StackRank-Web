@@ -4,6 +4,16 @@ import hashlib
 import json
 from pathlib import Path
 
+SOURCE_POLICY = 'dogs-reference-research-2026-10-03.1'
+SOURCE_AUTH_SHA256 = 'f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091'
+
+
+def validate_source_authorization(item):
+    body = json.loads(binding(item).read_text())
+    if item['sha256'] != SOURCE_AUTH_SHA256 or body.get('approved') is not True or body.get('authority') != 'direct-user-instruction' or body.get('policyVersion') != SOURCE_POLICY:
+        raise ValueError('Exact direct-user source policy authorization required')
+
+
 PURPOSES = {'uiDisplayAllowed': False, 'publicSnapshotAllowed': False, 'rasterExportAllowed': False}
 
 
@@ -34,10 +44,13 @@ def validate_bindings(value):
 
 def validate(packet, catalog, published, peer=None):
     validate_bindings(packet)
-    if packet.get('schemaVersion') != 1 or packet.get('cohortId') != 'dogs-portraits-l':
-        raise ValueError('Expected cohort L packet schema 1')
+    if packet.get('schemaVersion') not in (1, 2) or packet.get('cohortId') != 'dogs-portraits-l':
+        raise ValueError('Expected cohort L packet schema 1 or 2')
     if packet.get('worker') not in ('A', 'B', 'C') or not packet.get('createdAt'):
         raise ValueError('Writer and acquisition date required')
+    text_only = packet['schemaVersion'] == 2
+    if text_only:
+        validate_source_authorization(packet['sourcePolicyAuthorization'])
     entries = packet.get('entries', [])
     if not 1 <= len(entries) <= 10 or len({e['catalogId'] for e in entries}) != len(entries):
         raise ValueError('Packet requires 1–10 distinct entries')
@@ -48,14 +61,22 @@ def validate(packet, catalog, published, peer=None):
         if e['sourcePurposePermissions'] != PURPOSES:
             raise ValueError('Photograph purposes must all remain denied')
         ref = e['reference']
-        for k in ('fileTitle', 'canonicalFilePage', 'pinnedPage', 'creator', 'originalSourceChain', 'license', 'licenseUrl', 'attribution', 'visualInspection'):
-            if not isinstance(ref.get(k), str) or not ref[k].strip():
-                raise ValueError(f'Missing reference {k}')
-        if not isinstance(ref.get('pinnedRevision'), int) or ref['pinnedRevision'] <= 0:
-            raise ValueError('Pinned original File revision required')
-        binding(ref['original'])
-        for key in ('metadata', 'fileText', 'originalGrant', 'licenseTerms'):
-            binding(ref[key])
+        if text_only:
+            if ref.get('mode') != 'text-only' or ref.get('imageInputs') != [] or any(k in ref for k in ('original', 'assetId')):
+                raise ValueError('Text-only packet cannot contain photo inputs or claim a photo rights asset')
+            dossier = json.loads(binding(ref['researchDossier']).read_text())
+            validate_bindings(dossier)
+            if dossier.get('catalogId') != ident or dossier.get('imageInputs') != [] or not dossier.get('morphologyEvidence') or not dossier.get('visualResearch'):
+                raise ValueError('Exact morphology and adult visual research dossier required')
+        else:
+            for k in ('fileTitle', 'canonicalFilePage', 'pinnedPage', 'creator', 'originalSourceChain', 'license', 'licenseUrl', 'attribution', 'visualInspection'):
+                if not isinstance(ref.get(k), str) or not ref[k].strip():
+                    raise ValueError(f'Missing reference {k}')
+            if not isinstance(ref.get('pinnedRevision'), int) or ref['pinnedRevision'] <= 0:
+                raise ValueError('Pinned original File revision required')
+            binding(ref['original'])
+            for key in ('metadata', 'fileText', 'originalGrant', 'licenseTerms'):
+                binding(ref[key])
         if not e.get('evidence'):
             raise ValueError('Actual acquisition disclosures required')
         for evidence in e['evidence']:
@@ -79,7 +100,7 @@ def validate(packet, catalog, published, peer=None):
             if not isinstance(e.get(k), str) or not e[k].strip():
                 raise ValueError(f'Missing {k}')
         prompt = binding(e['prompt']).read_text()
-        if len(prompt.strip()) < 80 or e.get('promptTemplateVersion') != 'dogs-field-guide-v9-cohort-l':
+        if len(prompt.strip()) < 80 or e.get('promptTemplateVersion') != ('dogs-field-guide-v10-cohort-l' if text_only else 'dogs-field-guide-v9-cohort-l'):
             raise ValueError('Invalid exact prompt/template')
     if peer is not None:
         validate_bindings(peer)
@@ -103,7 +124,7 @@ def validate(packet, catalog, published, peer=None):
 
 
 def validate_attempt(receipt):
-    if receipt.get('schemaVersion') != 1 or receipt.get('cohortId') != 'dogs-portraits-l':
+    if receipt.get('schemaVersion') not in (1, 2) or receipt.get('cohortId') != 'dogs-portraits-l':
         raise ValueError('Expected L attempt schema 1')
     approval = json.loads(binding(receipt['approval']).read_text())
     preflight = json.loads(binding(receipt['preflight']).read_text())
@@ -114,9 +135,14 @@ def validate_attempt(receipt):
             or preflight.get('approvalSha256') != receipt['approval']['sha256']
             or preflight.get('permit') != receipt['permit'] or preflight.get('preflightSucceeded') is not True):
         raise ValueError('Attempt lacks exact approval/preflight/permit')
-    expected = {'prompt': binding(approval['prompt']).read_text(),
-                'referenced_image_paths': [approval['reference']['path']] + [x['path'] for x in approval.get('additionalReferences', [])],
-                'transparent_background': False}
+    expected = {'prompt': binding(approval['prompt']).read_text(), 'transparent_background': False}
+    if approval.get('inputMode') == 'text-only':
+        validate_source_authorization(approval['sourcePolicyAuthorization'])
+        if receipt['schemaVersion'] != 2 or approval.get('imageInputs') != [] or 'reference' in approval or approval.get('additionalReferences'):
+            raise ValueError('Text-only approval cannot contain image inputs')
+        binding(approval['researchDossier'])
+    else:
+        expected['referenced_image_paths'] = [approval['reference']['path']] + [x['path'] for x in approval.get('additionalReferences', [])]
     if receipt.get('tool') != 'image_gen.imagegen' or receipt.get('actualArguments') != expected:
         raise ValueError('Actual built-in tool arguments differ from approved inputs')
     if receipt.get('imageModel') != 'undisclosed' or not receipt.get('startedAt') or not receipt.get('completedAt'):

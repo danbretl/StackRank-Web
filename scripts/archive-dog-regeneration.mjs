@@ -101,7 +101,9 @@ export function createRegenerationArchive(root, wave) {
     fileCount: list.length, uniqueObjectCount: objects.length,
     uniqueObjectBytes: objects.reduce((sum, file) => sum + file.bytes, 0),
     purposes: { uiDisplayAllowed: false, publicSnapshotAllowed: false, rasterExportAllowed: false },
-    contents: 'Pinned reference originals/metadata/File text, attribution chains, claim-specific primary snapshots, reviewed full/short prose, exact prompts, all native attempts including rejected outputs, and accountable review receipts.',
+    contents: ids.some(id => cohort.entries[id].reference?.mode === 'text-only')
+      ? 'Authorized factual research dossiers and source snapshots, reviewed full/short prose, exact text-only prompts, all native attempts including rejected outputs, and accountable review receipts. Research-only photographs are not generator inputs or claimed licensed originals.'
+      : 'Pinned reference originals/metadata/File text, attribution chains, claim-specific primary snapshots, reviewed full/short prose, exact prompts, all native attempts including rejected outputs, and accountable review receipts.',
     files: list };
   const python = `import sys,json,tarfile,hashlib,io,pathlib\np=json.load(sys.stdin);root=pathlib.Path(p['root'])\nwith tarfile.open(root/p['archivePath'],'w:gz') as t:\n for f in p['objects']:\n  b=(root/f['path']).read_bytes();assert hashlib.sha256(b).hexdigest()==f['sha256']\n  i=tarfile.TarInfo('objects/'+f['sha256']);i.size=len(b);i.mode=0o600;t.addfile(i,io.BytesIO(b))\n b=json.dumps(p['manifest'],ensure_ascii=False,indent=2).encode();i=tarfile.TarInfo('index.json');i.size=len(b);i.mode=0o600;t.addfile(i,io.BytesIO(b))\nwith tarfile.open(root/p['archivePath'],'r:gz') as t:\n for f in p['objects']:\n  b=t.extractfile('objects/'+f['sha256']).read();assert len(b)==f['bytes'] and hashlib.sha256(b).hexdigest()==f['sha256']\n`;
   const result = spawnSync('python3', ['-c', python], { input: JSON.stringify({ root, archivePath, objects, manifest }), encoding: 'utf8' });

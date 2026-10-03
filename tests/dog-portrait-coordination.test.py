@@ -316,6 +316,27 @@ class CoordinationTests(unittest.TestCase):
         p.write_bytes(raw)
         return p
 
+    def test_text_only_preflight_requires_policy_and_rejects_any_photo_input(self):
+        p=self.approval();receipt=json.loads(p.read_text())
+        receipt['cohortId']='dogs-portraits-l';receipt['inputMode']='text-only';receipt['imageInputs']=[]
+        receipt['researchDossier']=receipt.pop('reference')
+        for key in ('rootMorphologyEvidenceRead','rootIdentityApproved','rootSourceUseApproved'):
+            receipt[key]=True
+        auth=self.root/'authorization.json';auth.write_text('actual direct-user authorization fixture')
+        bound={'path':str(auth),'sha256':MODULE.digest(auth.read_bytes())}
+        receipt['sourcePolicyAuthorization']=bound
+        self.registry['cohortId']='dogs-portraits-l';self.registry['sourcePolicyAuthorization']=bound
+        self.registry_path.write_text(json.dumps(self.registry));c=MODULE.Coordinator(self.registry_path)
+        def write():
+            raw=json.dumps(receipt).encode();q=p.parent/(MODULE.digest(raw)+'.json');q.write_bytes(raw);return q
+        with patch.object(MODULE,'SOURCE_AUTH_SHA256',bound['sha256']):
+            result=c.image_preflight('A','thread-A','breed-A',write())
+            self.assertEqual(result['referencePaths'],[]);self.assertIsNone(result['referencePath'])
+            receipt['imageInputs']=[bound]
+            with self.assertRaisesRegex(ValueError,'cannot contain'):c.image_preflight('A','thread-A','breed-A',write())
+            receipt['imageInputs']=[];receipt['rootMorphologyEvidenceRead']=False
+            with self.assertRaisesRegex(ValueError,'root gate'):c.image_preflight('A','thread-A','breed-A',write())
+
     def test_preflight_binds_immutable_root_approval_to_exact_input_bytes(self):
         p = self.approval()
         result = self.coordinator.image_preflight('A', 'thread-A', 'breed-A', p)

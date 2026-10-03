@@ -2928,6 +2928,22 @@
       "retrievedAt": "2026-09-22T00:00:00.000Z"
     },
     {
+      "id": "breed-profile-vbo-0200666-1",
+      "kind": "breed-reference",
+      "name": "Jagdlicher Heideterrier Verein e.V. – Der Heideterrier",
+      "url": "https://www.jagdlicher-heideterrier-verein.de/",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-10-03T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0200666-2",
+      "kind": "breed-reference",
+      "name": "Der Heideterrier – Rassestandard",
+      "url": "https://www.jagdlicher-heideterrier-verein.de/DER-HEIDETERRIER-RASSESTANDARD/",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-10-03T00:00:00.000Z"
+    },
+    {
       "id": "breed-profile-vbo-0200667-1",
       "kind": "breed-reference",
       "name": "FCI Standard No. 214: Hellenic Hound",
@@ -5608,6 +5624,14 @@
       "retrievedAt": "2026-09-22T00:00:00.000Z"
     },
     {
+      "id": "breed-profile-vbo-0201302-1",
+      "kind": "breed-reference",
+      "name": "Stephens’ Cur: Official UKC Breed Standard",
+      "url": "https://www.ukcdogs.com/stephens-cur",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-10-03T00:00:00.000Z"
+    },
+    {
       "id": "breed-profile-vbo-0201305-1",
       "kind": "breed-reference",
       "name": "FCI No. 62",
@@ -5824,6 +5848,22 @@
       "retrievedAt": "2026-10-02T00:00:00.000Z"
     },
     {
+      "id": "breed-profile-vbo-0201371-1",
+      "kind": "breed-reference",
+      "name": "Treeing Cur — Official UKC Breed Standard",
+      "url": "https://www.ukcdogs.com/breed-standards/treeing-cur",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-10-03T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0201372-1",
+      "kind": "breed-reference",
+      "name": "Treeing Feist — Official UKC Breed Standard (September 1, 2022)",
+      "url": "https://www.ukcdogs.com/docs/breeds/treeing-feist.pdf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-10-03T00:00:00.000Z"
+    },
+    {
       "id": "breed-profile-vbo-0201374-1",
       "kind": "breed-reference",
       "name": "AKC Treeing Walker Coonhound standard",
@@ -5902,6 +5942,14 @@
       "url": "https://www.fci.be/Nomenclature/Standards/099g07-en.pdf",
       "license": "Citation-only factual reference",
       "retrievedAt": "2026-09-24T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0201409-1",
+      "kind": "breed-reference",
+      "name": "Welsh Hound — Official UKC Breed Standard",
+      "url": "https://www.ukcdogs.com/breed-standards/welsh-hound",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-10-03T00:00:00.000Z"
     },
     {
       "id": "breed-profile-vbo-0201410-1",
@@ -17225,19 +17273,26 @@
       "reviewStatus": "source-reviewed"
     },
     "VBO:0200666": {
-      "summary": "Heideterrier is a dog breed or regional type.",
+      "summary": "Bold, energetic and willing to work with a handler, the Heideterrier was developed for the demanding job of flushing wild boar. Its breeding club puts practical hunting ability and stamina at the centre of selection. Karl-Heinz Markhoff and Hans-Werner Jahnke began developing the type in Germany's Lüneburg Heath during the 1970s.",
+      "shortDescription": "A bold, energetic Lüneburg Heath hunting dog, selected for wild-boar work, stamina and cooperation with its handler.",
       "interestingFact": "",
       "sizeBand": "unknown",
       "typeLabel": "Recognized breed or regional type",
       "typeBasis": "catalog",
-      "originRegions": [],
+      "originRegions": [
+        "Germany",
+        "Lüneburg Heath"
+      ],
       "historicalRoots": "",
       "editorialFamilies": [],
       "registryGroups": [],
       "sourceIds": [
-        "vbo-2026-04-15"
+        "vbo-2026-04-15",
+        "stackrank-editorial-review-2026-10-03",
+        "breed-profile-vbo-0200666-1",
+        "breed-profile-vbo-0200666-2"
       ],
-      "reviewStatus": "generated"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0200667": {
       "summary": "The Hellenic Hound keeps following scent across difficult ground and uses a strong, musical voice to signal progress. It works from Greek lowlands to rocky mountain trails, sometimes alone and sometimes with a pack. That combination of persistence, vocal trail work and adaptable hunting ground defines its less visible character.",
@@ -27638,7 +27693,8 @@
       "reviewStatus": "source-reviewed"
     },
     "VBO:0201302": {
-      "summary": "Stephens' Cur is a dog breed or regional type associated with United States.",
+      "summary": "A fast, keen hunter, the Stephens’ Cur often carries its head high while following a trail and has a strong instinct to mark quarry in trees. Hugh Stephens’s Kentucky family developed this distinct line from Mountain Cur stock. Its main work is hunting squirrel and raccoon, with packs also used for larger game.",
+      "shortDescription": "A keen tree dog from Kentucky, known for following trails with its head high and hunting squirrel and raccoon.",
       "interestingFact": "",
       "sizeBand": "unknown",
       "typeLabel": "Recognized breed or regional type",
@@ -27651,9 +27707,11 @@
       "registryGroups": [],
       "sourceIds": [
         "vbo-2026-04-15",
-        "wikidata-dog-breeds-2026-09-21"
+        "wikidata-dog-breeds-2026-09-21",
+        "stackrank-editorial-review-2026-10-03",
+        "breed-profile-vbo-0201302-1"
       ],
-      "reviewStatus": "source-reviewed"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0201303": {
       "summary": "Stoodle is a named crossbreed.",
@@ -28675,7 +28733,8 @@
       "reviewStatus": "editor-reviewed"
     },
     "VBO:0201371": {
-      "summary": "Treeing Cur is a dog breed or regional type associated with United States.",
+      "summary": "Alert and keen to hunt, the Treeing Cur finds game through sight, hearing and scent. It may give voice or stay quiet while tracking, with a distinct change when quarry reaches a tree. Rural American breeders selected these versatile dogs for performance, combining hunting with guarding and livestock work.",
+      "shortDescription": "An alert tree dog using sight, hearing and scent, with voice on the trail varying between individuals.",
       "interestingFact": "",
       "sizeBand": "unknown",
       "typeLabel": "Recognized breed or regional type",
@@ -28688,25 +28747,32 @@
       "registryGroups": [],
       "sourceIds": [
         "vbo-2026-04-15",
-        "wikidata-dog-breeds-2026-09-21"
+        "wikidata-dog-breeds-2026-09-21",
+        "stackrank-editorial-review-2026-10-03",
+        "breed-profile-vbo-0201371-1"
       ],
-      "reviewStatus": "source-reviewed"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0201372": {
-      "summary": "Treeing Feist is a dog breed or regional type.",
+      "summary": "Highly alert, the Treeing Feist hunts through both sight and scent and tends to remain almost silent while following a trail. Generations of performance breeding in the rural American South shaped its small-game work. Squirrel hunting remains central, with raccoon, opossum, rabbits and flushing game birds also among its uses.",
+      "shortDescription": "An alert, usually quiet tracker using sight and scent, with squirrel hunting central to its working history.",
       "interestingFact": "",
       "sizeBand": "unknown",
       "typeLabel": "Recognized breed or regional type",
       "typeBasis": "catalog",
-      "originRegions": [],
+      "originRegions": [
+        "United States"
+      ],
       "historicalRoots": "",
       "editorialFamilies": [],
       "registryGroups": [],
       "sourceIds": [
         "vbo-2026-04-15",
-        "wikidata-dog-breeds-2026-09-21"
+        "wikidata-dog-breeds-2026-09-21",
+        "stackrank-editorial-review-2026-10-03",
+        "breed-profile-vbo-0201372-1"
       ],
-      "reviewStatus": "source-reviewed"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0201373": {
       "summary": "Treeing Tennessee Brindle is a dog breed or regional type associated with United States.",
@@ -29230,20 +29296,25 @@
       "reviewStatus": "source-reviewed"
     },
     "VBO:0201409": {
-      "summary": "Welsh Hound is a dog breed or regional type.",
+      "summary": "Independent and self-reliant, the Welsh Hound is a hunter shaped by rugged, rocky country. It follows low scent and uses a talkative voice that carries across windy Welsh hills. Organized hunts have maintained packs of these native hounds through a long regional hunting tradition.",
+      "shortDescription": "An independent Welsh pack hound, shaped by rocky hills and known for a carrying, talkative voice.",
       "interestingFact": "",
       "sizeBand": "unknown",
       "typeLabel": "Recognized breed or regional type",
       "typeBasis": "catalog",
-      "originRegions": [],
+      "originRegions": [
+        "Wales"
+      ],
       "historicalRoots": "",
       "editorialFamilies": [],
       "registryGroups": [],
       "sourceIds": [
         "vbo-2026-04-15",
-        "wikidata-dog-breeds-2026-09-21"
+        "wikidata-dog-breeds-2026-09-21",
+        "stackrank-editorial-review-2026-10-03",
+        "breed-profile-vbo-0201409-1"
       ],
-      "reviewStatus": "source-reviewed"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0201410": {
       "summary": "Welsh Sheepdogs use their own initiative to move livestock across open hill country, while also taking direction from a handler. Their herding and guarding instincts reach back to drovers’ dogs that kept cattle and sheep together on long routes. The Welsh Sheepdog Society has worked since 1997 to preserve this native working strain.",

@@ -83,6 +83,52 @@
         "sha256": "10a3b630bb95aad9820ff44b987f13d0b0687592e8598abd7d6ac2b09ac37850",
         "bytes": 1199
       }
+    },
+    {
+      "id": "l03",
+      "frozenAt": "2026-10-03T18:21:44.204419+00:00",
+      "catalogIds": [
+        "VBO:0200666"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "8855e4e6fff7a50f91c523bd5822908f01951b31fc84da94c5530663ce970575",
+      "freeze": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/tranche-l03-freeze-001.json",
+        "sha256": "7c2bc071e4fd05270701d39b1c5a4a00d19184b834735ac6b459cc3d04576bc3",
+        "bytes": 1519
+      }
+    },
+    {
+      "id": "l04",
+      "frozenAt": "2026-10-03T18:29:11.963339+00:00",
+      "catalogIds": [
+        "VBO:0201371",
+        "VBO:0201372",
+        "VBO:0201409",
+        "VBO:0201302"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "8adb3d7524ce81c0545913f1a25460496332ba3908d93fb0c1a564ec14797267",
+      "freeze": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/tranche-l04-freeze-001.json",
+        "sha256": "5f5ade50e69a78e912beb9eb6f06284e67dee26c6e575067f5abacae7c69025a",
+        "bytes": 2575
+      }
+    },
+    {
+      "id": "l05",
+      "frozenAt": "2026-10-03T18:43:24.015576+00:00",
+      "catalogIds": [
+        "VBO:0200056",
+        "VBO:0201355"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "d1fc2668dee6137a48a39dd68276d61154f3e0fbe2835dd78898f2bc1a1a5e84",
+      "freeze": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/tranche-l05-freeze-001.json",
+        "sha256": "71a5fa8e6f9612df76ab45f7c978bf3c69566b6840c7230b43a175deaad7d109",
+        "bytes": 1991
+      }
     }
   ],
   "amendments": [
@@ -2623,6 +2669,828 @@
         "productSha": "e9ad1a5a5c08a056367f420c0181f14fc060a62d",
         "verifiedAt": "2026-10-03T16:31:42.190611+00:00"
       }
+    },
+    "VBO:0200666": {
+      "catalogId": "VBO:0200666",
+      "displayName": "Heideterrier",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualified-text-0200666-001.json",
+        "sha256": "cae5d3d17d5ea88d4a60b6fea6de580c6edbe67a671ac097cf43bc7ab4c19bb5",
+        "bytes": 2282
+      },
+      "preparation": {
+        "worker": "C",
+        "trancheId": "l03",
+        "trancheSha256": "8855e4e6fff7a50f91c523bd5822908f01951b31fc84da94c5530663ce970575",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/packet-heideterrier-text-only-001.json",
+          "sha256": "bfedeac5c34065c0aa02c14c3bbcc78cb7987ca0d11c1c565264f6facf51d589",
+          "bytes": 14246
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/peer-c-heideterrier-text-only-001.json",
+          "sha256": "1eebe27facc3ce7fc15b63218488c7de16e65148e6f37faf90c512875689e43e",
+          "bytes": 6657
+        }
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/source-policy-user-authorization-002.json",
+          "sha256": "f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091",
+          "bytes": 1817
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/heideterrier-morphology-dossier-282.json",
+          "sha256": "b478e637f0723051d08631759c93f587ce7b0af5c9f9f2770ab38cf6ecdec765",
+          "bytes": 14603
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.jagdlicher-heideterrier-verein.de/",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-l/root-approvals/4d266d5f74b00a3a803557f00feb0c18c6f7c3f6627505748780f35ad5233514.json",
+        "rootApprovalSha256": "4d266d5f74b00a3a803557f00feb0c18c6f7c3f6627505748780f35ad5233514",
+        "primaryReviewedAt": "2026-10-03T18:21:44.204419+00:00",
+        "visualReview": "Root read final331-character full profile and116-character short copy, actual retained club home/full standard previously and verified current standard raw identical429e9a...; read current actual gallery caption and whole1134x1586 named Lotte photograph in Chrome page3. Developed head/chest/front, black-tan coarse smooth coat and folded ears corroborate; seated image does not establish hindlimbs/tail. Exact standard independently supplies complete limb and natural tail morphology. No photographic rights claim or generator photo input. Read exact2161-byte prompt3ad2fde...; fresh standing sparse autumn sand clearing/birches differs from seated named-dog vividpink-heath composition. A independentpeer1eebe27... passed exactpacket. No guarantees or parent-trait substitution.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Bold, energetic and willing to work with a handler, the Heideterrier was developed for the demanding job of flushing wild boar. Its breeding club puts practical hunting ability and stamina at the centre of selection. Karl-Heinz Markhoff and Hans-Werner Jahnke began developing the type in Germany's Lüneburg Heath during the 1970s.",
+        "summarySha256": "f7cc1dca9267c518f1451545b7c81ca85d12c6a71ca25b0e2dc686e33bcf706e",
+        "shortDescription": "A bold, energetic Lüneburg Heath hunting dog, selected for wild-boar work, stamina and cooperation with its handler.",
+        "shortDescriptionSha256": "19043ce8ce5a15cb9547a8827ea09c0599ba29269b0ac71aa475c20d6bfba8bb",
+        "author": "L worker C",
+        "reviewer": "L worker A and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/packet-heideterrier-text-only-001.json",
+        "sourcePathSha256": "bfedeac5c34065c0aa02c14c3bbcc78cb7987ca0d11c1c565264f6facf51d589",
+        "sourceSnapshots": [
+          {
+            "title": "Jagdlicher Heideterrier Verein e.V. – Der Heideterrier",
+            "url": "https://www.jagdlicher-heideterrier-verein.de/",
+            "evidence": "Club home text: courageous, enduring wild-boar specialist with handler attachment and biddability; Markhoff/Jahnke began type in Lüneburger Heide in1970s. Active breeding and test programme is named.",
+            "sourceRole": "Breed club first-party institutional selection/history account and normative standard; not an empirical behavior study or suitability guarantee.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-j/discovery-c/j08-reviewed-packets/preserved-sources/3a38beaaf348-heideterrier-club.html",
+              "sha256": "3a38beaaf348bf0705dbf1ea45be228452bd6d9020201549db27087f7834870a",
+              "bytes": 52416
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-j/discovery-c/j08-reviewed-packets/preserved-sources/a5afb8376140-heideterrier-club.txt",
+              "sha256": "a5afb83761403087efff8a9c255bf9e8a0baf3eb92f4e04315b2fd60fbde4bdb",
+              "bytes": 5126
+            },
+            "retrievedAt": "2026-10-01T10:54:14.210526+00:00",
+            "acquisitionDisclosure": "Retained J raw/extractedbody reused byte-identically; historical primary status/time recorded in J source object, original adjacentHTTPreceipt not invented. Complete retained home text personally read again."
+          },
+          {
+            "title": "Der Heideterrier – Rassestandard",
+            "url": "https://www.jagdlicher-heideterrier-verein.de/DER-HEIDETERRIER-RASSESTANDARD/",
+            "evidence": "Own standard VERHALTEN/CHARAKTER: courageous, work-willing, enduring, vital/temperamental, sociable and biddable. VERWENDUNG flushing work; compact45–55cm conformation, slightly rectangular; complete natural tail carried horizontal/slightly sickled (standard also allows docking).",
+            "sourceRole": "Breed club first-party institutional selection/history account and normative standard; not an empirical behavior study or suitability guarantee.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/heideterrier-current-standard-277.html",
+              "sha256": "429e9a85177c6e6664f019e8698404df607f85c76707635b8e88bc525114c865",
+              "bytes": 55923
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/heideterrier-current-standard-277.txt",
+              "sha256": "66adf5d5d01fa6b9b3f5679f8b96362c77de6b28d46e6dc87b7f61ca8af988a1",
+              "bytes": 9691
+            },
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/heideterrier-current-standard-277.html.receipt.json",
+              "sha256": "91763d511030eccc89d8255798c8203c130c82fd488156dd6309b515df563905",
+              "bytes": 1184
+            }
+          }
+        ],
+        "primaryReviewedAt": "2026-10-03T18:21:44.204419+00:00"
+      },
+      "scene": "A firm pale sandy clearing on Lüneburg Heath, with sparse dry autumn heath at the edges and a few distant birches under soft early morning light.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "L-0200666-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/attempt-L-0200666-01.json",
+              "sha256": "2f99d60d182744c8a143fb5312785c066e75aa51612633ee4cadaf31a68a493b",
+              "bytes": 5999
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-approvals/4d266d5f74b00a3a803557f00feb0c18c6f7c3f6627505748780f35ad5233514.json",
+              "sha256": "4d266d5f74b00a3a803557f00feb0c18c6f7c3f6627505748780f35ad5233514",
+              "bytes": 3659
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/preflights/af01f0d1-6e4e-47e8-aad7-6d3dbeaede22.json",
+              "sha256": "57668a059161d93b0d316fce6013ef699468a01c7fb196a99ae06b4173c10ba1",
+              "bytes": 3534
+            },
+            "imagePermitId": "af01f0d1-6e4e-47e8-aad7-6d3dbeaede22",
+            "trancheSha256": "8855e4e6fff7a50f91c523bd5822908f01951b31fc84da94c5530663ce970575",
+            "prompt": "Create one premium photorealistic Dogs field-guide portrait: a mature Heideterrier, the German Lüneburg Heath working hunting population. Use ONLY this independently written factual anatomy description; no reference photograph is provided or requested.\n\nA medium compact strong dog of roughly50cm withers scale, body a little longer than tall, deep well-sprung chest, strong level back, muscular flat croup, and modest abdominal tuck-up. Broad flat skull tapering mildly between eyes, substantial muzzle slightly shorter than skull with strong chin and tight dark lips, black nose, small oval dark eyes. High-set V-shaped ears fold close to the sides of the head. Strong moderately short neck and muscular shoulders. Straight strong-boned forelegs; broad close-toed front paws. Muscular thighs, sound bent stifles, low hocks, short rear pasterns, and compact oval hindpaws. Dense coarse smooth black coat with tan eyebrow spots, muzzle areas, modest chest patches and lower legs. A complete natural tapering tail attached at the croup extends behind horizontally with a gentle sickle; never a tail curled over the back. Avoid long narrow hound muzzle, drooping long ears, extreme Dobermann slenderness, very short legs, juvenile proportions or exaggerated hair.\n\nInvent a fresh composition: one anonymous adult dog standing relaxed in a left-facing three-quarter side view, head turned just enough to show both eyes, mouth softly closed. Four anatomically coherent separated paws bear weight on clear firm pale sand, with natural contact shadows; full connected tail and free tip remain visible. A quiet Lüneburg Heath clearing with sparse dry autumn heath at the edges, a few distant birches and soft early morning light. Restrained natural colours, realistic coat texture, calm field photography, no dramatic sky or dense pink flower slope. Do not recreate any existing photograph, named dog, pose or distinctive arrangement.\n\nLandscape1536×1024,3:2. Entire head, ears, body, four feet and full tail safely inside the frame with generous breathing room. No people, prey, hunting props, collar, harness, text, logos or watermark. Output one finished image.\n",
+            "promptSha256": "3ad2fde015a6b13e8a597cf0c3854fe6c3c451cf84fbe68f4a94595d040fc427",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-l/VBO-0200666-attempt-01.png",
+              "sha256": "7a79976e11019eb8b27573e5c8fae01098b1a91a2489fb72184deb2aeeb5988e",
+              "bytes": 2892968
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10084-6a5c-74e3-be15-e53510d6f4dd/exec-192b183e-3a7d-4296-91bc-c5f482536e5c.png",
+            "originalOutputSha256": "7a79976e11019eb8b27573e5c8fae01098b1a91a2489fb72184deb2aeeb5988e",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-03T18:22:56Z",
+            "completedAt": "2026-10-03T18:23:48Z",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-native-qa/0200666-01-accepted.json",
+              "sha256": "153ada07b010f2efdaf0d066c3b6da6f2a885f4e6e32e9c40cd4b3741d27aa30",
+              "bytes": 1271
+            }
+          }
+        ],
+        "acceptedAttemptId": "L-0200666-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-native-qa/0200666-01-accepted.json",
+          "sha256": "153ada07b010f2efdaf0d066c3b6da6f2a885f4e6e32e9c40cd4b3741d27aa30",
+          "bytes": 1271
+        },
+        "reviewedAt": "2026-10-03T18:29:11.921228+00:00",
+        "breedIdentity": "Mature robust black-tan Heideterrier, folded V ears, developed broad strong muzzle and chest, slightly rectangular functional body and coarse smooth coat matching independently researched standard and adult appearance.",
+        "anatomy": "Four distinct coherent grounded paws, functional limbs and joints, natural face; complete attached gently sickled horizontal tail with visible free tip.",
+        "crop": "Entire dog including ears, all paws and tail inside native with comfortable margins.",
+        "aesthetics": "Natural readable dark fur and contact shadows, warm quiet sandy autumn heath and birch backdrop; standing composition independent of seated dense pink flowering-heath source photograph. No props, text or other animals.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/l04-l05-five-contact-001.jpg",
+          "sha256": "314e8f34b306038d6c33121a7230f4cf9cc878067ae5246bd4ad1ab71481c556",
+          "bytes": 467785
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "l04",
+        "batchManifest": "data/dogs/generated-artwork-batch-l04.json",
+        "integratedAt": "2026-10-03T18:39:36.270054+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0201371": {
+      "catalogId": "VBO:0201371",
+      "displayName": "Treeing Cur",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualified-text-0201371-001.json",
+        "sha256": "09997e3a01e9f04759664c00b585a3b5e4ad698e9cf2593a342e95e97ed05193",
+        "bytes": 1993
+      },
+      "preparation": {
+        "worker": "A",
+        "trancheId": "l04",
+        "trancheSha256": "8adb3d7524ce81c0545913f1a25460496332ba3908d93fb0c1a564ec14797267",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/packet-text-only-cur-feist-welsh-001.json",
+          "sha256": "d2f9d0a11e42c07f7d945ed1127bf1e89315550391077f4c77d488ede77261ee",
+          "bytes": 26169
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/peer-a-text-only-cur-feist-welsh-001.json",
+          "sha256": "fb5d5c7c4ee073959c89435a3c45868692c42f163cc45e3446bb7188bb8f203d",
+          "bytes": 15196
+        }
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/source-policy-user-authorization-002.json",
+          "sha256": "f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091",
+          "bytes": 1817
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-dossier-0201371-text-only-001.json",
+          "sha256": "ae7451762fae3e1f1f0a84807b21d3d19e263f07cc4a76d1923148c10a6c1c15",
+          "bytes": 8077
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.ukcdogs.com/breed-standards/treeing-cur",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-l/root-approvals/7cd5a75960aedd06533d16643484e8f49a5c5465f58c767905e868c69db91674.json",
+        "rootApprovalSha256": "7cd5a75960aedd06533d16643484e8f49a5c5465f58c767905e868c69db91674",
+        "primaryReviewedAt": "2026-10-03T18:29:11.963339+00:00",
+        "visualReview": "Root read full final copy, exact prompt and current UKC standard anatomy/character; whole-viewed catalog pages4–7 with exact Treeing Cur labels and adult ages, separating Mountain Cur/Feist examples. Broad developed head, drop ears, functional muscular slightly rectangular body are corroborated; literal standard supplies low natural straight tail facts. Incorrect DogZone photo excluded. New reddish-brown standing woodland composition independently written. B exact peer passes.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Alert and keen to hunt, the Treeing Cur finds game through sight, hearing and scent. It may give voice or stay quiet while tracking, with a distinct change when quarry reaches a tree. Rural American breeders selected these versatile dogs for performance, combining hunting with guarding and livestock work.",
+        "summarySha256": "1bf494056aa42c1c66fef250c1cd28bfe6f8a2a4a3706276c5524778af5986f2",
+        "shortDescription": "An alert tree dog using sight, hearing and scent, with voice on the trail varying between individuals.",
+        "shortDescriptionSha256": "dd848edfcd43ab1e6235f3e37595e9008ef5d8099b32269ebacb6dcde5bd57b8",
+        "author": "L worker A",
+        "reviewer": "L worker B and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/packet-text-only-cur-feist-welsh-001.json",
+        "sourcePathSha256": "d2f9d0a11e42c07f7d945ed1127bf1e89315550391077f4c77d488ede77261ee",
+        "sourceSnapshots": [
+          {
+            "title": "Treeing Cur — Official UKC Breed Standard",
+            "url": "https://www.ukcdogs.com/breed-standards/treeing-cur",
+            "evidence": "Actual UKC HISTORY remote/ruralUnitedStates, performance rather than appearance, multipurpose hunter/guardian/stockdog and squirrel/raccoon/biggame. CHARACTERISTICS eyesearsandnose, open/semiopen/silenttrack goodchangeattree, alert. Earlier draft incorrectly borrowed ruralSouth/smallgamevermin framing from Feist; removed after exact source reading. No family suitability or trainability guarantee. ",
+            "sourceRole": "UKC normative standard and registry history; no empirical temperament study.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0201371-ukc-standard-current-001.html",
+              "sha256": "df04b9182a64e6c1736921fc8cb73f34c42ea0739229682b8db316b5b1ec8fe9",
+              "bytes": 89765
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0201371-ukc-standard-current-001.txt",
+              "sha256": "cea719510eeaafb993779efda0173ebab7d661a6f60c28257e420cdde8f71e1a",
+              "bytes": 14826
+            },
+            "acquisitionDisclosure": "Fresh HTTP200 raw snapshot and exact adjacent response receipt; full breed-standard body personally read. Navigation is not a claim source."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-03T18:29:11.963339+00:00"
+      },
+      "scene": "A quiet open patch of firm soil and sparse short grass at the edge of American deciduous woodland, soft cool early-morning light.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "L-0201371-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/attempt-L-0201371-01.json",
+              "sha256": "65cbf8032ce10c46a7e39b14c76718857311c05a7dcd5f02bca5d47420444847",
+              "bytes": 4539
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-approvals/7cd5a75960aedd06533d16643484e8f49a5c5465f58c767905e868c69db91674.json",
+              "sha256": "7cd5a75960aedd06533d16643484e8f49a5c5465f58c767905e868c69db91674",
+              "bytes": 3372
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/preflights/1921b5bd-f1fb-4e0b-96cf-e7592de29cba.json",
+              "sha256": "154d5184eceb45486f2da37308e8b0e86603a0ac4aca19c5067b6007ccb220d0",
+              "bytes": 3580
+            },
+            "imagePermitId": "1921b5bd-f1fb-4e0b-96cf-e7592de29cba",
+            "trancheSha256": "8adb3d7524ce81c0545913f1a25460496332ba3908d93fb0c1a564ec14797267",
+            "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one original1536×1024 landscape portrait of one mature adult Treeing Cur, exact catalog VBO:0201371. Text-only generation; no image inputs. Independently researched morphology: Adult small-to-medium powerful agile Treeing Cur; slightly longer than tall, long functional legs, hard muscular condition. Flat broad proportionate skull, moderately defined stop, muzzle a little shorter than skull, muscular cheeks, tight dark lips, square black nose, brown wide-set eyes. High-set short-to-medium broad-based drop ears. Strong moderately long neck; deep chest reaching elbows, level broad back, muscular loin with mild tuck-up, strong straight forelegs and well-bent stifles, low hocks, compact arched cat feet. Dense close-fitting short-to-medium smooth coat with soft dense undercoat. Low-set complete straight natural tapered tail; standard permits any tail length and expressly accepts full tails. Any color permitted; choose muted reddish-brown with modest dark shading and a small white breast fleck, without reproducing an individual’s pattern. Show a relaxed dog-eye-level three-quarter standing pose facing right with head gently turned toward viewer. All four anatomically coherent paws must be clearly planted on firm ground, with visible leg courses and joints, believable weight, contact shadows and no fused limbs. Frame the entire head, ears, trunk, all legs and paws, and full attached natural tail with generous crop-safe breathing room; keep the complete free tail tip visually separate from the hind legs. Setting: A quiet open patch of firm soil and sparse short grass at the edge of American deciduous woodland, soft cool early-morning light. Photorealistic restrained earth tones, detailed natural coat texture, softly separated background and gentle directional light. Create a fresh individual, markings, camera arrangement and composition. No source show stage, prizes, handler, rosette, collar or leash; no people, other animals, buildings, vehicles, prey, text, logos, watermark, extra limbs or malformed paws. Do not recreate any researched photograph or a named championship dog.\n",
+            "promptSha256": "50c953d428efa0fdd0060f3034cd712d363631044359435b18f4eeaea7c48950",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-l/worker-a/VBO-0201371-native-01.png",
+              "sha256": "2e7fd07f262074c10061ff7c3eb4236d66bdefca5b31962a7745797b0a5e0e6e",
+              "bytes": 3048146
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10083-e23b-7151-a71b-8eb3160aa4dc/exec-a6dcb461-8465-41be-b546-b67642106bda.png",
+            "originalOutputSha256": "2e7fd07f262074c10061ff7c3eb4236d66bdefca5b31962a7745797b0a5e0e6e",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-03 18:30:11 UTC",
+            "completedAt": "2026-10-03 18:30:34 UTC",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-native-qa/0201371-01-accepted.json",
+              "sha256": "9e24ea6b27b6f18d2cd38c31eb6a90ae55961593f67b0a46fd108b40b4fb760a",
+              "bytes": 1243
+            }
+          }
+        ],
+        "acceptedAttemptId": "L-0201371-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-native-qa/0201371-01-accepted.json",
+          "sha256": "9e24ea6b27b6f18d2cd38c31eb6a90ae55961593f67b0a46fd108b40b4fb760a",
+          "bytes": 1243
+        },
+        "reviewedAt": "2026-10-03T18:33:58.080223+00:00",
+        "breedIdentity": "Mature muscular Treeing Cur with broad developed head, medium folded ears, slightly rectangular working body and short reddish-brown coat; faithful to actual standard and mature examples.",
+        "anatomy": "Four coherent grounded legs/paws with natural joint courses and no extra digits/limbs; complete attached low natural tapered tail clear of body and visible to tip.",
+        "crop": "All extremities inside landscape with useful air around tail, ears and paws. Lower front paw closer to border but safely complete at full native.",
+        "aesthetics": "Believable woodland light, detailed natural fur/contact shadows and restrained grassy earth; independent composition and no text/people/gear.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/l04-l05-five-contact-001.jpg",
+          "sha256": "314e8f34b306038d6c33121a7230f4cf9cc878067ae5246bd4ad1ab71481c556",
+          "bytes": 467785
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "l05",
+        "batchManifest": "data/dogs/generated-artwork-batch-l05.json",
+        "integratedAt": "2026-10-03T18:39:36.416555+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0201372": {
+      "catalogId": "VBO:0201372",
+      "displayName": "Treeing Feist",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualified-text-0201372-001.json",
+        "sha256": "7f35e94c3d4bfde83831d5586a9d5e0c7b52599a88ec862de153bb2c7415c238",
+        "bytes": 1943
+      },
+      "preparation": {
+        "worker": "A",
+        "trancheId": "l04",
+        "trancheSha256": "8adb3d7524ce81c0545913f1a25460496332ba3908d93fb0c1a564ec14797267",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/packet-text-only-cur-feist-welsh-001.json",
+          "sha256": "d2f9d0a11e42c07f7d945ed1127bf1e89315550391077f4c77d488ede77261ee",
+          "bytes": 26169
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/peer-a-text-only-cur-feist-welsh-001.json",
+          "sha256": "fb5d5c7c4ee073959c89435a3c45868692c42f163cc45e3446bb7188bb8f203d",
+          "bytes": 15196
+        }
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/source-policy-user-authorization-002.json",
+          "sha256": "f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091",
+          "bytes": 1817
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-dossier-0201372-text-only-001.json",
+          "sha256": "4763f16a4311c01572af8bfdf4542018d2b42cab7faa48f4b88bff0629edacd0",
+          "bytes": 8299
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.ukcdogs.com/docs/breeds/treeing-feist.pdf",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-l/root-approvals/ae712ae062e0a7c32752206703780a869d3373e0522b70d62a85fd2547137fcd.json",
+        "rootApprovalSha256": "ae712ae062e0a7c32752206703780a869d3373e0522b70d62a85fd2547137fcd",
+        "primaryReviewedAt": "2026-10-03T18:29:11.963339+00:00",
+        "visualReview": "Root read full final copy, exact prompt and current UKC2022 standard plus whole catalog pages4–7. Identified mature Treeing Feists confirm compact athletic short coat without importing Mountain Feist traits. Prompt cocked ears follow current standard despite grandfathered historical drop-ear photographs; natural curved tail supported by standard. Fresh warm oak-opening composition, no photographic inputs. B exact peer passes.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Highly alert, the Treeing Feist hunts through both sight and scent and tends to remain almost silent while following a trail. Generations of performance breeding in the rural American South shaped its small-game work. Squirrel hunting remains central, with raccoon, opossum, rabbits and flushing game birds also among its uses.",
+        "summarySha256": "367d2901c568e8a3e46da892dce5216af2af029f5475a3e63b77bbd5d7bacc5a",
+        "shortDescription": "An alert, usually quiet tracker using sight and scent, with squirrel hunting central to its working history.",
+        "shortDescriptionSha256": "1dadef59d972c3edf3c179842c724669600370081e92a3806686bdf103fedb06",
+        "author": "L worker A",
+        "reviewer": "L worker B and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/packet-text-only-cur-feist-welsh-001.json",
+        "sourcePathSha256": "d2f9d0a11e42c07f7d945ed1127bf1e89315550391077f4c77d488ede77261ee",
+        "sourceSnapshots": [
+          {
+            "title": "Treeing Feist — Official UKC Breed Standard (September 1, 2022)",
+            "url": "https://www.ukcdogs.com/docs/breeds/treeing-feist.pdf",
+            "evidence": "UKC PDFpage1 History/Characteristics: extremelyalert sight+scent virtuallysilenttrack, ruralSouth performancebreeding, squirrels plusotherquarry/gamebirds. Preserve AtomicFeist Young’sAtomicFlash source identity exclusion; no synonymsubstition MountainFeist.",
+            "sourceRole": "UKC normative standard (2022) and registry history; no empirical temperament study.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0201372-ukc-standard-current-001.pdf",
+              "sha256": "901c9f849bafee3985541ab8673a4f312f6ce04f9ae8f2c8f68ac1504a78501d",
+              "bytes": 545792
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-j/discovery-c/j09-remaining15/primaries/0201372-ukc-treeing-feist.txt",
+              "sha256": "914ed4cd2ce928a1faccc9a81e291a7315cdeded758b571a71386068e4cb8eb7",
+              "bytes": 6960
+            },
+            "acquisitionDisclosure": "Fresh HTTP200 PDF byte-identical to retained J545792-byte native; complete retained two-page extraction personally read and bound. Original old acquisition timing unknown beyond J recorded retrievedAt; fresh receipt supplies actual current acquisition, no relabeling."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-03T18:29:11.963339+00:00"
+      },
+      "scene": "A clear dry short-grass opening beside southern American mixed oak woodland, softly lit by warm late-afternoon light.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "L-0201372-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/attempt-L-0201372-01.json",
+              "sha256": "e2f5c73a900ffff62c03198213d95d1621d627f58442108988b7b88b5e98abbb",
+              "bytes": 4759
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-approvals/ae712ae062e0a7c32752206703780a869d3373e0522b70d62a85fd2547137fcd.json",
+              "sha256": "ae712ae062e0a7c32752206703780a869d3373e0522b70d62a85fd2547137fcd",
+              "bytes": 3320
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/preflights/0c1ea444-328e-418d-af2f-ff3ede9fde03.json",
+              "sha256": "9d7bc04cd6c5d150762d5e5f21a10e2f67ba4509f230c6e5fb934aee3738e81a",
+              "bytes": 3733
+            },
+            "imagePermitId": "0c1ea444-328e-418d-af2f-ff3ede9fde03",
+            "trancheSha256": "8adb3d7524ce81c0545913f1a25460496332ba3908d93fb0c1a564ec14797267",
+            "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one original1536×1024 landscape portrait of one mature adult Treeing Feist, exact catalog VBO:0201372. Text-only generation; no image inputs. Independently researched morphology: Adult agile small Treeing Feist in hard working condition, distinctly smaller and lighter than the Treeing Cur; slightly longer than tall, functional straight legs, muscular compact body and moderate bone. Broad flat skull, defined moderate stop, strong sufficiently broad muzzle a little shorter than skull, tight lips, black nose, brown eyes. High-set short-to-medium broad-based cocked ears, folded outward tips with bases raised; never pendulous hound ears or flat drop ears. Moderate clean muscular neck, deep moderately wide chest to elbows, level back, mild tuck-up, well-bent stifles and low hocks; tight round arched feet. Short dense smooth coat. Full natural tail thick at base tapering to tip, at end of croup, carried in an open upward curve when alert, not a tight spitz coil. Any color permitted; choose warm tan with a restrained white chest marking, different from the photographed individuals’ exact markings. UKC height12–18in and working12–30lb are proportions guidance only, no depicted measurement guarantee. Show a relaxed dog-eye-level three-quarter standing pose facing left with head gently raised toward viewer. All four anatomically coherent paws must be clearly planted on firm ground, with visible leg courses and joints, believable weight, contact shadows and no fused limbs. Frame the entire head, ears, trunk, all legs and paws, and full attached natural tail with generous crop-safe breathing room; keep the complete free tail tip visually separate from the hind legs. Setting: A clear dry short-grass opening beside southern American mixed oak woodland, softly lit by warm late-afternoon light. Photorealistic restrained earth tones, detailed natural coat texture, softly separated background and gentle directional light. Create a fresh individual, markings, camera arrangement and composition. No source show stage, prizes, handler, rosette, collar or leash; no people, other animals, buildings, vehicles, prey, text, logos, watermark, extra limbs or malformed paws. Do not recreate any researched photograph or a named championship dog.\n",
+            "promptSha256": "dbe249065c682a3865df6c2104ceb7828438f502f2f9fa5d0e038b1b93c9df53",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-l/worker-a/VBO-0201372-native-01.png",
+              "sha256": "68a020281e5c8890d941f5d90dd0249c6083c93d7879fb55509d4a9fc3b3e9e5",
+              "bytes": 3222899
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10083-e23b-7151-a71b-8eb3160aa4dc/exec-fad54fdf-4fc1-4ac2-9873-cb545548a190.png",
+            "originalOutputSha256": "68a020281e5c8890d941f5d90dd0249c6083c93d7879fb55509d4a9fc3b3e9e5",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-03 18:32:17 UTC",
+            "completedAt": "2026-10-03 18:32:38 UTC",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-native-qa/0201372-01-accepted.json",
+              "sha256": "3f192cb116932ac6028506ca2788686af78dc4d7be068b6da02ed35857e51943",
+              "bytes": 1283
+            }
+          }
+        ],
+        "acceptedAttemptId": "L-0201372-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-native-qa/0201372-01-accepted.json",
+          "sha256": "3f192cb116932ac6028506ca2788686af78dc4d7be068b6da02ed35857e51943",
+          "bytes": 1283
+        },
+        "reviewedAt": "2026-10-03T18:35:05.757939+00:00",
+        "breedIdentity": "Mature compact agile Treeing Feist, lighter working proportions than Cur, short tan/white coat, broad moderate head and raised cocked ear bases with folded tips conforming to current UKC standard.",
+        "anatomy": "Four coherent grounded paws/limbs with ordinary far-side perspective, natural joints and adult proportions. Complete attached tapered tail in open upward curve, free endpoint distinct from body, no tight spitz coil.",
+        "crop": "Full ears, paws and entire tail clearly inside frame with useful margins; no clipping or missing endpoints.",
+        "aesthetics": "Warm oak-opening light and natural coat detail/contact shadows. Fresh independent field composition, no photographed championship markings/handler/show stage.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/l04-l05-five-contact-001.jpg",
+          "sha256": "314e8f34b306038d6c33121a7230f4cf9cc878067ae5246bd4ad1ab71481c556",
+          "bytes": 467785
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "l05",
+        "batchManifest": "data/dogs/generated-artwork-batch-l05.json",
+        "integratedAt": "2026-10-03T18:39:36.416555+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0201409": {
+      "catalogId": "VBO:0201409",
+      "displayName": "Welsh Hound",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualified-text-0201409-001.json",
+        "sha256": "be6f5e3142860b9cac320a01e701b2eecbbb7fd19203b7d035c63c1ae3a9d3fa",
+        "bytes": 2015
+      },
+      "preparation": {
+        "worker": "A",
+        "trancheId": "l04",
+        "trancheSha256": "8adb3d7524ce81c0545913f1a25460496332ba3908d93fb0c1a564ec14797267",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/packet-text-only-cur-feist-welsh-001.json",
+          "sha256": "d2f9d0a11e42c07f7d945ed1127bf1e89315550391077f4c77d488ede77261ee",
+          "bytes": 26169
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/peer-a-text-only-cur-feist-welsh-001.json",
+          "sha256": "fb5d5c7c4ee073959c89435a3c45868692c42f163cc45e3446bb7188bb8f203d",
+          "bytes": 15196
+        }
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/source-policy-user-authorization-002.json",
+          "sha256": "f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091",
+          "bytes": 1817
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-dossier-0201409-text-only-001.json",
+          "sha256": "e4914e82bc2a7c72c4b05773213a96d1864764ce1abf6dc8fb7d8cde0de1e7bd",
+          "bytes": 7663
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.ukcdogs.com/breed-standards/welsh-hound",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-l/root-approvals/54ef4439bab279c2bdecd49df66f7407439bd870071a678384efc98c897062bb.json",
+        "rootApprovalSha256": "54ef4439bab279c2bdecd49df66f7407439bd870071a678384efc98c897062bb",
+        "primaryReviewedAt": "2026-10-03T18:29:11.963339+00:00",
+        "visualReview": "Root read full final copy, exact prompt, entire UKC standard and substantive H&H2017 Welsh show report/captions/byline. Whole viewed all three630x400 actual image URLs showing identified champion Dafydd and Welsh ring adults; developed rough medium coat, long folded ears and sturdy rectangular body corroborated. Standard supplies obscured feet/tail facts. Fresh quiet Welsh hillside standing portrait differs from rosette/moving/ring source arrangements. No source license inferred. B exact peer passes.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Independent and self-reliant, the Welsh Hound is a hunter shaped by rugged, rocky country. It follows low scent and uses a talkative voice that carries across windy Welsh hills. Organized hunts have maintained packs of these native hounds through a long regional hunting tradition.",
+        "summarySha256": "e22fb9b157620018f1566aba6e8751ae614947604b92dcfebcc8989b38769fc6",
+        "shortDescription": "An independent Welsh pack hound, shaped by rocky hills and known for a carrying, talkative voice.",
+        "shortDescriptionSha256": "1381c69463f5a2cf59644cc63414e8d105f8c7292a46f561c1ea7abdb2a19496",
+        "author": "L worker A",
+        "reviewer": "L worker B and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/packet-text-only-cur-feist-welsh-001.json",
+        "sourcePathSha256": "d2f9d0a11e42c07f7d945ed1127bf1e89315550391077f4c77d488ede77261ee",
+        "sourceSnapshots": [
+          {
+            "title": "Welsh Hound — Official UKC Breed Standard",
+            "url": "https://www.ukcdogs.com/breed-standards/welsh-hound",
+            "evidence": "Exact UKC HISTORY well-knownpacks maintainedbyorganizedhunts nearly200years; generalappearance low-scenting talkative loud bark windyhills; CHARACTERISTICS sturdyindependent/selfreliantrockyhills. Removed earlier draft associationbreeding-records and stamina claims, which were not in this exact primary. No Celticancestrycertainty, childpet suitability or currentlegalhunting claim; prior1915illustration stillexcluded.",
+            "sourceRole": "UKC normative standard and registry history; speculative ancestry omitted.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0201409-ukc-standard-current-001.html",
+              "sha256": "294021ea96d77ea87e168ae5063874dc958941311ae1ad020298d01a1b3cecdf",
+              "bytes": 86399
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0201409-ukc-standard-current-001.txt",
+              "sha256": "6c61b9a9c7c993010f77166dba02e6fb44c8c5fcdb94c971282682494bfbcf8a",
+              "bytes": 11584
+            },
+            "acquisitionDisclosure": "Fresh HTTP200 raw snapshot and exact adjacent response receipt; full breed-standard body personally read. Navigation is not a claim source."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-03T18:29:11.963339+00:00"
+      },
+      "scene": "A broad firm short-grass shelf on a Welsh hillside, low distant rocky slopes and muted fern textures, softly overcast daylight.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "L-0201409-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/attempt-L-0201409-01.json",
+              "sha256": "96ac5f43e3e4c44feb3a7570b0829e3745ce3026f637e1f178ec8cf02cfe7779",
+              "bytes": 4818
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-approvals/54ef4439bab279c2bdecd49df66f7407439bd870071a678384efc98c897062bb.json",
+              "sha256": "54ef4439bab279c2bdecd49df66f7407439bd870071a678384efc98c897062bb",
+              "bytes": 3394
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/preflights/1ef0482a-3d4f-4388-887f-f9bf147a7718.json",
+              "sha256": "b68b4acb08bd0e6a1bcddaa0d4643c6c1085b7f4537d6739d8d51754256c35a3",
+              "bytes": 3722
+            },
+            "imagePermitId": "1ef0482a-3d4f-4388-887f-f9bf147a7718",
+            "trancheSha256": "8adb3d7524ce81c0545913f1a25460496332ba3908d93fb0c1a564ec14797267",
+            "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one original1536×1024 landscape portrait of one mature adult Welsh Hound, exact catalog VBO:0201409. Text-only generation; no image inputs. Independently researched morphology: Mature sturdy Welsh Hound, a medium-large rough-coated pack scenthound, approximately24in UKC ideal, strong substantial body without caricature. Broad full cranium slightly domed at occiput, moderate stop, fair-length straight square-cut muzzle, long moderately low-set ears lying close to head. Long slightly arched muscular neck, sloped muscular shoulders, long straight well-boned forelegs, deep chest and well-sprung ribs, broad level back with a slight rise at strong loin. Powerful muscular hindquarters, moderate stifle bend and low hocks; round tight padded feet. Rough dense medium-length coat with modest natural shag and facial whiskers; preserve readable body and joints, not an exaggerated terrier beard or smooth English Foxhound coat. Complete natural high-set tail carried gaily in an open upward sweep, never curled over the back. White base with fawn/tan areas and restrained dark shading are within standard’s mixed-color scope; independently chosen placement, not a clone of the named champion. Show a relaxed dog-eye-level three-quarter standing pose facing right with head gently turned toward viewer. All four anatomically coherent paws must be clearly planted on firm ground, with visible leg courses and joints, believable weight, contact shadows and no fused limbs. Frame the entire head, ears, trunk, all legs and paws, and full attached natural tail with generous crop-safe breathing room; keep the complete free tail tip visually separate from the hind legs. Setting: A broad firm short-grass shelf on a Welsh hillside, low distant rocky slopes and muted fern textures, softly overcast daylight. Photorealistic restrained earth tones, detailed natural coat texture, softly separated background and gentle directional light. Create a fresh individual, markings, camera arrangement and composition. No source show stage, prizes, handler, rosette, collar or leash; no people, other animals, buildings, vehicles, prey, text, logos, watermark, extra limbs or malformed paws. Do not recreate any researched photograph or a named championship dog.\n",
+            "promptSha256": "5f22cc33daada502a5260143f64bccb8d078c779799bd16b886f5141d17b446a",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-l/worker-a/VBO-0201409-native-01.png",
+              "sha256": "c5fdec4bf8564c900fd160284c46027203368dd7704ecb1d1a104499e442d776",
+              "bytes": 2983137
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10083-e23b-7151-a71b-8eb3160aa4dc/exec-565087f5-4cfc-400f-b539-8ba1e64aa7b5.png",
+            "originalOutputSha256": "c5fdec4bf8564c900fd160284c46027203368dd7704ecb1d1a104499e442d776",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-03 18:37:13 UTC",
+            "completedAt": "2026-10-03 18:37:33 UTC",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-native-qa/0201409-01-accepted.json",
+              "sha256": "200af5bdab78f0d6d27b9ab731022ab34fe0647f56adfc4f390d0d130274b79a",
+              "bytes": 1278
+            }
+          }
+        ],
+        "acceptedAttemptId": "L-0201409-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-native-qa/0201409-01-accepted.json",
+          "sha256": "200af5bdab78f0d6d27b9ab731022ab34fe0647f56adfc4f390d0d130274b79a",
+          "bytes": 1278
+        },
+        "reviewedAt": "2026-10-03T18:39:09.019521+00:00",
+        "breedIdentity": "Mature sturdy Welsh Hound, medium-long low folded ears, developed rough medium coat/facial whiskers, substantial long-legged body consistent with actual standard and identified mature pack hounds.",
+        "anatomy": "Four coherent complete grounded paws and natural limb courses; full attached high-set tail with open upward sweep/free white tip, not coiled over back.",
+        "crop": "All feet, ears and tail endpoint inside native. Tail top margin relatively modest but visibly clear and retained in standard3:2delivery.",
+        "aesthetics": "Believable soft overcast Welsh hillside with rocky slopes/ferns and natural fur/contact shadows; independently arranged coat pattern and quiet standing scene differs from show photographs.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/l04-l05-five-contact-001.jpg",
+          "sha256": "314e8f34b306038d6c33121a7230f4cf9cc878067ae5246bd4ad1ab71481c556",
+          "bytes": 467785
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "l05",
+        "batchManifest": "data/dogs/generated-artwork-batch-l05.json",
+        "integratedAt": "2026-10-03T18:39:36.416555+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0201302": {
+      "catalogId": "VBO:0201302",
+      "displayName": "Stephens' Cur",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualified-text-0201302-001.json",
+        "sha256": "8611c8451b2da298f5e4e71ca8ca804f1cfac63d6f264c4ee58e3f9b127f4bac",
+        "bytes": 2172
+      },
+      "preparation": {
+        "worker": "B",
+        "trancheId": "l04",
+        "trancheSha256": "8adb3d7524ce81c0545913f1a25460496332ba3908d93fb0c1a564ec14797267",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/packet-stephens-text-only-001.json",
+          "sha256": "69ef66f1ae0e772516cb61681a58075b848a17491b97318f3d3f7ed2393c8ba3",
+          "bytes": 10571
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/peer-b-stephens-text-only-001.json",
+          "sha256": "70121c29e4dcd56aacc75b1b95cbe37b22b94987468cf2c56457453b5fa89547",
+          "bytes": 8004
+        }
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/source-policy-user-authorization-002.json",
+          "sha256": "f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091",
+          "bytes": 1817
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/research-dossier-stephens-text-only-001.json",
+          "sha256": "d1fa6c63fef2fc360dea29e00ef81a155a25b39b745c5b99f05efcc00c02c71f",
+          "bytes": 6089
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.ukcdogs.com/stephens-cur",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-l/root-approvals/2620ea726562e35731b9e02985e6cb1c615c99a332c32f075b7a62f21d0bbc2b.json",
+        "rootApprovalSha256": "2620ea726562e35731b9e02985e6cb1c615c99a332c32f075b7a62f21d0bbc2b",
+        "primaryReviewedAt": "2026-10-03T18:29:11.963339+00:00",
+        "visualReview": "Root read exact312-character full/110-character short profile, complete substantive UKC standard and2494-byte prompt, dossier and visual limitations. Whole actual350x350 identified Stephens photo and500x372 official ideal illustration viewed in Chrome. Mature developed broad head, folded ears, short dark coat/limitedwhite and muscular body corroborated; low medium straight natural tail/ovalfeet supported by literal UKC text. Research grayscale cannot determine color; standard independently black. New afternoon Kentucky woodland three-quarter composition differs from photo fence/front stance and illustration. Alias0917 excluded as samepopulation. C exact peer passes.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "A fast, keen hunter, the Stephens’ Cur often carries its head high while following a trail and has a strong instinct to mark quarry in trees. Hugh Stephens’s Kentucky family developed this distinct line from Mountain Cur stock. Its main work is hunting squirrel and raccoon, with packs also used for larger game.",
+        "summarySha256": "929e68c4aea2288f78141afa90ca052d6c7014f1d98c6a3bcc958aeecdf8c5fe",
+        "shortDescription": "A keen tree dog from Kentucky, known for following trails with its head high and hunting squirrel and raccoon.",
+        "shortDescriptionSha256": "6c0edd644d0b7bc749e80cea49f36486a0e87b0ec223a5b3702e17c857b8f160",
+        "author": "L worker B",
+        "reviewer": "L worker C and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/packet-stephens-text-only-001.json",
+        "sourcePathSha256": "69ef66f1ae0e772516cb61681a58075b848a17491b97318f3d3f7ed2393c8ba3",
+        "sourceSnapshots": [
+          {
+            "title": "Stephens’ Cur: Official UKC Breed Standard",
+            "url": "https://www.ukcdogs.com/stephens-cur",
+            "sourceRole": "Primary registry standard documenting its own breed definition, working tradition and adult morphology; character is a breed-standard tendency, not empirical temperament evidence or individual prediction.",
+            "evidence": "History identifies Hugh Stephens’s Kentucky family line as distinct from Mountain Cur, with squirrel and raccoon hunting and packs used for larger game. Characteristics describes fast hunting, head-high trailing and strong treeing instincts. General Appearance, Head, Body, Feet, Tail, Coat, Color and Height and Weight directly define mature anatomy for the factual prompt. No universal trainability, health or suitability claim.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-j/discovery-b/j09-j10-reviewed-packets/snapshots/0201302-ukc-stephens.html",
+              "sha256": "f3036f2244ed7c2f544ae37384dee1cc28c45e7fb8fd86900cd9547271cacadc",
+              "bytes": 86824
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-j/discovery-b/j09-j10-reviewed-packets/snapshots/0201302-ukc-stephens.txt",
+              "sha256": "5a229b37dc4f430d3e5c5afd600ff8db7988ac4392ce8310e7299b848dacee62",
+              "bytes": 13947
+            },
+            "acquisitionDisclosure": "Byte-verified complete retained J official HTML/text, originally retrieved2026-10-01T11:19:14.047027+00:00; full actual text read again by B in L. No fresh UKC fetch claimed."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-03T18:29:11.963339+00:00"
+      },
+      "scene": "A broad open footpath in a Kentucky hardwood woodland in warm afternoon light.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "L-0201302-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/attempt-L-0201302-01.json",
+              "sha256": "13c69a150a6f1fb415c4cf361e6a1686a7c29d00f3dcf75aa6d3d8ce2158f264",
+              "bytes": 7143
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-approvals/2620ea726562e35731b9e02985e6cb1c615c99a332c32f075b7a62f21d0bbc2b.json",
+              "sha256": "2620ea726562e35731b9e02985e6cb1c615c99a332c32f075b7a62f21d0bbc2b",
+              "bytes": 3550
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/preflights/9ae07756-0582-4ad9-9507-fca86b0383fd.json",
+              "sha256": "ab57875142cb2e172957f88a23435b77fdab91ed430c741a5db3823911c178b2",
+              "bytes": 3864
+            },
+            "imagePermitId": "9ae07756-0582-4ad9-9507-fca86b0383fd",
+            "trancheSha256": "8adb3d7524ce81c0545913f1a25460496332ba3908d93fb0c1a564ec14797267",
+            "prompt": "Create one original photorealistic field-guide portrait of a mature Stephens’ Cur (Stephens’ Stock Cur), a distinct Kentucky tree-hunting breed. Landscape1536×1024, one dog only, no text or logos. Use independently written factual morphology and a new composition; no photograph is supplied or to be recreated.\n\nAdult anatomy: a small-to-medium, lean and muscular working dog with a body just slightly longer than tall. Deep chest reaches the elbows, broad strong level back, muscular loin and modest abdominal tuck. Balanced strong shoulders and thighs, well-bent stifles, low hocks, short rear pasterns; four anatomically correct complete legs and compact oval paws. Broad flat proportionate skull, moderate stop, muzzle a little shorter than the skull, tight lips without drooping flews, black nose and natural brown eyes. Short-to-medium drop ears, high set and broad at their base. Short dense close-fitting black coat with modest white on the chest and a few toes, well below one-third white; natural fur texture rather than shaggy or wooly coat. Natural low-set straight tail of medium length with a tapered free endpoint. Do not dock or crop any feature.\n\nNew scene and pose: stand quietly on a broad clear earthen footpath in a Kentucky hardwood woodland, body angled three quarters across the frame, head turning slightly to the left with a calm alert expression. Warm afternoon side light separates the dark coat from soft russet and green foliage; subtle distant trunks, natural depth and restrained color. Show functional adult proportions rather than exaggerated bulk or puppy features. This is a new posed field-guide scene, not the front-facing fenced grayscale photograph or the strict lateral registry illustration used for factual research. Do not reproduce their exact markings, expression, layout or background.\n\nFrame the entire dog generously. Four leg courses and all four paws must remain readable against uncluttered ground, with ordinary perspective but no merged, missing or extra limbs. The complete attached tail must be plainly visible from its low root to its free tip, with at least100pixels clear margin around the tail endpoint and paws and comfortable space around ears. Keep every anatomical endpoint away from all image borders. No people, animals, collar, leash, tags, fencing, hunting gear, prey or props. Render a convincing original dog, crisp natural anatomy and coat detail, realistic soft shadows, without copying a particular researched image.",
+            "promptSha256": "473130abc4e0b6df9a8e3952fb5dce4dbde264c3f8ed14b3d658344789efe621",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-l/worker-b/L-0201302-01.png",
+              "sha256": "ad6d8c3a1be375d78944a6f409fea214c4d8fd55723599988ee806beae93d8a4",
+              "bytes": 3168086
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10084-262b-7072-9850-941cc19a6850/exec-8012bfb6-5442-4034-889f-8a3ccbb32222.png",
+            "originalOutputSha256": "ad6d8c3a1be375d78944a6f409fea214c4d8fd55723599988ee806beae93d8a4",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-03 18:36:26 UTC",
+            "completedAt": "2026-10-03 18:36:50 UTC",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-native-qa/0201302-01-accepted.json",
+              "sha256": "88fbe06b2ed7920c515f8d454e9ea2648496c51dff61c27bfa03baf15b8756fb",
+              "bytes": 1292
+            }
+          }
+        ],
+        "acceptedAttemptId": "L-0201302-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-native-qa/0201302-01-accepted.json",
+          "sha256": "88fbe06b2ed7920c515f8d454e9ea2648496c51dff61c27bfa03baf15b8756fb",
+          "bytes": 1292
+        },
+        "reviewedAt": "2026-10-03T18:39:09.017966+00:00",
+        "breedIdentity": "Mature athletic Stephens Cur, broad developed head/short medium drop ears, slightly rectangular lean muscular body and short black coat with limited white chest/toes consistent with exact UKC standard.",
+        "anatomy": "Four complete coherent grounded paws and limbs; balanced joints, natural face and complete attached low medium-length tail. Gentle resting downward tail course is anatomically plausible.",
+        "crop": "All endpoints clearly visible inside native; head/paw breathing room around60–65pixels is below prompt request100 but safely complete and usable without crop.",
+        "aesthetics": "New warm hardwood woodland path, realistic coat texture/contact shadows, no fence/collar/grayscale composition from source and no props or text.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/l04-l05-five-contact-001.jpg",
+          "sha256": "314e8f34b306038d6c33121a7230f4cf9cc878067ae5246bd4ad1ab71481c556",
+          "bytes": 467785
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "l05",
+        "batchManifest": "data/dogs/generated-artwork-batch-l05.json",
+        "integratedAt": "2026-10-03T18:39:36.416555+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
     }
   },
   "integrationBatches": [
@@ -2699,6 +3567,51 @@
         "bytes": 1155
       },
       "integratedAt": "2026-10-03T16:20:50.835715+00:00"
+    },
+    {
+      "subwave": "l04",
+      "trancheId": "l03",
+      "trancheSha256": "8855e4e6fff7a50f91c523bd5822908f01951b31fc84da94c5530663ce970575",
+      "catalogIds": [
+        "VBO:0200666"
+      ],
+      "count": 1,
+      "batchManifest": "data/dogs/generated-artwork-batch-l04.json",
+      "contactSheet": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/l04-l05-five-contact-001.jpg",
+        "sha256": "314e8f34b306038d6c33121a7230f4cf9cc878067ae5246bd4ad1ab71481c556",
+        "bytes": 467785
+      },
+      "rootRelease": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/release-l04-root-001.json",
+        "sha256": "c0f3ac36634060ef404183c8edd51579b52c56953d5a0cff3ab75c7984d0f841",
+        "bytes": 1418
+      },
+      "integratedAt": "2026-10-03T18:39:36.270054+00:00"
+    },
+    {
+      "subwave": "l05",
+      "trancheId": "l04",
+      "trancheSha256": "8adb3d7524ce81c0545913f1a25460496332ba3908d93fb0c1a564ec14797267",
+      "catalogIds": [
+        "VBO:0201371",
+        "VBO:0201372",
+        "VBO:0201409",
+        "VBO:0201302"
+      ],
+      "count": 4,
+      "batchManifest": "data/dogs/generated-artwork-batch-l05.json",
+      "contactSheet": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/l04-l05-five-contact-001.jpg",
+        "sha256": "314e8f34b306038d6c33121a7230f4cf9cc878067ae5246bd4ad1ab71481c556",
+        "bytes": 467785
+      },
+      "rootRelease": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/release-l05-root-001.json",
+        "sha256": "be364ad272217937fad530f98f73e88efdf7304bc4e769b5355c933777c0e45c",
+        "bytes": 1476
+      },
+      "integratedAt": "2026-10-03T18:39:36.416555+00:00"
     }
   ],
   "publications": [
@@ -2757,10 +3670,10 @@
     }
   ],
   "progress": {
-    "qualified": 14,
-    "generationCalls": 15,
-    "accepted": 14,
-    "integrated": 14,
+    "qualified": 21,
+    "generationCalls": 20,
+    "accepted": 19,
+    "integrated": 19,
     "published": 14
   },
   "auditAllocation": {
@@ -2879,9 +3792,58 @@
       "sha256": "87e173aecdd726cdeba999e307004994e8a71c223e35fc7467c9e46ac9f7a2c2",
       "bytes": 2470,
       "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0200666",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualified-text-0200666-001.json",
+      "sha256": "cae5d3d17d5ea88d4a60b6fea6de580c6edbe67a671ac097cf43bc7ab4c19bb5",
+      "bytes": 2282,
+      "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0201371",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualified-text-0201371-001.json",
+      "sha256": "09997e3a01e9f04759664c00b585a3b5e4ad698e9cf2593a342e95e97ed05193",
+      "bytes": 1993,
+      "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0201372",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualified-text-0201372-001.json",
+      "sha256": "7f35e94c3d4bfde83831d5586a9d5e0c7b52599a88ec862de153bb2c7415c238",
+      "bytes": 1943,
+      "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0201409",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualified-text-0201409-001.json",
+      "sha256": "be6f5e3142860b9cac320a01e701b2eecbbb7fd19203b7d035c63c1ae3a9d3fa",
+      "bytes": 2015,
+      "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0201302",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualified-text-0201302-001.json",
+      "sha256": "8611c8451b2da298f5e4e71ca8ca804f1cfac63d6f264c4ee58e3f9b127f4bac",
+      "bytes": 2172,
+      "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0200056",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualified-text-0200056-001.json",
+      "sha256": "1e8c5523ab4633862eb7bbf9a65a1198fbb7be138545d54966818d83d7c5125c",
+      "bytes": 2065,
+      "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0201355",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualified-text-0201355-001.json",
+      "sha256": "63baf409fb9262fa58cc5b198c8c698b90f22523e8cbef1da224c5f9b3282b73",
+      "bytes": 2011,
+      "generationAuthorized": false
     }
   ],
-  "updatedAt": "2026-10-03T17:08:55.806493+00:00",
+  "updatedAt": "2026-10-03T18:43:24.015576+00:00",
   "qualificationBlocker": {
     "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualification-blocker-001.json",
     "sha256": "d40da108884f7381d49ad5b71adcda7c6e89b2dc63298f52af0476ee4288f88f",
@@ -2901,8 +3863,16 @@
   },
   "qualificationBlockerSupersededByDirectUserAmendment": true,
   "currentSourceReadiness": {
-    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/recovery-source-gap-checkpoint-016.json",
-    "sha256": "4d15244669a205cb607d2390ab1c45f17e287cc212bc55d363430d8007168404",
-    "bytes": 4603
+    "status": "active-authorized-text-only-production",
+    "authorization": {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/source-policy-user-authorization-002.json",
+      "sha256": "f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091",
+      "bytes": 1817
+    }
+  },
+  "sourcePolicyAuthorization": {
+    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/source-policy-user-authorization-002.json",
+    "sha256": "f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091",
+    "bytes": 1817
   }
 }

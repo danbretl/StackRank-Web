@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 spec = importlib.util.spec_from_file_location('packet', Path(__file__).resolve().parents[1]/'scripts/dog-portrait-packet.py')
 m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
@@ -43,6 +44,24 @@ class PacketTests(unittest.TestCase):
         peer['reviewer']='B'
         with self.assertRaisesRegex(ValueError,'every entry'):m.validate(self.packet,self.catalog,set(),peer)
 
+    def test_text_only_packet_requires_amendment_exact_dossier_and_no_image_inputs(self):
+        def save(name, value):
+            p=self.root/name;p.write_text(json.dumps(value))
+            return {'path':str(p),'sha256':m.sha(p.read_bytes()),'bytes':p.stat().st_size}
+        auth=save('authorization.json',{'approved':True,'authority':'direct-user-instruction','policyVersion':m.SOURCE_POLICY})
+        dossier=save('dossier.json',{'catalogId':'VBO:1','imageInputs':[],
+                     'morphologyEvidence':[{'source':self.bound,'facts':'Exact standard proportions'}],
+                     'visualResearch':[{'url':'https://example.org/dog','observations':'Adult exact identity and coat'}]})
+        packet=copy.deepcopy(self.packet);packet['schemaVersion']=2;packet['sourcePolicyAuthorization']=auth
+        e=packet['entries'][0];e['reference']={'mode':'text-only','researchDossier':dossier,'imageInputs':[]};e['promptTemplateVersion']='dogs-field-guide-v10-cohort-l'
+        with patch.object(m,'SOURCE_AUTH_SHA256',auth['sha256']):
+            self.assertTrue(m.validate(packet,self.catalog,set())['valid'])
+            e['reference']['imageInputs']=[self.bound]
+            with self.assertRaisesRegex(ValueError,'cannot contain'):m.validate(packet,self.catalog,set())
+            e['reference']['imageInputs']=[]
+            Path(dossier['path']).write_text('{}')
+            with self.assertRaisesRegex(ValueError,'bytes changed'):m.validate(packet,self.catalog,set())
+
     def test_attempt_cannot_substitute_unapproved_prompt_or_native(self):
         def save(name, value):
             p=self.root/name;p.write_text(json.dumps(value))
@@ -57,6 +76,17 @@ class PacketTests(unittest.TestCase):
                  'status':'generated','native':self.bound,'originalOutputSha256':self.bound['sha256'],'originalOutputPath':'/original.png',
                  'workerWholeNativeViewed':True,'workerQaNotes':'Whole original inspected','dimensions':[1536,1024],'workerVerdict':'pass'}
         self.assertTrue(m.validate_attempt(receipt)['rootNativeReviewStillRequired'])
+        auth=save('source-policy.json',{'approved':True,'authority':'direct-user-instruction','policyVersion':m.SOURCE_POLICY})
+        text_approval=json.loads(Path(approval['path']).read_text());text_approval.pop('reference')
+        text_approval.update(inputMode='text-only',imageInputs=[],researchDossier=self.bound,sourcePolicyAuthorization=auth)
+        text_binding=save('text-approval.json',text_approval)
+        text_preflight=save('text-preflight.json',{'attemptId':'L-1','approvalSha256':text_binding['sha256'],'permit':'permit-1','preflightSucceeded':True})
+        text_receipt=copy.deepcopy(receipt);text_receipt.update(schemaVersion=2,approval=text_binding,preflight=text_preflight)
+        text_receipt['actualArguments'].pop('referenced_image_paths')
+        with patch.object(m,'SOURCE_AUTH_SHA256',auth['sha256']):
+            self.assertTrue(m.validate_attempt(text_receipt)['valid'])
+            text_receipt['actualArguments']['referenced_image_paths']=[]
+            with self.assertRaisesRegex(ValueError,'arguments differ'):m.validate_attempt(text_receipt)
         changed=copy.deepcopy(receipt);changed['actualArguments']['prompt']='shell error'
         with self.assertRaisesRegex(ValueError,'arguments differ'):m.validate_attempt(changed)
         changed=copy.deepcopy(receipt);changed['dimensions']=[1024,1024]

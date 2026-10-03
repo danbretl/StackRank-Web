@@ -10,6 +10,15 @@ Read and execute notes/feature-ideas/dogs-overnight-100-kickoff-prompt.md.
 This is fresh authorization for the 100-pair run specified in its executable prompt.
 ```
 
+## October 3, 2026 authorized amendments
+
+Read `notes/feature-ideas/dogs-reference-research-policy.md` before executing the historical prompt
+below. Dan approved a rolling queue (no minimum20-plus-reserves starting gate), broader factual
+research sources, text-only generation from evidence-backed morphology, and appropriately licensed
+direct image inputs from hosts beyond Commons. These amendments supersede conflicting source,
+reference and batch-size clauses below. Quality, independent review, individual root approvals,
+archival, main publication and the original100-addition target remain unchanged.
+
 ## Executable prompt
 
 ```text

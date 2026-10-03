@@ -1,3 +1,4 @@
+import { TEXT_ONLY_TEMPLATE, validTextOnlyEvidence } from './dog-portrait-source-policy.mjs';
 import { createHash } from 'node:crypto';
 import { kDigest } from './dog-portrait-cohort-k.mjs';
 
@@ -84,14 +85,16 @@ export function validatePortraitCohortL(cohort, { catalog, rightsLedger, generat
       fail(attempt.number === index + 1 && text(attempt.id) && attempts.filter(row => row.id === attempt.id).length === 1, `${id}: unique sequential attempt IDs required`);
       fail(binding(attempt.receipt) && binding(attempt.approval) && binding(attempt.preflight) && text(attempt.imagePermitId) && attempt.trancheSha256 === tranche?.selectionSha256, `${id}: exact attempt receipt/approval/preflight/permit and tranche required`);
       fail(['generated', 'failed'].includes(attempt.status) && ['pending', 'rejected', 'accepted'].includes(attempt.qaDecision), `${id}: invalid attempt state`);
-      fail(text(attempt.prompt) && attempt.promptSha256 === rawDigest(attempt.prompt) && attempt.promptTemplateVersion === 'dogs-field-guide-v9-cohort-l', `${id}: exact L prompt required`);
+      fail(text(attempt.prompt) && attempt.promptSha256 === rawDigest(attempt.prompt) && attempt.promptTemplateVersion === (entry.reference?.mode === 'text-only' ? TEXT_ONLY_TEMPLATE : 'dogs-field-guide-v9-cohort-l'), `${id}: exact L prompt required`);
       if (attempt.status === 'generated') fail(binding(attempt.native) && attempt.native.sha256 === attempt.originalOutputSha256 && text(attempt.originalOutputPath), `${id}: unchanged native output binding required`);
       if (attempt.status === 'failed') fail(text(attempt.failure), `${id}: failed attempt needs evidence`);
       if (attempt.qaDecision === 'rejected') fail(text(attempt.rejectionReason), `${id}: rejection needs accountable reason`);
     }
     if (attempts.length) fail(entry.reference?.status === 'approved' && entry.profile?.status === 'approved', `${id}: generation requires approved reference and independently reviewed full/short profile`);
     if (entry.profile?.status === 'approved') fail(text(entry.profile.author) && text(entry.profile.reviewer) && entry.profile.author !== entry.profile.reviewer && hash(entry.profile.summarySha256) && hash(entry.profile.shortDescriptionSha256), `${id}: independent exact full/short review required`);
-    if (entry.reference?.status === 'approved' && rightsLedger) {
+    if (entry.reference?.mode === 'text-only') {
+      fail(validTextOnlyEvidence(entry.reference), `${id}: exact approved text-only research evidence required`);
+    } else if (entry.reference?.status === 'approved' && rightsLedger) {
       const row = rightsById.get(entry.reference.assetId);
       fail(row?.catalogId === id && row.review?.status === 'approved' && row.uiDisplayAllowed === false && row.publicSnapshotAllowed === false && row.rasterExportAllowed === false, `${id}: exact private morphology rights row required`);
     }
@@ -103,7 +106,7 @@ export function validatePortraitCohortL(cohort, { catalog, rightsLedger, generat
     }
     if (entry.integration?.status === 'integrated') {
       fail(wave(entry.integration.subwave) && entry.integration.batchManifest === `data/dogs/generated-artwork-batch-${entry.integration.subwave}.json`, `${id}: exact release batch integration required`);
-      if (generatedArtwork) fail(assets.get(id)?.masterSha256 === accepted?.native?.sha256 && assets.get(id)?.promptTemplateVersion === 'dogs-field-guide-v9-cohort-l', `${id}: integrated asset/master mismatch`);
+      if (generatedArtwork) fail(assets.get(id)?.masterSha256 === accepted?.native?.sha256 && assets.get(id)?.promptTemplateVersion === accepted?.promptTemplateVersion, `${id}: integrated asset/master mismatch`);
       if (profiles) { const row = profiles.profiles?.[id]; fail(row && rawDigest(row.summary) === entry.profile.summarySha256 && rawDigest(row.shortDescription) === entry.profile.shortDescriptionSha256, `${id}: integrated full/short copy mismatch`); }
     }
     if (entry.publication?.status === 'published') fail(entry.integration?.status === 'integrated' && binding(entry.publication.receipt), `${id}: publication needs integrated pair and exact receipt`);

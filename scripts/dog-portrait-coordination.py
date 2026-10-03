@@ -18,6 +18,8 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 
 
+SOURCE_AUTH_SHA256 = 'f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091'
+
 def now():
     return datetime.now(timezone.utc).isoformat()
 
@@ -127,7 +129,15 @@ class Coordinator:
             raise ValueError('Root approval identity, ownership, status or selection mismatch')
         if p.stem != digest(raw):
             raise ValueError('Immutable root approval filename/hash mismatch')
-        for key in ('packet', 'prompt', 'reference'):
+        text_only = receipt.get('inputMode') == 'text-only'
+        if text_only:
+            if self.registry['cohortId'] != 'dogs-portraits-l' or receipt.get('sourcePolicyAuthorization') != self.registry.get('sourcePolicyAuthorization') or not receipt.get('sourcePolicyAuthorization'):
+                raise ValueError('Text-only mode needs the bound direct-user L policy amendment')
+            if receipt.get('imageInputs') != [] or 'reference' in receipt or receipt.get('additionalReferences'):
+                raise ValueError('Text-only approval cannot contain photo inputs')
+            if receipt['sourcePolicyAuthorization'].get('sha256') != SOURCE_AUTH_SHA256:
+                raise ValueError('Unknown source policy amendment')
+        for key in (('packet', 'prompt', 'researchDossier', 'sourcePolicyAuthorization') if text_only else ('packet', 'prompt', 'reference')):
             item = receipt[key]
             source = pathlib.Path(item['path']).resolve()
             if digest(source.read_bytes()) != item['sha256']:
@@ -135,7 +145,8 @@ class Coordinator:
         prompt = pathlib.Path(receipt['prompt']['path']).read_text()
         if len(prompt.strip()) < 80:
             raise ValueError('Empty/error prompt cannot be sent to imagegen')
-        for key in ('rootReferenceViewed', 'rootIdentityAndRightsApproved', 'rootSceneAndPromptApproved'):
+        gates = ('rootMorphologyEvidenceRead', 'rootIdentityApproved', 'rootSourceUseApproved', 'rootSceneAndPromptApproved') if text_only else ('rootReferenceViewed', 'rootIdentityAndRightsApproved', 'rootSceneAndPromptApproved')
+        for key in gates:
             if receipt.get(key) is not True:
                 raise ValueError('Missing independent root gate: ' + key)
         if receipt.get('referencePurposes') != {'uiDisplayAllowed': False, 'publicSnapshotAllowed': False, 'rasterExportAllowed': False}:
@@ -145,7 +156,7 @@ class Coordinator:
         additional = receipt.get('additionalReferences', [])
         if not isinstance(additional, list) or len(additional) > 2:
             raise ValueError('At most two explicitly approved supplemental reference inputs')
-        inputs = [receipt['reference']]
+        inputs = [] if text_only else [receipt['reference']]
         for item in additional:
             source = pathlib.Path(item['path']).resolve()
             if digest(source.read_bytes()) != item['sha256']:
@@ -159,7 +170,8 @@ class Coordinator:
             inputs.append(item)
         return {'approvalPath': str(p), 'approvalSha256': digest(raw), 'prompt': prompt,
                 'promptPath': receipt['prompt']['path'], 'promptSha256': receipt['prompt']['sha256'],
-                'referencePath': receipt['reference']['path'], 'referenceSha256': receipt['reference']['sha256'],
+                'referencePath': None if text_only else receipt['reference']['path'], 'referenceSha256': None if text_only else receipt['reference']['sha256'],
+                'inputMode': 'text-only' if text_only else 'licensed-photo',
                 'referencePaths': [item['path'] for item in inputs],
                 'referenceInputs': [{'path': item['path'], 'sha256': item['sha256']} for item in inputs],
                 'packetPath': receipt['packet']['path'], 'packetSha256': receipt['packet']['sha256'],

@@ -15,16 +15,18 @@ import {
 import { dogProfileSourceLinks } from "/lib/dogs.js?v=7";
 
 const DATA_URLS = {
-  manifest: "/data/dogs/generated-artwork.json?v=31",
+  manifest: "/data/dogs/generated-artwork.json?v=32",
   catalog: "/data/dogs/dog-catalog.json?v=5",
-  profiles: "/data/dogs/breed-profiles.json?v=27",
+  profiles: "/data/dogs/breed-profiles.json?v=28",
 };
 
 // Filled from actual finite L batch files by prepare-dog-portrait-l.mjs.
 const L_BATCH_METADATA_URLS = [
   "/data/dogs/generated-artwork-batch-l01.json",
   "/data/dogs/generated-artwork-batch-l02.json",
-  "/data/dogs/generated-artwork-batch-l03.json"
+  "/data/dogs/generated-artwork-batch-l03.json",
+  "/data/dogs/generated-artwork-batch-l04.json",
+  "/data/dogs/generated-artwork-batch-l05.json"
 ];
 
 const BATCH_METADATA_URLS = [
@@ -313,9 +315,10 @@ function renderGenerationRecord(asset, modelText = "Checking preserved batch met
   addDefinition(dom.generationRecord, "Generated", formatGeneratedAt(asset.generatedAt));
   addDefinition(dom.generationRecord, "Prompt template", asset.promptTemplateVersion || "Not recorded");
   addDefinition(dom.generationRecord, "Model", modelText);
+  if (asset.reference?.mode === "text-only") addDefinition(dom.generationRecord, "Image inputs", "None — generated from researched breed description");
   const sourcePage = asset.reference?.sourcePage;
   if (sourcePage) {
-    const link = make("a", null, "Open morphology reference file page");
+    const link = make("a", null, asset.reference?.mode === "text-only" ? "Open breed research source" : "Open morphology reference file page");
     link.href = sourcePage;
     link.target = "_blank";
     link.rel = "noreferrer";

@@ -6,6 +6,23 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { collectLRegenerationFiles } from '../scripts/dog-portrait-l-archive.mjs';
 
+test('text-only archives retain dossier source dependencies and the actual policy amendment', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'dogs-l-text-archive-'));
+  try {
+    const base = path.join(root, 'reports/dogs-generated-artwork/cohort-l/worker-a');
+    fs.mkdirSync(base, { recursive: true });
+    const put = (name, value) => { const p = path.join(base, name), raw = Buffer.from(JSON.stringify(value)); fs.writeFileSync(p, raw); return { path: p, sha256: createHash('sha256').update(raw).digest('hex'), bytes: raw.length }; };
+    const source = put('primary.json', { actual: 'Retained primary observations' });
+    const authorization = put('authorization.json', { authority: 'direct-user-instruction' });
+    const dossier = put('dossier.json', { morphologyEvidence: [{ source }], imageInputs: [] });
+    const packet = put('packet.json', { cohortId: 'dogs-portraits-l', worker: 'A', sourcePolicyAuthorization: authorization,
+      entries: [{ catalogId: 'VBO:0201371', reference: { mode: 'text-only', researchDossier: dossier, imageInputs: [] } }] });
+    const peer = put('peer.json', { verdict: 'pass', reviewer: 'B', packet, entries: [{ catalogId: 'VBO:0201371' }] });
+    const rows = collectLRegenerationFiles(root, { catalogId: 'VBO:0201371', preparation: { packet, peer } });
+    assert.deepEqual(rows.map(row => path.basename(row.path)), ['authorization.json', 'dossier.json', 'packet.json', 'peer.json', 'primary.json']);
+  } finally { fs.rmSync(root, { recursive: true, force: true }); }
+});
+
 test('L archives follow selected canonical packet tuples without traversing source JSON or global indexes', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'dogs-l-archive-'));
   try {

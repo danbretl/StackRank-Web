@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "savedAt": "2026-10-03T16:34:13.147527+00:00",
+  "savedAt": "2026-10-03T18:31:45.197492+00:00",
   "status": "active-cohort-l-rolling-production",
   "baseline": {
     "catalogIdentities": 1239,
@@ -1774,8 +1774,8 @@
     "preparationIndexPath": "data/dogs/portrait-cohort-l-preparation-index.json",
     "statusNotePath": "notes/testing/dogs-portrait-cohort-l.md",
     "previousJAndKStoppedHistoryUnchanged": true,
-    "generationCalls": 15,
-    "acceptedPairs": 14,
+    "generationCalls": 20,
+    "acceptedPairs": 19,
     "publishedPairs": 14,
     "qualifiedPackets": 13,
     "requiredBeforeGeneration": "Frozen qualified identity, dedicated immutable root pre-call approval and successful preflight; rolling queue directly authorized by user",
@@ -1783,7 +1783,7 @@
     "primaryModelEffortDisclosure": "Requested gpt-6-astra/high; runtime identifiers undisclosed",
     "permissions": "Actual root and all workers danger-full-access, approval never, network enabled",
     "offMachineBackupVerified": false,
-    "qualifiedIdentities": 14,
+    "qualifiedIdentities": 21,
     "qualificationBlocker": {
       "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualification-blocker-001.json",
       "sha256": "d40da108884f7381d49ad5b71adcda7c6e89b2dc63298f52af0476ee4288f88f",
@@ -1797,8 +1797,8 @@
       "sha256": "e1ffc149b5fe0e6cc1c3b1dd0d4dfec06466bf8ddfe05369134fbd745ca2d2eb",
       "bytes": 1091
     },
-    "completedGenerationCalls": 15,
-    "counterAsOf": "2026-10-03T16:34:13.147527+00:00",
+    "completedGenerationCalls": 20,
+    "counterAsOf": "2026-10-03T18:43:24.015576+00:00",
     "rejectedOutputs": 1,
     "targetedRetries": 1,
     "failedCalls": 0,
@@ -1807,7 +1807,7 @@
     "productCommit": "e9ad1a5a5c08a056367f420c0181f14fc060a62d",
     "deploymentId": "dpl_FY8UivXHYBJnjBTordRocTjYaXG6",
     "qualificationBlockerSupersededByDirectUserAmendment": true,
-    "nextAction": "Obtain a new exact qualifying Commons original under current rules, or receive explicit source-pool amendment allowing verified openly licensed creator/Flickr/museum/breed-organization originals. No approval inferred from silence. Reuse retained five reviewed-copy candidates, complete every reference/peer/root/attempt/archive/release gate, and continue toward100.",
+    "nextAction": "Continue authorized text-only researched portraits with independent source/full-short review, exact root-approved built-in calls, full native QA, batch archive/tests and verified production publication until100 new pairs. Direct photo inputs require appropriate licenses; research-only visuals are never input or presented as licensed.",
     "lastPublications": [
       {
         "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l02-001.json",
@@ -1825,6 +1825,14 @@
       "sha256": "4d15244669a205cb607d2390ab1c45f17e287cc212bc55d363430d8007168404",
       "bytes": 4603
     },
-    "sourcePoolAmendmentPending": true
+    "sourcePoolAmendmentPending": false,
+    "sourcePolicyAuthorization": {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/source-policy-user-authorization-002.json",
+      "sha256": "f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091",
+      "bytes": 1817
+    },
+    "sourcePolicyDocument": "notes/feature-ideas/dogs-reference-research-policy.md",
+    "integratedPairs": 19,
+    "stage": "Five new accepted pairs archived and locally verified; publication pending, later calls may be in flight in coordination DB."
   }
 }

@@ -1,5 +1,10 @@
 # StackRank
 
+For current Dogs generation, read `notes/feature-ideas/dogs-reference-research-policy.md`. Dan’s
+October 3 amendment permits broader factual research and text-only generation; direct image
+inputs still need appropriate rights. It supersedes older Commons-only prerequisites. Cohort L
+continues toward100 additions; batching must preserve each identity’s source, copy and native QA.
+
 > Shared project brief for AI coding assistants. `AGENTS.md` is a symlink to this file, so Codex and Claude Code read the same context. This was distilled from the original Codex build transcripts (Dec 2025 – Jun 2026) on 2026-06-23; if anything here conflicts with the code, the code wins — fix this file.
 
 ## What it is

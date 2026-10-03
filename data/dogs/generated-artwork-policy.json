@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "policyVersion": "dogs-generated-artwork-2026-09-21.1",
+  "policyVersion": "dogs-generated-artwork-2026-10-03.1",
   "purpose": "A separate policy for art-directed synthetic breed portraits; it does not alter or weaken the Wikimedia photography rights ledger.",
   "requiredDisclosure": "AI-generated breed portrait, art-directed for StackRank. Individual dogs vary.",
   "referenceRules": {
@@ -8,7 +8,11 @@
     "referencesMustBeRightsReviewed": true,
     "referencesInformMorphologyOnly": true,
     "copyingReferenceCompositionIsForbidden": true,
-    "unlicensedWebImagesAreForbidden": true
+    "unlicensedWebImagesAreForbidden": true,
+    "rightsRuleScope": "Photographs supplied as direct generator inputs; factual research is governed separately.",
+    "textOnlyGenerationAllowed": true,
+    "researchPolicyVersion": "dogs-reference-research-2026-10-03.1",
+    "researchPolicyDocument": "notes/feature-ideas/dogs-reference-research-policy.md"
   },
   "generationRules": {
     "oneAdultDog": true,

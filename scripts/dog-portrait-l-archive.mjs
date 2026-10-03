@@ -41,6 +41,8 @@ export function collectLRegenerationFiles(root, entry) {
   const reviewed = peerBody.entries?.filter(row => row.catalogId === entry.catalogId);
   if (selected?.length !== 1 || reviewed?.length !== 1) throw Error('L archive requires one exact selected packet/peer member');
   walk(entry); walk(selected[0]); walk(reviewed[0]);
+  if (packetBody.sourcePolicyAuthorization) walk(packetBody.sourcePolicyAuthorization);
+  if (selected[0].reference?.mode === "text-only") walk(add(selected[0].reference.researchDossier)());
   // Explicit root qualification and each actual attempt/approval/preflight/QA
   // body can carry indispensable exact tuples. Global indexes are not followed.
   for (const item of [entry.qualification, entry.qa?.rootReview,

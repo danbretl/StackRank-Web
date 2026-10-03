@@ -20,6 +20,18 @@ with no history fork, and all attested the same actual Full access policy. Their
 names are `/root/l_worker_a`, `/root/l_worker_b`, `/root/l_worker_c`; separate isolated worktrees
 are under `/Users/danbretl/.codex/worktrees/dogs-cohort-l-worker-{a,b,c}/stackrank`.
 
+## Current release preparation — five further accepted pairs
+
+L04/L05 contain Heideterrier, Treeing Cur, Treeing Feist, Welsh Hound and Stephens’ Cur.
+All five have exact text-only approvals, independent editorial reviews and accepted full-native/root
+contact-sheet review. The source-policy amendment and reviewer/privacy disclosure are implemented.
+Local stable verification passes532 Node,24 coordination,6 packet,24 Deno and41 Chrome checks.
+All616 prior artwork/profile records and1,232 WebP bytes remain unchanged.
+L04 archive SHA `24f9ca5ade1c71c7519762757edd775cccf6d28916c7b9ba893f4b62984fd550`
+retains30 verified objects; L05 SHA `cefdbec54faf19992650832be4faf0a2b673ea70e16669b9ae1e390901d89c56`
+retains74. No off-machine backup is asserted. Publication remains pending until exact READY/live checks.
+The next Staghound/Tonya tranche is independently frozen and generation proceeds separately.
+
 ## Current stage — 14 published additions, October 3, 2026
 
 **14/100 new pairs are verified live:616 published,623 unfinished hidden.** L02’s eight remaining
@@ -60,10 +72,15 @@ The earlier B claim that historical OTFS metadata was empty was an audit narrati
 its intact 3,866-byte object was verified and an append-only correction preserved.
 No historical source was changed. The initial queue-size blocker is historical and superseded.
 
-A direct-user question about expanding the Commons-only source pool to verified openly licensed
-creator/Flickr/museum/breed-organization originals is pending. This amendment is **not approved**;
-all existing source gates remain in force. New indispensable reference evidence is required
-before more generation. Finite negative results do not establish global source absence.
+Dan subsequently approved the broader factual-research/text-only route and efficient batching.
+The authoritative amendment is [Dogs reference research and production](../feature-ideas/dogs-reference-research-policy.md),
+bound to direct-user receipt `source-policy-user-authorization-002.json`
+(`f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091`).
+The earlier pending question and source-specific negative results remain historical evidence.
+Text-only generation now uses independently reviewed factual morphology, fresh compositions and
+explicitly empty image inputs. Direct photographic inputs still require verified appropriate rights.
+Heideterrier has passed root whole-native review; four further exact source/profile/prompt approvals
+are frozen in tranche L04. These later outputs remain unpublished until their release checks pass.
 **86 additions remain; the100-pair goal remains active and incomplete.**
 
 ## Historical first-five recovery milestone

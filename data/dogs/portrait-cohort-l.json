@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "cohortId": "dogs-portraits-l",
-  "status": "blocked-first-tranche-qualification",
+  "status": "active-rolling-production",
   "startedAt": "2026-10-03T06:50:10.588924+00:00",
   "baseline": {
     "schemaVersion": 1,
@@ -43,16 +43,954 @@
     "authorizationPromptSha256": "1c880bcb9ceaa6aa1b166e09d7457e5d6d5c158afe5fcdaa7f5213259fee833f"
   },
   "targetAdditionalPairs": 100,
-  "tranches": [],
-  "amendments": [],
-  "entries": {},
-  "integrationBatches": [],
+  "tranches": [
+    {
+      "id": "l01",
+      "frozenAt": "2026-10-03T15:12:57.514282+00:00",
+      "catalogIds": [
+        "VBO:0200216",
+        "VBO:0200469",
+        "VBO:0201055",
+        "VBO:0200611",
+        "VBO:0200308",
+        "VBO:0200039",
+        "VBO:0200624",
+        "VBO:0201017",
+        "VBO:0200133",
+        "VBO:0200731",
+        "VBO:0200904",
+        "VBO:0201086",
+        "VBO:0200180"
+      ],
+      "reserveCatalogIds": [],
+      "freeze": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/tranche-l01-freeze-001.json",
+        "sha256": "0a0fef112b90cf4375dbb75e90dbb9b325b75d095732e180981c916caa461a50",
+        "bytes": 5243
+      },
+      "selectionSha256": "9c769a98de8970312cc84f4a01ed2a9e4e2e807e181a586663be53a2e0242193"
+    }
+  ],
+  "amendments": [
+    {
+      "type": "direct-user-rolling-batch-authorization",
+      "at": "2026-10-03T15:12:57.514282+00:00",
+      "authorization": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/rolling-batch-user-authorization-001.json",
+        "sha256": "e1ffc149b5fe0e6cc1c3b1dd0d4dfec06466bf8ddfe05369134fbd745ca2d2eb",
+        "bytes": 1091
+      },
+      "supersedesStartingQueueAndReleaseMinimumOnly": true
+    }
+  ],
+  "entries": {
+    "VBO:0200216": {
+      "catalogId": "VBO:0200216",
+      "displayName": "Bracco Italiano, Chestnut Roan",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualified-bracco-chestnut-001.json",
+        "sha256": "1ac18b6d1cf9611ee781f49d3feaaa0f93a8dcab584713d42f5617e273162063",
+        "bytes": 3538
+      },
+      "preparation": {
+        "worker": "A",
+        "trancheId": "l01",
+        "trancheSha256": "9c769a98de8970312cc84f4a01ed2a9e4e2e807e181a586663be53a2e0242193",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/packet-dane-bracco-001.json",
+          "sha256": "873f802f893e44d5730702f8b75d3676743e6929fb7fe9fb92a7d0aa8056df27",
+          "bytes": 36571
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/peer-a-dane-bracco-001.json",
+          "sha256": "dfd1f058ed19403ba745b043f4074f2373f1f24498d8e2d422942e3e413e2b07",
+          "bytes": 5472
+        }
+      },
+      "reference": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:082e8118c7761469",
+        "originalPath": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-064-bracco-chestnut-new-original.jpg",
+        "sourceSha256": "082e8118c776146952c57b2470250cd29e22caf68dca72d00904532ccbb73f94",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Italianseisojachestnut.jpg",
+        "sourcePageRevision": {
+          "id": 1218659628,
+          "timestamp": "2026-05-23T04:55:40Z"
+        },
+        "metadataPath": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-060-bracco-breed-search.json",
+        "metadataSha256": "63834af9ce30003f7800e1944d0e88b106716a13464e660c503a1a62c18edde4",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-l/worker-a/bracco-chestnut-roan-file-text-001.txt",
+        "filePageWikitextSha256": "60ed148e2486278b1dae936e7dc0eb839a1cb7aece5edc8035e96c5dbc03f32c",
+        "visualReview": "Personally whole-viewed2874x2211 original: adult developed body, exact chestnut-roan coat, allfourlimbcourses and paws, full attached tail. Handler fingers cover middle section only; pale tapered terminal segment extends beyondfingers clearly. Root independently whole-viewed preliminaryPASS; no final generation approval inferred.",
+        "rightsReview": "Exact unpublished catalog0216 is the chestnut-roan variety of BraccoItaliano0215/FCI202. Creator parent0 own ItalianPointer caption plus creator's original Italianseisojachestnut filename and BraccoItaliano category support exact breed; full original shows brown/chestnut roaning, not plain patchy chestnut or orange roan. CurrentFCI202 expressly names white speckled brown/liver roan. Different originaltitle/SHA1 from four prior I chains and J Braqueitaliano831; no alias substitution or held reference reuse. Direct creatorCanarian parent0 revision1019994401 uploadedownwork/selfCC BY4.0; allfour existing revision bodies includingcurrent1218659628 retain same grant. Sole originalupload2025-04-11T19:50:38/creatorCanarian matches actualSHA19a23245cf78968a2de7b24e05019ab006d1c1386. No imported or third-party release assumption. Source photograph private morphology only; UI/public snapshot/raster purposes false. Private morphology reference only; no source photograph delivery.",
+        "primaryReviewedAt": "2026-10-03T15:12:57.514282+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-l/root-approvals/3fa4e6878495a971166667a905e12c4061fe3146b5dbe07bb1addf5cd9d995d0.json",
+        "rootApprovalSha256": "3fa4e6878495a971166667a905e12c4061fe3146b5dbe07bb1addf5cd9d995d0",
+        "normalization": {
+          "path": "reports/dogs-generated-artwork/cohort-l/worker-a/rights-reference-normalization-first5-001.json",
+          "sha256": "d670b7b391b51d79e28722f30663c2bce72cae253d2e9274668e97224ff8e9e3",
+          "bytes": 37648
+        }
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Reliability and a cooperative manner are central to the Bracco Italiano's working character. Its standard describes a docile, responsive pointing dog shaped by Italy's bird-hunting traditions, with retrieval among its established skills. The chestnut-roan variety belongs to the same Italian pointing breed, selected for a fast, ground-covering trot in the field.",
+        "summarySha256": "c848858658710d1094b17c303bc285d67ea1a5ada1e63093610b14ff5b28ee43",
+        "shortDescription": "A reliable, cooperative Italian pointing dog, with bird-finding and retrieving woven into its working history.",
+        "shortDescriptionSha256": "1133056d7ad0c749bf95fed84495230502c9df3e416c1159d94f6d9a9574ba97",
+        "author": "L worker A",
+        "reviewer": "L worker B and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/packet-dane-bracco-001.json",
+        "sourcePathSha256": "873f802f893e44d5730702f8b75d3676743e6929fb7fe9fb92a7d0aa8056df27",
+        "sourceSnapshots": [
+          {
+            "title": "Fédération Cynologique Internationale — Standard 202: Bracco Italiano",
+            "url": "https://www.fci.be/Nomenclature/Standards/202g07-en.pdf",
+            "evidence": "FCI202 Behavior/Temperament directly describes reliable, docile, understanding and trainable hunting character; calibrated cooperative/responsive paraphrases. Utilization is pointing; Historical Summary describes Italian bird hunting, retrieval and selection for fast wide trot. Coat names white speckled brown/liver roan, distinct from orange roan or plain white with brown patches. Tail natural not belowhock; short dense coat, long rounded drop ears and characteristic head support morphology. No measured age/size, child suitability, guaranteed training result or color-specific behavior used.",
+            "sourceRole": "Official originating breed standard, normative character and historical/functional context; no empirical guarantee or coat-specific temperament.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/primary-fci-bracco-001.pdf",
+              "sha256": "c666ea34b5abee1ff10bb13b270bec5c1b839f081280291c199bcdc4691eef35",
+              "bytes": 404104
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/primary-fci-bracco-001.txt",
+              "sha256": "847f1967f6bcdcde82637e98fd26903dd38f3fb4e1c9cb067ed249374533623b",
+              "bytes": 10124
+            }
+          }
+        ],
+        "primaryReviewedAt": "2026-10-03T15:12:57.514282+00:00"
+      },
+      "scene": "Low dry meadow beside a northern Italian orchard, with distant hazel trees in soft early-autumn light",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "L-0200216-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/attempt-L-0200216-01-canonical-002.json",
+              "sha256": "bbf536c73bb481268aed95cbfc529ff3dd481dca91368d32e8e05ee43e60c3cd",
+              "bytes": 7685
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-approvals/3fa4e6878495a971166667a905e12c4061fe3146b5dbe07bb1addf5cd9d995d0.json",
+              "sha256": "3fa4e6878495a971166667a905e12c4061fe3146b5dbe07bb1addf5cd9d995d0",
+              "bytes": 2875
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/preflights/5dacd128-9324-4b11-8de0-441829837c25.json",
+              "sha256": "867f85d2a2bc5cfc38092f114489f009abb14afd016e5bd668dcb59a5c3e6c36",
+              "bytes": 3667
+            },
+            "imagePermitId": "5dacd128-9324-4b11-8de0-441829837c25",
+            "trancheSha256": "9c769a98de8970312cc84f4a01ed2a9e4e2e807e181a586663be53a2e0242193",
+            "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one new 1536×1024 landscape portrait of one mature adult Bracco Italiano, Chestnut Roan, exact catalog VBO:0200216. Use the attached source only as a private morphology reference for mature proportions, developed head and trunk, correct coat and complete attached tail; create a different pose, setting, light and composition. One dog with short dense chestnut-roan coat: warm brown head and rounded drop ears, large warm brown body patches amid white densely speckled brown across neck, trunk and legs, sculpted angular head, deep chest and balanced muscular frame, natural long rounded drop ears close to cheeks, and complete natural straight tail, thick at base and gently tapering, relaxed low with a clear pale free endpoint, not docked or tightly curled. Show a relaxed dog-eye-level three-quarter standing pose facing left with the head gently turned toward the viewer. All four anatomically coherent paws clearly planted on firm short-grass ground, readable joints and limb courses, realistic weight and contact shadows. Entire head, ears, trunk, legs, paws and complete attached tail remain inside a generous crop-safe frame. Setting: Low dry meadow beside a northern Italian orchard, with distant hazel trees in soft early-autumn light. Restrained greens and earth tones, natural fur detail and softly separated background. New tail visibly separated from hind legs. Remove collar, lead, all handlers and gear. No other dogs, people, buildings, prey, text, logos, watermark, plastic fur, extra limbs or malformed paws. Do not copy source show stance, source setting or handler. The photograph is not for public display; this is a new disclosed generated illustration.\n",
+            "promptSha256": "f7eca391e2ac524c4fccb7fbde7bf83107a4e65e24363413f372ee0cd31a4572",
+            "promptTemplateVersion": "dogs-field-guide-v9-cohort-l",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-l/worker-a/VBO-0200216-native-01.png",
+              "sha256": "6dc2e780eeb8556e24470dde560fa8e4745b281052664a3abe6b7576607f7029",
+              "bytes": 3048495
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10083-e23b-7151-a71b-8eb3160aa4dc/exec-ad1811d9-c6f3-46d3-9026-a876053fa0bc.png",
+            "originalOutputSha256": "6dc2e780eeb8556e24470dde560fa8e4745b281052664a3abe6b7576607f7029",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-03 15:14:01 UTC",
+            "completedAt": "2026-10-03 15:14:31 UTC"
+          }
+        ],
+        "acceptedAttemptId": "L-0200216-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-native-qa/0200216-01-accepted.json",
+          "sha256": "b3419e7165b831ca8035f1b87b5185eb84139308ada4fdd82b51a14a41694b87",
+          "bytes": 1532
+        },
+        "reviewedAt": "2026-10-03T15:16:00.186090+00:00",
+        "breedIdentity": "Mature developed Bracco with long pendulous ears, proportionate muzzle, chestnut roan coat, robust but athletic chest and trunk; source-faithful exact color variety.",
+        "anatomy": "Four coherent complete limb courses and four grounded paws, plausible elbows/hocks and weight-bearing contacts. Complete attached natural tapered tail, including distinct pale free tip, remains separate from legs.",
+        "crop": "Whole ears, all four paws and tail endpoint comfortably contained; about65 pixels of foreground below nearest paw. Qualitatively crop-safe, without invented numeric compliance.",
+        "aesthetics": "Believable finely textured coat, soft natural orchard light, restrained early autumn meadow, fresh dog-eye three-quarter composition. Blurred distant hillside contains small buildinglike shapes despite no-buildings prompt; this incidental background is not a material quality defect or an excluded user-content category. No gear, people, other animals, text or watermark.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/l01-first-five-contact-001.jpg",
+          "sha256": "2095d0275e4ffda6418f567885b88cf289d5c20ac596bcf51850642aaf5d00e7",
+          "bytes": 653926
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "l01",
+        "batchManifest": "data/dogs/generated-artwork-batch-l01.json",
+        "integratedAt": "2026-10-03T15:35:58.176329+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0200469": {
+      "catalogId": "VBO:0200469",
+      "displayName": "Dutch Tulip Hound",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualified-markiesje-001.json",
+        "sha256": "dba60d902caeaf7da82204de2685add5dd6863b43b08518dd5b879ed36c015ee",
+        "bytes": 4324
+      },
+      "preparation": {
+        "worker": "B",
+        "trancheId": "l01",
+        "trancheSha256": "9c769a98de8970312cc84f4a01ed2a9e4e2e807e181a586663be53a2e0242193",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/packet-markiesje-002.json",
+          "sha256": "b163dd082fe8d51bbcfca665d7e8b35608490cb51dd7ee7fbe11989d426f924d",
+          "bytes": 34163
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/peer-b-markiesje-002.json",
+          "sha256": "735ffb98fe9daab865d039fb3f695242ed73beee20cb8e9ab34abb0bceab8d56",
+          "bytes": 7187
+        }
+      },
+      "reference": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:32e8cd4e20d73963",
+        "originalPath": "reports/dogs-generated-artwork/cohort-l/worker-b/markiesje-us-louke-novel-original-002.jpg",
+        "sourceSha256": "32e8cd4e20d73963f08445ccbf564221705549fd009d177b2f1985c428846704",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Us_Louke.jpg",
+        "sourcePageRevision": {
+          "id": 1205845336,
+          "timestamp": "2026-04-30T01:41:47Z"
+        },
+        "metadataPath": "reports/dogs-generated-artwork/cohort-l/worker-b/markiesje-us-louke-selected-metadata-001.json",
+        "metadataSha256": "d577214a50ad28a3d421a6fcac2f89e5c72392e9f17b879412168a92eb8759d1",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-l/worker-b/markiesje-us-louke-pinned-filetext-001.txt",
+        "filePageWikitextSha256": "ec99fb658e5a58cdddb1ba4027d8b7f5de49b7e7d135f3f336c02c3d7f9899bd",
+        "visualReview": "Writer B and root personally whole-viewed unchanged3659×2592 original. Developed mature head/trunk and adult proportions, readable four standing limb courses with ordinary leaf cover at foot endpoints; complete attached feathered tail and free endpoint inside frame. Thin collar and metal ring visible under the neck, without obscuring critical morphology; generated prompt explicitly removes all gear. No cropping, watermark or text. Adult assessment is actual visual maturity; neither caption nor age documents a number. Root preliminary visual pass recorded in task message; final source/prompt adjudication still required. New output must clear the foreground and separate full tail silhouette.",
+        "rightsReview": "Creator RomkeHoekstra original parent-zero688158394 includes own-work Markiesje category and self-SA4. Read all five history revisions, sole upload, actual pinned1205845336. Us Louke is independent of all prior blocked Markiesje3/male/1/5/6 sources; no override of old negatives. Mature developed body, limb courses and attached full tail; ordinary leaf cover. Thin collar/ring accurately disclosed by corrected002 and excluded from generated prompt. Direct own-work upload by RomkeHoekstra on 2022-09-12T11:15:53Z. Parent-zero revision688158394 by the same creator identifies Us Louke, includes Category:Markiesje and self CC BY-SA4.0. All five retained revisions preserve that text. Sole binary-upload record matches original creator/time, dimensions3659×2592,2355235 bytes and actual SHA1 530e1721a81f0b78fa77ee683cd6d79c327ccf39. Original photo date2022-01-26. No external source, third-party credit, imported release or custom permission. Creator category is originating type assertion, not only a later third-party category; no claim of pedigree registration. Source photograph private morphology only; UI/public snapshot/raster purposes false. Private morphology reference only; no source photograph delivery.",
+        "primaryReviewedAt": "2026-10-03T15:12:57.514282+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-l/root-approvals/3ac2d9ac98b1fdd843d863a3f21c34ea24ca09805678da794909f3784446daeb.json",
+        "rootApprovalSha256": "3ac2d9ac98b1fdd843d863a3f21c34ea24ca09805678da794909f3784446daeb",
+        "normalization": {
+          "path": "reports/dogs-generated-artwork/cohort-l/worker-a/rights-reference-normalization-first5-001.json",
+          "sha256": "d670b7b391b51d79e28722f30663c2bce72cae253d2e9274668e97224ff8e9e3",
+          "bytes": 37648
+        }
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Friendly and calm, the Markiesje tends to combine a companion’s watchfulness with an active, sociable character. Also called the Dutch Tulip Hound, it is known for joining its people on outings. Enthusiasts began rebuilding the breed in the 1970s, and Dutch national recognition followed in 1999.",
+        "summarySha256": "b77d4dff3cff206884a921f5dd135455dc3ee4ec62a988732c5e7813bb28e435",
+        "shortDescription": "An alert, friendly Dutch companion with a calm manner, an active side and a fondness for joining its people on outings.",
+        "shortDescriptionSha256": "d5ba08b4bf0a02713fadea40009848a97ac4f17576808a9d3b496105e82467c0",
+        "author": "L worker B",
+        "reviewer": "L worker C and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/packet-markiesje-002.json",
+        "sourcePathSha256": "b163dd082fe8d51bbcfca665d7e8b35608490cb51dd7ee7fbe11989d426f924d",
+        "sourceSnapshots": [
+          {
+            "title": "Nederlandse Markiesjes Vereniging — breed history and complete standard",
+            "url": "https://www.markiesjesvereniging.nl/het-markiesje",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200469-markiesje-dutch-own-001.html",
+              "sha256": "c98601059863d8ab84f3721b8135c979429a65dadb69b92f6e1b631bbc08ac89",
+              "bytes": 146646
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200469-markiesje-dutch-own-001.txt",
+              "sha256": "24377ce71a5464bc15ac2fd4a5fe4d65da9b3d56f79496a432d62cc9d3da81a3",
+              "bytes": 17624
+            },
+            "sourceRole": "Firsthand Dutch breed club's own history and breed standard; normative type character and documented national revival, not measured individual behavior.",
+            "evidence": "Own history places revival in the mid-1970s and Dutch national recognition in 1999. Standard describes friendly, calm, intelligent character and an active sociable companion. Morphology guidance only: slightly longer-than-tall light build, silky black coat with feathering, drop ears, hock-length natural tail carried merrily or downcurved and never curled over the back. Claims do not imply FCI recognition, pedigree registration of the photo subject, individual suitability or health promises.",
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200469-markiesje-dutch-own-001.json",
+              "sha256": "3a4e33f22692d0eaa5918b93830a01783b546337a61473914a669080e09752d5",
+              "bytes": 875
+            },
+            "acquisitionDisclosure": "Retained immutable K raw HTTP200 snapshot acquired 2026-10-02; exact binding verified and complete visible text personally read by L writer B. No fresh primary HTTP and no inherited editorial/source approval. Original receipt lacks full response headers and request-start/completion timing; that historical acquisition-detail gap is preserved."
+          },
+          {
+            "title": "Raad van Beheer — Markiesje breed page",
+            "url": "https://www.houdenvanhonden.nl/hondenrassen/alle-rassen/fci-groep-9/markiesje/",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200469-markiesje-rvb-001.html",
+              "sha256": "c3e21d145d2c98d10d7423cb12dcf753dd0862c1bfce1dd2c57f1191408bfa40",
+              "bytes": 24156
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200469-markiesje-rvb-001.txt",
+              "sha256": "29955483d0e68db328c2e8b8cf0ea0f272068df850d0461467c5d5a8dab5bc06",
+              "bytes": 5098
+            },
+            "sourceRole": "National registry host of breed-club-authored character notes; host expressly disclaims substantive review, so not an independent temperament study.",
+            "evidence": "Character section calls the dog watchful and friendly and says it likes going everywhere with its owner; supports the companionship/outings sentence as a tendency. Text is supplied by breed clubs, not substantively reviewed by the host. FCI status is explicitly not recognized; omitted from prose apart from correctly limited Dutch national recognition.",
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200469-markiesje-rvb-001.json",
+              "sha256": "889812b41a6ba97ea439331f76c9fa6b4e21c89824d456d797c08aa2b569835a",
+              "bytes": 914
+            },
+            "acquisitionDisclosure": "Retained immutable K raw HTTP200 snapshot acquired 2026-10-02; exact binding verified and complete visible text personally read by L writer B. No fresh primary HTTP and no inherited editorial/source approval. Original receipt lacks full response headers and request-start/completion timing; that historical acquisition-detail gap is preserved."
+          },
+          {
+            "title": "Markiesje Society of America — history and English alternate name",
+            "url": "https://www.markiesjeusa.org/markiesje-history",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200469-markiesje-usa-history-001.html",
+              "sha256": "350ca7d6ca3d54fb84265ed0df5b880f1f5afedaad911461dab7a6305f380a88",
+              "bytes": 958998
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200469-markiesje-usa-history-001.txt",
+              "sha256": "cd49f94554b9da91821e6152736a815477fd532c7b08f389d2aba7f7ca145920",
+              "bytes": 2947
+            },
+            "sourceRole": "US breed club's firsthand use of the English alternate name; no medieval lineage or legendary name claims adopted.",
+            "evidence": "Actual history explicitly calls Markiesjes 'also known as Dutch Tulip Hounds'; supports exact alternate-name mapping to catalog0469. Medieval/aristocratic continuity, kings, naming legends and numerical population assertions are excluded.",
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200469-markiesje-usa-history-001.json",
+              "sha256": "eff1f8e457adae9bbf0cbd1ab04ad5d520ab79a54fd1acc59c55c205284ed470",
+              "bytes": 875
+            },
+            "acquisitionDisclosure": "Retained immutable K raw HTTP200 snapshot acquired 2026-10-02; exact binding verified and complete visible text personally read by L writer B. No fresh primary HTTP and no inherited editorial/source approval. Original receipt lacks full response headers and request-start/completion timing; that historical acquisition-detail gap is preserved."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-03T15:12:57.514282+00:00"
+      },
+      "scene": "Dutch lowland woodland edge in early autumn, open firm earth, sparse low grass, muted green and ochre distant foliage and soft late-afternoon daylight.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "L-0200469-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/attempt-L-0200469-01.json",
+              "sha256": "9c9715d97e423239e0d15964b66623bf3e6cc115a43eec4baf052f46d5f591ad",
+              "bytes": 5673
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-approvals/3ac2d9ac98b1fdd843d863a3f21c34ea24ca09805678da794909f3784446daeb.json",
+              "sha256": "3ac2d9ac98b1fdd843d863a3f21c34ea24ca09805678da794909f3784446daeb",
+              "bytes": 3219
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/preflights/cd32f0f2-7a88-4e8a-a776-8ea3164e477a.json",
+              "sha256": "a720ec3af64f5a3fb5367019dc9a193174b93250eacffb4e222a0639a0b5784c",
+              "bytes": 3713
+            },
+            "imagePermitId": "cd32f0f2-7a88-4e8a-a776-8ea3164e477a",
+            "trancheSha256": "9c769a98de8970312cc84f4a01ed2a9e4e2e807e181a586663be53a2e0242193",
+            "prompt": "Create one restrained, realistic, art-directed field-guide portrait of the exact catalog identity Dutch Tulip Hound, also called the Markiesje. Use the supplied photograph only for morphology and coat. Preserve the adult dog's light but developed proportions, slightly longer-than-tall trunk, slender coherent limbs, gently tapered muzzle, natural drop ears, black soft silky moderately long coat, and feathering on ears, limbs and complete natural tail. Do not turn it into a heavy spaniel, a curly poodle or a juvenile.\n\nNative output must be 1536×1024 landscape. Show one adult dog in a newly composed natural standing three-quarter pose at dog-eye level, head gently turned toward the viewer, with a relaxed attentive expression. All four coherent legs and paws must be grounded visibly on firm open earth. Keep credible shoulder, elbow, hock and paw connections, natural fur and subtle contact shadows. Show the entire attached feathered tail continuously from its base through its tapered free end, carried in a gentle lively arc behind the dog without curling over its back. Separate the tail silhouette from the hindquarters and background. Preserve generous space around the whole body, ears, paws and tail, with clear natural lighting across the black coat.\n\nPlace the dog beside a modest Dutch lowland woodland edge in early autumn, with muted green and ochre foliage in the distance, sparse low grass and soft late-afternoon daylight. Keep the ground under every paw open and legible. This restrained setting interprets the breed's documented Dutch companion history. Composition, pose, lighting and background are new; do not copy the photograph's leaf-covered stance or dark fence and vegetation. No people, other animals, collar, leash, harness, gear, text, logos, watermark, plastic fur, invented limbs or clipped extremities.\n",
+            "promptSha256": "ec29865c9808d2b0b77112e505011388e60424c118070e97802cbabe4e75925d",
+            "promptTemplateVersion": "dogs-field-guide-v9-cohort-l",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-l/worker-b/L-0200469-01.png",
+              "sha256": "4aa5700fb3d5a9d6ba81cd716e65042240320cdf6b0a112be50f29a7e48ada0a",
+              "bytes": 2861895
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10084-262b-7072-9850-941cc19a6850/exec-0ee815fa-481c-43d1-93ab-f2987ce7cfa2.png",
+            "originalOutputSha256": "4aa5700fb3d5a9d6ba81cd716e65042240320cdf6b0a112be50f29a7e48ada0a",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-03T15:14:22Z",
+            "completedAt": "2026-10-03T15:15:07Z"
+          }
+        ],
+        "acceptedAttemptId": "L-0200469-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-native-qa/0200469-01-accepted.json",
+          "sha256": "c2f855e74df3e011c758a1a6c2327802cf14272fb8dce31b857074cf9f6d3d77",
+          "bytes": 1151
+        },
+        "reviewedAt": "2026-10-03T15:17:53.708313+00:00",
+        "breedIdentity": "Adult Markiesje black silky moderate coat, natural feathered drop ears, tapered muzzle and light but developed trunk consistent with reference.",
+        "anatomy": "Four coherent distinct grounded paws, believable limb joints and weight. Complete attached feathered tail arcs behind dog with visible free endpoint, clear of back and legs.",
+        "crop": "Full ears, paws and tail safely contained with natural surrounding space and foreground.",
+        "aesthetics": "New autumn woodland-edge setting, soft warm light defining black coat, believable fur and contact. No gear, people, other animals, text or watermark.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/l01-first-five-contact-001.jpg",
+          "sha256": "2095d0275e4ffda6418f567885b88cf289d5c20ac596bcf51850642aaf5d00e7",
+          "bytes": 653926
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "l01",
+        "batchManifest": "data/dogs/generated-artwork-batch-l01.json",
+        "integratedAt": "2026-10-03T15:35:58.176329+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0201055": {
+      "catalogId": "VBO:0201055",
+      "displayName": "Poodle, Multi-Colored",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualified-poodle-001.json",
+        "sha256": "518d9f162baeeee48428cdb6c7477f73f6fa790ece9eb897a6f1deebc8bda2e0",
+        "bytes": 2527
+      },
+      "preparation": {
+        "worker": "C",
+        "trancheId": "l01",
+        "trancheSha256": "9c769a98de8970312cc84f4a01ed2a9e4e2e807e181a586663be53a2e0242193",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/packet-poodle-002.json",
+          "sha256": "ab7b2d88e99d127404658622e4585588835c35cf33b9edbfade9f31291a5f406",
+          "bytes": 19286
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/peer-c-poodle-002.json",
+          "sha256": "4c5b2ed0e7a008988b3a542ca734f225b6ae578f7e7f270f2b53c75ba9b20bfb",
+          "bytes": 9659
+        }
+      },
+      "reference": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:934bc035d03d527b",
+        "originalPath": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-harlekin-original-009.jpg",
+        "sourceSha256": "934bc035d03d527ba512e110f1c36bd4e6de01fc251caab7b1e13ed160bca740",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Harlekinpudel_am_See.JPG",
+        "sourcePageRevision": {
+          "id": 1256741872,
+          "timestamp": "2026-08-05T00:52:22Z"
+        },
+        "metadataPath": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-harlekin-current-008.json",
+        "metadataSha256": "749de0c5060fc1cd8dfca97cd0a139b0fe40d70c72217ea6589d1275011f42e9",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-harlekin-file-text-014.txt",
+        "filePageWikitextSha256": "fbcc1690618e6bca84822f7f4f9fc0fe804dce766b747b6b5df24312d9b725ae",
+        "visualReview": "Writer viewed full original: mature proportions, complete body/leg courses; ordinary far-hind overlap; complete elevated white tail and base readable. Harness not body-obscuring. Root visual triage pass reported separately; no generation approval inferred.",
+        "rightsReview": "Distinct catalog multi-colored variety; own creator Harlekinpudel label consistent with patterned Poodle, no size claim or alias promotion. Mature developed muzzle/chest/proportions, body/limb courses and complete attached tail readable despite ordinary rear overlap and harness. Own photograph by Commons user Max1235; sole image upload2009-11-01 sha1 33757f823dc973319fc80b1a96887b8af89d51bd matches current original; creator first File revision31384642 self-grants GFDL/CC BY-SA3.0,2.5,2.0,1.0. No external source transfer or license narrowing in five earliest/current bodies. Source photograph private morphology only; UI/public snapshot/raster purposes false. Private morphology reference only; no source photograph delivery.",
+        "primaryReviewedAt": "2026-10-03T15:12:57.514282+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-l/root-approvals/d59e311637b2a0d8575d81b3e923ee093f602038d841d2ff1d2a9b039dee85ea.json",
+        "rootApprovalSha256": "d59e311637b2a0d8575d81b3e923ee093f602038d841d2ff1d2a9b039dee85ea",
+        "normalization": {
+          "path": "reports/dogs-generated-artwork/cohort-l/worker-a/rights-reference-normalization-first5-001.json",
+          "sha256": "d670b7b391b51d79e28722f30663c2bce72cae253d2e9274668e97224ff8e9e3",
+          "bytes": 37648
+        }
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Multi-colored Poodles often seek close company and bring a playful streak to shared activities. Their social nature helps explain the breed's long involvement in performance events, while larger Poodles retain the background of hunting companions. Patterned and solid-colored Poodles are shown separately in UKC conformation, but are the same breed.",
+        "summarySha256": "ba3aeaca8725647d9fd517826626cc8c4d5117e3709518592eea0aa988270ce4",
+        "shortDescription": "Multi-colored Poodles tend to seek close company, with a playful streak and a long tradition of shared activities.",
+        "shortDescriptionSha256": "aa55293b62a5e19d950382e4207ce090624866223527b9cb6f8fd026bdb696a6",
+        "author": "L worker C",
+        "reviewer": "L worker A and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/packet-poodle-002.json",
+        "sourcePathSha256": "ab7b2d88e99d127404658622e4585588835c35cf33b9edbfade9f31291a5f406",
+        "sourceSnapshots": [
+          {
+            "title": "UKC Multi-Colored Poodle official breed standard (revised January 1, 2025)",
+            "url": "https://www.ukcdogs.com/breed-standards/multi-colored-poodle",
+            "evidence": "Characteristics: highly social, close human companionship, sense of humor and performance activities. History scopes Miniature/Toy to companions. Explicit note: solid and multi-colored are separate conformation exhibits, not separate breeds. Color section establishes abstract/parti/phantom/sable/brindle patterns.",
+            "sourceRole": "Primary breed registry published utilization/behavior/history standard; two size scopes combined only where both state same behavior",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/poodle-ukc-primary-005.html",
+              "sha256": "98b03316c310d4b8669221a85318c36a6ccadc10274fabe498af156a0096ed1a",
+              "bytes": 96815
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/poodle-ukc-primary-005.txt",
+              "sha256": "ee1f726bd3a8f157c25da96f837ee0f2280ebb58174899ec185d04af35368a2a",
+              "bytes": 21095
+            }
+          },
+          {
+            "title": "UKC Multi-Colored Standard Poodle official breed standard (revised January 2, 2024)",
+            "url": "https://www.ukcdogs.com/breed-standards/multi-colored-standard-poodle",
+            "evidence": "Characteristics: highly social, close human companionship, sense of humor and performance activities; history explicitly gives Standard Poodles hunting-companion background. Note states solid/multi-colored not separate breeds. Tail and natural-tail policy support complete natural tail; patterns include abstract and parti.",
+            "sourceRole": "Primary breed registry published utilization/behavior/history standard; two size scopes combined only where both state same behavior",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/poodle-ukc-standard-primary-013.html",
+              "sha256": "e618ca50b83fe3a0e2292c3eaa0a3e4782c81d214fe409d4c7c1e1235800f5a9",
+              "bytes": 96977
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/poodle-ukc-standard-primary-013.txt",
+              "sha256": "bedda96905675e7b7e523e34e7976ff81cc8f14a0f9e9ee4dcf296cce208da65",
+              "bytes": 21420
+            }
+          }
+        ],
+        "primaryReviewedAt": "2026-10-03T15:12:57.514282+00:00"
+      },
+      "scene": "Muted early-autumn leaf-strewn meadow edge and woodland",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "L-0201055-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/attempt-L-0201055-01.json",
+              "sha256": "c5577e1916ca8e2b68af1253c770489870bd5afc05ccb542d48f9a4567fe39a4",
+              "bytes": 5958
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-approvals/d59e311637b2a0d8575d81b3e923ee093f602038d841d2ff1d2a9b039dee85ea.json",
+              "sha256": "d59e311637b2a0d8575d81b3e923ee093f602038d841d2ff1d2a9b039dee85ea",
+              "bytes": 2756
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/preflights/eb7feb46-d218-4d9a-9fba-b2ae8aa5f6f1.json",
+              "sha256": "e3b5750eae2bb68cb9320f070da208c0ccf8aec1fd64ce45917ae42b744176e8",
+              "bytes": 3204
+            },
+            "imagePermitId": "eb7feb46-d218-4d9a-9fba-b2ae8aa5f6f1",
+            "trancheSha256": "9c769a98de8970312cc84f4a01ed2a9e4e2e807e181a586663be53a2e0242193",
+            "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one new 1536×1024 landscape portrait of one adult multi-colored Poodle, exact catalog VBO:0201055. Use the attached photograph ONLY for adult proportions, face, dense curly fur and black-white pattern; create a different pose, composition, light and background. Black head and drop ears, white muzzle/chest and legs, large black body patches with crisp natural transitions, square balanced body, slender sturdy legs, dark eyes and black nose; a practical short curly coat with a soft natural topknot. The entire attached natural tail is visible and lifted, gently curved with a white fluffy end, never clipped. Dog stands in a relaxed three-quarter pose facing right at dog-eye level on a quiet leaf-strewn meadow edge beside low grasses and distant woodland, muted early-autumn greens and ochres, soft overcast natural light. Full body with generous crop-safe space, four distinct coherent grounded paws, leg courses and joints anatomically credible, complete attached tail and contact shadows. Background modestly specific and softly separated; individual curls look natural. Remove harness and all gear. No people, other animals, collars, leashes, text, logos, watermark, plastic fur or malformed anatomy. Do not copy the original lake scene or front-facing stance.\n",
+            "promptSha256": "d2a0907a6af6eb5bc0ed88c71ef559f25473fa5e04ad20362f07f76f663b08e3",
+            "promptTemplateVersion": "dogs-field-guide-v9-cohort-l",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-l/VBO-0201055-attempt-01.png",
+              "sha256": "c07a4d39fe9b2a35cb7ec6e08c25362685df7788fda2379d14686df84e8cd554",
+              "bytes": 2886796
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10084-6a5c-74e3-be15-e53510d6f4dd/exec-e3cf10de-84a0-4859-b1a5-de5e23d27938.png",
+            "originalOutputSha256": "c07a4d39fe9b2a35cb7ec6e08c25362685df7788fda2379d14686df84e8cd554",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "not separately retained; coordinator preflight UTC bounds start",
+            "completedAt": "Unknown: separate actual tool completion UTC was not retained; successful tool wall duration25.3s and native result retained."
+          }
+        ],
+        "acceptedAttemptId": "L-0201055-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-native-qa/0201055-01-accepted.json",
+          "sha256": "6d4c17c75d1c1257927fea41b2c6655a0e034ac464abf0e85e2264da6e2e9864",
+          "bytes": 1227
+        },
+        "reviewedAt": "2026-10-03T15:24:01.609964+00:00",
+        "breedIdentity": "Developed adult black-white multi-colored Poodle, proportionate curly-coated trunk and moderate muzzle, natural drop ears and practical furnishings; no numeric size or separate-breed inference.",
+        "anatomy": "Four coherent grounded limb courses and paws visible with ordinary leaf litter. Complete attached upright natural white-ended tail is continuously readable and clear of rump and frame.",
+        "crop": "Complete head, ears, four feet and tail endpoint comfortably contained with clear scene margins.",
+        "aesthetics": "Fresh calm three-quarter stance in muted autumn meadow/woodland, realistic curly coat and soft light. No harness, people, other animals, text or watermark.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/l01-first-five-contact-001.jpg",
+          "sha256": "2095d0275e4ffda6418f567885b88cf289d5c20ac596bcf51850642aaf5d00e7",
+          "bytes": 653926
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "l01",
+        "batchManifest": "data/dogs/generated-artwork-batch-l01.json",
+        "integratedAt": "2026-10-03T15:35:58.176329+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0200611": {
+      "catalogId": "VBO:0200611",
+      "displayName": "Goldendoodle",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualified-goldendoodle-001.json",
+        "sha256": "85b7abf355b771ab4b5f4d4d257e5ff0af88e079024b69485c6e00065190de2f",
+        "bytes": 2620
+      },
+      "preparation": {
+        "worker": "A",
+        "trancheId": "l01",
+        "trancheSha256": "9c769a98de8970312cc84f4a01ed2a9e4e2e807e181a586663be53a2e0242193",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/packet-goldendoodle-001.json",
+          "sha256": "a82d09041dceed7c8e54d74b636fb83d2c883ef3c05a72837173e2dc26979bf4",
+          "bytes": 24110
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/peer-a-goldendoodle-001.json",
+          "sha256": "98cf718c3134506a2b0e20f77a1c1d5aba19c23c6185bd6545d550ff48479c60",
+          "bytes": 2715
+        }
+      },
+      "reference": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:6b00dae83e082591",
+        "originalPath": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-028-goldendoodle-tracking-original.jpg",
+        "sourceSha256": "6b00dae83e082591b0a1547fe4a719d121347c71c03fb7df4a49cae5641d9a62",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Goldendoodle_Tracking_Rabbit2.jpg",
+        "sourcePageRevision": {
+          "id": 1248684283,
+          "timestamp": "2026-07-17T21:05:54Z"
+        },
+        "metadataPath": "reports/dogs-generated-artwork/cohort-l/worker-a/goldendoodle-selected-metadata-001.json",
+        "metadataSha256": "308a696bddc5e06723e1902d1cfa675f64bb2b41000130000e7d5a074df0ee3d",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-l/worker-a/goldendoodle-pinned-filetext-001.txt",
+        "filePageWikitextSha256": "dd2555710fc2fcacbb538120e3fb2cba227d36f850b3f1360c7e19ee6510ba7b",
+        "visualReview": "Writer personally viewed unchanged whole2048×1536 original028: mature head/trunk, four limb courses with ordinary body overlap and grass partly hiding grounded endpoints, complete attached brush tail andfreeendpoint safelyinsideframe. Ear/head/trunk proportions readable. Root personallywholeviewed and explicitly preliminaryvisualPASS, ordinaryoverlap/grass acceptable. Original caption earliestparent0 explicitlythree-year-old. New generatedstandingpose must have fourcoherentgrounded visiblepaws and fulltail, not reference liftedtracking stance.",
+        "rightsReview": "Exact generic Goldendoodle, creator-captioned three-year-old adult. Distinct from pure founding breeds; no measured Standard, Miniature or Petite identity inferred. Complete body, limb courses and attached tail readable with ordinary overlap/grass. Original EnglishWiki upload2007-10-13T18:22:40Z byGrod028; imported earliestCommons parent0 revision973844739 carries same originaldate/user and explicitPD-self. Sole retainedbinaryupload has same user/date, descriptionthree-year-old Goldendoodle andsha1 matching actual unchanged original794ed2032ab599fcfab994507d0203a569c362d3. FileImporter comment names originalEnglishWiki URL. Fresh sourcewiki030 nowmissing/sharedimage; no deletedEnglishWiki revision content acquired or implied. Imported originalrelease history029 is the actual source-grant evidence; extmetadata lacking machine author does not supply creator, history does. No thirdparty copyright notice appeared in actual selected current/firstwikitext. Root owns final transferredcreator-chain adjudication. Source photograph private morphology only; UI/public snapshot/raster purposes false.  Canonical PD-self sourceLicenseUrl manually derived from actual own-creator original/current invocation and root-qualified creator release; raw API LicenseUrl absent, not CC0/PDM. Private morphology reference only; no source photograph delivery.",
+        "primaryReviewedAt": "2026-10-03T15:14:29.258043+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-l/root-approvals/627265a902849ca8d4d867112459bb8ea89158d1bd0b2a97a63439f8b193ad05.json",
+        "rootApprovalSha256": "627265a902849ca8d4d867112459bb8ea89158d1bd0b2a97a63439f8b193ad05",
+        "normalization": {
+          "path": "reports/dogs-generated-artwork/cohort-l/worker-a/rights-reference-normalization-first5-001.json",
+          "sha256": "d670b7b391b51d79e28722f30663c2bce72cae253d2e9274668e97224ff8e9e3",
+          "bytes": 37648
+        }
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Friendliness, confidence and close companionship are central aims of Goldendoodle breeding. GANA's standard emphasizes a steady temperament for this Golden Retriever–Poodle cross. Its open stud book includes crosses from the two founding breeds and later-generation Goldendoodles, so the type covers a range of sizes and coats.",
+        "summarySha256": "926858b97f57d08adb4531916c5bd9b564df72ab7ade90936dd757f16a30780a",
+        "shortDescription": "Bred for friendly, confident companionship, this Golden Retriever–Poodle cross comes in varied sizes and coats.",
+        "shortDescriptionSha256": "74e32a3c136383f94ceff9c23f72f5ebd0b01d9650fbe53aa7746620ffc02ef0",
+        "author": "L worker A",
+        "reviewer": "L worker B and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/packet-goldendoodle-001.json",
+        "sourcePathSha256": "a82d09041dceed7c8e54d74b636fb83d2c883ef3c05a72837173e2dc26979bf4",
+        "sourceSnapshots": [
+          {
+            "title": "Goldendoodle Association of North America — Goldendoodle Breed Standard",
+            "url": "https://www.goldendoodleassociation.com/about-the-breed/goldendoodle-breed-standard/",
+            "sourceRole": "Firsthand breed association: its own current breeding standard, identity definition and selection aims; supports aims rather than measured behavior or guaranteed suitability.",
+            "evidence": "General Appearance explicitly specifies friendly/confident companion function, Poodle and Golden Retriever as the only founding breeds, open stud book with founding-breed or multigenerational crosses, and diversity of sizes/coats. Temperament specifies friendly/reliable temperament as selection criteria. These are attributed breeding aims; summary/short omit hypoallergenic, health, service/therapy suitability promises and universal behavior.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/primary-gana-standard-001.html",
+              "sha256": "f3059dce3fa0faaff777e5a56dcde2c84ff95967e492f5d3ca446682c908a0c5",
+              "bytes": 158629
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/primary-gana-standard-001.txt",
+              "sha256": "728c29d72b90b74df0a3a9b901024c938e902fc73ea48582e9164b6171fcca82",
+              "bytes": 9139
+            },
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/primary-gana-standard-001.receipt.json",
+              "sha256": "57e9c7e5b37c54c0ae91a8c54b91f95f2bc3480c1f37b5172f32e427db7a7f19",
+              "bytes": 1279
+            }
+          }
+        ],
+        "primaryReviewedAt": "2026-10-03T15:14:29.258043+00:00"
+      },
+      "scene": "Late-spring Great Lakes woodland meadow, firm open earth, lowwildflowers and distantmutedfoliage in softmorninglight.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "L-0200611-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/attempt-L-0200611-01-canonical-002.json",
+              "sha256": "6860570eeccd960421131ae517f3b9bcc631a172420605dde59998b2d9cc0aaa",
+              "bytes": 7877
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-approvals/627265a902849ca8d4d867112459bb8ea89158d1bd0b2a97a63439f8b193ad05.json",
+              "sha256": "627265a902849ca8d4d867112459bb8ea89158d1bd0b2a97a63439f8b193ad05",
+              "bytes": 3086
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/preflights/7892f22e-631a-4d27-ad1f-aa8ef8bfb9ea.json",
+              "sha256": "0728ce91532de3b64e849af3511f973622ec717dd91afb2a4cc8e2f4b53d66fa",
+              "bytes": 3764
+            },
+            "imagePermitId": "7892f22e-631a-4d27-ad1f-aa8ef8bfb9ea",
+            "trancheSha256": "9c769a98de8970312cc84f4a01ed2a9e4e2e807e181a586663be53a2e0242193",
+            "prompt": "Create one restrained, realistic, art-directed field-guide portrait for the exact catalog identity Goldendoodle (Golden Retriever–Poodle cross), using the supplied photographed dog only as a morphology and coat reference. The supplied image is a documented adult dog; preserve its mature athletic proportions, moderately furnished broad muzzle, drop ears, soft golden-cream wavy coat, practical shorter body trim, and intact feathered natural tail. Do not infer or exaggerate a toy or miniature subtype.\n\nNative output must be 1536×1024 landscape. Show one adult dog in a newly composed natural standing three-quarter pose at dog-eye level, with its head gently turned toward the viewer, relaxed attentive expression, and all four coherent legs and paws grounded visibly on firm open earth. Use a normal supported standing stance, replacing the reference's tracking stance and raised paw. Ensure credible shoulder, elbow, hock and paw connections, plausible fur and subtle contact shadows. Keep the entire attached natural brush tail visible from its base through its tapered free end, gently extending behind the dog with a slight upward curve; preserve generous space around its whole body, ears, paws and tail.\n\nPlace the dog beside a modest grassy Great Lakes woodland meadow in late spring, with a few low wildflowers, muted new foliage in the distant background and soft morning daylight. The quiet Michigan-inspired scene is an interpretive setting, not a claim that the cross has a single geographic origin. Keep the foreground beneath every paw clear and the background softly legible with subdued natural colors. Composition, pose, lighting and setting are new; do not reproduce the photographed action, view or grass occlusion. No people, other animals, collar, leash, harness, gear, text, logos, watermark, plastic fur, invented limbs or clipped extremities.\n",
+            "promptSha256": "44bfe0a172aa4c41d738a9a830de5fa6e5ad18d70f6a95094bcee7d2cd70b6fe",
+            "promptTemplateVersion": "dogs-field-guide-v9-cohort-l",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-l/worker-a/VBO-0200611-native-01.png",
+              "sha256": "de43589daa374cb7c2fae894beda1b84db9bc87c622de998822c4a531a67ffef",
+              "bytes": 3065381
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10083-e23b-7151-a71b-8eb3160aa4dc/exec-19a3a020-1808-4e74-9da2-9ed9a52794c7.png",
+            "originalOutputSha256": "de43589daa374cb7c2fae894beda1b84db9bc87c622de998822c4a531a67ffef",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-03 15:16:57 UTC",
+            "completedAt": "2026-10-03 15:17:26 UTC"
+          }
+        ],
+        "acceptedAttemptId": "L-0200611-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-native-qa/0200611-01-accepted.json",
+          "sha256": "3e871ae442ab2f49a235974a8378db4b16163661238b045322bb86be70c4d70d",
+          "bytes": 1184
+        },
+        "reviewedAt": "2026-10-03T15:22:42.497032+00:00",
+        "breedIdentity": "Adult golden-cream wavy furnished Goldendoodle, developed athletic trunk and proportionate muzzle/drop ears faithful to source without invented size subtype.",
+        "anatomy": "Four coherent grounded paw/limb courses, convincing joints and contacts. Complete attached brush tail with open upward curve and visible free end.",
+        "crop": "Entire ears, body, all four paws and tail endpoint safely within native with clear surrounding landscape and foreground.",
+        "aesthetics": "Fresh soft spring woodland-lakeside earth scene, restrained natural greens and believable coat texture. No gear, people, other animals, text or watermark.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/l01-first-five-contact-001.jpg",
+          "sha256": "2095d0275e4ffda6418f567885b88cf289d5c20ac596bcf51850642aaf5d00e7",
+          "bytes": 653926
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "l01",
+        "batchManifest": "data/dogs/generated-artwork-batch-l01.json",
+        "integratedAt": "2026-10-03T15:35:58.176329+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0200308": {
+      "catalogId": "VBO:0200308",
+      "displayName": "Cavajack",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualified-cavajack-001.json",
+        "sha256": "30b1215f4b622c3418a4812032b9331e899923ce98d8282357662435a522f9b5",
+        "bytes": 3269
+      },
+      "preparation": {
+        "worker": "A",
+        "trancheId": "l01",
+        "trancheSha256": "9c769a98de8970312cc84f4a01ed2a9e4e2e807e181a586663be53a2e0242193",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/packet-cavajack-001.json",
+          "sha256": "f99ba22db9c956c357d89501e5528b9de5c6dedacf751bd93530fec1bcb41f5a",
+          "bytes": 40983
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/peer-a-cavajack-001.json",
+          "sha256": "f415e165382d11a9ffcee627b060b341c83a9d34bc5d9eff39f23c407d64a0ee",
+          "bytes": 8123
+        }
+      },
+      "reference": {
+        "status": "approved",
+        "assetId": "dogs:photo:commons:3bd90935f7e7162e",
+        "originalPath": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-114-cavajack-eleven-original.jpg",
+        "sourceSha256": "3bd90935f7e7162e1a2e2a83c960fcf2e702c6c3641172d955b2e9e39a13adca",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Norwegian_Jack_Russel_mixed_with_King_cavalie.jpg",
+        "sourcePageRevision": {
+          "id": 1043785752,
+          "timestamp": "2025-06-14T09:22:14Z"
+        },
+        "metadataPath": "reports/dogs-generated-artwork/cohort-l/worker-c/observed-parent-jack-russell-hybrids-metadata-163.json",
+        "metadataSha256": "3de8cd4c61eda2548be6f55b94e26cac3ec1115b3e1a037839fd99530788d46f",
+        "filePageWikitextPath": "reports/dogs-generated-artwork/cohort-l/worker-a/cavajack-file-text-001.txt",
+        "filePageWikitextSha256": "2d5b211ee340f43fbc83a69798301b9f921d632a2c40cd4d5614f374d22c3ede",
+        "visualReview": "Personally viewed whole unchanged3877x2585 native114, displayed resized1919x1279, and whole6000x4000 rejected115 displayed1920x1280. Selected114 developed mature head/trunk, four limb courses and grounded paws visible with ordinary proximal overlap, complete attached raised brush tail/free white taper inside frame. Caption explicitly eleven years old; no pedigree or numeric size claim. Root whole-viewed114 preliminary visualPASS. Source frontal picnic-table/collar/lead pose replaced by new natural standing pose; no other dog/source115/AFA photograph used.",
+        "rightsReview": "DirectcreatorVasmar1 parent0explicit11yearJackRussell/KingCavaliercross, ownSA4; samecreatorcustompermissionread, completeattachedtail/body. Supplementaldefinition resolves Cavajack/Jackalier name only. No pedigreecertificateclaimed. Direct originating creator Vasmar1 parent-zero revision752561626, 2023-04-20T15:58:48Z: own work, author Marius Vassnes, self CC BY-SA4.0, Norwegian caption Jack russel mixed with King Cavalier, eleven years old. Same creator752563545 adds custom permission; all five returned earliest bodies retain grant. Revision continuation exists and was not consumed; selected current1043785752 separately read. Sole returned upload same creator/time/6652466B/3877x2585/SHA1d30e7ebda5445eefaa7b6ea283ba3595473fcc35 matches native114. Actual creator-specific permission template117 confirms attribution required, contact would appreciate and website desirable not necessary; actual119 English stipend text discloses Wikimedia Norge camera funding only. No importer-only rescue. Source photograph private morphology only; UI/public snapshot/raster purposes false.  Actual MariusVassnes permission requires attribution; contact and website optional, funded-camera notice imposes no extra condition. Private morphology reference only; no source photograph delivery.",
+        "primaryReviewedAt": "2026-10-03T15:14:29.258043+00:00",
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-l/root-approvals/fd3ea2646894a49e00cac8543aea329c68f4421f5333925f0ea61f2a8b8de826.json",
+        "rootApprovalSha256": "fd3ea2646894a49e00cac8543aea329c68f4421f5333925f0ea61f2a8b8de826",
+        "normalization": {
+          "path": "reports/dogs-generated-artwork/cohort-l/worker-a/rights-reference-normalization-first5-001.json",
+          "sha256": "d670b7b391b51d79e28722f30663c2bce72cae253d2e9274668e97224ff8e9e3",
+          "bytes": 37648
+        }
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "An energetic, reliable example is Tasha, a Cavajack whose club recorded seven years of flyball racing and a Flyball Master Champion title. Flyball pairs hurdle running with ball retrieval in a relay. Also called Jackalier, the Cavajack is a Cavalier King Charles Spaniel–Jack Russell Terrier cross.",
+        "summarySha256": "7d51c6c23f3777014af7c78f1546276ac40cd84ca10174bc23a472b373b9c160",
+        "shortDescription": "Cavajack Tasha raced in flyball for seven years; this cross is also called Jackalier.",
+        "shortDescriptionSha256": "1d8b012d009d0f53f697f7df9de7c862f934a157a16a2c92d128c2a23e8b92a9",
+        "author": "L worker A",
+        "reviewer": "L worker B and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/packet-cavajack-001.json",
+        "sourcePathSha256": "f99ba22db9c956c357d89501e5528b9de5c6dedacf751bd93530fec1bcb41f5a",
+        "sourceSnapshots": [
+          {
+            "title": "Australian Flyball Association — 2026 Hawkesbury Show flyball catalogue, Tasha retirement tribute",
+            "url": "https://www.flyball.org.au/media/entry_forms/f1e45f6a60b14210b76ace9627e2bd6c.pdf",
+            "evidence": "Entire ten-page extracted text personally read, and whole native page9 render read. Norwest Thunderdogs page9 calls named Tasha a reliable little Cavajack and energetic club member, records seven years racing and Flyball Master Champion title. Final full and short describe Tasha alone. No population temperament, parent inheritance, family suitability or claim the portrait depicts Tasha. Adjacent Twix tribute excluded.",
+            "sourceRole": "Official sporting catalogue with firsthand club retirement account; primary evidence about specifically named participant Tasha only. Retained K HTTP200 native personally read in L, no fresh L PDF acquisition asserted.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-019/cavajack-afa-tasha-catalogue.pdf",
+              "sha256": "ef238fcc9f60d17c85a7d010d56709146fdf93cc04cd2f71435fc83484f04d30",
+              "bytes": 11397727
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-019/cavajack-afa-tasha-catalogue.txt",
+              "sha256": "6278a827b0d990400402601a69d3caeb75c35e4867ee2915a66cc83ee42c4625",
+              "bytes": 15672
+            }
+          },
+          {
+            "title": "Australian Flyball Association — What is Flyball?",
+            "url": "https://www.flyball.org.au/",
+            "evidence": "Entire2158B extracted current home body read. Official sport definition has two relay teams of four dogs, four hurdles, box-triggered ball retrieval and return. Profile paraphrases hurdle running and ball retrieval in a relay; no general Cavajack ability or suitability claim.",
+            "sourceRole": "First-party sport governing-body definition; primary evidence for flyball mechanics only.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/primary-cavajack-afa-sport-001.html",
+              "sha256": "4476dae6ec904da2eda18ead824bf3b54a97ccd1f89a4cf99acb53c9423185e5",
+              "bytes": 33402
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/primary-cavajack-afa-sport-001.txt",
+              "sha256": "9e12b4ffef3fbce99d8ce0e37d426e9e8cd70b43880723f6e83d3ed3785f1fae",
+              "bytes": 2158
+            }
+          },
+          {
+            "title": "Terrier Owner — Josh Martin, Cav-A-Jack definition and breed names",
+            "url": "https://www.terrierowner.com/jack-russell/cav-a-jack-cavalier-king-charles-spaniel-jack-russell-terrier/",
+            "evidence": "Entire15858B actual extracted page including byline/body/nav/footer personally read. Introduction defines Cav-A-Jack as Cavalier King Charles Spaniel and Jack Russell Terrier cross; Breed Names table includes Cavajack and Jackalier. Used only for lexical cross definition and alias. Josh Martin is site founder and JRT owner; not claimed firsthand Cavajack experience or veterinary expertise. All parent-temperament extrapolation, Luna anecdotes, health/training/suitability/guarantee claims excluded.",
+            "sourceRole": "Supplemental original authored lexical definition and alias; not primary behavioral evidence or firsthand Cavajack population experience.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/primary-cavajack-terrierowner-definition-001.html",
+              "sha256": "72126928604962f863057ba67bba30a08a5e04a314072bce553f16b0f5e301e3",
+              "bytes": 191566
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/primary-cavajack-terrierowner-definition-001.txt",
+              "sha256": "105753b6fe9b80b19baaecf1b28f7a283d99671f1d0876c2e7b61a1fa151bb78",
+              "bytes": 15858
+            }
+          }
+        ],
+        "primaryReviewedAt": "2026-10-03T15:14:29.258043+00:00"
+      },
+      "scene": "A quiet temperate meadow beside a soft distant tree line in restrained soft daylight",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "L-0200308-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/attempt-L-0200308-01-canonical-002.json",
+              "sha256": "22ad0b16e94a1a3ca6e64397447ccee021006e0ae3373b7c22026e22f50db7c5",
+              "bytes": 8245
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-approvals/fd3ea2646894a49e00cac8543aea329c68f4421f5333925f0ea61f2a8b8de826.json",
+              "sha256": "fd3ea2646894a49e00cac8543aea329c68f4421f5333925f0ea61f2a8b8de826",
+              "bytes": 3076
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/preflights/b9c6337c-ed06-45ba-8b9e-ab94f108dc2a.json",
+              "sha256": "6192b12735d656ccac7bf88ec01446cca8d4ef6e01d087629236ba4309abc10f",
+              "bytes": 4109
+            },
+            "imagePermitId": "b9c6337c-ed06-45ba-8b9e-ab94f108dc2a",
+            "trancheSha256": "9c769a98de8970312cc84f4a01ed2a9e4e2e807e181a586663be53a2e0242193",
+            "prompt": "Create one new photorealistic editorial dog portrait for StackRank Dogs, landscape 1536 x 1024 pixels, opaque background. Show exactly one mature adult Cavajack, a Cavalier King Charles Spaniel–Jack Russell Terrier cross, using ONLY the attached unchanged source photograph for individual morphology. This reference dog is not Tasha, the separately documented flyball dog in the profile. Do not depict Tasha or infer that the reference dog competes in flyball.\n\nPreserve the source dog's developed compact trunk, chest, head proportions and short practical coat; tricolour black saddle/back, white chest and lower legs, tan eyebrows and cheeks, white muzzle and blaze, dark eyes and black nose, and natural moderately pendulous dark ears. Keep a complete attached bushy natural tail with the source's gentle raised curve and distinct white free endpoint. Use the actual source dog rather than averaging parent breeds. Do not invent an extreme tail curl, elongated body, oversized ears, puppy proportions or exaggerated musculature.\n\nMake a new calm three-quarter standing pose facing left on firm natural earth. All four anatomically coherent legs and separate grounded paws must be clearly readable, with ordinary depth and weight-bearing alignment. Keep the whole head, ears, trunk, all paws, entire attached tail and free tip comfortably inside the frame with generous margins. No lifted paw, cropped foot, extra limb, fused paw or disconnected tail. Change the source's frontal picnic-table pose, table, camera angle and lighting; do not reproduce its composition.\n\nPlace the dog in a quiet temperate meadow beside a soft distant tree line, with low grass away from its paws and restrained soft daylight. This is an interpretive walking setting, not a claimed geographic origin or sporting event. Eye-level camera, natural perspective, realistic fur and understated depth of field; dog occupies roughly two-thirds of the width, with complete body and tail readable against the background. No people, other animals, collar, tag, lead, harness, sporting equipment, picnic table, buildings, vehicles, text, logo, watermark, frame or graphic overlay. Produce a believable new photograph, not an illustration, collage or copy of the reference.",
+            "promptSha256": "e5526a0d16b6fed11a88c820018998b79691bb2462ce59e8890cca323b4eb8f7",
+            "promptTemplateVersion": "dogs-field-guide-v9-cohort-l",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-l/worker-a/VBO-0200308-native-01.png",
+              "sha256": "2b03d213d6e53ba614afa79fa4262b34c22dd08d3578650e718aba7d31a47951",
+              "bytes": 2658876
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10083-e23b-7151-a71b-8eb3160aa4dc/exec-38bc3ff2-aef6-46fc-8a8b-c94545f195d2.png",
+            "originalOutputSha256": "2b03d213d6e53ba614afa79fa4262b34c22dd08d3578650e718aba7d31a47951",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-03 15:19:19 UTC",
+            "completedAt": "2026-10-03 15:19:54 UTC"
+          }
+        ],
+        "acceptedAttemptId": "L-0200308-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-native-qa/0200308-01-accepted.json",
+          "sha256": "4d333036b12b1c4224ed75a2f6ac54f21cbcc9b2c40aa5dae9f207d1248e8129",
+          "bytes": 1183
+        },
+        "reviewedAt": "2026-10-03T15:22:42.500076+00:00",
+        "breedIdentity": "Mature developed compact Cavajack, source-faithful tricolor short coat, moderately pendulous dark ears and moderate muzzle. Illustration is not named flyball dog Tasha.",
+        "anatomy": "Four distinct coherent weight-bearing legs and paws. Complete attached raised bushy tail with visible white free end, clear of hindquarters and frame.",
+        "crop": "Entire ears, body, all four paws and tail endpoint safely within native with clear surrounding landscape and foreground.",
+        "aesthetics": "New meadow earth-path setting, natural soft light and convincing coat/contact. No people, other animals, gear, text or sporting equipment.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/l01-first-five-contact-001.jpg",
+          "sha256": "2095d0275e4ffda6418f567885b88cf289d5c20ac596bcf51850642aaf5d00e7",
+          "bytes": 653926
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "l01",
+        "batchManifest": "data/dogs/generated-artwork-batch-l01.json",
+        "integratedAt": "2026-10-03T15:35:58.176329+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    }
+  },
+  "integrationBatches": [
+    {
+      "subwave": "l01",
+      "trancheId": "l01",
+      "trancheSha256": "9c769a98de8970312cc84f4a01ed2a9e4e2e807e181a586663be53a2e0242193",
+      "catalogIds": [
+        "VBO:0200216",
+        "VBO:0200469",
+        "VBO:0201055",
+        "VBO:0200611",
+        "VBO:0200308"
+      ],
+      "count": 5,
+      "batchManifest": "data/dogs/generated-artwork-batch-l01.json",
+      "contactSheet": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/l01-first-five-contact-001.jpg",
+        "sha256": "2095d0275e4ffda6418f567885b88cf289d5c20ac596bcf51850642aaf5d00e7",
+        "bytes": 653926
+      },
+      "rootRelease": {
+        "path": "reports/dogs-generated-artwork/cohort-l/release-l01-root-001.json",
+        "sha256": "57582bcb3a3b7b886d3d2da9a6841b712358a88c98ed96f54237b6d8b2dab980",
+        "bytes": 4291
+      },
+      "integratedAt": "2026-10-03T15:35:58.176329+00:00"
+    }
+  ],
   "publications": [],
   "progress": {
     "qualified": 13,
-    "generationCalls": 0,
-    "accepted": 0,
-    "integrated": 0,
+    "generationCalls": 5,
+    "accepted": 5,
+    "integrated": 5,
     "published": 0
   },
   "auditAllocation": {
@@ -166,10 +1104,22 @@
       "generationAuthorized": false
     }
   ],
-  "updatedAt": "2026-10-03T10:37:28.903889+00:00",
+  "updatedAt": "2026-10-03T15:35:58.176329+00:00",
   "qualificationBlocker": {
     "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualification-blocker-001.json",
     "sha256": "d40da108884f7381d49ad5b71adcda7c6e89b2dc63298f52af0476ee4288f88f",
     "bytes": 5578
+  },
+  "batchPolicy": {
+    "mode": "rolling-small",
+    "authority": "direct-user-instruction",
+    "authorization": {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/rolling-batch-user-authorization-001.json",
+      "sha256": "e1ffc149b5fe0e6cc1c3b1dd0d4dfec06466bf8ddfe05369134fbd745ca2d2eb",
+      "bytes": 1091
+    },
+    "minimumQualifiedPerTranche": 1,
+    "reservesRequired": false,
+    "targetAdditionalPublishedPairs": 100
   }
 }

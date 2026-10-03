@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "manifestVersion": "dogs-generated-artwork-602-e62e762dcaff",
+  "manifestVersion": "dogs-generated-artwork-607-22a7592e9cc2",
   "policyVersion": "dogs-generated-artwork-2026-09-21.1",
   "disclosure": "AI-generated breed portrait, art-directed for StackRank. Individual dogs vary.",
   "assets": [
@@ -4605,6 +4605,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200216:v1",
+      "catalogId": "VBO:0200216",
+      "name": "Bracco Italiano, Chestnut Roan",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v9-cohort-l",
+      "generatedAt": "2026-10-03 15:14:31 UTC",
+      "masterSha256": "6dc2e780eeb8556e24470dde560fa8e4745b281052664a3abe6b7576607f7029",
+      "reference": {
+        "assetId": "dogs:photo:commons:082e8118c7761469",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Italianseisojachestnut.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature developed Bracco with long pendulous ears, proportionate muzzle, chestnut roan coat, robust but athletic chest and trunk; source-faithful exact color variety.",
+        "anatomy": "Four coherent complete limb courses and four grounded paws, plausible elbows/hocks and weight-bearing contacts. Complete attached natural tapered tail, including distinct pale free tip, remains separate from legs.",
+        "crop": "Whole ears, all four paws and tail endpoint comfortably contained; about65 pixels of foreground below nearest paw. Qualitatively crop-safe, without invented numeric compliance.",
+        "aesthetics": "Believable finely textured coat, soft natural orchard light, restrained early autumn meadow, fresh dog-eye three-quarter composition. Blurred distant hillside contains small buildinglike shapes despite no-buildings prompt; this incidental background is not a material quality defect or an excluded user-content category. No gear, people, other animals, text or watermark."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 23926,
+          "sha256": "07335e3c658ee362f1adc64c16d814e4e2b80693c9057e86eac0dca34d802304",
+          "url": "assets/dogs/generated/VBO-0200216-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 145148,
+          "sha256": "46b4ca97f1f60f0ed32aaa5d6187670337c1e19babaa6f54341c0e3bb76ccbef",
+          "url": "assets/dogs/generated/VBO-0200216-native-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200217:v1",
       "catalogId": "VBO:0200217",
       "name": "Bracco Italiano, White-Orange",
@@ -5732,6 +5777,51 @@
           "bytes": 126034,
           "sha256": "3dee58234c2ba5a34527fb617f3316ee46df7012f88bb27b8e6d56165b4747d9",
           "url": "assets/dogs/generated/VBO-0200304-caucasian-shepherd-dog-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200308:v1",
+      "catalogId": "VBO:0200308",
+      "name": "Cavajack",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v9-cohort-l",
+      "generatedAt": "2026-10-03 15:19:54 UTC",
+      "masterSha256": "2b03d213d6e53ba614afa79fa4262b34c22dd08d3578650e718aba7d31a47951",
+      "reference": {
+        "assetId": "dogs:photo:commons:3bd90935f7e7162e",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Norwegian_Jack_Russel_mixed_with_King_cavalie.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature developed compact Cavajack, source-faithful tricolor short coat, moderately pendulous dark ears and moderate muzzle. Illustration is not named flyball dog Tasha.",
+        "anatomy": "Four distinct coherent weight-bearing legs and paws. Complete attached raised bushy tail with visible white free end, clear of hindquarters and frame.",
+        "crop": "Entire ears, body, all four paws and tail endpoint safely within native with clear surrounding landscape and foreground.",
+        "aesthetics": "New meadow earth-path setting, natural soft light and convincing coat/contact. No people, other animals, gear, text or sporting equipment."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 19642,
+          "sha256": "4bf23fa822ccbaa715ef3176b4d5577dc4114608249b05c5538945c79b54a289",
+          "url": "assets/dogs/generated/VBO-0200308-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 111576,
+          "sha256": "13cd3ad98b6f7ccdb37dc9eb1498a9446feaf3e2bd57f04a97a42ca357bbfcec",
+          "url": "assets/dogs/generated/VBO-0200308-native-01-960.webp"
         }
       ]
     },
@@ -8708,6 +8798,51 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200469:v1",
+      "catalogId": "VBO:0200469",
+      "name": "Dutch Tulip Hound",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v9-cohort-l",
+      "generatedAt": "2026-10-03T15:15:07Z",
+      "masterSha256": "4aa5700fb3d5a9d6ba81cd716e65042240320cdf6b0a112be50f29a7e48ada0a",
+      "reference": {
+        "assetId": "dogs:photo:commons:32e8cd4e20d73963",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Us_Louke.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Adult Markiesje black silky moderate coat, natural feathered drop ears, tapered muzzle and light but developed trunk consistent with reference.",
+        "anatomy": "Four coherent distinct grounded paws, believable limb joints and weight. Complete attached feathered tail arcs behind dog with visible free endpoint, clear of back and legs.",
+        "crop": "Full ears, paws and tail safely contained with natural surrounding space and foreground.",
+        "aesthetics": "New autumn woodland-edge setting, soft warm light defining black coat, believable fur and contact. No gear, people, other animals, text or watermark."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 23320,
+          "sha256": "7abae31b90a2575b6c1dbd78ab9a88ff9b46d4a780e1573c1729d55eaaabe8ef",
+          "url": "assets/dogs/generated/L-0200469-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 130712,
+          "sha256": "e2663f80b93f51da0d96335b93008a92c0a0440fb76d2dcd65396d4a81fd490c",
+          "url": "assets/dogs/generated/L-0200469-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200472:v1",
       "catalogId": "VBO:0200472",
       "name": "East Siberian Laika",
@@ -11449,6 +11584,51 @@
           "bytes": 102846,
           "sha256": "537c94473c56330a9ea3e441c812b41a7dcbdd551d2569941bcd8b1d18db3d71",
           "url": "assets/dogs/generated/VBO-0200610-golden-retriever-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200611:v1",
+      "catalogId": "VBO:0200611",
+      "name": "Goldendoodle",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v9-cohort-l",
+      "generatedAt": "2026-10-03 15:17:26 UTC",
+      "masterSha256": "de43589daa374cb7c2fae894beda1b84db9bc87c622de998822c4a531a67ffef",
+      "reference": {
+        "assetId": "dogs:photo:commons:6b00dae83e082591",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Goldendoodle_Tracking_Rabbit2.jpg"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Adult golden-cream wavy furnished Goldendoodle, developed athletic trunk and proportionate muzzle/drop ears faithful to source without invented size subtype.",
+        "anatomy": "Four coherent grounded paw/limb courses, convincing joints and contacts. Complete attached brush tail with open upward curve and visible free end.",
+        "crop": "Entire ears, body, all four paws and tail endpoint safely within native with clear surrounding landscape and foreground.",
+        "aesthetics": "Fresh soft spring woodland-lakeside earth scene, restrained natural greens and believable coat texture. No gear, people, other animals, text or watermark."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 25726,
+          "sha256": "36e9cf9f7cf8a57b26d8620c1bc545d5b8da5bbde2624277c93937a035f30f4b",
+          "url": "assets/dogs/generated/VBO-0200611-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 154538,
+          "sha256": "9b9883b1eb474ec8db57536c3f3699f348f1ffe9746b32456414ef798438cea9",
+          "url": "assets/dogs/generated/VBO-0200611-native-01-960.webp"
         }
       ]
     },
@@ -20224,6 +20404,51 @@
           "bytes": 102192,
           "sha256": "ac953661fb2816e2e93116432cee83f5992f09b4715bbb534201a1945e9fe441",
           "url": "assets/dogs/generated/VBO-0201053-native-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201055:v1",
+      "catalogId": "VBO:0201055",
+      "name": "Poodle, Multi-Colored",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v9-cohort-l",
+      "generatedAt": "2026-10-03T15:21:48.056125+00:00",
+      "masterSha256": "c07a4d39fe9b2a35cb7ec6e08c25362685df7788fda2379d14686df84e8cd554",
+      "reference": {
+        "assetId": "dogs:photo:commons:934bc035d03d527b",
+        "sourcePage": "https://commons.wikimedia.org/wiki/File:Harlekinpudel_am_See.JPG"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Developed adult black-white multi-colored Poodle, proportionate curly-coated trunk and moderate muzzle, natural drop ears and practical furnishings; no numeric size or separate-breed inference.",
+        "anatomy": "Four coherent grounded limb courses and paws visible with ordinary leaf litter. Complete attached upright natural white-ended tail is continuously readable and clear of rump and frame.",
+        "crop": "Complete head, ears, four feet and tail endpoint comfortably contained with clear scene margins.",
+        "aesthetics": "Fresh calm three-quarter stance in muted autumn meadow/woodland, realistic curly coat and soft light. No harness, people, other animals, text or watermark."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 24840,
+          "sha256": "56b099159211d8c5ac400db27080c670d46a6e1db3503fb09eba981400a65406",
+          "url": "assets/dogs/generated/VBO-0201055-attempt-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 142254,
+          "sha256": "73aa54173f74a334a4cd55b49c90460c321dfb5a26f0f8116789e1c83f3d7815",
+          "url": "assets/dogs/generated/VBO-0201055-attempt-01-960.webp"
         }
       ]
     },

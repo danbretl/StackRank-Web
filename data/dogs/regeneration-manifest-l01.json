@@ -1,0 +1,911 @@
+{
+  "schemaVersion": 1,
+  "cohortId": "dogs-portraits-l",
+  "wave": "l01",
+  "createdAt": "2026-10-03T15:39:30.924Z",
+  "catalogIds": [
+    "VBO:0200216",
+    "VBO:0200469",
+    "VBO:0201055",
+    "VBO:0200611",
+    "VBO:0200308"
+  ],
+  "selectionSha256": "9c769a98de8970312cc84f4a01ed2a9e4e2e807e181a586663be53a2e0242193",
+  "trancheId": "l01",
+  "trancheSha256": "9c769a98de8970312cc84f4a01ed2a9e4e2e807e181a586663be53a2e0242193",
+  "storage": "Local ignored archive; no off-machine backup is asserted",
+  "archivePath": "reports/dogs-generated-artwork/cohort-l/regeneration-archives/l01.tar.gz",
+  "archiveSha256": "d77f1ace3f818bdddde4fcd67ef98737cb72dca0ad556d28ef883a8587977a23",
+  "archiveBytes": 43574775,
+  "fileCount": 176,
+  "uniqueObjectCount": 175,
+  "uniqueObjectBytes": 46776689,
+  "purposes": {
+    "uiDisplayAllowed": false,
+    "publicSnapshotAllowed": false,
+    "rasterExportAllowed": false
+  },
+  "contents": "Pinned reference originals/metadata/File text, attribution chains, claim-specific primary snapshots, reviewed full/short prose, exact prompts, all native attempts including rejected outputs, and accountable review receipts.",
+  "files": [
+    {
+      "path": "assets/dogs/generated-masters/cohort-l/VBO-0201055-attempt-01.png",
+      "sha256": "c07a4d39fe9b2a35cb7ec6e08c25362685df7788fda2379d14686df84e8cd554",
+      "bytes": 2886796
+    },
+    {
+      "path": "assets/dogs/generated-masters/cohort-l/worker-a/VBO-0200216-native-01.png",
+      "sha256": "6dc2e780eeb8556e24470dde560fa8e4745b281052664a3abe6b7576607f7029",
+      "bytes": 3048495
+    },
+    {
+      "path": "assets/dogs/generated-masters/cohort-l/worker-a/VBO-0200308-native-01.png",
+      "sha256": "2b03d213d6e53ba614afa79fa4262b34c22dd08d3578650e718aba7d31a47951",
+      "bytes": 2658876
+    },
+    {
+      "path": "assets/dogs/generated-masters/cohort-l/worker-a/VBO-0200611-native-01.png",
+      "sha256": "de43589daa374cb7c2fae894beda1b84db9bc87c622de998822c4a531a67ffef",
+      "bytes": 3065381
+    },
+    {
+      "path": "assets/dogs/generated-masters/cohort-l/worker-b/L-0200469-01.png",
+      "sha256": "4aa5700fb3d5a9d6ba81cd716e65042240320cdf6b0a112be50f29a7e48ada0a",
+      "bytes": 2861895
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l01.json",
+      "sha256": "cb32c80f0c693744cf02579d5420844e6bec584e33364df6e1f3ba51543265c6",
+      "bytes": 66790
+    },
+    {
+      "path": "data/dogs/portrait-cohort-l.json",
+      "sha256": "f06aabbb73f4dff9b641ea8b7537cbd2bda5701835452d528dde7355a98c8ebf",
+      "bytes": 83358
+    },
+    {
+      "path": "data/dogs/profile-refresh-l01.json",
+      "sha256": "58f6ef84e2727167ab63f84f3abe9dd493de631b92e9f8f30daa113ba826a28b",
+      "bytes": 9513
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-007/cc-by-4-deed-receipt.json",
+      "sha256": "27bc4c93335ef982c26dbe2262a2488eb3f7ddd9201239aac0d3873f3007b93d",
+      "bytes": 1133
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-007/cc-by-4-deed.html",
+      "sha256": "8dda1ccec4be91fc80821d4e4fd5c568072b9a3a74b2fdc07c249a27e920ef01",
+      "bytes": 31950
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-007/cc-by-4-deed.txt",
+      "sha256": "b13185a3b574b532f2fdd7fe1654f903d5da3098fcfef41750e0039b7bce3891",
+      "bytes": 12011
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-007/cc-by-4-legalcode-receipt.json",
+      "sha256": "aa2f366563726c626cf09aae3b7da0930b4bda84bd5510337a5646e7ed0ecce8",
+      "bytes": 1202
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-007/cc-by-4-legalcode.html",
+      "sha256": "58230517b7895aa219ff46a6ed63e67057a1582fb9ea054b16728a8c13525650",
+      "bytes": 48742
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-007/cc-by-4-legalcode.txt",
+      "sha256": "98003277114361972cb71e14ef3005c4348ae459285af13b97188b000107dee5",
+      "bytes": 31307
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-015/cc-by-sa3-deed-receipt.json",
+      "sha256": "ef7285b28da6a3341dc5e8cd3045549fb49aed07c601a2cb9add5e5cf779e138",
+      "bytes": 681
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-015/cc-by-sa3-deed.html",
+      "sha256": "9a17cd36de36b242cbe4234773116f2036f86a8ce4459af8b37fd120482ca931",
+      "bytes": 35431
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-015/cc-by-sa3-deed.txt",
+      "sha256": "95ff07117a7c90a1120f9ae49ceb1c87d93f69981341ecf0184f3b2eafc88978",
+      "bytes": 4833
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-019/cavajack-afa-tasha-catalogue-receipt.json",
+      "sha256": "25b6d9eef5e90665a2be7f9056aa2640c310abe6efae59156fc5fa8b1c2f405f",
+      "bytes": 844
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-019/cavajack-afa-tasha-catalogue.pdf",
+      "sha256": "ef238fcc9f60d17c85a7d010d56709146fdf93cc04cd2f71435fc83484f04d30",
+      "bytes": 11397727
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-019/cavajack-afa-tasha-catalogue.txt",
+      "sha256": "6278a827b0d990400402601a69d3caeb75c35e4867ee2915a66cc83ee42c4625",
+      "bytes": 15672
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-019/cavajack-afa-tasha-page09.png",
+      "sha256": "0639a8d8a06026bba892ef80413ddbe78915804a327eae41e730eec5fbc19644",
+      "bytes": 1924189
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-022/cc-by-sa4-deed-receipt.json",
+      "sha256": "a6232576cc38aa0b85a1143ae13763cf2e93a50dcff8322b7a75eb06177935f0",
+      "bytes": 866
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-022/cc-by-sa4-deed.html",
+      "sha256": "b462fb0a649a8ec875bba7590abad7dc1e72c0456ddec070cf3a28183689dceb",
+      "bytes": 35530
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-022/cc-by-sa4-deed.txt",
+      "sha256": "882c1b5260c04ff3211209f4ebb04c3516cf12f624585047debe35345baf8456",
+      "bytes": 7320
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-022/cc-by-sa4-legalcode-receipt.json",
+      "sha256": "42faf34e317dc699b90f1e5492d9975802d24fd49d3676d8db9ad8e7a753c07d",
+      "bytes": 901
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-022/cc-by-sa4-legalcode.html",
+      "sha256": "47c0a954c88d793bdefe92fb007ae3c038fb3807f1a27083433d01aa7542c0d8",
+      "bytes": 51645
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-022/cc-by-sa4-legalcode.txt",
+      "sha256": "59281a62c410a439b51eacba03faf03b98aa43366b0eab939e74b4e0f0d70e8c",
+      "bytes": 26075
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-030/cc-by-sa3-legalcode-001-receipt.json",
+      "sha256": "135867263a2979dc4b837d2826d527948f485b0d430fb32b952c34cb4776859d",
+      "bytes": 1103
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-030/cc-by-sa3-legalcode-001.html",
+      "sha256": "c33d7ebdbcc5c8db073e69a794b2ac44805f5d7d9edcfb8b5181a71869a9b7d5",
+      "bytes": 54093
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-030/cc-by-sa3-legalcode-001.txt",
+      "sha256": "9cc746d8abfe39658c16450bfd5612523b199dd7bc6903162a1c8be8a58a4232",
+      "bytes": 24543
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200469-markiesje-dutch-own-001.html",
+      "sha256": "c98601059863d8ab84f3721b8135c979429a65dadb69b92f6e1b631bbc08ac89",
+      "bytes": 146646
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200469-markiesje-dutch-own-001.json",
+      "sha256": "3a4e33f22692d0eaa5918b93830a01783b546337a61473914a669080e09752d5",
+      "bytes": 875
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200469-markiesje-dutch-own-001.txt",
+      "sha256": "24377ce71a5464bc15ac2fd4a5fe4d65da9b3d56f79496a432d62cc9d3da81a3",
+      "bytes": 17624
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200469-markiesje-rvb-001.html",
+      "sha256": "c3e21d145d2c98d10d7423cb12dcf753dd0862c1bfce1dd2c57f1191408bfa40",
+      "bytes": 24156
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200469-markiesje-rvb-001.json",
+      "sha256": "889812b41a6ba97ea439331f76c9fa6b4e21c89824d456d797c08aa2b569835a",
+      "bytes": 914
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200469-markiesje-rvb-001.txt",
+      "sha256": "29955483d0e68db328c2e8b8cf0ea0f272068df850d0461467c5d5a8dab5bc06",
+      "bytes": 5098
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200469-markiesje-usa-history-001.html",
+      "sha256": "350ca7d6ca3d54fb84265ed0df5b880f1f5afedaad911461dab7a6305f380a88",
+      "bytes": 958998
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200469-markiesje-usa-history-001.json",
+      "sha256": "eff1f8e457adae9bbf0cbd1ab04ad5d520ab79a54fd1acc59c55c205284ed470",
+      "bytes": 875
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200469-markiesje-usa-history-001.txt",
+      "sha256": "cd49f94554b9da91821e6152736a815477fd532c7b08f389d2aba7f7ca145920",
+      "bytes": 2947
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/l01-first-five-contact-001.jpg",
+      "sha256": "2095d0275e4ffda6418f567885b88cf289d5c20ac596bcf51850642aaf5d00e7",
+      "bytes": 653926
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/qualified-bracco-chestnut-001.json",
+      "sha256": "1ac18b6d1cf9611ee781f49d3feaaa0f93a8dcab584713d42f5617e273162063",
+      "bytes": 3538
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/qualified-cavajack-001.json",
+      "sha256": "30b1215f4b622c3418a4812032b9331e899923ce98d8282357662435a522f9b5",
+      "bytes": 3269
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/qualified-goldendoodle-001.json",
+      "sha256": "85b7abf355b771ab4b5f4d4d257e5ff0af88e079024b69485c6e00065190de2f",
+      "bytes": 2620
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/qualified-markiesje-001.json",
+      "sha256": "dba60d902caeaf7da82204de2685add5dd6863b43b08518dd5b879ed36c015ee",
+      "bytes": 4324
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/qualified-poodle-001.json",
+      "sha256": "518d9f162baeeee48428cdb6c7477f73f6fa790ece9eb897a6f1deebc8bda2e0",
+      "bytes": 2527
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/rolling-batch-user-authorization-001.json",
+      "sha256": "e1ffc149b5fe0e6cc1c3b1dd0d4dfec06466bf8ddfe05369134fbd745ca2d2eb",
+      "bytes": 1091
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/root-approvals/3ac2d9ac98b1fdd843d863a3f21c34ea24ca09805678da794909f3784446daeb.json",
+      "sha256": "3ac2d9ac98b1fdd843d863a3f21c34ea24ca09805678da794909f3784446daeb",
+      "bytes": 3219
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/root-approvals/3fa4e6878495a971166667a905e12c4061fe3146b5dbe07bb1addf5cd9d995d0.json",
+      "sha256": "3fa4e6878495a971166667a905e12c4061fe3146b5dbe07bb1addf5cd9d995d0",
+      "bytes": 2875
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/root-approvals/627265a902849ca8d4d867112459bb8ea89158d1bd0b2a97a63439f8b193ad05.json",
+      "sha256": "627265a902849ca8d4d867112459bb8ea89158d1bd0b2a97a63439f8b193ad05",
+      "bytes": 3086
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/root-approvals/d59e311637b2a0d8575d81b3e923ee093f602038d841d2ff1d2a9b039dee85ea.json",
+      "sha256": "d59e311637b2a0d8575d81b3e923ee093f602038d841d2ff1d2a9b039dee85ea",
+      "bytes": 2756
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/root-approvals/fd3ea2646894a49e00cac8543aea329c68f4421f5333925f0ea61f2a8b8de826.json",
+      "sha256": "fd3ea2646894a49e00cac8543aea329c68f4421f5333925f0ea61f2a8b8de826",
+      "bytes": 3076
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/root-cavajack-primary-grant-review-001.json",
+      "sha256": "818dadd3eacfcfe57064f0f0aa838ec10042340cd0344751aa3b2f548eff6ebc",
+      "bytes": 3231
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/root-goldendoodle-source-review-001.json",
+      "sha256": "5fe23dd925222b2352b60305b260ad96bb224a2c97023218ba4c45267134cbae",
+      "bytes": 3243
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/root-native-qa/0200216-01-accepted.json",
+      "sha256": "b3419e7165b831ca8035f1b87b5185eb84139308ada4fdd82b51a14a41694b87",
+      "bytes": 1532
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/root-native-qa/0200308-01-accepted.json",
+      "sha256": "4d333036b12b1c4224ed75a2f6ac54f21cbcc9b2c40aa5dae9f207d1248e8129",
+      "bytes": 1183
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/root-native-qa/0200469-01-accepted.json",
+      "sha256": "c2f855e74df3e011c758a1a6c2327802cf14272fb8dce31b857074cf9f6d3d77",
+      "bytes": 1151
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/root-native-qa/0200611-01-accepted.json",
+      "sha256": "3e871ae442ab2f49a235974a8378db4b16163661238b045322bb86be70c4d70d",
+      "bytes": 1184
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/root-native-qa/0201055-01-accepted.json",
+      "sha256": "6d4c17c75d1c1257927fea41b2c6655a0e034ac464abf0e85e2264da6e2e9864",
+      "bytes": 1227
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/root-reference-triage-bracco-chestnut-001.json",
+      "sha256": "3fa3b80a9da6de67025f48fa340999a268cc0fc8582b9bfac6cf23b4a2b67a8b",
+      "bytes": 787
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/root-reference-triage-cavajack-001.json",
+      "sha256": "9862487b479589a28288945226be51aa3c210be2941bed31d1e60a809c222548",
+      "bytes": 1268
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/attempt-L-0200216-01-canonical-002.json",
+      "sha256": "bbf536c73bb481268aed95cbfc529ff3dd481dca91368d32e8e05ee43e60c3cd",
+      "bytes": 7685
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/attempt-L-0200308-01-canonical-002.json",
+      "sha256": "22ad0b16e94a1a3ca6e64397447ccee021006e0ae3373b7c22026e22f50db7c5",
+      "bytes": 8245
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/attempt-L-0200611-01-canonical-002.json",
+      "sha256": "6860570eeccd960421131ae517f3b9bcc631a172420605dde59998b2d9cc0aaa",
+      "bytes": 7877
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/bracco-chestnut-roan-file-text-001.txt",
+      "sha256": "60ed148e2486278b1dae936e7dc0eb839a1cb7aece5edc8035e96c5dbc03f32c",
+      "bytes": 250
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/bracco-chestnut-roan-prompt-001.txt",
+      "sha256": "f7eca391e2ac524c4fccb7fbde7bf83107a4e65e24363413f372ee0cd31a4572",
+      "bytes": 1780
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/bracco-chestnut-roan-shortDescription-001.txt",
+      "sha256": "1133056d7ad0c749bf95fed84495230502c9df3e416c1159d94f6d9a9574ba97",
+      "bytes": 110
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/bracco-chestnut-roan-summary-001.txt",
+      "sha256": "c848858658710d1094b17c303bc285d67ea1a5ada1e63093610b14ff5b28ee43",
+      "bytes": 363
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/cavajack-file-text-001.txt",
+      "sha256": "2d5b211ee340f43fbc83a69798301b9f921d632a2c40cd4d5614f374d22c3ede",
+      "bytes": 650
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/cavajack-new-source-screen-001.json",
+      "sha256": "a51f8336d263a2bc91ea9682c7729bff53be31ac2813fe929b7e8e04d292f63f",
+      "bytes": 3835
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/cavajack-prompt-001.txt",
+      "sha256": "e5526a0d16b6fed11a88c820018998b79691bb2462ce59e8890cca323b4eb8f7",
+      "bytes": 2244
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/cavajack-shortDescription-001.txt",
+      "sha256": "1d8b012d009d0f53f697f7df9de7c862f934a157a16a2c92d128c2a23e8b92a9",
+      "bytes": 85
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/cavajack-summary-001.txt",
+      "sha256": "7d51c6c23f3777014af7c78f1546276ac40cd84ca10174bc23a472b373b9c160",
+      "bytes": 300
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-026-goldendoodle-search-corrected.json",
+      "sha256": "5c3ef6b5ecab56f0d7bde47b4f4fc1eba3f88f40fc762296ab2a9b98dc676a08",
+      "bytes": 85561
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-026-goldendoodle-search-corrected.json.receipt.json",
+      "sha256": "99d7b459cff8a075d150daccbde4066947f0c3f8f19c9a141b21e32ddfccf70a",
+      "bytes": 2407
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-028-goldendoodle-tracking-original.jpg",
+      "sha256": "6b00dae83e082591b0a1547fe4a719d121347c71c03fb7df4a49cae5641d9a62",
+      "bytes": 754050
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-028-goldendoodle-tracking-original.jpg.receipt.json",
+      "sha256": "bdb5f9b544310d8d50bee051ee4bf6844a11801417388dba295c4d36d18f31db",
+      "bytes": 2874
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-029-goldendoodle-tracking-first-history.json",
+      "sha256": "32765f3bd583c3f93e568aa1eb08dc1c6e8461422e2ea4dd476897c29d29774e",
+      "bytes": 2556
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-029-goldendoodle-tracking-first-history.json.receipt.json",
+      "sha256": "c02f98909ca6949dc8088bc108173a123f6ad01ac7c69448dbe33e00d8f797c9",
+      "bytes": 2369
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-030-goldendoodle-enwiki-first-history.json",
+      "sha256": "fb65f39587bce1ef82f9d91163001b34e5b21a2811db3948240806a815aa6a02",
+      "bytes": 776
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-030-goldendoodle-enwiki-first-history.json.receipt.json",
+      "sha256": "c78454475db4ce48005383ab96fa16678a99455b0988f3544716eca7b9c34b8a",
+      "bytes": 2354
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-031-pd-self-actual-terms.json",
+      "sha256": "da15535a9768409be2599a33ba00b17c069838da134671b018a1a930f38dd586",
+      "bytes": 1433
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-031-pd-self-actual-terms.json.receipt.json",
+      "sha256": "0a78783add503864f210921ea486edae23cc0990abd3cdcabe2f57ba4c962d17",
+      "bytes": 2259
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-032-pd-self-expanded-terms.json",
+      "sha256": "f2734096cbe2ad514fa91a684c64f91968a9a7a15bf4c098dc3dd584a1a65a79",
+      "bytes": 1000
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-032-pd-self-expanded-terms.json.receipt.json",
+      "sha256": "4b2dd52d0fb05da57c3dc1cf67e533ecfbaea3ba0c281ce6698c186b91d46cae",
+      "bytes": 2204
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-060-bracco-breed-search.json",
+      "sha256": "63834af9ce30003f7800e1944d0e88b106716a13464e660c503a1a62c18edde4",
+      "bytes": 108859
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-060-bracco-breed-search.json.receipt.json",
+      "sha256": "8b8a0700172811a9cf426a4d6e9b3dd8ea79137644e48e32e9175574c47439ba",
+      "bytes": 2407
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-064-bracco-chestnut-new-original.jpg",
+      "sha256": "082e8118c776146952c57b2470250cd29e22caf68dca72d00904532ccbb73f94",
+      "bytes": 1052553
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-064-bracco-chestnut-new-original.jpg.receipt.json",
+      "sha256": "a1b872b849ef26d90c6ad0bb0f6057802c46850586d47ee9b2e943ebed96a1c7",
+      "bytes": 2858
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-066-bracco-earliest-upload.json",
+      "sha256": "3bd3eacbf9d7ffd3f4e86d9e9a2ad25c8a11d7235cf9971d216117d7852089a3",
+      "bytes": 2861
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-066-bracco-earliest-upload.json.receipt.json",
+      "sha256": "198f45f9897dbae4e4f5ee0b2255cef46ae2b4a5ebbfe76dabc9eb0ab859e86e",
+      "bytes": 2357
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-114-cavajack-eleven-original.jpg",
+      "sha256": "3bd90935f7e7162e1a2e2a83c960fcf2e702c6c3641172d955b2e9e39a13adca",
+      "bytes": 6652466
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-114-cavajack-eleven-original.jpg.receipt.json",
+      "sha256": "dc43d5d8abe46c30b9f3e0c71e8007d07ad0c637303ae86933eaa8228b2cc56f",
+      "bytes": 2877
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-116-cavajack-eleven-earliest-upload.json",
+      "sha256": "546462e126bc4824db4ab80033bc07cf0ce14b6acb5974c17eb73d3fe551ffe5",
+      "bytes": 4371
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-116-cavajack-eleven-earliest-upload.json.receipt.json",
+      "sha256": "a20dd47336c3cf7407dcebc3ceb5fbd431b8ea3052ce558975a4cd68fefb8b70",
+      "bytes": 2403
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-117-cavajack-creator-permission-template.json",
+      "sha256": "489a6e175579cb8ac1760ae9c68fd362b18b893865372c91c052095bc8e94721",
+      "bytes": 1331
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-117-cavajack-creator-permission-template.json.receipt.json",
+      "sha256": "03a4550fb2c7d7b063c9390d153a4fce4efabf74c702adf54cd8e21668374b40",
+      "bytes": 2294
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-118-cavajack-stipend-template.json",
+      "sha256": "523e2562b5da30be49b56cdbf3789431efa674806e1855abadde00d30269acf5",
+      "bytes": 764
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-118-cavajack-stipend-template.json.receipt.json",
+      "sha256": "eff09076dfcb1ea8662b490b3b51b647c5f2cb81cb3a4e7876d7519422cdaf34",
+      "bytes": 2260
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-119-cavajack-stipend-english.json",
+      "sha256": "9f1acbd2506d97411f04e8a6429dfc214900a6e288ec5fa7ed977b04d76d02d2",
+      "bytes": 468
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/commons-119-cavajack-stipend-english.json.receipt.json",
+      "sha256": "44476c0777dc3f0cef073fb77a50319d544daa2edfc1d8b5506243f409019dc5",
+      "bytes": 2264
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/dane-bracco-prior-negative-bindings-001.json",
+      "sha256": "efda3da5fd1d17136955d3a3d86434b5e5b7e0ff24946df876d82db86a649fce",
+      "bytes": 6767
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/goldendoodle-earliest-original-grant-001.txt",
+      "sha256": "3782aa13c97b46a421bbbd38b04dbacf130621a8e6498b80be7fe0cc53f261c7",
+      "bytes": 223
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/goldendoodle-pd-self-actual-terms-001.txt",
+      "sha256": "70c7b7b9ba2e5280b40deacc07c03f6265f562db96879741e1e5855a7829c15a",
+      "bytes": 939
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/goldendoodle-pinned-filetext-001.txt",
+      "sha256": "dd2555710fc2fcacbb538120e3fb2cba227d36f850b3f1360c7e19ee6510ba7b",
+      "bytes": 359
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/goldendoodle-selected-metadata-001.json",
+      "sha256": "308a696bddc5e06723e1902d1cfa675f64bb2b41000130000e7d5a074df0ee3d",
+      "bytes": 3670
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/L-0200216-01-attempt-001.json",
+      "sha256": "0c2a5aaad3296afd06ea47ea4f9c8847f14462337466a3c94dfce01a739e9445",
+      "bytes": 6519
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/L-0200308-01-attempt-001.json",
+      "sha256": "7058e247ce648c23ff3c1ee009edf31eeb3cebc7c42f67b608237652babdd8cf",
+      "bytes": 7002
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/L-0200611-01-attempt-001.json",
+      "sha256": "ae15c26d0c6a86dfa140886f5f6371f2a87fa68b14e064c3416fba89ee9b88d2",
+      "bytes": 6636
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/packet-cavajack-001.json",
+      "sha256": "f99ba22db9c956c357d89501e5528b9de5c6dedacf751bd93530fec1bcb41f5a",
+      "bytes": 40983
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/packet-dane-bracco-001.json",
+      "sha256": "873f802f893e44d5730702f8b75d3676743e6929fb7fe9fb92a7d0aa8056df27",
+      "bytes": 36571
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/packet-goldendoodle-001.json",
+      "sha256": "a82d09041dceed7c8e54d74b636fb83d2c883ef3c05a72837173e2dc26979bf4",
+      "bytes": 24110
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/peer-c-poodle-002.json",
+      "sha256": "4c5b2ed0e7a008988b3a542ca734f225b6ae578f7e7f270f2b53c75ba9b20bfb",
+      "bytes": 9659
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/preflights/5dacd128-9324-4b11-8de0-441829837c25.json",
+      "sha256": "867f85d2a2bc5cfc38092f114489f009abb14afd016e5bd668dcb59a5c3e6c36",
+      "bytes": 3667
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/preflights/7892f22e-631a-4d27-ad1f-aa8ef8bfb9ea.json",
+      "sha256": "0728ce91532de3b64e849af3511f973622ec717dd91afb2a4cc8e2f4b53d66fa",
+      "bytes": 3764
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/preflights/b9c6337c-ed06-45ba-8b9e-ab94f108dc2a.json",
+      "sha256": "6192b12735d656ccac7bf88ec01446cca8d4ef6e01d087629236ba4309abc10f",
+      "bytes": 4109
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/primary-cavajack-afa-sport-001.html",
+      "sha256": "4476dae6ec904da2eda18ead824bf3b54a97ccd1f89a4cf99acb53c9423185e5",
+      "bytes": 33402
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/primary-cavajack-afa-sport-001.receipt.json",
+      "sha256": "aaf6a8d6c76a4c2ac5e1a777f50bbcac21e7083a98c1ab0d5fdcfcdb3658463d",
+      "bytes": 1039
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/primary-cavajack-afa-sport-001.txt",
+      "sha256": "9e12b4ffef3fbce99d8ce0e37d426e9e8cd70b43880723f6e83d3ed3785f1fae",
+      "bytes": 2158
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/primary-cavajack-terrierowner-definition-001.html",
+      "sha256": "72126928604962f863057ba67bba30a08a5e04a314072bce553f16b0f5e301e3",
+      "bytes": 191566
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/primary-cavajack-terrierowner-definition-001.receipt.json",
+      "sha256": "d9847ec4e7f35d13cf6f0b76642af189186d477cdfcfd52ce953ab9dc5a3a998",
+      "bytes": 1223
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/primary-cavajack-terrierowner-definition-001.txt",
+      "sha256": "105753b6fe9b80b19baaecf1b28f7a283d99671f1d0876c2e7b61a1fa151bb78",
+      "bytes": 15858
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/primary-fci-bracco-001.pdf",
+      "sha256": "c666ea34b5abee1ff10bb13b270bec5c1b839f081280291c199bcdc4691eef35",
+      "bytes": 404104
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/primary-fci-bracco-001.receipt.json",
+      "sha256": "4037bfab310437730d33f0e7f1abc3a9ef26a9b9a1bb468ce584848c6b336df4",
+      "bytes": 957
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/primary-fci-bracco-001.txt",
+      "sha256": "847f1967f6bcdcde82637e98fd26903dd38f3fb4e1c9cb067ed249374533623b",
+      "bytes": 10124
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/primary-gana-standard-001.html",
+      "sha256": "f3059dce3fa0faaff777e5a56dcde2c84ff95967e492f5d3ca446682c908a0c5",
+      "bytes": 158629
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/primary-gana-standard-001.receipt.json",
+      "sha256": "57e9c7e5b37c54c0ae91a8c54b91f95f2bc3480c1f37b5172f32e427db7a7f19",
+      "bytes": 1279
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/primary-gana-standard-001.txt",
+      "sha256": "728c29d72b90b74df0a3a9b901024c938e902fc73ea48582e9164b6171fcca82",
+      "bytes": 9139
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/prompt-goldendoodle-001.txt",
+      "sha256": "44bfe0a172aa4c41d738a9a830de5fa6e5ad18d70f6a95094bcee7d2cd70b6fe",
+      "bytes": 1874
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-a/rights-reference-normalization-first5-001.json",
+      "sha256": "d670b7b391b51d79e28722f30663c2bce72cae253d2e9274668e97224ff8e9e3",
+      "bytes": 37648
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/attempt-L-0200469-01.json",
+      "sha256": "9c9715d97e423239e0d15964b66623bf3e6cc115a43eec4baf052f46d5f591ad",
+      "bytes": 5673
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/cc-by-sa4-actual-legalcode-001.html",
+      "sha256": "47c0a954c88d793bdefe92fb007ae3c038fb3807f1a27083433d01aa7542c0d8",
+      "bytes": 51645
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/cc-by-sa4-actual-legalcode-001.receipt.json",
+      "sha256": "285faf40c93079c4d3eef964bbcebcfeb0f1961b76f554e479b999b43ef3c604",
+      "bytes": 921
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/cc-by-sa4-actual-legalcode-001.txt",
+      "sha256": "b2f55978ae9c53dae5e833ad9c7a573dd74ab98b904b7fb55d3754e2474c16f4",
+      "bytes": 26082
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/markiesje-historical-blocks-001.json",
+      "sha256": "56daf34b29dcd71a1ce302d8040c17f7195c6880b6a662129bee0fc2b89fb3d4",
+      "bytes": 4712
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/markiesje-novel-current-search-001.json",
+      "sha256": "8dbdc42c2a35beb9e762fbb1fa2f3ce2f75efc3ef5bf7f5a29f7084be74887c9",
+      "bytes": 43832
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/markiesje-novel-current-search-001.json.receipt.json",
+      "sha256": "c93a24512113f17c939af9503ba6ac6f371c42c66ca29096b90b16fb990dc021",
+      "bytes": 2389
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/markiesje-shortDescription-001.txt",
+      "sha256": "d5ba08b4bf0a02713fadea40009848a97ac4f17576808a9d3b496105e82467c0",
+      "bytes": 119
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/markiesje-summary-001.txt",
+      "sha256": "b77d4dff3cff206884a921f5dd135455dc3ee4ec62a988732c5e7813bb28e435",
+      "bytes": 298
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/markiesje-us-louke-earliest-history-001.json",
+      "sha256": "c4a0677c8996fc1684a78ba5ee0de235c292c9f5478692304e958a683b4daed7",
+      "bytes": 2935
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/markiesje-us-louke-earliest-history-001.json.receipt.json",
+      "sha256": "c467042f3398266f39b5e0f4575c84c042e118ff9288322350836603c8aa8a20",
+      "bytes": 2340
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/markiesje-us-louke-novel-original-002.jpg",
+      "sha256": "32e8cd4e20d73963f08445ccbf564221705549fd009d177b2f1985c428846704",
+      "bytes": 2355235
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/markiesje-us-louke-novel-original-002.jpg.receipt.json",
+      "sha256": "9efa1f984c20e34d8d3b5343168f9fe8459889b12794b651b52d09963ce5951d",
+      "bytes": 2841
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/markiesje-us-louke-original-grant-001.txt",
+      "sha256": "a0028c1ea6e2f9f0f4dba512fbffa588e65ca558fa242ed350b2ffd8907f43e8",
+      "bytes": 348
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/markiesje-us-louke-pinned-filetext-001.txt",
+      "sha256": "ec99fb658e5a58cdddb1ba4027d8b7f5de49b7e7d135f3f336c02c3d7f9899bd",
+      "bytes": 259
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/markiesje-us-louke-selected-metadata-001.json",
+      "sha256": "d577214a50ad28a3d421a6fcac2f89e5c72392e9f17b879412168a92eb8759d1",
+      "bytes": 3446
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/packet-markiesje-001.json",
+      "sha256": "57d2af526268f8ab573c8e0d2515486c5dd441df6e7afa7e556a4e92c7385f7f",
+      "bytes": 33549
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/packet-markiesje-002.json",
+      "sha256": "b163dd082fe8d51bbcfca665d7e8b35608490cb51dd7ee7fbe11989d426f924d",
+      "bytes": 34163
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/peer-a-cavajack-001.json",
+      "sha256": "f415e165382d11a9ffcee627b060b341c83a9d34bc5d9eff39f23c407d64a0ee",
+      "bytes": 8123
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/peer-a-dane-bracco-001.json",
+      "sha256": "dfd1f058ed19403ba745b043f4074f2373f1f24498d8e2d422942e3e413e2b07",
+      "bytes": 5472
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/peer-a-goldendoodle-001.json",
+      "sha256": "98cf718c3134506a2b0e20f77a1c1d5aba19c23c6185bd6545d550ff48479c60",
+      "bytes": 2715
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/preflights/cd32f0f2-7a88-4e8a-a776-8ea3164e477a.json",
+      "sha256": "a720ec3af64f5a3fb5367019dc9a193174b93250eacffb4e222a0639a0b5784c",
+      "bytes": 3713
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-b/prompt-markiesje-001.txt",
+      "sha256": "ec29865c9808d2b0b77112e505011388e60424c118070e97802cbabe4e75925d",
+      "bytes": 1844
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/0201055-prompt-001.txt",
+      "sha256": "d2a0907a6af6eb5bc0ed88c71ef559f25473fa5e04ad20362f07f76f663b08e3",
+      "bytes": 1371
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/attempt-L-0201055-01.json",
+      "sha256": "c5577e1916ca8e2b68af1253c770489870bd5afc05ccb542d48f9a4567fe39a4",
+      "bytes": 5958
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/cc-fresh-fetch-failure-012.json",
+      "sha256": "11a906814733cfcd1e430b07171402a5d0ac626c058fe454bda6511288d623e5",
+      "bytes": 366
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/observed-parent-jack-russell-hybrids-metadata-163.json",
+      "sha256": "3de8cd4c61eda2548be6f55b94e26cac3ec1115b3e1a037839fd99530788d46f",
+      "bytes": 130140
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/observed-parent-jack-russell-hybrids-metadata-163.json.receipt.json",
+      "sha256": "1d0eb5f92aa2497c9a5a34c35877990159100c005b79f49da4cb302a2f04b073",
+      "bytes": 2502
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/packet-poodle-002.json",
+      "sha256": "ab7b2d88e99d127404658622e4585588835c35cf33b9edbfade9f31291a5f406",
+      "bytes": 19286
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/peer-b-markiesje-002.json",
+      "sha256": "735ffb98fe9daab865d039fb3f695242ed73beee20cb8e9ab34abb0bceab8d56",
+      "bytes": 7187
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-harlekin-current-008.json",
+      "sha256": "749de0c5060fc1cd8dfca97cd0a139b0fe40d70c72217ea6589d1275011f42e9",
+      "bytes": 6828
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-harlekin-current-008.json.receipt.json",
+      "sha256": "fa65d9f4e30b1a6daa3c975399124636b02f225069fc071f6ce1442bac4f27eb",
+      "bytes": 2362
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-harlekin-earliest-010.json",
+      "sha256": "b7bd75a3c0cfd5a91af22963a853405b2be68aa67b5fdf408109fa9cd702cd10",
+      "bytes": 2394
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-harlekin-earliest-010.json.receipt.json",
+      "sha256": "21030bb6ae1bc65fdda2b457000eaac59d60296fd0fa87b744f8fdf3ed9c763c",
+      "bytes": 2256
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-harlekin-file-text-014.txt",
+      "sha256": "fbcc1690618e6bca84822f7f4f9fc0fe804dce766b747b6b5df24312d9b725ae",
+      "bytes": 377
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-harlekin-original-009.jpg",
+      "sha256": "934bc035d03d527ba512e110f1c36bd4e6de01fc251caab7b1e13ed160bca740",
+      "bytes": 3792883
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-harlekin-original-009.jpg.receipt.json",
+      "sha256": "38c77da4d9ef19d405fdcd12c1c5aaf534970ab3119e8a25d8a5a602ac887ab0",
+      "bytes": 2844
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-harlekin-upload-history-011.json",
+      "sha256": "c7bec9648d035cf4216a9d8512485512de7c5220ba665e0c0e2a35ea1b5417aa",
+      "bytes": 909
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-harlekin-upload-history-011.json.receipt.json",
+      "sha256": "42f805ecf9e030399b6afd30d6178d49998a380e1f4765a6adc2de4e88045194",
+      "bytes": 2258
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-image-attempt-001.json",
+      "sha256": "ebb7eeba1750f7e6dee053204cf0eb1a307114376556369b5f15c13d4fccbb55",
+      "bytes": 3775
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-ukc-primary-005.html",
+      "sha256": "98b03316c310d4b8669221a85318c36a6ccadc10274fabe498af156a0096ed1a",
+      "bytes": 96815
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-ukc-primary-005.html.receipt.json",
+      "sha256": "1e3e7adab47be9ee00a6c37f004c8d83cf2bd6dc47215ec730390b2937dd2643",
+      "bytes": 1832
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-ukc-primary-005.txt",
+      "sha256": "ee1f726bd3a8f157c25da96f837ee0f2280ebb58174899ec185d04af35368a2a",
+      "bytes": 21095
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-ukc-standard-primary-013.html",
+      "sha256": "e618ca50b83fe3a0e2292c3eaa0a3e4782c81d214fe409d4c7c1e1235800f5a9",
+      "bytes": 96977
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-ukc-standard-primary-013.html.receipt.json",
+      "sha256": "5f293c1c7fd9279422b83b741cad1af55e1816d65ee717bb038d9ef9036197e3",
+      "bytes": 1855
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/poodle-ukc-standard-primary-013.txt",
+      "sha256": "bedda96905675e7b7e523e34e7976ff81cc8f14a0f9e9ee4dcf296cce208da65",
+      "bytes": 21420
+    },
+    {
+      "path": "reports/dogs-generated-artwork/cohort-l/worker-c/preflights/eb7feb46-d218-4d9a-9fba-b2ae8aa5f6f1.json",
+      "sha256": "e3b5750eae2bb68cb9320f070da208c0ccf8aec1fd64ce45917ae42b744176e8",
+      "bytes": 3204
+    }
+  ]
+}

@@ -10,6 +10,8 @@ import { summarizePortraitCohortI, validatePortraitCohortI } from "./dog-portrai
 import { summarizePortraitCohortJ, validatePortraitCohortJ } from "./dog-portrait-cohort-j.mjs";
 import { summarizePortraitCohortK, validatePortraitCohortK } from "./dog-portrait-cohort-k.mjs";
 
+import { summarizePortraitCohortL, validatePortraitCohortL } from "./dog-portrait-cohort-l.mjs";
+
 const root = new URL("../", import.meta.url);
 const digest = (value) => createHash("sha256").update(JSON.stringify(value)).digest("hex");
 const nonempty = (value) => typeof value === "string" && value.trim().length > 0;
@@ -151,24 +153,55 @@ export function validatePortraitCohort(cohort, { catalog, rightsLedger, generate
 async function main() {
   const args = process.argv.slice(2);
   if (args.includes("--help")) {
-    console.log("Usage: node scripts/dog-portrait-cohort.mjs [--cohort=f|--cohort=g|--cohort=h|--cohort=i|--cohort=j|--cohort=k] [--check|--refresh-progress]\nDefaults to frozen cohort E. K checks 250 with five disjoint 50-slot workers; earlier cohort checks are unchanged. All retain append-only reserves. --refresh-progress refreshes derived counters after evidence changes.");
+    console.log("Usage: node scripts/dog-portrait-cohort.mjs [--cohort=f|--cohort=g|--cohort=h|--cohort=i|--cohort=j|--cohort=k|--cohort=l] [--check|--refresh-progress]\nDefaults to frozen cohort E. K checks 250 with five disjoint 50-slot workers; earlier cohort checks are unchanged. L preserves its default20-plus-reserves gate unless the bound direct-user rolling amendment is valid; each tranche keeps its own immutable membership. --refresh-progress refreshes derived counters after evidence changes.");
     return;
   }
-  if (args.some((arg) => !["--check", "--refresh-progress", "--cohort=f", "--cohort=g", "--cohort=h", "--cohort=i", "--cohort=j", "--cohort=k"].includes(arg))) throw new Error("Unknown option; use --help");
+  if (args.some((arg) => !["--check", "--refresh-progress", "--cohort=f", "--cohort=g", "--cohort=h", "--cohort=i", "--cohort=j", "--cohort=k", "--cohort=l"].includes(arg))) throw new Error("Unknown option; use --help");
   const isF = args.includes("--cohort=f");
   const isG = args.includes("--cohort=g");
   const isH = args.includes("--cohort=h");
   const isI = args.includes("--cohort=i");
   const isJ = args.includes("--cohort=j");
   const isK = args.includes("--cohort=k");
-  if ([isF, isG, isH, isI, isJ, isK].filter(Boolean).length > 1) throw new Error("Choose one cohort per invocation");
-  const path = new URL(`data/dogs/portrait-cohort-${isK ? "k" : isJ ? "j" : isI ? "i" : isH ? "h" : isG ? "g" : isF ? "f" : "e"}.json`, root);
+  const isL = args.includes("--cohort=l");
+  if ([isF, isG, isH, isI, isJ, isK, isL].filter(Boolean).length > 1) throw new Error("Choose one cohort per invocation");
+  const path = new URL(`data/dogs/portrait-cohort-${isL ? "l" : isK ? "k" : isJ ? "j" : isI ? "i" : isH ? "h" : isG ? "g" : isF ? "f" : "e"}.json`, root);
   const [cohort, catalog, rightsLedger, generatedArtwork, profiles] = await Promise.all([
     path, new URL("data/dogs/dog-catalog.json", root), new URL("data/dogs/image-rights.json", root), new URL("data/dogs/generated-artwork.json", root), new URL("data/dogs/breed-profiles.json", root),
   ].map(async (file) => JSON.parse(await readFile(file, "utf8"))));
-  if (args.includes("--refresh-progress")) cohort.progress = (isK ? summarizePortraitCohortK : isJ ? summarizePortraitCohortJ : isI ? summarizePortraitCohortI : isH ? summarizePortraitCohortH : isG ? summarizePortraitCohortG : isF ? summarizePortraitCohortF : summarizePortraitCohort)(cohort);
+  if (args.includes("--refresh-progress")) cohort.progress = (isL ? summarizePortraitCohortL : isK ? summarizePortraitCohortK : isJ ? summarizePortraitCohortJ : isI ? summarizePortraitCohortI : isH ? summarizePortraitCohortH : isG ? summarizePortraitCohortG : isF ? summarizePortraitCohortF : summarizePortraitCohort)(cohort);
   const runSelection = isG ? JSON.parse(await readFile(new URL("data/dogs/portrait-continuation-100.json", root), "utf8")) : undefined;
-  const errors = (isK ? validatePortraitCohortK : isJ ? validatePortraitCohortJ : isI ? validatePortraitCohortI : isH ? validatePortraitCohortH : isG ? validatePortraitCohortG : isF ? validatePortraitCohortF : validatePortraitCohort)(cohort, { catalog, rightsLedger, generatedArtwork, profiles, runSelection });
+  let batchingAuthorization;
+  if (isL && cohort.batchPolicy?.authorization) {
+    const item = cohort.batchPolicy.authorization;
+    const raw = await readFile(item.path);
+    if (createHash("sha256").update(raw).digest("hex") !== item.sha256 || raw.length !== item.bytes) throw new Error("L direct-user batching authorization bytes changed");
+    batchingAuthorization = JSON.parse(raw.toString());
+  }
+  const trancheFreezes = {};
+  if (isL) for (const tranche of cohort.tranches || []) {
+    const item = tranche.freeze, raw = await readFile(item.path);
+    if (createHash("sha256").update(raw).digest("hex") !== item.sha256 || raw.length !== item.bytes) throw new Error("L tranche freeze bytes changed");
+    trancheFreezes[tranche.id] = JSON.parse(raw.toString());
+  }
+  if (isL) {
+    const checkBindings = async value => {
+      if (!value || typeof value !== "object") return;
+      if (typeof value.path === "string" && typeof value.sha256 === "string" && Number.isSafeInteger(value.bytes)) {
+        const raw = await readFile(value.path);
+        if (createHash("sha256").update(raw).digest("hex") !== value.sha256 || raw.length !== value.bytes) throw new Error(`L evidence bytes changed: ${value.path}`);
+      }
+      for (const item of Object.values(value)) await checkBindings(item);
+    };
+    await checkBindings(cohort);
+    for (const entry of Object.values(cohort.entries || {})) {
+      const packet = JSON.parse(await readFile(entry.preparation.packet.path, "utf8"));
+      const selected = packet.entries.filter(row => row.catalogId === entry.catalogId);
+      if (selected.length !== 1) throw new Error("L canonical packet exact member missing");
+      await checkBindings(selected[0]);
+    }
+  }
+  const errors = (isL ? validatePortraitCohortL : isK ? validatePortraitCohortK : isJ ? validatePortraitCohortJ : isI ? validatePortraitCohortI : isH ? validatePortraitCohortH : isG ? validatePortraitCohortG : isF ? validatePortraitCohortF : validatePortraitCohort)(cohort, { catalog, rightsLedger, generatedArtwork, profiles, runSelection, batchingAuthorization, trancheFreezes });
   if (errors.length) throw new Error(errors.join("\n"));
   if (args.includes("--refresh-progress")) {
     const temporaryPath = `${fileURLToPath(path)}.tmp-${process.pid}`;

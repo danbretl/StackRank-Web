@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "savedAt": "2026-10-03T11:24:58.450864+00:00",
-  "status": "blocked-cohort-l-first-tranche-qualification",
+  "savedAt": "2026-10-03T15:14:29.258043+00:00",
+  "status": "active-cohort-l-rolling-production",
   "baseline": {
     "catalogIdentities": 1239,
     "publishedPortraits": 560,
@@ -1764,7 +1764,7 @@
   },
   "currentAuthorizedRun": {
     "cohortId": "dogs-portraits-l",
-    "status": "blocked-first-tranche-qualification",
+    "status": "active-rolling-production",
     "authority": "Fresh direct-user invocation of dogs-overnight-100-kickoff-prompt.md",
     "targetAdditionalPublishedPairs": 100,
     "baselinePublishedPairs": 602,
@@ -1778,7 +1778,7 @@
     "acceptedPairs": 0,
     "publishedPairs": 0,
     "qualifiedPackets": 12,
-    "requiredBeforeGeneration": "Freeze 20 qualified identities plus 3–5 qualified reserves; dedicated immutable root pre-call approval and successful preflight",
+    "requiredBeforeGeneration": "Frozen qualified identity, dedicated immutable root pre-call approval and successful preflight; rolling queue directly authorized by user",
     "configuredWorkers": "Exactly three internal gpt-6.1-sol/high agents; no nested agents or K worker resumes",
     "primaryModelEffortDisclosure": "Requested gpt-6-astra/high; runtime identifiers undisclosed",
     "permissions": "Actual root and all workers danger-full-access, approval never, network enabled",
@@ -1789,9 +1789,13 @@
       "sha256": "d40da108884f7381d49ad5b71adcda7c6e89b2dc63298f52af0476ee4288f88f",
       "bytes": 5578
     },
-    "shortfallToMinimumFirstQueue": 10,
-    "userAmendmentPending": true,
+    "userAmendmentPending": false,
     "userStop": false,
-    "objectiveComplete": false
+    "objectiveComplete": false,
+    "rollingBatchAuthorization": {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/rolling-batch-user-authorization-001.json",
+      "sha256": "e1ffc149b5fe0e6cc1c3b1dd0d4dfec06466bf8ddfe05369134fbd745ca2d2eb",
+      "bytes": 1091
+    }
   }
 }

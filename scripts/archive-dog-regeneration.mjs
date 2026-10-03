@@ -4,6 +4,8 @@ import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 
+import { collectLRegenerationFiles } from './dog-portrait-l-archive.mjs';
+
 const hash = bytes => createHash('sha256').update(bytes).digest('hex');
 const privatePrefixes = ['reports/dogs-generated-artwork/cohort-i/', 'reports/dogs-generated-artwork/cohort-j/', 'assets/dogs/generated-masters/cohort-j/', 'reports/dogs-generated-artwork/cohort-k/', 'assets/dogs/generated-masters/cohort-k/'];
 
@@ -54,7 +56,7 @@ export function collectRegenerationFiles(root, entry, packetPaths) {
 }
 
 export function createRegenerationArchive(root, wave) {
-  if (!/^[jk](?:0[1-9]|10)$/.test(wave)) throw Error('Expected J/K wave j01–j10 or k01–k10');
+  if (!/^(?:[jk](?:0[1-9]|10)|l(?:0[1-9]|[1-9]\d|100))$/.test(wave)) throw Error('Expected J/K wave01–10 or L wave01–100');
   const letter = wave[0];
   const ledgerPath = `data/dogs/portrait-cohort-${letter}.json`;
   const cohort = JSON.parse(fs.readFileSync(path.join(root, ledgerPath)));
@@ -68,6 +70,10 @@ export function createRegenerationArchive(root, wave) {
   for (const id of ids) {
     const entry = cohort.entries[id];
     if (entry?.integration?.subwave !== wave || entry.qa.status !== 'approved' || entry.profile.status !== 'approved') throw Error(`Unapproved archive identity: ${id}`);
+    if (letter === 'l') {
+      for (const file of collectLRegenerationFiles(root, entry)) files.set(file.path, file);
+      continue;
+    }
     const packetDir = path.posix.dirname(entry.preparation.packetPath);
     const packetPaths = letter === 'j'
       ? ['packet.json', 'profiles.json', 'rights-reviewed.json', 'generation-attempts.json', 'batch-candidate.json'].map(name => `${packetDir}/${name}`)
@@ -88,7 +94,8 @@ export function createRegenerationArchive(root, wave) {
   if (fs.existsSync(path.join(root, archivePath)) || fs.existsSync(path.join(root, manifestPath))) throw Error('Refusing to replace an existing regeneration archive');
   fs.mkdirSync(path.dirname(path.join(root, archivePath)), { recursive: true });
   const manifest = { schemaVersion: 1, cohortId: cohort.cohortId, wave, createdAt: new Date().toISOString(),
-    catalogIds: ids, selectionSha256: cohort.selectionSha256,
+    catalogIds: ids, selectionSha256: letter === 'l' ? release.trancheSha256 : cohort.selectionSha256,
+    ...(letter === 'l' ? { trancheId: release.trancheId, trancheSha256: release.trancheSha256 } : {}),
     storage: 'Local ignored archive; no off-machine backup is asserted',
     archivePath, archiveSha256: null, archiveBytes: null,
     fileCount: list.length, uniqueObjectCount: objects.length,

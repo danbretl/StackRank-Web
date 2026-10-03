@@ -23,7 +23,7 @@ are under `/Users/danbretl/.codex/worktrees/dogs-cohort-l-worker-{a,b,c}/stackra
 ## Current stage
 
 Qualification is underway. No production tranche is frozen, no image call is authorized or
-started, and no new pair is accepted/integrated/published. Nine identities across eight complete
+started, and no new pair is accepted/integrated/published. Eleven identities across ten complete
 source/profile/prompt packets have passed independent and root review:
 
 - Multi-Colored Poodle (VBO:0201055), writer C / peer A.
@@ -35,15 +35,19 @@ source/profile/prompt packets have passed independent and root review:
 - Pshdar Dog (VBO:0201086), writer B / peer C.
 - Blue Lacy (VBO:0200180), writer B / peer C.
 - Phu Quoc Ridgeback (VBO:0201017), writer A / peer B.
+- Contemporary Molossus of Epirus (VBO:0200904), writer B / peer C.
+- American Cocker Spaniel ASCOB (VBO:0200039), writer A / peer B.
 
 Root read actual source/primary/grant/terms evidence, viewed each original, and reviewed every
 final full/short description and prompt. These are preparation, not completed pairs. The first
 production allocation still requires 20 qualified identities plus 3–5 qualified reserves. Source
 scarcity is being measured honestly; prior research is not inherited approval. Fresh failed
-sources remain bounded dispositions rather than claims of worldwide absence. At the fourth
-process checkpoint, 127 identities had research-only allocation and 240 gated source operations
-had completed in 1.932 hours; there were no active permits or image calls. Subsequent C018
-research allocation brought the pool to 132, and Blue Lacy/Phu Quoc completed qualification.
+sources remain bounded dispositions rather than claims of worldwide absence. At the fifth
+process checkpoint, 149 identities had research-only allocation and 274 gated source operations
+had completed in 2.422 hours; there were no active permits or image calls. Epirus subsequently
+completed qualification, followed by ASCOB from a genuinely new unacquired original. Local
+gallery inventories and broader parent-token cross queries now supplement exact breed-name
+searches, with actual API errors and irrelevant results distinguished from empty results.
 Tokens and credits were not exposed. Research allocations are not published additions.
 
 Murray River Retriever Stella matches an earlier E-held original byte for byte; a preliminary
@@ -52,9 +56,15 @@ pair has a usable right-hand subject, but its originating creator grant remains 
 behind an importer statement, so it is not qualified. Phu Quoc uses a genuinely different
 creator original from the five earlier held photos; all historical holds remain unchanged.
 Blue Lacy independent review removed unattributed temperament wording from its short copy.
+Epirus concerns the contemporary national-standard population, not an ancient reconstruction.
+Its raw VBO node has no historical qualifier; the local curated historical override requires an
+evidenced correction during fully approved integration, and remains unchanged at this stage.
 The preparation index binds immutable bounded-screen reports for recovery. A private
-preparation-only evidence inventory verified 179 directly bound files for the first seven
-qualified identities; it is not final generation/archive closure or off-machine backup.
+preparation-only retention archive for the first ten qualified identities verified 326 bound
+files / 322 unique content objects (35,383,318 bytes), including exact historical registry
+snapshots where acquisition receipts bind earlier registry hashes. ASCOB is staged separately
+and not yet included in that archive. This is not final generation/archive closure or
+off-machine backup.
 
 The separate L registry/database is in `reports/dogs-generated-artwork/cohort-l/`. It uses the
 shared atomic Commons gate (one owner, at least 5.1 seconds after completion, global HTTP429 stop)

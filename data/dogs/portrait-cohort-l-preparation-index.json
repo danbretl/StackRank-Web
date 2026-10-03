@@ -40,7 +40,7 @@
   "acceptedPairs": 0,
   "publishedPairs": 0,
   "offMachineBackupVerified": false,
-  "qualifiedPackets": 8,
+  "qualifiedPackets": 10,
   "screeningAmendments": [
     {
       "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-001.json",
@@ -136,16 +136,41 @@
       "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-019.json",
       "sha256": "3484b6da25535db3624df567f49ea5df92712a8cda488dd28ccd9e8a9e083638",
       "bytes": 1216
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-020.json",
+      "sha256": "a1c9038f7a1e4828eb2c01f1ccf63fd8390f8a827ef30ec25b5610c1f43d4250",
+      "bytes": 1441
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-021.json",
+      "sha256": "b3d90eeb9aaf94acb22edf9378731401bdaa7bf954c736ef8f50ac3b88ad4e6d",
+      "bytes": 1147
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-022.json",
+      "sha256": "13c28f96c2796ec6440e94110fbf022520b45408d605fe40c3a32f0d73e8c940",
+      "bytes": 1179
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-023.json",
+      "sha256": "eb60375566975cb4d71d725637a777ef3e078e5be11fbf59fce36f2bbde3909c",
+      "bytes": 1267
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-024.json",
+      "sha256": "7e325168bb124e1d46add72443c181c8fdf894ebd695c200426025a414037d9a",
+      "bytes": 1218
     }
   ],
-  "updatedAt": "2026-10-03T09:01:49.054537+00:00",
+  "updatedAt": "2026-10-03T09:38:23.988790+00:00",
   "supportVerification": {
     "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/setup-verification-001.json",
     "sha256": "b58f41af0424975d6e83d04dc87133819f66f0e3c9bd99248de2842d42393191",
     "bytes": 884
   },
   "currentResearchStage": {
-    "qualified": 9,
+    "qualified": 11,
     "newPreliminaryVisualPassPendingOtherGates": [],
     "knownNegativeReconfirmed": [
       {
@@ -161,14 +186,25 @@
     ],
     "generationCalls": 0,
     "activeProductionIds": [],
-    "nextAction": "Allocate next bounded local nominations from A/B/C; nine fully qualified, no generation until20 plus3–5.",
+    "nextAction": "C023 broad parent-token cross queries; B next3 primary/exact source screening; A next nomination. Need12 more qualified identities before20+3 freeze. No generation.",
     "sourceGrantHold": {
       "catalogId": "VBO:0201363",
       "source": "ToyManchester pair094 right dog visual pass",
       "reason": "Copied importer GFDL statement but actual originating creator grant unavailable; not qualified."
-    }
+    },
+    "integrationRequirements": [
+      {
+        "catalogId": "VBO:0200904",
+        "requirement": "Correct local curated historical override for0904 to contemporary living population only during fully approved integration; preserve former classification and root scope evidence. Raw VBO node has no historical qualifier.",
+        "evidence": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-epirus-modern-scope-001.json",
+          "sha256": "9e803d5bc22437a9a40323b8adc080bd4fe66a01feb8820883d20006f1074bc3",
+          "bytes": 2113
+        }
+      }
+    ]
   },
-  "qualifiedIdentities": 9,
+  "qualifiedIdentities": 11,
   "screeningDispositions": {
     "scope": "Immutable worker bounded-screen reports for recovery; these are evidence/disposition records, not root image-call approval or proof that every remaining source is absent. Earlier provisional reports remain on disk.",
     "records": [
@@ -201,6 +237,16 @@
         "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/screening-006-amendment014.json",
         "sha256": "cfe40c9d38e5ecf45cbbe7a3b807d5cc23aaa57448b188b2813d4e9e5e8a2efd",
         "bytes": 10687
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/screening-007-amendment017.json",
+        "sha256": "87a12b251f18208c7a5e0f0c716769a6e392a1ada4689aa9a4bc595882eafba0",
+        "bytes": 12823
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/screening-008-amendment021.json",
+        "sha256": "94a38c9e4a2839a6c7796a0e2ce364fe2914052c514d9add42bfd8c13cac7b18",
+        "bytes": 5311
       },
       {
         "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/bounded-eighth5-screen-001.json",
@@ -253,9 +299,14 @@
         "bytes": 6931
       },
       {
-        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/ten-final-dispositions-058.json",
-        "sha256": "6f6854b1f2ef4b43f234b5895e0ce399a68d95da83f078ef08ecac2b2fb656d8",
-        "bytes": 10870
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/amendment019-final-dispositions-120.json",
+        "sha256": "0d5683a7436eedbce54212b2e74cc5af6b41e9e7af722a9eae26fcce7e3c7ba4",
+        "bytes": 7558
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/amendment022-final-dispositions-129.json",
+        "sha256": "54d03324e23db6133b1475a016735311d01c619c7811d9454cdac2172c9e1a72",
+        "bytes": 6608
       },
       {
         "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/bounded-dispositions-025.json",
@@ -271,7 +322,141 @@
         "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/five-bounded-dispositions-095.json",
         "sha256": "6c300d885ddfee7c5f112de9b35cd7d969fd02a93e27c8b4ec4d9694e549f431",
         "bytes": 9932
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/ten-final-dispositions-058.json",
+        "sha256": "6f6854b1f2ef4b43f234b5895e0ce399a68d95da83f078ef08ecac2b2fb656d8",
+        "bytes": 10870
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/bounded-ninth5-screen-001.json",
+        "sha256": "710d54a2b95206f364a9c66309948d49b99c4a358d2882fb2ee5fbe6fad4eafb",
+        "bytes": 6142
       }
     ]
+  },
+  "semanticCountingExclusions": [
+    {
+      "excludedCatalogId": "VBO:0200831",
+      "sameOrOverlappingIdentity": "VBO:0200669",
+      "otherIdentityPublished": true,
+      "reason": "Lobito Herreño / Hierran Wolfdog",
+      "scope": "Research counting exclusion retained from prior L nomination/root scope review; does not merge or delete source catalog/saved data."
+    },
+    {
+      "excludedCatalogId": "VBO:0008028",
+      "sameOrOverlappingIdentity": "VBO:0200283",
+      "otherIdentityPublished": false,
+      "reason": "Cantabrian Water Dog alternate Spanish label; held main identity",
+      "scope": "Research counting exclusion retained from prior L nomination/root scope review; does not merge or delete source catalog/saved data."
+    },
+    {
+      "excludedCatalogId": "VBO:0201440",
+      "sameOrOverlappingIdentity": "VBO:0201438",
+      "otherIdentityPublished": true,
+      "reason": "Toy Xolo / published Miniature Xolo overlap",
+      "scope": "Research counting exclusion retained from prior L nomination/root scope review; does not merge or delete source catalog/saved data."
+    },
+    {
+      "excludedCatalogId": "VBO:0201457",
+      "sameOrOverlappingIdentity": "VBO:0200279",
+      "otherIdentityPublished": true,
+      "reason": "Oropa shepherd alternate name",
+      "scope": "Research counting exclusion retained from prior L nomination/root scope review; does not merge or delete source catalog/saved data."
+    },
+    {
+      "excludedCatalogId": "VBO:0200091",
+      "sameOrOverlappingIdentity": "VBO:0200782",
+      "otherIdentityPublished": false,
+      "reason": "Australian Koolie / Koolie",
+      "scope": "Research counting exclusion retained from prior L nomination/root scope review; does not merge or delete source catalog/saved data."
+    },
+    {
+      "excludedCatalogId": "VBO:0200569",
+      "sameOrOverlappingIdentity": "VBO:0200782",
+      "otherIdentityPublished": false,
+      "reason": "German Koolie / Koolie",
+      "scope": "Research counting exclusion retained from prior L nomination/root scope review; does not merge or delete source catalog/saved data."
+    },
+    {
+      "excludedCatalogId": "VBO:0201176",
+      "sameOrOverlappingIdentity": "VBO:0201177",
+      "otherIdentityPublished": false,
+      "reason": "Sapsali / Sapsari one population",
+      "scope": "Research counting exclusion retained from prior L nomination/root scope review; does not merge or delete source catalog/saved data."
+    },
+    {
+      "excludedCatalogId": "VBO:0201129",
+      "sameOrOverlappingIdentity": "VBO:0201381",
+      "otherIdentityPublished": true,
+      "reason": "Ratonero Valenciano / Gos Rater, FCI370",
+      "scope": "Research counting exclusion retained from prior L nomination/root scope review; does not merge or delete source catalog/saved data."
+    },
+    {
+      "excludedCatalogId": "VBO:0200243",
+      "sameOrOverlappingIdentity": "VBO:0200642",
+      "otherIdentityPublished": true,
+      "reason": "Brussels Standard Griffon / Griffon Bruxellois",
+      "scope": "Research counting exclusion retained from prior L nomination/root scope review; does not merge or delete source catalog/saved data."
+    },
+    {
+      "excludedCatalogId": "VBO:0200379",
+      "sameOrOverlappingIdentity": "VBO:0200778",
+      "otherIdentityPublished": true,
+      "reason": "Combai / Kombai",
+      "scope": "Research counting exclusion retained from prior L nomination/root scope review; does not merge or delete source catalog/saved data."
+    },
+    {
+      "excludedCatalogId": "VBO:0200357",
+      "sameOrOverlappingIdentity": "VBO:0200344",
+      "otherIdentityPublished": true,
+      "reason": "Chongqing / Chinese Chongqing",
+      "scope": "Research counting exclusion retained from prior L nomination/root scope review; does not merge or delete source catalog/saved data."
+    },
+    {
+      "excludedCatalogId": "VBO:0200917",
+      "sameOrOverlappingIdentity": "VBO:0201302",
+      "otherIdentityPublished": false,
+      "reason": "Mountain Stephens Stock Cur / Stephens Cur",
+      "scope": "Research counting exclusion retained from prior L nomination/root scope review; does not merge or delete source catalog/saved data."
+    },
+    {
+      "excludedCatalogId": "VBO:0200635",
+      "sameOrOverlappingIdentity": "VBO:0200634",
+      "otherIdentityPublished": true,
+      "reason": "Greek Shepherd / Greek Sheepdog",
+      "scope": "Research counting exclusion retained from prior L nomination/root scope review; does not merge or delete source catalog/saved data."
+    },
+    {
+      "excludedCatalogId": "VBO:0200909",
+      "sameOrOverlappingIdentity": "VBO:0201152",
+      "otherIdentityPublished": true,
+      "reason": "Moscow long-haired toy / Russian long-haired toy",
+      "scope": "Research counting exclusion retained from prior L nomination/root scope review; does not merge or delete source catalog/saved data."
+    },
+    {
+      "excludedCatalogId": "VBO:0200910",
+      "sameOrOverlappingIdentity": "VBO:0201153",
+      "otherIdentityPublished": true,
+      "reason": "Moscow short-haired toy / Russian short-haired toy",
+      "scope": "Research counting exclusion retained from prior L nomination/root scope review; does not merge or delete source catalog/saved data."
+    },
+    {
+      "excludedCatalogId": "VBO:0200734",
+      "sameOrOverlappingIdentity": "VBO:0200010",
+      "otherIdentityPublished": true,
+      "reason": "Published Akita explicitly Japanese FCI255/Akita Inu; American Akita FCI344 already separately published.",
+      "scope": "Root read actual selected rows; counting exclusion only, no catalog or saved-data mutation.",
+      "evidence": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/japanese-akitainu-semantic-exclusion-130.json",
+        "sha256": "2aaa98e4a0f730ad424c56f743cbd754884b6ee37822d55540b092e53076395a",
+        "bytes": 7470
+      }
+    }
+  ],
+  "preparationOnlyRetention": {
+    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/preparation-retention-002.json",
+    "sha256": "6758673cea1733246985c9a818164702d45dc2aa5fb00935d27a21130e028e4d",
+    "bytes": 85946
   }
 }

@@ -1,0 +1,285 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-l11",
+  "cohortId": "dogs-portraits-l",
+  "selectionSha256": "27b3a4fd562763d8fa1e3612b4bbc2e1f938ab787af5215ff8b07f79e4d11034",
+  "reviewedAt": "2026-10-03",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-l/l11-l14-eight-contact-001.jpg",
+    "contactSheetSha256": "eb553ff883275deeac3971927b1a8ed762668ae1f859f03fdca122bb5e0cd4ef",
+    "acceptedCount": 2,
+    "reviewedAt": "2026-10-03T19:59:06.906661+00:00",
+    "notes": "Root personally reviewed all eight unchanged native portraits and whole combined contact sheet. Distinct breed proportions, natural coat details, four grounded complete paws, full natural tails with free endpoints and safe frame margins. Each exact full/short profile and source/prompt had independent peer plus root review. Accept selected tranche members; no image-input or public-snapshot/raster purpose expansion."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0201284",
+      "name": "Sporting Lucas Terrier",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "a8dbda03aada71800e8882dc32cf274696378d019f8a67d4730c77a3b63ec44f",
+        "imageInputs": [],
+        "sourcePage": "https://www.ukcdogs.com/docs/breeds/sporting_lucas_terrier.std.pdf"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-l/worker-a/VBO-0201284-native-01.png",
+      "masterSha256": "8717a60adb6dc432a0686baa02e69abc48d21cf6abb8a63ca8564e5a057bb391",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10083-e23b-7151-a71b-8eb3160aa4dc/exec-98519b76-a5cf-43c0-acb9-2ccf4f465a80.png",
+      "originalOutputSha256": "8717a60adb6dc432a0686baa02e69abc48d21cf6abb8a63ca8564e5a057bb391",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "attemptId": "L-0201284-01",
+      "startedAt": "2026-10-03 19:24:46 UTC",
+      "generatedAt": "2026-10-03 19:25:03 UTC",
+      "timeEvidence": "Actual worker tool boundary observations; underlying service timing/model undisclosed.",
+      "prompt": "Create one original premium photorealistic field-guide portrait of a mature Sporting Lucas Terrier, exact contemporary population. Use only the independently written factual morphology below; no photograph is supplied or requested.\n\nMature low-stationed, sturdy, well-boned but flexible Sporting Lucas Terrier with an oblong body, strong level back, slightly arched short loin, slight tuck and gently sloping croup. Deep moderately wide chest to elbow, not barrel-shaped. Broad proportionate skull, definite stop, strong slightly tapering muzzle about two-thirds skull length, tight dark lips, black nose and dark oval eyes. High-set neat V-shaped half-prick ears with rounded tips folded forward even when alert. Strong gently arched neck, straight discernibly muscled forelegs; muscular angulated hindquarters, upright parallel rear pasterns and sturdy round paws. Harsh stiff straight close double coat about1.5in long with dense undercoat, modest working facial furnishings. Predominantly off-white body with independently chosen irregular grizzle-brown saddle patches and tan head shading. Natural full tail set level with gently sloping croup and carried erect without going over back; show entire attached tail/free endpoint, no artificial dock. Do not invent exaggerated plume, curled spitz tail, square cloddy body, long show coat or Sealyham box head.\n\nInvent a new composition: one anonymous dog standing relaxed in a left-facing three-quarter side view, head gently turned toward the viewer, mouth closed. All four coherent weight-bearing paws on a clear firm patch with visible contact shadows; full connected tail and free endpoint inside frame with generous crop margins. A firm dry path beside a British scrubby woodland edge in soft spring morning light; sparse grass away from paws, no hunt or prey. Restrained natural colour, realistic coat texture, gentle field-photography depth. Do not copy any named dog, exact markings or source compositions, gestures, snow, beach, daffodil/mushroom portrait, agility or indoor show scenes.\n\nLandscape1536×1024,3:2. Entire head/ears/trunk/four paws/full tail within frame. No people, prey, collar, lead, harness, props, fence across dog, text, logos, border or watermark. Output one finished image.\n",
+      "promptSha256": "831a2064a12412439b89f4f4469599d19f32aef2af19545dbf84a4b62aa307e3",
+      "scene": "A firm dry path beside a British scrubby woodland edge in soft spring morning light; sparse grass away from paws, no hunt or prey.",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "reviewedBy": "primary orchestrator with independent worker",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature Sporting Lucas Terrier, low oblong sturdy body, broad strong head and folded V ears, close harsh white grizzle/tan coat.",
+        "anatomy": "Four complete coherent paws grounded; full erect attached tail with free furnishing tip, slightly longer white tip fur consistent with harsh texture and not a spitz plume. No overback curl. Generous frame margins, natural woodland path and contact shadows.",
+        "crop": "Whole1536x1024 personally viewed; head, ears, four paws and entire attached tail inside safe margins.",
+        "aesthetics": "Natural adult proportions, fur texture, light and contact; new original scene without close source recreation.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-l/l11-l14-eight-contact-001.jpg",
+        "contactSheetSha256": "eb553ff883275deeac3971927b1a8ed762668ae1f859f03fdca122bb5e0cd4ef",
+        "contactSheetReviewedAt": "2026-10-03T19:59:06.870268+00:00",
+        "contactSheetNotes": "Root personally reviewed all eight unchanged native portraits and whole combined contact sheet. Distinct breed proportions, natural coat details, four grounded complete paws, full natural tails with free endpoints and safe frame margins. Each exact full/short profile and source/prompt had independent peer plus root review. Accept selected tranche members; no image-input or public-snapshot/raster purpose expansion."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/source-policy-user-authorization-002.json",
+          "sha256": "f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091",
+          "bytes": 1817
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-dossier-0201284-text-only-002.json",
+          "sha256": "a8dbda03aada71800e8882dc32cf274696378d019f8a67d4730c77a3b63ec44f",
+          "bytes": 8334
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.ukcdogs.com/docs/breeds/sporting_lucas_terrier.std.pdf",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-l/root-approvals/586fbcba0229ab28c8547ae8b0d3257990cd55023699cc065ff454ae4fd903ae.json",
+        "rootApprovalSha256": "586fbcba0229ab28c8547ae8b0d3257990cd55023699cc065ff454ae4fd903ae",
+        "primaryReviewedAt": "2026-10-03T19:24:03.249905+00:00",
+        "visualReview": "Root read all three actual UKC standard pages, exact full/short copy, literal prompt and complete dossier/scope; whole actual Cassie owner-feature PDF19/printed17 viewed with owner identity text. Developed head/trunk/legs corroborated; rear and tail gaps supplied from literal standard allowing full natural erect tail. Modern Sporting population kept distinct from original Lucas. Determined alert independent working character and British work source-backed. New woodland path differs from source snow/beach/woodland portraits. Text only with zero image inputs; no photo license or broader-purpose grant inferred.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "summary": "Determined and alert, the Sporting Lucas Terrier tends to bring a keen, independent approach to hunting while remaining responsive to direction. Its working role includes pushing game out of thick cover and pursuing ground vermin above and below ground. British breeders maintain this compact terrier primarily for that work.",
+        "summarySha256": "717d30ea39dfc2370c96b4f73b71e7aad3db633c21c1dd7d3fafaeb00edd17fc",
+        "shortDescription": "A determined working terrier, keen to search thick cover and tackle ground vermin while responding to direction.",
+        "shortDescriptionSha256": "62abca5138bf41a907cf45f9e074ee451e5c926708d98454dc4242f9fa3e201e",
+        "author": "L worker A",
+        "reviewer": "L worker B and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/packet-text-only-sporting-havana-001.json",
+        "sourcePathSha256": "299f94eb50fca228c444dde89557f5c928e5a24fd5868c2ed65f3a5a55280665",
+        "sourceSnapshots": [
+          {
+            "title": "United Kennel Club — Sporting Lucas Terrier standard",
+            "url": "https://www.ukcdogs.com/docs/breeds/sporting_lucas_terrier.std.pdf",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0201284-ukc-current-002.pdf",
+              "sha256": "e7430061cd4b832af6fdbf15fea0b8fd413fa6722daa88ee988eaae3208b6343",
+              "bytes": 266851
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-j/discovery-b/j09-j10-reviewed-packets/snapshots/0201284-ukc-sporting-lucas.txt",
+              "sha256": "5481df791010951ebb45ccb165b797c10822e509693798beea78b6b8bf03686a",
+              "bytes": 8791
+            },
+            "sourceRole": "Current UKC normative working character/history and complete anatomical standard; not empirical individual behavior.",
+            "evidence": "Determined, alert, keen independent worker responsive to instruction; pushing game from thick cover and ground-vermin work above/below ground; maintained primarily as a working terrier in Great Britain. No ancient continuity or original-Lucas identity claimed.",
+            "acquisitionDisclosure": "Fresh actual HTTP200 raw and adjacent timing/header receipt; complete substantive standard/registry text personally read. No photograph inputs or photo-license approval. Fresh PDF byte-identical to retained J PDF; all three actual extracted pages reread.",
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0201284-ukc-current-002.pdf.receipt.json",
+              "sha256": "a691946929fc3c1bed84cdd7193729501f0196c72b01cfa4ec1c2b4aa7d2f3bf",
+              "bytes": 1933
+            }
+          }
+        ],
+        "primaryReviewedAt": "2026-10-03T19:24:03.249905+00:00"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0200661",
+      "name": "Havana Silk Dog",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "5822ac4678eb21865443b37b7cd932aeadbb353891bc3841225a1fe9fce94175",
+        "imageInputs": [],
+        "sourcePage": "https://havanasilkdog.org/hsdaa-standard/"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-l/worker-a/VBO-0200661-native-01.png",
+      "masterSha256": "66254f1632e61079e31463043656609e6c58e129c08bf8ead19b5775a52cfb34",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10083-e23b-7151-a71b-8eb3160aa4dc/exec-ba5b1b7d-67f5-404a-9578-4f7ac30832c2.png",
+      "originalOutputSha256": "66254f1632e61079e31463043656609e6c58e129c08bf8ead19b5775a52cfb34",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "attemptId": "L-0200661-01",
+      "startedAt": "2026-10-03 19:26:09 UTC",
+      "generatedAt": "2026-10-03 19:26:27 UTC",
+      "timeEvidence": "Actual worker tool boundary observations; underlying service timing/model undisclosed.",
+      "prompt": "Create one original premium photorealistic field-guide portrait of a mature Havana Silk Dog, exact contemporary population. Use only the independently written factual morphology below; no photograph is supplied or requested.\n\nMature modern HSDAA Havana Silk Dog: small elegant athletic companion, medium bone, body a little longer than tall, level topline, oval chest to elbows, clear tuck, short muscular loin, moderately long gently arched neck. Broad slightly rounded skull, moderate stop, refined flat-cheeked muzzle in3:4 relation to skull, broad black nose, large dark almond-shaped eyes. High broad-based fine triangular ears folded at skull line, bases slightly lifted alertly, tips near outer-eye length; not cheek-framing drooping neck ears. Straight parallel forelegs, upright pasterns, round compact forepaws; moderately angled strong hindlegs, short parallel hocks and oval hindfeet. Adult flat soft single coat without undercoat, light wispy wave at ends. Select the standard Satin pattern: short fine face/feet/front legs, moderate body coat with longer silky ears/chest/back-leg/tail furnishings. Independently chosen ivory ground with warm sable ear and shoulder shading, black nose and dark rims, no merle. High-set full natural tail gracefully arches over back with its vertebral curve clear of back, allowed to fall slightly to one side; whole connected plume and free tip readable. No dwarf/bowed legs, dense curly undercoat, juvenile head or exaggerated floor-length coat.\n\nInvent a new composition: one anonymous dog standing relaxed in a left-facing three-quarter side view, head gently turned toward the viewer, mouth closed. All four coherent weight-bearing paws on a clear firm patch with visible contact shadows; full connected tail and free endpoint inside frame with generous crop margins. A firm pale-shell garden path with understated subtropical greenery in gentle warm late-afternoon light; no show ring or domestic furnishings. Restrained natural colour, realistic coat texture, gentle field-photography depth. Do not copy any named dog, exact markings or source compositions, gestures, snow, beach, daffodil/mushroom portrait, agility or indoor show scenes.\n\nLandscape1536×1024,3:2. Entire head/ears/trunk/four paws/full tail within frame. No people, prey, collar, lead, harness, props, fence across dog, text, logos, border or watermark. Output one finished image.\n",
+      "promptSha256": "a7ff25b9f8bb1e4e2aee799b61b12051e48dd2d6ffbb6a8e823e0f37aed0ea73",
+      "scene": "A firm pale-shell garden path with understated subtropical greenery in gentle warm late-afternoon light; no show ring or domestic furnishings.",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "reviewedBy": "primary orchestrator with independent worker",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature modern Havana Silk Dog with refined muzzle, dark almond eyes, athletic level slightly rectangular body and flat silky ivory/sable coat.",
+        "anatomy": "Four complete grounded paws and coherent limb courses despite moderate silky furnishings. Natural full lifted arch tail and free side-falling plume, no fused or clipped tail. High ears folded with long fur, anatomical ear length not inferred from furnishing. Safe crop, fresh subtropical garden scene.",
+        "crop": "Whole1536x1024 personally viewed; head, ears, four paws and entire attached tail inside safe margins.",
+        "aesthetics": "Natural adult proportions, fur texture, light and contact; new original scene without close source recreation.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-l/l11-l14-eight-contact-001.jpg",
+        "contactSheetSha256": "eb553ff883275deeac3971927b1a8ed762668ae1f859f03fdca122bb5e0cd4ef",
+        "contactSheetReviewedAt": "2026-10-03T19:59:06.870268+00:00",
+        "contactSheetNotes": "Root personally reviewed all eight unchanged native portraits and whole combined contact sheet. Distinct breed proportions, natural coat details, four grounded complete paws, full natural tails with free endpoints and safe frame margins. Each exact full/short profile and source/prompt had independent peer plus root review. Accept selected tranche members; no image-input or public-snapshot/raster purpose expansion."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/source-policy-user-authorization-002.json",
+          "sha256": "f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091",
+          "bytes": 1817
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-dossier-0200661-text-only-002.json",
+          "sha256": "5822ac4678eb21865443b37b7cd932aeadbb353891bc3841225a1fe9fce94175",
+          "bytes": 8538
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://havanasilkdog.org/hsdaa-standard/",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-l/root-approvals/ae4cc34755a8e9d168bba84605c46342ec70c1c9f789acd3c275995979b7bde8.json",
+        "rootApprovalSha256": "ae4cc34755a8e9d168bba84605c46342ec70c1c9f789acd3c275995979b7bde8",
+        "primaryReviewedAt": "2026-10-03T19:24:03.249905+00:00",
+        "visualReview": "Root read entire HSDAA standard, current registry identity paragraphs, UCD actual introduction/appearance first65 lines, full/short copy, exact prompt and complete dossier/scope. Whole three actual association photos viewed at native small resolutions; adult-looking head/body/flat coat broadly corroborated, detailed anatomy and Satin coat/full arch tail supplied literally by standard. Modern separately registered Havanese-derived population explicit; no ancient continuity, health or genetic superiority claim. New ivory/sable dog on subtropical shell path differs from agility/show/reclining sources. Text only and no photo license or broader-purpose grant.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "summary": "Outgoing, playful and curious, the modern Havana Silk Dog is bred to be a lively, confident companion. Initial reserve toward unfamiliar people is meant to give way to friendliness after an introduction, and it can serve as an alert dog. Selected from Havanese stock, this population formed its own association in 2007 and maintains a separate registry; its breeders preserve an athletic build and flat, silky coat.",
+        "summarySha256": "75781bd349cbf9c35a4aea125da29a2ae6b0ee5ef9157b3275ce760b8e0d2a68",
+        "shortDescription": "An outgoing, playful companion from a separately registered Havanese-derived population, curious and inclined to give an alert.",
+        "shortDescriptionSha256": "38f2a5a9b12bf460ff1b1e981d78832109e7c9b1f834bf914613c22f0a62d086",
+        "author": "L worker A",
+        "reviewer": "L worker B and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/packet-text-only-sporting-havana-001.json",
+        "sourcePathSha256": "299f94eb50fca228c444dde89557f5c928e5a24fd5868c2ed65f3a5a55280665",
+        "sourceSnapshots": [
+          {
+            "title": "HSDAA — Havana Silk Dog standard",
+            "url": "https://havanasilkdog.org/hsdaa-standard/",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200661-hsdaa-standard-002.html",
+              "sha256": "f54276f1d796fe17f22005716fb5bfb1e398d7030a8680f654c3c2a0022e6f41",
+              "bytes": 59472
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200661-hsdaa-standard-002.txt",
+              "sha256": "a88b2a5557828b7ab60675db89b5ebd25ca974c0b9ac98e33b709c7fee03d740",
+              "bytes": 6856
+            },
+            "sourceRole": "Current own-association normative character/anatomy standard, revision2016; no empirical suitability or health superiority.",
+            "evidence": "Outgoing/playful/curious/lively/confident companion ideal, initial stranger reserve expected to resolve after introduction, alert role; athletic straight-legged flat single silky coat. All character stated as breeding aims.",
+            "acquisitionDisclosure": "Fresh actual HTTP200 raw and adjacent timing/header receipt; complete substantive standard/registry text personally read. No photograph inputs or photo-license approval.",
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200661-hsdaa-standard-002.html.receipt.json",
+              "sha256": "2db54b71851e8dda0be96a11801b378b619bd47dff7c397e32b4513b1e314bc9",
+              "bytes": 1376
+            }
+          },
+          {
+            "title": "HSDAA — current registry scope",
+            "url": "https://havanasilkdog.org/hsdaa-registry/",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200661-hsdaa-registry-002.html",
+              "sha256": "7855e4334741ee1966bbb2388e15d23dc908d22cc0dfbef0b9ef84068c210c05",
+              "bytes": 91193
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200661-hsdaa-registry-002.txt",
+              "sha256": "3507594d630c48cbd49b79cebc02602f7bffae622e612b0dc0434ec062b26c41",
+              "bytes": 17314
+            },
+            "sourceRole": "Current primary registry rules; identity/population scope only, not claimed genetic/medical superiority.",
+            "evidence": "Separate closed registry, non-interbreeding policy with American Havanese and recognition not requested from all-breed registries. No phenotype-only registration asserted.",
+            "acquisitionDisclosure": "Fresh actual HTTP200 raw and adjacent timing/header receipt; complete substantive standard/registry text personally read. No photograph inputs or photo-license approval.",
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200661-hsdaa-registry-002.html.receipt.json",
+              "sha256": "147f4042d00cefea54d070e60d8d13a24ac316b956ec27db294dc1093157dab0",
+              "bytes": 1360
+            }
+          },
+          {
+            "title": "UC Davis Veterinary Genetics Laboratory — Havana Silk Dog report, introduction",
+            "url": "https://vgl.ucdavis.edu/sites/g/files/dgvnsk15116/files/media/documents/HS_Preliminary_Report-20220606.pdf",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-j/discovery-c/j08-first10-reviewed-packets/source-19-havana-ucdavis-original.pdf",
+              "sha256": "e5c1b2e0499006da177715d1126c1fecf5cd6e37c715d3176b11c44704d044e0",
+              "bytes": 710903
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-j/discovery-c/j08-first10-reviewed-packets/source-20-havana-ucdavis-original.txt",
+              "sha256": "25baceba9b35381f2feb719fb59bd765bf859822470d6f6235e753e2a018c876",
+              "bytes": 38915
+            },
+            "sourceRole": "University laboratory historical introduction to preliminary29-dog study; only introduction/appearance sections used, not genetic or health findings.",
+            "evidence": "Introduction identifies Havanese-derived modern population, selection beginning2000 and formation of HSDAA2007. No medical claim, genetic superiority or independent breed-recognition claim.",
+            "acquisitionDisclosure": "Retained J actual native PDF and text, verified exact hashes. Original acquisition timing/headers not available here; historical acquisition disclosed. Actual first65 lines including introduction/appearance personally reread; study results are unused, not claimed fully read."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-03T19:24:03.249905+00:00"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    }
+  ]
+}

@@ -1,0 +1,334 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-l14",
+  "cohortId": "dogs-portraits-l",
+  "selectionSha256": "97a290d2a3f167e8b1b8dfe1c1571f0de43cda6dd776aeffb1d1c902425b8832",
+  "reviewedAt": "2026-10-03",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-l/l11-l14-eight-contact-001.jpg",
+    "contactSheetSha256": "eb553ff883275deeac3971927b1a8ed762668ae1f859f03fdca122bb5e0cd4ef",
+    "acceptedCount": 2,
+    "reviewedAt": "2026-10-03T19:59:07.758654+00:00",
+    "notes": "Root personally reviewed all eight unchanged native portraits and whole combined contact sheet. Distinct breed proportions, natural coat details, four grounded complete paws, full natural tails with free endpoints and safe frame margins. Each exact full/short profile and source/prompt had independent peer plus root review. Accept selected tranche members; no image-input or public-snapshot/raster purpose expansion."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0200718",
+      "name": "Italian Shepherd Dog",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "8fa7ead2eae271b9e2d4e9a2f27e9cf9fecc8852405a5da6f5a06ea7e6d58966",
+        "imageInputs": [],
+        "sourcePage": "https://www.pastoreitaliano.it/identita.php?idcat=60"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-l/worker-a/VBO-0200718-native-01.png",
+      "masterSha256": "c1d8bece2838c9a1d7fe376b2ec09d8227e53ff0ceede27b439017908a9fdd29",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10083-e23b-7151-a71b-8eb3160aa4dc/exec-ed5171bc-fb84-4303-8cb3-d333a0d36b0c.png",
+      "originalOutputSha256": "c1d8bece2838c9a1d7fe376b2ec09d8227e53ff0ceede27b439017908a9fdd29",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "attemptId": "L-0200718-01",
+      "startedAt": "2026-10-03 19:48:33 UTC",
+      "generatedAt": "2026-10-03 19:48:53 UTC",
+      "timeEvidence": "Actual worker tool boundary observations; underlying service timing/model undisclosed.",
+      "prompt": "Create one original premium photorealistic field-guide portrait of a mature Italian Shepherd Dog, exact contemporary population. Use only independently written factual morphology; no photograph supplied or recreated.\n\nMature medium-large Pastore Italiano with a distinctly long rectangular horizontal trunk, developed strong broad chest and powerful muscular hindquarters, robust straight widely spaced forelegs, strong slightly angled hocks and open functional paws. Broad proportionate skull, square strong muzzle, round dark-brown eyes, black nose, short muscular neck. High-set natural erect ears whose tips subtly curve inward, no cropping or manipulated bend. Dense short-to-semilong solid black coat with dense undercoat and restrained natural texture, no German Shepherd saddle pattern. Entire long high-set natural tail, softly hooked toward the free tapering tip without hiding the attachment. Powerful functional adult build, not juvenile or exaggerated sloping-back show type.\n\nInvent a new composition: one anonymous mature dog relaxed standing right-facing three-quarter, head gently toward viewer, mouth closed. A clear firm autumn track at an Abruzzo foothill meadow edge, soft late-afternoon light and distant subdued hills. Entire coherent limb courses and four distinct weight-bearing paws on clear firm earth with contact shadows. Entire attached natural tail and free endpoint separated from legs, generous crop margins. No source calendar, slope, annotated standard plate, open-mouth stance, seated white bench, palms, cropped ears, named dog, exact markings or photograph framing.\n\nLandscape1536×1024,3:2 at dog-eye level, restrained natural color and realistic coat texture. Entire head/ears/body/four paws/full tail inside frame. No people, other animals, collar, harness, prey, props, fence across dog, text, logo, border or watermark. One finished image.\n",
+      "promptSha256": "becd5381aafb55e6193a47af5c1841b78d08f174af831ffcd2f7b031724b14b9",
+      "scene": "A clear firm autumn track at an Abruzzo foothill meadow edge, soft late-afternoon light and distant subdued hills.",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "reviewedBy": "primary orchestrator with independent worker",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Strong mature long rectangular black Italian Shepherd, broad head and square muzzle, natural erect inward-tilted ears.",
+        "anatomy": "Four separate grounded paws, coherent straight forelegs/angled hindlegs. Full attached long relaxed low tail with gently hooked free end separated from hindlegs. High root visible, no cropped or merged anatomy.",
+        "crop": "Whole unchanged1536x1024 personally viewed; ears, all paws and full tail have safe clear margins.",
+        "aesthetics": "Fresh autumn Abruzzo foothill light and unobtrusive distant buildings; natural black coat detail, no source plate recreation.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-l/l11-l14-eight-contact-001.jpg",
+        "contactSheetSha256": "eb553ff883275deeac3971927b1a8ed762668ae1f859f03fdca122bb5e0cd4ef",
+        "contactSheetReviewedAt": "2026-10-03T19:59:07.724731+00:00",
+        "contactSheetNotes": "Root personally reviewed all eight unchanged native portraits and whole combined contact sheet. Distinct breed proportions, natural coat details, four grounded complete paws, full natural tails with free endpoints and safe frame margins. Each exact full/short profile and source/prompt had independent peer plus root review. Accept selected tranche members; no image-input or public-snapshot/raster purpose expansion."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/source-policy-user-authorization-002.json",
+          "sha256": "f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091",
+          "bytes": 1817
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-dossier-0200718-text-only-003.json",
+          "sha256": "8fa7ead2eae271b9e2d4e9a2f27e9cf9fecc8852405a5da6f5a06ea7e6d58966",
+          "bytes": 8045
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.pastoreitaliano.it/identita.php?idcat=60",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-l/root-approvals/ec7f8bfda8b7b8c7a35adc985c71492de1d68296753622505e20ce18df6ebea6.json",
+        "rootApprovalSha256": "ec7f8bfda8b7b8c7a35adc985c71492de1d68296753622505e20ce18df6ebea6",
+        "primaryReviewedAt": "2026-10-03T19:42:43.577490+00:00",
+        "visualReview": "Root read complete actual selection-centre standard/history, exact full/short,prompt,whole dossier and selected scope; whole actual one-page photographic male standard viewed. Developed long horizontal black mature body,broad head,inward-tipped natural upright ears,strong limbs and long descending tail corroborated. Overlay hides parts of rump/root, literal complete standard fills anatomy. Modern Accettella project1975/1990s naming and territorial/handler-affinity source-backed; no ancient continuity, health or child-safety promises. New Abruzzo path avoids annotated slope source. Empty inputs and no rights grant inferred.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "summary": "Serious and watchful on its own ground, the Pastore Italiano is a guardian shaped by work with livestock in central Italy. Its selection centre describes a dog that patrols its territory yet stays close to its handler when away from home. Piero Accettella began selecting the population in 1975; it took its Italian Shepherd name in the 1990s.",
+        "summarySha256": "210e5629cb852d6b57107788a263d975ff4627867cea7a7d815321a5b42a264a",
+        "shortDescription": "A serious central Italian guardian that patrols its territory and stays close to its handler when away from home.",
+        "shortDescriptionSha256": "7b1db063693bbb32ed9eafd3c10ff022f9bc473edb6cedebffe3906a45c2e88a",
+        "author": "L worker A",
+        "reviewer": "L worker B and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/packet-text-only-italian-canis-001.json",
+        "sourcePathSha256": "e0aa384c616803e65031e747e5872a6fafab12b5330146e711362c91ba62ee3d",
+        "sourceSnapshots": [
+          {
+            "title": "Centro Cinofilo del Cane da Pastore Italiano — standard",
+            "url": "https://www.pastoreitaliano.it/identita.php?idcat=60",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200718-standard-003.html",
+              "sha256": "0ede3efe655495bb3f7dbbaab598f1d1abbadefc65f291275ede551ec7d30bf5",
+              "bytes": 21913
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200718-standard-003.txt",
+              "sha256": "46ab293c47ba80c0e91d863a63597677530d91cd5ef2d847daad55d11dbfbd86",
+              "bytes": 4352
+            },
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200718-standard-003.html.receipt.json",
+              "sha256": "712003e141352426752a78d90529025476afb4dc7e353a1d44048e67f9550483",
+              "bytes": 1002
+            },
+            "sourceRole": "Exact selection-centre normative contemporary population standard, character/anatomy; not empirical safety/suitability/health guarantee.",
+            "evidence": "Serious watchful territorial guardian, constantly patrols territory and stays near handler away from its environment. Literal rectangular mature body, inward-tipped upright ears, straight strong forelimbs/powerful hindlimbs/open feet and long high-set preferably hooked natural tail. Child, lifespan, health and never-attacks guarantees excluded.",
+            "acquisitionDisclosure": "Fresh actual HTTP200 raw/text and adjacent actual UTC/header acquisition receipt. Personally read entire substantive cited current body; no photograph generator input or licensed-photo grant claimed."
+          },
+          {
+            "title": "Centro Cinofilo del Cane da Pastore Italiano — selection history",
+            "url": "https://www.pastoreitaliano.it/identita.php?idcat=59",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200718-history-003.html",
+              "sha256": "ddbbdc1724ee74973949a44a03296b162d744033abc9a096c677751f471d170d",
+              "bytes": 16040
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200718-history-003.txt",
+              "sha256": "d0774b792a8f3b84cd6c11405ecc8705e54d6d50e258c7b5f7126105bd5191b2",
+              "bytes": 2811
+            },
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200718-history-003.html.receipt.json",
+              "sha256": "278d53643ec1bd2b23af9f79ad438c790ca3a5d09c7749b9dee49eee9ae090fe",
+              "bytes": 1001
+            },
+            "sourceRole": "Own selection-centre historical account, modern project dates and named regional working stock only; ancient ancestry unproven and omitted.",
+            "evidence": "Accettella began selecting regional central-Italian black livestock-working dogs about1975; named Cane da Pastore Italiano in1990s, current standard1997. No ancient unbroken breed, FCI/ENCI recognition or parent behavior transfer asserted.",
+            "acquisitionDisclosure": "Fresh actual HTTP200 raw/text and adjacent actual UTC/header acquisition receipt. Personally read entire substantive cited current body; no photograph generator input or licensed-photo grant claimed."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-03T19:42:43.577490+00:00"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0200281",
+      "name": "Canis Panther",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "cabea96f932805cd0863cf61b47d1a6e488e25a23215c2b0c98e27afe1927385",
+        "imageInputs": [],
+        "sourcePage": "https://www.canispanther.org/breed-standards"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-l/worker-a/VBO-0200281-native-01.png",
+      "masterSha256": "aafbb90478773f87cf40547ac98db8b799ed829d56efd28969ff048735ec8c00",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10083-e23b-7151-a71b-8eb3160aa4dc/exec-ec8bef43-13f8-4649-8d74-44c7f3c0a5de.png",
+      "originalOutputSha256": "aafbb90478773f87cf40547ac98db8b799ed829d56efd28969ff048735ec8c00",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "attemptId": "L-0200281-01",
+      "startedAt": "2026-10-03 19:50:06 UTC",
+      "generatedAt": "2026-10-03 19:50:28 UTC",
+      "timeEvidence": "Actual worker tool boundary observations; underlying service timing/model undisclosed.",
+      "prompt": "Create one original premium photorealistic field-guide portrait of a mature Canis Panther, exact contemporary population. Use only independently written factual morphology; no photograph supplied or recreated.\n\nMature athletic Canis Panther from the original American protection-dog project, large muscular slightly longer-than-tall body, wide developed chest to elbows, thick well-muscled neck flowing into firm slightly descending topline, good muscle tone without massive mastiff bulk. Developed strong modified mesocephalic head, approximately equal skull and squared deep muzzle lengths, defined moderate stop, tight dark lips, broad black nose and dark brown moderately almond eyes. High-set natural uncropped medium ears folded close to head with blunt tips, not upright artificial crops. Heavy strong straight long forelegs, powerful angulated muscular hindquarters and compact rounded catlike paws. Smooth sleek short single coat, deep seal-black with restrained dark warmth, no merle or invented undercoat. Full natural tail strong at root and tapering to a complete free endpoint, moderate set with a gentle upward curve below topline, never curled over the back. Natural ear/tail detail comes from explicitly supplemental original-line breeder standard, not the federation docked preference or new Genesis hybrids.\n\nInvent a new composition: one anonymous mature dog relaxed standing right-facing three-quarter, head gently toward viewer, mouth closed. A clear firm woodland-margin path in the American Midwest in quiet early-autumn morning light. Entire coherent limb courses and four distinct weight-bearing paws on clear firm earth with contact shadows. Entire attached natural tail and free endpoint separated from legs, generous crop margins. No source calendar, slope, annotated standard plate, open-mouth stance, seated white bench, palms, cropped ears, named dog, exact markings or photograph framing.\n\nLandscape1536×1024,3:2 at dog-eye level, restrained natural color and realistic coat texture. Entire head/ears/body/four paws/full tail inside frame. No people, other animals, collar, harness, prey, props, fence across dog, text, logo, border or watermark. One finished image.\n",
+      "promptSha256": "62d9cdccfe21779c009ac188eeea74c794c2494123fb10a6f2e611acc6db41a4",
+      "scene": "A clear firm woodland-margin path in the American Midwest in quiet early-autumn morning light.",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "reviewedBy": "primary orchestrator with independent worker",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature large muscular slightly rectangular seal-black Canis Panther, deep chest, broad developed head and squared muzzle, natural close-folded ears.",
+        "anatomy": "Four separate grounded compact paws, coherent heavy limbs, full attached tapered tail gently raised below topline with clear free end. All anatomy safely inside frame.",
+        "crop": "Whole unchanged1536x1024 personally viewed; ears, all paws and full tail have safe clear margins.",
+        "aesthetics": "Original quiet autumn woodland-margin setting, natural sheen without excess bulk, no cropped ears or seated source reconstruction.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-l/l11-l14-eight-contact-001.jpg",
+        "contactSheetSha256": "eb553ff883275deeac3971927b1a8ed762668ae1f859f03fdca122bb5e0cd4ef",
+        "contactSheetReviewedAt": "2026-10-03T19:59:07.724731+00:00",
+        "contactSheetNotes": "Root personally reviewed all eight unchanged native portraits and whole combined contact sheet. Distinct breed proportions, natural coat details, four grounded complete paws, full natural tails with free endpoints and safe frame margins. Each exact full/short profile and source/prompt had independent peer plus root review. Accept selected tranche members; no image-input or public-snapshot/raster purpose expansion."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/source-policy-user-authorization-002.json",
+          "sha256": "f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091",
+          "bytes": 1817
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-dossier-0200281-text-only-003.json",
+          "sha256": "cabea96f932805cd0863cf61b47d1a6e488e25a23215c2b0c98e27afe1927385",
+          "bytes": 11512
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.canispanther.org/breed-standards",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-l/root-approvals/5b94efd2873c05c81fc82c9c381cee24b34c99c7b8558255055c6553850e2841.json",
+        "rootApprovalSha256": "5b94efd2873c05c81fc82c9c381cee24b34c99c7b8558255055c6553850e2841",
+        "primaryReviewedAt": "2026-10-03T19:42:43.577490+00:00",
+        "visualReview": "Root read current FCP2024 complete normative standard through addendum, entire federation history and entire supplemental breeder standard/female identity, exact full/short,prompt,dossier/scope. Expired CPCA2020 section is not controlling. Whole actual746x996 original2019 Toscana photograph viewed: developed square muzzle/deep chest/long front limbs/sleek coat; cropped ears and seated-hidden rear/tail are not inferred anatomy. Current single-coat project standard supplies body, clearly limited original-line breeder2019 vision supplies natural close-folded blunt ears and full tapering below-topline tail. Genesis new hybrids excluded. Narrative emphasizes selection aims and individual variation. New seal-black standing Midwestern woodland scene differs from blue-tri seated bench/palm source. Empty inputs and no photo grant.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "summary": "Loyal and inclined to stay near its handler, the Canis Panther is bred for watchfulness and personal protection. Its intended character combines attentiveness with patience and composure, although drives and reactions vary with the line and individual. The American project began around 1974, drawing together several working breeds rather than preserving one older breed unchanged.",
+        "summarySha256": "f0acddd60c4eac27d5b5cdeeacc747ae520df07e36b29be634c84d85c394ff20",
+        "shortDescription": "A loyal, watchful American protection-dog project, intended to stay attentive to its handler with patience and composure.",
+        "shortDescriptionSha256": "72760410fd9d8f1186a814c698674541f4cc42b4d8304206a4d0add5aa917c84",
+        "author": "L worker A",
+        "reviewer": "L worker B and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/packet-text-only-italian-canis-001.json",
+        "sourcePathSha256": "e0aa384c616803e65031e747e5872a6fafab12b5330146e711362c91ba62ee3d",
+        "sourceSnapshots": [
+          {
+            "title": "Federation of the Canis Panther — current2024 standard",
+            "url": "https://www.canispanther.org/breed-standards",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200281-standard-003.html",
+              "sha256": "edaebc1b501843fd41f6b538a8e4230328b280bd6e287dab27ddaf291457e606",
+              "bytes": 272747
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200281-standard-003.txt",
+              "sha256": "d8bede7eb043320ad269cc13aa1b05f46372249585607fed2f77baa10044b75a",
+              "bytes": 35798
+            },
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200281-standard-003.html.receipt.json",
+              "sha256": "1c506ece4e3c07598e2f39c2ac84b44fdffcbdf0d2e42d4f4e7753d876283e39",
+              "bytes": 1256
+            },
+            "sourceRole": "Current own-federation2024 normative character and adult anatomy; distinct from expired2020 CPCA and archived RockOfAges quotations.",
+            "evidence": "Loyal protective dog seeking owner/handler proximity; patience and bearing valued, personal-protection selection aims. Slightly longer-than-tall muscular adult, square strong muzzle, high-set cropped or uncropped ears, heavy straight long limbs/catfeet and short SINGLE coat. Docked second-joint tail preference disclosed, not copied or sufficient evidence of natural tail.",
+            "acquisitionDisclosure": "Fresh actual HTTP200 raw/text and adjacent actual UTC/header acquisition receipt. Personally read entire substantive cited current body; no photograph generator input or licensed-photo grant claimed."
+          },
+          {
+            "title": "Federation of the Canis Panther — history",
+            "url": "https://www.canispanther.org/",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200281-history-003.html",
+              "sha256": "9a14318df7fffdbce14f6a1989b13313659ccbcb96f4594a1126c95d8fb0031d",
+              "bytes": 639768
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200281-history-003.txt",
+              "sha256": "af19f48216092c0428e9bbe2f8654113a2df737c2f5b3f8ab9e27c684eeaacbd",
+              "bytes": 6552
+            },
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200281-history-003.html.receipt.json",
+              "sha256": "44dd73c0752e0422b313a1385db626da3c4a7095875121319502384c50f0d61b",
+              "bytes": 1224
+            },
+            "sourceRole": "Modern own-federation historical synthesis expressly acknowledges sporadic/disputed older sources. Only about1974 American named project and multiple working founders used.",
+            "evidence": "Project began about1974 with Jones/Lopez/Stratten selecting personal-protection dogs from several working founders. Individual accusations/medical history, uncertain founder percentages and ancient continuity omitted.",
+            "acquisitionDisclosure": "Fresh actual HTTP200 raw/text and adjacent actual UTC/header acquisition receipt. Personally read entire substantive cited current body; no photograph generator input or licensed-photo grant claimed."
+          },
+          {
+            "title": "Above & Beyond — original-line breeder standard",
+            "url": "https://www.canispanther.eu/breed",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200281-europe-breeder-standard-004.html",
+              "sha256": "74654235f5711cfd7cf15a3a11a7f74724a0593a423c19163975055907c793a2",
+              "bytes": 696568
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200281-europe-breeder-standard-004.txt",
+              "sha256": "7f6b66b70a2ce3580b59500b792bf59af6f56e9aa1f16b805b16df33d00c48ee",
+              "bytes": 7644
+            },
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200281-europe-breeder-standard-004.html.receipt.json",
+              "sha256": "47bf7ce2450727bc623b70570b5f77c47a07f576751a487a16733555bb3ceddc",
+              "bytes": 2365
+            },
+            "sourceRole": "Supplemental own-breeder2019 vision, explicitly no international official standard. ONLY uncropped ear and full natural-tail anatomy used; later Genesis hybrids/expanded colors/behavior claims excluded.",
+            "evidence": "Natural ears lie close to head with slightly blunt tips. Tail strong at root tapering toward end, neither too high nor too low set, slight upward curve in relaxed movement but never curled above topline. Not represented as federation consensus; source simultaneously maintains original2019 RockOfAges foundation and separately identified new Genesis program.",
+            "acquisitionDisclosure": "Fresh actual HTTP200 raw/text and adjacent actual UTC/header acquisition receipt. Personally read entire substantive cited current body; no photograph generator input or licensed-photo grant claimed."
+          },
+          {
+            "title": "Above & Beyond — original Canis Panther Toscana identity",
+            "url": "https://www.canispanther.eu/female",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200281-europe-foundation-female-004.html",
+              "sha256": "f0e09c39b14a72347d8daed2f25cb7d8d8d59ae06b9ed18e9d9873c29dc0a106",
+              "bytes": 719826
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200281-europe-foundation-female-004.txt",
+              "sha256": "31c6262c8d1f75e17371c4d1e4fd1061c36fc5357e025e570344101642e06860",
+              "bytes": 2912
+            },
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0200281-europe-foundation-female-004.html.receipt.json",
+              "sha256": "2c8ea20e003f7f95d3aea900f03a0cd233b184288c3a3f2f25d5fda93ae21c77",
+              "bytes": 2395
+            },
+            "sourceRole": "Direct owner-breeder named original-line specimen identity and birth-year assertion; visual corroboration only. All medical test and individual behavior claims unused.",
+            "evidence": "Explicit ORIGINAL CANIS PANTHER Toscana, Above&Beyond of RockOfAges, USA-born2019/direct2019 import; distinctly separates Pandora/new-line and Orange/Summer Genesis offspring. Mature-looking named original animal photograph used for developed head/front/trunk/coat only, no cropped-ear/tail copying.",
+            "acquisitionDisclosure": "Fresh actual HTTP200 raw/text and adjacent actual UTC/header acquisition receipt. Personally read entire substantive cited current body; no photograph generator input or licensed-photo grant claimed."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-03T19:42:43.577490+00:00"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    }
+  ]
+}

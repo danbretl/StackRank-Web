@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "manifestVersion": "dogs-generated-artwork-631-cf02cc7ad20d",
+  "manifestVersion": "dogs-generated-artwork-652-f8c2ffa953a1",
   "policyVersion": "dogs-generated-artwork-2026-10-03.1",
   "disclosure": "AI-generated breed portrait, art-directed for StackRank. Individual dogs vary.",
   "assets": [
@@ -275,6 +275,54 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0008011:v1",
+      "catalogId": "VBO:0008011",
+      "name": "Ca Mè Mallorquí",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 20:00:37 UTC",
+      "masterSha256": "fd18144161ff4c7dfd7658cf3794b2855447ac3d2c206e2e0702239d2e0fc9d6",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "59582ae3f69045b766fa94299af39e8f9644f46abc594daebf572ca059617edd",
+        "imageInputs": [],
+        "sourcePage": "https://www.rsce.es/razas-espanolas-ca-me-mallorqui/"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature strong Ca Me Mallorqui, broad developed head, thick short neck/deep chest, high smooth rounded drop ears and white/liver short mottled coat.",
+        "anatomy": "Four complete grounded thick muscular limb/paw courses, full attached relatively short low tapering tail with visible free endpoint at approximately hock level. Positive standard tail interpretation, no one-vertebra or docked appearance.",
+        "crop": "Whole untouched1536x1024 personally viewed; full ears/paws/tail safely within frame, about60px top and80px below paws.",
+        "aesthetics": "Distinct relaxed three-quarter portrait with new liver-white markings and Mallorcan track; natural texture/ground contact and restrained light."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 25492,
+          "sha256": "5219c9428f889e2308e845cf22d6da3221d996b851dd40ac498bb6a0c03ab5e8",
+          "url": "assets/dogs/generated/L-0008011-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 168214,
+          "sha256": "cfa9b0f3d71354dc22997479e748714e182b1b182bb049c0180525b989700a93",
+          "url": "assets/dogs/generated/L-0008011-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0008017:v1",
       "catalogId": "VBO:0008017",
       "name": "Euskal Artzain Txakurra (variedad Gorbeiakoa)",
@@ -316,6 +364,54 @@
           "bytes": 149348,
           "sha256": "91f41483919c930a995abf38bc0da910b503f6f417eb0b7118572cb483660a0d",
           "url": "assets/dogs/generated/VBO-0008017-native-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0008018:v1",
+      "catalogId": "VBO:0008018",
+      "name": "Euskal Artzain Txakurra (variedad Iletsua)",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03T19:40:10Z",
+      "masterSha256": "d260c50fd227f4586a34a3750b34b633530f233f123b0f743ab2761e842e1a6a",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "d8c696eca6161917f593bf48ee348af8010524c78805507df78f660314f9d01a",
+        "imageInputs": [],
+        "sourcePage": "https://eataelkartea.org/estandar-caracteristicas-euskal-artzain-pastor-vasco-iletsua/?lang=es"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature rustic Iletsua with light elongated head, folded medium ears, strong long rectangular body and rough fawn/cinnamon coat.",
+        "anatomy": "Four complete coherent grounded limb courses/paws; full attached low furnished tail reaches hock with readable free endpoint despite ordinary fur at root. Developed head/neck/trunk, no juvenile or smoother Gorbeiakoa substitute. Whole head/paws/tail inside frame with safe margins.",
+        "crop": "Whole unchanged1536x1024 personally viewed; all extremities safely included.",
+        "aesthetics": "Natural coarse fur, clear eyes and grounded contact; fresh Basque autumn hillside composition without source diagram copying."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 22300,
+          "sha256": "1f831816baf8576b1a8f5b93fc3380c85635bd5813361438b9e6029fd4a15a3b",
+          "url": "assets/dogs/generated/VBO-0008018-attempt-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 155174,
+          "sha256": "0aeb29bc83994cffd238dcd3aadd7a271184dfca12d2a0a00c53885eed56b9ed",
+          "url": "assets/dogs/generated/VBO-0008018-attempt-01-960.webp"
         }
       ]
     },
@@ -4337,6 +4433,54 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200191:v1",
+      "catalogId": "VBO:0200191",
+      "name": "Borador",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03T20:00:11Z",
+      "masterSha256": "1d00e38348fe7aef132af11c9aad2d75070665c877f262a95feed32e856d500d",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "270665bee9ed86836d35b5b66c3ba9e9f8828a60c14202f75bc8303d667cd2f6",
+        "imageInputs": [],
+        "sourcePage": "https://www.dogzone.com/crossbreeds/borador/"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature sturdy athletic Borador with broad developed skull/tapering muzzle, natural folded ears, glossy coarse black coat with restrained white chest/toes.",
+        "anatomy": "Four coherent complete grounded limb/paw courses. Full attached thick-based tapered tail with modest furnishing, gently outward/raised free end below topline. Tiny pale terminal fur and white toes are possible cross variation, not a pedigree claim.",
+        "crop": "Whole untouched1536x1024 personally viewed; all anatomy safely inside frame with about75px ear/70px paw margins.",
+        "aesthetics": "New calm closed-mouth lakeside scene, natural coat/contact shadows, no named Rigby jump/ball/backlit source recreation."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 18336,
+          "sha256": "53bdb68a716a0a96a500b4afbd09d0baa040cbf997722d13ce4a2e8f28aa394a",
+          "url": "assets/dogs/generated/VBO-0200191-attempt-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 115666,
+          "sha256": "138896cc600a3707e7767c92c36bb3597abee5fdc7c186600e6aac509c65f1eb",
+          "url": "assets/dogs/generated/VBO-0200191-attempt-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200193:v1",
       "catalogId": "VBO:0200193",
       "name": "Border Collie",
@@ -5695,6 +5839,54 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200281:v1",
+      "catalogId": "VBO:0200281",
+      "name": "Canis Panther",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 19:50:28 UTC",
+      "masterSha256": "aafbb90478773f87cf40547ac98db8b799ed829d56efd28969ff048735ec8c00",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "cabea96f932805cd0863cf61b47d1a6e488e25a23215c2b0c98e27afe1927385",
+        "imageInputs": [],
+        "sourcePage": "https://www.canispanther.org/breed-standards"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature large muscular slightly rectangular seal-black Canis Panther, deep chest, broad developed head and squared muzzle, natural close-folded ears.",
+        "anatomy": "Four separate grounded compact paws, coherent heavy limbs, full attached tapered tail gently raised below topline with clear free end. All anatomy safely inside frame.",
+        "crop": "Whole unchanged1536x1024 personally viewed; ears, all paws and full tail have safe clear margins.",
+        "aesthetics": "Original quiet autumn woodland-margin setting, natural sheen without excess bulk, no cropped ears or seated source reconstruction."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 24906,
+          "sha256": "036900070c5a307da6fd966d9aaa5e84a2f5260ae055bc1bdde7ca84396e6eaf",
+          "url": "assets/dogs/generated/VBO-0200281-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 157900,
+          "sha256": "60689bbcb3d980695c2f6b31c152355bc4bb7cedeb98986ed5d7b32a0d70ec5b",
+          "url": "assets/dogs/generated/VBO-0200281-native-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200285:v1",
       "catalogId": "VBO:0200285",
       "name": "Cao de Castro Laboreiro",
@@ -6955,6 +7147,54 @@
           "bytes": 133544,
           "sha256": "d72bf038c05db25fde3021af4b746b2edc6a33baf12bc2b1df302050eb3e6391",
           "url": "assets/dogs/generated/VBO-0200356-native-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200359:v1",
+      "catalogId": "VBO:0200359",
+      "name": "Chorkie",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03T20:13:11Z",
+      "masterSha256": "1397630f2655c878c444d97cc4aaaf5a01a46e23b2aef026ca74ba7c86fd6331",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "42a6a45c4d46046039ee065bee7c59ff3c71564b1c592bf981153a63974b6572",
+        "imageInputs": [],
+        "sourcePage": "https://www.dailypaws.com/dogs-puppies/dog-breeds/chorkie"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature-looking fine-built Chorkie phenotype with large upright ears, developed muzzle, scruffy black-and-tan coat and modest rectangular torso; variable cross rather than fixed breed standard.",
+        "anatomy": "Four distinct grounded paws and coherent limbs. Entire attached raised open tail with a clear free terminal plume.",
+        "crop": "Whole untouched1536x1024 personally viewed. About35px ear margin and80px lower margin; entire dog safely inside frame.",
+        "aesthetics": "Original garden path/new anonymous markings and closed mouth; no copied doorway or studio source composition."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 19656,
+          "sha256": "dea0b6084bd26a9dcc99b0ec6dac2f5abc278440ac8b03672aa5fbf84b55e9ea",
+          "url": "assets/dogs/generated/VBO-0200359-attempt-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 107526,
+          "sha256": "990c296803aaf4322aed0614785af3d3e6e7333cfd5b9db3d3e3ba4bb4361a95",
+          "url": "assets/dogs/generated/VBO-0200359-attempt-01-960.webp"
         }
       ]
     },
@@ -12854,6 +13094,54 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200661:v1",
+      "catalogId": "VBO:0200661",
+      "name": "Havana Silk Dog",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 19:26:27 UTC",
+      "masterSha256": "66254f1632e61079e31463043656609e6c58e129c08bf8ead19b5775a52cfb34",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "5822ac4678eb21865443b37b7cd932aeadbb353891bc3841225a1fe9fce94175",
+        "imageInputs": [],
+        "sourcePage": "https://havanasilkdog.org/hsdaa-standard/"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature modern Havana Silk Dog with refined muzzle, dark almond eyes, athletic level slightly rectangular body and flat silky ivory/sable coat.",
+        "anatomy": "Four complete grounded paws and coherent limb courses despite moderate silky furnishings. Natural full lifted arch tail and free side-falling plume, no fused or clipped tail. High ears folded with long fur, anatomical ear length not inferred from furnishing. Safe crop, fresh subtropical garden scene.",
+        "crop": "Whole1536x1024 personally viewed; head, ears, four paws and entire attached tail inside safe margins.",
+        "aesthetics": "Natural adult proportions, fur texture, light and contact; new original scene without close source recreation."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 22184,
+          "sha256": "0375fe9ea8f805cb76cf87cc4237080a9e6c7e64f5ba727d0db3780073e307f4",
+          "url": "assets/dogs/generated/VBO-0200661-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 126912,
+          "sha256": "8f1e45a69db6e0dd349b1e588862962cda9c45aa7a347b70088d1bc3c838981c",
+          "url": "assets/dogs/generated/VBO-0200661-native-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200662:v1",
       "catalogId": "VBO:0200662",
       "name": "Havanese",
@@ -14248,6 +14536,54 @@
           "bytes": 190084,
           "sha256": "f3add4e9fcf600de26d3ac693e184b1c8973366c35f127ae2b2e4624cbe6759c",
           "url": "assets/dogs/generated/VBO-0200716-g01-a-a1-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200718:v1",
+      "catalogId": "VBO:0200718",
+      "name": "Italian Shepherd Dog",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 19:48:53 UTC",
+      "masterSha256": "c1d8bece2838c9a1d7fe376b2ec09d8227e53ff0ceede27b439017908a9fdd29",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "8fa7ead2eae271b9e2d4e9a2f27e9cf9fecc8852405a5da6f5a06ea7e6d58966",
+        "imageInputs": [],
+        "sourcePage": "https://www.pastoreitaliano.it/identita.php?idcat=60"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Strong mature long rectangular black Italian Shepherd, broad head and square muzzle, natural erect inward-tilted ears.",
+        "anatomy": "Four separate grounded paws, coherent straight forelegs/angled hindlegs. Full attached long relaxed low tail with gently hooked free end separated from hindlegs. High root visible, no cropped or merged anatomy.",
+        "crop": "Whole unchanged1536x1024 personally viewed; ears, all paws and full tail have safe clear margins.",
+        "aesthetics": "Fresh autumn Abruzzo foothill light and unobtrusive distant buildings; natural black coat detail, no source plate recreation."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 22522,
+          "sha256": "1b0e35675d3017e6bb4a0840b1c74fd824b4c5f586b85d101f200f3f9b052d83",
+          "url": "assets/dogs/generated/VBO-0200718-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 153764,
+          "sha256": "7b3f06b3aa7810d4f5a63b5eda54d6aa13bd800f4bc9abcfabd4bcae065d15c5",
+          "url": "assets/dogs/generated/VBO-0200718-native-01-960.webp"
         }
       ]
     },
@@ -16325,6 +16661,54 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200818:v1",
+      "catalogId": "VBO:0200818",
+      "name": "Latvian Hound",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 19:59:12 UTC",
+      "masterSha256": "3fc5eaa1d46f3e419684d705510c4e9e6458615837f39d585c3bfefd1a59ad94",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "d410246d5409cfb09b70d08d7f186f8cc96af66129d3d127bc423a341dea301a",
+        "imageInputs": [],
+        "sourcePage": "https://www.lad.gov.lv/lv/latvija-vietejas-saglabajamas-skirnes"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature strong moderate rectangular Latvian Hound with developed wedge head, natural low long oval ears, short black/tan coat and muscular functional trunk.",
+        "anatomy": "Four complete coherent grounded paws/limbs and full attached tapering sabre tail relaxed low with distinct free endpoint; close lips, proportionate eyes and moderate chest. No merged limbs.",
+        "crop": "Whole untouched1536x1024 personally viewed; complete ears/paws/tail with safe roughly80px top/lower margins.",
+        "aesthetics": "Fresh three-quarter Baltic birch lakeside scene with natural restrained light and clear coat detail; distinct source side-profile composition."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 20390,
+          "sha256": "6ebe1fe67ebd7b683c9b94a1c3489f329c2cb7d42c57404cbc7eacbcaf625a8c",
+          "url": "assets/dogs/generated/L-0200818-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 128060,
+          "sha256": "ae20187ded0aec2aa3dffbe6d7e94895490cf560869684553c4305f7cb3a951a",
+          "url": "assets/dogs/generated/L-0200818-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200819:v1",
       "catalogId": "VBO:0200819",
       "name": "Leonberger",
@@ -17324,6 +17708,54 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200879:v1",
+      "catalogId": "VBO:0200879",
+      "name": "Miniature American Eskimo Dog",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 20:16:17 UTC",
+      "masterSha256": "737f5e7778714edfecd65216e8bfe50299c3ee0adb2b7a2720ced07149af9dce",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "2f48f2bb3191b966f7d63acc9ff44880d72a1fdb49610e47ca6547c41d8bd6fa",
+        "imageInputs": [],
+        "sourcePage": "https://images.akc.org/pdf/breeds/standards/AmericanEskimoDog.pdf"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature Miniature American Eskimo phenotype with wedge muzzle, triangular prick ears, black nose and lips, white stand-off double coat and full neck ruff; proportions consistent with shared standard without inferring exact height from pixels.",
+        "anatomy": "Four full grounded paws, slight ordinary foreleg overlap. Full attached loose over-back plume has visible course and hanging free tip separated above the back.",
+        "crop": "Whole untouched1536x1024 personally viewed. About90px top and90px bottom clearance.",
+        "aesthetics": "Original autumn birch/lake path; white fur textured and silhouette intact."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 20610,
+          "sha256": "633effae200fa085630c49f5a7dc9b24017e8aa4d6bf75c1f28aa956c4c61988",
+          "url": "assets/dogs/generated/VBO-0200879-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 120072,
+          "sha256": "3680b1b47a6ea68974ff6b0c4ca113623124867f4fc218c600eae5a0c7bfde0b",
+          "url": "assets/dogs/generated/VBO-0200879-native-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200880:v1",
       "catalogId": "VBO:0200880",
       "name": "Miniature American Shepherd",
@@ -17545,6 +17977,54 @@
           "bytes": 115714,
           "sha256": "638762dbda9ff7fada1f62e7bf40c9b9c3767c40482b03b1c7ddb976a5b55cca",
           "url": "assets/dogs/generated/VBO-0200888-attempt02-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200889:v1",
+      "catalogId": "VBO:0200889",
+      "name": "Miniature Fox Terrier",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 20:14:36 UTC",
+      "masterSha256": "c38963ed309cba4ba2485008d73635d855db40ac38b34638749625249cbdb754",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "710392b7abeb860b5b7784c64616410aa7e4f24711efbb9946021cd1e6452233",
+        "imageInputs": [],
+        "sourcePage": "https://www.minifoxie.org/breed-standard"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature lean Miniature Fox Terrier, wedge head, smooth single-looking short coat and black/tan/white pattern. Prick ears are prominent but coherent within the source standard; body and legs remain a developed terrier rather than toy puppy.",
+        "anatomy": "Four complete grounded paws and coherent lean limbs. Whole natural low-set tapered tail rises gently outward with free tip, without a docked-stump substitution.",
+        "crop": "Whole untouched1536x1024 personally viewed. About45px top and80px bottom clearance; full tail inside right edge.",
+        "aesthetics": "Original Australian garden/rural path with new coat patch and plausible light, no source show pose backdrop."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 23298,
+          "sha256": "2b49d907531424e6c8b38f78e648197a45dfc049a0629c40b16aebaedeb69d3c",
+          "url": "assets/dogs/generated/VBO-0200889-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 126908,
+          "sha256": "cd6a02c85a250cf92b9ac1d31a9f8ce3b9132607f3fc333c14afd12794fee704",
+          "url": "assets/dogs/generated/VBO-0200889-native-01-960.webp"
         }
       ]
     },
@@ -18314,6 +18794,54 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200922:v1",
+      "catalogId": "VBO:0200922",
+      "name": "Mudi, Ash Coloured (Blue Grey)",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 20:10:50 UTC",
+      "masterSha256": "0b0555a56e60c6df0b677b12afded374e2100335f5fe05fed2b7e2d4940efc60",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "fb290251c0fd294d988f93c4f4b4ad6c6bc1339e90b025c18fd79eeb872e099e",
+        "imageInputs": [],
+        "sourcePage": "https://www.fci.be/Nomenclature/Standards/238g01-en.pdf"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Lean mature ash-grey Mudi with wedge-shaped head, upright ears, slate nose and uniform wavy grey body coat; no merle pattern. Short face hair contrasts with body waves; ear-edge wisps are plausible.",
+        "anatomy": "Four distinct grounded paws and coherent limb courses. Fully attached natural tail extends left with visible free feathery endpoint below the back.",
+        "crop": "Whole untouched1536x1024 personally viewed. About50px above ears and90px below paws.",
+        "aesthetics": "Original open Hungarian hill track with readable grey coat and natural contact shadows."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 17412,
+          "sha256": "2facc9052c444da9a9a9ebcdbb580fd6bea8b7d4da85c2569617d8e9f09bab45",
+          "url": "assets/dogs/generated/L-0200922-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 122844,
+          "sha256": "513043947f7c8c4d85f81e45236db300e8bbf7c9267c009c5f85fe3907e40711",
+          "url": "assets/dogs/generated/L-0200922-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200923:v1",
       "catalogId": "VBO:0200923",
       "name": "Mudi, Black",
@@ -18355,6 +18883,198 @@
           "bytes": 134332,
           "sha256": "4812d83f98b07636694b76f45754ac0e1d95cf6dfdd2581b76ad7ba486f319a7",
           "url": "assets/dogs/generated/VBO-0200923-native-03-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200924:v1",
+      "catalogId": "VBO:0200924",
+      "name": "Mudi, Blue-Merle",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 19:37:42 UTC",
+      "masterSha256": "333eedf972e1fa48ffb21a61f0aed2dea3fbec8ec647b8318213743be30f5e22",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "9317c6c33f9b90cf19ee4008554a067dc1bebf7cc6114001a2cca0c06fce5b92",
+        "imageInputs": [],
+        "sourcePage": "https://www.fci.be/Nomenclature/Standards/238g01-en.pdf"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature blue-merle Mudi, slightly rectangular athletic body, light wedge head, upright pointed ears and black patches on grey base.",
+        "anatomy": "Four distinct complete coherent legs/paws grounded; full attached furnished tail with readable free endpoint below topline. Plush wavy coat coherent with rough wavy breed standard, short head/front legs; no spitz curl. Safe45px upper/75px lower margins, fresh meadow scene.",
+        "crop": "Whole native personally viewed; entire dog/four paws/full tail inside qualitatively safe frame.",
+        "aesthetics": "Natural texture, adult proportions and contact; distinct researched setting without close source recreation."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 20580,
+          "sha256": "0c2348fae74db6028bb8287b6fb185ad6ee9eca4bbf17c45b83089db79983de1",
+          "url": "assets/dogs/generated/L-0200924-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 129052,
+          "sha256": "687040b5f0258905d32103930852cc8facb164398b604d8dd92011e888b7526c",
+          "url": "assets/dogs/generated/L-0200924-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200925:v1",
+      "catalogId": "VBO:0200925",
+      "name": "Mudi, Brown",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 20:12:22 UTC",
+      "masterSha256": "5d4f58b25c320ceb06434a9678fd5e7e1434b6e7c5fbec72df48e44c16bb9612",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "5ebe75285edeed803cb606230bc2cf500286e5a9b6c8f56cbfcd2fc14c801e25",
+        "imageInputs": [],
+        "sourcePage": "https://www.fci.be/Nomenclature/Standards/238g01-en.pdf"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature brown Mudi, wedge muzzle, prick ears, warm brown eyes and visibly brown nose; rich uniform brown wavy body, shorter facial coat.",
+        "anatomy": "Four complete grounded paws, coherent limbs and attached long low tail with separated free end.",
+        "crop": "Whole untouched1536x1024 personally viewed. About45px top and95px bottom clearance.",
+        "aesthetics": "Original evening hill track; warm light preserves brown coat and nose rather than suggesting a different colour variety."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 17486,
+          "sha256": "c90bb301cbf326d9a46e8f46d6e8d8c5429521a68eece0b52264adf6a1e0ec8f",
+          "url": "assets/dogs/generated/L-0200925-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 106872,
+          "sha256": "630ea78a7950db78381f6ee1c22f8dba27402c31c1297c2b4f38f9498b434978",
+          "url": "assets/dogs/generated/L-0200925-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200926:v1",
+      "catalogId": "VBO:0200926",
+      "name": "Mudi, Fawn",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 20:13:59 UTC",
+      "masterSha256": "34b87bf6b45b751332e11ee99d5cf15ef4624f013b796e0e32aae797ad50634a",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "31ea4fadc0de812d2fe9d4cda19073ae067b1a3cc78b5c9c1ced32f4b1bdd615",
+        "imageInputs": [],
+        "sourcePage": "https://www.fci.be/Nomenclature/Standards/238g01-en.pdf"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature fawn Mudi, golden-beige wavy body, wedge muzzle, upright ears and black nose; facial hair substantially shorter than torso waves.",
+        "anatomy": "Four distinct grounded paws and sound joints. Whole attached feathered tail curves gently outward with free endpoint.",
+        "crop": "Whole untouched1536x1024 personally viewed. About50px top and90px bottom clearance.",
+        "aesthetics": "Original birch-edged rural track with fawn coat visibly separated from foliage and ground."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 23598,
+          "sha256": "2438a999e2dd1fad9cd82b3880a695e7c70bf1555709d1432ceddd8601041456",
+          "url": "assets/dogs/generated/L-0200926-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 141906,
+          "sha256": "77d799a980b46f49f6d68944e784e3d27a9b15b80607c37d37c4268e65d2abf8",
+          "url": "assets/dogs/generated/L-0200926-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200927:v1",
+      "catalogId": "VBO:0200927",
+      "name": "Mudi, White",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 20:15:33 UTC",
+      "masterSha256": "d4e4676bab70ff77e3ac6dcea0607f11e85c88c03d23a75442bb4daad9478ddc",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "9bb1d9e2fbdafaf22017637d2c26d4ec957e0053c2a4e3423948a60a9ec6e440",
+        "imageInputs": [],
+        "sourcePage": "https://www.fci.be/Nomenclature/Standards/238g01-en.pdf"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature white Mudi with black nose, upright ears, wedge head and white wavy-curly torso; facial coat shorter and dark eyes readable.",
+        "anatomy": "Four complete grounded paws, ordinary staggered leg stance. Attached full low feathered tail and free endpoint visible.",
+        "crop": "Whole untouched1536x1024 personally viewed. About40px top and90px bottom clearance.",
+        "aesthetics": "Original waterside track, white coat keeps texture and contour without blown-out fur."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 18538,
+          "sha256": "7600b6e8fa9d5bec1654dbac10c6c2689c899b565590ef2cbc3fc7cd3f6e26da",
+          "url": "assets/dogs/generated/L-0200927-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 118120,
+          "sha256": "92583ae6a6d2804d88a96d513c1f2193076c607b6fbd7f75a22fd429b46a4415",
+          "url": "assets/dogs/generated/L-0200927-01-960.webp"
         }
       ]
     },
@@ -22367,6 +23087,54 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0201106:v1",
+      "catalogId": "VBO:0201106",
+      "name": "Pumi, Black",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 19:57:23 UTC",
+      "masterSha256": "f7d70f79f4d5f330f1d19d4d3ee593360b7651f7d9ebf426157a28927115d884",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "1bc9e77d836264a6e8c1add76d068ebd3c6f7e33df2dc5d0e1ec3452e3ba3225",
+        "imageInputs": [],
+        "sourcePage": "https://www.fci.be/Nomenclature/Standards/056g01-en.pdf"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature lean near-square black Pumi, developed long muzzle, dark eyes, high semi-prick ears with forward curled tips and dense wavy-curly black coat.",
+        "anatomy": "Four complete coherent grounded limb/paw courses. Attached wide circular natural tail has readable rising course and free descending tip separated above rump; wispy terminal furnishings do not merge anatomy. Ear fold readable despite dark curls.",
+        "crop": "Whole untouched1536x1024 viewed; all ears/paws/full tail inside frame with safe about40px top and60px lower margin.",
+        "aesthetics": "Natural black coat texture and grounded contact, original Hungarian pasture scene without handler/show-source layout."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 19210,
+          "sha256": "b84bc33c700ce6ec26022dba82657ba395bc87e7b9ca5d40d573f5874f840186",
+          "url": "assets/dogs/generated/L-0201106-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 131348,
+          "sha256": "31634540502e33850804363ce6c0e45f1202169347574102054b39bcdf7796a2",
+          "url": "assets/dogs/generated/L-0201106-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0201107:v1",
       "catalogId": "VBO:0201107",
       "name": "Pumi, Fawn (Fakó). Primary Colours: Red, Yellow, Cream",
@@ -22726,6 +23494,54 @@
           "bytes": 109206,
           "sha256": "ce995be57b23a7dd73b1e6e9b066ab5ab9bced1cd3d1c8f7e50902f41da82bc0",
           "url": "assets/dogs/generated/VBO-0201126-f03-b-0201126-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201128:v1",
+      "catalogId": "VBO:0201128",
+      "name": "Ratonero Murciano",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03T19:37:03Z",
+      "masterSha256": "a2a98274fe19b98731e9f2ba5a07af63be3b14e445b0c96a3f10bb1293758ffd",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "bcd5a8767c91af979beca62026cac402bee1015090b930f10f2e4b14c6cff016",
+        "imageInputs": [],
+        "sourcePage": "https://www.caninanacionalaccam.es/ratonero-murciano/"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature compact Ratonero Murciano, level wedge head, upright pointed V ears and smooth black/rust athletic near-square body.",
+        "anatomy": "Four complete anatomically coherent grounded paws and limbs; natural attached tapering tail ends clearly and would not reach hock when lowered. No source stump/flash eye copying. Safe40px upper/65px lower margins, original orchard path.",
+        "crop": "Whole native personally viewed; entire dog/four paws/full tail inside qualitatively safe frame.",
+        "aesthetics": "Natural texture, adult proportions and contact; distinct researched setting without close source recreation."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 26152,
+          "sha256": "f93ed21aefd60e8b12539b38bf423f2c8ae210b111c29c01b8cf3572eb9d38f9",
+          "url": "assets/dogs/generated/VBO-0201128-attempt-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 153448,
+          "sha256": "e71a848993a187d8ffb3c02428ad70ba1c5972e0954d2294a0cb6c8d98187298",
+          "url": "assets/dogs/generated/VBO-0201128-attempt-01-960.webp"
         }
       ]
     },
@@ -23581,6 +24397,54 @@
           "bytes": 173296,
           "sha256": "257fd831f8a680110c9f6b1f0c159ea70abccaee3a104aa118447072b1c523e3",
           "url": "assets/dogs/generated/VBO-0201160-saint-bernard-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201161:v1",
+      "catalogId": "VBO:0201161",
+      "name": "Saint Bernard, Long-Haired",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 19:36:09 UTC",
+      "masterSha256": "f442605255d806ef76be0976443e77b9b82ebb936f1adf2b880fcd5d01feb65a",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "af4b78c786036640a37880654bfd31af17ac87f3fd983cd632f89fd6fd47a731",
+        "imageInputs": [],
+        "sourcePage": "https://www.fci.be/nomenclature/Standards/061g02-en.pdf"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature long-haired Saint Bernard, broad developed head and heavy muscular red-white body with drop ears and natural eyes.",
+        "anatomy": "Four complete coherent grounded paws and strong limbs. Full attached heavy feathered tail descends with slight lower curve and readable free endpoint. Long body coat, breeches and forefeathering distinguish variety. Safe ears/paws/tail frame margins, new alpine track and natural light.",
+        "crop": "Whole native personally viewed; entire dog/four paws/full tail inside qualitatively safe frame.",
+        "aesthetics": "Natural texture, adult proportions and contact; distinct researched setting without close source recreation."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 19322,
+          "sha256": "35a275077aaeee0d7de5c9f45e917034c2117f28cc178a791f1481f7b79a9582",
+          "url": "assets/dogs/generated/L-0201161-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 123966,
+          "sha256": "e22780cf8589cc077480ef6a5e3e69bda7e462b1d11650a3d50836450c92d4e5",
+          "url": "assets/dogs/generated/L-0201161-01-960.webp"
         }
       ]
     },
@@ -24530,6 +25394,54 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0201210:v1",
+      "catalogId": "VBO:0201210",
+      "name": "Serrano Bulldog",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 20:06:02 UTC",
+      "masterSha256": "5768051e161201dc22bf2d69126b40bb885889f00f03a2c1e9f2fb8ee13c1d1c",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "88388ed14773bed1d8bd23714dcf225a7dce91b49838e7d54b30465f638d1448",
+        "imageInputs": [],
+        "sourcePage": "https://cbkc.org/application/views/docs/padroes/padrao-raca_12.pdf?v=1747920758"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature solid yet agile slightly rectangular Serrano Bulldog, developed broad functional short muzzle, natural small folded ears and short brindle-white coat.",
+        "anatomy": "Four coherent complete grounded muscular limbs/paws, full attached long straight low natural tail and distinct tapering free endpoint. No excessive folds, exaggerated bulk or merged anatomy.",
+        "crop": "Whole unchanged1536x1024 viewed; all ears/paws/full tail safely within frame, about50px top/75px below paws.",
+        "aesthetics": "Original relaxed highland farm-track scene, natural brindle detail/contact shadows and fresh white markings."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 20108,
+          "sha256": "367cb33433ec1d77414e38170c92bcffde754df56c47ab530d8ec5a55908c845",
+          "url": "assets/dogs/generated/L-0201210-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 133994,
+          "sha256": "1930c0d0d0ebb464f37bf280af59380e771b95f0df0eb61402df5ee934f06d34",
+          "url": "assets/dogs/generated/L-0201210-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0201217:v1",
       "catalogId": "VBO:0201217",
       "name": "Shetland Sheepdog",
@@ -25429,6 +26341,54 @@
           "bytes": 132162,
           "sha256": "36fcaa3a3b34a9bc9250a01804a90febbfdaaac396d658057187404eeb64a978",
           "url": "assets/dogs/generated/VBO-0201280-spanish-water-dog-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201284:v1",
+      "catalogId": "VBO:0201284",
+      "name": "Sporting Lucas Terrier",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 19:25:03 UTC",
+      "masterSha256": "8717a60adb6dc432a0686baa02e69abc48d21cf6abb8a63ca8564e5a057bb391",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "a8dbda03aada71800e8882dc32cf274696378d019f8a67d4730c77a3b63ec44f",
+        "imageInputs": [],
+        "sourcePage": "https://www.ukcdogs.com/docs/breeds/sporting_lucas_terrier.std.pdf"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature Sporting Lucas Terrier, low oblong sturdy body, broad strong head and folded V ears, close harsh white grizzle/tan coat.",
+        "anatomy": "Four complete coherent paws grounded; full erect attached tail with free furnishing tip, slightly longer white tip fur consistent with harsh texture and not a spitz plume. No overback curl. Generous frame margins, natural woodland path and contact shadows.",
+        "crop": "Whole1536x1024 personally viewed; head, ears, four paws and entire attached tail inside safe margins.",
+        "aesthetics": "Natural adult proportions, fur texture, light and contact; new original scene without close source recreation."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 24218,
+          "sha256": "8db897c48ad30cec3f1414feea289125e4148ce143867a440943ebedba465369",
+          "url": "assets/dogs/generated/VBO-0201284-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 152054,
+          "sha256": "f7015118cc21eb537be8c70d191df8c288f1c1fe726e4d070d9b9a5caf69a862",
+          "url": "assets/dogs/generated/VBO-0201284-native-01-960.webp"
         }
       ]
     },
@@ -26560,6 +27520,54 @@
           "bytes": 132204,
           "sha256": "5c2befc50946c221096b178adcc8ce2ef01db2f9bd849a774e7d7af2338eb4c5",
           "url": "assets/dogs/generated/VBO-0201357-tosa-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201358:v1",
+      "catalogId": "VBO:0201358",
+      "name": "Toy American Eskimo Dog",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 20:17:54 UTC",
+      "masterSha256": "61e699c71ad94c9234ca065564ca58bbd8f5f4fa957389149a88cc886d66d6a5",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "df8e7a2f04a72c95dd77e81e778772ff4530e4b30c0324543ee99996278dc465",
+        "imageInputs": [],
+        "sourcePage": "https://images.akc.org/pdf/breeds/standards/AmericanEskimoDog.pdf"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature Toy American Eskimo phenotype with developed wedge muzzle, upright triangular ears, black nose/lips, white stand-off double coat and neck ruff. Body and head remain an adult small spitz; exact inches cannot be measured from image.",
+        "anatomy": "Four complete grounded paws with coherent joints. Attached over-back full plume has a readable curve and free end resting above the back; natural furnishing overlap without a disconnected or clipped tail.",
+        "crop": "Whole unchanged1536x1024 personally viewed. About60px above ears and90px below paws; entire tail within frame.",
+        "aesthetics": "Original lakeside meadow path with flowers and natural soft light; crisp white coat texture and grounded contact without source cutout composition."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 17390,
+          "sha256": "93d98a7c772989000cf12934a0b27978a324fd96d6526bccafa941c23d319615",
+          "url": "assets/dogs/generated/VBO-0201358-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 104416,
+          "sha256": "330e35a23738d3752afaa5bc94ee0a646621ce12bd4ea9b146b2f50af6cdd2d9",
+          "url": "assets/dogs/generated/VBO-0201358-native-01-960.webp"
         }
       ]
     },

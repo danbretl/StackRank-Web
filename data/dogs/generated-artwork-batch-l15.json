@@ -1,0 +1,542 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-l15",
+  "cohortId": "dogs-portraits-l",
+  "selectionSha256": "5e394d78ddcd5c52c84c7bb2d4cf96d46ce679711c2cf3786ef73e63d4734975",
+  "reviewedAt": "2026-10-03",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-l/l15-l16-five-contact-001.jpg",
+    "contactSheetSha256": "4d896d895a0145d83700145491c8b5ba028ea0983d677033349c66713f36901c",
+    "acceptedCount": 4,
+    "reviewedAt": "2026-10-03T20:18:51.794165+00:00",
+    "notes": "Root personally viewed each of five whole untouched native portraits and the complete combined contact sheet. Pumi Black, Latvian Hound, Ca Me Mallorqui, Serrano Bulldog and Borador preserve distinct mature proportions, all four paws and full natural tails. Original scenes, no close source copy. Every exact full/short profile and prompt already independently peer and root approved. UI-only artwork purpose remains unchanged."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0201106",
+      "name": "Pumi, Black",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "1bc9e77d836264a6e8c1add76d068ebd3c6f7e33df2dc5d0e1ec3452e3ba3225",
+        "imageInputs": [],
+        "sourcePage": "https://www.fci.be/Nomenclature/Standards/056g01-en.pdf"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-l/worker-b/L-0201106-01.png",
+      "masterSha256": "f7d70f79f4d5f330f1d19d4d3ee593360b7651f7d9ebf426157a28927115d884",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10084-262b-7072-9850-941cc19a6850/exec-95a16684-b70e-4260-995e-17735ee584c8.png",
+      "originalOutputSha256": "f7d70f79f4d5f330f1d19d4d3ee593360b7651f7d9ebf426157a28927115d884",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "attemptId": "L-0201106-01",
+      "startedAt": "2026-10-03 19:57:01 UTC",
+      "generatedAt": "2026-10-03 19:57:23 UTC",
+      "timeEvidence": "Actual worker tool boundary observations; underlying service timing/model undisclosed.",
+      "prompt": "Create one original photorealistic field-guide portrait of a mature Pumi, Black. Use factual morphology and a new independent composition; no photograph is supplied or should be recreated.\n\nMature medium-sized lean muscular square Hungarian Pumi, body length equal to withers height, long narrow head and elongated straight tapering muzzle with barely perceptible stop. Black nose, darkbrown slightly oblique oval eyes, tight lips. High natural reverse-V ears upright in lower two thirds with upper third bending forward, never fully prick or fully pendant. Medium muscular neck, short straight taut back, chest to elbows, slightly flat ribs and tucked belly. Four complete vertical strong limbs with lean hocks and rounded compact paws. Exact intense solid black coat, elastic dense shaggy wavy-curly tufts averaging4–7cm, strong not coarse topcoat and soft undercoat; eyes/foreface free of long hair. No grey/white/fawn or tan-point substitution, cords, smooth coat, floorlength furnishing or rounded Puli head. Full high-set natural tail forms a wide circle above croup, wiry7–12cm underside hairs standing apart, complete free endpoint distinct from back furnishings; no stump or docking.\n\nNew anonymous adult angled three quarters right, head gently toward viewer, standing on an uncluttered Hungarian pasture path with low grass and distant soft trees. Cool directional daylight gives gentle detail in the black coat. Different from left-facing supported indoor show photograph; no handler/table/flash or exact expression recreation.\n\nLandscape1536×1024 at dog-eye level, one dog only. Entire head/ears/body and all four complete leg courses and grounded paws must be visible with coherent joints, believable weight-bearing and contact shadows. Show the entire attached natural tail from root through its free endpoint separated from body fur/legs against uncluttered landscape. Generous crop-safe framing with at least100pixels clear space above ears/tail, below every paw and beyond head/tail sides. Natural coat texture, restrained color and functional proportions, no merged/extra limbs, no clipping. No people, other animals, collar, tag, leash, handler, table, vehicles, show carpet/ribbons, cattle/prey, gear, fences crossing dog, text, logo or watermark. Do not reproduce researched photo pose, expression, exact markings, lighting or background.",
+      "promptSha256": "49cb807cac0e009dc04b9d4c8e3f6f802e487a03f626e6643291037d581dd0f3",
+      "scene": "Broad firm Hungarian pasture path under clear soft cool morning light.",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "reviewedBy": "primary orchestrator with independent worker",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature lean near-square black Pumi, developed long muzzle, dark eyes, high semi-prick ears with forward curled tips and dense wavy-curly black coat.",
+        "anatomy": "Four complete coherent grounded limb/paw courses. Attached wide circular natural tail has readable rising course and free descending tip separated above rump; wispy terminal furnishings do not merge anatomy. Ear fold readable despite dark curls.",
+        "crop": "Whole untouched1536x1024 viewed; all ears/paws/full tail inside frame with safe about40px top and60px lower margin.",
+        "aesthetics": "Natural black coat texture and grounded contact, original Hungarian pasture scene without handler/show-source layout.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-l/l15-l16-five-contact-001.jpg",
+        "contactSheetSha256": "4d896d895a0145d83700145491c8b5ba028ea0983d677033349c66713f36901c",
+        "contactSheetReviewedAt": "2026-10-03T20:18:51.730386+00:00",
+        "contactSheetNotes": "Root personally viewed each of five whole untouched native portraits and the complete combined contact sheet. Pumi Black, Latvian Hound, Ca Me Mallorqui, Serrano Bulldog and Borador preserve distinct mature proportions, all four paws and full natural tails. Original scenes, no close source copy. Every exact full/short profile and prompt already independently peer and root approved. UI-only artwork purpose remains unchanged."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/source-policy-user-authorization-002.json",
+          "sha256": "f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091",
+          "bytes": 1817
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/research-dossier-pumi-black-text-only-001.json",
+          "sha256": "1bc9e77d836264a6e8c1add76d068ebd3c6f7e33df2dc5d0e1ec3452e3ba3225",
+          "bytes": 6673
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.fci.be/Nomenclature/Standards/056g01-en.pdf",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-l/root-approvals/17a6da8626e1f111e9b792017249f2f3221b0dd455d4a99de7f7f52d199a6c5b.json",
+        "rootApprovalSha256": "17a6da8626e1f111e9b792017249f2f3221b0dd455d4a99de7f7f52d199a6c5b",
+        "primaryReviewedAt": "2026-10-03T19:55:57.264931+00:00",
+        "visualReview": "Whole retained600x590 female-black source viewed; mature square body, long muzzle and four paws visible, held tail remains input-negative. Previously root-read full FCI56 reused; literal standard supplies upper-third folded ears and wide circular natural tail. Entire dossier, exact full/short and prompt reviewed; no color behavior inferred. New pasture pose/light, no photo input or grant.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "summary": "Lively and expressive, the Pumi tends to be bold in action and a little wary of strangers. It is often vocal, with a restless readiness for work. This Hungarian herding dog’s duties extend to larger livestock, while its well-developed nose and terrier character also found use against rodents.",
+        "summarySha256": "08276d448e5bafed6feabfa63bff40f187e457de27ff440b445a9d191cd15554",
+        "shortDescription": "A lively, vocal Hungarian herder with a bold working character and some reserve around strangers.",
+        "shortDescriptionSha256": "80aa5acf46ac227046e2b45ab7f85fbdbf57814c70a0db8cd6591c30013715be",
+        "author": "L worker B",
+        "reviewer": "L worker C and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/packet-pumi-black-text-only-001.json",
+        "sourcePathSha256": "9259e022660b0081aebc17e23c8705e21fd854aef07f738335e0e4d6a2a92ccd",
+        "sourceSnapshots": [
+          {
+            "title": "Fédération Cynologique Internationale — Pumi standard 56",
+            "url": "https://www.fci.be/Nomenclature/Standards/056g01-en.pdf",
+            "evidence": "Actual FCI56 pp2–3 utilisation/general appearance/temperament supports lively expressive and rather noisy character, boldness, some suspicion toward strangers, restless activity, Hungarian terrier-type herding including larger animals and developed scent/rodent work. pp4–6 supplies square build, long muzzle, upright ears with upper third forward, wide-circle intact tail, tufted wavy/curly coat and accepted intense solid black. Character applies to Pumi generally, not caused by black coat; no suitability/exercise/health guarantees used.",
+            "sourceRole": "Primary own registry/government definition of exact contemporary identity, normative character, documented work and adult morphology within stated scope. No empirical personality, individual safety/suitability or color-specific behavior guarantee.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-001/pumi-fci.pdf",
+              "sha256": "47fd151691180d3af62a4fb7665553ecae36faef23f61ea54744ebc8ebbaca2c",
+              "bytes": 415465
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-001/pumi-fci.txt",
+              "sha256": "f14877828f7afab2a665e0df19f6b99028680c2e25c308ca10ad3c97d4cb9f28",
+              "bytes": 9608
+            },
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-001/pumi-fci-receipt.json",
+              "sha256": "bf586db627551bc4fed457d93c701f41d0b83b73ef845951226c8fecd577632d",
+              "bytes": 1130
+            },
+            "acquisitionDisclosure": "Verified retained K actual primary native/text/acquisition receipt. Personally read Entire FCI56 eight-page standard personally read, all anatomy/coat/color/character/history sections. No fresh fetch claimed; original limited retained receipt timestamps do not imply preserved complete response headers."
+          },
+          {
+            "title": "Fédération Cynologique Internationale — Pumi nomenclature",
+            "url": "https://fci.be/en/nomenclature/PUMI-56.html",
+            "evidence": "Current FCI exact PUMI56 entry maintains Hungarian breed identity and linked standard; black is an accepted solid coat variety within the breed, not a separate recognized breed.",
+            "sourceRole": "Primary own registry/government definition of exact contemporary identity, normative character, documented work and adult morphology within stated scope. No empirical personality, individual safety/suitability or color-specific behavior guarantee.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-001/pumi-nomenclature.html",
+              "sha256": "61051ee8292a18661ba2d3afecb597bb2ee851904ea9f95792a5f291bf3bd3a0",
+              "bytes": 77013
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-001/pumi-nomenclature.txt",
+              "sha256": "77a103aa02c310df2765e09a83364e85584dbf2b57a358ff0910b09455b397df",
+              "bytes": 35536
+            },
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-b/primary-sources-001/pumi-nomenclature-receipt.json",
+              "sha256": "ed2a81b8d060322f299e24b6bedd7f4615bc8b5657807ec3387a6511f4da7302",
+              "bytes": 1185
+            },
+            "acquisitionDisclosure": "Verified retained K actual primary native/text/acquisition receipt. Personally read Exact current PUMI56 nomenclature/variety table read; unrelated website navigation is not a claim source. No fresh fetch claimed; original limited retained receipt timestamps do not imply preserved complete response headers."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-03T19:55:57.264931+00:00"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0200818",
+      "name": "Latvian Hound",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "d410246d5409cfb09b70d08d7f186f8cc96af66129d3d127bc423a341dea301a",
+        "imageInputs": [],
+        "sourcePage": "https://www.lad.gov.lv/lv/latvija-vietejas-saglabajamas-skirnes"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-l/worker-b/L-0200818-01.png",
+      "masterSha256": "3fc5eaa1d46f3e419684d705510c4e9e6458615837f39d585c3bfefd1a59ad94",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10084-262b-7072-9850-941cc19a6850/exec-9be6741f-aa15-43e4-b0b5-02908ba25cc1.png",
+      "originalOutputSha256": "3fc5eaa1d46f3e419684d705510c4e9e6458615837f39d585c3bfefd1a59ad94",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "attemptId": "L-0200818-01",
+      "startedAt": "2026-10-03 19:58:53 UTC",
+      "generatedAt": "2026-10-03 19:59:12 UTC",
+      "timeEvidence": "Actual worker tool boundary observations; underlying service timing/model undisclosed.",
+      "prompt": "Create one original photorealistic field-guide portrait of a mature Latvian Hound. Use factual morphology and a new independent composition; no photograph is supplied or should be recreated.\n\nMature medium-sized strong muscular Latvian Hound, strong bone without coarseness and tight skin, slightly rectangular balanced trunk. Wedge-shaped head, moderately broad skull and slight stop, straight muzzle as long as or just shorter than skull, parallel planes, tight lips and black nose. Darkbrown almost round eyes, relatively long low-set oval natural drop ears lying close to head. Short muscular round neck without folds, broad long oval chest reaching elbows, slightly higher withers, straight broad muscular back, short slightly arched loin, short muscular gently sloping croup and moderately tucked belly. Four coherent straight parallel strong muscular legs with appropriate joint angles and compact complete grounded paws. Short uniform coarse glossy black coat with defined warm yellow-brown tan on brows, lower head, chest and inside legs; scant undercoat and slightly longer hair on underside of tail. Full sabre-shaped natural tail thick at root and tapering evenly to a visible free endpoint, carried relaxed low with gentle curve, not curled over back.\n\nNew anonymous adult angled three quarters left with head gently turned toward viewer on a broad firm woodland-edge path. Subdued birches and meadow grass, soft diffuse Baltic morning light. Fresh black/tan marking proportions and relaxed low sabre tail, different from left-facing side-on government lawn photograph.\n\nLandscape1536×1024 at dog-eye level, one dog only. Entire head/ears/body and all four complete leg courses and grounded paws must be visible with coherent joints, believable weight-bearing and contact shadows. Show the entire attached natural tail from root through its free endpoint separated from body fur/legs against uncluttered landscape. Generous crop-safe framing with at least100pixels clear space above ears/tail, below every paw and beyond head/tail sides. Natural coat texture, restrained color and functional proportions, no merged/extra limbs, no clipping. No people, other animals, collar, tag, leash, handler, table, vehicles, show carpet/ribbons, cattle/prey, gear, fences crossing dog, text, logo or watermark. Do not reproduce researched photo pose, expression, exact markings, lighting or background.",
+      "promptSha256": "8bc356889faca9adf520d86073088732922f7c667a1427941b19cec220191a05",
+      "scene": "Clear firm path beside a Latvian mixed woodland meadow in soft morning light.",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "reviewedBy": "primary orchestrator with independent worker",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature strong moderate rectangular Latvian Hound with developed wedge head, natural low long oval ears, short black/tan coat and muscular functional trunk.",
+        "anatomy": "Four complete coherent grounded paws/limbs and full attached tapering sabre tail relaxed low with distinct free endpoint; close lips, proportionate eyes and moderate chest. No merged limbs.",
+        "crop": "Whole untouched1536x1024 personally viewed; complete ears/paws/tail with safe roughly80px top/lower margins.",
+        "aesthetics": "Fresh three-quarter Baltic birch lakeside scene with natural restrained light and clear coat detail; distinct source side-profile composition.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-l/l15-l16-five-contact-001.jpg",
+        "contactSheetSha256": "4d896d895a0145d83700145491c8b5ba028ea0983d677033349c66713f36901c",
+        "contactSheetReviewedAt": "2026-10-03T20:18:51.730386+00:00",
+        "contactSheetNotes": "Root personally viewed each of five whole untouched native portraits and the complete combined contact sheet. Pumi Black, Latvian Hound, Ca Me Mallorqui, Serrano Bulldog and Borador preserve distinct mature proportions, all four paws and full natural tails. Original scenes, no close source copy. Every exact full/short profile and prompt already independently peer and root approved. UI-only artwork purpose remains unchanged."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/source-policy-user-authorization-002.json",
+          "sha256": "f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091",
+          "bytes": 1817
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/research-dossier-latvian-hound-text-only-002.json",
+          "sha256": "d410246d5409cfb09b70d08d7f186f8cc96af66129d3d127bc423a341dea301a",
+          "bytes": 5735
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.lad.gov.lv/lv/latvija-vietejas-saglabajamas-skirnes",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-l/root-approvals/b873573e252042ef05ee4dd73a8ab20c4fec075fb018f6b7e4da55af9edcba17.json",
+        "rootApprovalSha256": "b873573e252042ef05ee4dd73a8ab20c4fec075fb018f6b7e4da55af9edcba17",
+        "primaryReviewedAt": "2026-10-03T19:55:57.264931+00:00",
+        "visualReview": "Entire substantive current government history, character and detailed morphology read. Whole400x292 actual primary photo viewed: left-facing mature rectangular black-tan, drop ears, four paw courses, intact low tapered tail. Corrected002 prompt/dossier/observation read. Unclear numeric tail units omitted; ground/air scent and1971 restoration supported, no suitability guarantee. Fresh three-quarter wooded scene, no photo input.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "summary": "Latvian Hounds tend to be sociable, good-natured and energetic, with a strong hunting drive. They were bred to hunt both small game and hoofed animals, using ground and air scent. After wartime mixing nearly erased the earlier Courland hound, selective breeding established the Latvian Hound in 1971.",
+        "summarySha256": "66a6db30eb88c84bde418bad1f97d534edf1cf91bf4ede57fb5f0605918d0691",
+        "shortDescription": "A sociable, energetic Latvian hound with a strong hunting drive and a history of tracking varied game.",
+        "shortDescriptionSha256": "5ea5b550097105f7c6db66de5aff84800c30d7f3b430d5945bb27148ade684f7",
+        "author": "L worker B",
+        "reviewer": "L worker C and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/packet-latvian-hound-text-only-002.json",
+        "sourcePathSha256": "a1911dc42459043d4947d8ef9a9623c0d2c7ab1d7bd50190c869f2a2e2ef34bc",
+        "sourceSnapshots": [
+          {
+            "title": "Latvian Hound — Latvia Rural Support Service, local preserved breeds",
+            "url": "https://www.lad.gov.lv/lv/latvija-vietejas-saglabajamas-skirnes",
+            "evidence": "Actual Latvijas dzinējsuns body read: sociable/good-natured/friendly plus highly energetic/playful/purposeful stronghunting drive; classic hunting of smallgameandhoofed animals; lower/upper scenting discussed in trainedhunting work. Wartimecrossing nearlyerased Courlandhound; selectedbreeding culminated innational1971breed approval. Currentgovernment preserved-breed page supports maintained identity. Exclude family-suitability assertions, guaranteed protection and speculative ancestral breedcrosses.",
+            "sourceRole": "Primary own registry/government definition of exact contemporary identity, normative character, documented work and adult morphology within stated scope. No empirical personality, individual safety/suitability or color-specific behavior guarantee.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200818-latvia-government.html",
+              "sha256": "f0185c439ab573b91cb8f6f30a74b6f41da9c777de61ae4c9bd7cc9b1d536537",
+              "bytes": 312403
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200818-latvia-government.txt",
+              "sha256": "14c3469009b60d1466074f02d5def9699237e8a39bd8516a6e3efabb1f697891",
+              "bytes": 58707
+            },
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0200818-latvia-government.json",
+              "sha256": "0a0d262af795f80436a38c5efcce6fae8cc205d83abd13034650d53e9e787986",
+              "bytes": 885
+            },
+            "acquisitionDisclosure": "Verified retained K actual primary native/text/acquisition receipt. Personally read Entire selected Latvijas dzinejsuns substantive government body personally read, including modern history, work, character and complete detailed morphology. Other animal sections/navigation are not claim sources. No fresh fetch claimed; original limited retained receipt timestamps do not imply preserved complete response headers."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-03T19:55:57.264931+00:00"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0008011",
+      "name": "Ca Mè Mallorquí",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "59582ae3f69045b766fa94299af39e8f9644f46abc594daebf572ca059617edd",
+        "imageInputs": [],
+        "sourcePage": "https://www.rsce.es/razas-espanolas-ca-me-mallorqui/"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-l/worker-b/L-0008011-01.png",
+      "masterSha256": "fd18144161ff4c7dfd7658cf3794b2855447ac3d2c206e2e0702239d2e0fc9d6",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10084-262b-7072-9850-941cc19a6850/exec-9957e771-9bd1-4f90-9a8c-a5f4f4dfa74e.png",
+      "originalOutputSha256": "fd18144161ff4c7dfd7658cf3794b2855447ac3d2c206e2e0702239d2e0fc9d6",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "attemptId": "L-0008011-01",
+      "startedAt": "2026-10-03 20:00:15 UTC",
+      "generatedAt": "2026-10-03 20:00:37 UTC",
+      "timeEvidence": "Actual worker tool boundary observations; underlying service timing/model undisclosed.",
+      "prompt": "Create one original photorealistic field-guide portrait of a mature Ca Mè Mallorquí. Use factual morphology and a new independent composition; no photograph is supplied or should be recreated.\n\nMature medium-sized rustic strong harmonious Ca Me Mallorqui, male body approximately as long as tall, deep broad chest with gently curved ribs, full but not heavy abdomen without extreme tuck, level back and sloping muscular croup. Broad square skull, moderate clear stop, muzzle slightly shorter than skull, roughly parallel to mildly convergent planes, strong cheeks, thick upper flews with lower lips close fitted, broad thick dark liver nose for selected liver coat, medium-small honey-brown eyes with close lids. Characteristic high broad forward-set medium natural drop ears smooth without folds and rounded at bottom, lying toward face. Short thick muscular near-horizontal neck with at most modest dewlap. Thick muscular legs, forelegs well separated by pronounced chest, long slanting pasterns, modest hind angulation; short broad oval paws with strong nails and naturally separated toes. Short smooth thick very dense coat, fresh white/liver patches and fine flecks, no long furnishings. Full natural relatively short low-set tail thick at root and tapering gradually, hanging downward to visible endpoint no farther than hock, never docked.\n\nNew anonymous adult angled three quarters left standing calmly on a broad clear Mallorcan field track, head gently toward viewer, fresh white/liver patch and fleck arrangement. Low subdued scrub and distant dry-stone landscape without obstacles crossing dog. Different from source orange/white pointing pose and red collar; no exact nose posture/patch map or expression recreation.\n\nLandscape1536×1024 at dog-eye level, one dog only. Entire head/ears/body and all four complete leg courses and grounded paws must be visible with coherent joints, believable weight-bearing and contact shadows. Show the entire attached natural tail from root through its free endpoint separated from body fur/legs against uncluttered landscape. Generous crop-safe framing with at least100pixels clear space above ears/tail, below every paw and beyond head/tail sides. Natural coat texture, restrained color and functional proportions, no merged/extra limbs, no clipping. No people, other animals, collar, tag, leash, handler, table, vehicles, show carpet/ribbons, cattle/prey, gear, fences crossing dog, text, logo or watermark. Do not reproduce researched photo pose, expression, exact markings, lighting or background.",
+      "promptSha256": "3b602c97b52b744fbd1b83b24552e28375aba1c5fea7d6442213320620643fcf",
+      "scene": "A broad clear earth-and-stone path beside low Mallorcan scrub in mild morning light.",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "reviewedBy": "primary orchestrator with independent worker",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature strong Ca Me Mallorqui, broad developed head, thick short neck/deep chest, high smooth rounded drop ears and white/liver short mottled coat.",
+        "anatomy": "Four complete grounded thick muscular limb/paw courses, full attached relatively short low tapering tail with visible free endpoint at approximately hock level. Positive standard tail interpretation, no one-vertebra or docked appearance.",
+        "crop": "Whole untouched1536x1024 personally viewed; full ears/paws/tail safely within frame, about60px top and80px below paws.",
+        "aesthetics": "Distinct relaxed three-quarter portrait with new liver-white markings and Mallorcan track; natural texture/ground contact and restrained light.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-l/l15-l16-five-contact-001.jpg",
+        "contactSheetSha256": "4d896d895a0145d83700145491c8b5ba028ea0983d677033349c66713f36901c",
+        "contactSheetReviewedAt": "2026-10-03T20:18:51.730386+00:00",
+        "contactSheetNotes": "Root personally viewed each of five whole untouched native portraits and the complete combined contact sheet. Pumi Black, Latvian Hound, Ca Me Mallorqui, Serrano Bulldog and Borador preserve distinct mature proportions, all four paws and full natural tails. Original scenes, no close source copy. Every exact full/short profile and prompt already independently peer and root approved. UI-only artwork purpose remains unchanged."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/source-policy-user-authorization-002.json",
+          "sha256": "f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091",
+          "bytes": 1817
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/research-dossier-ca-me-mallorqui-text-only-001.json",
+          "sha256": "59582ae3f69045b766fa94299af39e8f9644f46abc594daebf572ca059617edd",
+          "bytes": 7083
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.rsce.es/razas-espanolas-ca-me-mallorqui/",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-l/root-approvals/ecc2d7d99bc4ea36dd9621cb51faea06bfa29e38e25db1a5e30f0a89b37eb8f3.json",
+        "rootApprovalSha256": "ecc2d7d99bc4ea36dd9621cb51faea06bfa29e38e25db1a5e30f0a89b37eb8f3",
+        "primaryReviewedAt": "2026-10-03T19:55:57.264931+00:00",
+        "visualReview": "Entire RSCE and CAIB substantive sources read; whole1536x1056 primary image viewed. Developed broad head/chest, high rounded ears, four paw courses and short attached tapered tail. Positive tail section governs; contradictory one-vertebra fault unused. CAIB twice-yearly assessment is not specimen age. Canonical merged0200266 counts once, national recognition only. Exact full/short/prompt and dossier reviewed; docile-affectionate character, close deliberate scent work and lamb etymology supported. New liver-white marking map, relaxed pose and landscape, no photo input.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "summary": "Docile and affectionate, Ca Mè Mallorquins tend to keep close to their handler while hunting at a deliberate pace. This Mallorcan pointing dog searches with its nose at mid-height through uneven ground and dense scrub. Its name, mè, means “lamb” and recalls the nose carriage of a grazing sheep.",
+        "summarySha256": "eea2b9259fee53cdbdc42c07d540cdbff28bf4ca750d8c85790e96380bd48f75",
+        "shortDescription": "An affectionate Mallorcan pointing dog known for a measured hunting pace and working close to its handler.",
+        "shortDescriptionSha256": "d6ef69050adf35f4752f9887200626723457a1ea6b2fed48f580b8b4406d2abe",
+        "author": "L worker B",
+        "reviewer": "L worker C and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/packet-ca-me-mallorqui-text-only-001.json",
+        "sourcePathSha256": "a094058563766c27a7f702296b7a24d47327dfd34dc66488f1427474c112e5c8",
+        "sourceSnapshots": [
+          {
+            "title": "Ca Mè Mallorquí — Real Sociedad Canina de España",
+            "url": "https://www.rsce.es/razas-espanolas-ca-me-mallorqui/",
+            "evidence": "Actual temperament section03: docile/obedient/affectionate; utilization deliberatehunting in uneven/thicklyvegetated terrain; nationalGroup11pointingdogtype. Public copy tendencies, no individual obedience or suitability guarantee.",
+            "sourceRole": "Primary own registry/government definition of exact contemporary identity, normative character, documented work and adult morphology within stated scope. No empirical personality, individual safety/suitability or color-specific behavior guarantee.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0008011-rsce.html",
+              "sha256": "5abf83c46b6bf35cf130be465a69b8099b1de1517a51b7c8204245045b6c389b",
+              "bytes": 273430
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0008011-rsce.txt",
+              "sha256": "3a5d2710a4b20bc7235e7febe8c1e2035019d1be9e5d5f3a4937af3b944d6bac",
+              "bytes": 10848
+            },
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0008011-rsce.json",
+              "sha256": "97fc7d01c68f6082b3751670ab499420ab5972b4050d74f8085293d265e4bc71",
+              "bytes": 824
+            },
+            "acquisitionDisclosure": "Verified retained K actual primary native/text/acquisition receipt. Personally read Entire substantive RSCE standard personally read, including temperament and all positive head/body/tail/limb/coat/color clauses and faults. No fresh fetch claimed; original limited retained receipt timestamps do not imply preserved complete response headers."
+          },
+          {
+            "title": "Ca Mè Mallorquí — Govern de les Illes Balears, general information",
+            "url": "https://www.caib.es/sites/racesautoctones/es/can_me_mallorquin_-_datos_generales-4069",
+            "evidence": "Actual primary body: deliberate hunting, nose at mid-height like grazingsheep, staysnearhandler, works irregular/densescrub. mè meanslamb and namefollowsnosecarriage. Current regionalbreedclub/registration/selection body establishes maintained identity. Morphology and health/suitability assertions excluded.",
+            "sourceRole": "Primary own registry/government definition of exact contemporary identity, normative character, documented work and adult morphology within stated scope. No empirical personality, individual safety/suitability or color-specific behavior guarantee.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0008011-caib.html",
+              "sha256": "728bfcfa652637d3fe062f4b226c4eae033e37346682b39a1d1bf39d46aa5c95",
+              "bytes": 37117
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0008011-caib.txt",
+              "sha256": "ee83da4fe9fbd377e189bcb232daab79be9ffb84949a59ce1b614b13c7b15261",
+              "bytes": 2456
+            },
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0008011-caib.json",
+              "sha256": "8eebffa38abc81ed9e4d30c4f27cda7bb17d9c75f8bce6a5fe213090c3a20da2",
+              "bytes": 888
+            },
+            "acquisitionDisclosure": "Verified retained K actual primary native/text/acquisition receipt. Personally read Entire substantive CAIB own regional current population/work/club history body personally read. No fresh fetch claimed; original limited retained receipt timestamps do not imply preserved complete response headers."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-03T19:55:57.264931+00:00"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0201210",
+      "name": "Serrano Bulldog",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "88388ed14773bed1d8bd23714dcf225a7dce91b49838e7d54b30465f638d1448",
+        "imageInputs": [],
+        "sourcePage": "https://cbkc.org/application/views/docs/padroes/padrao-raca_12.pdf?v=1747920758"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-l/worker-b/L-0201210-01.png",
+      "masterSha256": "5768051e161201dc22bf2d69126b40bb885889f00f03a2c1e9f2fb8ee13c1d1c",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10084-262b-7072-9850-941cc19a6850/exec-a4db44b9-9a77-4c29-81c4-ed761c1206b2.png",
+      "originalOutputSha256": "5768051e161201dc22bf2d69126b40bb885889f00f03a2c1e9f2fb8ee13c1d1c",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "attemptId": "L-0201210-01",
+      "startedAt": "2026-10-03 20:05:43 UTC",
+      "generatedAt": "2026-10-03 20:06:02 UTC",
+      "timeEvidence": "Actual worker tool boundary observations; underlying service timing/model undisclosed.",
+      "prompt": "Create one original photorealistic field-guide portrait of a mature Serrano Bulldog. Use factual morphology and a new independent composition; no photograph is supplied or should be recreated.\n\nMature medium-sized solid strong agile Brazilian Serrano Bulldog with taut long muscles and balanced slightly rectangular body about118percent of height, never exaggerated massive mastiff. Broad gently convex skull, clear stop and strong brows, broad straight moderate muzzle about one third total head, mild undershot jaw without exaggeration, close short lips, dark brown oval eyes and black nose. Small high-set natural semi-drop/drop ears, medium thick muscular neck without dewlap. Straight strong back, broad deep gently curved chest about55percent of height, strong round croup and tucked belly. Balanced strong muscular oblique shoulders, straight forelimbs of strong rather than heavy bone, moderate hind angulation and complete compact grounded paws, front paws may turn slightly outward naturally. Short smooth medium-texture coat with fresh deep brindle/white chest pattern, tight skin with only restrained facial wrinkles. Select explicitly permitted FULL natural long tail: medium set, straight and carried low, complete attached course tapering to a visible free endpoint. Do not substitute accepted short corkscrew form or infer photographed hidden tail.\n\nNew anonymous mature brindle/white adult angled three quarters right, relaxed standing on a broad uncluttered highland farm track under warm restrained afternoon light. Distant green pasture, fresh coat pattern and full natural low straight tail. Different from TEKA solid red/white side stance and handler/leash view; no exact pose, expression or markings recreation.\n\nLandscape1536×1024 at dog-eye level, one dog only. Entire head/ears/body and all four complete leg courses and grounded paws must be visible with coherent joints, believable weight-bearing and contact shadows. Show the entire attached natural tail from root through its free endpoint separated from body fur/legs against uncluttered landscape. Generous crop-safe framing with at least100pixels clear space above ears/tail, below every paw and beyond head/tail sides. Natural coat texture, restrained color and functional proportions, no merged/extra limbs, no clipping. No people, other animals, collar, tag, leash, handler, table, vehicles, show carpet/ribbons, cattle/prey, gear, fences crossing dog, text, logo or watermark. Do not reproduce researched photo pose, expression, exact markings, lighting or background.",
+      "promptSha256": "085e8a4456e5f470114efb684ce6f8da7137ed827b1c949984119127fa8da833",
+      "scene": "Broad firm farm track at the edge of a Brazilian highland pasture in soft late-afternoon light.",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "reviewedBy": "primary orchestrator with independent worker",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature solid yet agile slightly rectangular Serrano Bulldog, developed broad functional short muzzle, natural small folded ears and short brindle-white coat.",
+        "anatomy": "Four coherent complete grounded muscular limbs/paws, full attached long straight low natural tail and distinct tapering free endpoint. No excessive folds, exaggerated bulk or merged anatomy.",
+        "crop": "Whole unchanged1536x1024 viewed; all ears/paws/full tail safely within frame, about50px top/75px below paws.",
+        "aesthetics": "Original relaxed highland farm-track scene, natural brindle detail/contact shadows and fresh white markings.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-l/l15-l16-five-contact-001.jpg",
+        "contactSheetSha256": "4d896d895a0145d83700145491c8b5ba028ea0983d677033349c66713f36901c",
+        "contactSheetReviewedAt": "2026-10-03T20:18:51.730386+00:00",
+        "contactSheetNotes": "Root personally viewed each of five whole untouched native portraits and the complete combined contact sheet. Pumi Black, Latvian Hound, Ca Me Mallorqui, Serrano Bulldog and Borador preserve distinct mature proportions, all four paws and full natural tails. Original scenes, no close source copy. Every exact full/short profile and prompt already independently peer and root approved. UI-only artwork purpose remains unchanged."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/source-policy-user-authorization-002.json",
+          "sha256": "f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091",
+          "bytes": 1817
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/research-dossier-serrano-bulldog-text-only-001.json",
+          "sha256": "88388ed14773bed1d8bd23714dcf225a7dce91b49838e7d54b30465f638d1448",
+          "bytes": 7066
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://cbkc.org/application/views/docs/padroes/padrao-raca_12.pdf?v=1747920758",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-l/root-approvals/69b104e853837a4224926cce4ebe75467466ffed5a4f849841df1127113125a9.json",
+        "rootApprovalSha256": "69b104e853837a4224926cce4ebe75467466ffed5a4f849841df1127113125a9",
+        "primaryReviewedAt": "2026-10-03T19:55:57.264931+00:00",
+        "visualReview": "Entire six-page CBKC NR11 and exact national/non-FCI registry row read. Whole retained681x521 TEKA viewed, originating breed label and mature solid agile head/body/limbs corroborate; hidden tail negative unchanged. Literal standard explicitly permits chosen intact long straight low tail. Exact dossier/full/short/prompt reviewed; familial gentle character, guard/cattle roles and fence agility supported without attack/safety guarantee. Fresh brindle-white three-quarter pose and highland track, no photo input.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "summary": "Gentle with familiar people, Serrano Bulldogs tend to be attentive, steady and courageous. In cattle work, agility is valued for moving beneath stockyard fences. The Brazilian national standard describes cattle handling, guarding and companionship as the breed’s distinct working roles.",
+        "summarySha256": "bd5ebc0496438ddb381ec480cba084f411d7e07a6ef6444404b7821b61de0e1b",
+        "shortDescription": "An attentive Brazilian cattle dog and guardian, described as steady and gentle with familiar people.",
+        "shortDescriptionSha256": "8b216ac91eecab3771f6f1c7998d0102ea5d6b3e3aff383a07bafb68ae778c51",
+        "author": "L worker B",
+        "reviewer": "L worker C and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/packet-serrano-bulldog-text-only-001.json",
+        "sourcePathSha256": "028b9f9728ecf47610e0fb1887bf2d18f0cd479588e11b39fd744f59e7247ba8",
+        "sourceSnapshots": [
+          {
+            "title": "Buldogue Serrano — CBKC national standard NR11",
+            "url": "https://cbkc.org/application/views/docs/padroes/padrao-raca_12.pdf?v=1747920758",
+            "evidence": "Actual standard pp2–3: national Brazilian breed, cattle handling, guard and companion roles; docile/gentle with familiar household people, balanced/attentive/versatile guardian and courageous; agility for passing beneath stockyard fences. No individual safety, temperament or work guarantee. Pages3–5 bind solid agile slightly rectangular morphology, high small semi-drop/drop ears and coiled tail or naturally long straight low tail, all colors. CBKC Group11 is explicitly not FCI recognition.",
+            "sourceRole": "Primary own registry/government definition of exact contemporary identity, normative character, documented work and adult morphology within stated scope. No empirical personality, individual safety/suitability or color-specific behavior guarantee.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0201210-cbkc-serrano-standard.pdf",
+              "sha256": "08e40fb20df41485975657374d8e537b34a06c3cf201ec46ff2cf160dc04bf44",
+              "bytes": 45948
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0201210-cbkc-serrano-standard.txt",
+              "sha256": "4463d49513460d9145f181acdff7cfa2523d3af533522a19335162b84f5c03f8",
+              "bytes": 6563
+            },
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0201210-cbkc-serrano-standard.json",
+              "sha256": "c81d5d3081e1c21525cd3bbbf9e0a02c80e274ae560d25528d2b34637077cee4",
+              "bytes": 686
+            },
+            "acquisitionDisclosure": "Verified retained K actual primary native/text/acquisition receipt. Personally read Entire six-page CBKC national NR11 standard personally read in Portuguese, including character, use, all positive morphology/tail choices and faults. No fresh fetch claimed; original limited retained receipt timestamps do not imply preserved complete response headers."
+          },
+          {
+            "title": "CBKC current breed directory — Buldogue Serrano",
+            "url": "https://cbkc.org/racas/buscar",
+            "evidence": "Current primary national directory includes Buldogue Serrano and links its national standard, supporting maintained identity rather than an extinct historical reconstruction. No population count inferred.",
+            "sourceRole": "Primary own registry/government definition of exact contemporary identity, normative character, documented work and adult morphology within stated scope. No empirical personality, individual safety/suitability or color-specific behavior guarantee.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0201210-cbkc-breed-register.html",
+              "sha256": "7c0f999f90553400651e7ed1334e0f99d505629d55fd2fc55d76372d6593dc46",
+              "bytes": 267968
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0201210-cbkc-breed-register.txt",
+              "sha256": "dda0007dc652f7b74e7b24527681e12bf7a0383e79a47e3a039f6c6db620123e",
+              "bytes": 31043
+            },
+            "acquisitionReceipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-k/worker-c/primary-snapshots/0201210-cbkc-breed-register.json",
+              "sha256": "6a1734a4b7476b45d5a5ebb52cf2307df7bd1d29aad70e768a9b422e81d5cfcc",
+              "bytes": 823
+            },
+            "acquisitionDisclosure": "Verified retained K actual primary native/text/acquisition receipt. Personally read Exact current directory Group11/not-FCI introductory scope and Buldogue Serrano national row/linked standard read. Unrelated all-breed rows not claimed as source facts. No fresh fetch claimed; original limited retained receipt timestamps do not imply preserved complete response headers."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-03T19:55:57.264931+00:00"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    }
+  ]
+}

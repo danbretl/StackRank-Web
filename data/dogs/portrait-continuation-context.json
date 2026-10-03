@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "savedAt": "2026-10-03T20:38:39.975673+00:00",
+  "savedAt": "2026-10-03T21:41:16.266771+00:00",
   "status": "active-cohort-l-rolling-production",
   "baseline": {
     "catalogIdentities": 1239,
@@ -1774,16 +1774,16 @@
     "preparationIndexPath": "data/dogs/portrait-cohort-l-preparation-index.json",
     "statusNotePath": "notes/testing/dogs-portrait-cohort-l.md",
     "previousJAndKStoppedHistoryUnchanged": true,
-    "generationCalls": 52,
-    "acceptedPairs": 51,
-    "publishedPairs": 50,
-    "qualifiedPackets": 42,
+    "generationCalls": 72,
+    "acceptedPairs": 64,
+    "publishedPairs": 62,
+    "qualifiedPackets": 49,
     "requiredBeforeGeneration": "Frozen qualified identity, dedicated immutable root pre-call approval and successful preflight; rolling queue directly authorized by user",
     "configuredWorkers": "Exactly three internal gpt-6.1-sol/high agents; no nested agents or K worker resumes",
     "primaryModelEffortDisclosure": "Requested gpt-6-astra/high; runtime identifiers undisclosed",
     "permissions": "Actual root and all workers danger-full-access, approval never, network enabled",
     "offMachineBackupVerified": false,
-    "qualifiedIdentities": 53,
+    "qualifiedIdentities": 66,
     "qualificationBlocker": {
       "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualification-blocker-001.json",
       "sha256": "d40da108884f7381d49ad5b71adcda7c6e89b2dc63298f52af0476ee4288f88f",
@@ -1797,57 +1797,52 @@
       "sha256": "e1ffc149b5fe0e6cc1c3b1dd0d4dfec06466bf8ddfe05369134fbd745ca2d2eb",
       "bytes": 1091
     },
-    "completedGenerationCalls": 52,
-    "counterAsOf": "2026-10-03T20:38:39.975673+00:00",
-    "rejectedOutputs": 1,
-    "targetedRetries": 1,
+    "completedGenerationCalls": 72,
+    "counterAsOf": "2026-10-03T21:41:16.266771+00:00",
+    "rejectedOutputs": 8,
+    "targetedRetries": 6,
     "failedCalls": 0,
-    "currentPublishedTotal": 652,
-    "currentHidden": 587,
-    "productCommit": "a5ab706854a3b8e061fe2c159c1f38cba3823199",
-    "deploymentId": "dpl_BpPHdY37XVW1w4BndFENFUCLtr84",
+    "currentPublishedTotal": 664,
+    "currentHidden": 575,
+    "productCommit": "dc0ca409021f43c03fcaa36395f3f246cbbedf1a",
+    "deploymentId": "dpl_GfgczsjX1G7QnS6XRRQJFivEYuDr",
     "qualificationBlockerSupersededByDirectUserAmendment": true,
     "nextAction": "Continue authorized text-only researched portraits with independent source/full-short review, exact root-approved built-in calls, full native QA, batch archive/tests and verified production publication until100 new pairs. Direct photo inputs require appropriate licenses; research-only visuals are never input or presented as licensed.",
     "lastPublications": [
       {
-        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l11-001.json",
-        "sha256": "caed4e9d3b4eccd6a97e8255c32bb6084c10b4b51216141134e35d62a1be674b",
-        "bytes": 2771
-      },
-      {
-        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l12-001.json",
-        "sha256": "18f6bb98d4edae4872547c15e3cce70a09183bc4afd9bfd11951c484b60bf70a",
-        "bytes": 2735
-      },
-      {
-        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l13-001.json",
-        "sha256": "b5fd33b84c00645bb31a4f6732844dc90d926aa54da45ec5f22ce692aa7a6246",
-        "bytes": 2775
-      },
-      {
-        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l14-001.json",
-        "sha256": "caeb6a3d8187e603273a3feff977c27c523a6fefa0fa4f26a4c92b3df07d7947",
-        "bytes": 2771
-      },
-      {
-        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l15-001.json",
-        "sha256": "6c68c5451e79972bf7af8279db0564daffeda2e90a058b6585ba3c1641e86bae",
-        "bytes": 4373
-      },
-      {
-        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l16-001.json",
-        "sha256": "5650a3218e003e4e766e9ce4de2fb401ef34c2d8802e8da3af92e8674bb65e67",
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l19-001.json",
+        "sha256": "b25d1f53533f393d39399409aeecbaeea2154df59ab91116fcb80702389c9530",
         "bytes": 1936
       },
       {
-        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l17-001.json",
-        "sha256": "eba58cc0c07171970f3ca375b9bc1f3361412ffcaaccae35a78927b88d812e91",
-        "bytes": 4373
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l20-001.json",
+        "sha256": "a95b7b70ad7609e176f2de7cb92cebb50edf2edbdf8ad49679d434260b5117f3",
+        "bytes": 2775
       },
       {
-        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l18-001.json",
-        "sha256": "6b44d49ee67d6a0858bdf9b3bf6e369b51e8ab02dc7f3eef0a46aab626e40514",
-        "bytes": 4447
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l21-001.json",
+        "sha256": "ef4797bd6be8c3d63922127aecf52c2423cdca6d91d9e7ac870951348fdbcadb",
+        "bytes": 2771
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l22-001.json",
+        "sha256": "2c4c88eb5333e1143d374a31e70065da5fef11a58c7599eef70d34d61b30d2b2",
+        "bytes": 3554
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l23-001.json",
+        "sha256": "0762b5d49a0bb40cf22032e0409bf84127a4ee3285dcc53bd520d3eb6217de80",
+        "bytes": 1936
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l24-001.json",
+        "sha256": "28eb1c7568468fb24f39d16fd2504a7b6bc3f6b93c41c2c63acd07901cd8b3e9",
+        "bytes": 2771
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l25-001.json",
+        "sha256": "63b7d7955fb0dc596bb829473256921c3635bb0bf55d147635861a2b1cb749e1",
+        "bytes": 1936
       }
     ],
     "latestSourceReadiness": {
@@ -1862,10 +1857,24 @@
       "bytes": 1817
     },
     "sourcePolicyDocument": "notes/feature-ideas/dogs-reference-research-policy.md",
-    "integratedPairs": 50,
-    "stage": "50 verified published; next researched pairs are being generated and individually reviewed. Original100 target active;50 publications remain.",
+    "integratedPairs": 62,
+    "stage": "62 verified published; two further root-accepted pairs await next release. Two Puli generation holds after three attempts each; qualified append-only replacements still required. Continue100 target;38 publications remain.",
     "acceptedUnpublishedIds": [
-      "VBO:0201041"
+      "VBO:0200839",
+      "VBO:0200363"
+    ],
+    "generationHoldCount": 2,
+    "generationHolds": [
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/hold-0201103-generation-001.json",
+        "sha256": "4cd60fecc1e9460216203ad6f19f5b8530beae621f76d9dab4f76220390fbed2",
+        "bytes": 2365
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/hold-0201104-generation-001.json",
+        "sha256": "accf6d7ac49a378c660bccb3a3f4c854ae9db586b7003e3ee586f07221fdb6f8",
+        "bytes": 2365
+      }
     ]
   }
 }

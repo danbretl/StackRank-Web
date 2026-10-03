@@ -20,7 +20,35 @@ with no history fork, and all attested the same actual Full access policy. Their
 names are `/root/l_worker_a`, `/root/l_worker_b`, `/root/l_worker_c`; separate isolated worktrees
 are under `/Users/danbretl/.codex/worktrees/dogs-cohort-l-worker-{a,b,c}/stackrank`.
 
-## Current stage — 50 published additions, October 3, 2026
+## Current stage — 62 published additions, October 3, 2026
+
+L19–L25 added12 pairs (1/2/2/3/1/2/1): Pomchi, Bull Arab, Boxador, Ruby and Tricolour King Charles,
+three Small Swiss hound colour varieties, Chortai, Murray River Retriever, Toy Australian Shepherd
+and Can de Chira. Product `dc0ca409021f43c03fcaa36395f3f246cbbedf1a` is pushed main;
+deployment `dpl_GfgczsjX1G7QnS6XRRQJFivEYuDr` is READY on both production aliases.
+Every new full/short profile, entire generated record and purpose gates matched live;
+all24 new320/960 WebPs matched exact bytes. Seven publication receipts bind one shared49-check
+production run; copies disclose that shared execution.
+
+One stable verification passed532 Node,25 coordination,6 packet,24 Deno and41 Chrome flows.
+Root reviewed every unchanged native and two whole contact sheets. Desktop reviewer664-count,
+King Charles10-result search, Ruby960px image/full copy and text-only/model provenance passed.
+Phone390×844 Murray search/comparison displays both complete cards; About full copy, Escape
+preserving the pair and second Escape cancellation passed. All652 previous artwork/profile
+records,1,304 WebPs and14 earlier frozen ledgers/stops remain unchanged.
+Tracked L19–L25 regeneration archives verified32/52/46/56/32/46/25 objects respectively.
+Archives are local; no off-machine backup verified.
+
+As of this checkpoint,72 canonical completed calls produced64 root-accepted and8 rejected
+outputs, with6 targeted retries and0 failures. Lupo and Chukotka are accepted but unpublished.
+The black and pearl-white Puli varieties remain generation-quality holds after three calls each;
+all six unchanged masters and exact root rejections remain private and bound by immutable hold
+receipts. Their frozen membership is retained; qualified append-only replacements and full hold
+archive closure remain required. These holds do not reduce the100-publication target.
+
+**62/100 new pairs are live:664 published,575 hidden. Continue until702;38 publications remain.**
+
+## Historical milestone — 50 published additions, October 3, 2026
 
 L11–L18 added21 pairs (2/2/2/2/4/1/4/4), including the Havana Silk Dog, Italian Shepherd,
 Latvian Hound, Ca Mè Mallorquí, Borador, Chorkie and separately researched Mudi/Eskimo varieties.

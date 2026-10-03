@@ -345,6 +345,28 @@ class CoordinationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'approved bytes changed'):
             self.coordinator.image_preflight('A', 'thread-A', 'breed-A', p)
 
+    def test_l_prior_tranche_approval_survives_append_only_freeze(self):
+        original = self.approval(); receipt = json.loads(original.read_text())
+        qualification = {'path': 'qualified-A.json', 'sha256': 'd' * 64}
+        freeze = {'cohortId': 'dogs-portraits-l', 'id': 'l01', 'catalogIds': ['breed-A'],
+                  'members': [{'catalogId': 'breed-A', 'qualification': qualification}]}
+        selection = MODULE.digest(json.dumps(freeze, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode())
+        freeze['selectionSha256'] = selection
+        fp = self.root / 'tranche-l01-freeze-001.json'; fp.write_text(json.dumps(freeze))
+        receipt.update(cohortId='dogs-portraits-l', selectionSha256=selection,
+                       trancheSha256=selection, trancheId='l01', qualification=qualification)
+        raw = json.dumps(receipt).encode(); approved = original.parent / (MODULE.digest(raw) + '.json'); approved.write_bytes(raw)
+        self.registry.update(cohortId='dogs-portraits-l', selectionSha256='b' * 64, priorSelectionDigests=[selection])
+        self.registry_path.write_text(json.dumps(self.registry)); current = MODULE.Coordinator(self.registry_path)
+        self.assertEqual(current.image_preflight('A', 'thread-A', 'breed-A', approved)['selectionSha256'], selection)
+        freeze['catalogIds'] = ['breed-B']; fp.write_text(json.dumps(freeze))
+        with self.assertRaisesRegex(ValueError, 'immutable freeze'):
+            current.image_preflight('A', 'thread-A', 'breed-A', approved)
+        self.registry['priorSelectionDigests'] = []
+        self.registry_path.write_text(json.dumps(self.registry))
+        with self.assertRaisesRegex(ValueError, 'selection mismatch'):
+            MODULE.Coordinator(self.registry_path).image_preflight('A', 'thread-A', 'breed-A', approved)
+
     def test_l_cannot_reuse_k_approval_or_unknown_cohort(self):
         p = self.approval()
         self.registry['cohortId'] = 'dogs-portraits-l'

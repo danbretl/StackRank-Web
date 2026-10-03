@@ -56,6 +56,8 @@ Batch source acquisition, morphology preparation and independent editorial revie
 review several complete packets together, but records an individual decision and immutable
 approval for every image call. Keep up to three worker image calls running, one per worker,
 using existing atomic permits. Each distinct portrait still gets one built-in tool call.
+Appending a tranche preserves unstarted approvals from earlier tranches: the coordinator
+rechecks their original immutable freeze, identity, qualification and approval hashes.
 
 Publish a stable completed batch around 10–20 pairs when available; release smaller batches when
 that prevents a slow candidate from holding ready work. Prepare the next small packet while

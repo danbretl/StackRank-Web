@@ -123,12 +123,31 @@ class Coordinator:
         raw = p.read_bytes()
         receipt = json.loads(raw)
         expected = {'cohortId': self.registry['cohortId'], 'worker': worker, 'threadId': thread, 'catalogId': catalog_id,
-                    'receiptType': 'immutable-root-precall-approval', 'status': 'approved',
-                    'selectionSha256': self.registry['selectionSha256']}
+                    'receiptType': 'immutable-root-precall-approval', 'status': 'approved'}
         if any(receipt.get(k) != v for k, v in expected.items()):
             raise ValueError('Root approval identity, ownership, status or selection mismatch')
         if p.stem != digest(raw):
             raise ValueError('Immutable root approval filename/hash mismatch')
+        if receipt.get('selectionSha256') != self.registry['selectionSha256']:
+            # Appending an L tranche must not strand an already approved call.
+            # Bind older approval membership to its original immutable freeze.
+            selection = receipt.get('selectionSha256')
+            tranche_id = receipt.get('trancheId', '')
+            if (self.registry['cohortId'] != 'dogs-portraits-l'
+                    or selection not in self.registry.get('priorSelectionDigests', [])
+                    or not isinstance(tranche_id, str) or not tranche_id.startswith('l')
+                    or not tranche_id[1:].isdigit()):
+                raise ValueError('Root approval selection mismatch')
+            freeze = json.loads((self.root / f'tranche-{tranche_id}-freeze-001.json').read_bytes())
+            frozen_selection = freeze.pop('selectionSha256')
+            computed = digest(json.dumps(freeze, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode())
+            if (frozen_selection != selection or computed != selection
+                    or receipt.get('trancheSha256') != selection
+                    or freeze.get('id') != tranche_id or freeze.get('cohortId') != self.registry['cohortId']
+                    or catalog_id not in freeze.get('catalogIds', [])
+                    or not any(member.get('catalogId') == catalog_id and member.get('qualification') == receipt.get('qualification')
+                               for member in freeze.get('members', []))):
+                raise ValueError('Prior tranche approval membership or immutable freeze mismatch')
         text_only = receipt.get('inputMode') == 'text-only'
         if text_only:
             if self.registry['cohortId'] != 'dogs-portraits-l' or receipt.get('sourcePolicyAuthorization') != self.registry.get('sourcePolicyAuthorization') or not receipt.get('sourcePolicyAuthorization'):

@@ -20,7 +20,7 @@ with no history fork, and all attested the same actual Full access policy. Their
 names are `/root/l_worker_a`, `/root/l_worker_b`, `/root/l_worker_c`; separate isolated worktrees
 are under `/Users/danbretl/.codex/worktrees/dogs-cohort-l-worker-{a,b,c}/stackrank`.
 
-## Current release preparation — five further accepted pairs
+## Current stage — 19 published additions, October 3, 2026
 
 L04/L05 contain Heideterrier, Treeing Cur, Treeing Feist, Welsh Hound and Stephens’ Cur.
 All five have exact text-only approvals, independent editorial reviews and accepted full-native/root
@@ -29,10 +29,23 @@ Local stable verification passes532 Node,24 coordination,6 packet,24 Deno and41 
 All616 prior artwork/profile records and1,232 WebP bytes remain unchanged.
 L04 archive SHA `24f9ca5ade1c71c7519762757edd775cccf6d28916c7b9ba893f4b62984fd550`
 retains30 verified objects; L05 SHA `cefdbec54faf19992650832be4faf0a2b673ea70e16669b9ae1e390901d89c56`
-retains74. No off-machine backup is asserted. Publication remains pending until exact READY/live checks.
-The next Staghound/Tonya tranche is independently frozen and generation proceeds separately.
+retains74. No off-machine backup is asserted.
 
-## Current stage — 14 published additions, October 3, 2026
+Product `c67f9259cd75ad54bf3633f08afef560a347ba36` is pushed main and deployment
+`dpl_qQ6i4bqucJRfVjEXQRwLWZA9cRVY` is READY on both production aliases.
+49 production checks passed once for this shared release. Every new full/short profile, provenance
+and purpose record matched; all10 new WebP files matched exact live bytes.
+The reviewer correctly shows no image inputs for these portraits and their exact preserved prompts.
+Desktop full summaries/About/Escape and phone390×844 comparison bounds/images passed;
+reviewer arrow navigation retained an unsaved draft and Escape restored focus.
+A first local reviewer load missed an image and batch metadata; direct200 checks and reload resolved it.
+
+**19/100 new pairs are live:621 published,618 hidden.** At the subsequent recorded boundary,
+22 built-in calls produced21 accepted portraits, with the earlier one reject/targeted retry and zero failures.
+Staghound/Tonya have accepted root native reviews and await the next publication; no image permits
+remain active at this boundary. The100-pair objective stays active with81 publications remaining.
+
+## Historical 14-pair milestone, October 3, 2026
 
 **14/100 new pairs are verified live:616 published,623 unfinished hidden.** L02’s eight remaining
 members of frozen trancheL01 and L03’s Jackador from frozen trancheL02 share product

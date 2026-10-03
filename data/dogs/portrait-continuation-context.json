@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "savedAt": "2026-10-03T18:31:45.197492+00:00",
+  "savedAt": "2026-10-03T18:53:56.938542+00:00",
   "status": "active-cohort-l-rolling-production",
   "baseline": {
     "catalogIdentities": 1239,
@@ -1774,9 +1774,9 @@
     "preparationIndexPath": "data/dogs/portrait-cohort-l-preparation-index.json",
     "statusNotePath": "notes/testing/dogs-portrait-cohort-l.md",
     "previousJAndKStoppedHistoryUnchanged": true,
-    "generationCalls": 20,
-    "acceptedPairs": 19,
-    "publishedPairs": 14,
+    "generationCalls": 22,
+    "acceptedPairs": 21,
+    "publishedPairs": 19,
     "qualifiedPackets": 13,
     "requiredBeforeGeneration": "Frozen qualified identity, dedicated immutable root pre-call approval and successful preflight; rolling queue directly authorized by user",
     "configuredWorkers": "Exactly three internal gpt-6.1-sol/high agents; no nested agents or K worker resumes",
@@ -1797,27 +1797,27 @@
       "sha256": "e1ffc149b5fe0e6cc1c3b1dd0d4dfec06466bf8ddfe05369134fbd745ca2d2eb",
       "bytes": 1091
     },
-    "completedGenerationCalls": 20,
-    "counterAsOf": "2026-10-03T18:43:24.015576+00:00",
+    "completedGenerationCalls": 22,
+    "counterAsOf": "2026-10-03T18:53:56.938542+00:00",
     "rejectedOutputs": 1,
     "targetedRetries": 1,
     "failedCalls": 0,
-    "currentPublishedTotal": 616,
-    "currentHidden": 623,
-    "productCommit": "e9ad1a5a5c08a056367f420c0181f14fc060a62d",
-    "deploymentId": "dpl_FY8UivXHYBJnjBTordRocTjYaXG6",
+    "currentPublishedTotal": 621,
+    "currentHidden": 618,
+    "productCommit": "c67f9259cd75ad54bf3633f08afef560a347ba36",
+    "deploymentId": "dpl_qQ6i4bqucJRfVjEXQRwLWZA9cRVY",
     "qualificationBlockerSupersededByDirectUserAmendment": true,
     "nextAction": "Continue authorized text-only researched portraits with independent source/full-short review, exact root-approved built-in calls, full native QA, batch archive/tests and verified production publication until100 new pairs. Direct photo inputs require appropriate licenses; research-only visuals are never input or presented as licensed.",
     "lastPublications": [
       {
-        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l02-001.json",
-        "sha256": "7c358bff1c10501ac7f89b668ed0d44e33c16b7709a346df6025776b087c6ff0",
-        "bytes": 7743
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l04-001.json",
+        "sha256": "f14b1faab9fb4d97881925fe8d2e05e57d147e27d022bd1e4fd788c1105539e2",
+        "bytes": 1936
       },
       {
-        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l03-001.json",
-        "sha256": "8960630dc12aacf8ec4f8ce31ee8247b970a13a643cf10fcbbccd509bd7a38e6",
-        "bytes": 1936
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l05-001.json",
+        "sha256": "a43749fa43a8f7831bce0d85d3081cbff4738534f77a2debffef86ae255855fa",
+        "bytes": 4427
       }
     ],
     "latestSourceReadiness": {
@@ -1833,6 +1833,10 @@
     },
     "sourcePolicyDocument": "notes/feature-ideas/dogs-reference-research-policy.md",
     "integratedPairs": 19,
-    "stage": "Five new accepted pairs archived and locally verified; publication pending, later calls may be in flight in coordination DB."
+    "stage": "19 verified published; two further accepted native pairs (Staghound/Tonya) in private root QA await the next batch. Zero active image permits at this boundary. Continue to100.",
+    "acceptedUnpublishedIds": [
+      "VBO:0200056",
+      "VBO:0201355"
+    ]
   }
 }

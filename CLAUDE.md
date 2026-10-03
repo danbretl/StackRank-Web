@@ -7,6 +7,8 @@ continues toward100 additions; batching must preserve each identity’s source, 
 
 > Shared project brief for AI coding assistants. `AGENTS.md` is a symlink to this file, so Codex and Claude Code read the same context. This was distilled from the original Codex build transcripts (Dec 2025 – Jun 2026) on 2026-06-23; if anything here conflicts with the code, the code wins — fix this file.
 
+Current cohort L milestone: **621 published pairs / 618 hidden; 19 of 100 new pairs live**, product `c67f9259` is Vercel READY. Two further accepted portraits await the next batch; the run remains active. See `notes/testing/dogs-portrait-cohort-l.md`.
+
 ## What it is
 
 Cohort L is active under fresh100-pair authorization and a direct-user rolling-queue amendment.

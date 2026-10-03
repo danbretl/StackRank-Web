@@ -49,9 +49,21 @@ No off-machine backup is verified.
 
 Run totals:15 built-in calls/15 outputs,14 accepted/published,1 reject/1 targeted retry/0failures.
 No accepted pair remains unpublished and no image permit was active at the recorded boundary.
-Source research continues under fresh authorization: A’s five observed hybrid-category inventories,
-C’s three category inventories and new Shichon lead, and B’s bounded primary identity assessment.
-Many tested routes lacked an exact usable adult; finite negative results are not global absence.
+The later bounded source pass is preserved in `recovery-source-gap-checkpoint-016.json`.
+403 Commons requests and 15 image calls are completed, with zero active permits. The latest
+regional/category routes yielded no new qualified reference: the Feist files do not establish
+Treeing Feist, the sole Welsh Hound category image is from about 1885, and Turkish Tazi search
+results depict a canyon. Shichon’s complete-body original retains an unresolved originating-grant gap.
+Five independently reviewed full/short descriptions are retained for Heideterrier, Stephens’ Cur,
+Treeing Cur, Treeing Feist and Welsh Hound; root read their actual primary claim paragraphs.
+The earlier B claim that historical OTFS metadata was empty was an audit narrative error;
+its intact 3,866-byte object was verified and an append-only correction preserved.
+No historical source was changed. The initial queue-size blocker is historical and superseded.
+
+A direct-user question about expanding the Commons-only source pool to verified openly licensed
+creator/Flickr/museum/breed-organization originals is pending. This amendment is **not approved**;
+all existing source gates remain in force. New indispensable reference evidence is required
+before more generation. Finite negative results do not establish global source absence.
 **86 additions remain; the100-pair goal remains active and incomplete.**
 
 ## Historical first-five recovery milestone

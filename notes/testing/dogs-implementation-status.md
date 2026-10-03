@@ -2,7 +2,7 @@
 
 ## Current cohort L — active rolling production, October 3, 2026
 
-**607 published/632 unfinished hidden;5of100newpairs verified live.** L01 product `44d61fbc` is Vercel READY (`dpl_DKre99BGCXdypTpUoXieuSxZmTiw`).529 Node/23 coordination/5 packet/24 Deno/41 Chrome/49 production checks pass; all5 new full/short/provenance/purpose records and10new WebPs match live.13 accepted pairs from14 completed calls (one reject/targeted retry,0failures) at this milestone;8 await publication and further qualification/generation continues. User-authorized rolling batches retain every quality gate. Target702/537 remains active. See `dogs-portrait-cohort-l.md` and the L ledger. Prior K stop remains historical.
+**616 published/623 unfinished hidden;14of100newpairs verified live.** L01 added5; L02/L03 added8+1 in product `e9ad1a5a`, Vercel READY (`dpl_FY8UivXHYBJnjBTordRocTjYaXG6`).530 Node/23 coordination/5 packet/24 Deno/41 Chrome/49 production checks pass; all9 newest full/short/provenance/purpose records and18WebPs match live.15built-in calls,14accepted/published,1reject/targetedretry,0failures,0acceptedpending. Source research continues for86more under the direct-user rolling-queue amendment; target702/537 is active. Source-specific negatives and all prior cohort stops remain. See `dogs-portrait-cohort-l.md` and the L ledger. Archives remain local without verified off-machine backup.
 
 ## Historical cohort K — paused after current-work closeout, October 2, 2026
 

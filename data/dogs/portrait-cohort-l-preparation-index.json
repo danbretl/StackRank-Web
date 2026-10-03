@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "cohortId": "dogs-portraits-l",
-  "status": "blocked-first-tranche-qualification",
+  "status": "active-rolling-production",
   "baseline": {
     "publishedPairs": 602,
     "catalogIdentities": 1239,
@@ -36,11 +36,11 @@
   "actualRuntimeModel": "undisclosed",
   "primaryRequestedModel": "gpt-6-astra",
   "primaryRequestedEffort": "high",
-  "generationCalls": 0,
-  "acceptedPairs": 0,
-  "publishedPairs": 0,
+  "generationCalls": 15,
+  "acceptedPairs": 14,
+  "publishedPairs": 14,
   "offMachineBackupVerified": false,
-  "qualifiedPackets": 12,
+  "qualifiedPackets": 13,
   "screeningAmendments": [
     {
       "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-001.json",
@@ -228,91 +228,25 @@
       "bytes": 1289
     }
   ],
-  "updatedAt": "2026-10-03T11:24:58.450864+00:00",
+  "updatedAt": "2026-10-03T16:34:13.147527+00:00",
   "supportVerification": {
     "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/setup-verification-001.json",
     "sha256": "b58f41af0424975d6e83d04dc87133819f66f0e3c9bd99248de2842d42393191",
     "bytes": 884
   },
   "currentResearchStage": {
-    "qualified": 13,
-    "newPreliminaryVisualPassPendingOtherGates": [],
-    "knownNegativeReconfirmed": [
-      {
-        "catalogId": "VBO:0200469",
-        "source": "File:Markiesje 3.jpg",
-        "reason": "Discovered exact earlier K worker negative; no new source evidence, remains blocked"
-      },
-      {
-        "catalogId": "VBO:0200396",
-        "source": "File:Murray River Curly Coated Retriever, Stella.jpg",
-        "reason": "Exact native matches E-held source; no new qualifying source evidence."
-      }
-    ],
-    "generationCalls": 0,
-    "activeProductionIds": [],
-    "nextAction": "Await explicit first-tranche size amendment or10 additional complete qualifications. All186 research allocations have closed bounded passes; no current source/image operation.13 qualified is preparation only;100 target remains incomplete.",
-    "sourceGrantHold": {
-      "catalogId": "VBO:0201363",
-      "source": "ToyManchester pair094 right dog visual pass",
-      "reason": "Copied importer GFDL statement but actual originating creator grant unavailable; not qualified."
-    },
-    "integrationRequirements": [
-      {
-        "catalogId": "VBO:0200904",
-        "requirement": "Correct local curated historical override for0904 to contemporary living population only during fully approved integration; preserve former classification and root scope evidence. Raw VBO node has no historical qualifier.",
-        "evidence": {
-          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-epirus-modern-scope-001.json",
-          "sha256": "9e803d5bc22437a9a40323b8adc080bd4fe66a01feb8820883d20006f1074bc3",
-          "bytes": 2113
-        }
-      }
-    ],
-    "additionalSourceHolds": [
-      {
-        "catalogId": "VBO:0201341",
-        "decision": {
-          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-reference-triage-telomian-002.json",
-          "sha256": "81f1c7a5cb43c98ecab2e279956a5bd3e5fbbb121f1364467f941ecdfce9aa85",
-          "bytes": 1036
-        }
-      },
-      {
-        "catalogId": "VBO:0200725",
-        "source": "File:Obi2920w.jpg",
-        "decision": {
-          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-reference-triage-jackapoo-002.json",
-          "sha256": "af0e157e0c8343672029556603395fbc3d78a7038227edd90bd6c0100ad57e48",
-          "bytes": 2006
-        }
-      },
-      {
-        "catalogId": "VBO:0008003",
-        "scope": "Primary population overlap with publishedINDog0695, not permanent alias declaration; no Commons allocation.",
-        "decision": {
-          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/bangladesh-primary-semantic-scope-001.json",
-          "sha256": "e3243d99439659812ca1a7ed8a446406afe7d9b19691e0be23ae7d02b6e34b33",
-          "bytes": 12008
-        }
-      }
-    ],
-    "offlineRemainingTriage": {
-      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/offline-remaining-triage-authorization-001.json",
-      "sha256": "cb82f1e5ecedfb379c9e6304ac1d1db20f14f318448d268d04236dc830dab7ed",
-      "bytes": 1233
-    },
-    "boundedAcquisitionFollowup": {
-      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/bounded-acquisition-followup-authorization-006.json",
-      "sha256": "d27b7662d2ddd13d60758f01e4c3dbe62e8b5f8a7ae07e6490bd61d034c9e980",
-      "bytes": 1307
-    },
-    "finalRasterRefinement": {
-      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/final-raster-discovery-refinement-009.json",
-      "sha256": "3387936ab3787d41f6e32567f1f57cd6c36cf481c454748540c0f2f3fc8cb8de",
-      "bytes": 1468
-    }
+    "qualified": 14,
+    "generationCalls": 15,
+    "accepted": 14,
+    "published": 14,
+    "acceptedUnpublished": 0,
+    "imagePermitsActiveAtLastBoundary": 0,
+    "catalogTotal": 616,
+    "hidden": 623,
+    "remainingTarget": 86,
+    "nextAction": "Continue root-assigned source-first research; exactsource,primaryscope,peerreview,rootapproval gates unchanged. No globalexhaustionclaim."
   },
-  "qualifiedIdentities": 13,
+  "qualifiedIdentities": 14,
   "screeningDispositions": {
     "scope": "Immutable worker bounded-screen reports for recovery; these are evidence/disposition records, not root image-call approval or proof that every remaining source is absent. Earlier provisional reports remain on disk.",
     "records": [
@@ -764,5 +698,128 @@
     "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualification-blocker-001.json",
     "sha256": "d40da108884f7381d49ad5b71adcda7c6e89b2dc63298f52af0476ee4288f88f",
     "bytes": 5578
-  }
+  },
+  "historicalPreRollingResearchStage": {
+    "qualified": 13,
+    "newPreliminaryVisualPassPendingOtherGates": [],
+    "knownNegativeReconfirmed": [
+      {
+        "catalogId": "VBO:0200469",
+        "source": "File:Markiesje 3.jpg",
+        "reason": "Discovered exact earlier K worker negative; no new source evidence, remains blocked"
+      },
+      {
+        "catalogId": "VBO:0200396",
+        "source": "File:Murray River Curly Coated Retriever, Stella.jpg",
+        "reason": "Exact native matches E-held source; no new qualifying source evidence."
+      }
+    ],
+    "generationCalls": 0,
+    "activeProductionIds": [],
+    "nextAction": "Await explicit first-tranche size amendment or10 additional complete qualifications. All186 research allocations have closed bounded passes; no current source/image operation.13 qualified is preparation only;100 target remains incomplete.",
+    "sourceGrantHold": {
+      "catalogId": "VBO:0201363",
+      "source": "ToyManchester pair094 right dog visual pass",
+      "reason": "Copied importer GFDL statement but actual originating creator grant unavailable; not qualified."
+    },
+    "integrationRequirements": [
+      {
+        "catalogId": "VBO:0200904",
+        "requirement": "Correct local curated historical override for0904 to contemporary living population only during fully approved integration; preserve former classification and root scope evidence. Raw VBO node has no historical qualifier.",
+        "evidence": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-epirus-modern-scope-001.json",
+          "sha256": "9e803d5bc22437a9a40323b8adc080bd4fe66a01feb8820883d20006f1074bc3",
+          "bytes": 2113
+        }
+      }
+    ],
+    "additionalSourceHolds": [
+      {
+        "catalogId": "VBO:0201341",
+        "decision": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-reference-triage-telomian-002.json",
+          "sha256": "81f1c7a5cb43c98ecab2e279956a5bd3e5fbbb121f1364467f941ecdfce9aa85",
+          "bytes": 1036
+        }
+      },
+      {
+        "catalogId": "VBO:0200725",
+        "source": "File:Obi2920w.jpg",
+        "decision": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/root-reference-triage-jackapoo-002.json",
+          "sha256": "af0e157e0c8343672029556603395fbc3d78a7038227edd90bd6c0100ad57e48",
+          "bytes": 2006
+        }
+      },
+      {
+        "catalogId": "VBO:0008003",
+        "scope": "Primary population overlap with publishedINDog0695, not permanent alias declaration; no Commons allocation.",
+        "decision": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/bangladesh-primary-semantic-scope-001.json",
+          "sha256": "e3243d99439659812ca1a7ed8a446406afe7d9b19691e0be23ae7d02b6e34b33",
+          "bytes": 12008
+        }
+      }
+    ],
+    "offlineRemainingTriage": {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/offline-remaining-triage-authorization-001.json",
+      "sha256": "cb82f1e5ecedfb379c9e6304ac1d1db20f14f318448d268d04236dc830dab7ed",
+      "bytes": 1233
+    },
+    "boundedAcquisitionFollowup": {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/bounded-acquisition-followup-authorization-006.json",
+      "sha256": "d27b7662d2ddd13d60758f01e4c3dbe62e8b5f8a7ae07e6490bd61d034c9e980",
+      "bytes": 1307
+    },
+    "finalRasterRefinement": {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/final-raster-discovery-refinement-009.json",
+      "sha256": "3387936ab3787d41f6e32567f1f57cd6c36cf481c454748540c0f2f3fc8cb8de",
+      "bytes": 1468
+    }
+  },
+  "qualificationBlockerSupersededByDirectUserAmendment": true,
+  "rollingBatchAuthorization": {
+    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/rolling-batch-user-authorization-001.json",
+    "sha256": "e1ffc149b5fe0e6cc1c3b1dd0d4dfec06466bf8ddfe05369134fbd745ca2d2eb",
+    "bytes": 1091
+  },
+  "rollingRecoveryAllocations": [
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/recovery-research-allocation-001.json",
+      "sha256": "f40b9068a789d716cbe073990755402619742e332270e0f7c25bfaf8ed64733e",
+      "bytes": 669
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/recovery-research-allocation-002.json",
+      "sha256": "8ecc43409b9aab186a35b662ea212f41ff4f2a9e436ea4fc78a12e1fe3d822aa",
+      "bytes": 377
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/recovery-research-allocation-003.json",
+      "sha256": "f7b54440e6de1c01ffe8456e9b5a4220348c0feb292219d0c72939e008cb3f3d",
+      "bytes": 797
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/recovery-research-allocation-004.json",
+      "sha256": "cba6c4aa00c923b2890b7c114a8ff771a2ff02f193a991cd6eed7471630a37af",
+      "bytes": 683
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/recovery-research-allocation-005.json",
+      "sha256": "6851b295ef8f754ce486e8396e5c977e1c96313a421e89ce8757a8916fec375e",
+      "bytes": 641
+    }
+  ],
+  "latestPublications": [
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l02-001.json",
+      "sha256": "7c358bff1c10501ac7f89b668ed0d44e33c16b7709a346df6025776b087c6ff0",
+      "bytes": 7743
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l03-001.json",
+      "sha256": "8960630dc12aacf8ec4f8ce31ee8247b970a13a643cf10fcbbccd509bd7a38e6",
+      "bytes": 1936
+    }
+  ]
 }

@@ -5,9 +5,9 @@
 ## What it is
 
 Cohort L is active under fresh100-pair authorization and a direct-user rolling-queue amendment.
-L01 adds5verifiedlivepairs: **607 published/632 hidden**, product `44d61fbc` Vercel READY.
-At this milestone13 portraits are accepted (14completedcalls,1reject/targetedretry,0failures);
-8await publication, with further research/generation ongoing toward702total/537hidden.
+L01/L02/L03 add5/8/1 verified live pairs: **616 published/623 hidden**, product `e9ad1a5a` Vercel READY.
+15built-in calls yielded14accepted/published,1reject/targetedretry,0failures; noacceptedpair ispending.
+Further research/generation continues toward702total/537hidden;86additions remain.
 Read `notes/testing/dogs-portrait-cohort-l.md` and `data/dogs/portrait-cohort-l.json` first.
 Earlier602/K pause statements below describe the historical baseline, not an L stop.
 

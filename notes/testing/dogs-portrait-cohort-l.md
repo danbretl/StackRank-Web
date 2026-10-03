@@ -20,7 +20,41 @@ with no history fork, and all attested the same actual Full access policy. Their
 names are `/root/l_worker_a`, `/root/l_worker_b`, `/root/l_worker_c`; separate isolated worktrees
 are under `/Users/danbretl/.codex/worktrees/dogs-cohort-l-worker-{a,b,c}/stackrank`.
 
-## Current stage — rolling production, October 3, 2026
+## Current stage — 14 published additions, October 3, 2026
+
+**14/100 new pairs are verified live:616 published,623 unfinished hidden.** L02’s eight remaining
+members of frozen trancheL01 and L03’s Jackador from frozen trancheL02 share product
+`e9ad1a5a5c08a056367f420c0181f14fc060a62d`; deployment `dpl_FY8UivXHYBJnjBTordRocTjYaXG6`
+is READY on production aliases. A transient Git HTTP400/disconnect was resolved with a one-command
+HTTP/1.1 buffered push; no global Git configuration changed.
+
+Stable candidate:530 Node,23 coordination,5 packet,24 Deno,41 Chrome checks passed.
+Exact current Epirus canonical classification required updating five historical-count assertions;
+a specific regression keeps ancient Molossus historical and contemporary Epirus canonical.
+49 production checks passed once for the shared release. Both per-batch receipts bind that run;
+all9 full/short/profile/provenance/purpose records and18 WebPs matched exact live bytes.
+Desktop/phone fullcomparison/About/Escape, Detailed short copy and reviewer metadata/arrows/drafts/
+focus were checked. A transient local reviewer metadata load was resolved by a fresh reload,
+which displayed exact Jackador master/model/scene/prompt. All607 prior asset/profile records and
+old WebP bytes remain unchanged. The catalog correction concerns only unpublished Epirus and
+uses its reviewed contemporary KOE standard; no ancient continuity is asserted.
+
+L02 archive:8pairs,276paths/273verifiedobjects, SHA
+`a5bcef9b070bf864689500a4fc65507a9442d58cde90f5b4692082e3afe7f95a`.
+L03 archive:1pair,43paths/43verifiedobjects, SHA
+`6940ed5ee5a57873017083b2c55acb43e8193de6719bd03d57d1356ef392b84f`.
+Every accepted native and the rejected Blue Lacy01 remain unchanged with source/grant/terms,
+primary bodies, exact prompts, writer/peer/root review and actual attempt provenance.
+No off-machine backup is verified.
+
+Run totals:15 built-in calls/15 outputs,14 accepted/published,1 reject/1 targeted retry/0failures.
+No accepted pair remains unpublished and no image permit was active at the recorded boundary.
+Source research continues under fresh authorization: A’s five observed hybrid-category inventories,
+C’s three category inventories and new Shichon lead, and B’s bounded primary identity assessment.
+Many tested routes lacked an exact usable adult; finite negative results are not global absence.
+**86 additions remain; the100-pair goal remains active and incomplete.**
+
+## Historical first-five recovery milestone
 
 **5/100 new pairs are verified live: 607 published, 632 unfinished hidden.** Dan explicitly approved
 “Yes—use the rolling queue and finish all 100,” replacing the initial20+3–5 queue and approximately20-pair release sizes only. All evidence, quality, preservation and release gates remain.

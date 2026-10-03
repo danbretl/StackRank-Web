@@ -37,7 +37,7 @@ export function summarizePortraitCohortL(cohort) {
     published: rows.filter(row => row.publication?.status === 'published').length };
 }
 
-export function validatePortraitCohortL(cohort, { catalog, rightsLedger, generatedArtwork, profiles, batchingAuthorization, trancheFreezes = {} } = {}) {
+export function validatePortraitCohortL(cohort, { catalog, rightsLedger, generatedArtwork, profiles, batchingAuthorization, trancheFreezes = {}, replacementReceipts = {} } = {}) {
   const errors = [], fail = (ok, message) => { if (!ok) errors.push(message); };
   fail(cohort.schemaVersion === 1 && cohort.cohortId === 'dogs-portraits-l', 'Unknown L cohort schema or identity');
   fail(cohort.targetAdditionalPairs === 100 && cohort.baseline?.baselinePairs === 602 && cohort.baseline?.catalogIdentities === 1239, 'L baseline/100-pair target changed');
@@ -69,7 +69,21 @@ export function validatePortraitCohortL(cohort, { catalog, rightsLedger, generat
     for (const id of ids) { fail(!selected.has(id), `${id}: selected in multiple tranches`); selected.set(id, tranche); }
     tranches.set(tranche.id, tranche);
   }
-  fail(selected.size <= 100, 'L selection exceeds100 additional pairs');
+  // Failed identities remain in their original immutable tranches. Only a
+  // separately recorded, qualified replacement retires one target slot.
+  const retired = new Set(), replacements = new Set();
+  for (const amendment of cohort.amendments.filter(row => row.type === 'qualified-hold-replacement')) {
+    const { receipt, ...body } = amendment;
+    const old = cohort.entries[amendment.heldCatalogId], next = selected.get(amendment.replacementCatalogId);
+    const qualification = cohort.qualificationReceipts.find(row => row.catalogId === amendment.replacementCatalogId);
+    const exactQualification = qualification && Object.fromEntries(['path', 'sha256', 'bytes'].map(key => [key, qualification[key]]));
+    fail(binding(receipt) && replacementReceipts[receipt?.sha256] && lDigest(replacementReceipts[receipt.sha256]) === lDigest(body), 'L replacement needs its exact immutable amendment receipt');
+    fail(Number.isFinite(Date.parse(amendment.at)) && selected.has(amendment.heldCatalogId) && next && amendment.heldCatalogId !== amendment.replacementCatalogId && !retired.has(amendment.heldCatalogId) && !replacements.has(amendment.replacementCatalogId), 'L replacement must retire one distinct frozen hold exactly once');
+    fail(old?.hold?.status === 'held' && binding(amendment.holdReceipt) && same(amendment.holdReceipt, old?.hold?.receipt), 'L replacement needs the exact root hold receipt');
+    fail(next?.id === amendment.replacementTrancheId && next?.selectionSha256 === amendment.replacementTrancheSha256 && same(amendment.replacementQualification, exactQualification), 'L replacement must bind a genuinely qualified frozen identity');
+    retired.add(amendment.heldCatalogId); replacements.add(amendment.replacementCatalogId);
+  }
+  fail(selected.size - retired.size <= 100, 'L active selection exceeds100 additional pairs');
   const catalogById = new Map((catalog?.entities || []).map(row => [row.id, row]));
   const rightsById = new Map((rightsLedger?.assets || []).map(row => [row.assetId, row]));
   const assets = new Map((generatedArtwork?.assets || []).map(row => [row.catalogId, row]));
@@ -100,6 +114,10 @@ export function validatePortraitCohortL(cohort, { catalog, rightsLedger, generat
     }
     const accepted = attempts.find(row => row.id === entry.generation?.acceptedAttemptId);
     const pairReady = entry.qa?.status === 'approved' && entry.profile?.status === 'approved';
+    if (entry.hold) {
+      fail(entry.hold.status === 'held' && binding(entry.hold.receipt) && text(entry.hold.reason), `${id}: accountable root hold required`);
+      fail(attempts.length > 0 && attempts.every(row => row.qaDecision === 'rejected') && !entry.generation.acceptedAttemptId && entry.qa?.status === 'rejected' && entry.integration?.status === 'held' && entry.publication?.status === 'held', `${id}: held generation cannot be accepted, integrated or published`);
+    }
     if (pairReady || entry.integration?.status === 'integrated' || entry.publication?.status === 'published') {
       fail(pairReady && accepted?.status === 'generated' && accepted.qaDecision === 'accepted' && accepted.width === 1536 && accepted.height === 1024 && attempts.filter(row => row.qaDecision === 'accepted').length === 1, `${id}: exact1536×1024 accepted pair required`);
       fail(binding(entry.qa?.rootReview) && ['breedIdentity', 'anatomy', 'crop', 'aesthetics'].every(key => text(entry.qa[key])), `${id}: whole-native root QA receipt and four dimensions required`);

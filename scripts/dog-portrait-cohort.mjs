@@ -178,7 +178,7 @@ async function main() {
     if (createHash("sha256").update(raw).digest("hex") !== item.sha256 || raw.length !== item.bytes) throw new Error("L direct-user batching authorization bytes changed");
     batchingAuthorization = JSON.parse(raw.toString());
   }
-  const trancheFreezes = {};
+  const trancheFreezes = {}, replacementReceipts = {};
   if (isL) for (const tranche of cohort.tranches || []) {
     const item = tranche.freeze, raw = await readFile(item.path);
     if (createHash("sha256").update(raw).digest("hex") !== item.sha256 || raw.length !== item.bytes) throw new Error("L tranche freeze bytes changed");
@@ -194,6 +194,9 @@ async function main() {
       for (const item of Object.values(value)) await checkBindings(item);
     };
     await checkBindings(cohort);
+    for (const amendment of cohort.amendments.filter(row => row.type === 'qualified-hold-replacement')) {
+      replacementReceipts[amendment.receipt.sha256] = JSON.parse(await readFile(amendment.receipt.path, 'utf8'));
+    }
     for (const entry of Object.values(cohort.entries || {})) {
       const packet = JSON.parse(await readFile(entry.preparation.packet.path, "utf8"));
       const selected = packet.entries.filter(row => row.catalogId === entry.catalogId);
@@ -201,7 +204,7 @@ async function main() {
       await checkBindings(selected[0]);
     }
   }
-  const errors = (isL ? validatePortraitCohortL : isK ? validatePortraitCohortK : isJ ? validatePortraitCohortJ : isI ? validatePortraitCohortI : isH ? validatePortraitCohortH : isG ? validatePortraitCohortG : isF ? validatePortraitCohortF : validatePortraitCohort)(cohort, { catalog, rightsLedger, generatedArtwork, profiles, runSelection, batchingAuthorization, trancheFreezes });
+  const errors = (isL ? validatePortraitCohortL : isK ? validatePortraitCohortK : isJ ? validatePortraitCohortJ : isI ? validatePortraitCohortI : isH ? validatePortraitCohortH : isG ? validatePortraitCohortG : isF ? validatePortraitCohortF : validatePortraitCohort)(cohort, { catalog, rightsLedger, generatedArtwork, profiles, runSelection, batchingAuthorization, trancheFreezes, replacementReceipts });
   if (errors.length) throw new Error(errors.join("\n"));
   if (args.includes("--refresh-progress")) {
     const temporaryPath = `${fileURLToPath(path)}.tmp-${process.pid}`;

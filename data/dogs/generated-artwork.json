@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "manifestVersion": "dogs-generated-artwork-664-03d036346c22",
+  "manifestVersion": "dogs-generated-artwork-677-631d7d9b11b5",
   "policyVersion": "dogs-generated-artwork-2026-10-03.1",
   "disclosure": "AI-generated breed portrait, art-directed for StackRank. Individual dogs vary.",
   "assets": [
@@ -911,6 +911,54 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200011:v1",
+      "catalogId": "VBO:0200011",
+      "name": "Aksaray Malaklisi",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03T22:12:34Z",
+      "masterSha256": "904c27580d0eecd000b16c4ce421cedf212aade7a526a050b8a9a7910b1ae4ac",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "85263fa4bd110e46d453f07c56f9dd731ed41247955646274cd1293aa48f80af",
+        "imageInputs": [],
+        "sourcePage": "https://e-sehir.aksaray.edu.tr/2021/03/11/aksaray-malaklisi/"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature large functional Malakli with long muscular substantial body, broad blackmasked head/real blunt muzzle, natural hanging ears, pendent lips and moderate dewlap. Dense short coat is plausible short-coat variation rather than feathering.",
+        "anatomy": "Four complete coherent grounded paws with balanced joints/contact. Full attached long relaxed tail with free upturned endpoint and no closed ring.",
+        "crop": "All native1536x1024 personally viewed, approx50px top and80px belowpaws, full crop-safe anatomy.",
+        "aesthetics": "Original central Anatolian clear track, fine natural fur/quiet light, no source frontal handler stance or gear."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 18898,
+          "sha256": "f20083a27e88639b1b0631eb11d19439a96e6de86821b4d4b05a603d6dd06d60",
+          "url": "assets/dogs/generated/VBO-0200011-attempt-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 138378,
+          "sha256": "11d35dd7101ba435ae8e8404f4984046dda15e1931bc2ac6bcc68068caa2aedc",
+          "url": "assets/dogs/generated/VBO-0200011-attempt-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200013:v1",
       "catalogId": "VBO:0200013",
       "name": "Alano Español",
@@ -1451,6 +1499,54 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200040:v1",
+      "catalogId": "VBO:0200040",
+      "name": "American Cocker Spaniel, Black",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 21:48:05 UTC",
+      "masterSha256": "b8635f3225439a283b06170836429c29cb560211b99ad9ad139a0ef0312e0c45",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "41b4a62c7958ed654e0947aad43c650469258dc579a07d4fe847e605a6a43c6e",
+        "imageInputs": [],
+        "sourcePage": "https://www.fci.be/Nomenclature/Standards/167g08-en.pdf"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature compact developed American Cocker with refined rounded skull, broad deep muzzle, dark ordinary eyes, low long silky ears and solid black silky moderately feathered coat; exact Black variety.",
+        "anatomy": "Four coherent full limb courses and four distinct grounded paws under functional feathering; natural joints/weight/contact. Smooth attached full feathered tail extends separately to visible free endpoint.",
+        "crop": "Whole head/ears, four paws and tail comfortably inside native frame; approximately80px upper and90px foreground clearance qualitatively safe.",
+        "aesthetics": "Soft natural light and credible detailed coat on quiet woodland lakeside path, fresh three-quarter pose. No people/gear/extra animals/text/watermark."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 23400,
+          "sha256": "72ba61aa9f1e3f6084050b2dd0366204e6e9b5221c1286b6ca3cc31e42832016",
+          "url": "assets/dogs/generated/VBO-0200040-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 144792,
+          "sha256": "3afcee0bb4cdd9ccf90db61732bbe806da0255fdf13a6f79f9aa15a155869bab",
+          "url": "assets/dogs/generated/VBO-0200040-native-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200041:v1",
       "catalogId": "VBO:0200041",
       "name": "American Cocker Spaniel, Parti-Colour",
@@ -1765,6 +1861,54 @@
           "bytes": 182436,
           "sha256": "feecfe856870c9a27160cca058c9bac2923acc807b8bbca23f9a8b68cda6d90f",
           "url": "assets/dogs/generated/VBO-0200051-attempt-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200053:v1",
+      "catalogId": "VBO:0200053",
+      "name": "American Mastiff",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03T22:13:16Z",
+      "masterSha256": "3af8ade56362dede28903a8b5701babad1849bcceb32063bdf1ff68a92f11286",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "6f30dbacc39e8b4ee284818a2b1ac22b79ea426e335a158c1cbb14b6cb2b343d",
+        "imageInputs": [],
+        "sourcePage": "https://ckcusa.com/breeds/american-mastiff/"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature heavy balanced light-apricot American Mastiff, broad deep rectangular head with real square muzzle, natural V-drop ears, blackmask and moderate ordinary forehead wrinkle/lip looseness. No flattened muzzle or excessive sagging skin.",
+        "anatomy": "Four complete coherent grounded paws and all limb courses, ordinary far foreleg overlap remains readable. Full attached thick-rooted tail hangs in gentle curve with distinct tapered dark endpoint.",
+        "crop": "Whole1536x1024 personally viewed, head about65px/top and paws95px bottom; full practical crop-safe frame.",
+        "aesthetics": "Quiet original Ohio winter field lane/right-three-quarter anonymous individual, credible coat/contact and soft cool light."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 15788,
+          "sha256": "b1a96bcbe2dd338e8e0c3d86d1438f8f5e4524d2f1a65b515096b5869fc583cc",
+          "url": "assets/dogs/generated/L-0200053-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 106332,
+          "sha256": "a97237c9e092165b02ca6d73863cfb47851a672929437a9d65e0d0479241d6a7",
+          "url": "assets/dogs/generated/L-0200053-01-960.webp"
         }
       ]
     },
@@ -2308,6 +2452,54 @@
           "bytes": 183716,
           "sha256": "386ab0437ff5afe1f009562f0e2f674bd597823618c5ed681df8f7ae9b7edae0",
           "url": "assets/dogs/generated/VBO-0200083-aidi-atlas-mountain-dog-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200087:v1",
+      "catalogId": "VBO:0200087",
+      "name": "Australian Bulldog",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03T21:51:26Z",
+      "masterSha256": "94d6a7cdc698a87829a78ed8359c844df44b365ee1f1fd7502104139b56782e8",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "b3833a6906ef51fad59a8be36de7cb06d73aa29e655ce45853248bcf77530545",
+        "imageInputs": [],
+        "sourcePage": "https://www.aussiebulldogclub.com/once-upon-a-time"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature Australian Bulldog exact maintained type with robust functional square head/deep muzzle, ordinary dark eyes, soft folded ears, substantial balanced body and short fawn-white coat.",
+        "anatomy": "Four coherent grounded paws, credible joints and weight; full smoothly attached long natural tapered tail extends clear behind body to free endpoint.",
+        "crop": "Whole1536x1024 native viewed; roughly80px upper and80px foreground clearance, complete extremities and comfortable side room.",
+        "aesthetics": "Fresh quiet eucalyptus park path, convincing fine coat and warm soft light; no copied Leeroy markings or scene."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 22620,
+          "sha256": "a92d9fb2ddf99c25ffd79b6eb682ded8d7158d3a91d16508615d04429ad58e1d",
+          "url": "assets/dogs/generated/VBO-0200087-attempt-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 132702,
+          "sha256": "2cdce60aa52b9e5be4a870daba85aac7ea0c4e9fa055bb7db090569e4c289717",
+          "url": "assets/dogs/generated/VBO-0200087-attempt-01-960.webp"
         }
       ]
     },
@@ -6935,6 +7127,54 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200342:v1",
+      "catalogId": "VBO:0200342",
+      "name": "Chilean Terrier",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03T22:07:51Z",
+      "masterSha256": "3785e1c83e07730b6107c9652a5792ae837c430cea49fc1f84ac1a8eee8be5fa",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "a5c8ffa549ee969406577e73b80d2e38aa586bed09dbb3d810646517c7e285de",
+        "imageInputs": [],
+        "sourcePage": "https://kennelclub.cl/wp-content/uploads/2024/03/Estandar-Oficial-del-Terrier-Chileno_22_03_2024.pdf"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Developed mature compact Chilean Terrier white body/black-tan head, real fine developed muzzle, natural folded V ears and sound athletic body.",
+        "anatomy": "All four complete grounded paws and coherent joints/contact; low-root full natural tail carried high in gentle open sickle without over-back curl, endpoint complete.",
+        "crop": "Whole1536x1024 personally viewed. Approx50px head and70px below paws, comfortably complete at native3:2; qualitative crop-safe despite nominal100px request.",
+        "aesthetics": "Fresh quiet dry Chilean hillside path, realistic smooth coat and restrained clear light; no copied event pose or gear."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 18094,
+          "sha256": "04ff1ee6badba0d488e395234804fdd8a209e3e7fed70f00bec7980e476926ff",
+          "url": "assets/dogs/generated/L-0200342-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 112530,
+          "sha256": "3e52220308e252507da46b42ff6a40f07fdc30b03d3a6612ee2efb64d6c71bd3",
+          "url": "assets/dogs/generated/L-0200342-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200344:v1",
       "catalogId": "VBO:0200344",
       "name": "Chinese Chongqing Dog",
@@ -7432,6 +7672,54 @@
           "bytes": 141004,
           "sha256": "53930994cb2d01f43c611ee36aa109d1cbb1ce6e411a27131178b73492f59832",
           "url": "assets/dogs/generated/VBO-0200361-chow-chow-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200363:v1",
+      "catalogId": "VBO:0200363",
+      "name": "Chukotka Sled Dog",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03T21:30:44Z",
+      "masterSha256": "a269183a17593eaf6d61cb8387e5fa023fa738b3be8d41616398ea38d1f1cfed",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "738f92103ef8d4d8ec1d8320b14abc8ed003e937520fb07877082a8839db3f6b",
+        "imageInputs": [],
+        "sourcePage": "https://info.rkf.online/article/d427c10b-9b37-5d33-a053-d239c0ec4f0e"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature robust Chukotka Sled Dog with developed broad triangular head, blunt real muzzle and broad chest, ordinary brown-amber eyes, erect furry triangular ears and slightly rectangular strong body; zonal-grey dense coat without excessive mane/trousers.",
+        "anatomy": "Four coherent complete grounded large paws and credible straight forelimbs/strong hindquarters; evenly bushy complete attached low tail through separate dark free endpoint, no curled ring or hanging plume.",
+        "crop": "Whole unchanged1536x1024 personally viewed. About38px top ear clearance and85px beneath paws, fully uncropped and qualitatively safe; no nominal100px cosmetic retry.",
+        "aesthetics": "Original anonymous grey standing coastal snow-dusted tundra scene and diffuse blue daylight, distinct from named cream-white bench/leash photograph. Natural fur, contact and calm closed-mouth expression."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 14738,
+          "sha256": "aef01c59cca12b6f5b650436d04970f9c42174b9b5cfb92d5f6f895a087060ab",
+          "url": "assets/dogs/generated/VBO-0200363-attempt-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 87398,
+          "sha256": "41c3a86185bb392e5c4209290d30a2c3aef4b3f31e8f936e75b95d2422bca82a",
+          "url": "assets/dogs/generated/VBO-0200363-attempt-01-960.webp"
         }
       ]
     },
@@ -10769,6 +11057,54 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0200538:v1",
+      "catalogId": "VBO:0200538",
+      "name": "French Bulldog, Fawn, Brindled Or Not, With Medium Or Predominant Patching",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 21:53:53 UTC",
+      "masterSha256": "6094b7f5f83ca6a30bd247b16e14c1ece145e2fb41a90170f913f23ccfd66b2b",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "a4235ba0b4952ea33ba3b5312e2fa9f78176b271be8bc47d6d068a3b6336d646",
+        "imageInputs": [],
+        "sourcePage": "https://frenchbulldogclub.org/breedstandard/"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature muscular compact French Bulldog with developed broad head, ordinary eyes, complete rounded bat ears and correctly predominant white/fawn patching.",
+        "anatomy": "Four coherent grounded full paws and plausible strong legs/weight. Complete attached naturally short low tail with visible tapered pale free endpoint, not tailless or long-tail substitution.",
+        "crop": "Whole1536x1024 personally viewed; upper ear margin narrow about12px but both whole ear tips remain inside original3:2 frame, all paws/tail complete with ample foreground and sides; no clipping or fabricated reframing.",
+        "aesthetics": "Original quiet garden/gravel composition, natural restrained coat and daylight, no puppy proportions, people/gear/text/watermarks."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 21542,
+          "sha256": "07d840c642763a317d0165b587341d2dea7a4f704ed0c669927c8ec9d4b1043b",
+          "url": "assets/dogs/generated/VBO-0200538-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 119346,
+          "sha256": "fd1c904525627b924abaf2aac336a75527f2c3a5d68072cc2447dce4f231ca37",
+          "url": "assets/dogs/generated/VBO-0200538-native-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0200548:v1",
       "catalogId": "VBO:0200548",
       "name": "French Spaniel",
@@ -13285,6 +13621,54 @@
           "bytes": 154124,
           "sha256": "5677091f58244b9f67bd71b05afd98b691f34856a0b45e919acc314e45dfbaa4",
           "url": "assets/dogs/generated/VBO-0200656-f04-a-a1-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200659:v1",
+      "catalogId": "VBO:0200659",
+      "name": "Harlequin Pinscher",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03T21:53:59Z",
+      "masterSha256": "d17fcf21c027759ff9fa71c0204ab889838f0b9e891fff804d20664b911c2273",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "c2d33299fdf16e051b1670222f17ce6f7d89addb214d170f7244e6fe28653d96",
+        "imageInputs": [],
+        "sourcePage": "https://ckcusa.com/breeds/harlequin-pinscher/"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature compact modern Harlequin Pinscher, developed clean wedge head/real muzzle, brown eyes, natural drop ears, short black-grey merle and tan coat, sturdy moderate bone.",
+        "anatomy": "Four complete coherent grounded paws and plausible joints/weight; entire high-set thick-rooted tapered natural open-sickle tail and free endpoint clear against sky.",
+        "crop": "Whole1536x1024 personally viewed; about85px upper clearance and105px below paws, complete crop-safe frame.",
+        "aesthetics": "Original autumn meadow path, fresh anonymous merle layout and relaxed three-quarter stance, fine natural fur/light; no source-cutout likeness/altered ears/stump."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 22176,
+          "sha256": "1740746258e2c4b92bb2f53a67c91f8a0432f95963fd60b9ea1ec556344a3c0c",
+          "url": "assets/dogs/generated/VBO-0200659-attempt-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 130104,
+          "sha256": "4852016884dac9c8a14a294ad8576a8ddeced4e79f0b14d997195bb735030321",
+          "url": "assets/dogs/generated/VBO-0200659-attempt-01-960.webp"
         }
       ]
     },
@@ -17497,6 +17881,54 @@
           "bytes": 117656,
           "sha256": "23f551c3e438eda6ba1124c4651a699e560d903372f4cdb6def216f941de0b93",
           "url": "assets/dogs/generated/VBO-0200838-f02-b-a1-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200839:v1",
+      "catalogId": "VBO:0200839",
+      "name": "Lupo Italiano",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03T21:30:12Z",
+      "masterSha256": "85ddcc70c2db73338f573541df6fdbbf1c436e70c221417946f9e4498621346c",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "6e47e0446704482ac9fd4b6dc115e838f5a4e8885c3e646def809a484251abf9",
+        "imageInputs": [],
+        "sourcePage": "https://canelupoitaliano.it/standard-di-razza/"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature Lupo Italiano association morphology: clean strong tapered muzzle, ordinary golden oblique eyes, natural erect mobile ears, robust dry slightly rectangular level body and grey-sable medium double coat with modest neck ruff.",
+        "anatomy": "Four complete coherent grounded oval paws and convincing joints/weight, full attached low hanging furnished tail ending in distinct dark tapered free tip; no photographed tight C-curl copied.",
+        "crop": "Whole unchanged1536x1024 personally viewed, roughly55px clear above nearest ear and90px below paws; qualitatively safe with all extremities complete and ample sides, nominal100px target not cause for speculative retry.",
+        "aesthetics": "Restrained original autumn Italian mountain footpath/beech backdrop and anonymous standing pose, natural fur/light/expression."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 22814,
+          "sha256": "cb104dc496df495d90a1f5f5bcb088d57a001ca0f7a34f78e54ca08edc50ca68",
+          "url": "assets/dogs/generated/L-0200839-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 151394,
+          "sha256": "63df192928c2bf20b8853d056f820c70f649dafe740bf0b495501a2bc165b627",
+          "url": "assets/dogs/generated/L-0200839-01-960.webp"
         }
       ]
     },
@@ -26006,6 +26438,54 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0201226:v1",
+      "catalogId": "VBO:0201226",
+      "name": "Shiloh Shepherd",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03T21:52:56Z",
+      "masterSha256": "282c578a8a348787a9c5fb776b17bc51b8e2f0d7ede851c8a9136aec6d415a6f",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "68b6b21ba1638bb401da581e947b2bd541526ad44f857a48f1cb38b0054e48f0",
+        "imageInputs": [],
+        "sourcePage": "https://drive.google.com/file/d/1A43XpgUJFfOCyBUzowSb9QQ9v7iVelcL/preview"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature developed plush Shiloh, broad skull and real squared muzzle, ordinary almond eyes/natural erect triangular ears, robust balanced level slightly rectangular frame and sable double coat.",
+        "anatomy": "Four coherent complete leg courses and four grounded oval paws; full attached low plume tail, including dark free end, distinct from hind limbs; natural joints and weight.",
+        "crop": "Whole1536x1024 native viewed; about30px ear clearance and80px under paws. Whole ears and all extremities remain qualitatively safe in exact3:2 frame, no speculative retry for100px preference.",
+        "aesthetics": "New winter willow riverbank scene and anonymous natural standing pose, realistic plush coat/light without gear or text."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 19296,
+          "sha256": "a8856a45c2a8d8363ba0d7d7ab6c864e0222a3284816a2ce85f23eb8346658b3",
+          "url": "assets/dogs/generated/L-0201226-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 126082,
+          "sha256": "888616259f3db2126566046da1083407e67bf6e1270b2f993efc442afc57351d",
+          "url": "assets/dogs/generated/L-0201226-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0201233:v1",
       "catalogId": "VBO:0201233",
       "name": "Siberian Husky",
@@ -28334,6 +28814,54 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0201373:v1",
+      "catalogId": "VBO:0201373",
+      "name": "Treeing Tennessee Brindle",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 21:55:23 UTC",
+      "masterSha256": "581840e37866e28af7ccf293783c992015a3ae776e3a966ea955754b070feb08",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "827ee7c3e5b29bafadae05e94f21f93d7cabe8145f1fe9349e957d3780e39493",
+        "imageInputs": [],
+        "sourcePage": "https://www.ukcdogs.com/docs/breeds/treeing-tennessee-brindle.pdf"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature athletic Treeing Tennessee Brindle with strong head/deep real muzzle, medium drop ears, ordinary dark eyes and short clearly brindled coat.",
+        "anatomy": "Four coherent full limb courses and grounded compact paws with realistic joints/contact; complete attached moderately furnished medium tail continuously readable to distinct tapered dark tip.",
+        "crop": "Whole1536x1024 viewed; roughly35px head and70px paw clearance, complete crop-safe ears/paws/tail with ample sides, no stretching or clipping.",
+        "aesthetics": "Original Tennessee autumn woodland trail, convincing subtle natural light and brindle fur, no gear/people/text/watermarks."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 27816,
+          "sha256": "9b1c6806fb070662872b9859d6d793dc1bce5946ff28d259a20d0c28e41751d9",
+          "url": "assets/dogs/generated/VBO-0201373-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 178320,
+          "sha256": "6ffc3ebe06a54d4a0a9e68e240f0d033380bcd1088be23936a567b3237b4b078",
+          "url": "assets/dogs/generated/VBO-0201373-native-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0201374:v1",
       "catalogId": "VBO:0201374",
       "name": "Treeing Walker Coonhound",
@@ -29777,6 +30305,54 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0201452:v1",
+      "catalogId": "VBO:0201452",
+      "name": "Zerdava",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03 22:01:55 UTC",
+      "masterSha256": "e48c76367c13a78a149da9b3557f7fa32804c11777df3a13d3e8ca9f6d6f5138",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "b24676bd5e7c72b1857f3bcff51fcc41e47a3519c8d95255f10e0eb273d382dd",
+        "imageInputs": [],
+        "sourcePage": "https://padsociety.org/wp-content/uploads/2018/11/PADS-JOURNAL-48-TURKISH-LAIKA-1.pdf"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature medium-small chestnut/liver Turkish Zerdava, developed wedge head, erect triangular ears, brown nose and amber brown eyes, white chest and ticked lower legs, substantial athletic slightly rectangular body.",
+        "anatomy": "Four coherent complete grounded paws and normal joints; attached open brown tail curl with entire white terminal furnishing and visible free endpoint near but distinct from back silhouette.",
+        "crop": "Whole1536x1024 personally viewed; all extremities in frame with generous practical clearance.",
+        "aesthetics": "Fresh rocky Black Sea valley portrait, fine realistic coat and quiet light, anonymous markings and pose. No source photo composition or gear."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 25014,
+          "sha256": "c03320547d01ba8f01fef3e9c561d87e6c2b6737fbf10ca26fee2a9f73bc42d2",
+          "url": "assets/dogs/generated/VBO-0201452-native-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 155708,
+          "sha256": "4d309521c70530927319261cf92b7b745132bc3ac2e38c3a08790afa15f206bd",
+          "url": "assets/dogs/generated/VBO-0201452-native-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0201454:v1",
       "catalogId": "VBO:0201454",
       "name": "German Pinscher",
@@ -29998,6 +30574,54 @@
           "bytes": 159340,
           "sha256": "7d10daa7f15f9e450f205a8faeb41d5d83aef01f86a378c2e27ca894362400d0",
           "url": "assets/dogs/generated/VBO-0201460-native-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201461:v1",
+      "catalogId": "VBO:0201461",
+      "name": "Cane Lupino del Gigante",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-l",
+      "generatedAt": "2026-10-03T22:07:24Z",
+      "masterSha256": "de4051484d6360529b998e25e8ca44e6990c7235741948b22d356522846e7fbf",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "5ebd1ba7ebc56baaea9c968cdb3b96ceb584b435db2a0de2cdc06ca340ce8785",
+        "imageInputs": [],
+        "sourcePage": "https://canelupinodelgigante.it/storia/"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-03",
+        "breedIdentity": "Mature lean muscular medium Lupino del Gigante, pointed triangular head/real tapered muzzle, grey-sable medium coat and natural erect outward triangular ears. Root specifically compared ear proportions against whole current association1920x1249 hero; photo also has prominent erect ears. Source says usually short, explicitly variable population rather than uniform numeric standard; current generated proportions credible, no concrete giant-ear defect requiring retry.",
+        "anatomy": "Four complete coherent grounded paws, credible joints and balanced weight; full attached bushy broad crescent tail with distinct endpoint.",
+        "crop": "Whole1536x1024 personally viewed; all anatomy in frame, qualitative safe head/paw/tail clearance.",
+        "aesthetics": "Original Apennine hillside trail and standing anonymous individual, realistic restrained coat/light. No handler/source grassy pose or copied specimen pattern."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 19790,
+          "sha256": "155e711e759dc8eeeec492c52f92b4338c861ce575b6ce562a0e7c2dd3316a4c",
+          "url": "assets/dogs/generated/VBO-0201461-attempt-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 128442,
+          "sha256": "bd3c3ee22d1883e86fa3c1f2b47117ab46b8335fb8109efa93be5a64bc5cc198",
+          "url": "assets/dogs/generated/VBO-0201461-attempt-01-960.webp"
         }
       ]
     },

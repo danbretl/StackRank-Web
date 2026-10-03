@@ -20,7 +20,28 @@ with no history fork, and all attested the same actual Full access policy. Their
 names are `/root/l_worker_a`, `/root/l_worker_b`, `/root/l_worker_c`; separate isolated worktrees
 are under `/Users/danbretl/.codex/worktrees/dogs-cohort-l-worker-{a,b,c}/stackrank`.
 
-## Current stage — 75 published additions, October 3, 2026
+## Current stage — 88 published additions, October 3, 2026
+
+L33–L41 added13 individually reviewed pairs in product `0ed757f3a78ea0580f8be4908d44ff847a94ffa7`, pushed main.
+Vercel `dpl_B86ipJpCW5vsWriH4LbsM8nUDyR7` is READY on both production aliases.
+Every new entire full/short profile, artwork/provenance/purpose record and all26 new WebPs matched live.
+One stable verification passed533 Node,25 coordination,6 packet,24 Deno and41 Chrome flows;
+one shared production run passed49 checks. Each of nine publication receipts explicitly binds that shared run.
+
+Root viewed every whole unchanged native and complete13-image contact sheet. Desktop690-count
+reviewer search,960px details and disclosures, draft-preserving next/left navigation and Escape focus passed.
+Phone390×844 Cavachon comparison, full About text, Escape preserving pair and cancellation passed;
+both cards fit with no horizontal overflow. Screenshots were actually viewed inline.
+All677 prior profiles/artworks,1,354 WebPs and14 prior frozen ledgers/stops remain unchanged.
+L33–L41 local archives verified26/29/49/26/77/30/28/34/26 objects. No off-machine backup verified.
+Medium Poodle receipt002 corrects relative evidence paths in001; same unchanged actual attempt, counted once.
+
+At the immutable checkpoint: 101 completed calls, 92 accepted,
+8 rejected, 6 targeted retries, 0 failed;
+4 accepted pairs await release and 1 image permits are active. This is a progress boundary, not completion.
+**88/100 additions verified live:690 published/549 hidden. Continue to702;12 publications remain.**
+
+## Historical milestone — 75 published additions, October 3, 2026
 
 L26–L32 added13 pairs (1/1/3/3/2/1/2): Lupo Italiano, Chukotka Sled Dog,
 Black American Cocker, French Pied Hound, Treeing Tennessee Brindle, Australian Bulldog,

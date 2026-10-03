@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "savedAt": "2026-10-03T15:14:29.258043+00:00",
+  "savedAt": "2026-10-03T16:15:34.243927+00:00",
   "status": "active-cohort-l-rolling-production",
   "baseline": {
     "catalogIdentities": 1239,
@@ -1774,16 +1774,16 @@
     "preparationIndexPath": "data/dogs/portrait-cohort-l-preparation-index.json",
     "statusNotePath": "notes/testing/dogs-portrait-cohort-l.md",
     "previousJAndKStoppedHistoryUnchanged": true,
-    "generationCalls": 0,
-    "acceptedPairs": 0,
-    "publishedPairs": 0,
-    "qualifiedPackets": 12,
+    "generationCalls": 14,
+    "acceptedPairs": 13,
+    "publishedPairs": 5,
+    "qualifiedPackets": 13,
     "requiredBeforeGeneration": "Frozen qualified identity, dedicated immutable root pre-call approval and successful preflight; rolling queue directly authorized by user",
     "configuredWorkers": "Exactly three internal gpt-6.1-sol/high agents; no nested agents or K worker resumes",
     "primaryModelEffortDisclosure": "Requested gpt-6-astra/high; runtime identifiers undisclosed",
     "permissions": "Actual root and all workers danger-full-access, approval never, network enabled",
     "offMachineBackupVerified": false,
-    "qualifiedIdentities": 13,
+    "qualifiedIdentities": 14,
     "qualificationBlocker": {
       "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualification-blocker-001.json",
       "sha256": "d40da108884f7381d49ad5b71adcda7c6e89b2dc63298f52af0476ee4288f88f",
@@ -1796,6 +1796,22 @@
       "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/rolling-batch-user-authorization-001.json",
       "sha256": "e1ffc149b5fe0e6cc1c3b1dd0d4dfec06466bf8ddfe05369134fbd745ca2d2eb",
       "bytes": 1091
-    }
+    },
+    "completedGenerationCalls": 14,
+    "counterAsOf": "14 completed calls before Jackador15th call; active work recorded in coordination DB",
+    "rejectedOutputs": 1,
+    "targetedRetries": 1,
+    "failedCalls": 0,
+    "currentPublishedTotal": 607,
+    "currentHidden": 632,
+    "lastPublication": {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/publication-l01-001.json",
+      "sha256": "97b7b2a7ae614a0f5b4631b52181c8fc83858e908d8e1d1d492adabe93159a0c",
+      "bytes": 5266
+    },
+    "productCommit": "44d61fbcca92a2ba0ac0220413be5d93ad70c756",
+    "deploymentId": "dpl_DKre99BGCXdypTpUoXieuSxZmTiw",
+    "qualificationBlockerSupersededByDirectUserAmendment": true,
+    "nextAction": "Publish8 accepted pending pairs; qualify/generate further identities until100newpublished. Jackador qualified and dedicated call authorized."
   }
 }

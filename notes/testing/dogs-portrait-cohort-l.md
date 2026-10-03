@@ -20,7 +20,35 @@ with no history fork, and all attested the same actual Full access policy. Their
 names are `/root/l_worker_a`, `/root/l_worker_b`, `/root/l_worker_c`; separate isolated worktrees
 are under `/Users/danbretl/.codex/worktrees/dogs-cohort-l-worker-{a,b,c}/stackrank`.
 
-## Current stage
+## Current stage — rolling production, October 3, 2026
+
+**5/100 new pairs are verified live: 607 published, 632 unfinished hidden.** Dan explicitly approved
+“Yes—use the rolling queue and finish all 100,” replacing the initial20+3–5 queue and approximately20-pair release sizes only. All evidence, quality, preservation and release gates remain.
+
+L01 publishes Bracco Italiano Chestnut Roan, Markiesje, Multi-Colored Poodle, Goldendoodle and Cavajack.
+Product `44d61fbcca92a2ba0ac0220413be5d93ad70c756` is pushed main; deployment
+`dpl_DKre99BGCXdypTpUoXieuSxZmTiw` is READY on both production aliases.
+The stable candidate passed529 Node,23 coordination,5 packet,24 Deno and41 Chrome checks.
+Production passed49 checks, EVERY new complete profile/provenance/purpose record matched, and all10
+new320/960 WebPs matched exact live hashes. Desktop/phone comparison/About/Escape, authored short
+ranking copy and reviewer metadata/arrows/draft preservation/focus were checked. All602 prior
+artwork records and completed profiles are unchanged; historical E–K records and old WebPs are preserved.
+
+At this milestone13 identities have accepted native portraits from14 completed built-in calls:
+one rejected Blue Lacy cropped tail, one accepted targeted retry, zero failed calls. Eight accepted
+pairs await the next release. Jackador is additionally qualified/frozen in trancheL02 with a dedicated
+call approval; ongoing calls are tracked separately in the atomic coordination DB.
+TrancheL01 retains its13 ordered members and digest `9c769a98de8970312cc84f4a01ed2a9e4e2e807e181a586663be53a2e0242193`.
+TrancheL02 is additive; earlier qualification-blocker records below are historical and superseded.
+
+L01 local archive SHA `d77f1ace3f818bdddde4fcd67ef98737cb72dca0ad556d28ef883a8587977a23`
+retains176 paths/175 verified content-addressed objects, selected source/grant/terms/primary/prompt,
+native, attempt and QA closure. Its mutable ledger/batch snapshots precede a rights-note clarification
+(“Private morphology reference only”); no source/native/full/short content changed. No off-machine
+backup is verified. Publication evidence is bound in the L ledger; root remains the sole release owner.
+**The100-pair objective is active and incomplete; continue automatically to702.**
+
+## Historical stage before the rolling-queue amendment
 
 The run is blocked before generation: **0/100 new pairs published**. No production tranche is
 frozen and no image call is authorized or started. Thirteen identities across twelve complete

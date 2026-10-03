@@ -4,6 +4,14 @@
 
 ## What it is
 
+Cohort L is active under fresh100-pair authorization and a direct-user rolling-queue amendment.
+L01 adds5verifiedlivepairs: **607 published/632 hidden**, product `44d61fbc` Vercel READY.
+At this milestone13 portraits are accepted (14completedcalls,1reject/targetedretry,0failures);
+8await publication, with further research/generation ongoing toward702total/537hidden.
+Read `notes/testing/dogs-portrait-cohort-l.md` and `data/dogs/portrait-cohort-l.json` first.
+Earlier602/K pause statements below describe the historical baseline, not an L stop.
+
+
 A web app for **stack-ranking** things — movies first, but meant to generalize. You add a movie and the app slots it into your ordered list via **binary-insertion comparisons** (pick the one you like better, repeatedly, until its exact position is found). Around that core sit suggestions, watch/skip queues, a movie-detail pane, and a rich shareable poster generator.
 
 An experimental **Books** vertical slice now lives at `/books`: it is noindex, device-only, and

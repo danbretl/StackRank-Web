@@ -23,7 +23,7 @@ are under `/Users/danbretl/.codex/worktrees/dogs-cohort-l-worker-{a,b,c}/stackra
 ## Current stage
 
 Qualification is underway. No production tranche is frozen, no image call is authorized or
-started, and no new pair is accepted/integrated/published. Eleven identities across ten complete
+started, and no new pair is accepted/integrated/published. Thirteen identities across twelve complete
 source/profile/prompt packets have passed independent and root review:
 
 - Multi-Colored Poodle (VBO:0201055), writer C / peer A.
@@ -37,6 +37,8 @@ source/profile/prompt packets have passed independent and root review:
 - Phu Quoc Ridgeback (VBO:0201017), writer A / peer B.
 - Contemporary Molossus of Epirus (VBO:0200904), writer B / peer C.
 - American Cocker Spaniel ASCOB (VBO:0200039), writer A / peer B.
+- Jackshund (VBO:0200731), writer C / peer A; explicitly individual school-visiting history.
+- Cavajack (VBO:0200308), writer A / peer B; explicitly individual flyball history.
 
 Root read actual source/primary/grant/terms evidence, viewed each original, and reviewed every
 final full/short description and prompt. These are preparation, not completed pairs. The first
@@ -50,6 +52,16 @@ gallery inventories and broader parent-token cross queries now supplement exact 
 searches, with actual API errors and irrelevant results distinguished from empty results.
 Tokens and credits were not exposed. Research allocations are not published additions.
 
+Checkpoint007 recorded 163 research allocations and 320 completed gated source operations at
+3.569 hours, with no active permits or image calls. Category-first metadata uncovered genuinely
+new Cavajack and Jackshund adult originals; Jackshund has since completed qualification. Named
+individual character and working-history examples stay explicitly scoped to those dogs. New
+Pekepoo, Poochon, Shih-Poo and Grand Anglo-Français Tricolore originals failed specific body/tail
+gates; old metadata-only discoveries are distinguished from actual native rejections. No global
+source-exhaustion claim or run stop has been made. Cavajack has also completed qualification. A two-page direct Dog crossbreeds inventory covered
+69 files and found one new adult Chesador working-caption lead, awaiting original/upstream review.
+Ten further qualifications are still needed before the minimum first freeze.
+
 Murray River Retriever Stella matches an earlier E-held original byte for byte; a preliminary
 visual opinion was superseded when that exact prior negative was recovered. A new Toy Manchester
 pair has a usable right-hand subject, but its originating creator grant remains unavailable
@@ -60,11 +72,14 @@ Epirus concerns the contemporary national-standard population, not an ancient re
 Its raw VBO node has no historical qualifier; the local curated historical override requires an
 evidenced correction during fully approved integration, and remains unchanged at this stage.
 The preparation index binds immutable bounded-screen reports for recovery. A private
-preparation-only retention archive for the first ten qualified identities verified 326 bound
-files / 322 unique content objects (35,383,318 bytes), including exact historical registry
-snapshots where acquisition receipts bind earlier registry hashes. ASCOB is staged separately
-and not yet included in that archive. This is not final generation/archive closure or
-off-machine backup.
+preparation-only active retention archive004 covers the first eleven qualified identities: 313 bound
+files / 310 unique content objects (18,615,965 bytes), with every object read back and verified.
+Historical registry hashes resolve to preserved exact snapshots. An overbroad recursive
+traversal in archives002/003 was caught and superseded: shared global indexes now remain opaque
+evidence rather than pulling unrelated portraits into the active recovery set. Earlier archives
+remain unchanged. Delta archive005 extends that bounded set to all thirteen qualified identities: 377 bound files /
+374 unique objects, reusing004 and adding64 objects (48,263,267 compressed bytes), all new objects
+read back and verified. This is not final generation/archive closure or off-machine backup.
 
 The separate L registry/database is in `reports/dogs-generated-artwork/cohort-l/`. It uses the
 shared atomic Commons gate (one owner, at least 5.1 seconds after completion, global HTTP429 stop)

@@ -324,6 +324,24 @@ class CoordinationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'approved bytes changed'):
             self.coordinator.image_preflight('A', 'thread-A', 'breed-A', p)
 
+    def test_l_cannot_reuse_k_approval_or_unknown_cohort(self):
+        p = self.approval()
+        self.registry['cohortId'] = 'dogs-portraits-l'
+        self.registry_path.write_text(json.dumps(self.registry))
+        current = MODULE.Coordinator(self.registry_path)
+        with self.assertRaisesRegex(ValueError, 'mismatch'):
+            current.image_preflight('A', 'thread-A', 'breed-A', p)
+        receipt = json.loads(p.read_text())
+        receipt['cohortId'] = 'dogs-portraits-l'
+        raw = json.dumps(receipt).encode()
+        fresh = p.parent / (MODULE.digest(raw) + '.json')
+        fresh.write_bytes(raw)
+        self.assertEqual(current.image_preflight('A', 'thread-A', 'breed-A', fresh)['catalogId'], 'breed-A')
+        self.registry['cohortId'] = 'dogs-portraits-m'
+        self.registry_path.write_text(json.dumps(self.registry))
+        with self.assertRaisesRegex(ValueError, 'Wrong coordination cohort'):
+            MODULE.Coordinator(self.registry_path)
+
     def test_preflight_rejects_changed_approval_and_worker_owned_approval(self):
         p = self.approval()
         raw = p.read_text()

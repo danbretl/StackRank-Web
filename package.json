@@ -28,9 +28,10 @@
     "deliver:dogs:artwork": "node scripts/deliver-dog-artwork.mjs",
     "activate:dogs:artwork": "node scripts/activate-dog-artwork-deliveries.mjs",
     "probe:dogs:production": "node scripts/probe-dogs-supabase-production.mjs",
-    "verify": "npm test && npm run test:dogs:coordination && npm run check && npm run check:cache && npm run check:functions && npm run test:functions && npm run validate:packs && npm run validate:dogs && npm run test:e2e",
+    "verify": "npm test && npm run test:dogs:coordination && npm run test:dogs:packets && npm run check && npm run check:cache && npm run check:functions && npm run test:functions && npm run validate:packs && npm run validate:dogs && npm run test:e2e",
     "author:packs": "node scripts/author-suggestion-packs.mjs",
     "screenshots": "node scripts/capture-screenshots.cjs",
-    "build:og": "node scripts/build-og-image.cjs"
+    "build:og": "node scripts/build-og-image.cjs",
+    "test:dogs:packets": "PYTHONDONTWRITEBYTECODE=1 python3 tests/dog-portrait-packet.test.py"
   }
 }

@@ -1,4 +1,4 @@
-"""Atomic, durable coordination for the five independent cohort K tasks.
+"""Atomic, durable coordination for explicitly registered cohort K/L workers.
 
 There are no expiring permits: root checks actual owner status before recovery.
 Workers invoke this exact root-owned helper, with the central registry path.
@@ -34,7 +34,7 @@ class Coordinator:
     def __init__(self, registry_path):
         self.registry_path = pathlib.Path(registry_path).resolve()
         self.registry = json.loads(self.registry_path.read_text())
-        if self.registry.get('cohortId') != 'dogs-portraits-k':
+        if self.registry.get('cohortId') not in ('dogs-portraits-k', 'dogs-portraits-l'):
             raise ValueError('Wrong coordination cohort')
         self.root = self.registry_path.parent
         self.db_path = self.root / 'coordination.sqlite3'
@@ -120,7 +120,7 @@ class Coordinator:
             raise ValueError('Dedicated root-owned approval path required')
         raw = p.read_bytes()
         receipt = json.loads(raw)
-        expected = {'cohortId': 'dogs-portraits-k', 'worker': worker, 'threadId': thread, 'catalogId': catalog_id,
+        expected = {'cohortId': self.registry['cohortId'], 'worker': worker, 'threadId': thread, 'catalogId': catalog_id,
                     'receiptType': 'immutable-root-precall-approval', 'status': 'approved',
                     'selectionSha256': self.registry['selectionSha256']}
         if any(receipt.get(k) != v for k, v in expected.items()):
@@ -323,7 +323,8 @@ def main():
         permit = c.acquire('image', args.worker, args.thread, args.attempt, evidence, args.catalog_id)
         value = {**evidence, 'permit': permit, 'attemptId': args.attempt,
                  'preflightSucceeded': True, 'checkedAt': now(), 'configuredOperatorModel': 'gpt-6.1-sol',
-                 'configuredReasoningEffort': 'xhigh', 'actualRuntimeModelIdentifierDisclosed': False}
+                 'configuredReasoningEffort': 'high' if c.registry['cohortId'] == 'dogs-portraits-l' else 'xhigh',
+                 'actualRuntimeModelIdentifierDisclosed': False}
         directory = pathlib.Path(c.owner(args.worker, args.thread)['stageRoot']) / 'preflights'
         directory.mkdir(exist_ok=True)
         path = directory / (permit + '.json')

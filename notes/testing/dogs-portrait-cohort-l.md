@@ -59,7 +59,7 @@ individual character and working-history examples stay explicitly scoped to thos
 Pekepoo, Poochon, Shih-Poo and Grand Anglo-Français Tricolore originals failed specific body/tail
 gates; old metadata-only discoveries are distinguished from actual native rejections. No global
 source-exhaustion claim or run stop has been made. Cavajack has also completed qualification. A two-page direct Dog crossbreeds inventory covered
-69 files and found one new adult Chesador working-caption lead, awaiting original/upstream review.
+69 files and found one new adult Chesador working-caption lead. Its acquired original is head/neck only and fails the body/full-tail gate.
 Ten further qualifications are still needed before the minimum first freeze.
 
 Murray River Retriever Stella matches an earlier E-held original byte for byte; a preliminary
@@ -115,3 +115,24 @@ Support commit `b441b81d6843d1369f42a73805b8ca8cd0208a53` is Vercel READY in
 passed 522 Node, 23 coordination, 5 packet, 24 Deno and 41 Chrome checks; production smoke
 passed 49 checks. This is workflow support only, with zero new published pairs. Exact logs
 are bound in private `setup-verification-001.json`.
+
+## Continuing qualification after the bounded category pass
+
+The closed pass reached 168 research-only allocations and 333 completed gated source operations,
+with 13 qualified identities and zero image calls, acceptances or publications. This does not
+establish global source absence. The three reused workers are examining 24 further unallocated
+names against retained source history and alias scope before any new acquisition allocation.
+An unanswered user question proposes reducing only the first-tranche size; it is not approval,
+a user stop or completion. The existing 20-plus-reserves requirement remains in force.
+
+The latest baseline reverification found all 1,219 immutable prior files unchanged and six exact
+live byte matches (three data files and three portraits). Production remains 602 pairs / 637 hidden.
+Latest bounded worker checkpoints are A011, B002 and C197; the preparation index binds them.
+
+The additional offline pass identified distinct parent-query and category gaps; amendments 031–035
+allocate 13 more identities for bounded research (181 total). Source followup authorization 006
+removes an unnecessary root-imposed metadata-only handoff: workers may inspect at most two
+genuinely new originals per allocated identity and proceed to normal source/primary review if
+visual gates pass. Root still approves every image call. An older J array-shaped search wrapper
+was missed by receipt-only coverage scans; two repeated Pomapug/Pug-Zu queries are disclosed
+and added no candidates. Subsequent triage checks those wrappers before proposing new queries.

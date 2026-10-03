@@ -28,12 +28,12 @@ const model = buildCatalogReviewModel({
 });
 
 test("catalog review workspace models every exact generated editorial queue entry", () => {
-  assert.equal(model.summary.queueItems, 698);
+  assert.equal(model.summary.queueItems, 697);
   assert.deepEqual(model.summary.queueCounts, [
     { key: "aliasDecisions", label: "Alias decisions", count: 294 },
     { key: "varietyDecisions", label: "Variety decisions", count: 187 },
     { key: "crossbreedDecisions", label: "Crossbreed decisions", count: 139 },
-    { key: "historicalDecisions", label: "Historical decisions", count: 36 },
+    { key: "historicalDecisions", label: "Historical decisions", count: 35 },
     { key: "excludedDecisions", label: "Excluded decisions", count: 4 },
     {
       key: "regionalLandraceCandidates",
@@ -42,7 +42,7 @@ test("catalog review workspace models every exact generated editorial queue entr
     },
     { key: "ambiguousSearchNames", label: "Ambiguous search names", count: 18 },
   ]);
-  assert.equal(new Set(model.items.map((item) => item.reviewKey)).size, 698);
+  assert.equal(new Set(model.items.map((item) => item.reviewKey )).size, 697);
   assert.equal(model.generatedFrom.catalogVersion, review.catalogVersion);
   assert.equal(model.generatedFrom.catalogVersion, catalog.catalogVersion);
   assert.equal(model.generatedFrom.source.sha256.length, 64);

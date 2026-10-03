@@ -60,17 +60,17 @@ test("editorial audit counts stay synchronized with deterministic catalog artifa
     aliasDecisions: 294,
     varietyDecisions: 187,
     crossbreedDecisions: 139,
-    historicalDecisions: 36,
+    historicalDecisions: 35,
     excludedDecisions: 4,
     regionalLandraceCandidates: 20,
     ambiguousSearchNamesRetained: 18,
   });
   assert.deepEqual(coverage.dispositionCounts, {
     alias: 294,
-    canonical: 877,
+    canonical: 878,
     crossbreed: 139,
     excluded: 4,
-    historical: 36,
+    historical: 35,
     variety: 187,
   });
   assert.equal(coverage.runtimeEntityCount, 1_239);

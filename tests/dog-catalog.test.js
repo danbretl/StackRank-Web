@@ -108,10 +108,10 @@ test("assigns exactly one explicit disposition to every source term", () => {
   assert.equal(coverage.unclassifiedTermCount, 0);
   assert.deepEqual(coverage.dispositionCounts, {
     alias: 294,
-    canonical: 877,
+    canonical: 878,
     crossbreed: 139,
     excluded: 4,
-    historical: 36,
+    historical: 35,
     variety: 187,
   });
   assert.equal(
@@ -295,7 +295,7 @@ test("publishes explicit review queues for every non-canonical and ambiguous dec
     aliasDecisions: 294,
     varietyDecisions: 187,
     crossbreedDecisions: 139,
-    historicalDecisions: 36,
+    historicalDecisions: 35,
     excludedDecisions: 4,
     regionalLandraceCandidates: 20,
     ambiguousSearchNamesRetained: 18,
@@ -418,4 +418,15 @@ test("rejects runtime ordering or content that was not emitted by the determinis
   const reordered = clone(catalog);
   [reordered.entities[0], reordered.entities[1]] = [reordered.entities[1], reordered.entities[0]];
   assertError(validationErrors({ catalog: reordered }), /does not match deterministic compiler output/u);
+});
+
+// The current KOE standard and creator-identified living adult reviewed in L
+// distinguish contemporary Epirus from the separately retained ancient Molossus.
+test("contemporary Molossus of Epirus remains distinct from ancient Molossus", () => {
+  const epirus = classification.terms.find(row => row.vboId === "VBO:0200904");
+  const ancient = classification.terms.find(row => row.vboId === "VBO:0200903");
+  assert.equal(epirus.disposition, "canonical");
+  assert.equal(epirus.reasonCode, "curated_contemporary_breed");
+  assert.equal(ancient.disposition, "historical");
+  assert.equal(catalog.entities.find(row => row.id === "VBO:0200904").status, "canonical");
 });

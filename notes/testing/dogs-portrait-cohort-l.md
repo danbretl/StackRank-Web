@@ -1,0 +1,67 @@
+# Dogs cohort L — authorized 100-pair continuation
+
+Fresh direct user authorization invoked `notes/feature-ideas/dogs-overnight-100-kickoff-prompt.md`
+on October 2, 2026 (America/Los_Angeles). This is a new run; J/K stopped selections and receipts
+remain unchanged. Target: 100 additional distinct accepted, archived, integrated and verified
+production pairs, from 602 to 702 (537 unfinished identities hidden).
+
+## Verified baseline and configuration
+
+Main and origin were `4c716c1a09c4e1b1e1141fb7cba333b28595d75c`; Vercel deployment
+`dpl_Aqpc4p1WDgNrdZ9EzMQCkBCKxxCF` was READY on both production aliases. All three live catalog,
+profile and artwork datasets and three representative 960px portraits matched local bytes.
+Product anchor remains `9a965ad52c735501c31afc29d446b8addb6d89f8`. Baseline protection binds
+1,220 prior WebP/ledger/context files and snapshots existing published records.
+
+Requested primary configuration: GPT-6 Astra / High / Full access. Primary model and effort are
+not independently disclosed by runtime. Its actual policy is danger-full-access, approval never,
+network enabled. Exactly three internal workers were explicitly spawned as GPT-6.1 Sol / High
+with no history fork, and all attested the same actual Full access policy. Their canonical task
+names are `/root/l_worker_a`, `/root/l_worker_b`, `/root/l_worker_c`; separate isolated worktrees
+are under `/Users/danbretl/.codex/worktrees/dogs-cohort-l-worker-{a,b,c}/stackrank`.
+
+## Current stage
+
+Qualification is underway. No production tranche is frozen, no image call is authorized or
+started, and no new pair is accepted/integrated/published. One complete source/profile/prompt
+packet (Multi-Colored Poodle, VBO:0201055) has passed independent A review and root source,
+visual, primary-evidence, full/short-copy and prompt review. It is preparation, not a completed
+portrait/profile pair. The first production allocation still requires 20 qualified identities plus
+3–5 qualified reserves. Source scarcity is being measured honestly; prior research is not treated
+as inherited approval. Fresh failed sources remain bounded dispositions rather than claims of
+worldwide absence.
+
+The separate L registry/database is in `reports/dogs-generated-artwork/cohort-l/`. It uses the
+shared atomic Commons gate (one owner, at least 5.1 seconds after completion, global HTTP429 stop)
+and a three-call image ceiling with one call per worker. Research-only ownership amendments
+are append-only; they do not activate production reserves. The packet validator binds exact
+source/grant/terms/acquisition evidence, final full/short text, independent review, prompt and
+attempt arguments/native evidence. Actual root judgment remains mandatory.
+
+Recovery receipts verify K worker stop inventories and J indexed packets without modifying
+historical bytes. Missing source/body/identity/creator evidence remains unresolved; raw bodies
+previously fetched but unread are distinguished from reviewed copy. Local ignored archives and
+staging have no verified off-machine backup.
+
+## Durable entry points
+
+- `data/dogs/portrait-cohort-l.json`
+- `data/dogs/portrait-cohort-l-preparation-index.json`
+- `reports/dogs-generated-artwork/cohort-l/baseline-001.json`
+- `reports/dogs-generated-artwork/cohort-l/baseline-deployment-001.json`
+- `reports/dogs-generated-artwork/cohort-l/audit-allocation-001.json` and numbered amendments
+- `reports/dogs-generated-artwork/cohort-l/qualified-poodle-001.json`
+- `scripts/dog-portrait-packet.py` and `scripts/dog-portrait-coordination.py`
+
+Continue the authorized run. Qualify distinct exact identities before freeze/generation, then
+publish approximately 20 accepted pairs per milestone with full verification, archives, live byte
+checks and separate product/documentation receipts. Do not resume paused K workers or count
+aliases, attempts, drafts, holds or unpublished acceptance toward the 100-pair target.
+
+## Workflow support verification
+
+Support commit `b441b81d6843d1369f42a73805b8ca8cd0208a53` is Vercel READY in
+`dpl_DECXp2eBse7MjVYkb9wZBEkwwosz` on both production aliases. The stable support candidate
+passed 522 Node, 23 coordination, 5 packet, 24 Deno and 41 Chrome checks; production smoke
+passed 49 checks. This is workflow support only, with zero new published pairs. Exact logs
+are bound in private `setup-verification-001.json`.

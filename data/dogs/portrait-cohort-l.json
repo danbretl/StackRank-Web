@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "cohortId": "dogs-portraits-l",
+  "status": "qualifying-first-tranche",
+  "startedAt": "2026-10-03T06:50:10.588924+00:00",
+  "baseline": {
+    "schemaVersion": 1,
+    "at": "2026-10-03T06:46:25.684602+00:00",
+    "baselinePairs": 602,
+    "catalogIdentities": 1239,
+    "targetAdditions": 100,
+    "targetTotal": 702,
+    "targetHidden": 537,
+    "dataChecks": [
+      {
+        "path": "data/dogs/dog-catalog.json",
+        "sha256": "7f6c4c053584a8cdbda0cefaf654fe7d66febf16d6f9a8eab9ca9ae388ebbd13",
+        "liveBytesMatch": true
+      },
+      {
+        "path": "data/dogs/breed-profiles.json",
+        "sha256": "d23572cf262a19dbf0e4cbe16e5c948ae0355dc85012e48ecf72a89590f287c7",
+        "liveBytesMatch": true
+      },
+      {
+        "path": "data/dogs/generated-artwork.json",
+        "sha256": "e169d70f667a1dca6b0770819f4c7443490098dfa65cc20e19fa252ae573e55c",
+        "liveBytesMatch": true
+      }
+    ],
+    "primaryRequested": {
+      "model": "gpt-6-astra",
+      "reasoningEffort": "high",
+      "permissionMode": "Full access"
+    },
+    "primaryRuntime": {
+      "model": "undisclosed",
+      "effort": "undisclosed",
+      "sandboxMode": "danger-full-access",
+      "approvalPolicy": "never",
+      "networkAccess": "enabled"
+    },
+    "authorizationPromptSha256": "1c880bcb9ceaa6aa1b166e09d7457e5d6d5c158afe5fcdaa7f5213259fee833f"
+  },
+  "targetAdditionalPairs": 100,
+  "tranches": [],
+  "amendments": [],
+  "entries": {},
+  "integrationBatches": [],
+  "publications": [],
+  "progress": {
+    "qualified": 1,
+    "generationCalls": 0,
+    "accepted": 0,
+    "integrated": 0,
+    "published": 0
+  },
+  "auditAllocation": {
+    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-allocation-001.json",
+    "sha256": "dea9218673f0697c11cd365348ef3ddb387c28a804a878a86166f1415b1ccafd"
+  },
+  "frozenPriorFiles": [
+    {
+      "path": "/Users/danbretl/src/stackrank/data/dogs/portrait-cohort-j.json",
+      "sha256": "08a2145cfd174bb61af4b21d4f6cde46eb4bbdcfdc813d774c04db83df887cfd"
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/data/dogs/portrait-cohort-k.json",
+      "sha256": "6c3f05cb021d36165479f22ec565f85af89811a9d1f5ce79adb0da83381a3667"
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/data/dogs/portrait-cohort-k-stop.json",
+      "sha256": "ed5fc234871ba8adcb10e7d414095db377eef1961f525dbc5f22e5e335e42e60"
+    }
+  ],
+  "qualificationReceipts": [
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/qualified-poodle-001.json",
+      "sha256": "518d9f162baeeee48428cdb6c7477f73f6fa790ece9eb897a6f1deebc8bda2e0",
+      "bytes": 2527,
+      "catalogId": "VBO:0201055",
+      "generationAuthorized": false
+    }
+  ]
+}

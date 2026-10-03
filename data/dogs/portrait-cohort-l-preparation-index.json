@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "cohortId": "dogs-portraits-l",
+  "status": "qualifying-first-tranche",
+  "baseline": {
+    "publishedPairs": 602,
+    "catalogIdentities": 1239,
+    "targetPublishedPairs": 702,
+    "targetHidden": 537
+  },
+  "registryPath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/operational-registry.json",
+  "packetValidatorPath": "/Users/danbretl/src/stackrank/scripts/dog-portrait-packet.py",
+  "workers": [
+    {
+      "worker": "A",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "taskName": "/root/l_worker_a",
+      "fullAccessVerified": true
+    },
+    {
+      "worker": "B",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "taskName": "/root/l_worker_b",
+      "fullAccessVerified": true
+    },
+    {
+      "worker": "C",
+      "model": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "taskName": "/root/l_worker_c",
+      "fullAccessVerified": true
+    }
+  ],
+  "actualRuntimeModel": "undisclosed",
+  "primaryRequestedModel": "gpt-6-astra",
+  "primaryRequestedEffort": "high",
+  "generationCalls": 0,
+  "acceptedPairs": 0,
+  "publishedPairs": 0,
+  "offMachineBackupVerified": false,
+  "qualifiedPackets": 1,
+  "screeningAmendments": [
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-001.json",
+      "sha256": "e3a08d8a01926a3bb2e518aab1b43220590e3b600eeee7888133063462e03e56",
+      "bytes": 764
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-002.json",
+      "sha256": "2402ab8cb8dd809b9c6e23d4142eaaf478fbda47595cb3d5e5861e30dfbe1b3a",
+      "bytes": 631
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-003.json",
+      "sha256": "6cafd53ab3d76f24a91bde987bbc80d0994c303fc139accd8648024d07043073",
+      "bytes": 787
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-004.json",
+      "sha256": "25543de8dd6e598add40a91ad32394d072b1200bf311d02ba80ff2c2f9768380",
+      "bytes": 746
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-005.json",
+      "sha256": "f1379b219708699eebc053abad4f8b7cb5a49abbb42f5059476a5ad611b1c875",
+      "bytes": 726
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/audit-amendment-006.json",
+      "sha256": "3e9f6184f24b5b171da648ff61d064ac215b8103c252e1abcb546f4a023b6473",
+      "bytes": 1019
+    }
+  ],
+  "updatedAt": "2026-10-03T07:17:54.970015+00:00",
+  "supportVerification": {
+    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/setup-verification-001.json",
+    "sha256": "b58f41af0424975d6e83d04dc87133819f66f0e3c9bd99248de2842d42393191",
+    "bytes": 884
+  }
+}

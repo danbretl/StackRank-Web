@@ -1,3 +1,5 @@
+import { validDogResearchUrl } from '../lib/dog-research-url.js';
+
 const cleanText = (value) => String(value || "").trim().replace(/\s+/g, " ");
 
 export const normalizeProfileName = (value) => cleanText(value)
@@ -164,8 +166,7 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, ref
       if (writtenProfiles.has(id)) throw new Error(`Duplicate written profile: ${id}`);
       if (!Array.isArray(profile.sources) || !profile.sources.length || profile.sources.some((source) => {
         try {
-          const url = new URL(source.url);
-          return url.protocol !== "https:" || !!url.username || !!url.password || !cleanText(source.title) || !cleanText(source.evidence);
+          return !validDogResearchUrl(source.url) || !cleanText(source.title) || !cleanText(source.evidence);
         } catch { return true; }
       })) throw new Error(`Refreshed profile needs traceable sources: ${id}`);
       writtenProfiles.set(id, { ...profile, reviewedAt: refresh.reviewedAt });

@@ -6,6 +6,8 @@ from pathlib import Path
 
 SOURCE_POLICY = 'dogs-reference-research-2026-10-03.1'
 SOURCE_AUTH_SHA256 = '9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e'
+# Exact legacy factual-source URL; never a TLS bypass or image-input grant.
+LEGACY_TANG_STANDARD = 'http://old.cku.org.cn/nativedog/tangdog.html'
 
 
 def validate_source_authorization(item):
@@ -93,8 +95,8 @@ def validate(packet, catalog, published, peer=None):
         if not sources or profile.get('sources') != [{k:s[k] for k in ('title','url','evidence')} for s in sources]:
             raise ValueError('Full profile and primary claim evidence must agree')
         for source in sources:
-            if not source['url'].startswith('https://') or not source['evidence'] or not source.get('sourceRole'):
-                raise ValueError('HTTPS primary claim/source-role evidence required')
+            if not (source['url'].startswith('https://') or source['url'] == LEGACY_TANG_STANDARD) or not source['evidence'] or not source.get('sourceRole'):
+                raise ValueError('HTTPS or exact reviewed legacy primary claim/source-role evidence required')
             binding(source['snapshot']); binding(source['text'])
         for k in ('morphologyBrief', 'scene', 'sceneRationale', 'identityRationale'):
             if not isinstance(e.get(k), str) or not e[k].strip():

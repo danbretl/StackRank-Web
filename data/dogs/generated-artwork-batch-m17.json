@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-m17",
+  "cohortId": "dogs-portraits-m",
+  "selectionSha256": "0d80ba77358394826455e491f99f3eab04134f17b657acf0881e650421722ff7",
+  "reviewedAt": "2026-10-04",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-m/contact-sheet-release-003-first-four.jpg",
+    "contactSheetSha256": "fc87544c9cb2f7712f062cbd291a81af2727d99cafcf3344f79b581080f90d2f",
+    "acceptedCount": 1,
+    "reviewedAt": "2026-10-04T16:49:19.562965+00:00",
+    "notes": "Root personally viewed whole four-image contact sheet at original detail, supplementing each whole-native review. Koyun, Cantabrian Water Dog, Pekepoo and Liangshan retain distinct mature silhouettes and fur, complete grounded paws and complete attached natural tails; original garden/coastal/mountain settings differ from source scenes. Both geographic mountain settings remain breed appropriate with different silhouettes, light and compositions. No duplicate identity or close photo recreation; one Cantabrian identity only despite catalog alias."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0200993",
+      "name": "Pekepoo",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "d254594a8d44839ca3882e03756dfa403d96eb43b304e8e9189b7a64b57a5d29",
+        "imageInputs": [],
+        "sourcePage": "https://carolinapoodlerescue.org/animal-detail/?AnimalID=21089332"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-m/worker-a/M-0200993-01.png",
+      "masterSha256": "7d2e5e4da5eec0fa0a67c0cb9bcd02980ade727dcc45ff2035dcb393350620bc",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10614-e1f8-74b1-8d32-f87f64a95a7d/exec-b9ff9c79-3f32-4bfd-a8c3-0e8e8f9770e3.png",
+      "originalOutputSha256": "7d2e5e4da5eec0fa0a67c0cb9bcd02980ade727dcc45ff2035dcb393350620bc",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+      "attemptId": "M-0200993-01",
+      "startedAt": "2026-10-04T16:40:13Z",
+      "generatedAt": "2026-10-04T16:40:34Z",
+      "timeEvidence": "Actual worker tool boundary observations; underlying service timing/model undisclosed.",
+      "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one original1536×1024 landscape portrait of one mature adult Pekepoo, also spelled Peekapoo, exactcatalogVBO:0200993, a Pekingese–Poodle cross. Text-only generation; no image inputs. Independently researched own cross morphology: One anonymous mature small adult Pekepoo, also spelled Peekapoo, a Pekingese–Poodle cross descendant around13lb visual scale from documented adults. Developed sturdy mildly elongated compact body, moderate chest depth, short but normal functional proportionate legs with ordinary coherent joints and small rounded hair-covered paws. Soft rounded substantial head, short broad muzzle with visible projection in profile and open normal nostrils; black nose, ordinary moderate eyes without bulging. Natural intact hanging ears with soft wave hair, no crop. Soft medium-length wavy pale-cream coat with modest original lightgold shading on ears/back, hair trimmed enough to see legs and feet, no oversized coat hiding anatomy. Complete natural long fringed tail rises from attached rump and curves loosely above back, identifiable free plume end separate from body/legs, never docked or a fused furball. One documented cross phenotype, not a fixed breed standard and no inheritance of parental anatomy asserted. Own adult Morrie snow view establishes natural full tail; playing and recumbent views plus adult Willow establish developed small body/head/forefeet and rear courses with overlap limits. No precise rear joint measurements or fine toe counts inferred; use ordinary functional canine leg anatomy in a new standing pose. Show one relaxed anonymous adult standing left-facing in three-quarter view, head gently turned toward viewer, closedmouth and quiet expression. All four distinct grounded paws with coherent leg courses/joints, normal weight/contact shadows. Wholehead, both natural ears, body, fourlegs/paws and entireattached natural fulltail with separated freeendpoint inside generous crop-safe margins. Setting: A clear flat fine-gravel garden path with low distant flowering shrubs and soft green lawn beyond, diffuse morning light. Plain firm ground unobstructed at all four paws. Natural documentary realism, restrained cream/earth/green colors, tactile soft wavycoat, gentlyseparated background. Fresh individual, standingpose, camera, lighting and markings. Do not reproduce Morrie or Willow, couch/ottoman pose, toy, patternedblanket, snow/jacket, windowdecorations, group/handler arrangements or sourceexpression. No collar, leash, people, otheranimals, equipment, text, logos, watermark, dockedtail, croppedears, exaggeratedflatface, bulgingeyes, juvenile proportions, extra limbs or malformed anatomy.\n",
+      "promptSha256": "58e21235509c07ab2fbff0bad8f4d140f04ccad891dcda81bb09ca7e88e5652c",
+      "scene": "A clear flat fine-gravel garden path with low distant flowering shrubs and soft green lawn beyond, diffuse morning light. Plain firm ground unobstructed at all four paws.",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "reviewedBy": "primary orchestrator with independent worker",
+        "reviewedAt": "2026-10-04",
+        "breedIdentity": "Mature small compact sturdy Pekepoo cross with lightly elongated trunk, natural soft hairy drop ears, visibly projecting short broad muzzle and ordinary eyes/open nostrils, cream-gold wavy coat consistent with ownadult evidence.",
+        "anatomy": "Four coherent complete grounded paws, normal short functional legs and joints, full attached high-curving long fringed tail with visible separate terminal plume; no fused tailball or extra appendage.",
+        "crop": "Whole untouched1536x1024 native viewed at original detail. Modest60–80px top/paw margins but entire coat/extremities safely complete, no crop/reframe or speculative retry.",
+        "aesthetics": "Relaxed anonymous adult on original garden gravel path with softly varied flowering shrubs, credible fur/contact/light; no source couch, jacket, toys or identifiable individual arrangement.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-m/contact-sheet-release-003-first-four.jpg",
+        "contactSheetSha256": "fc87544c9cb2f7712f062cbd291a81af2727d99cafcf3344f79b581080f90d2f",
+        "contactSheetReviewedAt": "2026-10-04T16:49:19.181552+00:00",
+        "contactSheetNotes": "Root personally viewed whole four-image contact sheet at original detail, supplementing each whole-native review. Koyun, Cantabrian Water Dog, Pekepoo and Liangshan retain distinct mature silhouettes and fur, complete grounded paws and complete attached natural tails; original garden/coastal/mountain settings differ from source scenes. Both geographic mountain settings remain breed appropriate with different silhouettes, light and compositions. No duplicate identity or close photo recreation; one Cantabrian identity only despite catalog alias."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/research-dossier-0200993-text-only-002.json",
+          "sha256": "d254594a8d44839ca3882e03756dfa403d96eb43b304e8e9189b7a64b57a5d29",
+          "bytes": 18178
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://carolinapoodlerescue.org/animal-detail/?AnimalID=21089332",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/8ca4e056a330cbb21972e5cee339b092124ab502a7bdf3afcf762a16e5486ebc.json",
+        "rootApprovalSha256": "8ca4e056a330cbb21972e5cee339b092124ab502a7bdf3afcf762a16e5486ebc",
+        "primaryReviewedAt": "2026-10-04T16:39:17.838360+00:00",
+        "visualReview": "Root personally read complete actual Willow and Morrie original rescue biographies including anxiety, nipping/bites/conflicts, literal Pekingese/Poodle labels and historical adult ages. Read final370/109copy accurately scoped named adult observations, no breedwide safety or personality guarantees; independentB002 confirms. Personally whole browser-viewed Morrie-snow, Pika-and-Morrie and Morrie-playing: small mature creamwavy developed body, natural dropears, short projecting muzzle, own full raised curved furnishedtail with visible freefringe; complementary recumbent body/rearleg courses, ordinary centralleg overlap and snow/jacket/finepaw limits preserved. Playing view actual bothforefeet planted/reartailcrop, full stance unknown; rootrequested immutable002 correction exactly verified, finalcopy/prompt/source unchanged. Combined ownadult evidence sufficient for new ordinary standing stance without parent anatomy transfer or claiming full unobstructed source. Exact2761byte textonlyprompt independently composed gardenpath/plainstance distinctfrom namedsource couch/snow/toy/group arrangement. No source image inputs or acquired standalone original, research display/public/raster purposes denied.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "summary": "Affectionate close company and toy play recur in adult rescue accounts of the Pekepoo, a Pekingese–Poodle cross. Willow greets familiar people with stuffed animals, chases squirrels and barks at deliveries. Morrie enjoys walks, toys and couch time beside his person. Both accounts also describe anxiety and strong reactions around particular people, dogs or possessions.",
+        "summarySha256": "bacc3f9550e54516a0ded797ff5707902e69b87a7b66968cb088873825f24c10",
+        "shortDescription": "A Pekingese–Poodle cross whose adult rescue accounts describe close company, toy play and watchful reactions.",
+        "shortDescriptionSha256": "a3ec78c78a682a144a831d645182da9af29b1a7b2db5b6a408c386f21a9cd86a",
+        "author": "M worker A",
+        "reviewer": "M worker B and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/packet-peke-text-only-002.json",
+        "sourcePathSha256": "e33f1e7683fa4f71b5a374f3db2a9fc6f80a7f263afa47faa866394c51a7ee36",
+        "sourceSnapshots": [
+          {
+            "title": "Carolina Poodle Rescue — adult Peekapoo Willow, firsthand sanctuary account",
+            "url": "https://carolinapoodlerescue.org/animal-detail/?AnimalID=21089332",
+            "sourceRole": "Original rescue organization’s firsthand assessment of its own explicitly identified adult Pekingese–Poodle cross.",
+            "evidence": "Entire actual biography and AboutMe personally read. Own adult Willow literal Pekingnese/Poodle Mix, estimatedDOB1December2018, six-year-old biography,12.5lb12in as own measurements. Closehuman company/bellyrubs; greetings carrying stuffed animals and expecting praise; squirrels chase and barking at delivery people/watchful house. Actual separation anxiety, nipping claimed areas/possessions and food-related strong reactions also read; no alpha/dominance doctrine, universal friendliness, child/other-animal safety, suitability or treatment advice transferred to breed. Six is source biography age, not current2026 exactage or photo timestamp.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/peke-carolina-willow-001.html",
+              "sha256": "db37031c9584ef6badda4e2b3b8661672d4f273d9ef26679c3a257f72cfaaf34",
+              "bytes": 57961
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/peke-carolina-willow-001.txt",
+              "sha256": "bb718c55b5367e96350fbe080b41186d4e299e82162dae94d1f607b7cdd7af40",
+              "bytes": 4391
+            },
+            "acquisitionDisclosure": "Fresh verified-TLS HTTP200 HTML/full UTF8 body retained and actual complete substantive account personally read. Actual whole gallery images viewed in Chrome only; no standalone photo original downloaded, no pixel-input rights asserted."
+          },
+          {
+            "title": "Gingerbread House Sanctuary & Rescue — adult Peekapoo Morrie, firsthand foster account",
+            "url": "https://gingerbreaddogs.org/pup/morrie/",
+            "sourceRole": "Original rescue organization’s firsthand assessment of its own explicitly identified adult Pekingese–Poodle cross.",
+            "evidence": "Entire actual account/tag/footer personally read. LiteralPEKINGESE/TOYPOODLE MIX male12+years13lb, enjoys toys/walks/couch with his person. Actual prior and foster bite/conflict history/anxiety and reported behaviorist work also read; scope remains particular individual, no assumption all crosses friendly or dangerous. All gallery photographs actualnamedMorrie source. Dates2021path identify storage folder, not independently certified photo date or present currentage. No medical/suitability/training advice adopted.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/peke-ginger-morrie-001.html",
+              "sha256": "669a2a5598587ac349a46b3a00084789255bcf0d6b3eab755d417c9fcbd306ae",
+              "bytes": 75851
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/peke-ginger-morrie-001.txt",
+              "sha256": "3f159dd4972c145cb2c9eb2ea5b6b28c66311428fd5c74f5294a34a093922d8e",
+              "bytes": 2450
+            },
+            "acquisitionDisclosure": "Fresh verified-TLS HTTP200 HTML/full UTF8 body retained and actual complete substantive account personally read. Actual whole gallery images viewed in Chrome only; no standalone photo original downloaded, no pixel-input rights asserted."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-04T16:39:17.838360+00:00"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    }
+  ]
+}

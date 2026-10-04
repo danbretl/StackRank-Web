@@ -49,11 +49,16 @@ test("Dog profile references expose only that breed's safe attributed sources", 
     { id: "other-breed", kind: "breed-reference", name: "Other breed", url: "https://example.test/other" },
     { id: "script", kind: "breed-reference", name: "Unsafe", url: "javascript:alert(1)" },
     { id: "credentials", kind: "breed-reference", name: "Private", url: "https://user:password@example.test" },
+    { id: "tang", kind: "breed-reference", name: "CKU Tang standard", url: "http://old.cku.org.cn/nativedog/tangdog.html" },
+    { id: "http-other", kind: "breed-reference", name: "Other insecure source", url: "http://example.test/standard" },
   ];
   assert.deepEqual(dogProfileSourceLinks({ sourceIds: ["standard", "script", "credentials"] }, sources), [
     { title: "Official standard", url: "https://example.test/standard.pdf" },
   ]);
   assert.deepEqual(dogProfileSourceLinks(null, sources), []);
+  assert.deepEqual(dogProfileSourceLinks({ sourceIds: ["tang", "http-other"] }, sources), [
+    { title: "CKU Tang standard", url: "http://old.cku.org.cn/nativedog/tangdog.html" },
+  ]);
 });
 
 test("Dog profiles normalize sourced field-guide copy and compact display chips", () => {

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import fs from "node:fs/promises";
+import { validDogResearchUrl } from '../lib/dog-research-url.js';
 
 const readJson = async (path) => JSON.parse(await fs.readFile(new URL(`../${path}`, import.meta.url), "utf8"));
 const [catalog, artifact, artwork] = await Promise.all([
@@ -26,8 +27,8 @@ for (const source of artifact.sources || []) {
   if (source.kind !== undefined && source.kind !== "breed-reference") errors.push(`${source.id}: invalid source kind`);
   try {
     const url = new URL(source.url);
-    const allowed = source.kind === "breed-reference" ? ["https:"] : ["http:", "https:"];
-    if (!allowed.includes(url.protocol) || url.username || url.password) errors.push(`${source.id}: invalid source URL`);
+    const valid = source.kind === "breed-reference" ? validDogResearchUrl(source.url) : ["http:", "https:"].includes(url.protocol);
+    if (!valid || url.username || url.password) errors.push(`${source.id}: invalid source URL`);
   } catch { errors.push(`${source.id}: invalid source URL`); }
 }
 expected.forEach((id) => { if (!actual.has(id)) errors.push(`Missing profile: ${id}`); });

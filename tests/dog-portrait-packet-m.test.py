@@ -28,6 +28,16 @@ class PacketTests(unittest.TestCase):
     def tearDown(self): self.temp.cleanup()
     def test_valid_packet_does_not_imply_human_approval(self):
         result=m.validate(self.packet,self.catalog,set());self.assertTrue(result['humanRootSourceVisualRightsPromptApprovalStillRequired']);self.assertFalse(result['independentPeerVerified'])
+    def test_legacy_primary_source_exception_is_exact_and_still_requires_evidence(self):
+        e=self.packet['entries'][0]
+        for url, allowed in [(m.LEGACY_TANG_STANDARD, True), (m.LEGACY_TANG_STANDARD+'?other', False), ('http://example.org/standard', False)]:
+            e['primarySources'][0]['url']=url;e['profile']['sources'][0]['url']=url
+            if allowed: self.assertTrue(m.validate(self.packet,self.catalog,set())['valid'])
+            else:
+                with self.assertRaisesRegex(ValueError,'primary claim/source-role'):m.validate(self.packet,self.catalog,set())
+        e['primarySources'][0]['url']=m.LEGACY_TANG_STANDARD;e['profile']['sources'][0]['url']=m.LEGACY_TANG_STANDARD
+        e['primarySources'][0]['sourceRole']=''
+        with self.assertRaisesRegex(ValueError,'source-role'):m.validate(self.packet,self.catalog,set())
     def test_changed_source_or_text_rejected(self):
         bad=copy.deepcopy(self.packet);bad['entries'][0]['profile']['summary']+=' New claim.'
         with self.assertRaisesRegex(ValueError,'length/hash'):m.validate(bad,self.catalog,set())

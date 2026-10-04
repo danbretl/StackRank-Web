@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-m16",
+  "cohortId": "dogs-portraits-m",
+  "selectionSha256": "41c1affc99395ffcb5c18c34d2a4bc237eab6d0e9109f53fd1eddd7e3e3ee010",
+  "reviewedAt": "2026-10-04",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-m/contact-sheet-release-003-first-four.jpg",
+    "contactSheetSha256": "fc87544c9cb2f7712f062cbd291a81af2727d99cafcf3344f79b581080f90d2f",
+    "acceptedCount": 1,
+    "reviewedAt": "2026-10-04T16:49:19.411660+00:00",
+    "notes": "Root personally viewed whole four-image contact sheet at original detail, supplementing each whole-native review. Koyun, Cantabrian Water Dog, Pekepoo and Liangshan retain distinct mature silhouettes and fur, complete grounded paws and complete attached natural tails; original garden/coastal/mountain settings differ from source scenes. Both geographic mountain settings remain breed appropriate with different silhouettes, light and compositions. No duplicate identity or close photo recreation; one Cantabrian identity only despite catalog alias."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0200283",
+      "name": "Cantabrian Water Dog",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "e8a3eb3bd8e5f0d9ddfa0c52a67436eedcd77908ef083cc94a9aa06a0c17df5d",
+        "imageInputs": [],
+        "sourcePage": "https://www.perroaguacantabrico.es/est%C3%A1ndar/"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-m/worker-c/M-0200283-01.png",
+      "masterSha256": "481a46ae9c4b4566eaacc2494b549e5554b9b874ab8505d5c2efd7a8366be290",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10615-873b-7b13-bb62-47091c4191c4/exec-3bf20153-4272-4a8f-9d99-a85dde21716c.png",
+      "originalOutputSha256": "481a46ae9c4b4566eaacc2494b549e5554b9b874ab8505d5c2efd7a8366be290",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+      "attemptId": "M-0200283-01",
+      "startedAt": "2026-10-04T16:36:47.554Z",
+      "generatedAt": "2026-10-04T16:37:15.319Z",
+      "timeEvidence": "Actual worker tool boundary observations; underlying service timing/model undisclosed.",
+      "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one original1536×1024 landscape portrait of one mature adult Cantabrian Water Dog, exact catalog VBO:0200283. Text-only generation; no image inputs. Independently researched morphology: One mature adult Cantabrian Water Dog, exact northern Spanish maritime population, not the separately published Spanish Water Dog. Small-to-medium athletic muscular body slightly longer than tall, at most about10% longer, functional moderate-length strong legs. Head proportional rather than massive, lightly domed skull, slight stop, ordinary projecting gently tapering muzzle and tight dark lips; avoid extreme short muzzle, poodle needle face or heavy Lagotto head. Medium oval slightly oblique dark-brown eyes with dark rims, developed black nose. Natural high-set modest-length hairy ears relaxed down alongside upper cheeks, not long pendulous hound ears or cropped ears; can raise partway when active. Medium neck without dewlap, firm straight topline, strong loin, rounded slightly sloping croup, deep chest approximately to elbows, moderate abdominal rise. Straight parallel strong forelegs with close elbows and firm nearly upright pasterns; muscular balanced hindquarters with coherent stifles/hocks. Four slightly elongated compact paws with arched close toes and pale claws, aligned straight; no exaggerated webbing displayed. Dense tight white curls across body, head and ears with abundant undercoat, kept short enough for coherent limbs and visible eyes. Complete natural medium-set curly tail, relaxed low to hocks, bent gently at its middle and fully visible separate free endpoint; no dock, bob, tight overback ring or fusion with rear leg. Select solid white and black nose/rims, no copied source markings. Show one relaxed anonymous adult standing right-facing in three-quarter view, head gently toward viewer, closed mouth. Four distinct grounded paws with coherent legs and joints, believable weight and contact shadows. Entire head, natural ears, body, all four legs/paws and full attached natural tail with separate free endpoint must be visible. Keep dog smaller in frame with at least140px above highest ear and130px below lowest paw, generous side margins. Setting: A firm clear sandy-gravel path above a quiet Cantabrian harbor inlet, distant grey northern Spanish headland and blue-green water, soft cool overcast daylight; no boats or harbor hardware near the dog. Natural documentary realism, restrained marine and earth colors, detailed curly white coat, softly separated background. Fresh pose, individual, camera and background, no researched show dog reproduction. Do not copy a show ring, handler legs, chairs, pavement, blue bandana, collar or leash. No people, collar, leash, other animals, boats, buildings, vehicles, text, logos, watermark, cropped ears, docked tail, extra limbs or malformed paws.\n",
+      "promptSha256": "05b2405a6e37f211096f18ded5d0a764a4077f5bad174f27cc1c2b4b487e07eb",
+      "scene": "A firm clear sandy-gravel path above a quiet Cantabrian harbor inlet, distant grey northern Spanish headland and blue-green water, soft cool overcast daylight; no boats or harbor hardware near the dog.",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "reviewedBy": "primary orchestrator with independent worker",
+        "reviewedAt": "2026-10-04",
+        "breedIdentity": "Mature mildly rectangular athletic Cantabrian water dog, white dense curly coat, projecting moderate muzzle, dark eyes/nose, natural hairy relaxed down ears. Functional sturdy water-worker form supported by standard and own adults.",
+        "anatomy": "Four distinct full grounded paws and coherent joints/legs, full medium-set low curly tail reaches hock area with gentle terminal bend and separate free end. Natural coat and stance, no malformed or cropped anatomy.",
+        "crop": "Whole untouched1536x1024 native personally viewed at original detail. All extremities safely framed, paw margin128px close to requested130 with no defect or reason for retry.",
+        "aesthetics": "Original cool Cantabrian sea inlet path and anonymous rightward dog pose, realistic curls/contact, no show equipment or copied source arrangement.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-m/contact-sheet-release-003-first-four.jpg",
+        "contactSheetSha256": "fc87544c9cb2f7712f062cbd291a81af2727d99cafcf3344f79b581080f90d2f",
+        "contactSheetReviewedAt": "2026-10-04T16:49:19.181552+00:00",
+        "contactSheetNotes": "Root personally viewed whole four-image contact sheet at original detail, supplementing each whole-native review. Koyun, Cantabrian Water Dog, Pekepoo and Liangshan retain distinct mature silhouettes and fur, complete grounded paws and complete attached natural tails; original garden/coastal/mountain settings differ from source scenes. Both geographic mountain settings remain breed appropriate with different silhouettes, light and compositions. No duplicate identity or close photo recreation; one Cantabrian identity only despite catalog alias."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/research-dossier-0200283-text-only-001.json",
+          "sha256": "e8a3eb3bd8e5f0d9ddfa0c52a67436eedcd77908ef083cc94a9aa06a0c17df5d",
+          "bytes": 11604
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.perroaguacantabrico.es/est%C3%A1ndar/",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/04fe286866affa42a8d39f141b448642b2557ddfe6a013767cf233192dc3d78f.json",
+        "rootApprovalSha256": "04fe286866affa42a8d39f141b448642b2557ddfe6a013767cf233192dc3d78f",
+        "primaryReviewedAt": "2026-10-04T16:36:01.928759+00:00",
+        "visualReview": "Root personally read entire actual association standard and original Mendez2011 study through conclusion/reference, final372/123 fullshort and exact prompt, independentApeer and catalogidentity screen. Whole-viewed four bound gallery screenshots002–005: selected complete female/male adults show developed moderately rectangular muscular body, natural modest hanging ears, projecting muzzle, white curls, coherent four limbs/paws and full raised hooked tails. Source photos partial surrounding neighbors not used; age/name/pedigree unknown. Literal rest-tail clause supplies complete hock-length low tail and midbend for relaxed new stance; face/skull ratio contradiction disclosed, no rigid muzzle metric imposed. Cheerful active eager character and fishretrieval/mooring/vesselwatch supported by own association text; sampled differentiation from publishedSpanishWaterDog supported by original2011, no current census/exclusive ancestry claims. Root chooses currently allocated0200283 as ONE Cantabrian population;0008028 is semantic duplicate and will not count or generate. Earlier E/J source photo holds remain unchanged; newly adjudicated current association research textonly, no inputs or source display/public/raster purposes. Original anonymous harborpath/rightwardpose excludes show handlers/equipment and copiedindividual.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "summary": "Cheerful, quick to learn and eager for work, the Cantabrian Water Dog may look composed at rest but becomes lively on the job. On Spain’s northern coast, it helped fishermen recover fallen fish, carry mooring lines between boats and shore, and watch tied-up vessels. Swimming and diving are central to its working tradition; its dense curly coat has an abundant undercoat.",
+        "summarySha256": "96f39a69325972d12b379af10181fe1bd186eeaf49b52792999edbf7509117b9",
+        "shortDescription": "A cheerful, eager water worker from Spain’s northern ports, with a tradition of retrieving fish and carrying mooring lines.",
+        "shortDescriptionSha256": "7d0098b67e714252eaf5b78931695809e85d9c7c965e120ea174ce6b8ecc7a8a",
+        "author": "M worker C",
+        "reviewer": "M worker A and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/packet-cantabrian-text-only-002.json",
+        "sourcePathSha256": "ab22e9bbe3ac0fdfeef3b484ed8b665b4efcec28ca0a35534dd184b7be56231b",
+        "sourceSnapshots": [
+          {
+            "title": "Cantabrian Water Dog association — complete breed standard",
+            "url": "https://www.perroaguacantabrico.es/est%C3%A1ndar/",
+            "sourceRole": "Maintained exact-population association publishes its normative standard, character and maritime work history.",
+            "evidence": "Personally read whole actual standard body: intelligent, active, cheerful, high learning capacity; calm-looking at rest and very active at work, willingness and enjoyment of water. Historical fishermen recovered fallen fish, guarded moored boats and carried lines between boats or shore; swimming/diving stated. Complete head/ear/body/limb/paw/white curly coat clauses and medium-set full tail hanging to hocks at rest with middle bend, no tailless dogs.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/cantabrian-standard-current-001.html",
+              "sha256": "69618ec044d5bc033df1d4fcbfa411abf9af2c754bef38257928b11b0f19a4a6",
+              "bytes": 51061
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/cantabrian-standard-current-001.txt",
+              "sha256": "d8939aa31b28877104ed849960e24d4fe7dc73c8c0322631e447534caacd5255",
+              "bytes": 9419
+            },
+            "acquisitionDisclosure": "Fresh direct HTTP200 HTML and full extraction personally read; association normative ideal, not prevalence or individual temperament prediction. No national/FCI recognition, modern rescue safety or lifesaving outcome asserted."
+          },
+          {
+            "title": "Méndez and colleagues — Characterization of the Cantabric Water Dog (2011)",
+            "url": "https://scielo.isciii.es/scielo.php?lng=pt&nrm=iso&pid=S0004-05922011000300022&script=sci_arttext",
+            "sourceRole": "Original university/regional-agriculture researchers sampled exact population and related water dogs.",
+            "evidence": "Personally read complete actual article through references. Twenty-one Cantabrian samples and108 comparison samples/21microsatellites distinguish sampled population from nearby water dog breeds including published Spanish Water Dog. Introduces fishing work, declining boat use and numerous port companions as of2011,2009 regional register1216. Historical counts not current census; genetic analysis does not prove temperament, exclusive ancestry or every individual pedigree.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/cantabrian-original-study-current-001.html",
+              "sha256": "8f5159a3cdb3d9485f0eb937d14d6232abf9c0c58d42455c12f48fa0bf3eb6ae",
+              "bytes": 30707
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/cantabrian-original-study-current-001.txt",
+              "sha256": "c5089d57b08b92cbb4b0bc6c720b62e0e05a5ad5e0d57c1f78a368cc0ea5f45a",
+              "bytes": 10080
+            },
+            "acquisitionDisclosure": "Fresh direct HTTP200 full HTML/body read, scholarly article original field/genetic authors. No claim to present2026 census or behavioral genetics."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-04T16:36:01.928759+00:00"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    }
+  ]
+}

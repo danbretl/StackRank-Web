@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "manifestVersion": "dogs-generated-artwork-707-adf71dbe01ac",
+  "manifestVersion": "dogs-generated-artwork-717-618f173934c9",
   "policyVersion": "dogs-generated-artwork-2026-10-03.1",
   "disclosure": "AI-generated breed portrait, art-directed for StackRank. Individual dogs vary.",
   "assets": [
@@ -653,6 +653,102 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0008031:v1",
+      "catalogId": "VBO:0008031",
+      "name": "Podenco Galego",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+      "generatedAt": "2026-10-04T09:41:02Z",
+      "masterSha256": "22f1f8b1fda30764a47f97fdfaaa2576a90f1bf7d29e9689b9c35f5d2f4fc443",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "68ba14f83a0293e4199985a027761db35b0b5d496bcbcfe50ff26e767168d55e",
+        "imageInputs": [],
+        "sourcePage": "https://mediorural.xunta.gal/gl/temas/gandaria/razas-autoctonas/canina/podengo-galego"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-04",
+        "breedIdentity": "Mature light rectangular Galician Podenco with wedge-shaped head, erect triangular ears, developed long limbs and semishort cinnamon/white coat; proportion and naturaltype consistent with own regional official photograph/standard.",
+        "anatomy": "Four complete coherent grounded paws, intact normal legs/joints and face, full attached natural tail with visible white free endpoint, gently lowered at rest. No extra/fused anatomy.",
+        "crop": "Whole untouched1536x1024 native personally viewed at originaldetail; ears/paws/tail entirely framed with margins. No crop/reframing.",
+        "aesthetics": "Characterful quietly alert portrait on distinct Galician heath path, earthy subdued palette, realistic fur/contact. New markings/pose/background rather than source rockpedestal."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 22340,
+          "sha256": "300001f8131bfd867a03e7e41cd543f59289f491fed49c12b42481f6b1c01fd3",
+          "url": "assets/dogs/generated/M-0008031-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 140576,
+          "sha256": "999b2c892dd96bda16559f5723fc9a87dd8e98efd5d4a0c8f4d0e8b0c2a3c06f",
+          "url": "assets/dogs/generated/M-0008031-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0008032:v1",
+      "catalogId": "VBO:0008032",
+      "name": "Podenco Paternino",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+      "generatedAt": "2026-10-04T09:50:48Z",
+      "masterSha256": "6cbd6424ba1b590c3b57dcdb2a40865aea35c2f83e88efb502374aeaa9a8bc11",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "62fdae5ea31a04c041a2fdc4f4534a3c3e464dad92a4fb393b8d62f498f764a0",
+        "imageInputs": [],
+        "sourcePage": "https://www.club-caza.com/files/pdf/34520170408podenco_paternino.pdf"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-04",
+        "breedIdentity": "Mature medium strong slightly elongated Paternino with robust chest, substantial tapered blunt muzzle, brown eyes and natural folded triangular ears. Close mostlyivory coat with subtle cinnamon shading and developed muscular limbs; literal regionalstudy type rather than giant erect-eared Podenco.",
+        "anatomy": "Four distinct grounded paws, coherent normal limbs/joints, full attached medium natural saber-curved tail to hock extent with free endpoint and safe spacing. No extra or fused anatomy.",
+        "crop": "Whole untouched1536x1024 native personally viewed at originaldetail; all ears/paws/tail enclosed with safe margins, no crop/reframe.",
+        "aesthetics": "Warm clear Huelva dehesa path portrait, original individual/markings/pose and soft natural lighting; no measuredsource dog recreation."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 24290,
+          "sha256": "bbb8c36670db9ba33428a34ff91548d0aca6c7653f1fe68e96c3c2eb50430fbb",
+          "url": "assets/dogs/generated/M-0008032-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 155148,
+          "sha256": "a0c4a50f4481684b5faab33d05950c541d3a5e4be6ed614d99d8ca764ff26e80",
+          "url": "assets/dogs/generated/M-0008032-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0008049:v1",
       "catalogId": "VBO:0008049",
       "name": "Small Međimurje Dog (Međi)",
@@ -829,6 +925,102 @@
           "bytes": 118808,
           "sha256": "aca3b71aedc42b5a2f1177c35595178ea1b8002c3cda29ce6c443383547cd9ce",
           "url": "assets/dogs/generated/VBO-0008066-native-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0008086:v1",
+      "catalogId": "VBO:0008086",
+      "name": "Turkish Greyhound",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+      "generatedAt": "2026-10-04 10:08:51 UTC",
+      "masterSha256": "2ddb0b77a2915768cd4f7d8802a5c6f4e0af0dec13fd8e3858dfe6259d4d41b5",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "138c2a7205248d8efbac242b24241631616b7419c704530246635fa8e4a95ede",
+        "imageInputs": [],
+        "sourcePage": "https://docs.eaap.org/2012/10b_Yilmaz.pdf"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-04",
+        "breedIdentity": "Developed solid dun Turkish Tazi sighthound, deep chest, tucked waist, compact backward-folded rose ears exposing cheeks; agrees with approved exact regional research and targeted correction.",
+        "anatomy": "Four coherent complete grounded paws, plausible joints and muscular limb courses; full attached thin tail with clear free end. No duplicate appendages.",
+        "crop": "Whole untouched 1536x1024 native personally viewed at original detail after recovery. Ears, paws and entire tail safely within frame.",
+        "aesthetics": "Attentive standing three-quarter dog in quiet reed-fringed Anatolian plain; natural coat, light and contact shadows. Independent composition."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 16858,
+          "sha256": "65d90b5a1d311e616e3a9379f93a302f216c84ac4f7d28c8bd839a3aa711fe18",
+          "url": "assets/dogs/generated/M-0008086-03-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 114728,
+          "sha256": "0f1f74aee5c737803da79c5b609ae29e522956c409c4cebcac9e4e075328a6c7",
+          "url": "assets/dogs/generated/M-0008086-03-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0008093:v1",
+      "catalogId": "VBO:0008093",
+      "name": "South African Greyhound",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+      "generatedAt": "2026-10-04 10:00:15 UTC",
+      "masterSha256": "2d0aa87c5d81775dca7030d34c0a765ceb35513231eace6ffd8c4087f241e252",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "77e8f29cd244d7c657c459c7bd75f4eb28ebfc4842e0b9dcdf66e6027a43bef8",
+        "imageInputs": [],
+        "sourcePage": "https://www.petplace.co.za/dejagerboergreyhounds.htm"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-04",
+        "breedIdentity": "Plausible mature SouthAfrican workingcross phenotype, substantial longlegged athletic sighthound trunk/deepchest/tuck, narrow elongated muzzle, compact naturally folded-back ears exposing innerfold, close solidfawncoat.",
+        "anatomy": "Four grounded complete paws and coherent normal legs/elbows/hocks. Fullyattached longslender lowtail with entire freecurve endpoint distinctfrom legs; no extra/fused anatomy.",
+        "crop": "Whole untouched1536x1024 native personally viewed at originaldetail; fullbody/ears/paws/tail safely framed. No crop/reframe.",
+        "aesthetics": "Calm original fawn individual on SouthAfrican earthpath/kopje landscape, subdued naturalcolor/light and convincingweight. Fullbody with generous safe margins."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 18926,
+          "sha256": "4c55185d5bf4833173d755988127ccfe081b09af89318eaf1cae5e8925f50e7b",
+          "url": "assets/dogs/generated/M-0008093-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 131672,
+          "sha256": "6e7a359f2588cfd8745bfa47b57ae777f131c598465e609cfe6650e42dc5ab0e",
+          "url": "assets/dogs/generated/M-0008093-01-960.webp"
         }
       ]
     },
@@ -1597,6 +1789,54 @@
           "bytes": 163386,
           "sha256": "aefed7fd998b25bc41ff44fa799b23e78c6561870e2f1780135f55a909e1071a",
           "url": "assets/dogs/generated/VBO-0200034-american-bulldog-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200035:v1",
+      "catalogId": "VBO:0200035",
+      "name": "American Bullnese",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+      "generatedAt": "2026-10-04T09:33:40.279Z",
+      "masterSha256": "3d0711673d6d61bea2ab3f8a375f6c4468d55e559231fdb6d57d1fe58343744d",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "eca397a5f8f65d636d2a2a3b1db8d7b50778a8bea4e1ee44a1a2baaa57728ef0",
+        "imageInputs": [],
+        "sourcePage": "https://ckcusa.com/breeds/american-bullnese/"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-04",
+        "breedIdentity": "Mature compact cobby American Bullnese, broad developed head and cheek, very short projecting substantial muzzle, natural dropped ears, deep broad chest, short substantial limbs and slightly rectangular cream close-coated body; ordinary eyes, no extreme flattened muzzle.",
+        "anatomy": "Four coherent complete grounded paws, normal joints and weight. Full attached tapering natural hock-length tail with gentle descending curve and distinct free endpoint. No extra/fused anatomy or equipment.",
+        "crop": "Whole untouched1536x1024 native personally viewed at originaldetail. Complete ears/paws/tail with safe margins, no reframing/cropping.",
+        "aesthetics": "Characterful cream companion in new Florida sandy palmetto garden, natural softlight and convincing coat/contact."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 23108,
+          "sha256": "6f91652a9a5f3ea8220aac824d6dcce4780d551876beeef6cbd7d2e8298c4f9b",
+          "url": "assets/dogs/generated/M-0200035-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 135350,
+          "sha256": "1b3ffc8b853479c449dca5bf919231e4ab9ec81845bb359772a1475aeadf83e3",
+          "url": "assets/dogs/generated/M-0200035-01-960.webp"
         }
       ]
     },
@@ -3235,6 +3475,54 @@
           "bytes": 167966,
           "sha256": "94714a61d443fd900479e6dccdd45a3b2b67b7a6a40825cd6ecd7bd7a256380b",
           "url": "assets/dogs/generated/VBO-0200110-bakharwal-dog-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200116:v1",
+      "catalogId": "VBO:0200116",
+      "name": "Banter Bulldogge",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+      "generatedAt": "2026-10-04T09:12:42.276Z",
+      "masterSha256": "de178510773547c32bb3a5fb604c79cce8d8e358d7edac483ccb08d1f5a95d57",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "817e7e20bd29cabf6c03f0b20fd42f2ab27bce0f9fe618f692ab5edd41fbd2ec",
+        "imageInputs": [],
+        "sourcePage": "https://ioeba.net/banter-bulldogge-2.htm"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-04",
+        "breedIdentity": "Mature athletic muscular Banter Bulldogge with functional legs, square broad head, short substantial non-upturned muzzle, moderate brow furrows, deep chest, smooth red coat and small white breast. Natural short folded/drop ears rather than requested rose are equally source-permitted. Body not extreme squat/mastiff.",
+        "anatomy": "Four complete coherent leg courses and compact grounded paws; credible elbows, hocks and muscle/contact. Fully attached high-set medium natural tail with free endpoint and shallow descending curve; length to hock if relaxed. Coherent face/fur, no extra or fused anatomy.",
+        "crop": "Whole untouched1536x1024 native viewed at original detail; complete ears, paws, tail with safe margins. No reframing or crop.",
+        "aesthetics": "Clear characterful dog-eye portrait in new Florida liveoak clearing, restrained dappled light and convincing coat/contact. No harness/handler/gear/animals/text, no close reproduction of named kennel dogs."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 24046,
+          "sha256": "94b47b59651f2e398fe9f99dd8bb22be0942671c7183919f6302fbc77efdb493",
+          "url": "assets/dogs/generated/M-0200116-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 140434,
+          "sha256": "5e28e3a2aff64e497073b4d46f34af9eaa7df6deac41b03a9296dac0e6109d0b",
+          "url": "assets/dogs/generated/M-0200116-01-960.webp"
         }
       ]
     },
@@ -7639,6 +7927,54 @@
           "bytes": 112270,
           "sha256": "b0326aaaf9b7e4ca02d64b6ab43c226cdac21a73df7d766dda39d0f6d9cd56b9",
           "url": "assets/dogs/generated/VBO-0200347-f-calibration-b-02-02-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0200349:v1",
+      "catalogId": "VBO:0200349",
+      "name": "Chinese Foo Dog",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+      "generatedAt": "2026-10-04T09:58:22.246Z",
+      "masterSha256": "f3ec95b5914de79293e247290b130b856ff0eadb3f51df0cbfe2f16f44b43756",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "26f1ebc51ee3538ce255e182ae937af439e6e06f75994d3b37e90c6de46868a0",
+        "imageInputs": [],
+        "sourcePage": "https://foo-dogs.at/rassestandard.html"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-04",
+        "breedIdentity": "Mature compact substantial Chinese Foo spitz, broad wedge head with projecting muzzle, relatively small upright ears, ordinary eyes, square substantial body and orange-red plush doublecoat with moderate mane.",
+        "anatomy": "Four distinct complete coherent grounded paws, normalstrong limbs/hocks and weight. High attached natural tail curves overback; plume separates from trunk with visible loose terminal fur/fringe rather than fusedball. Skinendpoint naturally obscured by coat, no tail anatomy invented.",
+        "crop": "Whole untouched1536x1024 native personally viewed at originaldetail; fullbody/ears/paws/tail safely framed. No crop/reframe.",
+        "aesthetics": "Original warmorange adult with quiet Austrian lake/foothill landscape, realistic plushcoat. Entirebody safe margins including ~109px paw clearance; no retry for speculative requested130px preference."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 21434,
+          "sha256": "9b4bbbdf88a9a8731423d5c67460cd4cf06e5781a24727aa5138baa37d912f13",
+          "url": "assets/dogs/generated/M-0200349-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 141418,
+          "sha256": "025c8894b9fbb9045ded5ec2ee4a96daeb9659bf9af2de26b4846300ce7b9882",
+          "url": "assets/dogs/generated/M-0200349-01-960.webp"
         }
       ]
     },
@@ -27548,6 +27884,54 @@
       ]
     },
     {
+      "assetId": "dogs:generated:vbo-0201222:v1",
+      "catalogId": "VBO:0201222",
+      "name": "Shichon",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+      "generatedAt": "2026-10-04T09:52:17Z",
+      "masterSha256": "6cd6fe795253c625ce2e8b8023269d4276b5f1091c4142fc7a82535551ef5a91",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "c2800e2d1db2a5d06e025cacc1ea1e6c6d51a92c05a8793498ab69c71b1e6484",
+        "imageInputs": [],
+        "sourcePage": "https://tinyteddys.com/"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-04",
+        "breedIdentity": "Plausible mature compact Shichon cross phenotype: rounded substantial head, projecting short broad muzzle, ordinary eyes, hairy drop ears, sturdy developed short legs and wavy cream/apricot coat. No fixedstandard or exactindividual claim.",
+        "anatomy": "Four complete grounded paws with coherent weight/legcourses, normal anatomy beneath modest wavycoat. Fully attached long fringed natural tail rises over rump with visible loose free end, no tightspiral/dock or extra anatomy.",
+        "crop": "Whole untouched1536x1024 native personally viewed at originaldetail; all ears/paws/tail enclosed with safe margins, no crop/reframe.",
+        "aesthetics": "Quiet characterful gardenpath portrait, new cream/apricot pattern/closedmouth pose distinct from researchgroup and Loki. Convincing tactilecoat and contactlight."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 23188,
+          "sha256": "a2b63cf2df4344febcbd75fb2d0da860c7e849d070856db3557cbfc335760eb5",
+          "url": "assets/dogs/generated/M-0201222-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 134390,
+          "sha256": "727a6fb048746773d689159d9f2dec598aa1b330598b94935eae1d9a1f28ad99",
+          "url": "assets/dogs/generated/M-0201222-01-960.webp"
+        }
+      ]
+    },
+    {
       "assetId": "dogs:generated:vbo-0201223:v1",
       "catalogId": "VBO:0201223",
       "name": "Shih Tzu",
@@ -28597,6 +28981,54 @@
           "bytes": 152054,
           "sha256": "f7015118cc21eb537be8c70d191df8c288f1c1fe726e4d070d9b9a5caf69a862",
           "url": "assets/dogs/generated/VBO-0201284-native-01-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201285:v1",
+      "catalogId": "VBO:0201285",
+      "name": "Springador",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+      "generatedAt": "2026-10-04T10:01:31Z",
+      "masterSha256": "6c48ba3352200bfff4d079122709061cd7e6e548953e0599254955a276070f4e",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "04f5941dd2c29926f046d7d9ab36b89880c5d32635c21764cfa5298b48b77ef8",
+        "imageInputs": [],
+        "sourcePage": "https://www.wcoomd.org/-/media/wco/public/global/pdf/about-us/annual-competitions/photo-competition-2025.pdf?la=zh-CN"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-04",
+        "breedIdentity": "Mature developed athletic Springador cross phenotype, blackshort coat with originalwhitebreast, substantial projectingmuzzle, naturaltriangular hangingears and sturdy mildlyrectangular trunk.",
+        "anatomy": "Four complete coherent grounded paws and normal legs/joints, fullattached tapering natural tail with freeendpoint separatefromlegs. Modestly longer tailhair within plausible cross variation, notcurly/plumed alteration or dock.",
+        "crop": "Whole untouched1536x1024 native personally viewed originaldetail; ears/paws/tail safely framed, no crop/reframe.",
+        "aesthetics": "Quietly attentive individual on clear English woodlandpath, convincingdarkfur/contact/shading, no sourcelawn/handler reproduction."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 20514,
+          "sha256": "58a62abeb8ed19e740dd26d8a4bae1d42538376b2d95c1e29b0a310d9cb2cf00",
+          "url": "assets/dogs/generated/M-0201285-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 124808,
+          "sha256": "12ed326e8cc2171bb34c64a9ccf1548479bcb25c73c9db71c44d09884c48be57",
+          "url": "assets/dogs/generated/M-0201285-01-960.webp"
         }
       ]
     },
@@ -30193,6 +30625,54 @@
           "bytes": 135794,
           "sha256": "7f10948d8b1fad2611e6bdddc785fa852aebb2ac6c02d799e45576fbe6861b6c",
           "url": "assets/dogs/generated/VBO-0201381-f03-b-0201381-02-960.webp"
+        }
+      ]
+    },
+    {
+      "assetId": "dogs:generated:vbo-0201382:v1",
+      "catalogId": "VBO:0201382",
+      "name": "Valley Bulldog",
+      "sourceType": "ai-generated",
+      "generator": "OpenAI built-in imagegen",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+      "generatedAt": "2026-10-04T09:19:05.641Z",
+      "masterSha256": "9699c94b50d85eacefab16620922fce0e50d20b0e8e4c0fcb338c6620a4008f7",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "e894524c25a201951b718bd43dec5159091e06a63f9085b971285d4ec99b1152",
+        "imageInputs": [],
+        "sourcePage": "https://ioeba.net/valley-bulldog.htm"
+      },
+      "review": {
+        "status": "approved",
+        "reviewedAt": "2026-10-04",
+        "breedIdentity": "Mature broad muscular Valley Bulldog, substantial short muzzle with coherent Boxer/Bulldog type, moderate brow wrinkles, fawn coat darkmask/whitebreast, natural folded button ears, strong moderately rectangular body. Source permits variation and image does not assert measured height.",
+        "anatomy": "Four complete ordinary paws and coherent leg courses; normal elbows/hocks and contact shadows. Fully attached medium tapering natural tail with visible free endpoint, complete hock-length downward relaxed extent; no extra or fused limbs.",
+        "crop": "Whole untouched1536x1024 native personally viewed at originaldetail. Complete ears/paws/tail with safe margins, no reframing/cropping.",
+        "aesthetics": "Clear gentle attentive individual in fresh Annapolis Valley meadow-edge landscape, dog-eye view and restrained light."
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false,
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 18374,
+          "sha256": "4613d84bf28571b4adbf43f99355fa3f9ebc18da716c8248bc906faeed8575fa",
+          "url": "assets/dogs/generated/M-0201382-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 122814,
+          "sha256": "f1fab50d28c0a6af109fcb081706d9fabee767cd3a3345f97a6d8c63b71c19c7",
+          "url": "assets/dogs/generated/M-0201382-01-960.webp"
         }
       ]
     },

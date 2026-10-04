@@ -35,11 +35,27 @@
         "VBO:0008031",
         "VBO:0008032",
         "VBO:0201457",
-        "VBO:0201388"
+        "VBO:0201388",
+        "VBO:0201224",
+        "VBO:0201222",
+        "VBO:0201047",
+        "VBO:0200190",
+        "VBO:0201285",
+        "VBO:0201289",
+        "VBO:0201292",
+        "VBO:0201288",
+        "VBO:0200725",
+        "VBO:0200329",
+        "VBO:0200268",
+        "VBO:0200993"
       ],
       "activeCatalogIds": [
         "VBO:0007991",
-        "VBO:0008004"
+        "VBO:0008004",
+        "VBO:0008031",
+        "VBO:0008032",
+        "VBO:0201222",
+        "VBO:0201285"
       ],
       "commonsResearchCatalogIds": [
         "VBO:0007991",
@@ -52,7 +68,19 @@
         "VBO:0008031",
         "VBO:0008032",
         "VBO:0201457",
-        "VBO:0201388"
+        "VBO:0201388",
+        "VBO:0201224",
+        "VBO:0201222",
+        "VBO:0201047",
+        "VBO:0200190",
+        "VBO:0201285",
+        "VBO:0201289",
+        "VBO:0201292",
+        "VBO:0201288",
+        "VBO:0200725",
+        "VBO:0200329",
+        "VBO:0200268",
+        "VBO:0200993"
       ]
     },
     {
@@ -84,11 +112,22 @@
         "VBO:0200917",
         "VBO:0200844",
         "VBO:0200436",
-        "VBO:0200996"
+        "VBO:0200996",
+        "VBO:0008086",
+        "VBO:0008093",
+        "VBO:0200115",
+        "VBO:0200843",
+        "VBO:0200785",
+        "VBO:0201456",
+        "VBO:0200827",
+        "VBO:0200871"
       ],
       "activeCatalogIds": [
         "VBO:0200467",
-        "VBO:0200782"
+        "VBO:0200782",
+        "VBO:0008086",
+        "VBO:0008093",
+        "VBO:0200785"
       ],
       "commonsResearchCatalogIds": [
         "VBO:0200782",
@@ -105,7 +144,15 @@
         "VBO:0200917",
         "VBO:0200844",
         "VBO:0200436",
-        "VBO:0200996"
+        "VBO:0200996",
+        "VBO:0008086",
+        "VBO:0008093",
+        "VBO:0200115",
+        "VBO:0200843",
+        "VBO:0200785",
+        "VBO:0201456",
+        "VBO:0200827",
+        "VBO:0200871"
       ]
     },
     {
@@ -134,12 +181,30 @@
         "VBO:0200035",
         "VBO:0200975",
         "VBO:0200452",
-        "VBO:0200107"
+        "VBO:0200107",
+        "VBO:0200028",
+        "VBO:0200262",
+        "VBO:0200648",
+        "VBO:0200787",
+        "VBO:0200058",
+        "VBO:0200349",
+        "VBO:0200973",
+        "VBO:0200931",
+        "VBO:0200817",
+        "VBO:0200977",
+        "VBO:0200979",
+        "VBO:0201308",
+        "VBO:0200283",
+        "VBO:0200269",
+        "VBO:0200762",
+        "VBO:0201336"
       ],
       "activeCatalogIds": [
         "VBO:0200914",
         "VBO:0200116",
-        "VBO:0201382"
+        "VBO:0201382",
+        "VBO:0200035",
+        "VBO:0200349"
       ],
       "commonsResearchCatalogIds": [
         "VBO:0200914",
@@ -153,7 +218,23 @@
         "VBO:0200035",
         "VBO:0200975",
         "VBO:0200452",
-        "VBO:0200107"
+        "VBO:0200107",
+        "VBO:0200028",
+        "VBO:0200262",
+        "VBO:0200648",
+        "VBO:0200787",
+        "VBO:0200058",
+        "VBO:0200349",
+        "VBO:0200973",
+        "VBO:0200931",
+        "VBO:0200817",
+        "VBO:0200977",
+        "VBO:0200979",
+        "VBO:0201308",
+        "VBO:0200283",
+        "VBO:0200269",
+        "VBO:0200762",
+        "VBO:0201336"
       ]
     }
   ],
@@ -168,25 +249,19 @@
     "networkAccess": "enabled"
   },
   "offMachineBackupVerified": false,
-  "nextAction": "Publish verified first5 candidate; root review later staged packets/natives, maintain rolling research until100 additional verified live.",
-  "updatedAt": "2026-10-04T09:27:30.368394+00:00",
+  "nextAction": "Verify and publish stable ten-pair release002 (m06\u2013m14), then continue next qualified packets until100 verified live plus closeout. Five additions already published count toward100.",
+  "updatedAt": "2026-10-04T16:28:19.662721+00:00",
   "goalStartedAt": "2026-10-04T08:41:17Z",
   "namespaceCreatedAt": "2026-10-04T08:45:35.990680+00:00",
   "progressSnapshot": {
-    "at": "2026-10-04T09:27:30.368394+00:00",
-    "qualified": 7,
-    "callsCompleted": 7,
+    "at": "2026-10-04T16:28:19.662721+00:00",
+    "qualified": 16,
+    "callsCompleted": 17,
     "callsInFlight": 0,
-    "acceptedByRoot": 6,
-    "nativeReviewPending": [
-      "VBO:0201382"
-    ],
-    "integrated": 5,
-    "verifiedLive": 0,
-    "independentPeerPassedAwaitingRoot": [
-      "VBO:0008031",
-      "VBO:0008032",
-      "VBO:0200035"
-    ]
+    "acceptedByRoot": 15,
+    "rejectedNativeOutputs": 2,
+    "integrated": 15,
+    "verifiedLive": 5,
+    "nativeReviewPending": []
   }
 }

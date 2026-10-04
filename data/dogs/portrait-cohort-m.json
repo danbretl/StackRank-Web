@@ -3,7 +3,7 @@
   "cohortId": "dogs-portraits-m",
   "status": "active-rolling-production",
   "startedAt": "2026-10-04T08:45:35.990680+00:00",
-  "updatedAt": "2026-10-04T22:01:36.131261+00:00",
+  "updatedAt": "2026-10-04T22:19:58.272176+00:00",
   "targetAdditionalPairs": 100,
   "baseline": {
     "baselinePairs": 702,
@@ -998,6 +998,48 @@
         "sha256": "f259ecbd63956332c7dc97d8adeb913082255ccb582430b0e8e70627e19a6733",
         "bytes": 6241
       }
+    },
+    {
+      "id": "m70",
+      "frozenAt": "2026-10-04T22:10:01.222955+00:00",
+      "catalogIds": [
+        "VBO:0201229"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "89ade271329347af69c6ca1b32601ee88794d06e192627b7526e9919f4af7c62",
+      "freeze": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/tranche-m70-freeze-001.json",
+        "sha256": "7c9919b18b5637f303dec9d32b7006c6938d74c7e76e1db42cca6b11bb2aeed8",
+        "bytes": 6313
+      }
+    },
+    {
+      "id": "m71",
+      "frozenAt": "2026-10-04T22:14:44.784948+00:00",
+      "catalogIds": [
+        "VBO:0200256"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "993183865f75acc70952214fd7781af684a033e4219f20a3e963121ef08bf3c0",
+      "freeze": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/tranche-m71-freeze-001.json",
+        "sha256": "1b2f1d8de488e12f72c073776986865135828945a8c74edcf8bb981480abc5fb",
+        "bytes": 6385
+      }
+    },
+    {
+      "id": "m72",
+      "frozenAt": "2026-10-04T22:17:02.569377+00:00",
+      "catalogIds": [
+        "VBO:0200858"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "48e1b87610f68a9b491cf394c7b6fa8565b44adb3d39f1b3c499fe9aafd74687",
+      "freeze": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/tranche-m72-freeze-001.json",
+        "sha256": "db7484a8549a39069b3b89cf94f72f9fabb55b903b83962cc0a26f6a75b599b4",
+        "bytes": 6457
+      }
     }
   ],
   "amendments": [],
@@ -1490,6 +1532,27 @@
       "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200329-001.json",
       "sha256": "5b01be6e32ad2adced4295525f7ac6109690f31b8ac65127d1d63f7df5b0ab9c",
       "bytes": 2549,
+      "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0201229",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0201229-001.json",
+      "sha256": "60e6f20ed5658c86250144a48952516d88c1b0ddec7af0934438e19af1100a46",
+      "bytes": 2507,
+      "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0200256",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200256-001.json",
+      "sha256": "ab0d7a66e211ddd7d756ca04f19a842a22036cf5cb4a9156090198ec3a8655e8",
+      "bytes": 2546,
+      "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0200858",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200858-001.json",
+      "sha256": "13f035188dc988e5dd8e4dc4e168272785f12b9f7ab6014bb04e9cc1c557f73c",
+      "bytes": 2746,
       "generationAuthorized": false
     }
   ],
@@ -2901,6 +2964,90 @@
         "bytes": 1343
       },
       "integratedAt": "2026-10-04T21:53:03.380327+00:00"
+    },
+    {
+      "subwave": "m68",
+      "trancheId": "m68",
+      "trancheSha256": "db598ef302c363283a8482c7b10e98fb9c16d0645ccc88d65ad3ec2cdcceaeb3",
+      "catalogIds": [
+        "VBO:0201030"
+      ],
+      "count": 1,
+      "batchManifest": "data/dogs/generated-artwork-batch-m68.json",
+      "contactSheet": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-012-initial-three.jpg",
+        "sha256": "fa0f30ae6d7518fc38a46050c21e43c0bf7d4b32289b2a3dda9230f6a5833b99",
+        "bytes": 350350
+      },
+      "rootRelease": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-release-m68-001.json",
+        "sha256": "988375d7c8c71e0349b41ccc352e05bd13af0033cdd2a054928c5e042b777d06",
+        "bytes": 1353
+      },
+      "integratedAt": "2026-10-04T22:16:17.991065+00:00"
+    },
+    {
+      "subwave": "m69",
+      "trancheId": "m69",
+      "trancheSha256": "9c807a01f0932891a217034e22456877787950a9b6ae8adb48607cab208c3c60",
+      "catalogIds": [
+        "VBO:0200329"
+      ],
+      "count": 1,
+      "batchManifest": "data/dogs/generated-artwork-batch-m69.json",
+      "contactSheet": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-012-initial-three.jpg",
+        "sha256": "fa0f30ae6d7518fc38a46050c21e43c0bf7d4b32289b2a3dda9230f6a5833b99",
+        "bytes": 350350
+      },
+      "rootRelease": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-release-m69-001.json",
+        "sha256": "9bd0b3728f4b570fc12691db1ff3cf9c4327eebaf0df86babaead66b5085eb19",
+        "bytes": 1353
+      },
+      "integratedAt": "2026-10-04T22:16:18.212291+00:00"
+    },
+    {
+      "subwave": "m70",
+      "trancheId": "m70",
+      "trancheSha256": "89ade271329347af69c6ca1b32601ee88794d06e192627b7526e9919f4af7c62",
+      "catalogIds": [
+        "VBO:0201229"
+      ],
+      "count": 1,
+      "batchManifest": "data/dogs/generated-artwork-batch-m70.json",
+      "contactSheet": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-012-initial-three.jpg",
+        "sha256": "fa0f30ae6d7518fc38a46050c21e43c0bf7d4b32289b2a3dda9230f6a5833b99",
+        "bytes": 350350
+      },
+      "rootRelease": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-release-m70-001.json",
+        "sha256": "a0828808d872b69a95289eaedfecd8d861f678ea1f843ed8fec1d7cfca568079",
+        "bytes": 1353
+      },
+      "integratedAt": "2026-10-04T22:16:18.369995+00:00"
+    },
+    {
+      "subwave": "m71",
+      "trancheId": "m71",
+      "trancheSha256": "993183865f75acc70952214fd7781af684a033e4219f20a3e963121ef08bf3c0",
+      "catalogIds": [
+        "VBO:0200256"
+      ],
+      "count": 1,
+      "batchManifest": "data/dogs/generated-artwork-batch-m71.json",
+      "contactSheet": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-012-bullpei.jpg",
+        "sha256": "e8dfc87110d1ac839a682d7ef05ee3d6a85397995c371d5e98ba2d45fbfbc502",
+        "bytes": 118265
+      },
+      "rootRelease": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-release-m71-001.json",
+        "sha256": "6856d9968d8f2fc2cb4c0342c93617f0b3c63473ad95e08ec933548fa2767867",
+        "bytes": 1144
+      },
+      "integratedAt": "2026-10-04T22:19:58.272176+00:00"
     }
   ],
   "publications": [
@@ -3862,6 +4009,51 @@
       "receipt": {
         "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/publication-m64-001.json",
         "sha256": "6a523934fc74a26c7e963f7e2096e9319ab09119aa6f8dd52b506265a89e9014",
+        "bytes": 1920
+      }
+    },
+    {
+      "subwave": "m65",
+      "catalogIds": [
+        "VBO:0201221"
+      ],
+      "count": 1,
+      "productSha": "2552d635b1884471911fd39387b4940168cf2879",
+      "deploymentId": "dpl_tA5ZBZw3oLYKY3SSaZ9VUyYzTiY5",
+      "verifiedAt": "2026-10-04T22:05:06.246815+00:00",
+      "receipt": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/publication-m65-001.json",
+        "sha256": "db549d41553a8460b97e96d28c7f1fc787f574a9bba911e1ae4abb6720c63661",
+        "bytes": 1920
+      }
+    },
+    {
+      "subwave": "m66",
+      "catalogIds": [
+        "VBO:0201169"
+      ],
+      "count": 1,
+      "productSha": "2552d635b1884471911fd39387b4940168cf2879",
+      "deploymentId": "dpl_tA5ZBZw3oLYKY3SSaZ9VUyYzTiY5",
+      "verifiedAt": "2026-10-04T22:05:07.541761+00:00",
+      "receipt": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/publication-m66-001.json",
+        "sha256": "647b31e4b0f6a415dd7233e15bafa724db370d6cd07c451ce44f35fb3bbee937",
+        "bytes": 1920
+      }
+    },
+    {
+      "subwave": "m67",
+      "catalogIds": [
+        "VBO:0200861"
+      ],
+      "count": 1,
+      "productSha": "2552d635b1884471911fd39387b4940168cf2879",
+      "deploymentId": "dpl_tA5ZBZw3oLYKY3SSaZ9VUyYzTiY5",
+      "verifiedAt": "2026-10-04T22:05:08.749692+00:00",
+      "receipt": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/publication-m67-001.json",
+        "sha256": "e77305aa99d2fc0d81c8be7266c455e4f396ed88673bd7f6da396f399e46e559",
         "bytes": 1920
       }
     }
@@ -16490,7 +16682,14 @@
         "integratedAt": "2026-10-04T21:53:02.806154+00:00"
       },
       "publication": {
-        "status": "pending"
+        "status": "published",
+        "receipt": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/publication-m65-001.json",
+          "sha256": "db549d41553a8460b97e96d28c7f1fc787f574a9bba911e1ae4abb6720c63661",
+          "bytes": 1920
+        },
+        "productSha": "2552d635b1884471911fd39387b4940168cf2879",
+        "verifiedAt": "2026-10-04T22:05:06.246815+00:00"
       }
     },
     "VBO:0201169": {
@@ -16708,7 +16907,14 @@
         "integratedAt": "2026-10-04T21:53:02.982140+00:00"
       },
       "publication": {
-        "status": "pending"
+        "status": "published",
+        "receipt": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/publication-m66-001.json",
+          "sha256": "647b31e4b0f6a415dd7233e15bafa724db370d6cd07c451ce44f35fb3bbee937",
+          "bytes": 1920
+        },
+        "productSha": "2552d635b1884471911fd39387b4940168cf2879",
+        "verifiedAt": "2026-10-04T22:05:07.541761+00:00"
       }
     },
     "VBO:0200861": {
@@ -16885,16 +17091,791 @@
         "integratedAt": "2026-10-04T21:53:03.380327+00:00"
       },
       "publication": {
+        "status": "published",
+        "receipt": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/publication-m67-001.json",
+          "sha256": "e77305aa99d2fc0d81c8be7266c455e4f396ed88673bd7f6da396f399e46e559",
+          "bytes": 1920
+        },
+        "productSha": "2552d635b1884471911fd39387b4940168cf2879",
+        "verifiedAt": "2026-10-04T22:05:08.749692+00:00"
+      }
+    },
+    "VBO:0201030": {
+      "catalogId": "VBO:0201030",
+      "displayName": "Pointer-Rottweiler Mix",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0201030-001.json",
+        "sha256": "38e05271199a6b14654267ffb4a785175dd430dc189e1f27b3cbe3447d999c70",
+        "bytes": 2776
+      },
+      "preparation": {
+        "worker": "B",
+        "trancheId": "m68",
+        "trancheSha256": "db598ef302c363283a8482c7b10e98fb9c16d0645ccc88d65ad3ec2cdcceaeb3",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/packet-pointweiler-text-only-049-004.json",
+          "sha256": "703cd4c2912c65731586a2e922292ee38a77963e89204a4f5216c92bcfb5bf57",
+          "bytes": 13772
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/peer-b-pointweiler-049-004.json",
+          "sha256": "fb9ae13e7a7346c93c891891f106d1800a98ba71acce819e3989e7135e0fc00c",
+          "bytes": 4014
+        },
+        "corrections": [
+          {
+            "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/pointweiler-canonical-display-delta-001-to-002.json",
+            "sha256": "63afc60214cba03562841e43096530137ab5ccd39b9a5bfd6b096aa403676520",
+            "bytes": 1392
+          },
+          {
+            "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/pointweiler-manifest-snapshot-delta-002-to-003.json",
+            "sha256": "1a037e04200ad5028c56b960afa4076c8ccb3bc8950c08d1e50d5d45a5db0b1f",
+            "bytes": 1937
+          },
+          {
+            "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/pointweiler-color-retry-delta-003-to-004.json",
+            "sha256": "1f324a9ffa094647feb7a7cec088615c1d6084f9ed2a29d1599eec25085ef3e5",
+            "bytes": 2623
+          }
+        ]
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/research-dossier-pointweiler-text-only-049-004.json",
+          "sha256": "c6d75e655097e38ceeef7f6a57529476433d56f365c91867690bd93e16b9632e",
+          "bytes": 17541
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.nokillnetwork.org/adoption/colorado/fort-collins/rottweiler-german-short-hair-pointer-dog-porter-2138618",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/4371e324b57aa19e3865ccebe22c46ff57883e496fee723c75abc1c05e32ab52.json",
+        "rootApprovalSha256": "4371e324b57aa19e3865ccebe22c46ff57883e496fee723c75abc1c05e32ab52",
+        "primaryReviewedAt": "2026-10-04T22:11:23.914359+00:00",
+        "visualReview": "Targeted second attempt corrects conspicuous unsupported tan points in first native, independently root rejected after whole native1536x1024 review. Personally read exact revised prompt and delta; adds only explicit predominantly solid black selected Porter/Mouse face and limb areas and prohibition on symmetrical tan points, retains independent modest white chest. Earlier full actual source/copy/whole photographs/identity review stands; no source image input, body/tail/stance/scene/copy unchanged. Fresh C peer independently viewed original sources and rejected output and verified structural limits. Factual coat correction, not framing preference. Preserve first rejection and both structural packet deltas for archive.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Playful and attached to his person, Porter was a three-and-a-half-year-old German Shorthaired Pointer–Rottweiler cross whose owner described a love of snuggles, treats and fetch. He behaved well indoors and on lead at a distance from other dogs, but the same account reported reactive guarding around the home.",
+        "summarySha256": "649fb7b7023fce229708c9b441eabb37d603b9c22decc355a8350a9318cc6ebe",
+        "shortDescription": "Porter’s owner described an affectionate Pointer–Rottweiler cross who enjoyed snuggles, treats and fetch.",
+        "shortDescriptionSha256": "7c7cfdeefa91cb173309f8a29ee0ad2d44b6a7db2ec6e58c6f9a50f2c6194698",
+        "author": "M worker B",
+        "reviewer": "M worker C and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/packet-pointweiler-text-only-049-004.json",
+        "sourcePathSha256": "703cd4c2912c65731586a2e922292ee38a77963e89204a4f5216c92bcfb5bf57",
+        "sourceSnapshots": [
+          {
+            "title": "NoKillNetwork — original Porter adult owner account",
+            "url": "https://www.nokillnetwork.org/adoption/colorado/fort-collins/rottweiler-german-short-hair-pointer-dog-porter-2138618",
+            "sourceRole": "Original first-person private-owner account hosted by pet rehoming platform.",
+            "evidence": "Entire actual owner assessment read, fresh normal rendered page personally read. Explicit Porter3.5years Rottweiler/German Short Hair Pointer; owner says goofball/snugglebug, loves snuggles/treats/fetch and attaches to person; well behaved at home/onlead at distance from otherdogs, reactive guarding around home retained. Medical CCL/surgery/causal injury behavior explanation, dollars/HOA/private household specifics, all child or singlepet suitability/adoption promises excluded. Historical age source-only, no currentlive/age arithmetic. Generic success-message modal in DOM is dormant page template, no message/form was sent or interacted with.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/pointweiler-porter-049-001.html",
+              "sha256": "3859f97511ebc7d11fa7892a1274f6515339533acbe4c1bfe1d9c764caf92248",
+              "bytes": 69642
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/pointweiler-porter-049-001.txt",
+              "sha256": "d34546718157a455d8544853d822c05abc8d26552a7b5268271ed3911dfe9570",
+              "bytes": 7067
+            },
+            "acquisitionDisclosure": "Fresh original NoKillNetwork owner body retained as verifiedTLS HTTPS200 complete HTML/text/receipt and whole current normal Chrome source personally read; own linked photo1/3 whole browser screenshots retained without photograph originals. Retained verifiedTLS Mouse public source and literal ownerstory reread, whole bound share screenshot personally reviewed again, no repeat failed placeholder, guessed photo IDs or CDN workaround. Text-only, no image inputs or photo-rights claim."
+          },
+          {
+            "title": "Adopt a Pet — original Mouse seven-year owner assessment",
+            "url": "https://www.adoptapet.com/pet/43875663-bend-oregon-german-shorthaired-pointer-mix",
+            "sourceRole": "Original private owner story in retained public-page HTML, visible listing currently removed.",
+            "evidence": "Entire literal own claim paragraph reread with actual public source. Explicit seven-year female German shorthair pointer/Rottweiler; sweet/snuggly with adults, fearful around smallchildren, chased householdcats. Clinical sedation/vet detail excluded, no current age or universal suitability promoted. Used only identity and own adult tail/body corroboration here, finalcopy is Porter account. Removed visible listing/native public-source distinction disclosed, no private account state claimed.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/pointweiler-mouse-001.html",
+              "sha256": "4435491df83279ec2412b23af9f4081c10b1903597e92a8075f5c939b030c757",
+              "bytes": 115694
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/pointweiler-mouse-owner-story-001.txt",
+              "sha256": "bf522869c891ce50192f14a0dd0f156ef1d6ea90c37ea96a65771d3865b85c78",
+              "bytes": 394
+            },
+            "publicPageExtraction": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/pointweiler-mouse-public-page-data-001.txt",
+              "sha256": "c659f9720c57bdce5a918f18451ed2a73db8b36a30dc650d48cd2eddb11e8466",
+              "bytes": 4937
+            },
+            "acquisitionDisclosure": "Fresh original NoKillNetwork owner body retained as verifiedTLS HTTPS200 complete HTML/text/receipt and whole current normal Chrome source personally read; own linked photo1/3 whole browser screenshots retained without photograph originals. Retained verifiedTLS Mouse public source and literal ownerstory reread, whole bound share screenshot personally reviewed again, no repeat failed placeholder, guessed photo IDs or CDN workaround. Text-only, no image inputs or photo-rights claim."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-04T22:11:23.914359+00:00"
+      },
+      "scene": "A wide clear fine-gravel park path with low meadow grass and distant softly blurred deciduous trees, gentle late-afternoon diffuse light and open ground around every paw.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "M-0201030-01",
+            "status": "generated",
+            "qaDecision": "rejected",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/attempt-M-0201030-01.json",
+              "sha256": "015d0065e5a9dd79aaa9d06c6a439a9838ae1f0eb5285a30a2b2d8e6e3436e78",
+              "bytes": 5219
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-approvals/c7cacea61ae118436795bcedfa31e8766cfcbfbb7656146c9dede658c9abd5f2.json",
+              "sha256": "c7cacea61ae118436795bcedfa31e8766cfcbfbb7656146c9dede658c9abd5f2",
+              "bytes": 4150
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/preflights/1c274977-8abc-4ead-8538-98714cd530e0.json",
+              "sha256": "15d81f194c15d21b46a1272c4094ecb938dfa45741098540a1afaf554eae5c43",
+              "bytes": 4047
+            },
+            "imagePermitId": "1c274977-8abc-4ead-8538-98714cd530e0",
+            "trancheSha256": "db598ef302c363283a8482c7b10e98fb9c16d0645ccc88d65ad3ec2cdcceaeb3",
+            "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one original1536×1024 landscape portrait of one mature adult Pointer Rottweiler exactcatalogVBO:0201030. Text-only; no image inputs. Own documented coarse morphology: One anonymous mature Pointer–Rottweiler cross, selected own German Shorthaired Pointer/Rottweiler adult scope. Developed medium substantial mildly rectangular short-coated black body, moderate deep chest, level back and strong ordinary thigh mass; functional moderately long legs with four separate ordinary paws, no dwarfing/giant mastiff bulk or racing-hound thinness and no numeric ratios. Broad clean head with a moderate clearly projecting blunt muzzle, dark nose, ordinary brown eyes and natural medium soft folded drop ears close to cheeks, no crop or excessive throat-length pendulous leather. Short smooth predominantly black coat with a new modest irregular white chest fleck, no exact Porter marking layout. Full natural mediumlong black tapering tail attaches rump and extends backward/up through a loose open curve to a separate slender free tip wholly contained, no dock/bob/tight solidring. Whole Porter adult recumbent view1 supplies developed trunk, both complete forefoot courses/ends and two folded rearfoot ends/coarse courses; far upperrear joints overlapped, farleft forepaw close to image edge, no standing source asserted. Whole Mouse mature standing view supplies connected full natural open raised tail/free tip and trunk, while furniture hides most legs. Complementary same exact own adult population supports a new ordinary four-grounded-paw stance, never precise Mouse/Porter joint assembly, pedigree guarantee or parent filling. One relaxed anonymous adult standing left-facing threequarter view at eyelevel, head gently towardviewer, mouthclosed. Four distinct complete grounded paws/coherent functional limbs/plausible weight/contactshadows. Entirehead/naturalears/body/fourfeet/full attached natural tail/continuouscourse/separate free tip wholly inside generousframe. Keep dogsmaller with atleast150px above highesthead/tail and140px belowlowestpaw. Setting: A wide clear fine-gravel park path with low meadow grass and distant softly blurred deciduous trees, gentle late-afternoon diffuse light and open ground around every paw. Restrained documentary naturalrealism, original individual/markings/pose/scene/camera/light, no exact Porter or Mouse likeness, sofa/cushion arrangement or owner setting. No collar/leash/harness/people/otheranimals/props/buildings/fences/text/logos/watermarks; no croppedears/dockedtail/bob/hiddenpaws/extra or fused limbs/juvenilebody.",
+            "promptSha256": "3cd8691d7c052e1d6def6f55c75d49ed1b4e2a668f880226653e70347f204969",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-m/worker-b/M-0201030-01.png",
+              "sha256": "4bab023c2d4a4fd3ca6a05d4baddccd254557208b19ffd6a69cc4f29ed108e09",
+              "bytes": 2857187
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10615-3275-71c2-9917-5f23ee225216/exec-29d14197-0409-45a7-9553-5eda22f32213.png",
+            "originalOutputSha256": "4bab023c2d4a4fd3ca6a05d4baddccd254557208b19ffd6a69cc4f29ed108e09",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-04T22:01:08.033Z",
+            "completedAt": "2026-10-04T22:01:27.025Z",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0201030-01-rejected.json",
+              "sha256": "954e28859058bb9e5f18a2ca36d629499ff8e11f3fd3beee432a60c2458df371",
+              "bytes": 1565
+            },
+            "rejectionReason": "Conspicuous symmetric tan eyebrow/muzzle/throat and lowerleg/innerthigh point markings substitute a parental Rottweiler pattern for the selected documented black Porter/Mouse coarse phenotype. This is a factual prompt fidelity failure, not a framing preference."
+          },
+          {
+            "number": 2,
+            "id": "M-0201030-02",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/attempt-M-0201030-02.json",
+              "sha256": "cded576eff881b6f89f600ff0e8f99a049049f39ef69e7edabd431f3e4407db5",
+              "bytes": 5328
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-approvals/4371e324b57aa19e3865ccebe22c46ff57883e496fee723c75abc1c05e32ab52.json",
+              "sha256": "4371e324b57aa19e3865ccebe22c46ff57883e496fee723c75abc1c05e32ab52",
+              "bytes": 4169
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/preflights/bb07782d-8949-4eb9-92e3-ccfa3a6fb7d4.json",
+              "sha256": "48797a0bf47b8302309df0171b116bd8d019bd8f8b178d7c0009e887449e36a1",
+              "bytes": 4264
+            },
+            "imagePermitId": "bb07782d-8949-4eb9-92e3-ccfa3a6fb7d4",
+            "trancheSha256": "db598ef302c363283a8482c7b10e98fb9c16d0645ccc88d65ad3ec2cdcceaeb3",
+            "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one original1536×1024 landscape portrait of one mature adult Pointer Rottweiler exactcatalogVBO:0201030. Text-only; no image inputs. Own documented coarse morphology: One anonymous mature Pointer–Rottweiler cross, selected own German Shorthaired Pointer/Rottweiler adult scope. Developed medium substantial mildly rectangular short-coated black body, moderate deep chest, level back and strong ordinary thigh mass; functional moderately long legs with four separate ordinary paws, no dwarfing/giant mastiff bulk or racing-hound thinness and no numeric ratios. Broad clean head with a moderate clearly projecting blunt muzzle, dark nose, ordinary brown eyes and natural medium soft folded drop ears close to cheeks, no crop or excessive throat-length pendulous leather. Short smooth predominantly solid black coat including face, eyebrows, muzzle, throat, every leg and inner thighs, apart from one new modest irregular white chest fleck. No symmetrical tan/brown/rust points on eyebrows, cheeks, muzzle, throat, legs or thighs; no Rottweiler parent-template markings and no exact Porter marking layout. Full natural mediumlong black tapering tail attaches rump and extends backward/up through a loose open curve to a separate slender free tip wholly contained, no dock/bob/tight solidring. Whole Porter adult recumbent view1 supplies developed trunk, both complete forefoot courses/ends and two folded rearfoot ends/coarse courses; far upperrear joints overlapped, farleft forepaw close to image edge, no standing source asserted. Whole Mouse mature standing view supplies connected full natural open raised tail/free tip and trunk, while furniture hides most legs. Complementary same exact own adult population supports a new ordinary four-grounded-paw stance, never precise Mouse/Porter joint assembly, pedigree guarantee or parent filling. One relaxed anonymous adult standing left-facing threequarter view at eyelevel, head gently towardviewer, mouthclosed. Four distinct complete grounded paws/coherent functional limbs/plausible weight/contactshadows. Entirehead/naturalears/body/fourfeet/full attached natural tail/continuouscourse/separate free tip wholly inside generousframe. Keep dogsmaller with atleast150px above highesthead/tail and140px belowlowestpaw. Setting: A wide clear fine-gravel park path with low meadow grass and distant softly blurred deciduous trees, gentle late-afternoon diffuse light and open ground around every paw. Restrained documentary naturalrealism, original individual/markings/pose/scene/camera/light, no exact Porter or Mouse likeness, sofa/cushion arrangement or owner setting. No collar/leash/harness/people/otheranimals/props/buildings/fences/text/logos/watermarks; no croppedears/dockedtail/bob/hiddenpaws/extra or fused limbs/juvenilebody.",
+            "promptSha256": "81d50191a5a7b2629b2400fff1f887a016c8b845021c7374f7f427334aa71ed4",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-m/worker-b/M-0201030-02.png",
+              "sha256": "d852151836458b4b7ee2b45ac35a40d2668c65b74df04a5f88ab841ac044a437",
+              "bytes": 2786508
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10615-3275-71c2-9917-5f23ee225216/exec-0c3a311c-446f-44d8-87c0-b30398956464.png",
+            "originalOutputSha256": "d852151836458b4b7ee2b45ac35a40d2668c65b74df04a5f88ab841ac044a437",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-04T22:12:05.487Z",
+            "completedAt": "2026-10-04T22:12:25.196Z",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0201030-02-accepted.json",
+              "sha256": "76498da005f5a285f28514e2c3d37273927d4f721cc48056d24d93992a15c793",
+              "bytes": 1340
+            }
+          }
+        ],
+        "acceptedAttemptId": "M-0201030-02"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0201030-02-accepted.json",
+          "sha256": "76498da005f5a285f28514e2c3d37273927d4f721cc48056d24d93992a15c793",
+          "bytes": 1340
+        },
+        "reviewedAt": "2026-10-04T22:13:42.709823+00:00",
+        "breedIdentity": "Corrected selected mature solid-black Pointer/Rottweiler phenotype with independent small chest fleck. Broad moderate muzzle, natural soft folded ears and strong developed functional body; previous unsupported tan points absent.",
+        "anatomy": "Four distinct complete grounded paws with coherent weight-bearing courses/contact. Full connected mediumlong tapering tail sweeps back/up in open curve to separate free tip, no dock/extra/fused appendage.",
+        "crop": "Whole1536x1024 original shows head/ears/feet/tail intact, approximately115px above head and70px below lowest foot. Ideal150/140 missed but safe physical margins; no cosmetic retry.",
+        "aesthetics": "Original light gravel path and soft autumn trees, natural coat sheen and plausible diffuse illumination; independent pose/composition.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-012-initial-three.jpg",
+          "sha256": "fa0f30ae6d7518fc38a46050c21e43c0bf7d4b32289b2a3dda9230f6a5833b99",
+          "bytes": 350350
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "m68",
+        "batchManifest": "data/dogs/generated-artwork-batch-m68.json",
+        "integratedAt": "2026-10-04T22:16:17.991065+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0200329": {
+      "catalogId": "VBO:0200329",
+      "displayName": "Chi-Poo",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200329-001.json",
+        "sha256": "5b01be6e32ad2adced4295525f7ac6109690f31b8ac65127d1d63f7df5b0ab9c",
+        "bytes": 2549
+      },
+      "preparation": {
+        "worker": "A",
+        "trancheId": "m69",
+        "trancheSha256": "9c807a01f0932891a217034e22456877787950a9b6ae8adb48607cab208c3c60",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/packet-chipoo-text-only-002.json",
+          "sha256": "099b5a5c99687ff1f2cbda9aa707097c94052ec1a765167ccddfe454e537b0c4",
+          "bytes": 11646
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/peer-a-chipoo-002.json",
+          "sha256": "e2083f140d02a7d7585e2fc9dda610a0b4e5f42af9de116bc8e706dc7c0bf20b",
+          "bytes": 3287
+        },
+        "corrections": [
+          {
+            "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/chipoo-identity-delta-001-to-002.json",
+            "sha256": "12193d5b56d7f03aaf5c46e76c14561f0af7d938fdf4928c6ab957689a7e5213",
+            "bytes": 1835
+          }
+        ]
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/research-dossier-0200329-text-only-002.json",
+          "sha256": "0d95dcda15576495b6d80baebaa3469fa9ca47b9f67ff6a35faf04b53cbe181f",
+          "bytes": 14637
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://dogbreedinfo.com/chipoophotos3.htm",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/f028382bb571b600b1902ac39fb1d12314213823acf8c0c4d4b94fd36602f148.json",
+        "rootApprovalSha256": "f028382bb571b600b1902ac39fb1d12314213823acf8c0c4d4b94fd36602f148",
+        "primaryReviewedAt": "2026-10-04T22:01:36.131261+00:00",
+        "visualReview": "Root personally read entire actual DBI Tuffy3/Oreo2 source bodies, final296/121 copy/exact3388B prompt/full dossier/identity and selected prior009/L holds. Whole all3 Tuffy7bed/7grass/18month seated research screenshots personally viewed original detail. Mature small cream shorttrim mildly rectangular body/large erect fringed ears/projecting pinkbrown nose; sameadult complementary coarse forehind courses/paws establish new ordinary functional stance. Both7year views show full attached loose open natural furnished tail course/separate free tuft contained; sourceedge finewisps/hidden proximal joints not exact bone/trim reconstruction. No dyedMohawk/gear/toy/sourcepose transfer. Own Tuffy fetch/toys and Oreo adult smart/camera habit faithfully individually attributed; historical ages not current claims, no parent or suitability promises. Source Wapoo1395 explicitly samealias excluded secondaddition. New anonymous meadow-path composition no image inputs/rights grant; original Benji/Nicole juvenile/crop holds remain excluded. Independent Bpass and identity-only002 delta retained.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Fetch was seven-year-old Tuffy’s favorite game, and his keeper said this Chi-Poo still loved playing with toys. Another owner described Oreo, a Chihuahua–Poodle cross all grown up at two, as smart and full of character. Whenever the camera came out, Oreo insisted on having his picture taken too.",
+        "summarySha256": "51b28280b76cbab04033c98a544cfdde27a0f54160040ab6b9d9c3a44ea109f3",
+        "shortDescription": "Tuffy’s keeper said this Chi-Poo loved fetch and toys; two-year-old Oreo’s owner described a dog keen to pose for photos.",
+        "shortDescriptionSha256": "8c58dc2c6ba57815c35205752c1d7bedb4eafa2529c5b12fdc3fdc6f0e246075",
+        "author": "M worker A",
+        "reviewer": "M worker B and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/packet-chipoo-text-only-002.json",
+        "sourcePathSha256": "099b5a5c99687ff1f2cbda9aa707097c94052ec1a765167ccddfe454e537b0c4",
+        "sourceSnapshots": [
+          {
+            "title": "Dog Breed Info — original adult Chi-Poo Tuffy keeper account",
+            "url": "https://dogbreedinfo.com/chipoophotos3.htm",
+            "sourceRole": "Original named adult own keeper submission and directly linked sameadult photographs.",
+            "evidence": "Entire actual body read. Tuffy7 still playful/loves toys/favoritefetch; literal Tuffy18months shavedshort seated and7years Mohawk captions. Alfie fullgrown owncross but not selected morphology. Harley6months/10weeks/12weeks/3months/18weeks/7months and Alfie5months excluded matureanatomy. Popularity/stillacts puppy not actual juvenileage; no parent causal character or global traits.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/chipoo-dbi-tuffy-gallery-046-001.html",
+              "sha256": "7e66d9e9495ab67b60c7667d306d20a20359cad4e8d201e340f944070ad70931",
+              "bytes": 26114
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/chipoo-dbi-tuffy-gallery-046-001.txt",
+              "sha256": "a6170d7f4a830c8564535968390fa69545142df14a1ee8d7b750d84bdde36132",
+              "bytes": 2712
+            },
+            "acquisitionDisclosure": "Actual fresh verified-TLS HTTPS200 complete factual HTML/text/receipt retained and entire original keeper gallery bodies personally read. Whole normalChrome research screenshots, no photooriginal downloads, no generator inputs/license grant claim."
+          },
+          {
+            "title": "Dog Breed Info — original Oreo all-grown two-year-old keeper account",
+            "url": "https://www.dogbreedinfo.com/chipoophotos2.htm",
+            "sourceRole": "Original named adult own keeper firstperson paragraph, character only.",
+            "evidence": "Entire actual body read. Oreo allgrown2 described verysmart/character and loves photographs, demands own photo whenever camera appears. Earlier original neonatalcaption names ToyPoodle Lacy/Chihuahua Chocolate parents, supports sameexactcross label but no pedigree/DNA guarantee or juveniletrait/morphology transfer. All neonatal/18day/7.5week/5month photos and speculative clipping comfort/hair inheritance excluded. Puddles5/Megan10 adult captions unused morphology. No Oreo photographs viewed or body/tail claims from them.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/chipoo-dbi-oreo-gallery-046-001.html",
+              "sha256": "f7f1a53f10ff1558d7ea856825a8776e50016a3661209ba93b4b946c53befdc6",
+              "bytes": 26871
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/chipoo-dbi-oreo-gallery-046-001.txt",
+              "sha256": "0f022dfab2cf1dae68e06ba878469a885bc6e0e3e2e11feb79d46e2c8b093721",
+              "bytes": 2724
+            },
+            "acquisitionDisclosure": "Actual fresh verified-TLS HTTPS200 complete factual HTML/text/receipt retained and entire original keeper gallery bodies personally read. Whole normalChrome research screenshots, no photooriginal downloads, no generator inputs/license grant claim."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-04T22:01:36.131261+00:00"
+      },
+      "scene": "A broad clear fine-earth path beside a softly blurred low wildflower meadow and distant deciduous trees, gentle overcast early-afternoon light and unobstructed ground below every paw.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "M-0200329-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/attempt-M-0200329-01.json",
+              "sha256": "4adae88ad9b84af2ab165980fa0d47075cac749020db8f8db1f1e1c06cef6e6b",
+              "bytes": 6235
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-approvals/f028382bb571b600b1902ac39fb1d12314213823acf8c0c4d4b94fd36602f148.json",
+              "sha256": "f028382bb571b600b1902ac39fb1d12314213823acf8c0c4d4b94fd36602f148",
+              "bytes": 3930
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/preflights/c54f1642-f8fd-44c4-a76d-32149d074a9d.json",
+              "sha256": "50fb3e25ceb87400e6230b91ee7ce9d9dcd0b835b53a9a4b1a67511bccb91a59",
+              "bytes": 4748
+            },
+            "imagePermitId": "c54f1642-f8fd-44c4-a76d-32149d074a9d",
+            "trancheSha256": "9c807a01f0932891a217034e22456877787950a9b6ae8adb48607cab208c3c60",
+            "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one original1536×1024 landscape portrait of one mature adult Chi-Poo exactcatalogVBO:0200329. Text-only; no image inputs. Own documented coarse morphology: One anonymous mature Chi-Poo, exact Chihuahua/Poodle cross. Selected coarse Tuffy mature cream/lightapricot phenotype: small developed mildly rectangular lean trunk with ordinary chest/thighs, moderately slender functional legs and small ordinary paws. Rounded small head with short but clearly projecting blunt muzzle/pinkishbrownnose and ordinary brown canineeyes. Natural very large erect triangular outward-spreading ears with soft silky fringe, no croppedears or hanging spaniel leather. Short natural cream/lightapricot bodytrim with modest soft facebeard and longer ear/tail furnishings, fresh independent grooming; no Mohawk/dye/topknot or exact source haircut. Full natural mediumlong furnished tail attached at rump extends backward/outward into loose open upward curve with separate hanging free tuft insideframe, continuous readable course/moderate silkyfeathering, no dock/bob/tight solid fan. Whole own Tuffy7 grass350x440 recumbent oblique developedbody/nearhindfoot and full attached furnishedtail looping backward/outleft with contained separate free tuft; fine left fringe nearimageedge, bodyforecourses hidden behindneck/harness/grass, rearjoints folded. Whole sameadult7bed400x256 developedside body/nearforecourse and small paw partlytoy-overlapped/nearhindfolded lowercourse; far fore/hind joints hidden, full attached natural tail sweeps backward/right/up loosecurve and separate hanging free tuft coarseenvelope contained, longest fine edgewisps indistinct. Whole own18month seated322x336 corroborates two separate complete forecourses/paws, folded nearhind lowercourse/foot plus farhind distal foot; proximal hind joints compressed/hidden, bandana hides upperchest, tailfringe besidebody not selected as fulltail evidence. Complementary same own mature adult coarse body/courses and full furnishedcourse/free tuft support ordinary fresh fourgrounded functionalstance, no exact hiddenjoint/toe/ratio reconstruction or universal cross ears/tail. No pureparent template or juvenile fill. One relaxed anonymous adult standing right-facing threequarter view at eyelevel, head gently towardviewer, mouthclosed. Four distinct complete grounded paws/coherent ordinary functional limbs/plausible weight/contactshadows. Entirehead/naturalears/body/fourfeet/full attached natural tail/continuouscourse/separate free furnished tuft wholly inside generousframe. Keep dogsmaller with atleast150px above highesthead/tail and140px belowlowestpaw. Setting: A broad clear fine-earth path beside a softly blurred low wildflower meadow and distant deciduous trees, gentle overcast early-afternoon light and unobstructed ground below every paw. Restrained documentary naturalrealism, fresh anonymous individual/grooming/pose/scene/camera/light, no exactTuffy/Oreo likeness or sourcephotographic arrangement. Full natural open curvedtail has continuous connectedcourse and separate free tuft, moderate furnishing no solidfan hiding end. No Mohawk/dye/topknot/collar/leash/harness/people/otheranimals/toys/props/buildings/fences/text/logos/watermarks; no croppedears/dockedtail/bob/hiddenpaws/extra or fused limbs/juvenilebody.\n",
+            "promptSha256": "b6206e952b9f0f58b08688f144d554713dcce9bad980441c0f23bd97d44d05e3",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-m/worker-a/M-0200329-01.png",
+              "sha256": "2fc04c88696134ee4e1ef95a14b2ad8d85002a0f3f1fd12aa82844a847a5f20b",
+              "bytes": 2674187
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10614-e1f8-74b1-8d32-f87f64a95a7d/exec-2447f0be-c148-4992-a4c5-e96fd6a279dd.png",
+            "originalOutputSha256": "2fc04c88696134ee4e1ef95a14b2ad8d85002a0f3f1fd12aa82844a847a5f20b",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-04T22:05:22Z",
+            "completedAt": "2026-10-04T22:05:43Z",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200329-01-accepted.json",
+              "sha256": "a241f7e3340ce38f34154d7b54dbcd34e719e267069ed0468de6a1678c6a8eef",
+              "bytes": 1223
+            }
+          }
+        ],
+        "acceptedAttemptId": "M-0200329-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200329-01-accepted.json",
+          "sha256": "a241f7e3340ce38f34154d7b54dbcd34e719e267069ed0468de6a1678c6a8eef",
+          "bytes": 1223
+        },
+        "reviewedAt": "2026-10-04T22:10:01.177691+00:00",
+        "breedIdentity": "Selected documented mature small cream Chi-Poo phenotype, large erect fringed ears, projecting pink-brown muzzle and soft short body coat; independent anonymous grooming and markings.",
+        "anatomy": "Four coherent complete grounded feet and ordinary developed trunk/limbs. Full attached tail has readable open upward course and separated hanging furnished end. No extra/fused appendages.",
+        "crop": "Entire dog contained with open margins. Bottom approximately95px misses requested ideal140 but all feet safely contained; no factual correction needed.",
+        "aesthetics": "Original quiet meadow path, natural overcast light, good silhouette and restrained documentary coat texture.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-012-initial-three.jpg",
+          "sha256": "fa0f30ae6d7518fc38a46050c21e43c0bf7d4b32289b2a3dda9230f6a5833b99",
+          "bytes": 350350
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "m69",
+        "batchManifest": "data/dogs/generated-artwork-batch-m69.json",
+        "integratedAt": "2026-10-04T22:16:18.212291+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0201229": {
+      "catalogId": "VBO:0201229",
+      "displayName": "Shollie",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0201229-001.json",
+        "sha256": "60e6f20ed5658c86250144a48952516d88c1b0ddec7af0934438e19af1100a46",
+        "bytes": 2507
+      },
+      "preparation": {
+        "worker": "C",
+        "trancheId": "m70",
+        "trancheSha256": "89ade271329347af69c6ca1b32601ee88794d06e192627b7526e9919f4af7c62",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/packet-shollie-text-only-051-001.json",
+          "sha256": "a8f1efdc33629c838f703ab16705046bcc9e9968a9e3e89de93804f67177590d",
+          "bytes": 12295
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/peer-c-shollie-051-001.json",
+          "sha256": "c55facc84b020b3b9b93113afd10213f6030e715d0daa8d302aed456fa423e8e",
+          "bytes": 2376
+        }
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/research-dossier-0201229-text-only-051-001.json",
+          "sha256": "70db89c78e129792947ede9adebaf5a652a9645d2696f01583d0ff6c36aad965",
+          "bytes": 16295
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.aspca.org/nyc/aspca-adoption-center/adoptable-dogs/maxie-a41190739",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/acedb3bf86bbabd43973d8549366e9a8ea74a88bdd6eeeb945aeca2e54d2f095.json",
+        "rootApprovalSha256": "acedb3bf86bbabd43973d8549366e9a8ea74a88bdd6eeeb945aeca2e54d2f095",
+        "primaryReviewedAt": "2026-10-04T22:10:01.222955+00:00",
+        "visualReview": "Personally read exact ASPCA Maxie source and Cisco own full entry, final290/110 copy, exact2974B prompt, full dossier/identity and previous016 Shollie disposition. Viewed all five whole source photographs at original detail:0011 developed adult trunk/four coarse courses, complete two forefeet with moving far foot, hindfoot bottoms cropped, full connected open tail with distinct contained free end. Other photos corroborate only stated head/body views; no hidden anatomy invented. Exact institution German Shepherd/Border Collie and own Cisco label adequate without pedigree guarantee. Currentpage10years never assigned to2019photographs. Cisco named own affection, activity/swimming/fetch, training and gradual cats adjustment support copy; no parent transfer. Earlier Shadow guessing/Elsa changed label/Mack juvenile excluded and historical holds preserved. Ordinary new standing anatomy/independent scene supported by coarse adult evidence. All source-input permissions denied, text-only generation. A independent peer pass read.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Affectionate and very energetic in his owner’s account, Cisco was a three-year-old German Shepherd–Border Collie cross whose pastimes included cuddles, swimming and fetch. His owner found training easy and described a gradual adjustment to household cats, which eventually slept beside him.",
+        "summarySha256": "61718ca241ca0b0fc7aedce6e71d12b4253710ef791291e5a7bfa074e4933122",
+        "shortDescription": "Cisco’s owner described a very energetic Shepherd–Border Collie cross who enjoyed cuddles, swimming and fetch.",
+        "shortDescriptionSha256": "92491822f04c4acd45015313014f9ce85c2834ba3413f6a13fbd0785a12c43d7",
+        "author": "M worker C",
+        "reviewer": "M worker A and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/packet-shollie-text-only-051-001.json",
+        "sourcePathSha256": "a8f1efdc33629c838f703ab16705046bcc9e9968a9e3e89de93804f67177590d",
+        "sourceSnapshots": [
+          {
+            "title": "ASPCA — Maxie, own German Shepherd/Border Collie adult gallery",
+            "url": "https://www.aspca.org/nyc/aspca-adoption-center/adoptable-dogs/maxie-a41190739",
+            "sourceRole": "Original institutional shelter assessment/identified dog gallery, mature individual morphology only.",
+            "evidence": "Entire actual current native page body read. Explicit Maxie female GermanShepherd/BorderCollie label, displayed10years; dated2019filename does not assign that numeric age to photographs. Mature developed anatomy supplies adult basis independently; exact photo date-age/pedigree unknown. Literal linked1040x695 fullviews0003/0008/0011/0018/0023 personally whole-viewed. No character inference from photos, breedlabel credible institution but genealogy unverified.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/shollie-aspca-maxie-051-001.html",
+              "sha256": "7f0f5dcb1d1b9b40dd8b3b35ed40ff348bcbce9d62f34e1ee242e19d05cf712a",
+              "bytes": 78962
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/shollie-aspca-maxie-051-001.txt",
+              "sha256": "344af854b8a4f418b69d604c7afe110a3a488bbbf163cb678ae29a0da3640ad7",
+              "bytes": 2241
+            },
+            "acquisitionDisclosure": "Text-only factual research; fresh verifiedTLS200 original ASPCA complete HTML/text/receipt, five whole current normal-browser source-linked photograph screenshots. No unlicensed photograph originals downloaded, no imageinputs or license grant. Original retained Wag Cisco exact owner-entry literal claims reread with native source, selected own entry only; generic parent essay/other reviews not adopted."
+          },
+          {
+            "title": "Wag — original Cisco three-year-old keeper submission",
+            "url": "https://wagwalking.com/breed/shollie",
+            "sourceRole": "First-person original keeper assessment hosted on commercial breed page; selected exact Cisco entry, not its general ancestry essay.",
+            "evidence": "Entire actual Cisco original3Years entry/cross label/owner paragraph and ownpastimes read: highenergy/affection, easyowntraining, cuddles/swim/puzzles/walk/fetch and gradual householdcat adjustment after7months, sometimes slepttogether. Medical rescuehistory/causal socialization/general heritable intelligence/friendliness/safety excluded. Historical displayed entry age not currentage arithmetic; no photograph from this source.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/shollie-wag-current-001.html",
+              "sha256": "ec1d527ab395c8f6ee440462c9b2b49a820d9fc3b3973d004d5c8743c440d68e",
+              "bytes": 1367253
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/shollie-cisco-own-entry-001.txt",
+              "sha256": "54c099be91e59bd581bb42ba0cbc0ab3e90d2bf29aa3e13dfbb5d5282dca5124",
+              "bytes": 738
+            },
+            "fullNativeText": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/shollie-wag-current-001.txt",
+              "sha256": "5ca2fd2f74e56b61a9a78a6fd7147a2b0262eec13608fbbb0243ad6b4a6f1af4",
+              "bytes": 30567
+            },
+            "acquisitionDisclosure": "Text-only factual research; fresh verifiedTLS200 original ASPCA complete HTML/text/receipt, five whole current normal-browser source-linked photograph screenshots. No unlicensed photograph originals downloaded, no imageinputs or license grant. Original retained Wag Cisco exact owner-entry literal claims reread with native source, selected own entry only; generic parent essay/other reviews not adopted."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-04T22:10:01.222955+00:00"
+      },
+      "scene": "An unobstructed broad level pale earth path at a quiet temperate woodland meadow edge, low muted grass beyond all paws, distant softly blurred trees, gentle early-autumn overcast daylight.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "M-0201229-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/attempt-M-0201229-01.json",
+              "sha256": "599eb334f2b5eed762e6d8a70fc1d4ab0c8d2c79209b657887a8ed478e09a9f6",
+              "bytes": 5848
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-approvals/acedb3bf86bbabd43973d8549366e9a8ea74a88bdd6eeeb945aeca2e54d2f095.json",
+              "sha256": "acedb3bf86bbabd43973d8549366e9a8ea74a88bdd6eeeb945aeca2e54d2f095",
+              "bytes": 3892
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/preflights/020e6617-36d6-478d-9386-657ba9fca670.json",
+              "sha256": "82192cee678300beca7bb702d67906ad09768a8b14862d9efa71d02dd84d50de",
+              "bytes": 4343
+            },
+            "imagePermitId": "020e6617-36d6-478d-9386-657ba9fca670",
+            "trancheSha256": "89ade271329347af69c6ca1b32601ee88794d06e192627b7526e9919f4af7c62",
+            "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one original1536×1024 landscape portrait of one mature adult Shollie exactcatalogVBO:0201229. Text-only; no image inputs. Own documented coarse morphology: One anonymous mature German Shepherd/Border Collie cross, exact own ASPCA Maxie-labelled adult scope, not generic Collie/Shepherd or parent template. Developed medium substantial mildly rectangular functional trunk/deep chest/level ordinary back, ordinary moderately long functional legs, no extreme sloped croup/dwarf/racinghound thinness. Black mediumclose dense coat with new independently arranged tan lowerleg/face accents and modest white chest mark, restrained short ruff/tail feathering; not exact Maxie face or marking layout. Moderate projecting wedge muzzle/darknose/normalbrown eyes, natural triangular semi-pricked ears with softly forward folded tips. Full mediumlong natural tail visibly attached at rump extends backwards/down away from body then turns gently upward through loose open curve to distinct tapered furnished freeend wholly contained; no dock/stump/tight solidloop/rumpfan. Whole Maxie0011 shows mature developed trunk/four ordinary coarse leg courses, bothforepaw ends with farfore moving/airborne, bothhind lowercourses crop at bottom near foot region, so no complete hindpaw/toe-source claim or fourgrounded source stance. Far uppercourse overlaps/blackfur/rootfur/finejoints/precise ratios unknown. Tail full attached continuous course/freeend clearly contained; Maxie0008 corroborates body/ears/head but forepaw ends bottomcrop and tailbase behind leg. Other views head/forebody only, not hiddenrear fill. Complementary coarse same exact adult supports ordinary new fourgrounded functional stance, never reconstruction of cropped individual toes or parent derived assembly. Numeric age of photographs unknown despite page10years and2019filenames, credible own institution label no pedigree guarantee. One relaxed anonymous adult standing left-facing threequarterview at eyelevel, head gently towardviewer, mouthclosed. Four distinct complete groundedpaws/coherent ordinary functional legcourses/contactshadows. Entirehead/two naturalears/body/fourfeet/fullnatural attachedtail/continuouscourse/separatefreeend safelyinside generousframe. Keep dogsmaller with atleast150pxabovehead/tail and140pxbelowlowestpaw. Setting: An unobstructed broad level pale earth path at a quiet temperate woodland meadow edge, low muted grass beyond all paws, distant softly blurred trees, gentle early-autumn overcast daylight. Restrained documentary naturalrealism, tactile naturalcoat, original individual/markings/stance/scene/camera/light. No exact Maxie or Cisco likeness/clinicroom/pinkcollar/harness/handler/photo arrangement. No collar/leash/harness/people/otheranimals/props/buildings/fences/text/logos/watermarks; no crop/dock/stump/fusedfeet/extra malformedlimbs/juvenilebody/solidtailring.\n",
+            "promptSha256": "252935e85987089791f929d4c761b48ae345b819752ef90054d13436a0c0be5e",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-m/worker-c/M-0201229-01.png",
+              "sha256": "13e2e2bbfc96142ebc233d9fcd35a3f7ff0635e92c7384a008bb30e4245229cd",
+              "bytes": 2746134
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10615-873b-7b13-bb62-47091c4191c4/exec-5c2542df-59e6-4dd8-904d-8c8d23649a3b.png",
+            "originalOutputSha256": "13e2e2bbfc96142ebc233d9fcd35a3f7ff0635e92c7384a008bb30e4245229cd",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-04T22:11:47Z",
+            "completedAt": "2026-10-04T22:12:25Z",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0201229-01-accepted.json",
+              "sha256": "6ec4a5080499ecd3e6b02f40cc441e0cbdfde44701b37eacdb55b817da99fc69",
+              "bytes": 1385
+            }
+          }
+        ],
+        "acceptedAttemptId": "M-0201229-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0201229-01-accepted.json",
+          "sha256": "6ec4a5080499ecd3e6b02f40cc441e0cbdfde44701b37eacdb55b817da99fc69",
+          "bytes": 1385
+        },
+        "reviewedAt": "2026-10-04T22:14:11.934998+00:00",
+        "breedIdentity": "Selected mature black/tan modest-white Shepherd/Border Collie cross phenotype with developed substantial ordinary trunk and natural semi-pricked softly folded ear tips. Independent facial/chest markings and normal wedge muzzle.",
+        "anatomy": "Four coherent grounded full feet and ordinary weight-bearing joints. Whole attached moderately furnished natural tail sweeps down/back and softly upward to separate freeend. No extra/fused appendages or exaggerated slope.",
+        "crop": "All extremities contained in untouched1536x1024 original, approximately110px above ears/92px below forefoot. Requested150/140 ideal missed but safe actual margins.",
+        "aesthetics": "Quiet original woodland meadow-edge path with soft distant trees and diffuse autumn light. Natural coat/contact; no source hospital arrangement or individual likeness reproduction.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-012-initial-three.jpg",
+          "sha256": "fa0f30ae6d7518fc38a46050c21e43c0bf7d4b32289b2a3dda9230f6a5833b99",
+          "bytes": 350350
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "m70",
+        "batchManifest": "data/dogs/generated-artwork-batch-m70.json",
+        "integratedAt": "2026-10-04T22:16:18.369995+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0200256": {
+      "catalogId": "VBO:0200256",
+      "displayName": "Bull-Pei",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200256-001.json",
+        "sha256": "ab0d7a66e211ddd7d756ca04f19a842a22036cf5cb4a9156090198ec3a8655e8",
+        "bytes": 2546
+      },
+      "preparation": {
+        "worker": "B",
+        "trancheId": "m71",
+        "trancheSha256": "993183865f75acc70952214fd7781af684a033e4219f20a3e963121ef08bf3c0",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/packet-bullpei-text-only-049-001.json",
+          "sha256": "0b06f421963c115ae5e32d1b04f06bd20db1e33f61485eb7a3f9b05f75c786a1",
+          "bytes": 9284
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/peer-b-bullpei-049-001.json",
+          "sha256": "602b9f93be4ec55f05b9f2310abc4c8ee0da9f207278c3a13dd62f252b7f9751",
+          "bytes": 3999
+        }
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/research-dossier-bullpei-text-only-049-001.json",
+          "sha256": "66858f2f0fa0f02ab4f9ae2618f15a00aea793553a0fda0c32eda3fa0d87b0b3",
+          "bytes": 12034
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://legacy.manytearsrescue.org/display_all_mtar_dogs.php?counter=37&id=81",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/92392cdd1d6a05c6242959fa8357bebccf6562ecc02d8cdf010b2411688d825b.json",
+        "rootApprovalSha256": "92392cdd1d6a05c6242959fa8357bebccf6562ecc02d8cdf010b2411688d825b",
+        "primaryReviewedAt": "2026-10-04T22:14:44.784948+00:00",
+        "visualReview": "Personally read entire actual11191B Queenie ManyTears rescue body/intake/dated updates, both final texts353/112, exact2799B prompt, dossier/identity/old024 selectedhold and Cpeer. Whole375x500 side and436x500 front photographs viewed at original detail. Side developed substantial adult torso, two full forecourses/paws one lifted, nearhind course/paw and overlapped farhind; complete almoststraight rising natural attached tail ending freely within frame. Front head/body corroboration only. Coarse ordinary new stance supported, no hidden finejoint inference. Literal own breeder-intake SharPei Cross Bulldog qualifies inclusive0256; finer Bulldog subtype unknown, no subtype second count/pedigree claim. Currentage6 vs indexed5 not photoagemath. Sensitive shy/familiar affection, winter strollsniff/heatlamp/happyfeet/noisestartle support named individual descriptions; medical underbite/conjunctivitis and suitability removed. Independent anonymous markings/gardenpath, no source arrangement. Historical Daisy/DC crops preserved, source input permissions remain denied.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Sensitive and initially shy, Queenie was a Bulldog–Shar Pei cross whose rescuers described affection once she felt comfortable. Their winter updates recorded short, quiet strolls, sniffing her surroundings and naps under a heat lamp. Familiar visitors could prompt a little happy-feet dance, although loud noises and sudden movements still startled her.",
+        "summarySha256": "0101e467ae28fff6e7435b55aa26bac3be29185462c49a319ed37324449aeb07",
+        "shortDescription": "Queenie’s rescuers described a sensitive Bulldog–Shar Pei cross who enjoyed gentle strolls and familiar company.",
+        "shortDescriptionSha256": "5e08ef3e1554f217e71e85b9b87dc448120a96d42205fd8790c9dfb77fb3eadb",
+        "author": "M worker B",
+        "reviewer": "M worker C and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/packet-bullpei-text-only-049-001.json",
+        "sourcePathSha256": "0b06f421963c115ae5e32d1b04f06bd20db1e33f61485eb7a3f9b05f75c786a1",
+        "sourceSnapshots": [
+          {
+            "title": "Many Tears Animal Rescue — original Queenie intake and dated updates",
+            "url": "https://legacy.manytearsrescue.org/display_all_mtar_dogs.php?counter=37&id=81",
+            "sourceRole": "Original rescue firsthand breeder-intake assessment and named staff/volunteer updates.",
+            "evidence": "Entire actual body through13Feb2025 update read. Literal SharPeiCrossBulldog adult6 currentnative/browser, earlierwebindexed5 disclosed. Sensitive/initially shy and wary around new people, loves fuss oncecomfortable, rests underheatlamp, exploresyard/shortstrolls;6Jan2025 happyfeetdance greet familiarstaff,19Janquietsniffstrolls/heatlamp routine and13Febeasilystartlednoise/suddenmovement. Early nearlyleadable versus later documented walks honestly chronological. Medicalconjunctivitis/underbite, child/onlydog/adopter/homeprescriptions/futureplayfulprediction and currentavailability promises excluded. GenericBulldog subtype unknown.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/bullpei-queenie-049-001.html",
+              "sha256": "629355b66746f2b1451eb21663a73b95ec59490723ae2912abe51e465857c250",
+              "bytes": 36271
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/bullpei-queenie-049-001.txt",
+              "sha256": "4d06110757ec56d616ad217ad9b956615fb4453115c699b636f6141697b95ac3",
+              "bytes": 11191
+            },
+            "acquisitionDisclosure": "VerifiedTLS HTTPS200 complete original rescue HTML/text/receipt retained; entire original intake and datedupdates personally read in web and expanded normal Chrome page, bound current rendered body and whole page. Actual literal linked adult photos viewed whole in normal browser/screenshots only, no photograph originals downloaded, image inputs or rights claims. Web-indexed age5 differs current native/browser6; use adult historical dated updates without current-age arithmetic or numerical photoage assertion."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-04T22:14:44.784948+00:00"
+      },
+      "scene": "A broad open fine-earth garden walking path with low muted grasses and softly blurred deciduous shrubs, gentle diffuse morning light and clear ground around every paw.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "M-0200256-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/attempt-M-0200256-01.json",
+              "sha256": "f6931b4aaaef83eb61802ca3fcdd47743b35f38df376bc750c2235e3495b2b9d",
+              "bytes": 5320
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-approvals/92392cdd1d6a05c6242959fa8357bebccf6562ecc02d8cdf010b2411688d825b.json",
+              "sha256": "92392cdd1d6a05c6242959fa8357bebccf6562ecc02d8cdf010b2411688d825b",
+              "bytes": 3930
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/preflights/1a6d4535-e6e4-4f55-9c3b-5797750706a4.json",
+              "sha256": "7442095e58cc141ad54cbc0d9bc8d76750e81720564239905c7b72b5065de4fc",
+              "bytes": 4167
+            },
+            "imagePermitId": "1a6d4535-e6e4-4f55-9c3b-5797750706a4",
+            "trancheSha256": "993183865f75acc70952214fd7781af684a033e4219f20a3e963121ef08bf3c0",
+            "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one original1536×1024 landscape portrait of one mature adult Bull-Pei exactcatalogVBO:0200256. Text-only; no image inputs. Own documented coarse morphology: One anonymous mature Bull-Pei, exact own Bulldog/Shar Pei cross with Bulldog subtype unknown. Substantial compact mildly rectangular developed medium body, broad moderately deep chest and muscular ordinary thighs; sturdy short-to-moderate functional legs and ordinary broad paws, no extreme dwarfing or giant bulk and no numeric ratios. Broad square clean canine head with modest forehead folds, short clearly projecting broad blunt muzzle and darknose, ordinary brown eyes; avoid reproducing source eye illness or underbite. Natural small soft triangular folded ears close to head, no long pendant leather/crop. Short smooth smoky charcoal-gray coat with a new modest irregular pale chest patch and restrained pale forefoot markings, no exact source blaze/point-layout imitation. Full natural mediumlong short-coated tapering tail attached rump extends backward/upward in an almost straight gently rising line to a separate pointed free endpoint; no dock/bob/screw/tightcurl or assumed SharPei ring. Whole375x500 original source side-oblique walking photo shows developed trunk/head, both complete forecourses/pawends (one lifted) and nearhind lowercourse/paw, farhind uppercourse partly overlapped; complete tail courses fromrump outupperleft to distinct tip insideframe. Front436x500 photo corroborates same mature head/natural ears/trunk, lowerfeet and tail absent. Coarse actual adult functional body supports an ordinary new fourgrounded stance, no exact hiddenjoint/toe reconstruction or parent template. One relaxed anonymous adult standing left-facing threequarter view at eyelevel, head gently towardviewer and mouthclosed with a functional ordinary bite. Four distinct complete grounded paws/coherent functional limbs/plausible weight/contactshadows. Entirehead/naturalears/body/fourfeet/full attached natural tail/continuouscourse/separate pointed free endpoint wholly inside generousframe. Keep dogsmaller with atleast150px above highesthead/tail and140px belowlowestpaw. Setting: A broad open fine-earth garden walking path with low muted grasses and softly blurred deciduous shrubs, gentle diffuse morning light and clear ground around every paw. Restrained documentary naturalrealism, fresh anonymous individual/markings/pose/scene/camera/light; no exact Queenie likeness, forward walking pose, rescuefloor/bowls/kennel/fence arrangement. No collar/leash/harness/people/otheranimals/props/buildings/fences/text/logos/watermarks, no croppedears/dockedtail/screwtail/tighttailring/hiddenpaws/extra or fused limbs/juvenilebody.",
+            "promptSha256": "6330dc310e93683da48a46eef41ec2ca5cbaf9d39aef55641a259fc657e92c64",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-m/worker-b/M-0200256-01.png",
+              "sha256": "c15b16cdfe2b19dd97745c99482af9a7937f915fe760ab2d15c14dde29ed06aa",
+              "bytes": 2798171
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10615-3275-71c2-9917-5f23ee225216/exec-9cf669f3-336e-47c5-bdeb-325bd2cb2ef7.png",
+            "originalOutputSha256": "c15b16cdfe2b19dd97745c99482af9a7937f915fe760ab2d15c14dde29ed06aa",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-04T22:15:37.084Z",
+            "completedAt": "2026-10-04T22:15:54.958Z",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200256-01-accepted.json",
+              "sha256": "fa9dcd87cc56808a1170b44ce2366aa2607b6cf67ff28068595ee7a33f715007",
+              "bytes": 1325
+            }
+          }
+        ],
+        "acceptedAttemptId": "M-0200256-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200256-01-accepted.json",
+          "sha256": "fa9dcd87cc56808a1170b44ce2366aa2607b6cf67ff28068595ee7a33f715007",
+          "bytes": 1325
+        },
+        "reviewedAt": "2026-10-04T22:18:11.789339+00:00",
+        "breedIdentity": "Selected substantial compact adult Bulldog/SharPei phenotype, short smoky coat with independent modest chest/foot markings, broad clearly projecting muzzle/modest folds and natural small folded ears; healthy eye/mouth depiction.",
+        "anatomy": "Four complete coherent grounded paws and functional courses, developed sturdy trunk. Tail fully attached, gently rising nearstraight course and freely tapering tip contained. No parent tight ring or dock, no malformed joints.",
+        "crop": "Whole original1536x1024 safe margins approximately110top/105bottom, below ideal but no clipping or cramped extremity.",
+        "aesthetics": "Independent quiet garden earthpath/soft shrubs/diffuse warm light, natural coat/contact. No source forward kennel pose, pathology, gear or likeness reproduction.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-012-bullpei.jpg",
+          "sha256": "e8dfc87110d1ac839a682d7ef05ee3d6a85397995c371d5e98ba2d45fbfbc502",
+          "bytes": 118265
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "m71",
+        "batchManifest": "data/dogs/generated-artwork-batch-m71.json",
+        "integratedAt": "2026-10-04T22:19:58.272176+00:00"
+      },
+      "publication": {
         "status": "pending"
       }
     }
   },
   "progress": {
-    "qualified": 70,
-    "generationCalls": 74,
-    "accepted": 68,
-    "integrated": 68,
-    "published": 65
+    "qualified": 73,
+    "generationCalls": 79,
+    "accepted": 72,
+    "integrated": 72,
+    "published": 68
   },
   "currentSourceReadiness": {
     "status": "active-authorized-text-only-production",

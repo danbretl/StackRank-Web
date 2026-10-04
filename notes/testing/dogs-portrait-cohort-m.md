@@ -59,3 +59,11 @@ Product `e25661f7e9ec8409809e1ab133946a86c7dd88f2` is Vercel READY (`dpl_BCGExZz
 ### Release011 stable candidate
 
 ShiChi, Sakhalin Husky and Maltipom: three independently sourced/copy-reviewed and root whole-native/contact-sheet accepted pairs in m65–m67. All three local archives verify, including Sakhalin packet-source correction. All767 previous artwork/profile records and1534WebPs plus1239 source identities unchanged. Local770/469. Full `npm run verify` passes; desktop Sakhalin full/short ranking, actual390×844 Maltipom comparison/About/Escape, and ShiChi reviewer provenance/draft/focus checks pass with no console warnings/errors. Exact READY and live byte/fullrecord publication checks follow. Later approvals stay outside this stable product candidate.
+
+### Release011 verified production
+
+Product `2552d635b1884471911fd39387b4940168cf2879` is Vercel READY (`dpl_tA5ZBZw3oLYKY3SSaZ9VUyYzTiY5`) on both production aliases. All49 production checks,6 exact live WebPs and3 full artwork/profile records match. **770 published /469 hidden;68 of100 additions verified**, originalfive included. Receipts `publication-m65-001.json` through `publication-m67-001.json` bind the checks. Later Pointweiler and Chi-Poo approvals remain active; original100-pair goal continues.
+
+### Release012 stable candidate
+
+Pointer–Rottweiler Mix, Chi-Poo, Shollie and Bull-Pei: four independently sourced/copy-reviewed and root whole-native/contact-sheet accepted pairs in m68–m71. All four local archives verify, including rejected Pointweiler01, targeted coat correction and structural identity deltas. All770 previous artwork/profile records and1540WebPs plus1239 source identities unchanged. Local774/465. Full `npm run verify` passes; desktop Shollie full/short ranking, actual390×844 Bull-Pei comparison/About/Escape, and Chi-Poo reviewer provenance/draft/focus checks pass with no console warnings/errors. Exact READY and live byte/fullrecord publication checks follow. Maltese–Jack Russell is separately root-accepted for the next release.

@@ -22,3 +22,29 @@ data/dogs/artwork-coverage-report.json
 data/dogs/artwork-crop-recipes.json
 data/dogs/artwork-review-guide.md
 data/dogs/artwork-rights-schema.json
+
+# Design workspaces are source artifacts, not production routes
+density-design-brief/
+design-review-site/
+rank-surface-refinement-brief/
+ranking-personal-space-brief/
+ranking-redesign-review-brief/
+
+# Assistant instructions and development automation
+AGENTS.md
+CLAUDE.md
+.claude/
+.github/
+
+# Dogs authoring and coordination records; keep these in Git
+data/dogs/portrait-cohort-*.json
+data/dogs/portrait-continuation-*.json
+data/dogs/regeneration-manifest-*.json
+data/dogs/profile-refresh-*.json
+data/dogs/profile-overrides.json
+data/dogs/profile-short-descriptions.json
+data/dogs/breed-profiles.schema.json
+data/dogs/generated-artwork-policy.json
+
+# Keep generated-artwork-batch-*.json: /dogs/artwork-review fetches these.
+# Keep generated WebPs and runtime catalog, profiles, packs, rights and policy JSON.

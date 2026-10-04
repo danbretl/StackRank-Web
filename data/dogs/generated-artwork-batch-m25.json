@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-m25",
+  "cohortId": "dogs-portraits-m",
+  "selectionSha256": "8f70a3499907636e39ba4933a719486a2153508ea4b522ca951811275d5c6304",
+  "reviewedAt": "2026-10-04",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-m/contact-sheet-release-004-first-three.jpg",
+    "contactSheetSha256": "d0ea9f31ebb8c00161e1509036e7a5b15028b43886721463dc1486e578a7c624",
+    "acceptedCount": 1,
+    "reviewedAt": "2026-10-04T17:42:24.437846+00:00",
+    "notes": "Root personally viewed whole three-image contact sheet at original detail, supplementing each whole native. Distinct documented Shinese fawn soft-haired compact adult, black clipped sturdy Pug-Zu and black wavy Cavatzu with longer ears/tail preserve source-based phenotype differences; four paws and complete attached natural tails, safe framing and believable new scenes. Pug-Zu terminal overlap and all minor ideal-margin deviations explicitly adjudicated in native QA; no duplicate or source reproduction."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0200317",
+      "name": "Cavatzu",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "039acd3eed8f7f86999dbbfb59121416520f2128a7fe2d310987b76232ede1b5",
+        "imageInputs": [],
+        "sourcePage": "https://furbabyrescue.com/3-1.html"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-m/worker-b/M-0200317-01.png",
+      "masterSha256": "ca2ed432dbb20db2930a0c4ec20f86d7d34bf1f4f5e7bc14d20c86800084ac7c",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10615-3275-71c2-9917-5f23ee225216/exec-ae28990c-5da1-43e4-9ee4-d0d7bb2abaef.png",
+      "originalOutputSha256": "ca2ed432dbb20db2930a0c4ec20f86d7d34bf1f4f5e7bc14d20c86800084ac7c",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+      "attemptId": "M-0200317-01",
+      "startedAt": "2026-10-04 17:37:09 UTC",
+      "generatedAt": "2026-10-04 17:37:27 UTC",
+      "timeEvidence": "Actual worker tool boundary observations; underlying service timing/model undisclosed.",
+      "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one original1536×1024 landscape portrait of one mature adult Cavatzu, exact catalogVBO:0200317, Cavalier King Charles Spaniel–Shih Tzu cross. Text-only generation, no image inputs. Independently researched own adultcross morphology: One anonymous mature small Cavatzu, Cavalier King Charles Spaniel–Shih Tzu cross, selected observed adult black phenotype. Developed compact mildly rectangular body, moderately substantial chest and ordinary functional moderately short legs, coherent elbows/stifles/hocks and separate small hair-covered paws. Broad gently rounded head with definite short forward-projecting blunt muzzle, blacknose, ordinary darkbrown eyes, natural medium soft downward-hanging ears covered in long wavyhair, no crop. Dense softlywavy darkblack coat trimmed moderately short on trunk/legs, fuller face/earhair and long feathered natural tail. Complete attached full-length tail arises from rump, lifts in a broad open backward curve above rearback, distinct long hair fringe and free endpoint separated from body. Source hair/grass/highangle/harness hidefinejoints/toecounts; no exactsourceeveryjoint/measurement. Cross phenotype variable, no parentbreed anatomy averaging or fixedpurebreedstandard. One relaxed anonymous adult standing left-facing three-quarterview, head gentlytowardviewer, closedmouth. Four distinct grounded paws with full coherent ordinary functional limbcourses/joints, believable weight andcontactshadows. Entirehead/bothnaturalears/body/fourpaws and complete attachednatural tail/freeend clear inside generouscrop-safe margins; smallerdog at least140px abovehead and130px belowpaws. Setting: A clear fine-gravel path beside low green shrubs in a quiet Pacific Northwest garden, soft diffuse morning light, unobstructed firmground under every paw. Natural documentaryrealism, restrained black/charcoal/earth/greenpalette, tactile softwavyhair, softseparatebackground. Freshindividual, newpose/scale/camera/lighting. Do not recreate Lulu or Luke’s dog, exactfacialmarkings, redbordercollage, car/sofa/harness/leash/highangledgrass photograph. No people/otherdogs/equipment/toys/clothing/collars/leashes/text/logos/watermark, dockedtail/croppedears/flatface/exaggeratedbulgingeyes/juvenileproportions/extraor fusedlimbs/malformedpaws.",
+      "promptSha256": "63dc4c821fea0a4bee4eb0941051c3497b49dffa3c53b11faa3947526bde1adc",
+      "scene": "A clear fine-gravel path beside low green shrubs in a quiet Pacific Northwest garden, soft diffuse morning light, unobstructed firmground under every paw.",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "reviewedBy": "primary orchestrator with independent worker",
+        "reviewedAt": "2026-10-04",
+        "breedIdentity": "Mature small mildly rectangular Cavatzu own observed black phenotype, short projecting blunt muzzle, ordinary eyes/nose and natural hanging medium hairy ears, soft wavy trimmed coat consistent with adult research.",
+        "anatomy": "Four distinct complete grounded paws, coherent forelimbs and rear stifle/hock courses with believable weight/contact. Full long natural feathered tail visibly attached at rump rises in broad open curve with complete terminal fringe separated from body. No cropped ears, docking or fused anatomy.",
+        "crop": "Whole untouched1536x1024 personally viewed at original detail. About110px upper tail and105px lower paw margins less than prompt140/130 ideal but all anatomy safely complete; no margin-only retry.",
+        "aesthetics": "New level quiet garden gravel path, diffuse light and readable natural dark fur; independent individual/pose and no source harness/car/sofa/collage recreation.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-m/contact-sheet-release-004-first-three.jpg",
+        "contactSheetSha256": "d0ea9f31ebb8c00161e1509036e7a5b15028b43886721463dc1486e578a7c624",
+        "contactSheetReviewedAt": "2026-10-04T17:42:24.403863+00:00",
+        "contactSheetNotes": "Root personally viewed whole three-image contact sheet at original detail, supplementing each whole native. Distinct documented Shinese fawn soft-haired compact adult, black clipped sturdy Pug-Zu and black wavy Cavatzu with longer ears/tail preserve source-based phenotype differences; four paws and complete attached natural tails, safe framing and believable new scenes. Pug-Zu terminal overlap and all minor ideal-margin deviations explicitly adjudicated in native QA; no duplicate or source reproduction."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/research-dossier-cavatzu-text-only-001.json",
+          "sha256": "039acd3eed8f7f86999dbbfb59121416520f2128a7fe2d310987b76232ede1b5",
+          "bytes": 15381
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://furbabyrescue.com/3-1.html",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/8278110706e628ec907c14c075589ab541fbbe5133cf4774ccfd9f92c1ac4bcf.json",
+        "rootApprovalSha256": "8278110706e628ec907c14c075589ab541fbbe5133cf4774ccfd9f92c1ac4bcf",
+        "primaryReviewedAt": "2026-10-04T17:34:06.312164+00:00",
+        "visualReview": "Root read entire actual original FurBaby Lulu foster body including withdrawn-adoption warning and Luke own two-year-old adult Cava-Tzu advert, complete dossier/identity screen, final384/120 copy, exact2381-byte prompt and independent C002review. Root required began training narrowed to actual signed up; immutable001/002 delta preserves correction. Affection/snuggling/bed/naps and ball play balanced by slow stranger approach/growling are individual Lulu observations, no parent-side character/health/suitability transfer. Own explicit adultcross keeper labels credible without genealogy/DNA assertion or treating platform boilerplate as registry proof. Whole original-detail Luke standing1/overhead2/car3 and Lulu collage personally viewed: mature compact mildly rectangular blackadult with developed limbs, natural hairy drop ears, short projecting muzzle; complete natural long lifted curved plume/free fringe end and ordinary limb courses evident, hair/grass/highangle and farpaw overlap limit fine joints/toes. Lulu cropped view only corroborates head/body and cannot provide fulltail. New anonymous level garden composition uses actual own cross phenotype, no source replication or photo inputs/rights. Prior finite Commons hold remains unchanged.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "summary": "Deeply attached to familiar people, Lulu offers a firsthand glimpse of the Cavatzu, a Cavalier King Charles Spaniel–Shih Tzu cross. Her foster describes snuggling, sharing the bed and enjoying ball play, alongside quiet daytime naps. Meeting strangers is much harder: she warms up slowly, may growl when introductions move too fast, and was signed up for training to build confidence.",
+        "summarySha256": "e3e86fdeea195856d88977678d3865be47eef6bd7be76628d5c304ba3545cbe5",
+        "shortDescription": "A Cavalier–Shih Tzu cross; adult Lulu’s foster records close attachment, ball play and a cautious approach to strangers.",
+        "shortDescriptionSha256": "54e2c6c262f1e171257fac41b8ab051ae0423083211b1b0951af8a2c4aefa7ec",
+        "author": "M worker B",
+        "reviewer": "M worker C and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/packet-cavatzu-text-only-002.json",
+        "sourcePathSha256": "8683c634ba9ec3acfcfe41190a128e927f00b8360d553f6b1c036ea5feebeae2",
+        "sourceSnapshots": [
+          {
+            "title": "FurBaby Rescue: Lulu, own adult Cavalier–Shih Tzu foster account",
+            "url": "https://furbabyrescue.com/3-1.html",
+            "sourceRole": "Original foster account of own identified six-year-old Cavalier King Charles Spaniel/Shih Tzu (Cava-Tzu) Lulu.",
+            "evidence": "Entire actual Lulu heading, withdrawn-adoption update and all own foster paragraphs/list read. Literal6years25lb adult, very attached/snuggling/bed sleeping and daytime napping, happy/athletic/ballplay, six other residentdogs, sometimes chases cats. Serious stranger difficulty, slow warming/growling and training retained; no universally friendly label. Six acres priorhome own history. Parent-side character attribution, intelligence/suitability/health guarantees excluded; source labels own cross without genetic proof. Separate Ebony ShihTzu narrative and generic poems excluded.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/cavatzu-furbaby-001.html",
+              "sha256": "1b8ef6afe06523a32c56d2f08185b179605e9566b3d8cddeff5848337a1aab41",
+              "bytes": 17683
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/cavatzu-furbaby-cp1252-002.txt",
+              "sha256": "5052e1a67e99bfb51561188ec9ffb8dcf8f30087933c980c643e8bdb51add34d",
+              "bytes": 5628
+            },
+            "acquisitionDisclosure": "Verified-TLS native HTTP200 completeHTML retained. InitialUTF8 replacement-character extraction preserved; correctedcp1252 transcription002 uses same exactnativebytes. Actual whole claimscope read in full webresponse and both nativeextractions. Own Lulu collage viewed whole as research; no standalonephoto original or imageinputs/license claimed."
+          },
+          {
+            "title": "Luke P.: own two-year-old Cava-Tzu stud and adult gallery",
+            "url": "https://www.pets4homes.co.uk/classifieds/x5-axfs1h-male-cava-tzu-2-years-old-crewe/",
+            "sourceRole": "Original identified keeper/breeder Luke P. own adult Cava-Tzu advert and gallery, platform Original breeder label.",
+            "evidence": "Actual entire own shortdescription and age/identity/Originalbreeder fields read. Literal blackmaleCavaTzu2years (dynamic agefield2years2months) with own five adultphotos. Adultidentity explicitly stated; no namedparents orverifiedpedigree. MixedBreed category and genericKCregisteredbycollection boilerplate notcross recognition. All health/reproductive/sale claims excluded from customer prose. Whole own five photos establish maturebody, ordinarylimbcourses, projectingshortmuzzle/hairydropears/fullnatural longplumetail; coarse photographic limitations disclosed.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/cavatzu-luke-001.html",
+              "sha256": "27d09662545269ddfe15a062eb8770e2390a884c5cd3584c2f91d7ddbca82e99",
+              "bytes": 170702
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/cavatzu-luke-001.txt",
+              "sha256": "552ffbb561571484207e91b7c89df2e700d0a5ccfa48c347e34078257aa19057",
+              "bytes": 2500
+            },
+            "acquisitionDisclosure": "Verified-TLS nativeHTTP200 completeHTML/text retained. Whole actual renderedownbody/gallery read, five own directURLs whole Chrome-viewed, browserscreenshots retained researchonly. No photo originals downloaded orimageinput/license claim."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-04T17:34:06.312164+00:00"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    }
+  ]
+}

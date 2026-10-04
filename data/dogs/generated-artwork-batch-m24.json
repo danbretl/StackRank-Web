@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-m24",
+  "cohortId": "dogs-portraits-m",
+  "selectionSha256": "5666b62524d02c802e5f79998217a5f02c6334f2f9790ff01a7878df8f45a6e2",
+  "reviewedAt": "2026-10-04",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-m/contact-sheet-release-004-first-three.jpg",
+    "contactSheetSha256": "d0ea9f31ebb8c00161e1509036e7a5b15028b43886721463dc1486e578a7c624",
+    "acceptedCount": 1,
+    "reviewedAt": "2026-10-04T17:42:24.282997+00:00",
+    "notes": "Root personally viewed whole three-image contact sheet at original detail, supplementing each whole native. Distinct documented Shinese fawn soft-haired compact adult, black clipped sturdy Pug-Zu and black wavy Cavatzu with longer ears/tail preserve source-based phenotype differences; four paws and complete attached natural tails, safe framing and believable new scenes. Pug-Zu terminal overlap and all minor ideal-margin deviations explicitly adjudicated in native QA; no duplicate or source reproduction."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0201091",
+      "name": "Pug-Zu",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "9a40e11550baa44b0f355a600c50efdda7f6d0c6dd7d2c29515b10c61f841878",
+        "imageInputs": [],
+        "sourcePage": "https://www.dogbreedinfo.com/pugzu.htm"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-m/worker-c/M-0201091-01.png",
+      "masterSha256": "8dc753962532665cc108663f87929bcdbb92f13b463bc55a70386db84eb34a01",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10615-873b-7b13-bb62-47091c4191c4/exec-3d850854-4b7e-4ade-8f73-99b7be976708.png",
+      "originalOutputSha256": "8dc753962532665cc108663f87929bcdbb92f13b463bc55a70386db84eb34a01",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+      "attemptId": "M-0201091-01",
+      "startedAt": "2026-10-04T17:33:45Z",
+      "generatedAt": "2026-10-04T17:34:12Z",
+      "timeEvidence": "Actual worker tool boundary observations; underlying service timing/model undisclosed.",
+      "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one original1536×1024 landscape portrait of one mature adult Pug-Zu, exactcatalogVBO:0201091, Pug–Shih Tzu cross. Text-only generation, no imageinputs. Independently documented exact own adult-lookingcross morphology: One anonymous mature small Pug-Zu, exact Pug/Shih Tzu cross phenotype documented by own Murphy. Developed compact sturdy slightly rectangular body, substantial normal chest, moderate abdominal rise, short functional sturdy legs and developed thighs. Broad softly rounded head with a short broad visible muzzle, black nose with ordinary nostrils, moderate facial folds, ordinary visible eyes without blue flash reflections. Natural modest folded-down soft ears, no crop. Moderate muscular neck and firm level back. Four distinct small compact paws, coherent ordinary shoulder/elbow/pastern and stifle/hock courses with believable weight. Select black short clipped body coat with restrained coarse facial whiskers/eyebrows and modest natural tail furnishings, not a smooth purePug or untrimmed long ShihTzu; source owner says summerhaircut, no universal coat/shedding claim. Complete high-set natural curled tail rises from rump and bends in one loose open overback curl, modestly furnished and tapered to a readable separate freeendpoint, no dock/bob/fusion. Cross variable; one documented developed phenotype, not fixedstandard. Do not transfer parent morphology or invent exact measurements. Show one relaxed anonymous mature adult standing left-facing in three-quarter view, head gently towardviewer, mouth closed. All four distinct paws grounded, coherent full limbs/joints with believable contact shadows. Entire head, natural ears, body, all four paws and full attached natural curledtail/freeendpoint visible safely within generous margins. Keep dog smaller inframe, at least150px above highesthead/tail and140px below lowestpaw. Setting: A clear firm light earthy path beside a quiet temperate meadow, low distant deciduous trees and restrained green grass, diffuse morning light and unobstructed ground under all paws; neutral setting without breed-origin claim. Restrained natural documentary realism, readable dark fur and brown/greenearth colors, tactile short clippedcoat. New individual/pose/camera/background, no recognizable Murphy reproduction or copied source highdownward camera angle, woodfloor, flashblueeyes, collar or blue tag. No collar, leash, people, otheranimals, indoorfloor, furniture, buildings, fences, vehicles, text, logos, watermark, hiddenpaws, extra/fusedlimbs, malformedpaws, croppedears or dockedtail.\n",
+      "promptSha256": "637c480ebce87ebfacc3782a0571d362c32aa9a5bb1de746d9148c292a7ac10b",
+      "scene": "A clear firm light earthy path beside a quiet temperate meadow, low distant deciduous trees and restrained green grass, diffuse morning light and unobstructed ground under all paws; neutral setting without breed-origin claim.",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "reviewedBy": "primary orchestrator with independent worker",
+        "reviewedAt": "2026-10-04",
+        "breedIdentity": "Developed compact sturdy black clipped Pug-Zu phenotype with short broad projecting muzzle, modest beard/brows, ordinary dark eyes and natural soft folded ears consistent with exact own mature-looking cross evidence.",
+        "anatomy": "Four distinct complete grounded paws, coherent full foreleg and rear hock courses, credible weight/contact shadows. Root independently adjudicated worker tail concern: complete natural attached curl rises at rump right, arches above back and turns to free inner-left feathered terminal resting close to back; dark overlapping hair limits fine terminal segmentation but no fusion, dock or missing course. Furnishings somewhat fuller than source haircut, ordinary variation not a wrong-type tail.",
+        "crop": "Whole untouched1536x1024 personally viewed at original detail. Approximately216px head and132px paw margins keep whole anatomy safely complete; no retry for8px difference from ideal.",
+        "aesthetics": "Fresh level neutral meadow path, restrained dark fur with readable body and source-independent pose/light; no indoor floor/flash/collar or recognizable source composition.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-m/contact-sheet-release-004-first-three.jpg",
+        "contactSheetSha256": "d0ea9f31ebb8c00161e1509036e7a5b15028b43886721463dc1486e578a7c624",
+        "contactSheetReviewedAt": "2026-10-04T17:42:24.245559+00:00",
+        "contactSheetNotes": "Root personally viewed whole three-image contact sheet at original detail, supplementing each whole native. Distinct documented Shinese fawn soft-haired compact adult, black clipped sturdy Pug-Zu and black wavy Cavatzu with longer ears/tail preserve source-based phenotype differences; four paws and complete attached natural tails, safe framing and believable new scenes. Pug-Zu terminal overlap and all minor ideal-margin deviations explicitly adjudicated in native QA; no duplicate or source reproduction."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/research-dossier-0201091-text-only-001.json",
+          "sha256": "9a40e11550baa44b0f355a600c50efdda7f6d0c6dd7d2c29515b10c61f841878",
+          "bytes": 10590
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.dogbreedinfo.com/pugzu.htm",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/52a4e5ee51e56301c516bc51d9b8ce8eae01707b7ac381eacc1ece3a0b06d596.json",
+        "rootApprovalSha256": "52a4e5ee51e56301c516bc51d9b8ce8eae01707b7ac381eacc1ece3a0b06d596",
+        "primaryReviewedAt": "2026-10-04T17:31:24.043940+00:00",
+        "visualReview": "Root read entire actual DBI original own keeper submissions and captions, full245/short115 text, entire dossier/identity screen, independent A review and exact2662-byte prompt. Murphy literal Pug father/ShihTzu mother, own play and grooming/shedding; Sammy explicitly youngster own running/fetch accounts, no parenttrait averaging or universal health/suitability claim. Root whole original-detail Murphy screenshot shows developed compact sturdy rectangular adult-looking body/chest/thighs, short broad muzzle and natural folded ears, four distinct paw courses; farrear upperjoint bodyhidden. Complete attached natural tail rises from rump in full high curl inside frame, dark terminal hair overlapping body restricts fine tip segmentation, enough coarse natural curl morphology for fresh ordinary stance. Numerical age unknown and maturity visual, no Munchi1year age assignment. Source flash-blue reflections excluded. Fresh anonymous left-facing neutral meadow portrait avoids source flash/woodfloor/collar/tag/composition. Earlier conditional/Commons holds preserved, no source originals or imageinputs/purpose rights.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "summary": "Smart and eager to play in his owner’s account, Murphy is a Pug–Shih Tzu cross who sheds and needs professional grooming. Another Pug-Zu, Sammy, is described as a rambunctious youngster who enjoys running in the garden and fetching stuffed toys.",
+        "summarySha256": "9c601c7de70005774585321c4a77e061f01c5986ebd92ae2d652ccb23303905a",
+        "shortDescription": "A Pug–Shih Tzu cross, with named dogs described as keen to play, fetch stuffed toys and spend energy in the garden.",
+        "shortDescriptionSha256": "685c7b86c53d1fe916c60a2e91bbcbd4d6cabfb9f8f9cd6eae75da73a6dfe53c",
+        "author": "M worker C",
+        "reviewer": "M worker A and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/packet-pugzu-text-only-001.json",
+        "sourcePathSha256": "920f71580147c6abfd02f27e8875a434fe95302a59d63bd3b9352c60802f178c",
+        "sourceSnapshots": [
+          {
+            "title": "Dog Breed Info — original Pug-Zu owners’ accounts and photographs",
+            "url": "https://www.dogbreedinfo.com/pugzu.htm",
+            "sourceRole": "Publisher reproduces actual original first-person keeper statements, named dogs and literal parental cross labels; submitters unnamed.",
+            "evidence": "Entire actual fresh native200 body personally read through all puppy/adult captions/footer. Murphy own owner explicitlyblackPugfather/ShihTzumother, summerhaircut, requires professionalgrooming/shedding, smart/lovesplay. NamedSammy explicitlypuppy, quirky/lovable/smart/rambunctious, backyardrunning/stuffedtoysfetch/chewbones; youngsteronly not adult morphology or uniformtemperament. NamedMunchi literal1yo and separatelyfullgrown corroborates exactcrossadultexistence but head-only photo excluded from full anatomy. No parent-temperament averaging, registryrecognition, safety/suitability/healthbenefit, hypoallergenic or guaranteedcoat claim.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/pugzu-dbi-current-001.html",
+              "sha256": "c148cf3f64713281caed3a17fe810a990f5886d7f03b050837278dfa5f8e1310",
+              "bytes": 27227
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/pugzu-dbi-current-001.txt",
+              "sha256": "f7d4971dc88ce07f023fe4d9e12e739dc7f79a4f66ea693d892f4c8ad484aac9",
+              "bytes": 3016
+            },
+            "acquisitionDisclosure": "FreshHTTPS nativeHTTP200 entire originalHTML/extraction personally read; source reproduces actual unnamedowner submissions. Only whole normalChrome researchscreens archived; no standalonephoto originals downloaded, no imageinputs or rightspermission inferred."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-04T17:31:24.043940+00:00"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    }
+  ]
+}

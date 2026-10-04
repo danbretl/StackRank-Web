@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-m23",
+  "cohortId": "dogs-portraits-m",
+  "selectionSha256": "ef087cb4bce897cf68c47ce9b052d35c30e173cdf43e89ad8713022d9d8fe342",
+  "reviewedAt": "2026-10-04",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-m/contact-sheet-release-004-first-three.jpg",
+    "contactSheetSha256": "d0ea9f31ebb8c00161e1509036e7a5b15028b43886721463dc1486e578a7c624",
+    "acceptedCount": 1,
+    "reviewedAt": "2026-10-04T17:42:24.120791+00:00",
+    "notes": "Root personally viewed whole three-image contact sheet at original detail, supplementing each whole native. Distinct documented Shinese fawn soft-haired compact adult, black clipped sturdy Pug-Zu and black wavy Cavatzu with longer ears/tail preserve source-based phenotype differences; four paws and complete attached natural tails, safe framing and believable new scenes. Pug-Zu terminal overlap and all minor ideal-margin deviations explicitly adjudicated in native QA; no duplicate or source reproduction."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0201227",
+      "name": "Shinese",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "a9774ffc0cf6154e88c6c388ecd3aa8761b32cbf3af121da155085d08bd891ca",
+        "imageInputs": [],
+        "sourcePage": "https://fetchwi.org/doggos/patricia"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-m/worker-a/M-0201227-01.png",
+      "masterSha256": "1e0181b633b830999364b3a6f588f200373f0bc6a79ce525ec21a29b640f5a4b",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10614-e1f8-74b1-8d32-f87f64a95a7d/exec-34baf373-304f-4197-9e2e-a0ffda7da415.png",
+      "originalOutputSha256": "1e0181b633b830999364b3a6f588f200373f0bc6a79ce525ec21a29b640f5a4b",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+      "attemptId": "M-0201227-01",
+      "startedAt": "2026-10-04T17:28:08Z",
+      "generatedAt": "2026-10-04T17:28:29Z",
+      "timeEvidence": "Actual worker tool boundary observations; underlying service timing/model undisclosed.",
+      "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one original1536×1024 landscape portrait of one mature adult Shinese, exact catalogVBO:0201227, Pekingese–Shih Tzu cross. Text-only generation; no image inputs. Independently researched own cross morphology: One anonymous mature small adult Shinese, an observed Pekingese–Shih Tzu cross phenotype at about12lb visual scale. Developed lightly sturdy compact mildly rectangular body, moderate chest depth, short but functional moderately sturdy legs and small hair-covered paws with coherent joints. Soft broad rounded head, short broad muzzle with definite forward projection and normal open nostrils, black nose, moderate dark eyes without exaggerated bulging. Natural soft downward-hanging hairy ears framing the head, uncut. Fawn and cream straight-to-softly-wavy hair: moderately trimmed trunk, fuller head/ear fringe and natural long feathering on tail; allow enough leg clarity for coherent courses. Full natural long fringed tail visibly attached to rump, raised in a broad loose curve above back with a separate free drooping fringe end. This is one documented adult cross phenotype, not a purebreed standard or parent-standard composite. Source high camera angles/fur/hidden far hindleg limit precise proportions/toe counts/joint angles; ordinary functional canine anatomy in a fresh level standing pose. Show one relaxed anonymous adult standing left-facing in three-quarter view, head gently turned toward viewer, closed mouth and quietly attentive expression. Four distinct grounded paws with coherent limb courses and ordinary joints, believable weight and contact shadows. Entire head, both natural ears, body, four legs/paws and full attached natural tail/free fringe end inside generous crop-safe margins, dog modestly sized in frame. Setting: A clear level pale-gravel garden path beside softly blurred simple leafy shrubs and a distant weathered stone border, mild diffuse morning light, unobstructed ground beneath every paw. Natural documentary realism, restrained fawn/cream/earth/green palette, detailed soft hair, softly separated background. Fresh individual, pose, camera, coat distribution and lighting. Do not reproduce Patricia, exact facial markings, high-angle indoor hallway/tile photos, intake handler or paired dog composition. No clothing, collar, leash, people, other dogs/animals, props, equipment, text, logos, watermark, docked tail, cropped ears, exaggerated flat face/bulging eyes, juvenile proportions, extra limbs or malformed paws.\n",
+      "promptSha256": "ac408fe2d15840efddf74c40a29ed2356d55ccaa9b0045c11a33788aea3c0f95",
+      "scene": "A clear level pale-gravel garden path beside softly blurred simple leafy shrubs and a distant weathered stone border, mild diffuse morning light, unobstructed ground beneath every paw.",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "reviewedBy": "primary orchestrator with independent worker",
+        "reviewedAt": "2026-10-04",
+        "breedIdentity": "Developed small compact mildly rectangular fawncream Shinese phenotype with short broad projecting muzzle, ordinary dark eyes/open nostrils and natural soft hanging hairy ears consistent with own adult source research.",
+        "anatomy": "Four distinct complete grounded paws and coherent foreleg/rear hock courses, plausible weight/shadows. Full natural long plume attached at rump rises in broad curve over back with separate free drooping feathered end. No dock, crop, duplicate or fused limbs.",
+        "crop": "Whole untouched1536x1024 personally viewed at original detail. Approximately45px head and75px frontpaw clearance modest but all anatomy safely complete; no ideal-margin-only retry.",
+        "aesthetics": "Fresh level garden gravel path, soft light, natural hair and stone border. Separate adult individual and pose from source high-angle tile/intake photographs; no source replication.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-m/contact-sheet-release-004-first-three.jpg",
+        "contactSheetSha256": "d0ea9f31ebb8c00161e1509036e7a5b15028b43886721463dc1486e578a7c624",
+        "contactSheetReviewedAt": "2026-10-04T17:42:24.086434+00:00",
+        "contactSheetNotes": "Root personally viewed whole three-image contact sheet at original detail, supplementing each whole native. Distinct documented Shinese fawn soft-haired compact adult, black clipped sturdy Pug-Zu and black wavy Cavatzu with longer ears/tail preserve source-based phenotype differences; four paws and complete attached natural tails, safe framing and believable new scenes. Pug-Zu terminal overlap and all minor ideal-margin deviations explicitly adjudicated in native QA; no duplicate or source reproduction."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/research-dossier-0201227-text-only-001.json",
+          "sha256": "a9774ffc0cf6154e88c6c388ecd3aa8761b32cbf3af121da155085d08bd891ca",
+          "bytes": 15809
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://fetchwi.org/doggos/patricia",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/857cb12cd5dfa9bb3d7a5bde036a3dcb99b72e02b34655db45d405e37f5901ef.json",
+        "rootApprovalSha256": "857cb12cd5dfa9bb3d7a5bde036a3dcb99b72e02b34655db45d405e37f5901ef",
+        "primaryReviewedAt": "2026-10-04T17:27:17.326937+00:00",
+        "visualReview": "Root read entire actual original Fetch Patricia foster account, exact403/124 final prose, full dossier/identity screen/peer review and exact2580-byte prompt. Explicit own Pekingese x Shih Tzu adult identification; shelter6y estimate/foster younger but outofpuppyphase limits retained, no pedigree certainty claimed. Individual affection after settling, play, quiet pen rest and cautious walks supported without parent trait transfer or universalization. Root personally viewed whole actual browser Patricia4, Patricia1 and Intake: developed compact mildly rectangular fawncream adult, short broad projecting muzzle, natural hairy drop ears, two complete forelimbs and near hindpaw with normal courses. Complete long natural attached tail from raised root to loose curved free fringe end in both standing views. Far hind concealed by body, intake corroborates rear courses with feet cropped; fine rear joints/toes not claimed. Combined own adult anatomy suffices for fresh ordinary four-grounded pose, not source replication. Exact source age/image timestamps uncertainty and no-image-input/no-photo-original/rightslimits preserved; prior finite Commons hold and excluded Taffy unchanged. New garden path anonymous composition and restrained morphology prompt approved.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "summary": "Affectionate after a cautious start, Patricia gives a firsthand glimpse of the Shinese, a Pekingese–Shih Tzu cross. Her foster describes her becoming attached after a few days, beginning to play with the household’s small dogs, and sleeping quietly in her pen. She still avoids strangers and sometimes pauses nervously while learning to walk on a leash. She entered rescue from an Alabama hoarding case.",
+        "summarySha256": "1654b3864d1be18557b22c4f7c482f3c2ac3479cbcecfe241f9f0ec6ac598c56",
+        "shortDescription": "A Pekingese–Shih Tzu cross; adult Patricia’s foster records affection after settling in, quiet pen rests and cautious walks.",
+        "shortDescriptionSha256": "9705feb3c798229ec535bf38546c73b0dafe70e4b6bf3f1f253ed3b0861dd325",
+        "author": "M worker A",
+        "reviewer": "M worker B and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/packet-shinese-text-only-001.json",
+        "sourcePathSha256": "eb22e6817d700e3a4d9c5a19582ee2fea2e119ec164c506712771f9350706f04",
+        "sourceSnapshots": [
+          {
+            "title": "Fetch Wisconsin Rescue — Patricia, own adult Pekingese–Shih Tzu cross foster account",
+            "url": "https://fetchwi.org/doggos/patricia",
+            "sourceRole": "Fetch Wisconsin Rescue’s original firsthand foster account of its own named adult Pekingese–Shih Tzu cross Patricia, authored Gen Anderson.",
+            "evidence": "Entire actual original foster body read. Literal Pekingese x Shih Tzu Mix female12lb, shelterestimated6years; foster thinks somewhat younger and explicitly out of puppy phase. Initially shy, affectionate/attached after a few days; starting play with resident small dogs; sleeps quietly in pen while foster away/night. Avoids strangers, sometimes barks. Learning leash walking, sometimes scared/stops and gently coached. Came from Alabama hoarding case. Exact numeric age and image timestamps unknown; headline age estimate not proven photoage. Source safety/suitability/collar/adoption advice and health implications excluded; no parent-trait averaging. Source own cross identification retained without DNA/pedigree certainty.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/shinese-fetch-patricia-001.html",
+              "sha256": "f23563e741a31b959e7676efd78ff1a3df3b7f83ea80abdf81234edb45e40b0a",
+              "bytes": 179236
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/shinese-fetch-patricia-001.txt",
+              "sha256": "e435aa79dbec3c81c0ef97df22a421c694c59ca7be8195ce57d06a3564e330a6",
+              "bytes": 2827
+            },
+            "acquisitionDisclosure": "Verified-TLS HTTP200 complete native HTML/body retained and personally read. Whole own gallery photographs viewed in Chrome as factual adult morphology research only; no photo originals downloaded, no photograph inputs or license/purpose grant claimed."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-04T17:27:17.326937+00:00"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    }
+  ]
+}

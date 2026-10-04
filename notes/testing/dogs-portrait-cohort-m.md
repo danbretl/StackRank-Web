@@ -67,3 +67,11 @@ Product `2552d635b1884471911fd39387b4940168cf2879` is Vercel READY (`dpl_tA5ZBZw
 ### Release012 stable candidate
 
 Pointer–Rottweiler Mix, Chi-Poo, Shollie and Bull-Pei: four independently sourced/copy-reviewed and root whole-native/contact-sheet accepted pairs in m68–m71. All four local archives verify, including rejected Pointweiler01, targeted coat correction and structural identity deltas. All770 previous artwork/profile records and1540WebPs plus1239 source identities unchanged. Local774/465. Full `npm run verify` passes; desktop Shollie full/short ranking, actual390×844 Bull-Pei comparison/About/Escape, and Chi-Poo reviewer provenance/draft/focus checks pass with no console warnings/errors. Exact READY and live byte/fullrecord publication checks follow. Maltese–Jack Russell is separately root-accepted for the next release.
+
+### Release012 verified production
+
+Product `638848b726213e8dda1e835db24beb81818054c7` is Vercel READY (`dpl_Bgm2jYwqitcFjFRMTt76FsWLtGxU`) on both production aliases. All49 production checks,8 exact live WebPs and4 full artwork/profile records match. **774 published /465 hidden;72 of100 additions verified**, originalfive included. Receipts `publication-m68-001.json` through `publication-m71-001.json` bind the checks. Maltese–Jack Russell is root-accepted for the next release; Villanuco has a new immutable approval, and research continues toward802.
+
+### Release013 stable candidate
+
+Maltese Jack Russell Mix, Tibetan Kyi Apso, Jack-A-Poo, Yoranian and Pugland: five individually sourced/copy-reviewed and root whole-native/contact-sheet accepted pairs in m72/m74–m77. All five local archives verify, including Pugland structural packet correction. All774 previous artwork/profile records and1548WebPs plus1239 source identities unchanged. Local779/460. Full `npm run verify` passes; desktop Kyi Apso full/short ranking, actual390×844 Yoranian comparison/About/Escape, and Pugland reviewer provenance/draft/focus checks pass with no console warnings/errors. Exact READY and live byte/fullrecord publication checks follow. Villanuco02 and Sarabi newly completed staging remain outside this stable product candidate.

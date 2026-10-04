@@ -23,3 +23,16 @@ test('an attributed training observation does not exempt other claims or sentenc
     assert.equal(hasUnsafeDogProfileCopy(`${scoped} ${claim}`), true, claim);
   }
 });
+
+test('profile screen permits a named keeper’s explicitly attributed adverse guardian observation', () => {
+  const scoped = 'Raptor Sarabi Kennel describes a guardian affectionate toward its family but aggressive toward unfamiliar beings.';
+  assert.equal(hasUnsafeDogProfileCopy(scoped), false);
+  for (const claim of ['Aggressive.', 'Safe with children.', 'Perfect for families.']) {
+    assert.equal(hasUnsafeDogProfileCopy(`${scoped} ${claim}`), true, claim);
+  }
+  for (const text of [
+    'Sarabis are aggressive toward unfamiliar beings.',
+    'A guardian affectionate toward its family but aggressive toward unfamiliar beings.',
+    'Some owners describe aggressive dogs.',
+  ]) assert.equal(hasUnsafeDogProfileCopy(text), true, text);
+});

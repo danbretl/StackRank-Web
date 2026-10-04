@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import fs from "node:fs/promises";
 import { validDogResearchUrl } from '../lib/dog-research-url.js';
+import { hasUnsafeDogProfileCopy } from '../lib/dog-profile-copy.js';
 
 const readJson = async (path) => JSON.parse(await fs.readFile(new URL(`../${path}`, import.meta.url), "utf8"));
 const [catalog, artifact, artwork] = await Promise.all([
@@ -10,7 +11,6 @@ const [catalog, artifact, artwork] = await Promise.all([
 ]);
 
 const errors = [];
-const unsafe = /\b(?:perfect for|best for|safe with|aggressive|hypoallergenic|easy to train|good with children)\b/iu;
 const sourceIds = new Set((artifact.sources || []).map((source) => source.id));
 const expected = new Set((catalog.entities || []).map((entity) => entity.id));
 const actual = new Set(Object.keys(artifact.profiles || {}));
@@ -46,7 +46,7 @@ for (const [id, profile] of Object.entries(artifact.profiles || {})) {
   }
   if (typeof profile.interestingFact !== "string" || (profile.interestingFact.length > 0 && profile.interestingFact.length < 20) || profile.interestingFact.length > 360) errors.push(`${id}: invalid interestingFact length`);
   if (/first field note|confident invented|still being deepened|StackRank keeps|selectable (?:entry|breeds)|cartoonish copy/i.test(`${profile.summary} ${profile.shortDescription || ""} ${profile.interestingFact}`)) errors.push(`${id}: process commentary belongs in source notes`);
-  if (unsafe.test(`${profile.summary} ${profile.shortDescription || ""} ${profile.interestingFact}`)) errors.push(`${id}: unsafe suitability or behavior claim`);
+  if ([profile.summary, profile.shortDescription, profile.interestingFact].some(hasUnsafeDogProfileCopy)) errors.push(`${id}: unsafe suitability or behavior claim`);
   if (!["toy", "small", "medium", "large", "giant", "varies", "unknown"].includes(profile.sizeBand)) errors.push(`${id}: invalid sizeBand`);
   if (typeof profile.typeLabel !== "string" || !profile.typeLabel.trim() || profile.typeLabel.length > 80) errors.push(`${id}: invalid typeLabel`);
   if (!["registry", "editorial", "catalog"].includes(profile.typeBasis)) errors.push(`${id}: invalid typeBasis`);

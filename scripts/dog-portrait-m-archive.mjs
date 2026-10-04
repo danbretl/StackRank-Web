@@ -3,7 +3,7 @@ import path from 'node:path';
 import { createHash } from 'node:crypto';
 
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
-const prefixes = ['reports/dogs-generated-artwork/cohort-m/', 'assets/dogs/generated-masters/cohort-m/', 'reports/dogs-generated-artwork/cohort-i/', 'reports/dogs-generated-artwork/cohort-j/', 'reports/dogs-generated-artwork/cohort-k/', 'reports/dogs-generated-artwork/cohort-l/', 'assets/dogs/generated-masters/cohort-l/'];
+const prefixes = ['reports/dogs-generated-artwork/cohort-m/', 'assets/dogs/generated-masters/cohort-m/', 'reports/dogs-generated-artwork/cohort-e/', 'reports/dogs-generated-artwork/cohort-i/', 'reports/dogs-generated-artwork/cohort-j/', 'reports/dogs-generated-artwork/cohort-k/', 'reports/dogs-generated-artwork/cohort-l/', 'assets/dogs/generated-masters/cohort-l/'];
 
 // M packets contain absolute exact-byte tuples. Include source JSON as evidence,
 // never recursively interpret an acquisition body, root index or registry.

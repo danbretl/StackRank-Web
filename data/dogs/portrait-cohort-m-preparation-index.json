@@ -1,0 +1,192 @@
+{
+  "schemaVersion": 1,
+  "cohortId": "dogs-portraits-m",
+  "status": "active",
+  "startedAt": "2026-10-04T08:45:35.990680+00:00",
+  "registryPath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/operational-registry.json",
+  "authorization": {
+    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+    "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+    "bytes": 1285
+  },
+  "workers": [
+    {
+      "worker": "A",
+      "threadId": "/root/worker_a",
+      "fullAccessVerified": true,
+      "configuredModel": "gpt-6.1-sol",
+      "configuredReasoningEffort": "high",
+      "actualRuntimeModel": "undisclosed",
+      "actualPolicy": {
+        "sandboxMode": "danger-full-access",
+        "approvalPolicy": "never",
+        "networkAccess": "enabled"
+      },
+      "stageRoot": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a",
+      "workspace": "/Users/danbretl/.codex/worktrees/dogs-m-a/stackrank",
+      "auditCatalogIds": [
+        "VBO:0007991",
+        "VBO:0008004",
+        "VBO:0008003",
+        "VBO:0008028",
+        "VBO:0200748",
+        "VBO:0201178",
+        "VBO:0201385",
+        "VBO:0008031",
+        "VBO:0008032",
+        "VBO:0201457",
+        "VBO:0201388"
+      ],
+      "activeCatalogIds": [
+        "VBO:0007991",
+        "VBO:0008004"
+      ],
+      "commonsResearchCatalogIds": [
+        "VBO:0007991",
+        "VBO:0008004",
+        "VBO:0008003",
+        "VBO:0008028",
+        "VBO:0200748",
+        "VBO:0201178",
+        "VBO:0201385",
+        "VBO:0008031",
+        "VBO:0008032",
+        "VBO:0201457",
+        "VBO:0201388"
+      ]
+    },
+    {
+      "worker": "B",
+      "threadId": "/root/worker_b",
+      "fullAccessVerified": true,
+      "configuredModel": "gpt-6.1-sol",
+      "configuredReasoningEffort": "high",
+      "actualRuntimeModel": "undisclosed",
+      "actualPolicy": {
+        "sandboxMode": "danger-full-access",
+        "approvalPolicy": "never",
+        "networkAccess": "enabled"
+      },
+      "stageRoot": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b",
+      "workspace": "/Users/danbretl/.codex/worktrees/dogs-m-b/stackrank",
+      "auditCatalogIds": [
+        "VBO:0200782",
+        "VBO:0200668",
+        "VBO:0200467",
+        "VBO:0201341",
+        "VBO:0200293",
+        "VBO:0201350",
+        "VBO:0200650",
+        "VBO:0200280",
+        "VBO:0200831",
+        "VBO:0201239",
+        "VBO:0200984",
+        "VBO:0200917",
+        "VBO:0200844",
+        "VBO:0200436",
+        "VBO:0200996"
+      ],
+      "activeCatalogIds": [
+        "VBO:0200467",
+        "VBO:0200782"
+      ],
+      "commonsResearchCatalogIds": [
+        "VBO:0200782",
+        "VBO:0200668",
+        "VBO:0200467",
+        "VBO:0201341",
+        "VBO:0200293",
+        "VBO:0201350",
+        "VBO:0200650",
+        "VBO:0200280",
+        "VBO:0200831",
+        "VBO:0201239",
+        "VBO:0200984",
+        "VBO:0200917",
+        "VBO:0200844",
+        "VBO:0200436",
+        "VBO:0200996"
+      ]
+    },
+    {
+      "worker": "C",
+      "threadId": "/root/worker_c",
+      "fullAccessVerified": true,
+      "configuredModel": "gpt-6.1-sol",
+      "configuredReasoningEffort": "high",
+      "actualRuntimeModel": "undisclosed",
+      "actualPolicy": {
+        "sandboxMode": "danger-full-access",
+        "approvalPolicy": "never",
+        "networkAccess": "enabled"
+      },
+      "stageRoot": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c",
+      "workspace": "/Users/danbretl/.codex/worktrees/dogs-m-c/stackrank",
+      "auditCatalogIds": [
+        "VBO:0200914",
+        "VBO:0200918",
+        "VBO:0200515",
+        "VBO:0200761",
+        "VBO:0201375",
+        "VBO:0201380",
+        "VBO:0201382",
+        "VBO:0200116",
+        "VBO:0200035",
+        "VBO:0200975",
+        "VBO:0200452",
+        "VBO:0200107"
+      ],
+      "activeCatalogIds": [
+        "VBO:0200914",
+        "VBO:0200116",
+        "VBO:0201382"
+      ],
+      "commonsResearchCatalogIds": [
+        "VBO:0200914",
+        "VBO:0200918",
+        "VBO:0200515",
+        "VBO:0200761",
+        "VBO:0201375",
+        "VBO:0201380",
+        "VBO:0201382",
+        "VBO:0200116",
+        "VBO:0200035",
+        "VBO:0200975",
+        "VBO:0200452",
+        "VBO:0200107"
+      ]
+    }
+  ],
+  "baseline": 702,
+  "targetAdditionalPublishedPairs": 100,
+  "primaryRequestedModel": "gpt-6-astra",
+  "primaryRequestedEffort": "high",
+  "primaryActualModelEffort": "undisclosed",
+  "actualPolicy": {
+    "sandboxMode": "danger-full-access",
+    "approvalPolicy": "never",
+    "networkAccess": "enabled"
+  },
+  "offMachineBackupVerified": false,
+  "nextAction": "Publish verified first5 candidate; root review later staged packets/natives, maintain rolling research until100 additional verified live.",
+  "updatedAt": "2026-10-04T09:27:30.368394+00:00",
+  "goalStartedAt": "2026-10-04T08:41:17Z",
+  "namespaceCreatedAt": "2026-10-04T08:45:35.990680+00:00",
+  "progressSnapshot": {
+    "at": "2026-10-04T09:27:30.368394+00:00",
+    "qualified": 7,
+    "callsCompleted": 7,
+    "callsInFlight": 0,
+    "acceptedByRoot": 6,
+    "nativeReviewPending": [
+      "VBO:0201382"
+    ],
+    "integrated": 5,
+    "verifiedLive": 0,
+    "independentPeerPassedAwaitingRoot": [
+      "VBO:0008031",
+      "VBO:0008032",
+      "VBO:0200035"
+    ]
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-m03",
+  "cohortId": "dogs-portraits-m",
+  "selectionSha256": "885d929019df91c12cdfc8641ae0cd1913ec73731cbb6cdb1e2e379684abfa79",
+  "reviewedAt": "2026-10-04",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-m/contact-sheet-release-001.jpg",
+    "contactSheetSha256": "a3dd6164e643dfd2e1c80378f444c8fc0a08a2b39c8f6d5dd275e128965c6dd2",
+    "acceptedCount": 1,
+    "reviewedAt": "2026-10-04T09:13:27.809714+00:00",
+    "notes": "Root whole native reviews and full5-image contact sheet personally viewed. Five distinct adult identities: Mountain Cur, Tobet, Dutch Smoushond, Koolie, Sarail. All complete body/paws/tails, coherent field-guide style with woodland/steppe/dunes/paddock/greenfield setting variety and breed-specific silhouettes. No duplicated image or source composition. First rolling5 calibration release; next authorized work continues. Membership exact frozen per-identity tranches, no reserves substituted."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0200467",
+      "name": "Dutch Smoushond",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "aceab124547ab672614d63af8d80c072f39df534352310949d5b876099b25295",
+        "imageInputs": [],
+        "sourcePage": "https://www.fci.be/nomenclature/Standards/308g02-en.pdf"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-m/worker-b/M-0200467-01.png",
+      "masterSha256": "a7591ecfdd3f14ecd08417e97294de879412e62a6f48d5bcdec3ebdf3e74dbdd",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10615-3275-71c2-9917-5f23ee225216/exec-cc089e6b-3077-44c3-9751-ddb2776adaa2.png",
+      "originalOutputSha256": "a7591ecfdd3f14ecd08417e97294de879412e62a6f48d5bcdec3ebdf3e74dbdd",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+      "attemptId": "M-0200467-01",
+      "startedAt": "2026-10-04T08:59:29.494Z",
+      "generatedAt": "2026-10-04T08:59:50.760Z",
+      "timeEvidence": "Actual worker tool boundary observations; underlying service timing/model undisclosed.",
+      "prompt": "Create one original photorealistic field-guide portrait of a mature Dutch Smoushond. Use independent factual morphology and a new composition; no photograph is supplied or should be recreated.\n\nMature Dutch Smoushond, compact sturdy square body, about39cm at withers. Broad shortish slightly domed head with clear stop; broad muzzle about half skull length, black nose, tight lips, round dark brown eyes visible through eyebrows. Small rather high-set natural drooping ears leaning slightly toward cheeks. Rather short muscular neck, straight back, mildly arched loin, broad moderately deep chest, modest tuck. Four strong straight coherent limb courses with moderate angulation, small neat round cat feet. Harsh coarse straight shaggy4–7cm straw-yellow coat with sufficient undercoat, darker yellow ears/beard acceptable; characteristic moustache, beard and eyebrows; leg hair shorter so true outlines readable. Bushy natural tail rather short, no longer than hock, carried cheerfully outward/upward below vertical with free endpoint, never curled over the back. No curled woolly doodle coat or exaggerated Schnauzer grooming.\n\nNew single adult angled three quarters toward the viewer and slightly left, head calmly looking a little right, standing on Clear shell-and-earth path beside coastal dune grasses in the Netherlands, soft early-evening side light. Restrained distant sand dunes and sky, no urban trees or source-photo arrangement.\n\nLandscape1536×1024, one dog only at dog-eye level. Frame the entire adult generously with at least100pixels clear space above ears/tail and below paws and generous lateral margins. Four complete leg courses and all four grounded paws must be readable, believable joints and contact shadows, ordinary far-side perspective, no merged or extra limbs. Show complete attached natural tail from root to free endpoint against uncluttered landscape, never hidden in rump fur or behind a leg, never clipped. Natural realistic wiry fur and restrained color. No collar, tag, leash, handler, people, other animals, vehicles, show carpet, trophies, equipment, fences crossing dog, logos, text or watermark. Do not reproduce any researched photograph's exact expression, pose, lighting or background.",
+      "promptSha256": "7710c5a4744ba863542a1c1df55f9da119d6430ad0a61701cc0e42cdfe06708a",
+      "scene": "Clear shell-and-earth path beside coastal dune grasses in the Netherlands, soft early-evening side light.",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "reviewedBy": "primary orchestrator with independent worker",
+        "reviewedAt": "2026-10-04",
+        "breedIdentity": "Mature compact Dutch Smoushond with straw-yellow rough wiry coat, darker permitted ear shading, triangular dropped ears, beard/brows and relatively short broad muzzle. Balanced compact body with moderate bone matches FCI standard and adult registry images.",
+        "anatomy": "Four complete separate limbs and grounded paws, credible elbows/hocks and contact shadows. Attached short bushy natural tail carried raised with free end, no overback curl or docked stump. Face and shaggy coat coherent.",
+        "crop": "Entire untouched1536x1024 native viewed at original detail. Head top margin about75px versus requested100, still clearly complete and safely inside final uncropped3:2; all paws and tail comfortably clear. No need to reject purely for approximate margin preference.",
+        "aesthetics": "Clear characterful alert portrait on Dutch dune path in warm natural light. Fine rough-coat detail, restrained vegetation and ocean context, no people, collars, extra animals, text or marks. Fresh composition differs from registry dogs.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-m/contact-sheet-release-001.jpg",
+        "contactSheetSha256": "a3dd6164e643dfd2e1c80378f444c8fc0a08a2b39c8f6d5dd275e128965c6dd2",
+        "contactSheetReviewedAt": "2026-10-04T09:13:27.775855+00:00",
+        "contactSheetNotes": "Root whole native reviews and full5-image contact sheet personally viewed. Five distinct adult identities: Mountain Cur, Tobet, Dutch Smoushond, Koolie, Sarail. All complete body/paws/tails, coherent field-guide style with woodland/steppe/dunes/paddock/greenfield setting variety and breed-specific silhouettes. No duplicated image or source composition. First rolling5 calibration release; next authorized work continues. Membership exact frozen per-identity tranches, no reserves substituted."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/research-dossier-smous-text-only-001.json",
+          "sha256": "aceab124547ab672614d63af8d80c072f39df534352310949d5b876099b25295",
+          "bytes": 4411
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.fci.be/nomenclature/Standards/308g02-en.pdf",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/a45804b5c9101cd37e51c483d7480961bae48232f6d023ec1f85e953a3c359f0.json",
+        "rootApprovalSha256": "a45804b5c9101cd37e51c483d7480961bae48232f6d023ec1f85e953a3c359f0",
+        "primaryReviewedAt": "2026-10-04T08:56:04.781482+00:00",
+        "visualReview": "Root read full actual FCI308 extracted pages1–6 (substantive2–6), Dutch club character paragraph, final331/110-character copy after requested source-recitation correction and exact2232-byte prompt. Whole registry browser standing/moving adult images personally viewed: mature compact straw roughcoat, drop ears, beard and bushy natural tail in moving view; first tail/far legs hidden, no missing pixel inferred. Literal standard supplies square body, skull:muzzle2:1, natural short tail below hock not overback curled, coarse4–7cm coat, feet. Modern living reconstructed breed supported;1973 reconstruction accurately distinguished from uninterrupted lineage. Learning/gentle handling and cheerful affectionate character documented; no health or child suitability promises. Earlier F photo-reference hold remains unchanged; fresh research-only route individually adjudicated. New dune path composition with no direct images or photo-purpose grant. Independent C final review and correction history read, hashes match.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "summary": "Cheerful and affectionate, the Dutch Smoushond often brings a lively, gentle presence to its people. It tends to enjoy learning and responds best to consistent, gentle handling. Once a carriage follower and stable rat-catcher in the Netherlands, the modern breed was rebuilt from similar-looking dogs after a revival began in 1973.",
+        "summarySha256": "cea360164e200bd75678424e67cea46ad531e731fafe3331ae15adccf8f04908",
+        "shortDescription": "A cheerful, affectionate Dutch companion, keen to learn with gentle guidance and roots in stable rat-catching.",
+        "shortDescriptionSha256": "9ba5beb8654a75f97826d2754f8f651786defd13d983848663ba7365d575ddbf",
+        "author": "M worker B",
+        "reviewer": "M worker C and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/packet-smous-text-only-002.json",
+        "sourcePathSha256": "189b03e15797501c1e491f1a5323db5d82ad91c37d73eb305d31c18a0f890da1",
+        "sourceSnapshots": [
+          {
+            "title": "Dutch Smoushond: FCI Standard 308",
+            "url": "https://www.fci.be/nomenclature/Standards/308g02-en.pdf",
+            "sourceRole": "Current primary international registry standard; normative character and documented history, not an individual behavior guarantee.",
+            "evidence": "Behavior/Temperament describes affectionate, cheerful, friendly and free-spirited character with lively but not nervous disposition. History states following horses/carriages and catching stable rats in nineteenth-century Netherlands; last1949 litter and1973 reconstruction with lookalike crossbreeds. All adult anatomical sections read: square sturdy body; broad shortish head, small drooping ears; coarse straight4–7cm straw-yellow coat; rather short natural bushy tail not curled over back.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/smous-standard-001.pdf",
+              "sha256": "363ecc521d79b01a3ddfdef0527504a18ec001f2c95b49b37ebb25942cad6df7",
+              "bytes": 300127
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/smous-standard-001.txt",
+              "sha256": "b6ab426f38230dc4d29d3f543d5d9d2f1a8d99d0f8c550355939b28e0255b567",
+              "bytes": 7404
+            },
+            "acquisitionDisclosure": "Fresh actual HTTPS retrieval; full substantive source personally read, exact extraction retained."
+          },
+          {
+            "title": "Hollandse Smoushonden Club: Character",
+            "url": "https://smoushond.nl/gezondheid-karakter",
+            "sourceRole": "Primary breed-club authored character guidance; practical learning-style account, not experimental evidence.",
+            "evidence": "Actual character paragraph describes cheerful/free character, affection and gentle nature, desire to learn/listen, consistent gentle handling; anger often counterproductive. Child suitability and absolute hereditary-health claims excluded.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/smous-club-character-001.html",
+              "sha256": "9fa630a9770dedcebaf67703d45618280789a504a084f178921acaed658b98fb",
+              "bytes": 40913
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/smous-club-character-001.txt",
+              "sha256": "dfc47692daddfa7cd373a234d781cfd7a48f298684eeaea120308bcc1beaa0da",
+              "bytes": 1912
+            },
+            "acquisitionDisclosure": "Fresh actual HTTPS retrieval; full substantive source personally read, exact extraction retained."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-04T08:56:04.781482+00:00"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    }
+  ]
+}

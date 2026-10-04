@@ -1,0 +1,1193 @@
+{
+  "schemaVersion": 1,
+  "cohortId": "dogs-portraits-m",
+  "status": "active-rolling-production",
+  "startedAt": "2026-10-04T08:45:35.990680+00:00",
+  "updatedAt": "2026-10-04T09:17:56.645185+00:00",
+  "targetAdditionalPairs": 100,
+  "baseline": {
+    "baselinePairs": 702,
+    "catalogIdentities": 1239,
+    "receipt": {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/baseline-live-datasets-001.json",
+      "sha256": "c1df14614d56769ff80f74576b4ef76c67b18680c8401e2c7f84a62d0ee2417a",
+      "bytes": 14479
+    }
+  },
+  "batchPolicy": {
+    "mode": "rolling-small",
+    "authority": "direct-user-instruction",
+    "authorization": {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+      "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+      "bytes": 1285
+    },
+    "minimumQualifiedPerTranche": 1,
+    "reservesRequired": false,
+    "targetAdditionalPublishedPairs": 100
+  },
+  "sourcePolicyAuthorization": {
+    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+    "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+    "bytes": 1285
+  },
+  "tranches": [
+    {
+      "id": "m01",
+      "frozenAt": "2026-10-04T08:49:52.429641+00:00",
+      "catalogIds": [
+        "VBO:0200914"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "dbea5cd8632bb13d1676f4048e63b7680cb47a189dc4470843d3cb4f88768e7a",
+      "freeze": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/tranche-m01-freeze-001.json",
+        "sha256": "a6ce70e404457c9823d1bb6df97f367fb8b7c9f89e42a0c9a8547a6021235660",
+        "bytes": 1343
+      }
+    },
+    {
+      "id": "m02",
+      "frozenAt": "2026-10-04T08:54:05.045820+00:00",
+      "catalogIds": [
+        "VBO:0007991"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "fff43f6ebc1336122e47220f1ff38364372212001e0f59aa3600bba5eced255c",
+      "freeze": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/tranche-m02-freeze-001.json",
+        "sha256": "6853e174b8236dd6214a0c462dcd8468c6f48de8af57d032daef2e9845258d64",
+        "bytes": 1417
+      }
+    },
+    {
+      "id": "m03",
+      "frozenAt": "2026-10-04T08:56:04.781482+00:00",
+      "catalogIds": [
+        "VBO:0200467"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "885d929019df91c12cdfc8641ae0cd1913ec73731cbb6cdb1e2e379684abfa79",
+      "freeze": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/tranche-m03-freeze-001.json",
+        "sha256": "58589b250cfeaa5bf9dc610d432aadd33b1752c545136c026da1b1727aa9f299",
+        "bytes": 1489
+      }
+    },
+    {
+      "id": "m04",
+      "frozenAt": "2026-10-04T09:00:43.876649+00:00",
+      "catalogIds": [
+        "VBO:0200782"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "604b65c243c17b9b2557521c2f648736c637137ae7301a2baf0d48776b436b15",
+      "freeze": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/tranche-m04-freeze-001.json",
+        "sha256": "b7416344252b4f04272b24118593f309745594a065be9f3bee7f8a33fcbe0d44",
+        "bytes": 1561
+      }
+    },
+    {
+      "id": "m05",
+      "frozenAt": "2026-10-04T09:03:37.758363+00:00",
+      "catalogIds": [
+        "VBO:0008004"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "8cb97726b90aea31c184e7aa1cf3d3c12adfaabb5cce4ec9dbadb380e42e7ce0",
+      "freeze": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/tranche-m05-freeze-001.json",
+        "sha256": "bb115ac3a4bc7bb40633e017be4bf6d45fc9a1ba7837e3736025e940e3c30c89",
+        "bytes": 1633
+      }
+    },
+    {
+      "id": "m06",
+      "frozenAt": "2026-10-04T09:11:34.360008+00:00",
+      "catalogIds": [
+        "VBO:0200116"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "119b7543be5e958dbb4545244b4879df9d71c722d8d582f904f0ce51e5528805",
+      "freeze": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/tranche-m06-freeze-001.json",
+        "sha256": "1c0b48c5a54f2c8c8878a83e3d427f6be299a3f72870c1bda9f1447706d9c6c5",
+        "bytes": 1705
+      }
+    },
+    {
+      "id": "m07",
+      "frozenAt": "2026-10-04T09:17:56.645185+00:00",
+      "catalogIds": [
+        "VBO:0201382"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "83a57f75be22b54dadc3507fc560a9e580701c3a126053dd1eb403c066df2c98",
+      "freeze": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/tranche-m07-freeze-001.json",
+        "sha256": "5003e7572bd7e211cd6754e5997c1043e1131be6572434cbcb071040fa2c9a21",
+        "bytes": 1777
+      }
+    }
+  ],
+  "amendments": [],
+  "qualificationReceipts": [
+    {
+      "catalogId": "VBO:0200914",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200914-001.json",
+      "sha256": "f05129d0be6b0ef0f2bbb528691a7f29e5f6bf248a653da7092aece985a64528",
+      "bytes": 2414,
+      "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0007991",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0007991-001.json",
+      "sha256": "fb38669cceaae405e6c9b798b3af7788d26f95d5cf2c2a264fec67b43d5c6be6",
+      "bytes": 2515,
+      "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0200467",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200467-001.json",
+      "sha256": "dc128152de9b7a2845db3b923e9217cca167191a5a8c360f7267ede5deddd5c6",
+      "bytes": 2488,
+      "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0200782",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200782-001.json",
+      "sha256": "4c176a7a82ff09512b01c59381ed299e7702bf0c21e87536af3499095f018978",
+      "bytes": 2329,
+      "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0008004",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0008004-001.json",
+      "sha256": "0a8d08e99985e79a5b376da04a92a6dd18f02325d8911e930ca31a70478cf8c4",
+      "bytes": 2467,
+      "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0200116",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200116-001.json",
+      "sha256": "0aba9ac258ac37cca95a55962bab686fc2ccac5a82a0783e8a665d6f578022c3",
+      "bytes": 2309,
+      "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0201382",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0201382-001.json",
+      "sha256": "85619ae7688a00f2ead9d14551ca231f4230ebc9f31204b4e998a84c24ceb2bb",
+      "bytes": 2434,
+      "generationAuthorized": false
+    }
+  ],
+  "integrationBatches": [
+    {
+      "subwave": "m01",
+      "trancheId": "m01",
+      "trancheSha256": "dbea5cd8632bb13d1676f4048e63b7680cb47a189dc4470843d3cb4f88768e7a",
+      "catalogIds": [
+        "VBO:0200914"
+      ],
+      "count": 1,
+      "batchManifest": "data/dogs/generated-artwork-batch-m01.json",
+      "contactSheet": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-001.jpg",
+        "sha256": "a3dd6164e643dfd2e1c80378f444c8fc0a08a2b39c8f6d5dd275e128965c6dd2",
+        "bytes": 428698
+      },
+      "rootRelease": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-release-m01-001.json",
+        "sha256": "9a9cf59bb2a88b2cda31123c9d958a88cf57c67f726de83985d6e378990af450",
+        "bytes": 1318
+      },
+      "integratedAt": "2026-10-04T09:13:27.488671+00:00"
+    },
+    {
+      "subwave": "m02",
+      "trancheId": "m02",
+      "trancheSha256": "fff43f6ebc1336122e47220f1ff38364372212001e0f59aa3600bba5eced255c",
+      "catalogIds": [
+        "VBO:0007991"
+      ],
+      "count": 1,
+      "batchManifest": "data/dogs/generated-artwork-batch-m02.json",
+      "contactSheet": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-001.jpg",
+        "sha256": "a3dd6164e643dfd2e1c80378f444c8fc0a08a2b39c8f6d5dd275e128965c6dd2",
+        "bytes": 428698
+      },
+      "rootRelease": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-release-m02-001.json",
+        "sha256": "e7d2adf362ecc19f624fdd421931049b44a4c5ab4d9facfd51e523434d4a7e78",
+        "bytes": 1318
+      },
+      "integratedAt": "2026-10-04T09:13:27.655567+00:00"
+    },
+    {
+      "subwave": "m03",
+      "trancheId": "m03",
+      "trancheSha256": "885d929019df91c12cdfc8641ae0cd1913ec73731cbb6cdb1e2e379684abfa79",
+      "catalogIds": [
+        "VBO:0200467"
+      ],
+      "count": 1,
+      "batchManifest": "data/dogs/generated-artwork-batch-m03.json",
+      "contactSheet": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-001.jpg",
+        "sha256": "a3dd6164e643dfd2e1c80378f444c8fc0a08a2b39c8f6d5dd275e128965c6dd2",
+        "bytes": 428698
+      },
+      "rootRelease": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-release-m03-001.json",
+        "sha256": "346498ccc93bd2989b8f8f6ca5f6a8d3aed49561bb36958759aaf2b1ad2ae16d",
+        "bytes": 1318
+      },
+      "integratedAt": "2026-10-04T09:13:27.809714+00:00"
+    },
+    {
+      "subwave": "m04",
+      "trancheId": "m04",
+      "trancheSha256": "604b65c243c17b9b2557521c2f648736c637137ae7301a2baf0d48776b436b15",
+      "catalogIds": [
+        "VBO:0200782"
+      ],
+      "count": 1,
+      "batchManifest": "data/dogs/generated-artwork-batch-m04.json",
+      "contactSheet": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-001.jpg",
+        "sha256": "a3dd6164e643dfd2e1c80378f444c8fc0a08a2b39c8f6d5dd275e128965c6dd2",
+        "bytes": 428698
+      },
+      "rootRelease": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-release-m04-001.json",
+        "sha256": "efa7a23b9806289688f8268b7d158197658193a4e56f3abb3d965ffcde1af930",
+        "bytes": 1318
+      },
+      "integratedAt": "2026-10-04T09:13:27.957085+00:00"
+    },
+    {
+      "subwave": "m05",
+      "trancheId": "m05",
+      "trancheSha256": "8cb97726b90aea31c184e7aa1cf3d3c12adfaabb5cce4ec9dbadb380e42e7ce0",
+      "catalogIds": [
+        "VBO:0008004"
+      ],
+      "count": 1,
+      "batchManifest": "data/dogs/generated-artwork-batch-m05.json",
+      "contactSheet": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-001.jpg",
+        "sha256": "a3dd6164e643dfd2e1c80378f444c8fc0a08a2b39c8f6d5dd275e128965c6dd2",
+        "bytes": 428698
+      },
+      "rootRelease": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-release-m05-001.json",
+        "sha256": "fbb36bdde88795929df7736990e489075c52ab1111fc1742a6922fc00565837c",
+        "bytes": 1318
+      },
+      "integratedAt": "2026-10-04T09:13:28.106319+00:00"
+    }
+  ],
+  "publications": [],
+  "entries": {
+    "VBO:0200914": {
+      "catalogId": "VBO:0200914",
+      "displayName": "Mountain Cur",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200914-001.json",
+        "sha256": "f05129d0be6b0ef0f2bbb528691a7f29e5f6bf248a653da7092aece985a64528",
+        "bytes": 2414
+      },
+      "preparation": {
+        "worker": "C",
+        "trancheId": "m01",
+        "trancheSha256": "dbea5cd8632bb13d1676f4048e63b7680cb47a189dc4470843d3cb4f88768e7a",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/packet-mountain-cur-text-only-001.json",
+          "sha256": "9dfa567564f4110aa2e1253e7b49428b3f27c8e4c9a729f642f733861e253dff",
+          "bytes": 8282
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/peer-c-mountain-cur-001.json",
+          "sha256": "39d4d82e8f59583da2c390e31036d82926ab55f99db678a1eb0928741dc7269f",
+          "bytes": 1464
+        }
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/research-dossier-0200914-text-only-001.json",
+          "sha256": "f0f91e70cffa7a206c92df7511ac3d1df0ab5c20c8c64de2dc019c51b7aef0bc",
+          "bytes": 7441
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.ukcdogs.com/breed-standards/mountain-cur",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/834d2b84b4a55c69b924f7dd9ae2b5467b75adfb3d4f7b6cabe7b4faeac10c09.json",
+        "rootApprovalSha256": "834d2b84b4a55c69b924f7dd9ae2b5467b75adfb3d4f7b6cabe7b4faeac10c09",
+        "primaryReviewedAt": "2026-10-04T08:49:52.429641+00:00",
+        "visualReview": "Root read actual complete UKC standard history, Characteristics and adult anatomical/tail/coat clauses, both final335/108-character texts, dossier and exact2155-byte prompt. Whole UKC pages4–6 personally viewed: adult MC Burley4,Smoke5,Crook6,Rooster2; TC/TF/MF and juvenileBubba excluded; corrected Jenna caption-only disclosure checked. Medium strong square/slightly rectangular short-coated mature body and drop ears supported. Complete straight low-set medium tail uses explicit standard, never inferred from obscured pixels. Full/short claims about handler desire, persistence, head-raised cold-track circling and rural squirrel/raccoon/big-game work supported; no suitability guarantees. Original buckskin individual in woodland clearing materially differs from event-photo compositions. Zero direct image inputs, all photo purposes denied. Independent A review matches final hashes; exact distinct MountainCur identity approved.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Keen to work with its handler, the Mountain Cur brings strong treeing instincts and persistence to a hunt. It often follows a trail with its head raised, circling an older scent until a fresher trail appears; its voice may range from silent to freely barking. Rural American breeders preserved it for squirrel, raccoon and larger game.",
+        "summarySha256": "54d83a220b72c613970185907847ae76e3d2348ed202d6c2179d974dacf223ed",
+        "shortDescription": "A persistent tree dog that tends to hunt with its head raised, circling older scent to find a fresher trail.",
+        "shortDescriptionSha256": "d7be8350dddbdb1c380115505c13b2d60c6bed742af24f9d0c3140a71a32025a",
+        "author": "M worker C",
+        "reviewer": "M worker A and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/packet-mountain-cur-text-only-001.json",
+        "sourcePathSha256": "9dfa567564f4110aa2e1253e7b49428b3f27c8e4c9a729f642f733861e253dff",
+        "sourceSnapshots": [
+          {
+            "title": "Mountain Cur — Official UKC Breed Standard",
+            "url": "https://www.ukcdogs.com/breed-standards/mountain-cur",
+            "evidence": "Characteristics directly describes strong desire to please, fast hard hunting with head in air, open/semi-open/silent track, clear carrying bark, circling and drifting cold track until hot track. History identifies rural origins, OMCBA preservation and squirrel/raccoon/all types of big-game use. Summary calibrates these registry tendencies and omits universal trainability, intelligence ranking and household suitability.",
+            "sourceRole": "Primary registry normative standard: character/utilization/history and mature morphology; not empirical behavior research.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/mountain-cur-ukc-current-001.html",
+              "sha256": "c97a84fc14649602d5fbdd57a1af1d6f9a0f635d76cdc90de99c1de9f4a596c4",
+              "bytes": 91112
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/mountain-cur-ukc-current-001.txt",
+              "sha256": "1282f83111906540471ec39863bc9a601ab061e5193b7dfc2c28bc8d31c5c8b9",
+              "bytes": 25410
+            },
+            "acquisitionDisclosure": "Fresh direct HTTP 200 raw HTML with adjacent headers/status receipt. Personally read complete breed standard History through Disqualifications and full-tail clause. Extracted text retains navigation; navigation supplies no claim."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-04T08:49:52.429641+00:00"
+      },
+      "scene": "A firm, open sandstone-and-earth clearing beside Appalachian deciduous woodland, a few dry leaves clear of the paws, soft late-afternoon light.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "M-0200914-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/attempt-M-0200914-01.json",
+              "sha256": "189957c4949ab2dd9354b56cf1489f40058a30954ba86e470864efc861da4be3",
+              "bytes": 4709
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-approvals/834d2b84b4a55c69b924f7dd9ae2b5467b75adfb3d4f7b6cabe7b4faeac10c09.json",
+              "sha256": "834d2b84b4a55c69b924f7dd9ae2b5467b75adfb3d4f7b6cabe7b4faeac10c09",
+              "bytes": 3790
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/preflights/5490b701-92c9-4aae-a557-fa8f849fb12d.json",
+              "sha256": "be0ce39096d12d9514f46de3ae70da59f4474fd1bccd693ca92e3b7cdc335153",
+              "bytes": 3521
+            },
+            "imagePermitId": "5490b701-92c9-4aae-a557-fa8f849fb12d",
+            "trancheSha256": "dbea5cd8632bb13d1676f4048e63b7680cb47a189dc4470843d3cb4f88768e7a",
+            "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one original 1536×1024 landscape portrait of one mature adult Mountain Cur, exact catalog VBO:0200914. Text-only generation; no image inputs. Independently researched morphology: A mature medium-sized powerful, agile Mountain Cur in hard muscular condition, square to slightly longer than tall, long functional legs. Flat broad skull, moderate stop, muzzle slightly shorter than skull with strong underjaw and tight lips, brown eyes, black square nose. High-set short-to-medium broad-based drop ears. Strong moderately long slightly arched neck, broad level back, muscular loin, deep chest to elbows, slight tuck-up. Strong straight forelegs, balanced muscular hindquarters, well-bent stifles and low hocks, compact moderately oval arched paws. Short close dense smooth coat with soft undercoat; choose warm yellow-buckskin with a small white breast fleck. Low-set complete natural medium-length straight tapered tail, gently elevated, neither curled nor docked; UKC general appearance and tail sections establish this form, and its full-tail clause accepts the natural option. Show a relaxed dog-eye-level three-quarter standing pose facing left, head turned gently toward the viewer. All four coherent paws planted visibly on firm ground, natural limb courses and joints, believable weight and contact shadows. Frame entire head, ears, body, four legs and paws, and complete attached natural tail with generous crop-safe space. Keep the free tail tip clearly separate from hind legs. Setting: A firm, open sandstone-and-earth clearing beside Appalachian deciduous woodland, a few dry leaves clear of the paws, soft late-afternoon light. Photorealistic restrained earth tones, natural short coat detail, softly separated background. Create a fresh individual, markings, pose and camera arrangement. No source show stage, handler, trophy, rosette or prize board. No collar, leash, people, other animals, buildings, vehicles, prey, text, logos, watermark, extra limbs or malformed paws. Do not recreate a researched photograph or named championship dog.\n",
+            "promptSha256": "527cf17ce6133fdae31c4b510b3d2b0f8493ca8020a8d2912f83d6fd1ef273da",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-m/worker-c/M-0200914-01.png",
+              "sha256": "499c26e12d3d48d1d5ed80aab991439a4ada228719b98abe7b0c45cc5c3dd346",
+              "bytes": 2869680
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10615-873b-7b13-bb62-47091c4191c4/exec-43cb58b0-cfa2-4400-ab60-e16da885758d.png",
+            "originalOutputSha256": "499c26e12d3d48d1d5ed80aab991439a4ada228719b98abe7b0c45cc5c3dd346",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-04T08:50:51.181Z",
+            "completedAt": "2026-10-04T08:51:14.286Z",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200914-01-accepted.json",
+              "sha256": "121ac3560a40fdca05960e8b9ae727fbbbec2add670cebd8d7b9d895f940a82d",
+              "bytes": 1639
+            }
+          }
+        ],
+        "acceptedAttemptId": "M-0200914-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200914-01-accepted.json",
+          "sha256": "121ac3560a40fdca05960e8b9ae727fbbbec2add670cebd8d7b9d895f940a82d",
+          "bytes": 1639
+        },
+        "reviewedAt": "2026-10-04T08:53:51.048877+00:00",
+        "breedIdentity": "Mature muscular slightly rectangular Mountain Cur, broad proportionate head with high-set short-medium drop ears, brown eyes/black nose, tight muzzle, deep chest, short dense buckskin coat and permitted small breast white. Matches UKC adult standard and complementary MC research silhouettes.",
+        "anatomy": "Four coherent complete leg courses and grounded compact paws, plausible foreleg alignment, muscular hindquarters and hocks, weight/contact shadows. Full attached low-set medium tail with visible free tapered endpoint; shallow natural raised sweep is not an overback curl or docked remnant. Face and fur coherent.",
+        "crop": "Whole original1536x1024 viewed at original detail. Complete ears, nose, four paws and tail tip have safe margins; no crop or reframing performed.",
+        "aesthetics": "Strong clear dog-eye three-quarter field-guide composition in restrained Appalachian rocky clearing. Realistic coat and contact; landscape colors frame dog without clutter. No people, gear, extra animal, text or marks. New individual/pose/location differs from researched competition photographs.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-001.jpg",
+          "sha256": "a3dd6164e643dfd2e1c80378f444c8fc0a08a2b39c8f6d5dd275e128965c6dd2",
+          "bytes": 428698
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "m01",
+        "batchManifest": "data/dogs/generated-artwork-batch-m01.json",
+        "integratedAt": "2026-10-04T09:13:27.488671+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0007991": {
+      "catalogId": "VBO:0007991",
+      "displayName": "Kazakhski Tobet",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0007991-001.json",
+        "sha256": "fb38669cceaae405e6c9b798b3af7788d26f95d5cf2c2a264fec67b43d5c6be6",
+        "bytes": 2515
+      },
+      "preparation": {
+        "worker": "A",
+        "trancheId": "m02",
+        "trancheSha256": "fff43f6ebc1336122e47220f1ff38364372212001e0f59aa3600bba5eced255c",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/packet-tobet-text-only-001.json",
+          "sha256": "d4595c8ef5b1eda78728b1549a2a538248f225c5d4ff23c8e10b4fc374762ea4",
+          "bytes": 13511
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/peer-a-tobet-001.json",
+          "sha256": "5ad89a13f2dcc54f304e4b13c50b526e8b27bafe988ba95119337952b75754a6",
+          "bytes": 2899
+        },
+        "corrections": [
+          {
+            "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/source-display-label-corrections-001.json",
+            "sha256": "b30e0214ca39bc6190836c81843042c33768358ff9d5147a142198e60752f67e",
+            "bytes": 3374
+          }
+        ]
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/research-dossier-0007991-text-only-001.json",
+          "sha256": "953ac86833702e1cf2f6e025aaf86be15c7bc04632fc19ba51a20f5d96608ba4",
+          "bytes": 9617
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://old.adilet.zan.kz/rus/docs/V2300032180",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/5156808bf325ab5ca06eae176375302c8008e1694583c8e7b12ee3bf1c9ebb19.json",
+        "rootApprovalSha256": "5156808bf325ab5ca06eae176375302c8008e1694583c8e7b12ee3bf1c9ebb19",
+        "primaryReviewedAt": "2026-10-04T08:54:05.045820+00:00",
+        "visualReview": "Root read actual national Tobet rows33–49 in Russian, original study Background historical independent guarding/caravans/endurance and Sample collection limitations, entire final full/short copy and2740-byte prompt. Whole publisher supplement pages1/3 viewed at original detail; expert-assessed present Tobet adults have developed head/chest/limbs/coarse coat; juvenileTB24 and visibly unsuitable subjects excluded, no numerical ages invented. Natural hanging triangular ears and undocked thick high-set downward sickle to hock expressly supported by national standard, not reconstructed from cropped photos. Named contemporary Kazakh regional population is distinct enough for exact VBO identity despite related ancestry. Full/short prose historically scopes independent work and sustained nomadic travel; no household or genetic behavior prediction. Anonymous shaded sable adult in new bare steppe setting differs from study event/yard images; no image references or public photo purposes. Independent B source/text approval read; hashes match.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Independent and enduring, the Kazakhski Tobet developed as a livestock guardian able to work across open country with little direction. Traditional duties included keeping predators away from herds, watching nomadic camps and accompanying caravans. Travelling with migrating livestock called for sustained effort over long distances, rather than constant instruction from a handler.",
+        "summarySha256": "e73df560d1a7e8fa8f7f163b37d18fc38319b972074118a20db8763435554398",
+        "shortDescription": "An independent livestock guardian, the Tobet traditionally watched herds and travelled far with nomadic pastoralists.",
+        "shortDescriptionSha256": "00dd8b19104b1fb45ec7c1247074d3ad34c57259d56d7ad34f0944569548c480",
+        "author": "M worker A",
+        "reviewer": "M worker B and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/packet-tobet-text-only-001.json",
+        "sourcePathSha256": "d4595c8ef5b1eda78728b1549a2a538248f225c5d4ff23c8e10b4fc374762ea4",
+        "sourceSnapshots": [
+          {
+            "title": "Kazakh Tobet — Kazakhstan national breed standard, ministry order 101 as amended in 2024",
+            "url": "https://old.adilet.zan.kz/rus/docs/V2300032180",
+            "sourceRole": "Primary national normative standard, section2 KazakhTobet rows33–49; Tazy section1 excluded.",
+            "evidence": "Exact Tobet row34 describes strength and endurance (Сильной и выносливой); excessive excitability/ uncontrolled aggression are undesirable. Rows35–48 establish adult anatomy, natural triangular hanging ears before cropping clause, undocked thick high-set sickle-down tail to hocks, coarse straight coat/shorter undercoat, and 10% longer-than-tall proportions. Only endurance enters profile; no Tazy independence/stranger traits transferred.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/tobet-standard-001.html",
+              "sha256": "f6f65262d283eaa1547d4bf3f3e54e79aef717562165d4a099713274baf9860f",
+              "bytes": 82630
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/tobet-standard-001.txt",
+              "sha256": "e29dee5814052f02c22966b324c8180115d0595e56b1d56d9bedbf1e9671c191",
+              "bytes": 51854
+            },
+            "acquisitionDisclosure": "Actual HTTP200 national ministry text HTML preserved with exact receipt, extracted UTF8 text personally read section2 rows33–49. Section1 Tazy not used."
+          },
+          {
+            "title": "Kazakh Tobet dogs in the genomic landscape: refining the history of livestock guardian breeds — Perfilyeva et al., BMC Biology 2025",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12326758/",
+            "sourceRole": "Original researchers exact Tobet historical working synthesis and present sample identity/morphometric expert assessment.",
+            "evidence": "Background paragraph beginning The Kazakh Tobet is a large describes guarding livestock from predators and robbers, protecting nomadic settlements, escorting caravans, independent guarding across broad landscapes with minimal human supervision and long distances alongside migrating herds. Methods Sampling collection explicitly expert Kansonar evaluation of measurements/proportions/temperament against national standard, with region differences and lower-scoring animals included. Genetics/ancient continuity/survival and health claims not adopted.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/tobet-study-001.html",
+              "sha256": "0ded4eaeeb7091b2cbed75d7d33e30547a6c19c14d6dd269eae2eb7362b637c0",
+              "bytes": 287023
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/tobet-study-001.txt",
+              "sha256": "458ecd670eb8fac08915f6d0fe7fe0ac882e40a0bc103cf7b8986ea6fe5cc38d",
+              "bytes": 114556
+            },
+            "acquisitionDisclosure": "Actual fresh HTTP200 raw public original-paper HTML/text/headers receipt; personally read full Background, Methods Sampling collection and relevant Discussion population limitations. Abstract/results seen, not used as behavior evidence. No genotype-derived individual trait predictions."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-04T08:54:05.045820+00:00"
+      },
+      "scene": "An open dry Kazakh steppe verge with short straw grasses and a low rocky ridge distant behind, clear firm bare earth around all paws, soft cool morning light.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "M-0007991-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/attempt-M-0007991-01.json",
+              "sha256": "6c18fd6dd09fec9d18aa66ab8b47d2c0cbeeac2d22c4dc3b25aa4823a4bbddc5",
+              "bytes": 5325
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-approvals/5156808bf325ab5ca06eae176375302c8008e1694583c8e7b12ee3bf1c9ebb19.json",
+              "sha256": "5156808bf325ab5ca06eae176375302c8008e1694583c8e7b12ee3bf1c9ebb19",
+              "bytes": 3888
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/preflights/b5fe421f-2a75-426d-bd72-b46b2feac52c.json",
+              "sha256": "24f88a5cd8ba664522e5fc74e86b5f179056237ad950ae7d69c668cb52c56aa6",
+              "bytes": 4099
+            },
+            "imagePermitId": "b5fe421f-2a75-426d-bd72-b46b2feac52c",
+            "trancheSha256": "fff43f6ebc1336122e47220f1ff38364372212001e0f59aa3600bba5eced255c",
+            "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one original 1536×1024 landscape portrait of one mature adult Kazakhski Tobet, exact catalog VBO:0007991. Text-only generation; no image inputs. Independently researched morphology: Mature Kazakhski Tobet, a large developed Kazakh livestock guardian: robust coarse strong build with powerful muscle, neither short-legged nor squat nor excessively massive. Body about10% longer than withers height, male about72–75cm, deep long oval chest to elbows, moderate tuck-up, broad muscular back, strong loin and gently sloping broad croup; relaxed topline shallow natural dip rather than sag. Heavy proportionate long moderately broad oval skull, flat forehead, gradual stop, strong blunt muzzle somewhat shorter than skull and little taper, large black nose, thick dark lips without extreme drool, small deep-set dark almond eyes. Powerful thick neck with modest dewlap. Small natural uncropped hanging triangular ears set slightly above eyes. Strong reasonably long straight parallel forelegs and balanced muscular angled rear, well-defined hocks; large tight arched paws, forefeet round and rear feet somewhat longer. Dense coarse straight guard coat with shorter developed undercoat; fuller neck collar and breeches, shorter hair on head/frontlegs, close enough to show leg anatomy. Choose naturally shaded gray-brown sable with darker back and muzzle, moderate tawny highlights and restrained small chest patch; no blue/liver or all-white/giant-white markings. Full undocked high-set thick tail in gentle downward sickle reaching hock, complete free tip visible separate from limbs; not bobbed or curled over back. Show one anonymous mature adult standing relaxed in three-quarter view facing right, head turned slightly toward viewer, mouth closed. All four distinct coherent paws grounded and visible with believable weight, joints and contact shadows. Frame entire head, natural ears, body, four limbs and paws and complete attached undocked tail with generous crop-safe space; free tail tip visibly separate from hind legs. Setting: An open dry Kazakh steppe verge with short straw grasses and a low rocky ridge distant behind, clear firm bare earth around all paws, soft cool morning light. Restrained natural documentary realism, textured coarse coat, calm attentive presence, soft separated backdrop. Create a fresh individual, markings, pose and camera arrangement. No photographed study specimen or event scene recreation. No cropping/docking, exaggerated mastiff bulk, shortface, curled overback tail, collar, leash, handler, people, other animals, livestock, buildings, text, logos, watermark, malformed anatomy or extra limbs.\n",
+            "promptSha256": "d133dcc316dc090ef4a2c3d1c2eec29162391d45263cdef8a597afcb094ce20f",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-m/worker-a/M-0007991-01.png",
+              "sha256": "7048dbb2ddbb0afa4e14ceebdfa166c55459be157940466141664a0a235ba12d",
+              "bytes": 3031304
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10614-e1f8-74b1-8d32-f87f64a95a7d/exec-4574a04f-c069-4c35-bd16-84285b733d79.png",
+            "originalOutputSha256": "7048dbb2ddbb0afa4e14ceebdfa166c55459be157940466141664a0a235ba12d",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-04T08:56:12Z",
+            "completedAt": "2026-10-04T08:56:35Z",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0007991-01-accepted.json",
+              "sha256": "925c0a4c8c36f63cfdd4f419eab3dba2849be49409642aa807b665c002cf09ac",
+              "bytes": 1500
+            }
+          }
+        ],
+        "acceptedAttemptId": "M-0007991-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0007991-01-accepted.json",
+          "sha256": "925c0a4c8c36f63cfdd4f419eab3dba2849be49409642aa807b665c002cf09ac",
+          "bytes": 1500
+        },
+        "reviewedAt": "2026-10-04T09:01:26.872179+00:00",
+        "breedIdentity": "Mature large substantial Tobet livestock guardian with deep chest, heavy bone, broad but proportionate muzzle, small natural hanging triangular ears and thick sable coat, consistent with retained standard and adult study silhouettes.",
+        "anatomy": "Four complete coherent leg courses and broad grounded paws with plausible joints and weight. Fully attached thick natural low-carried tail curves slightly and ends freely at about hock height; no cropped ear/tail, fusion, or extra limb.",
+        "crop": "Entire untouched1536x1024 native viewed at original detail. All ears, muzzle, paws and tail tip complete with safe margins; closest paw has about60px ground clearance, sufficient for supplied uncropped3:2 export.",
+        "aesthetics": "Clear dog-eye three-quarter steppe portrait, rocky rolling landscape supports identity without clutter; coherent lighting/contact shadow and textured coat. New dog and scene, no close reproduction, extra animal, gear or text.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-001.jpg",
+          "sha256": "a3dd6164e643dfd2e1c80378f444c8fc0a08a2b39c8f6d5dd275e128965c6dd2",
+          "bytes": 428698
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "m02",
+        "batchManifest": "data/dogs/generated-artwork-batch-m02.json",
+        "integratedAt": "2026-10-04T09:13:27.655567+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0200467": {
+      "catalogId": "VBO:0200467",
+      "displayName": "Dutch Smoushond",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200467-001.json",
+        "sha256": "dc128152de9b7a2845db3b923e9217cca167191a5a8c360f7267ede5deddd5c6",
+        "bytes": 2488
+      },
+      "preparation": {
+        "worker": "B",
+        "trancheId": "m03",
+        "trancheSha256": "885d929019df91c12cdfc8641ae0cd1913ec73731cbb6cdb1e2e379684abfa79",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/packet-smous-text-only-002.json",
+          "sha256": "189b03e15797501c1e491f1a5323db5d82ad91c37d73eb305d31c18a0f890da1",
+          "bytes": 15023
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/peer-b-smous-002.json",
+          "sha256": "5f68c2f625a692fb2a8df4383494970e96e852111d4d6a5a25387f93bf52761c",
+          "bytes": 3222
+        },
+        "corrections": [
+          {
+            "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/smous-copy-delta-002.json",
+            "sha256": "e82b41eaf3a99086e328fb7e525895d089b519b05045145f737ed1180de1bec5",
+            "bytes": 1069
+          },
+          {
+            "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/packet-smous-text-only-001.json",
+            "sha256": "960d29fed4fa96e5705fd2b0e704ca53e6b8d7bcd63a0628ebee055e01eead98",
+            "bytes": 15062
+          },
+          {
+            "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/peer-b-smous-001.json",
+            "sha256": "abe6a00b0d7a89f8627aa5f0a3be3b4f1a744324327ad53c0ae11554665452fa",
+            "bytes": 2743
+          }
+        ]
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/research-dossier-smous-text-only-001.json",
+          "sha256": "aceab124547ab672614d63af8d80c072f39df534352310949d5b876099b25295",
+          "bytes": 4411
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.fci.be/nomenclature/Standards/308g02-en.pdf",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/a45804b5c9101cd37e51c483d7480961bae48232f6d023ec1f85e953a3c359f0.json",
+        "rootApprovalSha256": "a45804b5c9101cd37e51c483d7480961bae48232f6d023ec1f85e953a3c359f0",
+        "primaryReviewedAt": "2026-10-04T08:56:04.781482+00:00",
+        "visualReview": "Root read full actual FCI308 extracted pages1–6 (substantive2–6), Dutch club character paragraph, final331/110-character copy after requested source-recitation correction and exact2232-byte prompt. Whole registry browser standing/moving adult images personally viewed: mature compact straw roughcoat, drop ears, beard and bushy natural tail in moving view; first tail/far legs hidden, no missing pixel inferred. Literal standard supplies square body, skull:muzzle2:1, natural short tail below hock not overback curled, coarse4–7cm coat, feet. Modern living reconstructed breed supported;1973 reconstruction accurately distinguished from uninterrupted lineage. Learning/gentle handling and cheerful affectionate character documented; no health or child suitability promises. Earlier F photo-reference hold remains unchanged; fresh research-only route individually adjudicated. New dune path composition with no direct images or photo-purpose grant. Independent C final review and correction history read, hashes match.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Cheerful and affectionate, the Dutch Smoushond often brings a lively, gentle presence to its people. It tends to enjoy learning and responds best to consistent, gentle handling. Once a carriage follower and stable rat-catcher in the Netherlands, the modern breed was rebuilt from similar-looking dogs after a revival began in 1973.",
+        "summarySha256": "cea360164e200bd75678424e67cea46ad531e731fafe3331ae15adccf8f04908",
+        "shortDescription": "A cheerful, affectionate Dutch companion, keen to learn with gentle guidance and roots in stable rat-catching.",
+        "shortDescriptionSha256": "9ba5beb8654a75f97826d2754f8f651786defd13d983848663ba7365d575ddbf",
+        "author": "M worker B",
+        "reviewer": "M worker C and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/packet-smous-text-only-002.json",
+        "sourcePathSha256": "189b03e15797501c1e491f1a5323db5d82ad91c37d73eb305d31c18a0f890da1",
+        "sourceSnapshots": [
+          {
+            "title": "Dutch Smoushond: FCI Standard 308",
+            "url": "https://www.fci.be/nomenclature/Standards/308g02-en.pdf",
+            "sourceRole": "Current primary international registry standard; normative character and documented history, not an individual behavior guarantee.",
+            "evidence": "Behavior/Temperament describes affectionate, cheerful, friendly and free-spirited character with lively but not nervous disposition. History states following horses/carriages and catching stable rats in nineteenth-century Netherlands; last1949 litter and1973 reconstruction with lookalike crossbreeds. All adult anatomical sections read: square sturdy body; broad shortish head, small drooping ears; coarse straight4–7cm straw-yellow coat; rather short natural bushy tail not curled over back.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/smous-standard-001.pdf",
+              "sha256": "363ecc521d79b01a3ddfdef0527504a18ec001f2c95b49b37ebb25942cad6df7",
+              "bytes": 300127
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/smous-standard-001.txt",
+              "sha256": "b6ab426f38230dc4d29d3f543d5d9d2f1a8d99d0f8c550355939b28e0255b567",
+              "bytes": 7404
+            },
+            "acquisitionDisclosure": "Fresh actual HTTPS retrieval; full substantive source personally read, exact extraction retained."
+          },
+          {
+            "title": "Hollandse Smoushonden Club: Character",
+            "url": "https://smoushond.nl/gezondheid-karakter",
+            "sourceRole": "Primary breed-club authored character guidance; practical learning-style account, not experimental evidence.",
+            "evidence": "Actual character paragraph describes cheerful/free character, affection and gentle nature, desire to learn/listen, consistent gentle handling; anger often counterproductive. Child suitability and absolute hereditary-health claims excluded.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/smous-club-character-001.html",
+              "sha256": "9fa630a9770dedcebaf67703d45618280789a504a084f178921acaed658b98fb",
+              "bytes": 40913
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/smous-club-character-001.txt",
+              "sha256": "dfc47692daddfa7cd373a234d781cfd7a48f298684eeaea120308bcc1beaa0da",
+              "bytes": 1912
+            },
+            "acquisitionDisclosure": "Fresh actual HTTPS retrieval; full substantive source personally read, exact extraction retained."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-04T08:56:04.781482+00:00"
+      },
+      "scene": "Clear shell-and-earth path beside coastal dune grasses in the Netherlands, soft early-evening side light.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "M-0200467-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/attempt-M-0200467-01.json",
+              "sha256": "2310f40204a6d00065cc3999a346ea9f3d78ec24bb66d80e63d8a4b30899e930",
+              "bytes": 4586
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-approvals/a45804b5c9101cd37e51c483d7480961bae48232f6d023ec1f85e953a3c359f0.json",
+              "sha256": "a45804b5c9101cd37e51c483d7480961bae48232f6d023ec1f85e953a3c359f0",
+              "bytes": 3859
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/preflights/197aa785-8f10-4c13-b2e1-4c1ad9621cf4.json",
+              "sha256": "519fb88612df172c3923be7a3f99f728797d394336d3408f5022ec7d2300642f",
+              "bytes": 3594
+            },
+            "imagePermitId": "197aa785-8f10-4c13-b2e1-4c1ad9621cf4",
+            "trancheSha256": "885d929019df91c12cdfc8641ae0cd1913ec73731cbb6cdb1e2e379684abfa79",
+            "prompt": "Create one original photorealistic field-guide portrait of a mature Dutch Smoushond. Use independent factual morphology and a new composition; no photograph is supplied or should be recreated.\n\nMature Dutch Smoushond, compact sturdy square body, about39cm at withers. Broad shortish slightly domed head with clear stop; broad muzzle about half skull length, black nose, tight lips, round dark brown eyes visible through eyebrows. Small rather high-set natural drooping ears leaning slightly toward cheeks. Rather short muscular neck, straight back, mildly arched loin, broad moderately deep chest, modest tuck. Four strong straight coherent limb courses with moderate angulation, small neat round cat feet. Harsh coarse straight shaggy4–7cm straw-yellow coat with sufficient undercoat, darker yellow ears/beard acceptable; characteristic moustache, beard and eyebrows; leg hair shorter so true outlines readable. Bushy natural tail rather short, no longer than hock, carried cheerfully outward/upward below vertical with free endpoint, never curled over the back. No curled woolly doodle coat or exaggerated Schnauzer grooming.\n\nNew single adult angled three quarters toward the viewer and slightly left, head calmly looking a little right, standing on Clear shell-and-earth path beside coastal dune grasses in the Netherlands, soft early-evening side light. Restrained distant sand dunes and sky, no urban trees or source-photo arrangement.\n\nLandscape1536×1024, one dog only at dog-eye level. Frame the entire adult generously with at least100pixels clear space above ears/tail and below paws and generous lateral margins. Four complete leg courses and all four grounded paws must be readable, believable joints and contact shadows, ordinary far-side perspective, no merged or extra limbs. Show complete attached natural tail from root to free endpoint against uncluttered landscape, never hidden in rump fur or behind a leg, never clipped. Natural realistic wiry fur and restrained color. No collar, tag, leash, handler, people, other animals, vehicles, show carpet, trophies, equipment, fences crossing dog, logos, text or watermark. Do not reproduce any researched photograph's exact expression, pose, lighting or background.",
+            "promptSha256": "7710c5a4744ba863542a1c1df55f9da119d6430ad0a61701cc0e42cdfe06708a",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-m/worker-b/M-0200467-01.png",
+              "sha256": "a7591ecfdd3f14ecd08417e97294de879412e62a6f48d5bcdec3ebdf3e74dbdd",
+              "bytes": 3059588
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10615-3275-71c2-9917-5f23ee225216/exec-cc089e6b-3077-44c3-9751-ddb2776adaa2.png",
+            "originalOutputSha256": "a7591ecfdd3f14ecd08417e97294de879412e62a6f48d5bcdec3ebdf3e74dbdd",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-04T08:59:29.494Z",
+            "completedAt": "2026-10-04T08:59:50.760Z",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200467-01-accepted.json",
+              "sha256": "ad683af8c55430102a541c53d920d24a766ac9f14c5af81c32590f2465fccddd",
+              "bytes": 1569
+            }
+          }
+        ],
+        "acceptedAttemptId": "M-0200467-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200467-01-accepted.json",
+          "sha256": "ad683af8c55430102a541c53d920d24a766ac9f14c5af81c32590f2465fccddd",
+          "bytes": 1569
+        },
+        "reviewedAt": "2026-10-04T09:01:26.875190+00:00",
+        "breedIdentity": "Mature compact Dutch Smoushond with straw-yellow rough wiry coat, darker permitted ear shading, triangular dropped ears, beard/brows and relatively short broad muzzle. Balanced compact body with moderate bone matches FCI standard and adult registry images.",
+        "anatomy": "Four complete separate limbs and grounded paws, credible elbows/hocks and contact shadows. Attached short bushy natural tail carried raised with free end, no overback curl or docked stump. Face and shaggy coat coherent.",
+        "crop": "Entire untouched1536x1024 native viewed at original detail. Head top margin about75px versus requested100, still clearly complete and safely inside final uncropped3:2; all paws and tail comfortably clear. No need to reject purely for approximate margin preference.",
+        "aesthetics": "Clear characterful alert portrait on Dutch dune path in warm natural light. Fine rough-coat detail, restrained vegetation and ocean context, no people, collars, extra animals, text or marks. Fresh composition differs from registry dogs.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-001.jpg",
+          "sha256": "a3dd6164e643dfd2e1c80378f444c8fc0a08a2b39c8f6d5dd275e128965c6dd2",
+          "bytes": 428698
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "m03",
+        "batchManifest": "data/dogs/generated-artwork-batch-m03.json",
+        "integratedAt": "2026-10-04T09:13:27.809714+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0200782": {
+      "catalogId": "VBO:0200782",
+      "displayName": "Koolie",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200782-001.json",
+        "sha256": "4c176a7a82ff09512b01c59381ed299e7702bf0c21e87536af3499095f018978",
+        "bytes": 2329
+      },
+      "preparation": {
+        "worker": "B",
+        "trancheId": "m04",
+        "trancheSha256": "604b65c243c17b9b2557521c2f648736c637137ae7301a2baf0d48776b436b15",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/packet-koolie-text-only-001.json",
+          "sha256": "5da58dd392d63f221ee59d33e29ccbeee1e62f0df4788b31921670b912024fb2",
+          "bytes": 11523
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/peer-b-koolie-001.json",
+          "sha256": "a40204291a837880ceb134013b06b59d1278c7632d6e81226b90ec17f1b0900f",
+          "bytes": 2709
+        }
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/research-dossier-koolie-text-only-001.json",
+          "sha256": "871b94860949445b790d39f4c38419f891785540c6073dfcca6bc8dcc3a0b223",
+          "bytes": 4550
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.koolie.net/koolie-fundamentals/",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/98768936d1c1861925c09ba3a5326957dd09be0e01db1bf14286a3b9caba4af0.json",
+        "rootApprovalSha256": "98768936d1c1861925c09ba3a5326957dd09be0e01db1bf14286a3b9caba4af0",
+        "primaryReviewedAt": "2026-10-04T09:00:43.876649+00:00",
+        "visualReview": "Root read entire actual club fundamentals substantive text, exact369/114-character copy and2318-byte prompt, dossier, independent C review and whole two bound gallery screenshots. Multiple developed lean athletic merled adults show slightly rectangular build, moderate muzzle, pricked/tipped ears. Some limbs/feet concealed; no missing pixels inferred. Literal club standard supplies compact rounded feet and natural hock-length tail relaxed with slight curve. Water dog shows tail end but paws submerged; no precise age/pedigree assertion. Herding gathering/moving/holding, handler team and regional work-line selection supported. Prior E photograph-watermark hold remains; fresh text-only route excludes direct image input and exact markings/poses. Australian/German Koolie aliases excluded as separate additions. Fresh dry paddock scene and natural markings approved.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Alert and eager to work with its handler, the Koolie tends to put its herding instinct to practical use. It can gather sheep or cattle, move a group in a chosen direction, or hold stock together while waiting for instructions. Australian breeders have long selected for field performance, with somewhat different lines serving open paddocks, yards and livestock trucks.",
+        "summarySha256": "f965164f352d423ecbb35757d3a6f6705c20c9279e1f0035266d8f5178deb7d8",
+        "shortDescription": "An alert, handler-focused Australian herder whose instinct is to gather, move or hold livestock as a working team.",
+        "shortDescriptionSha256": "33fba0b57e8c6dd9100e6b0188b9bbbf04b7671abd7b0c9c0b5d1317be4bad82",
+        "author": "M worker B",
+        "reviewer": "M worker C and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/packet-koolie-text-only-001.json",
+        "sourcePathSha256": "5da58dd392d63f221ee59d33e29ccbeee1e62f0df4788b31921670b912024fb2",
+        "sourceSnapshots": [
+          {
+            "title": "Koolie Club of Australia: Koolie Fundamentals",
+            "url": "https://www.koolie.net/koolie-fundamentals/",
+            "sourceRole": "Primary breed-club working-character and conformation specification, acknowledged assistance of Bob Maver; normative selection aims, not empirical personality or individual guarantees.",
+            "evidence": "Whole club fundamentals personally read: herding instinct groups stock, moves or holds groups in handler-directed positions; works sheep, cattle and other stock. Sound Temperament seeks balanced, alert/eager, attached and responsive to handler, cooperative teamwork. Field-performance selection over generations emphasized work; open-field, yard and trucking lines can differ. All conformation sections support slightly longer-than-tall muscular balanced frame, moderate stop, pricked/tipped ears, natural hock-reaching relaxed curved tail and close flat coat. Strong intelligence/stamina superlatives, genetic/medical and guaranteed work claims excluded.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/koolie-fundamentals-001.html",
+              "sha256": "72fba80fe967967a6fb0a3eaa8fabc595184a0e54366d7bc8cda55e54ccb57d6",
+              "bytes": 316768
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/koolie-fundamentals-001.txt",
+              "sha256": "2d92d0570641999122aa811751da25312deb23eb6514d1a481d8a4ec0d6a88a0",
+              "bytes": 15397
+            },
+            "acquisitionDisclosure": "Fresh actual HTTPS retrieval; entire substantive fundamentals document personally read."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-04T09:00:43.876649+00:00"
+      },
+      "scene": "Broad clear dry earth track beside Australian rolling paddocks, eucalyptus trees far away, cool diffuse morning light.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "M-0200782-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/attempt-M-0200782-01.json",
+              "sha256": "ea00da0a9e315aff721913db7831314afad379384180832c7e2057d867d68b33",
+              "bytes": 4767
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-approvals/98768936d1c1861925c09ba3a5326957dd09be0e01db1bf14286a3b9caba4af0.json",
+              "sha256": "98768936d1c1861925c09ba3a5326957dd09be0e01db1bf14286a3b9caba4af0",
+              "bytes": 3710
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/preflights/731882c3-2048-4ffe-a258-fe13fd7753bc.json",
+              "sha256": "d61ddf8b57bfc7503f582ab39865cc47d996690b21b1230d7abb8e20160fe774",
+              "bytes": 3682
+            },
+            "imagePermitId": "731882c3-2048-4ffe-a258-fe13fd7753bc",
+            "trancheSha256": "604b65c243c17b9b2557521c2f648736c637137ae7301a2baf0d48776b436b15",
+            "prompt": "Create one original photorealistic field-guide portrait of a mature Koolie. Use independent factual morphology and a new composition; no photograph is supplied or should be recreated.\n\nMature Koolie about52cm at withers, athletic strong lean supple muscular body slightly longer than tall, elbow-deep sprung chest, level withers and hips, strong loin, no coarse heaviness or weediness. Skull slightly longer than medium muzzle, slightly rounded and broad with clear stop, strong jaw and tight lips, black fully pigmented nose; rounded dark brown eyes. Mobile wide-set triangular natural pricked ears with slight tip fold, never fully dropped. Moderate strong slightly arched neck without loose throat. Muscular sloping shoulders, four coherent strong refined straight limb courses, moderate hindquarter angulation, compact round well-arched paws with deep pads. Close flat short-to-medium double coat, restrained gray/black blue-merle irregular mottling with modest white chest and toes, no exact named-dog patch map. Complete natural hock-reaching hair-furnished tail resting downward in slight curve blending with rounded sloping croup; not vertical, curled over back, bobbed or cropped.\n\nNew single adult standing quietly angled three quarters right, head looking slightly toward viewer, on Broad clear dry earth track beside Australian rolling paddocks, eucalyptus trees far away, cool diffuse morning light. No stock, herding crouch, water, tanks, trucks or copied source setting.\n\nLandscape1536×1024, one dog only at dog-eye level. Frame entire adult generously with at least100pixels clear space above ears/tail and below paws and generous lateral margins. Four complete leg courses and all four grounded paws readable, believable joints and contact shadows, ordinary far-side perspective, no merged or extra limbs. Show complete attached natural tail from root to free endpoint against uncluttered landscape, never hidden behind a leg, never clipped. Natural realistic fur and restrained color; exact adult Koolie identity, no Border Collie plume coat or Australian Shepherd bobtail. No collar, tag, leash, handler, people, other animals, vehicles, equipment, fences crossing dog, logos, text or watermark. Do not reproduce any researched photograph's exact markings, expression, pose, lighting or background.",
+            "promptSha256": "dd5f4afeed20b220276ee9067bab3ffb7a1bff6c4fb9d856024e272e57b295dc",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-m/worker-b/M-0200782-01.png",
+              "sha256": "19dde263e09e1f627d8fa8da38d060a9e36d66208bee0041912dfdacfb7b70d1",
+              "bytes": 2911373
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10615-3275-71c2-9917-5f23ee225216/exec-e7af4113-9260-40e7-afb5-5bfd5135e595.png",
+            "originalOutputSha256": "19dde263e09e1f627d8fa8da38d060a9e36d66208bee0041912dfdacfb7b70d1",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-04T09:02:01.545Z",
+            "completedAt": "2026-10-04T09:02:21.559Z",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200782-01-accepted.json",
+              "sha256": "e64211368f94c87ba387bd983a2aa1bb6582e4a4bd683add30d38306f277752b",
+              "bytes": 1468
+            }
+          }
+        ],
+        "acceptedAttemptId": "M-0200782-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200782-01-accepted.json",
+          "sha256": "e64211368f94c87ba387bd983a2aa1bb6582e4a4bd683add30d38306f277752b",
+          "bytes": 1468
+        },
+        "reviewedAt": "2026-10-04T09:11:34.314343+00:00",
+        "breedIdentity": "Mature lean athletic slightly rectangular Koolie with short flat blue-merle coat, modest white/tan trim permitted by club anycolor standard, pricked/tipped natural ears and moderate wedge head. Distinct workdog balance matches source adult gallery.",
+        "anatomy": "Four distinct complete coherent legs and grounded compact paws, credible hocks/forelegs and weight. Attached natural hock-reaching low tail with light furnishing and complete free white endpoint. No extra/fused limb or malformed face.",
+        "crop": "Whole1536x1024 original viewed at original detail; all ears, paws and tail safe. About80px head margin below approximate100 preference is visibly adequate, no clipping/reframing.",
+        "aesthetics": "Clear dog-eye standing portrait on dry Australian paddock track with eucalyptus and distant slope, restrained realistic coat/light/contact. New markings and pose, no close source reproduction, gear, animal or text.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-001.jpg",
+          "sha256": "a3dd6164e643dfd2e1c80378f444c8fc0a08a2b39c8f6d5dd275e128965c6dd2",
+          "bytes": 428698
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "m04",
+        "batchManifest": "data/dogs/generated-artwork-batch-m04.json",
+        "integratedAt": "2026-10-04T09:13:27.957085+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0008004": {
+      "catalogId": "VBO:0008004",
+      "displayName": "Sarail",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0008004-001.json",
+        "sha256": "0a8d08e99985e79a5b376da04a92a6dd18f02325d8911e930ca31a70478cf8c4",
+        "bytes": 2467
+      },
+      "preparation": {
+        "worker": "A",
+        "trancheId": "m05",
+        "trancheSha256": "8cb97726b90aea31c184e7aa1cf3d3c12adfaabb5cce4ec9dbadb380e42e7ce0",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/packet-sarail-text-only-001.json",
+          "sha256": "3ba0ce121cebe0b60e490f2aeba48f1ead14d4328b0078d531044a04f76b873b",
+          "bytes": 13184
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/peer-a-sarail-001.json",
+          "sha256": "1de5d8db1e3acc8d9751d13035485269f83cbc8892ce015fd55131773a2a3b78",
+          "bytes": 2912
+        },
+        "corrections": [
+          {
+            "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/source-display-label-corrections-001.json",
+            "sha256": "b30e0214ca39bc6190836c81843042c33768358ff9d5147a142198e60752f67e",
+            "bytes": 3374
+          }
+        ]
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/research-dossier-0008004-text-only-001.json",
+          "sha256": "f3dbc317880f2cadfab3d5ae3f63bee4df6f01d5142525210874e4da71490775",
+          "bytes": 10341
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://archive.thedailystar.net/magazine/2006/06/01/reflections.htm",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/bb4b7acb01d3d87409cdd9ac7bd9346ebfddeecba24d43283c594897b27758e7.json",
+        "rootApprovalSha256": "bb4b7acb01d3d87409cdd9ac7bd9346ebfddeecba24d43283c594897b27758e7",
+        "primaryReviewedAt": "2026-10-04T09:03:37.758363+00:00",
+        "visualReview": "Root read whole actual Amin firsthand article and BSS original reporting paragraphs27–51, final342/111-character texts, independent B review, dossier and exact2402-byte prompt. Personally whole-browser-viewed agency1050x589 adult-look Sarail dogs and named Daryush300x244. Developed slender brindle body/long tapered muzzle, natural large ear variations, deep chest and smooth coat; thin full white-tipped tail visible in named reclining dog. Agency image nearest paw cropped/parts hidden; no inferred hidden morphology. Actual firsthand breeding-facility anatomical paragraph complements photographs. Two-year age scoped to reported family population only. Calibrated keeper closeness/reserve/pursuit plus homeguarding and multigenerational breeding supported; legends, exact speed/combat, universal suitability excluded. Exact living regional Sarail identity not neighboring foreign sighthound article illustrations. New independent wetfield standing scene, no image inputs or photograph-purpose grant.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Watchful and often closely attached to its keeper, the Sarail can be reserved toward unfamiliar people yet spring into pursuit when something moves. This Bangladeshi sighthound has a local tradition of guarding homes and chasing quarry by sight. In Sarail’s Noagaon area, the Rabidas family has passed its breeding down through several generations.",
+        "summarySha256": "34816c6134fe0ad24175ace6b6d19ef1a117c20759d6704e5df15197c4607b0c",
+        "shortDescription": "A watchful Bangladeshi hound that can be aloof with strangers, close to its keeper and quick to chase movement.",
+        "shortDescriptionSha256": "3e47f5dd3d6b7c8616201ef26abade450b49db19af68fe482d3f0167ad49faaa",
+        "author": "M worker A",
+        "reviewer": "M worker B and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/packet-sarail-text-only-001.json",
+        "sourcePathSha256": "3ba0ce121cebe0b60e490f2aeba48f1ead14d4328b0078d531044a04f76b873b",
+        "sourceSnapshots": [
+          {
+            "title": "The Dog of My Dreams — Kaiser Tamiz Amin, Star Weekend Magazine, 2 June 2006",
+            "url": "https://archive.thedailystar.net/magazine/2006/06/01/reflections.htm",
+            "sourceRole": "Identified exact-breed owner firsthand memoir: breeder facility visit23March2001 and five-year mature own SarailDaryush observations, not normative temperament study.",
+            "evidence": "Actual visit paragraphs When we arrived / To my chagrin describe unfamiliar visitor quietly assessed then ignored by adult/mixed-age breeder dogs. Mature-owner paragraph beginning It was thus that Daryush describes aloofness, close owner attachment, resting then sudden chase of moving animals. Physical breeder observations explicitly include slender muscular limbs, deep chest/narrow waist, semierect floppy ears, whip-like white-tipped tails, fawn and brindled coats with blaze/socks. Only calibrated tendencies and exact observed anatomy used; childhood anecdotes, aggression incidents, founder legends, cross-species claims, 30%gait statistic, separation universal and inference that all commands fail omitted.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/sarail-firsthand-001.html",
+              "sha256": "94710b0571300260cffd1252aa6a216f09a809d8bb13e6d32bb1a629b742a366",
+              "bytes": 21455
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/sarail-firsthand-001.txt",
+              "sha256": "897fb83461a41d176fc485858d7381591adf8a5e4b1ca2e0e9a4cf9ce868502f",
+              "bytes": 13947
+            },
+            "acquisitionDisclosure": "Actual HTTP200 raw native reporting HTML and extractedUTF8 text, adjacent headers/date receipt. Personally read entire article. Only firsthand keeper/facility observations retained, not author generalizedsighthound ancestry. Photographs whole-browser-viewed research-only; no standalone originals downloaded."
+          },
+          {
+            "title": "Breeding centre planned to preserve, promote Sarail’s greyhound dogs — Md. Shafiqul Islam, Bangladesh Sangbad Sangstha, 22 October 2025",
+            "url": "https://www.bssnews.net/district/324533",
+            "sourceRole": "National news agency original field visit and named breeder/resident interviews; exact current Sarail regional population and adult-age assertion.",
+            "evidence": "Field visit identifies TapanLal/JotonLalRabidas of Chauraguda,Noagaon maintaining family breeding tradition; named resident MohammadMasudMia describes loyal protective home guarding and owneraffection. Brothers explicitly trace four generations (Kalicharan/Gangacharan/MohanLal/themselves), describe four adult dogs two male/two female abouttwo years. Elders recall home security/chasingjackals. No exact number remaining, combat superiority, speed guarantee, universal security suitability, 200year import/wolf legend, price/diet recommendation adopted.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/sarail-bss-web-response-001.json",
+              "sha256": "4383d153d7d44231c75b0a386f9faa7c18a20e98188af4ecff2044b98132dd41",
+              "bytes": 7436
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/sarail-bss-web-text-001.txt",
+              "sha256": "bcbd7298ce7841152f815f15c7be7d6bfb5e254b74914a00a2306763ee51ac28",
+              "bytes": 7371
+            },
+            "acquisitionDisclosure": "Full actual web-tool open response retained asJSON string and decodedtext with source URL/line locators, not falsely called nativeHTML. Direct nativeHTTP attempt403 and browser page security interstitial; no challenge solved. Webtool successfully returned full original reporting paragraphs; image locator from actual response was whole-viewed directly in Chrome withoutdownload."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-04T09:03:37.758363+00:00"
+      },
+      "scene": "A clear firm earthen path along a grassy wet-season field margin in eastern Bangladesh, distant bamboo and soft green foliage, diffused warm morning light; low plants stay away from paws.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "M-0008004-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/attempt-M-0008004-01.json",
+              "sha256": "1259ab8bc13d08899fc1433615da30e805d2264221dc629b8cf55a558e075f5c",
+              "bytes": 5151
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-approvals/bb4b7acb01d3d87409cdd9ac7bd9346ebfddeecba24d43283c594897b27758e7.json",
+              "sha256": "bb4b7acb01d3d87409cdd9ac7bd9346ebfddeecba24d43283c594897b27758e7",
+              "bytes": 3849
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/preflights/82ab6893-d470-495f-997b-72ce4f18e1a9.json",
+              "sha256": "50a344d65fa4a6cc9920ec2c8763bc7d36a3f070612c30721ce0cd22ca2bf010",
+              "bytes": 3762
+            },
+            "imagePermitId": "82ab6893-d470-495f-997b-72ce4f18e1a9",
+            "trancheSha256": "8cb97726b90aea31c184e7aa1cf3d3c12adfaabb5cce4ec9dbadb380e42e7ce0",
+            "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one original 1536×1024 landscape portrait of one mature adult Sarail hound of Bangladesh, exact catalogVBO:0008004. Text-only generation; no imageinputs. Independently researched morphology: Mature adult Sarail hound of Bangladesh, medium-to-tall lean powerful sighthound with long functional legs, developed deep chest and narrow tucked waist, muscular slender body slightly longer than tall. Long tapering wedge head and fairly long narrow muzzle, gentle stop, dark almond-shaped eyes and black nose, no shortface or mastiff bulk. Natural triangular fairly large semiprick ears with softly folded tips, not Saluki feathered hanging ears. Moderately long strong neck flowing into lean shoulder, strong straight forelegs, balanced muscular angled hindquarters with coherent hock anatomy; four ordinary compact paws with short natural toes. Very short thin smooth coat with tan foundation and irregular dark brindle striping, a modest independent white forehead blaze, white chest and lowerpaw socks. Long natural thin whiplike tapering tail with small white free tip, gently curved low behind body, not docked or furry plume. Mature muscle and normal bodycondition, no skeletal starvation, fluffycoat or exaggerated Greyhound show topline. Show a relaxed anonymous adult standing left-facing in three-quarter view, headturned gently towardviewer, closedmouth, quiet attentive expression. Allfour distinct coherent grounded paws, natural limb courses and joints, credibleweight and contactshadows. Entire head, natural ears, body, fourlegs/paws and complete attached thin natural tail visible, freewhitetip separated fromrearlegs. Generous crop-safe margins. Setting: A clear firm earthen path along a grassy wet-season field margin in eastern Bangladesh, distant bamboo and soft green foliage, diffused warm morning light; low plants stay away from paws. Natural documentaryrealism with restrained earth/green tones and detailedshortcoat, softly separated background. Create fresh individual/brindle markings, pose andcamera arrangement. Do not copy ownerDaryush or agencyphotographed dog, its indoor rug, chained stance, housewall, companion, handler orcaption. No collar, leash, chains, people, otheranimals, buildings, vehicles, trophies, text, logos, watermark, extra limbs or malformed anatomy.\n",
+            "promptSha256": "f1c04120f5358258364d756e895c2af2105bf322677ca166769e1955e281d1d6",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-m/worker-a/M-0008004-01.png",
+              "sha256": "07e08e0194caa29465a27c503fe013cabdf8109733b515ae1a8511eb8f8b2e8b",
+              "bytes": 2959776
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10614-e1f8-74b1-8d32-f87f64a95a7d/exec-51d321bf-1df0-432e-be4c-4d809bded77f.png",
+            "originalOutputSha256": "07e08e0194caa29465a27c503fe013cabdf8109733b515ae1a8511eb8f8b2e8b",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-04T09:04:22Z",
+            "completedAt": "2026-10-04T09:04:55Z",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0008004-01-accepted.json",
+              "sha256": "6476dee0241c9bf734468450c170aa3c8513f00ec9e9bba528076b9bb019a179",
+              "bytes": 1567
+            }
+          }
+        ],
+        "acceptedAttemptId": "M-0008004-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0008004-01-accepted.json",
+          "sha256": "6476dee0241c9bf734468450c170aa3c8513f00ec9e9bba528076b9bb019a179",
+          "bytes": 1567
+        },
+        "reviewedAt": "2026-10-04T09:11:34.316729+00:00",
+        "breedIdentity": "Mature Sarail regional Bangladeshi sighthound, lean deep-chested tucked body, functional long legs, long tapered head, softly tipped semipricked ears, short tan brindle coat and modest white blaze/chest/pawtips. Adult morphology supported by firsthand paragraph and complementary owner/agency photos.",
+        "anatomy": "Four clear complete coherent limbs and grounded paws, moderate muscle/normal bodycondition and plausible joints. Complete long thin attached tail gently downcurved then shallow upturn, free white tip visibly clear from limbs, no docking/fusion.",
+        "crop": "Whole untouched1536x1024 viewed at original detail. Complete body including four paws, ears and tail inside safe landscape margins. Closest paw about60px and head about48px from edges still complete and uncropped.",
+        "aesthetics": "Strong natural watchful expression and credible fine coat in fresh green Bangladesh fieldmargin scene. Coherent morning light/contact shadows, no copied rug/chainedwall/photo stance, no people/gear/extraanimals/text.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-001.jpg",
+          "sha256": "a3dd6164e643dfd2e1c80378f444c8fc0a08a2b39c8f6d5dd275e128965c6dd2",
+          "bytes": 428698
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "m05",
+        "batchManifest": "data/dogs/generated-artwork-batch-m05.json",
+        "integratedAt": "2026-10-04T09:13:28.106319+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    }
+  },
+  "progress": {
+    "qualified": 7,
+    "generationCalls": 5,
+    "accepted": 5,
+    "integrated": 5,
+    "published": 0
+  },
+  "currentSourceReadiness": {
+    "status": "active-authorized-text-only-production",
+    "authorization": {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+      "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+      "bytes": 1285
+    }
+  }
+}

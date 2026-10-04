@@ -1,4 +1,4 @@
-"""Atomic, durable coordination for explicitly registered cohort K/L workers.
+"""Atomic, durable coordination for explicitly registered cohort K/L/M workers.
 
 There are no expiring permits: root checks actual owner status before recovery.
 Workers invoke this exact root-owned helper, with the central registry path.
@@ -18,6 +18,7 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 
 
+M_SOURCE_AUTH_SHA256 = '9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e'
 SOURCE_AUTH_SHA256 = 'f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091'
 
 def now():
@@ -36,7 +37,7 @@ class Coordinator:
     def __init__(self, registry_path):
         self.registry_path = pathlib.Path(registry_path).resolve()
         self.registry = json.loads(self.registry_path.read_text())
-        if self.registry.get('cohortId') not in ('dogs-portraits-k', 'dogs-portraits-l'):
+        if self.registry.get('cohortId') not in ('dogs-portraits-k', 'dogs-portraits-l', 'dogs-portraits-m'):
             raise ValueError('Wrong coordination cohort')
         self.root = self.registry_path.parent
         self.db_path = self.root / 'coordination.sqlite3'
@@ -133,9 +134,9 @@ class Coordinator:
             # Bind older approval membership to its original immutable freeze.
             selection = receipt.get('selectionSha256')
             tranche_id = receipt.get('trancheId', '')
-            if (self.registry['cohortId'] != 'dogs-portraits-l'
+            if (self.registry['cohortId'] not in ('dogs-portraits-l', 'dogs-portraits-m')
                     or selection not in self.registry.get('priorSelectionDigests', [])
-                    or not isinstance(tranche_id, str) or not tranche_id.startswith('l')
+                    or not isinstance(tranche_id, str) or not tranche_id.startswith(self.registry['cohortId'][-1])
                     or not tranche_id[1:].isdigit()):
                 raise ValueError('Root approval selection mismatch')
             freeze = json.loads((self.root / f'tranche-{tranche_id}-freeze-001.json').read_bytes())
@@ -150,11 +151,11 @@ class Coordinator:
                 raise ValueError('Prior tranche approval membership or immutable freeze mismatch')
         text_only = receipt.get('inputMode') == 'text-only'
         if text_only:
-            if self.registry['cohortId'] != 'dogs-portraits-l' or receipt.get('sourcePolicyAuthorization') != self.registry.get('sourcePolicyAuthorization') or not receipt.get('sourcePolicyAuthorization'):
+            if self.registry['cohortId'] not in ('dogs-portraits-l', 'dogs-portraits-m') or receipt.get('sourcePolicyAuthorization') != self.registry.get('sourcePolicyAuthorization') or not receipt.get('sourcePolicyAuthorization'):
                 raise ValueError('Text-only mode needs the bound direct-user L policy amendment')
             if receipt.get('imageInputs') != [] or 'reference' in receipt or receipt.get('additionalReferences'):
                 raise ValueError('Text-only approval cannot contain photo inputs')
-            if receipt['sourcePolicyAuthorization'].get('sha256') != SOURCE_AUTH_SHA256:
+            if receipt['sourcePolicyAuthorization'].get('sha256') != (M_SOURCE_AUTH_SHA256 if self.registry['cohortId'] == 'dogs-portraits-m' else SOURCE_AUTH_SHA256):
                 raise ValueError('Unknown source policy amendment')
         for key in (('packet', 'prompt', 'researchDossier', 'sourcePolicyAuthorization') if text_only else ('packet', 'prompt', 'reference')):
             item = receipt[key]
@@ -351,10 +352,12 @@ def main():
         value = c.commons_fetch(args.worker, args.thread, args.catalog_id, args.url, args.output, args.root_metadata_adjudication)
     elif args.action == 'image-acquire':
         evidence = c.image_preflight(args.worker, args.thread, args.catalog_id, args.approval)
+        if c.registry['cohortId'] == 'dogs-portraits-m' and json.loads(pathlib.Path(args.approval).read_text()).get('authorizedAttemptId') != args.attempt:
+            raise ValueError('M attempt must equal dedicated approved attempt')
         permit = c.acquire('image', args.worker, args.thread, args.attempt, evidence, args.catalog_id)
         value = {**evidence, 'permit': permit, 'attemptId': args.attempt,
                  'preflightSucceeded': True, 'checkedAt': now(), 'configuredOperatorModel': 'gpt-6.1-sol',
-                 'configuredReasoningEffort': 'high' if c.registry['cohortId'] == 'dogs-portraits-l' else 'xhigh',
+                 'configuredReasoningEffort': 'high' if c.registry['cohortId'] in ('dogs-portraits-l', 'dogs-portraits-m') else 'xhigh',
                  'actualRuntimeModelIdentifierDisclosed': False}
         directory = pathlib.Path(c.owner(args.worker, args.thread)['stageRoot']) / 'preflights'
         directory.mkdir(exist_ok=True)

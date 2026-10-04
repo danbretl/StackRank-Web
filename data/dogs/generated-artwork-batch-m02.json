@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-m02",
+  "cohortId": "dogs-portraits-m",
+  "selectionSha256": "fff43f6ebc1336122e47220f1ff38364372212001e0f59aa3600bba5eced255c",
+  "reviewedAt": "2026-10-04",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-m/contact-sheet-release-001.jpg",
+    "contactSheetSha256": "a3dd6164e643dfd2e1c80378f444c8fc0a08a2b39c8f6d5dd275e128965c6dd2",
+    "acceptedCount": 1,
+    "reviewedAt": "2026-10-04T09:13:27.655567+00:00",
+    "notes": "Root whole native reviews and full5-image contact sheet personally viewed. Five distinct adult identities: Mountain Cur, Tobet, Dutch Smoushond, Koolie, Sarail. All complete body/paws/tails, coherent field-guide style with woodland/steppe/dunes/paddock/greenfield setting variety and breed-specific silhouettes. No duplicated image or source composition. First rolling5 calibration release; next authorized work continues. Membership exact frozen per-identity tranches, no reserves substituted."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0007991",
+      "name": "Kazakhski Tobet",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "953ac86833702e1cf2f6e025aaf86be15c7bc04632fc19ba51a20f5d96608ba4",
+        "imageInputs": [],
+        "sourcePage": "https://old.adilet.zan.kz/rus/docs/V2300032180"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-m/worker-a/M-0007991-01.png",
+      "masterSha256": "7048dbb2ddbb0afa4e14ceebdfa166c55459be157940466141664a0a235ba12d",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10614-e1f8-74b1-8d32-f87f64a95a7d/exec-4574a04f-c069-4c35-bd16-84285b733d79.png",
+      "originalOutputSha256": "7048dbb2ddbb0afa4e14ceebdfa166c55459be157940466141664a0a235ba12d",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+      "attemptId": "M-0007991-01",
+      "startedAt": "2026-10-04T08:56:12Z",
+      "generatedAt": "2026-10-04T08:56:35Z",
+      "timeEvidence": "Actual worker tool boundary observations; underlying service timing/model undisclosed.",
+      "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one original 1536×1024 landscape portrait of one mature adult Kazakhski Tobet, exact catalog VBO:0007991. Text-only generation; no image inputs. Independently researched morphology: Mature Kazakhski Tobet, a large developed Kazakh livestock guardian: robust coarse strong build with powerful muscle, neither short-legged nor squat nor excessively massive. Body about10% longer than withers height, male about72–75cm, deep long oval chest to elbows, moderate tuck-up, broad muscular back, strong loin and gently sloping broad croup; relaxed topline shallow natural dip rather than sag. Heavy proportionate long moderately broad oval skull, flat forehead, gradual stop, strong blunt muzzle somewhat shorter than skull and little taper, large black nose, thick dark lips without extreme drool, small deep-set dark almond eyes. Powerful thick neck with modest dewlap. Small natural uncropped hanging triangular ears set slightly above eyes. Strong reasonably long straight parallel forelegs and balanced muscular angled rear, well-defined hocks; large tight arched paws, forefeet round and rear feet somewhat longer. Dense coarse straight guard coat with shorter developed undercoat; fuller neck collar and breeches, shorter hair on head/frontlegs, close enough to show leg anatomy. Choose naturally shaded gray-brown sable with darker back and muzzle, moderate tawny highlights and restrained small chest patch; no blue/liver or all-white/giant-white markings. Full undocked high-set thick tail in gentle downward sickle reaching hock, complete free tip visible separate from limbs; not bobbed or curled over back. Show one anonymous mature adult standing relaxed in three-quarter view facing right, head turned slightly toward viewer, mouth closed. All four distinct coherent paws grounded and visible with believable weight, joints and contact shadows. Frame entire head, natural ears, body, four limbs and paws and complete attached undocked tail with generous crop-safe space; free tail tip visibly separate from hind legs. Setting: An open dry Kazakh steppe verge with short straw grasses and a low rocky ridge distant behind, clear firm bare earth around all paws, soft cool morning light. Restrained natural documentary realism, textured coarse coat, calm attentive presence, soft separated backdrop. Create a fresh individual, markings, pose and camera arrangement. No photographed study specimen or event scene recreation. No cropping/docking, exaggerated mastiff bulk, shortface, curled overback tail, collar, leash, handler, people, other animals, livestock, buildings, text, logos, watermark, malformed anatomy or extra limbs.\n",
+      "promptSha256": "d133dcc316dc090ef4a2c3d1c2eec29162391d45263cdef8a597afcb094ce20f",
+      "scene": "An open dry Kazakh steppe verge with short straw grasses and a low rocky ridge distant behind, clear firm bare earth around all paws, soft cool morning light.",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "reviewedBy": "primary orchestrator with independent worker",
+        "reviewedAt": "2026-10-04",
+        "breedIdentity": "Mature large substantial Tobet livestock guardian with deep chest, heavy bone, broad but proportionate muzzle, small natural hanging triangular ears and thick sable coat, consistent with retained standard and adult study silhouettes.",
+        "anatomy": "Four complete coherent leg courses and broad grounded paws with plausible joints and weight. Fully attached thick natural low-carried tail curves slightly and ends freely at about hock height; no cropped ear/tail, fusion, or extra limb.",
+        "crop": "Entire untouched1536x1024 native viewed at original detail. All ears, muzzle, paws and tail tip complete with safe margins; closest paw has about60px ground clearance, sufficient for supplied uncropped3:2 export.",
+        "aesthetics": "Clear dog-eye three-quarter steppe portrait, rocky rolling landscape supports identity without clutter; coherent lighting/contact shadow and textured coat. New dog and scene, no close reproduction, extra animal, gear or text.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-m/contact-sheet-release-001.jpg",
+        "contactSheetSha256": "a3dd6164e643dfd2e1c80378f444c8fc0a08a2b39c8f6d5dd275e128965c6dd2",
+        "contactSheetReviewedAt": "2026-10-04T09:13:27.619859+00:00",
+        "contactSheetNotes": "Root whole native reviews and full5-image contact sheet personally viewed. Five distinct adult identities: Mountain Cur, Tobet, Dutch Smoushond, Koolie, Sarail. All complete body/paws/tails, coherent field-guide style with woodland/steppe/dunes/paddock/greenfield setting variety and breed-specific silhouettes. No duplicated image or source composition. First rolling5 calibration release; next authorized work continues. Membership exact frozen per-identity tranches, no reserves substituted."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/research-dossier-0007991-text-only-001.json",
+          "sha256": "953ac86833702e1cf2f6e025aaf86be15c7bc04632fc19ba51a20f5d96608ba4",
+          "bytes": 9617
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://old.adilet.zan.kz/rus/docs/V2300032180",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/5156808bf325ab5ca06eae176375302c8008e1694583c8e7b12ee3bf1c9ebb19.json",
+        "rootApprovalSha256": "5156808bf325ab5ca06eae176375302c8008e1694583c8e7b12ee3bf1c9ebb19",
+        "primaryReviewedAt": "2026-10-04T08:54:05.045820+00:00",
+        "visualReview": "Root read actual national Tobet rows33–49 in Russian, original study Background historical independent guarding/caravans/endurance and Sample collection limitations, entire final full/short copy and2740-byte prompt. Whole publisher supplement pages1/3 viewed at original detail; expert-assessed present Tobet adults have developed head/chest/limbs/coarse coat; juvenileTB24 and visibly unsuitable subjects excluded, no numerical ages invented. Natural hanging triangular ears and undocked thick high-set downward sickle to hock expressly supported by national standard, not reconstructed from cropped photos. Named contemporary Kazakh regional population is distinct enough for exact VBO identity despite related ancestry. Full/short prose historically scopes independent work and sustained nomadic travel; no household or genetic behavior prediction. Anonymous shaded sable adult in new bare steppe setting differs from study event/yard images; no image references or public photo purposes. Independent B source/text approval read; hashes match.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "summary": "Independent and enduring, the Kazakhski Tobet developed as a livestock guardian able to work across open country with little direction. Traditional duties included keeping predators away from herds, watching nomadic camps and accompanying caravans. Travelling with migrating livestock called for sustained effort over long distances, rather than constant instruction from a handler.",
+        "summarySha256": "e73df560d1a7e8fa8f7f163b37d18fc38319b972074118a20db8763435554398",
+        "shortDescription": "An independent livestock guardian, the Tobet traditionally watched herds and travelled far with nomadic pastoralists.",
+        "shortDescriptionSha256": "00dd8b19104b1fb45ec7c1247074d3ad34c57259d56d7ad34f0944569548c480",
+        "author": "M worker A",
+        "reviewer": "M worker B and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/packet-tobet-text-only-001.json",
+        "sourcePathSha256": "d4595c8ef5b1eda78728b1549a2a538248f225c5d4ff23c8e10b4fc374762ea4",
+        "sourceSnapshots": [
+          {
+            "title": "Kazakh Tobet — Kazakhstan national breed standard, ministry order 101 as amended in 2024",
+            "url": "https://old.adilet.zan.kz/rus/docs/V2300032180",
+            "sourceRole": "Primary national normative standard, section2 KazakhTobet rows33–49; Tazy section1 excluded.",
+            "evidence": "Exact Tobet row34 describes strength and endurance (Сильной и выносливой); excessive excitability/ uncontrolled aggression are undesirable. Rows35–48 establish adult anatomy, natural triangular hanging ears before cropping clause, undocked thick high-set sickle-down tail to hocks, coarse straight coat/shorter undercoat, and 10% longer-than-tall proportions. Only endurance enters profile; no Tazy independence/stranger traits transferred.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/tobet-standard-001.html",
+              "sha256": "f6f65262d283eaa1547d4bf3f3e54e79aef717562165d4a099713274baf9860f",
+              "bytes": 82630
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/tobet-standard-001.txt",
+              "sha256": "e29dee5814052f02c22966b324c8180115d0595e56b1d56d9bedbf1e9671c191",
+              "bytes": 51854
+            },
+            "acquisitionDisclosure": "Actual HTTP200 national ministry text HTML preserved with exact receipt, extracted UTF8 text personally read section2 rows33–49. Section1 Tazy not used."
+          },
+          {
+            "title": "Kazakh Tobet dogs in the genomic landscape: refining the history of livestock guardian breeds — Perfilyeva et al., BMC Biology 2025",
+            "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12326758/",
+            "sourceRole": "Original researchers exact Tobet historical working synthesis and present sample identity/morphometric expert assessment.",
+            "evidence": "Background paragraph beginning The Kazakh Tobet is a large describes guarding livestock from predators and robbers, protecting nomadic settlements, escorting caravans, independent guarding across broad landscapes with minimal human supervision and long distances alongside migrating herds. Methods Sampling collection explicitly expert Kansonar evaluation of measurements/proportions/temperament against national standard, with region differences and lower-scoring animals included. Genetics/ancient continuity/survival and health claims not adopted.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/tobet-study-001.html",
+              "sha256": "0ded4eaeeb7091b2cbed75d7d33e30547a6c19c14d6dd269eae2eb7362b637c0",
+              "bytes": 287023
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/tobet-study-001.txt",
+              "sha256": "458ecd670eb8fac08915f6d0fe7fe0ac882e40a0bc103cf7b8986ea6fe5cc38d",
+              "bytes": 114556
+            },
+            "acquisitionDisclosure": "Actual fresh HTTP200 raw public original-paper HTML/text/headers receipt; personally read full Background, Methods Sampling collection and relevant Discussion population limitations. Abstract/results seen, not used as behavior evidence. No genotype-derived individual trait predictions."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-04T08:54:05.045820+00:00"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    }
+  ]
+}

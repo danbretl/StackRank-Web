@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-m01",
+  "cohortId": "dogs-portraits-m",
+  "selectionSha256": "dbea5cd8632bb13d1676f4048e63b7680cb47a189dc4470843d3cb4f88768e7a",
+  "reviewedAt": "2026-10-04",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-m/contact-sheet-release-001.jpg",
+    "contactSheetSha256": "a3dd6164e643dfd2e1c80378f444c8fc0a08a2b39c8f6d5dd275e128965c6dd2",
+    "acceptedCount": 1,
+    "reviewedAt": "2026-10-04T09:13:27.488671+00:00",
+    "notes": "Root whole native reviews and full5-image contact sheet personally viewed. Five distinct adult identities: Mountain Cur, Tobet, Dutch Smoushond, Koolie, Sarail. All complete body/paws/tails, coherent field-guide style with woodland/steppe/dunes/paddock/greenfield setting variety and breed-specific silhouettes. No duplicated image or source composition. First rolling5 calibration release; next authorized work continues. Membership exact frozen per-identity tranches, no reserves substituted."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0200914",
+      "name": "Mountain Cur",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "f0f91e70cffa7a206c92df7511ac3d1df0ab5c20c8c64de2dc019c51b7aef0bc",
+        "imageInputs": [],
+        "sourcePage": "https://www.ukcdogs.com/breed-standards/mountain-cur"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-m/worker-c/M-0200914-01.png",
+      "masterSha256": "499c26e12d3d48d1d5ed80aab991439a4ada228719b98abe7b0c45cc5c3dd346",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10615-873b-7b13-bb62-47091c4191c4/exec-43cb58b0-cfa2-4400-ab60-e16da885758d.png",
+      "originalOutputSha256": "499c26e12d3d48d1d5ed80aab991439a4ada228719b98abe7b0c45cc5c3dd346",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+      "attemptId": "M-0200914-01",
+      "startedAt": "2026-10-04T08:50:51.181Z",
+      "generatedAt": "2026-10-04T08:51:14.286Z",
+      "timeEvidence": "Actual worker tool boundary observations; underlying service timing/model undisclosed.",
+      "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Generate one original 1536×1024 landscape portrait of one mature adult Mountain Cur, exact catalog VBO:0200914. Text-only generation; no image inputs. Independently researched morphology: A mature medium-sized powerful, agile Mountain Cur in hard muscular condition, square to slightly longer than tall, long functional legs. Flat broad skull, moderate stop, muzzle slightly shorter than skull with strong underjaw and tight lips, brown eyes, black square nose. High-set short-to-medium broad-based drop ears. Strong moderately long slightly arched neck, broad level back, muscular loin, deep chest to elbows, slight tuck-up. Strong straight forelegs, balanced muscular hindquarters, well-bent stifles and low hocks, compact moderately oval arched paws. Short close dense smooth coat with soft undercoat; choose warm yellow-buckskin with a small white breast fleck. Low-set complete natural medium-length straight tapered tail, gently elevated, neither curled nor docked; UKC general appearance and tail sections establish this form, and its full-tail clause accepts the natural option. Show a relaxed dog-eye-level three-quarter standing pose facing left, head turned gently toward the viewer. All four coherent paws planted visibly on firm ground, natural limb courses and joints, believable weight and contact shadows. Frame entire head, ears, body, four legs and paws, and complete attached natural tail with generous crop-safe space. Keep the free tail tip clearly separate from hind legs. Setting: A firm, open sandstone-and-earth clearing beside Appalachian deciduous woodland, a few dry leaves clear of the paws, soft late-afternoon light. Photorealistic restrained earth tones, natural short coat detail, softly separated background. Create a fresh individual, markings, pose and camera arrangement. No source show stage, handler, trophy, rosette or prize board. No collar, leash, people, other animals, buildings, vehicles, prey, text, logos, watermark, extra limbs or malformed paws. Do not recreate a researched photograph or named championship dog.\n",
+      "promptSha256": "527cf17ce6133fdae31c4b510b3d2b0f8493ca8020a8d2912f83d6fd1ef273da",
+      "scene": "A firm, open sandstone-and-earth clearing beside Appalachian deciduous woodland, a few dry leaves clear of the paws, soft late-afternoon light.",
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "reviewedBy": "primary orchestrator with independent worker",
+        "reviewedAt": "2026-10-04",
+        "breedIdentity": "Mature muscular slightly rectangular Mountain Cur, broad proportionate head with high-set short-medium drop ears, brown eyes/black nose, tight muzzle, deep chest, short dense buckskin coat and permitted small breast white. Matches UKC adult standard and complementary MC research silhouettes.",
+        "anatomy": "Four coherent complete leg courses and grounded compact paws, plausible foreleg alignment, muscular hindquarters and hocks, weight/contact shadows. Full attached low-set medium tail with visible free tapered endpoint; shallow natural raised sweep is not an overback curl or docked remnant. Face and fur coherent.",
+        "crop": "Whole original1536x1024 viewed at original detail. Complete ears, nose, four paws and tail tip have safe margins; no crop or reframing performed.",
+        "aesthetics": "Strong clear dog-eye three-quarter field-guide composition in restrained Appalachian rocky clearing. Realistic coat and contact; landscape colors frame dog without clutter. No people, gear, extra animal, text or marks. New individual/pose/location differs from researched competition photographs.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-m/contact-sheet-release-001.jpg",
+        "contactSheetSha256": "a3dd6164e643dfd2e1c80378f444c8fc0a08a2b39c8f6d5dd275e128965c6dd2",
+        "contactSheetReviewedAt": "2026-10-04T09:13:27.451988+00:00",
+        "contactSheetNotes": "Root whole native reviews and full5-image contact sheet personally viewed. Five distinct adult identities: Mountain Cur, Tobet, Dutch Smoushond, Koolie, Sarail. All complete body/paws/tails, coherent field-guide style with woodland/steppe/dunes/paddock/greenfield setting variety and breed-specific silhouettes. No duplicated image or source composition. First rolling5 calibration release; next authorized work continues. Membership exact frozen per-identity tranches, no reserves substituted."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/research-dossier-0200914-text-only-001.json",
+          "sha256": "f0f91e70cffa7a206c92df7511ac3d1df0ab5c20c8c64de2dc019c51b7aef0bc",
+          "bytes": 7441
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.ukcdogs.com/breed-standards/mountain-cur",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/834d2b84b4a55c69b924f7dd9ae2b5467b75adfb3d4f7b6cabe7b4faeac10c09.json",
+        "rootApprovalSha256": "834d2b84b4a55c69b924f7dd9ae2b5467b75adfb3d4f7b6cabe7b4faeac10c09",
+        "primaryReviewedAt": "2026-10-04T08:49:52.429641+00:00",
+        "visualReview": "Root read actual complete UKC standard history, Characteristics and adult anatomical/tail/coat clauses, both final335/108-character texts, dossier and exact2155-byte prompt. Whole UKC pages4–6 personally viewed: adult MC Burley4,Smoke5,Crook6,Rooster2; TC/TF/MF and juvenileBubba excluded; corrected Jenna caption-only disclosure checked. Medium strong square/slightly rectangular short-coated mature body and drop ears supported. Complete straight low-set medium tail uses explicit standard, never inferred from obscured pixels. Full/short claims about handler desire, persistence, head-raised cold-track circling and rural squirrel/raccoon/big-game work supported; no suitability guarantees. Original buckskin individual in woodland clearing materially differs from event-photo compositions. Zero direct image inputs, all photo purposes denied. Independent A review matches final hashes; exact distinct MountainCur identity approved.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "summary": "Keen to work with its handler, the Mountain Cur brings strong treeing instincts and persistence to a hunt. It often follows a trail with its head raised, circling an older scent until a fresher trail appears; its voice may range from silent to freely barking. Rural American breeders preserved it for squirrel, raccoon and larger game.",
+        "summarySha256": "54d83a220b72c613970185907847ae76e3d2348ed202d6c2179d974dacf223ed",
+        "shortDescription": "A persistent tree dog that tends to hunt with its head raised, circling older scent to find a fresher trail.",
+        "shortDescriptionSha256": "d7be8350dddbdb1c380115505c13b2d60c6bed742af24f9d0c3140a71a32025a",
+        "author": "M worker C",
+        "reviewer": "M worker A and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/packet-mountain-cur-text-only-001.json",
+        "sourcePathSha256": "9dfa567564f4110aa2e1253e7b49428b3f27c8e4c9a729f642f733861e253dff",
+        "sourceSnapshots": [
+          {
+            "title": "Mountain Cur — Official UKC Breed Standard",
+            "url": "https://www.ukcdogs.com/breed-standards/mountain-cur",
+            "evidence": "Characteristics directly describes strong desire to please, fast hard hunting with head in air, open/semi-open/silent track, clear carrying bark, circling and drifting cold track until hot track. History identifies rural origins, OMCBA preservation and squirrel/raccoon/all types of big-game use. Summary calibrates these registry tendencies and omits universal trainability, intelligence ranking and household suitability.",
+            "sourceRole": "Primary registry normative standard: character/utilization/history and mature morphology; not empirical behavior research.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/mountain-cur-ukc-current-001.html",
+              "sha256": "c97a84fc14649602d5fbdd57a1af1d6f9a0f635d76cdc90de99c1de9f4a596c4",
+              "bytes": 91112
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/mountain-cur-ukc-current-001.txt",
+              "sha256": "1282f83111906540471ec39863bc9a601ab061e5193b7dfc2c28bc8d31c5c8b9",
+              "bytes": 25410
+            },
+            "acquisitionDisclosure": "Fresh direct HTTP 200 raw HTML with adjacent headers/status receipt. Personally read complete breed standard History through Disqualifications and full-tail clause. Extracted text retains navigation; navigation supplies no claim."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-04T08:49:52.429641+00:00"
+      },
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    }
+  ]
+}

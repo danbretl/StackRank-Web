@@ -6,7 +6,7 @@ import path from "node:path";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import { preserveDogArtwork } from "./preserve-dog-artwork.mjs";
-import { TEXT_ONLY_TEMPLATE, validTextOnlyPublicReference } from "./dog-portrait-source-policy.mjs";
+import { TEXT_ONLY_TEMPLATE, validTextOnlyPublicReference, M_TEXT_ONLY_TEMPLATE, validMTextOnlyPublicReference } from "./dog-portrait-source-policy.mjs";
 import { canReuseDogArtworkVariant } from "./dog-generated-artwork-cache.mjs";
 
 const execFile = promisify(execFileCallback);
@@ -47,10 +47,10 @@ for (const entry of entries) {
   ids.add(entry?.catalogId);
   if (entry?.qa?.verdict !== "pass") errors.push(`${entry?.catalogId}: QA did not pass`);
   if (entry?.generator !== "OpenAI built-in imagegen") errors.push(`${entry?.catalogId}: unsupported generator`);
-  if (!["dogs-field-guide-v1", "dogs-field-guide-v2-cohort-e", "dogs-field-guide-v3-cohort-f", "dogs-field-guide-v4-cohort-g", "dogs-field-guide-v5-cohort-h", "dogs-field-guide-v6-cohort-i", "dogs-field-guide-v7-cohort-j", "dogs-field-guide-v8-cohort-k", "dogs-field-guide-v9-cohort-l", TEXT_ONLY_TEMPLATE].includes(entry?.promptTemplateVersion)) errors.push(`${entry?.catalogId}: prompt template mismatch`);
+  if (!["dogs-field-guide-v1", "dogs-field-guide-v2-cohort-e", "dogs-field-guide-v3-cohort-f", "dogs-field-guide-v4-cohort-g", "dogs-field-guide-v5-cohort-h", "dogs-field-guide-v6-cohort-i", "dogs-field-guide-v7-cohort-j", "dogs-field-guide-v8-cohort-k", "dogs-field-guide-v9-cohort-l", TEXT_ONLY_TEMPLATE, M_TEXT_ONLY_TEMPLATE].includes(entry?.promptTemplateVersion)) errors.push(`${entry?.catalogId}: prompt template mismatch`);
   const reference = rightsByAssetId.get(entry?.reference?.assetId);
-  if (entry?.promptTemplateVersion === TEXT_ONLY_TEMPLATE) {
-    if (!validTextOnlyPublicReference(entry.reference, entry.referenceEvidence)) errors.push(`${entry.catalogId}: missing approved text-only research evidence`);
+  if ([TEXT_ONLY_TEMPLATE, M_TEXT_ONLY_TEMPLATE].includes(entry?.promptTemplateVersion)) {
+    if (!(entry.promptTemplateVersion === M_TEXT_ONLY_TEMPLATE ? validMTextOnlyPublicReference : validTextOnlyPublicReference)(entry.reference, entry.referenceEvidence)) errors.push(`${entry.catalogId}: missing approved text-only research evidence`);
     for (const item of [entry.referenceEvidence?.researchDossier, entry.referenceEvidence?.sourcePolicyAuthorization].filter(Boolean)) {
       const bytes = await fs.readFile(path.resolve(root, item.path));
       if (bytes.length !== item.bytes || createHash("sha256").update(bytes).digest("hex") !== item.sha256) errors.push(`${entry.catalogId}: changed text-only source evidence`);

@@ -380,10 +380,53 @@ class CoordinationTests(unittest.TestCase):
         fresh = p.parent / (MODULE.digest(raw) + '.json')
         fresh.write_bytes(raw)
         self.assertEqual(current.image_preflight('A', 'thread-A', 'breed-A', fresh)['catalogId'], 'breed-A')
-        self.registry['cohortId'] = 'dogs-portraits-m'
+        self.registry['cohortId'] = 'dogs-portraits-n'
         self.registry_path.write_text(json.dumps(self.registry))
         with self.assertRaisesRegex(ValueError, 'Wrong coordination cohort'):
             MODULE.Coordinator(self.registry_path)
+
+    def test_m_text_only_preflight_requires_policy_and_rejects_any_photo_input(self):
+        p=self.approval();receipt=json.loads(p.read_text())
+        receipt['cohortId']='dogs-portraits-m';receipt['inputMode']='text-only';receipt['imageInputs']=[]
+        receipt['researchDossier']=receipt.pop('reference')
+        for key in ('rootMorphologyEvidenceRead','rootIdentityApproved','rootSourceUseApproved'):
+            receipt[key]=True
+        auth=self.root/'authorization.json';auth.write_text('actual direct-user authorization fixture')
+        bound={'path':str(auth),'sha256':MODULE.digest(auth.read_bytes())}
+        receipt['sourcePolicyAuthorization']=bound
+        self.registry['cohortId']='dogs-portraits-m';self.registry['sourcePolicyAuthorization']=bound
+        self.registry_path.write_text(json.dumps(self.registry));c=MODULE.Coordinator(self.registry_path)
+        def write():
+            raw=json.dumps(receipt).encode();q=p.parent/(MODULE.digest(raw)+'.json');q.write_bytes(raw);return q
+        with patch.object(MODULE,'M_SOURCE_AUTH_SHA256',bound['sha256']):
+            result=c.image_preflight('A','thread-A','breed-A',write())
+            self.assertEqual(result['referencePaths'],[]);self.assertIsNone(result['referencePath'])
+            receipt['imageInputs']=[bound]
+            with self.assertRaisesRegex(ValueError,'cannot contain'):c.image_preflight('A','thread-A','breed-A',write())
+            receipt['imageInputs']=[];receipt['rootMorphologyEvidenceRead']=False
+            with self.assertRaisesRegex(ValueError,'root gate'):c.image_preflight('A','thread-A','breed-A',write())
+
+    def test_m_prior_tranche_approval_survives_append_only_freeze(self):
+        original = self.approval(); receipt = json.loads(original.read_text())
+        qualification = {'path': 'qualified-A.json', 'sha256': 'd' * 64}
+        freeze = {'cohortId': 'dogs-portraits-m', 'id': 'm01', 'catalogIds': ['breed-A'],
+                  'members': [{'catalogId': 'breed-A', 'qualification': qualification}]}
+        selection = MODULE.digest(json.dumps(freeze, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode())
+        freeze['selectionSha256'] = selection
+        fp = self.root / 'tranche-m01-freeze-001.json'; fp.write_text(json.dumps(freeze))
+        receipt.update(cohortId='dogs-portraits-m', selectionSha256=selection,
+                       trancheSha256=selection, trancheId='m01', qualification=qualification)
+        raw = json.dumps(receipt).encode(); approved = original.parent / (MODULE.digest(raw) + '.json'); approved.write_bytes(raw)
+        self.registry.update(cohortId='dogs-portraits-m', selectionSha256='b' * 64, priorSelectionDigests=[selection])
+        self.registry_path.write_text(json.dumps(self.registry)); current = MODULE.Coordinator(self.registry_path)
+        self.assertEqual(current.image_preflight('A', 'thread-A', 'breed-A', approved)['selectionSha256'], selection)
+        freeze['catalogIds'] = ['breed-B']; fp.write_text(json.dumps(freeze))
+        with self.assertRaisesRegex(ValueError, 'immutable freeze'):
+            current.image_preflight('A', 'thread-A', 'breed-A', approved)
+        self.registry['priorSelectionDigests'] = []
+        self.registry_path.write_text(json.dumps(self.registry))
+        with self.assertRaisesRegex(ValueError, 'selection mismatch'):
+            MODULE.Coordinator(self.registry_path).image_preflight('A', 'thread-A', 'breed-A', approved)
 
     def test_preflight_rejects_changed_approval_and_worker_owned_approval(self):
         p = self.approval()

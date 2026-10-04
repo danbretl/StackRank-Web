@@ -32,6 +32,6 @@
     "author:packs": "node scripts/author-suggestion-packs.mjs",
     "screenshots": "node scripts/capture-screenshots.cjs",
     "build:og": "node scripts/build-og-image.cjs",
-    "test:dogs:packets": "PYTHONDONTWRITEBYTECODE=1 python3 tests/dog-portrait-packet.test.py"
+    "test:dogs:packets": "PYTHONDONTWRITEBYTECODE=1 python3 tests/dog-portrait-packet.test.py && PYTHONDONTWRITEBYTECODE=1 python3 tests/dog-portrait-packet-m.test.py"
   }
 }

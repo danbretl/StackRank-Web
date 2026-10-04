@@ -51,3 +51,11 @@ Fonnese, Majorca Shepherd Dog (Long-haired), Levriero Meridionale and Sprollie a
 ### Release010 stable candidate
 
 American Brittany, Shih-Poo, Utonagan, Labstaff and Poochon: five independently sourced/copy-reviewed and root whole-native/contact-sheet accepted pairs in m60–m64. All local archives verify; all762 prior artwork/profile records and1524WebPs plus1239 source identities unchanged. Local767/472. Full `npm run verify` and desktop American Brittany ranking/full-shortcopy, actual390×844 Utonagan comparison/About/Escape, and Shih-Poo960px reviewer/provenance/draft/focus checks pass. Publication receipts follow only after exact READY/production checks.
+
+### Release010 verified production
+
+Product `e25661f7e9ec8409809e1ab133946a86c7dd88f2` is Vercel READY (`dpl_BCGExZzCwcofADqU2BfYuob8oAgD`) on both production aliases. All49 production checks,10 exact live WebPs and5 full artwork/profile records match. **767 published /472 hidden;65 of100 additions verified**, originalfive included. Receipts `publication-m60-001.json` through `publication-m64-001.json` bind the checks. ShiChi has independently qualified for next tranche;100-pair goal remains active.
+
+### Release011 stable candidate
+
+ShiChi, Sakhalin Husky and Maltipom: three independently sourced/copy-reviewed and root whole-native/contact-sheet accepted pairs in m65–m67. All three local archives verify, including Sakhalin packet-source correction. All767 previous artwork/profile records and1534WebPs plus1239 source identities unchanged. Local770/469. Full `npm run verify` passes; desktop Sakhalin full/short ranking, actual390×844 Maltipom comparison/About/Escape, and ShiChi reviewer provenance/draft/focus checks pass with no console warnings/errors. Exact READY and live byte/fullrecord publication checks follow. Later approvals stay outside this stable product candidate.

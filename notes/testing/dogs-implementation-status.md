@@ -1,8 +1,12 @@
 # StackRank Dogs implementation status
 
-## Current cohort L — active rolling production, October 3, 2026
+## Current cohort L — complete, October 3, 2026
 
-**690 published / 549 unfinished hidden; 88 of100 new pairs verified live.** L33–L41 added13 in product `0ed757f3`, Vercel READY (`dpl_B86ipJpCW5vsWriH4LbsM8nUDyR7`) on both production aliases.533 Node,25 coordination,6 packet,24 Deno,41 Chrome and49 shared production checks passed. Every new full/short profile, provenance/purpose record and26 WebPs matched live.677 prior pairs/1,354 WebPs and14 frozen earlier ledgers/stops unchanged. Root individual/contact-sheet/desktop/phone review passed. Local archives verified; no off-machine backup. Final12 in progress toward702/537hidden; original100 target remains active. See `dogs-portrait-cohort-l.md` and L ledger.
+**100/100 new pairs verified live: 702 published, 537 unfinished identities hidden.** Final product `4bdcc89aac5b6bd2ae3c4af2ffa8895c61e7ef75` is pushed main and Vercel READY in `dpl_CTmfnxKJP1F586Ybhh8iJ3jAz9Fe` on both production aliases. L42–L49 delivered the final12 pairs. Every new full/short profile, entire artwork/provenance/purpose record and all24 final-release WebPs matched live; the entire live artwork/profile/rights datasets also match local bytes.
+
+The stable candidate passed533 Node,25 coordination,6 packet,24 Deno and41 Chrome checks; one shared production run passed49 checks. Root whole-native/contact-sheet and desktop1440×1000/phone390×844 review passed, including960px details, source/model disclosure, unsaved reviewer drafts, Escape/focus and comparison preservation. All690 preceding pairs,1,380 WebPs and14 prior frozen ledgers/stops are unchanged.
+
+108 calls / 100 accepted and published / 8 rejected / 6 targeted retries / 0 failures. Two new Puli generation holds and two qualified append-only replacements;45 earlier holds unchanged. All workers idle, zero permits or accepted unpublished pairs. Local regeneration archives verified; no off-machine backup verified. See `dogs-portrait-cohort-l.md`, `dogs-cohort-l-efficiency-review-2026-10-03.md` and `data/dogs/portrait-cohort-l-completion.json`. Further acquisition/generation needs fresh authorization.
 
 ## Historical cohort K — paused after current-work closeout, October 2, 2026
 

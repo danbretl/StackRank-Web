@@ -1,0 +1,337 @@
+{
+  "schemaVersion": 1,
+  "cohortId": "dogs-portraits-l",
+  "status": "100-additions-verified-live",
+  "at": "2026-10-04T00:17:32.699706+00:00",
+  "metrics": {
+    "generationCalls": 108,
+    "completedGenerationCalls": 108,
+    "acceptedPairs": 100,
+    "publishedPairs": 100,
+    "integratedPairs": 100,
+    "qualifiedIdentities": 102,
+    "qualifiedActiveIdentities": 100,
+    "qualifiedPackets": 76,
+    "counterAsOf": "2026-10-04T00:17:32.699706+00:00",
+    "rejectedOutputs": 8,
+    "targetedRetries": 6,
+    "failedCalls": 0,
+    "currentPublishedTotal": 702,
+    "currentHidden": 537,
+    "acceptedUnpublishedIds": [],
+    "imagePermitsActiveAtBoundary": 0
+  },
+  "throughput": {
+    "unit": "verified published pairs per elapsed wall-clock hour",
+    "runStartedAt": "2026-10-03T06:50:10.588924+00:00",
+    "rollingAuthorizationAt": "2026-10-03T15:03:41.494157+00:00",
+    "sourcePolicyAt": "2026-10-03T18:05:57.399257+00:00",
+    "lastVerifiedPublicationAt": "2026-10-04T00:10:02.043015+00:00",
+    "totalHours": 17.330959469722224,
+    "totalPairsPerHour": 5.770020994781241,
+    "prePolicyPublished": 14,
+    "prePolicyHours": 11.263002870277779,
+    "prePolicyPairsPerHour": 1.243007762782779,
+    "postPolicyPublished": 86,
+    "postPolicyHours": 6.067956599444444,
+    "postPolicyPairsPerHour": 14.17281066378652,
+    "causality": "Observed phases: policy, accumulated research, batching and parallel work changed together. These are not isolated policy effects or hands-on review time."
+  },
+  "milestones": [
+    {
+      "productSha": "44d61fbcca92a2ba0ac0220413be5d93ad70c756",
+      "deploymentId": "dpl_DKre99BGCXdypTpUoXieuSxZmTiw",
+      "count": 5,
+      "subwaves": [
+        "l01"
+      ],
+      "verifiedAt": "2026-10-03T16:12:29.776219+00:00"
+    },
+    {
+      "productSha": "e9ad1a5a5c08a056367f420c0181f14fc060a62d",
+      "deploymentId": "dpl_FY8UivXHYBJnjBTordRocTjYaXG6",
+      "count": 9,
+      "subwaves": [
+        "l02",
+        "l03"
+      ],
+      "verifiedAt": "2026-10-03T16:31:45.671926+00:00"
+    },
+    {
+      "productSha": "c67f9259cd75ad54bf3633f08afef560a347ba36",
+      "deploymentId": "dpl_qQ6i4bqucJRfVjEXQRwLWZA9cRVY",
+      "count": 5,
+      "subwaves": [
+        "l04",
+        "l05"
+      ],
+      "verifiedAt": "2026-10-03T18:52:04.669579+00:00"
+    },
+    {
+      "productSha": "cb914b7b0e6b3822651aaff2d5e23f5602d5f549",
+      "deploymentId": "dpl_383bSk49XG7MJ8vsLnoA1q6f2T1H",
+      "count": 10,
+      "subwaves": [
+        "l06",
+        "l07",
+        "l08",
+        "l09",
+        "l10"
+      ],
+      "verifiedAt": "2026-10-03T19:37:28.893777+00:00"
+    },
+    {
+      "productSha": "a5ab706854a3b8e061fe2c159c1f38cba3823199",
+      "deploymentId": "dpl_BpPHdY37XVW1w4BndFENFUCLtr84",
+      "count": 21,
+      "subwaves": [
+        "l11",
+        "l12",
+        "l13",
+        "l14",
+        "l15",
+        "l16",
+        "l17",
+        "l18"
+      ],
+      "verifiedAt": "2026-10-03T20:34:52.494034+00:00"
+    },
+    {
+      "productSha": "dc0ca409021f43c03fcaa36395f3f246cbbedf1a",
+      "deploymentId": "dpl_GfgczsjX1G7QnS6XRRQJFivEYuDr",
+      "count": 12,
+      "subwaves": [
+        "l19",
+        "l20",
+        "l21",
+        "l22",
+        "l23",
+        "l24",
+        "l25"
+      ],
+      "verifiedAt": "2026-10-03T21:37:05.242145+00:00"
+    },
+    {
+      "productSha": "0f3dfa30e3a1c469accf171f51895557fd09559e",
+      "deploymentId": "dpl_7yBFA3bXiGZRBmxv1FTfzCAzQcju",
+      "count": 13,
+      "subwaves": [
+        "l26",
+        "l27",
+        "l28",
+        "l29",
+        "l30",
+        "l31",
+        "l32"
+      ],
+      "verifiedAt": "2026-10-03T22:25:09.712817+00:00"
+    },
+    {
+      "productSha": "0ed757f3a78ea0580f8be4908d44ff847a94ffa7",
+      "deploymentId": "dpl_B86ipJpCW5vsWriH4LbsM8nUDyR7",
+      "count": 13,
+      "subwaves": [
+        "l33",
+        "l34",
+        "l35",
+        "l36",
+        "l37",
+        "l38",
+        "l39",
+        "l40",
+        "l41"
+      ],
+      "verifiedAt": "2026-10-03T23:27:46.958447+00:00"
+    },
+    {
+      "productSha": "4bdcc89aac5b6bd2ae3c4af2ffa8895c61e7ef75",
+      "deploymentId": "dpl_CTmfnxKJP1F586Ybhh8iJ3jAz9Fe",
+      "count": 12,
+      "subwaves": [
+        "l42",
+        "l43",
+        "l44",
+        "l45",
+        "l46",
+        "l47",
+        "l48",
+        "l49"
+      ],
+      "verifiedAt": "2026-10-04T00:10:02.043015+00:00"
+    }
+  ],
+  "releaseBatchSizes": [
+    5,
+    9,
+    5,
+    10,
+    21,
+    12,
+    13,
+    13,
+    12
+  ],
+  "instrumentedSourceOperations": {
+    "coordinatorCommonsPermits": 403,
+    "commonsPermitStatuses": {
+      "completed": 403
+    },
+    "commonsHttpStatuses": {
+      "200": 403
+    },
+    "nonCommonsSavedAcquisitionReceipts": 222,
+    "nonCommonsTimedCurrentRunReceipts": 215,
+    "nonCommonsUntimedReceipts": 7,
+    "nonCommonsHttpStatuses": {
+      "200": 214,
+      "404": 2,
+      "403": 4,
+      "transport-error": 2
+    },
+    "nonCommonsByPhase": {
+      "pre-source-policy": 44,
+      "unknown": 7,
+      "post-source-policy": 171
+    },
+    "scope": "Commons count is actual coordinator operations. Non-Commons count is deduplicated saved worker HTTP receipts, lower-bound instrumentation, not all browser loads/web search/native tool interactions. Untimed records have unknown phase; earlier dated receipts excluded. HTTP failures are included as operations. No tokens or charges inferred. Seven additional actual exception-only failed request receipts included:4HTTP403,1HTTP404,1timeout,1TLS certificate failure. Distinguish transport errors from HTTP responses.",
+    "inventory": {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/final-efficiency-source-acquisitions-002.json",
+      "sha256": "18bccd35e0ecb66997e9d464cea1614724cd3896aac80b657695288e75d4eff4",
+      "bytes": 111204
+    },
+    "exceptionOnlyFailureReceipts": [
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0201103-pca-news-008.pdf.receipt.json",
+        "sha256": "b1b38c9b51b00e3fc58580f55f1e732f3c15f8284a4726f66752aa009b1346a8",
+        "bytes": 238
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0201103-pca-overview-007.html.receipt.json",
+        "sha256": "06968e0f56fbccf483b9793c0fa0386bbd6fee102389fd955b84ddf48a78ea34",
+        "bytes": 198
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0201103-pca-standard-007.html.receipt.json",
+        "sha256": "43c5f10d3d7a4623d812e8f5aecb563947acef830b294f4251afa6965ba4434c",
+        "bytes": 203
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/research-0201394-founding-history-017.html.receipt.json",
+        "sha256": "ea2b64fa46e62b4b97fe4c57473ecdded7ac44e8ecd6f9601b4a63410de4a768",
+        "bytes": 239
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/mackenzie-owner-primary-fresh-001.receipt.json",
+        "sha256": "6dd7a61b85effb461cc738b268cc96cf2d87419fe611956b862473d94a1788da",
+        "bytes": 368
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/primary-bangladesh-bau-original-locators-001.receipt.json",
+        "sha256": "0b19e575790d558611e226a9311e22c0a551792f232ed943fb62f6be2225883c",
+        "bytes": 285
+      },
+      {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/wheaten-subtypes-primary-089.receipt.json",
+        "sha256": "732c1e569f6ef3007b76fb999fc3f4f7cd09dd62d3405a3a713560c50800b9d5",
+        "bytes": 512
+      }
+    ]
+  },
+  "failureInstrumentation": {
+    "failedOrUnknownCoordinationPermits": 0,
+    "schemaCorrectionExampleMedium1050": "One instrumented superseding receipt, not another image call. Other corrected receipts/profile/prompt versions are retained artifacts; no centralized failed-validation counter exists.",
+    "schemaFailureTotal": null,
+    "deniedPreflightTotal": null,
+    "exit75CooldownDeferralsTotal": null,
+    "networkFailuresScope": "HTTP status distributions instrumented above; shell/browser failures without complete receipts not exhaustively counted.",
+    "notes": "Zero failed/unknown permit rows does not establish zero rejected preflights, schema errors, shell/tool failures or cooldown contention."
+  },
+  "unknownMetrics": {
+    "tokens": null,
+    "imageCredits": null,
+    "costUSD": null,
+    "rootHandsOnReviewSeconds": null,
+    "workerHandsOnSeconds": null,
+    "reason": "No reliable task-wide token/credit/billing or active-review timer receipts; elapsed wall clock cannot substitute."
+  },
+  "workers": [
+    {
+      "worker": "A",
+      "configuredModel": "gpt-6.1-sol",
+      "effort": "high",
+      "calls": 37,
+      "accepted": 34,
+      "rejected": 3,
+      "retries": 2,
+      "failures": 0,
+      "finalInventory": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/final-efficiency-metrics-002.json",
+        "sha256": "972e555b2074296ec8303a120101b7a05212d732efde714d33bba9b49083aa2b",
+        "bytes": 57004
+      },
+      "activePermits": 0,
+      "unusedApprovals": 0,
+      "state": "idle",
+      "actualPolicy": "danger-full-access; approval never; network enabled",
+      "actualRuntimeModel": "undisclosed",
+      "imageModel": "undisclosed"
+    },
+    {
+      "worker": "B",
+      "configuredModel": "gpt-6.1-sol",
+      "effort": "high",
+      "calls": 40,
+      "accepted": 36,
+      "rejected": 4,
+      "retries": 3,
+      "failures": 0,
+      "finalInventory": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-b/production-readiness-closure-checkpoint-001.json",
+        "sha256": "84c007b4bebbcc83b35b065d3ec4d2ba2bf9f89a821d00ca21fd925ef42c2a2f",
+        "bytes": 81151
+      },
+      "activePermits": 0,
+      "unusedApprovals": 0,
+      "state": "idle",
+      "actualPolicy": "danger-full-access; approval never; network enabled",
+      "actualRuntimeModel": "undisclosed",
+      "imageModel": "undisclosed"
+    },
+    {
+      "worker": "C",
+      "configuredModel": "gpt-6.1-sol",
+      "effort": "high",
+      "calls": 31,
+      "accepted": 30,
+      "rejected": 1,
+      "retries": 1,
+      "failures": 0,
+      "finalInventory": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-c/final-worker-c-receipt-520.json",
+        "sha256": "9cd35c28a32916e435764cb937d6e49edafe5a5a4c656f88588053625f5c9597",
+        "bytes": 50770
+      },
+      "activePermits": 0,
+      "unusedApprovals": 0,
+      "state": "idle",
+      "actualPolicy": "danger-full-access; approval never; network enabled",
+      "actualRuntimeModel": "undisclosed",
+      "imageModel": "undisclosed"
+    }
+  ],
+  "sourceInventorySnapshot": {
+    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-l/worker-a/final-efficiency-metrics-002.json",
+    "sha256": "972e555b2074296ec8303a120101b7a05212d732efde714d33bba9b49083aa2b",
+    "bytes": 57004
+  },
+  "sourceInventoryScope": "Worker source inventory captured at23:55UTC; no subsequent research acquisition occurred. This is a lower bound excluding unrecorded web/browser loads and failures.",
+  "individualQualityGatesPreserved": true,
+  "lessons": [
+    "Use credible standards and complementary adult visuals for an original factual text-only synthesis, with exact source-role and uncertainty review. Direct photo inputs retain individual rights gates.",
+    "Reuse unchanged source bodies and review evidence; handle small ready packets and generation concurrently with release checks.",
+    "One complete verification and production smoke per stable product release, while verifying every new live record and image byte.",
+    "Keep bounded negative chains and finite targeted retries; never lower quality to fill a count or silently count aliases.",
+    "Root and peer judgment remains individual; batching reduces repeated coordination, builds and deployments.",
+    "Record published progress separately from qualified/accepted work. A minimum initial queue should not silently become an unapproved stopping condition."
+  ]
+}

@@ -5,7 +5,7 @@ Version: `dogs-reference-research-2026-10-03.1`.
 Dan approved this policy on October 3, 2026 and requested continued production with more efficient
 batching, without degrading quality. It supersedes the Commons-only original-photo prerequisite
 in older Dogs kickoff/handoff instructions. The earlier rolling-queue authorization also remains
-in force. Cohort L continues from 14 published additions toward the same 100-addition target.
+in force. At authorization, cohort L had14 published additions; it subsequently completed the same100-addition target. Further runs require fresh authorization.
 
 ## Research and generator inputs
 

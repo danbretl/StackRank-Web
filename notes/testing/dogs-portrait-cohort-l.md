@@ -20,7 +20,21 @@ with no history fork, and all attested the same actual Full access policy. Their
 names are `/root/l_worker_a`, `/root/l_worker_b`, `/root/l_worker_c`; separate isolated worktrees
 are under `/Users/danbretl/.codex/worktrees/dogs-cohort-l-worker-{a,b,c}/stackrank`.
 
-## Current stage — 88 published additions, October 3, 2026
+## Complete — 100 published additions, October 3, 2026
+
+**100/100 new pairs verified live: 702 published, 537 unfinished identities hidden.** Final product `4bdcc89aac5b6bd2ae3c4af2ffa8895c61e7ef75` is pushed main and Vercel READY in `dpl_CTmfnxKJP1F586Ybhh8iJ3jAz9Fe` on both production aliases. L42–L49 delivered the final12 pairs. Every new full/short profile, entire artwork/provenance/purpose record and all24 final-release WebPs matched live; the entire live artwork/profile/rights datasets also match local bytes.
+
+The stable candidate passed533 Node,25 coordination,6 packet,24 Deno and41 Chrome checks; one shared production run passed49 checks. Root whole-native/contact-sheet and desktop1440×1000/phone390×844 review passed, including960px details, source/model disclosure, unsaved reviewer drafts, Escape/focus and comparison preservation. All690 preceding pairs,1,380 WebPs and14 prior frozen ledgers/stops are unchanged.
+
+Totals:108 built-in calls,100 accepted/published,8 rejected outputs,6 targeted retries,0 failures. The two Puli varieties remain generation holds after three rejected attempts each; qualified append-only replacements Harlequin Pinscher and Shiloh Shepherd are published. All45 earlier reference holds and J/K stopped selections remain intact.102 identities were historically qualified; exactly100 active distinct pairs count. Workers A/B/C accepted34/36/30, with zero active permits or unused approvals and no accepted unpublished pairs.
+
+All49 local publication archives are hash verified (465,219,832 compressed bytes), plus the75-file/74-object Puli hold archive. Accepted/rejected natives, exact prompts, claim/source evidence and reviews are retained. No off-machine backup is verified; historical acquisition-timing gaps remain disclosed.
+
+Elapsed publication throughput was5.77 pairs/hour over17.33 hours. After the source-policy amendment,86 pairs published in6.07 hours (14.17/hour); this includes accumulated research and concurrent batching, not an isolated causal speedup. Nine product releases contained5/9/5/10/21/12/13/13/12 pairs. Tokens, credits, cost and hands-on review/wait time were not exposed. See `dogs-cohort-l-efficiency-review-2026-10-03.md`.
+
+Exactly three internal workers were configured `gpt-6.1-sol/high`; root was requested `gpt-6-astra/high`, with runtime model/effort and image model undisclosed. Root and all workers attested Full access, approval never and network enabled. This run ends here; further research/acquisition/generation needs fresh user authorization. The frozen completion record is `data/dogs/portrait-cohort-l-completion.json`. Documentation deployment gets its own receipt after push.
+
+## Historical milestone — 88 published additions, October 3, 2026
 
 L33–L41 added13 individually reviewed pairs in product `0ed757f3a78ea0580f8be4908d44ff847a94ffa7`, pushed main.
 Vercel `dpl_B86ipJpCW5vsWriH4LbsM8nUDyR7` is READY on both production aliases.
@@ -342,10 +356,7 @@ staging have no verified off-machine backup.
 - `reports/dogs-generated-artwork/cohort-l/qualified-poodle-001.json`
 - `scripts/dog-portrait-packet.py` and `scripts/dog-portrait-coordination.py`
 
-On recovery, continue the authorized run. Qualify distinct exact identities before freeze/generation, then
-publish approximately 20 accepted pairs per milestone with full verification, archives, live byte
-checks and separate product/documentation receipts. Do not resume paused K workers or count
-aliases, attempts, drafts, holds or unpublished acceptance toward the 100-pair target.
+On recovery, read the completed100-pair record first. This run authorizes no additional acquisition or generation. Preserve paused K workers and all partial evidence; fresh work requires direct-user authorization.
 
 ## Workflow support verification
 

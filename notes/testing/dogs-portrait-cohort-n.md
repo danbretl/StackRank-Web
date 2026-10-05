@@ -1,4 +1,4 @@
-# Cohort N — active isolated run
+# Cohort N — ready for later integration
 
 Dan started session `01a10ab5-e493-7631-9c1a-472f927f8a23` on October 4, 2026
 (America/Los_Angeles). Target exactly100 new researched portrait/full-profile/short-description
@@ -6,8 +6,8 @@ pairs beyond the frozen802 baseline. Branch `dogs/cohort-n-100`, frozen base
 `c3ba4b030f7ad587e8a11cfc264c86b2543e5ab1`; worktree
 `/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank`.
 
-Goal ACTIVE. This is branch-only preparation: no main changes, push, merge, deployment or
-publication. N publication remains zero. Later integration requires Dan's separate instruction,
+Status **READY_FOR_POST_AUDIT_INTEGRATION**: exactly 100 new pairs are locally committed and verified.
+This is branch-only preparation: no main changes, push, merge, deployment or publication. N publication remains zero. Later integration requires Dan's separate instruction,
 even if the audit finishes. Local evidence and masters have no verified off-machine backup.
 
 ## Bootstrap
@@ -297,3 +297,14 @@ Generation ended at 19:45:08 UTC on October 5. Bootstrap/initial research to fir
 measured 766.313 seconds; first-to-last image production spanned 47,582.636 seconds. Calls total
 5,912.128 seconds of tool duration, which is **not** elapsed wall time because workers overlapped.
 No tool-cost or undisclosed model claim is inferred. Final local commit and handback records follow.
+
+
+## Completed local handback
+
+Final product commit: `34dc547d7259a068d4f2a27709201ff7f82f3837`.
+`data/dogs/portrait-cohort-n-completion.json` records READY_FOR_POST_AUDIT_INTEGRATION,
+all 100 accepted IDs, per-worker counts, exact evidence bindings, elapsed phases and retention limits.
+This completion record and the final commit bindings are committed in the following local handback
+commit. See `notes/testing/dogs-cohort-n-handback.md` for the concise integration handback.
+Earlier ACTIVE checkpoint statements above are historical, not continuing generation authority.
+Dan must explicitly authorize later integration; an audit completion does not authorize it.

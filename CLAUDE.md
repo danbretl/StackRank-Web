@@ -1,3 +1,14 @@
+# Cohort N isolated worktree override
+
+This checkout is `/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank` on
+`dogs/cohort-n-100`, based on `c3ba4b03`. Cohort N is PREPARED, NOT STARTED.
+Read `notes/feature-ideas/dogs-cohort-n-START-HERE.md` and the linked N kickoff before any new run.
+Dan will start the session himself. Preparation must not launch workers, a goal or generation.
+Once started, target 100 NEW pairs beyond 802, with local commits only; NO main writes, push,
+merge, deployment or publication. The existing main-commit/publication convention below is overridden
+for this authorized isolated task. Claude's `/Users/danbretl/src/stackrank` checkout/evidence is read-only.
+Earlier M/K/L completion and stop records below remain historical and unchanged.
+
 # StackRank
 
 For current Dogs generation, read `notes/feature-ideas/dogs-reference-research-policy.md`. Dan’s

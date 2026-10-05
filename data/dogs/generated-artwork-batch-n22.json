@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-n22",
+  "cohortId": "dogs-portraits-n",
+  "selectionSha256": "c44410f4f5a2fcd14eae037b2485f1ba08e9a12ea6f737aaff605ed958feec84",
+  "reviewedAt": "2026-10-05",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-008.png",
+    "contactSheetSha256": "ea5efcee0cb7666be1c1903c8b07daf8dff01e437ac154e59b129123c1f3c462",
+    "acceptedCount": 1,
+    "notes": "Root viewed the complete two-image contact sheet after each untouched original at native detail: distinct medium black Spitz and chestnut-white erect-ear Continental Toy Spaniel, mature anatomy, four readable grounded paws and complete breed-appropriate tails, safe framing and original natural settings. Individually sourced broad classes and independently authored full/short copy remain exact; no image-only or duplicate held aliases included."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0200585",
+      "name": "German Spitz",
+      "scene": {
+        "description": "firm pale river-gravel footpath near a low old orchard boundary, soft overcast daylight",
+        "rationale": "Original credible companion setting, clear fourfeet, differs from source expression."
+      },
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "dd5eca2c39f6cf04410c23db0eb810765e01583b11de47d7531ab7e325939af8",
+        "imageInputs": [],
+        "sourcePage": "https://www.fci.be/nomenclature/Standards/097g05-en.pdf"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-n/N-0200585-1.png",
+      "masterSha256": "2c4b6523930939443d1ab58fb23405f20a464efa6a3ca329ab9eec548090cf00",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10ab7-bf16-78e2-83c4-0f812ace7649/exec-6c34e08a-02f4-4206-92c8-843f45ed979a.png",
+      "originalOutputSha256": "2c4b6523930939443d1ab58fb23405f20a464efa6a3ca329ab9eec548090cf00",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v11-cohort-n",
+      "attemptId": "N-VBO:0200585-1",
+      "startedAt": "2026-10-05T07:55:14.317630+00:00",
+      "generatedAt": "2026-10-05T07:57:25.546503+00:00",
+      "prompt": "Create an original refined naturalistic field-guide portrait, actual native1536x1024 landscape. One mature adult German Spitz broad umbrella breed represented by the single normative specimen described below. Mature adult medium German Spitz representative around34cm at withers of broad FCI97 family. Approximately square sturdy muscular body; wedge foxlike head with muzzle/skull2:3, moderate stop never abrupt, tight black lips/black nose, dark almond slightly slanting eyes, small high close-set pointed erect ears. Straight firm long stand-off doublecoat with thick undercoat, strong natural ruff, short smooth face and earhair; solid jetblack coat without sculpted fur. Strong straight legs, small round closed feet, muscular moderate-angle hindlimbs, short firm straight back/deep chest/slight tuckup. Full medium-length high-set bushy tail attached visibly rises from root and rolls forward over back, entire loop and tip readable. Relaxed side-biased three-quarter standing at dog-eye-level on firm pale river-gravel footpath near a low old orchard boundary, soft overcast daylight. Show entire wholebody, all four distinct grounded paws clearly readable on firmground, complete ears and fullyattached entiretail from root through tip with comfortable crop-safe margins. Precise restrained furdetail and subtle painterlyrealism. Matureproportions, no puppyhead. No people, otheranimals, collar, gear, text, logos or watermark. No duplicated/missing limbs, no clipped paws, no docked/detached tail or incorrectlycarried tail. Original composition independent of factualresearch photograph expression.",
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-10-05T08:02:16.245258+00:00",
+        "breedIdentity": "Mature black medium German Spitz representative: square body, wedge head and moderate muzzle, small upright pointed ears, abundant double coat and ruff, high tightly rolled bushy tail. Broad identity and representative scope previously individually sourced.",
+        "anatomy": "Four distinct coherent grounded paws, straight forelegs, moderate rear angles, complete attached bushy rolled tail readable through its outer course; adult proportions.",
+        "crop": "Entire ears, nose, all paws and full tail remain comfortably framed.",
+        "aesthetics": "Restrained natural garden track, clear black coat detail and original composition; no equipment, text, other subjects or source-expression imitation.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-008.png",
+        "contactSheetSha256": "ea5efcee0cb7666be1c1903c8b07daf8dff01e437ac154e59b129123c1f3c462",
+        "contactSheetReviewedAt": "2026-10-05T08:08:25.648828+00:00",
+        "contactSheetNotes": "Root viewed the complete two-image contact sheet after each untouched original at native detail: distinct medium black Spitz and chestnut-white erect-ear Continental Toy Spaniel, mature anatomy, four readable grounded paws and complete breed-appropriate tails, safe framing and original natural settings. Individually sourced broad classes and independently authored full/short copy remain exact; no image-only or duplicate held aliases included."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/run-authorization-001.json",
+          "sha256": "292924b03d5fb2b641dfdef0cd4667aafb98760b71edf9efc4d4ed26920f0b9f",
+          "bytes": 1626
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-a/VBO-0200585-morphology.json",
+          "sha256": "dd5eca2c39f6cf04410c23db0eb810765e01583b11de47d7531ab7e325939af8",
+          "bytes": 3943
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "author": "A",
+        "reviewer": "B",
+        "summarySha256": "87659bd2239873ab9bcb16c2455d8f7405cbc3f94022fa5856d21715208073ec",
+        "shortDescriptionSha256": "a73ef47db8ab049cb27200ae6b65b6197bc8c4ce05f30d82659b6a84be0a83c3",
+        "summary": "Attentive, lively and closely attached to its people, the German Spitz has a long tradition as a watchful companion around homes and farms. Willingness to learn is shared across a family ranging from the larger Wolfspitz and Giant to Medium, Miniature and Toy sizes. The familiar medium dogs once kept watch for artisans, farmers and wagoners.",
+        "shortDescription": "Attentive and lively, German Spitz dogs share a watchful companion tradition across a wide family of sizes.",
+        "fact": "",
+        "reviewedAt": "2026-10-05",
+        "sources": [
+          {
+            "title": "FCI: German Spitz standard97,September2024",
+            "url": "https://www.fci.be/nomenclature/Standards/097g05-en.pdf",
+            "evidence": "Openingp1–2 explicitly names five size branches, watch/companion use. Actual shared character paragraphs p3/p9/p16 describe attentiveness, liveliness, attachment and trainability; farm watch is p3/p9, house/apartment p16. Section2p9–13 anatomy controls selected mature medium34cm black representative; no peat-dog historical assertion included."
+          },
+          {
+            "title": "Verein für Deutsche Spitze: Medium Spitz portrait",
+            "url": "https://www.deutsche-spitze.de/vfdsp_e-ms.html",
+            "evidence": "Exact medium portrait identifies typical historic Spitz30–40cm, guard work for artisans/peasants/wagoners; spirit/loyalty/guarding; allcolor scope. This historical medium branch is explicitly scoped in umbrella copy."
+          }
+        ]
+      },
+      "rootReview": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/root-review-0200585-1.json",
+        "sha256": "fa05e1d6fa6ba0a6a2105de4ef215146103010cb696c4885b898a5709cf78061",
+        "bytes": 1531
+      },
+      "attemptReceipt": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-a/N-VBO-0200585-1-attempt.json",
+        "sha256": "c01f3ceb95cb44b86106baa6e2c4d693b8de5d257e919f76a7a1f5506fdd7899",
+        "bytes": 4230
+      }
+    }
+  ]
+}

@@ -16,6 +16,12 @@ test('N archives retain selected closure and reject main and changed evidence',(
   put('tranche-n01-freeze-001.json',{id:'n01'});
   const entry={catalogId:'VBO:0200038',preparation:{packet,peer,trancheId:'n01'}};
   const files=collectNRegenerationFiles(root,entry);assert.equal(files.length,6);
+  const retryPrompt=put('retry-prompt.json',{text:'Individually corrected anatomy'});
+  const rejection=put('root-rejection.json',{status:'rejected'});
+  const amendment=put('retry-amendment.json',{prompt:retryPrompt,rootRejection:rejection});
+  const approval=put('retry-approval.json',{retryAmendment:amendment});
+  const retryFiles=collectNRegenerationFiles(root,{...entry,generation:{attempts:[{approval}]}});
+  for (const name of ['retry-prompt.json','root-rejection.json','retry-amendment.json','retry-approval.json']) assert.ok(retryFiles.some(row=>row.path.endsWith('/'+name)),name);
   const external=path.join(root,'outside.json');fs.writeFileSync(external,'{}');
   const outside={path:external,sha256:createHash('sha256').update('{}').digest('hex'),bytes:2};
   assert.throws(()=>collectNRegenerationFiles(root,{...entry,extra:outside}),/outside private/);

@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-n14",
+  "cohortId": "dogs-portraits-n",
+  "selectionSha256": "35d78fc5e05f538ae32cd7bd7b4263eb83cc967107d136b1d9e0757e5c056a9f",
+  "reviewedAt": "2026-10-05",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-004.jpg",
+    "contactSheetSha256": "507749633def65f766416e7338213cbbdb7dfedff81009054ea9c174aff344ea",
+    "acceptedCount": 1,
+    "notes": "Whole sheet viewed at original contact-sheet scale; smooth Saluki adult identity, four grounded paws and full low tail remain readable with safe framing and independent desert setting."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0201173",
+      "name": "Saluki, Smooth",
+      "scene": {
+        "description": "A broad firm ochre path between low rocky slopes at the edge of a Middle Eastern desert, distant muted dunes and clear cool dawn light",
+        "rationale": "FCI explicitly Middle Eastern hunting across varied terrain; fresh calm rocky desert path with a standing blacktan specimen differs from research red moving park dog."
+      },
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "e78de09589e8fd919fab49eab13a3b252112c58e9885d456dca0cc86012e0b57",
+        "imageInputs": [],
+        "sourcePage": "https://www.fci.be/Nomenclature/Standards/269g10-en.pdf"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-n/N-0201173-1.png",
+      "masterSha256": "ce4267f559fdf08e8b85722e407562bff97a7d9ef987dce0a4664d977cc39120",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10ab8-5389-7b82-80e5-7bd3683bfa45/exec-adf9a9df-044a-4beb-be6a-fa3a521487ee.png",
+      "originalOutputSha256": "ce4267f559fdf08e8b85722e407562bff97a7d9ef987dce0a4664d977cc39120",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v11-cohort-n",
+      "attemptId": "N-VBO:0201173-1",
+      "startedAt": "2026-10-05T07:07:51.814Z",
+      "generatedAt": "2026-10-05T07:08:31.576Z",
+      "prompt": "Create one original realistic editorial dog field-guide portrait, actual native landscape1536x1024 pixels. Exactly one Saluki, Smooth (VBO:0201173), a mature adult male in a relaxed natural three-quarter standing pose at dog-eye height. Full body centered with a slight side angle so all four individual grounded paws, coherent legs/joints, both pendant ears and the complete anatomically attached tail are visible and comfortably inside frame. Mature adult smooth Saluki male about66cm at shoulder, strong athletic sighthound with long legs and approximately square bone proportions, deep long moderately narrow chest and clear tuck-up, fairly broad back with slight muscular loin arch and well-spaced hips. Long narrow mature head, moderately wide flat skull, minimal stop, long strong fine muzzle, black nose and tight lips, large oval dark eyes not prominent. High-set mobile long pendant ears close to skull, covered in short fine hair without silky feathering. Long supple muscular neck, well-laid shoulders, straight long forearms with slightly sloping strong flexible pasterns; well-developed moderate-bend hindquarters and low hocks. Four strong supple moderately elongated feet with long arched toes, no exaggerated cat feet. Close soft silky short coat everywhere with absolutely no long feathering on ears, legs, thighs or tail. Full natural long low-set slender tail extending at least to hock, carried below topline in a gentle relaxed curve with a free softly upward-bending endpoint; visibly attached at croup, not raised over back, tightly curled, docked, bushy or feathered. Black-and-tan coat with warm tan eyebrow/muzzle/leg markings and a tiny white chest accent; no brindle. Healthy firm muscle and normal lean condition, not gaunt or skeletal. Scene: A broad firm ochre path between low rocky slopes at the edge of a Middle Eastern desert, distant muted dunes and clear cool dawn light. Frame with generous breathing room around every extremity, natural calm dignified closed mouth and eyes, convincing short fur and healthy muscle. Keep tail root, full slender curve and free tip evident against landscape; no fur plume. Do not reproduce any existing photograph, named dog, distinctive composition or action pose. No people, other animals, lead, collar, gear, clothing, text, logo or watermark. No plastic fur, duplicate limbs, malformed paws or clipped extremities. Produce native landscape1536x1024, not square.\n",
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-10-05T07:19:39.870550+00:00",
+        "breedIdentity": "Mature smooth Saluki: long narrow flat skull/muzzle, close short-haired pendant ears, graceful long neck and long-legged deep-chested coursing body, black/tan representative without feathered coat.",
+        "anatomy": "Four clear grounded paws with long arched toes, coherent joints and healthy lean musculature; full low-root long slender tail curves below topline with complete free tip. Incidental short tip hairs are not a feathered plume.",
+        "crop": "All ears, paws and complete tail safely contained with open desert margins.",
+        "aesthetics": "Natural short coat and relaxed three-quarter stance in restrained desert dawn, no replicated source expression, gear or prohibited subjects.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-004.jpg",
+        "contactSheetSha256": "507749633def65f766416e7338213cbbdb7dfedff81009054ea9c174aff344ea",
+        "contactSheetReviewedAt": "2026-10-05T07:24:17.630729+00:00",
+        "contactSheetNotes": "Whole sheet viewed at original contact-sheet scale; smooth Saluki adult identity, four grounded paws and full low tail remain readable with safe framing and independent desert setting."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/run-authorization-001.json",
+          "sha256": "292924b03d5fb2b641dfdef0cd4667aafb98760b71edf9efc4d4ed26920f0b9f",
+          "bytes": 1626
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-c/VBO-0201173-morphology.json",
+          "sha256": "e78de09589e8fd919fab49eab13a3b252112c58e9885d456dca0cc86012e0b57",
+          "bytes": 4897
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "author": "C",
+        "reviewer": "A",
+        "summarySha256": "2e527e5ee4a1248d7eadd67df5af7d0012b64014be4666329a14180164ba75a8",
+        "shortDescriptionSha256": "18ca02bc7d05a50ca404e3800c2758212c7065667dc8398583317d802b0e4aa2",
+        "summary": "Smooth Salukis tend to be dignified and independent, with a reserved manner around strangers. Their graceful bearing accompanies a hunting heritage built on speed and endurance across the Middle East. The breed developed local types suited to different terrain and game; the smooth variety keeps those shared characteristics in a coat without feathering.",
+        "shortDescription": "Dignified, independent smooth Salukis pair reserve around strangers with a Middle Eastern heritage of fast coursing.",
+        "sources": [
+          {
+            "title": "FCI — Saluki standard269",
+            "url": "https://www.fci.be/Nomenclature/Standards/269g10-en.pdf",
+            "evidence": "P2 historical/types summary: Middle Eastern hunting/coursing, speed/endurance/strength, local types by terrain and game; smooth-variety same points except no feathering. P3 behaviour: dignified intelligent independent, reserved strangers; P4tail long low-set curve/hocklength belowtopline adults except play; smooth exception again p4."
+          }
+        ],
+        "reviewedAt": "2026-10-05",
+        "fact": ""
+      },
+      "rootReview": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/root-review-0201173-1.json",
+        "sha256": "f40ad0660b655ce77e2b10d57e6f68eb1460af811b2a3b20cdbc67a96ae4f474",
+        "bytes": 1525
+      },
+      "attemptReceipt": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-c/N-VBO-0201173-1-attempt.json",
+        "sha256": "58c0336650e500934d45d729836b1ea165aa56b4f7741545e141570fd5c94ac1",
+        "bytes": 5150
+      }
+    }
+  ]
+}

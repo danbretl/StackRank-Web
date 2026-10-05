@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-n15",
+  "cohortId": "dogs-portraits-n",
+  "selectionSha256": "908e5e0a4a9df032f3862c59480325d74e577cfbc4aaed765bb7d2e89fca92a8",
+  "reviewedAt": "2026-10-05",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-005.jpg",
+    "contactSheetSha256": "0cc40b253315e56e4c3e6628528245ecd174dadcfcf3e6ac3799c0f9808c060b",
+    "acceptedCount": 1,
+    "notes": "Whole two-image sheet viewed; each retains distinct approved Swiss breed scope and coat expression, four clear grounded paws and full attached tails, coherent natural setting and safe framing. Full originals individually reviewed before sheet; no new defect discovered."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0201318",
+      "name": "Swiss Hound",
+      "scene": {
+        "description": "A clear compacted woodland path at the edge of a quiet Swiss meadow, distant hazy Jura ridge, soft early autumn afternoon light",
+        "rationale": "Source-supported origin and working setting rendered independently, with clear firm ground for anatomy QA."
+      },
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "824c58bf655e552a568256909e80e8dd553d522311a0b4d3a865ea4d1fb11e46",
+        "imageInputs": [],
+        "sourcePage": "https://www.fci.be/nomenclature/Standards/059g06-en.pdf"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-n/N-0201318-1.png",
+      "masterSha256": "a83d9f03995b51bb55e8ae06c0564e5bb9a43090c2c75ff00208b05c4056b2d9",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10ab8-069f-7cf2-9b37-fc0afda52d04/exec-a8d30acb-32ef-4748-a7e8-eb3bdca2ba47.png",
+      "originalOutputSha256": "a83d9f03995b51bb55e8ae06c0564e5bb9a43090c2c75ff00208b05c4056b2d9",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v11-cohort-n",
+      "attemptId": "N-VBO:0201318-1",
+      "startedAt": "2026-10-05T07:27:49+00:00",
+      "generatedAt": "2026-10-05T07:28:16+00:00",
+      "prompt": "Create a refined naturalistic editorial dog portrait, native output exactly 1536 x 1024 pixels, landscape 3:2. One mature adult Swiss Hound, whole body entirely visible in an original relaxed three-quarter standing pose at dog-eye level. A mature medium-sized Swiss Hound, represented by a permitted Jura black-and-tan coat within the broad four-variety breed. Lean athletic muscled body, about15percent longer than shoulder height, deep chest reaching elbows, firm straight back, gently sloping long croup, moderate tuck-up. Long narrow slightly rounded clean head without wrinkles, equal-length skull and finely chiselled long muzzle, defined but moderate stop, fully black open nose, moderately developed lips closely covering lower jaw. Medium slightly oval brown eyes with soft expression. Very long narrow low-set folded pendant ears with rounded tips reaching at least nose-tip length, fine-haired and supple. Elongated muscular neck without noticeable dewlap. Straight lean muscular forelegs, strong moderate hindleg angles, rounded compact close-toed feet. Short smooth dense black coat with rich tan eyebrow spots, cheeks, chest and lower limbs, no brindle, coarse fur or heavy bloodhound wrinkles. Intact medium-length tapering tail attached in prolongation of croup, gently descending in relaxed curve, entire base and tip visible, never ringed over back. All four separate coherent paws grounded on a clear firm level path with visible toes, no grass or objects concealing them. Full natural tail anatomically attached, complete base and whole tip clear without obstruction. Ample natural margins around ears, nose, paws and tail. Setting: A clear compacted woodland path at the edge of a quiet Swiss meadow, distant hazy Jura ridge, soft early autumn afternoon light. Restrained lifelike fine fur texture, quiet field-guide elegance, crisp dog and softly receding background. Original composition not based on any photograph. No people, other animals, collar, leash, equipment, text, logos, watermark, plastic fur, oversized puppy head, extra limbs, malformed joints, floating feet or clipped extremities.\n",
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-10-05T07:31:16.617260+00:00",
+        "breedIdentity": "Whole untouched native viewed at original1536x1024; mature lean medium Swiss Hound in explicitly permitted Jura black-and-tan expression, long clean head and low folded long pendant ears, no bloodhound wrinkles or heavy dewlap. Broad class source scope already approved.",
+        "anatomy": "Four coherent legs and separately grounded compact paws with visible toes; firm back, deep chest and restrained tuck-up. Tail attaches continuously to croup, descends in natural curve with full unobscured free endpoint; head, eyes and muzzle coherent.",
+        "crop": "Entire dog and extremities inside landscape native with clear margins; no cropped ears, paws or tail. Original output dimensions unaltered.",
+        "aesthetics": "Lifelike fine smooth coat, natural mature expression, coherent shadows and quiet autumn Jura woodland path. Independent standing composition differs from named source sitting view, no people, gear, text or duplicated anatomy.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-005.jpg",
+        "contactSheetSha256": "0cc40b253315e56e4c3e6628528245ecd174dadcfcf3e6ac3799c0f9808c060b",
+        "contactSheetReviewedAt": "2026-10-05T07:34:31.287950+00:00",
+        "contactSheetNotes": "Whole two-image sheet viewed; each retains distinct approved Swiss breed scope and coat expression, four clear grounded paws and full attached tails, coherent natural setting and safe framing. Full originals individually reviewed before sheet; no new defect discovered."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/run-authorization-001.json",
+          "sha256": "292924b03d5fb2b641dfdef0cd4667aafb98760b71edf9efc4d4ed26920f0b9f",
+          "bytes": 1626
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-b/0201318/morphology-dossier.json",
+          "sha256": "824c58bf655e552a568256909e80e8dd553d522311a0b4d3a865ea4d1fb11e46",
+          "bytes": 5358
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "author": "B",
+        "reviewer": "C",
+        "summarySha256": "2959853c4d5e938b0d88ee876b70807dfb1b4b853a4e12778dc245d5d1a55f3b",
+        "shortDescriptionSha256": "e8ed175c6294c3ac034bcf22b2f140a44934fded5f62f92fd731d6bd32851489",
+        "summary": "Lively and sensitive, the Swiss Hound combines a strong attachment to its handler with a determined hunting spirit. It follows scent with its nose close to the ground, working independently and giving voice along the trail. It can be a pleasant companion at home, though endurance and persistence remain hallmarks of its traditional hare and deer hunting work.",
+        "shortDescription": "A sensitive, determined scent hunter, the Swiss Hound works with its nose low and stays closely attached to its handler.",
+        "interestingFact": "",
+        "reviewedAt": "2026-10-05",
+        "reviewStatus": "individually-written",
+        "sources": [
+          {
+            "title": "FCI Standard59 — Swiss Hound",
+            "url": "https://www.fci.be/nomenclature/Standards/059g06-en.pdf",
+            "evidence": "Actual Utilization and Behaviour/Temperament paragraphs read: hunts independently giving tongue, determination on difficult terrain, lively passionate hunting, sensitive docile attachment to handler. Four-variety class explicit. Complete normative head, ears, neck, body, limbs, coat, color and intact tail paragraphs read."
+          },
+          {
+            "title": "Schweizerischer Laufhundclub — Der Laufhund",
+            "url": "https://www.laufhund.ch/der-laufhund",
+            "evidence": "Actual Verhalten und Einsatz als Jagdhund paragraphs read: folgsam/sehr an Führer gebunden, netter Gefährte at home; traditional low-nosed scent-trailing, flushing and loud chase. Endurance and fine nose. Hare and deer preferred. Temperament is shared across the four varieties; no separate variety trait claimed."
+          },
+          {
+            "title": "Schweizerischer Laufhundclub — Zuchtrüden",
+            "url": "https://www.laufhund.ch/zucht",
+            "evidence": "Actual Tim-Steinegg, Jura, SHSB779051, birth30March2019 registry entry read, hunting examination7August2021 establishes adult-period record. Live mature named Jura photographic view inspected; other Bernese adults also viewed. No source photo input or original acquisition."
+          }
+        ]
+      },
+      "rootReview": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/root-review-0201318-1.json",
+        "sha256": "07e333b3d273f93380424044503a796d35ba8c85dae5ac2f2ab04b1591554434",
+        "bytes": 1790
+      },
+      "attemptReceipt": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-b/0201318/N-VBO-0201318-1-attempt.json",
+        "sha256": "85badedd8df0bdb2e091bfbfe46e0de415228d04ea66d40ba7ad985efeee9b18",
+        "bytes": 5045
+      }
+    }
+  ]
+}

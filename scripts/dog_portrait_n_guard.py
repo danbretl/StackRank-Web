@@ -64,8 +64,9 @@ def validate_n_approval(registry, receipt):
     if len(selected) != 1 or body['worker'] != receipt['worker']:
         raise ValueError('N exact approved packet identity/owner required')
     entry = selected[0]
-    if receipt.get('profile') != entry['profile'] or receipt.get('prompt') != entry['prompt'] or receipt.get('researchDossier') != entry['reference']['researchDossier']:
+    if receipt.get('profile') != entry['profile'] or receipt.get('researchDossier') != entry['reference']['researchDossier']:
         raise ValueError('N approved copy, prompt or morphology differs from peer packet')
+    validate_n_retry(packet, registry, receipt, entry)
     qualification = json.loads(packet.binding(receipt['qualification']).read_text())
     if qualification.get('catalogId') != ident or qualification.get('packet') != receipt['packet'] or qualification.get('peer') != receipt['peer'] or qualification.get('status') != 'qualified':
         raise ValueError('N exact qualified packet and peer required')
@@ -74,3 +75,37 @@ def validate_n_approval(registry, receipt):
     actual = hashlib.sha256(json.dumps(freeze,sort_keys=True,separators=(',',':'),ensure_ascii=False).encode()).hexdigest()
     if claimed != actual or receipt.get('trancheSha256') != actual or receipt.get('selectionSha256') != actual or freeze.get('cohortId') != 'dogs-portraits-n' or not any(m['catalogId']==ident and m['qualification']==receipt['qualification'] for m in freeze['members']):
         raise ValueError('N immutable freeze/qualification membership mismatch')
+
+
+def validate_n_retry(packet, registry, receipt, entry):
+    """A fresh root amendment changes only the prompt; original qualification stays frozen."""
+    number = int(receipt['authorizedAttemptId'].rsplit('-', 1)[1])
+    if number == 1:
+        if receipt.get('retryAmendment') or receipt.get('prompt') != entry['prompt']:
+            raise ValueError('N first attempt must use original peer packet prompt')
+        return
+    amendment = json.loads(packet.binding(receipt['retryAmendment']).read_text())
+    packet.validate_bindings(amendment)
+    if (amendment.get('cohortId') != 'dogs-portraits-n' or amendment.get('catalogId') != receipt['catalogId']
+            or amendment.get('authorizedAttemptId') != receipt['authorizedAttemptId']
+            or amendment.get('status') != 'approved' or amendment.get('reviewer') != 'root'
+            or not amendment.get('reason') or not amendment.get('reviewedAt')
+            or amendment.get('prompt') != receipt['prompt'] or amendment.get('imageInputs') != []):
+        raise ValueError('N exact root retry amendment required')
+    previous = json.loads(packet.binding(amendment['previousAttempt']).read_text())
+    packet.validate_attempt(previous)
+    prior_approval = json.loads(packet.binding(previous['approval']).read_text())
+    validate_n_approval(registry, prior_approval)
+    rejection = json.loads(packet.binding(amendment['rootRejection']).read_text())
+    if (previous.get('attemptId') != f"N-{receipt['catalogId']}-{number - 1}"
+            or previous.get('status') != 'generated' or rejection.get('status') != 'rejected'
+            or rejection.get('reviewer') != 'root' or rejection.get('wholeUntouchedNativeViewedAtOriginalDetail') is not True
+            or rejection.get('attemptId') != previous['attemptId'] or rejection.get('catalogId') != receipt['catalogId']
+            or rejection.get('attempt') != amendment['previousAttempt'] or rejection.get('native') != previous['native']):
+        raise ValueError('N retry requires immediately preceding whole-native root rejection')
+    immutable = ('worker','threadId','catalogId','packet','peer','qualification','profile','researchDossier',
+                 'sourcePolicyAuthorization','trancheId','trancheSha256','selectionSha256','inputMode','imageInputs')
+    if any(receipt.get(k) != prior_approval.get(k) for k in immutable):
+        raise ValueError('N retry cannot change original owner, qualification, copy or sources')
+    if len(packet.binding(receipt['prompt']).read_text().strip()) < 80:
+        raise ValueError('N exact reviewed retry prompt required')

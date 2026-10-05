@@ -52,6 +52,9 @@ export function collectNRegenerationFiles(root, entry) {
   // Explicit root qualification and each actual attempt/approval/preflight/QA
   // body can carry indispensable exact tuples. Global indexes are not followed.
   for (const item of [entry.qualification, entry.qa?.rootReview, ...(entry.preparation?.corrections || []),
-    ...(entry.generation?.attempts || []).flatMap(row => [row.receipt, row.approval, row.preflight])].filter(Boolean)) walk(add(item)());
+    ...(entry.generation?.attempts || []).flatMap(row => [row.receipt, row.approval, row.preflight])].filter(Boolean)) {
+    const body = add(item)(); walk(body);
+    if (body.retryAmendment) walk(add(body.retryAmendment)());
+  }
   return [...files.values()].sort((a, b) => a.path.localeCompare(b.path));
 }

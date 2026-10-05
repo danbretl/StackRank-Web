@@ -65,7 +65,7 @@ class Safety(unittest.TestCase):
   pb=self.save('packet.json',self.packet)
   peer={'schemaVersion':1,'cohortId':'dogs-portraits-n','reviewer':'A','packet':pb,'verdict':'pass','entries':[]}
   with self.assertRaisesRegex(ValueError,'Independent peer'): p.validate(self.packet,self.catalog,set(),peer)
- def test_prior_tranche_approval_and_changed_copy_fail(self):
+ def approval_fixture(self):
   pb=self.save('packet.json',self.packet); entry=self.packet['entries'][0]
   peer=self.save('peer.json',{'schemaVersion':1,'cohortId':'dogs-portraits-n','reviewer':'B','packet':pb,'verdict':'pass','entries':[{'catalogId':'VBO:0200038','summarySha256':entry['profile']['summarySha256'],'shortDescriptionSha256':entry['profile']['shortDescriptionSha256'],'notes':'Independent actual source review','actualSourcesRead':True}]})
   q=self.save('qualification.json',{'catalogId':'VBO:0200038','packet':pb,'peer':peer,'status':'qualified'})
@@ -75,6 +75,9 @@ class Safety(unittest.TestCase):
   self.reg['selectionSha256']=digest; self.save_reg()
   approval={'cohortId':'dogs-portraits-n','worker':'A','threadId':'test-A','catalogId':'VBO:0200038','receiptType':'immutable-root-precall-approval','status':'approved','authorizedAttemptId':'N-VBO:0200038-1','inputMode':'text-only','imageInputs':[],'sourcePolicyAuthorization':self.auth,'packet':pb,'peer':peer,'qualification':q,'profile':entry['profile'],'prompt':entry['prompt'],'researchDossier':entry['reference']['researchDossier'],'trancheId':'n01','trancheSha256':digest,'selectionSha256':digest,'referencePurposes':p.PURPOSES,'nativeDimensions':[1536,1024],**{k:True for k in ('rootMorphologyEvidenceRead','rootIdentityApproved','rootSourceUseApproved','rootSceneAndPromptApproved')}}
   d=self.r/'root-approvals'; d.mkdir(); raw=json.dumps(approval).encode(); ap=d/(p.sha(raw)+'.json');ap.write_bytes(raw)
+  return approval, ap
+ def test_prior_tranche_approval_and_changed_copy_fail(self):
+  approval,ap=self.approval_fixture();digest=approval['selectionSha256'];d=ap.parent
   with patch.object(c._n_guard,'N_EVIDENCE',self.r):
    self.assertEqual(c.Coordinator(self.rp).image_preflight('A','test-A','VBO:0200038',ap)['catalogId'],'VBO:0200038')
    self.reg['selectionSha256']='b'*64; self.reg['priorSelectionDigests']=[digest]; self.save_reg()
@@ -83,4 +86,24 @@ class Safety(unittest.TestCase):
    with self.assertRaisesRegex(ValueError,'approved copy'):c.Coordinator(self.rp).image_preflight('A','test-A','VBO:0200038',changed)
    self.reg['priorSelectionDigests']=[]; self.save_reg()
    with self.assertRaisesRegex(ValueError,'selection mismatch'):c.Coordinator(self.rp).image_preflight('A','test-A','VBO:0200038',ap)
+ def test_retry_preserves_original_qualification_and_requires_exact_rejection(self):
+  approval,ap=self.approval_fixture()
+  preflight=self.save('preflight.json',{'attemptId':approval['authorizedAttemptId'],'approvalSha256':bound(ap)['sha256'],'permit':'permit-one','preflightSucceeded':True})
+  attempt={'schemaVersion':2,'cohortId':'dogs-portraits-n','catalogId':approval['catalogId'],'attemptId':approval['authorizedAttemptId'],'approval':bound(ap),'preflight':preflight,'permit':'permit-one','tool':'image_gen.imagegen','actualArguments':{'prompt':self.txt.read_text(),'transparent_background':False},'imageModel':'undisclosed','startedAt':'start','completedAt':'end','status':'generated','native':self.b,'originalOutputSha256':self.b['sha256'],'originalOutputPath':'fixture-original','workerWholeNativeViewed':True,'workerQaNotes':'Fixture whole-native defect','dimensions':[1536,1024]}
+  attempt_binding=self.save('attempt.json',attempt)
+  rejection={'catalogId':approval['catalogId'],'attemptId':approval['authorizedAttemptId'],'status':'rejected','reviewer':'root','wholeUntouchedNativeViewedAtOriginalDetail':True,'attempt':attempt_binding,'native':self.b}
+  retry=copy.deepcopy(approval);retry['authorizedAttemptId']='N-VBO:0200038-2'
+  prompt=self.r/'retry.txt';prompt.write_text('Correct the specific material ear shape in an otherwise unchanged individually approved original composition. '*3);retry['prompt']=bound(prompt)
+  amendment={'cohortId':'dogs-portraits-n','catalogId':approval['catalogId'],'authorizedAttemptId':retry['authorizedAttemptId'],'status':'approved','reviewer':'root','reason':'Exact ear shape defect','reviewedAt':'now','prompt':retry['prompt'],'imageInputs':[],'previousAttempt':attempt_binding,'rootRejection':self.save('rejection.json',rejection)}
+  retry['retryAmendment']=self.save('amendment.json',amendment)
+  with patch.object(c._n_guard,'N_EVIDENCE',self.r):
+   c._n_guard.validate_n_approval(self.reg,retry)
+   for field,value in [('authorizedAttemptId','N-VBO:0200038-3'),('prompt',self.b),('worker','B'),('profile',dict(approval['profile'],shortDescription='changed')),('researchDossier',self.b)]:
+    changed=copy.deepcopy(retry);changed[field]=value
+    with self.subTest(field=field),self.assertRaises((ValueError,KeyError)):c._n_guard.validate_n_approval(self.reg,changed)
+   for field,value in [('status','approved'),('wholeUntouchedNativeViewedAtOriginalDetail',False),('attemptId','N-VBO:0200038-2')]:
+    changed=copy.deepcopy(rejection);changed[field]=value;bad_amendment=dict(amendment,rootRejection=self.save('bad-rejection.json',changed));bad=dict(retry,retryAmendment=self.save('bad-amendment.json',bad_amendment))
+    with self.subTest(rejection=field),self.assertRaisesRegex(ValueError,'preceding'):c._n_guard.validate_n_approval(self.reg,bad)
+   first=dict(approval,prompt=retry['prompt'])
+   with self.assertRaisesRegex(ValueError,'first attempt'):c._n_guard.validate_n_approval(self.reg,first)
 if __name__=='__main__': unittest.main()

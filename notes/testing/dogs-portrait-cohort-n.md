@@ -69,3 +69,34 @@ suites,24 Deno tests and the complete staged browser suite. Full isolation/prese
 also passed. Evidence: `verification-canary-008.json`, E2E run
 `reports/e2e/runs/2026-10-05T070353Z`. Corrected scene text/rationale rendered in the
 local reviewer after rebuild. The first8-pair product candidate is ready for local commit.
+
+
+## Twenty-pair local candidate
+
+The next stable candidate contains20 new complete pairs,822 candidate pairs and417 candidate-hidden
+identities, with zero N publications.27 built-in calls produced20 accepted portraits and7 rejected
+outputs;2 calls were targeted retries,0 calls failed. Silver Pug1095 passed its second attempt after
+correcting a broad dark saddle to the source-supported clear silver-fawn coat and narrow trace.
+Segugio1202 remains held after two rounded-ear failures; its qualified Braque Francais replacement
+is append-only. Both Puli colour targets remain held, with qualified Swiss-hound replacements.
+Welsh Corgi1406 stays on its historical identity hold without a new qualification or call.
+
+N retry admission now requires a fresh immutable root amendment binding the immediately preceding
+validated attempt and whole-native rejection. It preserves original identity, owner, qualification,
+source evidence and independently reviewed full/short prose. Each retry has a fresh exact prompt,
+preflight and permit. Focused regression checks cover forged rejection, skipped attempts and changed
+copy/source/owner; old cohort coordination tests remain green. The Silver archive contains both
+untouched natives, prompts, approvals and root reviews, including the retry amendment.
+
+Root found an all-catalog versus published-set error in two pending C semantic screens before their
+calls. Versioned Braque/Fox screens and dossiers now bind frozen publishedIds802; original records
+remain preserved. A renewed both independent peers, and root independently verified the catalog
+names, aliases and membership. The audit found earlier frozen C publication flags correct; previously
+retired Papillon/Phalene semantic duplicates remain held. No baseline record or historical hold changed.
+
+Every20 accepted pair has exact approved full/short copy, individual native and contact-sheet QA,
+source/prompt/approval/permit evidence and a local regeneration archive. Full verification passed583 Node tests,51 Python checks,24 Deno tests and43 staged
+browser flows. Full isolation/baseline preservation passed. Evidence: verification-checkpoint-020.json
+and reports/e2e/runs/2026-10-05T082917Z. The first verification rejected36 unstaged public
+dependencies; staging the intended N assets/manifests resolved it, followed by a complete green rerun.
+The active100-pair goal continues after this local checkpoint.

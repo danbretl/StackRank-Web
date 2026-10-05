@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-n16",
+  "cohortId": "dogs-portraits-n",
+  "selectionSha256": "bae8dfe0bd163a57c0a5039d2468a0f5416d8e3c0a9586ba5cc658c42598fc3d",
+  "reviewedAt": "2026-10-05",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-005.jpg",
+    "contactSheetSha256": "0cc40b253315e56e4c3e6628528245ecd174dadcfcf3e6ac3799c0f9808c060b",
+    "acceptedCount": 1,
+    "notes": "Whole two-image sheet viewed; each retains distinct approved Swiss breed scope and coat expression, four clear grounded paws and full attached tails, coherent natural setting and safe framing. Full originals individually reviewed before sheet; no new defect discovered."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0201251",
+      "name": "Small Swiss Hound",
+      "scene": {
+        "description": "A dry firm path beside a quiet Swiss woodland boundary, muted meadow beyond, soft cool morning light",
+        "rationale": "Source-supported origin and working setting rendered independently, with clear firm ground for anatomy QA."
+      },
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "e33620f8be353be6eba73a5b9a06a65a35c3c09405f834a1ad884c4e28124874",
+        "imageInputs": [],
+        "sourcePage": "https://www.fci.be/nomenclature/Standards/060g06-en.pdf"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-n/N-0201251-1.png",
+      "masterSha256": "ba938d198233e1e8d1ef0521d59de71c8d36f85cf749ab7971856cb47837d42e",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10ab8-069f-7cf2-9b37-fc0afda52d04/exec-07a503f7-3dc9-4a0d-88c8-345e52b57894.png",
+      "originalOutputSha256": "ba938d198233e1e8d1ef0521d59de71c8d36f85cf749ab7971856cb47837d42e",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v11-cohort-n",
+      "attemptId": "N-VBO:0201251-1",
+      "startedAt": "2026-10-05T07:30:41+00:00",
+      "generatedAt": "2026-10-05T07:31:17+00:00",
+      "prompt": "Create a refined naturalistic editorial dog portrait, native output exactly 1536 x 1024 pixels, landscape 3:2. One mature adult Small Swiss Hound, whole body entirely visible in an original relaxed three-quarter standing pose at dog-eye level. A mature male Small Swiss Hound around37cm at shoulder, represented by a permitted rough-coated Bernese tricolor within the broad current FCI60 breed. Moderately elongated rectangular well-built athletic body, visibly smaller and shorter-legged than medium Swiss Hound without exaggerated Basset dwarf proportions. Firm straight medium back, broad strong loin, gently sloping croup, deep broad chest reaching elbows, moderate rounded ribs and slight tuck-up. Clean slender medium-sized head, slightly arched skull, moderate stop, fairly long strong nonpointed muzzle, dark open nose, moderately overlapping lips. Dark slightly oval eyes not protruding, friendly alert expression. Very long narrow low-set folded pendant ears reaching at least nose-tip length, lying close to cheeks. Moderately long muscular neck without dewlap. Straight lean robust forelegs, muscular well-angled parallel hindlegs in proportion, compact round firm feet with tight knuckled toes. Harsh elastic close-fitting practical rough coat with slight beard, no shaggy curtains or exaggerated eyebrows. White with broad black mantle and tan eyebrow, cheek and lower leg markings, modest rough texture finer on ears. Intact low-set medium-length tapering tail reaching hock, barely curved down at relaxed stance, no plume or curled-over-back tail; full attached base and tip visible. All four separate coherent paws grounded on a clear firm level path with visible toes, no grass or objects concealing them. Full natural tail anatomically attached, complete base and whole tip clear without obstruction. Ample natural margins around ears, nose, paws and tail. Setting: A dry firm path beside a quiet Swiss woodland boundary, muted meadow beyond, soft cool morning light. Restrained lifelike fine fur texture, quiet field-guide elegance, crisp dog and softly receding background. Original composition not based on any photograph. No people, other animals, collar, leash, equipment, text, logos, watermark, plastic fur, oversized puppy head, extra limbs, malformed joints, floating feet or clipped extremities.\n",
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-10-05T07:33:49.248261+00:00",
+        "breedIdentity": "Whole untouched1536x1024 native viewed. Mature rough-coated Bernese tricolour representative of broad Small Swiss Hound: long low folded ears, clean strong muzzle with slight beard, close harsh coat and moderate rectangular body. Ground-to-chest proportion remains modest relative to depth; perspective prevents exact measurement but does not show exaggerated long-legged or Basset form. No unsupported exact-size inference from scene.",
+        "anatomy": "Four separate coherent grounded paws, robust straight forelegs and moderately angled hindquarters. Full low-set tail continuous from croup to visible tapered white tip, modest rough hairs are not a feathered plume. Eyes, muzzle and joints coherent; chest deep and outline moderately elongated.",
+        "crop": "Whole native landscape with intact ears, nose, paws and tail and clear surrounding margins; no artificial reframing or dimension alteration.",
+        "aesthetics": "Practical rough coat with restrained facial furnishings, natural alert adult expression and coherent soft light on firm Swiss woodland path. No source pose copying, gear, people, extra animals, logos or malformed details.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-005.jpg",
+        "contactSheetSha256": "0cc40b253315e56e4c3e6628528245ecd174dadcfcf3e6ac3799c0f9808c060b",
+        "contactSheetReviewedAt": "2026-10-05T07:34:31.311982+00:00",
+        "contactSheetNotes": "Whole two-image sheet viewed; each retains distinct approved Swiss breed scope and coat expression, four clear grounded paws and full attached tails, coherent natural setting and safe framing. Full originals individually reviewed before sheet; no new defect discovered."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/run-authorization-001.json",
+          "sha256": "292924b03d5fb2b641dfdef0cd4667aafb98760b71edf9efc4d4ed26920f0b9f",
+          "bytes": 1626
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-b/0201251/morphology-dossier.json",
+          "sha256": "e33620f8be353be6eba73a5b9a06a65a35c3c09405f834a1ad884c4e28124874",
+          "bytes": 5768
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "author": "B",
+        "reviewer": "C",
+        "summarySha256": "f7ac2a07e3d0991090c542a067e0434baddd7a3ee0abbfdd576c56ec9f7d8aaa",
+        "shortDescriptionSha256": "2e913b8b80f97ea65dabadcddecc9b94a47ce299409b751cecc80408460a2833",
+        "summary": "Friendly and keen on a scent trail, the Small Swiss Hound brings a calm manner to tracking and a determined voice to hunting. It can work independently, searching and driving game with a melodious cry, while keeping a strong attachment to its handler. The breed was developed for Swiss enclosed hunting grounds, where smaller, shorter-legged hounds were preferred to the faster Swiss Hound.",
+        "shortDescription": "A calm tracker with a melodious hunting cry, the Small Swiss Hound combines independent work with attachment to its handler.",
+        "interestingFact": "",
+        "reviewedAt": "2026-10-05",
+        "reviewStatus": "individually-written",
+        "sources": [
+          {
+            "title": "FCI Standard60 — Swiss Short-Legged Hound",
+            "url": "https://www.fci.be/nomenclature/Standards/060g06-en.pdf",
+            "evidence": "Actual utilization, history and temperament paragraphs read: independent giving-tongue hunt, steady scent, melodious cry, calm-to-lively friendly character, difficult terrain and wounded-game tracking. Smaller hounds developed for enclosed Swiss shoots where medium Swiss hounds too fast. Complete normative head/body/limbs/rough coat/intact tail read;2015 allows mixed colors."
+          },
+          {
+            "title": "Schweizer Niederlaufhund und Dachsbracken Club — breed",
+            "url": "https://www.snlc.ch/schweizer-niederlaufhund-.html",
+            "evidence": "Actual breed paragraphs read: high handler attachment, independent solo search/flush/loud trail cry, calm temperament/fine nose for wounded game. Current2015 standard no longer prescribes separated color varieties; all colors may intercross and mixed colors permitted. Absolute never-aggressive/family suitability claims deliberately omitted."
+          },
+          {
+            "title": "SNLC — approved Niederlaufhund stud list",
+            "url": "https://www.snlc.ch/niederlaufhunde-1.html",
+            "evidence": "Actual named Hörby vom Lorzenlauf SHSB754842 born12November2017, rough Bernese color37cm approved-stud entry read; photograph inspected live with exact adjacent caption. Actual source visual research only."
+          }
+        ]
+      },
+      "rootReview": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/root-review-0201251-1.json",
+        "sha256": "5811fd031842f4565fe7b0bc5c03252a88241a6914bba3803cbe12e76eca2871",
+        "bytes": 1994
+      },
+      "attemptReceipt": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-b/0201251/N-VBO-0201251-1-attempt.json",
+        "sha256": "62c3d7105a228419c0f08943471f53a1ac714b8df55a5dd1f2da276f9a61e6f4",
+        "bytes": 5455
+      }
+    }
+  ]
+}

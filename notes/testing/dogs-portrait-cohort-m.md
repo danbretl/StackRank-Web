@@ -91,3 +91,11 @@ Product `bc068c084803ec1a60a1fab80335845a543f4ad7` is Vercel READY (`dpl_5jR5MB8
 ### Release015 stable candidate
 
 Chi-Con, Pomapoo and Dorset Olde Tyme Bulldogge: three individually sourced/copy-reviewed and root whole-native/contact-sheet accepted pairs in m81–m83. All three local archives verify, including Dorset source-order-only packet correction. All783 previous artwork/profile records and1566WebPs plus1239 source identities unchanged. Local786/453. Full `npm run verify` passes (543 Node,27 coordination,13 packet,24 Deno,41 browser flows plus syntax/cache/data checks). Manual desktop Dorset full317/short125 ranking, actual390×844 Pomapoo full337/About/Escape, and Chi-Con reviewer provenance/draft/focus checks pass with no console warnings/errors. Exact READY and live byte/fullrecord publication checks follow. Majestic NKC scope is separately adjudicated for preparation, not part of this stable product candidate.
+
+### Release015 verified production
+
+Product `947743d0edeb23ca05494a9a04961fbca38f23f2` is Vercel READY (`dpl_8T62JM1bbikm3dtdQEcUHuymNnAF`) on both production aliases. All49 production checks,6 exact live WebPs and3 full artwork/profile records match. **786 published /453 hidden;84 of100 additions verified**, originalfive included. Receipts `publication-m81-001.json` through `publication-m83-001.json` bind the checks. Majestic NKC scope has separately passed immutable generation approval; the original100-pair job remains active through802 and durable closeout.
+
+### Release016 stable candidate
+
+Majestic Tree Hound (documented NKC scope) and Carlin Pinscher: two individually sourced/copy-reviewed and root whole-native/contact-sheet accepted pairs in m84/m86. Both local archives verify. All786 previous artwork/profile records and1572WebPs plus1239 source identities unchanged. Local788/451. Full `npm run verify` passes (543 Node,27 coordination,13 packet,24 Deno,41 browser flows plus syntax/cache/data checks). Manual desktop Majestic full320/short112 ranking, actual390×844 Carlin full344/About/Escape, and Carlin960px reviewer provenance/draft/focus checks pass with no console warnings/errors. Exact READY and live byte/fullrecord publication checks follow. Accepted Chesador02 and later generated candidates remain outside this stable product candidate.

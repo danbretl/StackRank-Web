@@ -1,0 +1,227 @@
+{
+  "$comment": "StackRank deployment-file contract. The public site is the dependency closure of these entries plus the declared dynamic families; every other tracked path needs an exclusion rule. See notes/testing/deployment-file-contract.md.",
+  "schemaVersion": 1,
+  "siteOrigins": ["https://www.stackrankapp.com", "https://stackrankapp.com"],
+  "entries": [
+    {
+      "path": "index.html",
+      "product": "movies",
+      "reason": "Movies app document; vercel.json rewrites /movies here and / redirects to /movies."
+    },
+    {
+      "path": "shared.html",
+      "product": "movies",
+      "reason": "Read-only Movies public snapshot viewer; vercel.json rewrites /s/:slug here."
+    },
+    {
+      "path": "dogs.html",
+      "product": "dogs",
+      "reason": "Dogs field-guide app document; vercel.json rewrites /dogs here."
+    },
+    {
+      "path": "dogs-shared.html",
+      "product": "dogs",
+      "reason": "Read-only Dogs public snapshot viewer; vercel.json rewrites /s/dogs/:slug here."
+    },
+    {
+      "path": "dogs-artwork-review.html",
+      "product": "dogs",
+      "reason": "Unlinked noindex internal artwork review; vercel.json rewrites /dogs/artwork-review here."
+    },
+    {
+      "path": "books.html",
+      "product": "books",
+      "reason": "Noindex experimental Books preview; vercel.json rewrites /books here."
+    },
+    {
+      "path": "privacy.html",
+      "product": "site",
+      "reason": "Privacy policy and Credits for Movies, Books and Dogs; vercel.json rewrites /privacy here."
+    },
+    {
+      "path": "home.html",
+      "product": "site",
+      "reason": "Noindex family-home release artifact served directly at /home.html; not wired to / yet."
+    },
+    {
+      "path": "robots.txt",
+      "product": "site",
+      "reason": "Crawler policy; excludes /s/ snapshots and names the sitemap."
+    },
+    {
+      "path": "sitemap.xml",
+      "product": "site",
+      "reason": "Canonical public routes for search engines."
+    }
+  ],
+  "families": [
+    {
+      "id": "dogs-generated-portraits",
+      "type": "json-manifest",
+      "product": "dogs",
+      "manifest": "data/dogs/generated-artwork.json",
+      "items": "assets[].variants[]",
+      "urlField": "url",
+      "bytesField": "bytes",
+      "sha256Field": "sha256",
+      "pathPattern": "^assets/dogs/generated/[A-Za-z0-9._-]+\\.webp$",
+      "minCount": 2,
+      "reason": "dogs.js and the artwork review render each approved generated portrait from the card/detail variant URLs in the runtime manifest; the URLs are data, not literals, so the manifest declares them. Bytes and SHA-256 must match the manifest."
+    },
+    {
+      "id": "artwork-review-e-series-batches",
+      "type": "sequence",
+      "product": "dogs",
+      "template": "data/dogs/generated-artwork-batch-e{n}.json",
+      "start": 1,
+      "end": 10,
+      "pad": 2,
+      "acknowledges": {
+        "file": "dogs-artwork-review.js",
+        "literal": "/data/dogs/generated-artwork-batch-e${String(index + 1).padStart(2, \"0\")}.json"
+      },
+      "reason": "The artwork review builds the cohort E batch URLs with Array.from({ length: 10 }); the other batch documents are literal URLs discovered statically. Batch fetches are optional at runtime, so a missing file would silently drop provenance instead of failing."
+    }
+  ],
+  "acknowledgedConstructions": [
+    {
+      "file": "dogs-artwork-review.js",
+      "literal": "/${value.replace(/^\\.\\//, \"\")}",
+      "reason": "rootUrl() root-anchors manifest variant and source URLs; the local ones are the dogs-generated-portraits family."
+    },
+    {
+      "file": "lib/category.js",
+      "literal": "/${category.id}",
+      "reason": "Canonical category route comparison (/movies, /dogs, /books); routes are rewrites, not files."
+    },
+    {
+      "file": "lib/categories/books.js",
+      "literal": "/works/${sourceId}",
+      "reason": "Open Library work key used as an identifier, not a site request."
+    },
+    {
+      "file": "lib/category-remote-persistence.js",
+      "literal": "/s/${normalizedCategory}/${normalizedSlug}",
+      "reason": "Public snapshot URL for the /s/dogs/:slug rewrite to dogs-shared.html."
+    },
+    {
+      "file": "lib/share-link.js",
+      "literal": "/s/${slug}",
+      "reason": "Public snapshot URL for the /s/:slug rewrite to shared.html."
+    },
+    {
+      "file": "app.js",
+      "literal": "stackrank-backup-${date}.json",
+      "reason": "Movies backup download filename."
+    },
+    {
+      "file": "app.js",
+      "literal": "stackrank-${index + 1}-${card.key}.png",
+      "reason": "Share Studio image-set PNG download filename."
+    },
+    {
+      "file": "app.js",
+      "literal": "stackrank-${index + 1}-${card.key}.svg",
+      "reason": "Share Studio image-set SVG download filename."
+    },
+    {
+      "file": "app.js",
+      "literal": "stackrank-${index + 1}.png",
+      "reason": "Share Studio per-page PNG download filename."
+    },
+    {
+      "file": "books.js",
+      "literal": "stackrank-books-backup-${new Date().toISOString().slice(0, 10)}.json",
+      "reason": "Books backup download filename."
+    },
+    {
+      "file": "dogs.js",
+      "literal": "stackrank-dogs-backup-${new Date().toISOString().slice(0, 10)}.json",
+      "reason": "Dogs backup download filename."
+    },
+    {
+      "file": "dogs-artwork-review.js",
+      "literal": "stackrank-dogs-artwork-review-${new Date().toISOString().slice(0, 10)}.json",
+      "reason": "Artwork review flag export download filename."
+    }
+  ],
+  "nonFileLiterals": [
+    {
+      "file": "app.js",
+      "literal": "stackrank-movies.png",
+      "reason": "Share Studio single-image PNG download filename."
+    },
+    {
+      "file": "app.js",
+      "literal": "stackrank-movies.svg",
+      "reason": "Share Studio SVG download filename."
+    },
+    {
+      "file": "app.js",
+      "literal": "stackrank-share-images.zip",
+      "reason": "Share Studio image-set ZIP download filename."
+    },
+    {
+      "file": "app.js",
+      "literal": "stackrank-share-svg.zip",
+      "reason": "Share Studio SVG-set ZIP download filename."
+    }
+  ],
+  "platformPaths": [
+    {
+      "path": "/_vercel/insights/script.js",
+      "reason": "Vercel Web Analytics script served by the platform when analytics is enabled; not a repository file."
+    }
+  ],
+  "opaqueModules": [
+    {
+      "pattern": "vendor/supabase-js-*.js",
+      "reason": "Vendored third-party Supabase browser bundle shipped byte-for-byte; its URLs target the configured Supabase origin and its Node-only branches are never taken in browsers. Review on upgrade per notes/supabase-js-vendor.md."
+    }
+  ],
+  "excluded": [
+    { "pattern": "AGENTS.md", "class": "assistant", "reason": "Assistant instructions (symlink to CLAUDE.md)." },
+    { "pattern": "CLAUDE.md", "class": "assistant", "reason": "Shared assistant project brief." },
+    { "pattern": ".claude/**", "class": "assistant", "reason": "Local assistant launcher configuration." },
+    { "pattern": ".github/**", "class": "automation", "reason": "CI workflow definitions." },
+    { "pattern": ".gitignore", "class": "repository-config", "reason": "Git ignore rules." },
+    { "pattern": ".vercelignore", "class": "repository-config", "reason": "Trims the Vercel build source; not a web asset." },
+    { "pattern": "package.json", "class": "tooling", "reason": "npm scripts manifest; the app has no runtime dependencies." },
+    { "pattern": "vercel.json", "class": "hosting-config", "reason": "Read by Vercel for build, routes and headers; never served." },
+    { "pattern": "deploy/**", "class": "tooling", "reason": "This contract and its builder." },
+    { "pattern": "scripts/**", "class": "tooling", "reason": "Build, validation, authoring and test-harness scripts." },
+    { "pattern": "tests/**", "class": "tests", "reason": "Unit, Python and fixture tests." },
+    { "pattern": "notes/**", "class": "documentation", "reason": "Design records, plans and testing notes." },
+    { "pattern": "supabase/**", "class": "database-and-functions", "reason": "Migrations, edge functions and templates deployed separately with the Supabase CLI." },
+    { "pattern": "data/asset-versions.json", "class": "tooling", "reason": "Cache-version check manifest written by npm run check:cache; never fetched at runtime." },
+    { "pattern": "data/suggestion-packs.source.json", "class": "authoring", "reason": "Authoring source for data/suggestion-packs.json, which is the runtime copy." },
+    { "pattern": "lib/dog-profile-copy.js", "class": "tooling", "reason": "Node-side profile copy helper used by scripts/validate-dog-profiles.mjs and tests; no browser module imports it." },
+    { "pattern": "density-design-brief/**", "class": "design-workspace", "reason": "Historical design workspace; not a production route." },
+    { "pattern": "design-review-site/**", "class": "design-workspace", "reason": "Historical design workspace; not a production route." },
+    { "pattern": "rank-surface-refinement-brief/**", "class": "design-workspace", "reason": "Historical design workspace; not a production route." },
+    { "pattern": "ranking-personal-space-brief/**", "class": "design-workspace", "reason": "Historical design workspace; not a production route." },
+    { "pattern": "ranking-redesign-review-brief/**", "class": "design-workspace", "reason": "Historical design workspace; not a production route." },
+    { "pattern": "logo-design-brief/**", "class": "design-workspace", "reason": "Local design workspace; must never be published if committed.", "guard": true },
+    { "pattern": "data/dogs/sources/**", "class": "dogs-authoring", "reason": "VBO and provider source inputs for the catalog build." },
+    { "pattern": "data/dogs/artwork-fixtures/**", "class": "dogs-authoring", "reason": "Artwork pipeline test fixtures." },
+    { "pattern": "data/dogs/*-guide.md", "class": "dogs-authoring", "reason": "Catalog, discovery and review authoring guides." },
+    { "pattern": "data/dogs/artwork-discovery-queue.json", "class": "dogs-authoring", "reason": "Reference discovery work queue." },
+    { "pattern": "data/dogs/classification.json", "class": "dogs-authoring", "reason": "Catalog classification build input." },
+    { "pattern": "data/dogs/classification-review.json", "class": "dogs-authoring", "reason": "Catalog classification review record." },
+    { "pattern": "data/dogs/catalog-overrides.json", "class": "dogs-authoring", "reason": "Catalog build overrides." },
+    { "pattern": "data/dogs/coverage-report.json", "class": "dogs-authoring", "reason": "Catalog coverage audit." },
+    { "pattern": "data/dogs/artwork-coverage-report.json", "class": "dogs-authoring", "reason": "Artwork coverage audit." },
+    { "pattern": "data/dogs/artwork-crop-recipes.json", "class": "dogs-authoring", "reason": "Licensed-photo crop recipes for the delivery pipeline." },
+    { "pattern": "data/dogs/artwork-rights-schema.json", "class": "dogs-authoring", "reason": "Rights ledger JSON schema." },
+    { "pattern": "data/dogs/breed-profiles.schema.json", "class": "dogs-authoring", "reason": "Profile JSON schema." },
+    { "pattern": "data/dogs/generated-artwork-policy.json", "class": "dogs-authoring", "reason": "Generated-artwork build policy; runtime purpose gates live in the manifest and artwork-license-policy.json." },
+    { "pattern": "data/dogs/profile-overrides.json", "class": "dogs-authoring", "reason": "Profile authoring overrides compiled into breed-profiles.json." },
+    { "pattern": "data/dogs/profile-short-descriptions.json", "class": "dogs-authoring", "reason": "Short-description authoring input compiled into breed-profiles.json." },
+    { "pattern": "data/dogs/profile-refresh-*.json", "class": "dogs-authoring", "reason": "Per-batch profile research inputs compiled into breed-profiles.json." },
+    { "pattern": "data/dogs/portrait-cohort-*.json", "class": "dogs-coordination", "reason": "Frozen portrait cohort ledgers and process records." },
+    { "pattern": "data/dogs/portrait-continuation-*.json", "class": "dogs-coordination", "reason": "Portrait continuation coordination records." },
+    { "pattern": "data/dogs/regeneration-manifest-*.json", "class": "dogs-coordination", "reason": "Per-batch regeneration manifests for the authoring pipeline." },
+    { "pattern": "dist/**", "class": "build-output", "reason": "Generated deployment output; must never be tracked.", "guard": true },
+    { "pattern": "reports/**", "class": "build-output", "reason": "Local and CI test reports; must never be tracked.", "guard": true }
+  ]
+}

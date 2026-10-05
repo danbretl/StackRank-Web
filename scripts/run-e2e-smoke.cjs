@@ -5,6 +5,14 @@ const path = require("path");
 const { spawn } = require("child_process");
 
 const rootDir = path.resolve(__dirname, "..");
+// Fixtures and reports always come from the source checkout. The HTTP server
+// serves either the source root or a staged deployment built by deploy/build.mjs
+// (--serve-root=dist/public or E2E_SERVE_ROOT=dist/public).
+const serveRootArg = process.argv.slice(2).find((arg) => arg.startsWith("--serve-root="));
+const serveRoot = path.resolve(rootDir, serveRootArg ? serveRootArg.slice("--serve-root=".length) : process.env.E2E_SERVE_ROOT || ".");
+const stagedMode = serveRoot !== rootDir;
+const stagedBuildDir = path.dirname(serveRoot);
+const serverRequests = [];
 const reportsRoot = path.join(rootDir, "reports", "e2e");
 const runsRoot = path.join(reportsRoot, "runs");
 const timestamp = new Date().toISOString().replace(/\.\d{3}Z$/, "Z").replace(/:/g, "");
@@ -77,6 +85,10 @@ const contentTypeFor = (filePath) => {
   if (ext === ".svg") return "image/svg+xml";
   if (ext === ".png") return "image/png";
   if (ext === ".jpg" || ext === ".jpeg") return "image/jpeg";
+  if (ext === ".webp") return "image/webp";
+  if (ext === ".ico") return "image/x-icon";
+  if (ext === ".txt") return "text/plain; charset=utf-8";
+  if (ext === ".xml") return "application/xml";
   return "application/octet-stream";
 };
 
@@ -84,6 +96,11 @@ const serveStatic = async () => {
   const server = http.createServer((request, response) => {
     const url = new URL(request.url, `http://${request.headers.host || "127.0.0.1"}`);
     const pathname = decodeURIComponent(url.pathname);
+    const logEntry = { method: request.method, path: pathname, status: 0, probe: request.headers["x-stackrank-contract-probe"] === "1" };
+    serverRequests.push(logEntry);
+    response.on("finish", () => {
+      logEntry.status = response.statusCode;
+    });
     if (pathname === "/") {
       response.writeHead(307, { location: `/movies${url.search}` });
       response.end();
@@ -117,9 +134,9 @@ const serveStatic = async () => {
           : /^\/s\/[a-z0-9]{10}$/.test(pathname)
             ? "shared.html"
             : pathname.replace(/^\/+/, "");
-    const filePath = path.resolve(rootDir, relativePath);
+    const filePath = path.resolve(serveRoot, relativePath);
 
-    if (!filePath.startsWith(rootDir) || !fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
+    if (!filePath.startsWith(`${serveRoot}${path.sep}`) || !fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
       response.writeHead(404, { "content-type": "text/plain; charset=utf-8" });
       response.end("Not found");
       return;
@@ -11829,6 +11846,7 @@ const testDogsRemoteSyncAndShare = async ({ baseUrl }) => {
 };
 
 const testDogsArtworkReview = async ({ baseUrl }) => {
+  const requestMark = serverRequests.length;
   const page = await openChromePage({ width: 1360, height: 940, name: "dogs-artwork-review" });
   const expectedArtworkCount = JSON.parse(
     fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8"),
@@ -12005,6 +12023,20 @@ const testDogsArtworkReview = async ({ baseUrl }) => {
     ) {
       throw new Error(`Artwork detail metadata or large image is wrong: ${JSON.stringify(detail)}`);
     }
+    // Batch fetches are optional in the page, so a missing document would only
+    // drop provenance silently. Every batch in the repository must be requested
+    // and served from the current serving root.
+    const sourceBatches = fs.readdirSync(path.join(rootDir, "data/dogs"))
+      .filter((name) => /^generated-artwork-batch-[a-z0-9]+\.json$/u.test(name))
+      .map((name) => `/data/dogs/${name}`)
+      .sort();
+    const batchRequests = serverRequests.slice(requestMark).filter((entry) => sourceBatches.includes(entry.path) || /generated-artwork-batch-/u.test(entry.path));
+    const servedBatches = [...new Set(batchRequests.filter((entry) => entry.status === 200).map((entry) => entry.path))].sort();
+    const failedBatches = batchRequests.filter((entry) => entry.status !== 200);
+    if (sourceBatches.length < 178 || failedBatches.length || JSON.stringify(servedBatches) !== JSON.stringify(sourceBatches)) {
+      throw new Error(`Artwork review batch provenance requests are incomplete: ${JSON.stringify({ expected: sourceBatches.length, served: servedBatches.length, failed: failedBatches.slice(0, 10), missing: sourceBatches.filter((batch) => !servedBatches.includes(batch)).slice(0, 10) })}`);
+    }
+    const batchEvidence = { expected: sourceBatches.length, served: servedBatches.length, failed: failedBatches.length };
     const desktopScreenshot = await page.screenshot("dogs-artwork-review-detail-desktop.png");
     await pressReviewKey("ArrowRight", 39);
     if (!(await page.evaluate(`document.querySelector('#dialog-next').disabled && document.querySelector('#dialog-previous').disabled && document.querySelector('#dialog-title').textContent === 'Broholmer'`))) {
@@ -12134,7 +12166,7 @@ const testDogsArtworkReview = async ({ baseUrl }) => {
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Artwork review browser errors: ${JSON.stringify(health.errors)}`);
     return {
-      details: { desktopInitial, detail, focusAfterEscape, persisted, exported, phone, phoneProfile, editingArrow, crossedPage, restoredDraft, filteredPortraits, phoneDialog },
+      details: { desktopInitial, detail, batchEvidence, focusAfterEscape, persisted, exported, phone, phoneProfile, editingArrow, crossedPage, restoredDraft, filteredPortraits, phoneDialog },
       screenshots: [desktopScreenshot, phoneScreenshot, phoneDialogScreenshot],
     };
   } finally {
@@ -12440,7 +12472,93 @@ const testDogsDiscoveryGallery = async ({ baseUrl }) => {
   }
 };
 
+const requestBuffer = (url, timeoutMs = 10000) =>
+  new Promise((resolve, reject) => {
+    const request = http.get(url, { headers: { "x-stackrank-contract-probe": "1" } }, (response) => {
+      const chunks = [];
+      response.on("data", (chunk) => chunks.push(chunk));
+      response.on("end", () => resolve({ statusCode: response.statusCode, headers: response.headers, body: Buffer.concat(chunks) }));
+    });
+    request.setTimeout(timeoutMs, () => request.destroy(new Error(`Timed out requesting ${url}`)));
+    request.on("error", reject);
+  });
+
+const mapWithConcurrency = async (items, limit, worker) => {
+  const results = new Array(items.length);
+  let next = 0;
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, async () => {
+    while (next < items.length) {
+      const index = next;
+      next += 1;
+      results[index] = await worker(items[index]);
+    }
+  }));
+  return results;
+};
+
+// Staged mode only: the served artifact must match the contract inventory
+// byte-for-byte, withhold every excluded tracked path, and route canonical URLs.
+const testStagedArtifactInventory = async ({ baseUrl }) => {
+  const crypto = require("crypto");
+  const inventory = JSON.parse(fs.readFileSync(path.join(stagedBuildDir, "contract/public-inventory.json"), "utf8"));
+  const classification = JSON.parse(fs.readFileSync(path.join(stagedBuildDir, "contract/classification.json"), "utf8"));
+  const served = await mapWithConcurrency(inventory.files, 16, async (file) => {
+    const response = await requestBuffer(`${baseUrl}/${file.path.split("/").map(encodeURIComponent).join("/")}`);
+    const sha256 = crypto.createHash("sha256").update(response.body).digest("hex");
+    return { path: file.path, ok: response.statusCode === 200 && sha256 === file.sha256 && response.body.length === file.bytes, status: response.statusCode, products: file.products };
+  });
+  const mismatched = served.filter((entry) => !entry.ok);
+  const withheld = await mapWithConcurrency(classification.excluded, 16, async (entry) => {
+    const response = await requestBuffer(`${baseUrl}/${entry.path.split("/").map(encodeURIComponent).join("/")}`);
+    return { path: entry.path, status: response.statusCode };
+  });
+  const leaked = withheld.filter((entry) => entry.status !== 404);
+  const routes = {
+    "/movies": "index.html",
+    "/dogs": "dogs.html",
+    "/dogs/artwork-review": "dogs-artwork-review.html",
+    "/books": "books.html",
+    "/privacy": "privacy.html",
+    "/s/abcde12345": "shared.html",
+    "/s/dogs/abcdef123456": "dogs-shared.html",
+    "/home.html": "home.html",
+    "/robots.txt": "robots.txt",
+    "/sitemap.xml": "sitemap.xml",
+  };
+  const routeResults = await mapWithConcurrency(Object.entries(routes), 4, async ([route, file]) => {
+    const response = await requestBuffer(`${baseUrl}${route}`);
+    return { route, file, ok: response.statusCode === 200 && response.body.equals(fs.readFileSync(path.join(serveRoot, file))) };
+  });
+  const brokenRoutes = routeResults.filter((entry) => !entry.ok);
+  const portraits = inventory.files.filter((file) => file.path.startsWith("assets/dogs/generated/")).length;
+  const artwork = JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8"));
+  const expectedPortraits = artwork.assets.reduce((total, asset) => total + asset.variants.length, 0);
+  const byProduct = {};
+  for (const entry of served) for (const product of entry.products) byProduct[product] = (byProduct[product] || 0) + 1;
+  if (mismatched.length || leaked.length || brokenRoutes.length || portraits !== expectedPortraits) {
+    throw new Error(`Staged artifact does not match its contract: ${JSON.stringify({
+      mismatched: mismatched.slice(0, 10),
+      leaked: leaked.slice(0, 10),
+      brokenRoutes,
+      portraits,
+      expectedPortraits,
+    })}`);
+  }
+  return {
+    details: {
+      serveRoot: path.relative(rootDir, serveRoot),
+      contractDigest: inventory.contractDigest,
+      served: served.length,
+      withheld: withheld.length,
+      routes: routeResults.length,
+      portraits,
+      byProduct,
+    },
+  };
+};
+
 const tests = [
+  ...(stagedMode ? [{ name: "staged artifact inventory, exclusions and routes", run: testStagedArtifactInventory }] : []),
   { name: "localStorage persistence round-trip", run: testLoadPersistence },
   { name: "Books work-level ranking vertical slice", run: testBooksVerticalSlice },
   { name: "noindex family home preview", run: testFamilyHomePreview },
@@ -12484,7 +12602,29 @@ const tests = [
   { name: "mobile pack title clearance", run: testMobilePackTitleClearance },
 ];
 
-const writeReports = async ({ startedAt, completedAt, baseUrl, results }) => {
+const summarizeServerRequests = () => {
+  const failures = new Map();
+  const appRequests = serverRequests.filter((entry) => !entry.probe);
+  for (const entry of appRequests) {
+    if (entry.status < 400) continue;
+    const key = `${entry.status} ${entry.path}`;
+    failures.set(key, (failures.get(key) || 0) + 1);
+  }
+  // A 404 for a path that exists in the source checkout means the served root
+  // omitted a file the app requested.
+  const missingFromServeRoot = [...new Set(appRequests
+    .filter((entry) => entry.status === 404)
+    .map((entry) => entry.path.replace(/^\/+/, ""))
+    .filter((file) => file && fs.existsSync(path.join(rootDir, file)) && fs.statSync(path.join(rootDir, file)).isFile()))].sort();
+  return {
+    total: serverRequests.length,
+    contractProbes: serverRequests.length - appRequests.length,
+    failures: [...failures.entries()].map(([key, count]) => ({ request: key, count })).sort((a, b) => (a.request < b.request ? -1 : 1)),
+    missingFromServeRoot,
+  };
+};
+
+const writeReports = async ({ startedAt, completedAt, baseUrl, results, requests }) => {
   const pass = results.filter((result) => result.status === "passed").length;
   const fail = results.length - pass;
   const summary = {
@@ -12493,6 +12633,9 @@ const writeReports = async ({ startedAt, completedAt, baseUrl, results }) => {
     completedAt,
     durationMs: Date.parse(completedAt) - Date.parse(startedAt),
     baseUrl,
+    servingMode: stagedMode ? "staged" : "source",
+    serveRoot: path.relative(rootDir, serveRoot) || ".",
+    serverRequests: requests,
     totals: { tests: results.length, pass, fail },
     reportDir: path.relative(rootDir, reportDir),
     latest: path.relative(rootDir, latestPath),
@@ -12507,6 +12650,8 @@ const writeReports = async ({ startedAt, completedAt, baseUrl, results }) => {
     `- Duration: ${((Date.parse(completedAt) - Date.parse(startedAt)) / 1000).toFixed(2)}s`,
     `- Tests: ${pass} passed / ${fail} failed / ${results.length} total`,
     `- Base URL: ${baseUrl}`,
+    `- Serving mode: ${stagedMode ? "staged" : "source"} (root: \`${path.relative(rootDir, serveRoot) || "."}\`)`,
+    `- Server requests: ${requests.total}; failed responses: ${requests.failures.length}; source files missing from the serving root: ${requests.missingFromServeRoot.length}`,
     "",
     "## Results",
     "",
@@ -12558,6 +12703,14 @@ const main = async () => {
   if (!selectedTests.length) {
     throw new Error(`No E2E tests matched E2E_ONLY=${JSON.stringify(process.env.E2E_ONLY)}`);
   }
+  if (stagedMode) {
+    for (const required of [path.join(stagedBuildDir, ".stackrank-deploy-output"), path.join(stagedBuildDir, "contract/public-inventory.json")]) {
+      if (!fs.existsSync(required)) {
+        throw new Error(`Staged serve root ${serveRoot} is not a deploy/build.mjs output (missing ${path.relative(rootDir, required)}); run npm run build:deploy first.`);
+      }
+    }
+  }
+  console.log(`E2E serving ${stagedMode ? "staged artifact" : "source checkout"}: ${path.relative(rootDir, serveRoot) || "."}`);
   const server = await serveStatic();
   const results = [];
   try {
@@ -12582,8 +12735,19 @@ const main = async () => {
   } finally {
     await server.close();
   }
+  const requests = summarizeServerRequests();
+  if (stagedMode) {
+    const gate = { name: "staged artifact served every source-backed request", status: "passed", details: { missing: requests.missingFromServeRoot }, screenshots: [], durationMs: 0 };
+    if (requests.missingFromServeRoot.length) {
+      gate.status = "failed";
+      gate.error = `The staged artifact returned 404 for files that exist in source: ${requests.missingFromServeRoot.join(", ")}`;
+      console.error(gate.error);
+    }
+    console.log(`E2E ${gate.name} ... ${gate.status}`);
+    results.push(gate);
+  }
   const completedAt = timestampForFile();
-  await writeReports({ startedAt, completedAt, baseUrl: server.url, results });
+  await writeReports({ startedAt, completedAt, baseUrl: server.url, results, requests });
   console.log(`E2E report saved to ${path.relative(rootDir, reportDir)}`);
   console.log(`Latest E2E report: ${path.relative(rootDir, latestPath)}`);
   if (results.some((result) => result.status === "failed")) process.exitCode = 1;

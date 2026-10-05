@@ -1,5 +1,10 @@
 # Deployment output exclusions
 
+> Superseded in October 2026 by the allowlist deployment contract in
+> `deployment-file-contract.md`: Vercel now serves only `dist/public` built from
+> `deploy/public-files.json`. `.vercelignore` remains as a build-source trim. This note is the
+> historical record of the ignore-list cleanup.
+
 Validated October 4, 2026 against source commit `b31db43e`.
 
 Vercel uses the Other preset with the repository root as static output and no build command.

@@ -8,7 +8,12 @@ browser or unauthenticated production session. The automated baseline is:
 ```sh
 npm run verify
 npm run test:production
+node scripts/check-production-contract.mjs   # add --full to hash every WebP
 ```
+
+The contract check compares the deployed files with the local `deploy/public-files.json`
+inventory (bytes/SHA-256, MIME and immutable-cache headers) and confirms every excluded tracked
+path returns 404. See `deployment-file-contract.md`.
 
 `test:production` checks the apex/`www` redirect chain, clean routes, security
 headers, canonical/social metadata, cache-busted assets, app icons, the

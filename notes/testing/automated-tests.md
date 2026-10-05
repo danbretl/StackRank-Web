@@ -90,9 +90,11 @@ The app has no tests yet, so extraction is the risky part. Rules:
 ## Running the tests
 
 ```
-npm run verify          # full handoff/CI gate: unit reports + syntax + edge checks + E2E
+npm run verify          # full handoff/CI gate: unit reports + syntax + edge checks + deploy contract + staged E2E
 npm test                # the whole suite + saves reports/runs/<timestamp>/
-npm run test:e2e        # headless Chrome smoke + saves reports/e2e/runs/<timestamp>/
+npm run test:e2e        # headless Chrome smoke against the source checkout + saves reports/e2e/runs/<timestamp>/
+npm run test:e2e:staged # build dist/public, then the same browser suite against the staged deployment
+npm run check:deploy    # deployment contract: two clean builds, determinism + source preservation
 npm run test:watch      # re-run on change (node --test --watch tests/)
 npm run check           # node --check app.js
 npm run check:functions # deno check functions plus shared helpers/tests
@@ -129,9 +131,21 @@ under `reports/e2e/runs/<timestamp>/` (gitignored). Each E2E run contains:
 `reports/e2e/latest` is a symlink to the most recent E2E run. Set `CHROME_PATH`
 if Chrome/Chromium is installed somewhere nonstandard.
 
+`--serve-root=dist/public` (or `E2E_SERVE_ROOT`) makes the harness serve a staged
+deployment from `deploy/build.mjs` instead of the checkout; it refuses roots without the
+builder marker and inventory. Fixtures and reports still come from the source checkout.
+Staged runs add an inventory flow (every public file byte-matched over HTTP, every excluded
+tracked path 404, canonical routes) and a final gate that fails if the app requested any
+file that exists in source but not in the artifact. The summary records `servingMode`,
+`serveRoot` and a server-request summary. The artwork-review flow asserts that every
+`generated-artwork-batch-*.json` in the repository was requested and served (the page
+fetches them optionally, so a gap would otherwise be silent). See
+`deployment-file-contract.md`.
+
 CI runs `npm run verify` on pushes to `main` and pull requests via
-`.github/workflows/test.yml`, then uploads `reports/runs/**` and
-`reports/e2e/runs/**` as the `test-reports` artifact.
+`.github/workflows/test.yml`, then uploads `reports/runs/**`,
+`reports/e2e/runs/**`, `reports/deployment-contract/**` and `dist/contract/**` as the
+`test-reports` artifact.
 
 ## Testing policy for future changes
 

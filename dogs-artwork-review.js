@@ -15,9 +15,9 @@ import {
 import { dogProfileSourceLinks } from "/lib/dogs.js?v=8";
 
 const DATA_URLS = {
-  manifest: "/data/dogs/generated-artwork.json?v=93",
+  manifest: "/data/dogs/generated-artwork.json?v=107",
   catalog: "/data/dogs/dog-catalog.json?v=5",
-  profiles: "/data/dogs/breed-profiles.json?v=90",
+  profiles: "/data/dogs/breed-profiles.json?v=105",
 };
 
 // Filled from actual finite L batch files by prepare-dog-portrait-l.mjs.
@@ -30,6 +30,16 @@ const N_BATCH_METADATA_URLS = [
   "/data/dogs/generated-artwork-batch-n08.json",
   "/data/dogs/generated-artwork-batch-n09.json",
   "/data/dogs/generated-artwork-batch-n10.json",
+  "/data/dogs/generated-artwork-batch-n100.json",
+  "/data/dogs/generated-artwork-batch-n101.json",
+  "/data/dogs/generated-artwork-batch-n102.json",
+  "/data/dogs/generated-artwork-batch-n103.json",
+  "/data/dogs/generated-artwork-batch-n104.json",
+  "/data/dogs/generated-artwork-batch-n105.json",
+  "/data/dogs/generated-artwork-batch-n106.json",
+  "/data/dogs/generated-artwork-batch-n107.json",
+  "/data/dogs/generated-artwork-batch-n108.json",
+  "/data/dogs/generated-artwork-batch-n109.json",
   "/data/dogs/generated-artwork-batch-n14.json",
   "/data/dogs/generated-artwork-batch-n15.json",
   "/data/dogs/generated-artwork-batch-n16.json",
@@ -98,7 +108,20 @@ const N_BATCH_METADATA_URLS = [
   "/data/dogs/generated-artwork-batch-n83.json",
   "/data/dogs/generated-artwork-batch-n84.json",
   "/data/dogs/generated-artwork-batch-n85.json",
-  "/data/dogs/generated-artwork-batch-n86.json"
+  "/data/dogs/generated-artwork-batch-n86.json",
+  "/data/dogs/generated-artwork-batch-n87.json",
+  "/data/dogs/generated-artwork-batch-n88.json",
+  "/data/dogs/generated-artwork-batch-n89.json",
+  "/data/dogs/generated-artwork-batch-n90.json",
+  "/data/dogs/generated-artwork-batch-n91.json",
+  "/data/dogs/generated-artwork-batch-n92.json",
+  "/data/dogs/generated-artwork-batch-n93.json",
+  "/data/dogs/generated-artwork-batch-n94.json",
+  "/data/dogs/generated-artwork-batch-n95.json",
+  "/data/dogs/generated-artwork-batch-n96.json",
+  "/data/dogs/generated-artwork-batch-n97.json",
+  "/data/dogs/generated-artwork-batch-n98.json",
+  "/data/dogs/generated-artwork-batch-n99.json"
 ];
 const M_BATCH_METADATA_URLS = [
   "/data/dogs/generated-artwork-batch-m01.json",

@@ -28,7 +28,7 @@ local accepted/integrated/tested/archived/committed finality with publication wi
 Startup and post-bootstrap full isolation checks preserve all802 records,1604 WebPs,
 independently copied masters and protected historical/main evidence.
 
-Operational truth is in local `reports/dogs-generated-artwork/cohort-n/run-state.json`,
+Operational truth is in local `reports/dogs-generated-artwork/cohort-n/RUN-STATE.json`,
 `RESUME.md`, `worker-registry.json`, coordinator SQLite events, immutable approvals and attempt
 receipts. The tracked `data/dogs/portrait-cohort-n.json` keeps exact frozen memberships and
 pair states. No attempt or acceptance is implied by a research qualification.
@@ -222,3 +222,78 @@ the actual Pug–Labrador45-file restoration passed after the correction. No pat
 Evidence: verification-checkpoint-077.json, browser-checkpoint-077.json and restoration receipts
 under the N evidence root. The goal remains ACTIVE for23 further pairs. Live802/437 and all
 external integration/publication remain unchanged and withheld pending Dan’s later instruction.
+
+
+## Ninety-pair rolling candidate
+
+Thirteen additions beyond the committed77 bring N to90 accepted, integrated and archived pairs:
+892 candidate pairs and347 hidden. These additions have exhaustive individual source/full/short
+review, independent copy review, root whole-native and contact-sheet QA, and fresh actual archive
+restoration. Cumulative restoration covers3185 files. Build090 and focused N validation pass;
+these13 await the final stable100-pair full-suite test and local product commit.
+
+There have been109 completed built-in calls,19 rejected outputs,11 targeted retries and0 failures.
+Toy Trawler Spaniel required a targeted correction from loose waves to the documented glossy curls;
+the original rejection, exact retry approval and both native files remain archived. N publication is0.
+Historical photographic cases bind identified actual adult photographs and contemporary factual
+source descriptions; paintings, mounts, speculative reconstructions and modern substitute populations
+remain unqualified. Complete empirical short tails do not imply a claim about docking or natural origin.
+Hertha's newly found institutional Pointer-colour classification conflicts with a specialist's distinct-
+type claim, so the identity stays held. Prior holds and all802 baseline pairs remain intact.
+
+Goal ACTIVE for exactly10 further pairs, followed by final verification and local committed handback.
+Production remains802/437 and Dan's later instruction is still required for any integration or release.
+
+
+## Ninety-seven-pair rolling checkpoint
+
+N has97 accepted, integrated and locally archived pairs:899 candidate pairs and340 hidden. All97 archives have been actually restored and hashes verified (3,429 logical files across recorded restoration checks). Every addition retains exact full/short source and independent review, untouched native and whole contact-sheet root QA.118 completed built-in calls include21 rejected outputs and13 targeted retries, with0 failures and0 publications. The latest full-tested local product commit remains the77-pair checkpoint; build and focused checks pass at97.
+
+A procedural acquisition breach occurred during1144 research: worker B fetched a public-domain1907 book PDF from Commons without its allocated acquisition ownership. The immutable incident and root adjudication are bound into the amended1144 packet and n104 archive. Coordinator records and owner A confirmation establish no overlapping Commons request or429. The breach was not retroactively authorized; retained primary facts were reviewed, and B stopped Commons access. Old evidence and the original acquisition timestamp discrepancy remain preserved with a separate correction.
+
+Exactly three more accepted pairs remain before final full verification and local handback. Goal ACTIVE; no main writes or external integration are authorized.
+
+
+## Final 100-pair candidate verified
+
+Exactly 100 new distinct pairs are accepted, integrated, independently copy-reviewed, root-reviewed
+at whole native resolution, and locally archived. The branch contains **902 completed pairs and
+337 hidden identities**. All 802 baseline profile/artwork records, 1,604 WebP hashes, independent
+master copies and protected historical/main evidence passed the full preservation guard.
+N has **zero publications**; production remains the frozen 802/437 baseline.
+
+Final `npm run verify` passed **583 Node, 51 Python, 24 Deno tests and 43 staged Chrome flows**.
+The final passing run took 148.208 seconds; its browser suite took 119.044 seconds. The staged
+artifact contains 2,166 included files and 1,804 portrait variants. All 7,930 observed requests
+and 3,210 contract probes produced zero missing source-backed dependencies. Expected synthetic
+404 fixtures and favicon requests are recorded separately in the E2E report.
+
+Every accepted archive was actually restored into fresh N-only temporary directories and all
+**3,530 logical files** matched their hashes, including canonical masters and exact full/short
+copy. No off-machine backup is verified. Full restoration receipt:
+`reports/dogs-generated-artwork/cohort-n/restoration-checkpoint-100-r02.json`.
+
+Manual final CUA checks cover desktop 1280×720 Weimardoodle profile/comparison/About/Escape,
+phone 390×844 Kemmer comparison/About/Escape and all 118 short-description characters in Detailed
+ranking, plus Welsh Hillman reviewer provenance, draft navigation, saved/cleared flag and focus
+restoration. Temporary reviewer notes/flags were cleared and the viewport override reset.
+`verification-checkpoint-100.json` binds the logs, E2E report, browser receipt, preservation check,
+archive restoration, attempts and all three idle-worker attestations.
+
+Final reconciliation: **121 completed built-in image calls, 21 rejected outputs, 13 targeted
+retry calls, zero failures or unknown calls, nine held qualified identities, zero active permits**.
+A delivered 37 accepted pairs in 41 calls, B 36 in 42, C 27 in 38. All workers are idle with no
+remaining research or generation authority. Rejected natives, withdrawn early duplicate pairs,
+source holds and original tranche freezes remain preserved.
+
+The first final full-suite run correctly rejected three bibliographic display labels longer than
+120 characters. Root shortened those labels only; all approved prose, URLs, original packets and
+source evidence remain unchanged. Immutable corrections and n102-r02/n105-r02 archives preserve
+the change and originals. The complete suite and all-100 archive restoration passed afterward.
+The separately documented Commons ownership breach above remains disclosed and is not erased by
+passing tests.
+
+Generation ended at 19:45:08 UTC on October 5. Bootstrap/initial research to first image call
+measured 766.313 seconds; first-to-last image production spanned 47,582.636 seconds. Calls total
+5,912.128 seconds of tool duration, which is **not** elapsed wall time because workers overlapped.
+No tool-cost or undisclosed model claim is inferred. Final local commit and handback records follow.

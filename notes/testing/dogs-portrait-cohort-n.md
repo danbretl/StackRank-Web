@@ -199,3 +199,26 @@ restoration-new-052-057.json. Off-machine backup remains unverified.
 
 The goal remains ACTIVE for43 further accepted pairs. Production stays802/437; publication
 and external integration are withheld. All work and local commits remain on dogs/cohort-n-100.
+
+
+## Seventy-seven-pair local candidate
+
+Twenty further pairs bring N to77 accepted, integrated and archived additions:879 candidate pairs
+and360 hidden. Each has independent full/short research review and root whole untouched native
+and contact-sheet QA. Pug–Labrador required one targeted tail-coat correction; both attempts
+and the individual correction authority remain retained. Total95 completed built-in calls,
+18 rejected outputs,10 targeted retries,0 failures and0 publications. Prior holds remain intact.
+
+Full verification passed583 Node,51 Python and24 Deno tests and43 staged Chrome flows.
+Full isolation preserved all802 baseline pairs and protected historical evidence. Boxerdoodle
+desktop1280x720 profile/comparison and actual390x844 Pug–Labrador search/comparison/About/Escape/
+Detailed short copy passed. Reviewer879 exact provenance, undisclosed model, flag save/clear,
+draft navigation and focus restoration passed. Every77 archive has been actually restored into
+N-only temporary roots,2731 files total across cumulative receipts; off-machine backup unverified.
+
+A narrow archive collector correction distinguishes inline observation arrays from externally
+bound observation documents. Both forms and string observations now have regression coverage;
+the actual Pug–Labrador45-file restoration passed after the correction. No path gate was relaxed.
+Evidence: verification-checkpoint-077.json, browser-checkpoint-077.json and restoration receipts
+under the N evidence root. The goal remains ACTIVE for23 further pairs. Live802/437 and all
+external integration/publication remain unchanged and withheld pending Dan’s later instruction.

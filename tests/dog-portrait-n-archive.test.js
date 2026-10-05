@@ -10,12 +10,14 @@ test('N archives retain selected closure and reject main and changed evidence',(
   const base=path.join(root,'reports/dogs-generated-artwork/cohort-n');fs.mkdirSync(base,{recursive:true});
   const put=(name,obj)=>{const p=path.join(base,name),raw=Buffer.from(JSON.stringify(obj));fs.writeFileSync(p,raw);return {path:p,sha256:createHash('sha256').update(raw).digest('hex'),bytes:raw.length};};
   const source=put('source.json',{actual:'retained primary paragraphs'}), auth=put('auth.json',{authority:'direct-user-instruction'});
-  const dossier=put('dossier.json',{morphologyEvidence:[{source}],visualResearch:[{observations:'Actual adult anatomy observation'}],imageInputs:[]});
+  const observationEvidence=put('observations.json',{source,notes:'Bound adult observations'});
+  const dossier=put('dossier.json',{morphologyEvidence:[{source}],visualResearch:[{observations:'Actual adult anatomy observation'},{observations:['Whole adult view', 'Complementary tail view']},{observations:observationEvidence}],imageInputs:[]});
   const packet=put('packet.json',{cohortId:'dogs-portraits-n',worker:'A',sourcePolicyAuthorization:auth,entries:[{catalogId:'VBO:0200038',reference:{mode:'text-only',researchDossier:dossier}}]});
   const peer=put('peer.json',{packet,reviewer:'B',verdict:'pass',entries:[{catalogId:'VBO:0200038'}]});
   put('tranche-n01-freeze-001.json',{id:'n01'});
   const entry={catalogId:'VBO:0200038',preparation:{packet,peer,trancheId:'n01'}};
-  const files=collectNRegenerationFiles(root,entry);assert.equal(files.length,6);
+  const files=collectNRegenerationFiles(root,entry);assert.equal(files.length,7);
+  assert.ok(files.some(row=>row.path.endsWith('/observations.json')));
   const retryPrompt=put('retry-prompt.json',{text:'Individually corrected anatomy'});
   const rejection=put('root-rejection.json',{status:'rejected'});
   const amendment=put('retry-amendment.json',{prompt:retryPrompt,rootRejection:rejection});

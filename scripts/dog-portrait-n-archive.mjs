@@ -44,7 +44,12 @@ export function collectNRegenerationFiles(root, entry) {
   if (packetBody.sourcePolicyAuthorization) { walk(packetBody.sourcePolicyAuthorization); walk(add(packetBody.sourcePolicyAuthorization)()); }
   if (selected[0].reference?.mode === "text-only") {
     const dossier = add(selected[0].reference.researchDossier)(); walk(dossier);
-    for (const observation of dossier.visualResearch || []) if (observation.observations && typeof observation.observations === "object") walk(add(observation.observations)());
+    for (const observation of dossier.visualResearch || []) {
+      const observations = observation.observations;
+      // Inline observation arrays were already walked with the dossier above.
+      // Only the object form denotes a separately bound observation document.
+      if (observations && typeof observations === "object" && !Array.isArray(observations)) walk(add(observations)());
+    }
   }
   const freezePath = path.join(root, `reports/dogs-generated-artwork/cohort-n/tranche-${entry.preparation.trancheId}-freeze-001.json`);
   const freezeBytes = fs.readFileSync(freezePath);

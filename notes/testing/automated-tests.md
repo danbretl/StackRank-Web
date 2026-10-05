@@ -332,6 +332,12 @@ Legend: [ ] todo · [~] in progress · [x] done
 - [x] Share lightbox: single/set mode, zoom, button/keyboard/swipe paging,
       zoomed-swipe suppression, per-page PNG download, and preview-deck sync.
 
+## October 4, 2026 regression fixes
+
+- Cohort K fixtures read the 44 held identities from K’s frozen baseline, preserving historical exclusions when later closeouts replace the live continuation context.
+- Share Studio uses fixed movie-detail responses and waits for rendered enrichment before asserting five image-set pages. The browser regression forces preview scrolling before and during the lightbox, then checks button/keyboard/swipe navigation, PNG download, and preview synchronization after close.
+- Product fix `0e428d25`: local verification passed 543 Node, 40 Python, 24 Deno tests and 41 Chrome flows. The strengthened scroll regression fails on the original runtime and passes with the fix.
+
 ## Conventions
 
 - Test files: `tests/<module>.test.js`, using `import { test } from "node:test"`

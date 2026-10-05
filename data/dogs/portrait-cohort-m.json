@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "cohortId": "dogs-portraits-m",
-  "status": "active-rolling-production",
+  "status": "complete",
   "startedAt": "2026-10-04T08:45:35.990680+00:00",
-  "updatedAt": "2026-10-05T02:07:31.422207+00:00",
+  "updatedAt": "2026-10-05T02:21:50.472415+00:00",
   "targetAdditionalPairs": 100,
   "baseline": {
     "baselinePairs": 702,
@@ -5751,6 +5751,36 @@
         "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/publication-m98-001.json",
         "sha256": "8dda23ef22b27921ab184d2d8810f9572d04ddb3b7259d89b9b6b448bd249cdd",
         "bytes": 1920
+      }
+    },
+    {
+      "subwave": "m100",
+      "catalogIds": [
+        "VBO:0200974"
+      ],
+      "count": 1,
+      "productSha": "e43dce161324fc30242badad8930b474ad522ca0",
+      "deploymentId": "dpl_DkE4YHCjuAvUYPxnk4tuZ1FeoZGJ",
+      "verifiedAt": "2026-10-05T02:17:56.885138+00:00",
+      "receipt": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/publication-m100-001.json",
+        "sha256": "8cf924c93018a788a75a028e0dd595cf3185610cdc306cc75442ba345d1bd5fc",
+        "bytes": 1921
+      }
+    },
+    {
+      "subwave": "m101",
+      "catalogIds": [
+        "VBO:0200843"
+      ],
+      "count": 1,
+      "productSha": "e43dce161324fc30242badad8930b474ad522ca0",
+      "deploymentId": "dpl_DkE4YHCjuAvUYPxnk4tuZ1FeoZGJ",
+      "verifiedAt": "2026-10-05T02:17:57.174284+00:00",
+      "receipt": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/publication-m101-001.json",
+        "sha256": "1e8c98ecc1a41502b2def3be43441389739031424ad55700d53a6fae5ca6a5bb",
+        "bytes": 1921
       }
     }
   ],
@@ -25501,7 +25531,14 @@
         "integratedAt": "2026-10-05T02:07:31.219303+00:00"
       },
       "publication": {
-        "status": "pending"
+        "status": "published",
+        "receipt": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/publication-m100-001.json",
+          "sha256": "8cf924c93018a788a75a028e0dd595cf3185610cdc306cc75442ba345d1bd5fc",
+          "bytes": 1921
+        },
+        "productSha": "e43dce161324fc30242badad8930b474ad522ca0",
+        "verifiedAt": "2026-10-05T02:17:56.885138+00:00"
       }
     },
     "VBO:0200843": {
@@ -25712,7 +25749,14 @@
         "integratedAt": "2026-10-05T02:07:31.422207+00:00"
       },
       "publication": {
-        "status": "pending"
+        "status": "published",
+        "receipt": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/publication-m101-001.json",
+          "sha256": "1e8c98ecc1a41502b2def3be43441389739031424ad55700d53a6fae5ca6a5bb",
+          "bytes": 1921
+        },
+        "productSha": "e43dce161324fc30242badad8930b474ad522ca0",
+        "verifiedAt": "2026-10-05T02:17:57.174284+00:00"
       }
     }
   },
@@ -25721,15 +25765,11 @@
     "generationCalls": 118,
     "accepted": 100,
     "integrated": 100,
-    "published": 98
+    "published": 100
   },
   "currentSourceReadiness": {
-    "status": "active-authorized-text-only-production",
-    "authorization": {
-      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
-      "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
-      "bytes": 1285
-    }
+    "status": "complete-no-further-generation-authorized",
+    "nextAction": "Cohort M is complete at exactly100 additional verified-live pairs (802 total/437 hidden). No further research/acquisition/generation without fresh direct-user authorization. Preserve all evidence/partials/worktrees and earlier frozen cohorts/stops."
   },
   "generationHolds": [
     {
@@ -25752,5 +25792,12 @@
       "reason": "Root personally whole-viewed unchanged1536x1024 native at original detail. Final03 still has conspicuous repeated deep raised forehead ridges and heavy hanging dark mouthcorner lobes below lowerjaw, unlike source-supported ordinary moderate closed head. Body/four coherent grounded paws/natural ears/full smooth tapered tail otherwise pass. No fourth call; preserve all three outputs and qualify an alternative.",
       "countsTowardTarget": false
     }
-  ]
+  ],
+  "completedAt": "2026-10-05T02:21:50.472415+00:00",
+  "completionRecord": {
+    "path": "/Users/danbretl/src/stackrank/data/dogs/portrait-cohort-m-completion.json",
+    "sha256": "a1b9034e967ee83728161164728ad920117a849c09f5a8342a6655c3d55681c8",
+    "bytes": 37179
+  },
+  "nextAction": "Cohort M is complete at exactly100 additional verified-live pairs (802 total/437 hidden). No further research/acquisition/generation without fresh direct-user authorization. Preserve all evidence/partials/worktrees and earlier frozen cohorts/stops."
 }

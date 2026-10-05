@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "cohortId": "dogs-portraits-m",
+  "recordedAt": "2026-10-05T02:21:50.472415+00:00",
+  "metrics": {
+    "generationCalls": 118,
+    "completedGenerationCalls": 118,
+    "acceptedPairs": 100,
+    "integratedPairs": 100,
+    "publishedPairs": 100,
+    "qualifiedIdentities": 102,
+    "activeQualifiedIdentities": 100,
+    "rejectedOutputs": 18,
+    "targetedRetries": 16,
+    "failedCalls": 0,
+    "activePermits": 0,
+    "acceptedUnpublishedIds": [],
+    "currentPublishedTotal": 802,
+    "currentHidden": 437
+  },
+  "timing": {
+    "goalStartedAt": "2026-10-04T08:41:17+00:00",
+    "namespaceStartedAt": "2026-10-04T08:45:35.990680+00:00",
+    "firstCallAt": "2026-10-04T08:50:51.181Z",
+    "firstRootAcceptanceAt": "2026-10-04T08:53:51Z",
+    "firstPublicationAt": "2026-10-04T09:30:37.368724+00:00",
+    "finalPublicationAt": "2026-10-05T02:17:57.174284+00:00",
+    "elapsedHoursIncludingInterruption": 17.611,
+    "publishedPairsPerWallHour": 5.678,
+    "interruptionDisclosure": "Mistaken root pause at approximately10:13UTC, user resumed16:16UTC October4. Wall duration includes that approximately6-hour gap; no false active-runtime or cost claim."
+  },
+  "recovery": {
+    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/recovery-resume-001.json",
+    "sha256": "bb39fa42eaf6c44b5978304815b26eb4ed99b93c47c5f7735ee39013d47aee27",
+    "bytes": 794
+  },
+  "workerMetrics": [
+    {
+      "worker": "A",
+      "state": "idle",
+      "configuredModel": "gpt-6.1-sol",
+      "configuredReasoningEffort": "high",
+      "actualRuntimeModel": "undisclosed",
+      "imageModel": "undisclosed",
+      "actualPolicy": "danger-full-access; approval never; network enabled",
+      "calls": 39,
+      "accepted": 35,
+      "rejected": 4,
+      "targetedRetries": 4,
+      "failures": 0,
+      "activePermits": 0,
+      "closeout": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/worker-a-durable-closeout-002.json",
+        "sha256": "31175be4b4ece512c8257b48eeefdbb36cdb7e6b0e229aaec9b1e6222cdf3ec1",
+        "bytes": 5076
+      }
+    },
+    {
+      "worker": "B",
+      "state": "idle",
+      "configuredModel": "gpt-6.1-sol",
+      "configuredReasoningEffort": "high",
+      "actualRuntimeModel": "undisclosed",
+      "imageModel": "undisclosed",
+      "actualPolicy": "danger-full-access; approval never; network enabled",
+      "calls": 43,
+      "accepted": 36,
+      "rejected": 7,
+      "targetedRetries": 6,
+      "failures": 0,
+      "activePermits": 0,
+      "closeout": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/worker-closeout-003.json",
+        "sha256": "d0a0dbc99b721c4fda317ad122bdc6fd680121e5c3885da77673804256b49fab",
+        "bytes": 66044
+      }
+    },
+    {
+      "worker": "C",
+      "state": "idle",
+      "configuredModel": "gpt-6.1-sol",
+      "configuredReasoningEffort": "high",
+      "actualRuntimeModel": "undisclosed",
+      "imageModel": "undisclosed",
+      "actualPolicy": "danger-full-access; approval never; network enabled",
+      "calls": 36,
+      "accepted": 29,
+      "rejected": 7,
+      "targetedRetries": 6,
+      "failures": 0,
+      "activePermits": 0,
+      "closeout": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/worker-c-closeout-001.json",
+        "sha256": "c46c6c5d170a0f66d0feb03e57e1aecff370ec20bdf373d68695debbb7049132",
+        "bytes": 65521
+      }
+    }
+  ],
+  "productReleaseCount": 20,
+  "publicationMilestones": [
+    {
+      "productSha": "4d14a37a4809fe424a17d2006e2a4a14ca767f5b",
+      "additionalPairs": 5,
+      "deploymentId": "dpl_3V4H5736En1jnLQWxrD3fHzyiYjv"
+    },
+    {
+      "productSha": "a50339e575f43aca05a7797613fbc000848dedbf",
+      "additionalPairs": 10,
+      "deploymentId": "dpl_55gKCL4BKTiMSY5ZvN5Eao1wBkT5"
+    },
+    {
+      "productSha": "287574f743e9ce1df1c4f85415e750bf8830f283",
+      "additionalPairs": 8,
+      "deploymentId": "dpl_GTHDPJvqeBYYVqrRbCiSembcRJcg"
+    },
+    {
+      "productSha": "97b22adbf892c95fc7730e342cb098b2ec3694ab",
+      "additionalPairs": 7,
+      "deploymentId": "dpl_C1LBm2H4vjtZausHqH6wUapsL6NH"
+    },
+    {
+      "productSha": "c9d87805bbf37923c4ec4b2afa9e5e7b1e2391e7",
+      "additionalPairs": 8,
+      "deploymentId": "dpl_8QGv6MFKxxFZW9sZmW1TRsnaBjFo"
+    },
+    {
+      "productSha": "cc9f81e039fa12b9c78ef80cff83b025bf9a834b",
+      "additionalPairs": 8,
+      "deploymentId": "dpl_447jccJ36aV4RKQR912664DNcAr3"
+    },
+    {
+      "productSha": "a2e9ff4b07ae6a7ee03d1df031300cf70d4bc6ce",
+      "additionalPairs": 6,
+      "deploymentId": "dpl_8y5mkUCrN8pL88H39jA1JH1fhXNw"
+    },
+    {
+      "productSha": "7481f55899ef325805a5cd7bbb40e6c611124e69",
+      "additionalPairs": 4,
+      "deploymentId": "dpl_A6miRAQSdAka3CCSaCjryvrnM9Xp"
+    },
+    {
+      "productSha": "b1e7781a1c34f64290fd25885564f779ec56e103",
+      "additionalPairs": 4,
+      "deploymentId": "dpl_ChGGtRTFwYBum2JG6hnb31piRDUF"
+    },
+    {
+      "productSha": "e25661f7e9ec8409809e1ab133946a86c7dd88f2",
+      "additionalPairs": 5,
+      "deploymentId": "dpl_BCGExZzCwcofADqU2BfYuob8oAgD"
+    },
+    {
+      "productSha": "2552d635b1884471911fd39387b4940168cf2879",
+      "additionalPairs": 3,
+      "deploymentId": "dpl_tA5ZBZw3oLYKY3SSaZ9VUyYzTiY5"
+    },
+    {
+      "productSha": "638848b726213e8dda1e835db24beb81818054c7",
+      "additionalPairs": 4,
+      "deploymentId": "dpl_Bgm2jYwqitcFjFRMTt76FsWLtGxU"
+    },
+    {
+      "productSha": "a6b107151154faadc7adb3e0f2e3bb5f7e983074",
+      "additionalPairs": 5,
+      "deploymentId": "dpl_6NQhWjb3ADGr3MAcXanwMBwMVtec"
+    },
+    {
+      "productSha": "bc068c084803ec1a60a1fab80335845a543f4ad7",
+      "additionalPairs": 4,
+      "deploymentId": "dpl_5jR5MB8LHctCCxd4e92ix8fcdVWz"
+    },
+    {
+      "productSha": "947743d0edeb23ca05494a9a04961fbca38f23f2",
+      "additionalPairs": 3,
+      "deploymentId": "dpl_8T62JM1bbikm3dtdQEcUHuymNnAF"
+    },
+    {
+      "productSha": "3fe3919485f102c87ff79872cb0090d67c1dd3a3",
+      "additionalPairs": 2,
+      "deploymentId": "dpl_34JizEBpj39dbQCie7ZurqjjJpdP"
+    },
+    {
+      "productSha": "8dacb3a29f3aaca72d7ec87a62d5d656dd93de83",
+      "additionalPairs": 5,
+      "deploymentId": "dpl_4ymvSUB6YScQfwYJHFBpcTkNU6cx"
+    },
+    {
+      "productSha": "8df3483853f8bf0d48e460584bca02e37a0fce0e",
+      "additionalPairs": 2,
+      "deploymentId": "dpl_D5ZYMzoeLizH7qSXWi7QsE9d1g6H"
+    },
+    {
+      "productSha": "554785e4732b712e6c464458f86d3cec4f6f43bf",
+      "additionalPairs": 5,
+      "deploymentId": "dpl_7J476APQvJSVyoAULJp9rLWRRm8G"
+    },
+    {
+      "productSha": "e43dce161324fc30242badad8930b474ad522ca0",
+      "additionalPairs": 2,
+      "deploymentId": "dpl_DkE4YHCjuAvUYPxnk4tuZ1FeoZGJ"
+    }
+  ],
+  "lessons": [
+    "Initial wait was superseded by saved starter; mistaken compaction pause was root error, not a user stop. Persistent goal now closes only after exact100 live plus documentation deployment.",
+    "Source and peer evidence remain peridentity; coarse adult morphology with whole natural tails or exact normative anatomy supports ordinary new stances without hidden-joint reconstruction.",
+    "Finite anatomy retries retain rejects; two3-attempt facial-fidelity failures became holds and two append-only qualified replacements.",
+    "Release sizes followed readiness;20 product releases avoided accepted work being stranded, with full stable suite once per candidate except actual disclosed failures.",
+    "Wave numbering is separate from exact100 activeidentity cap; m101 replacement supported without weakening holds/qualification gates.",
+    "Final preparation counters distinguish image permits from one completed Commons acquisition and integrated pairs from two held entries. Earlier snapshots remain historical."
+  ],
+  "runtime": {
+    "primaryRequested": "gpt-6-astra/high",
+    "primaryActualModelEffort": "undisclosed",
+    "workersConfigured": "three gpt-6.1-sol/high",
+    "imageModel": "undisclosed",
+    "actualPolicy": "danger-full-access; approval never; network enabled",
+    "taskCost": "not exposed"
+  },
+  "retention": "All local evidence/native/partial research/worktrees retained and hash inventoried. No verified off-machine backup."
+}

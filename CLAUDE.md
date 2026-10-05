@@ -2,16 +2,16 @@
 
 For current Dogs generation, read `notes/feature-ideas/dogs-reference-research-policy.md`. Dan’s
 October 3 amendment permits broader factual research and text-only generation; direct image
-inputs still need appropriate rights. It supersedes older Commons-only prerequisites. Cohort L
+inputs still need appropriate rights. It supersedes older Commons-only prerequisites. Cohort M
 is complete at100 additions. Future authorized batching must preserve each identity’s source, copy and native QA.
 
 > Shared project brief for AI coding assistants. `AGENTS.md` is a symlink to this file, so Codex and Claude Code read the same context. This was distilled from the original Codex build transcripts (Dec 2025 – Jun 2026) on 2026-06-23; if anything here conflicts with the code, the code wins — fix this file.
 
-Cohort L is complete: **702 published pairs / 537 hidden; all100 new pairs live**, product `4bdcc89a` is Vercel READY. No accepted unpublished work or active permits remain. Further research/acquisition/generation requires fresh authorization. See `notes/testing/dogs-portrait-cohort-l.md`.
+Cohort M is complete: **802 published pairs / 437 hidden; all100 new pairs live**, product `e43dce16` is Vercel READY. The original five count toward100. No accepted unpublished work or active permits remain; all three workers are idle. Further research/acquisition/generation requires fresh authorization. Read `data/dogs/portrait-cohort-m-completion.json`, `notes/testing/dogs-portrait-cohort-m.md` and the M process review.
 
 ## What it is
 
-L01–L49 delivered100 verified additions in nine product releases: **702 published/537 hidden**, final product `4bdcc89a` Vercel READY.108 calls/8 rejects/6 targeted retries/0 failures; all three workers idle. Read `notes/testing/dogs-portrait-cohort-l.md`, the efficiency review and `data/dogs/portrait-cohort-l-completion.json` first. Earlier K/J paragraphs preserve historical milestones and stops.
+Historical cohort L: L01–L49 delivered100 verified additions in nine product releases: **702 published/537 hidden**, final product `4bdcc89a` Vercel READY.108 calls/8 rejects/6 targeted retries/0 failures; all three workers idle. Historical evidence remains in `notes/testing/dogs-portrait-cohort-l.md`, the efficiency review and `data/dogs/portrait-cohort-l-completion.json`. Earlier K/J paragraphs preserve historical milestones and stops.
 
 
 A web app for **stack-ranking** things — movies first, but meant to generalize. You add a movie and the app slots it into your ordered list via **binary-insertion comparisons** (pick the one you like better, repeatedly, until its exact position is found). Around that core sit suggestions, watch/skip queues, a movie-detail pane, and a rich shareable poster generator.
@@ -26,8 +26,8 @@ active next-category initiative** and now has a comprehensive field-guide produc
 generated VBO catalog, 1,239 breed profiles, editorial packs, ranking/lists/backup/export flows, and
 responsive browser coverage.
 The additive production schema and Storage bucket have been applied and passed real two-user/RLS/
-snapshot/Storage probes. 702 art-directed generated breed portraits and individually researched descriptions cover the
-promoted cohort plus 674 additional breeds and varieties in normal UI. The main Dogs site temporarily
+snapshot/Storage probes. 802 art-directed generated breed portraits and individually researched descriptions cover the
+promoted cohort plus 774 additional breeds and varieties in normal UI. The main Dogs site temporarily
 shows only completed portrait/profile pairs; all 1,239 source records and saved hidden entries remain
 intact, and each identity returns automatically when both completion gates pass. The rights ledger
 contains 28 licensed-photo fallback rows plus 589 separately gated morphology-reference rows. Dogs
@@ -188,12 +188,12 @@ Plain **static single-page app — no build system, no framework, no bundler, no
 
 ## Feature map (what exists)
 
-- **StackRank Dogs:** `/dogs` browses and searches 702 completed VBO-derived breeds/types through canonical
+- **StackRank Dogs:** `/dogs` browses and searches 802 completed VBO-derived breeds/types through canonical
   names and aliases, then uses the shared binary-insertion mechanics with undo/cancel. It includes
   Recently ranked, 42 visible editorial packs (46 retained source packs), Detailed/Photos/Compact ranking views, safe facets,
   pointer/touch/keyboard reorder, Review order, provenance-rich details, Curious about / Not for me,
   rank-weighted Taste patterns, category backup/restore/name import, and text/Markdown/JSON exports.
-  Every selectable entry has a concise field note and an honest dog-family label. All 702 current
+  Every selectable entry has a concise field note and an honest dog-family label. All 802 current
   breeds also have an authored `shortDescription` for Detailed ranking, shown without clipping;
   full details and desktop comparisons keep the full summary. Photos shows portraits/names, and
   Compact keeps small thumbnails in a dense list. New profile-refresh entries must include their
@@ -201,9 +201,9 @@ Plain **static single-page app — no build system, no framework, no bundler, no
   Discovery portraits and Surprise me start ranking directly; the All dogs gallery opens details.
   Search, Surprise me and Shuffle dogs share the discovery toolbar. Full packs list unranked dogs
   before grayscale ranked dogs. Whole comparison cards choose a dog, with a separate image-corner
-  info control; Escape closes that profile before canceling a comparison. All 702 illustrated
+  info control; Escape closes that profile before canceling a comparison. All 802 illustrated
   breeds have individually written profiles, and their art-directed generated portraits include
-  breed-specific natural settings. The other 537 source entries stay conservative and hidden until individually researched copy and
+  breed-specific natural settings. The other 437 source entries stay conservative and hidden until individually researched copy and
   approved artwork are ready. Saved hidden entries remain in sync and backups without entering
   comparisons or public exports. Account sync and revocable public snapshot links use the additive category
   tables. Public snapshots omit artwork because that purpose remains denied, and raster

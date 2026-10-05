@@ -1,6 +1,18 @@
 # StackRank Dogs implementation status
 
-## Current cohort L — complete, October 3, 2026
+## Current cohort M — complete, October 4, 2026
+
+**100/100 new pairs are verified live: 802 published / 437 hidden / 1,239 source records.** Final product `e43dce161324fc30242badad8930b474ad522ca0` is pushed main and Vercel READY (`dpl_DkE4YHCjuAvUYPxnk4tuZ1FeoZGJ`) on both production aliases. The original five are included; every accepted local pair was preserved and published. The mistaken stop came from root treating the initial pre-starter wait as a new stop after compaction, despite the later authorization. The resumed original goal is now fulfilled.
+
+118 actual built-in calls,100 accepted/published,18 rejected outputs,16 targeted retries,zero failures; A39/35,B43/36,C36/29 calls/accepted. Belgian0142 and Nebolish0931 are held after three failed anatomy attempts each; independently qualified Old Welsh Grey0974 and Mahratta0843 replace them through immutable amendments. All45 earlier source holds and two L generation holds remain unchanged. All workers are idle, zero permits and zero accepted unpublished pairs.
+
+Final stable checks:543 Node,27 coordination,13 packet,24 Deno,41 Chrome;49 production checks. Every new full/short profile/provenance/purpose record and200 image files matched live across20 product releases. Whole native/contact-sheet review and representative desktop/390×844 phone/reviewer navigation/draft/focus QA passed. All702 baseline records/profiles,1,404 WebPs and1,414 protected hashes remain unchanged. All99 accepted-pair archives reverified:3,417 payload objects,773,721,937 archive bytes, plus52/70-object complete hold archives. Local sources, rejected originals and partial work remain retained; **no off-machine backup is verified**.
+
+Wall time to finalpublication: 17.61 hours (5.68 published additions/hour), including the approximately six-hour mistaken interruption. Requested primary Astra/high and configured three Sol/high workers are separate from undisclosed actual runtime/image-model identifiers. All execution policies were Full access, approval never, network enabled; no task cost was exposed. Completion/process/index records contain exact receipt hashes,20 milestone SHAs and timing. Further acquisition/generation requires fresh authorization.
+
+See `data/dogs/portrait-cohort-m-completion.json`, `data/dogs/portrait-cohort-m-process-review.json` and `dogs-portrait-cohort-m.md`.
+
+## Historical cohort L — complete, October 3, 2026
 
 **100/100 new pairs verified live: 702 published, 537 unfinished identities hidden.** Final product `4bdcc89aac5b6bd2ae3c4af2ffa8895c61e7ef75` is pushed main and Vercel READY in `dpl_CTmfnxKJP1F586Ybhh8iJ3jAz9Fe` on both production aliases. L42–L49 delivered the final12 pairs. Every new full/short profile, entire artwork/provenance/purpose record and all24 final-release WebPs matched live; the entire live artwork/profile/rights datasets also match local bytes.
 

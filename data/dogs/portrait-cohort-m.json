@@ -3,7 +3,7 @@
   "cohortId": "dogs-portraits-m",
   "status": "active-rolling-production",
   "startedAt": "2026-10-04T08:45:35.990680+00:00",
-  "updatedAt": "2026-10-05T01:03:59.839817+00:00",
+  "updatedAt": "2026-10-05T01:27:40.357030+00:00",
   "targetAdditionalPairs": 100,
   "baseline": {
     "baselinePairs": 702,
@@ -1376,6 +1376,48 @@
         "sha256": "5578320aee34c0f55959bfe4fdd32d008955ee2b86d5a7007c92e14cb164313b",
         "bytes": 8185
       }
+    },
+    {
+      "id": "m97",
+      "frozenAt": "2026-10-05T01:20:16.526479+00:00",
+      "catalogIds": [
+        "VBO:0201166"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "1220837082eafc5e05124ee8383f21059bc84a3128f6b796caf477a2a7b556e6",
+      "freeze": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/tranche-m97-freeze-001.json",
+        "sha256": "63ee073a327b20173394ccb6fad7ea51b457622621718b2d14adbbf778e71b80",
+        "bytes": 8257
+      }
+    },
+    {
+      "id": "m98",
+      "frozenAt": "2026-10-05T01:22:39.002072+00:00",
+      "catalogIds": [
+        "VBO:0200424"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "d0620eb9b79a2a0577fbd44226a443ee58a136a7f66a789dba866824fb91af51",
+      "freeze": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/tranche-m98-freeze-001.json",
+        "sha256": "174dc1703961c893064de605c15f555b0a86e0b578ae5ccb271dd430cb59388b",
+        "bytes": 8329
+      }
+    },
+    {
+      "id": "m99",
+      "frozenAt": "2026-10-05T01:27:40.357030+00:00",
+      "catalogIds": [
+        "VBO:0200931"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "36e919985511db3094bd8a96e8187dd7ace48d3d1c7fbc1e580054d2b2e0b686",
+      "freeze": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/tranche-m99-freeze-001.json",
+        "sha256": "e13a8e83f38ddd30ce71bf64addf3f2b816b07bd5a13a3dae5bb95aa53d4bbce",
+        "bytes": 8401
+      }
     }
   ],
   "amendments": [],
@@ -2057,6 +2099,27 @@
       "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200184-001.json",
       "sha256": "ff3cfe4503ffdfcf3866e44fc79fb57f4d80b159c2295ff24b2ff0aa5922a66e",
       "bytes": 2336,
+      "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0201166",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0201166-001.json",
+      "sha256": "4f024f71063125a73da259d75dc00bc258d61de041eef3437bf4e0acbe4ff962",
+      "bytes": 2341,
+      "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0200424",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200424-001.json",
+      "sha256": "c3a24b7bb26766162c5aa8e3a3df4c92bd74deea7d0a4a90e872c00f1b40e481",
+      "bytes": 2347,
+      "generationAuthorized": false
+    },
+    {
+      "catalogId": "VBO:0200931",
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200931-001.json",
+      "sha256": "05b9722c0c0c47d90fe455a74034ff7a4a3ea091a3abe21775f052901e37b89e",
+      "bytes": 2391,
       "generationAuthorized": false
     }
   ],
@@ -3993,6 +4056,111 @@
         "bytes": 1269
       },
       "integratedAt": "2026-10-05T00:55:50.278705+00:00"
+    },
+    {
+      "subwave": "m94",
+      "trancheId": "m94",
+      "trancheSha256": "36a247f7769040eea39e621621de87c07e136d95704f23a010f044d6f6259c4d",
+      "catalogIds": [
+        "VBO:0200028"
+      ],
+      "count": 1,
+      "batchManifest": "data/dogs/generated-artwork-batch-m94.json",
+      "contactSheet": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-019-001.jpg",
+        "sha256": "3ea26ce700d18ec65f01941146af809c4515f1d349b9c4c0f72e56a325d7cda0",
+        "bytes": 626046
+      },
+      "rootRelease": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-release-m94-001.json",
+        "sha256": "c13d8c20c5bf4182827943edd5c05041dab775b54f1618b4a1c3b572d27ee491",
+        "bytes": 1263
+      },
+      "integratedAt": "2026-10-05T01:27:39.253146+00:00"
+    },
+    {
+      "subwave": "m95",
+      "trancheId": "m95",
+      "trancheSha256": "f1af28fd00f07956bb01dd30d3bc7539895efb231836bb17ba1dfb958efa8051",
+      "catalogIds": [
+        "VBO:0200222"
+      ],
+      "count": 1,
+      "batchManifest": "data/dogs/generated-artwork-batch-m95.json",
+      "contactSheet": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-019-001.jpg",
+        "sha256": "3ea26ce700d18ec65f01941146af809c4515f1d349b9c4c0f72e56a325d7cda0",
+        "bytes": 626046
+      },
+      "rootRelease": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-release-m95-001.json",
+        "sha256": "ffef1209ef443c39618921ff8e79c58dbdee6012a2c92d6b4229f2159c731630",
+        "bytes": 1263
+      },
+      "integratedAt": "2026-10-05T01:27:39.507830+00:00"
+    },
+    {
+      "subwave": "m96",
+      "trancheId": "m96",
+      "trancheSha256": "af734f71d213cc8d21b0e9271cafb3d92da92280c9df4545e7993c0fe3a5e895",
+      "catalogIds": [
+        "VBO:0200184"
+      ],
+      "count": 1,
+      "batchManifest": "data/dogs/generated-artwork-batch-m96.json",
+      "contactSheet": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-019-001.jpg",
+        "sha256": "3ea26ce700d18ec65f01941146af809c4515f1d349b9c4c0f72e56a325d7cda0",
+        "bytes": 626046
+      },
+      "rootRelease": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-release-m96-001.json",
+        "sha256": "a11663e0699601bca44eec230d982167aa75414e30386e32923e4b23437e480d",
+        "bytes": 1263
+      },
+      "integratedAt": "2026-10-05T01:27:39.759972+00:00"
+    },
+    {
+      "subwave": "m97",
+      "trancheId": "m97",
+      "trancheSha256": "1220837082eafc5e05124ee8383f21059bc84a3128f6b796caf477a2a7b556e6",
+      "catalogIds": [
+        "VBO:0201166"
+      ],
+      "count": 1,
+      "batchManifest": "data/dogs/generated-artwork-batch-m97.json",
+      "contactSheet": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-019-001.jpg",
+        "sha256": "3ea26ce700d18ec65f01941146af809c4515f1d349b9c4c0f72e56a325d7cda0",
+        "bytes": 626046
+      },
+      "rootRelease": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-release-m97-001.json",
+        "sha256": "32a6ce770a6761c480383ad7a1c30ac13726b243b44bd37e95289efc14f85685",
+        "bytes": 1263
+      },
+      "integratedAt": "2026-10-05T01:27:39.934011+00:00"
+    },
+    {
+      "subwave": "m98",
+      "trancheId": "m98",
+      "trancheSha256": "d0620eb9b79a2a0577fbd44226a443ee58a136a7f66a789dba866824fb91af51",
+      "catalogIds": [
+        "VBO:0200424"
+      ],
+      "count": 1,
+      "batchManifest": "data/dogs/generated-artwork-batch-m98.json",
+      "contactSheet": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-019-001.jpg",
+        "sha256": "3ea26ce700d18ec65f01941146af809c4515f1d349b9c4c0f72e56a325d7cda0",
+        "bytes": 626046
+      },
+      "rootRelease": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-release-m98-001.json",
+        "sha256": "54d9896874af41d43bd1447656c6f045e592a2f3d7d63d800cd3a66a38dc4067",
+        "bytes": 1263
+      },
+      "integratedAt": "2026-10-05T01:27:40.140829+00:00"
     }
   ],
   "publications": [
@@ -5345,6 +5513,36 @@
         "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/publication-m91-001.json",
         "sha256": "c493b307455d704966698f48c0f0b6c46044d63637e7a26756493009cf1d0660",
         "bytes": 1919
+      }
+    },
+    {
+      "subwave": "m87",
+      "catalogIds": [
+        "VBO:0200262"
+      ],
+      "count": 1,
+      "productSha": "8df3483853f8bf0d48e460584bca02e37a0fce0e",
+      "deploymentId": "dpl_D5ZYMzoeLizH7qSXWi7QsE9d1g6H",
+      "verifiedAt": "2026-10-05T01:19:33.257864+00:00",
+      "receipt": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/publication-m87-001.json",
+        "sha256": "b038283a5ef7863651989fca2079b3d6a0bebe6fb42a712435f26d43a7018226",
+        "bytes": 1919
+      }
+    },
+    {
+      "subwave": "m92",
+      "catalogIds": [
+        "VBO:0201375"
+      ],
+      "count": 1,
+      "productSha": "8df3483853f8bf0d48e460584bca02e37a0fce0e",
+      "deploymentId": "dpl_D5ZYMzoeLizH7qSXWi7QsE9d1g6H",
+      "verifiedAt": "2026-10-05T01:19:34.035444+00:00",
+      "receipt": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/publication-m92-001.json",
+        "sha256": "8c50340fd3bee2494b911bcef30e443fa76f46a33aefe2feaf35e78159c4b93c",
+        "bytes": 1920
       }
     }
   ],
@@ -23209,7 +23407,14 @@
         "integratedAt": "2026-10-05T00:55:49.996216+00:00"
       },
       "publication": {
-        "status": "pending"
+        "status": "published",
+        "receipt": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/publication-m87-001.json",
+          "sha256": "b038283a5ef7863651989fca2079b3d6a0bebe6fb42a712435f26d43a7018226",
+          "bytes": 1919
+        },
+        "productSha": "8df3483853f8bf0d48e460584bca02e37a0fce0e",
+        "verifiedAt": "2026-10-05T01:19:33.257864+00:00"
       }
     },
     "VBO:0201375": {
@@ -23386,16 +23591,931 @@
         "integratedAt": "2026-10-05T00:55:50.278705+00:00"
       },
       "publication": {
+        "status": "published",
+        "receipt": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/publication-m92-001.json",
+          "sha256": "8c50340fd3bee2494b911bcef30e443fa76f46a33aefe2feaf35e78159c4b93c",
+          "bytes": 1920
+        },
+        "productSha": "8df3483853f8bf0d48e460584bca02e37a0fce0e",
+        "verifiedAt": "2026-10-05T01:19:34.035444+00:00"
+      }
+    },
+    "VBO:0200028": {
+      "catalogId": "VBO:0200028",
+      "displayName": "American Bandogge Mastiff",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200028-001.json",
+        "sha256": "51ba43f3e87c6c14a9ba9ec9cc5311cc6b370c4f13f76606344182b0935d1a78",
+        "bytes": 2230
+      },
+      "preparation": {
+        "worker": "C",
+        "trancheId": "m94",
+        "trancheSha256": "36a247f7769040eea39e621621de87c07e136d95704f23a010f044d6f6259c4d",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/packet-bandogge-text-only-064-002.json",
+          "sha256": "9a3a88b415a29fe292e8385b96098a2c76d94e611ba656cf3900ceb637b808a1",
+          "bytes": 9725
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/peer-c-bandogge-064-002.json",
+          "sha256": "71b94f43d40258f1eb2b34f62812c9cb106d4832abd84c599c310a4b995cc6e7",
+          "bytes": 2085
+        },
+        "corrections": [
+          {
+            "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/bandogge-targeted-retry-delta-064-001-to-002.json",
+            "sha256": "1546767363d0a9261f7c40d913c4368dc76758385ebf40fdac66113ce2805378",
+            "bytes": 12032
+          }
+        ]
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/research-dossier-0200028-text-only-064-002.json",
+          "sha256": "83c76240126c09f19562a8648e05ab65022dc8de6808f2a788b9287f4676371e",
+          "bytes": 20481
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://dogbreedinfo.com/americanbandoggemastiffphotos.htm",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/3762441025b3533c1e7ba62ca87480f1c473fcc999c77f8c284e49bd4500fa0c.json",
+        "rootApprovalSha256": "3762441025b3533c1e7ba62ca87480f1c473fcc999c77f8c284e49bd4500fa0c",
+        "primaryReviewedAt": "2026-10-05T01:20:16.732637+00:00",
+        "visualReview": "Root read complete actual delta, exact3019B prompt and independent A peer. Previously personally read original keeper source, all four whole adult photos and exact copies, retained unchanged. Correction specifically replaces rejected long tail fringe with Capone-supported close smooth short hair and thin-to-moderate taper; continuous full natural course/contained freepoint retained. Source/profile/scene/body/natural ears unchanged. Fresh text-only call without input images; whole untouched output QA still required.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Rascal’s keeper described a vigilant but loving four-year-old who obeyed commands and chased trespassing varmints. Another owner reported that five-year-old Capone knew more than 50 verbal commands and 20 signs. American Bandogge accounts cover varied crosses: Rascal’s father was a Great Dane and his mother a Pit Bull–Neapolitan Mastiff cross, while Capone was an English Mastiff–Pit Bull cross.",
+        "summarySha256": "3c78762c87b873f654894cf3a446032e3457513ee0e2b61f3fd35de47bf27709",
+        "shortDescription": "Named Bandogges include vigilant, affectionate Rascal and Capone, whose owner reported a large verbal and sign vocabulary.",
+        "shortDescriptionSha256": "09254045049837b357e5f9e46952b3836fbe6dad560d8e56c0c73f3347a6086b",
+        "author": "M worker C",
+        "reviewer": "M worker A and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/packet-bandogge-text-only-064-002.json",
+        "sourcePathSha256": "9a3a88b415a29fe292e8385b96098a2c76d94e611ba656cf3900ceb637b808a1",
+        "sourceSnapshots": [
+          {
+            "title": "American Bandogge Mastiff — original named adult keeper accounts",
+            "url": "https://dogbreedinfo.com/americanbandoggemastiffphotos.htm",
+            "sourceRole": "Firsthand named keeper submissions and exact own adult photographs, heterogeneous label rather than uniform registry recipe.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/bandogge-rascal-owner-064-001.html",
+              "sha256": "cb41372f334950b03d596718f7857d1bcebcb46e7b439a577a1adc2ee53c7ea0",
+              "bytes": 39855
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/bandogge-rascal-owner-064-001.txt",
+              "sha256": "9c1f6f5961a7f69d26c1eec89ef6104daff5bab897dadf5fa7b68d557f2a1859",
+              "bytes": 9343
+            },
+            "evidence": "Named own keeper Rascal4y describes vigilant and loving family dog, command response and pursuit of trespassing varmints; named Capone5y owner reports over50 verbal and20 sign commands; Achilles4y ownkeeper reports intense highdrive and earned Sch/IPO1. Historical named accounts not current living claims, measured population temperament or uniform aptitude. Own cross histories heterogeneous; editorial fixed-cross list not adopted. Adult Rascal4/Capone5/Diesel2 captions bind own image identity. Radley juvenile/parent trait claims, highest-title ranking/aspirational future titles, medical/heat/pain/life expectancy/child and pet safety guarantees excluded.",
+            "acquisitionDisclosure": "Fresh verified-TLS nativeHTTPS200 complete originalHTML/text/receipt. Entire actual named keeper accounts and adult captions personally read. Literal direct photographs personally whole-viewed in normal Chrome and only whole browser research screenshots saved; no unlicensed photo originals or image inputs."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-05T01:20:16.732637+00:00"
+      },
+      "scene": "An open level packed-earth trail beside low Texas grasses, softly blurred distant oak trees and gentle late-afternoon light, clear unobstructed ground under all paws.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "M-0200028-01",
+            "status": "generated",
+            "qaDecision": "rejected",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/attempt-M-0200028-01.json",
+              "sha256": "1696db62d6860eba5aabad8b0a3019614abb2971491b98900c501e7c6dbc0bd1",
+              "bytes": 5599
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-approvals/2e0f01998ea4cbfec7e912a88b6c6a91f55f4b65d113a9790e319668c98ff90b.json",
+              "sha256": "2e0f01998ea4cbfec7e912a88b6c6a91f55f4b65d113a9790e319668c98ff90b",
+              "bytes": 3597
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/preflights/e148bed4-1a40-4895-8dfa-af928595aca1.json",
+              "sha256": "adc9b8da5d66d416534635c87d7a4283ea9461a8fdd236d96e3f55a497857c55",
+              "bytes": 4153
+            },
+            "imagePermitId": "e148bed4-1a40-4895-8dfa-af928595aca1",
+            "trancheSha256": "36a247f7769040eea39e621621de87c07e136d95704f23a010f044d6f6259c4d",
+            "prompt": "Use case: photorealistic-natural. Create one original1536×1024 landscape StackRank Dogs disclosed field-guide illustration. Text-only, no image inputs. One anonymous mature adult American Bandogge Mastiff in the documented heterogeneous keeper-labelled scope. Substantial muscular moderately rectangular grown trunk, broad deep chest, ordinary functional sturdy legs and mildly tucked abdomen, neither obese nor extreme dwarf. Broad mature head with clearly projecting moderate muzzle, dark ordinary canine eyes/nose, modest loose neck skin without exaggerated wrinkles. Natural medium soft cheek-drop ears with intact tips, supported by Rascal4 walking view, not cropped upright Diesel stubs. Short close fawn coat with fresh modest white chest/toes and independent dark muzzle shading. Full attached substantial smooth natural tail rises backward in a loose open arch, continuously traceable from rump to separately visible pointed free end away from body, based on own Capone5 complete tail; no tight ring/plume/fan/dock/nub. Rascal4 recumbent gives developed whole trunk/head with forefeet and far rear at image edge cropped; walking view gives natural ears/trunk/ordinary forecourses/full nearforepaw, rearfeet/tail cropped. Capone5 frontal gives broad grown head/trunk, forecourses with bottom-truncated forepaw ends, nearhind fullcourse/foot, partial farhind and full raised tail/freeendpoint. Diesel2 frontal contributes developed trunk and two complete forefeet/coarse rearcourses with grass-soft rear ends; ears cropped and tail hidden excluded. Combined same keeper-labelled population supports a new ordinary four-grounded stance, not assembly of exact hidden individual joints or expected parent phenotype; precise joint/toe ratios and pedigree proof unknown. Relaxed standing left-facing threequarter view at canine eyelevel, head gently toward viewer, closed mouth. Four distinct complete grounded paws/coherent ordinary functional limb courses/plausible weight and contact shadows. Entire grown head/two intact natural soft cheek-drop ears/body/fourfeet/full attached natural smooth tail/continuous open course and separate freeendpoint wholly inside generous frame. Dog smaller with at least150px abovehighesthead/tail and140px belowlowestpaw. Setting: An open level packed-earth trail beside low Texas grasses, softly blurred distant oak trees and gentle late-afternoon light, clear unobstructed ground under all paws. Restrained natural documentary realism, fresh anonymous markings/location/stance/camera/light; no source named dog likeness/house/interior/front-facing photo recreation. No people/otheranimals/collars/leashes/harness/props/fences/buildings/text/logos/watermarks/croppedears/dockedtail/nub/tightcurl/hiddenfeet/extra fusedlimbs/juvenile anatomy.\n",
+            "promptSha256": "451162e26d9556ba34c741cd7c4bb8b11139be6710d77a3660224b252df48028",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-m/worker-c/M-0200028-01.png",
+              "sha256": "1380b811916911b21e8009123a5fa1bff60dd9c310813ef1f8e6efafe22c756c",
+              "bytes": 2899717
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10615-873b-7b13-bb62-47091c4191c4/exec-16c483d6-3658-40ad-9224-5afd7f87dd2a.png",
+            "originalOutputSha256": "1380b811916911b21e8009123a5fa1bff60dd9c310813ef1f8e6efafe22c756c",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-05T01:03:54Z",
+            "completedAt": "2026-10-05T01:04:22Z",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200028-01-rejected.json",
+              "sha256": "3e455550b6d65c5f6560e6b576fb7f02a7ee20a9d803d327a98dd96596675b31",
+              "bytes": 1727
+            },
+            "rejectionReason": "Mature substantial anonymous Bandogge body and natural cheekdrop ears are coherent, but complete raised tail carries pronounced longer fringed/brushlike hair versus smooth shorthaired source Capone. Four grounded complete paws coherent; tail course/attachment/freepoint complete but coat materially too furnished. Target narrow smooth close shorthaired tapering shaft, no plume/fringe/brush. Safe24top/64bottom margins are not rejection reason."
+          },
+          {
+            "number": 2,
+            "id": "M-0200028-02",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/attempt-M-0200028-02.json",
+              "sha256": "fe0f5bde56f5e90ebe5e326a5ce4cba5d4b1806c75d5d1f549f38dc88deaac9b",
+              "bytes": 5677
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-approvals/3762441025b3533c1e7ba62ca87480f1c473fcc999c77f8c284e49bd4500fa0c.json",
+              "sha256": "3762441025b3533c1e7ba62ca87480f1c473fcc999c77f8c284e49bd4500fa0c",
+              "bytes": 3954
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/preflights/4dccf037-d547-4723-9242-4b49adc64004.json",
+              "sha256": "2f138dd1e8af6bdf59eed2bac57dfe9ff783a1af5ef0381f9e0ca657245a7c29",
+              "bytes": 4389
+            },
+            "imagePermitId": "4dccf037-d547-4723-9242-4b49adc64004",
+            "trancheSha256": "36a247f7769040eea39e621621de87c07e136d95704f23a010f044d6f6259c4d",
+            "prompt": "Use case: photorealistic-natural. Create one original1536×1024 landscape StackRank Dogs disclosed field-guide illustration. Text-only, no image inputs. One anonymous mature adult American Bandogge Mastiff in the documented heterogeneous keeper-labelled scope. Substantial muscular moderately rectangular grown trunk, broad deep chest, ordinary functional sturdy legs and mildly tucked abdomen, neither obese nor extreme dwarf. Broad mature head with clearly projecting moderate muzzle, dark ordinary canine eyes/nose, modest loose neck skin without exaggerated wrinkles. Natural medium soft cheek-drop ears with intact tips, supported by Rascal4 walking view, not cropped upright Diesel stubs. Short close fawn coat with fresh modest white chest/toes and independent dark muzzle shading. Full attached thin-to-moderate natural tail with SHORT CLOSE SMOOTH HAIR, the same close short hair as the body. Its slim smooth shaft tapers continuously to a small pointed free end, rises backward in a loose open arch away from the rump, and is traceable throughout, supported by Capone5. No long underside fringe, brushlike hair, feathering, plume, fan, bulky tuft, tight ring, dock or nub. Rascal4 recumbent gives developed whole trunk/head with forefeet and far rear at image edge cropped; walking view gives natural ears/trunk/ordinary forecourses/full nearforepaw, rearfeet/tail cropped. Capone5 frontal gives broad grown head/trunk, forecourses with bottom-truncated forepaw ends, nearhind fullcourse/foot, partial farhind and full raised tail/freeendpoint. Diesel2 frontal contributes developed trunk and two complete forefeet/coarse rearcourses with grass-soft rear ends; ears cropped and tail hidden excluded. Combined same keeper-labelled population supports a new ordinary four-grounded stance, not assembly of exact hidden individual joints or expected parent phenotype; precise joint/toe ratios and pedigree proof unknown. Relaxed standing left-facing threequarter view at canine eyelevel, head gently toward viewer, closed mouth. Four distinct complete grounded paws/coherent ordinary functional limb courses/plausible weight and contact shadows. The entire tail has close short smooth hair only, with no hanging fringe or brush. Entire grown head/two intact natural soft cheek-drop ears/body/fourfeet/full attached natural smooth tail/continuous open course and separate freeendpoint wholly inside generous frame. Dog smaller with at least150px abovehighesthead/tail and140px belowlowestpaw. Setting: An open level packed-earth trail beside low Texas grasses, softly blurred distant oak trees and gentle late-afternoon light, clear unobstructed ground under all paws. Restrained natural documentary realism, fresh anonymous markings/location/stance/camera/light; no source named dog likeness/house/interior/front-facing photo recreation. No people/otheranimals/collars/leashes/harness/props/fences/buildings/text/logos/watermarks/croppedears/dockedtail/nub/tightcurl/hiddenfeet/extra fusedlimbs/juvenile anatomy.\n",
+            "promptSha256": "0c84293f7cb390696410e73bbb8eccfe36135bf6e082d4724fce90a179a1be6b",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-m/worker-c/M-0200028-02.png",
+              "sha256": "b152edd0fccab255d0b46d22e716058d7ac31f25c38fcb349e7985b6e96ec156",
+              "bytes": 2823671
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10615-873b-7b13-bb62-47091c4191c4/exec-0778c684-c330-40fe-895b-8fbb4d3346bd.png",
+            "originalOutputSha256": "b152edd0fccab255d0b46d22e716058d7ac31f25c38fcb349e7985b6e96ec156",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-05T01:23:24Z",
+            "completedAt": "2026-10-05T01:23:46Z",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200028-02-accepted.json",
+              "sha256": "6f1d2ff48b0499fd6320366b328001c5f272c4e863f5e9db83f66e0964828b0e",
+              "bytes": 1323
+            }
+          }
+        ],
+        "acceptedAttemptId": "M-0200028-02"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200028-02-accepted.json",
+          "sha256": "6f1d2ff48b0499fd6320366b328001c5f272c4e863f5e9db83f66e0964828b0e",
+          "bytes": 1323
+        },
+        "reviewedAt": "2026-10-05T01:26:02.707393+00:00",
+        "breedIdentity": "Substantial functional keeper-labelled heterogeneous Bandogge, natural medium cheek-drop ears, short fawn coat, projecting broad muzzle and moderate folds. Tail now smooth shorthaired with thin taper and no conspicuous long fringe, correcting rejected01.",
+        "anatomy": "Coherent adult trunk and four complete grounded paws, full continuous attached natural tail in open curve with separate pointed end; natural ears intact, plausible weight.",
+        "crop": "Whole original1536x1024 viewed, safe43px above tail/75below paws and useful lateral air; all appendages contained, margin preference alone is not failure.",
+        "aesthetics": "Independent natural path composition, believable light/coat/contact shadows, anonymous new stance and markings. No close source photograph recreation.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-019-001.jpg",
+          "sha256": "3ea26ce700d18ec65f01941146af809c4515f1d349b9c4c0f72e56a325d7cda0",
+          "bytes": 626046
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "m94",
+        "batchManifest": "data/dogs/generated-artwork-batch-m94.json",
+        "integratedAt": "2026-10-05T01:27:39.253146+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0200222": {
+      "catalogId": "VBO:0200222",
+      "displayName": "Braque Dupuy",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200222-001.json",
+        "sha256": "951b57c706cb65affd267d8c855301026e1a7393d006373621849b0a63f97c86",
+        "bytes": 2290
+      },
+      "preparation": {
+        "worker": "B",
+        "trancheId": "m95",
+        "trancheSha256": "f1af28fd00f07956bb01dd30d3bc7539895efb231836bb17ba1dfb958efa8051",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/packet-dupuy-text-only-067-001.json",
+          "sha256": "69da911e7077d7acaff5826105519ee3f0b6c78b8356f3210a84e5abf4c2235c",
+          "bytes": 14719
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/peer-b-dupuy-067-001.json",
+          "sha256": "20b199e933ce1272d945f6a0536f1fd976231b430e79e43e25cf4c5beb236e6e",
+          "bytes": 4147
+        }
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/research-dossier-dupuy-text-only-067-001.json",
+          "sha256": "ffeffccb5ef1cbf1ead06027726766827626c68a2419360aa491b33b90599def",
+          "bytes": 16330
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://archive.org/download/cu31924001170848/cu31924001170848.pdf",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/6376b98ec3f1eb6ab8152cddba5e86a8211da19ba2f57870ba38256fa4cb4492.json",
+        "rootApprovalSha256": "6376b98ec3f1eb6ab8152cddba5e86a8211da19ba2f57870ba38256fa4cb4492",
+        "primaryReviewedAt": "2026-10-05T01:02:49.506191+00:00",
+        "visualReview": "Root personally read actualLeighton1911title/editorcontents/intro/498–500 and whole499/500renders confirming alltheseBraques clause expressly includesDupuy; sourcehistoricalgroupedcharacter/work scope. Actualcomplete retained newspaper377–378report and whole377namedGitane1907photograph seen: developedadultfouryearapprox/coarseforehindcourses/fullattachednatural low tail/freeendpoint/naturalsoftfoldedears; photographicnotdrawing. Masonwholepreface+exactDupuyentry suppliesliteralbrownwhitecategory/head/ears/lowlongtail, compilednotfirsthand; no B&Wcolorinference. Final325/113copy/exact2993prompt/dossier/identity/selectedJ/Cpeer read. Old historicalholdpreservednewactualadultphoto resolves; no moderncontinuityclaim/neighborCharlesXAuvergnetraits/actualfieldtrialwin. Originaltextonlyscene,sourcepurposesfalse.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Described as docile in an early twentieth-century survey, the Braque Dupuy was a French gun dog trained both to point game and to retrieve it. That account depicts a deliberate worker ranging over a limited area. In 1911, Gitane de Mirebeau appeared in both its breed class and the field-trialers’ class at a French dog show.",
+        "summarySha256": "02b1d181bbb079320c3f229a25c0813174ef7a2570fd4d9e23373a63b0de2367",
+        "shortDescription": "A historically docile French gun dog, trained to point and retrieve and described as ranging over a limited area.",
+        "shortDescriptionSha256": "36ef899a453ffce5f0c6fcd14daa7823f03299a91c419bd859574948863cf8bc",
+        "author": "M worker B",
+        "reviewer": "M worker C and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/packet-dupuy-text-only-067-001.json",
+        "sourcePathSha256": "69da911e7077d7acaff5826105519ee3f0b6c78b8356f3210a84e5abf4c2235c",
+        "sourceSnapshots": [
+          {
+            "title": "Leighton — The New Book of the Dog, Vol II (1911), pp 498–500",
+            "url": "https://archive.org/download/cu31924001170848/cu31924001170848.pdf",
+            "sourceRole": "Original editor-written historical FrenchBraques work/character survey explicitly includes Dupuy, historical scope not current measured breed prediction.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/dupuy-leighton-originalbook-067-001.pdf",
+              "sha256": "ab18bc8fcb052c365221377914a32f0c667d06a8577acf7eae283163de9701bf",
+              "bytes": 28493304
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/dupuy-leighton-actual-claim-pages-067-001.txt",
+              "sha256": "73f5ffa8477da59618cf49346c2d8a85c61bb19c457f36c236ef42a94a5137e2",
+              "bytes": 12852
+            },
+            "evidence": "Actual title1911SpecialEdition/byRobertLeighton and contentsForeignGunDogs byEditor; printed498–500 sequential columns explicitly name Dupuy then alltheseBraques slowmovements/limitedrange/docile/trainedretrieveandstandgame. CharlesX keen scent/steadiness separate paragraph NOT adopted. Comparative nationalist superiorBritish framing and brain-speculation excluded. Locator metadata1907 not actual edition date;1911 used.",
+            "acquisitionDisclosure": "Verified TLS200 original whole bookPDF. Actual title/contents/chapterintro and whole claimed sequentialpages read; no claim unrelated wholebook reviewed. No standalone sourcephoto downloaded/generatorinput."
+          },
+          {
+            "title": "Le Sport Universel Illustré — 11 June 1911, pp 377–378",
+            "url": "https://labibliothequemondialeducheval.org/wp-content/uploads/2021/05/sui-19110611-ok.pdf",
+            "sourceRole": "Original contemporary show report, exact named historical adult photograph and Dupuy breed/fieldtrial class evidence.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/dupuy-sport-original1911-067-001.pdf",
+              "sha256": "e797285ac1949e2fba05c31bb7669ef9d3c4bb0620c1197331a1522631267cd2",
+              "bytes": 5473443
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/dupuy-sport-actual-claim-pages-067-001.txt",
+              "sha256": "fe13e6db16431cae8029d96b692f7ccc4497a55772be1ba75c0a2fef8d660d1f",
+              "bytes": 8851
+            },
+            "evidence": "Actualcover11June1911/read complete own report paragraphs pp377–378. CaptionGitane1907 byChampionRadiumoutGypsa atMServant1stBraquesDupuybitches; own paragraphtwoDupuyGitane/Fougère/manyamateurshuntwiththem, nextpagefieldtrialersclassGitaneDupuy. Report is show fieldtrialers class, not claimed own actual trial victory or temperament measurement. AdjacentAuvergnekeenhunting/nationalbreed claims excluded.",
+            "acquisitionDisclosure": "Verified TLS200 original16page newspaperPDF; sourcewholeprinted377 rendered research screenshot personally viewed, not standalonephoto extraction or generatorinput."
+          },
+          {
+            "title": "Mason — Dogs of All Nations (1915), Braque Dupuy p 48",
+            "url": "https://www.gutenberg.org/files/68890/68890-h/68890-h.htm",
+            "sourceRole": "Original historical compiled exact Dupuy anatomical description only; illustration is drawing excluded adult photographic evidence.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/banjara-mason-gutenberg-062-001.html",
+              "sha256": "15ee9e6d05d936c449c2e06e4d769341ba7a78bcb4b5a8e561103efeef15e793",
+              "bytes": 395593
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/banjara-mason-gutenberg-062-001.txt",
+              "sha256": "b700b934bea0bfca81c4e92b027c69bdd89efa914f62544588268c1c33c069a8",
+              "bytes": 262105
+            },
+            "evidence": "Actualwholepreface and exactDupuyentry read: white/brown markings,longnarrowhead/leanprojectingmuzzle/brownnose/goldbrown eyes/thin high foldedbackears/deepnarrowchest/stronghindquarters/longlowsettail. Compiled survey not firsthand observed individual. Its drawing cannot qualify photograph and not used as generatorinput; otherFrenchPointer dock clause excluded.",
+            "acquisitionDisclosure": "Retained original verified TLS Gutenberg wholeHTML/text hashes reread precise entry/preface; linked illustration whole viewed and honestly excluded as engraving/drawing."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-05T01:02:49.506191+00:00"
+      },
+      "scene": "A quiet open grass-and-earth path beside low meadow plants in the French countryside, soft morning daylight and distant unobtrusive deciduous trees.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "M-0200222-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/attempt-M-0200222-01.json",
+              "sha256": "43130f517982732e1430152a379115efaf24e8b5a1e281ea3ea3ae6fd84e87cb",
+              "bytes": 5521
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-approvals/6376b98ec3f1eb6ab8152cddba5e86a8211da19ba2f57870ba38256fa4cb4492.json",
+              "sha256": "6376b98ec3f1eb6ab8152cddba5e86a8211da19ba2f57870ba38256fa4cb4492",
+              "bytes": 3668
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/preflights/d4b4a501-ba44-48af-8627-813cee610160.json",
+              "sha256": "ebe767e2e5fc012babd00fa392d3ed69e021bfe0c112edfb18725649b489804d",
+              "bytes": 4357
+            },
+            "imagePermitId": "d4b4a501-ba44-48af-8627-813cee610160",
+            "trancheSha256": "f1af28fd00f07956bb01dd30d3bc7539895efb231836bb17ba1dfb958efa8051",
+            "prompt": "Use case: photorealistic-natural. Create one original1536×1024 landscape StackRank Dogs disclosed field-guide illustration of one anonymous mature adult historical Braque Dupuy exactcatalogVBO:0200222. Text-only, no image inputs. One anonymous mature adult historical Braque Dupuy, exact1907–1911 namedphotograph population scope, not generic modernFrenchPointer or extinct-type drawing reconstruction. Grown moderately tall lean yet muscular slightly rectangular gun-dog body, deep narrower chest, firm slightly sloping back/strong loin, modest abdominal tuck, strong ordinary functional limbs with balanced hindquarters and compact ordinary paws. Long narrow grown head with modest stop, long lean clearly projecting muzzle, tight lips/brown nose/ordinary goldenbrown canineeyes. Natural thin soft folded cheek ears, moderate length ending aroundjawbase, no long pendulous spaniel flaps, pricked/cropped ears or floppy puppy eyes. Smooth short close white coat with independent brown patches/head shading, no wirehair/long coat/ticking borrowed from otherbraques. Full natural long low-set slim tail, attachedcontinuous root-to-free-end course extendingbehind and down with mild open sweep, fine taper/short smoothhair, no hook/ring/plume/feather/dock/nub. Whole original1911 printed377 photograph shows namedGitane1907 clearly developed mature athletic trunk/head, ordinaryforecourses/twofullforepawends, nearrearwholecourse/fullpaw/farrear partlyoverlapping; complete attached low smooth tail extendsbehindrump to separate contained freepoint. Actualprintmonochrome color cannot measurebrown, ownMasonliteral supplies selectedbrownwhitecategory. Captionbirth1907 versus report1911 gives approximate4yearadult (not exactbirthdate). Collar/lead/handler sourceexcluded. Halftone/grassyfeet/farupperjoints limited; ownfulltail plus coarsegrownbody and exactanatomicaltext supports freshordinaryfour-grounded stance, not exactindividualhiddenjoint reconstruction. Fresh relaxed standing left-facing threequarter view at canineeyelevel, head gently towardviewer, mouthclosed. Four distinct complete grounded paws/coherent ordinary functional limb courses/plausibleweight/contactshadows. Entiregrownhead/twonaturalears/body/fourfeet/fullattachednatural lowtail/continuousroot-to-end course/separatefreeendpoint whollycontained in generous frame. Dogsmaller with at least150pxabovehighesthead/tail and140pxbelowlowestpaw. Setting: A quiet open grass-and-earth path beside low meadow plants in the French countryside, soft morning daylight and distant unobtrusive deciduous trees. Restrained natural documentaryrealism, freshanonymousmarkings/stance/location/camera/light, not exactGitane likeness/sourceflatshowstance/lead/fence. Full natural low long slim smoothhairedtail mildopen downward sweep, no upward ring/highcurl/plume/feather/dock/stump. No people/otheranimals/collar/leash/harness/props/fences/buildings/text/logos/watermarks/croppedears/hiddenfeet/extrafusedlimbs/juvenile anatomy.",
+            "promptSha256": "71f0baa27abd3ea5e14efb8a148c34db6510e4aba49bcae7659956fe97e9a6f8",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-m/worker-b/M-0200222-01.png",
+              "sha256": "ae655b11be05be8dbd0294de7b6016069216f879b289249a25d51231c45143b0",
+              "bytes": 3043217
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10615-3275-71c2-9917-5f23ee225216/exec-b684e0d7-e86e-4da7-ac2b-f1806fe189ab.png",
+            "originalOutputSha256": "ae655b11be05be8dbd0294de7b6016069216f879b289249a25d51231c45143b0",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-05T01:04:45.667Z",
+            "completedAt": "2026-10-05T01:05:03.739Z",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200222-01-accepted.json",
+              "sha256": "384e4a138b99bd773b8001b6f424fd63fabaab9ad2351713895a03cfde12a067",
+              "bytes": 1272
+            }
+          }
+        ],
+        "acceptedAttemptId": "M-0200222-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200222-01-accepted.json",
+          "sha256": "384e4a138b99bd773b8001b6f424fd63fabaab9ad2351713895a03cfde12a067",
+          "bytes": 1272
+        },
+        "reviewedAt": "2026-10-05T01:11:09.995044+00:00",
+        "breedIdentity": "Mature lean athletic historical Braque Dupuy with long projecting muzzle/brownnose/goldbrown eyes, natural medium soft thin cheekfold ears and whitebrown smoothcoat. Few small brown spots within literal small/large brown marking category, no dense ticked coat transfer.",
+        "anatomy": "Four complete ordinary grounded paws with coherent functional forehindcourses/weight. Full attached long low slim smoothtail continuous to separate freepoint, no dock/plume/nub.",
+        "crop": "Whole untouched1536x1024 originaldetail viewed, comfortable100top/85bottom safe margins and fullsilhouette.",
+        "aesthetics": "Coherent independent natural field/path, restrained light and anonymous markings/stance; no sourcegear or scene reproduction.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-019-001.jpg",
+          "sha256": "3ea26ce700d18ec65f01941146af809c4515f1d349b9c4c0f72e56a325d7cda0",
+          "bytes": 626046
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "m95",
+        "batchManifest": "data/dogs/generated-artwork-batch-m95.json",
+        "integratedAt": "2026-10-05T01:27:39.507830+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0200184": {
+      "catalogId": "VBO:0200184",
+      "displayName": "Bochi",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200184-001.json",
+        "sha256": "ff3cfe4503ffdfcf3866e44fc79fb57f4d80b159c2295ff24b2ff0aa5922a66e",
+        "bytes": 2336
+      },
+      "preparation": {
+        "worker": "A",
+        "trancheId": "m96",
+        "trancheSha256": "af734f71d213cc8d21b0e9271cafb3d92da92280c9df4545e7993c0fe3a5e895",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/packet-bochi-text-only-065-002.json",
+          "sha256": "e741746a58bae21f4a62090cce3a4f82955761a178fb1ae826b1efd06abffec2",
+          "bytes": 11770
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/peer-a-bochi-065-002.json",
+          "sha256": "8ae51897da65951defc11e14f4d18fef76ba3e228d49122283cf0ccee9dbadda",
+          "bytes": 2891
+        },
+        "corrections": [
+          {
+            "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/bochi-copy-delta-065-001-to-002.json",
+            "sha256": "cbb6e1de71a486c50e86fb44e3559f203c4858dba159e6e4b7b657081ccce908",
+            "bytes": 1697
+          }
+        ]
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/research-dossier-0200184-text-only-065-001.json",
+          "sha256": "224de5cfbd2ab5c02f58b3be9988b47e7118e93ff7e1d214b873a1add1cc3e4f",
+          "bytes": 21560
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.petfinder.com/dog/sassy-27cdabff-7632-4f5f-9c8e-3485617bbe71/ct/lebanon/fetching-hearts-rescue-ct594/details/",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/651858de2bb10e4761b1c8296d6ec92455d9949878c6a72d51be6befda79c2e3.json",
+        "rootApprovalSha256": "651858de2bb10e4761b1c8296d6ec92455d9949878c6a72d51be6befda79c2e3",
+        "primaryReviewedAt": "2026-10-05T01:03:59.839817+00:00",
+        "visualReview": "Root personally read entire retainedexpanded ownSassy8092Bbody/ownhostdirectory/currentRescueSpot4449Bbody/oldlabelconflict, final306/134copy/exact2203prompt/dossier/identity/selectedold021/Bpeer/copydelta. Wholeall5sourcephotos viewedoriginaldetail. Main grownseatedbody/normalforecourses/nearhindcourse and fullsmoothattachednaturalupwardtail/separatepaletip supports coarseordinarynewstance withfarhind/grass/basalhaunchoverlap limits, nohiddenjointassembly. Currentinstitutionalreport BostonChihuahua onceBochi0184credible with earlierindexedAmStaffFeistcontradiction expresslypreserved, noDNA/parentage/correctionreason. GenericYoungheader/weight/cats/clinical/compatibilityexcluded. Namedlowenergy/easygoing/lounge/strolls/sisterssurrender supported; corrected002 no false laterSassyadoption outcome. Textonlynoneimageinputs/sourcepurposesfalse/freshanonymousscene.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Fetching Hearts Rescue described Sassy, reported in its current listing as a Boston Terrier–Chihuahua mix, as low-energy and easygoing at four years old. She enjoyed lounging by someone’s side and leisurely strolls. Her previous owner had surrendered her with her sisters; they had already found new homes.",
+        "summarySha256": "76fe5daa88f4f4b057de3fd21a7ab4c8d405747685263dd091693c6432943829",
+        "shortDescription": "Fetching Hearts Rescue described four-year-old Sassy, a reported Boston Terrier–Chihuahua mix, enjoying company and leisurely strolls.",
+        "shortDescriptionSha256": "79d280d010904e3f9f6e34cd6063a5cadc4d0de56cd2a5d26ca3dc6a01e08de8",
+        "author": "M worker A",
+        "reviewer": "M worker B and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/packet-bochi-text-only-065-002.json",
+        "sourcePathSha256": "e741746a58bae21f4a62090cce3a4f82955761a178fb1ae826b1efd06abffec2",
+        "sourceSnapshots": [
+          {
+            "title": "Fetching Hearts Rescue — original four-year-old Sassy account",
+            "url": "https://www.petfinder.com/dog/sassy-27cdabff-7632-4f5f-9c8e-3485617bbe71/ct/lebanon/fetching-hearts-rescue-ct594/details/",
+            "sourceRole": "Original rescue named adult observations/history, current attributed cross identity and own linked mature gallery.",
+            "evidence": "Entire actual original Story read: Age4years, low energy, easygoing and dog-friendly, lounging by your side and leisurely strolls. Previous owner surrendered Sassy and sisters following his illness; sisters found homes first. Current exact Boston Terrier/Chihuahua reported mix label, no parentage proof. Clinical owner/rescue details, categorical safety/suitability/compatibility, adoption availability, fees and sentimental promises excluded. Generic Young1–3 header, historical23/current26lb and catsYes/No conflicts excluded from prose and selected morphology.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/bochi-sassy-own-rendered-065-001.html",
+              "sha256": "f2e6a6f47c575d7d5a65c88f7420dae294cb87cfc35ae47e989109b0e041fa33",
+              "bytes": 8684
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/bochi-sassy-own-rendered-065-001.txt",
+              "sha256": "d49e90d34697fa58ce193bd6874334679c57efce21f8682c70d9aed006e9c2d5",
+              "bytes": 8092
+            },
+            "acquisitionDisclosure": "Native direct Petfinder request honestly HTTP403, receipt retained. Normal Chrome successful original rescue listing personally fully read after Show More; entire rendered visible body and semantic DOM retained and serialized as supplemental HTML, not native HTML. Rescue original host currently directly links this named entry. All five own photographs personally whole normal-browser-viewed; only whole research screenshots retained, no photo originals downloaded, no generator inputs/rights claim. Historical indexed AmStaff/Feist label conflicts current reported Boston/Chihuahua label; correction cause and genetic ancestry unknown. Own prose age four, generic Young1–3 header not adopted; exact photograph dates/numeric ages unknown."
+          },
+          {
+            "title": "Fetching Hearts Rescue — own current adoptable-dogs directory",
+            "url": "https://www.fetchingheartsrescue.org/adoptable-dogs",
+            "sourceRole": "Institutional ownership and literal direct named Sassy link, not separate character or ancestry proof.",
+            "evidence": "Complete rendered directory snapshot including iframe personally read. Own Sassy Boston Terrier card links exact current Lebanon Petfinder UUID27cdabff-7632-4f5f-9c8e-3485617bbe71 listing. Current label is attributed to rescue; older indexed alternative label preserved, no reason for correction or DNA inference.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/bochi-sassy-rescue-host-rendered-065-001.html",
+              "sha256": "f881af1b971d3219794e8432244ba309b04f8cd2619f3a1411d25bc03f8794c3",
+              "bytes": 8522
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/bochi-sassy-rescue-host-rendered-065-001.txt",
+              "sha256": "f1281589d0f08be0a643f80aae1ff598847acc67f4c33f7cdec3169266b3684b",
+              "bytes": 7495
+            },
+            "acquisitionDisclosure": "Successful normal Chrome entire rendered semantic snapshot including actual iframe retained; locally serialized HTML is supplemental rendered evidence, not native server response. No form/application/message interaction."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-05T01:03:59.839817+00:00"
+      },
+      "scene": "A broad unobstructed dry meadow path, low softly blurred grasses well behind the dog, distant mixed woodland, gentle morning daylight; clear level earth below every foot.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "M-0200184-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/attempt-M-0200184-01.json",
+              "sha256": "b43b341871aa3f264bb63f533c82659c09bbcb62eb3585c6dc127d64733d3763",
+              "bytes": 4970
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-approvals/651858de2bb10e4761b1c8296d6ec92455d9949878c6a72d51be6befda79c2e3.json",
+              "sha256": "651858de2bb10e4761b1c8296d6ec92455d9949878c6a72d51be6befda79c2e3",
+              "bytes": 3723
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/preflights/f000b052-a3db-466b-9b4c-0aab31a6e22a.json",
+              "sha256": "d49e56d1e121119ba126f1f3fe24b31515e6239b3454555a9c29c2a9e78a6767",
+              "bytes": 3570
+            },
+            "imagePermitId": "f000b052-a3db-466b-9b4c-0aab31a6e22a",
+            "trancheSha256": "af734f71d213cc8d21b0e9271cafb3d92da92280c9df4545e7993c0fe3a5e895",
+            "prompt": "Use case: photorealistic-natural. Asset: disclosed StackRank Dogs field-guide illustration. Create one original 1536×1024 landscape portrait of one anonymous mature adult Bochi VBO:0200184, a rescue-reported Boston Terrier–Chihuahua cross. Text-only, no image inputs. Select a small-to-medium developed functional mildly rectangular body with moderate chest, normal proportionate legs, thighs and ordinary canine paws, no extreme dwarf or caricatured bulldog template. Smooth close white/cream coat with brown-brindle patches on sides/back, no exact Sassy markings or heterochromia. Proportionate broad canine head with moderate projecting blunt dark-nosed muzzle and ordinary brown canine eyes. Short natural soft ears fold laterally outward/down above upper cheeks with intact tips; no long jaw-length flaps, cropped ears or rigid erect parent template. Full smooth shorthaired thin-to-medium tapering tail connected to rump, extends backward/up away from body in one gentle open curve to a distinct pale tapered free endpoint; no feathering, dense plume, tight curl, dock or nub. Own mature rescue body and full-tail photo support coarse functional morphology; historical reported cross-label uncertainty is preserved, no genetic reconstruction or parent transfer. One relaxed adult standing left-facing three-quarter side view at eye level, head gently toward viewer and mouth closed. Four distinct complete grounded paws with coherent functional courses, believable weight and contact shadows. Entire head, both natural ears, body, all four paws and full attached tail/free end wholly inside generous frame. Keep dog smaller with at least150px above head/tail and140px below lowest foot. Setting: A broad unobstructed dry meadow path, low softly blurred grasses well behind the dog, distant mixed woodland, gentle morning daylight; clear level earth below every foot. Restrained documentary natural realism, independent anonymous stance/markings/camera/light, not a source seated/table/car-window pose or exact likeness. No collar, harness, lead, clothing, people, other animals, props, fences, text, logos or watermark. No cropped feet, hidden tail, extra or fused limbs, juvenile proportions.\n",
+            "promptSha256": "af95ac843c22e513c011517be46e5671a880bec31092e5955983b6771b5a0600",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-m/worker-a/M-0200184-01.png",
+              "sha256": "54fc6cb9aa7bbd8d49599e9f32f44cac87398ed9e170d4bce0543c8d2b54116b",
+              "bytes": 2966241
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10614-e1f8-74b1-8d32-f87f64a95a7d/exec-b0456a3c-ef75-4bbc-b7d0-79dbae480cb6.png",
+            "originalOutputSha256": "54fc6cb9aa7bbd8d49599e9f32f44cac87398ed9e170d4bce0543c8d2b54116b",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-05T01:04:40Z",
+            "completedAt": "2026-10-05T01:05:01Z",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200184-01-accepted.json",
+              "sha256": "e2b8ef720fc943535d70452d9dd79799795785a8dcca2a9fd2459e462157071a",
+              "bytes": 1362
+            }
+          }
+        ],
+        "acceptedAttemptId": "M-0200184-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200184-01-accepted.json",
+          "sha256": "e2b8ef720fc943535d70452d9dd79799795785a8dcca2a9fd2459e462157071a",
+          "bytes": 1362
+        },
+        "reviewedAt": "2026-10-05T01:11:09.995044+00:00",
+        "breedIdentity": "Mature small-to-medium functional shortcoated whitebrindle Bochi with projected blunt muzzle/natural short soft triangular uppercheek folded ears. Ear tip posture broader/downward than source moment but no long jaw-length flaps; credible ordinary natural ear variation. Independent markings and brown eyes avoid exact Sassy likeness.",
+        "anatomy": "Four whole complete ordinary grounded paws and mature coherent forehindcourses. Full attached smooth tapering open raised tail to separate pale free end; modest short terminal edge hairs not long plume/fan.",
+        "crop": "Whole untouched1536x1024 originaldetail viewed, safe150top/95bottom margins and all silhouettecontained.",
+        "aesthetics": "Coherent independent natural field/path, restrained light and anonymous markings/stance; no sourcegear or scene reproduction.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-019-001.jpg",
+          "sha256": "3ea26ce700d18ec65f01941146af809c4515f1d349b9c4c0f72e56a325d7cda0",
+          "bytes": 626046
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "m96",
+        "batchManifest": "data/dogs/generated-artwork-batch-m96.json",
+        "integratedAt": "2026-10-05T01:27:39.759972+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0201166": {
+      "catalogId": "VBO:0201166",
+      "displayName": "Saint John's Water Dog",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0201166-001.json",
+        "sha256": "4f024f71063125a73da259d75dc00bc258d61de041eef3437bf4e0acbe4ff962",
+        "bytes": 2341
+      },
+      "preparation": {
+        "worker": "B",
+        "trancheId": "m97",
+        "trancheSha256": "1220837082eafc5e05124ee8383f21059bc84a3128f6b796caf477a2a7b556e6",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/packet-saintjohns-text-only-067-001.json",
+          "sha256": "6ec6ac0a64f0ee24c802b255049b1bb5a03f05c06aa018e0a89de34f6b45526a",
+          "bytes": 10038
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/peer-b-saintjohns-067-001.json",
+          "sha256": "84d9e9ca2ea8f39baa3fc4a184ba97d052d166d8afad16796bb35cc3ebdc3d39",
+          "bytes": 3627
+        }
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/research-dossier-saintjohns-text-only-067-001.json",
+          "sha256": "bf7471b9c7e0c0fdc92540e041028b5a1f60152e7189d2a86c76869570851d1b",
+          "bytes": 12695
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://dai.mun.ca/PDFs/cns/TheLabradorDogItsHomeAndHistory.pdf",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/b6914a7b3462f8bc2adabd62140f6b66613b41d994d2b478114f38e7843c543e.json",
+        "rootApprovalSha256": "b6914a7b3462f8bc2adabd62140f6b66613b41d994d2b478114f38e7843c543e",
+        "primaryReviewedAt": "2026-10-05T01:20:16.526479+00:00",
+        "visualReview": "Root personally read entire actual selected 1936 Scott/Middleton title, claims, original quoted 1814/1822 context and native1932 import history, both final texts, exact prompt, dossier and identity comparators. Whole Cabot photographic plate viewed: grown ordinary complete coarse body/limbs, natural ears and attached full tapered tail with contained freeend; halftone/far-joint and unknown numerical age/ancestors preserved. Approve once-only historical native Newfoundland fishermen population distinct in temporal/geographic working scope from current British standardized Labrador0800; Scott naming overlap/shared ancestry explicitly acknowledged, no disjoint genetics claim, no duplicated modern Labrador traits. New independent shoreline composition and anonymous individual, text only, all research photo purposes denied.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Quick in running and swimming in an 1814 account, the Saint John’s Water Dog was a working dog of Newfoundland’s fishermen. It retrieved fish that slipped off hooks near the surface and wildfowl taken while hunting, and helped haul winter fuel and timber. These native water dogs also supplied early stock for Britain’s Labrador Retriever.",
+        "summarySha256": "dc6a458012f493f8fbf1216d3039a8b13f27d3f8e159e38f8419ca96dc0f466c",
+        "shortDescription": "A historical Newfoundland water dog, quick in water and used to retrieve loose fish and wildfowl and haul timber.",
+        "shortDescriptionSha256": "9338d4f70a952d58051bf0e189ca5939dd623f243e9d84a70722123770fd79cc",
+        "author": "M worker B",
+        "reviewer": "M worker C and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/packet-saintjohns-text-only-067-001.json",
+        "sourcePathSha256": "6ec6ac0a64f0ee24c802b255049b1bb5a03f05c06aa018e0a89de34f6b45526a",
+        "sourceSnapshots": [
+          {
+            "title": "Scott and Middleton — The Labrador Dog: Its Home and History (1936)",
+            "url": "https://dai.mun.ca/PDFs/cns/TheLabradorDogItsHomeAndHistory.pdf",
+            "sourceRole": "Original breeder/historian and formerNewfoundlandGovernor account with quoted1814/1822/Stonehenge exactnativeStJohns scope, firsthand nativeimport1932 search/photo and fishermen work history; not modernLabrador traits.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/saintjohns-howe-original-067-001.pdf",
+              "sha256": "0e8bc045e3b7eb5799d29ec2578bb5c87d73d46d5aa37a5fc505f0a05f679325",
+              "bytes": 13667322
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/saintjohns-scott-actual-claim-pages-067-001.txt",
+              "sha256": "bd973ac02bdc4d1fe13afcf55a8d3da975e21663a6c6547eae546ff9fd98b96e",
+              "bytes": 37008
+            },
+            "evidence": "ActualtitlePartI LtColLordGeorgeScott/PartII SirJohnMiddleton/1936 plus foreword/preface read. Printed17–18 quotesHawker1814 exactStJohns smallblackshortcoat quickrunning/swimming/fighting and chieflynativefishermen; quotedCormack1822fowlingretrievers. Printed22–24 namedStJohns/smallerLabrador/Newfoundland historic interchangeable, nativefishescaperecovery letter+fuel/timberhaul. Printed25 historicalnameLabradormisnomerStJohns, noaliasconflict hidden. Printed29Britishstandardization1903 and38–42 oldnativebreed search/sloops1932/33importCabot/Fanny/noancestryrecords, fish/wildfowlretrieve/timberwork. PlatePDF46 exactCabotimportNov1932 bothrealphotos; Nell earlyBritishfoundation supplemental not selected. CurrentBritishLabrador/descentoutcross traits, descendantsCabotkeen/intelligent/tendermouth, clinicaldiet/legalhistory and giantNewfoundland traits excluded.",
+            "acquisitionDisclosure": "Verified TLS200 original129page bookPDF, actual claimed entire pages extracted and personally read, whole Cabotplate personally viewed as original page render research only. FilenameHowe acquired misleading locator name preserved; actualScott/Middleton1936 authorship used. No standalonephotooriginals/generatorinput or rightsgrant."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-05T01:20:16.526479+00:00"
+      },
+      "scene": "An open gravel-and-earth shore path beside low grasses, calm distant Newfoundland coastal water and softly blurred dark spruce, mild cool daylight and clear ground beneath every paw.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "M-0201166-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/attempt-M-0201166-01.json",
+              "sha256": "deec74076c86de056e9d1828188addd2ad5d7c2ffd31d226d18bd024982058e2",
+              "bytes": 5667
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-approvals/b6914a7b3462f8bc2adabd62140f6b66613b41d994d2b478114f38e7843c543e.json",
+              "sha256": "b6914a7b3462f8bc2adabd62140f6b66613b41d994d2b478114f38e7843c543e",
+              "bytes": 3714
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/preflights/6f6f1cfa-bd41-49f2-8d8b-e0ef50ae5126.json",
+              "sha256": "395b949a3e22eec47a8dd4ce5a65e6973825dff98b9fc6a719793e4b46e9761f",
+              "bytes": 4487
+            },
+            "imagePermitId": "6f6f1cfa-bd41-49f2-8d8b-e0ef50ae5126",
+            "trancheSha256": "1220837082eafc5e05124ee8383f21059bc84a3128f6b796caf477a2a7b556e6",
+            "prompt": "Use case: photorealistic-natural. Create one original1536×1024 landscape StackRank Dogs disclosed field-guide illustration of one anonymous mature adult historical SaintJohnsWaterDog exactcatalogVBO:0201166. Text-only, no image inputs. One anonymous mature adult historical SaintJohns WaterDog in exactnativeNewfoundland blackwaterdog population represented by actual1932nativeimport Cabot, not generic modernBritishLabrador or giantlonghairedNewfoundland. Developed substantial moderatelyrectangular strong functional trunk, deep broadchest/ordinary shoulderbone/firm gentlyslopedback/strongloins/modesttuck; moderate proportionate normallegs and muscular balancedrear/compactordinary paws, no exaggerated show-Labrador obesity or giantmastiffmass. Grown broadbutnotblocky skull with clear modeststop/strongmoderate-long projectingmuzzle/blacknose/ordinarydarkbrowncanineeyes. Natural compact soft folded drop ears liealonguppercheeks, tipsaroundjawbase notlongspaniel flaps/cropped/pricked. Close short dense blackcoat, fresh modest whitechest/toes allowed historicalownscope, no long Newfoundlandfeather/wirehair/coatcolor inferred fromBWpixel. Full natural medium-long thickbase tail narrows to separate slim contained freepoint, continuous attached rumpcourse extendsbehind nearlyhorizontal with slightdownward opensweep, smoothshort densehair no plume/ring/dock/nub. Whole originalbook PDF46 two actualCabotphotos captionimportedNewfoundlandNov1932: standinggrown substantialtrunk/4completecoarseordinary limb courses/pawends and connected horizontal fulltail/separatefreeend insideframe; recumbent same maturebody also completefulltail/freepoint withtwoforecourses/paws/foldedrear. Fineupperfarjoints overlap and halftone blur, exactnumericage/photo date unknown; adulthood visiblydeveloped and original searchbreed/import narrative. Freshordinaryfourgrounded stance uses coarse ownactual anatomy, no precisely assembled hiddenjoints or modernLabrador/parentfill. Historicancestor/geneticunknown limits acknowledged, no exactCabotlikeness. Relaxed standing right-facing threequarter view at canineeyelevel, head gentlytowardviewer, closedmouth. Four distinct complete grounded paws/coherentfunctional limb courses/contactshadows/plausibleweight. Entiregrownhead/twonaturalears/body/fourfeet/fullattachednatural tail/continuousroot-to-end course/separatefreepoint whollyinside generousframe. Dogsmaller with at least150pxabovehighesthead/tail and140pxbelowlowestpaw. Setting: An open gravel-and-earth shore path beside low grasses, calm distant Newfoundland coastal water and softly blurred dark spruce, mild cool daylight and clear ground beneath every paw. Restrained natural documentaryrealism, independentanonymous markings/stance/location/camera/light, not exactCabotplatform/recumbentpose/individuallikeness. Full natural moderate-long smooth thickbase/slimtaper tail inopenhorizontal slightlydownwardsweep, no tightcurl/plume/fringe/dock/stump. No people/otheranimals/collar/leash/harness/props/platform/buildings/fences/text/logos/watermarks/croppedears/hiddenfeet/extrafusedlimbs/juvenile anatomy.",
+            "promptSha256": "9ec048179140036b67086dc0053caf9d6d50c803a9cbc78de97cd3208c7cb6a3",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-m/worker-b/M-0201166-01.png",
+              "sha256": "4ccbde937511415cf03496a9c6164708ba25378971438022fcd665e6b03a15ee",
+              "bytes": 2909164
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10615-3275-71c2-9917-5f23ee225216/exec-6abb4915-e6f5-480d-869d-c29665419202.png",
+            "originalOutputSha256": "4ccbde937511415cf03496a9c6164708ba25378971438022fcd665e6b03a15ee",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-05T01:22:23.947Z",
+            "completedAt": "2026-10-05T01:22:40.274Z",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0201166-01-accepted.json",
+              "sha256": "0c28e3476e1c2f601a297abddfef987670f46e5a38bf1c15b1d542df3464b900",
+              "bytes": 1670
+            }
+          }
+        ],
+        "acceptedAttemptId": "M-0201166-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0201166-01-accepted.json",
+          "sha256": "0c28e3476e1c2f601a297abddfef987670f46e5a38bf1c15b1d542df3464b900",
+          "bytes": 1670
+        },
+        "reviewedAt": "2026-10-05T01:24:50.845185+00:00",
+        "breedIdentity": "Grown substantial functional short dense black native-waterdog silhouette, modest white breast/toes supported by original historical scope, broad moderate head/projecting muzzle and compact natural soft cheek ears. Proximal tail and abdomen have modest uneven guardhair edges; these remain ordinary dense-coat texture, not a long silky Newfoundland plume or material longcoat substitution. Original Cabot halftone does not resolve each guardhair. Independent anonymous anatomy, not exact historical individual.",
+        "anatomy": "Four distinct full grounded paws, coherent limbs/chest/rear and full attached nearly horizontal thickbase tail continuously narrowing to separately contained freepoint. Natural ears intact, adult proportions and plausible contact shadows.",
+        "crop": "Whole untouched1536x1024 originaldetail personally viewed. Entire head/ears/paws/caudal endpoint contained with safe roughly95px above and80px below; no cropped appendage.",
+        "aesthetics": "Independent shore-path composition with restrained natural cool light; historical morphology scope preserved without copying book platform or named likeness.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-019-001.jpg",
+          "sha256": "3ea26ce700d18ec65f01941146af809c4515f1d349b9c4c0f72e56a325d7cda0",
+          "bytes": 626046
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "m97",
+        "batchManifest": "data/dogs/generated-artwork-batch-m97.json",
+        "integratedAt": "2026-10-05T01:27:39.934011+00:00"
+      },
+      "publication": {
+        "status": "pending"
+      }
+    },
+    "VBO:0200424": {
+      "catalogId": "VBO:0200424",
+      "displayName": "Dakotah Shepherd Dog",
+      "qualification": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/qualified-text-0200424-001.json",
+        "sha256": "c3a24b7bb26766162c5aa8e3a3df4c92bd74deea7d0a4a90e872c00f1b40e481",
+        "bytes": 2347
+      },
+      "preparation": {
+        "worker": "A",
+        "trancheId": "m98",
+        "trancheSha256": "d0620eb9b79a2a0577fbd44226a443ee58a136a7f66a789dba866824fb91af51",
+        "packet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/packet-dakotah-text-only-068-001.json",
+          "sha256": "49abb3cb9c288efc6cf60d1044cea599b91986885861714e539e05f8a7247d86",
+          "bytes": 10017
+        },
+        "peer": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/peer-a-dakotah-068-001.json",
+          "sha256": "4c6c97b6cde6db1e9723ac92b046bf92e5949614508bfa3246b1bc6cbaccc5e9",
+          "bytes": 2995
+        }
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/run-authorization-001.json",
+          "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
+          "bytes": 1285
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/research-dossier-0200424-text-only-068-001.json",
+          "sha256": "761c28ac3bd14715a2f764feaa9b074a666cf67e5c090579c3c1484ab67e9f9b",
+          "bytes": 17687
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://www.dogbreedinfo.com/dakotahshepherd.htm",
+        "rootApprovalPath": "reports/dogs-generated-artwork/cohort-m/root-approvals/e435aeeb89e2e47c0781611b3bd6252280133ac8d9a8e3284726274c890bb5e0.json",
+        "rootApprovalSha256": "e435aeeb89e2e47c0781611b3bd6252280133ac8d9a8e3284726274c890bb5e0",
+        "primaryReviewedAt": "2026-10-05T01:22:39.002072+00:00",
+        "visualReview": "Root personally read entire original keeper text/all captions,352/122final copy, exact2355Bprompt, whole dossier/identity/priorK selected object and B peer. Personally whole-viewed all four browser research photos. Smokey17 has grown running body and complete attached long furnished caudal course with separate contained tuft; standing14/seated1/Shayla supplement ordinary adult anatomy/natural folds. Crop/grass/motion/farjoint/unknown photoage limits retained, ordinary fresh grounded pose needs no exact joint assembly. First-person TripleM foundation programme distinct from EnglishShepherd ancestor, once-only historical0424, no pedigree/currentcontinuity/parenttrait or uniform-temperament claim. Named personal behavior is accurately attributed and paraphrased, original anonymous meadow scene, all source purposes denied/text-only/noinputs.",
+        "rightsReview": "Factual research only; no source image supplied to generator or licensed photograph claim."
+      },
+      "profile": {
+        "status": "approved",
+        "summary": "Affectionate yet comfortable with some time to himself, Smokey was described by his keeper as sensitive and responsive. He enjoyed walks, truck rides and squeaky toys, and rolled in mud holes despite refusing to swim. Born in February 2004, he came from Triple M Kennel’s foundation breeding for the Dakotah Shepherd, before the programme had its name.",
+        "summarySha256": "fdf6204943e2c29fa5eb3db789a4632014fdbf3b9f683b164340275d93529f32",
+        "shortDescription": "Smokey’s keeper described an affectionate Dakotah Shepherd foundation dog who enjoyed walks, truck rides and squeaky toys.",
+        "shortDescriptionSha256": "ce3b2dc6c116e0214ef57fc5b51ff09524da336d14b9af3b54be610cea3e1221",
+        "author": "M worker A",
+        "reviewer": "M worker B and root",
+        "sourcePath": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/packet-dakotah-text-only-068-001.json",
+        "sourcePathSha256": "49abb3cb9c288efc6cf60d1044cea599b91986885861714e539e05f8a7247d86",
+        "sourceSnapshots": [
+          {
+            "title": "Dakotah Shepherd — original Smokey foundation keeper and Shayla accounts",
+            "url": "https://www.dogbreedinfo.com/dakotahshepherd.htm",
+            "sourceRole": "Original firsthand named keeper programme provenance, own character/history and literal own mature photographs.",
+            "snapshot": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/dakotah-dbi-own-068-001.html",
+              "sha256": "e605c351d414b95c3eca613900d72a529db0d0d3b6444eb792965c19ebdbc8bf",
+              "bytes": 31434
+            },
+            "text": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/dakotah-dbi-own-068-001.txt",
+              "sha256": "9c5f9b9232676899cebd66f4c8902d23727d8d3ea1294f7a3e64b2efebd8650c",
+              "bytes": 4750
+            },
+            "evidence": "Entire actual first-person Smokey paragraph read: keeper met Michelle Mollman of Triple M, bought foundation puppy before programme name, bornFebruary2004, describes at2years longcoarse sable56lb22in. Affectionate with some me-time, sensitive/listens well, likes walks/truck/squeaky toys/fetch; rolls in mud but refuses swimming. Programme litter and reported parents explicitly EnglishShepherd/BorderCollie/Kelpie, not generic EnglishShepherd equivalence. Separate original Shayla own account enjoys running/fetching for hours, captions one year. Generic editorial Temperament/Origin/recognition/safety/health/lifespan/training guarantees excluded; no current programme or pedigree proof. Juvenile captions separate, historical named behavior only.",
+            "acquisitionDisclosure": "Fresh verified-TLS native HTTPS200 entire factual HTML/text/receipt retained and personally fully read, including original Smokey keeper account and all adult/juvenile captions and Shayla account. Literal own photographs personally whole normal-Chrome-viewed; only whole browser research screenshots retained, no photo originals downloaded or image inputs/rights grant. Smokey historical born February2004 and described at two years, but numerical age/date of each adult-looking photo unknown. Shayla captions explicitly one year; filename one year ten months is not adopted as an age correction. Juvenile Smokey photos expressly excluded. Current programme existence, formal standard, genetic pedigree and uniform traits unknown."
+          }
+        ],
+        "primaryReviewedAt": "2026-10-05T01:22:39.002072+00:00"
+      },
+      "scene": "An unobstructed broad packed-earth path beside low meadow vegetation with distant softly blurred deciduous trees in mild diffused morning light; fresh independent natural setting.",
+      "generation": {
+        "attempts": [
+          {
+            "number": 1,
+            "id": "M-0200424-01",
+            "status": "generated",
+            "qaDecision": "accepted",
+            "receipt": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/attempt-M-0200424-01.json",
+              "sha256": "fcd0c620b1a1cf39ca2ac0eaab74617808eabaa87abf858f96e34beeed30c2c3",
+              "bytes": 5100
+            },
+            "approval": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-approvals/e435aeeb89e2e47c0781611b3bd6252280133ac8d9a8e3284726274c890bb5e0.json",
+              "sha256": "e435aeeb89e2e47c0781611b3bd6252280133ac8d9a8e3284726274c890bb5e0",
+              "bytes": 3719
+            },
+            "preflight": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-a/preflights/0065a7c4-194e-416e-b6ac-5e61237d0316.json",
+              "sha256": "158165163e64b3e0c4182ea2d0152abca7777e4063d54e0c16302bf0afdbbde6",
+              "bytes": 3724
+            },
+            "imagePermitId": "0065a7c4-194e-416e-b6ac-5e61237d0316",
+            "trancheSha256": "d0620eb9b79a2a0577fbd44226a443ee58a136a7f66a789dba866824fb91af51",
+            "prompt": "Use case: photorealistic-natural. Create one original 1536×1024 landscape StackRank Dogs disclosed field-guide portrait. Text-only, no image inputs. One anonymous mature Dakotah Shepherd programme dog VBO:0200424, selected coarse sable phenotype supported by original named foundation dog Smokey photographs, not a pure English Shepherd/Border Collie/Kelpie template. Medium developed mildly rectangular athletic functional body, moderate chest and thighs, ordinary proportionate legs and furry canine paws, no exaggerated dwarf or giant. Long coarse moderately furnished sable golden-brown coat with dark overlay on back/flanks, modest pale breast patch and ordinary limb furnishings; natural practical coat, no sculpted show trim or long silky spaniel feathering. Proportionate grown canine head with moderate projecting muzzle, dark nose and ordinary brown eyes. Natural medium soft folded drop ears beside upper cheeks, lightly furnished intact tips, no long jaw-to-chest leather or cropped ears. Full natural long moderately furnished tail visibly connected to rump, extends backward/up away from body in a loose open curve to a separate contained pale free tuft. Readable continuous coarse tail course, no dense fan over rump, tight ring, dock or nub. Evidence supports mature functional coarse body and complete natural tail, not exact hidden source joints or individual likeness. Relaxed standing left-facing three-quarter side view at canine eye level, head gently toward viewer, closed mouth. All four distinct complete grounded paws with coherent ordinary limb courses, plausible weight and contact shadows. Entire head/two natural ears/body/four feet/full natural tail including separate free tuft fully inside generous frame. Keep dog smaller with at least150px above highest head/tail and140px beneath lowest paw. Setting: An unobstructed broad packed-earth path beside low meadow vegetation with distant softly blurred deciduous trees in mild diffused morning light; fresh independent natural setting. Restrained documentary natural realism, original anonymous markings/grooming/camera/light/stance. No source snow, running wood-carrying pose, fence, chair or individual likeness recreation. No people, other animals, collar, harness, lead, props, buildings, text, logos, watermark, hidden feet, extra/fused limbs or juvenile proportions.\n",
+            "promptSha256": "514ae4b9eafce3d67f5813aa3003789535941cef841a10f1667459c7a2e72ac1",
+            "promptTemplateVersion": "dogs-field-guide-v10-cohort-m",
+            "native": {
+              "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-m/worker-a/M-0200424-01.png",
+              "sha256": "f0261164b3f5c27922dab9261a1f027584fb372a8591e6581b8872db20b18c4e",
+              "bytes": 2971927
+            },
+            "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10614-e1f8-74b1-8d32-f87f64a95a7d/exec-8895aa0d-efd3-4be9-89ab-c6690289f262.png",
+            "originalOutputSha256": "f0261164b3f5c27922dab9261a1f027584fb372a8591e6581b8872db20b18c4e",
+            "width": 1536,
+            "height": 1024,
+            "startedAt": "2026-10-05T01:23:28Z",
+            "completedAt": "2026-10-05T01:23:48Z",
+            "rootReview": {
+              "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200424-01-accepted.json",
+              "sha256": "edaeb380877d06b9bd590146a570c094e873a28643f7b305332aca4f133d4ad7",
+              "bytes": 1344
+            }
+          }
+        ],
+        "acceptedAttemptId": "M-0200424-01"
+      },
+      "qa": {
+        "status": "approved",
+        "rootReview": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/root-native-qa/0200424-01-accepted.json",
+          "sha256": "edaeb380877d06b9bd590146a570c094e873a28643f7b305332aca4f133d4ad7",
+          "bytes": 1344
+        },
+        "reviewedAt": "2026-10-05T01:26:02.704395+00:00",
+        "breedIdentity": "Grown medium athletic mildly rectangular sable programme phenotype with coarse practical long coat, dark overlay, modest white breast and natural soft upper-cheek folded ears. Fuller coat/tail furnishings remain supported by actual Smokey standing/running views; not a parent template or exact individual likeness.",
+        "anatomy": "Four complete distinct grounded paws/coherent ordinary courses and full attached furnished tail with open rising curve and separately contained pale free tuft. No tight ring or merged rump fan.",
+        "crop": "Whole original1536x1024 viewed; safe175px above/125below, full tail and every foot contained.",
+        "aesthetics": "Independent natural path composition, believable light/coat/contact shadows, anonymous new stance and markings. No close source photograph recreation.",
+        "contactSheet": {
+          "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/contact-sheet-release-019-001.jpg",
+          "sha256": "3ea26ce700d18ec65f01941146af809c4515f1d349b9c4c0f72e56a325d7cda0",
+          "bytes": 626046
+        }
+      },
+      "integration": {
+        "status": "integrated",
+        "subwave": "m98",
+        "batchManifest": "data/dogs/generated-artwork-batch-m98.json",
+        "integratedAt": "2026-10-05T01:27:40.140829+00:00"
+      },
+      "publication": {
         "status": "pending"
       }
     }
   },
   "progress": {
-    "qualified": 97,
-    "generationCalls": 104,
-    "accepted": 93,
-    "integrated": 93,
-    "published": 91
+    "qualified": 100,
+    "generationCalls": 110,
+    "accepted": 98,
+    "integrated": 98,
+    "published": 93
   },
   "currentSourceReadiness": {
     "status": "active-authorized-text-only-production",
@@ -23404,5 +24524,16 @@
       "sha256": "9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e",
       "bytes": 1285
     }
-  }
+  },
+  "generationHolds": [
+    {
+      "catalogId": "VBO:0200142",
+      "receipt": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/hold-0200142-generation-001.json",
+        "sha256": "be022a6eb0213c3173b02e47e03dc2cf457e98bd2453dc3fab634b39bd22021d",
+        "bytes": 1701
+      },
+      "reason": "Final finite03 retains pendulous black upper-lip lobes descending below lower jaw and several pronounced forehead furrows, materially unlike exact close-fitting lip/ordinary relaxed brow of SRSH selected adult and standard. Four paws/adult body/natural ears/full low tapered tail and framing otherwise coherent. All three native attempts preserved. No fourth call; generation hold and separately qualified replacement required."
+    }
+  ]
 }

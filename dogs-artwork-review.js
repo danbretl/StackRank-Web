@@ -15,9 +15,9 @@ import {
 import { dogProfileSourceLinks } from "/lib/dogs.js?v=8";
 
 const DATA_URLS = {
-  manifest: "/data/dogs/generated-artwork.json?v=56",
+  manifest: "/data/dogs/generated-artwork.json?v=57",
   catalog: "/data/dogs/dog-catalog.json?v=5",
-  profiles: "/data/dogs/breed-profiles.json?v=53",
+  profiles: "/data/dogs/breed-profiles.json?v=54",
 };
 
 // Filled from actual finite L batch files by prepare-dog-portrait-l.mjs.
@@ -113,7 +113,12 @@ const M_BATCH_METADATA_URLS = [
   "/data/dogs/generated-artwork-batch-m89.json",
   "/data/dogs/generated-artwork-batch-m90.json",
   "/data/dogs/generated-artwork-batch-m91.json",
-  "/data/dogs/generated-artwork-batch-m92.json"
+  "/data/dogs/generated-artwork-batch-m92.json",
+  "/data/dogs/generated-artwork-batch-m94.json",
+  "/data/dogs/generated-artwork-batch-m95.json",
+  "/data/dogs/generated-artwork-batch-m96.json",
+  "/data/dogs/generated-artwork-batch-m97.json",
+  "/data/dogs/generated-artwork-batch-m98.json"
 ];
 const L_BATCH_METADATA_URLS = [
   "/data/dogs/generated-artwork-batch-l01.json",

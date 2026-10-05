@@ -44,3 +44,24 @@ export function validMTextOnlyPublicReference(reference, evidence) {
     Array.isArray(reference.imageInputs) && reference.imageInputs.length === 0 && !reference.assetId &&
     typeof reference.sourcePage === 'string' && validDogResearchUrl(reference.sourcePage);
 }
+
+// N has independent branch-only authority; historical grants remain unchanged.
+export const N_SOURCE_AUTH_SHA256 = '292924b03d5fb2b641dfdef0cd4667aafb98760b71edf9efc4d4ed26920f0b9f';
+export const N_TEXT_ONLY_TEMPLATE = 'dogs-field-guide-v11-cohort-n';
+export function validNTextOnlyEvidence(evidence) {
+  return evidence?.mode === 'text-only' && evidence.status === 'approved' &&
+    evidence.policyVersion === SOURCE_POLICY && binding(evidence.sourcePolicyAuthorization) &&
+    evidence.sourcePolicyAuthorization.sha256 === N_SOURCE_AUTH_SHA256 && binding(evidence.researchDossier) &&
+    Array.isArray(evidence.imageInputs) && evidence.imageInputs.length === 0 &&
+    !evidence.assetId && !evidence.originalPath &&
+    evidence.rootMorphologyEvidenceRead === true && evidence.rootIdentityApproved === true &&
+    evidence.rootSourceUseApproved === true &&
+    ['uiDisplayAllowed', 'publicSnapshotAllowed', 'rasterExportAllowed'].every(key => evidence.purposes?.[key] === false);
+}
+
+export function validNTextOnlyPublicReference(reference, evidence) {
+  return validNTextOnlyEvidence(evidence) && reference?.mode === 'text-only' &&
+    reference.policyVersion === SOURCE_POLICY && reference.researchDossierSha256 === evidence.researchDossier.sha256 &&
+    Array.isArray(reference.imageInputs) && reference.imageInputs.length === 0 && !reference.assetId &&
+    typeof reference.sourcePage === 'string' && validDogResearchUrl(reference.sourcePage);
+}

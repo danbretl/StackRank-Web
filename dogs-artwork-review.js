@@ -21,6 +21,7 @@ const DATA_URLS = {
 };
 
 // Filled from actual finite L batch files by prepare-dog-portrait-l.mjs.
+const N_BATCH_METADATA_URLS = [];
 const M_BATCH_METADATA_URLS = [
   "/data/dogs/generated-artwork-batch-m01.json",
   "/data/dogs/generated-artwork-batch-m02.json",
@@ -199,6 +200,7 @@ const BATCH_METADATA_URLS = [
   "/data/dogs/generated-artwork-batch-k03.json",
   ...L_BATCH_METADATA_URLS,
   ...M_BATCH_METADATA_URLS,
+  ...N_BATCH_METADATA_URLS,
 ];
 
 const dom = {

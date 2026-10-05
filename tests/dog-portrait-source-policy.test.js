@@ -17,3 +17,6 @@ test('text-only provenance requires approved exact research and cannot masquerad
   assert.equal(validTextOnlyPublicReference({ ...reference, researchDossierSha256: 'e'.repeat(64) }, evidence), false);
   assert.equal(validTextOnlyEvidence({ ...evidence, purposes: { ...evidence.purposes, publicSnapshotAllowed: true } }), false);
 });
+
+import { N_SOURCE_AUTH_SHA256, M_SOURCE_AUTH_SHA256, validNTextOnlyEvidence } from '../scripts/dog-portrait-source-policy.mjs';
+test('N source admission never reuses M authority',()=>{ const binding={path:'/private/source.json',sha256:N_SOURCE_AUTH_SHA256,bytes:10}; const e={mode:'text-only',status:'approved',policyVersion:SOURCE_POLICY,sourcePolicyAuthorization:binding,researchDossier:binding,imageInputs:[],rootMorphologyEvidenceRead:true,rootIdentityApproved:true,rootSourceUseApproved:true,purposes:{uiDisplayAllowed:false,publicSnapshotAllowed:false,rasterExportAllowed:false}}; assert.equal(validNTextOnlyEvidence(e),true); assert.equal(validNTextOnlyEvidence({...e,sourcePolicyAuthorization:{...binding,sha256:M_SOURCE_AUTH_SHA256}}),false); });

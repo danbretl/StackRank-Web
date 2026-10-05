@@ -1,3 +1,4 @@
+import { summarizePortraitCohortN, validatePortraitCohortN } from './dog-portrait-cohort-n.mjs';
 import { createHash } from "node:crypto";
 import { readFile, rename, writeFile } from "node:fs/promises";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -158,36 +159,37 @@ async function main() {
     console.log("Usage: node scripts/dog-portrait-cohort.mjs [--cohort=f|--cohort=g|--cohort=h|--cohort=i|--cohort=j|--cohort=k|--cohort=l] [--check|--refresh-progress]\nDefaults to frozen cohort E. K checks 250 with five disjoint 50-slot workers; earlier cohort checks are unchanged. L preserves its default20-plus-reserves gate unless the bound direct-user rolling amendment is valid; each tranche keeps its own immutable membership. --refresh-progress refreshes derived counters after evidence changes.");
     return;
   }
-  if (args.some((arg) => !["--check", "--refresh-progress", "--cohort=f", "--cohort=g", "--cohort=h", "--cohort=i", "--cohort=j", "--cohort=k", "--cohort=l", "--cohort=m"].includes(arg))) throw new Error("Unknown option; use --help");
+  if (args.some((arg) => !["--check", "--refresh-progress", "--cohort=f", "--cohort=g", "--cohort=h", "--cohort=i", "--cohort=j", "--cohort=k", "--cohort=l", "--cohort=m", "--cohort=n"].includes(arg))) throw new Error("Unknown option; use --help");
   const isF = args.includes("--cohort=f");
   const isG = args.includes("--cohort=g");
   const isH = args.includes("--cohort=h");
   const isI = args.includes("--cohort=i");
   const isJ = args.includes("--cohort=j");
   const isK = args.includes("--cohort=k");
+  const isN = args.includes("--cohort=n");
   const isM = args.includes("--cohort=m");
   const isL = args.includes("--cohort=l");
-  if ([isF, isG, isH, isI, isJ, isK, isL, isM].filter(Boolean).length > 1) throw new Error("Choose one cohort per invocation");
-  const path = new URL(`data/dogs/portrait-cohort-${isM ? "m" : isL ? "l" : isK ? "k" : isJ ? "j" : isI ? "i" : isH ? "h" : isG ? "g" : isF ? "f" : "e"}.json`, root);
+  if ([isF, isG, isH, isI, isJ, isK, isL, isM, isN].filter(Boolean).length > 1) throw new Error("Choose one cohort per invocation");
+  const path = new URL(`data/dogs/portrait-cohort-${isN ? "n" : isM ? "m" : isL ? "l" : isK ? "k" : isJ ? "j" : isI ? "i" : isH ? "h" : isG ? "g" : isF ? "f" : "e"}.json`, root);
   const [cohort, catalog, rightsLedger, generatedArtwork, profiles] = await Promise.all([
     path, new URL("data/dogs/dog-catalog.json", root), new URL("data/dogs/image-rights.json", root), new URL("data/dogs/generated-artwork.json", root), new URL("data/dogs/breed-profiles.json", root),
   ].map(async (file) => JSON.parse(await readFile(file, "utf8"))));
-  if (args.includes("--refresh-progress")) cohort.progress = (isM ? summarizePortraitCohortM : isL ? summarizePortraitCohortL : isK ? summarizePortraitCohortK : isJ ? summarizePortraitCohortJ : isI ? summarizePortraitCohortI : isH ? summarizePortraitCohortH : isG ? summarizePortraitCohortG : isF ? summarizePortraitCohortF : summarizePortraitCohort)(cohort);
+  if (args.includes("--refresh-progress")) cohort.progress = (isN ? summarizePortraitCohortN : isM ? summarizePortraitCohortM : isL ? summarizePortraitCohortL : isK ? summarizePortraitCohortK : isJ ? summarizePortraitCohortJ : isI ? summarizePortraitCohortI : isH ? summarizePortraitCohortH : isG ? summarizePortraitCohortG : isF ? summarizePortraitCohortF : summarizePortraitCohort)(cohort);
   const runSelection = isG ? JSON.parse(await readFile(new URL("data/dogs/portrait-continuation-100.json", root), "utf8")) : undefined;
   let batchingAuthorization;
-  if ((isL || isM) && cohort.batchPolicy?.authorization) {
+  if ((isL || isM || isN) && cohort.batchPolicy?.authorization) {
     const item = cohort.batchPolicy.authorization;
     const raw = await readFile(item.path);
     if (createHash("sha256").update(raw).digest("hex") !== item.sha256 || raw.length !== item.bytes) throw new Error("L direct-user batching authorization bytes changed");
     batchingAuthorization = JSON.parse(raw.toString());
   }
   const trancheFreezes = {}, replacementReceipts = {};
-  if (isL || isM) for (const tranche of cohort.tranches || []) {
+  if (isL || isM || isN) for (const tranche of cohort.tranches || []) {
     const item = tranche.freeze, raw = await readFile(item.path);
     if (createHash("sha256").update(raw).digest("hex") !== item.sha256 || raw.length !== item.bytes) throw new Error("L tranche freeze bytes changed");
     trancheFreezes[tranche.id] = JSON.parse(raw.toString());
   }
-  if (isL || isM) {
+  if (isL || isM || isN) {
     const checkBindings = async value => {
       if (!value || typeof value !== "object") return;
       if (typeof value.path === "string" && typeof value.sha256 === "string" && Number.isSafeInteger(value.bytes)) {
@@ -207,7 +209,8 @@ async function main() {
       await checkBindings(selected[0]);
     }
   }
-  const errors = (isM ? validatePortraitCohortM : isL ? validatePortraitCohortL : isK ? validatePortraitCohortK : isJ ? validatePortraitCohortJ : isI ? validatePortraitCohortI : isH ? validatePortraitCohortH : isG ? validatePortraitCohortG : isF ? validatePortraitCohortF : validatePortraitCohort)(cohort, { catalog, rightsLedger, generatedArtwork, profiles, runSelection, batchingAuthorization, trancheFreezes, replacementReceipts });
+  const baselineIds = isN ? JSON.parse(await readFile(new URL("reports/dogs-generated-artwork/cohort-n/preparation/baseline.json", root), "utf8")).publishedIds : [];
+  const errors = (isN ? validatePortraitCohortN : isM ? validatePortraitCohortM : isL ? validatePortraitCohortL : isK ? validatePortraitCohortK : isJ ? validatePortraitCohortJ : isI ? validatePortraitCohortI : isH ? validatePortraitCohortH : isG ? validatePortraitCohortG : isF ? validatePortraitCohortF : validatePortraitCohort)(cohort, { catalog, rightsLedger, generatedArtwork, profiles, runSelection, batchingAuthorization, trancheFreezes, replacementReceipts, baselineIds });
   if (errors.length) throw new Error(errors.join("\n"));
   if (args.includes("--refresh-progress")) {
     const temporaryPath = `${fileURLToPath(path)}.tmp-${process.pid}`;

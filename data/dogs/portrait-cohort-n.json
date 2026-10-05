@@ -1,0 +1,304 @@
+{
+  "schemaVersion": 1,
+  "cohortId": "dogs-portraits-n",
+  "status": "ACTIVE",
+  "targetAdditionalPairs": 100,
+  "baseline": {
+    "baselinePairs": 802,
+    "catalogIdentities": 1239,
+    "receipt": {
+      "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/preparation/baseline.json",
+      "sha256": "3fe8411eb052891adce735845aee5e240633a1418a5627fdeff05d7f4d53d4e9",
+      "bytes": 2912091
+    }
+  },
+  "batchPolicy": {
+    "mode": "rolling-small",
+    "authority": "direct-user-instruction",
+    "authorization": {
+      "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/run-authorization-001.json",
+      "sha256": "292924b03d5fb2b641dfdef0cd4667aafb98760b71edf9efc4d4ed26920f0b9f",
+      "bytes": 1626
+    },
+    "minimumQualifiedPerTranche": 1,
+    "reservesRequired": false,
+    "targetAdditionalAcceptedPairs": 100
+  },
+  "tranches": [
+    {
+      "id": "n01",
+      "frozenAt": "2026-10-05T06:30:11.079452+00:00",
+      "catalogIds": [
+        "VBO:0200038"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "84cd690d8220bdbb1f07e6ba4743f424b474a98251bfefd1a0edf0d201dfdba1",
+      "freeze": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/tranche-n01-freeze-001.json",
+        "sha256": "c0004a45898c0b329f91d6db320e22332ed339c2227dd3791616ee35dab47ec1",
+        "bytes": 1133
+      }
+    },
+    {
+      "id": "n02",
+      "frozenAt": "2026-10-05T06:32:22.237352+00:00",
+      "catalogIds": [
+        "VBO:0200407"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "4b4a29ac5aeeda7dfd2a554bb9223b0a6ba8eeff79a13d48b24e021d21d03bec",
+      "freeze": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/tranche-n02-freeze-001.json",
+        "sha256": "9d3e7ad23237e5cc8ac297b5b97e6ee4a20ccabb2dadb2e9128e49f7f3c99695",
+        "bytes": 1133
+      }
+    },
+    {
+      "id": "n03",
+      "frozenAt": "2026-10-05T06:32:22.320168+00:00",
+      "catalogIds": [
+        "VBO:0200985"
+      ],
+      "reserveCatalogIds": [],
+      "selectionSha256": "a93dec5017ed02a967a5bfedcb44bb7d12d2f17799b13d62bc46328f1cd097e1",
+      "freeze": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/tranche-n03-freeze-001.json",
+        "sha256": "a1186bfb758bb63bdb9416e6b81a068d2a8276f05fbe40335458ec226452fb22",
+        "bytes": 1133
+      }
+    }
+  ],
+  "amendments": [],
+  "qualificationReceipts": [
+    {
+      "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/qualified-0200038-001.json",
+      "sha256": "62e20eab0df71891ab6be4781c88515dd7123e40896a389eab0c88eff82a6cd6",
+      "bytes": 1697,
+      "catalogId": "VBO:0200038",
+      "generationAuthorized": false
+    },
+    {
+      "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/qualified-0200407-001.json",
+      "sha256": "bd6a5ff75ca7b9e28fa5487777ad907a667ecbdf488adfb4d26804a07a766ef8",
+      "bytes": 1671,
+      "catalogId": "VBO:0200407",
+      "generationAuthorized": false
+    },
+    {
+      "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/qualified-0200985-001.json",
+      "sha256": "4947297650ef6c4fbf81e51d63826d8cac05eb7e43a9e4263435884cab2700a1",
+      "bytes": 1518,
+      "catalogId": "VBO:0200985",
+      "generationAuthorized": false
+    }
+  ],
+  "entries": {
+    "VBO:0200038": {
+      "catalogId": "VBO:0200038",
+      "displayName": "American Cocker Spaniel",
+      "qualification": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/qualified-0200038-001.json",
+        "sha256": "62e20eab0df71891ab6be4781c88515dd7123e40896a389eab0c88eff82a6cd6",
+        "bytes": 1697
+      },
+      "preparation": {
+        "packet": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-a/packet-a01-american-cocker.json",
+          "sha256": "03df53dc69196096cd697f21c0ba4c0be49056fcea71e3b605fc54ce235a5285",
+          "bytes": 11837
+        },
+        "peer": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-b/peer-a01-american-cocker-v2.json",
+          "sha256": "6ccce7d57a3fde5043d8c2a47987390d91a785453a44f11d301b3978280349b4",
+          "bytes": 2039
+        },
+        "trancheId": "n01",
+        "trancheSha256": "84cd690d8220bdbb1f07e6ba4743f424b474a98251bfefd1a0edf0d201dfdba1"
+      },
+      "profile": {
+        "status": "approved",
+        "author": "A",
+        "reviewer": "B",
+        "summarySha256": "37e8884927325c3b03c6144fd56aadad03d5032a9cb7a3b819667c965ad2a153",
+        "shortDescriptionSha256": "10bbe86cd76e5fa9a691d0463701a32a54965b5a58cfc0e593b8b0ce463f1324"
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/run-authorization-001.json",
+          "sha256": "292924b03d5fb2b641dfdef0cd4667aafb98760b71edf9efc4d4ed26920f0b9f",
+          "bytes": 1626
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-a/VBO-0200038-morphology.json",
+          "sha256": "92ab334a9fd6794edd8c639691fffef8cdfc9323ddec2ecc10bef75dc2714049",
+          "bytes": 4057
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "generation": {
+        "attempts": []
+      },
+      "qa": {
+        "status": "pending"
+      },
+      "integration": {
+        "status": "pending"
+      },
+      "publication": {
+        "status": "withheld"
+      }
+    },
+    "VBO:0200407": {
+      "catalogId": "VBO:0200407",
+      "displayName": "Dachshund, Long-Haired",
+      "qualification": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/qualified-0200407-001.json",
+        "sha256": "bd6a5ff75ca7b9e28fa5487777ad907a667ecbdf488adfb4d26804a07a766ef8",
+        "bytes": 1671
+      },
+      "preparation": {
+        "packet": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-b/packet-b01-long.json",
+          "sha256": "c7477ebd1ac6bc8dc90b794b7f7db930666528904e8c2aa2709ea20084dde3e6",
+          "bytes": 13266
+        },
+        "peer": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-c/peer-b01-long.json",
+          "sha256": "01db010d9dc241696ec1f1b3d43cdd7a44b823e21f283a4f8a72a593ccb64a17",
+          "bytes": 1238
+        },
+        "trancheId": "n02",
+        "trancheSha256": "4b4a29ac5aeeda7dfd2a554bb9223b0a6ba8eeff79a13d48b24e021d21d03bec"
+      },
+      "profile": {
+        "status": "approved",
+        "author": "B",
+        "reviewer": "C",
+        "summarySha256": "a64765113c4b2ac9383b157cf1d0e194ed09d122fe07cdadba7a04d63939afae",
+        "shortDescriptionSha256": "fd4ff4618153f27a43552f29171939648b0e48c66ac6b5b3da624540731a8a46"
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/run-authorization-001.json",
+          "sha256": "292924b03d5fb2b641dfdef0cd4667aafb98760b71edf9efc4d4ed26920f0b9f",
+          "bytes": 1626
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-b/0200407/morphology-dossier.json",
+          "sha256": "0c88bca359e4f9a19a16a0649d7d28f6d1ec8ba643eb1fb669f522f7fd8ab440",
+          "bytes": 4417
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "generation": {
+        "attempts": []
+      },
+      "qa": {
+        "status": "pending"
+      },
+      "integration": {
+        "status": "pending"
+      },
+      "publication": {
+        "status": "withheld"
+      }
+    },
+    "VBO:0200985": {
+      "catalogId": "VBO:0200985",
+      "displayName": "Papillon",
+      "qualification": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/qualified-0200985-001.json",
+        "sha256": "4947297650ef6c4fbf81e51d63826d8cac05eb7e43a9e4263435884cab2700a1",
+        "bytes": 1518
+      },
+      "preparation": {
+        "packet": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-c/VBO-0200985-packet.json",
+          "sha256": "4c653ea3efabfcc070d659b91c4c6083f8dca54b9df1baa5f852a9efb16f39a6",
+          "bytes": 9464
+        },
+        "peer": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-a/peer-c01-papillon.json",
+          "sha256": "b11a479ed3be9ca910f4a8e6b08474d81163d97470a783e4e7e70c86d8242258",
+          "bytes": 1323
+        },
+        "trancheId": "n03",
+        "trancheSha256": "a93dec5017ed02a967a5bfedcb44bb7d12d2f17799b13d62bc46328f1cd097e1"
+      },
+      "profile": {
+        "status": "approved",
+        "author": "C",
+        "reviewer": "A",
+        "summarySha256": "ae152444af1419921d7907525ce189605c7ecbb1f911379b35fc9c62b286605d",
+        "shortDescriptionSha256": "63945de30f784a4410919d219e8c79623390f0178a21bee529cbfdbbc0c241a5"
+      },
+      "reference": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/run-authorization-001.json",
+          "sha256": "292924b03d5fb2b641dfdef0cd4667aafb98760b71edf9efc4d4ed26920f0b9f",
+          "bytes": 1626
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-c/VBO-0200985-morphology.json",
+          "sha256": "aa4c624dce3730a535be9f8205f1ccdf12eaab9f6b6b2dba925b6cfe1b96ea3f",
+          "bytes": 4083
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "generation": {
+        "attempts": []
+      },
+      "qa": {
+        "status": "pending"
+      },
+      "integration": {
+        "status": "pending"
+      },
+      "publication": {
+        "status": "withheld"
+      }
+    }
+  },
+  "integrationBatches": [],
+  "publications": [],
+  "progress": {
+    "qualified": 3,
+    "generationCalls": 0,
+    "accepted": 0,
+    "integrated": 0,
+    "published": 0
+  }
+}

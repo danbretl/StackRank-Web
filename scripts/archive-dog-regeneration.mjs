@@ -1,3 +1,4 @@
+import { collectNRegenerationFiles } from './dog-portrait-n-archive.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
@@ -57,7 +58,7 @@ export function collectRegenerationFiles(root, entry, packetPaths) {
 }
 
 export function createRegenerationArchive(root, wave) {
-  if (!/^(?:[jk](?:0[1-9]|10)|l(?:0[1-9]|[1-9]\d|100)|m(?:0[1-9]|[1-9]\d+))$/.test(wave)) throw Error('Expected J/K wave01–10, L wave01–100 or positive numbered M wave');
+  if (!/^(?:[jk](?:0[1-9]|10)|l(?:0[1-9]|[1-9]\d|100)|[mn](?:0[1-9]|[1-9]\d+))$/.test(wave)) throw Error('Expected J/K wave01–10, L wave01–100 or positive numbered M wave');
   const letter = wave[0];
   const ledgerPath = `data/dogs/portrait-cohort-${letter}.json`;
   const cohort = JSON.parse(fs.readFileSync(path.join(root, ledgerPath)));
@@ -71,8 +72,8 @@ export function createRegenerationArchive(root, wave) {
   for (const id of ids) {
     const entry = cohort.entries[id];
     if (entry?.integration?.subwave !== wave || entry.qa.status !== 'approved' || entry.profile.status !== 'approved') throw Error(`Unapproved archive identity: ${id}`);
-    if (letter === 'l' || letter === 'm') {
-      for (const file of (letter === 'm' ? collectMRegenerationFiles : collectLRegenerationFiles)(root, entry)) files.set(file.path, file);
+    if (letter === 'l' || letter === 'm' || letter === 'n') {
+      for (const file of (letter === 'n' ? collectNRegenerationFiles : letter === 'm' ? collectMRegenerationFiles : collectLRegenerationFiles)(root, entry)) files.set(file.path, file);
       continue;
     }
     const packetDir = path.posix.dirname(entry.preparation.packetPath);
@@ -95,8 +96,8 @@ export function createRegenerationArchive(root, wave) {
   if (fs.existsSync(path.join(root, archivePath)) || fs.existsSync(path.join(root, manifestPath))) throw Error('Refusing to replace an existing regeneration archive');
   fs.mkdirSync(path.dirname(path.join(root, archivePath)), { recursive: true });
   const manifest = { schemaVersion: 1, cohortId: cohort.cohortId, wave, createdAt: new Date().toISOString(),
-    catalogIds: ids, selectionSha256: ['l', 'm'].includes(letter) ? release.trancheSha256 : cohort.selectionSha256,
-    ...(['l', 'm'].includes(letter) ? { trancheId: release.trancheId, trancheSha256: release.trancheSha256 } : {}),
+    catalogIds: ids, selectionSha256: ['l', 'm', 'n'].includes(letter) ? release.trancheSha256 : cohort.selectionSha256,
+    ...(['l', 'm', 'n'].includes(letter) ? { trancheId: release.trancheId, trancheSha256: release.trancheSha256 } : {}),
     storage: 'Local ignored archive; no off-machine backup is asserted',
     archivePath, archiveSha256: null, archiveBytes: null,
     fileCount: list.length, uniqueObjectCount: objects.length,

@@ -21,6 +21,14 @@ from datetime import datetime, timezone
 M_SOURCE_AUTH_SHA256 = '9fc88af4a34170def317b17d379570eb7319e40e55d30b05c9fc358529e2fd9e'
 SOURCE_AUTH_SHA256 = 'f846059e89386c25b6f5bf9b65c8ec3642ab83f85c5723e104102ed8d1f1b091'
 
+import importlib.util
+_n_spec = importlib.util.spec_from_file_location('dog_portrait_n_guard', pathlib.Path(__file__).with_name('dog_portrait_n_guard.py'))
+_n_guard = importlib.util.module_from_spec(_n_spec)
+_n_spec.loader.exec_module(_n_guard)
+validate_n_registry = _n_guard.validate_n_registry
+validate_n_approval = _n_guard.validate_n_approval
+N_SOURCE_AUTH_SHA256 = _n_guard.N_SOURCE_AUTH_SHA256
+
 def now():
     return datetime.now(timezone.utc).isoformat()
 
@@ -37,9 +45,11 @@ class Coordinator:
     def __init__(self, registry_path):
         self.registry_path = pathlib.Path(registry_path).resolve()
         self.registry = json.loads(self.registry_path.read_text())
-        if self.registry.get('cohortId') not in ('dogs-portraits-k', 'dogs-portraits-l', 'dogs-portraits-m'):
+        if self.registry.get('cohortId') not in ('dogs-portraits-k', 'dogs-portraits-l', 'dogs-portraits-m', 'dogs-portraits-n'):
             raise ValueError('Wrong coordination cohort')
         self.root = self.registry_path.parent
+        if self.registry['cohortId'] == 'dogs-portraits-n':
+            validate_n_registry(self.registry_path, self.registry)
         self.db_path = self.root / 'coordination.sqlite3'
         with self.connect() as db:
             db.execute('CREATE TABLE IF NOT EXISTS permits (id TEXT PRIMARY KEY, kind TEXT, worker TEXT, thread TEXT, request TEXT UNIQUE, started TEXT, status TEXT, evidence TEXT)')
@@ -134,7 +144,7 @@ class Coordinator:
             # Bind older approval membership to its original immutable freeze.
             selection = receipt.get('selectionSha256')
             tranche_id = receipt.get('trancheId', '')
-            if (self.registry['cohortId'] not in ('dogs-portraits-l', 'dogs-portraits-m')
+            if (self.registry['cohortId'] not in ('dogs-portraits-l', 'dogs-portraits-m', 'dogs-portraits-n')
                     or selection not in self.registry.get('priorSelectionDigests', [])
                     or not isinstance(tranche_id, str) or not tranche_id.startswith(self.registry['cohortId'][-1])
                     or not tranche_id[1:].isdigit()):
@@ -149,13 +159,15 @@ class Coordinator:
                     or not any(member.get('catalogId') == catalog_id and member.get('qualification') == receipt.get('qualification')
                                for member in freeze.get('members', []))):
                 raise ValueError('Prior tranche approval membership or immutable freeze mismatch')
+        if self.registry['cohortId'] == 'dogs-portraits-n':
+            validate_n_approval(self.registry, receipt)
         text_only = receipt.get('inputMode') == 'text-only'
         if text_only:
-            if self.registry['cohortId'] not in ('dogs-portraits-l', 'dogs-portraits-m') or receipt.get('sourcePolicyAuthorization') != self.registry.get('sourcePolicyAuthorization') or not receipt.get('sourcePolicyAuthorization'):
+            if self.registry['cohortId'] not in ('dogs-portraits-l', 'dogs-portraits-m', 'dogs-portraits-n') or receipt.get('sourcePolicyAuthorization') != self.registry.get('sourcePolicyAuthorization') or not receipt.get('sourcePolicyAuthorization'):
                 raise ValueError('Text-only mode needs the bound direct-user L policy amendment')
             if receipt.get('imageInputs') != [] or 'reference' in receipt or receipt.get('additionalReferences'):
                 raise ValueError('Text-only approval cannot contain photo inputs')
-            if receipt['sourcePolicyAuthorization'].get('sha256') != (M_SOURCE_AUTH_SHA256 if self.registry['cohortId'] == 'dogs-portraits-m' else SOURCE_AUTH_SHA256):
+            if receipt['sourcePolicyAuthorization'].get('sha256') != (N_SOURCE_AUTH_SHA256 if self.registry['cohortId'] == 'dogs-portraits-n' else M_SOURCE_AUTH_SHA256 if self.registry['cohortId'] == 'dogs-portraits-m' else SOURCE_AUTH_SHA256):
                 raise ValueError('Unknown source policy amendment')
         for key in (('packet', 'prompt', 'researchDossier', 'sourcePolicyAuthorization') if text_only else ('packet', 'prompt', 'reference')):
             item = receipt[key]
@@ -352,12 +364,12 @@ def main():
         value = c.commons_fetch(args.worker, args.thread, args.catalog_id, args.url, args.output, args.root_metadata_adjudication)
     elif args.action == 'image-acquire':
         evidence = c.image_preflight(args.worker, args.thread, args.catalog_id, args.approval)
-        if c.registry['cohortId'] == 'dogs-portraits-m' and json.loads(pathlib.Path(args.approval).read_text()).get('authorizedAttemptId') != args.attempt:
+        if c.registry['cohortId'] in ('dogs-portraits-m', 'dogs-portraits-n') and json.loads(pathlib.Path(args.approval).read_text()).get('authorizedAttemptId') != args.attempt:
             raise ValueError('M attempt must equal dedicated approved attempt')
         permit = c.acquire('image', args.worker, args.thread, args.attempt, evidence, args.catalog_id)
         value = {**evidence, 'permit': permit, 'attemptId': args.attempt,
                  'preflightSucceeded': True, 'checkedAt': now(), 'configuredOperatorModel': 'gpt-6.1-sol',
-                 'configuredReasoningEffort': 'high' if c.registry['cohortId'] in ('dogs-portraits-l', 'dogs-portraits-m') else 'xhigh',
+                 'configuredReasoningEffort': 'high' if c.registry['cohortId'] in ('dogs-portraits-l', 'dogs-portraits-m', 'dogs-portraits-n') else 'xhigh',
                  'actualRuntimeModelIdentifierDisclosed': False}
         directory = pathlib.Path(c.owner(args.worker, args.thread)['stageRoot']) / 'preflights'
         directory.mkdir(exist_ok=True)

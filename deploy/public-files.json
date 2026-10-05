@@ -1,5 +1,5 @@
 {
-  "$comment": "StackRank deployment-file contract. The public site is the dependency closure of these entries plus the declared dynamic families; every other tracked path needs an exclusion rule. See notes/testing/deployment-file-contract.md.",
+  "$comment": "StackRank deployment-file contract. The staged public site is the closure of these entries, supported static references and declared dynamic families; discovery is bounded, not a JavaScript evaluator; every other tracked path needs an exclusion rule. See notes/testing/deployment-file-contract.md.",
   "schemaVersion": 1,
   "siteOrigins": ["https://www.stackrankapp.com", "https://stackrankapp.com"],
   "entries": [

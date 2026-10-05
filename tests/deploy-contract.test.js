@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { execFileSync } from "node:child_process";
+import { execFileSync, spawnSync } from "node:child_process";
 import crypto from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
@@ -482,13 +482,93 @@ test("staged-output verification fails when a required asset is omitted, altered
   }
 });
 
-test("filesystem input mode builds without Git metadata but cannot classify", () => {
+test("missing Git fails by default; explicit local filesystem mode cannot classify", () => {
   const fixture = makeFixture({ track: false });
   try {
-    const plan = planDeployment({ root: fixture.root });
+    expectProblems(() => planDeployment({ root: fixture.root }), "unsafe-input", /must be the Git top level/);
+    const plan = planDeployment({ root: fixture.root, inputMode: "filesystem" });
     assert.equal(plan.inputs.mode, "filesystem");
     assert.equal(plan.classification.status, "not-run");
     assert.ok(plan.inventory.some((entry) => entry.path === "assets/portraits/one.webp"));
+  } finally {
+    fixture.cleanup();
+  }
+});
+
+test("build CLI fails closed without usable Git before replacing output", () => {
+  for (const scenario of ["no metadata", "git unavailable"]) {
+    const fixture = makeFixture({ track: scenario !== "no metadata" });
+    try {
+      for (const file of ["deploy/build.mjs", "deploy/contract.mjs"]) {
+        writeFile(fixture.root, file, fs.readFileSync(path.join(repoRoot, file)));
+      }
+      const output = path.join(fixture.parent, "output");
+      writeFile(output, BUILD_MARKER, "owned output");
+      writeFile(output, "sentinel.txt", "preserve on failed build");
+      const before = treeDigest(fixture.parent);
+      const result = spawnSync(process.execPath, [path.join(fixture.root, "deploy/build.mjs"), "--build-dir", output], {
+        encoding: "utf8",
+        env: { ...process.env, VERCEL: "1", ...(scenario === "git unavailable" ? { PATH: path.join(fixture.parent, "missing-bin") } : {}) },
+      });
+      assert.notEqual(result.status, 0, scenario);
+      assert.match(result.stderr, /must be the Git top level/, scenario);
+      assert.equal(treeDigest(fixture.parent), before, "failed Git validation must not alter source or previous output");
+    } finally {
+      fixture.cleanup();
+    }
+  }
+});
+
+test("Vercel rejects fallback overrides; local filesystem mode remains explicit", () => {
+  const fixture = makeFixture({ track: false });
+  try {
+    for (const file of ["deploy/build.mjs", "deploy/contract.mjs"]) {
+      writeFile(fixture.root, file, fs.readFileSync(path.join(repoRoot, file)));
+    }
+    const output = path.join(fixture.parent, "output");
+    for (const inputs of ["auto", "filesystem"]) {
+      for (const host of [{ VERCEL: "1", VERCEL_ENV: "preview" }, { VERCEL: "", VERCEL_ENV: "production" }]) {
+        const result = spawnSync(process.execPath, [path.join(fixture.root, "deploy/build.mjs"), "--build-dir", output, "--inputs", inputs], {
+          encoding: "utf8", env: { ...process.env, ...host },
+        });
+        assert.notEqual(result.status, 0);
+        assert.match(result.stderr, /Vercel builds require --inputs git/);
+        assert.equal(fs.existsSync(output), false);
+      }
+    }
+    const local = spawnSync(process.execPath, [path.join(fixture.root, "deploy/build.mjs"), "--build-dir", output, "--inputs", "filesystem"], {
+      encoding: "utf8", env: { ...process.env, VERCEL: "", VERCEL_ENV: "" },
+    });
+    assert.equal(local.status, 0, local.stderr);
+    assert.match(local.stdout, /classification not-run/);
+  } finally {
+    fixture.cleanup();
+  }
+});
+
+test("JS discovery documents its supported templates and computed-path blind spots", () => {
+  for (const literal of ["/data/${id}.json", "./assets/${name}.webp", "${base}${name}.json"]) {
+    assert.ok(extractJsReferences("fetch(`" + literal + "`)").constructions.some((entry) => entry.literal === literal));
+  }
+  // These expressions are deliberately not claimed to be covered by the regex scanner.
+  for (const source of ['fetch(`${base}/${name}`)', 'fetch(`/data/\n${id}.json`)', 'fetch(base + name)', 'fetch("settings")']) {
+    const extracted = extractJsReferences(source);
+    assert.deepEqual(extracted.refs, [], source);
+    assert.deepEqual(extracted.constructions, [], source);
+    assert.deepEqual(extracted.problems, [], source);
+  }
+});
+
+test("an explicit manifest family protects a dependency whose consumer uses variables", () => {
+  const files = baseFiles();
+  files["app.js"] += '\nconst image = `${base}/${name}`;\n';
+  const fixture = makeFixture({ files });
+  try {
+    const portrait = "assets/portraits/one.webp";
+    const plan = planDeployment({ root: fixture.root });
+    assert.ok(plan.inventory.some((entry) => entry.path === portrait));
+    fs.rmSync(path.join(fixture.root, portrait));
+    expectProblems(() => planDeployment({ root: fixture.root }), "missing-reference", /family portraits/);
   } finally {
     fixture.cleanup();
   }
@@ -655,7 +735,7 @@ test("the repository contract keeps authoring, tooling and assistant files out o
 
 test("Vercel builds the staged contract output and .vercelignore keeps the builder and public inputs", () => {
   const vercel = readRepoJson("vercel.json");
-  assert.equal(vercel.buildCommand, "node deploy/build.mjs --build-dir dist");
+  assert.equal(vercel.buildCommand, "node deploy/build.mjs --build-dir dist --inputs git");
   assert.equal(vercel.outputDirectory, "dist/public");
   assert.equal(vercel.installCommand, "");
   const buildSource = new Set(modelIgnoreOutput(repoRoot, ".vercelignore").map((entry) => entry.path));

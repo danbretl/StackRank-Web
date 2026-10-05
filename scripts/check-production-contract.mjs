@@ -4,8 +4,9 @@
 //   node scripts/check-production-contract.mjs [--origin URL] [--full] [--all-excluded]
 //                                             [--rate 10] [--concurrency 2]
 //
-// Every public file must be served with the candidate's bytes (WebPs are
-// checked by status/length plus a hashed sample unless --full), excluded paths
+// Compare every public file with the candidate inventory (WebPs are
+// checked by status/length plus a hashed sample unless --full; a missing or
+// invalid HEAD length requires a GET/hash fallback), excluded paths
 // must 404 (every path this contract removed from the old ignore-based output
 // plus a per-class sample, or all with --all-excluded), and configured
 // cache/MIME headers must apply.
@@ -14,12 +15,12 @@
 // (x-vercel-mitigated), the run stops as "blocked" instead of retrying: wait
 // for the mitigation to expire and rerun at a lower --rate.
 
-import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { compareWithModel, contractDigest, modelIgnoreOutput, planDeployment } from "../deploy/contract.mjs";
+import { verifyPublicResponse } from "../deploy/production-response.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const args = process.argv.slice(2);
@@ -33,7 +34,6 @@ const allExcluded = args.includes("--all-excluded");
 const concurrency = Number(option("--concurrency", "2"));
 const rate = Number(option("--rate", "10"));
 
-const sha256 = (buffer) => crypto.createHash("sha256").update(buffer).digest("hex");
 const urlFor = (file) => `${origin}/${file.split("/").map(encodeURIComponent).join("/")}`;
 
 const mapWithConcurrency = async (items, limit, worker) => {
@@ -97,7 +97,7 @@ const cacheRules = vercel.headers
     value: rule.headers.find(({ key }) => key.toLowerCase() === "cache-control").value,
   }));
 
-const plan = planDeployment({ root });
+const plan = planDeployment({ root, inputMode: "git" });
 const inventory = plan.inventory;
 const isPortrait = (file) => file.startsWith("assets/dogs/generated/");
 const portraitSample = new Set(inventory.filter((entry) => isPortrait(entry.path)).filter((_, index) => index % 64 === 0).map((entry) => entry.path));
@@ -126,21 +126,13 @@ const safely = (worker) => async (entry) => {
 
 const files = await mapWithConcurrency(inventory, concurrency, safely(async (entry) => {
   const hashBody = full || !isPortrait(entry.path) || portraitSample.has(entry.path);
-  const response = await request(urlFor(entry.path), hashBody ? "GET" : "HEAD");
-  const result = { path: entry.path, status: response.status, method: hashBody ? "GET" : "HEAD" };
-  if (hashBody) {
-    const body = Buffer.from(await response.arrayBuffer());
-    result.sha256Match = sha256(body) === entry.sha256 && body.length === entry.bytes;
-  } else {
-    const length = Number(response.headers.get("content-length"));
-    result.lengthMatch = Number.isFinite(length) && length > 0 ? length === entry.bytes : null;
-  }
+  const { response, result, bytesVerified } = await verifyPublicResponse({ entry, url: urlFor(entry.path), hashBody, request });
   const type = response.headers.get("content-type") || "";
   const typePattern = expectedType[path.posix.extname(entry.path)];
   result.typeOk = typePattern ? typePattern.test(type) : true;
   const cacheRule = cacheRules.find((rule) => rule.regex.test(`/${entry.path}`));
   result.cacheOk = cacheRule ? response.headers.get("cache-control") === cacheRule.value : true;
-  const ok = response.status === 200 && result.sha256Match !== false && result.lengthMatch !== false && result.typeOk && result.cacheOk;
+  const ok = bytesVerified && result.typeOk && result.cacheOk;
   if (!ok) failures.push({ kind: "public-file", ...result, contentType: type, cacheControl: response.headers.get("cache-control") });
   for (const product of entry.products) {
     servedByProduct[product] ||= { files: 0, ok: 0 };
@@ -168,6 +160,7 @@ const report = {
     publicFiles: files.length,
     hashed: files.filter((entry) => entry.method === "GET").length,
     headChecked: files.filter((entry) => entry.method === "HEAD").length,
+    headFallbackHashed: files.filter((entry) => entry.headFallback).length,
     excludedChecked: excluded.filter((entry) => entry.status !== "blocked").length,
     excludedSelected: excludedTargets.length,
     removedByContractChecked: excluded.filter((entry) => entry.removedByContract && entry.status !== "blocked").length,

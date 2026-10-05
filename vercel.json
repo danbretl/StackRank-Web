@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "",
-  "buildCommand": "node deploy/build.mjs --build-dir dist",
+  "buildCommand": "node deploy/build.mjs --build-dir dist --inputs git",
   "outputDirectory": "dist/public",
   "trailingSlash": false,
   "redirects": [

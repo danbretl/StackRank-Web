@@ -6,7 +6,7 @@
 //                                         determinism + source-preservation checks,
 //                                         evidence under reports/deployment-contract/
 //
-// Options: --build-dir <dir> (default dist), --inputs auto|git|filesystem,
+// Options: --build-dir <dir> (default dist), --inputs git|auto|filesystem (default git),
 // --report-dir <dir> (with --check), --compare-ignore <file> (default .vercelignore).
 
 import { execFileSync } from "node:child_process";
@@ -29,7 +29,7 @@ import {
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 const parseArgs = (argv) => {
-  const options = { buildDir: "dist", inputs: "auto", check: false, reportDir: null, compareIgnore: ".vercelignore" };
+  const options = { buildDir: "dist", inputs: "git", check: false, reportDir: null, compareIgnore: ".vercelignore" };
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
     const value = () => {
@@ -44,6 +44,10 @@ const parseArgs = (argv) => {
     else if (arg === "--report-dir") options.reportDir = value();
     else if (arg === "--compare-ignore") options.compareIgnore = value();
     else throw new Error(`Unknown option ${arg}`);
+  }
+  // Vercel must classify every tracked input, including when an operator overrides the CLI.
+  if ((process.env.VERCEL === "1" || process.env.VERCEL_ENV === "production") && options.inputs !== "git") {
+    throw new Error("Vercel builds require --inputs git; filesystem/auto inputs are local-only");
   }
   return options;
 };

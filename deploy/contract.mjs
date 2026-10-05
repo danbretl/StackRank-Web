@@ -200,7 +200,7 @@ const gitTopLevel = (root) => {
   }
 };
 
-export const listInputs = (root, { mode = "auto" } = {}) => {
+export const listInputs = (root, { mode = "git" } = {}) => {
   let resolvedMode = mode;
   let reason = `requested ${mode}`;
   if (mode === "auto") {
@@ -285,6 +285,10 @@ export const extractCssReferences = (text) => {
 /**
  * Module specifiers resolve against the module URL; other path-like string
  * literals are treated as document-relative requests (fetch, element src).
+ * This is bounded regex discovery, not JS evaluation: variable-only paths,
+ * concatenation, multiline/nested templates and extensionless bare filenames
+ * can escape detection. Declare data-driven assets as families and exercise
+ * their consumers in staged browser tests; see deployment-file-contract.md.
  */
 export const extractJsReferences = (text) => {
   const refs = [];
@@ -974,7 +978,7 @@ export const verifyOutput = (publicDir, inventory) => {
 // Orchestration
 
 /** Resolve, classify and inventory without writing anything. Throws ContractError on any problem. */
-export const planDeployment = ({ root, declarationPath = DEFAULT_DECLARATION, routingPath = DEFAULT_ROUTING, inputMode = "auto" }) => {
+export const planDeployment = ({ root, declarationPath = DEFAULT_DECLARATION, routingPath = DEFAULT_ROUTING, inputMode = "git" }) => {
   const realRoot = fs.realpathSync(root);
   const declaration = loadDeclaration(realRoot, declarationPath);
   const routing = loadRouting(realRoot, routingPath);
@@ -1061,7 +1065,7 @@ export const buildDeployment = ({
   buildDir = "dist",
   declarationPath = DEFAULT_DECLARATION,
   routingPath = DEFAULT_ROUTING,
-  inputMode = "auto",
+  inputMode = "git",
   compareIgnoreFile = ".vercelignore",
 } = {}) => {
   const plan = planDeployment({ root, declarationPath, routingPath, inputMode });

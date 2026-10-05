@@ -6,7 +6,7 @@ export const mDigest = kDigest;
 const hash = value => /^[a-f0-9]{64}$/.test(value || '');
 const text = value => typeof value === 'string' && value.trim().length > 0;
 const binding = value => text(value?.path) && hash(value?.sha256) && Number.isSafeInteger(value?.bytes) && value.bytes > 0;
-const wave = value => /^m(?:0[1-9]|[1-9]\d|100)$/.test(value || '');
+const wave = value => /^m(?:0[1-9]|[1-9]\d+)$/.test(value || '');
 const rawDigest = value => createHash('sha256').update(value).digest('hex');
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
@@ -55,7 +55,7 @@ export function validatePortraitCohortM(cohort, { catalog, rightsLedger, generat
   const tranches = new Map(), selected = new Map();
   for (const tranche of cohort.tranches) {
     const ids = tranche.catalogIds, reserves = tranche.reserveCatalogIds;
-    fail(wave(tranche.id) && !tranches.has(tranche.id), 'M tranche ID must be unique m01–m100');
+    fail(wave(tranche.id) && !tranches.has(tranche.id), 'M tranche ID must be unique positive numbered M wave');
     fail(Array.isArray(ids) && Array.isArray(reserves) && ids.length > 0 && ids.length <= 100, `${tranche.id}: exact primary/reserve membership required`);
     if (!Array.isArray(ids) || !Array.isArray(reserves)) continue;
     fail(new Set([...ids, ...reserves]).size === ids.length + reserves.length, `${tranche.id}: duplicate primary/reserve identity`);
@@ -131,7 +131,7 @@ export function validatePortraitCohortM(cohort, { catalog, rightsLedger, generat
   const released = new Set(), releaseWaves = new Set();
   for (const batch of cohort.integrationBatches) {
     const tranche = tranches.get(batch.trancheId), ids = batch.catalogIds;
-    fail(wave(batch.subwave) && !releaseWaves.has(batch.subwave), 'M release wave must be unique m01–m100');
+    fail(wave(batch.subwave) && !releaseWaves.has(batch.subwave), 'M release wave must be unique positive numbered M wave');
     releaseWaves.add(batch.subwave);
     fail(tranche && batch.trancheSha256 === tranche.selectionSha256 && Array.isArray(ids) && ids.length > 0 && batch.count === ids.length && batch.batchManifest === `data/dogs/generated-artwork-batch-${batch.subwave}.json`, 'M integrated release must bind exact tranche/subset and batch manifest');
     fail(binding(batch.contactSheet) && binding(batch.rootRelease), 'M release needs reviewed contact sheet and exact root release receipt');

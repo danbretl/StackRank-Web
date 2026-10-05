@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "cohortId": "dogs-portraits-m",
+  "catalogId": "VBO:0200142",
+  "status": "root-verified-local-generation-hold-archive",
+  "verifiedAt": "2026-10-05T01:49:04.731468+00:00",
+  "archive": {
+    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/belgian-hold-50d10374d831a8d972d78ae8ac5987fae18bfbd039ab6075fd195813f997a97b.tar.gz",
+    "sha256": "50d10374d831a8d972d78ae8ac5987fae18bfbd039ab6075fd195813f997a97b",
+    "bytes": 8614140
+  },
+  "payloadObjectsVerified": 48,
+  "receipt": {
+    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/belgian-generation-hold-archive-receipt-067-001.json",
+    "sha256": "b0fb1d813d385c1d193043f0f45b18e56bd3e1e68c60b69c81fcd26006423532",
+    "bytes": 20652
+  },
+  "hold": {
+    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/hold-0200142-generation-001.json",
+    "sha256": "be022a6eb0213c3173b02e47e03dc2cf457e98bd2453dc3fab634b39bd22021d",
+    "bytes": 1701
+  },
+  "freezeAndQueueCompanions": [
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/tranche-m93-freeze-001.json",
+      "sha256": "6a38da7d9148e2442dd30270b0a79d70e8fa12d735c7956c2b93a76785aaf459",
+      "bytes": 7969
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/generation-ready-text-m93-001.json",
+      "sha256": "4e89607cd3b69e61e660fc4f865329c577cf37f1ed93c740fd75368d8ab24738",
+      "bytes": 3071
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/generation-ready-text-m93-002.json",
+      "sha256": "b03e5721946df49ebabe58cac57250dc1af116655068fc2d9f57ba22d26c0fbe",
+      "bytes": 2847
+    },
+    {
+      "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/generation-ready-text-m93-003.json",
+      "sha256": "edfa86b655264aba4a58b3ed284b43ce9561bb8381dd7034853c3515bc4528cc",
+      "bytes": 2858
+    }
+  ],
+  "offMachineBackupVerified": false,
+  "completeArchive": {
+    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/belgian-hold-complete-cf45053d7f76ccee54da7189ba663ee64e6f21a821991686df250be38b5e7e38.tar.gz",
+    "sha256": "cf45053d7f76ccee54da7189ba663ee64e6f21a821991686df250be38b5e7e38",
+    "bytes": 8620135
+  },
+  "completePayloadObjectsVerified": 52,
+  "completeReceipt": {
+    "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-b/belgian-generation-hold-archive-receipt-067-002.json",
+    "sha256": "4e8d0741b74159af8783522d7703f70a8fd65b8e16831d2bc124566cb4e1bbb5",
+    "bytes": 14270
+  },
+  "completeVerifiedAt": "2026-10-05T01:57:15.575943+00:00",
+  "additionalGenerationHolds": [
+    {
+      "catalogId": "VBO:0200931",
+      "archive": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/nebolish-hold-complete-9ddf9dcf3b14049cee5d79e777a680d7244f2ce4fa8c0039fd84cb8e8d587a01.tar.gz",
+        "sha256": "9ddf9dcf3b14049cee5d79e777a680d7244f2ce4fa8c0039fd84cb8e8d587a01",
+        "bytes": 10097235
+      },
+      "completePayloadObjectsVerified": 70,
+      "receipt": {
+        "path": "/Users/danbretl/src/stackrank/reports/dogs-generated-artwork/cohort-m/worker-c/nebolish-generation-hold-archive-receipt-064-001.json",
+        "sha256": "8fab76de8ecff96fd740e82f510cbd743f5646512262b68abdb5040e7d4055b3",
+        "bytes": 18464
+      },
+      "verifiedAt": "2026-10-05T02:02:26.754276+00:00",
+      "offMachineBackupVerified": false
+    }
+  ]
+}

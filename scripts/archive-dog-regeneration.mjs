@@ -57,7 +57,7 @@ export function collectRegenerationFiles(root, entry, packetPaths) {
 }
 
 export function createRegenerationArchive(root, wave) {
-  if (!/^(?:[jk](?:0[1-9]|10)|[lm](?:0[1-9]|[1-9]\d|100))$/.test(wave)) throw Error('Expected J/K wave01–10 or L wave01–100');
+  if (!/^(?:[jk](?:0[1-9]|10)|l(?:0[1-9]|[1-9]\d|100)|m(?:0[1-9]|[1-9]\d+))$/.test(wave)) throw Error('Expected J/K wave01–10, L wave01–100 or positive numbered M wave');
   const letter = wave[0];
   const ledgerPath = `data/dogs/portrait-cohort-${letter}.json`;
   const cohort = JSON.parse(fs.readFileSync(path.join(root, ledgerPath)));

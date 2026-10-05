@@ -58,7 +58,7 @@ test('qualified replacements preserve frozen holds and the 100-published-pair ta
   const c = seed(), ids = Array.from({ length: 101 }, (_, n) => `VBO:${String(200000 + n).padStart(7, '0')}`);
   c.batchPolicy = policy();
   c.qualificationReceipts = ids.map(catalogId => ({ ...binding, catalogId, generationAuthorized: false }));
-  c.tranches = [tranche('m01', ids.slice(0, 100)), tranche('m02', ids.slice(100))];
+  c.tranches = [tranche('m01', ids.slice(0, 100)), tranche('m101', ids.slice(100))];
   c.progress = summarizePortraitCohortM(c);
   assert.ok(validatePortraitCohortM(c, options(c)).some(message => message.includes('exceeds100')));
   const old = ids[0], replacement = ids[100], prompt = 'Exact failed portrait prompt';
@@ -70,7 +70,7 @@ test('qualified replacements preserve frozen holds and the 100-published-pair ta
       promptTemplateVersion: 'dogs-field-guide-v9-cohort-m', native: binding, originalOutputSha256: hash, originalOutputPath: '/native.png', rejectionReason: 'Tail incomplete' }] },
     qa: { status: 'rejected' }, integration: { status: 'held' }, publication: { status: 'held' }, hold: { status: 'held', receipt: binding, reason: 'Tail incomplete' } };
   const body = { type: 'qualified-hold-replacement', at: '2026-10-03T22:00:00Z', heldCatalogId: old, replacementCatalogId: replacement,
-    holdReceipt: binding, replacementQualification: binding, replacementTrancheId: 'm02', replacementTrancheSha256: c.tranches[1].selectionSha256 };
+    holdReceipt: binding, replacementQualification: binding, replacementTrancheId: 'm101', replacementTrancheSha256: c.tranches[1].selectionSha256 };
   c.amendments.push({ ...body, receipt: binding }); c.progress = summarizePortraitCohortM(c);
   const opts = { ...options(c), replacementReceipts: { [hash]: body } };
   const frozenDigest = c.tranches[0].selectionSha256;

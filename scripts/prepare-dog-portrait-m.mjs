@@ -8,7 +8,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 export async function syncMReviewMetadata(root, { apply = false } = {}) {
   const filenames = (await fs.readdir(path.join(root, 'data/dogs')))
-    .filter(name => /^generated-artwork-batch-m(?:0[1-9]|[1-9]\d|100)\.json$/.test(name)).sort();
+    .filter(name => /^generated-artwork-batch-m(?:0[1-9]|[1-9]\d+)\.json$/.test(name)).sort();
   const urls = filenames.map(name => `/data/dogs/${name}`);
   const filename = path.join(root, 'dogs-artwork-review.js');
   const old = await fs.readFile(filename, 'utf8');

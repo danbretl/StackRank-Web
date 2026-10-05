@@ -5246,6 +5246,38 @@
       "retrievedAt": "2026-10-02T00:00:00.000Z"
     },
     {
+      "id": "breed-profile-vbo-0200843-1",
+      "kind": "breed-reference",
+      "name": "A. Croxton Smith — Country Life, 30 October 1920, pp.576–578",
+      "url": "https://archive.org/details/sim_country-life_1920-10-30_48_1243",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-10-05T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0200843-2",
+      "kind": "breed-reference",
+      "name": "David Hancock — Sighthounds in India, essay885",
+      "url": "https://www.davidhancockondogs.com/archives/archive_790_present/885.html",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-10-05T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0200843-3",
+      "kind": "breed-reference",
+      "name": "Dr. Deepanjyoti Gayan — Indian Dog Breeds: Induction in CAPFs, pp.41–43",
+      "url": "https://www.mha.gov.in/sites/default/files/2023-05/PoliceK9Journal_23052023.pdf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-10-05T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0200843-4",
+      "kind": "breed-reference",
+      "name": "S. Sajid Ali et al. — ISAGBCON2022, abstract ABST-1-054, p.132",
+      "url": "https://www.isagb.org/assets/uploads/isagbpdf-1722051870.pdf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-10-05T00:00:00.000Z"
+    },
+    {
       "id": "breed-profile-vbo-0200844-1",
       "kind": "breed-reference",
       "name": "National Kennel Club — Majestic Tree Hound standard",
@@ -5964,6 +5996,30 @@
       "url": "https://vgl.ucdavis.edu/sites/g/files/dgvnsk15116/files/media/documents/ScottishCollie20191210_0.pdf",
       "license": "Citation-only factual reference",
       "retrievedAt": "2026-10-01T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0200974-1",
+      "kind": "breed-reference",
+      "name": "Welsh Grey — Carpenter firsthand1994 account, reproduced by original publisher",
+      "url": "https://www.bordercolliemuseum.org/BCCousins/ExtinctBreeds/ExtinctBreeds.html",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-10-05T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0200974-2",
+      "kind": "breed-reference",
+      "name": "Welsh breeds — lost and found, David Hancock original historical article",
+      "url": "https://www.davidhancockondogs.com/archives/archive_900_present/1023.html",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-10-05T00:00:00.000Z"
+    },
+    {
+      "id": "breed-profile-vbo-0200974-3",
+      "kind": "breed-reference",
+      "name": "Barrios et al2019 — historical Patagonian sheepdog review, exact OldWelshGrey photographs",
+      "url": "https://pdfs.semanticscholar.org/befa/17ce3373e4ad41ddefa8950c068537feb1a5.pdf",
+      "license": "Citation-only factual reference",
+      "retrievedAt": "2026-10-05T00:00:00.000Z"
     },
     {
       "id": "breed-profile-vbo-0200976-1",
@@ -23309,19 +23365,27 @@
       "reviewStatus": "generated"
     },
     "VBO:0200843": {
-      "summary": "Mahratta Greyhound is a dog breed or regional type.",
+      "summary": "In a 1920 account, the Mahratta Greyhound was a hunting hound used by Indian chieftains to pursue leopard and wild pig, and was described as scarcer than the Rampur Hound. The regional type is also associated with Maharashtra in western India.",
+      "shortDescription": "An Indian hunting hound associated with Maharashtra, used by chieftains to pursue leopard and wild pig.",
       "interestingFact": "",
       "sizeBand": "unknown",
       "typeLabel": "Recognized breed or regional type",
       "typeBasis": "catalog",
-      "originRegions": [],
+      "originRegions": [
+        "India"
+      ],
       "historicalRoots": "",
       "editorialFamilies": [],
       "registryGroups": [],
       "sourceIds": [
-        "vbo-2026-04-15"
+        "vbo-2026-04-15",
+        "stackrank-editorial-review-2026-10-05",
+        "breed-profile-vbo-0200843-1",
+        "breed-profile-vbo-0200843-2",
+        "breed-profile-vbo-0200843-3",
+        "breed-profile-vbo-0200843-4"
       ],
-      "reviewStatus": "generated"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0200844": {
       "summary": "Under its NKC standard, the Majestic Tree Hound is affectionate and sensitive to kindness or correction. Two-year-old Bull sought attention from anyone who offered it; his keeper described littermate Tank as intelligent and independent. The pair enjoyed country roaming and lawn lounging, but also chased deer for miles.",
@@ -25423,7 +25487,8 @@
       "reviewStatus": "source-reviewed"
     },
     "VBO:0200974": {
-      "summary": "Old Welsh Grey Sheepdog is a dog breed or regional type associated with Wales.",
+      "summary": "Working cattle on Welsh hill farms, this old sheepdog type persisted locally into the 1980s. Barbara Carpenter reported seeing remnants bred within one district, even as Border Collies replaced older British herding types. A c.1898 photograph identified by historian David Hancock places one beside a Welsh drover.",
+      "shortDescription": "An old Welsh herding type remembered in hill-farm cattle work and droving, with remnants documented in the 1980s.",
       "interestingFact": "",
       "sizeBand": "unknown",
       "typeLabel": "Recognized breed or regional type",
@@ -25436,9 +25501,13 @@
       "registryGroups": [],
       "sourceIds": [
         "vbo-2026-04-15",
-        "wikidata-dog-breeds-2026-09-21"
+        "wikidata-dog-breeds-2026-09-21",
+        "stackrank-editorial-review-2026-10-05",
+        "breed-profile-vbo-0200974-1",
+        "breed-profile-vbo-0200974-2",
+        "breed-profile-vbo-0200974-3"
       ],
-      "reviewStatus": "source-reviewed"
+      "reviewStatus": "editor-reviewed"
     },
     "VBO:0200975": {
       "summary": "Olde Boston Bulldogge is a dog breed or regional type.",

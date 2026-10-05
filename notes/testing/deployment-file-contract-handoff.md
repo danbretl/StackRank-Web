@@ -9,6 +9,53 @@ task, evidence and how to continue. Bulky evidence is in the ignored
 `reports/deployment-contract/` tree of the machine that ran the task (not in Git); the summaries
 below are the durable record.
 
+## Follow-up hardening — published release, October 5, 2026
+
+Dan requested all three review follow-ups and explicitly approved publishing them. Release
+`ad49091e532a84ace8b9cf6cc41b98e35624ba3b` is pushed to `main` and Vercel production is READY:
+
+- Deployment: `dpl_Eg5BUtS6qCerWheSvh2iP7BXswcP`
+- Inspector: https://vercel.com/danbretl-2590s-projects/stackrank/Eg5BUtS6qCerWheSvh2iP7BXswcP
+- Release CI: https://github.com/danbretl/StackRank-Web/actions/runs/37269022058 — passed on attempt 2
+
+The initial CI attempt passed all non-browser checks and 42 of 43 browser flows, but timed out on
+the unchanged Dogs comparison focus assertion (`run-e2e-smoke.cjs:1249`). The isolated flow passed
+again locally (`reports/e2e/runs/2026-10-05T054646Z`), and a rerun at the **same commit**, with no
+code or test changes, passed the full CI suite. This records the intermittent failure rather than
+claiming the first attempt was green.
+
+The release implements:
+
+- Git is required by default in the build/planning APIs and CLI. Vercel passes `--inputs git`
+  explicitly and rejects fallback overrides. The production checker also requires Git.
+- A successful HEAD without a valid content length requires GET byte-count/SHA-256 verification.
+  Valid mismatching lengths fail; fallback requests retain rate limiting and mitigation handling.
+- The guide and extraction tests now define the regex scanner's limits and require explicit
+  dependencies plus consumer coverage for computed URLs. No universal JS parsing claim is made.
+
+`npm run verify` passed on October 5 at 05:32 UTC: **574 Node, 40 Python, 24 Deno, 43 staged browser
+flows**, all validators, syntax/cache checks, and deterministic builds. Focused hardening coverage
+passes 31 tests. Reports:
+
+- `reports/runs/2026-10-05T053023Z/summary.json`
+- `reports/deployment-contract/runs/2026-10-05T053042Z/check-evidence.json`
+- `reports/e2e/runs/2026-10-05T053047Z/summary.json`
+
+Before/after inventories are identical: **1,866 files / 155,375,897 bytes**, digest
+`0777084b3e0e5adc179756b87bbface610678e3e60e96d3c7a579f909b16d8e7`.
+Hosted build logs confirm the same digest and `inputs: git (requested git)`, with **1,866 included,
+811 excluded, zero unclassified**. Movies, Dogs, canonical copy and portrait assets are unchanged.
+After publishing, **49 production smoke checks, ten exact live file hashes and four excluded-path
+404 checks passed**. Requests were capped at two per second and configured to stop on mitigation;
+none occurred. Evidence is in `reports/deployment-contract/hardening-release/` (`production-smoke.log`
+and `live-sample.json`). No bulk portrait crawl was repeated. HEAD fallback failure cases are covered
+with synthetic responses. HEAD-only length checks still cannot detect same-length corruption;
+`--full` hashes every deployed file. Browser tests only cover exercised paths. GitHub Pages retirement
+was separately authorized and completed (see section 8).
+
+This follow-up documentation commit changes no runtime input. Its exact CI and production deployment
+must be checked after pushing; the final delivery report records that final-commit evidence.
+
 ## 1. Objective, scope and non-goals
 
 Make the static deployment explicit, reproducible, explainable and automatically checked for both
@@ -261,16 +308,21 @@ add it to `deploy/public-files.json`, run `npm run verify`, push.
 
 ## 8. Limitations, open questions and tradeoffs
 
-- Regex discovery is not a JS parser (comments count; concatenation and multi-line template
-  literals are not detected; bare filenames without an asset extension are ignored). The staged
-  browser suite and the missing-file gate are the behavioral backstop.
+- Regex discovery is not a JS parser or evaluator: comments can count; variable-only paths such
+  as `${base}/${name}`, concatenation, multiline/nested templates and extensionless bare names can
+  evade discovery. Declare computed dependencies explicitly and test their consumers. The staged
+  suite only covers exercised paths. See the current contract guide and focused boundary tests.
 - The vendored Supabase bundle is opaque by declaration; its own requests target Supabase.
-- Hosted builds without usable Git metadata run in filesystem mode and skip classification; CI is
-  the authoritative classifier for every pushed commit.
+- Follow-up hardening shipped in `ad49091e`: Git mode is now the default and Vercel requires it
+  explicitly; fallback overrides are rejected in hosted builds. Missing Git metadata stops the
+  build before writes. Production HEAD responses without a usable length require GET
+  byte-count/SHA-256 verification. The original release evidence in sections 2–7 predates this
+  hardening; current release evidence is recorded near the top of this handoff.
 - `/favicon.ico` (root) has never existed; browsers request it on pages without an icon link
   (`privacy.html`). Pre-existing and out of scope; the rendered check reports but does not fail it.
-- The legacy GitHub Pages origin (`danbretl.github.io/StackRank-Web/`) still publishes the branch
-  root by GitHub's own rules; the contract governs Vercel only. Retire per the release checklist.
+- GitHub Pages was disabled at Dan’s request on October 5, 2026: `has_pages:false`, site API 404,
+  old public URL 404; Vercel remains live. GitHub retains a historical system-managed Pages
+  workflow and rejects a separate disable request (422), but the publishing configuration is gone.
 - Case-only collisions cannot be created in fixtures on case-insensitive macOS volumes; covered by
   the pure collision function. Windows hosting is not modeled (POSIX paths only).
 - The current-ignore comparison is a Git-semantics model plus observed provider behavior, not a

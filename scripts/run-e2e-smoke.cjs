@@ -5110,7 +5110,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=191" ||
+      empty.moduleSrc !== "app.js?v=192" ||
       empty.cssHref !== "styles.css?v=161" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
@@ -6532,6 +6532,26 @@ const testComparisonResponsiveLayouts = async ({ baseUrl }) => {
 const testShareStudio = async ({ baseUrl }) => {
   const page = await openChromePage({ name: "share-studio" });
   try {
+    // Keep detail-backed pages stable: live details can settle without data,
+    // removing the genre/people skeleton cards during lightbox navigation.
+    await page.send("Page.addScriptToEvaluateOnNewDocument", {
+      source: `(() => {
+        const realFetch = window.fetch.bind(window);
+        window.fetch = (input, options) => {
+          const url = typeof input === 'string' ? input : input?.url || '';
+          if (url.includes('/functions/v1/tmdb-detail')) {
+            return Promise.resolve(new Response(JSON.stringify({ result: {
+              tmdbId: Number(new URL(url).searchParams.get('id')),
+              runtime: 110,
+              genres: ['Drama'],
+              director: 'E2E Director',
+              cast: ['E2E Actor']
+            } }), { status: 200, headers: { 'Content-Type': 'application/json' } }));
+          }
+          return realFetch(input, options);
+        };
+      })();`,
+    });
     await seedPage(page, baseUrl, "share-studio", {
       ranking: [movie("Solo", 1999, 1201)],
     });
@@ -6541,6 +6561,7 @@ const testShareStudio = async ({ baseUrl }) => {
     })()`);
     if (!opened) throw new Error("Share Studio did not open");
     await waitFor(page, `!!document.querySelector('#share-preview svg')`, 5000);
+    await waitFor(page, `document.querySelector('#share-preview')?.textContent.includes('E2E Director')`, 5000);
     const singleShot = await page.screenshot("share-studio-single.png");
     const singleState = await page.evaluate(`(() => ({
       previewSvg: !!document.querySelector('#share-preview svg'),
@@ -6671,10 +6692,16 @@ const testShareStudio = async ({ baseUrl }) => {
       svgText: document.querySelector('#share-download-svg')?.textContent.trim()
     }))()`);
     if (!setState.shapeHidden) throw new Error("Shape controls should hide for Image set format");
-    if (setState.cardCount < 1 || setState.cardRole !== "button" || setState.cardTabIndex !== 0) {
+    if (setState.cardCount !== 5 || setState.cardRole !== "button" || setState.cardTabIndex !== 0) {
       throw new Error(`Image set preview semantics are wrong: ${JSON.stringify(setState)}`);
     }
     const setPreviewKey = await page.evaluate(`(() => {
+      // Queue preview scrolling immediately before opening the lightbox. Its
+      // delayed scroll sync must not overwrite the selected lightbox page.
+      const viewport = document.querySelector('.share-preview-deck__viewport');
+      viewport.style.scrollBehavior = 'auto';
+      viewport.scrollLeft = viewport.clientWidth;
+      viewport.dispatchEvent(new Event('scroll'));
       const preview = document.querySelector('#share-preview .share-preview-card');
       if (!(preview instanceof HTMLElement)) return { found: false, defaultPrevented: false };
       const event = new KeyboardEvent('keydown', {
@@ -6684,9 +6711,10 @@ const testShareStudio = async ({ baseUrl }) => {
         cancelable: true
       });
       preview.dispatchEvent(event);
-      return { found: true, defaultPrevented: event.defaultPrevented };
+      return { found: true, defaultPrevented: event.defaultPrevented,
+        queuedScrollIndex: Math.round(viewport.scrollLeft / viewport.clientWidth) };
     })()`);
-    if (!setPreviewKey.found || !setPreviewKey.defaultPrevented) {
+    if (!setPreviewKey.found || !setPreviewKey.defaultPrevented || setPreviewKey.queuedScrollIndex !== 1) {
       throw new Error(
         `Image-set preview keyboard event was not handled: ${JSON.stringify(setPreviewKey)}`,
       );
@@ -6697,6 +6725,8 @@ const testShareStudio = async ({ baseUrl }) => {
         document.querySelector('#share-lightbox')?.classList.contains('is-set')`,
       3000,
     );
+    // Let the preview's 120ms debounce drain while the lightbox is open.
+    await wait(250);
     const setLightboxStart = await page.evaluate(`(() => ({
       caption: document.querySelector('#share-lightbox-caption')?.textContent.trim(),
       prevDisabled: document.querySelector('#share-lightbox-prev')?.disabled,
@@ -6717,6 +6747,13 @@ const testShareStudio = async ({ baseUrl }) => {
       `document.querySelector('#share-lightbox-caption')?.textContent.trim().startsWith('2/${setState.cardCount}')`,
       2000,
     );
+    // Layout/scroll events can also arrive after the lightbox is already open.
+    await page.evaluate(`(() => {
+      const viewport = document.querySelector('.share-preview-deck__viewport');
+      viewport.scrollLeft = 0;
+      viewport.dispatchEvent(new Event('scroll'));
+    })(); true;`);
+    await wait(250);
     await page.send("Input.dispatchKeyEvent", {
       type: "keyDown",
       key: "ArrowRight",

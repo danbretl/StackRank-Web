@@ -6,9 +6,10 @@ import { kDigest, portraitCohortKSelectionDigest, activeCohortKSlots, summarizeP
 import { summarizePortraitCohortJ, validatePortraitCohortJ } from '../scripts/dog-portrait-cohort-j.mjs';
 
 const read = async path => JSON.parse(await readFile(new URL('../' + path, import.meta.url), 'utf8'));
-const [catalog, j, context] = await Promise.all([read('data/dogs/dog-catalog.json'), read('data/dogs/portrait-cohort-j.json'), read('data/dogs/portrait-continuation-context.json')]);
+const [catalog, j, frozenK] = await Promise.all([read('data/dogs/dog-catalog.json'), read('data/dogs/portrait-cohort-j.json'), read('data/dogs/portrait-cohort-k.json')]);
 const priorIds = [...j.baseline.generatedCatalogIds, ...Object.values(j.entries).filter(e => e.publication.status === 'published').map(e => e.catalogId)];
-const heldIds = context.holds.map(e => e.catalogId);
+// K fixtures must retain K’s frozen exclusions as later cohorts replace the live context.
+const heldIds = [...frozenK.baseline.heldCatalogIds];
 const names = ['k_worker_a', 'k_worker_b', 'k_worker_c', 'k_worker_d', 'k_worker_e'];
 const hash = 'a'.repeat(64), date = '2026-10-02T06:00:00Z';
 const candidates = catalog.entities.filter(e => e.selectable && !priorIds.includes(e.id) && !heldIds.includes(e.id));

@@ -4643,6 +4643,7 @@ function openPosterLightbox(movie, trigger = null) {
 // Open the share preview at full size, with the action bar (and set chrome).
 function openShareLightbox(trigger = null) {
   if (!ranking.length) return;
+  clearShareSetScrollSync();
   lightboxKind = "share";
   shareLightbox.classList.add("is-share");
   renderShareLightbox();
@@ -9055,7 +9056,8 @@ function scheduleShareSetScrollSync(viewport) {
   clearShareSetScrollSync();
   shareSetScrollSyncTimer = window.setTimeout(() => {
     shareSetScrollSyncTimer = null;
-    if (!viewport.isConnected) return;
+    // The lightbox owns the selected page while the preview is behind it.
+    if (!viewport.isConnected || (lightboxKind === "share" && !shareLightbox.hidden)) return;
     const nextIndex = Math.round(viewport.scrollLeft / Math.max(1, viewport.clientWidth));
     if (nextIndex !== shareSetPageIndex) {
       shareSetPageIndex = nextIndex;

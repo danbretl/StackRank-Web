@@ -175,3 +175,27 @@ restoration-checkpoint-051.json under the N evidence root. Off-machine backup is
 The checkpoint occurs while workers research fresh primary routes for older photo-only
 holds. Prior freezes and rejected references remain unchanged. The active objective
 continues for49 more accepted pairs; no integration or publication is authorized.
+
+
+## Fifty-seven-pair local candidate
+
+Polish Tatra Sheepdog, Petit Basset Griffon Vendeen, Egyptian Sheepdog (Armant),
+Basset Vendeen, Cocker Spaniel and Rampur Greyhound bring N to57 accepted, integrated
+and archived pairs:859 candidate pairs and380 hidden. All six have individually reviewed
+primary research/full/short copy and peer review, whole untouched native and contact-sheet
+root QA, and reopened hash-verified archives. Armant and Basset Vendeen needed one targeted
+retry each. Kunming remains held after two persistent iris-colour mismatches; both originals,
+reviews and correction authority are preserved in held004. No third attempt authorized.
+Total74 completed calls,17 rejected outputs,9 targeted retries and0 failures.
+
+Full verification passed583 Node,51 Python and24 Deno tests and43 staged browser flows.
+Full baseline/isolation checks preserved all802 prior pairs and protected history.
+Desktop1280x720 Rampur/Cocker full profiles and comparison, actual390x844 Rampur comparison,
+About/Escape and unclipped Detailed short copy passed. Reviewer859 provenance and exact
+Rampur master/rootQA were inspected. Six new archives were actually restored in N-only temporary
+roots (222 files), extending the prior51-pair/1740-file restoration to all57/1962 files.
+Evidence: verification-checkpoint-057.json, browser-checkpoint-057.json and
+restoration-new-052-057.json. Off-machine backup remains unverified.
+
+The goal remains ACTIVE for43 further accepted pairs. Production stays802/437; publication
+and external integration are withheld. All work and local commits remain on dogs/cohort-n-100.

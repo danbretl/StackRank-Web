@@ -15,9 +15,9 @@ import {
 import { dogProfileSourceLinks } from "/lib/dogs.js?v=8";
 
 const DATA_URLS = {
-  manifest: "/data/dogs/generated-artwork.json?v=68",
+  manifest: "/data/dogs/generated-artwork.json?v=74",
   catalog: "/data/dogs/dog-catalog.json?v=5",
-  profiles: "/data/dogs/breed-profiles.json?v=65",
+  profiles: "/data/dogs/breed-profiles.json?v=71",
 };
 
 // Filled from actual finite L batch files by prepare-dog-portrait-l.mjs.
@@ -41,7 +41,26 @@ const N_BATCH_METADATA_URLS = [
   "/data/dogs/generated-artwork-batch-n23.json",
   "/data/dogs/generated-artwork-batch-n24.json",
   "/data/dogs/generated-artwork-batch-n25.json",
-  "/data/dogs/generated-artwork-batch-n26.json"
+  "/data/dogs/generated-artwork-batch-n26.json",
+  "/data/dogs/generated-artwork-batch-n27.json",
+  "/data/dogs/generated-artwork-batch-n28.json",
+  "/data/dogs/generated-artwork-batch-n29.json",
+  "/data/dogs/generated-artwork-batch-n30.json",
+  "/data/dogs/generated-artwork-batch-n31.json",
+  "/data/dogs/generated-artwork-batch-n32.json",
+  "/data/dogs/generated-artwork-batch-n33.json",
+  "/data/dogs/generated-artwork-batch-n34.json",
+  "/data/dogs/generated-artwork-batch-n35.json",
+  "/data/dogs/generated-artwork-batch-n36.json",
+  "/data/dogs/generated-artwork-batch-n38.json",
+  "/data/dogs/generated-artwork-batch-n39.json",
+  "/data/dogs/generated-artwork-batch-n41.json",
+  "/data/dogs/generated-artwork-batch-n42.json",
+  "/data/dogs/generated-artwork-batch-n43.json",
+  "/data/dogs/generated-artwork-batch-n44.json",
+  "/data/dogs/generated-artwork-batch-n45.json",
+  "/data/dogs/generated-artwork-batch-n46.json",
+  "/data/dogs/generated-artwork-batch-n47.json"
 ];
 const M_BATCH_METADATA_URLS = [
   "/data/dogs/generated-artwork-batch-m01.json",

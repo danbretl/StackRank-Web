@@ -28,7 +28,7 @@ local accepted/integrated/tested/archived/committed finality with publication wi
 Startup and post-bootstrap full isolation checks preserve all802 records,1604 WebPs,
 independently copied masters and protected historical/main evidence.
 
-Operational truth is in local `reports/dogs-generated-artwork/cohort-n/RUN-STATE.json`,
+Operational truth is in local `reports/dogs-generated-artwork/cohort-n/run-state.json`,
 `RESUME.md`, `worker-registry.json`, coordinator SQLite events, immutable approvals and attempt
 receipts. The tracked `data/dogs/portrait-cohort-n.json` keeps exact frozen memberships and
 pair states. No attempt or acceptance is implied by a research qualification.
@@ -100,3 +100,55 @@ browser flows. Full isolation/baseline preservation passed. Evidence: verificati
 and reports/e2e/runs/2026-10-05T082917Z. The first verification rejected36 unstaged public
 dependencies; staging the intended N assets/manifests resolved it, followed by a complete green rerun.
 The active100-pair goal continues after this local checkpoint.
+
+
+## Continuing beyond the checkpoint
+
+The twenty-pair candidate was committed locally as
+`5c2e5f7cb5e128c283c0a3e976abc1eeee30f5db`. Its verification receipt and commit
+are bound to all twenty accepted entries.
+
+Four subsequent accepted pairs—Artois Hound, Foxhound, Feist and Springer Spaniel—bring
+local acceptance and integration to24 (candidate826/413). All four passed individual
+source/full/short review, independent copy review, whole untouched native QA and whole
+contact-sheet QA, and have verified local regeneration archives. Their source-defined broad
+concepts explicitly disclose published constituent breeds; they are not undocumented alias
+substitutions. There have been31 completed image calls, seven rejected outputs, two targeted
+retries and zero call failures at this stage. These four additions await the next stable
+full-suite checkpoint and local product commit. N publication remains zero.
+
+Five further accepted pairs—Setter, Toy Rat Terrier, English American Wheaten, Retriever and
+Traditional Irish Wheaten—bring acceptance/integration to29 and the compiled candidate to831/408.
+Every native and whole contact sheet passed root review; all regeneration archives were reopened
+and hash-verified. There have been36 completed calls, seven rejects, two targeted retries and zero
+failures. These nine additions beyond the committed20 await the next stable full-suite checkpoint.
+
+Laika and Pyrenean Shepherd bring accepted/integrated/archived pairs to31 (candidate833/406).
+The first Basset representative was rejected for rounded ear lobes and excessive shag; an individually
+approved second prompt targets those source-supported cues. Dachsbracke, Coonhound and Bichon have
+passed source, full/short peer and root review; their call/acceptance states remain separately recorded.
+Lapphund0813 is held before qualification because a primary registry explicitly uses the unqualified
+name as an alias for published Swedish Lapphund. No old hold or published record was changed.
+
+
+## Thirty-nine-pair local candidate
+
+Coonhound, Bichon, German Pointer, Spaniel, Water Dog, Swiss Mountain Dog, Pinscher and Cur
+bring the branch to39 accepted/integrated/archived additions (841 candidate pairs,398 hidden).
+Each passed individual primary-source/full/short review, independent copy review and root whole
+untouched native/contact-sheet QA. Explicit broader family concepts disclose named constituent
+breeds and use one source-supported representative; they do not claim an extra constituent breed.
+
+There have been50 completed built-in calls,11 rejected outputs,4 targeted retries and0 failures.
+Basset0122 remains held after two persistent ear/coat mismatches; Dachsbracke0405 remains held
+after two persistent smooth-tail defects. Qualified Water Dog and Cur replacements are append-only,
+with all original freezes and rejected evidence retained in the verified held003 archive. No third
+attempt was authorized for either held identity. New research-only holds include Dogo Sardesco0448
+(adult/full-tail evidence) and Fell Terrier0516 (independent identity scope). Old holds remain intact.
+
+This stable39-pair checkpoint passed583 Node tests,51 Python checks,24 Deno tests and43 staged
+browser flows, plus full isolation/baseline preservation. The representative desktop and390x844
+phone Pinscher flow passed complete full/short rendering, About/Escape and ranking; reviewer841
+metadata, draft/navigation, flag save/clear and focus restoration passed. Evidence is bound in
+verification-checkpoint-039.json and browser-checkpoint-039.json. Production remains802/437,
+N publication zero; goal ACTIVE toward exactly100.

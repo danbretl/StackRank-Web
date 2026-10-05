@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-n09",
+  "cohortId": "dogs-portraits-n",
+  "selectionSha256": "ffe667f05f7d585e46861290a03948bd0462eeb6977ab153d550db4776c758ce",
+  "reviewedAt": "2026-10-05",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-003.jpg",
+    "contactSheetSha256": "6d511d269db9fb487a33ea28ac06a6289e4d7ec96e1d0b090062b6eb3b693d6e",
+    "acceptedCount": 1,
+    "notes": "Root saw entire untouched originals and whole four-image contact sheet: Toy Manchester, Standard Dachshund, Mittel Spitz and Klein Spitz show mature exact-type anatomy, four coherent grounded paws and complete tails. Small ear margin in Toy remains intact; no speculative retry. Distinct controlled natural scenes and full/short approved copy retained."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0200598",
+      "name": "German Spitz, Mittel",
+      "scene": {
+        "description": "firm sandy riverbank path with muted reeds, soft cool daylight",
+        "rationale": "Original credible companion setting with all grounded paws clear; separate from factual research photo arrangement."
+      },
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "771209a1b7e3089099e79871c448c2c9cbc81dd1c84eb2643145cf3a460f1e8c",
+        "imageInputs": [],
+        "sourcePage": "https://www.deutsche-spitze.de/vfdsp_e-ms.html"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-n/N-0200598-1.png",
+      "masterSha256": "be854dc13429a658e3748045afdb84813041d811bb6f884fb4d4eba40406999d",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10ab7-bf16-78e2-83c4-0f812ace7649/exec-4015fbcd-ee55-49ff-94cc-fde5a22328c2.png",
+      "originalOutputSha256": "be854dc13429a658e3748045afdb84813041d811bb6f884fb4d4eba40406999d",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v11-cohort-n",
+      "attemptId": "N-VBO:0200598-1",
+      "startedAt": "2026-10-05T06:49:59.253977+00:00",
+      "generatedAt": "2026-10-05T06:51:31.385641+00:00",
+      "prompt": "Create an original refined naturalistic field-guide portrait, actual native 1536x1024 landscape. One mature adult German Spitz Mittel, the colour-unrestricted medium size category, around34cm at shoulder with rich orange natural coat, relaxed side-biased three-quarter standing at dog-eye level on a firm sandy riverbank path with muted reeds, soft cool daylight. Compact sturdy almost square adult body with level back, moderate tuckup, short strong loin, clean moderately short neck. Mature foxlike wedge head, broad nearlyflat skull narrowing to nose, moderate stop and muzzle approximately half total head length, clean cheeks and tight lips. Dark medium oval obliquely set eyes, dark coat-compatible nose and lips; small high-set perfectly erect triangular ears. Long harsh perfectly straight stand-off outercoat over soft dense undercoat, profuse but restrained untrimmed neck and shoulder frill, smooth short face and ear hair, feathered limbs tapering towards compact rounded well-arched paws. Entire full natural bushy tail visibly attached high at rear, curling up directly from root over back, long spreading hair and complete tip within frame. Whole dog, all four coherent grounded paws, full ears and attached complete tail with comfortable crop-safe margins. Subtle painterly realism and tactile natural coat. No puppy proportions, rounded sculpted Pomeranian head/fluff, giant ears, merle, cropped body parts, people, other animals, gear, collar, text, logo or watermark. New composition independent of research photograph expression.",
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-10-05T06:54:57.452067+00:00",
+        "breedIdentity": "Adult Mittel Spitz orange representative: mature foxy wedge head, compact square substantial body, upright pointed ears, straight natural double coat and neck frill. No sculpted Pomeranian head.",
+        "anatomy": "Four grounded compact paws and coherent limbs, high attached full bushy tail curls over back with entire plume inside frame.",
+        "crop": "All paws and ear/tail extremities wholly visible, comfortable crop-safe margins.",
+        "aesthetics": "Natural tactile orange coat, quiet sandy riverbank and reeds, no gear/text/other animals.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-003.jpg",
+        "contactSheetSha256": "6d511d269db9fb487a33ea28ac06a6289e4d7ec96e1d0b090062b6eb3b693d6e",
+        "contactSheetReviewedAt": "2026-10-05T06:55:32.672842+00:00",
+        "contactSheetNotes": "Root saw entire untouched originals and whole four-image contact sheet: Toy Manchester, Standard Dachshund, Mittel Spitz and Klein Spitz show mature exact-type anatomy, four coherent grounded paws and complete tails. Small ear margin in Toy remains intact; no speculative retry. Distinct controlled natural scenes and full/short approved copy retained."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/run-authorization-001.json",
+          "sha256": "292924b03d5fb2b641dfdef0cd4667aafb98760b71edf9efc4d4ed26920f0b9f",
+          "bytes": 1626
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-a/VBO-0200598-morphology.json",
+          "sha256": "771209a1b7e3089099e79871c448c2c9cbc81dd1c84eb2643145cf3a460f1e8c",
+          "bytes": 3690
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "author": "A",
+        "reviewer": "B",
+        "summarySha256": "3101a71630cc478ba3671827e2ad5a557175fd20435fb69872a87a8da7eee59b",
+        "shortDescriptionSha256": "c9346075eae41588d86eeca1fe2edaf31b3e8eed8e37de311367590f7ff92144",
+        "summary": "Alert and devoted to its people, the Mittel German Spitz often combines a buoyant manner with an independent streak. Its medium size was once the familiar working Spitz of artisans, peasants and wagoners, valued for loyalty and guarding. It also left a lively cultural trail in paintings, magazines and poetry, well before formal recognition by the German breed club in 1969.",
+        "shortDescription": "A buoyant, independent companion, the Mittel German Spitz carries the watchful heritage of a small working guardian.",
+        "fact": "",
+        "reviewedAt": "2026-10-05",
+        "sources": [
+          {
+            "title": "Verein für Deutsche Spitze: Mittel breed portrait",
+            "url": "https://www.deutsche-spitze.de/vfdsp_e-ms.html",
+            "evidence": "Exact Mittel/Medium breed portrait:30–40cm variety across colours, traditional guard dog of artisans, peasants and wagoners, spirit/loyalty/guarding, depictions in painting/literature; club recognition1969."
+          },
+          {
+            "title": "Royal Kennel Club: German Spitz (Mittel) standard",
+            "url": "https://www.royalkennelclub.com/breed-standards/utility/german-spitz-mittel/",
+            "evidence": "Characteristics intelligent/active/alert with buoyancy, independence and family devotion; temperament happy/equable/confident. Small erect triangular ears, wedge head, square body, straight harsh doublecoat/frill, high full tail curled from root over back. UK Klein23–29cm and Mittel30–38cm, all colours except merle."
+          },
+          {
+            "title": "Royal Kennel Club: German Spitz (Mittel)",
+            "url": "https://www.royalkennelclub.com/search/breeds-a-to-z/breeds/utility/german-spitz-mittel/",
+            "evidence": "About this breed explicitly names larger Mittel and smaller Klein, same standard divided only by size and most colours/combinations permitted. These are colour-unrestricted size categories, not aliases of one already published colour-scoped record."
+          }
+        ]
+      },
+      "rootReview": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/root-review-0200598-1.json",
+        "sha256": "5c22e8d1526bc71a81a86e961f6a7ab2aa50ef3c1ced23f9734f09cd632907d0",
+        "bytes": 1376
+      },
+      "attemptReceipt": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-a/N-VBO-0200598-1-attempt.json",
+        "sha256": "d069ca5a8ec9b976d4dd4ecd5b4ac97f4e51e1f409700ff7f23d1fcfb10b849f",
+        "bytes": 4197
+      }
+    }
+  ]
+}

@@ -122,7 +122,7 @@ export function validatePortraitCohortN(cohort, { catalog, rightsLedger, generat
     const pairReady = entry.qa?.status === 'approved' && entry.profile?.status === 'approved';
     if (entry.hold) {
       fail(entry.hold.status === 'held' && binding(entry.hold.receipt) && text(entry.hold.reason), `${id}: accountable root hold required`);
-      fail(attempts.length > 0 && attempts.every(row => row.qaDecision === 'rejected') && !entry.generation.acceptedAttemptId && entry.qa?.status === 'rejected' && entry.integration?.status === 'held' && entry.publication?.status === 'held', `${id}: held generation cannot be accepted, integrated or published`);
+      fail(attempts.every(row => row.qaDecision === 'rejected') && !entry.generation.acceptedAttemptId && entry.qa?.status === 'rejected' && entry.integration?.status === 'held' && entry.publication?.status === 'held', `${id}: held generation cannot be accepted, integrated or published`);
     }
     if (pairReady || entry.integration?.status === 'integrated' || entry.publication?.status === 'published') {
       fail(pairReady && accepted?.status === 'generated' && accepted.qaDecision === 'accepted' && accepted.width === 1536 && accepted.height === 1024 && attempts.filter(row => row.qaDecision === 'accepted').length === 1, `${id}: exact1536×1024 accepted pair required`);

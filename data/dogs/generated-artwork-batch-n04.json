@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-n04",
+  "cohortId": "dogs-portraits-n",
+  "selectionSha256": "5f66f7e2acb0ae6468964776f135eab29fb2c0303db8903b4626ce1ad3d5f759",
+  "reviewedAt": "2026-10-05",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-002.jpg",
+    "contactSheetSha256": "268163477987cc0b2dcc97cd2e72ae96ab4a6233b4d5407f3b0ef125afae8e24",
+    "acceptedCount": 1,
+    "notes": "Root viewed whole three-image sheet plus every untouched native. Giant Spitz and Wire Dachshund meet identity/anatomy/full framing; Phalene visually passes but is excluded because exact semantic duplicate of baseline0383. This integration admits only two independently eligible pairs; rejected duplicate native/evidence preserved."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0200586",
+      "name": "German Spitz, Giant",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "56b8812dc776ae767d66bff88936441383329666eead668d8fdf8ce3758d31ff",
+        "imageInputs": [],
+        "sourcePage": "https://www.deutsche-spitze.de/vfdsp_e-gs.html"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-n/N-0200586-1.png",
+      "masterSha256": "ca77daad6da617ed41bee38bc134720df4603610623e7ae5d6df90d3a2a29f39",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10ab7-bf16-78e2-83c4-0f812ace7649/exec-a74ac92f-00bd-4c9f-bfd0-d4128ac191ba.png",
+      "originalOutputSha256": "ca77daad6da617ed41bee38bc134720df4603610623e7ae5d6df90d3a2a29f39",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v11-cohort-n",
+      "attemptId": "N-VBO:0200586-1",
+      "startedAt": "2026-10-05T06:39:40.689729+00:00",
+      "generatedAt": "2026-10-05T06:40:52.114199+00:00",
+      "prompt": "Create an original refined naturalistic field-guide portrait, native actual1536x1024 landscape. One mature adult German Giant Spitz (Grossspitz), standard white coat, a medium-sized balanced sturdy square spitz around45cm at shoulder, in a relaxed side-biased three-quarter standing pose at dog-eye level on a firm earthy country path with muted distant hedgerow, diffuse late-afternoon light. Foxlike moderate wedge-shaped head, muzzle neither stubby nor long, close-fitting dark lips, black nose, medium dark almond eyes; small pointed triangular upright ears high and close set, never giant bat ears. Long straight firm stand-off outer coat over dense undercoat, strong mane-like neck ruff, short smooth facial and front-leg hair, moderate rear feathering, natural fur not rounded sculpted Pomeranian fluff. Clearly defined straight mature legs, small compact round feet. Complete natural medium-length very bushy tail visibly attached high at rear, rising directly from root and curling forward firmly over the back; full tail tip inside frame and distinct from ruff. Entire dog with all four coherent grounded paws, complete ears and tail fully visible with comfortable crop-safe margins. Subtle painterly realism and tactile coat detail; restrained credible rural setting. No people, other animals, gear, collar, text, logos or watermark; no toy-Pomeranian apple head, Keeshond grey mask or oversized heavy Samoyed proportions. New composition independent of research photograph expression.",
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-10-05T06:46:12.198943+00:00",
+        "breedIdentity": "Giant German Spitz adult white representative: square substantial body, foxlike wedge muzzle, dark eyes/nose, upright pointed ears and full ruff; ears prominent but proportion coherent with a mature large Spitz, not a material identity defect.",
+        "anatomy": "Four coherent grounded paws; attached curled medium-length bushy tail, leg joints and spine plausible.",
+        "crop": "Full ears and paws inside native; open margins around full curled tail.",
+        "aesthetics": "Natural textured white stand-off fur, restrained country path, no copied source expression or prohibited content.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-002.jpg",
+        "contactSheetSha256": "268163477987cc0b2dcc97cd2e72ae96ab4a6233b4d5407f3b0ef125afae8e24",
+        "contactSheetReviewedAt": "2026-10-05T06:48:47.727692+00:00",
+        "contactSheetNotes": "Root viewed whole three-image sheet plus every untouched native. Giant Spitz and Wire Dachshund meet identity/anatomy/full framing; Phalene visually passes but is excluded because exact semantic duplicate of baseline0383. This integration admits only two independently eligible pairs; rejected duplicate native/evidence preserved."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/run-authorization-001.json",
+          "sha256": "292924b03d5fb2b641dfdef0cd4667aafb98760b71edf9efc4d4ed26920f0b9f",
+          "bytes": 1626
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-a/VBO-0200586-morphology.json",
+          "sha256": "56b8812dc776ae767d66bff88936441383329666eead668d8fdf8ce3758d31ff",
+          "bytes": 3225
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "author": "A",
+        "reviewer": "B",
+        "summarySha256": "117325d15aacc475283374cc5bc93de0737082d643138ebade3aa2a3b5afb018",
+        "shortDescriptionSha256": "8c75b75133be863b4434cbcdda1aadf76b18fbf49997f8089aef0e2027cc7ee8",
+        "summary": "Attentive and strongly attached to its people, the Giant German Spitz often combines a lively manner with reserve toward strangers. Its keen hearing and watchful loyalty have long been valued around homes and property. The black variety has a particularly vivid working history in Württemberg vineyards, where it deterred birds and other animals by day and guarded against grape thieves at night.",
+        "shortDescription": "Lively and loyal, the Giant German Spitz often stays watchful around its home and reserved with unfamiliar people.",
+        "fact": "",
+        "reviewedAt": "2026-10-05",
+        "sources": [
+          {
+            "title": "Verein für Deutsche Spitze: German Giant-Spitz breed portrait",
+            "url": "https://www.deutsche-spitze.de/vfdsp_e-gs.html",
+            "evidence": "Opening character paragraph describes guarding, hearing, loyalty and mistrust of strangers specifically for Giant-Spitz. Black Giant-Spitz section describes vineyard guarding in Württemberg, deterring animals by day and grape thieves by night; this historical account is explicitly scoped to the black variety."
+          },
+          {
+            "title": "Verein für Deutsche Spitze: FCI97 German Spitz standard, 20 September2024",
+            "url": "https://www.deutsche-spitze.de/vfdsp_e-standard.html",
+            "evidence": "Section2 explicitly covers Giant/Medium/Miniature German Spitz; behavior describes attentive, lively and attached character with distrust of strangers. Giant height45±5cm, square proportions, wedge head, dark almond eyes, small high-set triangular erect ears, firm straight stand-off outer coat, neck ruff, high-set medium-length very bushy tail rolling forward over back; white, black or brown Giant coats permitted."
+          }
+        ]
+      },
+      "rootReview": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/root-review-0200586-1.json",
+        "sha256": "c87e0efabb54519b1a73bf3a9de8748e9fa34f4fda01498beb4af0b272921466",
+        "bytes": 1418
+      },
+      "attemptReceipt": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-a/N-VBO-0200586-1-attempt.json",
+        "sha256": "9e660a1e1600cf481926c9a1a09717e0462325e018e0fc9c443129b9719d36d2",
+        "bytes": 4072
+      },
+      "scene": {
+        "description": "Firm earthy country path and muted distant hedgerow, diffuse late-afternoon light.",
+        "rationale": "Credible original rural guardian setting with clear paws; neutral path rather than source lawn portrait."
+      }
+    }
+  ]
+}

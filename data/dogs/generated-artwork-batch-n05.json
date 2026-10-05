@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-n05",
+  "cohortId": "dogs-portraits-n",
+  "selectionSha256": "8b31ff69192f907fb9040a0861b0a520f541c7b37d1e52494243175c2ed9cd03",
+  "reviewedAt": "2026-10-05",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-002.jpg",
+    "contactSheetSha256": "268163477987cc0b2dcc97cd2e72ae96ab4a6233b4d5407f3b0ef125afae8e24",
+    "acceptedCount": 1,
+    "notes": "Root viewed whole three-image sheet plus every untouched native. Giant Spitz and Wire Dachshund meet identity/anatomy/full framing; Phalene visually passes but is excluded because exact semantic duplicate of baseline0383. This integration admits only two independently eligible pairs; rejected duplicate native/evidence preserved."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0200423",
+      "name": "Dachshund, Wire-Haired",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "c293dcc63c0e4ad0a95e2466681c71f0a83d7101d296b979881a9ce85984702a",
+        "imageInputs": [],
+        "sourcePage": "https://www.ckc.ca/en/Choosing-a-Dog/Choosing-a-Breed/Hounds/Dachshund-Standard-Wire-haired"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-n/N-0200423-1.png",
+      "masterSha256": "724eabd29626b5ebf2754d5c05da9b79cacbc15f20a1ece4ac465416e9056ebf",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10ab8-069f-7cf2-9b37-fc0afda52d04/exec-6deef71c-28d1-4b68-afae-20f824df0cd2.png",
+      "originalOutputSha256": "724eabd29626b5ebf2754d5c05da9b79cacbc15f20a1ece4ac465416e9056ebf",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v11-cohort-n",
+      "attemptId": "N-VBO:0200423-1",
+      "startedAt": "2026-10-05T06:42:06+00:00",
+      "generatedAt": "2026-10-05T06:42:29+00:00",
+      "prompt": "Create a refined naturalistic editorial dog portrait, native output exactly 1536 x 1024 pixels, landscape 3:2. One mature adult Dachshund, Wire-Haired, entirely visible in an original relaxed three-quarter standing pose at dog-eye level. Elongated low but sturdy muscular body; deep oval chest and prominent forechest; level back, slight tuck-up, four short articulated legs. Forefeet compact, broad and modestly larger than hindfeet; no extreme crookedness or knuckling. Tapered long head with slightly arched skull and very shallow stop; long strong muzzle, snug lips, dark almond eyes, black nose; moderate-length rounded pendant ears framing cheeks. Natural intact tail continues the spine without kink or tight curl. Real mature adult proportions, no giant head or stunted toy body. Natural wild-boar grizzle coat from subtly banded brown/black hairs with restrained tan points, short close hard rough body coat over softer undercoat; clear eyebrows and a moderate chin beard. Ears mostly smooth and short-haired; muzzle beard not an exaggerated schnauzer moustache. Robust tapered well-haired tail, no long-haired flag, no curly or fluffy trunk. All four separate coherent paws must contact clear flat ground, with visible toes, no grass concealing them; clearly show anatomically attached full tail from its base to tip. Dog fills the scene gracefully while ample natural margin surrounds all ears, nose, paws and tail. Setting: A firm earthy path on the edge of a quiet beech wood under gentle overcast light. Restrained lifelike fine fur texture, quiet field-guide elegance, believable soft daylight, crisp dog and softly receding backdrop. Original composition not based on any specific photograph. No people, other animals, collar, leash, equipment, text, logos, watermark, artificial plastic fur, extra limbs, malformed joints, floating feet, oversized head, clipped extremities or exaggerated dwarf conformation.\n",
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-10-05T06:46:12.256331+00:00",
+        "breedIdentity": "Wire-haired Dachshund: correct low sturdy elongated form, hard close grizzle coat, beard and modest brows, short-haired rounded pendant ears and tapered muzzle.",
+        "anatomy": "Four separate planted paws with plausible short fore/hind limbs; attached complete tapered tail, no malformed joints.",
+        "crop": "Whole dog including tail tip and all feet within clear safe margins.",
+        "aesthetics": "Convincing adult texture and woodland track; restrained scene, no gear or other animals.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-002.jpg",
+        "contactSheetSha256": "268163477987cc0b2dcc97cd2e72ae96ab4a6233b4d5407f3b0ef125afae8e24",
+        "contactSheetReviewedAt": "2026-10-05T06:48:47.751179+00:00",
+        "contactSheetNotes": "Root viewed whole three-image sheet plus every untouched native. Giant Spitz and Wire Dachshund meet identity/anatomy/full framing; Phalene visually passes but is excluded because exact semantic duplicate of baseline0383. This integration admits only two independently eligible pairs; rejected duplicate native/evidence preserved."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/run-authorization-001.json",
+          "sha256": "292924b03d5fb2b641dfdef0cd4667aafb98760b71edf9efc4d4ed26920f0b9f",
+          "bytes": 1626
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-b/0200423/morphology-dossier.json",
+          "sha256": "c293dcc63c0e4ad0a95e2466681c71f0a83d7101d296b979881a9ce85984702a",
+          "bytes": 4466
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "author": "B",
+        "reviewer": "C",
+        "summarySha256": "3f0de3503425aa7e9d5122bced91926fd5d9a91388277e27967d3cbef9301431",
+        "shortDescriptionSha256": "9a5b45037cb7c05c0ea1a26583d53e0fbcf5358c0320328860a546f366b22292",
+        "summary": "Wire-haired Dachshunds can be playful and responsive companions while remaining vigorous, persistent workers outdoors. Digging is part of their hunting inheritance, and their weather-resistant coat was developed for demanding terrain. Their terrier ancestry helped shape the variety, but they still share the Dachshund’s nose-led, above- and below-ground hunting skills.",
+        "shortDescription": "The wire-haired Dachshund often mixes playful companionship with persistent hunting drive and a strong urge to dig.",
+        "interestingFact": "",
+        "reviewedAt": "2026-10-05",
+        "reviewStatus": "individually-written",
+        "sources": [
+          {
+            "title": "Canadian Kennel Club — Standard Wire-haired Dachshund",
+            "url": "https://www.ckc.ca/en/Choosing-a-Dog/Choosing-a-Breed/Hounds/Dachshund-Standard-Wire-haired",
+            "evidence": "CKC exact wire profile Temperament/Activity level supports vigorous outdoor work, affectionate indoor companionship, responsive playfulness and digging. Origin explicitly records coat weather resistance and terrier influence; no speculative parent-trait inference is added. Standard-size scope is cross-checked with shared DCA temperament and applies to a standard-size representative."
+          },
+          {
+            "title": "Dachshund Club of America — Official Standard",
+            "url": "https://www.dachshundclubofamerica.org/breed-standard/",
+            "evidence": "DCA standard says all coats/both sizes share temperament and general hunting traits; Wirehaired coat section distinguishes hard close coat, beard, eyebrows, short ear hair, wild-boar color and non-flag tapered tail."
+          }
+        ]
+      },
+      "rootReview": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/root-review-0200423-1.json",
+        "sha256": "fe9771ed35f72fa03982991213f9cc40e5266b1d7d80bfbe3c1e9b6512e78099",
+        "bytes": 1338
+      },
+      "attemptReceipt": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-b/0200423/N-VBO-0200423-1-attempt.json",
+        "sha256": "c44ff963d724d92ce4576f415bea5dbf760ae8d15fb9fe927c710836df72954d",
+        "bytes": 5223
+      },
+      "scene": {
+        "description": "A firm earthy path on the edge of a quiet beech wood under gentle overcast light",
+        "rationale": "Credible restrained outdoor hunting-dog context; clear ground exposes anatomy. New scene is independent of CKC grass show/profile photos."
+      }
+    }
+  ]
+}

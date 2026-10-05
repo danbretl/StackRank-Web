@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-n10",
+  "cohortId": "dogs-portraits-n",
+  "selectionSha256": "db312b4fb2638ad0b420cd7762c1ebc1c5356f1560701edd218a349a1c55b517",
+  "reviewedAt": "2026-10-05",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-003.jpg",
+    "contactSheetSha256": "6d511d269db9fb487a33ea28ac06a6289e4d7ec96e1d0b090062b6eb3b693d6e",
+    "acceptedCount": 1,
+    "notes": "Root saw entire untouched originals and whole four-image contact sheet: Toy Manchester, Standard Dachshund, Mittel Spitz and Klein Spitz show mature exact-type anatomy, four coherent grounded paws and complete tails. Small ear margin in Toy remains intact; no speculative retry. Distinct controlled natural scenes and full/short approved copy retained."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0200590",
+      "name": "German Spitz, Klein",
+      "scene": {
+        "description": "firm moss-edged stone courtyard path with muted low old wall, soft cloudy afternoon light",
+        "rationale": "Original credible companion setting with all grounded paws clear; separate from factual research photo arrangement."
+      },
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "56a132fed65dcb0e9eaba883c78331e31ae1266cd513f85b3ddc664d162eda03",
+        "imageInputs": [],
+        "sourcePage": "https://www.deutsche-spitze.de/vfdsp_e-ks.html"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-n/N-0200590-1.png",
+      "masterSha256": "8710e3bfcd436fcf400739f1f088bd2b6056373d7e835904b0af4d969f85017d",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10ab7-bf16-78e2-83c4-0f812ace7649/exec-44bea85c-08c4-48a5-869a-d7e66dd5a128.png",
+      "originalOutputSha256": "8710e3bfcd436fcf400739f1f088bd2b6056373d7e835904b0af4d969f85017d",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v11-cohort-n",
+      "attemptId": "N-VBO:0200590-1",
+      "startedAt": "2026-10-05T06:51:31.750813+00:00",
+      "generatedAt": "2026-10-05T06:52:53.691273+00:00",
+      "prompt": "Create an original refined naturalistic field-guide portrait, actual native 1536x1024 landscape. One mature adult German Spitz Klein, the colour-unrestricted small size category, around26cm at shoulder with uniform dark brown natural coat, relaxed side-biased three-quarter standing at dog-eye level on a firm moss-edged stone courtyard path with muted low old wall, soft cloudy afternoon light. Compact sturdy almost square adult body with level back, moderate tuckup, short strong loin, clean moderately short neck. Mature foxlike wedge head, broad nearlyflat skull narrowing to nose, moderate stop and muzzle approximately half total head length, clean cheeks and tight lips. Dark medium oval obliquely set eyes, dark coat-compatible nose and lips; small high-set perfectly erect triangular ears. Long harsh perfectly straight stand-off outercoat over soft dense undercoat, profuse but restrained untrimmed neck and shoulder frill, smooth short face and ear hair, feathered limbs tapering towards compact rounded well-arched paws. Entire full natural bushy tail visibly attached high at rear, curling up directly from root over back, long spreading hair and complete tip within frame. Whole dog, all four coherent grounded paws, full ears and attached complete tail with comfortable crop-safe margins. Subtle painterly realism and tactile natural coat. No puppy proportions, rounded sculpted Pomeranian head/fluff, giant ears, merle, cropped body parts, people, other animals, gear, collar, text, logo or watermark. New composition independent of research photograph expression.",
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-10-05T06:54:57.544104+00:00",
+        "breedIdentity": "Adult Klein Spitz dark brown representative: compact small mature proportions, wedge muzzle, pointed upright ears, untrimmed stand-off coat and frill. Brown pigment appropriately coat-compatible.",
+        "anatomy": "Four distinct grounded feet, coherent short sturdy limbs and full attached bushy overback tail with entire outer plume.",
+        "crop": "Whole dog inside margins, no cropped ears/paws/tail.",
+        "aesthetics": "Convincing brown coat texture and subdued moss-edged stone setting, no artificial shaping or prohibited objects.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-003.jpg",
+        "contactSheetSha256": "6d511d269db9fb487a33ea28ac06a6289e4d7ec96e1d0b090062b6eb3b693d6e",
+        "contactSheetReviewedAt": "2026-10-05T06:55:32.694940+00:00",
+        "contactSheetNotes": "Root saw entire untouched originals and whole four-image contact sheet: Toy Manchester, Standard Dachshund, Mittel Spitz and Klein Spitz show mature exact-type anatomy, four coherent grounded paws and complete tails. Small ear margin in Toy remains intact; no speculative retry. Distinct controlled natural scenes and full/short approved copy retained."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/run-authorization-001.json",
+          "sha256": "292924b03d5fb2b641dfdef0cd4667aafb98760b71edf9efc4d4ed26920f0b9f",
+          "bytes": 1626
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-a/VBO-0200590-morphology.json",
+          "sha256": "56a132fed65dcb0e9eaba883c78331e31ae1266cd513f85b3ddc664d162eda03",
+          "bytes": 3884
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "author": "A",
+        "reviewer": "B",
+        "summarySha256": "422377ed7a9c5d7ddd5652529f0e8485424a63bbe461f4f47247e4ee640f33d1",
+        "shortDescriptionSha256": "3160503c56433a24aa9103fa8d3eaefcb57074d5f40925b9e3b73bbf01f1ec94",
+        "summary": "Bright, active and confident, the Klein German Spitz often brings a cheerful, steady manner to close companionship. It shares the German Spitz blend of independence and devotion to familiar people. This small size variety was long established in Central Europe before spreading across the continent.",
+        "shortDescription": "Cheerful and alert, the Klein German Spitz combines an independent streak with strong devotion to familiar people.",
+        "fact": "",
+        "reviewedAt": "2026-10-05",
+        "sources": [
+          {
+            "title": "Verein für Deutsche Spitze: Klein breed portrait",
+            "url": "https://www.deutsche-spitze.de/vfdsp_e-ks.html",
+            "evidence": "Exact Klein/Miniature breed portrait identifies24–30cm category distinct from Toy/Pomeranian, long presence in CentralEurope then throughout Europe; initially classic colours, now other/particolours."
+          },
+          {
+            "title": "Royal Kennel Club: German Spitz (Klein) standard",
+            "url": "https://www.royalkennelclub.com/breed-standards/utility/german-spitz-klein/",
+            "evidence": "Characteristics intelligent/active/alert with buoyancy, independence and family devotion; temperament happy/equable/confident. Small erect triangular ears, wedge head, square body, straight harsh doublecoat/frill, high full tail curled from root over back. UK Klein23–29cm and Mittel30–38cm, all colours except merle."
+          },
+          {
+            "title": "Royal Kennel Club: German Spitz (Klein)",
+            "url": "https://www.royalkennelclub.com/search/breeds-a-to-z/breeds/utility/german-spitz-klein/",
+            "evidence": "About this breed explicitly names larger Mittel and smaller Klein, same standard divided only by size and most colours/combinations permitted. These are colour-unrestricted size categories, not aliases of one already published colour-scoped record."
+          }
+        ]
+      },
+      "rootReview": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/root-review-0200590-1.json",
+        "sha256": "1e948d8cda8724155eefa20ffde9592a196238696334c21a54b70396a4154c87",
+        "bytes": 1367
+      },
+      "attemptReceipt": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-a/N-VBO-0200590-1-attempt.json",
+        "sha256": "4273e9de4cbc0b6f685620e2fe215facfff83aac3dc1f180e1a82e0dd1566d36",
+        "bytes": 4258
+      }
+    }
+  ]
+}

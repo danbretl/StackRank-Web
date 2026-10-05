@@ -102,3 +102,18 @@ test('N finality accepts100 archived tested local commits and forbids publicatio
   c.entries[ids[0]].publication={status:'withheld'};c.progress=summarizePortraitCohortN(c);delete c.entries[ids[0]].commit;
   assert.ok(validatePortraitCohortN(c,options(c)).some(e=>e.includes('local commit')));
 });
+
+test('an identity hold before a call preserves its frozen slot without inventing an attempt', () => {
+  const c=seed(), id='VBO:0200469'; c.batchPolicy=policy(); c.tranches=[tranche()];
+  c.entries[id]={catalogId:id,displayName:'Held duplicate',qualification:binding,
+    preparation:{packet:binding,peer:binding,trancheId:'n01',trancheSha256:c.tranches[0].selectionSha256},
+    reference:reference(),profile:{status:'approved',author:'A',reviewer:'B',summarySha256:hash,shortDescriptionSha256:hash},
+    generation:{attempts:[]},qa:{status:'rejected'},integration:{status:'held'},publication:{status:'held'},
+    hold:{status:'held',receipt:binding,reason:'Already published under a translated name'}};
+  c.progress=summarizePortraitCohortN(c);
+  assert.deepEqual(validatePortraitCohortN(c,options(c)),[]);
+  assert.equal(c.progress.generationCalls,0);
+  assert.equal(c.tranches[0].catalogIds[0],id);
+  c.entries[id].qa.status='approved';c.progress=summarizePortraitCohortN(c);
+  assert.ok(validatePortraitCohortN(c,options(c)).some(e=>e.includes('held generation cannot')));
+});

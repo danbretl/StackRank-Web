@@ -152,3 +152,26 @@ phone Pinscher flow passed complete full/short rendering, About/Escape and ranki
 metadata, draft/navigation, flag save/clear and focus restoration passed. Evidence is bound in
 verification-checkpoint-039.json and browser-checkpoint-039.json. Production remains802/437,
 N publication zero; goal ACTIVE toward exactly100.
+
+
+## Fifty-one-pair local candidate
+
+Levriero Sardo, Elkhound, Podenco, Terrier, Spitz, Bouvier, Hound, Water Spaniel,
+Braque, Mountain Dog, Münsterländer Pointer and Sheepdog bring N to51 accepted,
+integrated and archived pairs:853 candidate pairs and386 hidden. Every new pair
+has independent full/short source review and root whole-native/contact-sheet QA.
+Podenco and Water Spaniel required one targeted retry each; their rejected originals
+and exact correction approvals remain archived. Total64 completed calls,13 rejected
+outputs,6 targeted retries,0 failures. N publication remains zero; live802/437 unchanged.
+
+This stable candidate passed583 Node,51 Python and24 Deno tests and43 staged Chrome
+flows, full baseline/isolation preservation, desktop Water Spaniel and390x844 Sheepdog
+comparison/About/Escape, unclipped short copy, and reviewer provenance/navigation/draft/
+flag/focus checks. All51 archives were actually restored into temporary N-only roots:
+1,740 files matched hashes, including every canonical master and approved full/short copy.
+Evidence: verification-checkpoint-051.json, browser-checkpoint-051.json and
+restoration-checkpoint-051.json under the N evidence root. Off-machine backup is unverified.
+
+The checkpoint occurs while workers research fresh primary routes for older photo-only
+holds. Prior freezes and rejected references remain unchanged. The active objective
+continues for49 more accepted pairs; no integration or publication is authorized.

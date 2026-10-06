@@ -1,0 +1,82 @@
+{
+  "origin": "https://www.stackrankapp.com",
+  "startedAt": "2026-10-06T053807Z",
+  "chrome": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "status": "passed",
+  "results": [
+    {
+      "name": "Movies app shell and Share Studio PNG download",
+      "product": "movies",
+      "status": "passed",
+      "durationMs": 3479,
+      "details": {
+        "shell": {
+          "title": "StackRank — Build your movie ranking",
+          "webdriver": false,
+          "items": 3
+        },
+        "pngBytes": 385527,
+        "screenshots": [
+          "reports/deployment-contract/production-rendered/2026-10-06T053807Z/movies.png",
+          "reports/deployment-contract/production-rendered/2026-10-06T053807Z/movies-share-studio.png"
+        ]
+      },
+      "consoleErrors": []
+    },
+    {
+      "name": "Movies shared viewer for an unknown slug",
+      "product": "movies",
+      "status": "passed",
+      "durationMs": 2879,
+      "details": {
+        "text": "STACKRANK\n\nREAD-ONLY MOVIE RANKING\n\nShared ranking\n\nThis is a published snapshot. Future edits stay private until the owner updates the link.\n\nTHIS SHARED LIST IS NO LONGER AVAILABLE.\nRank your own mo",
+        "screenshot": "reports/deployment-contract/production-rendered/2026-10-06T053807Z/movies-shared.png"
+      },
+      "consoleErrors": []
+    },
+    {
+      "name": "Dogs completed-pair catalog and portraits",
+      "product": "dogs",
+      "status": "passed",
+      "durationMs": 1833,
+      "details": {
+        "catalogCount": 806,
+        "visiblePortraits": 19,
+        "screenshot": "reports/deployment-contract/production-rendered/2026-10-06T053807Z/dogs.png"
+      },
+      "consoleErrors": []
+    },
+    {
+      "name": "Dogs shared viewer for an unknown slug",
+      "product": "dogs",
+      "status": "passed",
+      "durationMs": 3419,
+      "details": {
+        "text": "STACKRANK\n\nREAD-ONLY DOGS RANKING\n\nShared dog ranking\n\nA published snapshot. Later ranking changes stay private until the owner updates this link.\n\nThis Dogs ranking is no longer available.\n\nRank your",
+        "screenshot": "reports/deployment-contract/production-rendered/2026-10-06T053807Z/dogs-shared.png"
+      },
+      "consoleErrors": []
+    },
+    {
+      "name": "Books preview, privacy and family home render",
+      "product": "site",
+      "status": "passed",
+      "durationMs": 6660,
+      "details": {
+        "/books?debug=1": {
+          "title": "StackRank Books — Build your book ranking",
+          "robots": "noindex,nofollow"
+        },
+        "/privacy?debug=1": {
+          "title": "Privacy & Credits · StackRank",
+          "robots": ""
+        },
+        "/home.html?debug=1": {
+          "title": "StackRank — Put your favorites in order",
+          "robots": "noindex,nofollow"
+        }
+      },
+      "consoleErrors": []
+    }
+  ]
+}

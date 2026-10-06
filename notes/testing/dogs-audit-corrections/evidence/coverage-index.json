@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "assembledAt": "2026-10-06",
-  "status": "all_findings_adjudicated_and_applied_final_release_verification_pending",
+  "status": "all_findings_adjudicated_applied_and_product_release_verified",
   "immutableAuditLedgerHashes": {
     "findings.jsonl": "a3e4df5148091ea81e9a563d111feeef9f9d84efb83873df612a295ace33bb6a",
     "proposed-changes.jsonl": "8c7d439f18acaae408bd50e39ce21d9a9ace74a2e5755e16b77584c54e576899",
@@ -44,7 +44,7 @@
     "N100ActualPortraitAndTextReviewRecorded": true,
     "all214Systemic08IdsUnique": true,
     "pendingN_BIdentityRows": 0,
-    "releaseVerified": false,
+    "releaseVerified": true,
     "localVerificationPassed": true
   },
   "findingAndProposalCoverage": [
@@ -2328,7 +2328,7 @@
     },
     {
       "catalogId": "VBO:0201464",
-      "name": "Tarsus çatalburun",
+      "name": "Tarsus \u00e7atalburun",
       "reviewPointer": "n-b-review.json#/reviews/31",
       "fullShortSurfacedFieldsReviewed": true,
       "actualPortraitReviewed": true,
@@ -2667,5 +2667,6 @@
       "sha256": "8d6f30c9f67063fcb1344b19db5ce42a03d0b8c05b3c86650a33575a055a5e06",
       "bytes": 5444
     }
-  ]
+  ],
+  "verifiedProductCommit": "4f24601df3a20b7189692c07deeeaf3dd9cf31fa"
 }

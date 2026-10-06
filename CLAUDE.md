@@ -1,6 +1,6 @@
 # StackRank
 
-October 6 audit correction release: cohort N is complete and independently reviewed. Its original
+October 6 audit correction release: **806 public / 433 hidden; 902 complete pairs and all 1,239 stable IDs preserved**. Cohort N is complete and independently reviewed: 60 public additions, 40 reversible holds. Product `4f24601d` is Vercel READY with local and production verification. Its original
 isolation/publication holds are historical; Dan authorized corrected integration, commit/push and
 production release. Current execution and verified release receipts live in
 `notes/testing/dogs-audit-corrections/`. Read its hand-back/checkpoint before continuing. The

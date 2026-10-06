@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "status": "final-combined-verification",
+  "status": "verified-product-release",
   "startedAt": "2026-10-06",
   "baselineCommit": "c3ba4b030f7ad587e8a11cfc264c86b2543e5ab1",
   "integrationBranch": "dogs/audit-corrections-release",
@@ -16,7 +16,7 @@
     "parent_support": "/tmp/stackrank-audit-root-support"
   },
   "preservation": "Audit/N originals, private source caches, native masters and untracked main files preserved. No automatic identity merge or destructive migration.",
-  "releaseState": "Final corrected candidate; full verify/CI/deployment still pending. No push yet.",
+  "releaseState": "Exact product CI completed successfully, Vercel production READY, all paced production checks passed. Documentation-only followup must retain identical public artifact digest and receive its own exact-SHA remote CI/Vercel verification.",
   "counts": {
     "identities": 1239,
     "completePairs": 902,
@@ -30,5 +30,16 @@
     "NHeld": 40,
     "originalPublicRetained": 746,
     "originalPublicHeld": 56
-  }
+  },
+  "productCommit": "4f24601df3a20b7189692c07deeeaf3dd9cf31fa",
+  "ci": {
+    "id": 37419305667,
+    "head_sha": "4f24601df3a20b7189692c07deeeaf3dd9cf31fa",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/danbretl/StackRank-Web/actions/runs/37419305667",
+    "workflow": "Test",
+    "job": "Verify"
+  },
+  "publicContractDigest": "3177769aa4b6f81f5bc58e299d0dd11dc9344a95e43e3417baa0111c131f21ea"
 }

@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "productCommit": "4f24601df3a20b7189692c07deeeaf3dd9cf31fa",
+  "status": "passed",
+  "productionOrigin": "https://www.stackrankapp.com",
+  "smokeChecks": 49,
+  "exactByteMatches": 19,
+  "exclusionChecks": 8,
+  "renderedFlows": 5,
+  "logs": {
+    "smoke": {
+      "path": "/tmp/stackrank-audit-production-smoke.log",
+      "sha256": "7585ee3e92bbf33440ae4a63a04e54a18bb696907a054616bb3b830c8a2215ad"
+    },
+    "hashes": {
+      "path": "/tmp/stackrank-audit-production-hashes.log",
+      "sha256": "b55728668a1c722541d4d59c0aa7451e1d3df0915902dae7a5b6761ed29de340"
+    },
+    "rendered": {
+      "path": "/tmp/stackrank-audit-production-rendered.log",
+      "sha256": "14af1c60199d932fd64542b19daa89f40994271263aa693d26dcd63bc9fea4c9"
+    }
+  },
+  "harnessScope": {
+    "smoke": "Existing check-production.mjs wrapped with600ms fetch pacing and firewall-stop guard.",
+    "hashes": "19 specified current runtime/data/portrait assets;8 specified nonpublic paths.",
+    "rendered": "Existing renderer in disposable Chrome profile with1s navigation spacing; omitted all-batch artwork-review route because already staged-tested; Movies PNG and shared viewer, Dogs806public/portraits and shared viewer, Books/privacy/home rendered. No real account writes.",
+    "firewall": "No challenge encountered. No bypass or full-site crawl."
+  },
+  "legacyPages": {
+    "apiStatus": 404,
+    "disabled": true
+  }
+}

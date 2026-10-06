@@ -27,10 +27,22 @@ No new artwork was generated. All 902 portrait approvals/provenance and 1,804 va
 
 ## Verification and release
 
-Release gates and exact receipts are appended after completion. Focused tests enforce all-96 accounting, independent review, unchanged identity/artwork, authoring/compiled bindings, category scope and public-selection agreement. Existing hidden/visible reorder, backup, lists, share and account-compatibility coverage is retained. Full verification covers Movies, Dogs and Books as well as deployment classification/determinism.
+The product release is verified; exact receipts are listed below. Focused tests enforce all-96 accounting, independent review, unchanged identity/artwork, authoring/compiled bindings, category scope and public-selection agreement. Existing hidden/visible reorder, backup, lists, share and account-compatibility coverage is retained. Full verification covers Movies, Dogs and Books as well as deployment classification/determinism.
 
 ## Rollback
 
-The follow-on product commit is a single-parent continuation of baseline main. Revert that product commit with ordinary `git revert PRODUCT_SHA`, then run full verification and deploy the new revert commit. Do not reset user data or delete preserved evidence. A later documentation-only receipt commit can remain or be reverted separately; it does not change public assets.
+The follow-on product commit is a single-parent continuation of baseline main. Revert that product commit with ordinary `git revert 61e72ef60ec2ddfd6fe9a098510ffa75a673de8a`, then run full verification and deploy the new revert commit. Do not reset user data or delete preserved evidence. A later documentation-only receipt commit can remain or be reverted separately; it does not change public assets.
 
 Local final validation passed: **617 Node / 58 Python / 24 Deno / 44 staged Chrome flows**, including Movies, Dogs and Books. All catalog/profile/artwork/asset-version validators pass. Deterministic deployment classification: 2,167 public files, 173,152,426 bytes, digest `d109d819ab276cb89e8203b19121e3cb212c925eb2d419e088c378301a4465b8`. Independent root receipts cover every staged byte, actual category screenshots, saved-state fixtures, all 5,617 unchanged audit files and unchanged original N HEAD. See `local-verification.json` and `root-*-review.json`.
+
+## Verified publication receipts
+
+Product commit: `61e72ef60ec2ddfd6fe9a098510ffa75a673de8a`, safely fast-forwarded into main and confirmed at the remote ref. Required [CI run 37423297023](https://github.com/danbretl/StackRank-Web/actions/runs/37423297023) completed successfully on that exact SHA. Vercel deployment `dpl_HY6T4emyw1LfS3V6zxvXNaMpuBHo` is READY, production, main, the same SHA, and owns the www/apex aliases with no alias error. See `product-ci.json` and `product-vercel.json`.
+
+Live verification passed 49 paced smoke checks, 20 exact source-byte/hash matches and eight private/superseded-path exclusions. Five bounded rendered checks cover Movies Share Studio with actual PNG download, both shared viewers, Dogs' 900-entry catalog, Books, privacy and home. The independent category flow also passed on production, with actual settled Photos/Compact/detail/mobile-comparison screenshots and restored/excluded saved-state checks. No real account writes, mitigation bypass or full-site crawl occurred.
+
+Initial broad Dogs/Photos captures preceded lazy-image decoding. Narrow settled-image checks confirmed loaded portraits and clean category labels. A reused historical screenshot harness initially retained the old806 count assertion; correcting its temporary expectation to900 passed. These were capture/harness issues, not concealed product failures. Evidence: `production-smoke.json`, `production-byte-checks.json`, `production-rendered.json`, `production-settled-images.json`, and `root-production-review.json`. Lead personally inspected Movies Share Studio, settled Dogs discovery and mobile group comparison; root personally inspected all four settled production category views.
+
+This documentation-only follow-up records the completed product proof. Its exact final SHA, CI and READY deployment are verified after push and retained in an ignored final receipt plus the task hand-back, avoiding a recursive self-referential commit. Its public assets are byte-identical to the verified product.
+
+Residual limits: these sparse cards intentionally do not establish type-level temperament/health/suitability; the Labrador ontology conflict is disclosed and editorially scoped, not fixed upstream. Off-Mac archive backup is unverified. No remaining manual profile-review task or unresolved restoration gap exists within the96.

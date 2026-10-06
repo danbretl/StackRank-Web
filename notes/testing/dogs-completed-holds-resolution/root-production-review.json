@@ -1,0 +1,29 @@
+{
+  "reviewer": "root independent",
+  "productSha": "61e72ef60ec2ddfd6fe9a098510ffa75a673de8a",
+  "deploymentId": "dpl_HY6T4emyw1LfS3V6zxvXNaMpuBHo",
+  "readyState": "READY",
+  "target": "production",
+  "aliases": [
+    "www.stackrankapp.com",
+    "stackrank-wine.vercel.app",
+    "stackrankapp.com",
+    "stackrank-danbretl-2590s-projects.vercel.app",
+    "stackrank-git-main-danbretl-2590s-projects.vercel.app"
+  ],
+  "aliasError": null,
+  "productionOrigin": "https://www.stackrankapp.com",
+  "renderedStatus": "passed",
+  "report": "reports/holds-production-category/runs/2026-10-06T062327Z/summary.json",
+  "initialRun": "reports/holds-production-category/runs/2026-10-06T062244Z/summary.json",
+  "initialScreenshotLimitation": "First Photos screenshot preceded lazy portrait load; repeated bounded flow with image readiness wait in temporary harness only. Product source unchanged.",
+  "personallyViewedScreenshots": [
+    "dogs-category-photos.png",
+    "dogs-category-compact.png",
+    "dogs-category-detail.png",
+    "dogs-category-comparison-phone.png"
+  ],
+  "assessment": "All final screenshots show decoded portraits. Named Bichon Frise example visibly retained in Photos and Compact; detail labels category and illustrative member. Phone Water Spaniel and Bichon comparison shows both cards within viewport and complete named examples. Concise blank-fact handling and restored/excluded saved-ID persistence after reload pass.",
+  "scope": "One focused production category flow, then one bounded repeat solely to settle screenshot images. Fresh headless local profile; debug=1; no real accounts, no telemetry, no remote data writes. Firewall preflight and immediate-stop guard; no challenge encountered.",
+  "remainingReleaseGates": "Lead exact-SHA CI, paced production smoke/hash/exclusion checks and final docs receipt commit/deployment."
+}

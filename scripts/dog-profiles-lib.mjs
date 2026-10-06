@@ -39,7 +39,7 @@ export function uniqueWikidataMatch(entity, index) {
 
 const FCI_FAMILY_LABELS = Object.freeze({
   1: "Herding dogs",
-  2: "Pinscher, Schnauzer & mountain dogs",
+  2: "Pinscher, Schnauzer, molossoid & Swiss mountain dogs",
   3: "Terriers",
   4: "Dachshunds",
   5: "Spitz & primitive dogs",
@@ -61,7 +61,6 @@ const EDITORIAL_FAMILY_LABELS = Object.freeze({
   "livestock guardian": "Livestock guardians",
   "water dog": "Water dogs",
   "toy companion": "Toy & companion dogs",
-  "non sporting": "Non-sporting dogs",
   "scent hound": "Scent hounds",
   hound: "Hounds",
   spitz: "Spitz dogs",
@@ -69,12 +68,20 @@ const EDITORIAL_FAMILY_LABELS = Object.freeze({
   "mastiff-type": "Mastiff-type dogs",
   companion: "Companion dogs",
   retriever: "Retrievers",
-  "hairless breeds": "Hairless breeds",
   earthdog: "Earthdogs",
+  "pointing dog": "Pointing dogs",
+  spaniel: "Spaniels",
+  schnauzer: "Schnauzers",
+  pinscher: "Pinschers",
+  dachshund: "Dachshunds",
+  "sled dog": "Sled dogs",
+  bulldog: "Bulldog types",
+  cur: "Curs",
+  landrace: "Regional dog populations",
 });
 
 const STATUS_FAMILY_LABELS = Object.freeze({
-  canonical: "Recognized breed or regional type",
+  canonical: "Breed or regional type",
   variety: "Breed variety",
   crossbreed: "Crossbreed or named mix",
   historical: "Historical breed or type",
@@ -140,6 +147,63 @@ export function packMembershipByCatalogId(packs) {
   return map;
 }
 
+// Editorial families are descriptive working/type groupings, not registry recognition.
+// Only explicit semantic synonyms are folded; prose/heritage/coat/pack utility tags are omitted.
+export function normalizeDogEditorialFamilies(values) {
+  const aliases = {
+    scenthound: "scent hound", "scent hounds": "scent hound", "herding dog": "herding",
+    "working dog": "working", "companion dog": "companion", "toy dog": "toy companion", toy: "toy companion",
+    "sporting dog": "sporting", "mastiff type": "mastiff-type", mastiff: "mastiff-type", molosser: "mastiff-type",
+    "companion cross": "crossbreed", "companion crossbreed": "crossbreed", "working cross": "crossbreed",
+    "flushing spaniel": "spaniel", "pointing spaniel": "pointing dog", "continental pointer": "pointing dog",
+    "hunt point retrieve": "pointing dog", "earth terrier": "terrier", "working terrier": "terrier",
+    "water working dog": "water dog", "northern spitz": "spitz", "nordic spitz": "spitz",
+    "german spitz": "spitz", "japanese spitz": "spitz", "hunting spitz": "spitz",
+    "spitz primitive": "spitz primitive", "toy spaniel": "toy companion", "companion spaniel": "toy companion",
+    "bulldog type": "bulldog", "bull terrier": "terrier", "toy terrier": "terrier",
+  };
+  return unique((Array.isArray(values) ? values : []).map((value) => {
+    const key = cleanText(value).toLocaleLowerCase().replace(/[-–—]/g, " ");
+    const canonical = aliases[key] || key;
+    return Object.hasOwn(EDITORIAL_FAMILY_LABELS, canonical) ? canonical : "";
+  }));
+}
+
+export function normalizeDogOrigins(values) {
+  const equivalents = { "people's republic of china": "China", "korea (republic of)": "South Korea",
+    "republic of korea": "South Korea", "great britain": "United Kingdom",
+    "united states of america": "United States", usa: "United States", uk: "United Kingdom" };
+  // Never turn an empire, continent or historical region into a guessed modern state.
+  const historicalOrBroad = new Set(["german empire", "soviet union", "ancient rome", "rhodesia", "europe", "asia", "africa"]);
+  return unique((Array.isArray(values) ? values : []).filter((value) => typeof value === "string").map(cleanText)
+    .filter((value) => !historicalOrBroad.has(value.toLocaleLowerCase()))
+    .map((value) => equivalents[value.toLocaleLowerCase()] || value));
+}
+
+export function dogProfileOrigins({ override, entity, fciRecord, matched }) {
+  if (override && Object.hasOwn(override, "originBasis") &&
+    !["registry", "editorial"].includes(override.originBasis)) {
+    throw new Error(`Invalid authored origin basis: ${entity.id}`);
+  }
+  if (override && Object.hasOwn(override, "originRegions")) {
+    if (!Array.isArray(override.originRegions) || override.originRegions.some((value) =>
+      typeof value !== "string" || !cleanText(value))) throw new Error(`Invalid authored origins: ${entity.id}`);
+    return { regions: unique(override.originRegions), basis: override.originBasis === "registry" ? "registry" : "editorial" };
+  }
+  if (fciRecord?.country) return { regions: normalizeDogOrigins([titleCaseCountry(fciRecord.country)]), basis: "registry" };
+  if (entity.originRegions?.length) return { regions: normalizeDogOrigins(entity.originRegions), basis: "editorial" };
+  return { regions: normalizeDogOrigins(matched?.countries), basis: "structured" };
+}
+
+function profileReviewDate(profile, fallback, id) {
+  const value = Object.hasOwn(profile, "reviewedAt") ? profile.reviewedAt : fallback;
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value) ||
+    !Number.isFinite(Date.parse(value)) || new Date(value).toISOString().slice(0, 10) !== value) {
+    throw new Error(`Invalid profile review date: ${id}`);
+  }
+  return value;
+}
+
 export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, refreshes = [], shortDescriptions = null }) {
   const wikidataIndex = buildWikidataMatchIndex(wikidata?.records);
   const packById = packMembershipByCatalogId(packs?.packs);
@@ -157,7 +221,7 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, ref
     }
   }
   const writtenProfiles = new Map(Object.entries(overrides?.profiles || {}).map(([id, profile]) => [id, {
-    ...profile, reviewedAt: overrides.reviewedAt || "2026-09-21",
+    ...profile, reviewedAt: profileReviewDate(profile, overrides.reviewedAt || "2026-09-21", id),
   }]));
   for (const refresh of refreshes) {
     if (refresh?.schemaVersion !== 1 || !/^\d{4}-\d{2}-\d{2}$/.test(refresh.reviewedAt)) throw new Error("Invalid profile refresh metadata");
@@ -169,7 +233,7 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, ref
           return !validDogResearchUrl(source.url) || !cleanText(source.title) || !cleanText(source.evidence);
         } catch { return true; }
       })) throw new Error(`Refreshed profile needs traceable sources: ${id}`);
-      writtenProfiles.set(id, { ...profile, reviewedAt: refresh.reviewedAt });
+      writtenProfiles.set(id, { ...profile, reviewedAt: profileReviewDate(profile, refresh.reviewedAt, id) });
     }
   }
   const editorialSources = new Map();
@@ -186,10 +250,8 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, ref
       throw new Error(`Invalid refreshed short description: ${entity.id}`);
     }
     const shortDescription = cleanText(override?.shortDescription || baselineShortDescriptions[entity.id]);
-    const origins = unique(override?.originRegions?.length ? override.originRegions : [
-      ...(fciRecord?.country ? [titleCaseCountry(fciRecord.country)] : []),
-      ...(matched?.countries || []),
-    ]).slice(0, 8);
+    const origin = dogProfileOrigins({ override, entity, fciRecord, matched });
+    const origins = origin.regions.slice(0, 8);
     const parentName = entityById.get(entity?.relationships?.parentId)?.displayName || "";
     const generated = generatedProfileCopy(entity, {
       origins,
@@ -228,8 +290,11 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, ref
     };
     const popularity = popularityById[entity.id];
     if (popularity) sourceIds.push("akc-us-registrations-2025");
-    const editorialFamilies = unique([...(override?.editorialFamilies || []), ...pack.families]).slice(0, 12);
-    const type = dogTypeLabel({ entity, fciRecord, editorialFamilies });
+    const editorialFamilies = normalizeDogEditorialFamilies([...(override?.editorialFamilies || []), ...pack.families]).slice(0, 12);
+    const type = override?.typeLabel
+      ? { label: cleanText(override.typeLabel), basis: override.typeBasis === "catalog" ? "catalog" : "editorial" }
+      : dogTypeLabel({ entity, fciRecord, editorialFamilies });
+    if (type.label.length > 80) throw new Error(`Invalid authored type label: ${entity.id}`);
     profiles[entity.id] = {
       summary: cleanText(override?.summary || generated.summary),
       ...(shortDescription ? { shortDescription } : {}),
@@ -238,6 +303,7 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, ref
       typeLabel: type.label,
       typeBasis: type.basis,
       originRegions: origins,
+      originBasis: origin.basis,
       historicalRoots: cleanText(override?.historicalRoots),
       editorialFamilies,
       registryGroups,
@@ -249,7 +315,7 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, ref
 
   return {
     schemaVersion: 1,
-    profileVersion: "dogs-field-guide-2026-10-01.1",
+    profileVersion: "dogs-field-guide-2026-10-06.1",
     sources: [
       { id: "vbo-2026-04-15", name: "Vertebrate Breed Ontology", url: catalog.source.artifactUrl, license: catalog.source.license, retrievedAt: `${catalog.source.retrievedAt}T00:00:00.000Z` },
       { id: "wikidata-dog-breeds-2026-09-21", name: "Wikidata structured dog-breed statements", url: wikidata.source.url, license: wikidata.source.license, retrievedAt: wikidata.retrievedAt },

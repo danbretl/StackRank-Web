@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "catalogId": "stackrank-dogs",
-  "catalogVersion": "vbo-2026-04-15.2",
+  "catalogVersion": "vbo-2026-04-15.3",
   "source": {
     "name": "Vertebrate Breed Ontology",
     "release": "2026-04-15",
@@ -172,6 +172,7 @@
         "Indigenous",
         "Indigenous, Bangladesh"
       ],
+      "displayAliases": [],
       "sourceIds": [
         "VBO:0008003"
       ],
@@ -582,6 +583,7 @@
       "aliases": [
         "Terrier - Aberdeen"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200000"
       ],
@@ -686,6 +688,7 @@
         "Tazhi Spay, Da",
         "Tazi"
       ],
+      "displayAliases": [],
       "sourceIds": [
         "VBO:0200004"
       ],
@@ -712,6 +715,7 @@
         "African Boerboel (African Mastiff)",
         "African Mastiff"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200005"
       ],
@@ -733,6 +737,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200006"
       ],
@@ -884,6 +889,7 @@
         "Mastiff - Alangu (Mastiff - Indian)",
         "Mastiff - Indian"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200012"
       ],
@@ -1033,6 +1039,7 @@
       "aliases": [
         "Shepherd Dog - Alaskan"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200018"
       ],
@@ -1125,6 +1132,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200024"
       ],
@@ -1171,6 +1179,9 @@
       "aliases": [
         "Akita - American",
         "Amerikanischer Akita",
+        "Great Japanese Dog"
+      ],
+      "displayAliases": [
         "Great Japanese Dog"
       ],
       "sourceIds": [
@@ -1222,6 +1233,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200029"
       ],
@@ -1294,6 +1306,7 @@
       "aliases": [
         "Bullador – American"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200033"
       ],
@@ -1415,6 +1428,7 @@
         "Spaniel - Cocker, American",
         "Spaniel, American Cocker"
       ],
+      "displayAliases": [],
       "sourceIds": [
         "VBO:0200038"
       ],
@@ -1506,6 +1520,7 @@
       "aliases": [
         "Coonhound - American"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200042"
       ],
@@ -1722,12 +1737,15 @@
     },
     {
       "id": "VBO:0200052",
-      "displayName": "American Lo-Size Pugg",
+      "displayName": "American Lo-Sze Pugg",
       "entityType": "dog",
       "status": "canonical",
       "selectable": true,
       "promoted": false,
-      "aliases": [],
+      "aliases": [
+        "American Lo-Size Pugg"
+      ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200052"
       ],
@@ -1906,6 +1924,7 @@
         "Shepherd Dog - Anatolian Karabash",
         "Shepherd Dog - Anatolian Karabash (Sheepdog - Kangal)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200061"
       ],
@@ -1953,6 +1972,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200063"
       ],
@@ -1978,6 +1998,7 @@
         "Perro Ratonero Andaluz",
         "Spanish Jack Russell Terrier (JRT"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200064"
       ],
@@ -2210,6 +2231,9 @@
         "Hound - Briquet",
         "Picard"
       ],
+      "displayAliases": [
+        "Chien d’Artois"
+      ],
       "sourceIds": [
         "VBO:0200078",
         "VBO:0200331"
@@ -2255,6 +2279,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200080"
       ],
@@ -2513,6 +2538,7 @@
       "aliases": [
         "Koolie - Australian"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200091"
       ],
@@ -2560,6 +2586,7 @@
       "aliases": [
         "Terrier - Australian Rough-Coated"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200093"
       ],
@@ -2583,6 +2610,7 @@
       "aliases": [
         "Sheepdog - Australian"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200094"
       ],
@@ -2611,6 +2639,7 @@
         "Shepherd Dog - Australian (unspecified)",
         "Shepherd Dog - Australian, Standard"
       ],
+      "displayAliases": [],
       "sourceIds": [
         "VBO:0200095"
       ],
@@ -2668,6 +2697,7 @@
         "Terrier - Australian",
         "Terrier - Australian (unspecified)"
       ],
+      "displayAliases": [],
       "sourceIds": [
         "VBO:0200098"
       ],
@@ -2722,6 +2752,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200101"
       ],
@@ -2745,6 +2776,7 @@
       "aliases": [
         "Hound - Austrian"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200102"
       ],
@@ -2797,6 +2829,7 @@
       "aliases": [
         "Pinscher - Austrian, Short-Haired"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200104"
       ],
@@ -2820,6 +2853,7 @@
       "aliases": [
         "Pinscher - Austrian, Standard"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200105"
       ],
@@ -2996,6 +3030,7 @@
       "aliases": [
         "Greyhound - Banjara"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200114"
       ],
@@ -3063,6 +3098,10 @@
         "Bosnian Broken-Haired Hound - Called Barak",
         "Bosnian Coarse-Haired Hound",
         "STICHELHAARIGER BOSNICHER LAUFHUND-GENANNT BARAK"
+      ],
+      "displayAliases": [
+        "Bosanski oštrodlaki gonič-Barak",
+        "Bosnian Broken-Haired Hound"
       ],
       "sourceIds": [
         "VBO:0200117",
@@ -3159,6 +3198,7 @@
       "aliases": [
         "Basset (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200122"
       ],
@@ -3262,6 +3302,7 @@
         "Griffon - Basset Vendeen",
         "Griffon - Basset Vendeen (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200127"
       ],
@@ -3283,6 +3324,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200128"
       ],
@@ -3307,6 +3349,7 @@
       "aliases": [
         "Hound - Bavarian Mountain"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200129"
       ],
@@ -3568,6 +3611,7 @@
       "aliases": [
         "Mastiff - Belgian Draft"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200140"
       ],
@@ -3739,6 +3783,9 @@
         "Shepherd Dog - Belgian, Tervuren",
         "Tervueron Shepherd"
       ],
+      "displayAliases": [
+        "Belgian Tervuren"
+      ],
       "sourceIds": [
         "VBO:0200148"
       ],
@@ -3765,6 +3812,7 @@
       "aliases": [
         "Pointer - Belgian, Short-Haired"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200149"
       ],
@@ -3786,6 +3834,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200150"
       ],
@@ -3939,6 +3988,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200159"
       ],
@@ -3962,6 +4012,7 @@
       "aliases": [
         "Hound - Bernese"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200160"
       ],
@@ -4013,6 +4064,7 @@
       "aliases": [
         "Bichon (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200162"
       ],
@@ -4067,6 +4119,7 @@
         "Terrier - Biewer (Yorksire a la Pom)",
         "Yorksire a la Pom"
       ],
+      "displayAliases": [],
       "sourceIds": [
         "VBO:0200165"
       ],
@@ -4183,6 +4236,7 @@
         "Cocker, Black Spaniel",
         "Spaniel - Cocker, Black"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200170"
       ],
@@ -4241,6 +4295,10 @@
         "Tchiorny Terrier",
         "Terrier - Black Russian",
         "Terrier - Black Russian (Tchiorny) (Russian Bear Schnauzer) (Chornyi)"
+      ],
+      "displayAliases": [
+        "Russian Black Terrier",
+        "Russkiy Tchiorny Terrier"
       ],
       "sourceIds": [
         "VBO:0200174",
@@ -4446,6 +4504,7 @@
         "Boston Huahua",
         "Chi-Bo"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200184"
       ],
@@ -4629,6 +4688,7 @@
       "aliases": [
         "Bulldog - Bordeaux"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200192"
       ],
@@ -4704,6 +4764,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200195"
       ],
@@ -4786,6 +4847,7 @@
         "Hound - Bosnian",
         "Hound - Bosnian (Hound - Barak)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200201"
       ],
@@ -4913,6 +4975,7 @@
       "aliases": [
         "Bouvier (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200206"
       ],
@@ -5069,6 +5132,7 @@
         "Boxerdoodle ( Boxoodle )",
         "Boxoodle"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200213"
       ],
@@ -5196,6 +5260,7 @@
       "aliases": [
         "Braque (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200218"
       ],
@@ -5415,6 +5480,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200233"
       ],
@@ -5546,6 +5612,7 @@
       "aliases": [
         "Bruno de Jura"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200240"
       ],
@@ -5604,6 +5671,7 @@
         "Griffon - Brussels, Standard",
         "Griffon - Brussels, Standard (Bruxellois)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200243"
       ],
@@ -5647,6 +5715,7 @@
         "Bug ( Bugg )",
         "Bugg"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200245"
       ],
@@ -5673,6 +5742,7 @@
         "Sheepdog - Bulgarian (Sheepdog - Karakachan)",
         "Sheepdog - Karakachan"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200246"
       ],
@@ -5810,6 +5880,7 @@
       "aliases": [
         "Mastiff - Bull"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200253"
       ],
@@ -5833,6 +5904,7 @@
       "aliases": [
         "Mastweiler - Bull"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200254"
       ],
@@ -5896,6 +5968,7 @@
         "Bull-Pei ( Sharbull )",
         "Sharbull"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200256"
       ],
@@ -5977,6 +6050,7 @@
       "aliases": [
         "Bulldogge (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200259"
       ],
@@ -6110,6 +6184,7 @@
         "Cairnoodle ( Poocan, Cairn-Poo )",
         "Poocan"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200268"
       ],
@@ -6396,6 +6471,10 @@
         "Portuguese Cattle Dog",
         "Portuguese Watchdog"
       ],
+      "displayAliases": [
+        "Castro Laboreiro Dog",
+        "Dog of Castro Laboreiro"
+      ],
       "sourceIds": [
         "VBO:0200285",
         "VBO:0200296",
@@ -6478,6 +6557,7 @@
         "Hound - Mudhol",
         "Hound - Pashmi"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200289"
       ],
@@ -6565,7 +6645,7 @@
       "id": "VBO:0200297",
       "displayName": "Catahoula Bulldog",
       "entityType": "dog",
-      "status": "canonical",
+      "status": "crossbreed",
       "selectable": true,
       "promoted": false,
       "aliases": [
@@ -6578,6 +6658,7 @@
         "VeNom:13767"
       ],
       "relationships": {
+        "parentId": "VBO:0200902",
         "relatedIds": []
       },
       "originRegions": [],
@@ -6632,6 +6713,7 @@
         "Cattle dog, Australia",
         "Queensland Blue"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0007997",
         "VBO:0200300"
@@ -6656,6 +6738,7 @@
       "aliases": [
         "Ovtcharka - Caucasian"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200302"
       ],
@@ -6679,6 +6762,7 @@
       "aliases": [
         "Sheepdog - Caucasian"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200303"
       ],
@@ -6738,6 +6822,7 @@
         "Chilier",
         "Chiller"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200305"
       ],
@@ -6810,6 +6895,7 @@
         "Cavajack ( Jackalier )",
         "Jackalier"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200308"
       ],
@@ -6973,6 +7059,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200315"
       ],
@@ -7024,6 +7111,7 @@
         "Cava-Tzu",
         "Cavatzu ( Cava-Tzu )"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200317"
       ],
@@ -7049,6 +7137,7 @@
         "Cava Westie",
         "Cavestie ( Cava Westie )"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200318"
       ],
@@ -7073,6 +7162,7 @@
       "aliases": [
         "Sheepdog - Central Asian"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200320"
       ],
@@ -7260,6 +7350,7 @@
         "Chi-Con ( Chichon, Bichon Chi )",
         "Chichon"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200328"
       ],
@@ -7282,6 +7373,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200329"
       ],
@@ -7304,6 +7396,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200330"
       ],
@@ -7326,6 +7419,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200336"
       ],
@@ -7493,6 +7587,7 @@
         "Curtis",
         "Puff"
       ],
+      "displayAliases": [],
       "sourceIds": [
         "VBO:0200345"
       ],
@@ -7565,6 +7660,7 @@
         "Chinese Crestepoo ( Poochis )",
         "Poochis"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200348"
       ],
@@ -7608,6 +7704,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200350"
       ],
@@ -7769,6 +7866,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200357"
       ],
@@ -7791,6 +7889,7 @@
         "Chonzer ( Schnauzon )",
         "Schnauzon"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200358"
       ],
@@ -8015,6 +8114,7 @@
         "Bichon Spaniel",
         "Cockachon ( Bichon Spaniel )"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200367"
       ],
@@ -8041,6 +8141,7 @@
         "Cockerdor",
         "Spanador"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200368"
       ],
@@ -8114,6 +8215,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200371"
       ],
@@ -8144,6 +8246,7 @@
         "Spaniel - Cocker",
         "Spaniel - Cocker (unspecified) (Cocker Spaniel (unspecified))"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200372"
       ],
@@ -8169,6 +8272,7 @@
         "Cocker, A.S.C.O.B Spaniel",
         "Spaniel - Cocker, A.S.C.O.B"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200373"
       ],
@@ -8193,6 +8297,7 @@
         "Cocker, Parti-Colour Spaniel",
         "Spaniel - Cocker, Parti-Colour"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200374"
       ],
@@ -8321,6 +8426,7 @@
         "Hound – Indian Bear",
         "Indian Bear Hound"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200379",
         "VBO:0200694"
@@ -8438,6 +8544,7 @@
       "aliases": [
         "Coonhound (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200384"
       ],
@@ -8552,6 +8659,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200390"
       ],
@@ -8837,6 +8945,7 @@
       "aliases": [
         "Wolfhound - Czechoslovakian"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200403"
       ],
@@ -8860,6 +8969,7 @@
       "aliases": [
         "Terrier - Czesky"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200404"
       ],
@@ -8883,6 +8993,7 @@
       "aliases": [
         "Dachsbracke (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200405"
       ],
@@ -9289,6 +9400,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200422"
       ],
@@ -9485,6 +9597,7 @@
         "Danish Chicken Dog (Gammel Dansk Honsehund)",
         "Gammel Dansk Honsehund"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200431"
       ],
@@ -9532,6 +9645,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200434"
       ],
@@ -9885,6 +9999,7 @@
         "Dorkie ( Dorkie Terrier )",
         "Dorkie Terrier"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200451"
       ],
@@ -10297,6 +10412,7 @@
         "Greyhound - Eastern (West Russian Coursing Hound) (Chortaj)",
         "West Russian Coursing Hound"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200474"
       ],
@@ -10389,6 +10505,7 @@
       "aliases": [
         "Elkhound (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200478"
       ],
@@ -10433,6 +10550,7 @@
       "aliases": [
         "Boxer - English"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200481"
       ],
@@ -10450,7 +10568,7 @@
       "id": "VBO:0200482",
       "displayName": "English Bull Terrier, Coloured",
       "entityType": "dog",
-      "status": "canonical",
+      "status": "variety",
       "selectable": true,
       "promoted": false,
       "aliases": [
@@ -10465,6 +10583,7 @@
         "VeNom:14970"
       ],
       "relationships": {
+        "parentId": "VBO:0200255",
         "relatedIds": []
       },
       "originRegions": [],
@@ -10475,7 +10594,7 @@
       "id": "VBO:0200483",
       "displayName": "English Bull Terrier, White",
       "entityType": "dog",
-      "status": "canonical",
+      "status": "variety",
       "selectable": true,
       "promoted": false,
       "aliases": [
@@ -10490,6 +10609,7 @@
         "VeNom:14991"
       ],
       "relationships": {
+        "parentId": "VBO:0200255",
         "relatedIds": []
       },
       "originRegions": [],
@@ -10532,6 +10652,7 @@
         "Cocker, English Spaniel",
         "Spaniel - Cocker, English"
       ],
+      "displayAliases": [],
       "sourceIds": [
         "VBO:0200486"
       ],
@@ -10833,6 +10954,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200506"
       ],
@@ -11214,6 +11336,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200525"
       ],
@@ -11355,6 +11478,7 @@
       "aliases": [
         "Foxhound (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200531"
       ],
@@ -11379,6 +11503,7 @@
         "Basset - French",
         "Basset - French (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200533"
       ],
@@ -11497,6 +11622,7 @@
       "aliases": [
         "Guard Dog - French"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200540"
       ],
@@ -11521,6 +11647,7 @@
         "Hound – French",
         "Hound – French (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200541"
       ],
@@ -11547,6 +11674,7 @@
         "Korthals French Pointing Griffon",
         "Korthals French Pointing Griffon Wire-Haired"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200542"
       ],
@@ -11570,6 +11698,7 @@
       "aliases": [
         "Pointer - French"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200544"
       ],
@@ -11594,6 +11723,7 @@
         "Sheepdog - French",
         "Sheepdog - French (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200547"
       ],
@@ -11976,6 +12106,7 @@
       "aliases": [
         "Koolie - German"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200569"
       ],
@@ -12075,6 +12206,7 @@
         "Pointer - German",
         "Pointer - German (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200574"
       ],
@@ -12127,7 +12259,7 @@
       "id": "VBO:0200576",
       "displayName": "German Sheeppoodle",
       "entityType": "dog",
-      "status": "crossbreed",
+      "status": "canonical",
       "selectable": true,
       "promoted": false,
       "aliases": [
@@ -12142,7 +12274,6 @@
         "VeNom:22517"
       ],
       "relationships": {
-        "parentId": "VBO:0200902",
         "relatedIds": []
       },
       "originRegions": [],
@@ -12449,6 +12580,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200589"
       ],
@@ -12560,6 +12692,7 @@
         "German, Miniature Spitz",
         "Spitz - German, Miniature"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200594"
       ],
@@ -12668,6 +12801,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200599"
       ],
@@ -12693,6 +12827,7 @@
         "German, Standard Spitz",
         "Spitz - German, Standard"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200600"
       ],
@@ -12718,6 +12853,7 @@
         "German, Toy Spitz",
         "Spitz - German, Toy"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200601"
       ],
@@ -12770,6 +12906,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200603"
       ],
@@ -12797,6 +12934,9 @@
         "Riesenschnauzer",
         "Russian Bear Schnauzer",
         "Schnauzer, Giant"
+      ],
+      "displayAliases": [
+        "Riesenschnauzer"
       ],
       "sourceIds": [
         "VBO:0200604"
@@ -13180,6 +13320,9 @@
         "Great Dane (Mastiff - German) (Deutsche Dogge)",
         "Mastiff - German"
       ],
+      "displayAliases": [
+        "Deutsche Dogge"
+      ],
       "sourceIds": [
         "VBO:0200623"
       ],
@@ -13336,6 +13479,7 @@
       "aliases": [
         "Cattle Dog - Great Swiss"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200630"
       ],
@@ -13412,6 +13556,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200635"
       ],
@@ -13461,6 +13606,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200637"
       ],
@@ -13545,6 +13691,7 @@
         "Bruss",
         "Griff"
       ],
+      "displayAliases": [],
       "sourceIds": [
         "VBO:0200642"
       ],
@@ -13595,6 +13742,7 @@
       "aliases": [
         "Guard Dog (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200645"
       ],
@@ -14007,6 +14155,7 @@
       "aliases": [
         "Heeler (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200665"
       ],
@@ -14182,6 +14331,7 @@
       "aliases": [
         "Hound (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200673"
       ],
@@ -14336,6 +14486,10 @@
         "Transylvanian kopó",
         "Transylvanian kopó, Hungary"
       ],
+      "displayAliases": [
+        "Erdélyi Kopó",
+        "Hungarian Hound – Transylvanian Scent Hound"
+      ],
       "sourceIds": [
         "VBO:0008051",
         "VBO:0008059",
@@ -14368,6 +14522,7 @@
         "Hungarian Vizsla, Smooth-Haired",
         "Maygar Vizla Smooth-Haired"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200681"
       ],
@@ -14411,6 +14566,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200684"
       ],
@@ -14572,6 +14728,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200693"
       ],
@@ -14633,6 +14790,7 @@
       "aliases": [
         "Inuit Dog (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200697"
       ],
@@ -14656,6 +14814,7 @@
       "aliases": [
         "Greyhound - Irish"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200699"
       ],
@@ -14843,6 +15002,7 @@
         "Sheepdog - Istrian",
         "Sheepdog - Istrian (Krasky Ovcar)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200708"
       ],
@@ -15017,6 +15177,9 @@
         "Segugio",
         "SEGUGIO ITALIANO A PELO FORTE"
       ],
+      "displayAliases": [
+        "Segugio Italiano a Pelo Forte"
+      ],
       "sourceIds": [
         "VBO:0200716"
       ],
@@ -15042,6 +15205,7 @@
       "aliases": [
         "Setter - Italian"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200717"
       ],
@@ -15090,6 +15254,9 @@
       "aliases": [
         "Segugio",
         "SEGUGIO ITALIANO A PELO RASO"
+      ],
+      "displayAliases": [
+        "Segugio Italiano a Pelo Raso"
       ],
       "sourceIds": [
         "VBO:0200719"
@@ -15182,6 +15349,7 @@
         "Jackadoodle",
         "Jackapoo"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200725"
       ],
@@ -15257,6 +15425,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200728"
       ],
@@ -15273,15 +15442,17 @@
     },
     {
       "id": "VBO:0200730",
-      "displayName": "Jackshit",
+      "displayName": "Jack Tzu",
       "entityType": "dog",
       "status": "crossbreed",
       "selectable": true,
       "promoted": false,
       "aliases": [
         "Jackashit",
+        "Jackshit",
         "Jackshit ( Jackashit )"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200730"
       ],
@@ -15307,6 +15478,7 @@
         "Jackshund ( Jackweenie )",
         "Jackweenie"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200731"
       ],
@@ -15397,6 +15569,7 @@
         "Japanese Akita",
         "Japanese Akita Inu"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200734"
       ],
@@ -15553,6 +15726,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200743"
       ],
@@ -15709,6 +15883,10 @@
         "Sivas Kangal",
         "Turkish Kangal"
       ],
+      "displayAliases": [
+        "Kangal Çoban Köpeği",
+        "Kangal Shepherd Dog"
+      ],
       "sourceIds": [
         "VBO:0008084",
         "VBO:0200749",
@@ -15811,6 +15989,7 @@
       "aliases": [
         "Laika - Karelian Bear"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200755"
       ],
@@ -15834,6 +16013,7 @@
       "aliases": [
         "Laika - Karelo-Finnish"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200756"
       ],
@@ -16294,6 +16474,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200776"
       ],
@@ -16391,6 +16572,7 @@
       "aliases": [
         "Sage - Koochee"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200780"
       ],
@@ -16637,6 +16819,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200794"
       ],
@@ -16683,6 +16866,7 @@
         "La-Chon ( Lhasa-Chon )",
         "Lhasa-Chon"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200796"
       ],
@@ -16708,6 +16892,7 @@
         "Lab-Pei ( Sharpador )",
         "Sharpador"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200797"
       ],
@@ -16763,6 +16948,8 @@
         "Husky - Labrador ( Huskador, Huskydor )",
         "Huskydor"
       ],
+      "displayAliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200799"
       ],
@@ -16817,6 +17004,7 @@
         "Labralas ( Vizslador )",
         "Vizslador"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200801"
       ],
@@ -16861,6 +17049,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200803"
       ],
@@ -16982,6 +17171,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200809"
       ],
@@ -17050,6 +17240,7 @@
       "aliases": [
         "Lapphund (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200813"
       ],
@@ -17106,6 +17297,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200815"
       ],
@@ -17204,6 +17396,7 @@
         "Gentle Lion",
         "Leo"
       ],
+      "displayAliases": [],
       "sourceIds": [
         "VBO:0200819"
       ],
@@ -17236,6 +17429,8 @@
         "Leopard Dog",
         "Louisiana Catahoula"
       ],
+      "displayAliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200298",
         "VBO:0200820"
@@ -17255,7 +17450,7 @@
       "id": "VBO:0200821",
       "displayName": "Levesque",
       "entityType": "dog",
-      "status": "canonical",
+      "status": "historical",
       "selectable": true,
       "promoted": false,
       "aliases": [],
@@ -17299,6 +17494,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200823"
       ],
@@ -17351,6 +17547,7 @@
         "Lhasadoodle",
         "Lhasapoo"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200825"
       ],
@@ -17376,6 +17573,7 @@
         "Lhasalier ( Lhasalier Spaniel )",
         "Lhasalier Spaniel"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200826"
       ],
@@ -17482,6 +17680,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200831"
       ],
@@ -17527,6 +17726,9 @@
       "aliases": [
         "Longhaired whippet",
         "Whippet - Long-Haired"
+      ],
+      "displayAliases": [
+        "Windsprite"
       ],
       "sourceIds": [
         "VBO:0200833"
@@ -17990,6 +18192,7 @@
         "Maltese – Teacup ( Miniature )",
         "Maltese Miniature"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200857"
       ],
@@ -18014,6 +18217,7 @@
         "Malt Russell",
         "Maltese Jack Russell mix ( Malt Russell )"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200858"
       ],
@@ -18039,6 +18243,7 @@
         "Maltese Terriers",
         "Terrier - Maltese"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200859"
       ],
@@ -18094,6 +18299,7 @@
         "Maltipom ( Malti-Pom, Pomanees )",
         "Pomanees"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200861"
       ],
@@ -18267,6 +18473,7 @@
       "aliases": [
         "Mastweiler (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200870"
       ],
@@ -18339,6 +18546,7 @@
         "Meliteo Kinidio (Small Greek Domestic Dog)",
         "Small Greek Domestic Dog"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200874",
         "VBO:0201249"
@@ -18385,6 +18593,7 @@
       "aliases": [
         "Ovtcharka - Middle Asian"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200876"
       ],
@@ -18408,6 +18617,7 @@
       "aliases": [
         "Husky - Alaskan, Miniature"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200878"
       ],
@@ -18564,6 +18774,7 @@
         "Doberman, Miniature Pinscher",
         "Pinscher - Doberman, Miniature"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200885"
       ],
@@ -18590,6 +18801,7 @@
         "Terrier - Bull English Miniature unspecified",
         "Varkhond Miniature"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200886"
       ],
@@ -18717,6 +18929,7 @@
         "Terrier - Jack Russell (JRT), Miniature",
         "Terrier - Jack Russell Miniature"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200891"
       ],
@@ -18987,6 +19200,7 @@
         "Street Dog",
         "Village Dog"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200393",
         "VBO:0200902",
@@ -19103,6 +19317,7 @@
         "Terrier - Moscow Toy, Long-Haired",
         "Terrier - Russian Toy, Long-Haired"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200909"
       ],
@@ -19130,6 +19345,7 @@
         "Terrier - Moscow Toy, Short-Haired",
         "Terrier Russian Toy, Short-Haired"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200910"
       ],
@@ -19153,6 +19369,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200911"
       ],
@@ -19240,6 +19457,7 @@
       "aliases": [
         "Mountain Dog (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200915"
       ],
@@ -19287,6 +19505,7 @@
       "aliases": [
         "Cur - Mountain Stephens Stock"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200917"
       ],
@@ -19543,6 +19762,7 @@
         "Pointer - Munsterlander",
         "Pointer - Munsterlander (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200928"
       ],
@@ -19732,6 +19952,7 @@
         "Sheepdog - New Zealand",
         "Sheepdog - New Zealand (Sheepdog - Huntaway)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200937"
       ],
@@ -20101,6 +20322,7 @@
         "Hound - Norwegian Dunker (Dunkerhound)",
         "Norwegian Dunkerhound"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200954"
       ],
@@ -20187,6 +20409,7 @@
         "Norsk elghund gra",
         "Norsk elghund gra, Norway"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0008079",
         "VBO:0200957"
@@ -20399,6 +20622,7 @@
       "aliases": [
         "Shepherd Dog - Old Time Farm"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200973"
       ],
@@ -20506,7 +20730,7 @@
       "id": "VBO:0200978",
       "displayName": "Ori Pei",
       "entityType": "dog",
-      "status": "canonical",
+      "status": "crossbreed",
       "selectable": true,
       "promoted": false,
       "aliases": [],
@@ -20517,6 +20741,7 @@
         "VeNom:14481"
       ],
       "relationships": {
+        "parentId": "VBO:0200902",
         "relatedIds": []
       },
       "originRegions": [],
@@ -20579,6 +20804,7 @@
       "aliases": [
         "Ovtcharka (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200981"
       ],
@@ -20618,7 +20844,7 @@
       "id": "VBO:0200983",
       "displayName": "Paisley Terrier",
       "entityType": "dog",
-      "status": "canonical",
+      "status": "historical",
       "selectable": true,
       "promoted": false,
       "aliases": [],
@@ -20637,7 +20863,7 @@
       "id": "VBO:0200984",
       "displayName": "Pampas Deerhound",
       "entityType": "dog",
-      "status": "historical",
+      "status": "canonical",
       "selectable": true,
       "promoted": false,
       "aliases": [],
@@ -20665,6 +20891,7 @@
         "Phalene (drop ear type)",
         "Squirrel Dog (due to tail carriage)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200985"
       ],
@@ -20777,6 +21004,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200991"
       ],
@@ -20802,6 +21030,7 @@
         "Patterdoodle",
         "Patterpoo ( Patterdoodle )"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200992"
       ],
@@ -20824,6 +21053,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0200993"
       ],
@@ -21234,6 +21464,7 @@
         "Epagneul Nain Continental",
         "Phalène (Butterfly Dog) (Epagneul Nain Continental)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201015"
       ],
@@ -21357,6 +21588,7 @@
       "aliases": [
         "Pinscher (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201021"
       ],
@@ -21562,6 +21794,7 @@
         "Pointer-Rottweiler mix ( Pointweiler )",
         "Pointweiler"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201030"
       ],
@@ -21730,6 +21963,7 @@
         "Sheepdog - Polish",
         "Sheepdog - Polish (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201036"
       ],
@@ -21806,6 +22040,7 @@
         "Poopom",
         "Pooranian"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201039"
       ],
@@ -21833,6 +22068,7 @@
         "Pugeranian",
         "Pugpom"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201040"
       ],
@@ -21940,6 +22176,7 @@
         "Pomchow",
         "Pomeranian-Chow Chow mix ( Pomchow, Chowpom )"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201044"
       ],
@@ -22296,6 +22533,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201060"
       ],
@@ -22354,6 +22592,7 @@
         "Beapoo",
         "Poogle ( Beaglepoo, Beapoo, Beagapoo )"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201063"
       ],
@@ -22491,6 +22730,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201070"
       ],
@@ -22587,6 +22827,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201076"
       ],
@@ -22717,6 +22958,7 @@
       "aliases": [
         "Hound - Posavina"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201082"
       ],
@@ -22767,6 +23009,9 @@
         "Ratonero de Praga",
         "Ratter - Prague",
         "Ratter - Prague (Prazsky Krysavik)"
+      ],
+      "displayAliases": [
+        "Pražský krysařík"
       ],
       "sourceIds": [
         "VBO:0201084"
@@ -22931,6 +23176,7 @@
         "Pug-Labrador retriever mix ( Pug Lab mix, Pugador )",
         "Pugador"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201090"
       ],
@@ -22957,6 +23203,7 @@
         "Pug-Zu ( Pug Tzu, Pugzu )",
         "Pugzu"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201091"
       ],
@@ -23092,6 +23339,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201097"
       ],
@@ -23119,6 +23367,7 @@
         "Pugoodle",
         "Pugpoo"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201098"
       ],
@@ -23171,6 +23420,7 @@
         "Pugapeke",
         "Puginese ( Pugapeke, Pekeapug )"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201100"
       ],
@@ -23196,6 +23446,7 @@
         "Pugland ( Pugland Terrier )",
         "Pugland Terrier"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201101"
       ],
@@ -23223,6 +23474,10 @@
         "Puli, Hungary",
         "Water Dog - Hungarian",
         "Water Dog - Hungarian (Puli)"
+      ],
+      "displayAliases": [
+        "Hungarian Puli",
+        "Hungarian Water Dog"
       ],
       "sourceIds": [
         "VBO:0008057",
@@ -23406,6 +23661,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201110"
       ],
@@ -23433,6 +23689,7 @@
         "Pyreneespoo",
         "Pyrepoo"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201111"
       ],
@@ -23455,6 +23712,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201114"
       ],
@@ -23474,6 +23732,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201115"
       ],
@@ -23550,6 +23809,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201118"
       ],
@@ -23594,6 +23854,9 @@
         "Mutt of Alentejo",
         "Portuguese Mastiff",
         "Portuguese Watchdog"
+      ],
+      "displayAliases": [
+        "Rafeiro of Alentejo"
       ],
       "sourceIds": [
         "VBO:0200021",
@@ -23666,6 +23929,9 @@
         "Greyhound - Rampur (North Indian)",
         "North Indian"
       ],
+      "displayAliases": [
+        "Rampur Hound"
+      ],
       "sourceIds": [
         "VBO:0201123"
       ],
@@ -23698,6 +23964,7 @@
         "Terrier - Rat unspecified",
         "Terrier - Rat, Standard"
       ],
+      "displayAliases": [],
       "sourceIds": [
         "VBO:0201125"
       ],
@@ -23763,6 +24030,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201129"
       ],
@@ -23784,6 +24052,7 @@
       "aliases": [
         "Ratter (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201130"
       ],
@@ -23832,6 +24101,7 @@
       "aliases": [
         "Retriever (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201134"
       ],
@@ -24081,7 +24351,7 @@
       "id": "VBO:0201144",
       "displayName": "Rough Beagle",
       "entityType": "dog",
-      "status": "canonical",
+      "status": "historical",
       "selectable": true,
       "promoted": false,
       "aliases": [
@@ -24111,6 +24381,7 @@
         "F.C.I. Jack Russell Terrier",
         "Terrier - Russell"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201145"
       ],
@@ -24137,6 +24408,7 @@
         "Russian Bolonka (Tsvetnaya Bolonka) (Bolonka-Zwetna)",
         "Tsvetnaya Bolonka"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201147"
       ],
@@ -24237,6 +24509,10 @@
         "Terrier - Moscow Toy unspecified",
         "Terrier - Russian Toy",
         "Terrier - Russian Toy unspecified"
+      ],
+      "displayAliases": [
+        "Russian Toy Terrier",
+        "Russkiy Toy"
       ],
       "sourceIds": [
         "VBO:0200908",
@@ -24419,6 +24695,7 @@
       "aliases": [
         "Sage (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201159"
       ],
@@ -24555,6 +24832,7 @@
         "Bloodhound - St Hubert",
         "St Hubert Bloodhound"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201164"
       ],
@@ -24576,6 +24854,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201165"
       ],
@@ -24628,6 +24907,9 @@
         "Cattle Dog - Azores (Cão De Fila De São Miguel)",
         "Chien Fila de San Miguel,",
         "São Miguel Cattle Dog,"
+      ],
+      "displayAliases": [
+        "Cão Fila de São Miguel"
       ],
       "sourceIds": [
         "VBO:0200109",
@@ -24723,6 +25005,7 @@
         "Tanji",
         "Tazi"
       ],
+      "displayAliases": [],
       "sourceIds": [
         "VBO:0201171"
       ],
@@ -25151,6 +25434,7 @@
         "Standard Schnauzer",
         "Wirehair Pinscher (obsolete)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201189"
       ],
@@ -25205,6 +25489,7 @@
         "Scottish Poo",
         "Scottish Shoodle"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201193"
       ],
@@ -25255,6 +25540,7 @@
       "aliases": [
         "Collie - Scottish Rough"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201196"
       ],
@@ -25278,6 +25564,7 @@
       "aliases": [
         "Collie - Scottish Smooth"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201197"
       ],
@@ -25447,6 +25734,7 @@
         "Hound - Serbian ( Balkan )(unspecified)",
         "Hound - Serbian Balkan"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201204"
       ],
@@ -25512,6 +25800,7 @@
         "Mountain Dog - Serbian (Srpski Planinski Gonic)",
         "Srpski Planinski Gonic"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201208"
       ],
@@ -25589,6 +25878,7 @@
       "aliases": [
         "Setter (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201211"
       ],
@@ -25639,6 +25929,7 @@
       "aliases": [
         "Sheepdog (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201215"
       ],
@@ -25662,6 +25953,7 @@
       "aliases": [
         "Shepherd Dog (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201216"
       ],
@@ -25709,7 +26001,7 @@
       "id": "VBO:0201218",
       "displayName": "Shi-Jug",
       "entityType": "dog",
-      "status": "canonical",
+      "status": "crossbreed",
       "selectable": true,
       "promoted": false,
       "aliases": [
@@ -25723,6 +26015,7 @@
         "VeNom:22611"
       ],
       "relationships": {
+        "parentId": "VBO:0200902",
         "relatedIds": []
       },
       "originRegions": [],
@@ -25770,6 +26063,7 @@
         "Chi-Tzu",
         "ShiChi ( Chi-Shi, Chi-Tzu )"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201221"
       ],
@@ -25871,6 +26165,9 @@
         "Shika Inu",
         "Shikoku (Kochi-ken) (Mikawa Inu) (Shika Inu)"
       ],
+      "displayAliases": [
+        "Kochi-ken"
+      ],
       "sourceIds": [
         "VBO:0201225"
       ],
@@ -25922,6 +26219,7 @@
         "Shih-tze",
         "Shinese ( Peketzu, Pekatzu, Shih-tze )"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201227"
       ],
@@ -25949,6 +26247,7 @@
         "Shi-Pom",
         "Shiranian ( Pom-Shi, Pom-Tzu, Shi-Pom )"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201228"
       ],
@@ -25974,6 +26273,7 @@
         "German Shepherd Border Collie mix",
         "Shollie ( German Shepherd Border Collie mix )"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201229"
       ],
@@ -26022,6 +26322,7 @@
         "German Shepherd-Pug mix",
         "Shug ( German Shepherd-Pug mix )"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201232"
       ],
@@ -26078,6 +26379,7 @@
       "aliases": [
         "Hound - Sicillian"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201234"
       ],
@@ -26370,6 +26672,9 @@
         "Slovak Hound",
         "Slovakian Hound"
       ],
+      "displayAliases": [
+        "Slovakian Hound"
+      ],
       "sourceIds": [
         "VBO:0200171",
         "VBO:0201243",
@@ -26428,6 +26733,7 @@
         "Pointer - Munsterlander, Small",
         "Small Munsterlander Pointer"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201250"
       ],
@@ -26669,6 +26975,7 @@
         "Wheaten",
         "Wheatie"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201260"
       ],
@@ -26825,6 +27132,7 @@
       "aliases": [
         "Cur - Southern, Blackmouth"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201267"
       ],
@@ -26890,6 +27198,7 @@
       "aliases": [
         "Spaniel (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201271"
       ],
@@ -27063,6 +27372,7 @@
       "aliases": [
         "Spitz (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201282"
       ],
@@ -27087,6 +27397,7 @@
         "Spaniel-Corgi mix",
         "Sporgi ( Spaniel-Corgi mix )"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201283"
       ],
@@ -27185,6 +27496,7 @@
         "Spaniel - Springer",
         "Spaniel - Springer (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201287"
       ],
@@ -27261,6 +27573,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201290"
       ],
@@ -27305,6 +27618,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201292"
       ],
@@ -27373,6 +27687,9 @@
         "Terrier - Staffordshire Bull",
         "Terrier - Staffordshire Bull (unspecified) (Staffordshire Bull Terrier (unspecified))",
         "Terrier - Staffordshire Bull unspecified"
+      ],
+      "displayAliases": [
+        "Staffy"
       ],
       "sourceIds": [
         "VBO:0201296"
@@ -27473,6 +27790,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201300"
       ],
@@ -27569,6 +27887,7 @@
       "aliases": [
         "Mountain Dog - Styrian, Rough-Haired"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201306"
       ],
@@ -27592,6 +27911,7 @@
       "aliases": [
         "Mountain Dog - Styrian, Wire-Haired"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201307"
       ],
@@ -27686,6 +28006,7 @@
         "Cattle Dog - Swedish (Vallhund)",
         "Vallhund"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201311"
       ],
@@ -27902,6 +28223,7 @@
         "Mountain Dog - Swiss",
         "Mountain Dog - Swiss (Bouvier Suisse)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201323"
       ],
@@ -27952,6 +28274,7 @@
         "Shepherd Dog - Swiss White",
         "Shepherd Dog - Swiss White (Berger Blanc Swiss)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201325"
       ],
@@ -27975,6 +28298,7 @@
       "aliases": [
         "Terrier - Sydney"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201327"
       ],
@@ -28015,7 +28339,6 @@
       "selectable": true,
       "promoted": false,
       "aliases": [
-        "Tahltan (Kyrgyz Sighthound)",
         "Tahltan Bear Dog"
       ],
       "sourceIds": [
@@ -28107,6 +28430,7 @@
         "Husky - Tamaskan ( Tam )",
         "Tam"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201335"
       ],
@@ -28147,6 +28471,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201337"
       ],
@@ -28189,6 +28514,7 @@
       "aliases": [
         "Pomeranian - Teacup"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201339"
       ],
@@ -28289,6 +28615,7 @@
       "aliases": [
         "Terrier (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201343"
       ],
@@ -28652,7 +28979,7 @@
       "id": "VBO:0201360",
       "displayName": "Toy Bulldog",
       "entityType": "dog",
-      "status": "canonical",
+      "status": "historical",
       "selectable": true,
       "promoted": false,
       "aliases": [],
@@ -28682,6 +29009,7 @@
         "Terrier - Fox, Toy",
         "Toy Terrier"
       ],
+      "displayAliases": [],
       "sourceIds": [
         "VBO:0200057",
         "VBO:0201361"
@@ -28961,6 +29289,9 @@
         "Tiroler Bracke",
         "Tyroler Bracke"
       ],
+      "displayAliases": [
+        "Tiroler Bracke"
+      ],
       "sourceIds": [
         "VBO:0201379"
       ],
@@ -29182,6 +29513,10 @@
         "Smooth Vizsla",
         "Smooth-Haired Vizsla"
       ],
+      "displayAliases": [
+        "Hungarian Short-Haired Pointer",
+        "Rövidszörü Magyar Vizsla"
+      ],
       "sourceIds": [
         "VBO:0008052",
         "VBO:0201389"
@@ -29309,6 +29644,7 @@
       "aliases": [
         "Water Dog (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201396"
       ],
@@ -29333,6 +29669,7 @@
         "Spaniel - Water",
         "Spaniel - Water (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201397"
       ],
@@ -29357,6 +29694,7 @@
         "Wauzer ( West Highland Schnauzer )",
         "West Highland Schnauzer"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201398"
       ],
@@ -29480,6 +29818,7 @@
         "Weimardoodle ( Weimarpoo )",
         "Weimarpoo"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201404"
       ],
@@ -29505,6 +29844,7 @@
         "Welsh Corgi (unspecified)",
         "Welsh Corgi, Old Format"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201406",
         "VBO:0201407"
@@ -29524,7 +29864,7 @@
       "id": "VBO:0201408",
       "displayName": "Welsh Hillman",
       "entityType": "dog",
-      "status": "canonical",
+      "status": "historical",
       "selectable": true,
       "promoted": false,
       "aliases": [],
@@ -29601,6 +29941,9 @@
         "Welsh Starter",
         "Welshie"
       ],
+      "displayAliases": [
+        "Welsh Springer"
+      ],
       "sourceIds": [
         "VBO:0201405",
         "VBO:0201411"
@@ -29630,6 +29973,7 @@
         "Welshie",
         "WT"
       ],
+      "displayAliases": [],
       "sourceIds": [
         "VBO:0201412"
       ],
@@ -29734,6 +30078,7 @@
         "Westiepoo ( Westidoodle, Westipoo, Wee-Poo )",
         "Westipoo"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201417"
       ],
@@ -29793,6 +30138,7 @@
         "Water Dog - Friesian",
         "Wetterhoun, Netherlands"
       ],
+      "displayAliases": [],
       "sourceIds": [
         "VBO:0008073",
         "VBO:0200468",
@@ -29820,6 +30166,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201420"
       ],
@@ -29949,7 +30296,7 @@
       "id": "VBO:0201425",
       "displayName": "Wire Haired Whippet",
       "entityType": "dog",
-      "status": "canonical",
+      "status": "historical",
       "selectable": true,
       "promoted": false,
       "aliases": [
@@ -30042,6 +30389,10 @@
         "Hungarian Wire-Haired Vizsla",
         "Hungarian Wirehaired Vizsla"
       ],
+      "displayAliases": [
+        "Drótszőrű magyar vizsla",
+        "Hungarian Wire-Haired Pointer"
+      ],
       "sourceIds": [
         "VBO:0201428"
       ],
@@ -30068,6 +30419,7 @@
       "aliases": [
         "Wolfdog (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201430"
       ],
@@ -30092,6 +30444,7 @@
       "aliases": [
         "Wolfhound (unspecified)"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201431"
       ],
@@ -30327,6 +30680,7 @@
         "Toy Mexican Hairless Dog",
         "Toy Xoloitzcuintli"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201440"
       ],
@@ -30419,6 +30773,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201444"
       ],
@@ -30446,6 +30801,7 @@
         "Yorkiepom",
         "Yorky Pom"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201445"
       ],
@@ -30472,6 +30828,7 @@
         "Yorkie Russell ( Jorky, YorkieJack )",
         "YorkieJack"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201446"
       ],
@@ -30552,6 +30909,7 @@
         "Terrier - Yorkshire, Miniature (Miniature Yorkshire Terrier)(Terrier - Yorkshire, Teacup)",
         "Terrier - Yorkshire, Teacup"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201449"
       ],
@@ -30575,6 +30933,7 @@
       "aliases": [
         "Hound - Yugoslavian"
       ],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201450"
       ],
@@ -30619,6 +30978,8 @@
         "Spaniel - de Pont-Audemer",
         "Spaniel - de Pont-Audemer (Epagneul)"
       ],
+      "displayAliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201453"
       ],
@@ -30888,6 +31249,7 @@
       "selectable": true,
       "promoted": false,
       "aliases": [],
+      "editorialVisibility": "suppressed",
       "sourceIds": [
         "VBO:0201465"
       ],

@@ -1,0 +1,732 @@
+[
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0000668",
+    "name": "Old Danish Pointing Dog",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0000668/sizeBand",
+    "existingValue": "large",
+    "proposedValue": "large",
+    "disposition": "reject_specific_objection_keep_supported",
+    "rationale": "FCI281 gives mature male30–35kg and female26–31kg, with50–60cm overall range. Although its prose says medium, large is defensible as a coarse overall-mass band; equal height does not establish equal size. Record the mass explicitly.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/281g07-en.pdf",
+        "title": "FCI-Standard N° 281 Old Danish Pointing Dog",
+        "cache": "cache/sources/c4d48371b3505ae3.txt",
+        "sha256": "616e6fa9c17eb5e65975f7392eab4bf3ea7efb5dbd9f319c6ecd4dfdb85a6640"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0008029",
+    "name": "Podenco Andaluz",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-i01.json#/profiles/VBO:0008029/sizeBand",
+    "existingValue": "medium",
+    "proposedValue": "varies",
+    "disposition": "correct_supported",
+    "rationale": "RSCE explicitly separates three sizes with weights8±3,16±6 and27±6kg. One medium band conceals supported size divisions.",
+    "sources": [
+      {
+        "url": "https://www.rsce.es/razas-espanolas-podenco-andaluz/",
+        "title": "RSCE: Razas españolas – Podenco Andaluz (web page)",
+        "cache": "cache/sources/2f5367aae7b55a6b.txt",
+        "sha256": "9a29db5ba69c058330ff35e23018c33755f412e7d440b9adcc79eb6bb2735777"
+      },
+      {
+        "url": "https://www.rsce.es/wp-content/uploads/2024/09/Razas-espanolas-Podenco-Andaluz.pdf",
+        "title": "RSCE: Podenco Andaluz breed sheet (PDF print of the RSCE breed page)",
+        "cache": "cache/sources/bc5627e62cf4120d.txt",
+        "sha256": "d0826eeedc9f7b2dfd72d0314980e2a4f878266a3d4d23f6b1ddcfedaec9b982"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200009",
+    "name": "Akbash",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0200009/sizeBand",
+    "existingValue": "large",
+    "proposedValue": "giant",
+    "disposition": "correct_supported",
+    "rationale": "UKC gives males30–34in and average120lb; females28–32in and average90lb. Very large overall stature and mass support giant, comparable to large guardian entries.",
+    "sources": [
+      {
+        "url": "https://www.ukcdogs.com/docs/breeds/akbash-dog.pdf",
+        "title": "UKC Akbash Dog breed standard (rev. 1998)",
+        "cache": "cache/sources/91ebe0b7d42bea55.txt",
+        "sha256": "5b186dafea1464b3305f3fea589428cbceab8b2117f2d1fe75b4d69b54a73caa"
+      },
+      {
+        "url": "https://images.akc.org/pdf/breeds/standards/AnatolianShepherdDog.pdf",
+        "title": "AKC Anatolian Shepherd Dog standard",
+        "cache": "cache/sources/7e5d5931654a8441.txt",
+        "sha256": "15bd9fc774d0af5da7a4e551252b1292785b8a55511f13c7e3bafb472067d919"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200124",
+    "name": "Basset Bleu de Gascogne",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0200124/sizeBand",
+    "existingValue": "medium",
+    "proposedValue": "medium",
+    "disposition": "reject_specific_objection_keep_supported",
+    "rationale": "FCI35 gives34–38cm but describes a substantial basset with chest depth about2/3 height. Short legs do not make a medium-mass basset comparable to a lightly built terrier. Existing medium is defensible; no mass number invented.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/035g06-en.pdf",
+        "title": "FCI-Standard N° 35 Basset Bleu de Gascogne",
+        "cache": "cache/sources/5f9a4b0672a70715.txt",
+        "sha256": "6c50ac1077281a32c40f372f7e252561418ac2d2e39f118ee6661ba22c2e15cc"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200286",
+    "name": "Cão de Gado Transmontano",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-f03.json#/profiles/VBO:0200286/sizeBand",
+    "existingValue": "large",
+    "proposedValue": "giant",
+    "disposition": "correct_supported",
+    "rationale": "FCI368 gives males75–85cm/60–75kg and females68–78cm/50–60kg. Giant is supported by exceptional adult mass and stature.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/368g02-en.pdf",
+        "title": "FCI-Standard N° 368 Cão de Gado Transmontano",
+        "cache": "cache/sources/dc0faa2e9e83d9ef.txt",
+        "sha256": "87a33e585cfdf071c6fd68255f21f290a8989ca58f339f2e56f6a67808819dcb"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200339",
+    "name": "Chihuahua, Long-Haired",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-f.json#/profiles/VBO:0200339/sizeBand",
+    "existingValue": "small",
+    "proposedValue": "toy",
+    "disposition": "correct_supported",
+    "rationale": "FCI218 applies1–3kg, ideal1.5–2.5kg, to both coat varieties. Align long-haired with parent and smooth-haired toy band.",
+    "sources": [
+      {
+        "url": "https://fci.be/Nomenclature/Standards/218g09-en.pdf",
+        "title": "FCI-Standard N° 218 Chihuahua",
+        "cache": "cache/sources/801e92c1da05b69d.txt",
+        "sha256": "95e2dd7afc2cced56567d7d9f9494be3150ae4cb07157705aa8ce3513ab21612"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200346",
+    "name": "Chinese Crested, Hairless",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-f.json#/profiles/VBO:0200346/sizeBand",
+    "existingValue": "small",
+    "proposedValue": "toy",
+    "disposition": "correct_supported",
+    "rationale": "FCI288 applies shared23–33cm height to both varieties; AKC breed page supplies8–12lb and calls this a toy breed. Align with parent toy; membership in Toy Group alone was not used as size evidence.",
+    "sources": [
+      {
+        "url": "https://fci.be/Nomenclature/Standards/288g09-en.pdf",
+        "title": "FCI-Standard N° 288 Chinese Crested Dog",
+        "cache": "cache/sources/bf56162440c15e3c.txt",
+        "sha256": "1853cd617f93c8eb33aa83479a871d115d7caddf373aaf76ae8b146c77124946"
+      },
+      {
+        "url": "https://www.akc.org/dog-breeds/chinese-crested/",
+        "title": "AKC Chinese Crested",
+        "accessedAt": "2026-10-06",
+        "evidence": "Adult8–12lb; shared hairless/coated breed; toy-sized description."
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200347",
+    "name": "Chinese Crested, Powder Puff",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-f.json#/profiles/VBO:0200347/sizeBand",
+    "existingValue": "small",
+    "proposedValue": "toy",
+    "disposition": "correct_supported",
+    "rationale": "FCI288 applies shared23–33cm height to both varieties; AKC breed page supplies8–12lb and calls this a toy breed. Align with parent toy; membership in Toy Group alone was not used as size evidence.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/288g09-en.pdf",
+        "title": "FCI-Standard N° 288 Chinese Crested Dog",
+        "cache": "cache/sources/a199d9f69108d705.txt",
+        "sha256": "1853cd617f93c8eb33aa83479a871d115d7caddf373aaf76ae8b146c77124946"
+      },
+      {
+        "url": "https://www.akc.org/dog-breeds/chinese-crested/",
+        "title": "AKC Chinese Crested",
+        "accessedAt": "2026-10-06",
+        "evidence": "Adult8–12lb; shared hairless/coated breed; toy-sized description."
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200354",
+    "name": "Chippiparai",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0200354/sizeBand",
+    "existingValue": "medium",
+    "proposedValue": "medium",
+    "disposition": "reject_specific_objection_keep_supported",
+    "rationale": "Primary Chippiparai field study explicitly calls the breed medium-sized, measures mean59.56cm, and states its hound-size convention. Existing medium is directly supported; tall lean hounds need not match heavier breeds of equal height.",
+    "sources": [
+      {
+        "url": "https://journals.acspublisher.com/index.php/ijvsbt/article/download/2933/2845",
+        "title": "IJVSBT: Chippiparai breed characteristics study (Tirunelveli, 2013 survey)",
+        "cache": "cache/sources/5d139bcc3fb5372d.txt",
+        "sha256": "00e83dcf8a8c6bcbe6d3fbb77522c7fedaf96a31794aab94fd7b5f3648ca5ef8"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200464",
+    "name": "Dutch Shepherd Dog, Long-Haired",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-f02.json#/profiles/VBO:0200464/sizeBand",
+    "existingValue": "large",
+    "proposedValue": "medium",
+    "disposition": "correct_supported",
+    "rationale": "FCI223 explicitly says medium-sized, middle-weighted and applies57–62cm males/55–60cm females to all3coat varieties. Align long-haired with parent and siblings.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/223g01-en.pdf",
+        "title": "FCI-Standard N° 223 Dutch Shepherd Dog (long-haired source link)",
+        "cache": "cache/sources/637b38498cb83637.txt",
+        "sha256": "7bd86bd2837061350275854b2be24dd759b27f765e69ca2cb088e1d5e8c8a7e6"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200591",
+    "name": "German Spitz, Medium Size Spitz Brown, Black",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-j02.json#/profiles/VBO:0200591/sizeBand",
+    "existingValue": "small",
+    "proposedValue": "small",
+    "disposition": "reject_specific_objection_keep_supported",
+    "rationale": "FCI97 current2024 standard gives Medium Spitz35±5cm (audit incorrectly quotes34±4cm). Medium in the variety name is relative to German Spitz divisions, not a universal overall-size class. Align all3colour entries small.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/097g05-en.pdf",
+        "title": "FCI-Standard N° 97 German Spitz",
+        "cache": "cache/sources/c918b88d553e30d2.txt",
+        "sha256": "a0e1f43b86b353e4abe81a012c591fe83142c81fc462b74c61539dbdb610cce8"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200592",
+    "name": "German Spitz, Medium Size Spitz Orange, Grey Shaded, Other Colours",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-i02.json#/profiles/VBO:0200592/sizeBand",
+    "existingValue": "medium",
+    "proposedValue": "small",
+    "disposition": "correct_supported",
+    "rationale": "FCI97 current2024 standard gives Medium Spitz35±5cm (audit incorrectly quotes34±4cm). All3colour entries share the measurement; small matches same-sized sister, not an inferred coat difference.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/097g05-en.pdf",
+        "title": "FCI-Standard N° 97 German Spitz",
+        "cache": "cache/sources/c918b88d553e30d2.txt",
+        "sha256": "a0e1f43b86b353e4abe81a012c591fe83142c81fc462b74c61539dbdb610cce8"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200593",
+    "name": "German Spitz, Medium Size Spitz White",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-i02.json#/profiles/VBO:0200593/sizeBand",
+    "existingValue": "medium",
+    "proposedValue": "small",
+    "disposition": "correct_supported",
+    "rationale": "FCI97 current2024 standard gives Medium Spitz35±5cm (audit incorrectly quotes34±4cm). All3colour entries share the measurement; small matches same-sized sister, not an inferred coat difference.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/097g05-en.pdf",
+        "title": "FCI-Standard N° 97 German Spitz",
+        "cache": "cache/sources/c918b88d553e30d2.txt",
+        "sha256": "a0e1f43b86b353e4abe81a012c591fe83142c81fc462b74c61539dbdb610cce8"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200656",
+    "name": "Hanoverian Scent Hound",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-f04.json#/profiles/VBO:0200656/sizeBand",
+    "existingValue": "large",
+    "proposedValue": "large",
+    "disposition": "reject_specific_objection_keep_supported",
+    "rationale": "FCI213 gives male30–40kg and female25–35kg despite48–55cm stature and medium wording. Large overall mass is defensible; audit height comparison alone does not refute it.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/213g06-en.pdf",
+        "title": "FCI-Standard N° 213 Hanoverian Scent Hound",
+        "cache": "cache/sources/e0689703cbbf3f6f.txt",
+        "sha256": "507ebe0ea1eb80fa9b62df51bb9e4b157b2eac57d7999681cd7e14beed2d582e"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200670",
+    "name": "Himalayan Sheepdog",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0200670/sizeBand",
+    "existingValue": "large",
+    "proposedValue": "unknown",
+    "disposition": "omit_unverified_optional_fact",
+    "rationale": "Inspected Frontiers source describes Gaddi pastoral work and morphology but gives no body-size measurements establishing the broader Himalayan Sheepdog band. Omit optional size until broader exact-identity evidence; no claim that large is false.",
+    "sources": [
+      {
+        "url": "https://www.frontiersin.org/journals/animal-science/articles/10.3389/fanim.2026.1751875/full",
+        "title": "Frontiers in Animal Science 2026: Whole-genome resequencing of the Gaddi dog from the Western Himalayas",
+        "cache": "cache/sources/a7116d6d515dd96a.txt",
+        "sha256": "f45237dd889fcd002b38f0364da69ec53dc9ec6b62fe2a9654b713bb75f0fc58"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200695",
+    "name": "Indian Pariah Dog",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0200695/sizeBand",
+    "existingValue": "medium",
+    "proposedValue": "unknown",
+    "disposition": "omit_unverified_optional_fact",
+    "rationale": "Inspected INDog Project page establishes landrace and variation but no measurement or clear adult-size category. Omit optional size pending evidence; do not equate absence with falsity.",
+    "sources": [
+      {
+        "url": "https://indog.co.in/",
+        "title": "INDog Project homepage",
+        "cache": "cache/sources/4b3e91e5ed76dc99.txt",
+        "sha256": "dda1c5c631a78a52f8b9b5eaa28dcb5744aa518377409827ec1c1b86db958a22"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200751",
+    "name": "Kanni",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-b.json#/profiles/VBO:0200751/sizeBand",
+    "existingValue": "large",
+    "proposedValue": "medium",
+    "disposition": "correct_supported",
+    "rationale": "Original Kanni field study reports adult means23.50kg male/18.15kg female and later second-year means24.33/20.64kg; explicitly classifies mid-sized hound. Correct large to medium.",
+    "sources": [
+      {
+        "url": "https://krishikosh.egranth.ac.in/server/api/core/bitstreams/2d09160d-d096-446f-ab6d-2d6fe82d6d20/content",
+        "title": "Selvakkumar et al. (2013), Morphometric characterization of Kanni dog, Indian Veterinary Journal",
+        "cache": "cache/sources/0100d306b95025be.txt",
+        "sha256": "fe84ee9367666454361c3de7c88eb927313cf6ae2f4699637cac1c1b948822c0"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200766",
+    "name": "King Charles Spaniel, Black And Tan",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-j01.json#/profiles/VBO:0200766/sizeBand",
+    "existingValue": "small",
+    "proposedValue": "toy",
+    "disposition": "correct_supported",
+    "rationale": "FCI128 shares3.6–6.3kg and toy-spaniel description across colours. Align black-and-tan with parent toy; colour is not size.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/128g09-en.pdf",
+        "title": "FCI-Standard N° 128 King Charles Spaniel",
+        "cache": "cache/sources/fccb8b267a4d819d.txt",
+        "sha256": "715503eb4faccbeb9bc768d854ad33ad45f3f764c444bb9e22f56347bf30fc80"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200767",
+    "name": "King Charles Spaniel, Blenheim",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-h01.json#/profiles/VBO:0200767/sizeBand",
+    "existingValue": "small",
+    "proposedValue": "toy",
+    "disposition": "correct_supported",
+    "rationale": "FCI128 shares3.6–6.3kg and toy-spaniel description across colours. Align Blenheim with parent toy; colour is not size.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/128g09-en.pdf",
+        "title": "FCI-Standard N° 128 King Charles Spaniel",
+        "cache": "cache/sources/fccb8b267a4d819d.txt",
+        "sha256": "715503eb4faccbeb9bc768d854ad33ad45f3f764c444bb9e22f56347bf30fc80"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200832",
+    "name": "Long-Haired Pyrenean Sheepdog",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-g01.json#/profiles/VBO:0200832/sizeBand",
+    "existingValue": "small",
+    "proposedValue": "small",
+    "disposition": "reject_specific_objection_keep_supported",
+    "rationale": "FCI141 describes minimum size and weight, lean muscle and a little dog, males42–48cm/females40–46cm. Lead independently rechecked FCI138 smooth-faced45–54cm standard: the two standards differ in size, so coat is not the only difference. Reject height-overlap objection and retain supported small.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/141g01-en.pdf",
+        "title": "FCI-Standard N° 141 Long-haired Pyrenean Sheepdog",
+        "cache": "cache/sources/36c593a7798654c8.txt",
+        "sha256": "bbd7c31cbd5e3d187439d85e603e9735294ee04d0f8c42d350df3752a8152b2a"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200919",
+    "name": "Mucuchies",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0200919/sizeBand",
+    "existingValue": "large",
+    "proposedValue": "unknown",
+    "disposition": "omit_unverified_optional_fact",
+    "rationale": "CNEH historical source mentions size as a characteristic but supplies neither measurement nor explicit small/medium/large classification. Omit optional band pending evidence.",
+    "sources": [
+      {
+        "url": "https://cneh.gob.ve/museo-bolivariano-realizo-podcast-sobre-la-historia-y-el-valor-patrimonial-de-la-raza-mucuchies/",
+        "title": "CNEH press note: Museo Bolivariano podcast on the Mucuchíes breed (12 Sep 2026)",
+        "cache": "cache/sources/c8f05c58a17719bb.txt",
+        "sha256": "27e3437930e84643a5de1cf6ea2d373cc4bee4f2420efe63bd18c00208c1bbb9"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200934",
+    "name": "New Guinea Singing Dog",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0200934/sizeBand",
+    "existingValue": "medium",
+    "proposedValue": "unknown",
+    "disposition": "omit_unverified_optional_fact",
+    "rationale": "UNSW account supplies population/genetic evidence but no body-size measurements or size category. Omit optional band pending exact-identity evidence; do not import dingo measurements.",
+    "sources": [
+      {
+        "url": "https://www.unsw.edu.au/news/2020/09/hey--cuz--dingo-relatives-alive-in-remote-new-guinea-highlands",
+        "title": "UNSW Newsroom (2 Sep 2020): Dingo relatives alive in remote New Guinea Highlands",
+        "cache": "cache/sources/0aa362c2a908365b.txt",
+        "sha256": "9fcaf4471784d7bd6694ad1116c4651d3f479e9d7769815b5bf8d5da0e5c9229"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0200948",
+    "name": "Norrbottenspets",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-f.json#/profiles/VBO:0200948/sizeBand",
+    "existingValue": "small",
+    "proposedValue": "small",
+    "disposition": "reject_specific_objection_keep_supported",
+    "rationale": "FCI276 explicitly calls Norrbottenspitz small and gives ideal45cm males/42cm females. Reject height-only contradiction; preserve direct-source supported small.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/nomenclature/Standards/276g05-en.pdf",
+        "title": "FCI-Standard N° 276 Norrbottenspets",
+        "cache": "cache/sources/e42fe2dc380db7b0.txt",
+        "sha256": "7a3db8351764651ee3ba033c69ab4d151bc2a586f5e879f432001449cf0c64c9"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0201033",
+    "name": "Polish Hound",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-f04.json#/profiles/VBO:0201033/sizeBand",
+    "existingValue": "large",
+    "proposedValue": "medium",
+    "disposition": "correct_supported",
+    "rationale": "FCI52 explicitly calls Polish Hound medium-sized and gives56–65cm males/55–60cm females. Medium aligns the direct source and peer hounds; no weight invented.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/052g06-en.pdf",
+        "title": "FCI-Standard N° 52 Polish Hound (Ogar Polski)",
+        "cache": "cache/sources/f2ff173f54aaab46.txt",
+        "sha256": "de68c72d8602352542b6c31b039b9c61db23c00f7f51a4e7c66364785c7335a1"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0201122",
+    "name": "Rajapalayam",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0201122/sizeBand",
+    "existingValue": "medium",
+    "proposedValue": "medium",
+    "disposition": "reject_specific_objection_keep_supported",
+    "rationale": "Audit false positive: retained ICAR abstract50aa475e4858f590 explicitly says medium and reports adult male24.69±0.43kg/female21.42±0.47kg. Keep existing medium.",
+    "sources": [
+      {
+        "url": "https://epubs.icar.org.in/index.php/IJAnS/article/view/69526/0",
+        "title": "Raja et al. 2017, Phenotypic characterization of Rajapalayam dog, Indian Journal of Animal Sciences 87(4)",
+        "cache": "cache/sources/50aa475e4858f590.txt",
+        "sha256": "ffd98182e8b32bb09025ae8bf83576c4e93119b62958cd1cb76ee9d0632360e4"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0201141",
+    "name": "Romanian Mioritic Shepherd Dog",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0201141/sizeBand",
+    "existingValue": "large",
+    "proposedValue": "large",
+    "disposition": "reject_specific_objection_keep_supported",
+    "rationale": "FCI349 explicitly describes a large dog but never heavy; male ideal75cm/female70cm. Keep large: stature alone does not prove giant mass and source supports existing overall category.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/349g01-en.pdf",
+        "title": "FCI-Standard N° 349 Romanian Mioritic Shepherd Dog",
+        "cache": "cache/sources/3376da09ff140548.txt",
+        "sha256": "af8a0fa0d3db4cc18264c39a360fe256cc451ee9cdc872b299544a876eb1d1ea"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0201142",
+    "name": "Romanian Raven Shepherd Dog",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-h01.json#/profiles/VBO:0201142/sizeBand",
+    "existingValue": "giant",
+    "proposedValue": "large",
+    "disposition": "correct_supported",
+    "rationale": "FCI373 describes large size, males70–80cm/females65–75cm, no numerical weight. Align with similarly proportioned Romanian shepherds large; avoid inventing a giant-weight claim.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/373g02-en.pdf",
+        "title": "FCI-Standard N° 373 Romanian Raven Shepherd Dog",
+        "cache": "cache/sources/7d2cec333883fdef.txt",
+        "sha256": "2a5ea9102201c3aeda520add299ed7467d87e9bad4eec88596d8c9d61db82c1b"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0201151",
+    "name": "Russian Toy",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-f.json#/profiles/VBO:0201151/sizeBand",
+    "existingValue": "small",
+    "proposedValue": "toy",
+    "disposition": "correct_supported",
+    "rationale": "FCI352 gives22–27cm and up to3kg, preferably2.3kg. Toy overall size, shared by both coat varieties.",
+    "sources": [
+      {
+        "url": "https://fci.be/Nomenclature/Standards/352g09-en.pdf",
+        "title": "FCI-Standard N° 352 Russian Toy",
+        "cache": "cache/sources/9e3514d9162cf474.txt",
+        "sha256": "0c12b6c9e9acfd957cf9c834a1b77030624ee27a438b7559209612bdc50bcf42"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0201152",
+    "name": "Russian Toy, Longhaired",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-i01.json#/profiles/VBO:0201152/sizeBand",
+    "existingValue": "small",
+    "proposedValue": "toy",
+    "disposition": "correct_supported",
+    "rationale": "FCI352 gives22–27cm and up to3kg, preferably2.3kg; shared standard across coats. Align toy.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/352g09-en.pdf",
+        "title": "FCI-Standard N° 352 Russian Toy",
+        "cache": "cache/sources/4622cff86b96d8d7.txt",
+        "sha256": "0c12b6c9e9acfd957cf9c834a1b77030624ee27a438b7559209612bdc50bcf42"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0201153",
+    "name": "Russian Toy, Smooth-Haired",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-i02.json#/profiles/VBO:0201153/sizeBand",
+    "existingValue": "small",
+    "proposedValue": "toy",
+    "disposition": "correct_supported",
+    "rationale": "FCI352 gives22–27cm and up to3kg, preferably2.3kg; shared standard across coats. Align toy.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/352g09-en.pdf",
+        "title": "FCI-Standard N° 352 Russian Toy",
+        "cache": "cache/sources/4622cff86b96d8d7.txt",
+        "sha256": "0c12b6c9e9acfd957cf9c834a1b77030624ee27a438b7559209612bdc50bcf42"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0201162",
+    "name": "Saint Bernard, Short-Haired",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-i01.json#/profiles/VBO:0201162/sizeBand",
+    "existingValue": "large",
+    "proposedValue": "giant",
+    "disposition": "correct_supported",
+    "rationale": "FCI61 explicitly treats both coats together, substantial powerful body and male70–90cm/female65–80cm. Same band as parent and long-haired giant.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/061g02-en.pdf",
+        "title": "FCI-Standard N° 61 Saint Bernard",
+        "cache": "cache/sources/86cc96a6220960d7.txt",
+        "sha256": "66008c271a511bec090f2a1bd42166f4028c11260d5b5e3bd5458ef22ce279b4"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0201220",
+    "name": "Shiba Inu",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0201220/sizeBand",
+    "existingValue": "medium",
+    "proposedValue": "small",
+    "disposition": "correct_supported",
+    "rationale": "FCI257 explicitly says small-sized and gives male39.5±1.5cm/female36.5±1.5cm. Correct medium to small on source classification, not comparison alone.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/257g05-en.pdf",
+        "title": "FCI-Standard N° 257 Shiba",
+        "cache": "cache/sources/9233312f6d5daa38.txt",
+        "sha256": "194dd8055df94546894c090410cadc3ef9502ba21a83707b8beba714f9b39491"
+      },
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/341g03-en.pdf",
+        "title": "FCI-Standard N° 341 Brazilian Terrier",
+        "cache": "cache/sources/615d63036999ac02.txt",
+        "sha256": "2196ac3fef832d66127f0b284c98de21eb1b48eea9e74aca017f523109111624"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0201353",
+    "name": "Tibetan Terrier",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0201353/sizeBand",
+    "existingValue": "medium",
+    "proposedValue": "medium",
+    "disposition": "reject_specific_objection_keep_supported",
+    "rationale": "FCI209 explicitly calls Tibetan Terrier medium-sized, sturdy; males36–41cm/females slightly smaller. Reject height-only contradiction; source supports medium.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/209g09-en.pdf",
+        "title": "FCI-Standard N° 209 Tibetan Terrier",
+        "cache": "cache/sources/7cad11f410c0d9a3.txt",
+        "sha256": "1f166d7ecaa52d6128f926b525952ee693082961845046dbe3e3e010e908361c"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0201412",
+    "name": "Welsh Terrier",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-b.json#/profiles/VBO:0201412/sizeBand",
+    "existingValue": "medium",
+    "proposedValue": "small",
+    "disposition": "correct_supported",
+    "rationale": "FCI78 gives no more than39cm and9–9.5kg. Small is supported by compact body mass and stature, consistent with wire fox-terrier comparator.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/078g03-en.pdf",
+        "title": "FCI-Standard N° 78 Welsh Terrier",
+        "cache": "cache/sources/83f430be1cee95ab.txt",
+        "sha256": "86dd32b73a9230992330c96f6cf9ad8fa535c12b1f059f71d55510187c3451d1"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  },
+  {
+    "findingId": "F-SYS-05",
+    "catalogId": "VBO:0201428",
+    "name": "Wirehaired Vizsla",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/profile-refresh-b.json#/profiles/VBO:0201428/sizeBand",
+    "existingValue": "large",
+    "proposedValue": "medium",
+    "disposition": "correct_supported",
+    "rationale": "FCI239 gives males58–64cm/females54–60cm and explicitly says medium size should be aimed at. Medium matches short-haired Vizsla and direct source.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/239g07-en.pdf",
+        "title": "FCI-Standard N° 239 Hungarian Wire-haired Pointing Dog",
+        "cache": "cache/sources/bfe5f5badeafef3e.txt",
+        "sha256": "599013c2a2c82142b8d0aac56783d06524cb3f74e0f2bddf6d200e80b88cb0ca"
+      }
+    ],
+    "verification": "Rebuild from authoring; assert exact sizeBand; shared-standard siblings same band; unknown omitted from displayed Size."
+  }
+]

@@ -1,0 +1,40 @@
+{
+  "receiptType": "immutable-root-precall-approval",
+  "status": "approved",
+  "correctionId": "dogs-audit-corrections-2026-10-06",
+  "catalogId": "VBO:0200271",
+  "inputMode": "text-only",
+  "permissionProfile": "workspace-write",
+  "imageInputs": [],
+  "nativeDimensions": [
+    1536,
+    1024
+  ],
+  "rootMorphologyEvidenceRead": true,
+  "rootIdentityApproved": true,
+  "rootSourceUseApproved": true,
+  "rootSceneAndPromptApproved": true,
+  "referencePurposes": {
+    "uiDisplayAllowed": false,
+    "publicSnapshotAllowed": false,
+    "rasterExportAllowed": false
+  },
+  "prompt": {
+    "path": "/Users/danbretl/src/stackrank-dogs-audit-release/notes/testing/dogs-audit-corrections/artwork/VBO-0200271-prompt.txt",
+    "sha256": "9daf4605864ce043bfdbdb527508f9ca8dbca3cecc2c8966cb2b1fbce061d55b",
+    "bytes": 2002
+  },
+  "researchDossier": {
+    "path": "/Users/danbretl/src/stackrank-dogs-audit-release/notes/testing/dogs-audit-corrections/artwork/VBO-0200271-research.json",
+    "sha256": "45edaacbae16b9b9aadb069a89af11123d16477fc211a5b3ac5f4f4dece26e66",
+    "bytes": 1621
+  },
+  "sourcePolicyAuthorization": {
+    "path": "/Users/danbretl/src/stackrank-dogs-audit-release/notes/testing/dogs-audit-corrections/artwork/authorization.json",
+    "sha256": "46e474c39177058a40a2f20e2931d8d72219c93bd59765958267e5c8d33e75f7",
+    "bytes": 1010
+  },
+  "reviewer": "GPT Astra lead",
+  "approvedAt": "2026-10-06T05:01:57.568920+00:00",
+  "reviewEvidence": "Lead personally viewed existing1536x1024 native and read exact CBKC/FCI standard; approves scoped text-only correction and new scene."
+}

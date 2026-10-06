@@ -1,5 +1,13 @@
 # StackRank
 
+October 6 audit correction release: cohort N is complete and independently reviewed. Its original
+isolation/publication holds are historical; Dan authorized corrected integration, commit/push and
+production release. Current execution and verified release receipts live in
+`notes/testing/dogs-audit-corrections/`. Read its hand-back/checkpoint before continuing. The
+catalog now supports reversible editorial suppression, keeping all IDs, user state and prior
+profile/artwork approvals intact. No additional cohort or generation is authorized beyond the
+two documented portrait corrections. Earlier cohort count/status paragraphs below are historical.
+
 For current Dogs generation, read `notes/feature-ideas/dogs-reference-research-policy.md`. Dan’s
 October 3 amendment permits broader factual research and text-only generation; direct image
 inputs still need appropriate rights. It supersedes older Commons-only prerequisites. Cohort M

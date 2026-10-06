@@ -2,6 +2,7 @@ import {
   ARTWORK_REVIEW_CONCERNS,
   ARTWORK_REVIEW_PAGE_SIZE,
   ARTWORK_REVIEW_STORAGE_KEY,
+  artworkGenerationRecord,
   buildArtworkReviewExport,
   clearArtworkReview,
   filterArtworkAssets,
@@ -11,16 +12,118 @@ import {
   paginateArtworkAssets,
   preferredArtworkVariant,
   setArtworkReview,
-} from "/lib/dogs-artwork-review.js?v=1";
-import { dogProfileSourceLinks } from "/lib/dogs.js?v=8";
+} from "/lib/dogs-artwork-review.js?v=2";
+import { dogProfileSourceLinks } from "/lib/dogs.js?v=9";
 
 const DATA_URLS = {
-  manifest: "/data/dogs/generated-artwork.json?v=58",
-  catalog: "/data/dogs/dog-catalog.json?v=5",
-  profiles: "/data/dogs/breed-profiles.json?v=55",
+  manifest: "/data/dogs/generated-artwork.json?v=108",
+  catalog: "/data/dogs/dog-catalog.json?v=7",
+  profiles: "/data/dogs/breed-profiles.json?v=107",
 };
 
 // Filled from actual finite L batch files by prepare-dog-portrait-l.mjs.
+const N_BATCH_METADATA_URLS = [
+  "/data/dogs/generated-artwork-batch-n01.json",
+  "/data/dogs/generated-artwork-batch-n02.json",
+  "/data/dogs/generated-artwork-batch-n04.json",
+  "/data/dogs/generated-artwork-batch-n05.json",
+  "/data/dogs/generated-artwork-batch-n07.json",
+  "/data/dogs/generated-artwork-batch-n08.json",
+  "/data/dogs/generated-artwork-batch-n09.json",
+  "/data/dogs/generated-artwork-batch-n10.json",
+  "/data/dogs/generated-artwork-batch-n100.json",
+  "/data/dogs/generated-artwork-batch-n101.json",
+  "/data/dogs/generated-artwork-batch-n102.json",
+  "/data/dogs/generated-artwork-batch-n103.json",
+  "/data/dogs/generated-artwork-batch-n104.json",
+  "/data/dogs/generated-artwork-batch-n105.json",
+  "/data/dogs/generated-artwork-batch-n106.json",
+  "/data/dogs/generated-artwork-batch-n107.json",
+  "/data/dogs/generated-artwork-batch-n108.json",
+  "/data/dogs/generated-artwork-batch-n109.json",
+  "/data/dogs/generated-artwork-batch-n14.json",
+  "/data/dogs/generated-artwork-batch-n15.json",
+  "/data/dogs/generated-artwork-batch-n16.json",
+  "/data/dogs/generated-artwork-batch-n17.json",
+  "/data/dogs/generated-artwork-batch-n18.json",
+  "/data/dogs/generated-artwork-batch-n19.json",
+  "/data/dogs/generated-artwork-batch-n20.json",
+  "/data/dogs/generated-artwork-batch-n22.json",
+  "/data/dogs/generated-artwork-batch-n23.json",
+  "/data/dogs/generated-artwork-batch-n24.json",
+  "/data/dogs/generated-artwork-batch-n25.json",
+  "/data/dogs/generated-artwork-batch-n26.json",
+  "/data/dogs/generated-artwork-batch-n27.json",
+  "/data/dogs/generated-artwork-batch-n28.json",
+  "/data/dogs/generated-artwork-batch-n29.json",
+  "/data/dogs/generated-artwork-batch-n30.json",
+  "/data/dogs/generated-artwork-batch-n31.json",
+  "/data/dogs/generated-artwork-batch-n32.json",
+  "/data/dogs/generated-artwork-batch-n33.json",
+  "/data/dogs/generated-artwork-batch-n34.json",
+  "/data/dogs/generated-artwork-batch-n35.json",
+  "/data/dogs/generated-artwork-batch-n36.json",
+  "/data/dogs/generated-artwork-batch-n38.json",
+  "/data/dogs/generated-artwork-batch-n39.json",
+  "/data/dogs/generated-artwork-batch-n41.json",
+  "/data/dogs/generated-artwork-batch-n42.json",
+  "/data/dogs/generated-artwork-batch-n43.json",
+  "/data/dogs/generated-artwork-batch-n44.json",
+  "/data/dogs/generated-artwork-batch-n45.json",
+  "/data/dogs/generated-artwork-batch-n46.json",
+  "/data/dogs/generated-artwork-batch-n47.json",
+  "/data/dogs/generated-artwork-batch-n48.json",
+  "/data/dogs/generated-artwork-batch-n49.json",
+  "/data/dogs/generated-artwork-batch-n50.json",
+  "/data/dogs/generated-artwork-batch-n51.json",
+  "/data/dogs/generated-artwork-batch-n52.json",
+  "/data/dogs/generated-artwork-batch-n53.json",
+  "/data/dogs/generated-artwork-batch-n54.json",
+  "/data/dogs/generated-artwork-batch-n55.json",
+  "/data/dogs/generated-artwork-batch-n56.json",
+  "/data/dogs/generated-artwork-batch-n57.json",
+  "/data/dogs/generated-artwork-batch-n58.json",
+  "/data/dogs/generated-artwork-batch-n59.json",
+  "/data/dogs/generated-artwork-batch-n60.json",
+  "/data/dogs/generated-artwork-batch-n61.json",
+  "/data/dogs/generated-artwork-batch-n62.json",
+  "/data/dogs/generated-artwork-batch-n63.json",
+  "/data/dogs/generated-artwork-batch-n64.json",
+  "/data/dogs/generated-artwork-batch-n65.json",
+  "/data/dogs/generated-artwork-batch-n67.json",
+  "/data/dogs/generated-artwork-batch-n68.json",
+  "/data/dogs/generated-artwork-batch-n69.json",
+  "/data/dogs/generated-artwork-batch-n70.json",
+  "/data/dogs/generated-artwork-batch-n71.json",
+  "/data/dogs/generated-artwork-batch-n72.json",
+  "/data/dogs/generated-artwork-batch-n73.json",
+  "/data/dogs/generated-artwork-batch-n74.json",
+  "/data/dogs/generated-artwork-batch-n75.json",
+  "/data/dogs/generated-artwork-batch-n76.json",
+  "/data/dogs/generated-artwork-batch-n77.json",
+  "/data/dogs/generated-artwork-batch-n78.json",
+  "/data/dogs/generated-artwork-batch-n79.json",
+  "/data/dogs/generated-artwork-batch-n80.json",
+  "/data/dogs/generated-artwork-batch-n81.json",
+  "/data/dogs/generated-artwork-batch-n82.json",
+  "/data/dogs/generated-artwork-batch-n83.json",
+  "/data/dogs/generated-artwork-batch-n84.json",
+  "/data/dogs/generated-artwork-batch-n85.json",
+  "/data/dogs/generated-artwork-batch-n86.json",
+  "/data/dogs/generated-artwork-batch-n87.json",
+  "/data/dogs/generated-artwork-batch-n88.json",
+  "/data/dogs/generated-artwork-batch-n89.json",
+  "/data/dogs/generated-artwork-batch-n90.json",
+  "/data/dogs/generated-artwork-batch-n91.json",
+  "/data/dogs/generated-artwork-batch-n92.json",
+  "/data/dogs/generated-artwork-batch-n93.json",
+  "/data/dogs/generated-artwork-batch-n94.json",
+  "/data/dogs/generated-artwork-batch-n95.json",
+  "/data/dogs/generated-artwork-batch-n96.json",
+  "/data/dogs/generated-artwork-batch-n97.json",
+  "/data/dogs/generated-artwork-batch-n98.json",
+  "/data/dogs/generated-artwork-batch-n99.json"
+];
 const M_BATCH_METADATA_URLS = [
   "/data/dogs/generated-artwork-batch-m01.json",
   "/data/dogs/generated-artwork-batch-m02.json",
@@ -175,6 +278,7 @@ const L_BATCH_METADATA_URLS = [
 ];
 
 const BATCH_METADATA_URLS = [
+  "/data/dogs/generated-artwork-corrections-2026-10-06.json",
   "/data/dogs/generated-artwork-batch-root.json",
   "/data/dogs/generated-artwork-batch-a.json",
   "/data/dogs/generated-artwork-batch-b.json",
@@ -199,6 +303,7 @@ const BATCH_METADATA_URLS = [
   "/data/dogs/generated-artwork-batch-k03.json",
   ...L_BATCH_METADATA_URLS,
   ...M_BATCH_METADATA_URLS,
+  ...N_BATCH_METADATA_URLS,
 ];
 
 const dom = {
@@ -513,11 +618,7 @@ function loadBatchMetadata(manifestVersion) {
 }
 
 function batchForAsset(index, asset) {
-  const candidates = index.get(asset.catalogId) || [];
-  return candidates.find((candidate) => candidate.generatedAt === asset.generatedAt)
-    || candidates.find((candidate) => candidate.masterSha256 === asset.masterSha256)
-    || candidates.at(-1)
-    || null;
+  return artworkGenerationRecord(index.get(asset.catalogId), asset);
 }
 
 function metadataBlock(title, text) {

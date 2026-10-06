@@ -1,0 +1,2671 @@
+{
+  "schemaVersion": 1,
+  "assembledAt": "2026-10-06",
+  "status": "all_findings_adjudicated_and_applied_final_release_verification_pending",
+  "immutableAuditLedgerHashes": {
+    "findings.jsonl": "a3e4df5148091ea81e9a563d111feeef9f9d84efb83873df612a295ace33bb6a",
+    "proposed-changes.jsonl": "8c7d439f18acaae408bd50e39ce21d9a9ace74a2e5755e16b77584c54e576899",
+    "open-issues.jsonl": "8c894a9b218ad097b43c36e74ec8e8de93d0c2c72bb2d7af49085d09f7c66bfc"
+  },
+  "originalAuditTotals": {
+    "individualFindings": 70,
+    "systemicFindings": 11,
+    "allFindings": 81,
+    "proposals": 81,
+    "openIssues": 19,
+    "severityCounts": {
+      "low": 60,
+      "medium": 21
+    }
+  },
+  "reviewCoverage": {
+    "individualTextAndMetadata": 64,
+    "individualPortraits": 6,
+    "systemicExplicitPendingLeadRows": 0,
+    "openIssues": 19,
+    "NProfiles": 100,
+    "NPortraits": 100,
+    "systemic08Identities": 214,
+    "crossClassProfiles": 95,
+    "crossEvidenceHolds": 71,
+    "sizeImpacts": 35,
+    "aliasImpacts": 40,
+    "additionalAliasFindings": 4,
+    "clearProfileSample": 9,
+    "baselineInputHashes": 558,
+    "baselineHashesMatching": 558
+  },
+  "validation": {
+    "originalFindingSetMatches": true,
+    "originalProposalSetMatches": true,
+    "all70IndividualFindingIdsCoveredOnce": true,
+    "originalOpenIssueSetMatches": true,
+    "N100AcceptedIdSetMatches": true,
+    "N100ActualPortraitAndTextReviewRecorded": true,
+    "all214Systemic08IdsUnique": true,
+    "pendingN_BIdentityRows": 0,
+    "releaseVerified": false,
+    "localVerificationPassed": true
+  },
+  "findingAndProposalCoverage": [
+    {
+      "findingId": "F-0200670-1",
+      "proposedChangeId": "PC-0200670-1",
+      "catalogId": "VBO:0200670",
+      "name": "Himalayan Sheepdog",
+      "severity": "low",
+      "affectedDimension": "full_copy",
+      "field": "S2",
+      "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0200670/summary (sentence 2)",
+      "category": "unsupported-identity-framing",
+      "evidenceIds": [
+        "EV-a7116d6d515dd96a",
+        "EV-LOCAL-VBO"
+      ],
+      "reviewPointer": "individual-dispositions.json#/0",
+      "reviewDisposition": "rejected_false_positive",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200919-1",
+      "proposedChangeId": "PC-0200919-1",
+      "catalogId": "VBO:0200919",
+      "name": "Mucuchies",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "HR",
+      "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0200919/historicalRoots",
+      "category": "unsourced-metadata",
+      "evidenceIds": [
+        "EV-c8f05c58a17719bb"
+      ],
+      "reviewPointer": "individual-dispositions.json#/1",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200108-1",
+      "proposedChangeId": "PC-0200108-1",
+      "catalogId": "VBO:0200108",
+      "name": "Azawakh",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "HR",
+      "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0200108/historicalRoots",
+      "category": "origin-scope-mismatch",
+      "evidenceIds": [
+        "EV-fb057f7785ecd777",
+        "EV-LOCAL-WD"
+      ],
+      "reviewPointer": "individual-dispositions.json#/2",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200338-1",
+      "proposedChangeId": "PC-0200338-1",
+      "catalogId": "VBO:0200338",
+      "name": "Chihuahua",
+      "severity": "low",
+      "affectedDimension": "provenance",
+      "field": "S1",
+      "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0200338/sources/1",
+      "category": "dead-citation",
+      "evidenceIds": [
+        "EV-22e441b973f35e4e",
+        "EV-7a705c7b912d9859"
+      ],
+      "reviewPointer": "individual-dispositions.json#/3",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200345-1",
+      "proposedChangeId": "PC-0200345-1",
+      "catalogId": "VBO:0200345",
+      "name": "Chinese Crested",
+      "severity": "low",
+      "affectedDimension": "provenance",
+      "field": "S1",
+      "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0200345/sources/1/evidence",
+      "category": "evidence-note-misattribution",
+      "evidenceIds": [
+        "EV-7a705c7b912d9859",
+        "EV-0bfc246fb946c880"
+      ],
+      "reviewPointer": "individual-dispositions.json#/4",
+      "reviewDisposition": "rejected_false_positive",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200345-2",
+      "proposedChangeId": "PC-0200345-2",
+      "catalogId": "VBO:0200345",
+      "name": "Chinese Crested",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "HR",
+      "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0200345/historicalRoots",
+      "category": "variety-scope-omission",
+      "evidenceIds": [
+        "EV-a199d9f69108d705"
+      ],
+      "reviewPointer": "individual-dispositions.json#/5",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0201004-1",
+      "proposedChangeId": "PC-0201004-1",
+      "catalogId": "VBO:0201004",
+      "name": "Peruvian Hairless Dog",
+      "severity": "low",
+      "affectedDimension": "editorial",
+      "field": "IF",
+      "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0201004/interestingFact",
+      "category": "low-value-optional-fact",
+      "evidenceIds": [
+        "EV-7f3f00dbcd8f900f"
+      ],
+      "reviewPointer": "individual-dispositions.json#/6",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0201220-1",
+      "proposedChangeId": "PC-0201220-1",
+      "catalogId": "VBO:0201220",
+      "name": "Shiba Inu",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "SZ",
+      "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0201220/sizeBand",
+      "category": "size-band-inconsistency",
+      "evidenceIds": [
+        "EV-9233312f6d5daa38",
+        "EV-615d63036999ac02"
+      ],
+      "reviewPointer": "individual-dispositions.json#/7",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200046-1",
+      "proposedChangeId": "PC-0200046-1",
+      "catalogId": "VBO:0200046",
+      "name": "American Eskimo Dog",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "IF",
+      "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200046/interestingFact",
+      "category": "fact-not-matching-citation",
+      "evidenceIds": [
+        "EV-28d55e81254e567d"
+      ],
+      "reviewPointer": "individual-dispositions.json#/8",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200062-1",
+      "proposedChangeId": "PC-0200062-1",
+      "catalogId": "VBO:0200062",
+      "name": "Anatolian Shepherd Dog",
+      "severity": "low",
+      "affectedDimension": "provenance",
+      "field": "S1",
+      "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0200062/summary (sentence 1)",
+      "category": "citation-gap",
+      "evidenceIds": [
+        "EV-7e5d5931654a8441",
+        "EV-d9cd1b407b2ef80a"
+      ],
+      "reviewPointer": "individual-dispositions.json#/9",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200121-1",
+      "proposedChangeId": "PC-0200121-1",
+      "catalogId": "VBO:0200121",
+      "name": "Basque Shepherd Dog",
+      "severity": "low",
+      "affectedDimension": "short_copy",
+      "field": "SD",
+      "authoringPointer": "data/dogs/profile-short-descriptions.json#/descriptions/VBO:0200121",
+      "category": "variety-scope-in-parent-profile",
+      "evidenceIds": [
+        "EV-d0ef0aef6c794865",
+        "EV-ae2bf850727def6b"
+      ],
+      "reviewPointer": "individual-dispositions.json#/10",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200271-1",
+      "proposedChangeId": "PC-0200271-1",
+      "catalogId": "VBO:0200271",
+      "name": "Campeiro Bulldog",
+      "severity": "low",
+      "affectedDimension": "visual",
+      "field": "image",
+      "authoringPointer": "data/dogs/generated-artwork.json#/assets/155 (catalogId VBO:0200271); displayed asset assets/dogs/generated/VBO-0200271-campeiro-bulldog-960.webp",
+      "category": "morphology-deviation",
+      "evidenceIds": [
+        "EV-90460e0f9432bd5d"
+      ],
+      "reviewPointer": "six-portrait-decisions.json#/0",
+      "reviewDisposition": "accept_with_modification",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200695-1",
+      "proposedChangeId": "PC-0200695-1",
+      "catalogId": "VBO:0200695",
+      "name": "Indian Pariah Dog",
+      "severity": "low",
+      "affectedDimension": "full_copy",
+      "field": "S2",
+      "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0200695/summary (sentence 2)",
+      "category": "citation-gap",
+      "evidenceIds": [
+        "EV-4b3e91e5ed76dc99"
+      ],
+      "reviewPointer": "individual-dispositions.json#/11",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200778-1",
+      "proposedChangeId": "PC-0200778-1",
+      "catalogId": "VBO:0200778",
+      "name": "Kombai",
+      "severity": "medium",
+      "affectedDimension": "full_copy",
+      "field": "S1",
+      "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0200778/summary (sentence 1)",
+      "category": "temperament-miscalibration",
+      "evidenceIds": [
+        "EV-db7dfcbd2e4a7fab"
+      ],
+      "reviewPointer": "individual-dispositions.json#/12",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200004-1",
+      "proposedChangeId": "PC-0200004-1",
+      "catalogId": "VBO:0200004",
+      "name": "Afghan Hound",
+      "severity": "low",
+      "affectedDimension": "full_copy",
+      "field": "S2",
+      "authoringPointer": "data/dogs/profile-refresh-b.json#/profiles/VBO:0200004/summary (sentence 2)",
+      "category": "unsupported-behaviour-claim",
+      "evidenceIds": [
+        "EV-519716b603c90f42"
+      ],
+      "reviewPointer": "individual-dispositions.json#/13",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200010-1",
+      "proposedChangeId": "PC-0200010-1",
+      "catalogId": "VBO:0200010",
+      "name": "Akita",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "OR",
+      "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-a.json#/profiles/VBO:0200010/originRegions",
+      "category": "origin-contradiction",
+      "evidenceIds": [
+        "EV-933fed71f4778f74",
+        "EV-LOCAL-WD"
+      ],
+      "reviewPointer": "individual-dispositions.json#/14",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200068-1",
+      "proposedChangeId": "PC-0200068-1",
+      "catalogId": "VBO:0200068",
+      "name": "Appenzeller Sennenhund",
+      "severity": "low",
+      "affectedDimension": "full_copy",
+      "field": "S3",
+      "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200068/summary (sentence 3)",
+      "category": "unsupported-behaviour-claim",
+      "evidenceIds": [
+        "EV-867ed37b7dc02faf"
+      ],
+      "reviewPointer": "individual-dispositions.json#/15",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200095-1",
+      "proposedChangeId": "PC-0200095-1",
+      "catalogId": "VBO:0200095",
+      "name": "Australian Shepherd",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "OR",
+      "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-a.json#/profiles/VBO:0200095/originRegions",
+      "category": "origin-contradiction",
+      "evidenceIds": [
+        "EV-771fa3f91e61b7b1",
+        "EV-LOCAL-WD"
+      ],
+      "reviewPointer": "individual-dispositions.json#/16",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200125-1",
+      "proposedChangeId": "PC-0200125-1",
+      "catalogId": "VBO:0200125",
+      "name": "Basset Fauve de Bretagne",
+      "severity": "low",
+      "affectedDimension": "full_copy",
+      "field": "S2",
+      "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200125/summary (sentence 2)",
+      "category": "unsupported-embellishment",
+      "evidenceIds": [
+        "EV-65f244fe5a8d23f0"
+      ],
+      "reviewPointer": "individual-dispositions.json#/17",
+      "reviewDisposition": "rejected_false_positive",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200126-1",
+      "proposedChangeId": "PC-0200126-1",
+      "catalogId": "VBO:0200126",
+      "name": "Basset Hound",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "OR",
+      "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-b.json#/profiles/VBO:0200126/originRegions",
+      "category": "origin-contradiction",
+      "evidenceIds": [
+        "EV-a58ea6b165eb5a6b",
+        "EV-LOCAL-WD"
+      ],
+      "reviewPointer": "individual-dispositions.json#/18",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200234-1",
+      "proposedChangeId": "PC-0200234-1",
+      "catalogId": "VBO:0200234",
+      "name": "Briard",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "IF",
+      "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200234/interestingFact",
+      "category": "unsupported-detail-and-redundancy",
+      "evidenceIds": [
+        "EV-54c33f6e39fb31b1"
+      ],
+      "reviewPointer": "individual-dispositions.json#/19",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200274-1",
+      "proposedChangeId": "PC-0200274-1",
+      "catalogId": "VBO:0200274",
+      "name": "Canaan Dog",
+      "severity": "medium",
+      "affectedDimension": "factual_metadata",
+      "field": "OR",
+      "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-a.json#/profiles/VBO:0200274/originRegions",
+      "category": "origin-contradiction-sensitive",
+      "evidenceIds": [
+        "EV-7872ff72d6b24e14",
+        "EV-LOCAL-WD"
+      ],
+      "reviewPointer": "individual-dispositions.json#/20",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200427-1",
+      "proposedChangeId": "PC-0200427-1",
+      "catalogId": "VBO:0200427",
+      "name": "Dalmatian",
+      "severity": "low",
+      "affectedDimension": "full_copy",
+      "field": "S3",
+      "authoringPointer": "data/dogs/profile-refresh-b.json#/profiles/VBO:0200427/summary (sentence 3)",
+      "category": "date-imprecision",
+      "evidenceIds": [
+        "EV-d991333ada0c7411"
+      ],
+      "reviewPointer": "individual-dispositions.json#/21",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200454-1",
+      "proposedChangeId": "PC-0200454-1",
+      "catalogId": "VBO:0200454",
+      "name": "Drever",
+      "severity": "medium",
+      "affectedDimension": "full_copy",
+      "field": "S2",
+      "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200454/summary (sentence 2)",
+      "category": "unsupported-working-method-claim",
+      "evidenceIds": [
+        "EV-528ee53b008fab13"
+      ],
+      "reviewPointer": "individual-dispositions.json#/22",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200509-1",
+      "proposedChangeId": "PC-0200509-1",
+      "catalogId": "VBO:0200509",
+      "name": "Estrela Mountain Dog",
+      "severity": "low",
+      "affectedDimension": "editorial",
+      "field": "IF",
+      "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200509/interestingFact",
+      "category": "low-value-optional-fact",
+      "evidenceIds": [
+        "EV-7a2a4874e0329031"
+      ],
+      "reviewPointer": "individual-dispositions.json#/23",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200520-1",
+      "proposedChangeId": "PC-0200520-1",
+      "catalogId": "VBO:0200520",
+      "name": "Fila Brasileiro",
+      "severity": "medium",
+      "affectedDimension": "full_copy",
+      "field": "S1",
+      "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200520/summary (sentence 1)",
+      "category": "temperament-miscalibration",
+      "evidenceIds": [
+        "EV-c61596c74c5dd949"
+      ],
+      "reviewPointer": "individual-dispositions.json#/24",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200629-1",
+      "proposedChangeId": "PC-0200629-1",
+      "catalogId": "VBO:0200629",
+      "name": "Great Pyrenees",
+      "severity": "medium",
+      "affectedDimension": "factual_metadata",
+      "field": "OR",
+      "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-b.json#/profiles/VBO:0200629/originRegions",
+      "category": "origin-contradiction",
+      "evidenceIds": [
+        "EV-ef92fd932934dcc1",
+        "EV-LOCAL-WD"
+      ],
+      "reviewPointer": "individual-dispositions.json#/25",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200638-1",
+      "proposedChangeId": "PC-0200638-1",
+      "catalogId": "VBO:0200638",
+      "name": "Greyhound",
+      "severity": "low",
+      "affectedDimension": "full_copy",
+      "field": "S3",
+      "authoringPointer": "data/dogs/profile-refresh-b.json#/profiles/VBO:0200638/summary (sentence 3)",
+      "category": "unsupported-cognition-claim",
+      "evidenceIds": [
+        "EV-47d4f2660e4b52a0"
+      ],
+      "reviewPointer": "individual-dispositions.json#/26",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200724-1",
+      "proposedChangeId": "PC-0200724-1",
+      "catalogId": "VBO:0200724",
+      "name": "Jack Russell Terrier",
+      "severity": "low",
+      "affectedDimension": "visual",
+      "field": "image",
+      "authoringPointer": "data/dogs/generated-artwork.json#/assets/390 (catalogId VBO:0200724); displayed asset assets/dogs/generated/VBO-0200724-jack-russell-terrier-960.webp",
+      "category": "variety-proportion-confusion",
+      "evidenceIds": [
+        "EV-cdd4b0622716a981"
+      ],
+      "reviewPointer": "six-portrait-decisions.json#/1",
+      "reviewDisposition": "reject",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200836-1",
+      "proposedChangeId": "PC-0200836-1",
+      "catalogId": "VBO:0200836",
+      "name": "Lowchen",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "OR",
+      "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-c.json#/profiles/VBO:0200836/originRegions",
+      "category": "origin-imprecision",
+      "evidenceIds": [
+        "EV-4825354865220fdc",
+        "EV-LOCAL-WD"
+      ],
+      "reviewPointer": "individual-dispositions.json#/27",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200896-1",
+      "proposedChangeId": "PC-0200896-1",
+      "catalogId": "VBO:0200896",
+      "name": "Miniature Schnauzer",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "TL",
+      "authoringPointer": "scripts/dog-profiles-lib.mjs dogTypeLabel() <- data/dogs/dog-catalog.json#/entities[id=VBO:0200896]/status and editorialFamilies",
+      "category": "registry-scope-label",
+      "evidenceIds": [
+        "EV-71e95a2aac567266"
+      ],
+      "reviewPointer": "individual-dispositions.json#/28",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200896-2",
+      "proposedChangeId": "PC-0200896-2",
+      "catalogId": "VBO:0200896",
+      "name": "Miniature Schnauzer",
+      "severity": "low",
+      "affectedDimension": "provenance",
+      "field": "S2",
+      "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0200896/summary (sentence 2)",
+      "category": "citation-gap",
+      "evidenceIds": [
+        "EV-71e95a2aac567266",
+        "EV-7b7bf7cec45b67bb"
+      ],
+      "reviewPointer": "individual-dispositions.json#/29",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200930-1",
+      "proposedChangeId": "PC-0200930-1",
+      "catalogId": "VBO:0200930",
+      "name": "Neapolitan Mastiff",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "OR",
+      "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-a.json#/profiles/VBO:0200930/originRegions",
+      "category": "origin-contradiction",
+      "evidenceIds": [
+        "EV-21e6a0ae191c1b21",
+        "EV-LOCAL-WD"
+      ],
+      "reviewPointer": "individual-dispositions.json#/30",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200945-1",
+      "proposedChangeId": "PC-0200945-1",
+      "catalogId": "VBO:0200945",
+      "name": "Norfolk Terrier",
+      "severity": "low",
+      "affectedDimension": "full_copy",
+      "field": "S2",
+      "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200945/summary (sentence 2)",
+      "category": "misattributed-quotation",
+      "evidenceIds": [
+        "EV-2e66bf8c1bcd8136"
+      ],
+      "reviewPointer": "individual-dispositions.json#/31",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200969-1",
+      "proposedChangeId": "PC-0200969-1",
+      "catalogId": "VBO:0200969",
+      "name": "Old English Sheepdog",
+      "severity": "low",
+      "affectedDimension": "editorial",
+      "field": "S2",
+      "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200969/summary (sentence 2)",
+      "category": "thin-generic-copy",
+      "evidenceIds": [
+        "EV-2b37ae7064873e6f"
+      ],
+      "reviewPointer": "individual-dispositions.json#/32",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0201016-1",
+      "proposedChangeId": "PC-0201016-1",
+      "catalogId": "VBO:0201016",
+      "name": "Pharaoh Hound",
+      "severity": "medium",
+      "affectedDimension": "factual_metadata",
+      "field": "OR",
+      "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-c.json#/profiles/VBO:0201016/originRegions",
+      "category": "origin-contradiction",
+      "evidenceIds": [
+        "EV-3d72c1c3636f2876",
+        "EV-LOCAL-WD"
+      ],
+      "reviewPointer": "individual-dispositions.json#/33",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0201296-1",
+      "proposedChangeId": "PC-0201296-1",
+      "catalogId": "VBO:0201296",
+      "name": "Staffordshire Bull Terrier",
+      "severity": "medium",
+      "affectedDimension": "editorial",
+      "field": "AK",
+      "authoringPointer": "data/dogs/dog-catalog.json#/entities[id=VBO:0201296]/aliases",
+      "category": "suitability-implying-alias",
+      "evidenceIds": [
+        "EV-b336a285b09dedf6",
+        "EV-LOCAL-VBO"
+      ],
+      "reviewPointer": "individual-dispositions.json#/34",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0201356-1",
+      "proposedChangeId": "PC-0201356-1",
+      "catalogId": "VBO:0201356",
+      "name": "Tornjak",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "OR",
+      "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-a.json#/profiles/VBO:0201356/originRegions",
+      "category": "incomplete-origin",
+      "evidenceIds": [
+        "EV-c24861dc32ed088e",
+        "EV-LOCAL-WD"
+      ],
+      "reviewPointer": "individual-dispositions.json#/35",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200339-1",
+      "proposedChangeId": "PC-0200339-1",
+      "catalogId": "VBO:0200339",
+      "name": "Chihuahua, Long-Haired",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "SZ",
+      "authoringPointer": "data/dogs/profile-refresh-f.json#/profiles/VBO:0200339/sizeBand",
+      "category": "size-band-inconsistency",
+      "evidenceIds": [
+        "EV-801e92c1da05b69d"
+      ],
+      "reviewPointer": "individual-dispositions.json#/36",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200346-1",
+      "proposedChangeId": "PC-0200346-1",
+      "catalogId": "VBO:0200346",
+      "name": "Chinese Crested, Hairless",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "SZ",
+      "authoringPointer": "data/dogs/profile-refresh-f.json#/profiles/VBO:0200346/sizeBand",
+      "category": "size-band-inconsistency",
+      "evidenceIds": [
+        "EV-bf56162440c15e3c"
+      ],
+      "reviewPointer": "individual-dispositions.json#/37",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200347-1",
+      "proposedChangeId": "PC-0200347-1",
+      "catalogId": "VBO:0200347",
+      "name": "Chinese Crested, Powder Puff",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "SZ",
+      "authoringPointer": "data/dogs/profile-refresh-f.json#/profiles/VBO:0200347/sizeBand",
+      "category": "size-band-inconsistency",
+      "evidenceIds": [
+        "EV-a199d9f69108d705"
+      ],
+      "reviewPointer": "individual-dispositions.json#/38",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200464-1",
+      "proposedChangeId": "PC-0200464-1",
+      "catalogId": "VBO:0200464",
+      "name": "Dutch Shepherd Dog, Long-Haired",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "SZ",
+      "authoringPointer": "data/dogs/profile-refresh-f02.json#/profiles/VBO:0200464/sizeBand",
+      "category": "size-band-inconsistency",
+      "evidenceIds": [
+        "EV-637b38498cb83637"
+      ],
+      "reviewPointer": "individual-dispositions.json#/39",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200464-2",
+      "proposedChangeId": "PC-0200464-2",
+      "catalogId": "VBO:0200464",
+      "name": "Dutch Shepherd Dog, Long-Haired",
+      "severity": "low",
+      "affectedDimension": "editorial",
+      "field": "EF",
+      "authoringPointer": "data/dogs/profile-refresh-f02.json#/profiles/VBO:0200464/editorialFamilies + data/dogs/packs.json",
+      "category": "malformed-editorial-family",
+      "evidenceIds": [
+        "EV-637b38498cb83637"
+      ],
+      "reviewPointer": "individual-dispositions.json#/40",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0201019-1",
+      "proposedChangeId": "PC-0201019-1",
+      "catalogId": "VBO:0201019",
+      "name": "Picardy Spaniel",
+      "severity": "low",
+      "affectedDimension": "full_copy",
+      "field": "S3",
+      "authoringPointer": "data/dogs/profile-refresh-f02.json#/profiles/VBO:0201019/summary (sentence 3)",
+      "category": "unsupported-embellishment",
+      "evidenceIds": [
+        "EV-493993d2a219d2d7",
+        "EV-f905e1c8ecde5932"
+      ],
+      "reviewPointer": "individual-dispositions.json#/41",
+      "reviewDisposition": "rejected_false_positive",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0201023-1",
+      "proposedChangeId": "PC-0201023-1",
+      "catalogId": "VBO:0201023",
+      "name": "Plott Hound",
+      "severity": "medium",
+      "affectedDimension": "factual_metadata",
+      "field": "OR",
+      "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-f03.json#/profiles/VBO:0201023/originRegions",
+      "category": "origin-contradiction",
+      "evidenceIds": [
+        "EV-ead94e7766781e6b",
+        "EV-LOCAL-WD"
+      ],
+      "reviewPointer": "individual-dispositions.json#/42",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0201139-1",
+      "proposedChangeId": "PC-0201139-1",
+      "catalogId": "VBO:0201139",
+      "name": "Romanian Bucovina Shepherd",
+      "severity": "low",
+      "affectedDimension": "visual",
+      "field": "artwork",
+      "authoringPointer": "data/dogs/generated-artwork.json#/assets/632 (catalogId VBO:0201139); displayed asset assets/dogs/generated/VBO-0201139-f03-a-a2-960.webp",
+      "category": "coat-colour-outside-standard",
+      "evidenceIds": [
+        "EV-9fdd4feb56daef66"
+      ],
+      "reviewPointer": "six-portrait-decisions.json#/2",
+      "reviewDisposition": "reject",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200398-1",
+      "proposedChangeId": "PC-0200398-1",
+      "catalogId": "VBO:0200398",
+      "name": "Cursinu",
+      "severity": "low",
+      "affectedDimension": "visual",
+      "field": "artwork",
+      "authoringPointer": "data/dogs/generated-artwork.json#/assets/226 (catalogId VBO:0200398); displayed asset assets/dogs/generated/VBO-0200398-h01-a-a1-960.webp",
+      "category": "coat-outside-standard",
+      "evidenceIds": [
+        "EV-83d1560b40a42fad"
+      ],
+      "reviewPointer": "six-portrait-decisions.json#/3",
+      "reviewDisposition": "reject",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200482-1",
+      "proposedChangeId": "PC-0200482-1",
+      "catalogId": "VBO:0200482",
+      "name": "English Bull Terrier, Coloured",
+      "severity": "medium",
+      "affectedDimension": "identity",
+      "field": "TL",
+      "authoringPointer": "scripts/dog-profiles-lib.mjs dogTypeLabel() <- data/dogs/dog-catalog.json#/entities[id=VBO:0200482]/status and editorialFamilies",
+      "category": "variety-catalogued-as-breed",
+      "evidenceIds": [
+        "EV-1f79b1aaabd58de4",
+        "EV-LOCAL-VBO"
+      ],
+      "reviewPointer": "individual-dispositions.json#/43",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200483-1",
+      "proposedChangeId": "PC-0200483-1",
+      "catalogId": "VBO:0200483",
+      "name": "English Bull Terrier, White",
+      "severity": "medium",
+      "affectedDimension": "identity",
+      "field": "TL",
+      "authoringPointer": "scripts/dog-profiles-lib.mjs dogTypeLabel() <- data/dogs/dog-catalog.json#/entities[id=VBO:0200483]/status and editorialFamilies",
+      "category": "variety-catalogued-as-breed",
+      "evidenceIds": [
+        "EV-1f79b1aaabd58de4",
+        "EV-LOCAL-VBO"
+      ],
+      "reviewPointer": "individual-dispositions.json#/44",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200576-1",
+      "proposedChangeId": "PC-0200576-1",
+      "catalogId": "VBO:0200576",
+      "name": "German Sheeppoodle",
+      "severity": "low",
+      "affectedDimension": "identity",
+      "field": "TL",
+      "authoringPointer": "scripts/dog-profiles-lib.mjs dogTypeLabel() <- data/dogs/dog-catalog.json#/entities[id=VBO:0200576]/status and editorialFamilies",
+      "category": "misclassified-identity",
+      "evidenceIds": [
+        "EV-ce82c12de01de579",
+        "EV-LOCAL-VBO"
+      ],
+      "reviewPointer": "individual-dispositions.json#/45",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0008017-1",
+      "proposedChangeId": "PC-0008017-1",
+      "catalogId": "VBO:0008017",
+      "name": "Euskal Artzain Txakurra (variedad Gorbeiakoa)",
+      "severity": "medium",
+      "affectedDimension": "visual",
+      "field": "artwork",
+      "authoringPointer": "data/dogs/generated-artwork.json#/assets/10 (catalogId VBO:0008017); displayed asset assets/dogs/generated/VBO-0008017-native-01-960.webp",
+      "category": "variety-misdepicted",
+      "evidenceIds": [
+        "EV-ae2bf850727def6b"
+      ],
+      "reviewPointer": "six-portrait-decisions.json#/4",
+      "reviewDisposition": "reject",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200297-1",
+      "proposedChangeId": "PC-0200297-1",
+      "catalogId": "VBO:0200297",
+      "name": "Catahoula Bulldog",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "TL",
+      "authoringPointer": "scripts/dog-profiles-lib.mjs dogTypeLabel() <- data/dogs/dog-catalog.json#/entities[id=VBO:0200297]/status and editorialFamilies",
+      "category": "misclassified-identity",
+      "evidenceIds": [
+        "EV-d4e7d868089a6564",
+        "EV-LOCAL-VBO"
+      ],
+      "reviewPointer": "individual-dispositions.json#/46",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200907-1",
+      "proposedChangeId": "PC-0200907-1",
+      "catalogId": "VBO:0200907",
+      "name": "Morkie",
+      "severity": "medium",
+      "affectedDimension": "editorial",
+      "field": "S1",
+      "authoringPointer": "data/dogs/profile-refresh-j02.json#/profiles/VBO:0200907/summary (sentence 1)",
+      "category": "individual-anecdote-as-type",
+      "evidenceIds": [
+        "EV-991053e8c45410ca",
+        "EV-f7406c432431fc02"
+      ],
+      "reviewPointer": "individual-dispositions.json#/47",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200907-2",
+      "proposedChangeId": "PC-0200907-2",
+      "catalogId": "VBO:0200907",
+      "name": "Morkie",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "OR",
+      "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-j02.json#/profiles/VBO:0200907/originRegions",
+      "category": "unsupported-origin",
+      "evidenceIds": [
+        "EV-LOCAL-WD",
+        "EV-991053e8c45410ca"
+      ],
+      "reviewPointer": "individual-dispositions.json#/48",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200753-1",
+      "proposedChangeId": "PC-0200753-1",
+      "catalogId": "VBO:0200753",
+      "name": "Karakachan Dog",
+      "severity": "medium",
+      "affectedDimension": "factual_metadata",
+      "field": "OR",
+      "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-j02.json#/profiles/VBO:0200753/originRegions",
+      "category": "origin-contradicted",
+      "evidenceIds": [
+        "EV-02455952a7347e09",
+        "EV-a20f8278d696f670",
+        "EV-LOCAL-WD"
+      ],
+      "reviewPointer": "individual-dispositions.json#/49",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200978-1",
+      "proposedChangeId": "PC-0200978-1",
+      "catalogId": "VBO:0200978",
+      "name": "Ori Pei",
+      "severity": "medium",
+      "affectedDimension": "provenance",
+      "field": "S1",
+      "authoringPointer": "data/dogs/profile-refresh-j02.json#/profiles/VBO:0200978/summary (sentence 1)",
+      "category": "uninspectable-citation",
+      "evidenceIds": [
+        "EV-ffa98a30ff91a74f",
+        "EV-f44fcd45e29d0384",
+        "EV-91de90f29d25bacf"
+      ],
+      "reviewPointer": "individual-dispositions.json#/50",
+      "reviewDisposition": "partially_accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200978-2",
+      "proposedChangeId": "PC-0200978-2",
+      "catalogId": "VBO:0200978",
+      "name": "Ori Pei",
+      "severity": "low",
+      "affectedDimension": "identity",
+      "field": "TL",
+      "authoringPointer": "scripts/dog-profiles-lib.mjs dogTypeLabel() <- data/dogs/dog-catalog.json#/entities[id=VBO:0200978]/status and editorialFamilies",
+      "category": "misclassified-identity",
+      "evidenceIds": [
+        "EV-f44fcd45e29d0384",
+        "EV-LOCAL-VBO"
+      ],
+      "reviewPointer": "individual-dispositions.json#/51",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0201007-1",
+      "proposedChangeId": "PC-0201007-1",
+      "catalogId": "VBO:0201007",
+      "name": "Peruvian Hairless Dog, Miniature",
+      "severity": "medium",
+      "affectedDimension": "editorial",
+      "field": "HR",
+      "authoringPointer": "data/dogs/profile-refresh-j02.json#/profiles/VBO:0201007/historicalRoots",
+      "category": "internal-note-leak",
+      "evidenceIds": [
+        "EV-7f3f00dbcd8f900f"
+      ],
+      "reviewPointer": "individual-dispositions.json#/52",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200833-1",
+      "proposedChangeId": "PC-0200833-1",
+      "catalogId": "VBO:0200833",
+      "name": "Long-Haired Whippet",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "AK",
+      "authoringPointer": "data/dogs/dog-catalog.json#/entities[id=VBO:0200833]/aliases",
+      "category": "outdated-name",
+      "evidenceIds": [
+        "EV-bc39151977bd78a9",
+        "EV-LOCAL-VBO"
+      ],
+      "reviewPointer": "individual-dispositions.json#/53",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200799-1",
+      "proposedChangeId": "PC-0200799-1",
+      "catalogId": "VBO:0200799",
+      "name": "Labrador Husky",
+      "severity": "medium",
+      "affectedDimension": "identity",
+      "field": "*",
+      "authoringPointer": "data/dogs/dog-catalog.json#/entities[id=VBO:0200799] (identity) and data/dogs/profile-refresh-k02.json#/profiles/VBO:0200799 (profile)",
+      "category": "identity-conflation",
+      "evidenceIds": [
+        "EV-dacbc7abc314d47b",
+        "EV-36fc71351227e213",
+        "EV-LOCAL-VBO"
+      ],
+      "reviewPointer": "individual-dispositions.json#/54",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200649-1",
+      "proposedChangeId": "PC-0200649-1",
+      "catalogId": "VBO:0200649",
+      "name": "Gull Terrier",
+      "severity": "medium",
+      "affectedDimension": "editorial",
+      "field": "S1",
+      "authoringPointer": "data/dogs/profile-refresh-k02.json#/profiles/VBO:0200649/summary (sentence 1)",
+      "category": "harm-centred-framing",
+      "evidenceIds": [
+        "EV-07370cb78def86dc"
+      ],
+      "reviewPointer": "individual-dispositions.json#/55",
+      "reviewDisposition": "partially_accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0201055-1",
+      "proposedChangeId": "PC-0201055-1",
+      "catalogId": "VBO:0201055",
+      "name": "Poodle, Multi-Colored",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "OR",
+      "authoringPointer": "data/dogs/profile-refresh-l01.json#/profiles/VBO:0201055/originRegions",
+      "category": "origin-unsupported",
+      "evidenceIds": [
+        "EV-5ee0b4a6a8fc0a0c",
+        "EV-38d8404b6e98f838"
+      ],
+      "reviewPointer": "individual-dispositions.json#/56",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200769-1",
+      "proposedChangeId": "PC-0200769-1",
+      "catalogId": "VBO:0200769",
+      "name": "King Charles Spaniel, Tricolour",
+      "severity": "medium",
+      "affectedDimension": "visual",
+      "field": "image",
+      "authoringPointer": "data/dogs/generated-artwork.json#/assets/419 (catalogId VBO:0200769); displayed asset assets/dogs/generated/VBO-0200769-native-01-960.webp",
+      "category": "portrait-breed-mismatch",
+      "evidenceIds": [
+        "EV-d1eee37a8fe3094b"
+      ],
+      "reviewPointer": "six-portrait-decisions.json#/5",
+      "reviewDisposition": "accept_with_modification",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200839-1",
+      "proposedChangeId": "PC-0200839-1",
+      "catalogId": "VBO:0200839",
+      "name": "Lupo Italiano",
+      "severity": "low",
+      "affectedDimension": "full_copy",
+      "field": "S3",
+      "authoringPointer": "data/dogs/profile-refresh-l26.json#/profiles/VBO:0200839/summary (sentence 3)",
+      "category": "material-omission",
+      "evidenceIds": [
+        "EV-c1c658788c65fd12",
+        "EV-a91e6c38a16fc3f1"
+      ],
+      "reviewPointer": "individual-dispositions.json#/57",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0201040-1",
+      "proposedChangeId": "PC-0201040-1",
+      "catalogId": "VBO:0201040",
+      "name": "Pomapug",
+      "severity": "medium",
+      "affectedDimension": "editorial",
+      "field": "SD",
+      "authoringPointer": "data/dogs/profile-refresh-m33.json#/profiles/VBO:0201040/shortDescription",
+      "category": "individual-problem-behaviour-as-type",
+      "evidenceIds": [
+        "EV-9d553da81be30e06"
+      ],
+      "reviewPointer": "individual-dispositions.json#/58",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200684-1",
+      "proposedChangeId": "PC-0200684-1",
+      "catalogId": "VBO:0200684",
+      "name": "Huskamute",
+      "severity": "low",
+      "affectedDimension": "provenance",
+      "field": "S1",
+      "authoringPointer": "data/dogs/profile-refresh-m45.json#/profiles/VBO:0200684/summary (sentence 1)",
+      "category": "dead-citation",
+      "evidenceIds": [
+        "EV-b27dbb00d0de2690"
+      ],
+      "reviewPointer": "individual-dispositions.json#/59",
+      "reviewDisposition": "partially_accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200730-1",
+      "proposedChangeId": "PC-0200730-1",
+      "catalogId": "VBO:0200730",
+      "name": "Jackshit",
+      "severity": "low",
+      "affectedDimension": "editorial",
+      "field": "name",
+      "authoringPointer": "data/dogs/dog-catalog.json#/entities[id=VBO:0200730]/displayName",
+      "category": "crude-display-name",
+      "evidenceIds": [
+        "EV-1d3e70a75e79947b",
+        "EV-LOCAL-VBO"
+      ],
+      "reviewPointer": "individual-dispositions.json#/60",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200984-1",
+      "proposedChangeId": "PC-0200984-1",
+      "catalogId": "VBO:0200984",
+      "name": "Pampas Deerhound",
+      "severity": "medium",
+      "affectedDimension": "identity",
+      "field": "TL",
+      "authoringPointer": "scripts/dog-profiles-lib.mjs dogTypeLabel() <- data/dogs/dog-catalog.json#/entities[id=VBO:0200984]/status and editorialFamilies",
+      "category": "status-misclassified",
+      "evidenceIds": [
+        "EV-8135608e86c94379",
+        "EV-169cc5425c2af45c",
+        "EV-LOCAL-VBO"
+      ],
+      "reviewPointer": "individual-dispositions.json#/61",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200052-1",
+      "proposedChangeId": "PC-0200052-1",
+      "catalogId": "VBO:0200052",
+      "name": "American Lo-Size Pugg",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "name",
+      "authoringPointer": "data/dogs/dog-catalog.json#/entities[id=VBO:0200052]/displayName",
+      "category": "name-misspelling",
+      "evidenceIds": [
+        "EV-4585c40eb410fc64",
+        "EV-0f2b7f8d6bafec57",
+        "EV-LOCAL-VBO"
+      ],
+      "reviewPointer": "individual-dispositions.json#/62",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-0200931D-1",
+      "proposedChangeId": "PC-0200931D-1",
+      "catalogId": "S:VBO:0200931:draft",
+      "name": "Nebolish Mastiff",
+      "severity": "low",
+      "affectedDimension": "editorial",
+      "field": "summary",
+      "authoringPointer": "data/dogs/portrait-cohort-m.json#/entries/VBO:0200931/profile/summary",
+      "category": "individual-anecdote-as-type",
+      "evidenceIds": [
+        "EV-5edb55aad68d2a45"
+      ],
+      "reviewPointer": "individual-dispositions.json#/63",
+      "reviewDisposition": "accepted",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-SYS-01",
+      "proposedChangeId": "PC-SYS-01",
+      "catalogId": "*SYSTEMIC*",
+      "name": "systemic",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "typeLabel",
+      "authoringPointer": "scripts/dog-profiles-lib.mjs / compiled data/dogs/breed-profiles.json",
+      "category": "registry-label-truncation",
+      "evidenceIds": [
+        "EV-a4a5d03e70b9f62a",
+        "EV-1918ad5bcfd1bdbb",
+        "EV-87b695bf6aeaeda5"
+      ],
+      "reviewPointer": "systemic-lead-dispositions.json#/0",
+      "reviewDisposition": "accepted_fixed",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-SYS-02",
+      "proposedChangeId": "PC-SYS-02",
+      "catalogId": "*SYSTEMIC*",
+      "name": "systemic",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "originRegions",
+      "authoringPointer": "scripts/dog-profiles-lib.mjs / compiled data/dogs/breed-profiles.json",
+      "category": "origin-aggregation-redundancy",
+      "evidenceIds": [
+        "EV-LOCAL-WD",
+        "EV-LOCAL-FCI"
+      ],
+      "reviewPointer": "systemic-lead-dispositions.json#/1",
+      "reviewDisposition": "accepted_fixed",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-SYS-03",
+      "proposedChangeId": "PC-SYS-03",
+      "catalogId": "*SYSTEMIC*",
+      "name": "systemic",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "originRegions",
+      "authoringPointer": "scripts/dog-profiles-lib.mjs / compiled data/dogs/breed-profiles.json",
+      "category": "origin-fact-coverage-gap",
+      "evidenceIds": [
+        "EV-LOCAL-WD"
+      ],
+      "reviewPointer": "systemic-lead-dispositions.json#/2",
+      "reviewDisposition": "partially_accepted_safe_optional_omission",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-SYS-04",
+      "proposedChangeId": "PC-SYS-04",
+      "catalogId": "*SYSTEMIC*",
+      "name": "systemic",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "typeLabel",
+      "authoringPointer": "scripts/dog-profiles-lib.mjs / compiled data/dogs/breed-profiles.json",
+      "category": "generic-family-fallback",
+      "evidenceIds": [],
+      "reviewPointer": "systemic-lead-dispositions.json#/3",
+      "reviewDisposition": "accepted_fixed",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-SYS-05",
+      "proposedChangeId": "PC-SYS-05",
+      "catalogId": "*SYSTEMIC*",
+      "name": "systemic",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "sizeBand",
+      "authoringPointer": "scripts/dog-profiles-lib.mjs / compiled data/dogs/breed-profiles.json",
+      "category": "size-band-unsourced-or-inconsistent",
+      "evidenceIds": [],
+      "reviewPointer": "systemic-lead-dispositions.json#/4",
+      "reviewDisposition": "accepted_with_independent_corrections",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-SYS-06",
+      "proposedChangeId": "PC-SYS-06",
+      "catalogId": "*SYSTEMIC*",
+      "name": "systemic",
+      "severity": "low",
+      "affectedDimension": "identity",
+      "field": "displayedAliases",
+      "authoringPointer": "scripts/dog-profiles-lib.mjs / compiled data/dogs/breed-profiles.json",
+      "category": "displayed-alias-quality",
+      "evidenceIds": [
+        "EV-LOCAL-VBO"
+      ],
+      "reviewPointer": "systemic-lead-dispositions.json#/5",
+      "reviewDisposition": "accepted_with_rejections",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-SYS-07",
+      "proposedChangeId": "PC-SYS-07",
+      "catalogId": "*SYSTEMIC*",
+      "name": "systemic",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "typeLabel",
+      "authoringPointer": "scripts/dog-profiles-lib.mjs / compiled data/dogs/breed-profiles.json",
+      "category": "registry-group-as-editorial-family",
+      "evidenceIds": [],
+      "reviewPointer": "systemic-lead-dispositions.json#/6",
+      "reviewDisposition": "accepted_fixed",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-SYS-08",
+      "proposedChangeId": "PC-SYS-08",
+      "catalogId": "*SYSTEMIC*",
+      "name": "systemic",
+      "severity": "low",
+      "affectedDimension": "identity",
+      "field": "catalog identity",
+      "authoringPointer": "scripts/dog-profiles-lib.mjs / compiled data/dogs/breed-profiles.json",
+      "category": "identity-duplicate-umbrella-placeholder",
+      "evidenceIds": [
+        "EV-LOCAL-VBO",
+        "EV-LOCAL-WD"
+      ],
+      "reviewPointer": "systemic-lead-dispositions.json#/7",
+      "reviewDisposition": "accepted_scoped_reversible_policy",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-SYS-09",
+      "proposedChangeId": "PC-SYS-09",
+      "catalogId": "*SYSTEMIC*",
+      "name": "systemic",
+      "severity": "low",
+      "affectedDimension": "factual_metadata",
+      "field": "display aliases",
+      "authoringPointer": "scripts/dog-profiles-lib.mjs / compiled data/dogs/breed-profiles.json",
+      "category": "alias-collision-across-breeds",
+      "evidenceIds": [
+        "EV-LOCAL-VBO"
+      ],
+      "reviewPointer": "systemic-lead-dispositions.json#/8",
+      "reviewDisposition": "accepted_with_rejections",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-SYS-10",
+      "proposedChangeId": "PC-SYS-10",
+      "catalogId": "*SYSTEMIC*",
+      "name": "systemic",
+      "severity": "low",
+      "affectedDimension": "editorial",
+      "field": "editorialFamilies",
+      "authoringPointer": "scripts/dog-profiles-lib.mjs / compiled data/dogs/breed-profiles.json",
+      "category": "uncontrolled-family-vocabulary",
+      "evidenceIds": [],
+      "reviewPointer": "systemic-lead-dispositions.json#/9",
+      "reviewDisposition": "accepted_fixed",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    },
+    {
+      "findingId": "F-SYS-11",
+      "proposedChangeId": "PC-SYS-11",
+      "catalogId": "*SYSTEMIC*",
+      "name": "systemic",
+      "severity": "medium",
+      "affectedDimension": "editorial",
+      "field": "summary/shortDescription",
+      "authoringPointer": "scripts/dog-profiles-lib.mjs / compiled data/dogs/breed-profiles.json",
+      "category": "individual-anecdote-as-type",
+      "evidenceIds": [],
+      "reviewPointer": "systemic-lead-dispositions.json#/10",
+      "reviewDisposition": "accepted_corrections_and_evidence_holds",
+      "implementationStatus": "adjudicated_applied_or_rejected; final verification recorded in release hand-back"
+    }
+  ],
+  "openIssueCoverage": [
+    {
+      "openIssueId": "OI-0200670-1",
+      "catalogId": "VBO:0200670",
+      "reviewPointer": "open-issue-dispositions.json#/0",
+      "reviewDisposition": "resolved_supported",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    },
+    {
+      "openIssueId": "OI-0200345-1",
+      "catalogId": "VBO:0200345",
+      "reviewPointer": "open-issue-dispositions.json#/1",
+      "reviewDisposition": "resolved_conservative_alias",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    },
+    {
+      "openIssueId": "OI-0201102-1",
+      "catalogId": "VBO:0201102",
+      "reviewPointer": "open-issue-dispositions.json#/2",
+      "reviewDisposition": "resolved_conservative_alias",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    },
+    {
+      "openIssueId": "OI-0200062-1",
+      "catalogId": "VBO:0200062",
+      "reviewPointer": "open-issue-dispositions.json#/3",
+      "reviewDisposition": "resolved_alias_collision",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    },
+    {
+      "openIssueId": "OI-0200683-1",
+      "catalogId": "VBO:0200683",
+      "reviewPointer": "open-issue-dispositions.json#/4",
+      "reviewDisposition": "resolved_supported",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    },
+    {
+      "openIssueId": "OI-0200696-1",
+      "catalogId": "VBO:0200696",
+      "reviewPointer": "open-issue-dispositions.json#/5",
+      "reviewDisposition": "resolved_narrowed",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    },
+    {
+      "openIssueId": "OI-0200935-1",
+      "catalogId": "VBO:0200935",
+      "reviewPointer": "open-issue-dispositions.json#/6",
+      "reviewDisposition": "resolved_supported",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    },
+    {
+      "openIssueId": "OI-0200989-1",
+      "catalogId": "VBO:0200989",
+      "reviewPointer": "open-issue-dispositions.json#/7",
+      "reviewDisposition": "resolved_retained_primary",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    },
+    {
+      "openIssueId": "OI-0201109-1",
+      "catalogId": "VBO:0201109",
+      "reviewPointer": "open-issue-dispositions.json#/8",
+      "reviewDisposition": "resolved_narrowed",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    },
+    {
+      "openIssueId": "OI-0200010-1",
+      "catalogId": "VBO:0200010",
+      "reviewPointer": "open-issue-dispositions.json#/9",
+      "reviewDisposition": "lead_identity_decision",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    },
+    {
+      "openIssueId": "OI-0200080-1",
+      "catalogId": "VBO:0200080",
+      "reviewPointer": "open-issue-dispositions.json#/10",
+      "reviewDisposition": "safely_quarantine_pending_identity",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    },
+    {
+      "openIssueId": "OI-0200859-1",
+      "catalogId": "VBO:0200859",
+      "reviewPointer": "open-issue-dispositions.json#/11",
+      "reviewDisposition": "safely_quarantine_pending_identity",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    },
+    {
+      "openIssueId": "OI-0200637-1",
+      "catalogId": "VBO:0200637",
+      "reviewPointer": "open-issue-dispositions.json#/12",
+      "reviewDisposition": "safely_quarantine_pending_identity",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    },
+    {
+      "openIssueId": "OI-0200978-1",
+      "catalogId": "VBO:0200978",
+      "reviewPointer": "open-issue-dispositions.json#/13",
+      "reviewDisposition": "resolved_retained_primary",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    },
+    {
+      "openIssueId": "OI-0008004-1",
+      "catalogId": "VBO:0008004",
+      "reviewPointer": "open-issue-dispositions.json#/14",
+      "reviewDisposition": "resolved_retained_primary",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    },
+    {
+      "openIssueId": "OI-0201063-1",
+      "catalogId": "VBO:0201063",
+      "reviewPointer": "open-issue-dispositions.json#/15",
+      "reviewDisposition": "resolved_retained_primary",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    },
+    {
+      "openIssueId": "OI-0201290-1",
+      "catalogId": "VBO:0201290",
+      "reviewPointer": "open-issue-dispositions.json#/16",
+      "reviewDisposition": "resolved_retained_primary",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    },
+    {
+      "openIssueId": "OI-0200552-1",
+      "catalogId": "VBO:0200552",
+      "reviewPointer": "open-issue-dispositions.json#/17",
+      "reviewDisposition": "resolved_retained_primary",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    },
+    {
+      "openIssueId": "OI-0200184-1",
+      "catalogId": "VBO:0200184",
+      "reviewPointer": "open-issue-dispositions.json#/18",
+      "reviewDisposition": "resolved_retained_primary",
+      "implementationStatus": "release_lead_owned_pending_final_verification"
+    }
+  ],
+  "NCoverage": [
+    {
+      "catalogId": "VBO:0200038",
+      "name": "American Cocker Spaniel",
+      "reviewPointer": "n-a-review.json#/reviews/0",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "43b950e7c1e7acb9b67bfdb552fd125cd31e12c4aab5d2cf4e98e324320344a6",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200407",
+      "name": "Dachshund, Long-Haired",
+      "reviewPointer": "n-a-review.json#/reviews/1",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "de9beca176a8fb902331c148777d5a65ecc21ac85156fddb18eed4633866a03f",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200586",
+      "name": "German Spitz, Giant",
+      "reviewPointer": "n-a-review.json#/reviews/2",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "0929f9a271c79da742e107be0ae20b414a1caaaee5f2eaf8260b26ccc2bd1851",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200423",
+      "name": "Dachshund, Wire-Haired",
+      "reviewPointer": "n-a-review.json#/reviews/3",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "7a9a42a44a44b9a73efa2bff268c2bfa301bae8bbe70d6629fa56c5608446191",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0201363",
+      "name": "Toy Manchester Terrier",
+      "reviewPointer": "n-a-review.json#/reviews/4",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "884d5b59705337c4689d8f0e3d52e7a5a68d2ae295179e296dc6113f23e1a52c",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200418",
+      "name": "Dachshund, Standard",
+      "reviewPointer": "n-a-review.json#/reviews/5",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "9e6d907b9dcc5d8943ec141bbf22c124cdc0c1155b6387f49748fb65aa96cc8d",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200598",
+      "name": "German Spitz, Mittel",
+      "reviewPointer": "n-a-review.json#/reviews/6",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "f587abdcb9e1fb06ad8fdedaeeb17056ee089d064f1b116666855679ba7f2703",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200590",
+      "name": "German Spitz, Klein",
+      "reviewPointer": "n-a-review.json#/reviews/7",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "d888f4bf62d99a2982f3f61bdc79f87c3249ee0d91785919d6289ad2e31bc646",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0201173",
+      "name": "Saluki, Smooth",
+      "reviewPointer": "n-a-review.json#/reviews/8",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "a5e02716f85c16f0bf47fdfb97fe77c2a5f6cef702cb9414c468c47ec5433d31",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0201318",
+      "name": "Swiss Hound",
+      "reviewPointer": "n-a-review.json#/reviews/9",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "93dd54aa888ab5ce005704459118b270a122bcbb7e342400c9c6613c0877e3bf",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0201251",
+      "name": "Small Swiss Hound",
+      "reviewPointer": "n-a-review.json#/reviews/10",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "54977710dfa21ef6ad57abc820461752b8b837557df4448ac4eb6f7f4c6d31ef",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200144",
+      "name": "Belgian Shepherd Dog",
+      "reviewPointer": "n-a-review.json#/reviews/11",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "daf46721c327f719d293b25f4f116e8070b8aafc6f3722f2227ca6dc4859039e",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200413",
+      "name": "Dachshund, Rabbit",
+      "reviewPointer": "n-a-review.json#/reviews/12",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "66a4c89b4017eee12a09c7530e4055ddb751820e65c12a05f06e23a6bd4aca01",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200408",
+      "name": "Dachshund, Miniature",
+      "reviewPointer": "n-a-review.json#/reviews/13",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "c1bf9ca2e6a4d43d4c5d2873a2aca49a9e28061cc3343ae74b3696beec76e74d",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0201095",
+      "name": "Pug, Silver",
+      "reviewPointer": "n-a-review.json#/reviews/14",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "7c280266dc3c374786c8529da1739cfbdd96a1f9177a83651d2b96078ddbb75e",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200585",
+      "name": "German Spitz",
+      "reviewPointer": "n-a-review.json#/reviews/15",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "ac4f622082461a1931a06582d80ded5f14628e00bdc2fef943fb0cc9292f3bbb",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200381",
+      "name": "Continental Toy Spaniel",
+      "reviewPointer": "n-a-review.json#/reviews/16",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "5caca3e10f8aea06596c1c668a17a90b149f003eac9abadc011011dd2a578bb0",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200375",
+      "name": "Collie",
+      "reviewPointer": "n-a-review.json#/reviews/17",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "1105fd922a520a5caeed11e1354fc40e1113679d9251e1eb5a581aed3a95c258",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200223",
+      "name": "Braque Francais",
+      "reviewPointer": "n-a-review.json#/reviews/18",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "820debc3c07cf2eaa47267d4a21f55ed5ea48f62e8b32619edf2862975d24ac2",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200530",
+      "name": "Fox Terrier",
+      "reviewPointer": "n-a-review.json#/reviews/19",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "ff90e82b860637baa34ea214dcd299ff031fb5361b7b2ed142d1c5f0d778189d",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200078",
+      "name": "Artois Hound",
+      "reviewPointer": "n-a-review.json#/reviews/20",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "9e06435d7fc25e4968e787fde9ed72f68ff03b5d4bac4fd02870201806ca274d",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200531",
+      "name": "Foxhound",
+      "reviewPointer": "n-a-review.json#/reviews/21",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "acb1c1ff111952848c3e12f819eb8c9b233e0fafe1b94a9feaf587f80291423f",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0200515",
+      "name": "Feist",
+      "reviewPointer": "n-a-review.json#/reviews/22",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "44f7ecfad42cbdbc157a849eb9a407cc5871cd67ba137a0326535cbbeafb09c1",
+      "reviewRecommendation": "retain-with-explicit-regional-family-label"
+    },
+    {
+      "catalogId": "VBO:0201287",
+      "name": "Springer Spaniel",
+      "reviewPointer": "n-a-review.json#/reviews/23",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "c18cef3148b07b1c015536a6f6730a0f6a97a617741802aabf11f124455a810c",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0201211",
+      "name": "Setter",
+      "reviewPointer": "n-a-review.json#/reviews/24",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "ca0e3168142d6b1962a1a061a48da927426eb3396f76c74f5b018802ed53e5ef",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0201364",
+      "name": "Toy Rat Terrier",
+      "reviewPointer": "n-a-review.json#/reviews/25",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "5eeee896e82f0f6c735b35e7ae440f12df1cb7c79a5fb9d9a53dc24ccbd3ba80",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0201261",
+      "name": "Soft-Coated Wheaten, English American Terrier",
+      "reviewPointer": "n-a-review.json#/reviews/26",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "1c881ad7243369a047d44149e7457f72272742ed2c24ef777d11c584bb3a40bc",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0201134",
+      "name": "Retriever",
+      "reviewPointer": "n-a-review.json#/reviews/27",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "4b4b6f5492385739405b55960d56b7bb860ec0f0eec3d646a9672398508eb4d9",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0201263",
+      "name": "Soft-Coated Wheaten, Traditional Irish Terrier",
+      "reviewPointer": "n-a-review.json#/reviews/28",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "9ee5914e7291ac028edf0a35aaa1d012077231fdef6de81bc4264e58b06b0899",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200805",
+      "name": "Laika",
+      "reviewPointer": "n-a-review.json#/reviews/29",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "8bdf07bdc46463fb10de0da131f4c3dd8b6a03172f89e898e9eba9f6a9974b21",
+      "reviewRecommendation": "retain-with-explicit-regional-family-label"
+    },
+    {
+      "catalogId": "VBO:0201117",
+      "name": "Pyrenean Shepherd",
+      "reviewPointer": "n-a-review.json#/reviews/30",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "da377deea71b7249c761a38783a01492089594ece34c0dda639c9de9248afeac",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200384",
+      "name": "Coonhound",
+      "reviewPointer": "n-a-review.json#/reviews/31",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "0b9f7a82e5a99fd98ec5192654afc9365fcc5361047f0360755de8090e74e3ca",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0200162",
+      "name": "Bichon",
+      "reviewPointer": "n-a-review.json#/reviews/32",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "1464495eae5f96f43c91131ec4cb173f0b3e3eb42d95fe44ec5688f17e979689",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0200574",
+      "name": "German Pointer",
+      "reviewPointer": "n-a-review.json#/reviews/33",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "bc46b20e3afe1bec7e1489c405a7894d715cd70cc1dfae8d180cc5088931ac03",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0201271",
+      "name": "Spaniel",
+      "reviewPointer": "n-a-review.json#/reviews/34",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "5eb4ce15c13a04aa891795d932f494a3c811894c8b60b3e6b48306a4281e7154",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0201396",
+      "name": "Water Dog",
+      "reviewPointer": "n-a-review.json#/reviews/35",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "41c5b75531ec6170d9c3f8b2c81ac6822977babe40945e1a7925633002fd7cb2",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0201323",
+      "name": "Swiss Mountain Dog",
+      "reviewPointer": "n-a-review.json#/reviews/36",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "04ef600c82759daf23abbad2198325c2358bc2b7aa9cb9cc632659b642266245",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0201021",
+      "name": "Pinscher",
+      "reviewPointer": "n-a-review.json#/reviews/37",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "8e004af3949c4b03516bb50330396fed7ca312020120d5f5454eacc0a4dbafe4",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0200395",
+      "name": "Cur",
+      "reviewPointer": "n-a-review.json#/reviews/38",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "c07bcbc3491ae31eed6140e35dae6f33fb88509db34f53fe71fbb235a461ec2e",
+      "reviewRecommendation": "retain-with-explicit-regional-family-label"
+    },
+    {
+      "catalogId": "VBO:0200822",
+      "name": "Levriero Sardo",
+      "reviewPointer": "n-a-review.json#/reviews/39",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "7d459e12750db4ea096f0d2f22a9a16b5418b70b86e2954aa0ebbd1b8ee8b4a8",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200478",
+      "name": "Elkhound",
+      "reviewPointer": "n-a-review.json#/reviews/40",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "3dbf85957e0819e4a237402480f86b21bef636c8a86ac2e483106bb4cb21c0e2",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0201026",
+      "name": "Podenco",
+      "reviewPointer": "n-a-review.json#/reviews/41",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "f2646d5cc3e6780bb78b4551c24f25aed61d839e1626d7eb3eda16bfea9e607f",
+      "reviewRecommendation": "retain-with-explicit-regional-family-label"
+    },
+    {
+      "catalogId": "VBO:0201343",
+      "name": "Terrier",
+      "reviewPointer": "n-a-review.json#/reviews/42",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "f5c1521fc708fbb35ce6eb365e693a9b5f56169daa733832e2eb38719c373bab",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0201282",
+      "name": "Spitz",
+      "reviewPointer": "n-a-review.json#/reviews/43",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "fdc5b7ce8f2fbb3a4fd11dca92910ec0bdb5708e5e8fe7e05e661becac8eb2e3",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0200206",
+      "name": "Bouvier",
+      "reviewPointer": "n-a-review.json#/reviews/44",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "c4777659c71b0974165fe1674cef25deb55b26d4be428a9f603dd090ca830b2d",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0200673",
+      "name": "Hound",
+      "reviewPointer": "n-a-review.json#/reviews/45",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "9782f4dc4cba2e3705790a31dd8b8e9bf220216a2a7d05967e7db65449103828",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0201397",
+      "name": "Water Spaniel",
+      "reviewPointer": "n-a-review.json#/reviews/46",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "87457a35e2f13697191293d6184822b48799cc6d4c8d4b54dbf72fa877c0c868",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0200218",
+      "name": "Braque",
+      "reviewPointer": "n-a-review.json#/reviews/47",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "0342a90157a750c7c896ef7f8e1414bbe6ae59b4947b01f3719a3faf86d26620",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0200915",
+      "name": "Mountain Dog",
+      "reviewPointer": "n-a-review.json#/reviews/48",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "cb0c062964259da3bbe811763ba8f31a041fc1274073158a41773f3d3feaad3a",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0200928",
+      "name": "Munsterlander Pointer",
+      "reviewPointer": "n-a-review.json#/reviews/49",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "0f3fd099bd92dec2f685d1c2a883dd9eaa37dd93a9a806405f5e2b0e957d3d95",
+      "reviewRecommendation": "editorial-suppress-redundant-umbrella"
+    },
+    {
+      "catalogId": "VBO:0201215",
+      "name": "Sheepdog",
+      "reviewPointer": "n-b-review.json#/reviews/0",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "2cbf462185ef2a3ef9347befdb7cfc4dd3657548bec22114b20aa6754d539bf6",
+      "reviewRecommendation": "suppress_N_redundant_umbrella"
+    },
+    {
+      "catalogId": "VBO:0201037",
+      "name": "Polish Tatra Sheepdog",
+      "reviewPointer": "n-b-review.json#/reviews/1",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "792f4b5461112b9aae0f9b19809dbcdc61cdbb7760627316536d5d03ce742181",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0201009",
+      "name": "Petit Basset Griffon Vendeen",
+      "reviewPointer": "n-b-review.json#/reviews/2",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "4659323f89691b7f2988d3ff7a0cbbae592ea93491cf66a3c00d1910bb1be8f3",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200476",
+      "name": "Egyptian Sheepdog",
+      "reviewPointer": "n-b-review.json#/reviews/3",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "cd830b5ff3beee25da36c7a7c34902f4d60d7fd1ea4e1aee23b274bb5daaea32",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200127",
+      "name": "Basset Vendeen Griffon",
+      "reviewPointer": "n-b-review.json#/reviews/4",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "0f5359ceed8f314817b82a7fcb5a91c977c419d4cd16b338f4d2f0c3b7d8886d",
+      "reviewRecommendation": "suppress_N_redundant_umbrella"
+    },
+    {
+      "catalogId": "VBO:0200372",
+      "name": "Cocker Spaniel",
+      "reviewPointer": "n-b-review.json#/reviews/5",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "b795922611bc034e3ed30603779cf144f2fdab5e1197672297cab324dd05e505",
+      "reviewRecommendation": "suppress_N_redundant_umbrella"
+    },
+    {
+      "catalogId": "VBO:0201123",
+      "name": "Rampur Greyhound",
+      "reviewPointer": "n-b-review.json#/reviews/6",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "f6acbe9fbdacd4255699caeb53c245555cd0c4564d844823233686dd85d13c11",
+      "reviewRecommendation": "retain_with_alias_correction"
+    },
+    {
+      "catalogId": "VBO:0201190",
+      "name": "Schnoodle",
+      "reviewPointer": "n-b-review.json#/reviews/7",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "5b3ca3e9acd5377931a8f7a40f5f2c41095b036d66e58faab3f88f5bd5eacd1a",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0200307",
+      "name": "Cavador",
+      "reviewPointer": "n-b-review.json#/reviews/8",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "8f22358e81203b38f2362f62c043f09799ab93da0d16704714cec4142c02071d",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0200608",
+      "name": "Giant Schnoodle",
+      "reviewPointer": "n-b-review.json#/reviews/9",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "9cc96c0fafd1bfabb8103aa7d1b21e958d610dd9f052c27f3fa85170aa75588b",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0200314",
+      "name": "Cavamalt",
+      "reviewPointer": "n-b-review.json#/reviews/10",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "e015985791e5fa0dee702f0ef92e03ba1dbd4eec64d9c3bb1a0c46412abb7bfe",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0200901",
+      "name": "Miniature Schnoodle",
+      "reviewPointer": "n-b-review.json#/reviews/11",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "2fbe617411d47662afdfd7839ab4a26a7bfd3a704c7037ab66588443097ea573",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0201430",
+      "name": "Wolfdog",
+      "reviewPointer": "n-b-review.json#/reviews/12",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "93693280f2a9648991a1105fbd45341158a4c4f3fc41f8d34b3fb7d8716c31a4",
+      "reviewRecommendation": "suppress_N_broad_wild_domestic_category"
+    },
+    {
+      "catalogId": "VBO:0201014",
+      "name": "Petite Goldendoodle",
+      "reviewPointer": "n-b-review.json#/reviews/13",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "399a13fcc1bd94e14311f597acacd7ea247281073f9477a4c48a43d12beafd1b",
+      "reviewRecommendation": "retain_with_attribution"
+    },
+    {
+      "catalogId": "VBO:0200451",
+      "name": "Dorkie",
+      "reviewPointer": "n-b-review.json#/reviews/14",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "76291a96f671ecdd6f481240f2fca9ee7399c6432daa28528661ea5285ead3b8",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0201446",
+      "name": "Yorkie Russell",
+      "reviewPointer": "n-b-review.json#/reviews/15",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "203591139b4c19a3cfa25d774a10d12e83bf286ad783aca73e19801077068d23",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0200390",
+      "name": "Coydog",
+      "reviewPointer": "n-b-review.json#/reviews/16",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "6b8e7cc9c1fa7e41ab50bf1d56e486b3f827f933bdb8ed78142e6d803a15eafc",
+      "reviewRecommendation": "suppress_N_wild_cross_and_type_evidence_hold"
+    },
+    {
+      "catalogId": "VBO:0200826",
+      "name": "Lhasalier",
+      "reviewPointer": "n-b-review.json#/reviews/17",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "aee2df3d21081797bf3322a2f3d0064e4dbaf37dd051d688d0803b98d05c30ad",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0200268",
+      "name": "Cairnoodle",
+      "reviewPointer": "n-b-review.json#/reviews/18",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "2356e28f81b3364a126ad0ab9ee55dee4305782ff64f21bb2cf4e276b9bf4a2f",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0201044",
+      "name": "Pomeranian-Chow Chow Mix",
+      "reviewPointer": "n-b-review.json#/reviews/19",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "7401552bb71091e7506ba3774465a3c7c28feda029f9db1f8a5c49c5849ee644",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0201283",
+      "name": "Sporgi",
+      "reviewPointer": "n-b-review.json#/reviews/20",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "5944fadc7351f26dced7ce57ddf5b6f4b512861cb6bbb36daae4c637ddd880d3",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0200318",
+      "name": "Cavestie",
+      "reviewPointer": "n-b-review.json#/reviews/21",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "3a2c65a7d7367fa9cc55718f8b605303a189bace4fa63a6ebc9b45bbc320384d",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0201239",
+      "name": "Sinhala Hound",
+      "reviewPointer": "n-b-review.json#/reviews/22",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "c914eda7752143aa76903ac34a1608d37acc2d30b3f4a595a7c2eb363a579b86",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200367",
+      "name": "Cockachon",
+      "reviewPointer": "n-b-review.json#/reviews/23",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "dc8540b3da49c15454207e7c76562fc5b3767aee42530516b58562aa59ce4474",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0201090",
+      "name": "Pug-Labrador Retriever Mix",
+      "reviewPointer": "n-b-review.json#/reviews/24",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "4be77e2e2fd99176ad204e9c506a2de58e814f4dd147e4bbe87771bf2faf4d89",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0200841",
+      "name": "Mackenzie River Husky",
+      "reviewPointer": "n-b-review.json#/reviews/25",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "984d9704716ca20522febe5b23b8c56759425dd9e3d1918babb877539f647e17",
+      "reviewRecommendation": "retain_with_copy_correction"
+    },
+    {
+      "catalogId": "VBO:0200213",
+      "name": "Boxerdoodle",
+      "reviewPointer": "n-b-review.json#/reviews/26",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "a13ee55534d2aac41b8f489967b123fffd0958702282b00fc6b8414579be23ac",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0200358",
+      "name": "Chonzer",
+      "reviewPointer": "n-b-review.json#/reviews/27",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "93c07fd4e34700c8a8b57ce0d7f56dad0f3c036ed85652cfedf590eeb55fede0",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0200330",
+      "name": "Chi-Terrier",
+      "reviewPointer": "n-b-review.json#/reviews/28",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "a40cf167b171c35f87bf5860ff72110db5a711436beb9906d67767e01560002a",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0201329",
+      "name": "Tahltan",
+      "reviewPointer": "n-b-review.json#/reviews/29",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "ef80a7b70ab91563da5b6bb5d083b70127db787d2a44bc9ecc3803dc0b5b274d",
+      "reviewRecommendation": "retain_with_search_alias_correction"
+    },
+    {
+      "catalogId": "VBO:0200918",
+      "name": "Mountain View Cur",
+      "reviewPointer": "n-b-review.json#/reviews/30",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "98285f03cfc5e61abd52d03ec3b79a38605c0ed6a6834a726b4cd103a1d39ee1",
+      "reviewRecommendation": "retain_N_distinct_selected_strain"
+    },
+    {
+      "catalogId": "VBO:0201464",
+      "name": "Tarsus çatalburun",
+      "reviewPointer": "n-b-review.json#/reviews/31",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "29c16ad4113d16750245c11697a50bd0e7ec4ae4d9ff4c83590e8b15462f1dd7",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200975",
+      "name": "Olde Boston Bulldogge",
+      "reviewPointer": "n-b-review.json#/reviews/32",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "2f277013a7498b1f77d83a7ad104e374f79ab46572a6966f8a36020b7e1bd345",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0201398",
+      "name": "Wauzer",
+      "reviewPointer": "n-b-review.json#/reviews/33",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "368aa723a13d87a75319e64bf53e4f18346f956b0995bee091d10f09a6ffb8c0",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0200071",
+      "name": "Argentine Polar Dog",
+      "reviewPointer": "n-b-review.json#/reviews/34",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "4a29705007a0a1e0f945b9fb5fa6d8187fe16f473d152babd31c32febaed7df9",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200448",
+      "name": "Dogo Sardesco",
+      "reviewPointer": "n-b-review.json#/reviews/35",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "eabb6d555cb0bbe63a4579b32178d5cd1c76b4be3b0de629aeb2c193a60f718b",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200455",
+      "name": "Dumfriesshire Black and Tan Foxhound",
+      "reviewPointer": "n-b-review.json#/reviews/36",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "dad50c27006ef0ee6f863476f2191e1a8f0663ba97c226caf158eb33ae5649ff",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0201367",
+      "name": "Toy Trawler Spaniel",
+      "reviewPointer": "n-b-review.json#/reviews/37",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "430d62b203fa17dac56bcc2ed0206a3678010124887bfe28105fbf6d5ec05632",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0200254",
+      "name": "Bull Mastweiler",
+      "reviewPointer": "n-b-review.json#/reviews/38",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "c691db6facab65f3820b43222dac9fbaabebe893e2d4788d96524eca935ded61",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    },
+    {
+      "catalogId": "VBO:0201308",
+      "name": "Sussex Bulldog",
+      "reviewPointer": "n-b-review.json#/reviews/39",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "dbaf9d3d7b5c810cb12eeb4b93d0e6273ff01d84b4421c14d2a8b1a97c2ff040",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0201414",
+      "name": "West Country Harrier",
+      "reviewPointer": "n-b-review.json#/reviews/40",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "69117b896d6514f7a259d40a88d13b81fd1cbd057029d89ee8bb1cf86cf07a9c",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0201425",
+      "name": "Wire Haired Whippet",
+      "reviewPointer": "n-b-review.json#/reviews/41",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "55c940a496f61d44cc1dbe7324a9a570b2323e815269ba50c0376d2d6c65af62",
+      "reviewRecommendation": "retain_with_classification_correction"
+    },
+    {
+      "catalogId": "VBO:0200501",
+      "name": "English White Terrier",
+      "reviewPointer": "n-b-review.json#/reviews/42",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "7e032648d136e83963b6d64ad7a71bb26dfd90373ee357d39f87a63087bdbd57",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0201360",
+      "name": "Toy Bulldog",
+      "reviewPointer": "n-b-review.json#/reviews/43",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "dc7d1606b188375f972d7a2ac85f56bd8f1c7f4256a9636fc0d3d1684aed8616",
+      "reviewRecommendation": "retain_N_historical_type"
+    },
+    {
+      "catalogId": "VBO:0201144",
+      "name": "Rough Beagle",
+      "reviewPointer": "n-b-review.json#/reviews/44",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "9b64829b5c79ecfe09412a0cf8f0c17c3650cca348270b748778b732b581a7bf",
+      "reviewRecommendation": "retain_with_classification_correction"
+    },
+    {
+      "catalogId": "VBO:0200983",
+      "name": "Paisley Terrier",
+      "reviewPointer": "n-b-review.json#/reviews/45",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "51ec6817cde23ad4d7b3bf696da7280f9a47ab1de9562832d71822cdec5abedf",
+      "reviewRecommendation": "retain_N_historical_type"
+    },
+    {
+      "catalogId": "VBO:0200821",
+      "name": "Levesque",
+      "reviewPointer": "n-b-review.json#/reviews/46",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "0566815c83999bab596ce0f494f236593dcd3ba3b7f9d4bf6a4db8b467049ea7",
+      "reviewRecommendation": "retain_with_classification_correction"
+    },
+    {
+      "catalogId": "VBO:0201408",
+      "name": "Welsh Hillman",
+      "reviewPointer": "n-b-review.json#/reviews/47",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "e193b6555cbb507b7fbb9e7c5856167e9b374a58f70282136f4af3f1dca170e8",
+      "reviewRecommendation": "retain_N_historical_type"
+    },
+    {
+      "catalogId": "VBO:0200762",
+      "name": "Kemmer Stock Hybrid Squirrel Dog",
+      "reviewPointer": "n-b-review.json#/reviews/48",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "2b6e6fe468ae8eda8d4beb3d793aeba52574dc9a36fd22e31e17a7dbe5e07cf3",
+      "reviewRecommendation": "retain"
+    },
+    {
+      "catalogId": "VBO:0201404",
+      "name": "Weimardoodle",
+      "reviewPointer": "n-b-review.json#/reviews/49",
+      "fullShortSurfacedFieldsReviewed": true,
+      "actualPortraitReviewed": true,
+      "portraitSha256": "1040c04f42417a19bafa8f2869681170bf2ac65d5cc93b7918e4abb7b55faaec",
+      "reviewRecommendation": "pending_cross_evidence_adjudication"
+    }
+  ],
+  "sourceReviewReceipts": [
+    {
+      "artifact": "individual-dispositions.json",
+      "sourceReview": "individual/individual-dispositions.json",
+      "sourceArtifactSha256": "2d0d6a15ab1a5e600de4e7b6f32783eda39babb620aba26dc4f15366c97bae43",
+      "sanitization": "metadata only; omitted current profile prose and source-definition bodies; private absolute locations replaced by logical locators"
+    },
+    {
+      "artifact": "open-issue-dispositions.json",
+      "sourceReview": "individual/open-issue-dispositions.json",
+      "sourceArtifactSha256": "37372d2fffd04df6cfcc21da68b361d261b6f44622946ac0cdb23d37e83268cb",
+      "sanitization": "metadata only; omitted current profile prose and source-definition bodies; private absolute locations replaced by logical locators"
+    },
+    {
+      "artifact": "cross-dispositions.json",
+      "sourceReview": "crosses/dispositions.json",
+      "sourceArtifactSha256": "5002a6a647c5a73f722ea7b4ba458c5c2f25c4b86b49121043b927aea50f2cd0",
+      "sanitization": "metadata only; omitted current profile prose and source-definition bodies; private absolute locations replaced by logical locators"
+    },
+    {
+      "artifact": "cross-evidence-holds.json",
+      "sourceReview": "crosses/editorial-suppression-proposals.json",
+      "sourceArtifactSha256": "cb8ca81d45b4ae212cdb444d9b04451e50efec3057d461df1cfd4abcd4c22d72",
+      "sanitization": "metadata only; omitted current profile prose and source-definition bodies; private absolute locations replaced by logical locators"
+    },
+    {
+      "artifact": "n-a-review.json",
+      "sourceReview": "n-a/review.json",
+      "sourceArtifactSha256": "97f988ab6f23958463af033aac4374d3b24c1fd7a41b8b09f92f270d3caba4d8",
+      "sanitization": "metadata only; omitted current profile prose and source-definition bodies; private absolute locations replaced by logical locators"
+    },
+    {
+      "artifact": "n-b-review.json",
+      "sourceReview": "n-b/review.json",
+      "sourceArtifactSha256": "b9ba1d753e28307f57b88d495b90d1767780178eb3356b1fdbeea363b85ee9a7",
+      "sanitization": "metadata only; omitted current profile prose and source-definition bodies; private absolute locations replaced by logical locators"
+    },
+    {
+      "artifact": "systemic08-review.json",
+      "sourceReview": "n-a/systemic08-review.json",
+      "sourceArtifactSha256": "2d7e73d3af91de7d18a097edc049818b574201d1c0b54d3f5c57a8164c18ac80",
+      "sanitization": "metadata only; omitted current profile prose and source-definition bodies; private absolute locations replaced by logical locators"
+    },
+    {
+      "artifact": "size-dispositions.json",
+      "sourceReview": "metadata/size-dispositions.json",
+      "sourceArtifactSha256": "28e0113f079aa47d91fc8b2f4404b8283b04e52fcf4f15b37b2981d3aa7b5155",
+      "sanitization": "metadata only; omitted current profile prose and source-definition bodies; private absolute locations replaced by logical locators"
+    },
+    {
+      "artifact": "alias-dispositions.json",
+      "sourceReview": "metadata/alias-dispositions.json",
+      "sourceArtifactSha256": "566d15c73cfcf3f1767d396e0de0d7d29a2313f282531c921606d68ac44837a0",
+      "sanitization": "metadata only; omitted current profile prose and source-definition bodies; private absolute locations replaced by logical locators"
+    },
+    {
+      "artifact": "additional-alias-dispositions.json",
+      "sourceReview": "metadata/additional-visible-alias-dispositions.json",
+      "sourceArtifactSha256": "1240a6008ca2bd7d38c7f3ab3721c5ffd4555ea9dcceee983849bee1d6fdcf98",
+      "sanitization": "metadata only; omitted current profile prose and source-definition bodies; private absolute locations replaced by logical locators"
+    },
+    {
+      "artifact": "six-portrait-decisions.json",
+      "sourceReview": "root-support/six-portrait-decisions.json",
+      "sourceArtifactSha256": "5a23a0822673046412dcd352903793c3314a57bb04451699a7635c6fd16f13ca",
+      "sanitization": "metadata only; omitted current profile prose and source-definition bodies; private absolute locations replaced by logical locators"
+    },
+    {
+      "artifact": "clear-profile-sample.json",
+      "sourceReview": "root-support/clear-profile-sample.json",
+      "sourceArtifactSha256": "709b9e38fd683cfe5c7cc013e46416af5caf9d02aa4994a1e88bd825e0dbc9c5",
+      "sanitization": "metadata only; omitted current profile prose and source-definition bodies; private absolute locations replaced by logical locators"
+    },
+    {
+      "artifact": "baseline-hash-receipt.json",
+      "sourceReview": "root-support/baseline-receipt.json",
+      "sourceArtifactSha256": "117e4a0af8dcb78c340dddd08efb11e91f4d1118aae4b45dc787308cc4b818dd",
+      "sanitization": "metadata only; omitted current profile prose and source-definition bodies; private absolute locations replaced by logical locators"
+    }
+  ],
+  "limitations": [
+    "Coverage proves review records exist for exact original IDs; it does not turn proposals, tentative editorial holds or source observations into completed implementation.",
+    "All11 systemic lead rows are explicitly pending implementation/final verification. Release lead must replace placeholders and attach tests/CI/deployment receipts.",
+    "SYS08 non-N174 review is source-metadata/identity admission assessment, not fresh full primary-source/prose/art clearance. Unresolved scope holds remain unresolved factual identity questions.",
+    "Source evidence consists of reviewer paraphrases, URLs, locators and hashes. Original cached bodies and native artwork remain private and were not copied.",
+    "Native-master QA scope differs by review: N contact-sheet/detail review does not claim new native-master or rights clearance.",
+    "Original source artifacts have heterogeneous keys and use both proposedChangeId and proposalId; this index normalizes against immutable original proposal IDs."
+  ],
+  "artifacts": [
+    {
+      "path": "additional-alias-dispositions.json",
+      "sha256": "1240a6008ca2bd7d38c7f3ab3721c5ffd4555ea9dcceee983849bee1d6fdcf98",
+      "bytes": 2076
+    },
+    {
+      "path": "alias-dispositions.json",
+      "sha256": "566d15c73cfcf3f1767d396e0de0d7d29a2313f282531c921606d68ac44837a0",
+      "bytes": 51293
+    },
+    {
+      "path": "baseline-hash-receipt.json",
+      "sha256": "cd0445b0b6e59b83759bd8233acf57a58a8a82493e78481386505bcc7cf9b5b6",
+      "bytes": 148756
+    },
+    {
+      "path": "clear-profile-sample.json",
+      "sha256": "709b9e38fd683cfe5c7cc013e46416af5caf9d02aa4994a1e88bd825e0dbc9c5",
+      "bytes": 14837
+    },
+    {
+      "path": "cross-dispositions.json",
+      "sha256": "d3c7cefc61ba8c70339bda8cdc742456bac60bf1f8e52e6b1a49e216c8da8a7e",
+      "bytes": 158050
+    },
+    {
+      "path": "cross-evidence-holds.json",
+      "sha256": "48fcdd423cc725b875e468923892325183a292e143ccce62244e2e3cad9c9fee",
+      "bytes": 40441
+    },
+    {
+      "path": "individual-dispositions.json",
+      "sha256": "5d6b25118ebe16f13449955e3344448d5d64664c821b05a95f495fd2fb5f4cbd",
+      "bytes": 111429
+    },
+    {
+      "path": "n-a-review.json",
+      "sha256": "583fd92145382adf95fcd998adcd0cad6ae5f1a5b9dd321ac1d2339c1bf5cf65",
+      "bytes": 253378
+    },
+    {
+      "path": "n-b-review.json",
+      "sha256": "0647da5c119acd6b759ce9a80d4f18a36e47fdd8b5bb5eea1f6ddb4bbd4210b2",
+      "bytes": 245639
+    },
+    {
+      "path": "open-issue-dispositions.json",
+      "sha256": "404fbb87f5ab7a58f12cfb59eb6abd345d10db12cc44bafa766f57494905ba14",
+      "bytes": 24276
+    },
+    {
+      "path": "six-portrait-decisions.json",
+      "sha256": "818de45754157d3f61de0dafd19cf5f4d8c9c4fa1103ce0156d363b5e1370fa4",
+      "bytes": 13604
+    },
+    {
+      "path": "size-dispositions.json",
+      "sha256": "28e0113f079aa47d91fc8b2f4404b8283b04e52fcf4f15b37b2981d3aa7b5155",
+      "bytes": 36556
+    },
+    {
+      "path": "systemic-lead-dispositions.json",
+      "sha256": "d4e30476c5569c171abca9e27d6fae49ee8d90755cab545de4c6f6f3fc319e5c",
+      "bytes": 44824
+    },
+    {
+      "path": "systemic08-review.json",
+      "sha256": "2c562385b7998d735be8cb706a511dc7f270c31ec9b26e3b376054cd60311245",
+      "bytes": 839523
+    },
+    {
+      "path": "cross-salvage-patches.json",
+      "sha256": "c7d3f7f8447c4ed479666b0bb773cce5728a3367b6e0ddbf131068ebbb9fdc12",
+      "bytes": 18419
+    },
+    {
+      "path": "cross-salvage-dispositions.json",
+      "sha256": "8d6f30c9f67063fcb1344b19db5ce42a03d0b8c05b3c86650a33575a055a5e06",
+      "bytes": 5444
+    }
+  ]
+}

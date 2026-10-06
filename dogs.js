@@ -1,4 +1,4 @@
-import { createDogsExplorer } from "./dogs-explore.js?v=4";
+import { createDogsExplorer } from "./dogs-explore.js?v=5";
 import { createClient } from "./vendor/supabase-js-2.108.2.js?v=1";
 import {
   categoryStorageKeys,
@@ -16,13 +16,13 @@ import {
   dogRegistryCoverageLabel,
   dogStatusLabel,
   normalizeDogCatalogEntity,
-} from "./lib/categories/dogs.js?v=14";
+} from "./lib/categories/dogs.js?v=15";
 import {
   buildCatalogIndex,
   catalogFacetValues,
   normalizeCatalog,
   searchCatalog,
-} from "./lib/catalog.js?v=1";
+} from "./lib/catalog.js?v=2";
 import {
   createRankedEntity,
   entityRefKey,
@@ -81,16 +81,17 @@ import {
   dogProfileChips,
   dogProfileSourceLinks,
   dogsExportText,
+  enrichDogCatalogEntity,
   normalizeDogProfile,
   parseDogNameImport,
   parseDogsBackup,
-} from "./lib/dogs.js?v=8";
+} from "./lib/dogs.js?v=9";
 import {
   completedDogCatalogIds,
   projectPublicDogRanking,
   insertPublicDogRanking,
   reorderPublicDogRanking,
-} from "./lib/dogs-public-visibility.js?v=1";
+} from "./lib/dogs-public-visibility.js?v=2";
 import { buildReviewQueue } from "./lib/review.js?v=1";
 import { createUndoController } from "./lib/undo.js?v=1";
 import {
@@ -108,12 +109,12 @@ const ACTIVE_CATEGORY = resolveDocumentCategory(
 if (!ACTIVE_CATEGORY) throw new Error("Unknown or mismatched StackRank Dogs category");
 
 const STORAGE_KEYS = categoryStorageKeys(ACTIVE_CATEGORY);
-const CATALOG_URL = "data/dogs/dog-catalog.json?v=5";
-const PACKS_URL = "data/dogs/packs.json?v=2";
-const RIGHTS_URL = "data/dogs/image-rights.json?v=42";
+const CATALOG_URL = "data/dogs/dog-catalog.json?v=7";
+const PACKS_URL = "data/dogs/packs.json?v=3";
+const RIGHTS_URL = "data/dogs/image-rights.json?v=43";
 const RIGHTS_POLICY_URL = "data/dogs/artwork-license-policy.json?v=4";
-const PROFILES_URL = "data/dogs/breed-profiles.json?v=55";
-const GENERATED_ARTWORK_URL = "data/dogs/generated-artwork.json?v=58";
+const PROFILES_URL = "data/dogs/breed-profiles.json?v=107";
+const GENERATED_ARTWORK_URL = "data/dogs/generated-artwork.json?v=108";
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl";
 const AUTH_INIT_TIMEOUT_MS = 3200;
@@ -907,7 +908,7 @@ const candidateForCatalogId = (catalogId, role = "card") => {
   if (!entity || !publicCatalogIds.has(catalogId)) return null;
   const candidate = dogEntityToCandidate(entity, approvedImageForCatalogId(catalogId, role));
   const profile = profilesByCatalogId.get(catalogId);
-  const secondaryText = [profile?.originRegions?.[0] || entity.originRegions?.[0], profile?.typeLabel]
+  const secondaryText = [(profile ? profile.originRegions : entity.originRegions)?.[0], profile?.typeLabel]
     .filter(Boolean)
     .join(" · ");
   return {
@@ -1393,19 +1394,6 @@ const renderLists = () => {
   $("#dogs-hidden-empty").hidden = hidden.length > 0;
 };
 
-const catalogWithPackTags = () => {
-  const map = new Map([...catalogById].map(([id, entity]) => [id, { ...entity, tags: [...(entity.tags || [])] }]));
-  packs.forEach((pack) => {
-    const signal = cleanText(pack.tasteTag || (pack.family && !["gateway", "registry-group"].includes(pack.family) ? pack.family.replace(/-/g, " ") : ""));
-    if (!signal) return;
-    (pack.items || []).forEach((id) => {
-      const entity = map.get(id);
-      if (entity && !entity.tags.includes(signal)) entity.tags.push(signal);
-    });
-  });
-  return map;
-};
-
 const renderYou = () => {
   const visible = publicRanking();
   const stats = categoryRankingStats(visible);
@@ -1413,7 +1401,7 @@ const renderYou = () => {
   $("#dogs-stat-top").textContent = stats.top?.snapshot?.primaryText || "—";
   $("#dogs-stat-comparisons").textContent = String(stats.totalComparisons);
   $("#dogs-stat-curious").textContent = String(publicItems(lists.curious).length);
-  const signals = visible.length >= 5 ? buildDogTasteSignals(visible, catalogWithPackTags()) : [];
+  const signals = visible.length >= 5 ? buildDogTasteSignals(visible, catalogById) : [];
   const signalsEl = $("#dogs-taste-signals");
   signalsEl.replaceChildren();
   signals.forEach((signal) => {
@@ -1504,7 +1492,7 @@ const comparisonCardContent = (item, { selectable = false, eyebrow = "" } = {}) 
     facts.appendChild(fact);
   };
   addFact("Size", profile?.sizeLabel);
-  addFact("Origin", profile?.originRegions?.join(", "));
+  addFact(profile?.originBasis === "registry" ? "Registry origin (FCI)" : "Origin", profile?.originRegions?.join(", "));
   copy.append(position, name, context, summary, facts);
   const media = document.createElement("div");
   media.className = "comparison-card__media";
@@ -1782,8 +1770,8 @@ function openDetail(catalogId) {
     facts.appendChild(fact);
   };
   addFact("Size", profile?.sizeLabel);
-  addFact("Dog family", profile?.typeLabel);
-  addFact("Origin", profile?.originRegions?.join(", "));
+  addFact(profile?.typeBasis === "registry" ? "Registry group" : profile?.typeBasis === "catalog" ? "Type" : "Dog family", profile?.typeLabel);
+  addFact(profile?.originBasis === "registry" ? "Registry origin (FCI)" : "Origin", profile?.originRegions?.join(", "));
   addFact("Historical roots", profile?.historicalRoots);
   addFact("Breed group", profile?.registryGroups?.map((group) => `${group.label} · ${group.scheme}`).join(", "));
   if (profile?.popularity) {
@@ -2101,7 +2089,7 @@ const applyImport = () => {
     }));
   });
   if (!candidates.length) return;
-  if (ranking.length && !window.confirm("Replace the visible Dogs ranking with these matched names? Saved breeds awaiting completion will be kept.")) return;
+  if (ranking.length && !window.confirm("Replace the visible Dogs ranking with these matched names? Saved dogs currently hidden from the catalog will be kept.")) return;
   const before = stateSnapshot();
   const replacements = [...candidates];
   ranking = ranking.flatMap((item) => {
@@ -2596,14 +2584,8 @@ const loadCatalog = async () => {
       .map((asset) => [asset.catalogId, asset]));
     catalogDocument = {
       ...catalogDocument,
-      entities: catalogDocument.entities.map((entity) => {
-        const profile = profilesByCatalogId.get(entity.id);
-        return profile ? {
-          ...entity,
-          originRegions: profile.originRegions.length ? profile.originRegions : entity.originRegions,
-          tags: [...new Set([...(entity.tags || []), ...profile.editorialFamilies])],
-        } : entity;
-      }),
+      entities: catalogDocument.entities.map((entity) =>
+        enrichDogCatalogEntity(entity, profilesByCatalogId.get(entity.id))),
     };
     normalizedCatalog = normalizeCatalog(catalogDocument, DOG_CATALOG_ADAPTER, {
       supportedSchemaVersions: [1],

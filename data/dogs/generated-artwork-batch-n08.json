@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-n08",
+  "cohortId": "dogs-portraits-n",
+  "selectionSha256": "fec76a14b37857057a37ba0c192af82191368dfe1008aad57178ec6882995c26",
+  "reviewedAt": "2026-10-05",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-003.jpg",
+    "contactSheetSha256": "6d511d269db9fb487a33ea28ac06a6289e4d7ec96e1d0b090062b6eb3b693d6e",
+    "acceptedCount": 1,
+    "notes": "Root saw entire untouched originals and whole four-image contact sheet: Toy Manchester, Standard Dachshund, Mittel Spitz and Klein Spitz show mature exact-type anatomy, four coherent grounded paws and complete tails. Small ear margin in Toy remains intact; no speculative retry. Distinct controlled natural scenes and full/short approved copy retained."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0200418",
+      "name": "Dachshund, Standard",
+      "scene": {
+        "description": "A flat short-grass clearing beside a shallow stream, with distant alders and soft morning light",
+        "rationale": "Credible restrained outdoor hunting-dog context; clear ground exposes anatomy. New scene is independent of CKC grass show/profile photos."
+      },
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "e8f8b232eb1bd8200b2889fd8ad891a7bcf8516f68f827e2ede044fbc0d00e07",
+        "imageInputs": [],
+        "sourcePage": "https://www.dachshundclubofamerica.org/breed-standard/"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-n/N-0200418-1.png",
+      "masterSha256": "d6c21b9a1a7f6d9a76c3ec66709d9eea07c580da1d52a1f87f1ffa1ad129ae8f",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10ab8-069f-7cf2-9b37-fc0afda52d04/exec-46996fb3-1997-4799-9594-3ab52db9c904.png",
+      "originalOutputSha256": "d6c21b9a1a7f6d9a76c3ec66709d9eea07c580da1d52a1f87f1ffa1ad129ae8f",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v11-cohort-n",
+      "attemptId": "N-VBO:0200418-1",
+      "startedAt": "2026-10-05T06:49:30+00:00",
+      "generatedAt": "2026-10-05T06:49:47+00:00",
+      "prompt": "Create a refined naturalistic editorial dog portrait, native output exactly 1536 x 1024 pixels, landscape 3:2. One mature adult Dachshund, Standard, entirely visible in an original relaxed three-quarter standing pose at dog-eye level. Elongated low but sturdy muscular body; deep oval chest and prominent forechest; level back, slight tuck-up, four short articulated legs. Forefeet compact, broad and modestly larger than hindfeet; no extreme crookedness or knuckling. Tapered long head with slightly arched skull and very shallow stop; long strong muzzle, snug lips, dark almond eyes, black nose; moderate-length rounded pendant ears framing cheeks. Natural intact tail continues the spine without kink or tight curl. Real mature adult proportions, no giant head or stunted toy body. Standard-size adult with robust well-muscled trunk and substantial forechest. Choose one valid smooth-coated black-and-tan representative: close short shining coat, restrained tan eyebrow dots, tan muzzle sides/chest/legs and underside of tail, black nose and dark eyes. Long smooth tapered natural tail; no feathering or beard. The exact VBO standard-size record is coat-unspecified, not a renamed Standard Smooth identity. All four separate coherent paws must contact clear flat ground, with visible toes, no grass concealing them; clearly show anatomically attached full tail from its base to tip. Dog fills the scene gracefully while ample natural margin surrounds all ears, nose, paws and tail. Setting: A flat short-grass clearing beside a shallow stream, with distant alders and soft morning light. Restrained lifelike fine fur texture, quiet field-guide elegance, believable soft daylight, crisp dog and softly receding backdrop. Original composition not based on any specific photograph. No people, other animals, collar, leash, equipment, text, logos, watermark, artificial plastic fur, extra limbs, malformed joints, floating feet, oversized head, clipped extremities or exaggerated dwarf conformation.\n",
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-10-05T06:54:57.357116+00:00",
+        "breedIdentity": "Mature standard-size Dachshund smooth black/tan representative: substantial forechest, robust low long trunk, tapered head and broad rounded hanging ears. Broad size-class copy correctly covers all coats.",
+        "anatomy": "Four separately visible grounded paws, short articulated limbs, smooth back and complete low tapering tail from rump to tip.",
+        "crop": "Full ears, muzzle, feet and tail safely contained with clear margins.",
+        "aesthetics": "Believable short coat and muscular weight on riverside short grass; restrained natural landscape.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-003.jpg",
+        "contactSheetSha256": "6d511d269db9fb487a33ea28ac06a6289e4d7ec96e1d0b090062b6eb3b693d6e",
+        "contactSheetReviewedAt": "2026-10-05T06:55:32.654497+00:00",
+        "contactSheetNotes": "Root saw entire untouched originals and whole four-image contact sheet: Toy Manchester, Standard Dachshund, Mittel Spitz and Klein Spitz show mature exact-type anatomy, four coherent grounded paws and complete tails. Small ear margin in Toy remains intact; no speculative retry. Distinct controlled natural scenes and full/short approved copy retained."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/run-authorization-001.json",
+          "sha256": "292924b03d5fb2b641dfdef0cd4667aafb98760b71edf9efc4d4ed26920f0b9f",
+          "bytes": 1626
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-b/0200418/morphology-dossier.json",
+          "sha256": "e8f8b232eb1bd8200b2889fd8ad891a7bcf8516f68f827e2ede044fbc0d00e07",
+          "bytes": 4669
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "author": "B",
+        "reviewer": "C",
+        "summarySha256": "ae5eab490da8ebbe7637cc7b728a6be401df20029e9eb752f62120c7afee76ce",
+        "shortDescriptionSha256": "6e8cbe40a6c60bf30233eeae6f6af79e6e96473e978a4465af2a1e0946bbf476",
+        "summary": "Standard Dachshunds are typically bold, lively and persistent, with a willingness to follow scent and keep working when the job becomes difficult. Developed for hunting above and below ground, they can track, flush and retrieve as well as enter burrows. Standard denotes the larger size, which includes smooth, long-haired and wire-haired dogs rather than a single coat type.",
+        "shortDescription": "A bold, persistent scent hunter, the standard Dachshund belongs to the larger size across all three coat varieties.",
+        "interestingFact": "",
+        "reviewedAt": "2026-10-05",
+        "reviewStatus": "individually-written",
+        "sources": [
+          {
+            "title": "Dachshund Club of America — Official Standard",
+            "url": "https://www.dachshundclubofamerica.org/breed-standard/",
+            "evidence": "DCA Temperament and General Appearance support bold/lively/persistent hunting character and keen scent work; size/coats paragraphs explicitly include standard size and all three coats."
+          },
+          {
+            "title": "Dachshund Club of America — Dachshund History",
+            "url": "https://www.dachshundclubofamerica.org/dachshund-history/",
+            "evidence": "DCA One of a Kind supports going to ground, tracking, flushing and retrieving; these are breed work skills rather than guaranteed individual performance."
+          },
+          {
+            "title": "United Kennel Club — Dachshund standard",
+            "url": "https://www.ukcdogs.com/breed-standards/dachshund",
+            "evidence": "UKC Characteristics supports perseverance/alert response and underground work; Varieties explicitly states standards and miniatures occur in all three coats. No precise size thresholds transferred across registry schemes."
+          }
+        ]
+      },
+      "rootReview": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/root-review-0200418-1.json",
+        "sha256": "5e1dfb349d3b5687083285956207f413dd9bd573005f30fc60d3d57bb89472b2",
+        "bytes": 1399
+      },
+      "attemptReceipt": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-b/0200418/N-VBO-0200418-1-attempt.json",
+        "sha256": "13189eac2418028efa64f955cdce35a1b90f9fdee8c28be11b306e067d988870",
+        "bytes": 5255
+      }
+    }
+  ]
+}

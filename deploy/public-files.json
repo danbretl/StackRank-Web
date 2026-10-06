@@ -180,6 +180,10 @@
     }
   ],
   "excluded": [
+    { "pattern": "assets/dogs/generated/VBO-0200271-campeiro-bulldog-320.webp", "class": "superseded-artwork", "reason": "Historical portrait preserved in Git; replaced by individually reviewed audit correction in the active manifest." },
+    { "pattern": "assets/dogs/generated/VBO-0200271-campeiro-bulldog-960.webp", "class": "superseded-artwork", "reason": "Historical portrait preserved in Git; replaced by individually reviewed audit correction in the active manifest." },
+    { "pattern": "assets/dogs/generated/VBO-0200769-native-01-320.webp", "class": "superseded-artwork", "reason": "Historical portrait preserved in Git; replaced by individually reviewed audit correction in the active manifest." },
+    { "pattern": "assets/dogs/generated/VBO-0200769-native-01-960.webp", "class": "superseded-artwork", "reason": "Historical portrait preserved in Git; replaced by individually reviewed audit correction in the active manifest." },
     { "pattern": "AGENTS.md", "class": "assistant", "reason": "Assistant instructions (symlink to CLAUDE.md)." },
     { "pattern": "CLAUDE.md", "class": "assistant", "reason": "Shared assistant project brief." },
     { "pattern": ".claude/**", "class": "assistant", "reason": "Local assistant launcher configuration." },

@@ -36,3 +36,12 @@ test('profile screen permits a named keeper’s explicitly attributed adverse gu
     'Some owners describe aggressive dogs.',
   ]) assert.equal(hasUnsafeDogProfileCopy(text), true, text);
 });
+
+
+test('adverse Kombai survey observations require explicit local survey scope', () => {
+  assert.equal(hasUnsafeDogProfileCopy('Kombai dogs in a survey of Tamil Nadu’s Theni district were described as aggressive toward strangers and obedient with their owners.'), false);
+  assert.equal(hasUnsafeDogProfileCopy('Theni survey accounts describe Kombai guard dogs as aggressive toward strangers and responsive to their owners.'), false);
+  assert.equal(hasUnsafeDogProfileCopy('Kombai dogs are aggressive toward strangers.'), true);
+  assert.equal(hasUnsafeDogProfileCopy('A survey describes aggressive dogs.'), true);
+  assert.equal(hasUnsafeDogProfileCopy('Theni survey accounts describe Kombai guard dogs as aggressive toward strangers and safe with children.'), true);
+});

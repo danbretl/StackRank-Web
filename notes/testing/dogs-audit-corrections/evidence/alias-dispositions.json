@@ -1,0 +1,1016 @@
+[
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0008003",
+    "name": "Bangladesh Indigenous Dog",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0008003/displayAliases",
+    "existingDisplayedAliases": "Indigenous",
+    "proposedDisplayAliases": [],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "Indigenous is a generic adjective and does not identify this Bangladesh population. Suppress display only; retain source/search data.",
+    "sources": [],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-09"
+    ],
+    "catalogId": "VBO:0200004",
+    "name": "Afghan Hound",
+    "currentOrStale": "partially_overstated",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200004/displayAliases",
+    "existingDisplayedAliases": "Tazi",
+    "proposedDisplayAliases": [],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI228 genuinely calls Afghan Hound Tazi. It is nevertheless a regional colliding name, not an exclusive identity key; no display owner for Tazi. Persian Greyhound is not currently displayed by the baseline function, so that portion of the systemic example is overstated.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/228g10-en.pdf",
+        "title": "FCI-Standard N° 228 Afghan Hound",
+        "cache": "cache/sources/519716b603c90f42.txt",
+        "sha256": "ae4136fe282f6cb0c657456c483c2e4b826669721203a61e703448c8e758cc11"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0200027",
+    "name": "American Akita",
+    "currentOrStale": "partially_overstated",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200027/displayAliases",
+    "existingDisplayedAliases": "Amerikanischer Akita, Great Japanese Dog",
+    "proposedDisplayAliases": [
+      "Great Japanese Dog"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "Reject claim that Great Japanese Dog indiscriminately names both modern Akitas: American Akita Club Sweden standard explicitly labels it the former American Akita name. Keep the historical name; narrow other display labels to independently checked evidence.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/344g05-en.pdf",
+        "title": "FCI-Standard N° 344 American Akita",
+        "cache": "cache/sources/d1990cf4c57a020e.txt",
+        "sha256": "032a546b879b9a9cae22177ec329604c3c1061a0daa446b772954e73db6a0978"
+      },
+      {
+        "url": "https://www.americanakitaklubbsverige.se/rasstandard.html",
+        "title": "American Akita Club Sweden standard",
+        "accessedAt": "2026-10-06",
+        "evidence": "Title explicitly says formerly Great Japanese Dog; FCI344;2006 naming date."
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0200078",
+    "name": "Artois Hound",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200078/displayAliases",
+    "existingDisplayedAliases": "Briquet, Chien D'Artois, Picard",
+    "proposedDisplayAliases": [
+      "Chien d’Artois"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "N reviewer independently read FCI28: Picard is a real historical name. Demote Picard because it collides with a different modern identity, not because false; Briquet is generic. Retain exact French breed name and raw search aliases.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/028g06-en.pdf",
+        "title": "FCI28 Chien d’Artois",
+        "evidence": "Independent N reviewer confirms Picard historical name; French exact breed name."
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-09"
+    ],
+    "catalogId": "VBO:0200095",
+    "name": "Australian Shepherd",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200095/displayAliases",
+    "existingDisplayedAliases": "Aussie, little blue dog",
+    "proposedDisplayAliases": [],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "Aussie is a genuine colloquial abbreviation shared with Australian Terrier; neither gets exclusive display ownership. Little blue dog is a loose descriptor, not an exact identity name. Raw search remains.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/342g01-en.pdf",
+        "title": "FCI-Standard N° 342 Australian Shepherd",
+        "cache": "cache/sources/771fa3f91e61b7b1.txt",
+        "sha256": "3dd231284c189179e397668059bf8aa0ba022cbda06be0d1730bf434a4926aa5"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-09"
+    ],
+    "catalogId": "VBO:0200098",
+    "name": "Australian Terrier",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200098/displayAliases",
+    "existingDisplayedAliases": "Aussie",
+    "proposedDisplayAliases": [],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "Aussie collides with Australian Shepherd. Suppress display for both without claiming one owns a nickname; retain raw search.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/008g03-en.pdf",
+        "title": "FCI-Standard N° 8 Australian Terrier",
+        "cache": "cache/sources/f66c697b8d7d1a0e.txt",
+        "sha256": "975f421ffb59d718425d13600cae4eafa1b8aa3dfafdc92a0b5dc60008b9d170"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0200117",
+    "name": "Barak",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200117/displayAliases",
+    "existingDisplayedAliases": "BOSANSKI OSTRODLAKI GONIC-BARAK, Bosnian Coarse-Haired Hound, STICHELHAARIGER BOSNICHER LAUFHUND-GENANNT BARAK",
+    "proposedDisplayAliases": [
+      "Bosanski oštrodlaki gonič-Barak",
+      "Bosnian Broken-Haired Hound"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI155 heading supplies the local name and English name. Replace malformed German BOSNICHER and normalize casing; original search aliases retained.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/155g06-en.pdf",
+        "title": "FCI-Standard N° 155 Bosnian Broken-haired Hound (Barak)",
+        "cache": "cache/sources/a3374e41ab083c7b.txt",
+        "sha256": "e01d351e5b7ea3359af79f097dc45c4d240dd3eace6199f180af146bc277cb64"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0200148",
+    "name": "Belgian Shepherd Dog — Tervueren",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200148/displayAliases",
+    "existingDisplayedAliases": "Belgian Tervuren, Tervueron Shepherd",
+    "proposedDisplayAliases": [
+      "Belgian Tervuren"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "AKC breed-history source uses Belgian Tervuren; FCI15 identifies Tervueren variety. Tervueron Shepherd is a malformed spelling; demote only.",
+    "sources": [
+      {
+        "url": "https://www.akc.org/expert-advice/dog-breeds/belgian-tervuren-history-a-true-renaissance-dog/",
+        "title": "Belgian Tervuren History: A True Renaissance Dog",
+        "cache": "cache/sources/6f714f2752954054.txt",
+        "sha256": "cb261902313103ecf0ba021249d5e7e7398d5ab08b88d2485d329483d128689f"
+      },
+      {
+        "url": "https://fci.be/Nomenclature/Standards/015g01-en.pdf",
+        "title": "FCI-Standard N° 15 Belgian Shepherd Dog",
+        "cache": "cache/sources/8f3427250a768333.txt",
+        "sha256": "88b8c215bcd29e5de555d11d088a5ec64fb118c4d740916bf28a8941c3de0fb9"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0200165",
+    "name": "Biewer Terrier",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200165/displayAliases",
+    "existingDisplayedAliases": "Yorksire a la Pom",
+    "proposedDisplayAliases": [],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "Yorksire a la Pom contains a spelling defect and is not verified by retained AKC sources as a precise alternate name. Suppress optional display without asserting that every historical related spelling is false.",
+    "sources": [
+      {
+        "url": "https://www.akc.org/expert-advice/dog-breeds/biewer-terrier-akc-recognized-breed-2021/",
+        "title": "AKC: Biewer Terrier recognised (2021)",
+        "cache": "cache/sources/83e1505f68d59f16.txt",
+        "sha256": "f2d3737082474821481ac7b05a5548dd2090d5cc3333b3896518c1157649d553"
+      },
+      {
+        "url": "https://www.akc.org/dog-breeds/biewer-terrier/",
+        "title": "AKC: Biewer Terrier",
+        "cache": "cache/sources/88b1a14346a7266b.txt",
+        "sha256": "bcf9441c0dcf6cf36f59ce26f2b5a678522db47577526153d89f1ce60311e235"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-09"
+    ],
+    "catalogId": "VBO:0200174",
+    "name": "Black Russian Terrier",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200174/displayAliases",
+    "existingDisplayedAliases": "BRT, Russian Bear Schnauzer, Russian Black Terrier, Russkiy Tchiorny Terrier",
+    "proposedDisplayAliases": [
+      "Russian Black Terrier",
+      "Russkiy Tchiorny Terrier"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI327 heading verifies both names and clearly distinguishes the Giant Schnauzer ancestor. Russian Bear Schnauzer gets no display owner on either distinct identity. BRT is an abbreviation; raw search retained.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/327g02-en.pdf",
+        "title": "FCI-Standard N° 327 Black Russian Terrier",
+        "cache": "cache/sources/c8d0ccb9e07b9d07.txt",
+        "sha256": "a624e852b85d609ba95b4cf35510f62131b69d4bb8ea987607f2b49fede6ed1b"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06",
+      "F-SYS-09"
+    ],
+    "catalogId": "VBO:0200285",
+    "name": "Cao de Castro Laboreiro",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200285/displayAliases",
+    "existingDisplayedAliases": "Castro Laboreiro Dog, Dog of Castro Laboreiro, Portuguese Cattle Dog, Portuguese Watchdog",
+    "proposedDisplayAliases": [
+      "Castro Laboreiro Dog",
+      "Dog of Castro Laboreiro"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI170 identifies the Castro Laboreiro dog. Portuguese Watchdog is generic and collides with Rafeiro; no display owner. Portuguese Cattle Dog is a loose historical label; retained search-only pending precise contextual support.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/170g02-en.pdf",
+        "title": "FCI-Standard N° 170 Castro Laboreiro Dog",
+        "cache": "cache/sources/7e51ae781d0c9a05.txt",
+        "sha256": "9c17549ff75445420b24dac7c3f42fcefc459fbec94eae95526935bc4d602033"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0200345",
+    "name": "Chinese Crested",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200345/displayAliases",
+    "existingDisplayedAliases": "Crested, Curtis, Puff",
+    "proposedDisplayAliases": [],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI288 distinguishes Hairless and Powder Puff. Puff cannot stand for the entire breed; Curtis remains unverified and Crested is abbreviated. Suppress optional display, preserving all raw aliases.",
+    "sources": [
+      {
+        "url": "https://www.akc.org/dog-breeds/chinese-crested/",
+        "title": "AKC Chinese Crested breed page",
+        "cache": "cache/sources/0bfc246fb946c880.txt",
+        "sha256": "0d86a7e586a60e1376b23fc984e003c4c5d9bc9871566fe1503466f9c4ea09ee"
+      },
+      {
+        "url": "https://images.akc.org/pdf/judges/groups/Toy_Group.pdf",
+        "title": "AKC Toy Group official breed standards (judges' compilation PDF)",
+        "cache": "cache/sources/7a705c7b912d9859.txt",
+        "sha256": "5c0701161625d6fe85785a3a20dd4dc7ce704a92bbcb9df579a5cb8c5e273703"
+      },
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/288g09-en.pdf",
+        "title": "FCI-Standard N° 288 Chinese Crested Dog",
+        "cache": "cache/sources/a199d9f69108d705.txt",
+        "sha256": "1853cd617f93c8eb33aa83479a871d115d7caddf373aaf76ae8b146c77124946"
+      },
+      {
+        "url": "https://www.akc.org/expert-advice/lifestyle/fun-facts-chinese-crested/",
+        "title": "AKC Expert Advice: Fun facts about the Chinese Crested",
+        "cache": "cache/sources/d916b2e622d327e8.txt",
+        "sha256": "7b4ee5d849d35286802d3b50f56517526bc9ee4c5606a6adde38e83d549c11fc"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-09"
+    ],
+    "catalogId": "VBO:0200604",
+    "name": "Giant Schnauzer",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200604/displayAliases",
+    "existingDisplayedAliases": "Munchener, Munich Schnauzer, Riesenschnauzer, Russian Bear Schnauzer",
+    "proposedDisplayAliases": [
+      "Riesenschnauzer"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI181 heading verifies Riesenschnauzer. Russian Bear Schnauzer collides with Black Russian Terrier and is not established by this standard as exact alias; no display owner. Munich names remain searchable, not declared false.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/181g02-en.pdf",
+        "title": "FCI-Standard N° 181 Giant Schnauzer",
+        "cache": "cache/sources/1cf3d6d708886acb.txt",
+        "sha256": "c3a2f270f436025584a57bb4497a1e4537032985bf79dd12d20776f5694960d4"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-09"
+    ],
+    "catalogId": "VBO:0200623",
+    "name": "Great Dane",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200623/displayAliases",
+    "existingDisplayedAliases": "Apollo of Dogs, Deutsche Dogge, Gentle Giant, German Mastiff",
+    "proposedDisplayAliases": [
+      "Deutsche Dogge"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI235 heading verifies Deutsche Dogge. Apollo of Dogs and Gentle Giant are epithets; Gentle Giant also collides with Leonberger. German Mastiff retained in search pending independent historical-name evidence.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/235g02-en.pdf",
+        "title": "FCI-Standard N° 235 Great Dane",
+        "cache": "cache/sources/1918ad5bcfd1bdbb.txt",
+        "sha256": "7ae03fd183df443b577d25b8e8427f45f10917b1f8c41743da80ec8d627094d4"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0200642",
+    "name": "Griffon Bruxellois",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200642/displayAliases",
+    "existingDisplayedAliases": "Belgium Griffon, Bruss, Griff",
+    "proposedDisplayAliases": [],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI80/81/82 explicitly identifies Griffon Bruxellois and Griffon Belge as separate breeds. Belgium Griffon risks collapsing this distinction; Bruss/Griff are abbreviations. Retain raw search without display assertion.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/080g09-en.pdf",
+        "title": "FCI-Standard N° 80 Griffon Bruxellois, Griffon Belge, Petit Brabançon",
+        "cache": "cache/sources/033018cd89a8efc0.txt",
+        "sha256": "45ad7b9eed7e5eaf8afa53145d6b7323c1017916a2dfb0804b24cec4db25049b"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0200679",
+    "name": "Transylvanian Hound",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200679/displayAliases",
+    "existingDisplayedAliases": "Erdélyi Kopó, Hungarian houn, Transylvanian kopó",
+    "proposedDisplayAliases": [
+      "Erdélyi Kopó",
+      "Hungarian Hound – Transylvanian Scent Hound"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI241 heading verifies local and full English names. Hungarian houn is truncated. Full corrected English name avoids cataloguing a fragment as a synonym.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/241g06-en.pdf",
+        "title": "FCI-Standard N° 241 Transylvanian Hound",
+        "cache": "cache/sources/2154c8af77525cc0.txt",
+        "sha256": "250f852fc2647d174d041043872871682c8cf6fab99a5be10b97d1cdc0a39adc"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0200749",
+    "name": "Kangal Dog",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200749/displayAliases",
+    "existingDisplayedAliases": "KANGAL ÇOBAN KÖPEGI, Kangal Shepherd Dog, Kangal Turkish Shepherd, Karabash",
+    "proposedDisplayAliases": [
+      "Kangal Çoban Köpeği",
+      "Kangal Shepherd Dog"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI331 heading verifies local and English names. Karabash is shared with separate Anatolian/Karabash identities and has no exclusive display owner. Preserve all source aliases in search.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/331g02-en.pdf",
+        "title": "FCI-Standard N° 331 Kangal Shepherd Dog",
+        "cache": "cache/sources/c801e5d9872f9648.txt",
+        "sha256": "5b4344ef0fbdd53d4165fe0d93869903b126f4cc00462bd3cc1e5e3dbb2d706f"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0200799",
+    "name": "Labrador Husky",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200799/displayAliases",
+    "existingDisplayedAliases": "Huskador, Huskydor",
+    "proposedDisplayAliases": [],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "Retained Northern Lights operator history describes Labrador sled dogs, not Labrador Retriever×Husky crosses. Huskador/Huskydor cannot establish that exact landrace identity; suppress display pending evidence, preserving search and stable ID.",
+    "sources": [
+      {
+        "url": "https://www.northernlightsdogsledding.com/packages",
+        "title": "Packages",
+        "cache": "cache/sources/36fc71351227e213.txt",
+        "sha256": "d82092cdcc88e8b64666999ba06c6c7198da9c6ef0e6562205c39813a72e0951"
+      },
+      {
+        "url": "https://www.northernlightsdogsledding.com/our-story",
+        "title": "Our Story",
+        "cache": "cache/sources/dacbc7abc314d47b.txt",
+        "sha256": "2f609599535edc152541781fe260eb02e5eba4c7ef603076038f70513cfbafa3"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-09"
+    ],
+    "catalogId": "VBO:0200819",
+    "name": "Leonberger",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200819/displayAliases",
+    "existingDisplayedAliases": "Gentle Giant, Gentle Lion, Leo",
+    "proposedDisplayAliases": [],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "Gentle Giant/Gentle Lion are character epithets, not precise identification; Gentle Giant collides with Great Dane. Leo is an abbreviation. No exclusive display owner; raw search retained.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/145g02-en.pdf",
+        "title": "FCI-Standard N° 145 Leonberger",
+        "cache": "cache/sources/6f5780e40eea13f2.txt",
+        "sha256": "a39adaaedc1d8d7bff48f47714fff0f7a7411906ea9704ddb8b28ff343d78c4e"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0200820",
+    "name": "Leopard Cur",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200820/displayAliases",
+    "existingDisplayedAliases": "Catahoula Hog Dog, Catahoula Hound, Catahoula Leopard Dog, Catahoula leopard dogs",
+    "proposedDisplayAliases": [],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "All current displayed aliases name Catahoula, while this Leopard Cur identity is separately contested under SYS08. Suppress alias display pending lead identity adjudication; do not remap the ID to Catahoula.",
+    "sources": [],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0200833",
+    "name": "Long-Haired Whippet",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0200833/displayAliases",
+    "existingDisplayedAliases": "Longhaired whippet",
+    "proposedDisplayAliases": [
+      "Windsprite"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "International Windsprite Club ballot explicitly passed renaming Longhaired Whippet to Windsprite effective2017-01-01. Add modern name to display/search; keep stable ID and original name pending separate identity policy.",
+    "sources": [
+      {
+        "url": "https://www.windsprites.org/",
+        "title": "About the breed",
+        "cache": "cache/sources/9aab0f2d8107ba66.txt",
+        "sha256": "fa79abeed90d3ceb87174f2844397535d2d5264d20a043212ebb9a534d3a8ce1"
+      },
+      {
+        "url": "https://www.windsprites.org/post/breed-name-change-windsprite",
+        "title": "Breed name change: Windsprite",
+        "cache": "cache/sources/bc39151977bd78a9.txt",
+        "sha256": "8f7735557a48e74d92589d84dfbdd511ab840d6b36fe7859d0eb64c53f061070"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0201084",
+    "name": "Prague Ratter",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201084/displayAliases",
+    "existingDisplayedAliases": "Prazsky Krysarik, Prazsky Krysavik, Ratier de Prague, Ratonero de Praga",
+    "proposedDisplayAliases": [
+      "Pražský krysařík"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI363 title verifies Czech spelling and Prague Ratter translation. Prazsky Krysavik is erroneous. Use verified local name, retaining French/Spanish/raw variants in search without declaring them false.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/363g09-en.pdf",
+        "title": "FCI-Standard N° 363 Prague Ratter",
+        "cache": "cache/sources/14a0c2824bb172bb.txt",
+        "sha256": "d0debbc84217fcd9cec2578483feff6419fa903429c5e1d8ac131dda08ee33a3"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0201102",
+    "name": "Puli",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201102/displayAliases",
+    "existingDisplayedAliases": "Hungarian Puli, Hungarian Water Dog",
+    "proposedDisplayAliases": [
+      "Hungarian Puli",
+      "Hungarian Water Dog"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "Reject suspected conflation as unproven: Hungarian Puli Club history explicitly documents historical Hungarian Water Dog terminology attributed to Hoffmann and water-walking Puli usage. Retain the historical synonym with scoped evidence; this does not classify modern Puli as a water-dog family.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/055g01-en.pdf",
+        "title": "FCI-Standard N° 55 Puli",
+        "cache": "cache/sources/3cc403f01767f1ee.txt",
+        "sha256": "3f18d87c8ca99f66c5e8c1f5c4b726b150bd443e8d4c88f10cb9f2b1f6634a3f"
+      },
+      {
+        "url": "https://puli.hu/en/a-puli-eredete/",
+        "title": "Hungarian Puli Club: The Origin of the Puli",
+        "accessedAt": "2026-10-06",
+        "evidence": "History names Hungarian Water Dog terminology attributed to Hoffmann and water-walking Puli terminology; historical alias evidence only."
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06",
+      "F-SYS-09"
+    ],
+    "catalogId": "VBO:0201120",
+    "name": "Rafeiro do Alentejo",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201120/displayAliases",
+    "existingDisplayedAliases": "Alentejo Mastiff, Mutt of Alentejo, Portuguese Mastiff, Portuguese Watchdog",
+    "proposedDisplayAliases": [
+      "Rafeiro of Alentejo"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI96 heading gives Rafeiro of Alentejo. Mutt of Alentejo is a misleading literal gloss; Portuguese Watchdog generic/colliding; Portuguese Mastiff not unique. Keep raw search, display verified translation.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/096g02-en.pdf",
+        "title": "FCI-Standard N° 96 Rafeiro do Alentejo",
+        "cache": "cache/sources/ef92ce59c2874c3d.txt",
+        "sha256": "2c58f283150401669d5df4a4ced0adc84956a730473c600685a77a13de1db294"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0201123",
+    "name": "Rampur Greyhound",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201123/displayAliases",
+    "existingDisplayedAliases": "North Indian",
+    "proposedDisplayAliases": [],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "North Indian is a generic regional phrase rather than precise breed name. N exact-identity work does not make this bare phrase an identifying alias. Display omitted, search preserved.",
+    "sources": [],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0201125",
+    "name": "Rat Terrier",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201125/displayAliases",
+    "existingDisplayedAliases": "American Rat Terrier, Decker Giant, Rat, Rattie",
+    "proposedDisplayAliases": [],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "UKC standard defines Rat Terrier and size divisions; Rat is generic, Decker Giant denotes a narrower type, Rattie is a nickname. American Rat Terrier remains source/search data but optional display narrowed pending exact-name support. No ID merge.",
+    "sources": [
+      {
+        "url": "https://www.ukcdogs.com/rat-terrier",
+        "title": "UKC Rat Terrier breed standard",
+        "cache": "cache/sources/6013e526cad1f2d8.txt",
+        "sha256": "70bd1d9495c661e13fcb1c32ab33bfdba4c7deade3aaf8ada7947673bc103b35"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0201151",
+    "name": "Russian Toy",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201151/displayAliases",
+    "existingDisplayedAliases": "Moscovian Miniature Terrier, Moscow Toy Terrier, Russian Terrier, Russian Toy Terrier",
+    "proposedDisplayAliases": [
+      "Russkiy Toy",
+      "Russian Toy Terrier"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI352 heading verifies Russkiy Toy and history documents Russian toy-terrier development. Russian Terrier is ambiguous; Moscow names specifically concern historical long-haired type. Retain raw aliases without presenting every subtype as whole breed.",
+    "sources": [
+      {
+        "url": "https://fci.be/Nomenclature/Standards/352g09-en.pdf",
+        "title": "FCI-Standard N° 352 Russian Toy",
+        "cache": "cache/sources/9e3514d9162cf474.txt",
+        "sha256": "0c12b6c9e9acfd957cf9c834a1b77030624ee27a438b7559209612bdc50bcf42"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0201167",
+    "name": "Saint Miguel Cattle Dog",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201167/displayAliases",
+    "existingDisplayedAliases": "and other versions and translations, Azores Cattle Dog, Cão De Fila De São Miguel, Cão Fila de São Miguel",
+    "proposedDisplayAliases": [
+      "Cão Fila de São Miguel"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI340 heading supplies exact Portuguese name. Remove and other versions and translations, which is clearly a prose fragment. Keep raw variants and geographic translations searchable.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/340g02-en.pdf",
+        "title": "FCI-Standard N° 340 Saint Miguel Cattle Dog",
+        "cache": "cache/sources/4332b749d1f9128a.txt",
+        "sha256": "77f634eaa2d55b3bdda9c79a05dacc66ad8aaafa345b152834cee29d2a09ee77"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-09"
+    ],
+    "catalogId": "VBO:0201171",
+    "name": "Saluki",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201171/displayAliases",
+    "existingDisplayedAliases": "Persian Greyhound, Tanji, Tazi",
+    "proposedDisplayAliases": [],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "Tazi shares usage with other sighthounds and has no exclusive display owner. Persian Greyhound is a plausible established historical name but retained FCI269 does not verify it; optional display omitted pending a direct name source, raw search preserved. Tanji also unverified.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/269g10-en.pdf",
+        "title": "FCI-Standard N° 269 Saluki",
+        "cache": "cache/sources/ed4d01c2ba236408.txt",
+        "sha256": "3d3667103208bc9ed59c6e4c0598815a95746cff19878516ee9bd2277b83fb0d"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0201225",
+    "name": "Shikoku",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201225/displayAliases",
+    "existingDisplayedAliases": "Japanese Wolfdog, Kochi-ken, Mikawa Inu, Shika Inu",
+    "proposedDisplayAliases": [
+      "Kochi-ken"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI319 explicitly says sometimes called Kochi-ken. Other VBO names are not verified for exact identity by this standard; retain search-only rather than transfer Mikawa identity or assert false histories.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/319g05-en.pdf",
+        "title": "FCI-Standard N° 319 Shikoku",
+        "cache": "cache/sources/ce909d4d5fa07953.txt",
+        "sha256": "634d6f5ebc334265c59933d43163478f17d52ca1804f77ea857fdd76918049bb"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0201246",
+    "name": "Slovensky Kopov",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201246/displayAliases",
+    "existingDisplayedAliases": "Black Forest Hound, Black Forrest Hound, Kopov, Slovak Hound",
+    "proposedDisplayAliases": [
+      "Slovakian Hound"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI244 heading verifies Slovenský Kopov/Slovakian Hound. Black Forrest is misspelled; Black Forest name not supported by inspected exact source and could imply German origin. Keep search-only.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/244g06-en.pdf",
+        "title": "FCI-Standard N° 244 Slovenský Kopov",
+        "cache": "cache/sources/97e1d203b44f4e7e.txt",
+        "sha256": "e1611bf2f87272ceebf409689945594a50aede4fc23985d696232bd75b47e3ba"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0201296",
+    "name": "Staffordshire Bull Terrier",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201296/displayAliases",
+    "existingDisplayedAliases": "Nanny Dog, Staffy",
+    "proposedDisplayAliases": [
+      "Staffy"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "Nanny Dog implies unsupported child-safety reassurance, irrespective of nickname attestation; exclude displayed endorsement. Keep Staffy common contraction and raw search/history; behavior prose remains separately reviewed.",
+    "sources": [
+      {
+        "url": "https://www.akc.org/expert-advice/dog-breeds/meet-bully-breeds/",
+        "title": "Get to Know the Bully Breeds",
+        "cache": "cache/sources/b336a285b09dedf6.txt",
+        "sha256": "7b95d7914b714a462f2596926960c0277aed6a0d61085e29861ca963d8ad56a8"
+      },
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/076g03-en.pdf",
+        "title": "FCI-Standard N° 76 Staffordshire Bull Terrier",
+        "cache": "cache/sources/f156d805127c6a95.txt",
+        "sha256": "1b749465840ce5dcaf651ebe14cc84e210b827895c7c6b8d15dcf0ead554314f"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0201361",
+    "name": "Toy Fox Terrier",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201361/displayAliases",
+    "existingDisplayedAliases": "American Toy Terrier, Amertoy, Toy Terrier",
+    "proposedDisplayAliases": [],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "Toy Terrier is generic across distinct breeds; Amertoy/American Toy Terrier not independently established by inspected AKC standard/history. Omit optional display pending source, not assert these historical names false.",
+    "sources": [
+      {
+        "url": "https://images.akc.org/pdf/breeds/standards/ToyFoxTerrier.pdf",
+        "title": "AKC Toy Fox Terrier official standard",
+        "cache": "cache/sources/2f913dc04fb9050c.txt",
+        "sha256": "ea7a35d18c4e0e8a321769b447ad17bc72d0966a5e02b05b8a382a63463e1fbf"
+      },
+      {
+        "url": "https://www.akc.org/expert-advice/dog-breeds/toy-fox-terrier-history/",
+        "title": "AKC: Toy Fox Terrier history",
+        "cache": "cache/sources/b7c10e1c1d250979.txt",
+        "sha256": "9a9efa0167c4ae6c1abea76cff87a17cc70b993ac8c2b258d42fcd207a374472"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0201379",
+    "name": "Tyrolean Hound",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201379/displayAliases",
+    "existingDisplayedAliases": "Tinolean, Tiroler Bracke, Tyroler Bracke",
+    "proposedDisplayAliases": [
+      "Tiroler Bracke"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI68 heading verifies Tiroler Bracke. Tinolean is a misspelling; Tyroler orthography is retained search-only, not declared a separate identity.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/068g06-en.pdf",
+        "title": "FCI Standard 68 Tyrolean Hound",
+        "cache": "cache/sources/2070d3774996cfc1.txt",
+        "sha256": "5247a72893a910a4f3c290e790974d28f4a6fda3347c5b288eb36dda7b9de0a3"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0201389",
+    "name": "Vizsla",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201389/displayAliases",
+    "existingDisplayedAliases": "Hungarian Pointer, Hungarian Vizla, Hungarian vizsla, Hungarian Vizsla unspecifed",
+    "proposedDisplayAliases": [
+      "Rövidszörü Magyar Vizsla",
+      "Hungarian Short-Haired Pointer"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI57 heading supplies precise local and English names. Hungarian Vizla and unspecifed are malformed; generic Hungarian Pointer also overlaps wire-haired type. Preserve raw search.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/057g07-en.pdf",
+        "title": "FCI-Standard N° 57 Hungarian Short-haired Pointing Dog (Vizsla)",
+        "cache": "cache/sources/1f987ad76ccb02ab.txt",
+        "sha256": "083b2a7500e1ad07aef6e35f89fade44de725ed58f7863e8b60f97de2d16cc3e"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-09"
+    ],
+    "catalogId": "VBO:0201411",
+    "name": "Welsh Springer Spaniel",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201411/displayAliases",
+    "existingDisplayedAliases": "Welsh Cocker Spaniel, Welsh Springer, Welsh Starter, Welshie",
+    "proposedDisplayAliases": [
+      "Welsh Springer"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "Welsh Springer is transparent shortened precise canonical name. Welshie collides with Welsh Terrier and has no display owner; historical Welsh Cocker/Starter not verified by retained FCI126 and remain searchable without falsehood claim.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/126g08-en.pdf",
+        "title": "FCI-Standard N° 126 Welsh Springer Spaniel",
+        "cache": "cache/sources/0751926f0b7ad8b3.txt",
+        "sha256": "cd8d546122267b0c76e2410181f00ee4f8c5ef4c991a17fb1b4e216a708bbf0a"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-09"
+    ],
+    "catalogId": "VBO:0201412",
+    "name": "Welsh Terrier",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201412/displayAliases",
+    "existingDisplayedAliases": "Welshie, WT",
+    "proposedDisplayAliases": [],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "Welshie collides with Welsh Springer; neither gets display ownership. WT is an abbreviation. Stable IDs and search aliases remain.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/078g03-en.pdf",
+        "title": "FCI-Standard N° 78 Welsh Terrier",
+        "cache": "cache/sources/83f430be1cee95ab.txt",
+        "sha256": "86dd32b73a9230992330c96f6cf9ad8fa535c12b1f059f71d55510187c3451d1"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0201419",
+    "name": "Wetterhoun",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201419/displayAliases",
+    "existingDisplayedAliases": "Dutch Spaniel, Fresian Water Dog, Frisian Water Dog, Otterhoun",
+    "proposedDisplayAliases": [],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI221 verifies Wetterhoun and Friesland water/otter work but does not independently verify the listed alternate names. Fresian is malformed; broad Dutch Spaniel risks confusion. Optional aliases omitted pending direct name source; raw search retained.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/221g08-en.pdf",
+        "title": "FCI-Standard N° 221 Wetterhoun",
+        "cache": "cache/sources/a72b546a32e82a87.txt",
+        "sha256": "13e3552fd7f49c37df7c5807417613dccf0ca688081e030b9410de0eb199b38d"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0201428",
+    "name": "Wirehaired Vizsla",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201428/displayAliases",
+    "existingDisplayedAliases": "Drotszoru magyar vizsla, Drötzörü Magyar Vizsla, Hungarian Vizla Wire-Haired, Hungarian Wire-Haired Pointer",
+    "proposedDisplayAliases": [
+      "Drótszőrű magyar vizsla",
+      "Hungarian Wire-Haired Pointer"
+    ],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "FCI239 heading verifies local name (standard transliteration) and English identity; normalize Hungarian orthography and remove misspelled Vizla Wire-Haired. Retain raw spellings in search.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/239g07-en.pdf",
+        "title": "FCI-Standard N° 239 Hungarian Wire-haired Pointing Dog",
+        "cache": "cache/sources/bfe5f5badeafef3e.txt",
+        "sha256": "599013c2a2c82142b8d0aac56783d06524cb3f74e0f2bddf6d200e80b88cb0ca"
+      }
+    ],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  },
+  {
+    "findingIds": [
+      "F-SYS-06"
+    ],
+    "catalogId": "VBO:0201453",
+    "name": "de Pont-Audemer Spaniel",
+    "currentOrStale": "current",
+    "authoringPointer": "data/dogs/catalog-overrides.json#/entities/VBO:0201453/displayAliases",
+    "existingDisplayedAliases": "Epagneul",
+    "proposedDisplayAliases": [],
+    "rawSearchAliases": "preserve unchanged; add new verified names only",
+    "disposition": "curate_display_preserve_search",
+    "rationale": "Epagneul alone means spaniel and is shared generic vocabulary, not this Pont-Audemer identity. Omit from display; preserve raw search.",
+    "sources": [],
+    "verification": "Compile curated displayAliases; no prohibited aliases displayed; aliases/sourceIds and stored identity resolution retained; canonical queries unaffected."
+  }
+]

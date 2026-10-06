@@ -1,0 +1,2242 @@
+[
+  {
+    "findingId": "F-0200670-1",
+    "proposedChangeId": "PC-0200670-1",
+    "catalogId": "VBO:0200670",
+    "name": "Himalayan Sheepdog",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "rejected_false_positive",
+    "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0200670/summary (sentence 2)",
+    "actualProfileFile": "data/dogs/profile-overrides.json",
+    "currentProfileSha256": "3b8cb87c4c237b7f45b064afbb20fd05aeef25abc6463d1880cc98c12b6aadcf",
+    "evidence": [
+      {
+        "evidenceId": "EV-a7116d6d515dd96a",
+        "url": "https://www.frontiersin.org/journals/animal-science/articles/10.3389/fanim.2026.1751875/full",
+        "path": "private-audit:cache/sources/a7116d6d515dd96a.txt",
+        "retainedTextSha256": "09ef1def1486f6f5eddede04e39ab9948950f67ca53e326541812b6b1fc667dd"
+      },
+      {
+        "evidenceId": "EV-LOCAL-VBO",
+        "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "The retained Frontiers introduction explicitly names the Himalayan sheepdog group and Bhotia, Bangar and Gaddi. The regional-group framing and separately scoped Gaddi migration are supported. The audit missed that paragraph.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-overrides.json#/profiles/VBO:0200670/sources",
+      "data/dogs/profile-overrides.json#/profiles/VBO:0200670/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200919-1",
+    "proposedChangeId": "PC-0200919-1",
+    "catalogId": "VBO:0200919",
+    "name": "Mucuchies",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0200919/historicalRoots",
+    "actualProfileFile": "data/dogs/profile-overrides.json",
+    "currentProfileSha256": "a7be254a20ad07bb2dade5e59cf70a35a31115f2f5ccbf1ada8b1e10e7a69e46",
+    "evidence": [
+      {
+        "evidenceId": "EV-c8f05c58a17719bb",
+        "url": "https://cneh.gob.ve/museo-bolivariano-realizo-podcast-sobre-la-historia-y-el-valor-patrimonial-de-la-raza-mucuchies/",
+        "path": "private-audit:cache/sources/c8f05c58a17719bb.txt",
+        "retainedTextSha256": "dfd518e3f78d131a72cfc160938e7dc3a716e8d5d8012c1f5770f63d387d76c5"
+      }
+    ],
+    "rationale": "Museum source supports Venezuelan/Andean identity and companionship/protection, but supplies no size measurement or livestock-work evidence. Unknown size is honest pending stronger source.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-overrides.json#/profiles/VBO:0200919/historicalRoots",
+      "data/dogs/profile-overrides.json#/profiles/VBO:0200919/sizeBand",
+      "data/dogs/profile-overrides.json#/profiles/VBO:0200919/editorialFamilies",
+      "data/dogs/profile-overrides.json#/profiles/VBO:0200919/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200108-1",
+    "proposedChangeId": "PC-0200108-1",
+    "catalogId": "VBO:0200108",
+    "name": "Azawakh",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0200108/historicalRoots",
+    "actualProfileFile": "data/dogs/profile-overrides.json",
+    "currentProfileSha256": "0b1a4a2477c545b9d7c21088c262da1471b463d389dc1a6039e0fd72f2fc93ca",
+    "evidence": [
+      {
+        "evidenceId": "EV-fb057f7785ecd777",
+        "url": "https://www.fci.be/Nomenclature/Standards/307g10-en.pdf",
+        "path": "private-audit:cache/sources/fb057f7785ecd777.txt",
+        "retainedTextSha256": "1629d8a1e42acd2d5b917f9c1e57e1f7d6c4d84dc05913c674cce605397ddab5"
+      },
+      {
+        "evidenceId": "EV-LOCAL-WD",
+        "url": null,
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "FCI307 origin and history support Mali/Niger and Sahelian pastoral work; Burkina Faso omitted from this field because this recorded source does not establish it.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-overrides.json#/profiles/VBO:0200108/historicalRoots",
+      "data/dogs/profile-overrides.json#/profiles/VBO:0200108/originRegions",
+      "data/dogs/profile-overrides.json#/profiles/VBO:0200108/originBasis",
+      "data/dogs/profile-overrides.json#/profiles/VBO:0200108/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200338-1",
+    "proposedChangeId": "PC-0200338-1",
+    "catalogId": "VBO:0200338",
+    "name": "Chihuahua",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0200338/sources/1",
+    "actualProfileFile": "data/dogs/profile-overrides.json",
+    "currentProfileSha256": "638cecd0f7613143c736fd9dda5db8a395e95cad360ed8d6efdcf9cf6dcfeed4",
+    "evidence": [
+      {
+        "evidenceId": "EV-22e441b973f35e4e",
+        "url": "https://www.akc.org/wp-content/uploads/2025/09/breed-temperament-guide-akc-fss-Sept-2025.pdf",
+        "path": "private-audit:cache/sources/22e441b973f35e4e.txt",
+        "retainedTextSha256": "c1f435465bd5585994a2c8a77295994994a7651cb1301541d7f62694abad3417"
+      },
+      {
+        "evidenceId": "EV-7a705c7b912d9859",
+        "url": "https://images.akc.org/pdf/judges/groups/Toy_Group.pdf",
+        "path": "private-audit:cache/sources/7a705c7b912d9859.txt",
+        "retainedTextSha256": "763dfcf4c08aff802935250f35b9b19230f7560af4c8a75f110772edb181937f"
+      }
+    ],
+    "rationale": "Actual retained AKC standard supports claim; fix broken citation without changing supported prose.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-overrides.json#/profiles/VBO:0200338/sources",
+      "data/dogs/profile-overrides.json#/profiles/VBO:0200338/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200345-1",
+    "proposedChangeId": "PC-0200345-1",
+    "catalogId": "VBO:0200345",
+    "name": "Chinese Crested",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "rejected_false_positive",
+    "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0200345/sources/1/evidence",
+    "actualProfileFile": "data/dogs/profile-overrides.json",
+    "currentProfileSha256": "dfdf2ad90368ff10218d1de90962384726dc131fb24f1878fd81a818a095d4fc",
+    "evidence": [
+      {
+        "evidenceId": "EV-7a705c7b912d9859",
+        "url": "https://images.akc.org/pdf/judges/groups/Toy_Group.pdf",
+        "path": "private-audit:cache/sources/7a705c7b912d9859.txt",
+        "retainedTextSha256": "763dfcf4c08aff802935250f35b9b19230f7560af4c8a75f110772edb181937f"
+      },
+      {
+        "evidenceId": "EV-0bfc246fb946c880",
+        "url": "https://www.akc.org/dog-breeds/chinese-crested/",
+        "path": "private-audit:cache/sources/0bfc246fb946c880.txt",
+        "retainedTextSha256": "ec7df5dd52b72211407f243a2dc5f77f596605ddfa451680f26a4213a8de0573"
+      }
+    ],
+    "rationale": "AKC Toy Group PDF p16 General Appearance explicitly describes the breed as a loving companion, playful and entertaining. The audit searched the Temperament paragraph too narrowly; current evidence attribution is valid.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200345-2",
+    "proposedChangeId": "PC-0200345-2",
+    "catalogId": "VBO:0200345",
+    "name": "Chinese Crested",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0200345/historicalRoots",
+    "actualProfileFile": "data/dogs/profile-overrides.json",
+    "currentProfileSha256": "dfdf2ad90368ff10218d1de90962384726dc131fb24f1878fd81a818a095d4fc",
+    "evidence": [
+      {
+        "evidenceId": "EV-a199d9f69108d705",
+        "url": "https://www.fci.be/Nomenclature/Standards/288g09-en.pdf",
+        "path": "private-audit:cache/sources/a199d9f69108d705.txt",
+        "retainedTextSha256": "c78e1fbc7bc023bd7180efb6032d8907a2a97fa6f0c50a1f9adc9e08c7c67ae2"
+      }
+    ],
+    "rationale": "FCI288 explicitly defines both coats; separate origin from patronage rather than claiming development under patronage.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-overrides.json#/profiles/VBO:0200345/historicalRoots",
+      "data/dogs/profile-overrides.json#/profiles/VBO:0200345/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0201004-1",
+    "proposedChangeId": "PC-0201004-1",
+    "catalogId": "VBO:0201004",
+    "name": "Peruvian Hairless Dog",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0201004/interestingFact",
+    "actualProfileFile": "data/dogs/profile-overrides.json",
+    "currentProfileSha256": "83559e047a62bc149bb0583922eebf77bae567ee7d68b82e0037e0ddd8db4c45",
+    "evidence": [
+      {
+        "evidenceId": "EV-7f3f00dbcd8f900f",
+        "url": "https://www.fci.be/Nomenclature/Standards/310g05-en.pdf",
+        "path": "private-audit:cache/sources/7f3f00dbcd8f900f.txt",
+        "retainedTextSha256": "af354201a46c1fe3eddf2e000872610d1bc55f7083ffda45ebd53b949be355cb"
+      }
+    ],
+    "rationale": "Alias-only callout adds no distinct nonvisual insight under current writing contract.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-overrides.json#/profiles/VBO:0201004/interestingFact",
+      "data/dogs/profile-overrides.json#/profiles/VBO:0201004/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0201220-1",
+    "proposedChangeId": "PC-0201220-1",
+    "catalogId": "VBO:0201220",
+    "name": "Shiba Inu",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0201220/sizeBand",
+    "actualProfileFile": "data/dogs/profile-overrides.json",
+    "currentProfileSha256": "741d6425bbc7ab535482a6f2ea52a272c6e8dec38da2b2ac915b22bd5cbd5933",
+    "evidence": [
+      {
+        "evidenceId": "EV-9233312f6d5daa38",
+        "url": "https://www.fci.be/Nomenclature/Standards/257g05-en.pdf",
+        "path": "private-audit:cache/sources/9233312f6d5daa38.txt",
+        "retainedTextSha256": "d2c73a395fed2caf8b199130aa13330254b1e7f7620d3c8e6fa5bf5a90a6d508"
+      },
+      {
+        "evidenceId": "EV-615d63036999ac02",
+        "url": "https://www.fci.be/Nomenclature/Standards/341g03-en.pdf",
+        "path": "private-audit:cache/sources/615d63036999ac02.txt",
+        "retainedTextSha256": "c5cf5505d55b37313e99efcde6daed02144e8d529172b4abdee341043c203540"
+      }
+    ],
+    "rationale": "Measurements independently re-read; use documented editorial size semantics and align shared-standard coat siblings. Proposed band is subject to final central policy.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0201220-1",
+        "catalogId": "VBO:0201220",
+        "action": "size_policy_consistency",
+        "reason": "Measurements independently re-read; use documented editorial size semantics and align shared-standard coat siblings. Proposed band is subject to final central policy.",
+        "sizeBand": "small"
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200046-1",
+    "proposedChangeId": "PC-0200046-1",
+    "catalogId": "VBO:0200046",
+    "name": "American Eskimo Dog",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200046/interestingFact",
+    "actualProfileFile": "data/dogs/profile-refresh-a.json",
+    "currentProfileSha256": "a597921f1a35819baa1cacf038639950f76f259efe029dc8db5146ecad11f883",
+    "evidence": [
+      {
+        "evidenceId": "EV-28d55e81254e567d",
+        "url": "https://www.ukcdogs.com/american-eskimo",
+        "path": "private-audit:cache/sources/28d55e81254e567d.txt",
+        "retainedTextSha256": "973fb90c9c6d74cb6b040a5c64f37816c25afb465ae6b9ce244aabdda9507b9d"
+      }
+    ],
+    "rationale": "UKC history explicitly dates renaming; omit unsupported exact prior US name.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200046/interestingFact",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200046/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200062-1",
+    "proposedChangeId": "PC-0200062-1",
+    "catalogId": "VBO:0200062",
+    "name": "Anatolian Shepherd Dog",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0200062/summary (sentence 1)",
+    "actualProfileFile": "data/dogs/profile-refresh-c.json",
+    "currentProfileSha256": "482e2b59ab373e27c908932eb8bd5ecd5e2e20cf886b9a6e62529f795dd0fae2",
+    "evidence": [
+      {
+        "evidenceId": "EV-7e5d5931654a8441",
+        "url": "https://images.akc.org/pdf/breeds/standards/AnatolianShepherdDog.pdf",
+        "path": "private-audit:cache/sources/7e5d5931654a8441.txt",
+        "retainedTextSha256": "c9948e98365b4fc0e1b3826dc2d5b149fe04a985e80c01097632d6d9840023ef"
+      },
+      {
+        "evidenceId": "EV-d9cd1b407b2ef80a",
+        "url": "https://www.akc.org/dog-breeds/anatolian-shepherd-dog/",
+        "path": "private-audit:cache/sources/d9cd1b407b2ef80a.txt",
+        "retainedTextSha256": "300645c31e81610b02463d21f46e935e3a6e3d9cba3221a90b22fd77859e2716"
+      }
+    ],
+    "rationale": "Independently read actual standard and AKC breed-page embedded Training section; claim supported, add missing citation.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-c.json#/profiles/VBO:0200062/sources",
+      "data/dogs/profile-refresh-c.json#/profiles/VBO:0200062/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200121-1",
+    "proposedChangeId": "PC-0200121-1",
+    "catalogId": "VBO:0200121",
+    "name": "Basque Shepherd Dog",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-short-descriptions.json#/descriptions/VBO:0200121",
+    "actualProfileFile": "data/dogs/profile-refresh-b.json",
+    "currentProfileSha256": "4cc64b82ce0bb8d48263ecc5fac606d581b752c77b78e1db01398b7b7f8b17b3",
+    "evidence": [
+      {
+        "evidenceId": "EV-d0ef0aef6c794865",
+        "url": "https://www.rsce.es/images/rsce/RREE/Standards/Standard_Euskal_Artzain_Txakurra_Iletsua_ingles.pdf",
+        "path": "private-audit:cache/sources/d0ef0aef6c794865.txt",
+        "retainedTextSha256": "032a1fbae3733846e862c22b55f2ee1d028bd684eeb311be32ecf6c01692aa6e"
+      },
+      {
+        "evidenceId": "EV-ae2bf850727def6b",
+        "url": "https://www.rsce.es/razas-espanolas-pastor-vasco-gorbeiakoa/",
+        "path": "private-audit:cache/sources/ae2bf850727def6b.txt",
+        "retainedTextSha256": "3056b9973252a62aefacc49c3eaddb02e53fd1cdb6ca4813f188dd9857967598"
+      }
+    ],
+    "rationale": "Parent card now represents both varieties with source-specific scoped traits; no parent/variety merging.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-b.json#/profiles/VBO:0200121/summary",
+      "data/dogs/profile-refresh-b.json#/profiles/VBO:0200121/shortDescription",
+      "data/dogs/profile-refresh-b.json#/profiles/VBO:0200121/sources",
+      "data/dogs/profile-refresh-b.json#/profiles/VBO:0200121/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200695-1",
+    "proposedChangeId": "PC-0200695-1",
+    "catalogId": "VBO:0200695",
+    "name": "Indian Pariah Dog",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0200695/summary (sentence 2)",
+    "actualProfileFile": "data/dogs/profile-refresh-c.json",
+    "currentProfileSha256": "4056753c96ee81a0499f44a2bc270e6bf59f17dd15070aa4f22aec6a181beb7a",
+    "evidence": [
+      {
+        "evidenceId": "EV-4b3e91e5ed76dc99",
+        "url": "https://indog.co.in/",
+        "path": "private-audit:cache/sources/4b3e91e5ed76dc99.txt",
+        "retainedTextSha256": "e4d6fe8406b6538095e1a2551f9d4371142407e61e67ee15f23e99c0eb04aa3b"
+      }
+    ],
+    "rationale": "Replace cattle movement with explicitly documented guarding; scope Gond account.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-c.json#/profiles/VBO:0200695/summary",
+      "data/dogs/profile-refresh-c.json#/profiles/VBO:0200695/shortDescription",
+      "data/dogs/profile-refresh-c.json#/profiles/VBO:0200695/sources",
+      "data/dogs/profile-refresh-c.json#/profiles/VBO:0200695/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200778-1",
+    "proposedChangeId": "PC-0200778-1",
+    "catalogId": "VBO:0200778",
+    "name": "Kombai",
+    "severity": "medium",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0200778/summary (sentence 1)",
+    "actualProfileFile": "data/dogs/profile-refresh-c.json",
+    "currentProfileSha256": "e349a946380dfae45e7c45c60bcb022e4f46245ad493034cb9dc61370e080a6f",
+    "evidence": [
+      {
+        "evidenceId": "EV-db7dfcbd2e4a7fab",
+        "url": "https://www.vetpract.in/themes/uploads/contents/a01b3470a8a22f516251a2af236bf7b9.pdf",
+        "path": "private-audit:cache/sources/db7dfcbd2e4a7fab.txt",
+        "retainedTextSha256": "d5f4b5ad2875303f9298c355701c8e07af6135b0a4aac582b7576c6d39adf78a"
+      }
+    ],
+    "rationale": "Preserve strength and scope of actual survey wording; watchfulness understated the documented observation.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-c.json#/profiles/VBO:0200778/summary",
+      "data/dogs/profile-refresh-c.json#/profiles/VBO:0200778/shortDescription",
+      "data/dogs/profile-refresh-c.json#/profiles/VBO:0200778/sources",
+      "data/dogs/profile-refresh-c.json#/profiles/VBO:0200778/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200004-1",
+    "proposedChangeId": "PC-0200004-1",
+    "catalogId": "VBO:0200004",
+    "name": "Afghan Hound",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-b.json#/profiles/VBO:0200004/summary (sentence 2)",
+    "actualProfileFile": "data/dogs/profile-refresh-b.json",
+    "currentProfileSha256": "75b90c1f780ffb8e0229f0fcfcac2b7974c8d155c09679df68faff3133871836",
+    "evidence": [
+      {
+        "evidenceId": "EV-519716b603c90f42",
+        "url": "https://www.fci.be/Nomenclature/Standards/228g10-en.pdf",
+        "path": "private-audit:cache/sources/519716b603c90f42.txt",
+        "retainedTextSha256": "d38ad107fe1cf86f10df355ee759fe59116424a27f6bb8f299dec453db338784"
+      }
+    ],
+    "rationale": "FCI228 supports mountain origin, chase and Zardin; removes unsourced cognitive explanation.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-b.json#/profiles/VBO:0200004/summary",
+      "data/dogs/profile-refresh-b.json#/profiles/VBO:0200004/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200010-1",
+    "proposedChangeId": "PC-0200010-1",
+    "catalogId": "VBO:0200010",
+    "name": "Akita",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-a.json#/profiles/VBO:0200010/originRegions",
+    "actualProfileFile": "data/dogs/profile-refresh-a.json",
+    "currentProfileSha256": "2221570340873b08ce90c461d6c3dd4724a25af020f160ae5d73990b340cf068",
+    "evidence": [
+      {
+        "evidenceId": "EV-933fed71f4778f74",
+        "url": "https://www.fci.be/Nomenclature/Standards/255g05-en.pdf",
+        "path": "private-audit:cache/sources/933fed71f4778f74.txt",
+        "retainedTextSha256": "0d19f9265c0248371216a9993c5b2d2bb4efef1f6a6af7ad39f4e1bcbc38b421"
+      },
+      {
+        "evidenceId": "EV-LOCAL-WD",
+        "url": null,
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Use exact supported origin under explicit registry attribution; historical geography remains separate.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200010/originRegions",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200010/originBasis",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200010/reviewedAt"
+    ],
+    "recommendations": [
+      {
+        "findingId": "F-0200010-1",
+        "catalogId": "VBO:0200010",
+        "action": "authored_origin",
+        "reason": "Primary registry origin is distinct from historical geography; avoid unioning conflicting Wikidata countries. Canaan and Poodle require explicit registry attribution, not an exclusive historical-origin claim.",
+        "originRegions": [
+          "Japan"
+        ]
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200068-1",
+    "proposedChangeId": "PC-0200068-1",
+    "catalogId": "VBO:0200068",
+    "name": "Appenzeller Sennenhund",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200068/summary (sentence 3)",
+    "actualProfileFile": "data/dogs/profile-refresh-a.json",
+    "currentProfileSha256": "dc9d13bbf2bda5ebfafb0e4f9845b3a273c71be116b2b45e4c6353cdf0a9601c",
+    "evidence": [
+      {
+        "evidenceId": "EV-867ed37b7dc02faf",
+        "url": "https://www.fci.be/Nomenclature/Standards/046g02-en.pdf",
+        "path": "private-audit:cache/sources/867ed37b7dc02faf.txt",
+        "retainedTextSha256": "d31a53d27f57ed72340441809dc7d340a0a81438955633623b06e1e32c5a7ed7"
+      }
+    ],
+    "rationale": "FCI46 supports reserve, reliability and self-assurance, not depth of attachment.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200068/summary",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200068/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200095-1",
+    "proposedChangeId": "PC-0200095-1",
+    "catalogId": "VBO:0200095",
+    "name": "Australian Shepherd",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-a.json#/profiles/VBO:0200095/originRegions",
+    "actualProfileFile": "data/dogs/profile-refresh-a.json",
+    "currentProfileSha256": "6e44adcd06e0c01908f53075167cb05fe980591894a87b8ee4c9af4708f169b0",
+    "evidence": [
+      {
+        "evidenceId": "EV-771fa3f91e61b7b1",
+        "url": "https://www.fci.be/Nomenclature/Standards/342g01-en.pdf",
+        "path": "private-audit:cache/sources/771fa3f91e61b7b1.txt",
+        "retainedTextSha256": "9e44508b9588c347ae11c400bd6205c44f870a26108da3db4580be918eb5276b"
+      },
+      {
+        "evidenceId": "EV-LOCAL-WD",
+        "url": null,
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Use exact supported origin under explicit registry attribution; historical geography remains separate.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200095/originRegions",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200095/originBasis",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200095/reviewedAt"
+    ],
+    "recommendations": [
+      {
+        "findingId": "F-0200095-1",
+        "catalogId": "VBO:0200095",
+        "action": "authored_origin",
+        "reason": "Primary registry origin is distinct from historical geography; avoid unioning conflicting Wikidata countries. Canaan and Poodle require explicit registry attribution, not an exclusive historical-origin claim.",
+        "originRegions": [
+          "United States"
+        ]
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200125-1",
+    "proposedChangeId": "PC-0200125-1",
+    "catalogId": "VBO:0200125",
+    "name": "Basset Fauve de Bretagne",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "rejected_false_positive",
+    "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200125/summary (sentence 2)",
+    "actualProfileFile": "data/dogs/profile-refresh-a.json",
+    "currentProfileSha256": "c0c2b54d4bf436b7dd1cfc7a2c903d03c96429ca475c052319be4d807edb764e",
+    "evidence": [
+      {
+        "evidenceId": "EV-65f244fe5a8d23f0",
+        "url": "https://www.fci.be/Nomenclature/Standards/036g06-en.pdf",
+        "path": "private-audit:cache/sources/65f244fe5a8d23f0.txt",
+        "retainedTextSha256": "c4e2322bf6766cb52e7ea96d33bd3c836627586070cf09e495721247d767dd43"
+      }
+    ],
+    "rationale": "FCI36 General Appearance explicitly describes rapid movement for size, enormous energy and excellent hardiness; the speed/stamina comparison is a reasonable paraphrase, not an invented assertion.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200126-1",
+    "proposedChangeId": "PC-0200126-1",
+    "catalogId": "VBO:0200126",
+    "name": "Basset Hound",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-b.json#/profiles/VBO:0200126/originRegions",
+    "actualProfileFile": "data/dogs/profile-refresh-b.json",
+    "currentProfileSha256": "552b798bfeb58b247c689f8131d1c16cdb962aa84783814d8a7fe7dffd5de671",
+    "evidence": [
+      {
+        "evidenceId": "EV-a58ea6b165eb5a6b",
+        "url": "https://www.fci.be/Nomenclature/Standards/163g06-en.pdf",
+        "path": "private-audit:cache/sources/a58ea6b165eb5a6b.txt",
+        "retainedTextSha256": "426b978c6389600fe8e22999fec38a86ff470e18d128251fe32fa88f21bcfd82"
+      },
+      {
+        "evidenceId": "EV-LOCAL-WD",
+        "url": null,
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Use exact supported origin under explicit registry attribution; historical geography remains separate.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-b.json#/profiles/VBO:0200126/originRegions",
+      "data/dogs/profile-refresh-b.json#/profiles/VBO:0200126/originBasis",
+      "data/dogs/profile-refresh-b.json#/profiles/VBO:0200126/reviewedAt"
+    ],
+    "recommendations": [
+      {
+        "findingId": "F-0200126-1",
+        "catalogId": "VBO:0200126",
+        "action": "authored_origin",
+        "reason": "Primary registry origin is distinct from historical geography; avoid unioning conflicting Wikidata countries. Canaan and Poodle require explicit registry attribution, not an exclusive historical-origin claim.",
+        "originRegions": [
+          "United Kingdom"
+        ]
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200234-1",
+    "proposedChangeId": "PC-0200234-1",
+    "catalogId": "VBO:0200234",
+    "name": "Briard",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200234/interestingFact",
+    "actualProfileFile": "data/dogs/profile-refresh-a.json",
+    "currentProfileSha256": "0fa6563c03fa0ec9828e55fc83ac7f54f8795deed80334ca76f9ecd71d31855c",
+    "evidence": [
+      {
+        "evidenceId": "EV-54c33f6e39fb31b1",
+        "url": "https://www.fci.be/Nomenclature/Standards/113g01-en.pdf",
+        "path": "private-audit:cache/sources/54c33f6e39fb31b1.txt",
+        "retainedTextSha256": "ce1d3388ec7d7f221b2dbb031de4941798196975497882e54d3ec7a83ab1c8af"
+      }
+    ],
+    "rationale": "Remove duplicate wartime callout and unsupported carrying-supplies claim; summary retains documented army role.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200234/interestingFact",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200234/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200274-1",
+    "proposedChangeId": "PC-0200274-1",
+    "catalogId": "VBO:0200274",
+    "name": "Canaan Dog",
+    "severity": "medium",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-a.json#/profiles/VBO:0200274/originRegions",
+    "actualProfileFile": "data/dogs/profile-refresh-a.json",
+    "currentProfileSha256": "842a230f847bcd10a4e23aad19be6096136a9a0079e8d09102b4d0beb143f503",
+    "evidence": [
+      {
+        "evidenceId": "EV-7872ff72d6b24e14",
+        "url": "https://www.fci.be/Nomenclature/Standards/273g05-en.pdf",
+        "path": "private-audit:cache/sources/7872ff72d6b24e14.txt",
+        "retainedTextSha256": "067c6047244a958d889d6bd3f205ac48ee21ab154a2d7824d9156ef88de2ee92"
+      },
+      {
+        "evidenceId": "EV-LOCAL-WD",
+        "url": null,
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Use exact supported origin under explicit registry attribution; historical geography remains separate.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200274/originRegions",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200274/originBasis",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200274/reviewedAt"
+    ],
+    "recommendations": [
+      {
+        "findingId": "F-0200274-1",
+        "catalogId": "VBO:0200274",
+        "action": "authored_origin",
+        "reason": "Primary registry origin is distinct from historical geography; avoid unioning conflicting Wikidata countries. Canaan and Poodle require explicit registry attribution, not an exclusive historical-origin claim.",
+        "originRegions": [
+          "Israel"
+        ]
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200427-1",
+    "proposedChangeId": "PC-0200427-1",
+    "catalogId": "VBO:0200427",
+    "name": "Dalmatian",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-b.json#/profiles/VBO:0200427/summary (sentence 3)",
+    "actualProfileFile": "data/dogs/profile-refresh-b.json",
+    "currentProfileSha256": "a698c1e04189de4d052fb337061e47d406c678066c74b9b9217f059948885da4",
+    "evidence": [
+      {
+        "evidenceId": "EV-d991333ada0c7411",
+        "url": "https://www.fci.be/Nomenclature/Standards/153g06-en.pdf",
+        "path": "private-audit:cache/sources/d991333ada0c7411.txt",
+        "retainedTextSha256": "e12362fdeaadeda59b5c7170ce4150019487dc88143372674c92829c9f3b0513"
+      }
+    ],
+    "rationale": "FCI153 dates art 1600–1630 and chronicles 1719/1737; correct century scope.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-b.json#/profiles/VBO:0200427/summary",
+      "data/dogs/profile-refresh-b.json#/profiles/VBO:0200427/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200454-1",
+    "proposedChangeId": "PC-0200454-1",
+    "catalogId": "VBO:0200454",
+    "name": "Drever",
+    "severity": "medium",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200454/summary (sentence 2)",
+    "actualProfileFile": "data/dogs/profile-refresh-a.json",
+    "currentProfileSha256": "a81076eb84b2616f08401d7bc2a45252ed9a36982dd2439212eac81f773a0f4c",
+    "evidence": [
+      {
+        "evidenceId": "EV-528ee53b008fab13",
+        "url": "https://www.fci.be/Nomenclature/Standards/130g06-en.pdf",
+        "path": "private-audit:cache/sources/528ee53b008fab13.txt",
+        "retainedTextSha256": "a4a7bc283b79ed25a4f1d0ae2b1291d6b7e23f6133c28f22277bcebb493c8ee7"
+      }
+    ],
+    "rationale": "Remove inferred foot-hunting technique; retain exact documented role and character.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200454/summary",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200454/shortDescription",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200454/sources",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200454/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200509-1",
+    "proposedChangeId": "PC-0200509-1",
+    "catalogId": "VBO:0200509",
+    "name": "Estrela Mountain Dog",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200509/interestingFact",
+    "actualProfileFile": "data/dogs/profile-refresh-a.json",
+    "currentProfileSha256": "9e984018d3012ca00d177ab28da50a2e70147031d8f5ad8eff3f95a55a14cb65",
+    "evidence": [
+      {
+        "evidenceId": "EV-7a2a4874e0329031",
+        "url": "https://www.fci.be/Nomenclature/Standards/173g02-en.pdf",
+        "path": "private-audit:cache/sources/7a2a4874e0329031.txt",
+        "retainedTextSha256": "eccbfd93a82b495ec72e112e9069070b92c9dbd326571cb162f8379e1968fb87"
+      }
+    ],
+    "rationale": "Optional altitude fact is regional geography and adds no distinct insight about this dog.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200509/interestingFact",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200509/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200520-1",
+    "proposedChangeId": "PC-0200520-1",
+    "catalogId": "VBO:0200520",
+    "name": "Fila Brasileiro",
+    "severity": "medium",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200520/summary (sentence 1)",
+    "actualProfileFile": "data/dogs/profile-refresh-a.json",
+    "currentProfileSha256": "cc6d121e65875abe5c99b31f42a3d524090e3048f3715664ce78aed37a4dd9dc",
+    "evidence": [
+      {
+        "evidenceId": "EV-c61596c74c5dd949",
+        "url": "https://www.fci.be/Nomenclature/Standards/225g02-en.pdf",
+        "path": "private-audit:cache/sources/c61596c74c5dd949.txt",
+        "retainedTextSha256": "c3cd85e1f83363cbeb0c8afc7ffc580be999bcdd68238fd567ef64e1bce7657f"
+      }
+    ],
+    "rationale": "Correct actual contrast in standard rather than softening stranger behavior or asserting environmental reactivity.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200520/summary",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200520/shortDescription",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200520/sources",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200520/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200629-1",
+    "proposedChangeId": "PC-0200629-1",
+    "catalogId": "VBO:0200629",
+    "name": "Great Pyrenees",
+    "severity": "medium",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-b.json#/profiles/VBO:0200629/originRegions",
+    "actualProfileFile": "data/dogs/profile-refresh-b.json",
+    "currentProfileSha256": "be870a7e2c7c26e914bb6477134f5fe22496040a899ead628cac69af71e2ca74",
+    "evidence": [
+      {
+        "evidenceId": "EV-ef92fd932934dcc1",
+        "url": "https://www.fci.be/Nomenclature/Standards/137g02-en.pdf",
+        "path": "private-audit:cache/sources/ef92fd932934dcc1.txt",
+        "retainedTextSha256": "78c1da3f711a8a73650afe1ab47357d6dc5f9ba215df974ff5cd36d021ca2618"
+      },
+      {
+        "evidenceId": "EV-LOCAL-WD",
+        "url": null,
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Use exact supported origin under explicit registry attribution; historical geography remains separate.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-b.json#/profiles/VBO:0200629/originRegions",
+      "data/dogs/profile-refresh-b.json#/profiles/VBO:0200629/originBasis",
+      "data/dogs/profile-refresh-b.json#/profiles/VBO:0200629/reviewedAt"
+    ],
+    "recommendations": [
+      {
+        "findingId": "F-0200629-1",
+        "catalogId": "VBO:0200629",
+        "action": "authored_origin",
+        "reason": "Primary registry origin is distinct from historical geography; avoid unioning conflicting Wikidata countries. Canaan and Poodle require explicit registry attribution, not an exclusive historical-origin claim.",
+        "originRegions": [
+          "France"
+        ]
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200638-1",
+    "proposedChangeId": "PC-0200638-1",
+    "catalogId": "VBO:0200638",
+    "name": "Greyhound",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-b.json#/profiles/VBO:0200638/summary (sentence 3)",
+    "actualProfileFile": "data/dogs/profile-refresh-b.json",
+    "currentProfileSha256": "a1ca3c779467426357fe2eddfc8e2fcbf9e4b6eca61a09f90ab8b8162a2f85b7",
+    "evidence": [
+      {
+        "evidenceId": "EV-47d4f2660e4b52a0",
+        "url": "https://www.fci.be/Nomenclature/Standards/158g10-en.pdf",
+        "path": "private-audit:cache/sources/47d4f2660e4b52a0.txt",
+        "retainedTextSha256": "150c3f74de85663177f4ac578ab1cab21666dec6a803de9796c5d73c8b5a2220"
+      }
+    ],
+    "rationale": "Remove unsupported decision-making claim; preserve documented character and coursing/racing history.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-b.json#/profiles/VBO:0200638/summary",
+      "data/dogs/profile-refresh-b.json#/profiles/VBO:0200638/shortDescription",
+      "data/dogs/profile-refresh-b.json#/profiles/VBO:0200638/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200836-1",
+    "proposedChangeId": "PC-0200836-1",
+    "catalogId": "VBO:0200836",
+    "name": "Lowchen",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-c.json#/profiles/VBO:0200836/originRegions",
+    "actualProfileFile": "data/dogs/profile-refresh-c.json",
+    "currentProfileSha256": "80aacf93ea6e0029338d011e3716c85790eb9865e51f89be01a07fa02562203d",
+    "evidence": [
+      {
+        "evidenceId": "EV-4825354865220fdc",
+        "url": "https://www.fci.be/Nomenclature/Standards/233g09-en.pdf",
+        "path": "private-audit:cache/sources/4825354865220fdc.txt",
+        "retainedTextSha256": "cb63ce1a46f622f80ee0ec038159973dd0001a48715bf1a2560e785b5e004c5f"
+      },
+      {
+        "evidenceId": "EV-LOCAL-WD",
+        "url": null,
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Use exact supported origin under explicit registry attribution; historical geography remains separate.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-c.json#/profiles/VBO:0200836/originRegions",
+      "data/dogs/profile-refresh-c.json#/profiles/VBO:0200836/originBasis",
+      "data/dogs/profile-refresh-c.json#/profiles/VBO:0200836/reviewedAt"
+    ],
+    "recommendations": [
+      {
+        "findingId": "F-0200836-1",
+        "catalogId": "VBO:0200836",
+        "action": "authored_origin",
+        "reason": "Primary registry origin is distinct from historical geography; avoid unioning conflicting Wikidata countries. Canaan and Poodle require explicit registry attribution, not an exclusive historical-origin claim.",
+        "originRegions": [
+          "France"
+        ]
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200896-1",
+    "proposedChangeId": "PC-0200896-1",
+    "catalogId": "VBO:0200896",
+    "name": "Miniature Schnauzer",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "scripts/dog-profiles-lib.mjs dogTypeLabel() <- data/dogs/dog-catalog.json#/entities[id=VBO:0200896]/status and editorialFamilies",
+    "actualProfileFile": "data/dogs/profile-refresh-c.json",
+    "currentProfileSha256": "558ca0a1f31b5c17ce4db20afb6cf911f1c7b3e2aed679b1f274d70ac08268fe",
+    "evidence": [
+      {
+        "evidenceId": "EV-71e95a2aac567266",
+        "url": "https://www.fci.be/Nomenclature/Standards/183g02-en.pdf",
+        "path": "private-audit:cache/sources/71e95a2aac567266.txt",
+        "retainedTextSha256": "237e48ec72693b0ad622a6e10d1c6e77ad4d894910acfcc9e14a6aa822ed3da3"
+      }
+    ],
+    "rationale": "Registry grouping differs: AKC Terrier, FCI Pinscher/Schnauzer. Use semantic schnauzer/pinscher family and explain registry scope; do not declare one registry wrong.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200896-1",
+        "catalogId": "VBO:0200896",
+        "action": "family_policy",
+        "reason": "Registry grouping differs: AKC Terrier, FCI Pinscher/Schnauzer. Use semantic schnauzer/pinscher family and explain registry scope; do not declare one registry wrong.",
+        "editorialFamilies": [
+          "pinscher and schnauzer"
+        ]
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200896-2",
+    "proposedChangeId": "PC-0200896-2",
+    "catalogId": "VBO:0200896",
+    "name": "Miniature Schnauzer",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0200896/summary (sentence 2)",
+    "actualProfileFile": "data/dogs/profile-refresh-c.json",
+    "currentProfileSha256": "558ca0a1f31b5c17ce4db20afb6cf911f1c7b3e2aed679b1f274d70ac08268fe",
+    "evidence": [
+      {
+        "evidenceId": "EV-71e95a2aac567266",
+        "url": "https://www.fci.be/Nomenclature/Standards/183g02-en.pdf",
+        "path": "private-audit:cache/sources/71e95a2aac567266.txt",
+        "retainedTextSha256": "237e48ec72693b0ad622a6e10d1c6e77ad4d894910acfcc9e14a6aa822ed3da3"
+      },
+      {
+        "evidenceId": "EV-7b7bf7cec45b67bb",
+        "url": "https://www.akc.org/expert-advice/dog-breeds/miniature-schnauzer-history/",
+        "path": "private-audit:cache/sources/7b7bf7cec45b67bb.txt",
+        "retainedTextSha256": "735f8711e70eb5eb8e12a1f492fa5e3155c1abece51506802f99a40506f12918"
+      }
+    ],
+    "rationale": "Add actual source supporting retained farm-ratting history.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-c.json#/profiles/VBO:0200896/sources",
+      "data/dogs/profile-refresh-c.json#/profiles/VBO:0200896/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200930-1",
+    "proposedChangeId": "PC-0200930-1",
+    "catalogId": "VBO:0200930",
+    "name": "Neapolitan Mastiff",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-a.json#/profiles/VBO:0200930/originRegions",
+    "actualProfileFile": "data/dogs/profile-refresh-a.json",
+    "currentProfileSha256": "a37376a04fbb660c7f78d42f718b1386b541dff38571ba9ee7db9fe8f0948cfd",
+    "evidence": [
+      {
+        "evidenceId": "EV-21e6a0ae191c1b21",
+        "url": "https://www.fci.be/Nomenclature/Standards/197g02-en.pdf",
+        "path": "private-audit:cache/sources/21e6a0ae191c1b21.txt",
+        "retainedTextSha256": "0c2d83968cba2522f3ca178df333334f3a8a13edc248c1352398619ea2a6499f"
+      },
+      {
+        "evidenceId": "EV-LOCAL-WD",
+        "url": null,
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Use exact supported origin under explicit registry attribution; historical geography remains separate.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200930/originRegions",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200930/originBasis",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200930/reviewedAt"
+    ],
+    "recommendations": [
+      {
+        "findingId": "F-0200930-1",
+        "catalogId": "VBO:0200930",
+        "action": "authored_origin",
+        "reason": "Primary registry origin is distinct from historical geography; avoid unioning conflicting Wikidata countries. Canaan and Poodle require explicit registry attribution, not an exclusive historical-origin claim.",
+        "originRegions": [
+          "Italy"
+        ]
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200945-1",
+    "proposedChangeId": "PC-0200945-1",
+    "catalogId": "VBO:0200945",
+    "name": "Norfolk Terrier",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200945/summary (sentence 2)",
+    "actualProfileFile": "data/dogs/profile-refresh-a.json",
+    "currentProfileSha256": "bed338e8ee786585d13c68c3243965fa7f0aa3cd8f85f8851bcc4632c0737f75",
+    "evidence": [
+      {
+        "evidenceId": "EV-2e66bf8c1bcd8136",
+        "url": "https://www.fci.be/Nomenclature/Standards/272g03-en.pdf",
+        "path": "private-audit:cache/sources/2e66bf8c1bcd8136.txt",
+        "retainedTextSha256": "6beea6228eeb08ab2e8b3982cce4bd676f422b3b16b935b33a732854f6efcc55"
+      }
+    ],
+    "rationale": "Replace unsourced traditional-saying attribution with distinct documented shared history; no need to quote colorful standard phrase.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200945/summary",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200945/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200969-1",
+    "proposedChangeId": "PC-0200969-1",
+    "catalogId": "VBO:0200969",
+    "name": "Old English Sheepdog",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200969/summary (sentence 2)",
+    "actualProfileFile": "data/dogs/profile-refresh-a.json",
+    "currentProfileSha256": "0dd0349c98b57b8f26169f698cc2ae4d54e71cda2d120b4305dbee8fe633874b",
+    "evidence": [
+      {
+        "evidenceId": "EV-2b37ae7064873e6f",
+        "url": "https://www.fci.be/Nomenclature/Standards/016g01-en.pdf",
+        "path": "private-audit:cache/sources/2b37ae7064873e6f.txt",
+        "retainedTextSha256": "3f0a7994a50b039283eb3eedec7b9ae8aa2333964fe3500ab354d9c56b584c01"
+      }
+    ],
+    "rationale": "Optional depth improvement accepted: actual FCI16 supports country friendliness, resonant alarm bark and Bob-Tail name.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200969/summary",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200969/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0201016-1",
+    "proposedChangeId": "PC-0201016-1",
+    "catalogId": "VBO:0201016",
+    "name": "Pharaoh Hound",
+    "severity": "medium",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-c.json#/profiles/VBO:0201016/originRegions",
+    "actualProfileFile": "data/dogs/profile-refresh-c.json",
+    "currentProfileSha256": "b09ec59b30039cd51566018b8ae28a95d6966cf5d2613bd08c5340a2eba94f61",
+    "evidence": [
+      {
+        "evidenceId": "EV-3d72c1c3636f2876",
+        "url": "https://www.fci.be/Nomenclature/Standards/248g05-en.pdf",
+        "path": "private-audit:cache/sources/3d72c1c3636f2876.txt",
+        "retainedTextSha256": "1ef3a6d5072e92bb0a25bda88d6bae2ce97b91beaa58bb906eaf260794f77ee2"
+      },
+      {
+        "evidenceId": "EV-LOCAL-WD",
+        "url": null,
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Use exact supported origin under explicit registry attribution; historical geography remains separate.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-c.json#/profiles/VBO:0201016/originRegions",
+      "data/dogs/profile-refresh-c.json#/profiles/VBO:0201016/originBasis",
+      "data/dogs/profile-refresh-c.json#/profiles/VBO:0201016/reviewedAt"
+    ],
+    "recommendations": [
+      {
+        "findingId": "F-0201016-1",
+        "catalogId": "VBO:0201016",
+        "action": "authored_origin",
+        "reason": "Primary registry origin is distinct from historical geography; avoid unioning conflicting Wikidata countries. Canaan and Poodle require explicit registry attribution, not an exclusive historical-origin claim.",
+        "originRegions": [
+          "Malta"
+        ]
+      }
+    ]
+  },
+  {
+    "findingId": "F-0201296-1",
+    "proposedChangeId": "PC-0201296-1",
+    "catalogId": "VBO:0201296",
+    "name": "Staffordshire Bull Terrier",
+    "severity": "medium",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/dog-catalog.json#/entities[id=VBO:0201296]/aliases",
+    "actualProfileFile": "data/dogs/profile-refresh-c.json",
+    "currentProfileSha256": "f5b0d64543548aec1618b0bbf11b9783b98a7027985c1831970ce24794238d99",
+    "evidence": [
+      {
+        "evidenceId": "EV-b336a285b09dedf6",
+        "url": "https://www.akc.org/expert-advice/dog-breeds/meet-bully-breeds/",
+        "path": "private-audit:cache/sources/b336a285b09dedf6.txt",
+        "retainedTextSha256": "4df761e5b39b8531db014137f135bd5c49f2a5dd733bbd77a88ebaf4e759669f"
+      },
+      {
+        "evidenceId": "EV-LOCAL-VBO",
+        "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Safety reassurance is not appropriate displayed endorsement; retain search-only synonym if explicit policy supports it.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0201296-1",
+        "catalogId": "VBO:0201296",
+        "action": "remove_display_alias",
+        "reason": "Safety reassurance is not appropriate displayed endorsement; retain search-only synonym if explicit policy supports it.",
+        "value": "Nanny Dog"
+      }
+    ]
+  },
+  {
+    "findingId": "F-0201356-1",
+    "proposedChangeId": "PC-0201356-1",
+    "catalogId": "VBO:0201356",
+    "name": "Tornjak",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-a.json#/profiles/VBO:0201356/originRegions",
+    "actualProfileFile": "data/dogs/profile-refresh-a.json",
+    "currentProfileSha256": "d1972ab27b8dbeec6de3e2534601b61837485f96d820f936b52220b2bfeb3598",
+    "evidence": [
+      {
+        "evidenceId": "EV-c24861dc32ed088e",
+        "url": "https://www.fci.be/Nomenclature/Standards/355g02-en.pdf",
+        "path": "private-audit:cache/sources/c24861dc32ed088e.txt",
+        "retainedTextSha256": "360ceb76b8f3c09e97a5bfff49b28fe2bc504c22f9cf533004619acc25c91ab2"
+      },
+      {
+        "evidenceId": "EV-LOCAL-WD",
+        "url": null,
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Use exact supported origin under explicit registry attribution; historical geography remains separate.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0201356/originRegions",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0201356/originBasis",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0201356/reviewedAt"
+    ],
+    "recommendations": [
+      {
+        "findingId": "F-0201356-1",
+        "catalogId": "VBO:0201356",
+        "action": "authored_origin",
+        "reason": "Primary registry origin is distinct from historical geography; avoid unioning conflicting Wikidata countries. Canaan and Poodle require explicit registry attribution, not an exclusive historical-origin claim.",
+        "originRegions": [
+          "Bosnia and Herzegovina",
+          "Croatia"
+        ]
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200339-1",
+    "proposedChangeId": "PC-0200339-1",
+    "catalogId": "VBO:0200339",
+    "name": "Chihuahua, Long-Haired",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-f.json#/profiles/VBO:0200339/sizeBand",
+    "actualProfileFile": "data/dogs/profile-refresh-f.json",
+    "currentProfileSha256": "7832504225e819a66099686fb0d4654f613b6cadf2d1cc59885eb4ff01612651",
+    "evidence": [
+      {
+        "evidenceId": "EV-801e92c1da05b69d",
+        "url": "https://fci.be/Nomenclature/Standards/218g09-en.pdf",
+        "path": "private-audit:cache/sources/801e92c1da05b69d.txt",
+        "retainedTextSha256": "862f16fc42387e2a4c58fa9dd7af49be1f3566803842e8555e14b836bd3017a8"
+      }
+    ],
+    "rationale": "Measurements independently re-read; use documented editorial size semantics and align shared-standard coat siblings. Proposed band is subject to final central policy.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200339-1",
+        "catalogId": "VBO:0200339",
+        "action": "size_policy_consistency",
+        "reason": "Measurements independently re-read; use documented editorial size semantics and align shared-standard coat siblings. Proposed band is subject to final central policy.",
+        "sizeBand": "toy"
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200346-1",
+    "proposedChangeId": "PC-0200346-1",
+    "catalogId": "VBO:0200346",
+    "name": "Chinese Crested, Hairless",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-f.json#/profiles/VBO:0200346/sizeBand",
+    "actualProfileFile": "data/dogs/profile-refresh-f.json",
+    "currentProfileSha256": "95c8341281924a3efca6bb9950d6b7880726c4eaaf71104dfa71b1ba5ffde2d7",
+    "evidence": [
+      {
+        "evidenceId": "EV-bf56162440c15e3c",
+        "url": "https://fci.be/Nomenclature/Standards/288g09-en.pdf",
+        "path": "private-audit:cache/sources/bf56162440c15e3c.txt",
+        "retainedTextSha256": "c78e1fbc7bc023bd7180efb6032d8907a2a97fa6f0c50a1f9adc9e08c7c67ae2"
+      }
+    ],
+    "rationale": "Measurements independently re-read; use documented editorial size semantics and align shared-standard coat siblings. Proposed band is subject to final central policy.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200346-1",
+        "catalogId": "VBO:0200346",
+        "action": "size_policy_consistency",
+        "reason": "Measurements independently re-read; use documented editorial size semantics and align shared-standard coat siblings. Proposed band is subject to final central policy.",
+        "sizeBand": "toy"
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200347-1",
+    "proposedChangeId": "PC-0200347-1",
+    "catalogId": "VBO:0200347",
+    "name": "Chinese Crested, Powder Puff",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-f.json#/profiles/VBO:0200347/sizeBand",
+    "actualProfileFile": "data/dogs/profile-refresh-f.json",
+    "currentProfileSha256": "93e82a2261873036e4d2ed3d7d0bdd8fee59e6660079c93fe8e36ce4be84fce7",
+    "evidence": [
+      {
+        "evidenceId": "EV-a199d9f69108d705",
+        "url": "https://www.fci.be/Nomenclature/Standards/288g09-en.pdf",
+        "path": "private-audit:cache/sources/a199d9f69108d705.txt",
+        "retainedTextSha256": "c78e1fbc7bc023bd7180efb6032d8907a2a97fa6f0c50a1f9adc9e08c7c67ae2"
+      }
+    ],
+    "rationale": "Measurements independently re-read; use documented editorial size semantics and align shared-standard coat siblings. Proposed band is subject to final central policy.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200347-1",
+        "catalogId": "VBO:0200347",
+        "action": "size_policy_consistency",
+        "reason": "Measurements independently re-read; use documented editorial size semantics and align shared-standard coat siblings. Proposed band is subject to final central policy.",
+        "sizeBand": "toy"
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200464-1",
+    "proposedChangeId": "PC-0200464-1",
+    "catalogId": "VBO:0200464",
+    "name": "Dutch Shepherd Dog, Long-Haired",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-f02.json#/profiles/VBO:0200464/sizeBand",
+    "actualProfileFile": "data/dogs/profile-refresh-f02.json",
+    "currentProfileSha256": "1737478abe6721a42e91432b8376494fa8cae6f282aebec699374d76515d0c23",
+    "evidence": [
+      {
+        "evidenceId": "EV-637b38498cb83637",
+        "url": "https://www.fci.be/Nomenclature/Standards/223g01-en.pdf",
+        "path": "private-audit:cache/sources/637b38498cb83637.txt",
+        "retainedTextSha256": "e943234ac962205cc0d59c8f3663cb772136742d93e30c891164ebfcae6d07eb"
+      }
+    ],
+    "rationale": "Measurements independently re-read; use documented editorial size semantics and align shared-standard coat siblings. Proposed band is subject to final central policy.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200464-1",
+        "catalogId": "VBO:0200464",
+        "action": "size_policy_consistency",
+        "reason": "Measurements independently re-read; use documented editorial size semantics and align shared-standard coat siblings. Proposed band is subject to final central policy.",
+        "sizeBand": "medium"
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200464-2",
+    "proposedChangeId": "PC-0200464-2",
+    "catalogId": "VBO:0200464",
+    "name": "Dutch Shepherd Dog, Long-Haired",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-f02.json#/profiles/VBO:0200464/editorialFamilies + data/dogs/packs.json",
+    "actualProfileFile": "data/dogs/profile-refresh-f02.json",
+    "currentProfileSha256": "1737478abe6721a42e91432b8376494fa8cae6f282aebec699374d76515d0c23",
+    "evidence": [
+      {
+        "evidenceId": "EV-637b38498cb83637",
+        "url": "https://www.fci.be/Nomenclature/Standards/223g01-en.pdf",
+        "path": "private-audit:cache/sources/637b38498cb83637.txt",
+        "retainedTextSha256": "e943234ac962205cc0d59c8f3663cb772136742d93e30c891164ebfcae6d07eb"
+      }
+    ],
+    "rationale": "Long-hair variety is identity metadata, not a separate taste family. Use same herding family as siblings.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200464-2",
+        "catalogId": "VBO:0200464",
+        "action": "family_policy",
+        "reason": "Long-hair variety is identity metadata, not a separate taste family. Use same herding family as siblings.",
+        "editorialFamilies": [
+          "herding dog"
+        ]
+      }
+    ]
+  },
+  {
+    "findingId": "F-0201019-1",
+    "proposedChangeId": "PC-0201019-1",
+    "catalogId": "VBO:0201019",
+    "name": "Picardy Spaniel",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "rejected_false_positive",
+    "authoringPointer": "data/dogs/profile-refresh-f02.json#/profiles/VBO:0201019/summary (sentence 3)",
+    "actualProfileFile": "data/dogs/profile-refresh-f02.json",
+    "currentProfileSha256": "c23ea8b0c86a60845064e4cff33a6766a0e78677280b97d2696414aa0880df5d",
+    "evidence": [
+      {
+        "evidenceId": "EV-493993d2a219d2d7",
+        "url": "https://www.fci.be/Nomenclature/Standards/108g07-en.pdf",
+        "path": "private-audit:cache/sources/493993d2a219d2d7.txt",
+        "retainedTextSha256": "ceccae102add91f6185084437cedb131f6ef4b1b9e481bdd6a56a788a290971a"
+      },
+      {
+        "evidenceId": "EV-f905e1c8ecde5932",
+        "url": "https://ceppa.fr/epagneul-picard/",
+        "path": "private-audit:cache/sources/f905e1c8ecde5932.txt",
+        "retainedTextSha256": "6252f946f5ee860a64f0debcc8b55598e9931dd38c00ba70675432ce2f90f516"
+      }
+    ],
+    "rationale": "FCI108 revised 2023 explicitly states renewed interest and hunters rediscovering the breed. Existing sentence directly matches source.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0201023-1",
+    "proposedChangeId": "PC-0201023-1",
+    "catalogId": "VBO:0201023",
+    "name": "Plott Hound",
+    "severity": "medium",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-f03.json#/profiles/VBO:0201023/originRegions",
+    "actualProfileFile": "data/dogs/profile-refresh-f03.json",
+    "currentProfileSha256": "7634980074a2ae92a18f989a1a878ab7b047b1124e5bce68d9ecc3907cb91d68",
+    "evidence": [
+      {
+        "evidenceId": "EV-ead94e7766781e6b",
+        "url": "https://www.akc.org/expert-advice/dog-breeds/plott-hound-history-behind-breed/",
+        "path": "private-audit:cache/sources/ead94e7766781e6b.txt",
+        "retainedTextSha256": "02cfe9acb2c38e9faa274ad24d1345b7a0cd3d9c49a71d62a868f1db58821250"
+      },
+      {
+        "evidenceId": "EV-LOCAL-WD",
+        "url": null,
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Use exact supported origin under explicit registry attribution; historical geography remains separate.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-f03.json#/profiles/VBO:0201023/originRegions",
+      "data/dogs/profile-refresh-f03.json#/profiles/VBO:0201023/reviewedAt"
+    ],
+    "recommendations": [
+      {
+        "findingId": "F-0201023-1",
+        "catalogId": "VBO:0201023",
+        "action": "authored_origin",
+        "reason": "Primary registry origin is distinct from historical geography; avoid unioning conflicting Wikidata countries. Canaan and Poodle require explicit registry attribution, not an exclusive historical-origin claim.",
+        "originRegions": [
+          "United States"
+        ]
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200482-1",
+    "proposedChangeId": "PC-0200482-1",
+    "catalogId": "VBO:0200482",
+    "name": "English Bull Terrier, Coloured",
+    "severity": "medium",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "scripts/dog-profiles-lib.mjs dogTypeLabel() <- data/dogs/dog-catalog.json#/entities[id=VBO:0200482]/status and editorialFamilies",
+    "actualProfileFile": "data/dogs/profile-refresh-i02.json",
+    "currentProfileSha256": "8c6a2b333150dfd334281c6f9a50a4de9b2fc4b9d779d104440e502cb3fec276",
+    "evidence": [
+      {
+        "evidenceId": "EV-1f79b1aaabd58de4",
+        "url": "https://www.fci.be/nomenclature/standards/011g03-en.pdf",
+        "path": "private-audit:cache/sources/1f79b1aaabd58de4.txt",
+        "retainedTextSha256": "1d0566899d3c5d333bf73b67637aa067e95c0b791fb73c10e630b36e70cbb568"
+      },
+      {
+        "evidenceId": "EV-LOCAL-VBO",
+        "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Actual exact-identity primary evidence supports coat variety, traditional working type or named cross as specified; retain stable IDs and existing user data.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200482-1",
+        "catalogId": "VBO:0200482",
+        "action": "classification",
+        "reason": "Actual exact-identity primary evidence supports coat variety, traditional working type or named cross as specified; retain stable IDs and existing user data.",
+        "status": "variety",
+        "parentId": "VBO:0200255"
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200483-1",
+    "proposedChangeId": "PC-0200483-1",
+    "catalogId": "VBO:0200483",
+    "name": "English Bull Terrier, White",
+    "severity": "medium",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "scripts/dog-profiles-lib.mjs dogTypeLabel() <- data/dogs/dog-catalog.json#/entities[id=VBO:0200483]/status and editorialFamilies",
+    "actualProfileFile": "data/dogs/profile-refresh-i02.json",
+    "currentProfileSha256": "60861a6264ca2b02a5a9993097592d75ada56f2fb9604bf3a44427243d13cdc7",
+    "evidence": [
+      {
+        "evidenceId": "EV-1f79b1aaabd58de4",
+        "url": "https://www.fci.be/nomenclature/standards/011g03-en.pdf",
+        "path": "private-audit:cache/sources/1f79b1aaabd58de4.txt",
+        "retainedTextSha256": "1d0566899d3c5d333bf73b67637aa067e95c0b791fb73c10e630b36e70cbb568"
+      },
+      {
+        "evidenceId": "EV-LOCAL-VBO",
+        "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Actual exact-identity primary evidence supports coat variety, traditional working type or named cross as specified; retain stable IDs and existing user data.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200483-1",
+        "catalogId": "VBO:0200483",
+        "action": "classification",
+        "reason": "Actual exact-identity primary evidence supports coat variety, traditional working type or named cross as specified; retain stable IDs and existing user data.",
+        "status": "variety",
+        "parentId": "VBO:0200255"
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200576-1",
+    "proposedChangeId": "PC-0200576-1",
+    "catalogId": "VBO:0200576",
+    "name": "German Sheeppoodle",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "scripts/dog-profiles-lib.mjs dogTypeLabel() <- data/dogs/dog-catalog.json#/entities[id=VBO:0200576]/status and editorialFamilies",
+    "actualProfileFile": "data/dogs/profile-refresh-j01.json",
+    "currentProfileSha256": "e16b4211eec39d5329c3c6d60d7241f25156ca68067236cfd980d0d512d1a355",
+    "evidence": [
+      {
+        "evidenceId": "EV-ce82c12de01de579",
+        "url": "https://www.g-e-h.de/images/stories/rassebeschreib/hund/schaf-%20oder%20huetepudel.pdf",
+        "path": "private-audit:cache/sources/ce82c12de01de579.txt",
+        "retainedTextSha256": "93a19b79483357d2d1ffb02ec88fe250ef6a6825a99867c0e9f39d3caf77ac8d"
+      },
+      {
+        "evidenceId": "EV-LOCAL-VBO",
+        "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Actual exact-identity primary evidence supports coat variety, traditional working type or named cross as specified; retain stable IDs and existing user data.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200576-1",
+        "catalogId": "VBO:0200576",
+        "action": "classification",
+        "reason": "Actual exact-identity primary evidence supports coat variety, traditional working type or named cross as specified; retain stable IDs and existing user data.",
+        "status": "canonical",
+        "parentId": null
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200297-1",
+    "proposedChangeId": "PC-0200297-1",
+    "catalogId": "VBO:0200297",
+    "name": "Catahoula Bulldog",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "scripts/dog-profiles-lib.mjs dogTypeLabel() <- data/dogs/dog-catalog.json#/entities[id=VBO:0200297]/status and editorialFamilies",
+    "actualProfileFile": "data/dogs/profile-refresh-j01.json",
+    "currentProfileSha256": "8a70d06a5fca2e9fa0bae1683d2f36f51718f95dc061b77ef4d450e934e45b9e",
+    "evidence": [
+      {
+        "evidenceId": "EV-d4e7d868089a6564",
+        "url": "https://www.cpryourdog.com/breed_standards.php?bid=108",
+        "path": "private-audit:cache/sources/d4e7d868089a6564.txt",
+        "retainedTextSha256": "a1b28d850896b2cf46b13a509c32346a01afcfa372184b3ac7d6e70754f19cd5"
+      },
+      {
+        "evidenceId": "EV-LOCAL-VBO",
+        "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Actual exact-identity primary evidence supports coat variety, traditional working type or named cross as specified; retain stable IDs and existing user data.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200297-1",
+        "catalogId": "VBO:0200297",
+        "action": "classification",
+        "reason": "Actual exact-identity primary evidence supports coat variety, traditional working type or named cross as specified; retain stable IDs and existing user data.",
+        "status": "crossbreed",
+        "parentId": "VBO:0200902"
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200907-1",
+    "proposedChangeId": "PC-0200907-1",
+    "catalogId": "VBO:0200907",
+    "name": "Morkie",
+    "severity": "medium",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-j02.json#/profiles/VBO:0200907/summary (sentence 1)",
+    "actualProfileFile": "data/dogs/profile-refresh-j02.json",
+    "currentProfileSha256": "20782dad7867babfe7a198cb93600861a987bd506d0603dc3463ea3395ca6ed7",
+    "evidence": [
+      {
+        "evidenceId": "EV-991053e8c45410ca",
+        "url": "https://www.up.ac.za/news/upgraduation2022-therapy-dog-takes-centre-stage-phd-graduates-study",
+        "path": "private-audit:cache/sources/991053e8c45410ca.txt",
+        "retainedTextSha256": "3426814771d85a6897bf3fb6369ee0d868d9b61ac68384d44099bb64902b8cb1"
+      },
+      {
+        "evidenceId": "EV-f7406c432431fc02",
+        "url": "https://blog.library.in.gov/my-journey-with-therapy-dogs/",
+        "path": "private-audit:cache/sources/f7406c432431fc02.txt",
+        "retainedTextSha256": "4816082c010033deb8398ef26337ff0ce98cf98c1071598851776a1d248c7f97"
+      }
+    ],
+    "rationale": "Actual individual sources verified; type-level generalization unsupported. Systemic cross owner supplies concise supported identity/variability prose or reversible suppression.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200907-1",
+        "catalogId": "VBO:0200907",
+        "action": "systemic_cross_policy",
+        "reason": "Actual individual sources verified; type-level generalization unsupported. Systemic cross owner supplies concise supported identity/variability prose or reversible suppression."
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200907-2",
+    "proposedChangeId": "PC-0200907-2",
+    "catalogId": "VBO:0200907",
+    "name": "Morkie",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-j02.json#/profiles/VBO:0200907/originRegions",
+    "actualProfileFile": "data/dogs/profile-refresh-j02.json",
+    "currentProfileSha256": "20782dad7867babfe7a198cb93600861a987bd506d0603dc3463ea3395ca6ed7",
+    "evidence": [
+      {
+        "evidenceId": "EV-LOCAL-WD",
+        "url": null,
+        "path": null,
+        "retainedTextSha256": null
+      },
+      {
+        "evidenceId": "EV-991053e8c45410ca",
+        "url": "https://www.up.ac.za/news/upgraduation2022-therapy-dog-takes-centre-stage-phd-graduates-study",
+        "path": "private-audit:cache/sources/991053e8c45410ca.txt",
+        "retainedTextSha256": "3426814771d85a6897bf3fb6369ee0d868d9b61ac68384d44099bb64902b8cb1"
+      }
+    ],
+    "rationale": "Use exact supported origin under explicit registry attribution; historical geography remains separate.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-j02.json#/profiles/VBO:0200907/originRegions",
+      "data/dogs/profile-refresh-j02.json#/profiles/VBO:0200907/reviewedAt"
+    ],
+    "recommendations": [
+      {
+        "findingId": "F-0200907-2",
+        "catalogId": "VBO:0200907",
+        "action": "authored_origin",
+        "reason": "Primary registry origin is distinct from historical geography; avoid unioning conflicting Wikidata countries. Canaan and Poodle require explicit registry attribution, not an exclusive historical-origin claim.",
+        "originRegions": []
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200753-1",
+    "proposedChangeId": "PC-0200753-1",
+    "catalogId": "VBO:0200753",
+    "name": "Karakachan Dog",
+    "severity": "medium",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "compiled originRegions from scripts/dog-profiles-lib.mjs (FCI country + Wikidata P495 inputs); no authored value at data/dogs/profile-refresh-j02.json#/profiles/VBO:0200753/originRegions",
+    "actualProfileFile": "data/dogs/profile-refresh-j02.json",
+    "currentProfileSha256": "f6b4043351d349a636235d4a60829f0373afac8af22ab4cc34af19948eec27eb",
+    "evidence": [
+      {
+        "evidenceId": "EV-02455952a7347e09",
+        "url": "https://www.nokkbg.org/kkdog_standard.php?lg=2",
+        "path": "private-audit:cache/sources/02455952a7347e09.txt",
+        "retainedTextSha256": "ada0a204ff6ab708a7c0f9f6e5a01a451f92bbed30f5e4f06e3572e483914f02"
+      },
+      {
+        "evidenceId": "EV-a20f8278d696f670",
+        "url": "https://karakachan.org/docs/IKDA_BREED_STANDARD.pdf",
+        "path": "private-audit:cache/sources/a20f8278d696f670.txt",
+        "retainedTextSha256": "59ee6e7f3ed22072752b1671b09bd2277b90ef451b083e1e22c9a27341d0a7c8"
+      },
+      {
+        "evidenceId": "EV-LOCAL-WD",
+        "url": null,
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Use exact supported origin under explicit registry attribution; historical geography remains separate.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-j02.json#/profiles/VBO:0200753/originRegions",
+      "data/dogs/profile-refresh-j02.json#/profiles/VBO:0200753/reviewedAt"
+    ],
+    "recommendations": [
+      {
+        "findingId": "F-0200753-1",
+        "catalogId": "VBO:0200753",
+        "action": "authored_origin",
+        "reason": "Primary registry origin is distinct from historical geography; avoid unioning conflicting Wikidata countries. Canaan and Poodle require explicit registry attribution, not an exclusive historical-origin claim.",
+        "originRegions": [
+          "Bulgaria"
+        ]
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200978-1",
+    "proposedChangeId": "PC-0200978-1",
+    "catalogId": "VBO:0200978",
+    "name": "Ori Pei",
+    "severity": "medium",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "partially_accepted",
+    "authoringPointer": "data/dogs/profile-refresh-j02.json#/profiles/VBO:0200978/summary (sentence 1)",
+    "actualProfileFile": "data/dogs/profile-refresh-j02.json",
+    "currentProfileSha256": "be342fbfce7e75fcf1594c71d523cddd02230ee00005e12fad3d47031422b617",
+    "evidence": [
+      {
+        "evidenceId": "EV-ffa98a30ff91a74f",
+        "url": "https://www.designerbreedregistry.com/orie_pei.html",
+        "path": "private-audit:cache/sources/ffa98a30ff91a74f.txt",
+        "retainedTextSha256": "8816c47a14db7f5c54b46a9f19bc67b7f7f004e91ea22d5ca3b02d0f021910a6"
+      },
+      {
+        "evidenceId": "EV-f44fcd45e29d0384",
+        "url": "https://cspca.com/wp-content/uploads/2020/02/Designer-Dogs.pdf",
+        "path": "private-audit:cache/sources/f44fcd45e29d0384.txt",
+        "retainedTextSha256": "99c699f27aa6caee2221c8d5f8bfa3c3d5afbede1238d9f99b52369d58132d78"
+      },
+      {
+        "evidenceId": "EV-91de90f29d25bacf",
+        "url": "https://nationalkennelclub.com/ori-pei/",
+        "path": "private-audit:cache/sources/91de90f29d25bacf.txt",
+        "retainedTextSha256": "525054d6cd19a427a927c730146983fd1a07ccd94341c9d9e1ca25a130e50579"
+      }
+    ],
+    "rationale": "Historical full primary registry search retrieval is preserved and supports history. Live accessibility is limited and independent corroboration absent; attribute history explicitly, retain source hash, do not claim false history.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-j02.json#/profiles/VBO:0200978/summary",
+      "data/dogs/profile-refresh-j02.json#/profiles/VBO:0200978/shortDescription",
+      "data/dogs/profile-refresh-j02.json#/profiles/VBO:0200978/historicalRoots",
+      "data/dogs/profile-refresh-j02.json#/profiles/VBO:0200978/sources",
+      "data/dogs/profile-refresh-j02.json#/profiles/VBO:0200978/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200978-2",
+    "proposedChangeId": "PC-0200978-2",
+    "catalogId": "VBO:0200978",
+    "name": "Ori Pei",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "scripts/dog-profiles-lib.mjs dogTypeLabel() <- data/dogs/dog-catalog.json#/entities[id=VBO:0200978]/status and editorialFamilies",
+    "actualProfileFile": "data/dogs/profile-refresh-j02.json",
+    "currentProfileSha256": "be342fbfce7e75fcf1594c71d523cddd02230ee00005e12fad3d47031422b617",
+    "evidence": [
+      {
+        "evidenceId": "EV-f44fcd45e29d0384",
+        "url": "https://cspca.com/wp-content/uploads/2020/02/Designer-Dogs.pdf",
+        "path": "private-audit:cache/sources/f44fcd45e29d0384.txt",
+        "retainedTextSha256": "99c699f27aa6caee2221c8d5f8bfa3c3d5afbede1238d9f99b52369d58132d78"
+      },
+      {
+        "evidenceId": "EV-LOCAL-VBO",
+        "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Actual exact-identity primary evidence supports coat variety, traditional working type or named cross as specified; retain stable IDs and existing user data.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200978-2",
+        "catalogId": "VBO:0200978",
+        "action": "classification",
+        "reason": "Actual exact-identity primary evidence supports coat variety, traditional working type or named cross as specified; retain stable IDs and existing user data.",
+        "status": "crossbreed",
+        "parentId": "VBO:0200902"
+      }
+    ]
+  },
+  {
+    "findingId": "F-0201007-1",
+    "proposedChangeId": "PC-0201007-1",
+    "catalogId": "VBO:0201007",
+    "name": "Peruvian Hairless Dog, Miniature",
+    "severity": "medium",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-j02.json#/profiles/VBO:0201007/historicalRoots",
+    "actualProfileFile": "data/dogs/profile-refresh-j02.json",
+    "currentProfileSha256": "0aa943efd0c45df564e62c583ac59023c797f603ffbad2d3afd22681f076282e",
+    "evidence": [
+      {
+        "evidenceId": "EV-7f3f00dbcd8f900f",
+        "url": "https://www.fci.be/Nomenclature/Standards/310g05-en.pdf",
+        "path": "private-audit:cache/sources/7f3f00dbcd8f900f.txt",
+        "retainedTextSha256": "af354201a46c1fe3eddf2e000872610d1bc55f7083ffda45ebd53b949be355cb"
+      }
+    ],
+    "rationale": "Remove art-direction/process text from surfaced roots; preserve it in immutable generation records.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-j02.json#/profiles/VBO:0201007/historicalRoots",
+      "data/dogs/profile-refresh-j02.json#/profiles/VBO:0201007/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0200833-1",
+    "proposedChangeId": "PC-0200833-1",
+    "catalogId": "VBO:0200833",
+    "name": "Long-Haired Whippet",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/dog-catalog.json#/entities[id=VBO:0200833]/aliases",
+    "actualProfileFile": "data/dogs/profile-refresh-j03.json",
+    "currentProfileSha256": "109cf1cedc46aca4336aab8593a525e46c61e910ef3a9ed7d6542371566394a2",
+    "evidence": [
+      {
+        "evidenceId": "EV-bc39151977bd78a9",
+        "url": "https://www.windsprites.org/post/breed-name-change-windsprite",
+        "path": "private-audit:cache/sources/bc39151977bd78a9.txt",
+        "retainedTextSha256": "e80c3e6d9fa4ca38d884692a7bd878ab9312f9265a0f5f88d1929a26b06f6890"
+      },
+      {
+        "evidenceId": "EV-LOCAL-VBO",
+        "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Actual club resolution effective 2017 supports current name; preserve old lookup and identity.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200833-1",
+        "catalogId": "VBO:0200833",
+        "action": "add_display_alias",
+        "reason": "Actual club resolution effective 2017 supports current name; preserve old lookup and identity.",
+        "value": "Windsprite"
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200799-1",
+    "proposedChangeId": "PC-0200799-1",
+    "catalogId": "VBO:0200799",
+    "name": "Labrador Husky",
+    "severity": "medium",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/dog-catalog.json#/entities[id=VBO:0200799] (identity) and data/dogs/profile-refresh-k02.json#/profiles/VBO:0200799 (profile)",
+    "actualProfileFile": "data/dogs/profile-refresh-k02.json",
+    "currentProfileSha256": "3e740723cc501623239b6468e7c20dadb667d16b7aaaeffe5da8d330081b7b49",
+    "evidence": [
+      {
+        "evidenceId": "EV-dacbc7abc314d47b",
+        "url": "https://www.northernlightsdogsledding.com/our-story",
+        "path": "private-audit:cache/sources/dacbc7abc314d47b.txt",
+        "retainedTextSha256": "789236363793dfbc45d45803fb04858011c38dc4e969b9cacb163fc560fa62c1"
+      },
+      {
+        "evidenceId": "EV-36fc71351227e213",
+        "url": "https://www.northernlightsdogsledding.com/packages",
+        "path": "private-audit:cache/sources/36fc71351227e213.txt",
+        "retainedTextSha256": "9dd28978e28052bd268835245d56f0112dcaec5608f1b4139839936f1913dd98"
+      },
+      {
+        "evidenceId": "EV-LOCAL-VBO",
+        "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "VeNom cross identity (Huskador/Huskydor) conflicts with regional Labrador sled-dog profile/art. Preserve entire ID and evidence; do not silently repurpose, merge or delete.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200799-1",
+        "catalogId": "VBO:0200799",
+        "action": "editorial_suppression",
+        "reason": "VeNom cross identity (Huskador/Huskydor) conflicts with regional Labrador sled-dog profile/art. Preserve entire ID and evidence; do not silently repurpose, merge or delete."
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200649-1",
+    "proposedChangeId": "PC-0200649-1",
+    "catalogId": "VBO:0200649",
+    "name": "Gull Terrier",
+    "severity": "medium",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "partially_accepted",
+    "authoringPointer": "data/dogs/profile-refresh-k02.json#/profiles/VBO:0200649/summary (sentence 1)",
+    "actualProfileFile": "data/dogs/profile-refresh-k02.json",
+    "currentProfileSha256": "2c509d031204f45e4c7dc939636fa46a6617233abf7bcad25ed257b870e356b3",
+    "evidence": [
+      {
+        "evidenceId": "EV-07370cb78def86dc",
+        "url": "https://openresearch-repository.anu.edu.au/server/api/core/bitstreams/5ca39fe1-6b97-4b61-bdb6-3109bde9d36b/content",
+        "path": "private-audit:cache/sources/07370cb78def86dc.txt",
+        "retainedTextSha256": "11e7a4eed9e7bbab3403deecf91bdf3af6abc7d0217895b1c8476d04096f8f0d"
+      }
+    ],
+    "rationale": "Neutral factual discussion of documented dogfighting history is allowed and need not become moralizing; remove prestige framing. No adequate source supports invented breed temperament. New copy makes limits explicit.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-k02.json#/profiles/VBO:0200649/summary",
+      "data/dogs/profile-refresh-k02.json#/profiles/VBO:0200649/shortDescription",
+      "data/dogs/profile-refresh-k02.json#/profiles/VBO:0200649/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0201055-1",
+    "proposedChangeId": "PC-0201055-1",
+    "catalogId": "VBO:0201055",
+    "name": "Poodle, Multi-Colored",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-l01.json#/profiles/VBO:0201055/originRegions",
+    "actualProfileFile": "data/dogs/profile-refresh-l01.json",
+    "currentProfileSha256": "b29a85b4e67335a68628ec9e984c726d3cc0117c17846188dfea96b3ab92f17d",
+    "evidence": [
+      {
+        "evidenceId": "EV-5ee0b4a6a8fc0a0c",
+        "url": "https://www.ukcdogs.com/breed-standards/multi-colored-standard-poodle",
+        "path": "private-audit:cache/sources/5ee0b4a6a8fc0a0c.txt",
+        "retainedTextSha256": "775324bd635563d8c14784fc46eb8b2bb1116e2b7af9b7a0f7d013305d3f9c09"
+      },
+      {
+        "evidenceId": "EV-38d8404b6e98f838",
+        "url": "https://www.fci.be/Nomenclature/Standards/172g09-en.pdf",
+        "path": "private-audit:cache/sources/38d8404b6e98f838.txt",
+        "retainedTextSha256": "8cf05608bda8fd2befaab95c05539d6da9b7e9469a779ce9c63dcb16e9e613aa"
+      }
+    ],
+    "rationale": "Use exact supported origin under explicit registry attribution; historical geography remains separate.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-l01.json#/profiles/VBO:0201055/originRegions",
+      "data/dogs/profile-refresh-l01.json#/profiles/VBO:0201055/originBasis",
+      "data/dogs/profile-refresh-l01.json#/profiles/VBO:0201055/sources",
+      "data/dogs/profile-refresh-l01.json#/profiles/VBO:0201055/reviewedAt"
+    ],
+    "recommendations": [
+      {
+        "findingId": "F-0201055-1",
+        "catalogId": "VBO:0201055",
+        "action": "authored_origin",
+        "reason": "Primary registry origin is distinct from historical geography; avoid unioning conflicting Wikidata countries. Canaan and Poodle require explicit registry attribution, not an exclusive historical-origin claim.",
+        "originRegions": [
+          "France"
+        ]
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200839-1",
+    "proposedChangeId": "PC-0200839-1",
+    "catalogId": "VBO:0200839",
+    "name": "Lupo Italiano",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-l26.json#/profiles/VBO:0200839/summary (sentence 3)",
+    "actualProfileFile": "data/dogs/profile-refresh-l26.json",
+    "currentProfileSha256": "a7228f50b9e0af2633e469a48240bc9c85549add52ecbd8ea91f952e8154e701",
+    "evidence": [
+      {
+        "evidenceId": "EV-c1c658788c65fd12",
+        "url": "https://canelupoitaliano.it/storia-e-caratteristiche/",
+        "path": "private-audit:cache/sources/c1c658788c65fd12.txt",
+        "retainedTextSha256": "d00b81226a45bb2b9cf1615197c74712d7d825bb75fb69f264d775082ddb7241"
+      },
+      {
+        "evidenceId": "EV-a91e6c38a16fc3f1",
+        "url": "https://canelupoitaliano.it/standard-di-razza/",
+        "path": "private-audit:cache/sources/a91e6c38a16fc3f1.txt",
+        "retainedTextSha256": "540d04aef947af929056ec4c8eda57b2b92617aab46f6c2ef6987e7165102143"
+      }
+    ],
+    "rationale": "Attribute association ancestry claim explicitly; do not treat it as independent genomic proof or transfer wolf behavior.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-l26.json#/profiles/VBO:0200839/summary",
+      "data/dogs/profile-refresh-l26.json#/profiles/VBO:0200839/shortDescription",
+      "data/dogs/profile-refresh-l26.json#/profiles/VBO:0200839/reviewedAt"
+    ],
+    "recommendations": []
+  },
+  {
+    "findingId": "F-0201040-1",
+    "proposedChangeId": "PC-0201040-1",
+    "catalogId": "VBO:0201040",
+    "name": "Pomapug",
+    "severity": "medium",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/profile-refresh-m33.json#/profiles/VBO:0201040/shortDescription",
+    "actualProfileFile": "data/dogs/profile-refresh-m33.json",
+    "currentProfileSha256": "a7a3154801a4abbf9b2998a442336e8278826ad1312f06d9c5d8b9c414ee394e",
+    "evidence": [
+      {
+        "evidenceId": "EV-9d553da81be30e06",
+        "url": "https://pet-net.net/pomeranian-pug-mix-dog-adoption-edmonton-ab/",
+        "path": "private-audit:cache/sources/9d553da81be30e06.txt",
+        "retainedTextSha256": "7aa1de3efcfff9f05ae5f44718e7262763e7aea5fbcef1ae42c3c867134b85fe"
+      }
+    ],
+    "rationale": "Actual individual sources verified; type-level generalization unsupported. Systemic cross owner supplies concise supported identity/variability prose or reversible suppression.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0201040-1",
+        "catalogId": "VBO:0201040",
+        "action": "systemic_cross_policy",
+        "reason": "Actual individual sources verified; type-level generalization unsupported. Systemic cross owner supplies concise supported identity/variability prose or reversible suppression."
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200684-1",
+    "proposedChangeId": "PC-0200684-1",
+    "catalogId": "VBO:0200684",
+    "name": "Huskamute",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "partially_accepted",
+    "authoringPointer": "data/dogs/profile-refresh-m45.json#/profiles/VBO:0200684/summary (sentence 1)",
+    "actualProfileFile": "data/dogs/profile-refresh-m45.json",
+    "currentProfileSha256": "20dee8cdca27ed9114f79374f26fbc4a6aeed60a9b738f30cc34f114fc432ca0",
+    "evidence": [
+      {
+        "evidenceId": "EV-b27dbb00d0de2690",
+        "url": "https://dogsfriends.me.uk/df-dogs/dakota-and-tikani/",
+        "path": "private-audit:cache/sources/b27dbb00d0de2690.txt",
+        "retainedTextSha256": "e2b3cf2128fa97b4365b52cfbc18fddf9b635b7b9cc8e35f06d4855834f4652f"
+      }
+    ],
+    "rationale": "Current live 404 is citation maintenance. Source absence assertion rejected because full primary-body snapshots exist in K and M. Do not label original anecdote fabricated; cross-quality fix belongs to F-SYS-11.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200684-1",
+        "catalogId": "VBO:0200684",
+        "action": "systemic_cross_policy",
+        "reason": "The premise that evidence was not preserved is false: complete Dogs Friends source retained under K and M. Dead live link merits disclosure; anecdotal profile concern is separate under F-SYS-11."
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200730-1",
+    "proposedChangeId": "PC-0200730-1",
+    "catalogId": "VBO:0200730",
+    "name": "Jackshit",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/dog-catalog.json#/entities[id=VBO:0200730]/displayName",
+    "actualProfileFile": "data/dogs/profile-refresh-m43.json",
+    "currentProfileSha256": "1c767e33508cd253c75762f8f76f61cdfb06c5abbfcb2e1b87d1fcef19b77a9c",
+    "evidence": [
+      {
+        "evidenceId": "EV-1d3e70a75e79947b",
+        "url": "https://www.dogbreedinfo.com/j/jacktzu.htm",
+        "path": "private-audit:cache/sources/1d3e70a75e79947b.txt",
+        "retainedTextSha256": "766850a7afee9caa0a388cf291ffd7a5ed5289438c676823d3d3fcc247289882"
+      },
+      {
+        "evidenceId": "EV-LOCAL-VBO",
+        "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Source uses alternative name and existing prose supplies it; keep legacy vulgar catalog name search-only.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200730-1",
+        "catalogId": "VBO:0200730",
+        "action": "display_name",
+        "reason": "Source uses alternative name and existing prose supplies it; keep legacy vulgar catalog name search-only.",
+        "value": "Jack Tzu"
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200984-1",
+    "proposedChangeId": "PC-0200984-1",
+    "catalogId": "VBO:0200984",
+    "name": "Pampas Deerhound",
+    "severity": "medium",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "scripts/dog-profiles-lib.mjs dogTypeLabel() <- data/dogs/dog-catalog.json#/entities[id=VBO:0200984]/status and editorialFamilies",
+    "actualProfileFile": "data/dogs/profile-refresh-m89.json",
+    "currentProfileSha256": "a5ad1894cd7f105eb15291703fd1e61277072f2443ca1d20b8085ef8bbce6942",
+    "evidence": [
+      {
+        "evidenceId": "EV-8135608e86c94379",
+        "url": "https://cbkc.org/application/views/docs/padroes/padrao-raca_9.pdf",
+        "path": "private-audit:cache/sources/8135608e86c94379.txt",
+        "retainedTextSha256": "70b443d055ef2d54f8012325a56a716e094f52e72b7d9f206aa3020709ebc599"
+      },
+      {
+        "evidenceId": "EV-169cc5425c2af45c",
+        "url": "https://kcn.org.br/exposicoes/racas-brasileiras/veadeiro-pampeano/",
+        "path": "private-audit:cache/sources/169cc5425c2af45c.txt",
+        "retainedTextSha256": "aeab6020ecbebb933070c1d40447c4a3357cafb0d174f002af4783a942f0265f"
+      },
+      {
+        "evidenceId": "EV-LOCAL-VBO",
+        "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Actual exact-identity primary evidence supports coat variety, traditional working type or named cross as specified; retain stable IDs and existing user data.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200984-1",
+        "catalogId": "VBO:0200984",
+        "action": "classification",
+        "reason": "Actual exact-identity primary evidence supports coat variety, traditional working type or named cross as specified; retain stable IDs and existing user data.",
+        "status": "canonical",
+        "parentId": null
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200052-1",
+    "proposedChangeId": "PC-0200052-1",
+    "catalogId": "VBO:0200052",
+    "name": "American Lo-Size Pugg",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/dog-catalog.json#/entities[id=VBO:0200052]/displayName",
+    "actualProfileFile": "data/dogs/profile-refresh-m88.json",
+    "currentProfileSha256": "a2e42313eeeb4ec37d84d8d048b11a59ba6bb241f941c20b9a696fef764cdb88",
+    "evidence": [
+      {
+        "evidenceId": "EV-4585c40eb410fc64",
+        "url": "https://wagwalking.com/breed/american-lo-sze-pugg",
+        "path": "private-audit:cache/sources/4585c40eb410fc64.txt",
+        "retainedTextSha256": "a063b14f466a862144ea4bf1e9227ca10433b424d54047b4583a0cd5c488fa75"
+      },
+      {
+        "evidenceId": "EV-0f2b7f8d6bafec57",
+        "url": "https://www.dogbreedinfo.com/americanloszepugg.htm",
+        "path": "private-audit:cache/sources/0f2b7f8d6bafec57.txt",
+        "retainedTextSha256": "f6c6f2a97b5687a1a2cd410bbc601b6f37fffa0ebdd8c190e8307cb8b0403c80"
+      },
+      {
+        "evidenceId": "EV-LOCAL-VBO",
+        "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+        "path": null,
+        "retainedTextSha256": null
+      }
+    ],
+    "rationale": "Exact maintained source spelling; retain old typo search-only.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200052-1",
+        "catalogId": "VBO:0200052",
+        "action": "display_name",
+        "reason": "Exact maintained source spelling; retain old typo search-only.",
+        "value": "American Lo-Sze Pugg"
+      }
+    ]
+  },
+  {
+    "findingId": "F-0200931D-1",
+    "proposedChangeId": "PC-0200931D-1",
+    "catalogId": "S:VBO:0200931:draft",
+    "name": "Nebolish Mastiff",
+    "severity": "low",
+    "currency": "current_at_c3ba4b03",
+    "disposition": "accepted",
+    "authoringPointer": "data/dogs/portrait-cohort-m.json#/entries/VBO:0200931/profile/summary",
+    "actualProfileFile": null,
+    "currentProfileSha256": null,
+    "evidence": [
+      {
+        "evidenceId": "EV-5edb55aad68d2a45",
+        "url": "https://www.mndogtraining.com/2010graduatespage/",
+        "path": "private-audit:cache/sources/5edb55aad68d2a45.txt",
+        "retainedTextSha256": "2db62a0854c786a402f9f50f6172aaa160dbaeb9632ab4c9f0c801a9e859bd35"
+      }
+    ],
+    "rationale": "One dog training-camp graduation cannot describe the Nebolish Mastiff type. Existing unpublished hold stays; no new prose or public pair.",
+    "verification": "Independently compared exact current authoring/compiled context with actual retained primary-source passages; final combined-build assertions and regression tests remain release-lead-owned.",
+    "patchPointers": [],
+    "recommendations": [
+      {
+        "findingId": "F-0200931D-1",
+        "catalogId": "VBO:0200931",
+        "action": "retain_draft_hold",
+        "reason": "One dog training-camp graduation cannot describe the Nebolish Mastiff type. Existing unpublished hold stays; no new prose or public pair."
+      }
+    ]
+  }
+]

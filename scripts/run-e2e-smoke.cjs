@@ -1033,12 +1033,29 @@ const dogsCatalogReady = (count) =>
    Number(document.querySelector('#dogs-catalog-status')?.dataset.count) === ${count} &&
    document.querySelector('#dogs-catalog-status')?.hidden === true`;
 
+// Mirror the product completion gate: approved artwork alone does not imply public eligibility.
+const dogsVisibilityFixture = async () => {
+  const read = (file) => JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs", file), "utf8"));
+  const catalog = read("dog-catalog.json");
+  const profiles = read("breed-profiles.json");
+  const artwork = read("generated-artwork.json");
+  const { completedDogCatalogIds } = await import("../lib/dogs-public-visibility.js");
+  const publicIds = completedDogCatalogIds({ entities: catalog.entities, profiles, artwork });
+  const completedIds = completedDogCatalogIds({
+    entities: catalog.entities.map(({ editorialVisibility, ...entity }) => entity), profiles, artwork,
+  });
+  const suppressedCompletedIds = catalog.entities
+    .filter((entity) => entity.editorialVisibility === "suppressed" && completedIds.has(entity.id))
+    .map((entity) => entity.id);
+  return { catalog, profiles, artwork, publicIds, suppressedCompletedIds };
+};
+
 const testDogsLocalProduct = async ({ baseUrl }) => {
-  const approvedIds = new Set(JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8")).assets.map((asset) => asset.catalogId));
+  const { publicIds: approvedIds } = await dogsVisibilityFixture();
   const publicPacks = JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/packs.json"), "utf8")).packs.filter((pack) => pack.items.some((id) => approvedIds.has(id)));
   const expectedPackCount = publicPacks.length;
   const expectedFamilyCount = new Set(publicPacks.map((pack) => pack.family)).size;
-  const expectedPortraitCount = JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8")).assets.length;
+  const expectedCatalogCount = approvedIds.size;
   const expectedDogsScript = fs.readFileSync(path.join(rootDir, "dogs.html"), "utf8").match(/src="(dogs\.js\?v=\d+)"/)[1];
   const profileCopy = JSON.parse(fs.readFileSync(path.join(rootDir, 'data/dogs/breed-profiles.json'), 'utf8')).profiles;
   const page = await openChromePage({ name: "dogs-local-product", width: 1586, height: 992 });
@@ -1050,7 +1067,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     await waitFor(
       page,
       `document.readyState === 'complete' &&
-       ${dogsCatalogReady(expectedPortraitCount)} &&
+       ${dogsCatalogReady(expectedCatalogCount)} &&
        document.querySelectorAll('.featured-pack').length === 6`,
       15000,
     );
@@ -1086,7 +1103,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       initial.searchAutocomplete !== "list" ||
       initial.searchControls !== "dogs-suggestions" ||
       initial.catalogReady !== "true" ||
-      Number(initial.catalogCount) !== expectedPortraitCount ||
+      Number(initial.catalogCount) !== expectedCatalogCount ||
       !initial.catalogStatusHidden ||
       initial.featuredTitles.slice(0, 3).join("|") !== "Around the world|Shapes and coats|Familiar and beyond" ||
       initial.featuredTitles.length !== 6 ||
@@ -1823,30 +1840,26 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
   }
 };
 
-// Paste this function beside the other testDogs* functions in scripts/run-e2e-smoke.cjs,
-// then add { name: "Dogs completed-pair visibility", run: testDogsCompletedVisibility }
-// to its tests array. It uses that harness's fs/path/rootDir, openChromePage,
-// waitFor, setDeviceProfile, DEVICE_INPUT_PROFILE, waitForDownload, and pageHealth.
+// Preserve saved nonpublic identities through visible-only operations and full-fidelity backups.
 const testDogsCompletedVisibility = async ({ baseUrl }) => {
-  const catalog = JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/dog-catalog.json"), "utf8"));
-  const profiles = JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/breed-profiles.json"), "utf8"));
-  const artwork = JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8"));
-  const expectedCount = artwork.assets.length;
-  const illustratedIds = new Set(artwork.assets.map((asset) => asset.catalogId));
-  const unillustratedIds = catalog.entities.filter((item) => item.selectable && !illustratedIds.has(item.id)).map((item) => item.id);
-  const chooseUnillustrated = (preferred, excluded = []) =>
-    unillustratedIds.includes(preferred) && !excluded.includes(preferred)
-      ? preferred
-      : unillustratedIds.find((id) => !excluded.includes(id));
-  const unfinished = chooseUnillustrated("VBO:0200038");
-  const unfinishedCurious = chooseUnillustrated("VBO:0200039", [unfinished]);
-  const unfinishedHidden = chooseUnillustrated("VBO:0200040", [unfinished, unfinishedCurious]);
+  const { catalog, profiles, artwork, publicIds, suppressedCompletedIds } = await dogsVisibilityFixture();
+  const expectedCount = publicIds.size;
+  const nonpublicIds = catalog.entities.filter((item) => item.selectable && !publicIds.has(item.id)).map((item) => item.id);
+  // Prefer real completed editorial suppressions in ranking and both lists. Before the
+  // authoring rebuild, unfinished identities still exercise the same persistence contract.
+  const chooseNonpublic = (preferred, excluded = []) =>
+    suppressedCompletedIds.find((id) => !excluded.includes(id)) ||
+    (nonpublicIds.includes(preferred) && !excluded.includes(preferred)
+      ? preferred : nonpublicIds.find((id) => !excluded.includes(id)));
+  const nonpublic = chooseNonpublic("VBO:0200038");
+  const nonpublicCurious = chooseNonpublic("VBO:0200039", [nonpublic]);
+  const nonpublicHidden = chooseNonpublic("VBO:0200040", [nonpublic, nonpublicCurious]);
   const ids = {
     golden: "VBO:0200610",
     broholmer: "VBO:0000661",
-    unfinished,
-    unfinishedCurious,
-    unfinishedHidden,
+    nonpublic,
+    nonpublicCurious,
+    nonpublicHidden,
     newPortrait: "VBO:0200575",
     newPeer: "VBO:0200211",
   };
@@ -1856,7 +1869,9 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
   if (!expectedCount || Object.values(ids).some((id) => !entity(id)) ||
     !profiles.profiles[ids.newPortrait]?.summary || !profiles.profiles[ids.golden]?.summary ||
     !profiles.profiles[ids.broholmer]?.summary || !variant(ids.newPortrait, "card") || !variant(ids.newPortrait, "detail") ||
-    artwork.assets.some((asset) => [ids.unfinished, ids.unfinishedCurious, ids.unfinishedHidden].includes(asset.catalogId))) {
+    [ids.nonpublic, ids.nonpublicCurious, ids.nonpublicHidden].some((id) => publicIds.has(id)) ||
+    [ids.golden, ids.broholmer, ids.newPortrait, ids.newPeer].some((id) => !publicIds.has(id)) ||
+    (suppressedCompletedIds.length > 0 && !suppressedCompletedIds.includes(ids.nonpublic))) {
     throw new Error("Current-wave visibility fixture is not the expected completed-pair release");
   }
 
@@ -1866,9 +1881,9 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
       image: { url: "", alt: `${name(id)} dog`, assetId: "" } },
     rankedAt: "2026-09-20T12:00:00.000Z", comparisons: 1,
   });
-  const seededRanking = [fixtureItem(ids.golden), fixtureItem(ids.unfinished), fixtureItem(ids.broholmer)];
-  const seededCurious = fixtureItem(ids.unfinishedCurious);
-  const seededHidden = fixtureItem(ids.unfinishedHidden);
+  const seededRanking = [fixtureItem(ids.golden), fixtureItem(ids.nonpublic), fixtureItem(ids.broholmer)];
+  const seededCurious = fixtureItem(ids.nonpublicCurious);
+  const seededHidden = fixtureItem(ids.nonpublicHidden);
   const packProgressState = { "visibility-probe": { startedAt: "2026-09-20T12:00:00.000Z" } };
   const seededPackProgress = JSON.stringify({ state: packProgressState, updated_at: "2026-09-20T12:00:00.000Z" });
   const moviesSentinel = JSON.stringify({ sentinel: "movies-must-survive-dogs-visibility" });
@@ -1887,11 +1902,11 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
   const assertPreserved = (state, phase, expectedVisibleCount) => {
     const rawIds = state.ranking.map((item) => item.entityRef.id);
     if (state.movies !== moviesSentinel || state.books !== booksSentinel || JSON.stringify(state.packProgress) !== JSON.stringify(packProgressState) ||
-      rawIds.length !== expectedVisibleCount + 1 || rawIds.filter((id) => id === ids.unfinished).length !== 1 ||
-      JSON.stringify(stableSavedItem(state.ranking.find((item) => item.entityRef.id === ids.unfinished))) !== JSON.stringify(stableSavedItem(seededRanking[1])) ||
-      JSON.stringify(stableSavedItem(state.queues.curious?.find((item) => item.entityRef.id === ids.unfinishedCurious))) !== JSON.stringify(stableSavedItem(seededCurious)) ||
-      JSON.stringify(stableSavedItem(state.queues.not_for_me?.find((item) => item.entityRef.id === ids.unfinishedHidden))) !== JSON.stringify(stableSavedItem(seededHidden))) {
-      throw new Error(`Unfinished saved data or category sentinels changed after ${phase}: ${JSON.stringify(state)}`);
+      rawIds.length !== expectedVisibleCount + 1 || rawIds.filter((id) => id === ids.nonpublic).length !== 1 ||
+      JSON.stringify(stableSavedItem(state.ranking.find((item) => item.entityRef.id === ids.nonpublic))) !== JSON.stringify(stableSavedItem(seededRanking[1])) ||
+      JSON.stringify(stableSavedItem(state.queues.curious?.find((item) => item.entityRef.id === ids.nonpublicCurious))) !== JSON.stringify(stableSavedItem(seededCurious)) ||
+      JSON.stringify(stableSavedItem(state.queues.not_for_me?.find((item) => item.entityRef.id === ids.nonpublicHidden))) !== JSON.stringify(stableSavedItem(seededHidden))) {
+      throw new Error(`Nonpublic saved data or category sentinels changed after ${phase}: ${JSON.stringify(state)}`);
     }
     return rawIds;
   };
@@ -1933,15 +1948,15 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
     if (initialVisible.rankNames.join("|") !== `${name(ids.golden)}|${name(ids.broholmer)}` ||
       initialVisible.curious !== 0 || initialVisible.hidden !== 0 || initialVisible.count !== "2" ||
       !initialVisible.subtitle?.startsWith("2 breeds and types")) {
-      throw new Error(`Unfinished entries leaked into public surfaces: ${JSON.stringify(initialVisible)}`);
+      throw new Error(`Nonpublic entries leaked into public surfaces: ${JSON.stringify(initialVisible)}`);
     }
 
-    await search(name(ids.unfinished));
-    const unfinishedSearch = await page.evaluate(`({
+    await search(name(ids.nonpublic));
+    const nonpublicSearch = await page.evaluate(`({
       names: [...document.querySelectorAll('#dogs-suggestions .search-option strong')].map((node) => node.textContent.trim()),
       hidden: document.querySelector('#dogs-suggestions')?.hidden
     })`);
-    if (unfinishedSearch.names.includes(name(ids.unfinished))) throw new Error(`Unfinished entry appeared in search: ${JSON.stringify(unfinishedSearch)}`);
+    if (nonpublicSearch.names.includes(name(ids.nonpublic))) throw new Error(`Nonpublic entry appeared in search: ${JSON.stringify(nonpublicSearch)}`);
     await search(name(ids.newPortrait));
     await waitFor(page, `document.querySelector('#dogs-suggestions .search-option strong')?.textContent.trim() === ${JSON.stringify(name(ids.newPortrait))} && ${loadedImages('#dogs-suggestions .dog-media img')}`, 5000);
     const newSearch = await page.evaluate(`(() => ({
@@ -2016,7 +2031,7 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
     await waitFor(page, `JSON.stringify(JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.map((item) => item.entityRef.id)) !== ${JSON.stringify(JSON.stringify(beforeMove))}`, 3000);
     const afterMove = await page.evaluate(storageState());
     assertPreserved(afterMove, "visible move", 3);
-    if (afterMove.ranking[beforeMove.indexOf(ids.unfinished)]?.entityRef.id !== ids.unfinished) throw new Error("Visible move displaced the unfinished raw slot");
+    if (afterMove.ranking[beforeMove.indexOf(ids.nonpublic)]?.entityRef.id !== ids.nonpublic) throw new Error("Visible move displaced the nonpublic raw slot");
 
     await page.evaluate(`document.querySelector('#dogs-review-order')?.click(); true;`);
     await waitFor(page, `!document.querySelector('#dogs-review')?.hidden`, 3000);
@@ -2024,7 +2039,7 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
     await waitFor(page, `document.querySelector('#dogs-review')?.hidden`, 3000);
     const afterReview = await page.evaluate(storageState());
     assertPreserved(afterReview, "review swap", 3);
-    if (afterReview.ranking[beforeMove.indexOf(ids.unfinished)]?.entityRef.id !== ids.unfinished) throw new Error("Review swap displaced the unfinished raw slot");
+    if (afterReview.ranking[beforeMove.indexOf(ids.nonpublic)]?.entityRef.id !== ids.nonpublic) throw new Error("Review swap displaced the nonpublic raw slot");
 
     await page.send("Page.reload", { ignoreCache: true });
     await waitFor(page, `${dogsCatalogReady(expectedCount)} && document.querySelectorAll('#dogs-ranking .ranking-row').length === 3`, 15000);
@@ -2035,9 +2050,9 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('#dogs-download-backup')?.click(); true;`);
     const backupPath = await waitForDownload(page, `stackrank-dogs-backup-${date}.json`);
     const backup = JSON.parse(fs.readFileSync(backupPath, "utf8"));
-    if (backup.ranking.length !== 4 || !backup.ranking.some((item) => item.entityRef.id === ids.unfinished) ||
-      backup.lists.curious[0]?.entityRef.id !== ids.unfinishedCurious || backup.lists.not_for_me[0]?.entityRef.id !== ids.unfinishedHidden) {
-      throw new Error(`Backup lost unfinished raw items: ${JSON.stringify(backup)}`);
+    if (backup.ranking.length !== 4 || !backup.ranking.some((item) => item.entityRef.id === ids.nonpublic) ||
+      backup.lists.curious[0]?.entityRef.id !== ids.nonpublicCurious || backup.lists.not_for_me[0]?.entityRef.id !== ids.nonpublicHidden) {
+      throw new Error(`Backup lost nonpublic raw items: ${JSON.stringify(backup)}`);
     }
     await page.evaluate(`window.confirm = () => true; true;`);
     await page.evaluate(`(() => { const file = new File([${JSON.stringify(JSON.stringify(backup))}], 'visibility-backup.json', { type: 'application/json' });
@@ -2049,8 +2064,8 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
     await waitFor(page, `document.querySelector('#dogs-export-dialog')?.open`, 3000);
     await page.evaluate(`document.querySelector('[data-export-format="json"]')?.click(); true;`);
     const exported = JSON.parse(fs.readFileSync(await waitForDownload(page, `stackrank-dogs-ranking-${date}.json`), "utf8"));
-    if (exported.ranking.length !== 3 || exported.ranking.some((item) => item.id === ids.unfinished) ||
-      !exported.ranking.some((item) => item.id === ids.newPortrait)) throw new Error(`Public export exposed unfinished item: ${JSON.stringify(exported)}`);
+    if (exported.ranking.length !== 3 || exported.ranking.some((item) => item.id === ids.nonpublic) ||
+      !exported.ranking.some((item) => item.id === ids.newPortrait)) throw new Error(`Public export exposed nonpublic item: ${JSON.stringify(exported)}`);
     assertPreserved(await page.evaluate(storageState()), "public export", 3);
     await page.evaluate(`document.querySelector('#dogs-export-dialog')?.close(); document.querySelector('#dogs-open-backup')?.click(); true;`);
     await waitFor(page, `document.querySelector('#dogs-backup-dialog')?.open`, 3000);
@@ -2069,7 +2084,7 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
     if (importedVisible.join('|') !== `${name(ids.golden)}|${name(ids.broholmer)}`) throw new Error(`Name import did not replace only visible slots: ${JSON.stringify(importedVisible)}`);
     const health = await pageHealth(page);
     if (health.errors.length) throw new Error(`Dogs completed visibility browser errors: ${JSON.stringify(health.errors)}`);
-    return { details: { initialVisible, newSearch, comparison, ranked, detail, phoneProfile, phoneComparison, phoneDetail,
+    return { details: { fixtureIds: ids, suppressedCompletedIds, publicCatalogCount: expectedCount, artworkCount: artwork.assets.length, initialVisible, newSearch, comparison, ranked, detail, phoneProfile, phoneComparison, phoneDetail,
       beforeMove, afterMove: afterMove.ranking.map((item) => item.entityRef.id),
       afterReview: afterReview.ranking.map((item) => item.entityRef.id), backupRawCount: backup.ranking.length,
       exportPublicCount: exported.ranking.length, importedVisible }, screenshots };
@@ -2092,7 +2107,7 @@ const testDogsPhoneViewport = async ({ baseUrl }) => {
     await page.send("Page.navigate", { url: `${baseUrl}/dogs?e2e=dogs-phone-viewport` });
     await waitFor(
       page,
-      `${dogsCatalogReady(JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8")).assets.length)} &&
+      `${dogsCatalogReady((await dogsVisibilityFixture()).publicIds.size)} &&
        document.querySelectorAll('.featured-pack').length === 6`,
       15000,
     );
@@ -2412,7 +2427,7 @@ const testDogsFailureRecovery = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('.dogs-nav [data-destination="rank"]')?.click(); document.querySelector('#dogs-retry-catalog')?.click(); true;`);
     await waitFor(
       page,
-      `${dogsCatalogReady(JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/generated-artwork.json"), "utf8")).assets.length)} &&
+      `${dogsCatalogReady((await dogsVisibilityFixture()).publicIds.size)} &&
        document.querySelector('#dogs-discovery-fallback')?.hidden`,
       15000,
     );
@@ -12175,7 +12190,7 @@ const testDogsArtworkReview = async ({ baseUrl }) => {
 };
 
 const testDogsPackDetails = async ({ baseUrl }) => {
-  const approvedIds = new Set(JSON.parse(fs.readFileSync(path.join(rootDir, 'data/dogs/generated-artwork.json'), 'utf8')).assets.map(asset => asset.catalogId));
+  const { publicIds: approvedIds } = await dogsVisibilityFixture();
   const packs = JSON.parse(fs.readFileSync(path.join(rootDir, 'data/dogs/packs.json'), 'utf8')).packs
     .filter(pack => pack.items.some(id => approvedIds.has(id)));
   const firstPackIds = packs[0].items.filter(id => approvedIds.has(id));
@@ -12271,11 +12286,10 @@ const testDogsPackDetails = async ({ baseUrl }) => {
 };
 
 const testDogsDiscoveryGallery = async ({ baseUrl }) => {
-  const artwork = JSON.parse(fs.readFileSync(path.join(rootDir, 'data/dogs/generated-artwork.json'), 'utf8'));
-  const catalog = JSON.parse(fs.readFileSync(path.join(rootDir, 'data/dogs/dog-catalog.json'), 'utf8'));
-  const approvedIds = artwork.assets.map((asset) => asset.catalogId).sort();
-  const hiddenId = catalog.entities.find((entry) => entry.selectable && !approvedIds.includes(entry.id))?.id;
-  if (approvedIds.length < 25 || !hiddenId) throw new Error('Dogs gallery fixture should have at least 25 completed pairs and at least one unfinished identity');
+  const { catalog, publicIds, suppressedCompletedIds } = await dogsVisibilityFixture();
+  const approvedIds = [...publicIds].sort();
+  const hiddenId = suppressedCompletedIds[0] || catalog.entities.find((entry) => entry.selectable && !publicIds.has(entry.id))?.id;
+  if (approvedIds.length < 25 || !hiddenId) throw new Error('Dogs gallery fixture should have at least 25 completed pairs and at least one nonpublic identity');
   const page = await openChromePage({ name: 'dogs-discovery-gallery', width: 1440, height: 900 });
   const key = async (name, code) => {
     for (const type of ['keyDown', 'keyUp']) {

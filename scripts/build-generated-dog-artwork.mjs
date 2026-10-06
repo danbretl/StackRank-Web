@@ -6,7 +6,9 @@ import path from "node:path";
 import { promisify } from "node:util";
 import { fileURLToPath } from "node:url";
 import { preserveDogArtwork } from "./preserve-dog-artwork.mjs";
-import { TEXT_ONLY_TEMPLATE, validTextOnlyPublicReference, M_TEXT_ONLY_TEMPLATE, validMTextOnlyPublicReference } from "./dog-portrait-source-policy.mjs";
+import { TEXT_ONLY_TEMPLATE, validTextOnlyPublicReference, M_TEXT_ONLY_TEMPLATE, validMTextOnlyPublicReference, N_TEXT_ONLY_TEMPLATE, validNTextOnlyPublicReference } from "./dog-portrait-source-policy.mjs";
+import { ARTWORK_CORRECTION_PATH, applyDogArtworkCorrections, verifyDogArtworkCorrectionEvidence } from "./dog-artwork-corrections.mjs";
+import { CORRECTION_TEXT_ONLY_TEMPLATE, validCorrectionTextOnlyPublicReference } from "./dog-portrait-source-policy.mjs";
 import { canReuseDogArtworkVariant } from "./dog-generated-artwork-cache.mjs";
 
 const execFile = promisify(execFileCallback);
@@ -37,7 +39,9 @@ const [catalog, rights, policy, ...batches] = await Promise.all([
 ]);
 const catalogById = new Map(catalog.entities.map((entity) => [entity.id, entity]));
 const rightsByAssetId = new Map(rights.assets.map((asset) => [asset.assetId, asset]));
-const entries = batches.flatMap(batchEntries);
+const correctionDocument = await readJson(ARTWORK_CORRECTION_PATH);
+const entries = applyDogArtworkCorrections(batches.flatMap(batchEntries), correctionDocument);
+for (const entry of correctionDocument.images) await verifyDogArtworkCorrectionEvidence(root, entry);
 const ids = new Set();
 const errors = [];
 
@@ -47,10 +51,10 @@ for (const entry of entries) {
   ids.add(entry?.catalogId);
   if (entry?.qa?.verdict !== "pass") errors.push(`${entry?.catalogId}: QA did not pass`);
   if (entry?.generator !== "OpenAI built-in imagegen") errors.push(`${entry?.catalogId}: unsupported generator`);
-  if (!["dogs-field-guide-v1", "dogs-field-guide-v2-cohort-e", "dogs-field-guide-v3-cohort-f", "dogs-field-guide-v4-cohort-g", "dogs-field-guide-v5-cohort-h", "dogs-field-guide-v6-cohort-i", "dogs-field-guide-v7-cohort-j", "dogs-field-guide-v8-cohort-k", "dogs-field-guide-v9-cohort-l", TEXT_ONLY_TEMPLATE, M_TEXT_ONLY_TEMPLATE].includes(entry?.promptTemplateVersion)) errors.push(`${entry?.catalogId}: prompt template mismatch`);
+  if (!["dogs-field-guide-v1", "dogs-field-guide-v2-cohort-e", "dogs-field-guide-v3-cohort-f", "dogs-field-guide-v4-cohort-g", "dogs-field-guide-v5-cohort-h", "dogs-field-guide-v6-cohort-i", "dogs-field-guide-v7-cohort-j", "dogs-field-guide-v8-cohort-k", "dogs-field-guide-v9-cohort-l", TEXT_ONLY_TEMPLATE, M_TEXT_ONLY_TEMPLATE, N_TEXT_ONLY_TEMPLATE, CORRECTION_TEXT_ONLY_TEMPLATE].includes(entry?.promptTemplateVersion)) errors.push(`${entry?.catalogId}: prompt template mismatch`);
   const reference = rightsByAssetId.get(entry?.reference?.assetId);
-  if ([TEXT_ONLY_TEMPLATE, M_TEXT_ONLY_TEMPLATE].includes(entry?.promptTemplateVersion)) {
-    if (!(entry.promptTemplateVersion === M_TEXT_ONLY_TEMPLATE ? validMTextOnlyPublicReference : validTextOnlyPublicReference)(entry.reference, entry.referenceEvidence)) errors.push(`${entry.catalogId}: missing approved text-only research evidence`);
+  if ([TEXT_ONLY_TEMPLATE, M_TEXT_ONLY_TEMPLATE, N_TEXT_ONLY_TEMPLATE, CORRECTION_TEXT_ONLY_TEMPLATE].includes(entry?.promptTemplateVersion)) {
+    if (!(entry.promptTemplateVersion === CORRECTION_TEXT_ONLY_TEMPLATE ? validCorrectionTextOnlyPublicReference : entry.promptTemplateVersion === N_TEXT_ONLY_TEMPLATE ? validNTextOnlyPublicReference : entry.promptTemplateVersion === M_TEXT_ONLY_TEMPLATE ? validMTextOnlyPublicReference : validTextOnlyPublicReference)(entry.reference, entry.referenceEvidence)) errors.push(`${entry.catalogId}: missing approved text-only research evidence`);
     for (const item of [entry.referenceEvidence?.researchDossier, entry.referenceEvidence?.sourcePolicyAuthorization].filter(Boolean)) {
       const bytes = await fs.readFile(path.resolve(root, item.path));
       if (bytes.length !== item.bytes || createHash("sha256").update(bytes).digest("hex") !== item.sha256) errors.push(`${entry.catalogId}: changed text-only source evidence`);
@@ -79,6 +83,7 @@ for (const entry of entries.sort((left, right) => left.catalogId.localeCompare(r
   const { stdout: dimensions } = await execFile("magick", [sourcePath, "-format", "%w,%h", "info:"]);
   if (dimensions.trim() !== "1536,1024") throw new Error(`${entry.catalogId}: expected a 1536x1024 master, got ${dimensions.trim()}`);
   const source = await hashFile(sourcePath);
+  if (entry.promptTemplateVersion === CORRECTION_TEXT_ONLY_TEMPLATE && source.sha256 !== entry.masterSha256) throw new Error(`${entry.catalogId}: changed corrected native master`);
   const stem = path.basename(entry.generatedPath, path.extname(entry.generatedPath));
   const variants = [];
   for (const target of targets) {

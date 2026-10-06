@@ -380,7 +380,7 @@ class CoordinationTests(unittest.TestCase):
         fresh = p.parent / (MODULE.digest(raw) + '.json')
         fresh.write_bytes(raw)
         self.assertEqual(current.image_preflight('A', 'thread-A', 'breed-A', fresh)['catalogId'], 'breed-A')
-        self.registry['cohortId'] = 'dogs-portraits-n'
+        self.registry['cohortId'] = 'dogs-portraits-o'
         self.registry_path.write_text(json.dumps(self.registry))
         with self.assertRaisesRegex(ValueError, 'Wrong coordination cohort'):
             MODULE.Coordinator(self.registry_path)

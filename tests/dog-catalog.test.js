@@ -108,11 +108,11 @@ test("assigns exactly one explicit disposition to every source term", () => {
   assert.equal(coverage.unclassifiedTermCount, 0);
   assert.deepEqual(coverage.dispositionCounts, {
     alias: 294,
-    canonical: 878,
-    crossbreed: 139,
+    canonical: 869,
+    crossbreed: 141,
     excluded: 4,
-    historical: 35,
-    variety: 187,
+    historical: 40,
+    variety: 189,
   });
   assert.equal(
     Object.values(coverage.dispositionCounts).reduce((sum, count) => sum + count, 0),
@@ -293,9 +293,9 @@ test("labels historical concepts, crossbreeds, mixed breed, and non-dog exclusio
 test("publishes explicit review queues for every non-canonical and ambiguous decision class", () => {
   assert.deepEqual(review.summary, {
     aliasDecisions: 294,
-    varietyDecisions: 187,
-    crossbreedDecisions: 139,
-    historicalDecisions: 35,
+    varietyDecisions: 189,
+    crossbreedDecisions: 141,
+    historicalDecisions: 40,
     excludedDecisions: 4,
     regionalLandraceCandidates: 20,
     ambiguousSearchNamesRetained: 18,
@@ -429,4 +429,28 @@ test("contemporary Molossus of Epirus remains distinct from ancient Molossus", (
   assert.equal(epirus.reasonCode, "curated_contemporary_breed");
   assert.equal(ancient.disposition, "historical");
   assert.equal(catalog.entities.find(row => row.id === "VBO:0200904").status, "canonical");
+});
+
+
+test("editorial selection holds preserve identities and remove only explicitly disproved search aliases", () => {
+  assert.equal(entitiesById.get("VBO:0200799").editorialVisibility, "suppressed");
+  assert.equal(entitiesById.get("VBO:0200799").selectable, true);
+  assert.deepEqual(entitiesById.get("VBO:0201329").sourceIds, ["VBO:0201329", "VBO:0201330"]);
+  assert.ok(!entitiesById.get("VBO:0201329").aliases.includes("Tahltan (Kyrgyz Sighthound)"));
+  assert.deepEqual(entitiesById.get("VBO:0200833").displayAliases, ["Windsprite"]);
+  assert.equal(classificationsById.get("VBO:0200482").parentId, "VBO:0200255");
+  assert.equal(classificationsById.get("VBO:0200983").disposition, "historical");
+  assert.equal(entitiesById.get("VBO:0200027").editorialVisibility, undefined);
+});
+
+test("compiler rejects malformed editorial holds and alias curation", () => {
+  for (const patch of [
+    { editorialVisibility: { status: "hidden", reason: "bad status", reviewedAt: "2026-10-06" } },
+    { editorialVisibility: { status: "suppressed", reason: {}, reviewedAt: "2026-10-06" } },
+    { displayAliases: [42] }, { removeAliases: "Tahltan" },
+  ]) {
+    const bad = clone(overrides);
+    bad.entities["VBO:0201329"] = { ...bad.entities["VBO:0201329"], ...patch };
+    assert.throws(() => buildRuntimeCatalog(ontology, metadata, bad, classification), /Invalid/);
+  }
 });

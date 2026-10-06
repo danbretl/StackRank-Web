@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "correctionId": "dogs-audit-corrections-2026-10-06",
+  "reviewedAt": "2026-10-06",
+  "images": [
+    {
+      "catalogId": "VBO:0200271",
+      "name": "Campeiro Bulldog",
+      "findingId": "F-0200271-1",
+      "replacesAssetId": "dogs:generated:vbo-0200271:v1",
+      "replacesGeneratedPath": "assets/dogs/generated-masters/VBO-0200271-campeiro-bulldog.png",
+      "replacesMasterSha256": "34bd852b58d599cf4ac78d67c37ade9212cedb328ff30d0770c294a0de929842",
+      "generatedPath": "assets/dogs/generated-masters/audit-2026-10-06/VBO-0200271-audit-01.png",
+      "masterSha256": "2850f43d28f4f683979a494a78fb3f0b72fe0bc37e9ab68c6ff33b3dbf869e0f",
+      "originalOutputPath": "/Users/danbretl/src/stackrank/generated_images/exec-012f0ec3-7775-4c75-87e4-297a6d210a52.png",
+      "originalOutputSha256": "2850f43d28f4f683979a494a78fb3f0b72fe0bc37e9ab68c6ff33b3dbf869e0f",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "undisclosed",
+      "leadModel": "gpt-6-astra",
+      "leadReasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v11-audit-corrections",
+      "attemptId": "audit-VBO-0200271-01",
+      "startedAt": "2026-10-06T05:02:11.494174+00:00",
+      "generatedAt": "2026-10-06T05:03:19.121448+00:00",
+      "timeEvidence": "Coordinator acquisition/completion UTC boundary; underlying service timing and image model undisclosed.",
+      "prompt": "Use case: photorealistic-natural\nAsset type: StackRank Dogs field-guide portrait. New text-only image; no image inputs.\nCreate one photorealistic adult Brazilian Campeiro Bulldog in a fresh natural standing pose on a low grassy track in southern Brazilian cattle country, distant soft hills and scattered scrub, quiet overcast morning light. Landscape 1536x1024, 3:2.\nExact morphology: strong medium-sized working bulldog, robust but agile, slightly rectangular body about11:10, muscular moderate-length legs, elbow near half the shoulder height, broad chest. Broad substantial head with a lightly rounded skull, well-defined stop, short broad square muzzle about one-quarter to one-third of head length. Small high-set widely spaced triangular pendant ears. Dark oval eyes, black broad nose with open nostrils. Fawn short smooth coat with a dark muzzle and small white chest patch. Natural short low-set tail, thick at base and tapering, curved gently down, fully visible behind the rump, not docked or absent.\nCorrection priority: a clean, functional head with only faint natural expression creases, no deep rolling forehead folds or heavy sagging cheek skin. Thick gently pendant lips and a modest single throat dewlap are correct; do not remove those completely. Body skin close-fitting, no mastiff-like hanging neck apron. Broad muscular head, not a narrow terrier face. Healthy ordinary anatomy and comfortable breathing.\nComposition: dog looking slightly aside from camera, body nearly side-on so proportions are legible; keep all four complete paws separated and planted and whole tail visible. Dog occupies roughly60% of canvas width and65-70% of canvas height with generous ground and head margins. Eye-level perspective, believable fur and skin, anatomically coherent limbs/joints, calm attentive expression. Fine natural detail, gently separated background, restrained light. No people, livestock, collar, lead, props, signs, writing, watermark, studio backdrop or source-photo recreation.\n",
+      "promptSha256": "9daf4605864ce043bfdbdb527508f9ca8dbca3cecc2c8966cb2b1fbce061d55b",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "45edaacbae16b9b9aadb069a89af11123d16477fc211a5b3ac5f4f4dece26e66",
+        "imageInputs": [],
+        "sourcePage": "https://cbkc.org/application/views/docs/padroes/padrao-raca_8.pdf"
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "notes/testing/dogs-audit-corrections/artwork/authorization.json",
+          "sha256": "46e474c39177058a40a2f20e2931d8d72219c93bd59765958267e5c8d33e75f7",
+          "bytes": 1010
+        },
+        "researchDossier": {
+          "path": "notes/testing/dogs-audit-corrections/artwork/VBO-0200271-research.json",
+          "sha256": "45edaacbae16b9b9aadb069a89af11123d16477fc211a5b3ac5f4f4dece26e66",
+          "bytes": 1621
+        },
+        "rootApproval": {
+          "path": "notes/testing/dogs-audit-corrections/artwork/root-approvals/01bafd595c5f4341834383ae2f7de960bcf63073756c054f42776302e292b5de.json",
+          "sha256": "01bafd595c5f4341834383ae2f7de960bcf63073756c054f42776302e292b5de",
+          "bytes": 1689
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "rootSceneAndPromptApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://cbkc.org/application/views/docs/padroes/padrao-raca_8.pdf",
+        "rightsReview": "New text-only morphology synthesis from exact primary standard; zero direct image inputs or photo rights grants."
+      },
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "reviewedBy": "GPT Astra High lead and root artwork worker, independent native reviews",
+        "reviewedAt": "2026-10-06",
+        "breedIdentity": "Cheek and neck skin substantially tighter than prior image; modest throat dewlap retained. Forehead expression creases are no longer accompanied by excess rolling cheek skin. Robust functional slight-rectangle body with moderate legs and broad head.",
+        "anatomy": "Four planted paws; far forepaw partly overlaps but remains readable. Complete naturally curved tapering tail and coherent joints.",
+        "crop": "Entire unchanged1536x1024 personally viewed; head, ears, all limb/paw courses and complete tail safely inside frame.",
+        "aesthetics": "Natural distinct setting/light, believable coat, ground contact and ordinary proportions. Fresh composition without photograph copying.",
+        "contactSheetPath": "debug/dogs/audit-corrections/contact-sheet.png",
+        "contactSheetSha256": "cd5949125d261736fe45c9d376cd669354bf6926b7456e418b79c6aff9ee83c7",
+        "workerContactSheetViewed": true,
+        "leadContactSheetViewed": true,
+        "contactSheetReview": "Lead and root independently accepted both replacements together: consistent natural photo treatment, readable paw courses, full tails and safe margins."
+      },
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 18254,
+          "sha256": "7bcf9ec26bcaf4eaba11a4817ec5eb4570c4842f6cfedb5d0e28ae715e831000",
+          "url": "assets/dogs/generated/VBO-0200271-audit-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 115306,
+          "sha256": "7f2ef9b86fbcacd4416eb9a533fa90db28526aab15a1b1c527675c0b04cdfc11",
+          "url": "assets/dogs/generated/VBO-0200271-audit-01-960.webp"
+        }
+      ],
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    },
+    {
+      "catalogId": "VBO:0200769",
+      "name": "King Charles Spaniel, Tricolour",
+      "findingId": "F-0200769-1",
+      "replacesAssetId": "dogs:generated:vbo-0200769:v1",
+      "replacesGeneratedPath": "assets/dogs/generated-masters/cohort-l/worker-a/VBO-0200769-native-01.png",
+      "replacesMasterSha256": "c524181a8d91a46353606d932182ecdea8b2ad8ea6754d401a2f3e4db66e4982",
+      "generatedPath": "assets/dogs/generated-masters/audit-2026-10-06/VBO-0200769-audit-01.png",
+      "masterSha256": "7d5f290fe56a5960c5b9206aeec3a9cfa5ae8ca1f9b435a3c8951dd388d68871",
+      "originalOutputPath": "/Users/danbretl/src/stackrank/generated_images/exec-a06e02da-7a78-4996-a5ee-2a27e758c4b1.png",
+      "originalOutputSha256": "7d5f290fe56a5960c5b9206aeec3a9cfa5ae8ca1f9b435a3c8951dd388d68871",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "undisclosed",
+      "leadModel": "gpt-6-astra",
+      "leadReasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v11-audit-corrections",
+      "attemptId": "audit-VBO-0200769-01",
+      "startedAt": "2026-10-06T05:03:39.101580+00:00",
+      "generatedAt": "2026-10-06T05:04:39.591043+00:00",
+      "timeEvidence": "Coordinator acquisition/completion UTC boundary; underlying service timing and image model undisclosed.",
+      "prompt": "Use case: photorealistic-natural\nAsset type: StackRank Dogs field-guide portrait. New text-only image; no image inputs.\nCreate one photorealistic mature Tricolour King Charles Spaniel, also called English Toy Spaniel, standing naturally in a quiet English garden meadow edged with hazel and a distant old stone wall, fresh green early-summer grass, soft bright cloudy daylight. Landscape1536x1024, 3:2.\nExact morphology: small refined compact cobby adult toy spaniel with short straight substantial legs, broad deep chest and level short back. Crucial breed identity is the well-domed, full rounded skull rising clearly above the eyes, a deep distinct stop and a very short broad square deep muzzle turned upward. Nose sits high in the face, short and visibly upturned, black with comfortably open nostrils; chin and cushioned cheeks broad, not pointed. Large dark eyes set wide with natural relaxed lids, not exaggerated or bulging. Low-set long pendant ears lie close to the cheeks and carry long silky feathering. Do not substitute the flatter skull or longer straight projecting muzzle of a Cavalier King Charles Spaniel.\nTricolour: pearly-white ground with clear black body patches and black ears, warm tan cheek patches and small tan eyebrows, broad white blaze between eyes and over forehead. Long silky mostly straight coat, feathered ears/legs/tail. Full natural feathered tail extending behind and gently downward below the back line, tip clearly visible, no docking. Healthy ordinary anatomy with comfortable breathing and unobstructed nostrils; do not exaggerate the muzzle into an unhealthy expression.\nComposition: whole dog at eye level, three-quarter body stance with head slightly turned so skull dome, short upturned muzzle and stop are readable in depth. Four complete independently readable grounded paws and complete tail. Dog occupies roughly55-60% width and65-70% height; generous margins above skull and below paws. Natural fur detail, soft background separation, quiet alert expression. No people, other animals, collar, lead, props, text, watermark, studio backdrop or copied source-photo composition.\n",
+      "promptSha256": "cfe3069bc736a74753aef6ef2b28179fb5035025b02d542b5ff42d0e820936bd",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "a7de0f2d234f114a5db04ddec46021af92e09ce7e325263017bc0bdf4c3a0080",
+        "imageInputs": [],
+        "sourcePage": "https://fci.be/Nomenclature/Standards/128g09-en.pdf"
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "notes/testing/dogs-audit-corrections/artwork/authorization.json",
+          "sha256": "46e474c39177058a40a2f20e2931d8d72219c93bd59765958267e5c8d33e75f7",
+          "bytes": 1010
+        },
+        "researchDossier": {
+          "path": "notes/testing/dogs-audit-corrections/artwork/VBO-0200769-research.json",
+          "sha256": "a7de0f2d234f114a5db04ddec46021af92e09ce7e325263017bc0bdf4c3a0080",
+          "bytes": 1550
+        },
+        "rootApproval": {
+          "path": "notes/testing/dogs-audit-corrections/artwork/root-approvals/f6c0a74a55fa16b7025dc7d3aa0aab8a89516bc4cb0bfe0d062d8771d9766a05.json",
+          "sha256": "f6c0a74a55fa16b7025dc7d3aa0aab8a89516bc4cb0bfe0d062d8771d9766a05",
+          "bytes": 1595
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "rootSceneAndPromptApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        },
+        "sourcePage": "https://fci.be/Nomenclature/Standards/128g09-en.pdf",
+        "rightsReview": "New text-only morphology synthesis from exact primary standard; zero direct image inputs or photo rights grants."
+      },
+      "qa": {
+        "verdict": "pass",
+        "status": "approved",
+        "fullSizeOutputViewed": true,
+        "primaryFullResolutionViewed": true,
+        "workerFullResolutionViewed": true,
+        "reviewedBy": "GPT Astra High lead and root artwork worker, independent native reviews",
+        "reviewedAt": "2026-10-06",
+        "breedIdentity": "Skull dome substantially fuller above eyes, high short broad upturned muzzle and deep stop clear. Cobby adult toy proportions, short legs, exact tricolour black/white/tan and broad blaze retained.",
+        "anatomy": "Four limb-paw courses readable despite ordinary grass. Full natural feathered tail, safe complete extremities, natural large eyes/lids, no duplicated anatomy.",
+        "crop": "Entire unchanged1536x1024 personally viewed; head, ears, all limb/paw courses and complete tail safely inside frame.",
+        "aesthetics": "Natural distinct setting/light, believable coat, ground contact and ordinary proportions. Fresh composition without photograph copying.",
+        "contactSheetPath": "debug/dogs/audit-corrections/contact-sheet.png",
+        "contactSheetSha256": "cd5949125d261736fe45c9d376cd669354bf6926b7456e418b79c6aff9ee83c7",
+        "workerContactSheetViewed": true,
+        "leadContactSheetViewed": true,
+        "contactSheetReview": "Lead and root independently accepted both replacements together: consistent natural photo treatment, readable paw courses, full tails and safe margins."
+      },
+      "variants": [
+        {
+          "role": "card",
+          "width": 320,
+          "height": 213,
+          "mime": "image/webp",
+          "bytes": 24536,
+          "sha256": "1815c7b4d5e9451400f421b156328e1c0736230282c1e9866ce40cfac61d09cc",
+          "url": "assets/dogs/generated/VBO-0200769-audit-01-320.webp"
+        },
+        {
+          "role": "detail",
+          "width": 960,
+          "height": 640,
+          "mime": "image/webp",
+          "bytes": 137486,
+          "sha256": "228a2277489d8721de507d143259cb4cf872b9abdf8b62eb50c0d81e9f659619",
+          "url": "assets/dogs/generated/VBO-0200769-audit-01-960.webp"
+        }
+      ],
+      "uiDisplayAllowed": true,
+      "publicSnapshotAllowed": false,
+      "rasterExportAllowed": false
+    }
+  ]
+}

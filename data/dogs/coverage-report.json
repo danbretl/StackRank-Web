@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "vbo-2026-04-15.2",
+  "catalogVersion": "vbo-2026-04-15.3",
   "source": {
     "release": "2026-04-15",
     "rootId": "VBO:0400024",
@@ -12,17 +12,17 @@
   "unclassifiedTermCount": 0,
   "dispositionCounts": {
     "alias": 294,
-    "canonical": 878,
-    "crossbreed": 139,
+    "canonical": 869,
+    "crossbreed": 141,
     "excluded": 4,
-    "historical": 35,
-    "variety": 187
+    "historical": 40,
+    "variety": 189
   },
   "reasonCodeCounts": {
     "curated_contemporary_breed": 1,
     "curated_country_duplicate": 47,
     "curated_country_variety": 2,
-    "curated_historical_breed": 35,
+    "curated_historical_breed": 34,
     "curated_historical_registry_name": 5,
     "curated_historical_synonym": 1,
     "curated_identity_anchor": 13,
@@ -37,12 +37,15 @@
     "curated_unspecified_registry_name": 4,
     "curated_variant_family_anchor": 8,
     "curated_wolfdog_type": 1,
+    "independent_audit_exact_identity": 6,
+    "independent_historical_population_review": 6,
     "non_domestic_canid": 2,
     "organization_name_not_breed": 1,
     "research_population_not_consumer_breed_type": 1,
-    "vbo_direct_dog_breed": 854,
+    "source_explicit_cross_identity": 1,
+    "vbo_direct_dog_breed": 843,
     "vbo_exact_synonym_cluster": 68,
-    "vbo_mixed_breed_descendant": 138,
+    "vbo_mixed_breed_descendant": 137,
     "vbo_nested_breed_concept": 166
   },
   "sourceDepthCounts": {
@@ -52,7 +55,7 @@
   },
   "selectableEntityCount": 1239,
   "runtimeEntityCount": 1239,
-  "runtimeBytes": 697957,
+  "runtimeBytes": 711422,
   "largestRecordBytes": 848,
   "payloadLimits": {
     "runtimeBytes": 2000000,
@@ -158,6 +161,10 @@
       "sourceLabel": "Kurī (Dog)"
     },
     {
+      "vboId": "VBO:0200821",
+      "sourceLabel": "Levesque (Dog)"
+    },
+    {
       "vboId": "VBO:0200866",
       "sourceLabel": "Marquesan Dog (Dog)"
     },
@@ -186,8 +193,12 @@
       "sourceLabel": "Old Spanish Pointer (Dog)"
     },
     {
-      "vboId": "VBO:0200984",
-      "sourceLabel": "Pampas Deerhound (Dog)"
+      "vboId": "VBO:0200983",
+      "sourceLabel": "Paisley Terrier (Dog)"
+    },
+    {
+      "vboId": "VBO:0201144",
+      "sourceLabel": "Rough Beagle (Dog)"
     },
     {
       "vboId": "VBO:0201170",
@@ -210,6 +221,10 @@
       "sourceLabel": "Tesem (Dog)"
     },
     {
+      "vboId": "VBO:0201360",
+      "sourceLabel": "Toy Bulldog (Dog)"
+    },
+    {
       "vboId": "VBO:0201367",
       "sourceLabel": "Toy Trawler Spaniel (Dog)"
     },
@@ -220,6 +235,14 @@
     {
       "vboId": "VBO:0201378",
       "sourceLabel": "Tweed Water Spaniel (Dog)"
+    },
+    {
+      "vboId": "VBO:0201408",
+      "sourceLabel": "Welsh Hillman (Dog)"
+    },
+    {
+      "vboId": "VBO:0201425",
+      "sourceLabel": "Wire Haired Whippet (Dog)"
     }
   ],
   "checks": {

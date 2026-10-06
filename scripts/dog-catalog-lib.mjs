@@ -6,7 +6,7 @@ export const MIXED_BREED_ID = "VBO:0200902";
 export const CLASSIFICATION_SCHEMA_VERSION = 1;
 export const CATALOG_SCHEMA_VERSION = 1;
 export const CATALOG_ID = "stackrank-dogs";
-export const CATALOG_VERSION = "vbo-2026-04-15.2";
+export const CATALOG_VERSION = "vbo-2026-04-15.3";
 export const MAX_RUNTIME_BYTES = 2_000_000;
 export const MAX_RECORD_BYTES = 16_384;
 
@@ -586,6 +586,22 @@ export function buildRuntimeCatalog(ontology, metadata, overrides, classificatio
       const sourceEntries = sourceIds.map((id) => universe.byId.get(id)).filter(Boolean);
       const ownEntry = universe.byId.get(row.vboId);
       const displayName = displayNameById.get(row.vboId);
+      const visibility = override.editorialVisibility;
+      if (visibility !== undefined && (visibility?.status !== "suppressed" ||
+        (typeof visibility.reason !== "string" || !visibility.reason.trim()) || !/^\d{4}-\d{2}-\d{2}$/.test(visibility.reviewedAt))) {
+        throw new Error(`Invalid editorial visibility decision: ${row.vboId}`);
+      }
+      if (override.removeAliases !== undefined && (!Array.isArray(override.removeAliases) ||
+        override.removeAliases.some((alias) => typeof alias !== "string" || !alias.trim()))) {
+        throw new Error(`Invalid removed aliases: ${row.vboId}`);
+      }
+      const removedAliases = new Set(override.removeAliases || []);
+      const aliases = aliasesForEntries(sourceEntries, displayName, row.vboId, preferredOwnerByName)
+        .filter((alias) => !removedAliases.has(alias));
+      if (override.displayAliases !== undefined && (!Array.isArray(override.displayAliases) ||
+        override.displayAliases.some((alias) => typeof alias !== "string" || !alias.trim()))) {
+        throw new Error(`Invalid display aliases: ${row.vboId}`);
+      }
       return {
         id: row.vboId,
         displayName,
@@ -593,12 +609,9 @@ export function buildRuntimeCatalog(ontology, metadata, overrides, classificatio
         status: row.disposition,
         selectable: true,
         promoted: override.promoted === true,
-        aliases: aliasesForEntries(
-          sourceEntries,
-          displayName,
-          row.vboId,
-          preferredOwnerByName,
-        ),
+        aliases,
+        ...(override.displayAliases !== undefined ? { displayAliases: uniqueSortedStrings(override.displayAliases) } : {}),
+        ...(visibility ? { editorialVisibility: "suppressed" } : {}),
         sourceIds,
         registryRefs: registryRefsForEntries(sourceEntries),
         relationships: {
@@ -838,6 +851,9 @@ function validateOverrides(overrides, universe, errors) {
         "originRegions",
         "tags",
         "relatedIds",
+        "displayAliases",
+        "removeAliases",
+        "editorialVisibility",
       ]),
       `Entity override ${id}`,
     );
@@ -1046,6 +1062,8 @@ export function validateCatalogSystem({
         "selectable",
         "promoted",
         "aliases",
+        "displayAliases",
+        "editorialVisibility",
         "sourceIds",
         "registryRefs",
         "relationships",
@@ -1055,6 +1073,13 @@ export function validateCatalogSystem({
       ]),
       `Catalog entity ${entity.id || "<missing id>"}`,
     );
+    if (entity.editorialVisibility !== undefined && entity.editorialVisibility !== "suppressed") {
+      errors.push(`Catalog entity ${entity.id} has invalid editorial visibility`);
+    }
+    if (entity.displayAliases !== undefined && (!Array.isArray(entity.displayAliases) ||
+      entity.displayAliases.some((alias) => typeof alias !== "string" || !alias.trim()))) {
+      errors.push(`Catalog entity ${entity.id} has invalid display aliases`);
+    }
     if (entitiesById.has(entity.id)) errors.push(`Duplicate catalog identity ${entity.id}`);
     entitiesById.set(entity.id, entity);
     if (!CURIE_PATTERN.test(entity.id || "")) errors.push(`Invalid catalog identity ${entity.id}`);

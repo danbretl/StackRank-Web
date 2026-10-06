@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "catalogVersion": "vbo-2026-04-15.2",
+  "catalogVersion": "vbo-2026-04-15.3",
   "source": {
     "release": "2026-04-15",
     "rootId": "VBO:0400024",
@@ -9,9 +9,9 @@
   "reviewedAt": "2026-07-16",
   "summary": {
     "aliasDecisions": 294,
-    "varietyDecisions": 187,
-    "crossbreedDecisions": 139,
-    "historicalDecisions": 35,
+    "varietyDecisions": 189,
+    "crossbreedDecisions": 141,
+    "historicalDecisions": 40,
     "excludedDecisions": 4,
     "regionalLandraceCandidates": 20,
     "ambiguousSearchNamesRetained": 18
@@ -2400,6 +2400,20 @@
       "reasonCode": "vbo_nested_breed_concept"
     },
     {
+      "vboId": "VBO:0200482",
+      "sourceLabel": "English Bull Terrier, Coloured (Dog)",
+      "parentId": "VBO:0200255",
+      "parentLabel": "Bull Terrier",
+      "reasonCode": "independent_audit_exact_identity"
+    },
+    {
+      "vboId": "VBO:0200483",
+      "sourceLabel": "English Bull Terrier, White (Dog)",
+      "parentId": "VBO:0200255",
+      "parentLabel": "Bull Terrier",
+      "reasonCode": "independent_audit_exact_identity"
+    },
+    {
       "vboId": "VBO:0200487",
       "sourceLabel": "English Cocker Spaniel, Particolours (Bicolours, Tricolours, Roans) (Dog)",
       "parentId": "VBO:0200486",
@@ -3509,6 +3523,12 @@
       "reasonCode": "vbo_mixed_breed_descendant"
     },
     {
+      "vboId": "VBO:0200297",
+      "sourceLabel": "Catahoula Bulldog (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "independent_audit_exact_identity"
+    },
+    {
       "vboId": "VBO:0200305",
       "sourceLabel": "Cavachi (Dog)",
       "parentId": "VBO:0200902",
@@ -3691,12 +3711,6 @@
     {
       "vboId": "VBO:0200536",
       "sourceLabel": "French Bull Terrier (Dog)",
-      "parentId": "VBO:0200902",
-      "reasonCode": "vbo_mixed_breed_descendant"
-    },
-    {
-      "vboId": "VBO:0200576",
-      "sourceLabel": "German Sheeppoodle (Dog)",
       "parentId": "VBO:0200902",
       "reasonCode": "vbo_mixed_breed_descendant"
     },
@@ -3893,6 +3907,12 @@
       "reasonCode": "vbo_mixed_breed_descendant"
     },
     {
+      "vboId": "VBO:0200978",
+      "sourceLabel": "Ori Pei (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "independent_audit_exact_identity"
+    },
+    {
       "vboId": "VBO:0200991",
       "sourceLabel": "Patterjack (Dog)",
       "parentId": "VBO:0200902",
@@ -4053,6 +4073,12 @@
       "sourceLabel": "Sharpoo (Dog)",
       "parentId": "VBO:0200902",
       "reasonCode": "vbo_mixed_breed_descendant"
+    },
+    {
+      "vboId": "VBO:0201218",
+      "sourceLabel": "Shi-Jug (Dog)",
+      "parentId": "VBO:0200902",
+      "reasonCode": "source_explicit_cross_identity"
     },
     {
       "vboId": "VBO:0201221",
@@ -4320,6 +4346,11 @@
       "reasonCode": "curated_historical_breed"
     },
     {
+      "vboId": "VBO:0200821",
+      "sourceLabel": "Levesque (Dog)",
+      "reasonCode": "independent_historical_population_review"
+    },
+    {
       "vboId": "VBO:0200866",
       "sourceLabel": "Marquesan Dog (Dog)",
       "reasonCode": "curated_historical_breed"
@@ -4355,9 +4386,14 @@
       "reasonCode": "curated_historical_breed"
     },
     {
-      "vboId": "VBO:0200984",
-      "sourceLabel": "Pampas Deerhound (Dog)",
-      "reasonCode": "curated_historical_breed"
+      "vboId": "VBO:0200983",
+      "sourceLabel": "Paisley Terrier (Dog)",
+      "reasonCode": "independent_historical_population_review"
+    },
+    {
+      "vboId": "VBO:0201144",
+      "sourceLabel": "Rough Beagle (Dog)",
+      "reasonCode": "independent_historical_population_review"
     },
     {
       "vboId": "VBO:0201170",
@@ -4385,6 +4421,11 @@
       "reasonCode": "curated_historical_breed"
     },
     {
+      "vboId": "VBO:0201360",
+      "sourceLabel": "Toy Bulldog (Dog)",
+      "reasonCode": "independent_historical_population_review"
+    },
+    {
       "vboId": "VBO:0201367",
       "sourceLabel": "Toy Trawler Spaniel (Dog)",
       "reasonCode": "curated_historical_breed"
@@ -4398,6 +4439,16 @@
       "vboId": "VBO:0201378",
       "sourceLabel": "Tweed Water Spaniel (Dog)",
       "reasonCode": "curated_historical_breed"
+    },
+    {
+      "vboId": "VBO:0201408",
+      "sourceLabel": "Welsh Hillman (Dog)",
+      "reasonCode": "independent_historical_population_review"
+    },
+    {
+      "vboId": "VBO:0201425",
+      "sourceLabel": "Wire Haired Whippet (Dog)",
+      "reasonCode": "independent_historical_population_review"
     }
   ],
   "excludedDecisions": [

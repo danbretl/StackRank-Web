@@ -1,0 +1,3386 @@
+{
+  "checkedAt": "2026-10-06T04:52:59.729106+00:00",
+  "head": "c3ba4b030f7ad587e8a11cfc264c86b2543e5ab1",
+  "inputChecks": [
+    {
+      "path": "CLAUDE.md",
+      "expected": "39f991e0e88451058fa860a6200a1ac9aea43392e7896772e3edef5d61612139",
+      "actual": "39f991e0e88451058fa860a6200a1ac9aea43392e7896772e3edef5d61612139",
+      "matches": true
+    },
+    {
+      "path": "notes/feature-ideas/dogs-breed-profile-quality.md",
+      "expected": "37dcc36fc26887756429e74a6ee5b34b6e6a014e1c60ee9395db3d543efea371",
+      "actual": "37dcc36fc26887756429e74a6ee5b34b6e6a014e1c60ee9395db3d543efea371",
+      "matches": true
+    },
+    {
+      "path": "notes/feature-ideas/dogs-reference-research-policy.md",
+      "expected": "ead0246517bc4fd939194ebac45956446b00c71cb374002b18a4af834f3ea1ee",
+      "actual": "ead0246517bc4fd939194ebac45956446b00c71cb374002b18a4af834f3ea1ee",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/catalog-review-guide.md",
+      "expected": "4395058cc04d61a9b251e9d5b93d8b17502306ce27859319ebd8d6a346fa7377",
+      "actual": "4395058cc04d61a9b251e9d5b93d8b17502306ce27859319ebd8d6a346fa7377",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/artwork-review-guide.md",
+      "expected": "7ea5515427aba32540cc1c5fd1b56f4726e751d5f2ff8d2ace4852182cefe4cf",
+      "actual": "7ea5515427aba32540cc1c5fd1b56f4726e751d5f2ff8d2ace4852182cefe4cf",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/artwork-discovery-guide.md",
+      "expected": "5b5979f64c550b934febc6e3ec73f9e453faabc7cf0bea864a9bf29542504abf",
+      "actual": "5b5979f64c550b934febc6e3ec73f9e453faabc7cf0bea864a9bf29542504abf",
+      "matches": true
+    },
+    {
+      "path": "scripts/build-dog-profiles.mjs",
+      "expected": "deb181b5dc7084e269cbfdb44ff5a5c47f8b4d468fd07a9b4dfc74dee250f5d4",
+      "actual": "deb181b5dc7084e269cbfdb44ff5a5c47f8b4d468fd07a9b4dfc74dee250f5d4",
+      "matches": true
+    },
+    {
+      "path": "scripts/dog-profiles-lib.mjs",
+      "expected": "ce2df3c1e9f56748c0823808289b80f0c292e8166367f68e02710d23dd06a818",
+      "actual": "ce2df3c1e9f56748c0823808289b80f0c292e8166367f68e02710d23dd06a818",
+      "matches": true
+    },
+    {
+      "path": "lib/dogs-public-visibility.js",
+      "expected": "19eff1f36c8dc95afc1519a787a751d96f89bf2950d802000f0fb54f404fd6cb",
+      "actual": "19eff1f36c8dc95afc1519a787a751d96f89bf2950d802000f0fb54f404fd6cb",
+      "matches": true
+    },
+    {
+      "path": "lib/dogs.js",
+      "expected": "c985f03d78a03dd6a170108473bbe17ffcf6d8e75fb25b9acd86169f69f8384e",
+      "actual": "c985f03d78a03dd6a170108473bbe17ffcf6d8e75fb25b9acd86169f69f8384e",
+      "matches": true
+    },
+    {
+      "path": "lib/dog-research-url.js",
+      "expected": "7a28d057b6f85c3aec6f9e2499f6b06fe289f28cc0b8809f2ad0bfa13a2bf6f7",
+      "actual": "7a28d057b6f85c3aec6f9e2499f6b06fe289f28cc0b8809f2ad0bfa13a2bf6f7",
+      "matches": true
+    },
+    {
+      "path": "dogs.js",
+      "expected": "3f42e086a98f4644098c30786cd6d967965c3d550e3df4a7a549f9a976c69cac",
+      "actual": "3f42e086a98f4644098c30786cd6d967965c3d550e3df4a7a549f9a976c69cac",
+      "matches": true
+    },
+    {
+      "path": "lib/dogs-artwork-review.js",
+      "expected": "6d30ee2601088a5f442ee29f28b4dae9eb4839709718eb5a42f73dd64bf8644b",
+      "actual": "6d30ee2601088a5f442ee29f28b4dae9eb4839709718eb5a42f73dd64bf8644b",
+      "matches": true
+    },
+    {
+      "path": "dogs-artwork-review.js",
+      "expected": "eb57dabbd47aa8c25158ac2d92aaf07bdb7fcf027797774f899ab11d54249501",
+      "actual": "eb57dabbd47aa8c25158ac2d92aaf07bdb7fcf027797774f899ab11d54249501",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/dog-catalog.json",
+      "expected": "e0d90d8f66c0943234d8a22c7bbd4c153b5b37776635effc7bc13297197da73c",
+      "actual": "e0d90d8f66c0943234d8a22c7bbd4c153b5b37776635effc7bc13297197da73c",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/breed-profiles.json",
+      "expected": "a12106eefb7565655028f1920ed452d2ee352287914d6445ea422521de8f22ed",
+      "actual": "a12106eefb7565655028f1920ed452d2ee352287914d6445ea422521de8f22ed",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork.json",
+      "expected": "ce0e326a0188b10a79c88b2d0a70abbeff2fa2f29624a717e40bf480b39e8a99",
+      "actual": "ce0e326a0188b10a79c88b2d0a70abbeff2fa2f29624a717e40bf480b39e8a99",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/classification.json",
+      "expected": "3d1ae9c2617faa29d09d8a1f5769b818dcc1f07d302c0ccc41f930dc9b8986fe",
+      "actual": "3d1ae9c2617faa29d09d8a1f5769b818dcc1f07d302c0ccc41f930dc9b8986fe",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/classification-review.json",
+      "expected": "1ea9d11796aa2d6df54c5a320fb150999af125118d07d89e2a5211a96728f497",
+      "actual": "1ea9d11796aa2d6df54c5a320fb150999af125118d07d89e2a5211a96728f497",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/catalog-overrides.json",
+      "expected": "7ea21a0a7e2061a57b37c59a29a69f974877c6fc23697bb58e96771c887e1fd0",
+      "actual": "7ea21a0a7e2061a57b37c59a29a69f974877c6fc23697bb58e96771c887e1fd0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/coverage-report.json",
+      "expected": "b12482056c76c08ffa923b59be5f0408dee3896c4814f837a7d92398526f4831",
+      "actual": "b12482056c76c08ffa923b59be5f0408dee3896c4814f837a7d92398526f4831",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/packs.json",
+      "expected": "e91104204ded1e76f825295070d7d4ac9757bea7faf49abb3a314ca6332a1719",
+      "actual": "e91104204ded1e76f825295070d7d4ac9757bea7faf49abb3a314ca6332a1719",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-overrides.json",
+      "expected": "065ad5e48fc7eb9db2d81c6e5002571c13b9896957fca36586036121b1221c30",
+      "actual": "065ad5e48fc7eb9db2d81c6e5002571c13b9896957fca36586036121b1221c30",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-short-descriptions.json",
+      "expected": "abc65a8442ab97a73e85cd25ba3e93ead5b813f9c72aada04f3008d2f39202ec",
+      "actual": "abc65a8442ab97a73e85cd25ba3e93ead5b813f9c72aada04f3008d2f39202ec",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/image-rights.json",
+      "expected": "50c8c5390f2e3e7188b1782deea81d4a6130aa72ce7ae680197141e3f2810c89",
+      "actual": "50c8c5390f2e3e7188b1782deea81d4a6130aa72ce7ae680197141e3f2810c89",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-policy.json",
+      "expected": "897cf6e417b9a91c3107352918ccc79582e42aff131fa1ee551d933be652caff",
+      "actual": "897cf6e417b9a91c3107352918ccc79582e42aff131fa1ee551d933be652caff",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/artwork-license-policy.json",
+      "expected": "cbfc39daaac54be7e5c530c1162da7e9c303b00dad6bcbeb8332b6f7fa1e90e6",
+      "actual": "cbfc39daaac54be7e5c530c1162da7e9c303b00dad6bcbeb8332b6f7fa1e90e6",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/breed-profiles.schema.json",
+      "expected": "000f355bc8a46d512402b4a7a3d6fa893f8935ce06d4e5c78f6c195bae55b157",
+      "actual": "000f355bc8a46d512402b4a7a3d6fa893f8935ce06d4e5c78f6c195bae55b157",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/sources/fci-promoted-profiles-2026-09-21.json",
+      "expected": "e002b482c2a0ea68d08bf056f6494ef2ca91658adedd09f26e31f4a9c9192eb0",
+      "actual": "e002b482c2a0ea68d08bf056f6494ef2ca91658adedd09f26e31f4a9c9192eb0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/sources/vbo-2026-04-15.json",
+      "expected": "511bb27d7581bfb8bccf69583c8ac0e3c12de4fdecaf0a8649abfcbfc5ed4da1",
+      "actual": "511bb27d7581bfb8bccf69583c8ac0e3c12de4fdecaf0a8649abfcbfc5ed4da1",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/sources/vbo-2026-04-15.metadata.json",
+      "expected": "7af9e0b7d3b63cd3bd140d4af6c2e7cd8a1ffe585b4a9fb37e331fd726352b8f",
+      "actual": "7af9e0b7d3b63cd3bd140d4af6c2e7cd8a1ffe585b4a9fb37e331fd726352b8f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/sources/vbo-2026-04-15.sha256",
+      "expected": "2c6c7972c11292e61b616c89d9f5f41f0d3e7bdc2822c69b046dc30c8346b33f",
+      "actual": "2c6c7972c11292e61b616c89d9f5f41f0d3e7bdc2822c69b046dc30c8346b33f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/sources/wikidata-dog-breeds-2026-09-21.json",
+      "expected": "7fa738db4bc9985304a2a9cc557a50fb695e23fd5a10dc650fd5b6b99d139811",
+      "actual": "7fa738db4bc9985304a2a9cc557a50fb695e23fd5a10dc650fd5b6b99d139811",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-a.json",
+      "expected": "c080fb915e5af0f96a86d7aa45e8d0aa11dfb035af580c8e3b0d53d3989aff89",
+      "actual": "c080fb915e5af0f96a86d7aa45e8d0aa11dfb035af580c8e3b0d53d3989aff89",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-b.json",
+      "expected": "89d51ccbe0aec07d98f45d2248f75c3d003e7165dd9117d795176a6fde1f0d7d",
+      "actual": "89d51ccbe0aec07d98f45d2248f75c3d003e7165dd9117d795176a6fde1f0d7d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-c.json",
+      "expected": "7cda13531fb205d06e1da1707c81a11cc905b0a976d128ee59898a67d0995e0f",
+      "actual": "7cda13531fb205d06e1da1707c81a11cc905b0a976d128ee59898a67d0995e0f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-f.json",
+      "expected": "8c93b72fef7534de08520f9675b4199d324430efa388c2c20d3b07b7578c6b27",
+      "actual": "8c93b72fef7534de08520f9675b4199d324430efa388c2c20d3b07b7578c6b27",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-f02.json",
+      "expected": "8e485c98e34a6ef19a09a8f1e357e6f05419b6d87168c1dd5aedfd44ddbc9f8d",
+      "actual": "8e485c98e34a6ef19a09a8f1e357e6f05419b6d87168c1dd5aedfd44ddbc9f8d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-f03.json",
+      "expected": "fc88362d79abaf9bea7cd84106a1c181492e63d8389380c1e58111af86a316f7",
+      "actual": "fc88362d79abaf9bea7cd84106a1c181492e63d8389380c1e58111af86a316f7",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-f04.json",
+      "expected": "0bef4673267c2099a4141eb8948cdb79e1e55a6dd506454bd9c7bb5af1994556",
+      "actual": "0bef4673267c2099a4141eb8948cdb79e1e55a6dd506454bd9c7bb5af1994556",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-g01.json",
+      "expected": "89f77d7902152b2c2c25f1208652ea9e116808addd649c72bcc3e7101d99d26f",
+      "actual": "89f77d7902152b2c2c25f1208652ea9e116808addd649c72bcc3e7101d99d26f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-h01.json",
+      "expected": "7aa7ef584d73609ef04b32ebbc28bdbae2d3d2c38809aa1516ec7bbc0c37d264",
+      "actual": "7aa7ef584d73609ef04b32ebbc28bdbae2d3d2c38809aa1516ec7bbc0c37d264",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-h02.json",
+      "expected": "c6bbfaef4db75a20910df661c53fb55b0ce2b91de6c44e2e47d36a45d0f5bb3d",
+      "actual": "c6bbfaef4db75a20910df661c53fb55b0ce2b91de6c44e2e47d36a45d0f5bb3d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-i01.json",
+      "expected": "a39bb5922ab1d450ea94a93bf24b22b5e467c40fda21ac66ce457af5c952b4a6",
+      "actual": "a39bb5922ab1d450ea94a93bf24b22b5e467c40fda21ac66ce457af5c952b4a6",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-i02.json",
+      "expected": "c8ae697a26d1d6084cf12e81ac599a146b013ca59b0a8a29a61e30c284c79e42",
+      "actual": "c8ae697a26d1d6084cf12e81ac599a146b013ca59b0a8a29a61e30c284c79e42",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-j01.json",
+      "expected": "aa9d9714f6c5c3732038b32c06f0df981cb985730a18eb3888b41ccf43b7a095",
+      "actual": "aa9d9714f6c5c3732038b32c06f0df981cb985730a18eb3888b41ccf43b7a095",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-j02.json",
+      "expected": "feeb52fefb6de3686a71566d437f62245b266abceb9754068229b20825f284b0",
+      "actual": "feeb52fefb6de3686a71566d437f62245b266abceb9754068229b20825f284b0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-j03.json",
+      "expected": "99db56510e882e7cec927ddd7639d4d256319f5523a1c1411e3d94adb93542c2",
+      "actual": "99db56510e882e7cec927ddd7639d4d256319f5523a1c1411e3d94adb93542c2",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-k01.json",
+      "expected": "bb2f53edfc6923898b6d4d8deef93e2facf79ab0566fe5bc0cf9278fb679fda7",
+      "actual": "bb2f53edfc6923898b6d4d8deef93e2facf79ab0566fe5bc0cf9278fb679fda7",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-k02.json",
+      "expected": "b6f055321518945b4bbee30f5ce8db89776476701095c1adc92e20e2841c06c5",
+      "actual": "b6f055321518945b4bbee30f5ce8db89776476701095c1adc92e20e2841c06c5",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-k03.json",
+      "expected": "76103d856f60847b279c4e49045e0e0ab61be391146da770fcb3d2165c7c5fcf",
+      "actual": "76103d856f60847b279c4e49045e0e0ab61be391146da770fcb3d2165c7c5fcf",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l01.json",
+      "expected": "58f6ef84e2727167ab63f84f3abe9dd493de631b92e9f8f30daa113ba826a28b",
+      "actual": "58f6ef84e2727167ab63f84f3abe9dd493de631b92e9f8f30daa113ba826a28b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l02.json",
+      "expected": "d5261fef90f45b26560b53c612c081d5b2fd61d3d656209de5ad02addea8e079",
+      "actual": "d5261fef90f45b26560b53c612c081d5b2fd61d3d656209de5ad02addea8e079",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l03.json",
+      "expected": "1d1b89ed0f4aed411cff47cf3eea98e813f51de9821b36eaa9eae055b80f2560",
+      "actual": "1d1b89ed0f4aed411cff47cf3eea98e813f51de9821b36eaa9eae055b80f2560",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l04.json",
+      "expected": "4d667acface245e82d5fa002289f8b4534b799d5143de638c72f991ab638c283",
+      "actual": "4d667acface245e82d5fa002289f8b4534b799d5143de638c72f991ab638c283",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l05.json",
+      "expected": "be34f4e7310c599530c16b6c798886379b54198aba767c544930ad232174d35a",
+      "actual": "be34f4e7310c599530c16b6c798886379b54198aba767c544930ad232174d35a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l06.json",
+      "expected": "4add840712b7de4622cbc8c739a51759ab395057557b5520a3162f82513c7cbd",
+      "actual": "4add840712b7de4622cbc8c739a51759ab395057557b5520a3162f82513c7cbd",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l07.json",
+      "expected": "00075dca47678564ffc82b5cd1cf5210f2520d636d1de7e21a9e5893e587fbec",
+      "actual": "00075dca47678564ffc82b5cd1cf5210f2520d636d1de7e21a9e5893e587fbec",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l08.json",
+      "expected": "c71626558b82f4f22298ebeda9388cd99d46243f925cd0519d8b6825f5a74ad8",
+      "actual": "c71626558b82f4f22298ebeda9388cd99d46243f925cd0519d8b6825f5a74ad8",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l09.json",
+      "expected": "7b82dbd294236945c1d885f7db94d39541fcf52303a83e8794e9c5bb94b32b7b",
+      "actual": "7b82dbd294236945c1d885f7db94d39541fcf52303a83e8794e9c5bb94b32b7b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l10.json",
+      "expected": "fbe1790fb7205a67b18cdb9551edcee10aa4686a798854132c8efb978544079d",
+      "actual": "fbe1790fb7205a67b18cdb9551edcee10aa4686a798854132c8efb978544079d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l11.json",
+      "expected": "3bf8681c765b918fd359c3a9f47da220fcbd2a22f32450dcfb1da3b0c3879bd0",
+      "actual": "3bf8681c765b918fd359c3a9f47da220fcbd2a22f32450dcfb1da3b0c3879bd0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l12.json",
+      "expected": "5896ca7a07b2db2f975fb6ea30f861b3a3b20cfc605e1e3d88d5b4708a7e3e0f",
+      "actual": "5896ca7a07b2db2f975fb6ea30f861b3a3b20cfc605e1e3d88d5b4708a7e3e0f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l13.json",
+      "expected": "47c033d7fd12c69f56e72b8291e5d535b727e417949bd989eac5b8bfd02ae115",
+      "actual": "47c033d7fd12c69f56e72b8291e5d535b727e417949bd989eac5b8bfd02ae115",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l14.json",
+      "expected": "eb1e64f0f4dd651b518699db1145e5cad91c5390dd4fb896b743e11c5527e9b2",
+      "actual": "eb1e64f0f4dd651b518699db1145e5cad91c5390dd4fb896b743e11c5527e9b2",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l15.json",
+      "expected": "4768202621a212e69e724705a89f8f73facdfe829e84cbc2067cad0833323bc9",
+      "actual": "4768202621a212e69e724705a89f8f73facdfe829e84cbc2067cad0833323bc9",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l16.json",
+      "expected": "378b6b634fecde1cef5f776dd0da972dbe2ee34dcae403f73435953aeebddc32",
+      "actual": "378b6b634fecde1cef5f776dd0da972dbe2ee34dcae403f73435953aeebddc32",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l17.json",
+      "expected": "76091436f42696ed57741c7d8d5edbd4a6556f34e76d10e656a3a4c67dae0f5f",
+      "actual": "76091436f42696ed57741c7d8d5edbd4a6556f34e76d10e656a3a4c67dae0f5f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l18.json",
+      "expected": "5a8f50b228d92a5bed17c55a3bbf227408bc3720c3f61e3fcff28df502d29245",
+      "actual": "5a8f50b228d92a5bed17c55a3bbf227408bc3720c3f61e3fcff28df502d29245",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l19.json",
+      "expected": "45f153837c4031950de9510dae0a6d9e31a21f57e0add37c96d4779c94d66bd4",
+      "actual": "45f153837c4031950de9510dae0a6d9e31a21f57e0add37c96d4779c94d66bd4",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l20.json",
+      "expected": "17490704a5d394246eff88929fe87508fc8e379cf6ff87f71fcd8a7718e66a6b",
+      "actual": "17490704a5d394246eff88929fe87508fc8e379cf6ff87f71fcd8a7718e66a6b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l21.json",
+      "expected": "92dba2e536a339016d07b5709889bbc32fe1bcff49c3695cffd99b35723384af",
+      "actual": "92dba2e536a339016d07b5709889bbc32fe1bcff49c3695cffd99b35723384af",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l22.json",
+      "expected": "d9ce1f09f09223fcf73f33680a71e96d2ec459dd18f8cd0c9329589c373e1a56",
+      "actual": "d9ce1f09f09223fcf73f33680a71e96d2ec459dd18f8cd0c9329589c373e1a56",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l23.json",
+      "expected": "8c40c73b4a1b735a08c930ec19881912ef4d63a290ae0a51c662abd7adba00bc",
+      "actual": "8c40c73b4a1b735a08c930ec19881912ef4d63a290ae0a51c662abd7adba00bc",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l24.json",
+      "expected": "31957caed44836581e6514984806ba6f7e8acf517a3b8df5b715fae07a627744",
+      "actual": "31957caed44836581e6514984806ba6f7e8acf517a3b8df5b715fae07a627744",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l25.json",
+      "expected": "356e75ab375fc216594cd8fc29ecb77b7a0cd12571bdbc7106a255a1ef4f924a",
+      "actual": "356e75ab375fc216594cd8fc29ecb77b7a0cd12571bdbc7106a255a1ef4f924a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l26.json",
+      "expected": "6ea4cb57f9c87635af08bea4190a40027e807bdf50489863276d43b97abfc2d8",
+      "actual": "6ea4cb57f9c87635af08bea4190a40027e807bdf50489863276d43b97abfc2d8",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l27.json",
+      "expected": "ad045cd0fe370999e23095407d53afce943eb95ffb013f902f04ca7df5cb264a",
+      "actual": "ad045cd0fe370999e23095407d53afce943eb95ffb013f902f04ca7df5cb264a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l28.json",
+      "expected": "076d5acc992f9b5d7a2cdb304f4c945856f005bd99fd481878662be67cecdd68",
+      "actual": "076d5acc992f9b5d7a2cdb304f4c945856f005bd99fd481878662be67cecdd68",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l29.json",
+      "expected": "e82c32f9285da5e7ea947eac077160377c11a8a8c8384958d2d874b908fcfecb",
+      "actual": "e82c32f9285da5e7ea947eac077160377c11a8a8c8384958d2d874b908fcfecb",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l30.json",
+      "expected": "43262f1d0f776c252c22516d3d4a1306223e04917f4650cff46e88f4ec8950b2",
+      "actual": "43262f1d0f776c252c22516d3d4a1306223e04917f4650cff46e88f4ec8950b2",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l31.json",
+      "expected": "0e46961d4a25ab0c5e1e13a31d3e27a6d16ec7111ce3da4d0958ebc932538c3c",
+      "actual": "0e46961d4a25ab0c5e1e13a31d3e27a6d16ec7111ce3da4d0958ebc932538c3c",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l32.json",
+      "expected": "10b2c780a3048daf02ad3fae4eb091df38c2585ea0cdbafbe71cf6cf09cafd5d",
+      "actual": "10b2c780a3048daf02ad3fae4eb091df38c2585ea0cdbafbe71cf6cf09cafd5d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l33.json",
+      "expected": "3bacc98cc582713fccefa49f4648f340c1b769aeed77d043f6279b61394b5527",
+      "actual": "3bacc98cc582713fccefa49f4648f340c1b769aeed77d043f6279b61394b5527",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l34.json",
+      "expected": "6ccf71236897287c32b66d2fc1f1382c7a00e69e6936735a796e62f9a6f16334",
+      "actual": "6ccf71236897287c32b66d2fc1f1382c7a00e69e6936735a796e62f9a6f16334",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l35.json",
+      "expected": "5b729aa3d27f8b2a764012a030eae0b604ecd29fa5eae5135475842be0f94549",
+      "actual": "5b729aa3d27f8b2a764012a030eae0b604ecd29fa5eae5135475842be0f94549",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l36.json",
+      "expected": "1c61fa835676b83901584ed524ca76a5a13a9609fe11266c4d2d5636276e804f",
+      "actual": "1c61fa835676b83901584ed524ca76a5a13a9609fe11266c4d2d5636276e804f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l37.json",
+      "expected": "cbdf8cfe0bb40f35ae3719a2a3191fb01f71af364f9eca735d2fb1a7b8fed6a6",
+      "actual": "cbdf8cfe0bb40f35ae3719a2a3191fb01f71af364f9eca735d2fb1a7b8fed6a6",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l38.json",
+      "expected": "bb3e48135740ee2711636762f2d8b3d4a04f4e6d64c044566418d7a6ab68304f",
+      "actual": "bb3e48135740ee2711636762f2d8b3d4a04f4e6d64c044566418d7a6ab68304f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l39.json",
+      "expected": "105b42eaf34aa83c2762a2113c8429ee5c3be82a9af26ad40f9652a5cd525cad",
+      "actual": "105b42eaf34aa83c2762a2113c8429ee5c3be82a9af26ad40f9652a5cd525cad",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l40.json",
+      "expected": "9483a0e0216b07e4bc98a8550834db0d6f0ca1bd72aacbefc567a21697a286ba",
+      "actual": "9483a0e0216b07e4bc98a8550834db0d6f0ca1bd72aacbefc567a21697a286ba",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l41.json",
+      "expected": "708c1be257296cb9ce2d096937ded1e996ba06a58b20b3dec1a3372911b53ff9",
+      "actual": "708c1be257296cb9ce2d096937ded1e996ba06a58b20b3dec1a3372911b53ff9",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l42.json",
+      "expected": "3074a2f5e613ac4294d5ba200cd91bbb0145eba1750827f6f599b1de68b77222",
+      "actual": "3074a2f5e613ac4294d5ba200cd91bbb0145eba1750827f6f599b1de68b77222",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l43.json",
+      "expected": "2fef480b75168961db2d6a4783f8e7cee8030cfb923be6a4fedf18dc5302b91d",
+      "actual": "2fef480b75168961db2d6a4783f8e7cee8030cfb923be6a4fedf18dc5302b91d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l44.json",
+      "expected": "f2d362d04326b83fcf0c761900d62b717aa593b2d252949f62907d24630e70eb",
+      "actual": "f2d362d04326b83fcf0c761900d62b717aa593b2d252949f62907d24630e70eb",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l45.json",
+      "expected": "7682f3ae896eb1ac8211da404f23b0743dea2f346a80a4b087f5a94d0503e2be",
+      "actual": "7682f3ae896eb1ac8211da404f23b0743dea2f346a80a4b087f5a94d0503e2be",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l46.json",
+      "expected": "758812c62f20c35847fda2bdb12303ead2c763adf0c3265da30cd9bd245cacd8",
+      "actual": "758812c62f20c35847fda2bdb12303ead2c763adf0c3265da30cd9bd245cacd8",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l47.json",
+      "expected": "21d11431cc6aad6574a8e343d65f8cccb8f045709d287d0253c36aae0c719a6b",
+      "actual": "21d11431cc6aad6574a8e343d65f8cccb8f045709d287d0253c36aae0c719a6b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l48.json",
+      "expected": "5047d8fa93b1f0bc01448f69da4b44483dec623d607a6bb628b25c21758426d0",
+      "actual": "5047d8fa93b1f0bc01448f69da4b44483dec623d607a6bb628b25c21758426d0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-l49.json",
+      "expected": "aed52ea11b46e362f9ed2d26ac8bc84ca69498fa28b353a1564a0db94e0fe754",
+      "actual": "aed52ea11b46e362f9ed2d26ac8bc84ca69498fa28b353a1564a0db94e0fe754",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m01.json",
+      "expected": "d3d75296a8a24673dddbb7b9f0e6dfbf103148ad4a3dcb62f520903f379c115d",
+      "actual": "d3d75296a8a24673dddbb7b9f0e6dfbf103148ad4a3dcb62f520903f379c115d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m02.json",
+      "expected": "d6ba92b3d7954aea6c97bc067c5c1b19ffcaa49ae148ccebc049de6e8eef9ae0",
+      "actual": "d6ba92b3d7954aea6c97bc067c5c1b19ffcaa49ae148ccebc049de6e8eef9ae0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m03.json",
+      "expected": "29ad6d2fdf1aa8d1467c3a5903789dfdafeae4ee4853f970395f06e163da0a9b",
+      "actual": "29ad6d2fdf1aa8d1467c3a5903789dfdafeae4ee4853f970395f06e163da0a9b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m04.json",
+      "expected": "fde15a6a8da5a2ea61600adbafed8719db24660c10c6687c82f5661b33ee246b",
+      "actual": "fde15a6a8da5a2ea61600adbafed8719db24660c10c6687c82f5661b33ee246b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m05.json",
+      "expected": "3a117c017bb3993faecb4d2f91b8a27afcd557b1b34b95692c1852d289945777",
+      "actual": "3a117c017bb3993faecb4d2f91b8a27afcd557b1b34b95692c1852d289945777",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m06.json",
+      "expected": "1455ada35e0f03f1e671f375e0c06e5f65cb49057196cc1c22a7f1fc713b1272",
+      "actual": "1455ada35e0f03f1e671f375e0c06e5f65cb49057196cc1c22a7f1fc713b1272",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m07.json",
+      "expected": "286cd010fd853eafaac47491f472c22ce849133cb61ddc8e1c442575cf28e92f",
+      "actual": "286cd010fd853eafaac47491f472c22ce849133cb61ddc8e1c442575cf28e92f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m08.json",
+      "expected": "e2a125a1ebd84296eb5239ed0d260cb1522a1746f9d76e14e0fcea698eba8603",
+      "actual": "e2a125a1ebd84296eb5239ed0d260cb1522a1746f9d76e14e0fcea698eba8603",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m09.json",
+      "expected": "a1f1bf1c6c7fb1098ef373d8c094510be7c88b960f85b876f7ca6260b0373035",
+      "actual": "a1f1bf1c6c7fb1098ef373d8c094510be7c88b960f85b876f7ca6260b0373035",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m10.json",
+      "expected": "ba9e5910c434e354f9c07dd659b26053e4f9910a384ecd48b2a1296ba4de75c3",
+      "actual": "ba9e5910c434e354f9c07dd659b26053e4f9910a384ecd48b2a1296ba4de75c3",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m100.json",
+      "expected": "946f424436a9600969f021f5962d3aec0011cca1c30dbd64ef8966abd03030b9",
+      "actual": "946f424436a9600969f021f5962d3aec0011cca1c30dbd64ef8966abd03030b9",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m101.json",
+      "expected": "601aefb6056459b73dc4750fc860cb0956fa8527df4b1b54af53ad71482108f0",
+      "actual": "601aefb6056459b73dc4750fc860cb0956fa8527df4b1b54af53ad71482108f0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m11.json",
+      "expected": "f40eea1906d4e0428f199bb20eb57c7e4476ca779620f1a56f4545872307b71c",
+      "actual": "f40eea1906d4e0428f199bb20eb57c7e4476ca779620f1a56f4545872307b71c",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m12.json",
+      "expected": "d5d2cea9908fcafaed8f055fb36e44c17613c92fe44d88c5bc0df1f191dcf73b",
+      "actual": "d5d2cea9908fcafaed8f055fb36e44c17613c92fe44d88c5bc0df1f191dcf73b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m13.json",
+      "expected": "ac164919c04afe596814f5e174444b8f336412d51276d058a7d74cbfc858bfee",
+      "actual": "ac164919c04afe596814f5e174444b8f336412d51276d058a7d74cbfc858bfee",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m14.json",
+      "expected": "2f5cd28f0d13edbaa2bc77b94368e37bf028263ccb4d1227302ba76c40d3b1dd",
+      "actual": "2f5cd28f0d13edbaa2bc77b94368e37bf028263ccb4d1227302ba76c40d3b1dd",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m15.json",
+      "expected": "c5e6b5a8673b73ca4dac403655b5404080243093ce1b87bda0150899a810b75c",
+      "actual": "c5e6b5a8673b73ca4dac403655b5404080243093ce1b87bda0150899a810b75c",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m16.json",
+      "expected": "f4f831d25a3293ba785b89c6b80b93b88161f095a932e15f8ceb77a0d2b3d065",
+      "actual": "f4f831d25a3293ba785b89c6b80b93b88161f095a932e15f8ceb77a0d2b3d065",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m17.json",
+      "expected": "bf8c378593d3b97af03908ce0edd1864fa6ebe0318dbc3508393da4dfa89a3e0",
+      "actual": "bf8c378593d3b97af03908ce0edd1864fa6ebe0318dbc3508393da4dfa89a3e0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m18.json",
+      "expected": "ec75f88f1980baecb72be16ed061e35ebf2231de67e2c2898c075ce7bc736e08",
+      "actual": "ec75f88f1980baecb72be16ed061e35ebf2231de67e2c2898c075ce7bc736e08",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m19.json",
+      "expected": "92dd369c80c71edb6cd13685247630997ca00106027d1c11b2dac601d8075a69",
+      "actual": "92dd369c80c71edb6cd13685247630997ca00106027d1c11b2dac601d8075a69",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m20.json",
+      "expected": "b1d74348d60ff4d73dbcacfb966f00eb4f96f5954be5da0fc3ca963bef9f36b9",
+      "actual": "b1d74348d60ff4d73dbcacfb966f00eb4f96f5954be5da0fc3ca963bef9f36b9",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m21.json",
+      "expected": "e1b7958ff1d6ca2e36b079c0fe3302076be4d5c10004b587068d91b75768ba6e",
+      "actual": "e1b7958ff1d6ca2e36b079c0fe3302076be4d5c10004b587068d91b75768ba6e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m22.json",
+      "expected": "f829e762169c2791fae4f3cdd1a5dc770a10690fa4d49bb722cb38415c1b4a37",
+      "actual": "f829e762169c2791fae4f3cdd1a5dc770a10690fa4d49bb722cb38415c1b4a37",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m23.json",
+      "expected": "959a86269872e0059bff2182d8b41b0d9bdbe2b8ff5cb10fd4daaa62357ee8ac",
+      "actual": "959a86269872e0059bff2182d8b41b0d9bdbe2b8ff5cb10fd4daaa62357ee8ac",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m24.json",
+      "expected": "8b1601eab2fe3c9c5d1abdc4295d3f430767a3403c14a7dbb4048a99b4ec84df",
+      "actual": "8b1601eab2fe3c9c5d1abdc4295d3f430767a3403c14a7dbb4048a99b4ec84df",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m25.json",
+      "expected": "93df869756027ebfb2c150c97fa6b2b2022b2a2805423324c44739443cec8bcf",
+      "actual": "93df869756027ebfb2c150c97fa6b2b2022b2a2805423324c44739443cec8bcf",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m26.json",
+      "expected": "a80c614529d12bbfec66b6fad7c3e1893aa37c97a645f89e9bf079167d96df33",
+      "actual": "a80c614529d12bbfec66b6fad7c3e1893aa37c97a645f89e9bf079167d96df33",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m27.json",
+      "expected": "ae71d1131324eacafc27dfe8e4ec546fc019c2bcaaba7ac3be99cf855f556749",
+      "actual": "ae71d1131324eacafc27dfe8e4ec546fc019c2bcaaba7ac3be99cf855f556749",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m28.json",
+      "expected": "45eae8ca6f1b3fcabedf1840a2ab4470746a31789fbbf81c6616d3d93b7149f7",
+      "actual": "45eae8ca6f1b3fcabedf1840a2ab4470746a31789fbbf81c6616d3d93b7149f7",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m29.json",
+      "expected": "f47ef93d8616468cb4d43af8e7e905fb2fd45c9e085649af7e4e1cafb8c2ab49",
+      "actual": "f47ef93d8616468cb4d43af8e7e905fb2fd45c9e085649af7e4e1cafb8c2ab49",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m30.json",
+      "expected": "75ac8bf00731524e005b1a95092a0a3f603f3971f3ed92ad446aa7b58275942d",
+      "actual": "75ac8bf00731524e005b1a95092a0a3f603f3971f3ed92ad446aa7b58275942d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m31.json",
+      "expected": "133e576bddc5e148a2a958fb37d55953aa4f120349aaefe89ca79d704b761d2d",
+      "actual": "133e576bddc5e148a2a958fb37d55953aa4f120349aaefe89ca79d704b761d2d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m32.json",
+      "expected": "3f06bf0aedb30b2277b06585da35da413040361a191e3e24aa8ff173d79ad5fe",
+      "actual": "3f06bf0aedb30b2277b06585da35da413040361a191e3e24aa8ff173d79ad5fe",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m33.json",
+      "expected": "0618f4a5c8967c713058303dd06d52ffe28300a8255d87cda949faa03208e8ad",
+      "actual": "0618f4a5c8967c713058303dd06d52ffe28300a8255d87cda949faa03208e8ad",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m34.json",
+      "expected": "4ab1f731276c7f58353ad65c884ce30028478747e12fc7365a4a757bc0384b31",
+      "actual": "4ab1f731276c7f58353ad65c884ce30028478747e12fc7365a4a757bc0384b31",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m35.json",
+      "expected": "6312603c1d04bf9fc71085a8168139f41d266e09da9d0a30a45e181e00bbafdf",
+      "actual": "6312603c1d04bf9fc71085a8168139f41d266e09da9d0a30a45e181e00bbafdf",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m36.json",
+      "expected": "8cab96d084fa8bd2f1970fddbe5f31bf4f2047c98f27cde4ba80196149794ac5",
+      "actual": "8cab96d084fa8bd2f1970fddbe5f31bf4f2047c98f27cde4ba80196149794ac5",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m37.json",
+      "expected": "3206a441f7d6d8388832aa3b7263a167f183d9a4036cffd8f111a171f4fef130",
+      "actual": "3206a441f7d6d8388832aa3b7263a167f183d9a4036cffd8f111a171f4fef130",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m38.json",
+      "expected": "0dbef44f0f3223bf41a954a6662be3ae221591ceb0d3afa01cf8c23895d13783",
+      "actual": "0dbef44f0f3223bf41a954a6662be3ae221591ceb0d3afa01cf8c23895d13783",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m39.json",
+      "expected": "b37a7313bf5934a686ebfc95c3bb5f484c52ca4fa00e66cca9e305b2333445b6",
+      "actual": "b37a7313bf5934a686ebfc95c3bb5f484c52ca4fa00e66cca9e305b2333445b6",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m40.json",
+      "expected": "6b9b846340c01f10a92ea89e8be357f277aedb1494f53c8a7dffab048ee726cc",
+      "actual": "6b9b846340c01f10a92ea89e8be357f277aedb1494f53c8a7dffab048ee726cc",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m41.json",
+      "expected": "aea04c4d91ebded212cf99dde91521310547e0a56df73b6492d6bd97f6a157da",
+      "actual": "aea04c4d91ebded212cf99dde91521310547e0a56df73b6492d6bd97f6a157da",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m42.json",
+      "expected": "bd2a11ca88580e61e9234505ca0e80752bbc43856a97a88d8631d3c475ea75f2",
+      "actual": "bd2a11ca88580e61e9234505ca0e80752bbc43856a97a88d8631d3c475ea75f2",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m43.json",
+      "expected": "305acbf3edf2e42c720d900dbe52ef38ee8e3135fdb175305cb2dbff8c5280ef",
+      "actual": "305acbf3edf2e42c720d900dbe52ef38ee8e3135fdb175305cb2dbff8c5280ef",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m44.json",
+      "expected": "02b33bb023e02e89456c684b357d4d0c6ada1388d4ad8de2fdfbf13693279cd6",
+      "actual": "02b33bb023e02e89456c684b357d4d0c6ada1388d4ad8de2fdfbf13693279cd6",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m45.json",
+      "expected": "57216d0f944e0a55e7c0d649fcceff8b55537e61663d9417b7da64f7ebc9e9b2",
+      "actual": "57216d0f944e0a55e7c0d649fcceff8b55537e61663d9417b7da64f7ebc9e9b2",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m46.json",
+      "expected": "6be14d5a9bebdb32c6d9d51ef446453ecd1ec65c31838d069fa41c2dab6b83eb",
+      "actual": "6be14d5a9bebdb32c6d9d51ef446453ecd1ec65c31838d069fa41c2dab6b83eb",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m47.json",
+      "expected": "b679b21bf611c49f4dff40b26135f5609de6ad4be7b014ddf91365588af99f2c",
+      "actual": "b679b21bf611c49f4dff40b26135f5609de6ad4be7b014ddf91365588af99f2c",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m48.json",
+      "expected": "79c6b94a9e4f3f82754cb520b01d1484a04d2f6057ee7052515c5e53fbb70791",
+      "actual": "79c6b94a9e4f3f82754cb520b01d1484a04d2f6057ee7052515c5e53fbb70791",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m49.json",
+      "expected": "7855ce70d05c48c4a596c79d817b5f6816b358d47ed16510e9a02b26859ee8f4",
+      "actual": "7855ce70d05c48c4a596c79d817b5f6816b358d47ed16510e9a02b26859ee8f4",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m50.json",
+      "expected": "43e535f58b48ab129f649b4b05f81a75bf1da31a14d2c4fea957228269fd856d",
+      "actual": "43e535f58b48ab129f649b4b05f81a75bf1da31a14d2c4fea957228269fd856d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m51.json",
+      "expected": "c8347c510f30fa88ebfdf3eb85368bf95abc032491bd857766cf59c035bb618e",
+      "actual": "c8347c510f30fa88ebfdf3eb85368bf95abc032491bd857766cf59c035bb618e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m52.json",
+      "expected": "3468bbd2ae1a49fb894164bb391feb4c773eed3d07efa27b914867b6204ac478",
+      "actual": "3468bbd2ae1a49fb894164bb391feb4c773eed3d07efa27b914867b6204ac478",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m53.json",
+      "expected": "668b853613bb8d40927c4b2a8949c94309d2bd6a4acc5719a523acead1e7c371",
+      "actual": "668b853613bb8d40927c4b2a8949c94309d2bd6a4acc5719a523acead1e7c371",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m54.json",
+      "expected": "e5d6e74904f073ab923365ac1fd998ada0917f566dc11be19554d1d91637a56c",
+      "actual": "e5d6e74904f073ab923365ac1fd998ada0917f566dc11be19554d1d91637a56c",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m55.json",
+      "expected": "a6bbb14be207205558bc765a0158db939d9c8d29411bc1e5aaefed0fbfd6e4b8",
+      "actual": "a6bbb14be207205558bc765a0158db939d9c8d29411bc1e5aaefed0fbfd6e4b8",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m56.json",
+      "expected": "68447630f4ba05caa27a0ba437bf31a61f262907928d8ee7e509ad0facd22b4b",
+      "actual": "68447630f4ba05caa27a0ba437bf31a61f262907928d8ee7e509ad0facd22b4b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m57.json",
+      "expected": "84851295f67a8202e6cef7ab4e5b6ba6b67cce640094014c2597e97e84d24cda",
+      "actual": "84851295f67a8202e6cef7ab4e5b6ba6b67cce640094014c2597e97e84d24cda",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m58.json",
+      "expected": "4bd2c37aceea5a99f4ebe08df48efa82c604935ccef745376160109c5af9775a",
+      "actual": "4bd2c37aceea5a99f4ebe08df48efa82c604935ccef745376160109c5af9775a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m59.json",
+      "expected": "76092311f8197dbc0f752f3153dfcb470723798a5d80f419b7968c6ba6fb65cd",
+      "actual": "76092311f8197dbc0f752f3153dfcb470723798a5d80f419b7968c6ba6fb65cd",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m60.json",
+      "expected": "04f384e9ce93d7b63697ec921ba67aae5d1057e2941295499f2ceeb31b736622",
+      "actual": "04f384e9ce93d7b63697ec921ba67aae5d1057e2941295499f2ceeb31b736622",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m61.json",
+      "expected": "40eecccff033526aa6757e735d144f9be93759ee49717e72604040765694d53a",
+      "actual": "40eecccff033526aa6757e735d144f9be93759ee49717e72604040765694d53a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m62.json",
+      "expected": "e9fe8f3b4033579058539287f98f0e4ea61c0e7626b87ee8bf08acf9e33b010a",
+      "actual": "e9fe8f3b4033579058539287f98f0e4ea61c0e7626b87ee8bf08acf9e33b010a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m63.json",
+      "expected": "742628987050540547fd0f0b9e85a10cd60c2230b93246426d78bd0b9ca18ac5",
+      "actual": "742628987050540547fd0f0b9e85a10cd60c2230b93246426d78bd0b9ca18ac5",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m64.json",
+      "expected": "6c109422478c11aa52aed9d0d017995a7eada0607fe9e0e1b478c0ddcdede4e3",
+      "actual": "6c109422478c11aa52aed9d0d017995a7eada0607fe9e0e1b478c0ddcdede4e3",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m65.json",
+      "expected": "01a1f1e6fc022dd8227c4c9eab310c04560322f0845eb2faacad3112d21b6cd7",
+      "actual": "01a1f1e6fc022dd8227c4c9eab310c04560322f0845eb2faacad3112d21b6cd7",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m66.json",
+      "expected": "ba4ee4d1857fe99d2e6cffb24249759ace1e91342fbd1617c15fb6d7e64530a9",
+      "actual": "ba4ee4d1857fe99d2e6cffb24249759ace1e91342fbd1617c15fb6d7e64530a9",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m67.json",
+      "expected": "4da8d5f31912be91a01ef0bef43a0cb5674ff0ad66c5ad574dd71d636ff56f16",
+      "actual": "4da8d5f31912be91a01ef0bef43a0cb5674ff0ad66c5ad574dd71d636ff56f16",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m68.json",
+      "expected": "6effa518ec531815bfc0e2c7d331355350192d01275538aa48f1b65052a9dc32",
+      "actual": "6effa518ec531815bfc0e2c7d331355350192d01275538aa48f1b65052a9dc32",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m69.json",
+      "expected": "094880f367fd3a130f3815490b89194f8fd0653b033e3830c66d033590d33ca2",
+      "actual": "094880f367fd3a130f3815490b89194f8fd0653b033e3830c66d033590d33ca2",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m70.json",
+      "expected": "b7d97dcfabb6c62be85311daa980a0d146bfe7abc76623a5cca191f45a094802",
+      "actual": "b7d97dcfabb6c62be85311daa980a0d146bfe7abc76623a5cca191f45a094802",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m71.json",
+      "expected": "6f28ad2e54a6cb0fff1b4550e8fc532eeccffa07173986b7b7c0e1566ad785b7",
+      "actual": "6f28ad2e54a6cb0fff1b4550e8fc532eeccffa07173986b7b7c0e1566ad785b7",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m72.json",
+      "expected": "a35ca7abc8ea8ea844b06b6ea9d3b08a564efdf2bfa97254399e4e13cfe88b78",
+      "actual": "a35ca7abc8ea8ea844b06b6ea9d3b08a564efdf2bfa97254399e4e13cfe88b78",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m73.json",
+      "expected": "5276595e23bce6cf7deb5479c67ba799bf66881749e85db502dfe2845058437d",
+      "actual": "5276595e23bce6cf7deb5479c67ba799bf66881749e85db502dfe2845058437d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m74.json",
+      "expected": "d4f70ed031671671579b29106a82f347bc131fa462d11c8fceaea8f86f5d2017",
+      "actual": "d4f70ed031671671579b29106a82f347bc131fa462d11c8fceaea8f86f5d2017",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m75.json",
+      "expected": "dcc54867fbb2dd34cf8853f560be590d9221480ce1921b85a359c27ae4258a0a",
+      "actual": "dcc54867fbb2dd34cf8853f560be590d9221480ce1921b85a359c27ae4258a0a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m76.json",
+      "expected": "8edc2e229d61ffc723e2c1577234ce44eed388a213c46019a58a714e2c38429f",
+      "actual": "8edc2e229d61ffc723e2c1577234ce44eed388a213c46019a58a714e2c38429f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m77.json",
+      "expected": "7fe3b00fee2f05efd0f165f5424cf597a13f16795872f421901ea78293358f7a",
+      "actual": "7fe3b00fee2f05efd0f165f5424cf597a13f16795872f421901ea78293358f7a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m78.json",
+      "expected": "4b35c5220ca6dd8857d2bb03659788de736ddcb866fcbd14a3667756f7225253",
+      "actual": "4b35c5220ca6dd8857d2bb03659788de736ddcb866fcbd14a3667756f7225253",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m79.json",
+      "expected": "800579eb8dd3aa3db2b988d96802ded8c9f1727dfcec9cef9233930f4ae5a841",
+      "actual": "800579eb8dd3aa3db2b988d96802ded8c9f1727dfcec9cef9233930f4ae5a841",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m80.json",
+      "expected": "9207c8f1590ef2fe4557f6539890d278703395e2b873a1fa4899e5430e83bc87",
+      "actual": "9207c8f1590ef2fe4557f6539890d278703395e2b873a1fa4899e5430e83bc87",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m81.json",
+      "expected": "8c03025d830389583106e1a9885114f21881eb5e584af29dc6414a1cdc341dde",
+      "actual": "8c03025d830389583106e1a9885114f21881eb5e584af29dc6414a1cdc341dde",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m82.json",
+      "expected": "8fa40e3f11bd3d3499c8e1db662bc404a10673c674cc37f1f033eb3d0f262b19",
+      "actual": "8fa40e3f11bd3d3499c8e1db662bc404a10673c674cc37f1f033eb3d0f262b19",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m83.json",
+      "expected": "32f4dfa5877e773a2ec459928c50bf9daf855bad26fe9e3e25919c75a6a54ba7",
+      "actual": "32f4dfa5877e773a2ec459928c50bf9daf855bad26fe9e3e25919c75a6a54ba7",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m84.json",
+      "expected": "b42062f1a660ee55814a081a0f1bf729b1ab3e705db9376bc64ca15270c830a9",
+      "actual": "b42062f1a660ee55814a081a0f1bf729b1ab3e705db9376bc64ca15270c830a9",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m85.json",
+      "expected": "68414a76567e8da0bbe047cb0f29b90a245fc412c26d3726736bf2bc5bd0d20a",
+      "actual": "68414a76567e8da0bbe047cb0f29b90a245fc412c26d3726736bf2bc5bd0d20a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m86.json",
+      "expected": "90c86dd2463da049a89c8e5aa3746e9f22d67d8c964a056f1e1f3beec5c81734",
+      "actual": "90c86dd2463da049a89c8e5aa3746e9f22d67d8c964a056f1e1f3beec5c81734",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m87.json",
+      "expected": "a8ac4927a828acf44125212ae485d89c7365d6d11efb167f67eb429653dd68ea",
+      "actual": "a8ac4927a828acf44125212ae485d89c7365d6d11efb167f67eb429653dd68ea",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m88.json",
+      "expected": "8ff3067126af9de1b586bcaa60192eda408e6732dfc04fe2e9857502a88d7236",
+      "actual": "8ff3067126af9de1b586bcaa60192eda408e6732dfc04fe2e9857502a88d7236",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m89.json",
+      "expected": "64274046fb00e7e6df6106f6a48ae10e63860a8985549ff2ac0f2a6e573e3909",
+      "actual": "64274046fb00e7e6df6106f6a48ae10e63860a8985549ff2ac0f2a6e573e3909",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m90.json",
+      "expected": "0e400855ca9c61c8d94a80baa86f7b2f6736938d8e9c7a95f496f70c624a4a8c",
+      "actual": "0e400855ca9c61c8d94a80baa86f7b2f6736938d8e9c7a95f496f70c624a4a8c",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m91.json",
+      "expected": "496b606ff8bef1e3b175d4346a7e75383a875532896eb29f5b55be734b466a72",
+      "actual": "496b606ff8bef1e3b175d4346a7e75383a875532896eb29f5b55be734b466a72",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m92.json",
+      "expected": "38bc7c40469a32780cab71ac663f4e4bb897b0f4c6e2c7d181ee039c39dc5415",
+      "actual": "38bc7c40469a32780cab71ac663f4e4bb897b0f4c6e2c7d181ee039c39dc5415",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m94.json",
+      "expected": "2fbd8777001c8a9f4af4f5175dbe0348664004ac34557c7acdd320a1f8eb64c9",
+      "actual": "2fbd8777001c8a9f4af4f5175dbe0348664004ac34557c7acdd320a1f8eb64c9",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m95.json",
+      "expected": "5aa316a6a6b2b405923d66304f785f1b6f0fc803c05fb530009fa7c5e70ad6c7",
+      "actual": "5aa316a6a6b2b405923d66304f785f1b6f0fc803c05fb530009fa7c5e70ad6c7",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m96.json",
+      "expected": "6107530d15020a538cd6d40741f02100d05dfb44bbe1663f7b6afd0d2c315ec8",
+      "actual": "6107530d15020a538cd6d40741f02100d05dfb44bbe1663f7b6afd0d2c315ec8",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m97.json",
+      "expected": "6c2bc1dc740097f2548fc6383bee2dece163694d3a5986b444eb8f25f095fda8",
+      "actual": "6c2bc1dc740097f2548fc6383bee2dece163694d3a5986b444eb8f25f095fda8",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/profile-refresh-m98.json",
+      "expected": "c15fed2fc88736a8da507fe1de018e90a25084b6ebfd714dd931881bbe29a88d",
+      "actual": "c15fed2fc88736a8da507fe1de018e90a25084b6ebfd714dd931881bbe29a88d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-a.json",
+      "expected": "8eb7dfd3bccfd1a5ee6886683b7b1e077084e38ffe10a08da3fd72198a16634f",
+      "actual": "8eb7dfd3bccfd1a5ee6886683b7b1e077084e38ffe10a08da3fd72198a16634f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-b.json",
+      "expected": "c5c099ee9c7ec8becf4c862dba19407c2a68e68d449e8099ba2902a4fa1bfdfa",
+      "actual": "c5c099ee9c7ec8becf4c862dba19407c2a68e68d449e8099ba2902a4fa1bfdfa",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-c.json",
+      "expected": "e4d8a1f751d935d4798cd193544d4a126e459c4085abe756a2a10e4a7d1be1c7",
+      "actual": "e4d8a1f751d935d4798cd193544d4a126e459c4085abe756a2a10e4a7d1be1c7",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-d.json",
+      "expected": "c60c45bbd1f595fec90c0ed3d9505c27bbd4ebf417ae2f4891ca943351989c3c",
+      "actual": "c60c45bbd1f595fec90c0ed3d9505c27bbd4ebf417ae2f4891ca943351989c3c",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-e01.json",
+      "expected": "b22db71aa978775b103410688290682958cc18613e5183013aaace634a0e76bf",
+      "actual": "b22db71aa978775b103410688290682958cc18613e5183013aaace634a0e76bf",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-e02.json",
+      "expected": "adce630d6db363f8a039258473ef2c0476d9c022b64165dc8ffa32d1113e88d1",
+      "actual": "adce630d6db363f8a039258473ef2c0476d9c022b64165dc8ffa32d1113e88d1",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-e03.json",
+      "expected": "d4ce874d560717b51d09080482658f05f4e8fc3d6df0e418e5e946bc36a4cb01",
+      "actual": "d4ce874d560717b51d09080482658f05f4e8fc3d6df0e418e5e946bc36a4cb01",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-e04.json",
+      "expected": "1cd560dfa8d08ebde4ed7bd3296c3007320758b3cfbed38694c0d1528060facb",
+      "actual": "1cd560dfa8d08ebde4ed7bd3296c3007320758b3cfbed38694c0d1528060facb",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-e05.json",
+      "expected": "0a023fda0c4e5a8945bdbab41f9d0e4a5d33b4242c05eb14d3a2413278414e1e",
+      "actual": "0a023fda0c4e5a8945bdbab41f9d0e4a5d33b4242c05eb14d3a2413278414e1e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-e06.json",
+      "expected": "2504a9874f91d9075d64839bc61350604610852612e03cbb053778223d8cd932",
+      "actual": "2504a9874f91d9075d64839bc61350604610852612e03cbb053778223d8cd932",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-e07.json",
+      "expected": "05f701cdd4fbd46fd29f6f308ce2043ef1869ea34834f37d2d28919146a4cafd",
+      "actual": "05f701cdd4fbd46fd29f6f308ce2043ef1869ea34834f37d2d28919146a4cafd",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-e08.json",
+      "expected": "c1915601228502e3abc41d9869d3406ceac2fa6fa3133fc288e702f1b452be5a",
+      "actual": "c1915601228502e3abc41d9869d3406ceac2fa6fa3133fc288e702f1b452be5a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-e09.json",
+      "expected": "7e73060adf003108e9620697470db0f417331aa1e952e418d1b857970761ed78",
+      "actual": "7e73060adf003108e9620697470db0f417331aa1e952e418d1b857970761ed78",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-e10.json",
+      "expected": "d277bf0b3cb5ce7342274004ec1da38f2f9825f2c41fa3fc118feeb64af57b30",
+      "actual": "d277bf0b3cb5ce7342274004ec1da38f2f9825f2c41fa3fc118feeb64af57b30",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-f01.json",
+      "expected": "621f9db61e9fd86836159c852981bc88ebdd54691fc38b841f7dcb517227c57b",
+      "actual": "621f9db61e9fd86836159c852981bc88ebdd54691fc38b841f7dcb517227c57b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-f02.json",
+      "expected": "01d89ca6fc0a48a81f3f8b3bc9d75fd82b681c0f10cee12fb0fdff1a994c8ca9",
+      "actual": "01d89ca6fc0a48a81f3f8b3bc9d75fd82b681c0f10cee12fb0fdff1a994c8ca9",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-f03.json",
+      "expected": "ebfa6c535eb492797978ef6af80c814ca6216edf6c9c04608f3169e9aefa5d91",
+      "actual": "ebfa6c535eb492797978ef6af80c814ca6216edf6c9c04608f3169e9aefa5d91",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-f04.json",
+      "expected": "40393afeda72cb108da72a28c036390a81fa67b26615fe376609575d3e6be6b9",
+      "actual": "40393afeda72cb108da72a28c036390a81fa67b26615fe376609575d3e6be6b9",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-g01.json",
+      "expected": "b180a0487078f5809e3c94e325d9507bb8129fd0885802f4fa0bcd7501125e38",
+      "actual": "b180a0487078f5809e3c94e325d9507bb8129fd0885802f4fa0bcd7501125e38",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-h01.json",
+      "expected": "6d9ba1d6f765333a22298ad3d21329d949445cda1eeeec610abbbf7d6f534d05",
+      "actual": "6d9ba1d6f765333a22298ad3d21329d949445cda1eeeec610abbbf7d6f534d05",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-h02.json",
+      "expected": "346fecdd4740144863708b771dedbab7e93a5c33cd18bf01342815e7bb65d718",
+      "actual": "346fecdd4740144863708b771dedbab7e93a5c33cd18bf01342815e7bb65d718",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-i01.json",
+      "expected": "d609a293df62a3316899903088e6ba2a5a0f46d07cdaea7af3fa15014b6723f9",
+      "actual": "d609a293df62a3316899903088e6ba2a5a0f46d07cdaea7af3fa15014b6723f9",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-i02.json",
+      "expected": "66afd02994e5a05f10bced9db19eea3ac03900cd7ebac8435058e3665ab4adbc",
+      "actual": "66afd02994e5a05f10bced9db19eea3ac03900cd7ebac8435058e3665ab4adbc",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-j01.json",
+      "expected": "8047cfc0a8822aefef839d96de0e1fe9685b396ef0bf9a41dbe801f58732c334",
+      "actual": "8047cfc0a8822aefef839d96de0e1fe9685b396ef0bf9a41dbe801f58732c334",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-j02.json",
+      "expected": "c49c071d8a6251b4e1f84569738c6db0dc5fc69de9b703359e4681d1a1af0d3a",
+      "actual": "c49c071d8a6251b4e1f84569738c6db0dc5fc69de9b703359e4681d1a1af0d3a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-j03.json",
+      "expected": "140dc340bc338da4547019600048fab6b0e3c9f39c74315e3217ab71f73e910a",
+      "actual": "140dc340bc338da4547019600048fab6b0e3c9f39c74315e3217ab71f73e910a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-k01.json",
+      "expected": "c296ce117a8ead259465849111c48af4abf08f686fa474e6930a80438fb5b84d",
+      "actual": "c296ce117a8ead259465849111c48af4abf08f686fa474e6930a80438fb5b84d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-k02.json",
+      "expected": "d61a874e1d32a21941ff7d03c55e286386c43915b4b627faaf258955b12dbac3",
+      "actual": "d61a874e1d32a21941ff7d03c55e286386c43915b4b627faaf258955b12dbac3",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-k03.json",
+      "expected": "df51cf7ff38cd4ef4b8f181dbd6174011998620f86bc586011b264f085dfd7ed",
+      "actual": "df51cf7ff38cd4ef4b8f181dbd6174011998620f86bc586011b264f085dfd7ed",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l01.json",
+      "expected": "1782a243ea6ae419ca9b54d88f1c2bf028c78f5222588f75a522fc406125282e",
+      "actual": "1782a243ea6ae419ca9b54d88f1c2bf028c78f5222588f75a522fc406125282e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l02.json",
+      "expected": "e346bec6c1b5e34ea88b36377420e8b3ccd09eb589d36741a7bae0fcd77e0435",
+      "actual": "e346bec6c1b5e34ea88b36377420e8b3ccd09eb589d36741a7bae0fcd77e0435",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l03.json",
+      "expected": "37272f9c1c86bbc55d6d7bad5e32253ffbc7b97b035af8d1263c0dfc52e76ed2",
+      "actual": "37272f9c1c86bbc55d6d7bad5e32253ffbc7b97b035af8d1263c0dfc52e76ed2",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l04.json",
+      "expected": "1d128a2d640448f8b12077f4b73eeb14411b53b0fb8a98da6ba40a410823e3fb",
+      "actual": "1d128a2d640448f8b12077f4b73eeb14411b53b0fb8a98da6ba40a410823e3fb",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l05.json",
+      "expected": "b946e7f10cd4b7abbfa411f8fc0ca964bbc381eaf32d194c018dcdacb4c775d7",
+      "actual": "b946e7f10cd4b7abbfa411f8fc0ca964bbc381eaf32d194c018dcdacb4c775d7",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l06.json",
+      "expected": "2f394af3b45df5ed00c3013cfde33c0bbfd72a1c94e0042f6690a2cbaec9d552",
+      "actual": "2f394af3b45df5ed00c3013cfde33c0bbfd72a1c94e0042f6690a2cbaec9d552",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l07.json",
+      "expected": "476d70e970fd8ac70c538fac3b7c984fb89e94cac46754d9740578f1dcf7655a",
+      "actual": "476d70e970fd8ac70c538fac3b7c984fb89e94cac46754d9740578f1dcf7655a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l08.json",
+      "expected": "dc2b084d80e105599281e5296bf457f28b976cee204dc805e73d5f307a6391c3",
+      "actual": "dc2b084d80e105599281e5296bf457f28b976cee204dc805e73d5f307a6391c3",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l09.json",
+      "expected": "73cb3b3b53b78d04e6809d90f289c575e3f2edac6d8ee0bf117d706534bc88fc",
+      "actual": "73cb3b3b53b78d04e6809d90f289c575e3f2edac6d8ee0bf117d706534bc88fc",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l10.json",
+      "expected": "29a33b7e40e5af66dc12f1f1385b74c01155bb7b7c7ff9a52822d077d65742f8",
+      "actual": "29a33b7e40e5af66dc12f1f1385b74c01155bb7b7c7ff9a52822d077d65742f8",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l11.json",
+      "expected": "0dd3d5d0c9882104395cfda6f12e4ffcc7ee91597dcee0194e1d6f9b842757c0",
+      "actual": "0dd3d5d0c9882104395cfda6f12e4ffcc7ee91597dcee0194e1d6f9b842757c0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l12.json",
+      "expected": "177fe0ffbedec34c7acd4f06e43ad5e7844753230ad2b65ad070bfaeffc2dbcf",
+      "actual": "177fe0ffbedec34c7acd4f06e43ad5e7844753230ad2b65ad070bfaeffc2dbcf",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l13.json",
+      "expected": "63c5539abce83ce146b28d6e84c5e83465145bec4e3b3d3806add180174bfde7",
+      "actual": "63c5539abce83ce146b28d6e84c5e83465145bec4e3b3d3806add180174bfde7",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l14.json",
+      "expected": "4065d5dba506a71ca6e6660142f7ad4ab4312a1a5d29e284c1bc025cfa238d87",
+      "actual": "4065d5dba506a71ca6e6660142f7ad4ab4312a1a5d29e284c1bc025cfa238d87",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l15.json",
+      "expected": "ddbb6a37425480395f76509150bd6ffe88503c98b9d72898733aea0df03683c3",
+      "actual": "ddbb6a37425480395f76509150bd6ffe88503c98b9d72898733aea0df03683c3",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l16.json",
+      "expected": "c9a39a2571257fc33c81ab90331a0075665740715f7860e5984472e7342260dc",
+      "actual": "c9a39a2571257fc33c81ab90331a0075665740715f7860e5984472e7342260dc",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l17.json",
+      "expected": "26533a47158c7ec5a5d746277d4104ae24d5cbd7a7a1988fc0111255c117bd5e",
+      "actual": "26533a47158c7ec5a5d746277d4104ae24d5cbd7a7a1988fc0111255c117bd5e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l18.json",
+      "expected": "225348756557b26a920250236bdb37053ce58ce0148944ce90da587c022d0fe4",
+      "actual": "225348756557b26a920250236bdb37053ce58ce0148944ce90da587c022d0fe4",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l19.json",
+      "expected": "9f98a0e767da8556631f070251448c4dc369c73437e4608d3d91eba04bd9fa96",
+      "actual": "9f98a0e767da8556631f070251448c4dc369c73437e4608d3d91eba04bd9fa96",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l20.json",
+      "expected": "8c8b11c38ec817535aa62164e607e6ad62e8bfb2777eff0c6e414d5c7df27707",
+      "actual": "8c8b11c38ec817535aa62164e607e6ad62e8bfb2777eff0c6e414d5c7df27707",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l21.json",
+      "expected": "e4d42ede3bdb855855b4cd982b38eb8cd17307aacb53922c6517a902ca6becd1",
+      "actual": "e4d42ede3bdb855855b4cd982b38eb8cd17307aacb53922c6517a902ca6becd1",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l22.json",
+      "expected": "2e9c693076ebafeaf07fb4ca486a803e5028a4eb019253a30640143dca331aad",
+      "actual": "2e9c693076ebafeaf07fb4ca486a803e5028a4eb019253a30640143dca331aad",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l23.json",
+      "expected": "c276ff6168a2ac5555f95d477b4500fbda38efc833408f00699f609f011d4b78",
+      "actual": "c276ff6168a2ac5555f95d477b4500fbda38efc833408f00699f609f011d4b78",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l24.json",
+      "expected": "233d64f14769b90056215a71109cf764a0752c335ce9a00b3ebd175a0cf9f48f",
+      "actual": "233d64f14769b90056215a71109cf764a0752c335ce9a00b3ebd175a0cf9f48f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l25.json",
+      "expected": "1fde72b90a0d2487372d3d1e470d5197125d6caaf66285a3bb1ad04b6ce83ff0",
+      "actual": "1fde72b90a0d2487372d3d1e470d5197125d6caaf66285a3bb1ad04b6ce83ff0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l26.json",
+      "expected": "e82827cb381d888660f78054e0f9550dcb05bc256f880486cf5f2feac0cdfc2d",
+      "actual": "e82827cb381d888660f78054e0f9550dcb05bc256f880486cf5f2feac0cdfc2d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l27.json",
+      "expected": "48fe668618eec043fb5d41077e4481224d89b1d6e00209c43a477de363d68e5a",
+      "actual": "48fe668618eec043fb5d41077e4481224d89b1d6e00209c43a477de363d68e5a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l28.json",
+      "expected": "b6a27c32b80d1143c040552305baf1fca29163acaa96709f7ecd3b82200f678a",
+      "actual": "b6a27c32b80d1143c040552305baf1fca29163acaa96709f7ecd3b82200f678a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l29.json",
+      "expected": "423f33f381b63d1240ab8d74a3097ec10b05465881e64a9faab5463a20b9a846",
+      "actual": "423f33f381b63d1240ab8d74a3097ec10b05465881e64a9faab5463a20b9a846",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l30.json",
+      "expected": "01d892d8030a7bbd5e3de10c3d4c0f36b5fc36497a1d2f28206383993d8fc016",
+      "actual": "01d892d8030a7bbd5e3de10c3d4c0f36b5fc36497a1d2f28206383993d8fc016",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l31.json",
+      "expected": "c00512977e360f6743188c3d350dac5c84641fc056883ef1ed7aff77f9fa3307",
+      "actual": "c00512977e360f6743188c3d350dac5c84641fc056883ef1ed7aff77f9fa3307",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l32.json",
+      "expected": "621e39e96c085a208159dce7cc9732931e392a8c7c5428f8aca9f3eff3c9f251",
+      "actual": "621e39e96c085a208159dce7cc9732931e392a8c7c5428f8aca9f3eff3c9f251",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l33.json",
+      "expected": "9f8845cf8ddf3349aad77be612b4b7a802757af708e15dd8d9eb3099bddce598",
+      "actual": "9f8845cf8ddf3349aad77be612b4b7a802757af708e15dd8d9eb3099bddce598",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l34.json",
+      "expected": "13efe9c7bf35b1cf5719c4a1a55fda21db0e420287a6f61a14d35eb16a8f16f6",
+      "actual": "13efe9c7bf35b1cf5719c4a1a55fda21db0e420287a6f61a14d35eb16a8f16f6",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l35.json",
+      "expected": "c02c6ae0d752c02ce8885bd0e67ea91fa0d8915eb94df4aa088f3a2633707504",
+      "actual": "c02c6ae0d752c02ce8885bd0e67ea91fa0d8915eb94df4aa088f3a2633707504",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l36.json",
+      "expected": "1f670f6a2a5a3a2a5386c5af51f893fe39e4a756034f68fc365ee01d79deea0c",
+      "actual": "1f670f6a2a5a3a2a5386c5af51f893fe39e4a756034f68fc365ee01d79deea0c",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l37.json",
+      "expected": "6d6aed0055b65111aa5191eb9fca3193be4e88a7347ba9c25aa0549b3a2f6401",
+      "actual": "6d6aed0055b65111aa5191eb9fca3193be4e88a7347ba9c25aa0549b3a2f6401",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l38.json",
+      "expected": "5b252e9ae1c048dfb2e3b92a42ca31a29ab2aa0509753a041e8ae851b6dd15e5",
+      "actual": "5b252e9ae1c048dfb2e3b92a42ca31a29ab2aa0509753a041e8ae851b6dd15e5",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l39.json",
+      "expected": "891b4cfe0834f19f6504e8e0ade2df6fcbeef7bbbb4b3a36dfbf554e278fc003",
+      "actual": "891b4cfe0834f19f6504e8e0ade2df6fcbeef7bbbb4b3a36dfbf554e278fc003",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l40.json",
+      "expected": "df198b84430020118405b6399deb164b1bc5d2ad38e0a87e09f457681ca4c5ef",
+      "actual": "df198b84430020118405b6399deb164b1bc5d2ad38e0a87e09f457681ca4c5ef",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l41.json",
+      "expected": "9d6b3e2094e0bbcc916426f2ae579fd6eab5149558e9adf03e7dd4c4d74f8a08",
+      "actual": "9d6b3e2094e0bbcc916426f2ae579fd6eab5149558e9adf03e7dd4c4d74f8a08",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l42.json",
+      "expected": "8871ce4e24b7561704d13c3256ecd8d476ca6696829051ddad14949a4de569ee",
+      "actual": "8871ce4e24b7561704d13c3256ecd8d476ca6696829051ddad14949a4de569ee",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l43.json",
+      "expected": "b2a0da9236010e4b1062fef20f6dc1a5b9d879b3c6efbd7d94779b136c34c90a",
+      "actual": "b2a0da9236010e4b1062fef20f6dc1a5b9d879b3c6efbd7d94779b136c34c90a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l44.json",
+      "expected": "53b6de16d4918feb005f2ec4236f707de6eeb0b296840097418b54f8a37b95bf",
+      "actual": "53b6de16d4918feb005f2ec4236f707de6eeb0b296840097418b54f8a37b95bf",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l45.json",
+      "expected": "55ed4b7de5b891e57a5c184015b7cc995e16685249f2f7743e2a9efb6ee6b54a",
+      "actual": "55ed4b7de5b891e57a5c184015b7cc995e16685249f2f7743e2a9efb6ee6b54a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l46.json",
+      "expected": "d21632a711567c231bddf8fbf879a021a90a1b5da314aacac93a9d3ec56e97c9",
+      "actual": "d21632a711567c231bddf8fbf879a021a90a1b5da314aacac93a9d3ec56e97c9",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l47.json",
+      "expected": "d90156c13c3d3ab62ccf945d39bd45c2989abca44a369011d3b0446eed4d5820",
+      "actual": "d90156c13c3d3ab62ccf945d39bd45c2989abca44a369011d3b0446eed4d5820",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l48.json",
+      "expected": "65c9195f31abe741d07a00ec4c2ab394e0dcb927ee15549a70f1b243c8ff610b",
+      "actual": "65c9195f31abe741d07a00ec4c2ab394e0dcb927ee15549a70f1b243c8ff610b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-l49.json",
+      "expected": "e26fc709974ea8c9212c2f19c312f27ad7d2b39bbd0a5ac675785508ba728266",
+      "actual": "e26fc709974ea8c9212c2f19c312f27ad7d2b39bbd0a5ac675785508ba728266",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m01.json",
+      "expected": "8981d7e17fe19d8e017bcf0cc619a4a50a4bd6734675c3471262735d7814bcd7",
+      "actual": "8981d7e17fe19d8e017bcf0cc619a4a50a4bd6734675c3471262735d7814bcd7",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m02.json",
+      "expected": "2fdbc59f15dfaf8c708d445361b8725aa236f3cd23cfaebc640683356a9007c2",
+      "actual": "2fdbc59f15dfaf8c708d445361b8725aa236f3cd23cfaebc640683356a9007c2",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m03.json",
+      "expected": "a46d73068d48a30722c11b5b5382f9a03fe0e6120098e2a7ba7ee81d08faa59c",
+      "actual": "a46d73068d48a30722c11b5b5382f9a03fe0e6120098e2a7ba7ee81d08faa59c",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m04.json",
+      "expected": "8ce0f9abbf1af9005befb252351d1de72cab1adf7b6f80314c2d6c216fa12283",
+      "actual": "8ce0f9abbf1af9005befb252351d1de72cab1adf7b6f80314c2d6c216fa12283",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m05.json",
+      "expected": "fb73e11819b248a24f93846657c0f69a6c4e25e3ae4682547245ad9f5ebe1f21",
+      "actual": "fb73e11819b248a24f93846657c0f69a6c4e25e3ae4682547245ad9f5ebe1f21",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m06.json",
+      "expected": "503fe5804311424e4eb649a5be4985ff1a3d565ac07f57b3a4adee77bd0031e8",
+      "actual": "503fe5804311424e4eb649a5be4985ff1a3d565ac07f57b3a4adee77bd0031e8",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m07.json",
+      "expected": "e7ff4f41c11d596d4548d9a26ed4a4890c5365e30ffc1f059f9addad4f0ce8c6",
+      "actual": "e7ff4f41c11d596d4548d9a26ed4a4890c5365e30ffc1f059f9addad4f0ce8c6",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m08.json",
+      "expected": "d227351a4c9c640085e41d63a8544be4a494bc75ad5288a19dc2f0f0deb2d08a",
+      "actual": "d227351a4c9c640085e41d63a8544be4a494bc75ad5288a19dc2f0f0deb2d08a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m09.json",
+      "expected": "6cc2ec1d9a47d0e45873803c5c1422f8fd9e322d2d65d2f91ec55b46bcee74b5",
+      "actual": "6cc2ec1d9a47d0e45873803c5c1422f8fd9e322d2d65d2f91ec55b46bcee74b5",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m10.json",
+      "expected": "e04b07d3b8dc51db02c626bc61a193eb8993997cc32d792a44533d3fbb9f4b17",
+      "actual": "e04b07d3b8dc51db02c626bc61a193eb8993997cc32d792a44533d3fbb9f4b17",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m100.json",
+      "expected": "d19500d96f8e8cb805e68b283d44eef2f32cda19bde051d2cca39d6514db3fed",
+      "actual": "d19500d96f8e8cb805e68b283d44eef2f32cda19bde051d2cca39d6514db3fed",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m101.json",
+      "expected": "f75f69ce13af9f8037fa393fed30e6fa594966de568afc877e45c4f134b9c66b",
+      "actual": "f75f69ce13af9f8037fa393fed30e6fa594966de568afc877e45c4f134b9c66b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m11.json",
+      "expected": "bdc262bc322010942508ba06dbe661c1c87aae55e9aa3b50ae21f34d02dab25e",
+      "actual": "bdc262bc322010942508ba06dbe661c1c87aae55e9aa3b50ae21f34d02dab25e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m12.json",
+      "expected": "7d98733e5c948a55522dda66ee162694c0f6b8032083fbac7cfb8581992e510a",
+      "actual": "7d98733e5c948a55522dda66ee162694c0f6b8032083fbac7cfb8581992e510a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m13.json",
+      "expected": "73b6e347ab1c1f8cb115066df1491af50feece20b43c7639d00c8aa714efd5ab",
+      "actual": "73b6e347ab1c1f8cb115066df1491af50feece20b43c7639d00c8aa714efd5ab",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m14.json",
+      "expected": "e14e1bcffdcd62d938ff1d6a3914ce3eaffbe9bad2ab7b9e4ba622b82b4bab97",
+      "actual": "e14e1bcffdcd62d938ff1d6a3914ce3eaffbe9bad2ab7b9e4ba622b82b4bab97",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m15.json",
+      "expected": "35ae7f7639aa87f11aed54910cf306e9539030c30bf80533d5abae91183b4920",
+      "actual": "35ae7f7639aa87f11aed54910cf306e9539030c30bf80533d5abae91183b4920",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m16.json",
+      "expected": "e7b3f50b93d496c074e1d6b953010d70ec5d06057665d14afee442ce26199293",
+      "actual": "e7b3f50b93d496c074e1d6b953010d70ec5d06057665d14afee442ce26199293",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m17.json",
+      "expected": "0cddb89c642f43738a40e6fb288ad35b9749401ce6ae3d5bb87b981df03d8e95",
+      "actual": "0cddb89c642f43738a40e6fb288ad35b9749401ce6ae3d5bb87b981df03d8e95",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m18.json",
+      "expected": "40128e9019f6b306c1d90c807a4989c3453db3ce0aa3227e160a77789d5c9276",
+      "actual": "40128e9019f6b306c1d90c807a4989c3453db3ce0aa3227e160a77789d5c9276",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m19.json",
+      "expected": "c829d8ffcd9708cd189877e650558e4868dec3ed3212caa49b85300a966a703d",
+      "actual": "c829d8ffcd9708cd189877e650558e4868dec3ed3212caa49b85300a966a703d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m20.json",
+      "expected": "fc41ba1414b8fd4cc5ab750e6b4964d656d7f0d88ad827291f7436250d86ae73",
+      "actual": "fc41ba1414b8fd4cc5ab750e6b4964d656d7f0d88ad827291f7436250d86ae73",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m21.json",
+      "expected": "c6c8573e6276acf17c845b222b79c234350d225b06da8012bdf598d13a64d3bb",
+      "actual": "c6c8573e6276acf17c845b222b79c234350d225b06da8012bdf598d13a64d3bb",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m22.json",
+      "expected": "0dc57ecaa5f51ac58fe95c29f013dc84d870611e36ffa2097fbdde4aa9a4196e",
+      "actual": "0dc57ecaa5f51ac58fe95c29f013dc84d870611e36ffa2097fbdde4aa9a4196e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m23.json",
+      "expected": "791e1c92ccf0c317b7b9722f5a59be12a0048d2c7a958319477998f132f5cc19",
+      "actual": "791e1c92ccf0c317b7b9722f5a59be12a0048d2c7a958319477998f132f5cc19",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m24.json",
+      "expected": "1eef7fa7ece5080c1bb5856e4c1267468edbfc18f1025dbff93dcdbe6f3506d5",
+      "actual": "1eef7fa7ece5080c1bb5856e4c1267468edbfc18f1025dbff93dcdbe6f3506d5",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m25.json",
+      "expected": "a6dafc6cda2a1935bd28d422680dc5d333385cbff7b7e05876e102cde66e1378",
+      "actual": "a6dafc6cda2a1935bd28d422680dc5d333385cbff7b7e05876e102cde66e1378",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m26.json",
+      "expected": "40e0082ee294e8e44e3195aa0865a51ab585908596037c9f84b6615e00aa55a6",
+      "actual": "40e0082ee294e8e44e3195aa0865a51ab585908596037c9f84b6615e00aa55a6",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m27.json",
+      "expected": "1837ee2e320e4f594415823ef3d436ff99b62cf189ed1d9673589adb1a088ec5",
+      "actual": "1837ee2e320e4f594415823ef3d436ff99b62cf189ed1d9673589adb1a088ec5",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m28.json",
+      "expected": "9f1210edcc9cefeac520c9ab98733be8222a07de0982aa8ff6e4569183a06fdd",
+      "actual": "9f1210edcc9cefeac520c9ab98733be8222a07de0982aa8ff6e4569183a06fdd",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m29.json",
+      "expected": "08c0c598cd12f9cd66204f4f89b974846ec9eeb4005289c636a6e97e5a37b4be",
+      "actual": "08c0c598cd12f9cd66204f4f89b974846ec9eeb4005289c636a6e97e5a37b4be",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m30.json",
+      "expected": "9743848c07dc18d9bc9427462e838ac484feabce2824e89487994fba6c99afa0",
+      "actual": "9743848c07dc18d9bc9427462e838ac484feabce2824e89487994fba6c99afa0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m31.json",
+      "expected": "514ce6b43ec74b7f35203b02a7d4da14f6bea82b887e780180ad97bdd726fb15",
+      "actual": "514ce6b43ec74b7f35203b02a7d4da14f6bea82b887e780180ad97bdd726fb15",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m32.json",
+      "expected": "e6189a17b16afd391c8347dc5466a0843413ee4788567b11330b25b90bb9de2e",
+      "actual": "e6189a17b16afd391c8347dc5466a0843413ee4788567b11330b25b90bb9de2e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m33.json",
+      "expected": "f78ea05bd89eea0da2b5182ff99bee6ce2a4f8d8950056afc7f9ca6ca758ca59",
+      "actual": "f78ea05bd89eea0da2b5182ff99bee6ce2a4f8d8950056afc7f9ca6ca758ca59",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m34.json",
+      "expected": "2e897a922e7ae29bfb2a390ddec9a2626631ce3629e7002ef345c5931f7c3bef",
+      "actual": "2e897a922e7ae29bfb2a390ddec9a2626631ce3629e7002ef345c5931f7c3bef",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m35.json",
+      "expected": "5f294fb54e9e24e3f9386b8fce3f63e1fe8c8c70bbf9239fbb7dd2c75001f8c0",
+      "actual": "5f294fb54e9e24e3f9386b8fce3f63e1fe8c8c70bbf9239fbb7dd2c75001f8c0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m36.json",
+      "expected": "2bebbcacb3f10588617953d692022b16524fb933037d3f3b2678e1285a648b62",
+      "actual": "2bebbcacb3f10588617953d692022b16524fb933037d3f3b2678e1285a648b62",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m37.json",
+      "expected": "5a22d4f6986c52763ed6ebdc5fc4cf85da64cf9007c51d82a632722e6f8a8522",
+      "actual": "5a22d4f6986c52763ed6ebdc5fc4cf85da64cf9007c51d82a632722e6f8a8522",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m38.json",
+      "expected": "3f7bae4b1c192fb1ecbcf9f45e46b8e5bbaa420bbcfa35ba100de05b586ef810",
+      "actual": "3f7bae4b1c192fb1ecbcf9f45e46b8e5bbaa420bbcfa35ba100de05b586ef810",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m39.json",
+      "expected": "2a23bc88bcab38cc7dd7112a1a7d47a59d07d48d39c895a947ad5ecb58572a9b",
+      "actual": "2a23bc88bcab38cc7dd7112a1a7d47a59d07d48d39c895a947ad5ecb58572a9b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m40.json",
+      "expected": "5253b8722b420d88eaf44d7be79caa55b03e3ff586ffd1588035bafb4c539897",
+      "actual": "5253b8722b420d88eaf44d7be79caa55b03e3ff586ffd1588035bafb4c539897",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m41.json",
+      "expected": "b773ba5d3708caaa7bbdc4621b7f72c5fa1f9575331c34bb0e6218b6469e1ae0",
+      "actual": "b773ba5d3708caaa7bbdc4621b7f72c5fa1f9575331c34bb0e6218b6469e1ae0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m42.json",
+      "expected": "73a892eed5c6bf600ffb694ee718407bb8b2f59217be6a6ff5b16305d81127bc",
+      "actual": "73a892eed5c6bf600ffb694ee718407bb8b2f59217be6a6ff5b16305d81127bc",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m43.json",
+      "expected": "5191c738e6103a7dfe3ab38535d9a1aae02681a71b998a59e9deea6db0aa8dcd",
+      "actual": "5191c738e6103a7dfe3ab38535d9a1aae02681a71b998a59e9deea6db0aa8dcd",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m44.json",
+      "expected": "0adde96ade934465368e0d0d2ce048386fd0e45bfc6d34fa1bbe9e06a6367091",
+      "actual": "0adde96ade934465368e0d0d2ce048386fd0e45bfc6d34fa1bbe9e06a6367091",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m45.json",
+      "expected": "bfedb17886fcddb2d1949a8a006386c8485dad0bf52b9914d9922a8dcd4429d4",
+      "actual": "bfedb17886fcddb2d1949a8a006386c8485dad0bf52b9914d9922a8dcd4429d4",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m46.json",
+      "expected": "3fbcf6360b6919e55e640038e9d922d0919ac5d4ad5c6720c60696a10eda8e9e",
+      "actual": "3fbcf6360b6919e55e640038e9d922d0919ac5d4ad5c6720c60696a10eda8e9e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m47.json",
+      "expected": "61b5f16e15dae29c9d13257725660f7b1af902fd298f7ef67e2c2d12588dcc5d",
+      "actual": "61b5f16e15dae29c9d13257725660f7b1af902fd298f7ef67e2c2d12588dcc5d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m48.json",
+      "expected": "f7a9c9c300f3ba15da86828650d3f803225989620b4de225ec19d9c1fcfd93eb",
+      "actual": "f7a9c9c300f3ba15da86828650d3f803225989620b4de225ec19d9c1fcfd93eb",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m49.json",
+      "expected": "6a6f7f6c19f64acac8ce9c7b17cd5001ebdbcf6173ef11b1d7a3ad48fb5c2016",
+      "actual": "6a6f7f6c19f64acac8ce9c7b17cd5001ebdbcf6173ef11b1d7a3ad48fb5c2016",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m50.json",
+      "expected": "4f6624cc9e72963cd132bc74ce4e4c20b39ac99c622d1e208570b1804d44ef09",
+      "actual": "4f6624cc9e72963cd132bc74ce4e4c20b39ac99c622d1e208570b1804d44ef09",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m51.json",
+      "expected": "68808f2d291fefaf33093d19776594e576151320f92394a9b6908e5fdd509d01",
+      "actual": "68808f2d291fefaf33093d19776594e576151320f92394a9b6908e5fdd509d01",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m52.json",
+      "expected": "ee84f5a99a0a641f8d64530b78ce3990eef6cf0db64a0d54171fb993f8dec1ae",
+      "actual": "ee84f5a99a0a641f8d64530b78ce3990eef6cf0db64a0d54171fb993f8dec1ae",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m53.json",
+      "expected": "390287507d3742e6c1017ff45a470aa7a2e314c442a993f3bf236e97a4e27665",
+      "actual": "390287507d3742e6c1017ff45a470aa7a2e314c442a993f3bf236e97a4e27665",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m54.json",
+      "expected": "081e5ca3db0f7e4c2c244073a407935999d1f6468ecb5a9cc2d998295a300940",
+      "actual": "081e5ca3db0f7e4c2c244073a407935999d1f6468ecb5a9cc2d998295a300940",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m55.json",
+      "expected": "7dc98e1693d4a80e1a6de5568ddd7e97b6207c9a2290367852b5be9958e52084",
+      "actual": "7dc98e1693d4a80e1a6de5568ddd7e97b6207c9a2290367852b5be9958e52084",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m56.json",
+      "expected": "29432d995971a7705aa4ede581e8a11f66b76d4f4151f414a860ffb59302a3c4",
+      "actual": "29432d995971a7705aa4ede581e8a11f66b76d4f4151f414a860ffb59302a3c4",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m57.json",
+      "expected": "1c0708d30dadd9300545dbe1ee612c09bc9b9d2da9bfe613c7c1581f27ea9acd",
+      "actual": "1c0708d30dadd9300545dbe1ee612c09bc9b9d2da9bfe613c7c1581f27ea9acd",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m58.json",
+      "expected": "f64fb48901b8c52b9855958d496f0578ce9a5588eb3c7c471b8bbd2a1e073a4b",
+      "actual": "f64fb48901b8c52b9855958d496f0578ce9a5588eb3c7c471b8bbd2a1e073a4b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m59.json",
+      "expected": "be074fb28f043c939ebb927a4ecf121f91cd2c3de5dd8d27825d3e4775408426",
+      "actual": "be074fb28f043c939ebb927a4ecf121f91cd2c3de5dd8d27825d3e4775408426",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m60.json",
+      "expected": "086322794bf47906aa50a80c624a8b4a46fb822594ef446e0a3fb9e27a60da63",
+      "actual": "086322794bf47906aa50a80c624a8b4a46fb822594ef446e0a3fb9e27a60da63",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m61.json",
+      "expected": "c08f22d7cb3eacc23a09c5d6256700a1702c1a39ece3ca13311d6c6df0eef4e0",
+      "actual": "c08f22d7cb3eacc23a09c5d6256700a1702c1a39ece3ca13311d6c6df0eef4e0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m62.json",
+      "expected": "65d9fd898b03b8554051342a8e263353c511a37199a9423f2efe33c741510f4b",
+      "actual": "65d9fd898b03b8554051342a8e263353c511a37199a9423f2efe33c741510f4b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m63.json",
+      "expected": "1127895bc9db789619eec88bbc03b8a3a6177be156253add508c7387faaa985a",
+      "actual": "1127895bc9db789619eec88bbc03b8a3a6177be156253add508c7387faaa985a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m64.json",
+      "expected": "ca1464cc8bfdc153dbe5db77148757737b2088b5f34dd182f4d2d2126a189014",
+      "actual": "ca1464cc8bfdc153dbe5db77148757737b2088b5f34dd182f4d2d2126a189014",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m65.json",
+      "expected": "fc04eeaf788fa43518649fefd184426fc7d27d40245346adad9105be5efa91c3",
+      "actual": "fc04eeaf788fa43518649fefd184426fc7d27d40245346adad9105be5efa91c3",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m66.json",
+      "expected": "1e53cf06a63dc9e5b8497a11e54ff0d1233f07ad0f5ab2ea07dee5341ec5f441",
+      "actual": "1e53cf06a63dc9e5b8497a11e54ff0d1233f07ad0f5ab2ea07dee5341ec5f441",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m67.json",
+      "expected": "5cb21c5291753e1d2406de6406e8adcb98da99771cd09fd119b7318938781dfe",
+      "actual": "5cb21c5291753e1d2406de6406e8adcb98da99771cd09fd119b7318938781dfe",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m68.json",
+      "expected": "136f8bfecd7ae0215fa5fbdd426993bcc85666ae8895a84538ef6ac4792fb43f",
+      "actual": "136f8bfecd7ae0215fa5fbdd426993bcc85666ae8895a84538ef6ac4792fb43f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m69.json",
+      "expected": "373469ea60cc7c37f1e79000543b1141a3b07d1470b271542c41c72c0d40d0f9",
+      "actual": "373469ea60cc7c37f1e79000543b1141a3b07d1470b271542c41c72c0d40d0f9",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m70.json",
+      "expected": "3ae1d45cdddb2ce076099de3cac0b653b29cc0c3f0d9c45241ebd45eeed34dec",
+      "actual": "3ae1d45cdddb2ce076099de3cac0b653b29cc0c3f0d9c45241ebd45eeed34dec",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m71.json",
+      "expected": "4b1314d0bf8259e4626d0fa1f07d351a78429e07861e6ec52d03bc3901aaf6be",
+      "actual": "4b1314d0bf8259e4626d0fa1f07d351a78429e07861e6ec52d03bc3901aaf6be",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m72.json",
+      "expected": "b5f676ee07abf2ebcd31b994189c9ea92ccd2b8ac30c96af5da06063a91783a0",
+      "actual": "b5f676ee07abf2ebcd31b994189c9ea92ccd2b8ac30c96af5da06063a91783a0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m73.json",
+      "expected": "bbdceb8573139197d6b1440f2e7ab6c634799d2778db616abb1786ffadd8742b",
+      "actual": "bbdceb8573139197d6b1440f2e7ab6c634799d2778db616abb1786ffadd8742b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m74.json",
+      "expected": "b999a1b51aac2de28c1cd0c60f2d1cc45d53cc5acff0cdb3de2d64dd45f41b00",
+      "actual": "b999a1b51aac2de28c1cd0c60f2d1cc45d53cc5acff0cdb3de2d64dd45f41b00",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m75.json",
+      "expected": "4da59804f1be1d2cb3066312a0e7225b30edf2aa9d4c6d01d0f319e6095d482e",
+      "actual": "4da59804f1be1d2cb3066312a0e7225b30edf2aa9d4c6d01d0f319e6095d482e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m76.json",
+      "expected": "fae4525c6544eb316d28bdf8380ba468f5ef5541928d89d146ab27e6e5fa07d6",
+      "actual": "fae4525c6544eb316d28bdf8380ba468f5ef5541928d89d146ab27e6e5fa07d6",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m77.json",
+      "expected": "5a1d7a4897b6a7835df0a9ec0215bebe4cae1ed18485c1a8004d5c6ef2b49ad1",
+      "actual": "5a1d7a4897b6a7835df0a9ec0215bebe4cae1ed18485c1a8004d5c6ef2b49ad1",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m78.json",
+      "expected": "c087a747a748398f7f099339165de27e41311af11289479355c622c2a9e1b40f",
+      "actual": "c087a747a748398f7f099339165de27e41311af11289479355c622c2a9e1b40f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m79.json",
+      "expected": "d78b84751bd0571e339c23b1a9403b0d315b703ea9c1e87d5b758650adf8b1e1",
+      "actual": "d78b84751bd0571e339c23b1a9403b0d315b703ea9c1e87d5b758650adf8b1e1",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m80.json",
+      "expected": "04da9529eda118726e75ada6f27a789a381165354ed79c1efec6c83c6dcb7b81",
+      "actual": "04da9529eda118726e75ada6f27a789a381165354ed79c1efec6c83c6dcb7b81",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m81.json",
+      "expected": "79cd4da661c45d774274836bd4d59a2cb1517047906ccd4dc259d7e22618a3aa",
+      "actual": "79cd4da661c45d774274836bd4d59a2cb1517047906ccd4dc259d7e22618a3aa",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m82.json",
+      "expected": "ee8e3297da012db602ec9ef43a6381703dac158f1279fa6ec1ad04b0395c3f0d",
+      "actual": "ee8e3297da012db602ec9ef43a6381703dac158f1279fa6ec1ad04b0395c3f0d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m83.json",
+      "expected": "91b70c7bbd75161d2bfd88a26f54712538d791df75ab880a69150bd0759ed26d",
+      "actual": "91b70c7bbd75161d2bfd88a26f54712538d791df75ab880a69150bd0759ed26d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m84.json",
+      "expected": "357183d839b91eb43625e0c22d60b0753dc48481be3a0b8d4e5d5926d9b5bfa0",
+      "actual": "357183d839b91eb43625e0c22d60b0753dc48481be3a0b8d4e5d5926d9b5bfa0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m85.json",
+      "expected": "a51c58b608808e6d84f9f7be9acb7c6bc05bd83ca29623ff196def780ec55789",
+      "actual": "a51c58b608808e6d84f9f7be9acb7c6bc05bd83ca29623ff196def780ec55789",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m86.json",
+      "expected": "1a5f49bc70d04f6d4fd7904435012ff6f37fec24950807ea850c77a6e977d808",
+      "actual": "1a5f49bc70d04f6d4fd7904435012ff6f37fec24950807ea850c77a6e977d808",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m87.json",
+      "expected": "f5b75e653c91b40ca625be4a918d943df870faf3530dd3cb493ad8150f648b44",
+      "actual": "f5b75e653c91b40ca625be4a918d943df870faf3530dd3cb493ad8150f648b44",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m88.json",
+      "expected": "e0b7027bda8cfedad3f2165ca6c07dcf9bc8a7efe71064f8e8d96fae8bc77a3a",
+      "actual": "e0b7027bda8cfedad3f2165ca6c07dcf9bc8a7efe71064f8e8d96fae8bc77a3a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m89.json",
+      "expected": "af3e1f2b8bc94c95def8e22cd9fa2708103dfd44c588b715f8e291b3b9d89392",
+      "actual": "af3e1f2b8bc94c95def8e22cd9fa2708103dfd44c588b715f8e291b3b9d89392",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m90.json",
+      "expected": "8ee03e024bf809c5cdecd64bac1606bad0e756ef82014dafe62c11dca5ef9153",
+      "actual": "8ee03e024bf809c5cdecd64bac1606bad0e756ef82014dafe62c11dca5ef9153",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m91.json",
+      "expected": "9343496c8c98e45b91995f066a5d3ba8cc47afd361252283f0a1a1aa99b61969",
+      "actual": "9343496c8c98e45b91995f066a5d3ba8cc47afd361252283f0a1a1aa99b61969",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m92.json",
+      "expected": "e9385a4396e773430f427f65c3f18c11257330f6bf371c85bbae52e8ae38ca18",
+      "actual": "e9385a4396e773430f427f65c3f18c11257330f6bf371c85bbae52e8ae38ca18",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m94.json",
+      "expected": "7c65e697e970c812ba4a2eac018446e587ca4251ac6266a9a71d7122f7ed8368",
+      "actual": "7c65e697e970c812ba4a2eac018446e587ca4251ac6266a9a71d7122f7ed8368",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m95.json",
+      "expected": "ae8f84ec29006a010693b369651888db6a0d323cb722f5131986e836a1e71f27",
+      "actual": "ae8f84ec29006a010693b369651888db6a0d323cb722f5131986e836a1e71f27",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m96.json",
+      "expected": "a546c5afb49cec468d13f6d27b45f31171afd85e971f03f0040d43de199fda83",
+      "actual": "a546c5afb49cec468d13f6d27b45f31171afd85e971f03f0040d43de199fda83",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m97.json",
+      "expected": "a4c06c043d58c8adee458bf63e1dd9ccb0975903782575f0b61e8ecdfbcb9812",
+      "actual": "a4c06c043d58c8adee458bf63e1dd9ccb0975903782575f0b61e8ecdfbcb9812",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-m98.json",
+      "expected": "33ceb5d24a407238878b2b1b79e613029b91a5b6d646c4001f1a2cac8a280856",
+      "actual": "33ceb5d24a407238878b2b1b79e613029b91a5b6d646c4001f1a2cac8a280856",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork-batch-root.json",
+      "expected": "5e06de6f43008e8811f776169f3578543b250fe6cc66fa0050e200c80b5db09d",
+      "actual": "5e06de6f43008e8811f776169f3578543b250fe6cc66fa0050e200c80b5db09d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-e.json",
+      "expected": "a73496e7919c47fa7715e3105fdb4ab9e1b54c0b36c547819cf09fb16a021852",
+      "actual": "a73496e7919c47fa7715e3105fdb4ab9e1b54c0b36c547819cf09fb16a021852",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-f-release-f01.json",
+      "expected": "e6335c881d95002131c450b74e45ac908a0745d5c793ef992f255aaa358c52fc",
+      "actual": "e6335c881d95002131c450b74e45ac908a0745d5c793ef992f255aaa358c52fc",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-f-staging.json",
+      "expected": "7850fe10be157ec23dc405ae9e7f853c130c81cdc34040b9d0e364b7000ec4b8",
+      "actual": "7850fe10be157ec23dc405ae9e7f853c130c81cdc34040b9d0e364b7000ec4b8",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-f.json",
+      "expected": "390d78ae1746838edb2efc50412a9e99f587a24b0c7d33773464f992da39f0da",
+      "actual": "390d78ae1746838edb2efc50412a9e99f587a24b0c7d33773464f992da39f0da",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-g.json",
+      "expected": "0e0bb162f2ab6a15e017c2f579711d9f2bb9d4ab55d8e796322fdd54d5f34035",
+      "actual": "0e0bb162f2ab6a15e017c2f579711d9f2bb9d4ab55d8e796322fdd54d5f34035",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-h.json",
+      "expected": "4495c8b90abfda33ac1f127a59ef25fcdba77dfbad029869e3baccd9778a2c7a",
+      "actual": "4495c8b90abfda33ac1f127a59ef25fcdba77dfbad029869e3baccd9778a2c7a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-i.json",
+      "expected": "79cae1f238d592f0112cde72ec6ae745d7eb3ce17646017fdb8f71ae81d5c92d",
+      "actual": "79cae1f238d592f0112cde72ec6ae745d7eb3ce17646017fdb8f71ae81d5c92d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-j-preparation-index.json",
+      "expected": "73ca704aad33f274fac7f45454629d44c3216fe378e7cd289f98b5a6053d70e4",
+      "actual": "73ca704aad33f274fac7f45454629d44c3216fe378e7cd289f98b5a6053d70e4",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-j.json",
+      "expected": "08a2145cfd174bb61af4b21d4f6cde46eb4bbdcfdc813d774c04db83df887cfd",
+      "actual": "08a2145cfd174bb61af4b21d4f6cde46eb4bbdcfdc813d774c04db83df887cfd",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-k-preparation-index.json",
+      "expected": "18e0a8f04062ec699d77cf96ff52071f01b9c9bc7f94509c2a02eb0edbf221e3",
+      "actual": "18e0a8f04062ec699d77cf96ff52071f01b9c9bc7f94509c2a02eb0edbf221e3",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-k-process-review.json",
+      "expected": "8d7e5f16b3ae1ebf99dd5416ff16d07a9d77f4962789bd6e077d12e3641c7723",
+      "actual": "8d7e5f16b3ae1ebf99dd5416ff16d07a9d77f4962789bd6e077d12e3641c7723",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-k-stop.json",
+      "expected": "ed5fc234871ba8adcb10e7d414095db377eef1961f525dbc5f22e5e335e42e60",
+      "actual": "ed5fc234871ba8adcb10e7d414095db377eef1961f525dbc5f22e5e335e42e60",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-k.json",
+      "expected": "6c3f05cb021d36165479f22ec565f85af89811a9d1f5ce79adb0da83381a3667",
+      "actual": "6c3f05cb021d36165479f22ec565f85af89811a9d1f5ce79adb0da83381a3667",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-l-completion.json",
+      "expected": "8c642be1bcf4725e090cab22ea233805e6395302aa184c16501e7e45e05fbb83",
+      "actual": "8c642be1bcf4725e090cab22ea233805e6395302aa184c16501e7e45e05fbb83",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-l-preparation-index.json",
+      "expected": "94e86ba2cbc3b229c90c23b3aa54a04a4ef32e1aa0661e9d218f0f5c1385ebd0",
+      "actual": "94e86ba2cbc3b229c90c23b3aa54a04a4ef32e1aa0661e9d218f0f5c1385ebd0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-l-process-review.json",
+      "expected": "6aaaaf5d2c801c2effed1b750a64bfb3bf02caa687bc8e6c6b457739c982bbf7",
+      "actual": "6aaaaf5d2c801c2effed1b750a64bfb3bf02caa687bc8e6c6b457739c982bbf7",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-l.json",
+      "expected": "d70147159299d478c74f4966899f66ccafb0d3c0e80e4de51aa83e3844cb5324",
+      "actual": "d70147159299d478c74f4966899f66ccafb0d3c0e80e4de51aa83e3844cb5324",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-m-completion.json",
+      "expected": "a1b9034e967ee83728161164728ad920117a849c09f5a8342a6655c3d55681c8",
+      "actual": "a1b9034e967ee83728161164728ad920117a849c09f5a8342a6655c3d55681c8",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-m-preparation-index.json",
+      "expected": "30d8f110856aca5de34cce74fe1145a74173d3543a2a642dc6ced8b7696574b8",
+      "actual": "30d8f110856aca5de34cce74fe1145a74173d3543a2a642dc6ced8b7696574b8",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-m-process-review.json",
+      "expected": "de1462b75818537283f756faf7ba9a289c11ba03e53736bb611a7a0a3ec8ddb5",
+      "actual": "de1462b75818537283f756faf7ba9a289c11ba03e53736bb611a7a0a3ec8ddb5",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-cohort-m.json",
+      "expected": "0323a6d210473c19de98d0c4a14cac3449ba6824d265cee85ee482c4d17d3e53",
+      "actual": "0323a6d210473c19de98d0c4a14cac3449ba6824d265cee85ee482c4d17d3e53",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-continuation-100.json",
+      "expected": "2916be699a17523159be75428bcef5dee0545b9fb6a5306fc16abb7ecc0e85fb",
+      "actual": "2916be699a17523159be75428bcef5dee0545b9fb6a5306fc16abb7ecc0e85fb",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-continuation-context-files.json",
+      "expected": "8534ac4cf84a6c98c2da1fdd9d53c97e74ed45260f993ffcf3c05bd55f372f63",
+      "actual": "8534ac4cf84a6c98c2da1fdd9d53c97e74ed45260f993ffcf3c05bd55f372f63",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/portrait-continuation-context.json",
+      "expected": "b4779b3f8ef88521462739d121016db1327490c02de96819c16a68c3c811d61b",
+      "actual": "b4779b3f8ef88521462739d121016db1327490c02de96819c16a68c3c811d61b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-j01.json",
+      "expected": "5bd0f0779beb09a261e510120edcfaa78a7225c624cc2ad8579327babe7fe5b3",
+      "actual": "5bd0f0779beb09a261e510120edcfaa78a7225c624cc2ad8579327babe7fe5b3",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-j02.json",
+      "expected": "a320cd57e9b0674660a608a01c434fa28b3253d8e8e56a79dcd21bf52a2c1817",
+      "actual": "a320cd57e9b0674660a608a01c434fa28b3253d8e8e56a79dcd21bf52a2c1817",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-j03.json",
+      "expected": "53dbb2eb48984049e9b258d757e1c8adc0d2c9cc666fe73ec8d46f85bdf66d93",
+      "actual": "53dbb2eb48984049e9b258d757e1c8adc0d2c9cc666fe73ec8d46f85bdf66d93",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-k01.json",
+      "expected": "44130992e378f30693b05189c2e8965df3d05ac2b5a6ced70a79cbd493afb837",
+      "actual": "44130992e378f30693b05189c2e8965df3d05ac2b5a6ced70a79cbd493afb837",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-k02.json",
+      "expected": "383f06d14f4e3ba327d4a5830b7179a1353c3464cb46867cdb1d83d2abc3247c",
+      "actual": "383f06d14f4e3ba327d4a5830b7179a1353c3464cb46867cdb1d83d2abc3247c",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-k03.json",
+      "expected": "eef627d752d7b09ee00983d7d79d147c9ab343523f51844839ad932d9753b36b",
+      "actual": "eef627d752d7b09ee00983d7d79d147c9ab343523f51844839ad932d9753b36b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l-generation-holds-001.json",
+      "expected": "21d982d568424e874cbdfae870553066cc4af20c0b5f69b73832cf7360f54a61",
+      "actual": "21d982d568424e874cbdfae870553066cc4af20c0b5f69b73832cf7360f54a61",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l01.json",
+      "expected": "91e00d8b30bf7afe19297b106a1ab7e81837fcbc419e8bdc6e9500dabd042c2c",
+      "actual": "91e00d8b30bf7afe19297b106a1ab7e81837fcbc419e8bdc6e9500dabd042c2c",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l02.json",
+      "expected": "02fed9a83158de7cd54bb64549ca092f4630ea0a74d6b6131ba4b2638268cc73",
+      "actual": "02fed9a83158de7cd54bb64549ca092f4630ea0a74d6b6131ba4b2638268cc73",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l03.json",
+      "expected": "ab87819714e0bdffa1a547273b8954dce1221307381c673b4028f3dd48c7ec62",
+      "actual": "ab87819714e0bdffa1a547273b8954dce1221307381c673b4028f3dd48c7ec62",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l04.json",
+      "expected": "9f0e091bbe7902d8fff4676f8ba5d849802535970dfcc20ad6d7c2b14e3c9e44",
+      "actual": "9f0e091bbe7902d8fff4676f8ba5d849802535970dfcc20ad6d7c2b14e3c9e44",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l05.json",
+      "expected": "863fabc0e0282f926d5e3759d4b20b675fb0c16a76c591f9eb63af9f331879a5",
+      "actual": "863fabc0e0282f926d5e3759d4b20b675fb0c16a76c591f9eb63af9f331879a5",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l06.json",
+      "expected": "d39ad1c883e7fb9c995624891a454a7f5ef261bea9eac87182982c46b26fd1fa",
+      "actual": "d39ad1c883e7fb9c995624891a454a7f5ef261bea9eac87182982c46b26fd1fa",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l07.json",
+      "expected": "8649b1b85ca44f71b074f59c4fd9d1088207aef384997d6afdbc4802ed9ed279",
+      "actual": "8649b1b85ca44f71b074f59c4fd9d1088207aef384997d6afdbc4802ed9ed279",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l08.json",
+      "expected": "64cf444b6b6a18eb78f45ff1a58b3f172d35c38a925673af071174712c276f2c",
+      "actual": "64cf444b6b6a18eb78f45ff1a58b3f172d35c38a925673af071174712c276f2c",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l09.json",
+      "expected": "ac109cfe3dd6bbb422a391d0a1d869ed97b57ccde07ab8eac62087a8649e99bf",
+      "actual": "ac109cfe3dd6bbb422a391d0a1d869ed97b57ccde07ab8eac62087a8649e99bf",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l10.json",
+      "expected": "25f29e7401d8be2e7f2e06769a818e6b83b5c9f1a082e93d30d0c5588da7d66d",
+      "actual": "25f29e7401d8be2e7f2e06769a818e6b83b5c9f1a082e93d30d0c5588da7d66d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l11.json",
+      "expected": "e241f383f9d1205296605e9049c0c2d4b418ed7c4627a193c68293a20e579cc1",
+      "actual": "e241f383f9d1205296605e9049c0c2d4b418ed7c4627a193c68293a20e579cc1",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l12.json",
+      "expected": "ae36a2913280cb5d6cc2c7bdfb5e91d67cb396d5273d4ff4a8d56275bea041f6",
+      "actual": "ae36a2913280cb5d6cc2c7bdfb5e91d67cb396d5273d4ff4a8d56275bea041f6",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l13.json",
+      "expected": "998fe789a99aa88edb20092c9d2a4e1da248bab9b0f4e4b5ffe5ee4167b6154f",
+      "actual": "998fe789a99aa88edb20092c9d2a4e1da248bab9b0f4e4b5ffe5ee4167b6154f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l14.json",
+      "expected": "9b29d13ad34bbcfd4bcd954dacf840c0d2693a20449c551e1e5a8d3a1eb8a3dd",
+      "actual": "9b29d13ad34bbcfd4bcd954dacf840c0d2693a20449c551e1e5a8d3a1eb8a3dd",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l15.json",
+      "expected": "1932c1750316e56c14f7f67c6f3888b936493981c7fd87f239fb92ab906d080b",
+      "actual": "1932c1750316e56c14f7f67c6f3888b936493981c7fd87f239fb92ab906d080b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l16.json",
+      "expected": "688687ab68aec3f02e3d50451a976b821bcbdf5d95b34d5f110f6a9e44f9de56",
+      "actual": "688687ab68aec3f02e3d50451a976b821bcbdf5d95b34d5f110f6a9e44f9de56",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l17.json",
+      "expected": "fdb7094d7424bf33ae4773ad38cd7cde8e1c7f15d914576a3bd2ce623838d39d",
+      "actual": "fdb7094d7424bf33ae4773ad38cd7cde8e1c7f15d914576a3bd2ce623838d39d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l18.json",
+      "expected": "b9973aa937bf67bd046c4c92a6afcc4754169ea65c08580274436db3acc1ab4d",
+      "actual": "b9973aa937bf67bd046c4c92a6afcc4754169ea65c08580274436db3acc1ab4d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l19.json",
+      "expected": "0c924d05a61c6e1069a39d288c668147b863e22818ae2cda2cd6b58ab1f1f50c",
+      "actual": "0c924d05a61c6e1069a39d288c668147b863e22818ae2cda2cd6b58ab1f1f50c",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l20.json",
+      "expected": "b517ccc10552018a06277992e42610141ac6c7e395fd7272a1e9d63eb387aed2",
+      "actual": "b517ccc10552018a06277992e42610141ac6c7e395fd7272a1e9d63eb387aed2",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l21.json",
+      "expected": "b90dc42709c694ce2d6dba8681177d9df2b4cae24461b3578b5a1868297f601e",
+      "actual": "b90dc42709c694ce2d6dba8681177d9df2b4cae24461b3578b5a1868297f601e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l22.json",
+      "expected": "8a74476f065cebd06d48e55091ca86847d268dc35ac81a51b33d5da0efd99037",
+      "actual": "8a74476f065cebd06d48e55091ca86847d268dc35ac81a51b33d5da0efd99037",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l23.json",
+      "expected": "c01ae5730a405f641311b4ed6e5020a6cec3760256719f70fdb4d070276eeb96",
+      "actual": "c01ae5730a405f641311b4ed6e5020a6cec3760256719f70fdb4d070276eeb96",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l24.json",
+      "expected": "b98aa3a69b82c4e556f7bd42a881fb86469cb6b3beef7e3a9d134d385a199dde",
+      "actual": "b98aa3a69b82c4e556f7bd42a881fb86469cb6b3beef7e3a9d134d385a199dde",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l25.json",
+      "expected": "d5bfe066121f16d85fcf9514a03d7b7a8a67149e890d31cac0cbeeb557412f70",
+      "actual": "d5bfe066121f16d85fcf9514a03d7b7a8a67149e890d31cac0cbeeb557412f70",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l26.json",
+      "expected": "955913e83a2fa1892522d8851b44af94623b58e80f9a427f53465d503cdd8963",
+      "actual": "955913e83a2fa1892522d8851b44af94623b58e80f9a427f53465d503cdd8963",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l27.json",
+      "expected": "8e008c35a0eb5050563fffcfdca5596d1a2ace8c6e3c372a11b9cd0942d29479",
+      "actual": "8e008c35a0eb5050563fffcfdca5596d1a2ace8c6e3c372a11b9cd0942d29479",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l28.json",
+      "expected": "9465fd100a1cf269305e3a5723707f3f842134f0c24c4a97bd5b8840d982c705",
+      "actual": "9465fd100a1cf269305e3a5723707f3f842134f0c24c4a97bd5b8840d982c705",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l29.json",
+      "expected": "17477fbc601c6b0a266f71adb8d94d1651d962f6a43f8985ca914aa9b75b372e",
+      "actual": "17477fbc601c6b0a266f71adb8d94d1651d962f6a43f8985ca914aa9b75b372e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l30.json",
+      "expected": "986a8ffeb667e45868a0de108a9b2f4e94b6877e62db10d16c120aa2e99af0f3",
+      "actual": "986a8ffeb667e45868a0de108a9b2f4e94b6877e62db10d16c120aa2e99af0f3",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l31.json",
+      "expected": "42d49fbd373f64e4e14a63432d5386b5ef9bb1e33ce92e6a1393806413004750",
+      "actual": "42d49fbd373f64e4e14a63432d5386b5ef9bb1e33ce92e6a1393806413004750",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l32.json",
+      "expected": "8b93ea55ba2a47e26686504674f2016d048bab8ee539bd0002dfe2266e1a339d",
+      "actual": "8b93ea55ba2a47e26686504674f2016d048bab8ee539bd0002dfe2266e1a339d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l33.json",
+      "expected": "f675811997a83016626771cba9bef5dedec7ac667dd68de8f9e2ac5ce38faec4",
+      "actual": "f675811997a83016626771cba9bef5dedec7ac667dd68de8f9e2ac5ce38faec4",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l34.json",
+      "expected": "c25cdec42a3fe77f146f16d1dbe0125de8e886891d99c0758414fe3ce699a430",
+      "actual": "c25cdec42a3fe77f146f16d1dbe0125de8e886891d99c0758414fe3ce699a430",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l35.json",
+      "expected": "3663eb7397934cb41d197bb0bfd36455c2e3c3f24d3ee92b2981a2fba8355620",
+      "actual": "3663eb7397934cb41d197bb0bfd36455c2e3c3f24d3ee92b2981a2fba8355620",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l36.json",
+      "expected": "71fa244da640393122f5c715f3efa5d0894536de221b6b0943b67f71e03b715c",
+      "actual": "71fa244da640393122f5c715f3efa5d0894536de221b6b0943b67f71e03b715c",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l37.json",
+      "expected": "a6da58b000d38f9be7ec3521aa4a84e12cbd70b9d8170c8dcfa76cfe31a3b342",
+      "actual": "a6da58b000d38f9be7ec3521aa4a84e12cbd70b9d8170c8dcfa76cfe31a3b342",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l38.json",
+      "expected": "df01c42b7ae880c6914c90c8d4cbb7c30597ece4c52f50a7182767567506566c",
+      "actual": "df01c42b7ae880c6914c90c8d4cbb7c30597ece4c52f50a7182767567506566c",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l39.json",
+      "expected": "20e63363dff607366c5d614427f869e37076a6c874be6a2f0c8848f94229ee4e",
+      "actual": "20e63363dff607366c5d614427f869e37076a6c874be6a2f0c8848f94229ee4e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l40.json",
+      "expected": "af5919e372817fae098f46a215af5d90fe7c8db3f32e85b96effdb0eb2fff42f",
+      "actual": "af5919e372817fae098f46a215af5d90fe7c8db3f32e85b96effdb0eb2fff42f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l41.json",
+      "expected": "2a8535ad75b52ead3aa8c359fe0bd91f76162dbda7ffa9b9162b476cd101f90e",
+      "actual": "2a8535ad75b52ead3aa8c359fe0bd91f76162dbda7ffa9b9162b476cd101f90e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l42.json",
+      "expected": "e75ad63e892dbdb46e2e2e1e6f0b835041f9d762301b77e6b0994de947e6452a",
+      "actual": "e75ad63e892dbdb46e2e2e1e6f0b835041f9d762301b77e6b0994de947e6452a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l43.json",
+      "expected": "753099bac7de7222f7a5a6d016e939c0b8edd890d6b2eaabb44f5180056fc46a",
+      "actual": "753099bac7de7222f7a5a6d016e939c0b8edd890d6b2eaabb44f5180056fc46a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l44.json",
+      "expected": "1422ba746fce4faa983310427393b6d8d15993c247d227e209924f85b5e9f683",
+      "actual": "1422ba746fce4faa983310427393b6d8d15993c247d227e209924f85b5e9f683",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l45.json",
+      "expected": "4f25595a3b6b56506e30a015941a3591852f15d37a9b81ac6080f65736e5db9f",
+      "actual": "4f25595a3b6b56506e30a015941a3591852f15d37a9b81ac6080f65736e5db9f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l46.json",
+      "expected": "4645086373695a5aea3f5d99a11ee82456fe1aadec8b03e9fb35377f48ce7eb6",
+      "actual": "4645086373695a5aea3f5d99a11ee82456fe1aadec8b03e9fb35377f48ce7eb6",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l47.json",
+      "expected": "73172b9a61583b3f0d90699b86529e3e6390f72a61a94f83646a0f79614e3ebf",
+      "actual": "73172b9a61583b3f0d90699b86529e3e6390f72a61a94f83646a0f79614e3ebf",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l48.json",
+      "expected": "162a50bd3c8f78fdc212a57f2dab0526491dafdcaf20599ccc3847030d478f10",
+      "actual": "162a50bd3c8f78fdc212a57f2dab0526491dafdcaf20599ccc3847030d478f10",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-l49.json",
+      "expected": "a6b060e138159f45f51c1644718a5e1720bad3425b40a45e37557d7bdcaf385c",
+      "actual": "a6b060e138159f45f51c1644718a5e1720bad3425b40a45e37557d7bdcaf385c",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m-generation-holds-001.json",
+      "expected": "752b0e069113e52a2dea644ec39242fa1d58b76b65ab2c927de405105d9fbb7d",
+      "actual": "752b0e069113e52a2dea644ec39242fa1d58b76b65ab2c927de405105d9fbb7d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m01.json",
+      "expected": "5678d354af9109560ffbd8a2d363275ae77db99d7b9feac4e4706df167635fa8",
+      "actual": "5678d354af9109560ffbd8a2d363275ae77db99d7b9feac4e4706df167635fa8",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m02.json",
+      "expected": "ed756e4a8d304b94f1aceebf95a0db0347bb9720bf99e22d5c3332b00eb630d5",
+      "actual": "ed756e4a8d304b94f1aceebf95a0db0347bb9720bf99e22d5c3332b00eb630d5",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m03.json",
+      "expected": "71949b86c310a358c1f214c36c2b06630c0d2196aa67c496f9d0142ba279c0b1",
+      "actual": "71949b86c310a358c1f214c36c2b06630c0d2196aa67c496f9d0142ba279c0b1",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m04.json",
+      "expected": "d42d2b4375400f5d1df90096331167261a216a572106ee7bef697455ca7ebd24",
+      "actual": "d42d2b4375400f5d1df90096331167261a216a572106ee7bef697455ca7ebd24",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m05.json",
+      "expected": "435ee205f54b97b57ff32d02904b36d894d9efffd7712bbacb3936d952f365b6",
+      "actual": "435ee205f54b97b57ff32d02904b36d894d9efffd7712bbacb3936d952f365b6",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m06.json",
+      "expected": "94ff75c63f95691d4feca3b522254d5aedcf4baef4421555388ae514d85940c5",
+      "actual": "94ff75c63f95691d4feca3b522254d5aedcf4baef4421555388ae514d85940c5",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m07.json",
+      "expected": "a0f6133f5f09d11f3b55394845bf36fc16a98eb08530870d3a530f4ade55e20e",
+      "actual": "a0f6133f5f09d11f3b55394845bf36fc16a98eb08530870d3a530f4ade55e20e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m08.json",
+      "expected": "643cf5f830f7521430cff35156d648a3f365277a658a5fcea2b7298625f355f3",
+      "actual": "643cf5f830f7521430cff35156d648a3f365277a658a5fcea2b7298625f355f3",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m09.json",
+      "expected": "80149760f59a8fcf4c1688e9539b7acf3239338c9e6df71c709530acd722e1c4",
+      "actual": "80149760f59a8fcf4c1688e9539b7acf3239338c9e6df71c709530acd722e1c4",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m10.json",
+      "expected": "1fcbe210cd9af6b5b27f0ef4c3fb21ddab9a02717b379e29a12ea7aa9c224665",
+      "actual": "1fcbe210cd9af6b5b27f0ef4c3fb21ddab9a02717b379e29a12ea7aa9c224665",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m100.json",
+      "expected": "994bd7a6f390e3bbdfa68ab605fffc401d3161d83120e261c10a9719b9d1501d",
+      "actual": "994bd7a6f390e3bbdfa68ab605fffc401d3161d83120e261c10a9719b9d1501d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m101.json",
+      "expected": "703d42debdc20e448a886b3e6e519f8255939633f49877a8b6ba8bb43651de04",
+      "actual": "703d42debdc20e448a886b3e6e519f8255939633f49877a8b6ba8bb43651de04",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m11.json",
+      "expected": "aa3b2f08844b513e09f5a981b693490a6363b21782ac6a18252a616a83e4fdc1",
+      "actual": "aa3b2f08844b513e09f5a981b693490a6363b21782ac6a18252a616a83e4fdc1",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m12.json",
+      "expected": "b023cede3d4bf0eab7f81f29d6721040f9bf143b771fc5d0278a81f93558892f",
+      "actual": "b023cede3d4bf0eab7f81f29d6721040f9bf143b771fc5d0278a81f93558892f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m13.json",
+      "expected": "1101efbd2c6930480912ef69a1c4ae1d29ffe27f5c4165c2b0b476a66d7d5e4a",
+      "actual": "1101efbd2c6930480912ef69a1c4ae1d29ffe27f5c4165c2b0b476a66d7d5e4a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m14.json",
+      "expected": "28fa78fa40c202e5b91534ad2c714f3caff920818b981f65aea300926a693567",
+      "actual": "28fa78fa40c202e5b91534ad2c714f3caff920818b981f65aea300926a693567",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m15.json",
+      "expected": "23b217ed07c8d30e779aecf9b83272bbba82d3e7e37f85e195aa5ebcc96db3fc",
+      "actual": "23b217ed07c8d30e779aecf9b83272bbba82d3e7e37f85e195aa5ebcc96db3fc",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m16.json",
+      "expected": "c2a172cf6a1b3fe66f29ce5a617caeb72cbe1e9d76e542500f65812408a3efbc",
+      "actual": "c2a172cf6a1b3fe66f29ce5a617caeb72cbe1e9d76e542500f65812408a3efbc",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m17.json",
+      "expected": "d68914a2d252a966ece8f6dcfee0369b2b9add55d7fdf08d0992950e51a3b1d0",
+      "actual": "d68914a2d252a966ece8f6dcfee0369b2b9add55d7fdf08d0992950e51a3b1d0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m18.json",
+      "expected": "e5027e2ffb895971d86cde7d3e2e2328d46bb323d7e0f86c0e8927c3bda0211b",
+      "actual": "e5027e2ffb895971d86cde7d3e2e2328d46bb323d7e0f86c0e8927c3bda0211b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m19.json",
+      "expected": "a7039b8aeec3f22f4771fd06641062becf59732f7d261d9e81da3a04f87dd457",
+      "actual": "a7039b8aeec3f22f4771fd06641062becf59732f7d261d9e81da3a04f87dd457",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m20.json",
+      "expected": "a8a3fe89a62a7f23ab6c3ac4804a5da89548ef93549fa2010129a3b75477da1e",
+      "actual": "a8a3fe89a62a7f23ab6c3ac4804a5da89548ef93549fa2010129a3b75477da1e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m21.json",
+      "expected": "a47a58715a15651dfb915ea540fb48755b2d8b7f47961d2208e8b47155fed75a",
+      "actual": "a47a58715a15651dfb915ea540fb48755b2d8b7f47961d2208e8b47155fed75a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m22.json",
+      "expected": "4f0cbb16b6345b1a36763ec6a453167aeea6ad3d2ef4c256224daa419f9339b1",
+      "actual": "4f0cbb16b6345b1a36763ec6a453167aeea6ad3d2ef4c256224daa419f9339b1",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m23.json",
+      "expected": "386c24525bc72d74eaa263db6c69b11ccac01e8faacd03d0d7dd32172a8395c2",
+      "actual": "386c24525bc72d74eaa263db6c69b11ccac01e8faacd03d0d7dd32172a8395c2",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m24.json",
+      "expected": "c976af2cddbbe73eff5a7f7161cc43b21438b884658c8dc54a12b53e776ff689",
+      "actual": "c976af2cddbbe73eff5a7f7161cc43b21438b884658c8dc54a12b53e776ff689",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m25.json",
+      "expected": "9e263fed0b4346dd4a31d9547ce994a353e5b7c0a4946746d9fa8e9f2270a359",
+      "actual": "9e263fed0b4346dd4a31d9547ce994a353e5b7c0a4946746d9fa8e9f2270a359",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m26.json",
+      "expected": "fe812dff7e1a39ec8454a96593d17ae37cf4bca23cb85dd05502f3f7a4b8671c",
+      "actual": "fe812dff7e1a39ec8454a96593d17ae37cf4bca23cb85dd05502f3f7a4b8671c",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m27.json",
+      "expected": "e17ca7597121fd7a342f865e399a4b92b6351a972e9805ac871d534c3300d083",
+      "actual": "e17ca7597121fd7a342f865e399a4b92b6351a972e9805ac871d534c3300d083",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m28.json",
+      "expected": "8564b06a854ef269fe800aefa5afd0a3f45ba261c3317c86233fc968b8912428",
+      "actual": "8564b06a854ef269fe800aefa5afd0a3f45ba261c3317c86233fc968b8912428",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m29.json",
+      "expected": "684d880b1572998c3be8130d76c5e85c47706bbb4b5e7dd167061e6dfe650317",
+      "actual": "684d880b1572998c3be8130d76c5e85c47706bbb4b5e7dd167061e6dfe650317",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m30.json",
+      "expected": "3d4f25b058760f8f6ee34b4a077928521fbbfc94ac0b68412a74e6c06930d74d",
+      "actual": "3d4f25b058760f8f6ee34b4a077928521fbbfc94ac0b68412a74e6c06930d74d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m31.json",
+      "expected": "c7fd9c917a725ad0cdce2b60146c15674390970c0ef6fb788033f31b4be665f1",
+      "actual": "c7fd9c917a725ad0cdce2b60146c15674390970c0ef6fb788033f31b4be665f1",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m32.json",
+      "expected": "ca7ba004ceaec8da201a2b79e8d727cd31a3a0c4f8c5970047756695d3619ae0",
+      "actual": "ca7ba004ceaec8da201a2b79e8d727cd31a3a0c4f8c5970047756695d3619ae0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m33.json",
+      "expected": "120c601e691e6e5fa1c7deff0132e844b54d21986f5d66e4231977455eb13234",
+      "actual": "120c601e691e6e5fa1c7deff0132e844b54d21986f5d66e4231977455eb13234",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m34.json",
+      "expected": "85e0de927d2f1c6da98393ba69a0871e6ec72ea64a9f13ab004cd9ceb43173f4",
+      "actual": "85e0de927d2f1c6da98393ba69a0871e6ec72ea64a9f13ab004cd9ceb43173f4",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m35.json",
+      "expected": "f0c470d5628b077ac035c7540888da8407a0b82823734ce6fde19225acb2f2f7",
+      "actual": "f0c470d5628b077ac035c7540888da8407a0b82823734ce6fde19225acb2f2f7",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m36.json",
+      "expected": "3919a988eab05e0fe8d2ff3e6a6d13ae671b590bc94e0feeda526024e052572e",
+      "actual": "3919a988eab05e0fe8d2ff3e6a6d13ae671b590bc94e0feeda526024e052572e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m37.json",
+      "expected": "6d06a772e409745357c15fb0bc34691bad3f08c7eff928ddfcc7b594346e5259",
+      "actual": "6d06a772e409745357c15fb0bc34691bad3f08c7eff928ddfcc7b594346e5259",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m38.json",
+      "expected": "9746a9f163cf9f8673267bf93317a003ebb3d84c3ef91764627247b67d06a004",
+      "actual": "9746a9f163cf9f8673267bf93317a003ebb3d84c3ef91764627247b67d06a004",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m39.json",
+      "expected": "c9adb9b2da7e1a82e0f6d6821a10432c5c644fbcef6f15da6ff6be7a18bf2baf",
+      "actual": "c9adb9b2da7e1a82e0f6d6821a10432c5c644fbcef6f15da6ff6be7a18bf2baf",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m40.json",
+      "expected": "4822f208b1da57ccb108689e827f1ba39310e412b3d0b0b11c41e5fab36e967e",
+      "actual": "4822f208b1da57ccb108689e827f1ba39310e412b3d0b0b11c41e5fab36e967e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m41.json",
+      "expected": "1d26f3b699a8b7de4346a98281381f18b4e8ebd47b4f38626f2b4f5f6569bb53",
+      "actual": "1d26f3b699a8b7de4346a98281381f18b4e8ebd47b4f38626f2b4f5f6569bb53",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m42.json",
+      "expected": "c72ce5d415738234b1e8c0d9037c17be2ef1b8eadc51c054b93325894946fc9d",
+      "actual": "c72ce5d415738234b1e8c0d9037c17be2ef1b8eadc51c054b93325894946fc9d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m43.json",
+      "expected": "6eeedfe29362a9f3029188f7d00b630c9d2bc50301f9450b629f8148fc15d66a",
+      "actual": "6eeedfe29362a9f3029188f7d00b630c9d2bc50301f9450b629f8148fc15d66a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m44.json",
+      "expected": "078a47a8e38dc978dca939b16e629b80cad0fec9ab0b124992d2536c9a480df5",
+      "actual": "078a47a8e38dc978dca939b16e629b80cad0fec9ab0b124992d2536c9a480df5",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m45.json",
+      "expected": "fe8c83b6b09b444365c83247f25fcd542f8246b39ed81ecac4c41dcc2f5fb55d",
+      "actual": "fe8c83b6b09b444365c83247f25fcd542f8246b39ed81ecac4c41dcc2f5fb55d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m46.json",
+      "expected": "72dbb52696b1f5b80a03a2dd54e840a92814cfe5449ffd1057325c9396ebac8a",
+      "actual": "72dbb52696b1f5b80a03a2dd54e840a92814cfe5449ffd1057325c9396ebac8a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m47.json",
+      "expected": "6bbb3c06c413c19bee6f3ab34a509b2f14a12286cd1b28e0f34c4f87cabef153",
+      "actual": "6bbb3c06c413c19bee6f3ab34a509b2f14a12286cd1b28e0f34c4f87cabef153",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m48.json",
+      "expected": "bba9493b47e1bb79a5bb3d0b9658d000748ae7a6bc5bd5acceb8a9b98619b067",
+      "actual": "bba9493b47e1bb79a5bb3d0b9658d000748ae7a6bc5bd5acceb8a9b98619b067",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m49.json",
+      "expected": "d0fb143af3d784af04a35b9cafb55be56d7ac0206b3143e9226314e117a01318",
+      "actual": "d0fb143af3d784af04a35b9cafb55be56d7ac0206b3143e9226314e117a01318",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m50.json",
+      "expected": "e1dcd06ccb8ea00fbe439b7aa878bd1534888a10ac0ef863cb378696cc62f642",
+      "actual": "e1dcd06ccb8ea00fbe439b7aa878bd1534888a10ac0ef863cb378696cc62f642",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m51.json",
+      "expected": "165e7ca45f7589e151a373bca9348511e1d2ad61cc560b9dc2c10341247cb5a4",
+      "actual": "165e7ca45f7589e151a373bca9348511e1d2ad61cc560b9dc2c10341247cb5a4",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m52.json",
+      "expected": "e0c400240324b4d09ca71168a63e6004d2351235b4463d34ceda9b5ebee05af7",
+      "actual": "e0c400240324b4d09ca71168a63e6004d2351235b4463d34ceda9b5ebee05af7",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m53.json",
+      "expected": "8c058fdad2d3e8fd58b9f118a223c5172a25149c0feebc3c73b8be4d97ff7e05",
+      "actual": "8c058fdad2d3e8fd58b9f118a223c5172a25149c0feebc3c73b8be4d97ff7e05",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m54.json",
+      "expected": "f3fb3c0a2e610e924b902ba1767699a65f734b5318935a90251a70a47edead5d",
+      "actual": "f3fb3c0a2e610e924b902ba1767699a65f734b5318935a90251a70a47edead5d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m55.json",
+      "expected": "02e6a431ba4fc979c741c038dcdec5b24ca4e5135b8a1d989b730c0fc7e5f610",
+      "actual": "02e6a431ba4fc979c741c038dcdec5b24ca4e5135b8a1d989b730c0fc7e5f610",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m56.json",
+      "expected": "74b590a2ee6a59ab65c71d1e66d1d4a3034b5a542e33623a2e5cebea134eceb8",
+      "actual": "74b590a2ee6a59ab65c71d1e66d1d4a3034b5a542e33623a2e5cebea134eceb8",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m57.json",
+      "expected": "99cccc7052065be7e879c7d71efe6af4ccb764181d58054007575ed1dd30cbc8",
+      "actual": "99cccc7052065be7e879c7d71efe6af4ccb764181d58054007575ed1dd30cbc8",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m58.json",
+      "expected": "a92806a268bb5e4d48f49baff4ceb5554d225051bec9f11a50d250a1eddde332",
+      "actual": "a92806a268bb5e4d48f49baff4ceb5554d225051bec9f11a50d250a1eddde332",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m59.json",
+      "expected": "573a7578c7dfdf6a14e6c7bc9945f94de81a450d77e1c5049297e87d9531deda",
+      "actual": "573a7578c7dfdf6a14e6c7bc9945f94de81a450d77e1c5049297e87d9531deda",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m60.json",
+      "expected": "7399cc76675efa7f1f74b7ee4131c026e5e0af3404f430739d4322ce30516366",
+      "actual": "7399cc76675efa7f1f74b7ee4131c026e5e0af3404f430739d4322ce30516366",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m61.json",
+      "expected": "6592fe5c1abd17b13d6e5913970786d7607cc2c5a9e4482170469b3e46ff351f",
+      "actual": "6592fe5c1abd17b13d6e5913970786d7607cc2c5a9e4482170469b3e46ff351f",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m62.json",
+      "expected": "151e08c1590a9ac4d622647b16791f9e14435aca7d67b4b44f8655d27d4fa337",
+      "actual": "151e08c1590a9ac4d622647b16791f9e14435aca7d67b4b44f8655d27d4fa337",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m63.json",
+      "expected": "8be396461d3cbb5ee9480d728c215a2a3151763af04998c55ea0fed068383016",
+      "actual": "8be396461d3cbb5ee9480d728c215a2a3151763af04998c55ea0fed068383016",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m64.json",
+      "expected": "f334ede39a5881575d49ff69b3624e27a8d464fd3990caf61398c5b98820b9e0",
+      "actual": "f334ede39a5881575d49ff69b3624e27a8d464fd3990caf61398c5b98820b9e0",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m65.json",
+      "expected": "32c8323ce14b8ae737bd88ce5762ed9223a06fe80796c8f417a57bfa53c2a44b",
+      "actual": "32c8323ce14b8ae737bd88ce5762ed9223a06fe80796c8f417a57bfa53c2a44b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m66.json",
+      "expected": "4547ed1dc951f716ff016e2a25735026944c906fbb8b1fd3655daacdd4d0c2ec",
+      "actual": "4547ed1dc951f716ff016e2a25735026944c906fbb8b1fd3655daacdd4d0c2ec",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m67.json",
+      "expected": "7f9cd3ff11f3df8530d5d86e7b0c6e85dad624a7bbb06587317df3daceaaddc3",
+      "actual": "7f9cd3ff11f3df8530d5d86e7b0c6e85dad624a7bbb06587317df3daceaaddc3",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m68.json",
+      "expected": "4faad33d550aed70bc7db80efea1ae953ceeb15a7f14dac3cbbe4375ad779bb4",
+      "actual": "4faad33d550aed70bc7db80efea1ae953ceeb15a7f14dac3cbbe4375ad779bb4",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m69.json",
+      "expected": "1c55b5b3260bd8349909111dbe824b3d9f854828b61b66c88cc5e677db618819",
+      "actual": "1c55b5b3260bd8349909111dbe824b3d9f854828b61b66c88cc5e677db618819",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m70.json",
+      "expected": "cca98e40ed960ae278aed95dfc2ce553892f95a7b5a5d02c06150a7821bfed68",
+      "actual": "cca98e40ed960ae278aed95dfc2ce553892f95a7b5a5d02c06150a7821bfed68",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m71.json",
+      "expected": "95a13f8a957e38cba051b6ecd551ed67228430b45f18ca9fc4a6b6488caa94e9",
+      "actual": "95a13f8a957e38cba051b6ecd551ed67228430b45f18ca9fc4a6b6488caa94e9",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m72.json",
+      "expected": "eb01c4d35b1db247bb021c74c194deee79235e515aab80dc1d0475cca8ca0607",
+      "actual": "eb01c4d35b1db247bb021c74c194deee79235e515aab80dc1d0475cca8ca0607",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m73.json",
+      "expected": "ab8de09a8d3d008ba9ed02cf1579f520e87328b7d6485fd98dcf50e912c52e58",
+      "actual": "ab8de09a8d3d008ba9ed02cf1579f520e87328b7d6485fd98dcf50e912c52e58",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m74.json",
+      "expected": "f65927630519fbf94da67b33ae5a9e99b36ad0d542ae8f9b2ee28826725fef07",
+      "actual": "f65927630519fbf94da67b33ae5a9e99b36ad0d542ae8f9b2ee28826725fef07",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m75.json",
+      "expected": "31ee9767871f432dbb235b91b61b6a74d3928ced0d16b6da4817939763186941",
+      "actual": "31ee9767871f432dbb235b91b61b6a74d3928ced0d16b6da4817939763186941",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m76.json",
+      "expected": "663345f5935996298dbcd8bf82d25d08d82b4819849de9ef6b009c337c540ad4",
+      "actual": "663345f5935996298dbcd8bf82d25d08d82b4819849de9ef6b009c337c540ad4",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m77.json",
+      "expected": "3d964e795c812f74155150db1ddbea5b7d7673aa861cb3cf63a15d7fe9966834",
+      "actual": "3d964e795c812f74155150db1ddbea5b7d7673aa861cb3cf63a15d7fe9966834",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m78.json",
+      "expected": "dde55631251c45e64ce319624e6c3a8d5516cb37b199a0f0e50832d6210e13c8",
+      "actual": "dde55631251c45e64ce319624e6c3a8d5516cb37b199a0f0e50832d6210e13c8",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m79.json",
+      "expected": "179b3bc25d3c4db927ca3984af7080756469581cc84bbc0da4d20ac39228c716",
+      "actual": "179b3bc25d3c4db927ca3984af7080756469581cc84bbc0da4d20ac39228c716",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m80.json",
+      "expected": "10bfe3875dd147fd35f4d21bca5bcac52a7b5071050b329bbae0729de41f3ef1",
+      "actual": "10bfe3875dd147fd35f4d21bca5bcac52a7b5071050b329bbae0729de41f3ef1",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m81.json",
+      "expected": "5e4824ade63fee88ce5e12fbbabecd0451f2b704629a5ac773f1c395949f03cf",
+      "actual": "5e4824ade63fee88ce5e12fbbabecd0451f2b704629a5ac773f1c395949f03cf",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m82.json",
+      "expected": "6ef56a3f48e18df181fd34e2e6691823d33161c0cfda4842c9434d2844525e5a",
+      "actual": "6ef56a3f48e18df181fd34e2e6691823d33161c0cfda4842c9434d2844525e5a",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m83.json",
+      "expected": "bae063448beeb2bd5a1bf2e720f031f129a8bc6a434a864dcd00d41ded6dd28b",
+      "actual": "bae063448beeb2bd5a1bf2e720f031f129a8bc6a434a864dcd00d41ded6dd28b",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m84.json",
+      "expected": "83b03a97d519787d09e1d5e68a4c48ad886662f0c2442e042f508e08df027437",
+      "actual": "83b03a97d519787d09e1d5e68a4c48ad886662f0c2442e042f508e08df027437",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m85.json",
+      "expected": "01a81e84a094e2777e71dec3b022684f0b914c611d029a6e1102c28a21e742ea",
+      "actual": "01a81e84a094e2777e71dec3b022684f0b914c611d029a6e1102c28a21e742ea",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m86.json",
+      "expected": "2b244c22800f3373203a64696d3391db1c00b95bdb844cedb66bc4bffd723768",
+      "actual": "2b244c22800f3373203a64696d3391db1c00b95bdb844cedb66bc4bffd723768",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m87.json",
+      "expected": "89b87690c151419bc8449f5ab53caac9e12a12ac882a6cecda9c1a412f0c17d2",
+      "actual": "89b87690c151419bc8449f5ab53caac9e12a12ac882a6cecda9c1a412f0c17d2",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m88.json",
+      "expected": "a798fbd3e668b1c785297fb590caa45f08c754b5fe7f9694fe1fe91ecb6fb1f4",
+      "actual": "a798fbd3e668b1c785297fb590caa45f08c754b5fe7f9694fe1fe91ecb6fb1f4",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m89.json",
+      "expected": "26672b7358a6ae28a1f4d705aff10b3eefffecd913781327df32b269ff395699",
+      "actual": "26672b7358a6ae28a1f4d705aff10b3eefffecd913781327df32b269ff395699",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m90.json",
+      "expected": "63fe25c93bbc78d0defd5173c5e70b5fe3f8e0a633528204f172e00ee6c33b3e",
+      "actual": "63fe25c93bbc78d0defd5173c5e70b5fe3f8e0a633528204f172e00ee6c33b3e",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m91.json",
+      "expected": "bfa6653107351db299d18c8d46b5bb7790eeae322a27441d3f0886df4cb04001",
+      "actual": "bfa6653107351db299d18c8d46b5bb7790eeae322a27441d3f0886df4cb04001",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m92.json",
+      "expected": "5b8810f91b86bc04ac652248734cd4a34769a7ebe551fe4259c53c510c8673cd",
+      "actual": "5b8810f91b86bc04ac652248734cd4a34769a7ebe551fe4259c53c510c8673cd",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m94.json",
+      "expected": "d5a2979ea41e506774be5223b2919a7d1b79cb4b848a8913867b3f0a8c40e4e8",
+      "actual": "d5a2979ea41e506774be5223b2919a7d1b79cb4b848a8913867b3f0a8c40e4e8",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m95.json",
+      "expected": "20234fda675f76e22351b83c9c35c7b9c2f5c86e4ad6eb74ea4205e0a156eb38",
+      "actual": "20234fda675f76e22351b83c9c35c7b9c2f5c86e4ad6eb74ea4205e0a156eb38",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m96.json",
+      "expected": "14ad5fead859e22a8568f40eb0cae46a9af84937bcfca34973632fb60ccde8b3",
+      "actual": "14ad5fead859e22a8568f40eb0cae46a9af84937bcfca34973632fb60ccde8b3",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m97.json",
+      "expected": "5809092410f60d3382e4cc04fe58b64ff632548365698128387e09309b5b78ad",
+      "actual": "5809092410f60d3382e4cc04fe58b64ff632548365698128387e09309b5b78ad",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/regeneration-manifest-m98.json",
+      "expected": "9b75da633b4e6ae69207e90314b710a3a5420c997a559e94c02727807a93cc61",
+      "actual": "9b75da633b4e6ae69207e90314b710a3a5420c997a559e94c02727807a93cc61",
+      "matches": true
+    },
+    {
+      "path": "private-home:.codex/skills/stackrank-dog-profiles/SKILL.md",
+      "expected": "ecf718344d72202563d40d8a89161baacf8a365d783e749f825c79daf4613d0c",
+      "actual": "ecf718344d72202563d40d8a89161baacf8a365d783e749f825c79daf4613d0c",
+      "matches": true
+    }
+  ],
+  "immutableAuditArchive": {
+    "fileCount": 5617,
+    "fullInventorySha256": "c776fb0311674f0ed07105944a960bf7de76abb77b0864fd598d32bc2f1c74e3",
+    "topLevelLedgerHashes": {
+      "OPEN-ISSUES.md": "db0c1a03ac8b8c881c80697f84d151c106c9ad48133c7986504d85d7bd7502f8",
+      "claims.jsonl": "b94421f415c0d925cb8f3573909532921447f7124e5439a69a06e07c8a06458d",
+      "inventory-summary.md": "cdb39c23aaf6debcc105f96ff6aec941b73352df541118839ca0e90ce1ae7917",
+      "coverage.csv": "3c7bfdeca2cbd017fd73154334bba6e65ccc78a252570642f1f3f1a31f8c2e95",
+      "drift.jsonl": "e57943a4163061234a60897ce719e71e42ee541ad341584ce61883b221986606",
+      "checkpoint.json": "afa8306dca1b08da0a2232df1efe4d9a5c7fd99d5baabb1e7beb537d9cdb258b",
+      "open-issues.jsonl": "8c894a9b218ad097b43c36e74ec8e8de93d0c2c72bb2d7af49085d09f7c66bfc",
+      "ASTRA-HANDOFF.md": "27cbad8e273a8745495e09e4d0d89928e755daf0128cbb15933148625b9c41a1",
+      "NEXT-SESSION-PROMPT.md": "8f97524a98ae02396c8ae7482388c3a7f78d17f7f5ab1db361f81bc83e5189df",
+      "VALIDATION.md": "a31f52a20cc03516c9e68fe7d4a00ecf73ef656b6a3897f100bd171eddc55e20",
+      "inventory-manifest.json": "e8535fc0f830d48d87672939974c789fc0453890b07022680769d4321f5243a8",
+      "CORRECTION-PLAN.md": "f0936b28da581621be871e105cc850ebe821ff85eaee8e23bb87f173a37d5d3f",
+      "progress.md": "31ff14c794bf23889fee7ad66a726382eb2a17e38170b7b4de4e734de86e2345",
+      "AUDIT_DIR.txt": "640b103c78bff730d912d6013e49c55cee61ae7857520662f4d51aab704ed61b",
+      "README.md": "bef5131a0184eec1443b295448921bd7296ab65476033d2f0ae1defdcdbc83fc",
+      "baseline.json": "51b0e0147d4d06ab87baaf89cb535295d91faa24d987a0e67c0eee3fe46a6b6f",
+      "evidence.jsonl": "020149dfa03d485b3d49b8566a16427bae6123b871f6c342dd1c4750e9816d8a",
+      "findings.jsonl": "a3e4df5148091ea81e9a563d111feeef9f9d84efb83873df612a295ace33bb6a",
+      "events.jsonl": "229e036a88f46ca74f0d6ba125f020d18e8ddde9f34af8f2f30c1b9db311a60f",
+      "EXECUTIVE-SUMMARY.md": "ff0a18505a35d20353e9261ac224f391d52b1b4eeba9f6634e114196617fa8d5",
+      "proposed-changes.jsonl": "8c7d439f18acaae408bd50e39ce21d9a9ace74a2e5755e16b77584c54e576899",
+      "coverage.json": "d38c92d2fd25dfda8045b45d2803e99cdcfff52f508be2fa4afec2e8eb49b385",
+      "identity-crosswalk.csv": "7d89aa0f7afbe42604b546b58d99ac05a1d44db5a39c7a3d7e891ad75bb823bb",
+      "batch-manifest.json": "6fcbd5375c39c170293dcbb7c106f93abc5189fd3c23f6a6b6ccf20cdb2d731b",
+      "content-occurrences.json": "1558796199db627a006d6b3639ecae76e53a1e50d1539723a94d0f50d669229c"
+    },
+    "preservation": "Complete original hash inventory remains in private baseline receipt; only top-level ledger hashes copied here. No source/cache/artwork bytes copied."
+  }
+}

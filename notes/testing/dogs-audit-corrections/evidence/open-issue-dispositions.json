@@ -1,0 +1,399 @@
+[
+  {
+    "openIssueId": "OI-0200670-1",
+    "catalogId": "VBO:0200670",
+    "name": "Himalayan Sheepdog",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "resolved_supported",
+    "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0200670",
+    "evidenceUrls": [
+      "https://www.frontiersin.org/journals/animal-science/articles/10.3389/fanim.2026.1751875/full"
+    ],
+    "retainedEvidence": [
+      {
+        "privatePath": "private-audit:cache/sources/a7116d6d515dd96a.txt",
+        "sha256": "09ef1def1486f6f5eddede04e39ab9948950f67ca53e326541812b6b1fc667dd",
+        "handling": "Retain original. Do not commit or deploy full private cached text."
+      }
+    ],
+    "rationale": "Retain regional umbrella with explicitly scoped Gaddi evidence. Frontiers introduction names Himalayan sheepdog group including Bhotia, Bangar and Gaddi. Audit inference that the article only discusses Gaddi was incorrect.",
+    "action": "No identity merge; source evidence note clarified.",
+    "patchPointers": [],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  },
+  {
+    "openIssueId": "OI-0200345-1",
+    "catalogId": "VBO:0200345",
+    "name": "Chinese Crested",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "resolved_conservative_alias",
+    "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0200345",
+    "evidenceUrls": [
+      "https://www.fci.be/Nomenclature/Standards/288g09-en.pdf",
+      "https://images.akc.org/pdf/judges/groups/Toy_Group.pdf",
+      "https://www.akc.org/expert-advice/lifestyle/fun-facts-chinese-crested/"
+    ],
+    "retainedEvidence": [],
+    "rationale": "Curtis remains uncorroborated beyond inherited VBO synonym. This is not proof of falsehood, but insufficient evidence for displayed alias.",
+    "action": "Remove displayed Curtis; preserve original VBO source and optionally unambiguous search-only lookup.",
+    "patchPointers": [],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  },
+  {
+    "openIssueId": "OI-0201102-1",
+    "catalogId": "VBO:0201102",
+    "name": "Puli",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "resolved_conservative_alias",
+    "authoringPointer": "data/dogs/profile-overrides.json#/profiles/VBO:0201102",
+    "evidenceUrls": [
+      "https://www.fci.be/Nomenclature/Standards/055g01-en.pdf"
+    ],
+    "retainedEvidence": [],
+    "rationale": "Hungarian Water Dog is inherited ontology synonym; independently attributable breed-source nomenclature remains unverified.",
+    "action": "Move to search-only with collision check; retain Puli stable identity.",
+    "patchPointers": [],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  },
+  {
+    "openIssueId": "OI-0200062-1",
+    "catalogId": "VBO:0200062",
+    "name": "Anatolian Shepherd Dog",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "resolved_alias_collision",
+    "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0200062",
+    "evidenceUrls": [
+      "https://images.akc.org/pdf/breeds/standards/AnatolianShepherdDog.pdf"
+    ],
+    "retainedEvidence": [],
+    "rationale": "Separate Kangal Shepherd Dog VBO:0200749 exists. Combined Anatolian Blackhead (Anadolulu Karabas), Kangal alias creates an identity collision; registry naming history does not justify treating both current cards as interchangeable.",
+    "action": "Remove misleading displayed combined alias; assign exact Kangal search to Kangal owner; no ID merge.",
+    "patchPointers": [],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  },
+  {
+    "openIssueId": "OI-0200683-1",
+    "catalogId": "VBO:0200683",
+    "name": "Huntaway",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "resolved_supported",
+    "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0200683",
+    "evidenceUrls": [
+      "https://teara.govt.nz/en/farm-dogs/page-1"
+    ],
+    "retainedEvidence": [],
+    "rationale": "Te Ara page successfully read through standard web tool, without bypass. Huntaway paragraph supports deep loud barking, yard/pen work, varied shape; working-selection paragraph supports trial selection.",
+    "action": "Retain supported copy; audit access limitation now stale.",
+    "patchPointers": [],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  },
+  {
+    "openIssueId": "OI-0200696-1",
+    "catalogId": "VBO:0200696",
+    "name": "Indian Spitz",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "resolved_narrowed",
+    "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200696",
+    "evidenceUrls": [
+      "https://www.veterinaryworld.org/Vol.12/June-2019/2.pdf",
+      "https://www.apkc.in/pdfs/APKC%20Schedule%202017-105%2C%20106%20%26%20107.pdf",
+      "https://inkc.in/an-overview"
+    ],
+    "retainedEvidence": [
+      {
+        "privatePath": "private-audit:cache/sources/9466c2561937e577.txt",
+        "sha256": "3bf1e44c051bc5a6fbd3c219db20c4de44e71ac7937c1499e597f0bbc6535ccb",
+        "handling": "Retain original. Do not commit or deploy full private cached text."
+      },
+      {
+        "privatePath": "private-audit:cache/sources/d7ef2ce1a90538dc.txt",
+        "sha256": "b089c3214db4edde857fb4f7dddf027eb3ad86b3de7993abc1cb2bc04397a8c4",
+        "handling": "Retain original. Do not commit or deploy full private cached text."
+      }
+    ],
+    "rationale": "APKC schedule remained inaccessible; no TLS bypass. Independently read Veterinary World study and INKC overview support current Indian population and naming controversy, not APKC native-show grouping.",
+    "action": "Remove APKC assertion and active citation, retain original provenance. Guarded replacement supplied; schedule itself remains unverified.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200696/summary",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200696/shortDescription",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200696/sources",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0200696/reviewedAt"
+    ],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  },
+  {
+    "openIssueId": "OI-0200935-1",
+    "catalogId": "VBO:0200935",
+    "name": "New Zealand Heading Dog",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "resolved_supported",
+    "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0200935",
+    "evidenceUrls": [
+      "https://teara.govt.nz/en/farm-dogs/page-1"
+    ],
+    "retainedEvidence": [],
+    "rationale": "Te Ara heading-dog paragraph successfully read. Border Collie descent, circling, quiet eye work and close-quarters shedding/catching are explicit.",
+    "action": "Retain supported copy; access limitation stale.",
+    "patchPointers": [],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  },
+  {
+    "openIssueId": "OI-0200989-1",
+    "catalogId": "VBO:0200989",
+    "name": "Patagonian Sheepdog",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "resolved_retained_primary",
+    "authoringPointer": "data/dogs/profile-refresh-c.json#/profiles/VBO:0200989",
+    "evidenceUrls": [
+      "https://www.mdpi.com/1424-2818/11/12/245"
+    ],
+    "retainedEvidence": [
+      {
+        "privatePath": "baseline-repository:reports/dogs-generated-artwork/cohort-m/worker-a/oldgrey-diversity-original-068-001.pdf",
+        "sha256": "9614b1df0fd8eea1a9cb8c8601522640e74c536681d82c8b7ac9fea738d30430",
+        "handling": "Retain original. Do not commit or deploy full private cached text."
+      },
+      {
+        "privatePath": "baseline-repository:reports/dogs-generated-artwork/cohort-m/worker-a/oldgrey-diversity-physical-001-068-001.txt",
+        "sha256": "b00664d2cce0c7034d5ca210fe78b7d73d2ba36627e7b18669fa7d4e4bf1792a",
+        "handling": "Retain original. Do not commit or deploy full private cached text."
+      },
+      {
+        "privatePath": "baseline-repository:reports/dogs-generated-artwork/cohort-m/worker-a/oldgrey-diversity-physical-002-068-001.txt",
+        "sha256": "febbf827a29baa6a37d53b6d525feccad8ab6a1535645d518eebdb41c0182be3",
+        "handling": "Retain original. Do not commit or deploy full private cached text."
+      }
+    ],
+    "rationale": "Original Diversity article PDF and extracted first/second pages survive in private cohort M sources. Abstract/introduction explicitly describe late nineteenth/early twentieth European imports, sheep/cattle work and later isolation.",
+    "action": "Retain supported copy; preserve private originals, publish metadata/hash only.",
+    "patchPointers": [],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  },
+  {
+    "openIssueId": "OI-0201109-1",
+    "catalogId": "VBO:0201109",
+    "name": "Pungsan Dog",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "resolved_narrowed",
+    "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0201109",
+    "evidenceUrls": [
+      "https://encykorea.aks.ac.kr/Article/E0060383"
+    ],
+    "retainedEvidence": [],
+    "rationale": "Original .kp source remains inaccessible and no readable original body located. Independent expert-authored Academy of Korean Studies account supports former Pungsan district, hunting reputation and protected breeding history; not the coordinated surrounding/barking tactic.",
+    "action": "Replace tactic claim and short copy with sourced hunting/history text; original tactic remains unverified.",
+    "patchPointers": [
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0201109/summary",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0201109/shortDescription",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0201109/historicalRoots",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0201109/sources",
+      "data/dogs/profile-refresh-a.json#/profiles/VBO:0201109/reviewedAt"
+    ],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  },
+  {
+    "openIssueId": "OI-0200010-1",
+    "catalogId": "VBO:0200010",
+    "name": "Akita",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "lead_identity_decision",
+    "authoringPointer": "data/dogs/profile-refresh-a.json#/profiles/VBO:0200010",
+    "evidenceUrls": [
+      "https://www.fci.be/Nomenclature/Standards/255g05-en.pdf"
+    ],
+    "retainedEvidence": [],
+    "rationale": "Current FCI255-backed Akita copy/art concerns Japanese identity; American Akita VBO:0200027 is already public. Japanese Akitainu VBO:0200734 is hidden and duplicates Japanese scope.",
+    "action": "Recommend retain public Japanese-scoped0200010 and American0200027, keep0200734 suppressed pending distinct identity evidence. Preserve all stable IDs and saved data; no automatic merging.",
+    "patchPointers": [],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  },
+  {
+    "openIssueId": "OI-0200080-1",
+    "catalogId": "VBO:0200080",
+    "name": "Aryan Molossus",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "safely_quarantine_pending_identity",
+    "authoringPointer": "data/dogs/catalog-classifications.json#VBO:0200080",
+    "evidenceUrls": [],
+    "retainedEvidence": [],
+    "rationale": "VeNom-only source does not independently establish extinct/historical status. No reliable exact-identity source resolved extant versus historical meaning.",
+    "action": "Reversible suppression pending exact identity evidence; do not invent extinction or merge with regional mastiffs.",
+    "patchPointers": [],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  },
+  {
+    "openIssueId": "OI-0200859-1",
+    "catalogId": "VBO:0200859",
+    "name": "Maltese Terrier",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "safely_quarantine_pending_identity",
+    "authoringPointer": "data/dogs/catalog-classifications.json#VBO:0200859",
+    "evidenceUrls": [],
+    "retainedEvidence": [],
+    "rationale": "Inherited VBO Mixed Breed classification and Wikidata Maltese match conflict. Exact VeNom15035 definition has not been recovered.",
+    "action": "Reversible suppression pending definition; neither reclassify as Maltese nor silently merge.",
+    "patchPointers": [],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  },
+  {
+    "openIssueId": "OI-0200637-1",
+    "catalogId": "VBO:0200637",
+    "name": "Grey Collie",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "safely_quarantine_pending_identity",
+    "authoringPointer": "data/dogs/catalog-classifications.json#VBO:0200637",
+    "evidenceUrls": [
+      "https://vgl.ucdavis.edu/test/cyclic-neutropenia"
+    ],
+    "retainedEvidence": [],
+    "rationale": "UC Davis identifies Gray Collie Syndrome as a heritable disorder in Collies often accompanied by dilution; original OMIA-only term linkage remains unresolved. A named coat variety is not established.",
+    "action": "Reversible suppression pending OMIA definition; do not present disease phenotype as breed or transfer saved state to Collie.",
+    "patchPointers": [],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  },
+  {
+    "openIssueId": "OI-0200978-1",
+    "catalogId": "VBO:0200978",
+    "name": "Ori Pei",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "resolved_retained_primary",
+    "authoringPointer": "data/dogs/profile-refresh-j02.json#/profiles/VBO:0200978",
+    "evidenceUrls": [
+      "https://www.designerbreedregistry.com/orie_pei.html",
+      "https://cspca.com/wp-content/uploads/2020/02/Designer-Dogs.pdf",
+      "https://nationalkennelclub.com/ori-pei/"
+    ],
+    "retainedEvidence": [
+      {
+        "privatePath": "baseline-repository:reports/dogs-generated-artwork/cohort-j/discovery-b/reserve-31-45/sources/ori-pei-registry-search-retrieval.txt",
+        "sha256": "380832c0b800f4fc13e350706cb658d4fab0dcfd5671b1135f569f3726ec7aa8",
+        "handling": "Retain original. Do not commit or deploy full private cached text."
+      }
+    ],
+    "rationale": "Actual original Designer Breed Registry body is preserved in cohort J search-tool response, including Aaron Silver, North America, 1970s and multiple generations. Live page loss does not invalidate historical text; independent corroboration remains absent.",
+    "action": "Attribute history explicitly to registry, retain exact source snapshot hash. Guarded replacement supplied.",
+    "patchPointers": [],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  },
+  {
+    "openIssueId": "OI-0008004-1",
+    "catalogId": "VBO:0008004",
+    "name": "Sarail",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "resolved_retained_primary",
+    "authoringPointer": "data/dogs/profile-refresh-m05.json#/profiles/VBO:0008004",
+    "evidenceUrls": [
+      "https://archive.thedailystar.net/magazine/2006/06/01/reflections.htm",
+      "https://www.bssnews.net/district/324533"
+    ],
+    "retainedEvidence": [
+      {
+        "privatePath": "baseline-repository:reports/dogs-generated-artwork/cohort-m/worker-a/sarail-bss-web-text-001.txt",
+        "sha256": "bcbd7298ce7841152f815f15c7be7d6bfb5e254b74914a00a2306763ee51ac28",
+        "handling": "Retain original. Do not commit or deploy full private cached text."
+      }
+    ],
+    "rationale": "Actual original BSS web-tool response text is retained; report identifies Rabidas family at Noagaon and multigeneration breeding.",
+    "action": "Retain supported history and private response; no live retry/bypass needed.",
+    "patchPointers": [],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  },
+  {
+    "openIssueId": "OI-0201063-1",
+    "catalogId": "VBO:0201063",
+    "name": "Poogle",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "resolved_retained_primary",
+    "authoringPointer": "data/dogs/profile-refresh-m22.json#/profiles/VBO:0201063",
+    "evidenceUrls": [
+      "https://www.petfinder.com/dog/dash-c11b38c6-9309-4efd-9647-ad8047cda492/pa/latrobe/action-for-animals-inc-humane-society-pa60/details/",
+      "https://www.dogbreedinfo.com/poogle.htm"
+    ],
+    "retainedEvidence": [
+      {
+        "privatePath": "baseline-repository:reports/dogs-generated-artwork/cohort-m/worker-c/poogle-dash-browser-dom-current-001.txt",
+        "sha256": "9009ea22566456ca952572b68a2d7d979c54aad78f8e49e614881e2b76d23172",
+        "handling": "Retain original. Do not commit or deploy full private cached text."
+      }
+    ],
+    "rationale": "Actual rendered Petfinder Dash listing preserved in cohort M, including age, Poodle/Beagle identity, friendly character and walks/hikes.",
+    "action": "Original anecdote not fabricated; F-SYS-11 separately governs whether individual anecdote belongs in public type profile.",
+    "patchPointers": [],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  },
+  {
+    "openIssueId": "OI-0201290-1",
+    "catalogId": "VBO:0201290",
+    "name": "Sprockerpoo",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "resolved_retained_primary",
+    "authoringPointer": "data/dogs/profile-refresh-m52.json#/profiles/VBO:0201290",
+    "evidenceUrls": [
+      "https://www.reddit.com/r/DOG/comments/jci5gw",
+      "https://www.floofsville.com/floof-friends",
+      "https://www.reddit.com/r/notinteresting/comments/1jfnosh"
+    ],
+    "retainedEvidence": [
+      {
+        "privatePath": "baseline-repository:reports/dogs-generated-artwork/cohort-m/worker-a/sprockerpoo-lenny-browser-body-001.txt",
+        "sha256": "b5f1cea64f0f19bdc6f9162964ef959ff1840aaf9abd18dfdc3e657579e70475",
+        "handling": "Retain original. Do not commit or deploy full private cached text."
+      },
+      {
+        "privatePath": "baseline-repository:reports/dogs-generated-artwork/cohort-m/worker-a/sprockerpoo-sunbathing-browser-body-001.txt",
+        "sha256": "5cc40b90421e4b0f6d61655489497fa2f6e19db9cc60135eea884d3f5db525a4",
+        "handling": "Retain original. Do not commit or deploy full private cached text."
+      }
+    ],
+    "rationale": "Both actual rendered Reddit source bodies preserved: Lenny energetic/balls/nature and separate owner Sprocker Spaniel/Poodle sunbathing.",
+    "action": "Original anecdotes supported as individual accounts; systemic type-profile correction still required.",
+    "patchPointers": [],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  },
+  {
+    "openIssueId": "OI-0200552-1",
+    "catalogId": "VBO:0200552",
+    "name": "French White and Orange Hound",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "resolved_retained_primary",
+    "authoringPointer": "data/dogs/profile-refresh-m54.json#/profiles/VBO:0200552",
+    "evidenceUrls": [
+      "https://www.centrale-canine.fr/le-chien-de-race/francais-blanc-et-orange",
+      "https://www.fci.be/Nomenclature/Standards/316g06-en.pdf"
+    ],
+    "retainedEvidence": [
+      {
+        "privatePath": "baseline-repository:reports/dogs-generated-artwork/cohort-m/worker-c/frenchorange-scc-browser-body-001.txt",
+        "sha256": "7c94f8a20ff76e5798beb23f2189746cc571a2f274367d509ea50af2595a06f5",
+        "handling": "Retain original. Do not commit or deploy full private cached text."
+      }
+    ],
+    "rationale": "Actual SCC rendered body retained with Comportement paragraph: hardy/persistent pursuit for hours, good voice, fine nose, meticulous pack work on deer and roe.",
+    "action": "Retain exact supported copy; raw nonrendered HTML omission was not evidentiary absence.",
+    "patchPointers": [],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  },
+  {
+    "openIssueId": "OI-0200184-1",
+    "catalogId": "VBO:0200184",
+    "name": "Bochi",
+    "currency": "current_at_c3ba4b03; original access limitation stale where actual body recovered",
+    "disposition": "resolved_retained_primary",
+    "authoringPointer": "data/dogs/profile-refresh-m96.json#/profiles/VBO:0200184",
+    "evidenceUrls": [
+      "https://www.petfinder.com/dog/sassy-27cdabff-7632-4f5f-9c8e-3485617bbe71/ct/lebanon/fetching-hearts-rescue-ct594/details/",
+      "https://www.fetchingheartsrescue.org/adoptable-dogs"
+    ],
+    "retainedEvidence": [
+      {
+        "privatePath": "baseline-repository:reports/dogs-generated-artwork/cohort-m/worker-a/bochi-sassy-own-rendered-065-001.txt",
+        "sha256": "d49e90d34697fa58ce193bd6874334679c57efce21f8682c70d9aed006e9c2d5",
+        "handling": "Retain original. Do not commit or deploy full private cached text."
+      }
+    ],
+    "rationale": "Actual rendered Sassy story retained in cohort M, including Boston/Chihuahua identity, four years, lower energy, easygoing nature and strolling.",
+    "action": "Original individual anecdote supported; F-SYS-11 independently governs public cross profile.",
+    "patchPointers": [],
+    "verification": "Primary source passages actually read; exact identity disagreements are explicitly residual, not fabricated closure. Lead owns implementation and combined-tree checks."
+  }
+]

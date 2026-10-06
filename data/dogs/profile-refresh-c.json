@@ -21,7 +21,7 @@
     },
     "VBO:0200009": {
       "summary": "Quiet watchfulness and independent judgment are central to the Akbash's character. It tends to be steady around its own flock, yet able to respond swiftly when a threat appears; generations of guarding sheep in western Turkey made that shift from calm observation to decisive action a practical skill.",
-      "sizeBand": "large",
+      "sizeBand": "giant",
       "historicalRoots": "Western Turkish flock-protection dog.",
       "editorialFamilies": [
         "livestock guardian",
@@ -33,7 +33,8 @@
           "title": "UKC Akbash Dog standard",
           "evidence": "UKC standard identifies western Turkish flock-guarding, independent decision-making, calm watchfulness and speed/agility in confronting predators."
         }
-      ]
+      ],
+      "reviewedAt": "2026-10-06"
     },
     "VBO:0200017": {
       "summary": "Alaskan Malamutes are often playful and friendly with people, yet they can carry themselves with quiet dignity as adults. They were shaped to haul heavy loads across Arctic country, where strength, stamina and cooperation mattered more than racing speed; their sociability belongs beside a serious working past.",
@@ -95,9 +96,15 @@
         {
           "url": "https://images.akc.org/pdf/breeds/standards/AnatolianShepherdDog.pdf",
           "title": "AKC Anatolian Shepherd Dog standard",
-          "evidence": "AKC standard identifies Anatolian livestock-guardian purpose, large but agile enduring build, composed temperament and protective independence."
+          "evidence": "AKC standard describes calm, alert, observant, protective and territorial livestock-guardian character, plus endurance and movement. Independent decision-making is documented separately on the AKC breed page."
+        },
+        {
+          "url": "https://www.akc.org/dog-breeds/anatolian-shepherd-dog/",
+          "title": "AKC: Anatolian Shepherd Dog breed account",
+          "evidence": "Training section explicitly says the Anatolian was bred to work independently, make its own decisions and protect its flock from outsiders. Supports independent judgment in the existing summary."
         }
-      ]
+      ],
+      "reviewedAt": "2026-10-06"
     },
     "VBO:0200090": {
       "summary": "Kelpies are typically alert, eager to work and quick to read the movement of sheep. On the huge runs of New South Wales and Victoria they learned to gather and drive stock through heat and dust, working both open country and yards with a strong instinct for where a flock needs to go.",
@@ -718,8 +725,8 @@
       ]
     },
     "VBO:0200695": {
-      "summary": "INDogs are indigenous village dogs shaped by generations of life alongside Indian communities. In rural settings they may help move cattle and watch homesteads, while free-ranging life rewards close attention to people, animals and local conditions; the name covers a living landrace rather than a single kennel line.",
-      "sizeBand": "medium",
+      "summary": "INDogs are indigenous village dogs shaped by generations of life alongside Indian communities. In Gond villages they are kept as livestock and property guardians and as companions. The name describes a living landrace found across local populations, rather than a single kennel line.",
+      "sizeBand": "unknown",
       "historicalRoots": "Indigenous Indian subcontinent village-dog landrace.",
       "editorialFamilies": [
         "landrace",
@@ -729,9 +736,11 @@
         {
           "url": "https://indog.co.in/",
           "title": "INDog Project: indigenous village dog",
-          "evidence": "INDog Project describes the indigenous village-dog landrace, rural free-ranging life, cattle herding and homestead watching, and variation across local populations."
+          "evidence": "INDog Project describes the indigenous village-dog landrace and specifically says Gond villagers keep INDogs as livestock guardians, property guardians and companions. The page does not establish cattle-driving work; remove that claim."
         }
-      ]
+      ],
+      "shortDescription": "Indigenous village dogs with a long history beside Indian communities, including guarding livestock and homes in Gond villages.",
+      "reviewedAt": "2026-10-06"
     },
     "VBO:0200705": {
       "summary": "The Irish Water Spaniel is often eager, bold and enduring, yet can be discerning with strangers and playful with familiar people. It comes from wildfowling, searching heavy cover and retrieving birds from water; its loyalty and humor add a lively household side to a demanding sporting past.",
@@ -846,7 +855,7 @@
       ]
     },
     "VBO:0200778": {
-      "summary": "Kombai dogs observed in Tamil Nadu’s Theni district showed watchfulness toward strangers and responsiveness to familiar handlers. Named for a local village, this regional type has been kept for guarding homes and property; its strongest recorded tradition is protection close to the household.",
+      "summary": "Kombai dogs in a survey of Tamil Nadu’s Theni district were described as aggressive toward strangers and obedient with their owners. Named for Kombai village, these dogs have been kept to guard homes and farmland around the Western Ghats. The survey describes that local population, rather than predicting the behavior of every Kombai.",
       "sizeBand": "medium",
       "historicalRoots": "Tamil Nadu regional guard dog.",
       "editorialFamilies": [
@@ -857,9 +866,11 @@
         {
           "url": "https://www.vetpract.in/themes/uploads/contents/a01b3470a8a22f516251a2af236bf7b9.pdf",
           "title": "Veterinary Practitioner: phenotypic characterization of Kombai dogs",
-          "evidence": "Primary 2023 veterinary field survey locates the Kombai in Theni, describes guarding use and records stranger wariness and obedience to owners among sampled dogs."
+          "evidence": "2023 veterinary survey of 25 male and 36 female dogs and owner interviews in Theni. Abstract describes aggression toward strangers and obedience with owners; history locates Kombai village and guarding of homes/farm land. Findings are scoped to sampled local dogs, not a universal behavioral guarantee."
         }
-      ]
+      ],
+      "shortDescription": "Theni survey accounts describe Kombai guard dogs as aggressive toward strangers and responsive to their owners.",
+      "reviewedAt": "2026-10-06"
     },
     "VBO:0200793": {
       "summary": "Brave and self-confident, the Kuvasz was trusted to protect Hungarian flocks and property even when people were out of reach. Its devotion to a charge grew from that independent guardian role; the breed also appeared at the court of King Matthias Corvinus, where it could accompany hunts.",
@@ -907,7 +918,12 @@
           "title": "FCI breed standard No. 233: Lowchen",
           "evidence": "FCI standard recounts courtly companionship and historical depictions, and describes affectionate attentive receptive temperament with calm behavior on command."
         }
-      ]
+      ],
+      "originRegions": [
+        "France"
+      ],
+      "originBasis": "registry",
+      "reviewedAt": "2026-10-06"
     },
     "VBO:0200865": {
       "summary": "Perceptive and devoted to its charge, the Maremma Sheepdog has long guarded flocks in central Italy. Seasonal movement between the Abruzzo mountains and Maremma lowlands brought two regional working strains together; the dog had to stay alert to danger through the shepherd's long journeys.",
@@ -930,16 +946,21 @@
       "sizeBand": "small",
       "historicalRoots": "German small rough-haired pinscher and Schnauzer tradition.",
       "editorialFamilies": [
-        "schnauzer",
-        "German heritage"
+        "schnauzer"
       ],
       "sources": [
         {
           "url": "https://www.fci.be/Nomenclature/Standards/183g02-en.pdf",
           "title": "FCI breed standard No. 183: Miniature Schnauzer",
           "evidence": "FCI standard describes alert fearless intelligent enduring temperament, watch/companion use and origins among small rough-haired Pinschers near Frankfurt."
+        },
+        {
+          "url": "https://www.akc.org/expert-advice/dog-breeds/miniature-schnauzer-history/",
+          "title": "AKC: Miniature Schnauzer history — barnyard ratter to companion",
+          "evidence": "Breed history explicitly describes farmers developing a smaller Schnauzer to chase rats, voles and other rodents in houses and barns. Also documents current AKC Terrier Group placement; this is not a biological-family assertion."
         }
-      ]
+      ],
+      "reviewedAt": "2026-10-06"
     },
     "VBO:0200921": {
       "summary": "The Mudi is often quick to learn, eager to work and courageous around difficult livestock. This Hungarian herder also took part in wild-boar drives and watched property, so its lively attention was useful across several rural jobs; it can switch from close stock control to sounding an alarm.",
@@ -1035,7 +1056,12 @@
           "title": "FCI breed standard No. 248: Pharaoh Hound",
           "evidence": "FCI standard identifies Maltese small-game hunting by sight, scent and hearing, and describes alert intelligent friendly affectionate playful temperament."
         }
-      ]
+      ],
+      "originRegions": [
+        "Malta"
+      ],
+      "originBasis": "registry",
+      "reviewedAt": "2026-10-06"
     },
     "VBO:0201035": {
       "summary": "The Polish Lowland Sheepdog is often lively, vigilant and quick to remember what matters around a flock. It both moves sheep and watches over them, using close attention to the shepherd and surroundings; that perceptive character also fits the breed's traditional farm-guard role.",

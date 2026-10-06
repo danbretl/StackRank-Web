@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-n01",
+  "cohortId": "dogs-portraits-n",
+  "selectionSha256": "84cd690d8220bdbb1f07e6ba4743f424b474a98251bfefd1a0edf0d201dfdba1",
+  "reviewedAt": "2026-10-05",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-canary-001.jpg",
+    "contactSheetSha256": "2c85ab857044a398a942ee1a8b2f1463dcb364f751bb8c56bcf51a6f1641ed0c",
+    "acceptedCount": 1,
+    "notes": "Root personally viewed whole3-image contact sheet after viewing each untouched1536x1024 original at original detail. American Cocker, long-haired Dachshund and Papillon have distinct exact identities, source-backed morphology and natural varied settings. All full bodies/four paws/full attached tails remain visible and safely framed. Full and short copy independently reviewed and root approved; text-only research grants preserved. Branch-only canary, no publication."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0200038",
+      "name": "American Cocker Spaniel",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "92ab334a9fd6794edd8c639691fffef8cdfc9323ddec2ecc10bef75dc2714049",
+        "imageInputs": [],
+        "sourcePage": "https://www.ukcdogs.com/cocker-spaniel"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-n/N-0200038-1.png",
+      "masterSha256": "542926f67439903872c9f999442a135369611dd61569bbbe4d9660e6adb22121",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10ab7-bf16-78e2-83c4-0f812ace7649/exec-71cbd675-ddac-4ca2-90ff-c20ed35ce948.png",
+      "originalOutputSha256": "542926f67439903872c9f999442a135369611dd61569bbbe4d9660e6adb22121",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v11-cohort-n",
+      "attemptId": "N-VBO:0200038-1",
+      "startedAt": "2026-10-05T06:32:05.363873+00:00",
+      "generatedAt": "2026-10-05T06:35:38.100394+00:00",
+      "prompt": "Create an original, refined naturalistic field-guide portrait, actual native 1536x1024 landscape. One mature adult American Cocker Spaniel, jet black coat with restrained natural highlights, in a relaxed three-quarter standing pose at dog-eye level on short dry meadow grass, muted distant low shrubs and soft overcast morning light. Sturdy compact sporting proportions, gently sloping strong topline, muscular quarters and straight strong forelegs. Breed-accurate refined moderately rounded head, pronounced stop, broad deep short muzzle, full upper lips covering lower jaw, soft dark-brown eyes; long lobular silky low-set ears beginning at the lower eye line. Medium-length flat-to-slightly-wavy silky body coat, moderate chest/ear/leg feathering revealing body lines and paws, never a floor-length skirt or curly wool. Show the complete natural undocked tail anatomically attached at the back line, moderate length tapering from thicker root, proportional feathering, extending at topline or slightly above without curl. Entire body, all four coherent grounded paws, ears and full tail tip fully visible with comfortable crop-safe margins. Subtle painterly realism and tactile fur, elegant restrained landscape, no people, other animals, collar, gear, text, logo or watermark. New composition, not a recreation of a research photograph.",
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-10-05T06:36:54.143105+00:00",
+        "breedIdentity": "Mature black American Cocker with compact sporting trunk, moderately domed skull/pronounced stop, broad deep short muzzle and full but controlled lips, dark eyes and low long lobular silky ears. Coat and forechest agree with exact American standard, no English Cocker drift.",
+        "anatomy": "Whole untouched1536x1024 native viewed at original detail. Four coherent grounded paws and separate functional legs, firm slightly sloping topline and developed quarters; medium natural feathered tail visibly attached at topline extends to complete free endpoint.",
+        "crop": "Whole head, low ears, feet and complete tail contained with safe margins. Paw outlines remain readable against short dry grass; no clipped limbs or tail.",
+        "aesthetics": "Natural black silky hair and modest feathering without floor-length skirt, plausible weight and meadow daylight. Independent standing posture differs from seated source; no other animal, gear, lettering or close photographic expression.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-canary-001.jpg",
+        "contactSheetSha256": "2c85ab857044a398a942ee1a8b2f1463dcb364f751bb8c56bcf51a6f1641ed0c",
+        "contactSheetReviewedAt": "2026-10-05T06:38:14.746977+00:00",
+        "contactSheetNotes": "Root personally viewed whole3-image contact sheet after viewing each untouched1536x1024 original at original detail. American Cocker, long-haired Dachshund and Papillon have distinct exact identities, source-backed morphology and natural varied settings. All full bodies/four paws/full attached tails remain visible and safely framed. Full and short copy independently reviewed and root approved; text-only research grants preserved. Branch-only canary, no publication."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/run-authorization-001.json",
+          "sha256": "292924b03d5fb2b641dfdef0cd4667aafb98760b71edf9efc4d4ed26920f0b9f",
+          "bytes": 1626
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-a/VBO-0200038-morphology.json",
+          "sha256": "92ab334a9fd6794edd8c639691fffef8cdfc9323ddec2ecc10bef75dc2714049",
+          "bytes": 4057
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "author": "A",
+        "reviewer": "B",
+        "summarySha256": "37e8884927325c3b03c6144fd56aadad03d5032a9cb7a3b819667c965ad2a153",
+        "shortDescriptionSha256": "10bbe86cd76e5fa9a691d0463701a32a54965b5a58cfc0e593b8b0ce463f1324",
+        "summary": "Merry and people-oriented, the American Cocker Spaniel often brings an outgoing warmth to companionship while retaining a keen interest in work. Its sporting roots lie in flushing game from cover; the American breed developed from imported English Cockers and became a separate breed in the mid-twentieth century.",
+        "shortDescription": "An outgoing, people-oriented spaniel, the American Cocker often keeps its merry character and willingness to work.",
+        "fact": "",
+        "reviewedAt": "2026-10-05",
+        "sources": [
+          {
+            "title": "United Kennel Club: Cocker Spaniel breed standard",
+            "url": "https://www.ukcdogs.com/cocker-spaniel",
+            "evidence": "The History section explicitly distinguishes American from English Cockers, describes early English imports and flushing game, and records separate recognition in1947. Characteristics describes people-oriented, merry temperament and inclination to work; head, ears, body, coat and feet sections define compact sturdy sporting anatomy."
+          },
+          {
+            "title": "Canadian Kennel Club: American Cocker Spaniel",
+            "url": "https://www.ckc.ca/en/Choosing-a-Dog/Choosing-a-Breed/Sporting-Dogs/Spaniel-American-Cocker",
+            "evidence": "Temperament describes an outgoing friendly personality; Activity Level notes inclination to work and present companion role. Origin explains development from imported Cockers in North America and eventual separation from English Cocker. Breed-page photograph credited to Nadia Bongelli shows an adult-appearing black American Cocker, rounded but moderate crown, pronounced stop, deep short muzzle with full lips, low-set long silky hanging ears; seated pose does not establish unseen hind feet/tail."
+          },
+          {
+            "title": "Royal Kennel Club: Spaniel (American Cocker) breed standard",
+            "url": "https://www.royalkennelclub.com/breed-standards/gundog/spaniel-american-cocker/",
+            "evidence": "Characteristics describes willingness to work and merry character. Undocked tail section states moderate length, thicker root tapering to tip, proportionate feathering, carried at topline or a little above and never curled over back. Coat section limits feathering so body lines and sporting function remain visible."
+          }
+        ]
+      },
+      "rootReview": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/root-review-0200038-1.json",
+        "sha256": "8a3c6b27a288f94dafec4c365a169a526ae679b8b654c3a378cbd98b09fe1dc2",
+        "bytes": 1815
+      },
+      "attemptReceipt": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-a/N-VBO-0200038-1-attempt.json",
+        "sha256": "3e743fa022bb7e4daa3b8916babc066d4c8b82cc86a97190d5757a66cd096340",
+        "bytes": 3865
+      },
+      "scene": {
+        "description": "Short dry meadow with low distant shrubs, soft overcast morning light.",
+        "rationale": "Credible restrained sporting outdoor setting; short turf reveals four paws. Standing pose and neutral lighting differ from research expression."
+      }
+    }
+  ]
+}

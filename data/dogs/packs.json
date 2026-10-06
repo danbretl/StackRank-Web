@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "catalogId": "stackrank-dogs",
-  "catalogVersion": "vbo-2026-04-15.2",
+  "catalogVersion": "vbo-2026-04-15.3",
   "editorialVersion": "2026-07-16.1",
   "updatedAt": "2026-07-16",
   "sources": [
@@ -31,9 +31,20 @@
       "subtitle": "A first ranking across six regions",
       "description": "Start with familiar and less-familiar breeds and types from a deliberately global mix.",
       "family": "gateway",
-      "placements": ["starter", "featured", "browse"],
+      "placements": [
+        "starter",
+        "featured",
+        "browse"
+      ],
       "promoted": true,
-      "diversityRegions": ["Africa", "Asia", "Europe", "North America", "South America", "Oceania"],
+      "diversityRegions": [
+        "Africa",
+        "Asia",
+        "Europe",
+        "North America",
+        "South America",
+        "Oceania"
+      ],
       "items": [
         "VBO:0200800",
         "VBO:0201220",
@@ -52,9 +63,18 @@
       "subtitle": "An image-forward first ranking",
       "description": "Compare a globally varied set with sharply different outlines, proportions, and coat presentations.",
       "family": "gateway",
-      "placements": ["starter", "featured", "browse"],
+      "placements": [
+        "starter",
+        "featured",
+        "browse"
+      ],
       "promoted": true,
-      "diversityRegions": ["Africa", "Asia", "Europe", "North America"],
+      "diversityRegions": [
+        "Africa",
+        "Asia",
+        "Europe",
+        "North America"
+      ],
       "items": [
         "VBO:0200623",
         "VBO:0200406",
@@ -73,9 +93,19 @@
       "subtitle": "Recognizable names meet regional discoveries",
       "description": "Begin with a broad mix spanning Africa, Asia, Europe, South America, and the Pacific.",
       "family": "gateway",
-      "placements": ["starter", "featured", "browse"],
+      "placements": [
+        "starter",
+        "featured",
+        "browse"
+      ],
       "promoted": true,
-      "diversityRegions": ["Africa", "Asia", "Europe", "South America", "Oceania"],
+      "diversityRegions": [
+        "Africa",
+        "Asia",
+        "Europe",
+        "South America",
+        "Oceania"
+      ],
       "items": [
         "VBO:0200610",
         "VBO:0200744",
@@ -94,7 +124,9 @@
       "subtitle": "One registry's Sporting Group",
       "description": "A sampler using the American Kennel Club's Sporting Group designation; other registries organize breeds differently.",
       "family": "sporting",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "schemeAttribution": {
         "sourceId": "akc-groups-2026",
@@ -120,7 +152,9 @@
       "subtitle": "One registry's Hound Group",
       "description": "A sampler using the American Kennel Club's Hound Group designation; other registries organize breeds differently.",
       "family": "hound",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "schemeAttribution": {
         "sourceId": "akc-groups-2026",
@@ -146,7 +180,9 @@
       "subtitle": "One registry's Working Group",
       "description": "A sampler using the American Kennel Club's Working Group designation; other registries organize breeds differently.",
       "family": "working",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "schemeAttribution": {
         "sourceId": "akc-groups-2026",
@@ -172,7 +208,9 @@
       "subtitle": "One registry's Terrier Group",
       "description": "A sampler using the American Kennel Club's Terrier Group designation; other registries organize breeds differently.",
       "family": "terrier",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "schemeAttribution": {
         "sourceId": "akc-groups-2026",
@@ -198,7 +236,9 @@
       "subtitle": "One registry's Toy Group",
       "description": "A sampler using the American Kennel Club's Toy Group designation; other registries organize breeds differently.",
       "family": "toy-companion",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "schemeAttribution": {
         "sourceId": "akc-groups-2026",
@@ -224,7 +264,9 @@
       "subtitle": "One registry's Non-Sporting Group",
       "description": "A sampler using the American Kennel Club's Non-Sporting Group designation; other registries organize breeds differently.",
       "family": "non-sporting",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "schemeAttribution": {
         "sourceId": "akc-groups-2026",
@@ -251,7 +293,9 @@
       "subtitle": "One registry's Herding Group",
       "description": "A sampler using the American Kennel Club's Herding Group designation; other registries organize breeds differently.",
       "family": "herding",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "schemeAttribution": {
         "sourceId": "akc-groups-2026",
@@ -277,7 +321,9 @@
       "subtitle": "Sheepdogs and cattle dogs in the FCI scheme",
       "description": "A sampler from FCI Group 1; registry nomenclature is named because group systems are not universal.",
       "family": "herding",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "schemeAttribution": {
         "sourceId": "fci-nomenclature-2026",
@@ -303,7 +349,9 @@
       "subtitle": "Spitz and primitive types in the FCI scheme",
       "description": "A sampler from FCI Group 5; registry nomenclature is named because group systems are not universal.",
       "family": "spitz-primitive",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "schemeAttribution": {
         "sourceId": "fci-nomenclature-2026",
@@ -329,7 +377,9 @@
       "subtitle": "Sighthounds in the FCI scheme",
       "description": "A sampler from FCI Group 10; registry nomenclature is named because group systems are not universal.",
       "family": "sighthound",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "schemeAttribution": {
         "sourceId": "fci-nomenclature-2026",
@@ -355,7 +405,9 @@
       "subtitle": "A globally distributed historical family",
       "description": "Compare sighthound concepts from Africa, Asia, and Europe without treating any registry scheme as universal.",
       "family": "sighthound",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200108",
@@ -376,7 +428,9 @@
       "subtitle": "Hounds from several naming traditions",
       "description": "A cross-registry editorial grouping of scent-hound breeds and regional hound concepts.",
       "family": "scent-hound",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200131",
@@ -397,7 +451,9 @@
       "subtitle": "Distinct regional branches",
       "description": "A broad editorial set of spitz and northern breed concepts from Europe, Asia, and North America.",
       "family": "spitz-primitive",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0201174",
@@ -418,7 +474,9 @@
       "subtitle": "Catalog concepts from several regions",
       "description": "Explore current catalog concepts often discussed through primitive, pariah, or ancient-type histories.",
       "family": "spitz-primitive",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200120",
@@ -439,7 +497,9 @@
       "subtitle": "Mountain and pastoral breed concepts",
       "description": "A regional mix linked by documented livestock-guardian histories, presented without suitability claims.",
       "family": "livestock-guardian",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200062",
@@ -460,7 +520,9 @@
       "subtitle": "Water dogs and water spaniels",
       "description": "Compare catalog concepts whose names and histories connect them with water-dog traditions.",
       "family": "water-dog",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0201077",
@@ -481,7 +543,9 @@
       "subtitle": "Current and predecessor concepts",
       "description": "A mix of retriever breeds and cataloged predecessor concepts, with each item retaining its catalog status.",
       "family": "sporting",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200800",
@@ -500,7 +564,9 @@
       "subtitle": "A cross-registry sporting set",
       "description": "An editorial comparison spanning pointer, setter, and closely related sporting breed names.",
       "family": "sporting",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0201029",
@@ -521,7 +587,9 @@
       "subtitle": "A broad spaniel comparison",
       "description": "Explore spaniel breeds across sporting, water, and regional naming traditions.",
       "family": "sporting",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200497",
@@ -541,7 +609,9 @@
       "subtitle": "Regional cattle and sheepdog concepts",
       "description": "A geographically varied editorial set grounded in cataloged herding and cattle-dog histories.",
       "family": "herding",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200090",
@@ -562,7 +632,9 @@
       "subtitle": "Large working histories across climates",
       "description": "Compare breeds associated in historical sources with mountain, draft, or sled work—not present-day suitability.",
       "family": "working",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200161",
@@ -583,7 +655,9 @@
       "subtitle": "A visual comparison of large outlines",
       "description": "An image-led set selected for contrasting large-scale silhouettes, not for household or handling advice.",
       "family": "giant",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200623",
@@ -604,7 +678,9 @@
       "subtitle": "Small breeds from several regions",
       "description": "A globally varied set of small companion-breed traditions, framed as personal preference only.",
       "family": "toy-companion",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200338",
@@ -625,7 +701,9 @@
       "subtitle": "Breeds and cataloged varieties",
       "description": "A visual set of hairless breeds and explicitly cataloged hairless or size varieties from several regions.",
       "family": "coat-silhouette",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200049",
@@ -644,7 +722,9 @@
       "subtitle": "A coat-first visual set",
       "description": "Compare distinct corded and curly coat presentations without inferring care needs or behavior.",
       "family": "coat-silhouette",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0201102",
@@ -665,7 +745,9 @@
       "subtitle": "Texture across several breed families",
       "description": "A visual comparison of catalog concepts known for rough or wire coat presentations.",
       "family": "coat-silhouette",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0201424",
@@ -686,7 +768,9 @@
       "subtitle": "A visual study in proportion",
       "description": "Compare breeds with long-and-low outlines across hound, herding, spaniel, and terrier histories.",
       "family": "coat-silhouette",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200406",
@@ -706,7 +790,9 @@
       "subtitle": "Long lines across several histories",
       "description": "An image-led comparison of streamlined outlines from several regions and breed families.",
       "family": "coat-silhouette",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200638",
@@ -727,7 +813,9 @@
       "subtitle": "Regional and internationally known concepts",
       "description": "A gateway to breed and type concepts connected with regions across the African continent.",
       "family": "regional-history",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200007",
@@ -747,7 +835,9 @@
       "subtitle": "Breed concepts from several countries",
       "description": "A regional discovery set spanning Japanese, Korean, and Chinese breed histories.",
       "family": "regional-history",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200010",
@@ -768,7 +858,9 @@
       "subtitle": "Regional breeds and types",
       "description": "A discovery set of catalog concepts connected with the Indian subcontinent and Himalayan regions.",
       "family": "regional-history",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200354",
@@ -788,7 +880,9 @@
       "subtitle": "Regional breed and type histories",
       "description": "A discovery set spanning South America, Mexico, Venezuela, Uruguay, Argentina, Brazil, Peru, and Cuba.",
       "family": "regional-history",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200231",
@@ -808,7 +902,9 @@
       "subtitle": "Spanish and Portuguese histories",
       "description": "A regional set spanning water dogs, hounds, mastiffs, and sheepdog concepts from Spain and Portugal.",
       "family": "regional-history",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0201077",
@@ -828,7 +924,9 @@
       "subtitle": "Breed histories across the isles",
       "description": "A varied regional set spanning collies, hounds, spaniels, terriers, corgis, and companion breeds.",
       "family": "regional-history",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200193",
@@ -849,7 +947,9 @@
       "subtitle": "Nordic and nearby breed histories",
       "description": "A regional discovery set from the Nordic countries, Greenland, Denmark, Sweden, Finland, Norway, and Iceland.",
       "family": "regional-history",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200526",
@@ -870,7 +970,9 @@
       "subtitle": "Breed histories across several countries",
       "description": "A regional set spanning German, Hungarian, Swiss, and neighboring breed histories.",
       "family": "regional-history",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200577",
@@ -891,7 +993,9 @@
       "subtitle": "Regional shepherd, hound, and companion histories",
       "description": "A discovery set of catalog concepts connected with countries and regions across the Balkans.",
       "family": "regional-history",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0201356",
@@ -912,7 +1016,9 @@
       "subtitle": "Regional guardian and hound histories",
       "description": "A broad regional set from Central Asia, the Caucasus, Anatolia, Afghanistan, and nearby traditions.",
       "family": "regional-history",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200004",
@@ -933,7 +1039,9 @@
       "subtitle": "Australian, New Zealand, and Pacific concepts",
       "description": "A regional set spanning Australian working and terrier histories, New Zealand dogs, and Pacific concepts.",
       "family": "regional-history",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200088",
@@ -954,7 +1062,9 @@
       "subtitle": "Preserved names, clearly labeled historical",
       "description": "Historical concepts retained for discovery and ranking; none is presented here as a current breed.",
       "family": "regional-history",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "items": [
         "VBO:0200020",
@@ -975,7 +1085,9 @@
       "subtitle": "Cataloged crossbreed concepts",
       "description": "A sampler of widely used crossbreed names, each explicitly labeled as a crossbreed in the catalog.",
       "family": "crossbreed",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "crossbreedDisclosure": "Every item in this pack is a cataloged crossbreed concept; names do not predict an individual dog's traits.",
       "items": [
@@ -997,7 +1109,9 @@
       "subtitle": "A naming pattern in the catalog",
       "description": "Compare cataloged poodle-cross names while keeping their crossbreed status visible.",
       "family": "crossbreed",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "crossbreedDisclosure": "Every item in this pack is a cataloged crossbreed concept; names do not predict an individual dog's traits.",
       "items": [
@@ -1019,7 +1133,9 @@
       "subtitle": "Cataloged crossbreed concepts",
       "description": "A small-companion crossbreed sampler with status and naming context kept explicit.",
       "family": "crossbreed",
-      "placements": ["browse"],
+      "placements": [
+        "browse"
+      ],
       "promoted": false,
       "crossbreedDisclosure": "Every item in this pack is a cataloged crossbreed concept; names do not predict an individual dog's traits.",
       "items": [

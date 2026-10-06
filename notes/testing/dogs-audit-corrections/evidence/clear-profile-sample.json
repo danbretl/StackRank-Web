@@ -1,0 +1,292 @@
+{
+  "reviewedAt": "2026-10-06",
+  "sampleDesign": "7 public spanning legacy28,legacyabc,F01,I,K,L,M +2 still-hidden templates; unfolded reviewed_clear only",
+  "rows": [
+    {
+      "catalogId": "VBO:0200120",
+      "name": "Basenji",
+      "cohort": "legacy-28",
+      "auditStatus": "reviewed_clear",
+      "reviewScope": "Full compiled summary/short/facts and claim-specific original-source evidence; no additional sample portrait review",
+      "finding": "no_new_material_false_clear",
+      "assessment": "FCI43 directly supports alertness, independence, affection, reserve, cleanliness, hunting origin and vocal repertoire. The short copy preserves scope. Medium classification matches40-43cm pending shared size policy; group5 registry facts correct. Rising/long-established are harmless descriptive imprecision, not material false clear.",
+      "sources": [
+        {
+          "id": "EV-LOCAL-FCI",
+          "url": null,
+          "localCache": null,
+          "access": "local_source_mapping_read"
+        },
+        {
+          "id": "EV-LOCAL-VBO",
+          "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+          "localCache": null,
+          "access": "local_source_mapping_read"
+        },
+        {
+          "id": "EV-b248ee98157ce509",
+          "url": "https://www.fci.be/Nomenclature/Standards/043g05-en.pdf",
+          "localCache": "cache/sources/b248ee98157ce509.txt",
+          "access": "fresh_web_read"
+        }
+      ],
+      "authoringPointers": [
+        "compiler dogTypeLabel()",
+        "compiler: FCI country + Wikidata P495 countries",
+        "data/dogs/dog-catalog.json#/entities[id=VBO:0200120]/aliases",
+        "data/dogs/profile-overrides.json#/profiles/VBO:0200120/editorialFamilies + data/dogs/packs.json",
+        "data/dogs/profile-overrides.json#/profiles/VBO:0200120/historicalRoots",
+        "data/dogs/profile-overrides.json#/profiles/VBO:0200120/sizeBand",
+        "data/dogs/profile-overrides.json#/profiles/VBO:0200120/summary",
+        "data/dogs/profile-short-descriptions.json#/descriptions/VBO:0200120",
+        "data/dogs/sources/fci-promoted-profiles-2026-09-21.json"
+      ]
+    },
+    {
+      "catalogId": "VBO:0200118",
+      "name": "Barbado da Terceira",
+      "cohort": "legacy-abc",
+      "auditStatus": "reviewed_clear",
+      "reviewScope": "Full compiled summary/short/facts and claim-specific original-source evidence; no additional sample portrait review",
+      "finding": "no_new_material_false_clear",
+      "assessment": "CPC retained original Portuguese supports cheerful, loyal, easy-to-teach cattle/guard/companion dog from Terceira,48-58cm. Current fetch403; read retained text, no bypass. Short copy slightly less calibrated but no individual guarantee. Generic type label belongs to systemic correction.",
+      "sources": [
+        {
+          "id": "EV-b60a2c18f142af80",
+          "url": "https://www.cpc.pt/racas/racas-portuguesas/barbado-terceira/",
+          "localCache": "cache/sources/b60a2c18f142af80.txt",
+          "access": "retained_source_only_current403"
+        }
+      ],
+      "authoringPointers": [
+        "compiler dogTypeLabel()",
+        "compiler: FCI country + Wikidata P495 countries",
+        "data/dogs/profile-refresh-a.json#/profiles/VBO:0200118/historicalRoots",
+        "data/dogs/profile-refresh-a.json#/profiles/VBO:0200118/sizeBand",
+        "data/dogs/profile-refresh-a.json#/profiles/VBO:0200118/summary",
+        "data/dogs/profile-short-descriptions.json#/descriptions/VBO:0200118"
+      ]
+    },
+    {
+      "catalogId": "VBO:0200145",
+      "name": "Belgian Shepherd Dog — Groenendael",
+      "cohort": "F01",
+      "auditStatus": "reviewed_clear",
+      "reviewScope": "Full compiled summary/short/facts and claim-specific original-source evidence; no additional sample portrait review",
+      "finding": "no_new_material_false_clear",
+      "assessment": "FCI15 supports energetic watchfulness, protection, Belgian herding/guarding and1890s formalization; Groenendael is the long black variety. AKC Belgian Sheepdog page independently supports companionship under that name. Same-breed/four-variety statement is FCI scope, not universal registry consensus. Empty origin is central-system issue; no new prose defect.",
+      "sources": [
+        {
+          "id": "EV-8f3427250a768333",
+          "url": "https://fci.be/Nomenclature/Standards/015g01-en.pdf",
+          "localCache": "cache/sources/8f3427250a768333.txt",
+          "access": "fresh_web_read"
+        },
+        {
+          "id": "EV-LOCAL-VBO",
+          "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+          "localCache": null,
+          "access": "local_source_mapping_read"
+        },
+        {
+          "id": "EV-ea50ad14a88baf65",
+          "url": "https://www.akc.org/dog-breeds/belgian-sheepdog/",
+          "localCache": "cache/sources/ea50ad14a88baf65.txt",
+          "access": "fresh_web_read"
+        }
+      ],
+      "authoringPointers": [
+        "compiler dogTypeLabel()",
+        "data/dogs/dog-catalog.json#/entities[id=VBO:0200145]/aliases",
+        "data/dogs/dog-catalog.json#/entities[id=VBO:0200145]/relationships/parentId",
+        "data/dogs/profile-refresh-f.json#/profiles/VBO:0200145/editorialFamilies + data/dogs/packs.json",
+        "data/dogs/profile-refresh-f.json#/profiles/VBO:0200145/historicalRoots",
+        "data/dogs/profile-refresh-f.json#/profiles/VBO:0200145/sizeBand",
+        "data/dogs/profile-refresh-f.json#/profiles/VBO:0200145/summary",
+        "data/dogs/profile-short-descriptions.json#/descriptions/VBO:0200145"
+      ]
+    },
+    {
+      "catalogId": "VBO:0200015",
+      "name": "Alaskan Husky",
+      "cohort": "I",
+      "auditStatus": "reviewed_clear",
+      "reviewScope": "Full compiled summary/short/facts and claim-specific original-source evidence; no additional sample portrait review",
+      "finding": "no_new_material_false_clear",
+      "assessment": "Iditarod two articles explicitly identify Alaskan Husky function-selected composite sled dogs, speed/endurance/drive-to-run, non-show pedigree and variable northern/hound characteristics. Summary/short keep selection rather than guaranteed behavior. Generic recognition label requires shared-system correction, already known.",
+      "sources": [
+        {
+          "id": "EV-1a87e4d960a7354b",
+          "url": "https://iditarod.com/edu/sled-dog-genetics/",
+          "localCache": "cache/sources/1a87e4d960a7354b.txt",
+          "access": "fresh_web_read"
+        },
+        {
+          "id": "EV-LOCAL-VBO",
+          "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+          "localCache": null,
+          "access": "local_source_mapping_read"
+        },
+        {
+          "id": "EV-af188ddeac74e6dd",
+          "url": "https://iditarod.com/edu/what-makes-a-good-sled-dog-part-1-of-3/",
+          "localCache": "cache/sources/af188ddeac74e6dd.txt",
+          "access": "fresh_web_read"
+        }
+      ],
+      "authoringPointers": [
+        "compiler dogTypeLabel()",
+        "data/dogs/dog-catalog.json#/entities[id=VBO:0200015]/aliases",
+        "data/dogs/profile-refresh-i01.json#/profiles/VBO:0200015/editorialFamilies + data/dogs/packs.json",
+        "data/dogs/profile-refresh-i01.json#/profiles/VBO:0200015/historicalRoots",
+        "data/dogs/profile-refresh-i01.json#/profiles/VBO:0200015/shortDescription",
+        "data/dogs/profile-refresh-i01.json#/profiles/VBO:0200015/summary"
+      ]
+    },
+    {
+      "catalogId": "VBO:0200558",
+      "name": "Garafian Shepherd",
+      "cohort": "K",
+      "auditStatus": "reviewed_clear",
+      "reviewScope": "Full compiled summary/short/facts and claim-specific original-source evidence; no additional sample portrait review",
+      "finding": "no_new_material_false_clear",
+      "assessment": "RSCE Garafiano utilization explicitly describes independent decisions and following shepherd; appearance section includes docility/confidence/calm versus active work; history names isolated La Palma/Garafia. All prose/short claims supported. Empty origin and generic type remain existing systemic concerns.",
+      "sources": [
+        {
+          "id": "EV-6d0dd8582f9a9d89",
+          "url": "https://www.rsce.es/razas-espanolas-pastor-garafiano/",
+          "localCache": "cache/sources/6d0dd8582f9a9d89.txt",
+          "access": "fresh_web_read"
+        },
+        {
+          "id": "EV-LOCAL-VBO",
+          "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+          "localCache": null,
+          "access": "local_source_mapping_read"
+        }
+      ],
+      "authoringPointers": [
+        "compiler dogTypeLabel()",
+        "data/dogs/dog-catalog.json#/entities[id=VBO:0200558]/aliases",
+        "data/dogs/profile-refresh-k01.json#/profiles/VBO:0200558/shortDescription",
+        "data/dogs/profile-refresh-k01.json#/profiles/VBO:0200558/summary"
+      ]
+    },
+    {
+      "catalogId": "VBO:0008018",
+      "name": "Euskal Artzain Txakurra (variedad Iletsua)",
+      "cohort": "L",
+      "auditStatus": "reviewed_clear",
+      "reviewScope": "Full compiled summary/short/facts and claim-specific original-source evidence; no additional sample portrait review",
+      "finding": "no_new_material_false_clear",
+      "assessment": "EATA Iletsua standard supports close bond/territoriality and rougher moderate coat. Association homepage independently supports both-variety conservation mission. Gorbeiakoa contrast concerns texture as well as head/body proportions, not wholly short versus long hair. No new prose error.",
+      "sources": [
+        {
+          "id": "EV-LOCAL-VBO",
+          "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+          "localCache": null,
+          "access": "local_source_mapping_read"
+        },
+        {
+          "id": "EV-f236c40d1ac7832e",
+          "url": "https://eataelkartea.org/estandar-caracteristicas-euskal-artzain-pastor-vasco-iletsua/?lang=es",
+          "localCache": "cache/sources/f236c40d1ac7832e.txt",
+          "access": "fresh_web_read"
+        },
+        {
+          "url": "https://eataelkartea.org/?lang=es",
+          "access": "fresh_web_read",
+          "purpose": "independent conservation claim support"
+        }
+      ],
+      "authoringPointers": [
+        "compiler dogTypeLabel()",
+        "data/dogs/dog-catalog.json#/entities[id=VBO:0008018]/relationships/parentId",
+        "data/dogs/profile-refresh-l13.json#/profiles/VBO:0008018/originRegions",
+        "data/dogs/profile-refresh-l13.json#/profiles/VBO:0008018/shortDescription",
+        "data/dogs/profile-refresh-l13.json#/profiles/VBO:0008018/summary"
+      ]
+    },
+    {
+      "catalogId": "VBO:0200914",
+      "name": "Mountain Cur",
+      "cohort": "M",
+      "auditStatus": "reviewed_clear",
+      "reviewScope": "Full compiled summary/short/facts and claim-specific original-source evidence; no additional sample portrait review",
+      "finding": "no_new_material_false_clear",
+      "assessment": "UKC Mountain Cur history and characteristics explicitly support treeing, head-up trailing, circling cold tracks, voice variability, human partnership and ruralAmerican squirrel/raccoon/big-game use. Full/short/US origin supported; generic type label is central issue.",
+      "sources": [
+        {
+          "id": "EV-LOCAL-VBO",
+          "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+          "localCache": null,
+          "access": "local_source_mapping_read"
+        },
+        {
+          "id": "EV-ca59e49c34f63906",
+          "url": "https://www.ukcdogs.com/breed-standards/mountain-cur",
+          "localCache": "cache/sources/ca59e49c34f63906.txt",
+          "access": "fresh_web_read"
+        }
+      ],
+      "authoringPointers": [
+        "compiler dogTypeLabel()",
+        "data/dogs/profile-refresh-m01.json#/profiles/VBO:0200914/originRegions",
+        "data/dogs/profile-refresh-m01.json#/profiles/VBO:0200914/shortDescription",
+        "data/dogs/profile-refresh-m01.json#/profiles/VBO:0200914/summary"
+      ]
+    },
+    {
+      "catalogId": "VBO:0200020",
+      "name": "Alaunt",
+      "cohort": "hidden-template",
+      "auditStatus": "reviewed_clear",
+      "reviewScope": "Full compiled summary/short/facts and claim-specific original-source evidence; no additional sample portrait review",
+      "finding": "no_new_material_false_clear",
+      "assessment": "Hidden template only claims historical type; catalog disposition and source identity VBO0200020/VeNom13643 agree. No art or short description; do not imply externally researched profile or public readiness. This is a bounded source/classification consistency pass, not historical morphology clearance.",
+      "sources": [
+        {
+          "id": "EV-LOCAL-CLASS",
+          "url": null,
+          "localCache": null,
+          "access": "local_source_mapping_read"
+        }
+      ],
+      "authoringPointers": [
+        "compiler dogTypeLabel()",
+        "compiler-generated (scripts/dog-profiles-lib.mjs generatedProfileCopy)",
+        "compiler-generated (scripts/dog-profiles-lib.mjs generatedProfileCopy)/editorialFamilies + data/dogs/packs.json"
+      ]
+    },
+    {
+      "catalogId": "VBO:0200037",
+      "name": "American Cockapoo",
+      "cohort": "hidden-template",
+      "auditStatus": "reviewed_clear",
+      "reviewScope": "Full compiled summary/short/facts and claim-specific original-source evidence; no additional sample portrait review",
+      "finding": "no_new_material_false_clear",
+      "assessment": "Hidden template only claims named crossbreed; source identity VBO0200037/VeNom22501 and parentMixedBreed agree. No individual-trait inference. American versus generic Cockapoo distinction needs editorial suppression adjudication under SYS08, not destructive merging; no newly discovered public-content error.",
+      "sources": [
+        {
+          "id": "EV-LOCAL-CLASS",
+          "url": null,
+          "localCache": null,
+          "access": "local_source_mapping_read"
+        },
+        {
+          "id": "EV-LOCAL-VBO",
+          "url": "http://purl.obolibrary.org/obo/vbo/releases/2026-04-15/vbo-base.json",
+          "localCache": null,
+          "access": "local_source_mapping_read"
+        }
+      ],
+      "authoringPointers": [
+        "compiler dogTypeLabel()",
+        "compiler-generated (scripts/dog-profiles-lib.mjs generatedProfileCopy)",
+        "data/dogs/dog-catalog.json#/entities[id=VBO:0200037]/relationships/parentId"
+      ]
+    }
+  ],
+  "newMaterialFalseClears": 0,
+  "limitations": "Purposive9-item sample, not statistical assurance; known systemic impacts retained separately. CPC403 handled with retained original. Two hidden checks establish local classification consistency only."
+}

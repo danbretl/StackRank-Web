@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-n17",
+  "cohortId": "dogs-portraits-n",
+  "selectionSha256": "6b416db54dbb4f265f59741bd7e6fa60bb294f0136d8a912b477742e90934ec8",
+  "reviewedAt": "2026-10-05",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-006.jpg",
+    "contactSheetSha256": "7b7ff0ebf54b1b3ca1fa5280e486bf4de710923fc6a4b7ece1fb8c08f4474e7b",
+    "acceptedCount": 1,
+    "notes": "Whole sheet viewed; mature Tervueren representative remains source-coherent with clear four paws, complete plume and intact ears. Independent Belgian setting, no new defect beyond already reviewed modest safe upper margin."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0200144",
+      "name": "Belgian Shepherd Dog",
+      "scene": {
+        "description": "A firm clear farm path beside a low Belgian pasture boundary, distant quiet meadow and pollarded trees, soft overcast afternoon light",
+        "rationale": "Source-supported origin and working setting rendered independently, with clear firm ground for anatomy QA."
+      },
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "af07deb67428d9f703c7fbc2911b3da0f2fd3d01edf475a15dc9a1031b33a87e",
+        "imageInputs": [],
+        "sourcePage": "https://www.fci.be/nomenclature/Standards/015g01-en.pdf"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-n/N-0200144-1.png",
+      "masterSha256": "1dd265903148533555bc32286fe921e9922d0adc4a44b41dff5937d0b57edac2",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10ab8-069f-7cf2-9b37-fc0afda52d04/exec-ddaddc60-a7ed-4b96-8f01-c38466a5afe4.png",
+      "originalOutputSha256": "1dd265903148533555bc32286fe921e9922d0adc4a44b41dff5937d0b57edac2",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v11-cohort-n",
+      "attemptId": "N-VBO:0200144-1",
+      "startedAt": "2026-10-05T07:39:48+00:00",
+      "generatedAt": "2026-10-05T07:40:52+00:00",
+      "prompt": "Create a refined naturalistic editorial dog portrait, native output exactly 1536 x 1024 pixels, landscape 3:2. One mature adult Belgian Shepherd Dog, whole body entirely visible in an original relaxed three-quarter standing pose at dog-eye level. A mature adult Belgian Shepherd Dog around62cm at shoulder, represented by a permitted long-haired fawn Tervueren within the broad four-variety FCI15 breed. Square elegantly strong dry-muscled medium body, moderate bone, pronounced withers and firm short straight level back, only very slight croup slope, deep not wide chest to elbows, modest gently raised belly, no German Shepherd sloping topline or exaggerated crouched rear. High-carried long clean flat wedge head, muzzle about equal skull, straight bridge, moderate stop, tight thin black lips and open black nose. Medium dark brown slightly almond oblique eyes with inquisitive attentive expression; small high triangular firmly upright ears. Slightly elongated muscular arched neck without dewlap. Straight parallel lean strong forelegs, normal moderate stifle/hock angles and compact catlike tightly arched feet. Dense long straight rich fawn hair with individual black tips forming flamed overlay, solid black facial mask and mostly black ears, shorter clean head and lowerlegs, fuller neck ruff and thigh breeches; no brindle patches, woolly curls or coarse furnishings. Full natural strong-based tail reaches at least hock, long-haired plume hanging down with gentle backward tip curve, complete attached base and tip visible, never shortened, hooked or ring-curled. All four separate coherent paws grounded on a clear firm level path with visible toes, no grass or objects concealing them. Full natural tail anatomically attached, complete base and whole tip clear without obstruction. Ample natural margins around ears, nose, paws and tail. Setting: A firm clear farm path beside a low Belgian pasture boundary, distant quiet meadow and pollarded trees, soft overcast afternoon light. Restrained lifelike fine fur texture, quiet field-guide elegance, crisp dog and softly receding background. Original composition not based on any photograph. No people, other animals, collar, leash, equipment, text, logos, watermark, plastic fur, oversized puppy head, extra limbs, malformed joints, floating feet or clipped extremities.\n",
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-10-05T07:43:12.030959+00:00",
+        "breedIdentity": "Whole untouched1536x1024 native viewed at original detail. Mature Belgian Shepherd in permitted fawn Tervueren expression, long clean black-masked wedge head, erect triangular ears, natural long ruff and black-tipped fawn coat, balanced square strong body and level back. Source umbrella scope individually approved.",
+        "anatomy": "Four coherent grounded paws and natural moderate hindquarters, no exaggerated sloping German Shepherd back. Natural plume tail attaches to croup and descends to complete visible endpoint beyond hock level; face, open mouth and joints coherent.",
+        "crop": "Whole dog intact in landscape native. Top ear margin modest but visibly clear and not cropped; all paws, nose and complete tail safely visible. No speculative margin-only retry warranted.",
+        "aesthetics": "Natural mature alert expression and fine textured long coat, quiet credible Belgian pasture path with pollarded trees, diffuse overcast light. Single independent standing composition differs from source group sitting photograph; no equipment, text, logo or anatomical artifacts.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-006.jpg",
+        "contactSheetSha256": "7b7ff0ebf54b1b3ca1fa5280e486bf4de710923fc6a4b7ece1fb8c08f4474e7b",
+        "contactSheetReviewedAt": "2026-10-05T07:44:03.921349+00:00",
+        "contactSheetNotes": "Whole sheet viewed; mature Tervueren representative remains source-coherent with clear four paws, complete plume and intact ears. Independent Belgian setting, no new defect beyond already reviewed modest safe upper margin."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/run-authorization-001.json",
+          "sha256": "292924b03d5fb2b641dfdef0cd4667aafb98760b71edf9efc4d4ed26920f0b9f",
+          "bytes": 1626
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-b/0200144/morphology-dossier.json",
+          "sha256": "af07deb67428d9f703c7fbc2911b3da0f2fd3d01edf475a15dc9a1031b33a87e",
+          "bytes": 5761
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "author": "B",
+        "reviewer": "C",
+        "summarySha256": "f9fa71a171043fd78aee3022d1e7249851313f4cdc5c738f6138e28bdb0c7055",
+        "shortDescriptionSha256": "b872c7ac9a4fe6e26b917541c2c807711bb4185480f5d41b2812f001c6e574ee",
+        "summary": "Alert, devoted and eager to work, the Belgian Shepherd Dog tends to be watchful with strangers and affectionate with familiar people. Its herding background carries into guarding, tracking and obedience work, with a lively movement that can change direction quickly and circle as it watches. The breed includes four coat varieties, sharing the same working character and balanced outline.",
+        "shortDescription": "An alert, devoted worker, the Belgian Shepherd Dog pairs affection for familiar people with a vigilant herding spirit.",
+        "interestingFact": "",
+        "reviewedAt": "2026-10-05",
+        "reviewStatus": "individually-written",
+        "sources": [
+          {
+            "title": "FCI Standard15 — Belgian Shepherd Dog",
+            "url": "https://www.fci.be/nomenclature/Standards/015g01-en.pdf",
+            "evidence": "Actual utilization/history/behaviour paragraphs read: originally sheepdog, guarding/tracking/service, watchful active energy, vigilant protective working character; natural lively gait with quick direction changes and tendency to circle. Four coat varieties explicitly same breed, distinctions coat. Entire head/body/limbs/tail/coat/colour read for natural balanced anatomy."
+          },
+          {
+            "title": "Canadian Kennel Club — Belgian Shepherd Dog",
+            "url": "https://www.ckc.ca/en/Choosing-a-Dog/Choosing-a-Breed/Herding-Dogs/Belgian-Shepherd-Dog",
+            "evidence": "Actual Origin states four coat varieties; Temperament supports intelligence, alertness, devotion, vigilant strangers and affectionate/friendly known people. Activity Level supports work desire, herding/obedience/sports. Coat/Colour explains allowed Tervuren fawn with black overlay/mask. Live credited Rhae-An Bury photograph shows all four mature varieties together; unrelated PuppyList puppy thumbnail excluded."
+          }
+        ]
+      },
+      "rootReview": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/root-review-0200144-1.json",
+        "sha256": "88742343fcc61dc6360be7da94d7b99f5f45b2857b6cc14694176204c17382c3",
+        "bytes": 1929
+      },
+      "attemptReceipt": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-b/0200144/N-VBO-0200144-1-attempt.json",
+        "sha256": "65c50f21246609212bf94a91639bb003118ab6799910e4471efe2fcafc3b42d4",
+        "bytes": 5369
+      }
+    }
+  ]
+}

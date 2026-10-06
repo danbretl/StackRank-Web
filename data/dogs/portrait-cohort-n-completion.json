@@ -1,0 +1,276 @@
+{
+  "schemaVersion": 1,
+  "cohortId": "dogs-portraits-n",
+  "status": "READY_FOR_POST_AUDIT_INTEGRATION",
+  "completedAt": "2026-10-05T19:59:18.231728+00:00",
+  "worktree": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank",
+  "branch": "dogs/cohort-n-100",
+  "baselineCommit": "c3ba4b030f7ad587e8a11cfc264c86b2543e5ab1",
+  "finalProductCommit": "34dc547d7259a068d4f2a27709201ff7f82f3837",
+  "handbackCommit": "The local commit containing this completion record; resolve with git log -- data/dogs/portrait-cohort-n-completion.json.",
+  "baseline": {
+    "publishedPairs": 802,
+    "hidden": 437,
+    "preserved": true
+  },
+  "candidate": {
+    "newAccepted": 100,
+    "integrated": 100,
+    "completedPairs": 902,
+    "hidden": 337,
+    "publishedN": 0
+  },
+  "counts": {
+    "qualified": 109,
+    "calls": 121,
+    "rejectedOutputs": 21,
+    "targetedRetryCalls": 13,
+    "failures": 0,
+    "heldQualifiedIdentities": 9,
+    "activePermits": 0,
+    "unknownCalls": 0,
+    "acceptedUnintegrated": 0
+  },
+  "workersIdle": true,
+  "workerCounts": {
+    "A": {
+      "acceptedPairs": 37,
+      "calls": 41,
+      "retries": 3,
+      "rejected": 4,
+      "failures": 0
+    },
+    "B": {
+      "acceptedPairs": 36,
+      "calls": 42,
+      "retries": 5,
+      "rejected": 6,
+      "failures": 0
+    },
+    "C": {
+      "acceptedPairs": 27,
+      "calls": 38,
+      "retries": 5,
+      "rejected": 11,
+      "failures": 0
+    }
+  },
+  "acceptedCatalogIds": [
+    "VBO:0200038",
+    "VBO:0200407",
+    "VBO:0200586",
+    "VBO:0200423",
+    "VBO:0201363",
+    "VBO:0200418",
+    "VBO:0200598",
+    "VBO:0200590",
+    "VBO:0201173",
+    "VBO:0201318",
+    "VBO:0201251",
+    "VBO:0200144",
+    "VBO:0200413",
+    "VBO:0200408",
+    "VBO:0201095",
+    "VBO:0200585",
+    "VBO:0200381",
+    "VBO:0200375",
+    "VBO:0200223",
+    "VBO:0200530",
+    "VBO:0200078",
+    "VBO:0200531",
+    "VBO:0200515",
+    "VBO:0201287",
+    "VBO:0201211",
+    "VBO:0201364",
+    "VBO:0201261",
+    "VBO:0201134",
+    "VBO:0201263",
+    "VBO:0200805",
+    "VBO:0201117",
+    "VBO:0200384",
+    "VBO:0200162",
+    "VBO:0200574",
+    "VBO:0201271",
+    "VBO:0201396",
+    "VBO:0201323",
+    "VBO:0201021",
+    "VBO:0200395",
+    "VBO:0200822",
+    "VBO:0200478",
+    "VBO:0201026",
+    "VBO:0201343",
+    "VBO:0201282",
+    "VBO:0200206",
+    "VBO:0200673",
+    "VBO:0201397",
+    "VBO:0200218",
+    "VBO:0200915",
+    "VBO:0200928",
+    "VBO:0201215",
+    "VBO:0201037",
+    "VBO:0201009",
+    "VBO:0200476",
+    "VBO:0200127",
+    "VBO:0200372",
+    "VBO:0201123",
+    "VBO:0201190",
+    "VBO:0200307",
+    "VBO:0200608",
+    "VBO:0200314",
+    "VBO:0200901",
+    "VBO:0201430",
+    "VBO:0201014",
+    "VBO:0200451",
+    "VBO:0201446",
+    "VBO:0200390",
+    "VBO:0200826",
+    "VBO:0200268",
+    "VBO:0201044",
+    "VBO:0201283",
+    "VBO:0200318",
+    "VBO:0201239",
+    "VBO:0200367",
+    "VBO:0201090",
+    "VBO:0200841",
+    "VBO:0200213",
+    "VBO:0200358",
+    "VBO:0200330",
+    "VBO:0201329",
+    "VBO:0200918",
+    "VBO:0201464",
+    "VBO:0200975",
+    "VBO:0201398",
+    "VBO:0200071",
+    "VBO:0200448",
+    "VBO:0200455",
+    "VBO:0201367",
+    "VBO:0200254",
+    "VBO:0201308",
+    "VBO:0201414",
+    "VBO:0201425",
+    "VBO:0200501",
+    "VBO:0201360",
+    "VBO:0201144",
+    "VBO:0200983",
+    "VBO:0200821",
+    "VBO:0201408",
+    "VBO:0200762",
+    "VBO:0201404"
+  ],
+  "verification": {
+    "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/verification-checkpoint-100.json",
+    "sha256": "711fdc4a1908156480f1ddf1ade5cd436f2963e7efa819cfb80c17be6300bdf0",
+    "bytes": 6277
+  },
+  "testCounts": {
+    "node": 583,
+    "python": 51,
+    "deno": 24,
+    "stagedChromeFlows": 43
+  },
+  "archiveRestoration": {
+    "acceptedPairs": 100,
+    "logicalFiles": 3530,
+    "receipt": {
+      "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/restoration-checkpoint-100-r02.json",
+      "sha256": "5a0c27e4f867b9901a520142ac75f5b225a148e066fca47b0952b1c9de3d7810",
+      "bytes": 58012
+    },
+    "currentArchiveBytes": 875944042
+  },
+  "timing": {
+    "runStartedAt": "2026-10-05T06:19:19.051054+00:00",
+    "firstImageCallStartedAt": "2026-10-05T06:32:05.363873+00:00",
+    "lastImageCallCompletedAt": "2026-10-05T19:45:08+00:00",
+    "bootstrapAndInitialResearchWallSeconds": 766.312819,
+    "rollingImageProductionWallSeconds": 47582.636127,
+    "summedImageCallSecondsNotWallClock": 5912.127995,
+    "finalPassingVerifySeconds": 148.20768262498314,
+    "finalizationSinceLastCallSeconds": 850.231728,
+    "totalWallSecondsThroughCompletionRecord": 49199.180674
+  },
+  "authority": {
+    "merge": false,
+    "push": false,
+    "pullRequest": false,
+    "deploy": false,
+    "publish": false,
+    "mainWrites": false,
+    "newResearchOrGeneration": false,
+    "nextStep": "Wait for Dan explicit later integration instruction even if audit finishes."
+  },
+  "incidents": [
+    {
+      "kind": "Commons acquisition ownership breach",
+      "catalogId": "VBO:0201144",
+      "incident": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-b/incident-b32-commons-document-acquisition-001.json",
+        "sha256": "61b2f0cdf83e4d98bae859095db3078599d050f4eab296d5d36ec19cf113af03",
+        "bytes": 2187
+      },
+      "adjudication": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/root-adjudication-commons-incident-001.json",
+        "sha256": "c455d9b8d07f6f9d38f3cb576c7a189dce11bc29a9445e17e33e8249b3f9d5a8",
+        "bytes": 1720
+      },
+      "disposition": "Not retroactively authorized. One public PDF request outside allocated owner; no concurrent Commons acquisition or429 found; evidence retained and B access stopped."
+    },
+    {
+      "kind": "Initial duplicate-identity screen errors",
+      "catalogIds": [
+        "VBO:0200985",
+        "VBO:0201015",
+        "VBO:0008028"
+      ],
+      "disposition": "All retired with immutable holds/replacements; first two natives and withdrawn archives retained, third revoked before call. Not counted among100."
+    },
+    {
+      "kind": "Final validator source-label failure",
+      "catalogIds": [
+        "VBO:0200501",
+        "VBO:0200983"
+      ],
+      "disposition": "Three labels shortened to120maximum without changing approved copy/URLs/evidence; original archives retained, revised archives and complete verification pass."
+    }
+  ],
+  "unresolvedProductBlockers": [],
+  "retention": {
+    "offMachineBackupVerified": false,
+    "localOnlyIgnoredRoots": [
+      "reports/dogs-generated-artwork/cohort-n/",
+      "assets/dogs/generated-masters/cohort-n/"
+    ],
+    "preserve": "Keep this worktree, all source snapshots, rejected natives, immutable permits/approvals and archive revisions. Git-tracked WebPs/records do not replace ignored research/master archives."
+  },
+  "integrationPrerequisites": [
+    "Dan explicitly authorizes integration after reviewing the audit; audit completion alone is insufficient.",
+    "Review this N handback and any audit changes; preserve historical cohorts, source evidence and original802 pairs.",
+    "Reconcile on an explicitly authorized integration workspace, then rerun applicable tests and deployment file contract against combined changes.",
+    "Verify or arrange off-machine retention before any worktree cleanup; no such backup is asserted.",
+    "Publication and production checks belong to the later separately authorized release, not this branch-only run."
+  ],
+  "finalMetadataChecks": {
+    "readyValidator": {
+      "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/validate-final-ready.log",
+      "sha256": "6d96e7d6612961aa6e4811991134a984423281fbb99d5bcec5493fd44ee911c9",
+      "bytes": 219
+    },
+    "fullIsolation": {
+      "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/isolation-final-ready.json",
+      "sha256": "312d4e17093ca3d96a4a961f53d5f0b475301a687f9b6175cccd3b2966ef2f7d",
+      "bytes": 329
+    },
+    "deploymentContract": {
+      "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/deployment-final-ready.log",
+      "sha256": "6e5a7728ca4c366dfedc21210e948859dfd2855893b1329ada2633ddb52db6fc",
+      "bytes": 1763
+    },
+    "actualCommitIntegrity": {
+      "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/final-commit-integrity-001.json",
+      "sha256": "5934cfaaab0821c77dc2cda5078ba69a5ddd320e5c247f76d51fc9217c1c1117",
+      "bytes": 35676
+    },
+    "actualCommitFilesVerified": 400,
+    "allThreeAgentStatusesObservedCompleted": true
+  }
+}

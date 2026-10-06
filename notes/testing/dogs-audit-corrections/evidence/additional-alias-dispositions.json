@@ -1,0 +1,53 @@
+[
+  {
+    "findingId": "NEW-META-01",
+    "catalogId": "VBO:0200038",
+    "name": "American Cocker Spaniel",
+    "displayAliases": [],
+    "rationale": "Cocker collides with English Cocker Spaniel and gets no exclusive display owner; Merry Cocker is a character nickname. Retain raw aliases/search.",
+    "evidence": "Actual combined902 candidate has both distinct public IDs and dogDisplayAliases returns Cocker on both."
+  },
+  {
+    "findingId": "NEW-META-01",
+    "catalogId": "VBO:0200486",
+    "name": "English Cocker Spaniel",
+    "displayAliases": [],
+    "rationale": "Cocker collides with American Cocker Spaniel; Cocker Spanie is a truncated string. Neither is suitable precise alternate identity display; preserve search.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/005g08-en.pdf",
+        "evidence": "FCI5 heading identifies English Cocker Spaniel; current display string Cocker Spanie is missing final l."
+      }
+    ]
+  },
+  {
+    "findingId": "NEW-META-02",
+    "catalogId": "VBO:0200716",
+    "name": "Italian Rough-Haired Segugio",
+    "displayAliases": [
+      "Segugio Italiano a Pelo Forte"
+    ],
+    "rationale": "Bare Segugio is generic and shared with short-haired identity. FCI198 verifies the exact rough-haired local name. Preserve raw search; no ownership remap.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/198g06-en.pdf",
+        "evidence": "FCI198 heading gives SEGUGIO ITALIANO A PELO FORTE."
+      }
+    ]
+  },
+  {
+    "findingId": "NEW-META-02",
+    "catalogId": "VBO:0200719",
+    "name": "Italian Short-Haired Segugio",
+    "displayAliases": [
+      "Segugio Italiano a Pelo Raso"
+    ],
+    "rationale": "Bare Segugio is generic and shared with rough-haired identity. FCI337 verifies the exact short-haired local name. Preserve raw search; no ownership remap.",
+    "sources": [
+      {
+        "url": "https://www.fci.be/Nomenclature/Standards/337g06-en.pdf",
+        "evidence": "FCI337 heading gives SEGUGIO ITALIANO A PELO RASO."
+      }
+    ]
+  }
+]

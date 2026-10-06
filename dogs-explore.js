@@ -1,4 +1,4 @@
-import { filterDogGallery, dogGalleryPage } from "./lib/dogs-explore.js?v=1";
+import { filterDogGallery, dogGalleryPage } from "./lib/dogs-explore.js?v=2";
 
 export function createDogsExplorer({ entries, createMedia, openDetail, rankDog }) {
   const $ = (selector) => document.querySelector(selector);

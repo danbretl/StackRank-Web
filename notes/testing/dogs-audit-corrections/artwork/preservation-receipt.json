@@ -1,0 +1,98 @@
+{
+  "checkedAt": "2026-10-06T05:06:25.483055+00:00",
+  "images": [
+    {
+      "catalogId": "VBO:0200271",
+      "oldMaster": {
+        "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/VBO-0200271-campeiro-bulldog.png",
+        "sha256": "34bd852b58d599cf4ac78d67c37ade9212cedb328ff30d0770c294a0de929842",
+        "matchesHistoricalBatch": true
+      },
+      "newMaster": {
+        "path": "assets/dogs/generated-masters/audit-2026-10-06/VBO-0200271-audit-01.png",
+        "sha256": "2850f43d28f4f683979a494a78fb3f0b72fe0bc37e9ab68c6ff33b3dbf869e0f",
+        "bytes": 2822283
+      },
+      "originalToolOutput": {
+        "path": "/Users/danbretl/src/stackrank/generated_images/exec-012f0ec3-7775-4c75-87e4-297a6d210a52.png",
+        "sha256": "2850f43d28f4f683979a494a78fb3f0b72fe0bc37e9ab68c6ff33b3dbf869e0f",
+        "bytes": 2822283
+      },
+      "nativeArchive": {
+        "path": "debug/dogs/audit-corrections/native-archive/VBO-0200271-audit-01.png",
+        "sha256": "2850f43d28f4f683979a494a78fb3f0b72fe0bc37e9ab68c6ff33b3dbf869e0f",
+        "bytes": 2822283
+      },
+      "toolNativeArchiveAllEqual": true,
+      "oldVariants": [
+        {
+          "path": "assets/dogs/generated/VBO-0200271-campeiro-bulldog-320.webp",
+          "sha256": "c78f56d9d4b87bbaf33bf4bb2d282d872dbe3723677bcf3fb9dd5bd27b11380d",
+          "matchesManifest": true
+        },
+        {
+          "path": "assets/dogs/generated/VBO-0200271-campeiro-bulldog-960.webp",
+          "sha256": "e72325b1d9d20d0fffb98318b5de883f39a0091191546f3830f4a139fe153382",
+          "matchesManifest": true
+        }
+      ],
+      "restorationProbe": {
+        "restoredPath": "/tmp/stackrank-audit-root-support/restoration-probe/VBO-0200271-audit-01.png",
+        "source": "debug/dogs/audit-corrections/native-archive/VBO-0200271-audit-01.png",
+        "sha256": "2850f43d28f4f683979a494a78fb3f0b72fe0bc37e9ab68c6ff33b3dbf869e0f",
+        "dimensions": "1536x1024",
+        "matchesNative": true
+      }
+    },
+    {
+      "catalogId": "VBO:0200769",
+      "oldMaster": {
+        "path": "/Users/danbretl/src/stackrank/assets/dogs/generated-masters/cohort-l/worker-a/VBO-0200769-native-01.png",
+        "sha256": "c524181a8d91a46353606d932182ecdea8b2ad8ea6754d401a2f3e4db66e4982",
+        "matchesHistoricalBatch": true
+      },
+      "newMaster": {
+        "path": "assets/dogs/generated-masters/audit-2026-10-06/VBO-0200769-audit-01.png",
+        "sha256": "7d5f290fe56a5960c5b9206aeec3a9cfa5ae8ca1f9b435a3c8951dd388d68871",
+        "bytes": 2907186
+      },
+      "originalToolOutput": {
+        "path": "/Users/danbretl/src/stackrank/generated_images/exec-a06e02da-7a78-4996-a5ee-2a27e758c4b1.png",
+        "sha256": "7d5f290fe56a5960c5b9206aeec3a9cfa5ae8ca1f9b435a3c8951dd388d68871",
+        "bytes": 2907186
+      },
+      "nativeArchive": {
+        "path": "debug/dogs/audit-corrections/native-archive/VBO-0200769-audit-01.png",
+        "sha256": "7d5f290fe56a5960c5b9206aeec3a9cfa5ae8ca1f9b435a3c8951dd388d68871",
+        "bytes": 2907186
+      },
+      "toolNativeArchiveAllEqual": true,
+      "oldVariants": [
+        {
+          "path": "assets/dogs/generated/VBO-0200769-native-01-320.webp",
+          "sha256": "4af3b0745211f12408b5779dd0c75132b938438a0427cd3433cf790bb0bf43c5",
+          "matchesManifest": true
+        },
+        {
+          "path": "assets/dogs/generated/VBO-0200769-native-01-960.webp",
+          "sha256": "04071f95f9ec24d1d8f44ee34736fdd55a2cb41209efefd7eb205082df6f7767",
+          "matchesManifest": true
+        }
+      ],
+      "restorationProbe": {
+        "restoredPath": "/tmp/stackrank-audit-root-support/restoration-probe/VBO-0200769-audit-01.png",
+        "source": "debug/dogs/audit-corrections/native-archive/VBO-0200769-audit-01.png",
+        "sha256": "7d5f290fe56a5960c5b9206aeec3a9cfa5ae8ca1f9b435a3c8951dd388d68871",
+        "dimensions": "1536x1024",
+        "matchesNative": true
+      }
+    }
+  ],
+  "offMacBackup": "unverified",
+  "historicalBatchFiles": "untouched; old variants retained",
+  "callCount": 2,
+  "failedCalls": 0,
+  "retries": 0,
+  "activeCalls": 0,
+  "restorationVerifiedAt": "2026-10-06T05:08:17.455448+00:00"
+}

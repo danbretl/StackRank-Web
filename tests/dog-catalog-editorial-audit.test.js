@@ -55,23 +55,23 @@ test("editorial evidence artifact maps every override changed in the 2026-07-21 
   assert.match(audit, /https:\/\/www\.fao\.org\/dad-is/u);
 });
 
-test("editorial audit counts stay synchronized with deterministic catalog artifacts", () => {
+test("current classification counts include the independently adjudicated October audit corrections", () => {
   assert.deepEqual(review.summary, {
     aliasDecisions: 294,
-    varietyDecisions: 187,
-    crossbreedDecisions: 139,
-    historicalDecisions: 35,
+    varietyDecisions: 189,
+    crossbreedDecisions: 141,
+    historicalDecisions: 40,
     excludedDecisions: 4,
     regionalLandraceCandidates: 20,
     ambiguousSearchNamesRetained: 18,
   });
   assert.deepEqual(coverage.dispositionCounts, {
     alias: 294,
-    canonical: 878,
-    crossbreed: 139,
+    canonical: 869,
+    crossbreed: 141,
     excluded: 4,
-    historical: 35,
-    variety: 187,
+    historical: 40,
+    variety: 189,
   });
   assert.equal(coverage.runtimeEntityCount, 1_239);
 });

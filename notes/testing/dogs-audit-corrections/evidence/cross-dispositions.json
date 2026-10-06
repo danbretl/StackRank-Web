@@ -1,0 +1,2433 @@
+[
+  {
+    "id": "VBO:0200907",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-j02.json",
+    "pointer": "profiles[VBO:0200907].summary/shortDescription",
+    "disposition": "rewritten_and_reopened_after_targeted_research",
+    "rationale": "Initial evidence hold superseded by independently read specific cross/program/working history or observed morphology evidence. Supported concise full/short copy applied with guard; original sources retained.",
+    "originalEvidenceSubjects": "Morkie/Rocky therapy visits",
+    "sourceURLs": [
+      "https://www.up.ac.za/news/upgraduation2022-therapy-dog-takes-centre-stage-phd-graduates-study",
+      "https://repository.up.ac.za/server/api/core/bitstreams/d7992062-3ff3-4be9-b1ed-414d65d3b8b3/content",
+      "https://blog.library.in.gov/my-journey-with-therapy-dogs/"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.up.ac.za/news/upgraduation2022-therapy-dog-takes-centre-stage-phd-graduates-study",
+        "cache": "private-audit:cache/sources/991053e8c45410ca.txt",
+        "sha256": "3426814771d85a6897bf3fb6369ee0d868d9b61ac68384d44099bb64902b8cb1",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://blog.library.in.gov/my-journey-with-therapy-dogs/",
+        "cache": "private-audit:cache/sources/f7406c432431fc02.txt",
+        "sha256": "4816082c010033deb8398ef26337ff0ce98cf98c1071598851776a1d248c7f97",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Morkie",
+    "authoringFileSHA256": "feeb52fefb6de3686a71566d437f62245b266abceb9754068229b20825f284b0",
+    "initialDisposition": "suppress_pending_type_evidence",
+    "finalEvidence": "cross-salvage-patches.json"
+  },
+  {
+    "id": "VBO:0200801",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-k02.json",
+    "pointer": "profiles[VBO:0200801].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on EEbbers TSA working history. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "EEbbers TSA working history",
+    "sourceURLs": [
+      "https://www.tsa.gov/sites/default/files/tsa_canine_calendar_2023.pdf"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.tsa.gov/sites/default/files/tsa_canine_calendar_2023.pdf",
+        "cache": "private-audit:cache/sources/5223061448c4600d.txt",
+        "sha256": "2c0e9c6634eb14ea58f9809dcdb2bd32dc3430d38b68c429c3c751baeab27189",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Labralas",
+    "authoringFileSHA256": "b6f055321518945b4bbee30f5ce8db89776476701095c1adc92e20e2841c06c5"
+  },
+  {
+    "id": "VBO:0201447",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-k02.json",
+    "pointer": "profiles[VBO:0201447].summary/shortDescription",
+    "disposition": "rewrite_supported",
+    "rationale": "Replaces Zoey/Leah therapy-dog biographies with independently located practitioner evidence; no therapy suitability inference.",
+    "originalEvidenceSubjects": "Zoey/Leah therapy visits",
+    "sourceURLs": [
+      "https://www.comfortcaringcanines.org/meet-the-dogs-entry",
+      "https://irp.cdn-website.com/e57fb874/files/uploaded/Newsletter%20Spring%202021.pdf"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://irp.cdn-website.com/e57fb874/files/uploaded/Newsletter%20Spring%202021.pdf",
+        "cache": "private-audit:cache/sources/19777bc9cca99e42.txt",
+        "sha256": "8ff8ea45d2223968957339b23268b41e1517123a09ecde491f478a9f02b4bae5",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://www.comfortcaringcanines.org/meet-the-dogs-entry",
+        "cache": "private-audit:cache/sources/2d134a1c7448bd1f.txt",
+        "sha256": "53559835e41a11f5d80290c0a4f0bd79144f461238cb5338177186d87f2f66d4",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": "VBO:0201447",
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Yorkipoo",
+    "authoringFileSHA256": "b6f055321518945b4bbee30f5ce8db89776476701095c1adc92e20e2841c06c5"
+  },
+  {
+    "id": "VBO:0201417",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-k02.json",
+    "pointer": "profiles[VBO:0201417].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Doctor Ted hospital visits. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Doctor Ted hospital visits",
+    "sourceURLs": [
+      "https://www.gosh.nhs.uk/working-here/volunteering-us/meet-the-gosh-therapy-dogs/"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.gosh.nhs.uk/working-here/volunteering-us/meet-the-gosh-therapy-dogs/",
+        "cache": "private-audit:cache/sources/7702c6272bef9525.txt",
+        "sha256": "3d81b7f7a96d90e895caf522e6b98aaeaedb1ae45a026e9cb0cce2d912aa3254",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Westiepoo",
+    "authoringFileSHA256": "b6f055321518945b4bbee30f5ce8db89776476701095c1adc92e20e2841c06c5"
+  },
+  {
+    "id": "VBO:0200797",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-k03.json",
+    "pointer": "profiles[VBO:0200797].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Georgie/Maree rescue accounts. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Georgie/Maree rescue accounts",
+    "sourceURLs": [
+      "https://www.animalhouseshelter.com/pets/georgie/",
+      "https://www.parklandhumanesociety.com/maree.html"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.parklandhumanesociety.com/maree.html",
+        "cache": "private-audit:cache/sources/0e42a057bf3bea31.txt",
+        "sha256": "a1135f2d5bff2c8fb2a8936998ab4063139ba6221e903cd4081256fa78184cfa",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://www.animalhouseshelter.com/pets/georgie/",
+        "cache": "private-audit:cache/sources/9de33c14cee36cfa.txt",
+        "sha256": "647b838b61f37710ba9c4b1449012c23581ea68f7b4b8401decf1e791eaf4f9a",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Lab-Pei",
+    "authoringFileSHA256": "76103d856f60847b279c4e49045e0e0ab61be391146da770fcb3d2165c7c5fcf"
+  },
+  {
+    "id": "VBO:0200308",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-l01.json",
+    "pointer": "profiles[VBO:0200308].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Tasha flyball account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Tasha flyball account",
+    "sourceURLs": [
+      "https://www.flyball.org.au/media/entry_forms/f1e45f6a60b14210b76ace9627e2bd6c.pdf",
+      "https://www.flyball.org.au/",
+      "https://www.terrierowner.com/jack-russell/cav-a-jack-cavalier-king-charles-spaniel-jack-russell-terrier/"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.flyball.org.au/",
+        "cache": "private-audit:cache/sources/01c2dc7c39efcfc6.txt",
+        "sha256": "7a66ef5fb71ba2618c8f6a5cc3b8586fcdf65dcc7d2fd6bdab30727e3900bcfa",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://www.flyball.org.au/media/entry_forms/f1e45f6a60b14210b76ace9627e2bd6c.pdf",
+        "cache": "private-audit:cache/sources/17e1a2feeca1f273.txt",
+        "sha256": "5c8e140020b80cacfcfe6bb043ec582cfbbadc1e3221f5ce62343cba0ba3853a",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://www.terrierowner.com/jack-russell/cav-a-jack-cavalier-king-charles-spaniel-jack-russell-terrier/",
+        "cache": "private-audit:cache/sources/eff0361ddf0cc4a2.txt",
+        "sha256": "e1629a44fa319cfa4469967d4ba455dbb66664df67edea36eddd2dbf1e885851",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Cavajack",
+    "authoringFileSHA256": "58f6ef84e2727167ab63f84f3abe9dd493de631b92e9f8f30daa113ba826a28b"
+  },
+  {
+    "id": "VBO:0200731",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-l02.json",
+    "pointer": "profiles[VBO:0200731].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Danny school account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Danny school account",
+    "sourceURLs": [
+      "https://www.smithswoodpri.solihull.sch.uk/_site/data/files/documents/904ACDD9D55F84CD2D7646E28F9C36B6.pdf"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.smithswoodpri.solihull.sch.uk/_site/data/files/documents/904ACDD9D55F84CD2D7646E28F9C36B6.pdf",
+        "cache": "private-audit:cache/sources/9c3be2f32eb3c1a5.txt",
+        "sha256": "947edeaa6b0483945f2e01dbddee91a55b6406718d405aca146d75fed00d464d",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Jackshund",
+    "authoringFileSHA256": "d5261fef90f45b26560b53c612c081d5b2fd61d3d656209de5ad02addea8e079"
+  },
+  {
+    "id": "VBO:0200728",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-l03.json",
+    "pointer": "profiles[VBO:0200728].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Prince and one field dog. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Prince and one field dog",
+    "sourceURLs": [
+      "https://www.greenleafanimalrescue.org.uk/details/?id=I3X729",
+      "https://www.surreysecuredogfield.co.uk/testimonials.html",
+      "https://www.terrierowner.com/jack-russell/jackador-jack-russell-labrador-mix/"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.greenleafanimalrescue.org.uk/details/?id=I3X729",
+        "cache": "private-audit:cache/sources/269d501145d27aee.txt",
+        "sha256": "7ac2011a7ce4be89090d661d0c56089ff7e70fb053ea6736e834cb763225b0d3",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://www.surreysecuredogfield.co.uk/testimonials.html",
+        "cache": "private-audit:cache/sources/717ca2e7483db4a5.txt",
+        "sha256": "2892d2b26a0498fe43312f37cecb186825e9a4481eea941daeb8f671abc42e50",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://www.terrierowner.com/jack-russell/jackador-jack-russell-labrador-mix/",
+        "cache": "private-audit:cache/sources/b6ef06dd37c17aa9.txt",
+        "sha256": "7c2e5af41784aee8079921adfd33557c2db4ed0e3e9afb4e0600e5a706a86339",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Jackador",
+    "authoringFileSHA256": "1d1b89ed0f4aed411cff47cf3eea98e813f51de9821b36eaa9eae055b80f2560"
+  },
+  {
+    "id": "VBO:0200369",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-l46.json",
+    "pointer": "profiles[VBO:0200369].summary/shortDescription",
+    "disposition": "rewrite_supported",
+    "rationale": "Replace Watson/Lars therapy visits with specific cross identity/generation distinctions, not generic inherited traits.",
+    "originalEvidenceSubjects": "Watson/Lars care visits",
+    "sourceURLs": [
+      "https://www.osjct.co.uk/news/meet-watson-our-newest-member-team-grace-care-centre",
+      "https://www.northernnewsnow.com/2026/04/30/therapy-dog-brings-joy-essentia-health-patients/",
+      "https://prod-cm.essentiahealth.org/patients-visitors/volunteer/therapy-animal"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.osjct.co.uk/news/meet-watson-our-newest-member-team-grace-care-centre",
+        "cache": "private-audit:cache/sources/cb487952d232bd05.txt",
+        "sha256": "6639b7ffe51fbd68ddbb92921618d66bc3370ff35c1f2857ef5bd6f1ffeefb01",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://www.northernnewsnow.com/2026/04/30/therapy-dog-brings-joy-essentia-health-patients/",
+        "cache": "private-audit:cache/sources/db59c8208db4ba8c.txt",
+        "sha256": "ea518f311b2852d119c145808251d6d5822e13aacf55d8b4b1f2729ed10d9767",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": "VBO:0200369",
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Cockalier",
+    "authoringFileSHA256": "758812c62f20c35847fda2bdb12303ead2c763adf0c3265da30cd9bd245cacd8"
+  },
+  {
+    "id": "VBO:0201222",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m12.json",
+    "pointer": "profiles[VBO:0201222].summary/shortDescription",
+    "disposition": "rewrite_supported",
+    "rationale": "The impact list overstates anecdote-only status: a real multigeneration program is documented. Narrow experience to its program and replace implied whole-cross recurring temperament.",
+    "originalEvidenceSubjects": "Tiny Teddys adult program accounts",
+    "sourceURLs": [
+      "https://tinyteddys.com/",
+      "https://tinyteddys.com/meet-the-parents",
+      "https://tinyteddys.com/breed-info"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://tinyteddys.com/breed-info",
+        "cache": "private-audit:cache/sources/1c1c9de65a5e046e.txt",
+        "sha256": "ab044c5cf0e3b500dffc0a9edf2bdf3655385cbcbfba26e4ddcf7930a5377743",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://tinyteddys.com/",
+        "cache": "private-audit:cache/sources/dec7ef42c676f2a7.txt",
+        "sha256": "da56c485b9593406502865150101d5df1037c5cc4c218d3ec8aaf3518c0c4da5",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": "VBO:0201222",
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Shichon",
+    "authoringFileSHA256": "d5d2cea9908fcafaed8f055fb36e44c17613c92fe44d88c5bc0df1f191dcf73b"
+  },
+  {
+    "id": "VBO:0201285",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m14.json",
+    "pointer": "profiles[VBO:0201285].summary/shortDescription",
+    "disposition": "rewritten_and_reopened_after_targeted_research",
+    "rationale": "Initial evidence hold superseded by independently read specific cross/program/working history or observed morphology evidence. Supported concise full/short copy applied with guard; original sources retained.",
+    "originalEvidenceSubjects": "Molly rescue and Cooper customs",
+    "sourceURLs": [
+      "https://www.wcoomd.org/-/media/wco/public/global/pdf/about-us/annual-competitions/photo-competition-2025.pdf?la=zh-CN",
+      "https://www.forest-dog-rescue.org.uk/dogs/molly/"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.wcoomd.org/-/media/wco/public/global/pdf/about-us/annual-competitions/photo-competition-2025.pdf?la=zh-CN",
+        "cache": "private-audit:cache/sources/a3f5da0b18864437.txt",
+        "sha256": "0d5ba4db3fb03c635d25b26de3592f7d6e4b6e843f1ad88dd5caec779ced683c",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://www.forest-dog-rescue.org.uk/dogs/molly/",
+        "cache": "private-audit:cache/sources/b181805ce0867118.txt",
+        "sha256": "c6485c7951962ccf5fecd43eb9e55f03bbca6eb6cb9921af9c9bd24a263ffac3",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Springador",
+    "authoringFileSHA256": "2f5cd28f0d13edbaa2bc77b94368e37bf028263ccb4d1227302ba76c40d3b1dd",
+    "initialDisposition": "suppress_pending_type_evidence",
+    "finalEvidence": "cross-salvage-patches.json"
+  },
+  {
+    "id": "VBO:0200993",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m17.json",
+    "pointer": "profiles[VBO:0200993].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Willow/Morrie rescue cases. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Willow/Morrie rescue cases",
+    "sourceURLs": [
+      "https://carolinapoodlerescue.org/animal-detail/?AnimalID=21089332",
+      "https://gingerbreaddogs.org/pup/morrie/"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://carolinapoodlerescue.org/animal-detail/?AnimalID=21089332",
+        "cache": "private-audit:cache/sources/5555ac922c634005.txt",
+        "sha256": "7add03983dc03afd91ed6bbb9f141eb70b4b0907c5564390f918433a42dd8ec4",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://gingerbreaddogs.org/pup/morrie/",
+        "cache": "private-audit:cache/sources/b1a20a28022f9f3d.txt",
+        "sha256": "e579d826a30568738cfbd3915e8cc3051120066988fcce1ecbcf529d358e9a07",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Pekepoo",
+    "authoringFileSHA256": "bf8c378593d3b97af03908ce0edd1864fa6ebe0318dbc3508393da4dfa89a3e0"
+  },
+  {
+    "id": "VBO:0201111",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m19.json",
+    "pointer": "profiles[VBO:0201111].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Ziva farm and Nico school. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Ziva farm and Nico school",
+    "sourceURLs": [
+      "https://fameflowerfarm.com/pyredoodle-parents/",
+      "https://www.nb27.org/departments/special-education/meet-nico"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://fameflowerfarm.com/pyredoodle-parents/",
+        "cache": "private-audit:cache/sources/76afdea8e3668548.txt",
+        "sha256": "baf22bbceb39ad304ae3df7e75dac48ea2a9aba8d47afa4e39623e00c92e7e8c",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://www.nb27.org/departments/special-education/meet-nico",
+        "cache": "private-audit:cache/sources/a84465781e3bbfb2.txt",
+        "sha256": "12642ec90dfa8f4ae2864f76bc8869430d410285254c564f10ae3c5de89b00ac",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Pyredoodle",
+    "authoringFileSHA256": "92dd369c80c71edb6cd13685247630997ca00106027d1c11b2dac601d8075a69"
+  },
+  {
+    "id": "VBO:0201228",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m20.json",
+    "pointer": "profiles[VBO:0201228].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Annie Mae keeper account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Annie Mae keeper account",
+    "sourceURLs": [
+      "https://toolkit.rescuegroups.org/j/3/pet1_layout.php?toolkitIndex=0&toolkitKey=D5LxkY3N&animalID=21039027"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://toolkit.rescuegroups.org/j/3/pet1_layout.php?toolkitIndex=0&toolkitKey=D5LxkY3N&animalID=21039027",
+        "cache": "private-audit:cache/sources/08437ce8ab141e6b.txt",
+        "sha256": "7003a32049d2b54f8d070e6128956dbb80936710cc4be198fa435d1bbec9a0f7",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Shiranian",
+    "authoringFileSHA256": "b1d74348d60ff4d73dbcacfb966f00eb4f96f5954be5da0fc3ca963bef9f36b9"
+  },
+  {
+    "id": "VBO:0201063",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m22.json",
+    "pointer": "profiles[VBO:0201063].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Dash and Abigail accounts. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Dash and Abigail accounts",
+    "sourceURLs": [
+      "https://www.petfinder.com/dog/dash-c11b38c6-9309-4efd-9647-ad8047cda492/pa/latrobe/action-for-animals-inc-humane-society-pa60/details/",
+      "https://www.dogbreedinfo.com/poogle.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/poogle.htm",
+        "cache": "private-audit:cache/sources/2574d35c16d1c866.txt",
+        "sha256": "dd9757cced260a07d85cb1a46affdedc0e9f779bf26ce8a775b2de510b8de3fa",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://www.petfinder.com/dog/dash-c11b38c6-9309-4efd-9647-ad8047cda492/pa/latrobe/action-for-animals-inc-humane-society-pa60/details/",
+        "cache": "private-audit:cache/sources/371b3f9d585281a2.txt",
+        "sha256": "a39bfb5723027ad9db53643b696ed1f0f762e8a190bbe65bad275a936cd27591",
+        "auditAccessResult": "HTTP 403 bot challenge; not retried or bypassed"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Poogle",
+    "authoringFileSHA256": "f829e762169c2791fae4f3cdd1a5dc770a10690fa4d49bb722cb38415c1b4a37"
+  },
+  {
+    "id": "VBO:0201227",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m23.json",
+    "pointer": "profiles[VBO:0201227].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Patricia rescue case. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Patricia rescue case",
+    "sourceURLs": [
+      "https://fetchwi.org/doggos/patricia"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://fetchwi.org/doggos/patricia",
+        "cache": "private-audit:cache/sources/ed729aaab2ae0c7b.txt",
+        "sha256": "a2d5e8325c3d7d43924cd9ce6f9419d53374db272e97b1133ca020b487ad1581",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Shinese",
+    "authoringFileSHA256": "959a86269872e0059bff2182d8b41b0d9bdbe2b8ff5cb10fd4daaa62357ee8ac"
+  },
+  {
+    "id": "VBO:0201091",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m24.json",
+    "pointer": "profiles[VBO:0201091].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Murphy/Sammy keeper accounts. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Murphy/Sammy keeper accounts",
+    "sourceURLs": [
+      "https://www.dogbreedinfo.com/pugzu.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/pugzu.htm",
+        "cache": "private-audit:cache/sources/2ea684920ed68c63.txt",
+        "sha256": "846bbb2a48b31ea3c998ca72a8423407e65c2303e642b3da6ece297f5c4ce936",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Pug-Zu",
+    "authoringFileSHA256": "8b1601eab2fe3c9c5d1abdc4295d3f430767a3403c14a7dbb4048a99b4ec84df"
+  },
+  {
+    "id": "VBO:0200317",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m25.json",
+    "pointer": "profiles[VBO:0200317].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Lulu rescue case. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Lulu rescue case",
+    "sourceURLs": [
+      "https://furbabyrescue.com/3-1.html",
+      "https://www.pets4homes.co.uk/classifieds/x5-axfs1h-male-cava-tzu-2-years-old-crewe/"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://furbabyrescue.com/3-1.html",
+        "cache": "private-audit:cache/sources/c1a2e96926a73561.txt",
+        "sha256": "0340c8a37630af9bc630629f6b8bb3ba401d1d84c51e459ddc86e23965072bac",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Cavatzu",
+    "authoringFileSHA256": "93df869756027ebfb2c150c97fa6b2b2022b2a2805423324c44739443cec8bcf"
+  },
+  {
+    "id": "VBO:0200825",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m26.json",
+    "pointer": "profiles[VBO:0200825].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Duffer newsletter profile. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Duffer newsletter profile",
+    "sourceURLs": [
+      "https://photos.imageevent.com/hpnews/heritagepinesnewsletters/July%202012.pdf",
+      "https://petgroomingthegoodthebadthefurry.blogspot.com/2013/03/makeover-mondaylhasapoo.html",
+      "https://www.northwestbreedingservices.com/north-west-puppy-patch"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://photos.imageevent.com/hpnews/heritagepinesnewsletters/July%202012.pdf",
+        "cache": "private-audit:cache/sources/11c65aab3541ab7a.txt",
+        "sha256": "4bf4b7096ddadba3b59068552d2034223c3f2dd0f6060e4587be42311fa7d767",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Lhasa-Poo",
+    "authoringFileSHA256": "a80c614529d12bbfec66b6fad7c3e1893aa37c97a645f89e9bf079167d96df33"
+  },
+  {
+    "id": "VBO:0201444",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m27.json",
+    "pointer": "profiles[VBO:0201444].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Emma keeper account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Emma keeper account",
+    "sourceURLs": [
+      "https://www.dogbreedinfo.com/bichonyorkie.htm",
+      "https://www.dogbreedinfo.com/b/bichonyorkiephotos3.htm",
+      "https://www.dogbreedinfo.com/bruno/puppyraising7.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/bruno/puppyraising7.htm",
+        "cache": "private-audit:cache/sources/7e88ee3607fc55df.txt",
+        "sha256": "951a457a7c157d87f7172e8527cfcceda59c4995a9042ec1fd640dd4222f9776",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://www.dogbreedinfo.com/bichonyorkie.htm",
+        "cache": "private-audit:cache/sources/8be453c4cdfc78eb.txt",
+        "sha256": "1cb2bda0d13a36c99701734e022e8cd77ebad5b4bb410707a4c214271906cf2d",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Yo-Chon",
+    "authoringFileSHA256": "ae71d1131324eacafc27dfe8e4ec546fc019c2bcaaba7ac3be99cf855f556749"
+  },
+  {
+    "id": "VBO:0201096",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m28.json",
+    "pointer": "profiles[VBO:0201096].summary/shortDescription",
+    "disposition": "rewrite_supported",
+    "rationale": "Distinctive breeding scope replaces Daphne/Simba biographies without transferring parent character.",
+    "originalEvidenceSubjects": "Daphne/Simba accounts",
+    "sourceURLs": [
+      "https://www.dogbreedinfo.com/p/pugalier.htm",
+      "https://www.storydogs.org.au/beaumaris",
+      "https://www.cottagecanines.com/pugalier1.html"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.storydogs.org.au/beaumaris",
+        "cache": "private-audit:cache/sources/a96e5cf408a0332c.txt",
+        "sha256": "e95fe857def966d3678bc73a6ef61ebf4cd805f91c9716b2c8f2206e10af3e7c",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://www.dogbreedinfo.com/p/pugalier.htm",
+        "cache": "private-audit:cache/sources/debad7fa4f444330.txt",
+        "sha256": "16bcbf69d3a153c0811e1163eb9818b8eebc0796f161be216c589f0ac072d450",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": "VBO:0201096",
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Pugalier",
+    "authoringFileSHA256": "45eae8ca6f1b3fcabedf1840a2ab4470746a31789fbbf81c6616d3d93b7149f7"
+  },
+  {
+    "id": "VBO:0201193",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m29.json",
+    "pointer": "profiles[VBO:0201193].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Iggy/Scout submissions. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Iggy/Scout submissions",
+    "sourceURLs": [
+      "https://dogsdiscovered.com/poodle-mixes-from-a-z/scoodle"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://dogsdiscovered.com/poodle-mixes-from-a-z/scoodle",
+        "cache": "private-audit:cache/sources/aeaf0ca815b0e929.txt",
+        "sha256": "904c211a276d0ab68ea025a0cb1b1bfb8c571ea533a73169711e08c9a920fe34",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Scoodle",
+    "authoringFileSHA256": "f47ef93d8616468cb4d43af8e7e905fb2fd45c9e085649af7e4e1cafb8c2ab49"
+  },
+  {
+    "id": "VBO:0201098",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m30.json",
+    "pointer": "profiles[VBO:0201098].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Jasmine/Maggie submissions. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Jasmine/Maggie submissions",
+    "sourceURLs": [
+      "https://www.dogbreedinfo.com/pugapoo.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/pugapoo.htm",
+        "cache": "private-audit:cache/sources/3f1a742445d2542f.txt",
+        "sha256": "dfbb70cf4d8bb9d5b8a335d99f5f617c4c34bf223dd36206e47e1831e09bd1cf",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Pugapoo",
+    "authoringFileSHA256": "75ac8bf00731524e005b1a95092a0a3f603f3971f3ed92ad446aa7b58275942d"
+  },
+  {
+    "id": "VBO:0200315",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m31.json",
+    "pointer": "profiles[VBO:0200315].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Minton memorial. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Minton memorial",
+    "sourceURLs": [
+      "https://pettributefund.battersea.org.uk/In-Memory/Not-Your-Average-Bear-Fund",
+      "https://www.dogbreedinfo.com/cavapom.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://pettributefund.battersea.org.uk/In-Memory/Not-Your-Average-Bear-Fund",
+        "cache": "private-audit:cache/sources/d7e3bde2462319ed.txt",
+        "sha256": "812947f84aedff20253335b30dd49ec5fc5c6a54f329c0837b3991d32e0dc92a",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Cavapom",
+    "authoringFileSHA256": "133e576bddc5e148a2a958fb37d55953aa4f120349aaefe89ca79d704b761d2d"
+  },
+  {
+    "id": "VBO:0201097",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m32.json",
+    "pointer": "profiles[VBO:0201097].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Betsy magazine profile. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Betsy magazine profile",
+    "sourceURLs": [
+      "https://simplylocalbillings.com/tails-of-billings-betsy"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://simplylocalbillings.com/tails-of-billings-betsy",
+        "cache": "private-audit:cache/sources/a3424aa839bd0261.txt",
+        "sha256": "0560a4242509575ef4bf8c1fccbfac8ba458e6f16637dda6e05cb826eb2fb45e",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Puganese",
+    "authoringFileSHA256": "3f06bf0aedb30b2277b06585da35da413040361a191e3e24aa8ff173d79ad5fe"
+  },
+  {
+    "id": "VBO:0201040",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m33.json",
+    "pointer": "profiles[VBO:0201040].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Titan owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Titan owner submission",
+    "sourceURLs": [
+      "https://pet-net.net/pomeranian-pug-mix-dog-adoption-edmonton-ab/"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://pet-net.net/pomeranian-pug-mix-dog-adoption-edmonton-ab/",
+        "cache": "private-audit:cache/sources/9d553da81be30e06.txt",
+        "sha256": "7aa1de3efcfff9f05ae5f44718e7262763e7aea5fbcef1ae42c3c867134b85fe",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Pomapug",
+    "authoringFileSHA256": "0618f4a5c8967c713058303dd06d52ffe28300a8255d87cda949faa03208e8ad"
+  },
+  {
+    "id": "VBO:0200796",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m34.json",
+    "pointer": "profiles[VBO:0200796].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Josh owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Josh owner submission",
+    "sourceURLs": [
+      "https://www.dogbreedinfo.com/lachon.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/lachon.htm",
+        "cache": "private-audit:cache/sources/e4baff1772d95d20.txt",
+        "sha256": "3edaf18b12078d32e5283e0cb414dc6bd57812c8fe2cbc5bc93b9c3b076d1e5b",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "La-Chon",
+    "authoringFileSHA256": "4ab1f731276c7f58353ad65c884ce30028478747e12fc7365a4a757bc0384b31"
+  },
+  {
+    "id": "VBO:0200128",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m35.json",
+    "pointer": "profiles[VBO:0200128].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Billy rescue case. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Billy rescue case",
+    "sourceURLs": [
+      "https://post.rescueme.org/24-09-26-00068",
+      "https://post.rescueme.org/24-09-26-00073",
+      "https://www.dogbreedinfo.com/bassetoodle.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://post.rescueme.org/24-09-26-00068",
+        "cache": "private-audit:cache/sources/7f55b70377550825.txt",
+        "sha256": "3ce27fb3c53abe70a57f33671f1f2b42373fa2c8600c2878bc0e7c8872d5ebb5",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Bassoodle",
+    "authoringFileSHA256": "6312603c1d04bf9fc71085a8168139f41d266e09da9d0a30a45e181e00bbafdf"
+  },
+  {
+    "id": "VBO:0200305",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m36.json",
+    "pointer": "profiles[VBO:0200305].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Stanley keeper account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Stanley keeper account",
+    "sourceURLs": [
+      "https://www.dogbreedinfo.com/c/chilier.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/c/chilier.htm",
+        "cache": "private-audit:cache/sources/6b9a6e056ac7b820.txt",
+        "sha256": "f6eaf87d4857c5ec28e72b52a2e7a97266f4d77844e732a7747e492000f355e0",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Cavachi",
+    "authoringFileSHA256": "8cab96d084fa8bd2f1970fddbe5f31bf4f2047c98f27cde4ba80196149794ac5"
+  },
+  {
+    "id": "VBO:0201100",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m37.json",
+    "pointer": "profiles[VBO:0201100].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Polly rescue case. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Polly rescue case",
+    "sourceURLs": [
+      "https://post.rescueme.org/23-01-28-00279",
+      "https://www.dogbreedinfo.com/puginese.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://post.rescueme.org/23-01-28-00279",
+        "cache": "private-audit:cache/sources/668af9ded08d8755.txt",
+        "sha256": "23029711764b477dfa19e37379888e48511281ac18aaa32166e442042303863a",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Puginese",
+    "authoringFileSHA256": "3206a441f7d6d8388832aa3b7263a167f183d9a4036cffd8f111a171f4fef130"
+  },
+  {
+    "id": "VBO:0200371",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m38.json",
+    "pointer": "profiles[VBO:0200371].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Mimi owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Mimi owner submission",
+    "sourceURLs": [
+      "https://dogbreedinfo.com/c/cockatzupictures.htm",
+      "https://www.dogbreedinfo.com/c/cockatzu.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://dogbreedinfo.com/c/cockatzupictures.htm",
+        "cache": "private-audit:cache/sources/f3a64e617e785e65.txt",
+        "sha256": "f992f7bd3decc029a3151513e4d1f91bf69b067f6fd20800a32d4b97391dea7d",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Cockatzu",
+    "authoringFileSHA256": "0dbef44f0f3223bf41a954a6662be3ae221591ceb0d3afa01cf8c23895d13783"
+  },
+  {
+    "id": "VBO:0200195",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m39.json",
+    "pointer": "profiles[VBO:0200195].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Lizzy/Corky submissions. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Lizzy/Corky submissions",
+    "sourceURLs": [
+      "https://www.dogbreedinfo.com/b/borgi.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/b/borgi.htm",
+        "cache": "private-audit:cache/sources/51c7011bdf49722c.txt",
+        "sha256": "a8ba08f23c5d5ea7139610919969adc61bd9fe4f3c07930788febe0003a64697",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Borgi",
+    "authoringFileSHA256": "b37a7313bf5934a686ebfc95c3bb5f484c52ca4fa00e66cca9e305b2333445b6"
+  },
+  {
+    "id": "VBO:0200348",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m40.json",
+    "pointer": "profiles[VBO:0200348].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Coco/Suki submissions. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Coco/Suki submissions",
+    "sourceURLs": [
+      "https://www.dogbreedinfo.com/chinesecrestepoo.htm",
+      "https://dogbreedinfo.com/c/chinesecrestepoopictures.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/chinesecrestepoo.htm",
+        "cache": "private-audit:cache/sources/5add16248b960d44.txt",
+        "sha256": "9c5751dd590a140fc0bcaf200e9f6165114c97a25ccdf83ffcaac4e2043bd9fe",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://dogbreedinfo.com/c/chinesecrestepoopictures.htm",
+        "cache": "private-audit:cache/sources/889baa213dd3fdea.txt",
+        "sha256": "729e3e8b68241240ad29aae763aa2d628c6b3a2f0bd6bf3e90e7a12f4c62a315",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Chinese Crestepoo",
+    "authoringFileSHA256": "6b9b846340c01f10a92ea89e8be357f277aedb1494f53c8a7dffab048ee726cc"
+  },
+  {
+    "id": "VBO:0200245",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m41.json",
+    "pointer": "profiles[VBO:0200245].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Lucie/Bailey submissions. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Lucie/Bailey submissions",
+    "sourceURLs": [
+      "https://www.dogbreedinfo.com/buggs.htm",
+      "https://www.dogbreedinfo.com/buggsphotos3.htm",
+      "https://www.dogbreedinfo.com/buggsphotos.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/buggsphotos3.htm",
+        "cache": "private-audit:cache/sources/a6d67cadac5d14b6.txt",
+        "sha256": "ec963663d863a09e1a14397f180dfb7446234ca06d22fdc8d9a4942eebd8188c",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://www.dogbreedinfo.com/buggs.htm",
+        "cache": "private-audit:cache/sources/d9b2268196c0f77f.txt",
+        "sha256": "5d7c1b79e64a896278bbd4ec0253963158649a4fe4afa78b0543f80583d4d7af",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Bug",
+    "authoringFileSHA256": "aea04c4d91ebded212cf99dde91521310547e0a56df73b6492d6bd97f6a157da"
+  },
+  {
+    "id": "VBO:0200018",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m42.json",
+    "pointer": "profiles[VBO:0200018].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Naomi owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Naomi owner submission",
+    "sourceURLs": [
+      "https://www.dogbreedinfo.com/a/alaskanshepherd.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/a/alaskanshepherd.htm",
+        "cache": "private-audit:cache/sources/926b5ff902531037.txt",
+        "sha256": "04f7864e55151cc6f8d6f0491a329e6cdd327a5a7886ffdd140994985fd036dd",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Alaskan Shepherd Dog",
+    "authoringFileSHA256": "bd2a11ca88580e61e9234505ca0e80752bbc43856a97a88d8631d3c475ea75f2"
+  },
+  {
+    "id": "VBO:0200730",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m43.json",
+    "pointer": "profiles[VBO:0200730].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Frankie owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Frankie owner submission",
+    "sourceURLs": [
+      "https://www.dogbreedinfo.com/j/jacktzu.htm",
+      "https://www.optivizor.co.uk/pages/size-guide",
+      "https://thepunkrockprincess.com/lifestyle/cuteness/dogs-best-friend/"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/j/jacktzu.htm",
+        "cache": "private-audit:cache/sources/1d3e70a75e79947b.txt",
+        "sha256": "766850a7afee9caa0a388cf291ffd7a5ed5289438c676823d3d3fcc247289882",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Jackshit",
+    "authoringFileSHA256": "305acbf3edf2e42c720d900dbe52ef38ee8e3135fdb175305cb2dbff8c5280ef"
+  },
+  {
+    "id": "VBO:0200823",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m44.json",
+    "pointer": "profiles[VBO:0200823].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Ta-shi seven-month puppy. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Ta-shi seven-month puppy",
+    "sourceURLs": [
+      "https://www.dogbreedinfo.com/lhacocker.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/lhacocker.htm",
+        "cache": "private-audit:cache/sources/eab2690213a8697d.txt",
+        "sha256": "e38157310a86d26d047d1bbb8bc0dde7d5d56387c88c8e076f11717d86add178",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Lha-Cocker",
+    "authoringFileSHA256": "02b33bb023e02e89456c684b357d4d0c6ada1388d4ad8de2fdfbf13693279cd6"
+  },
+  {
+    "id": "VBO:0200684",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m45.json",
+    "pointer": "profiles[VBO:0200684].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Dakota/Tikani account, original page inaccessible. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Dakota/Tikani account, original page inaccessible",
+    "sourceURLs": [
+      "https://dogsfriends.me.uk/df-dogs/dakota-and-tikani/",
+      "https://www.dogbreedinfo.com/a/aluskypictures.htm",
+      "https://www.designerkennelclub.com/alaskan-malamute"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://dogsfriends.me.uk/df-dogs/dakota-and-tikani/",
+        "cache": "private-audit:cache/sources/b27dbb00d0de2690.txt",
+        "sha256": "e2b3cf2128fa97b4365b52cfbc18fddf9b635b7b9cc8e35f06d4855834f4652f",
+        "auditAccessResult": "HTTP 404 page not found at audit fetch; content no longer available"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Huskamute",
+    "authoringFileSHA256": "57216d0f944e0a55e7c0d649fcceff8b55537e61663d9417b7da64f7ebc9e9b2",
+    "sourceAccessLimitation": "Some original pages could not independently be read from the audit cache:404/challenge/script shell or missing named passage. Current authoring is explicitly individual-animal text. Hold concerns editorial coverage, not falsity of inaccessible anecdote; no retry/bypass."
+  },
+  {
+    "id": "VBO:0200991",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m46.json",
+    "pointer": "profiles[VBO:0200991].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Kiba owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Kiba owner submission",
+    "sourceURLs": [
+      "https://www.dogbreedinfo.com/p/patterjack.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/p/patterjack.htm",
+        "cache": "private-audit:cache/sources/a70455c30b3e375c.txt",
+        "sha256": "f639b5796a789b6c5030c788dfcbeb1806060ac2d71bbb5afa715d8253cef27b",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Patterjack",
+    "authoringFileSHA256": "6be14d5a9bebdb32c6d9d51ef446453ecd1ec65c31838d069fa41c2dab6b83eb"
+  },
+  {
+    "id": "VBO:0200368",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m47.json",
+    "pointer": "profiles[VBO:0200368].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Amy owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Amy owner submission",
+    "sourceURLs": [
+      "https://www.dogbreedinfo.com/spanador.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/spanador.htm",
+        "cache": "private-audit:cache/sources/4028f13658ae995d.txt",
+        "sha256": "7cdcdda2b9e98fdf05ad0ca4813323d351bd7f24b58f971a4bee0fdec641ad28",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Cockador",
+    "authoringFileSHA256": "b679b21bf611c49f4dff40b26135f5609de6ad4be7b014ddf91365588af99f2c"
+  },
+  {
+    "id": "VBO:0200992",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m48.json",
+    "pointer": "profiles[VBO:0200992].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Tilly travel account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Tilly travel account",
+    "sourceURLs": [
+      "https://www.biosphere.im/news/saturday-stroll-neil-morris",
+      "https://www.dogbreedinfo.com/poodlemix.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.biosphere.im/news/saturday-stroll-neil-morris",
+        "cache": "private-audit:cache/sources/62dfc14e3357cc28.txt",
+        "sha256": "253bfef7148484acc7d9a3bc273a388ed518da3a06fa493bffdcb45df0d1add9",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://www.dogbreedinfo.com/poodlemix.htm",
+        "cache": "private-audit:cache/sources/afe0e015b215cd6a.txt",
+        "sha256": "29dd7f806cb35619266925cc5072ffe95d033280ac7eb37d18373e1faf215532",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Patterpoo",
+    "authoringFileSHA256": "79c6b94a9e4f3f82754cb520b01d1484a04d2f6057ee7052515c5e53fbb70791"
+  },
+  {
+    "id": "VBO:0201286",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m49.json",
+    "pointer": "profiles[VBO:0201286].summary/shortDescription",
+    "disposition": "rewrite_supported",
+    "rationale": "Replace Martha/Beryl/Honey/Clyde habits with distinctive directly recorded program history; no inherited temperament.",
+    "originalEvidenceSubjects": "Manorroy program and Honey/Clyde",
+    "sourceURLs": [
+      "https://www.manorroyspringbatts.com/",
+      "https://www.manorroyspringbatts.com/our-springbatts",
+      "https://www.manorroyspringbatts.com/comments-and-testamonials"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.manorroyspringbatts.com/our-springbatts",
+        "cache": "private-audit:cache/sources/0b6c06114f211bad.txt",
+        "sha256": "8c7e7e0796813589f94dd831ed7bf4a93b49ac50d306dc7d06f269010ae29afb",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://www.manorroyspringbatts.com/",
+        "cache": "private-audit:cache/sources/6937ebc9994d19b6.txt",
+        "sha256": "aa1f75253ca3d9601c457c81ae0d3906dffb568864cfc3244736d1aaa24f7927",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://www.manorroyspringbatts.com/comments-and-testamonials",
+        "cache": "private-audit:cache/sources/a0a8abe0af20f8e6.txt",
+        "sha256": "0c7fe36127d671cdb20570cc6d64276ed92fbe504df4221ebb35e8219a5b5255",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": "VBO:0201286",
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Springbatt",
+    "authoringFileSHA256": "7855ce70d05c48c4a596c79d817b5f6816b358d47ed16510e9a02b26859ee8f4"
+  },
+  {
+    "id": "VBO:0200033",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m50.json",
+    "pointer": "profiles[VBO:0200033].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Hector owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Hector owner submission",
+    "sourceURLs": [
+      "https://www.dogbreedinfo.com/a/americanbullador.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/a/americanbullador.htm",
+        "cache": "private-audit:cache/sources/ad329e768897a206.txt",
+        "sha256": "96298ac9afe2176de3dd4a15bcb074e418f9f28e12ff7eadc872ef9b77416fcf",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "American Bullador",
+    "authoringFileSHA256": "43e535f58b48ab129f649b4b05f81a75bf1da31a14d2c4fea957228269fd856d"
+  },
+  {
+    "id": "VBO:0200870",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m51.json",
+    "pointer": "profiles[VBO:0200870].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Racket owner account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Racket owner account",
+    "sourceURLs": [
+      "https://www.dogbreedinfo.com/e/englishmastweiler.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/e/englishmastweiler.htm",
+        "cache": "private-audit:cache/sources/9042c55238f71a6d.txt",
+        "sha256": "60dae255a8fdb14487474b1307e59b30eb8b88dfd4ae68feb398348553dddac4",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Mastweiler",
+    "authoringFileSHA256": "c8347c510f30fa88ebfdf3eb85368bf95abc032491bd857766cf59c035bb618e"
+  },
+  {
+    "id": "VBO:0201290",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m52.json",
+    "pointer": "profiles[VBO:0201290].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Lenny/Dexter community accounts. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Lenny/Dexter community accounts",
+    "sourceURLs": [
+      "https://www.reddit.com/r/DOG/comments/jci5gw",
+      "https://www.floofsville.com/floof-friends",
+      "https://www.reddit.com/r/notinteresting/comments/1jfnosh"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.reddit.com/r/DOG/comments/jci5gw",
+        "cache": "private-audit:cache/sources/322ad32c63704cfe.txt",
+        "sha256": "83fdf0584f7ad4f3970a9cf2410fc67c46ea0cb6e90a9819263d9abf80b1f65e",
+        "auditAccessResult": "fetch returned a script shell (23 words); not retried or bypassed"
+      },
+      {
+        "url": "https://www.floofsville.com/floof-friends",
+        "cache": "private-audit:cache/sources/52ac3db2e9689da2.txt",
+        "sha256": "d0a7cc9fe5854a48d811469755f1ea7e0ef247ae57571bc36c84fa48eb6e0459",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://www.reddit.com/r/notinteresting/comments/1jfnosh",
+        "cache": "private-audit:cache/sources/6dc234116abd8f6b.txt",
+        "sha256": "a24609f6b7a3bcf02956eade13a36504bb018420d70bd85c493a40662c2d2cb8",
+        "auditAccessResult": "fetch returned a script shell (23 words); not retried or bypassed"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Sprockerpoo",
+    "authoringFileSHA256": "3468bbd2ae1a49fb894164bb391feb4c773eed3d07efa27b914867b6204ac478",
+    "sourceAccessLimitation": "Some original pages could not independently be read from the audit cache:404/challenge/script shell or missing named passage. Current authoring is explicitly individual-animal text. Hold concerns editorial coverage, not falsity of inaccessible anecdote; no retry/bypass."
+  },
+  {
+    "id": "VBO:0201292",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m59.json",
+    "pointer": "profiles[VBO:0201292].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Bella senior rescue. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Bella senior rescue",
+    "sourceURLs": [
+      "https://www.oldies.org.uk/2025/beautiful-sprollie-bella-oldies-club-fostered-nottinghamshire"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.oldies.org.uk/2025/beautiful-sprollie-bella-oldies-club-fostered-nottinghamshire",
+        "cache": "private-audit:cache/sources/a28d1f7b88500cca.txt",
+        "sha256": "18815503107d534df536c2d9dd25ec526070524c6a195fadea8bbfea9a1dbaab",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Sprollie",
+    "authoringFileSHA256": "76092311f8197dbc0f752f3153dfcb470723798a5d80f419b7968c6ba6fb65cd"
+  },
+  {
+    "id": "VBO:0201224",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m61.json",
+    "pointer": "profiles[VBO:0201224].summary/shortDescription",
+    "disposition": "rewritten_and_reopened_after_targeted_research",
+    "rationale": "Initial evidence hold superseded by independently read specific cross/program/working history or observed morphology evidence. Supported concise full/short copy applied with guard; original sources retained.",
+    "originalEvidenceSubjects": "Peggy/Maggie owner submissions",
+    "sourceURLs": [
+      "https://dogbreedinfo.com/shihpoo.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://dogbreedinfo.com/shihpoo.htm",
+        "cache": "private-audit:cache/sources/7416a30e7c9ec425.txt",
+        "sha256": "03169416a9d08fc64605b9dd08f59f7e293245b4d0b4afeb7c08cf4b05cd099a",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Shih-Poo",
+    "authoringFileSHA256": "40eecccff033526aa6757e735d144f9be93759ee49717e72604040765694d53a",
+    "initialDisposition": "suppress_pending_type_evidence",
+    "finalEvidence": "cross-salvage-patches.json"
+  },
+  {
+    "id": "VBO:0200803",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m63.json",
+    "pointer": "profiles[VBO:0200803].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Alex rescue case. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Alex rescue case",
+    "sourceURLs": [
+      "https://www.dogsblog.com/alex-18/"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogsblog.com/alex-18/",
+        "cache": "private-audit:cache/sources/c06179286eae65c1.txt",
+        "sha256": "1c477412cfa497810d6cefd5199d1575dd88b2846f5139549c096fe69f8154f8",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Labstaff",
+    "authoringFileSHA256": "742628987050540547fd0f0b9e85a10cd60c2230b93246426d78bd0b9ca18ac5"
+  },
+  {
+    "id": "VBO:0201047",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m64.json",
+    "pointer": "profiles[VBO:0201047].summary/shortDescription",
+    "disposition": "rewritten_and_reopened_after_targeted_research",
+    "rationale": "Initial evidence hold superseded by independently read specific cross/program/working history or observed morphology evidence. Supported concise full/short copy applied with guard; original sources retained.",
+    "originalEvidenceSubjects": "Bug/Pete owner submissions",
+    "sourceURLs": [
+      "https://dogbreedinfo.com/bichpoo.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://dogbreedinfo.com/bichpoo.htm",
+        "cache": "private-audit:cache/sources/529a153685fd3b58.txt",
+        "sha256": "b0e464a36259d659fb7d272ede119b98d8122814387556cf9306ddfc054ac14f",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Poochon",
+    "authoringFileSHA256": "6c109422478c11aa52aed9d0d017995a7eada0607fe9e0e1b478c0ddcdede4e3",
+    "initialDisposition": "suppress_pending_type_evidence",
+    "finalEvidence": "cross-salvage-patches.json"
+  },
+  {
+    "id": "VBO:0201221",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m65.json",
+    "pointer": "profiles[VBO:0201221].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Tinky ASPCA account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Tinky ASPCA account",
+    "sourceURLs": [
+      "https://dogbreedinfo.com/shichi.htm",
+      "https://dogbreedinfo.com/s/shichipictures.htm",
+      "https://www.aspca.org/nyc/aspca-adoption-center/adoptable-dogs/tinky-a33430031"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.aspca.org/nyc/aspca-adoption-center/adoptable-dogs/tinky-a33430031",
+        "cache": "private-audit:cache/sources/71ce7e79aa7e8bb4.txt",
+        "sha256": "d397e2558fa1952356e7a58ebdd95e9c924a0fc205f7e2aa281cc08e70ffa20f",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "ShiChi",
+    "authoringFileSHA256": "01a1f1e6fc022dd8227c4c9eab310c04560322f0845eb2faacad3112d21b6cd7"
+  },
+  {
+    "id": "VBO:0200861",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m67.json",
+    "pointer": "profiles[VBO:0200861].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Bear rescue case. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Bear rescue case",
+    "sourceURLs": [
+      "https://post.rescueme.org/24-10-22-00310",
+      "https://www.dogbreedinfo.com/m/maltipom.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://post.rescueme.org/24-10-22-00310",
+        "cache": "private-audit:cache/sources/cf05ea0d07fe4c61.txt",
+        "sha256": "846727dc0a2413285a84a333a131fd59a2a9273412af6a8c5af5c16c209622da",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Maltipom",
+    "authoringFileSHA256": "4da8d5f31912be91a01ef0bef43a0cb5674ff0ad66c5ad574dd71d636ff56f16"
+  },
+  {
+    "id": "VBO:0201030",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m68.json",
+    "pointer": "profiles[VBO:0201030].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Porter owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Porter owner submission",
+    "sourceURLs": [
+      "https://www.nokillnetwork.org/adoption/colorado/fort-collins/rottweiler-german-short-hair-pointer-dog-porter-2138618",
+      "https://www.adoptapet.com/pet/43875663-bend-oregon-german-shorthaired-pointer-mix"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.nokillnetwork.org/adoption/colorado/fort-collins/rottweiler-german-short-hair-pointer-dog-porter-2138618",
+        "cache": "private-audit:cache/sources/cc07a6fde960df12.txt",
+        "sha256": "6e3ba64785f90cb0cc6d44e67d8448aaae1844a724dfb32cb18841c791f73623",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Pointer-Rottweiler Mix",
+    "authoringFileSHA256": "6effa518ec531815bfc0e2c7d331355350192d01275538aa48f1b65052a9dc32"
+  },
+  {
+    "id": "VBO:0200329",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m69.json",
+    "pointer": "profiles[VBO:0200329].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Tuffy/Oreo owner submissions. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Tuffy/Oreo owner submissions",
+    "sourceURLs": [
+      "https://dogbreedinfo.com/chipoophotos3.htm",
+      "https://www.dogbreedinfo.com/chipoophotos2.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/chipoophotos2.htm",
+        "cache": "private-audit:cache/sources/30b9f60460f0fd8d.txt",
+        "sha256": "71e36e6070c2a710e12f76e8971e8b31e2d6e23413577094b5475f8d7adb3bc5",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://dogbreedinfo.com/chipoophotos3.htm",
+        "cache": "private-audit:cache/sources/3a7ebd7243f7b709.txt",
+        "sha256": "798df18b611b214269d46ba2e1ee8ea5481197bb18d44585e460f4c3a77e5168",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Chi-Poo",
+    "authoringFileSHA256": "094880f367fd3a130f3815490b89194f8fd0653b033e3830c66d033590d33ca2"
+  },
+  {
+    "id": "VBO:0201229",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m70.json",
+    "pointer": "profiles[VBO:0201229].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Cisco owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Cisco owner submission",
+    "sourceURLs": [
+      "https://www.aspca.org/nyc/aspca-adoption-center/adoptable-dogs/maxie-a41190739",
+      "https://wagwalking.com/breed/shollie"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://wagwalking.com/breed/shollie",
+        "cache": "private-audit:cache/sources/6b0fcf3a95e689a6.txt",
+        "sha256": "006d23ca4c0d667197ba26183458c3b98a5c9487c703646c6bb29d6ae7998188",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Shollie",
+    "authoringFileSHA256": "b7d97dcfabb6c62be85311daa980a0d146bfe7abc76623a5cca191f45a094802"
+  },
+  {
+    "id": "VBO:0200256",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m71.json",
+    "pointer": "profiles[VBO:0200256].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Queenie rescue case. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Queenie rescue case",
+    "sourceURLs": [
+      "https://legacy.manytearsrescue.org/display_all_mtar_dogs.php?counter=37&id=81"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://legacy.manytearsrescue.org/display_all_mtar_dogs.php?counter=37&id=81",
+        "cache": "private-audit:cache/sources/7ca1982850cf67d7.txt",
+        "sha256": "1056f1b33ccf5fff4556398132731759ee71df6bb1730be4b17e0d09d75adf35",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Bull-Pei",
+    "authoringFileSHA256": "6f28ad2e54a6cb0fff1b4550e8fc532eeccffa07173986b7b7c0e1566ad785b7"
+  },
+  {
+    "id": "VBO:0200858",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m72.json",
+    "pointer": "profiles[VBO:0200858].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Mocha rescue case. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Mocha rescue case",
+    "sourceURLs": [
+      "https://www.doggierescue.com/dogs/mocca/"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.doggierescue.com/dogs/mocca/",
+        "cache": "private-audit:cache/sources/fd6bc8c73ff80665.txt",
+        "sha256": "492e8aab6c2a41ebdbec1c13aa2b48510f244b0d4fb9f1980021f5ad50e5c969",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Maltese Jack Russell Mix",
+    "authoringFileSHA256": "a35ca7abc8ea8ea844b06b6ea9d3b08a564efdf2bfa97254399e4e13cfe88b78"
+  },
+  {
+    "id": "VBO:0200725",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m75.json",
+    "pointer": "profiles[VBO:0200725].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Ralph rescue account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Ralph rescue account",
+    "sourceURLs": [
+      "https://almosthome.dog/dogs/ralph-5/",
+      "https://www.jackapoos.com/"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://almosthome.dog/dogs/ralph-5/",
+        "cache": "private-audit:cache/sources/c353bb59cbc12abc.txt",
+        "sha256": "a3bf40a81588fa05337c87d2d7cc8f5eb35080d18c153018043b295a0616f0ad",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Jack-A-Poo",
+    "authoringFileSHA256": "dcc54867fbb2dd34cf8853f560be590d9221480ce1921b85a359c27ae4258a0a"
+  },
+  {
+    "id": "VBO:0201445",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m76.json",
+    "pointer": "profiles[VBO:0201445].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Chico owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Chico owner submission",
+    "sourceURLs": [
+      "https://www.amomeupet.org/noticias/9640/conheca-chico-um-filhote-mistura-entre-as-racas-lulu-da-pomerania-e-yorkshire",
+      "https://www.saveayorkierescue.org/animals/detail?AnimalID=4107151"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.amomeupet.org/noticias/9640/conheca-chico-um-filhote-mistura-entre-as-racas-lulu-da-pomerania-e-yorkshire",
+        "cache": "private-audit:cache/sources/9d1f8b754fb85faa.txt",
+        "sha256": "6fba34153e3822ae670a0dbb7a3586675443179d4797f97b7fc3b33f04527b01",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Yoranian",
+    "authoringFileSHA256": "8edc2e229d61ffc723e2c1577234ce44eed388a213c46019a58a714e2c38429f"
+  },
+  {
+    "id": "VBO:0201101",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m77.json",
+    "pointer": "profiles[VBO:0201101].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Coal/Rudy owner submissions. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Coal/Rudy owner submissions",
+    "sourceURLs": [
+      "https://www.harleyshounds.org/get-involved/animals/rudi/",
+      "https://wagwalking.com/breed/pugland"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.harleyshounds.org/get-involved/animals/rudi/",
+        "cache": "private-audit:cache/sources/96c7d9f8cfeb6747.txt",
+        "sha256": "6f96b3e050504b16e9791e74c3ec48c137b7e7213750c7e019252210f373cd19",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://wagwalking.com/breed/pugland",
+        "cache": "private-audit:cache/sources/ba7db8921d2bdb12.txt",
+        "sha256": "ab220e4499ab86e9b9dad602cdb63a835d55c9b6cd581515f4b475d985ab3d66",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Pugland",
+    "authoringFileSHA256": "7fe3b00fee2f05efd0f165f5424cf597a13f16795872f421901ea78293358f7a"
+  },
+  {
+    "id": "VBO:0201232",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m79.json",
+    "pointer": "profiles[VBO:0201232].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Angel rescue case. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Angel rescue case",
+    "sourceURLs": [
+      "https://new.shelterluv.com/embed/animal/NMDR-A-13141?embedded=1&iframeId=shelterluv_wrap_1761081372&columns=1",
+      "https://nmdr.org/available-dogs/"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://new.shelterluv.com/embed/animal/NMDR-A-13141?embedded=1&iframeId=shelterluv_wrap_1761081372&columns=1",
+        "cache": "private-audit:cache/sources/d612f68b8b53ee23.txt",
+        "sha256": "d8250f00120a508e776b80adc713d66196ae358ad5cef9fdf9c759d18e4b4cc7",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Shug",
+    "authoringFileSHA256": "800579eb8dd3aa3db2b988d96802ded8c9f1727dfcec9cef9233930f4ae5a841"
+  },
+  {
+    "id": "VBO:0201289",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m80.json",
+    "pointer": "profiles[VBO:0201289].summary/shortDescription",
+    "disposition": "rewritten_and_reopened_after_targeted_research",
+    "rationale": "Initial evidence hold superseded by independently read specific cross/program/working history or observed morphology evidence. Supported concise full/short copy applied with guard; original sources retained.",
+    "originalEvidenceSubjects": "Harry/Patch/Rufus accounts",
+    "sourceURLs": [
+      "https://malcataanimals.org/harry/",
+      "https://yearofthedogblog.com/2015/08/09/year-of-th-dog-day-221/"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://malcataanimals.org/harry/",
+        "cache": "private-audit:cache/sources/de40a82c53cf2eea.txt",
+        "sha256": "aba3c58a71071eb1a2df0c2ebc57eceae06e60168213daf9abc77f5c513dd9dd",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://yearofthedogblog.com/2015/08/09/year-of-th-dog-day-221/",
+        "cache": "private-audit:cache/sources/fe4efb95d81cf01c.txt",
+        "sha256": "6b65920b132b64b234296d749ff96314243de6ac9d8f41043954f56dde104a6b",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Sprocker Spaniel",
+    "authoringFileSHA256": "9207c8f1590ef2fe4557f6539890d278703395e2b873a1fa4899e5430e83bc87",
+    "initialDisposition": "suppress_pending_type_evidence",
+    "finalEvidence": "cross-salvage-patches.json"
+  },
+  {
+    "id": "VBO:0200328",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m81.json",
+    "pointer": "profiles[VBO:0200328].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Joy/Hope rescue sisters. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Joy/Hope rescue sisters",
+    "sourceURLs": [
+      "https://www.chihuahua-rescue.com/team/hope-and-joy-bonded-sisters-coming-late-august/"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.chihuahua-rescue.com/team/hope-and-joy-bonded-sisters-coming-late-august/",
+        "cache": "private-audit:cache/sources/8b2919f6cf140098.txt",
+        "sha256": "bc1a805d73c8f7e224400c3b5fd81229d775474133306d2db4257f36e8ca4562",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Chi-Con",
+    "authoringFileSHA256": "8c03025d830389583106e1a9885114f21881eb5e584af29dc6414a1cdc341dde"
+  },
+  {
+    "id": "VBO:0201039",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m82.json",
+    "pointer": "profiles[VBO:0201039].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Levi memoir. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Levi memoir",
+    "sourceURLs": [
+      "https://peacefulendings.net/2026/03/28/a-pomapoo-a-cruise-on-lake-michigan-and-the-question-that-many-need-answered/"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://peacefulendings.net/2026/03/28/a-pomapoo-a-cruise-on-lake-michigan-and-the-question-that-many-need-answered/",
+        "cache": "private-audit:cache/sources/711a7fe1645304f2.txt",
+        "sha256": "dc145accef76b6453275a9f734c302790d55e4e6129f168de94229790afda0ea",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Pomapoo",
+    "authoringFileSHA256": "8fa40e3f11bd3d3499c8e1db662bc404a10673c674cc37f1f033eb3d0f262b19"
+  },
+  {
+    "id": "VBO:0200844",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m84.json",
+    "pointer": "profiles[VBO:0200844].summary/shortDescription",
+    "disposition": "rewrite_supported",
+    "rationale": "Reject any claim that type evidence is absent: NKC supplies it. Remove unnecessary Bull/Tank anecdotes.",
+    "originalEvidenceSubjects": "NKC standard plus Bull/Tank",
+    "sourceURLs": [
+      "https://nationalkennelclub.com/majestic-tree-hound/",
+      "https://www.dogbreedinfo.com/m/majestictreehound.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/m/majestictreehound.htm",
+        "cache": "private-audit:cache/sources/62e5ce2d013e1de5.txt",
+        "sha256": "1e2251b2a30965123abd0a7175c469d5eb01c65235ea22dcf8cccb5db93fb4e2",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://nationalkennelclub.com/majestic-tree-hound/",
+        "cache": "private-audit:cache/sources/df998f56514d50b5.txt",
+        "sha256": "1b5698c81e949948e7403ec1b1e2b2aa0144cd2db0cd742fc9935a66702f1160",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": "VBO:0200844",
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Majestic Tree Hound",
+    "authoringFileSHA256": "b42062f1a660ee55814a081a0f1bf729b1ab3e705db9376bc64ca15270c830a9"
+  },
+  {
+    "id": "VBO:0200325",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m85.json",
+    "pointer": "profiles[VBO:0200325].summary/shortDescription",
+    "disposition": "rewritten_and_reopened_after_targeted_research",
+    "rationale": "Initial evidence hold superseded by independently read specific cross/program/working history or observed morphology evidence. Supported concise full/short copy applied with guard; original sources retained.",
+    "originalEvidenceSubjects": "Prancer/Blitzen rescue",
+    "sourceURLs": [
+      "https://puppyfinder.com/radn-1472229"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://puppyfinder.com/radn-1472229",
+        "cache": "private-audit:cache/sources/fa98d8837095791e.txt",
+        "sha256": "5405e457e94046ba6495108386f2a689be12f440f01717be415b65682060d548",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Chesador",
+    "authoringFileSHA256": "68414a76567e8da0bbe047cb0f29b90a245fc412c26d3726736bf2bc5bd0d20a",
+    "initialDisposition": "suppress_pending_type_evidence",
+    "finalEvidence": "cross-salvage-patches.json"
+  },
+  {
+    "id": "VBO:0200293",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m86.json",
+    "pointer": "profiles[VBO:0200293].summary/shortDescription",
+    "disposition": "rewrite_supported",
+    "rationale": "Program standard exists; replace Roger/Albert biographies with standard and developmental identity, retaining scope.",
+    "originalEvidenceSubjects": "JCF program standard and Roger/Albert",
+    "sourceURLs": [
+      "https://jcfcarlinpinschers.weebly.com/breed-standard.html",
+      "https://jcfcarlinpinschers.weebly.com/faq.html",
+      "https://jcfcarlinpinschers.weebly.com/jcfs-jolly-roger.html",
+      "https://jcfcarlinpinschers.weebly.com/jcfs-dread-pirate-albert-bn.html",
+      "https://jcfcarlinpinschers.weebly.com/gold-ridges-bronson.html"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://jcfcarlinpinschers.weebly.com/faq.html",
+        "cache": "private-audit:cache/sources/6c96fb58399e9611.txt",
+        "sha256": "be4954da9a452e188d2eb897a2e59f799760900db0f0aab5afc2ba2a386dfa8e",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://jcfcarlinpinschers.weebly.com/jcfs-jolly-roger.html",
+        "cache": "private-audit:cache/sources/752992d5b2c88888.txt",
+        "sha256": "9cbc64fc37e76abd2f58fb9921eab7b27e00e7471ddaa4abe66529024ae290b6",
+        "auditAccessResult": "opened_and_read"
+      },
+      {
+        "url": "https://jcfcarlinpinschers.weebly.com/jcfs-dread-pirate-albert-bn.html",
+        "cache": "private-audit:cache/sources/c0674e44b80cd263.txt",
+        "sha256": "f436d835095a0425612ab8c23479636c14b074bd449cb1130ec8aa7cf4e32f09",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": "VBO:0200293",
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Carlin Pinscher",
+    "authoringFileSHA256": "90c86dd2463da049a89c8e5aa3746e9f22d67d8c964a056f1e1f3beec5c81734"
+  },
+  {
+    "id": "VBO:0200052",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m88.json",
+    "pointer": "profiles[VBO:0200052].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Pablo/MingMing keeper accounts. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Pablo/MingMing keeper accounts",
+    "sourceURLs": [
+      "https://wagwalking.com/breed/american-lo-sze-pugg",
+      "https://www.dogbreedinfo.com/americanloszepugg.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://wagwalking.com/breed/american-lo-sze-pugg",
+        "cache": "private-audit:cache/sources/4585c40eb410fc64.txt",
+        "sha256": "a063b14f466a862144ea4bf1e9227ca10433b424d54047b4583a0cd5c488fa75",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "American Lo-Size Pugg",
+    "authoringFileSHA256": "8ff3067126af9de1b586bcaa60192eda408e6732dfc04fe2e9857502a88d7236"
+  },
+  {
+    "id": "VBO:0201288",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m90.json",
+    "pointer": "profiles[VBO:0201288].summary/shortDescription",
+    "disposition": "rewrite_supported",
+    "rationale": "Replace Lacy rescue behavior with documented developmental choices; narrow explicitly to one program.",
+    "originalEvidenceSubjects": "Lacy rescue case",
+    "sourceURLs": [
+      "https://phoenixanimalrescue.com/adopt/lacy/"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://phoenixanimalrescue.com/adopt/lacy/",
+        "cache": "private-audit:cache/sources/558d296f5ed4b937.txt",
+        "sha256": "c9974afceef31cfe809a4e0f16d26a1440643424fb70c6aa3ec080be31da8748",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": "VBO:0201288",
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Springerdoodle",
+    "authoringFileSHA256": "0e400855ca9c61c8d94a80baa86f7b2f6736938d8e9c7a95f496f70c624a4a8c"
+  },
+  {
+    "id": "VBO:0200028",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m94.json",
+    "pointer": "profiles[VBO:0200028].summary/shortDescription",
+    "disposition": "rewritten_and_reopened_after_targeted_research",
+    "rationale": "Initial evidence hold superseded by independently read specific cross/program/working history or observed morphology evidence. Supported concise full/short copy applied with guard; original sources retained.",
+    "originalEvidenceSubjects": "Rascal/Capone with differing reported mixes",
+    "sourceURLs": [
+      "https://dogbreedinfo.com/americanbandoggemastiffphotos.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://dogbreedinfo.com/americanbandoggemastiffphotos.htm",
+        "cache": "private-audit:cache/sources/35a88383c39c5060.txt",
+        "sha256": "899f132b89d27c3a98b385db9f8f5250b24c81eef8d97829a78cc5af224bbd74",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "American Bandogge Mastiff",
+    "authoringFileSHA256": "2fbd8777001c8a9f4af4f5175dbe0348664004ac34557c7acdd320a1f8eb64c9",
+    "initialDisposition": "suppress_pending_type_evidence",
+    "finalEvidence": "cross-salvage-patches.json"
+  },
+  {
+    "id": "VBO:0200184",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m96.json",
+    "pointer": "profiles[VBO:0200184].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "The retained profile relies on Sassy rescue account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
+    "originalEvidenceSubjects": "Sassy rescue account",
+    "sourceURLs": [
+      "https://www.petfinder.com/dog/sassy-27cdabff-7632-4f5f-9c8e-3485617bbe71/ct/lebanon/fetching-hearts-rescue-ct594/details/",
+      "https://www.fetchingheartsrescue.org/adoptable-dogs"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.petfinder.com/dog/sassy-27cdabff-7632-4f5f-9c8e-3485617bbe71/ct/lebanon/fetching-hearts-rescue-ct594/details/",
+        "cache": "private-audit:cache/sources/c5e80ef438bcc335.txt",
+        "sha256": "e8190cb48a1af7abb814d96ffaa589ea02db846834e08446db31bd5926a1852e",
+        "auditAccessResult": "HTTP 403 bot challenge; not retried or bypassed"
+      }
+    ],
+    "replacementPatch": null,
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Bochi",
+    "authoringFileSHA256": "6107530d15020a538cd6d40741f02100d05dfb44bbe1663f7b6afd0d2c315ec8",
+    "sourceAccessLimitation": "Some original pages could not independently be read from the audit cache:404/challenge/script shell or missing named passage. Current authoring is explicitly individual-animal text. Hold concerns editorial coverage, not falsity of inaccessible anecdote; no retry/bypass."
+  },
+  {
+    "id": "VBO:0200424",
+    "finding": "F-SYS-11",
+    "baseline": "current in main and N candidate",
+    "authoringFile": "data/dogs/profile-refresh-m98.json",
+    "pointer": "profiles[VBO:0200424].summary/shortDescription",
+    "disposition": "rewrite_supported",
+    "rationale": "Historical program account can establish a narrow type history; Smokey character cannot establish its temperament. Keep uncertainty in exact attribution.",
+    "originalEvidenceSubjects": "Smokey foundation keeper account",
+    "sourceURLs": [
+      "https://www.dogbreedinfo.com/dakotahshepherd.htm"
+    ],
+    "retainedOriginals": [
+      {
+        "url": "https://www.dogbreedinfo.com/dakotahshepherd.htm",
+        "cache": "private-audit:cache/sources/3dd281907b6e7570.txt",
+        "sha256": "770e6da1e44a78a1334e59e80bb7a5903f7ab8649e8aaa5475996dc1b961bbf1",
+        "auditAccessResult": "opened_and_read"
+      }
+    ],
+    "replacementPatch": "VBO:0200424",
+    "verification": "Original authoring full and short read; original source scope compared using retained excerpts and source evidence, with independent fresh public research for targeted leads. No image or factual invalidity inferred from suppression.",
+    "displayName": "Dakotah Shepherd Dog",
+    "authoringFileSHA256": "c15fed2fc88736a8da507fe1de018e90a25084b6ebfd714dd931881bbe29a88d"
+  },
+  {
+    "id": "VBO:0201404",
+    "finding": "NEW-SYS11-N-0201404",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n109.json",
+    "pointer": "profiles[VBO:0201404].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "Laika, an owner submission; no cross-wide observations",
+    "sourceURLs": [
+      "https://www.rover.com/members/roxanne-m-wfh-couple-lots-of-love-exercise/",
+      "https://www.rover.com/members/roxanne-m-wfh-couple-lots-of-love-exercise/"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Weimardoodle",
+    "authoringFileSHA256": "08408d01b34bf7f2b12ffac5af02fe4da2c51f903c1822b2a124ffae1b7668fd"
+  },
+  {
+    "id": "VBO:0200390",
+    "finding": "NEW-SYS11-N-0200390",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n76.json",
+    "pointer": "profiles[VBO:0200390].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "Wildfire, one sanctuary coyote–dog; behavior generalized from one animal and domestic/wild eligibility separately belongs to lead",
+    "sourceURLs": [
+      "https://www.yamnuskawolfdogsanctuary.com/news/spread-love-like-wildfire-fundraiser",
+      "https://www.yamnuskawolfdogsanctuary.com/news/warmland-wolfdog-rescue",
+      "https://www.yamnuskawolfdogsanctuary.com/yamnuska-wolfdogs"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Coydog",
+    "authoringFileSHA256": "3c9fcb2625eee2d9ed005f1014b3f537b60460549d0e4cbb5acbe7f9bea51d1e"
+  },
+  {
+    "id": "VBO:0200330",
+    "finding": "NEW-SYS11-N-0200330",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n88.json",
+    "pointer": "profiles[VBO:0200330].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "Oreo, one terrier–Chihuahua rescue dog with unspecified terrier ancestry",
+    "sourceURLs": [
+      "https://www.caninerescue.org/project/oreo/"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Chi-Terrier",
+    "authoringFileSHA256": "7c2fecd3882c3810bc8a2d4d49178d3930440941241ff5410a9091d788b85820"
+  },
+  {
+    "id": "VBO:0200451",
+    "finding": "NEW-SYS11-N-0200451",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n74.json",
+    "pointer": "profiles[VBO:0200451].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "Sissy/Winston/Lana and other keeper anecdotes; Kellys independently opened page concerns its eight-week sale puppies, not mature type evidence",
+    "sourceURLs": [
+      "https://www.kellyskennels.co.uk/pups/coming-soon/dorkie/",
+      "https://www.dogbreedinfo.com/dorkie.htm",
+      "https://www.greenfieldpuppies.com/dorkie-puppies-for-sale/reviews/",
+      "https://www.dogbreedinfo.com/dorkiephotos.htm"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Dorkie",
+    "authoringFileSHA256": "ffc907bb0fbe5c87baf230e436639037537025ac1db7f4c7df3c18821892521c"
+  },
+  {
+    "id": "VBO:0201446",
+    "finding": "NEW-SYS11-N-0201446",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n75.json",
+    "pointer": "profiles[VBO:0201446].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "Baxter adult submission plus commercial Yorkie Russell puppy litter descriptions; whole-cross adult claims exceed those scopes",
+    "sourceURLs": [
+      "https://ridgewood2.ridgewoodpuppies.com/tag/yorkie-russell/",
+      "https://www.dogbreedinfo.com/yorkierussell.htm"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Yorkie Russell",
+    "authoringFileSHA256": "733cf102f85c4dde314fad7d1cc6643aa215d111b6f1cfc62a0d480778822e72"
+  },
+  {
+    "id": "VBO:0200826",
+    "finding": "NEW-SYS11-N-0200826",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n77.json",
+    "pointer": "profiles[VBO:0200826].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "Belle one-year keeper submission and Lily Reddit appearance; generalized company/play exceeds one-dog observations",
+    "sourceURLs": [
+      "https://www.dogbreedinfo.com/lhasalier.htm",
+      "https://www.reddit.com/r/LhasaApso/comments/16hlgmd/can_you_guess_what_shes_mixed_with/"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Lhasalier",
+    "authoringFileSHA256": "6adcecc595ae0a8db25f55c6ae510d11deaf2f6d2bd9ee98634f09f61cf874ed"
+  },
+  {
+    "id": "VBO:0200268",
+    "finding": "NEW-SYS11-N-0200268",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n78.json",
+    "pointer": "profiles[VBO:0200268].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "Sasha memoir and Sadie Mae shelter bulletin; cross-wide activity and learning claims exceed named dogs",
+    "sourceURLs": [
+      "https://educated-traveller.com/2020/04/06/sasha-says-over-and-out-from-me/",
+      "https://content.govdelivery.com/accounts/KYLOUISVILLE/bulletins/2e780e6"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Cairnoodle",
+    "authoringFileSHA256": "2ab2d309cb126343ae7c770c86f1a5d54c1349946eb003197905d07748f5e244"
+  },
+  {
+    "id": "VBO:0201044",
+    "finding": "NEW-SYS11-N-0201044",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n79.json",
+    "pointer": "profiles[VBO:0201044].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "Luna classified and Foxy memorial; generalized companion character exceeds those animals",
+    "sourceURLs": [
+      "https://www.pom-owners.co.uk/classified/57284/luna-pomeranian-chow",
+      "https://www.peaceofminddogrescue.org/adoptionstories.php",
+      "https://www.peaceofminddogrescue.org/inmemory.php"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Pomeranian-Chow Chow Mix",
+    "authoringFileSHA256": "b404fa9000ab162678ca8414dba00ddf9bd112e7cf71705f0f6206fcb69d5873"
+  },
+  {
+    "id": "VBO:0201283",
+    "finding": "NEW-SYS11-N-0201283",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n80.json",
+    "pointer": "profiles[VBO:0201283].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "Chloe in one author’s successive accounts, not independent observations of the Sporgi population",
+    "sourceURLs": [
+      "https://stringofdogs.com/2014/06/22/letting-go-of-the-leash/",
+      "https://stringofdogs.com/2023/07/13/libraries-are-cool/",
+      "https://stringofdogs.com/2026/06/19/every-day-should-be-an-adventure/",
+      "https://stringofdogs.com/2016/03/27/happy-easter/"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Sporgi",
+    "authoringFileSHA256": "ace156b934bd5f46e5ffaeb65d13ce8bcaf072291c6cda47e27b2d29a3e5a482"
+  },
+  {
+    "id": "VBO:0200318",
+    "finding": "NEW-SYS11-N-0200318",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n81.json",
+    "pointer": "profiles[VBO:0200318].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "Louis travel blog, Charlie/Poppy Wag submissions and Pepper owner account; selected individuals cannot establish Cavestie tendencies",
+    "sourceURLs": [
+      "https://journeysonfoot.blogspot.com/2010/07/",
+      "https://wagwalking.com/breed/cavestie",
+      "https://www.dogbreedinfo.com/cavestie.htm"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Cavestie",
+    "authoringFileSHA256": "8c30afce9c43fd36d3b58f85aa3fd8d6a73288bdf0da14486914ab8f48e9f0e8"
+  },
+  {
+    "id": "VBO:0200367",
+    "finding": "NEW-SYS11-N-0200367",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n83.json",
+    "pointer": "profiles[VBO:0200367].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "Reggie Rover and Ginger/Toby submissions; generalized attachment and activity are anecdotes",
+    "sourceURLs": [
+      "https://www.rover.com/members/karen-g-experienced-dog-and-walking-lover/",
+      "https://www.dogbreedinfo.com/cockachon.htm"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Cockachon",
+    "authoringFileSHA256": "4649a8eb1568bbab8a41144faa064d9396a6fbd01c76bc396681f18dd45ec6a6"
+  },
+  {
+    "id": "VBO:0201090",
+    "finding": "NEW-SYS11-N-0201090",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n84.json",
+    "pointer": "profiles[VBO:0201090].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "Brandi rescue, Taz daycare and Chico sitting account; parentage does not validate whole-cross character",
+    "sourceURLs": [
+      "https://ehrdogs.rescuegroups.org/animals/detail?AnimalID=13076295",
+      "https://doggydaycareandspa.com/hip_hound/meet-taz-smith/",
+      "https://mindahome.com.au/house-sitting-positions/subiaco-western-australia.~4jj9"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Pug-Labrador Retriever Mix",
+    "authoringFileSHA256": "a9937100b9339811745f65c9d1c0bb62c1bb9ffb80a5656af9879aeaaaf52c78"
+  },
+  {
+    "id": "VBO:0200213",
+    "finding": "NEW-SYS11-N-0200213",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n86.json",
+    "pointer": "profiles[VBO:0200213].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "Baxter Reddit and Imgur DNA chart; chart reports additional mixed ancestry and does not establish two-parent cross-wide temperament",
+    "sourceURLs": [
+      "https://www.reddit.com/r/Waterdogs/comments/x37x9i/baxter_loves_swimming_in_lake_tahoe/",
+      "https://imgur.com/AGv0xBa",
+      "https://imgur.com/baxter-sierra-7MgAobR"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Boxerdoodle",
+    "authoringFileSHA256": "b4d7ca675e47be2886dfe4e0a949f3b1346a500ec774cc70231f531c9e81f54c"
+  },
+  {
+    "id": "VBO:0200358",
+    "finding": "NEW-SYS11-N-0200358",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n87.json",
+    "pointer": "profiles[VBO:0200358].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "Lexi rescue narrative (now unavailable) and Betsy Country Life caption; current inaccessibility is not proof false, but retained claims remain individual",
+    "sourceURLs": [
+      "https://www.petrescue.com.au/listings/1209553",
+      "https://www.petrescue.com.au/listings/1209553",
+      "https://www.countrylife.co.uk/out-and-about/dogs/country-life-readers-dogs-gallery-164750"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Chonzer",
+    "authoringFileSHA256": "a7b47e3c9ba29082f8012aa5266b93fc61b807c7ef43ad4f66f9a91d5ffffec2"
+  },
+  {
+    "id": "VBO:0201398",
+    "finding": "NEW-SYS11-N-0201398",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n93.json",
+    "pointer": "profiles[VBO:0201398].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "Elvis pet-shop origin story and Lola clinical case; behavior is not a Wauzer population description",
+    "sourceURLs": [
+      "https://www.muttlife.ca/about-us/our-story/",
+      "https://www.wear-referrals.co.uk/news/327-vets-perform-lifesaving-miracle-on-poisoned-dog"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Wauzer",
+    "authoringFileSHA256": "c5ecbe9441d34cadfca32b9f481627b9ebcff71c2d6769f093e2d566800f41ea"
+  },
+  {
+    "id": "VBO:0200254",
+    "finding": "NEW-SYS11-N-0200254",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n98.json",
+    "pointer": "profiles[VBO:0200254].summary/shortDescription",
+    "disposition": "suppress_pending_type_evidence",
+    "rationale": "Scooby Greenleaf rescue only; specific retraining/personal history does not define Bull Mastweiler temperament",
+    "sourceURLs": [
+      "https://www.greenleafanimalrescue.org.uk/details/?id=6S86E8"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Bull Mastweiler",
+    "authoringFileSHA256": "4f9415d4511aaaa143fb76e8ce24b90ecb88b9f933353a96ef86e8e2ee59d6f4"
+  },
+  {
+    "id": "VBO:0201190",
+    "finding": "NEW-SYS11-N-0201190",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n67.json",
+    "pointer": "profiles[VBO:0201190].summary/shortDescription",
+    "disposition": "retain_type_program_evidence",
+    "rationale": "Multiple actual breeding programs and size/generation evidence; Giant watchfulness is explicitly Giant-line scoped. Gunnie Luv program owner-feedback section independently read. Retain calibrated current text; does not rely only on Gunner.",
+    "sourceURLs": [
+      "https://gunnieluv.com/our-papas/",
+      "https://gunnieluv.com/giant-schnoodle/",
+      "https://gunnieluv.com/mini-schnoodle/",
+      "https://www.angelasschnoodles.com/about-us/schnoodles",
+      "https://www.angelasschnoodles.com/faq/questions",
+      "https://www.angelasschnoodles.com/about-us/testimonials",
+      "https://www.teddybeargoldendoodles.com/schnoodle-sizes-colors-coats/",
+      "https://schnoodlepuppy.weebly.com/puppy-buying-process.html"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Schnoodle",
+    "authoringFileSHA256": "70f380296fe68134f47296ebe249c16b9443dad28eae2f9cfcbd6c61f11c394b"
+  },
+  {
+    "id": "VBO:0200307",
+    "finding": "NEW-SYS11-N-0200307",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n68.json",
+    "pointer": "profiles[VBO:0200307].summary/shortDescription",
+    "disposition": "retain_type_program_evidence",
+    "rationale": "Cottage Canines actual Cavador program describes play/company across its dogs and explicitly first/later matings. Independently read entire page. Exclude its parent-derived health/suitability and service-role marketing; present profile already omits these.",
+    "sourceURLs": [
+      "https://www.cottagecanines.com/cavador.html",
+      "https://www.cottagecanines.com/mini-cottage-retriever.html",
+      "https://www.banksiaparkpuppies.com.au/breeds/cavador-breed-information.html",
+      "https://banksiaparkpuppies.net/2018/04/20/cavadors/"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Cavador",
+    "authoringFileSHA256": "959a44d46694ef4ea7c716b1aaa7eacfadc656cd12582db7dd6ae1e2d9b34d5c"
+  },
+  {
+    "id": "VBO:0200608",
+    "finding": "NEW-SYS11-N-0200608",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n69.json",
+    "pointer": "profiles[VBO:0200608].summary/shortDescription",
+    "disposition": "retain_type_program_evidence",
+    "rationale": "Gunnie Luv separately identifies feedback on own Schnauzer-backcross Giant lines, including watchfulness/learning/stranger reserve. Independently read; not just named Gunner and not parent-average alone.",
+    "sourceURLs": [
+      "https://gunnieluv.com/our-papas/",
+      "https://gunnieluv.com/giant-schnoodle/",
+      "https://www.angelasschnoodles.com/about-us/schnoodles",
+      "https://www.angelasschnoodles.com/about-us/testimonials",
+      "https://www.teddybeargoldendoodles.com/schnoodle-sizes-colors-coats/"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Giant Schnoodle",
+    "authoringFileSHA256": "01826a225d6a3ee3edbf84e93bfed42c6c74646b69b4cd83a6f4d03d21abfd8e"
+  },
+  {
+    "id": "VBO:0200314",
+    "finding": "NEW-SYS11-N-0200314",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n70.json",
+    "pointer": "profiles[VBO:0200314].summary/shortDescription",
+    "disposition": "retain_type_program_evidence",
+    "rationale": "Cottage Canines Maltalier whole page independently read: own cross population company/rest/fetch and explicit owner reports on young-puppy attention. Existing scope is young dogs and variable coats; other N source programs corroborate identity.",
+    "sourceURLs": [
+      "https://www.cavalierkingdom.com/our-breeds",
+      "https://designerpuppiesoflouisiana.com/cavamalt/",
+      "https://www.cottagecanines.com/maltalier.html",
+      "https://www.dogbreedinfo.com/c/cavamalt.htm"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Cavamalt",
+    "authoringFileSHA256": "9e643642b9965f789227a797856785538006979bd286235beb23472f53a8c127"
+  },
+  {
+    "id": "VBO:0200901",
+    "finding": "NEW-SYS11-N-0200901",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n71.json",
+    "pointer": "profiles[VBO:0200901].summary/shortDescription",
+    "disposition": "retain_type_program_evidence",
+    "rationale": "Growing Puppies own small-cross F1/F1b description independently read: learning/walks/lap time/visitor alert. Current profile avoids health/non-shedding/child guarantees and identifies Mini program.",
+    "sourceURLs": [
+      "https://gunnieluv.com/mini-schnoodle/",
+      "https://schnoodlepuppy.weebly.com/about-us.html",
+      "https://schnoodlepuppy.weebly.com/about-the-schnoodle.html",
+      "https://schnoodlepuppy.weebly.com/dams-and-sires.html",
+      "https://schnoodlepuppy.weebly.com/adult-schnoodle-photos.html",
+      "https://www.teddybeargoldendoodles.com/schnoodle-sizes-colors-coats/",
+      "https://schnoodlepuppy.weebly.com/puppy-buying-process.html"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Miniature Schnoodle",
+    "authoringFileSHA256": "b3f8a778973dff510e6be600574de2cfd1222876066b35e5efe346c103ba59df"
+  },
+  {
+    "id": "VBO:0201014",
+    "finding": "NEW-SYS11-N-0201014",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n73.json",
+    "pointer": "profiles[VBO:0201014].summary/shortDescription",
+    "disposition": "retain_type_standard_evidence",
+    "rationale": "GANA specific Petite program standard; type scope is not a named-dog anecdote. N-B supplies attributed GANA size-band correction.",
+    "sourceURLs": [
+      "https://www.goldendoodleassociation.com/about-the-breed/goldendoodle-breed-standard/",
+      "https://www.goldendoodleassociation.com/about-the-breed/sizes/",
+      "https://www.kaosfarmdoodles.com/our-moms-dads",
+      "https://purposedrivenk9.com/adoptable-dogs"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Petite Goldendoodle",
+    "authoringFileSHA256": "22e6eed20a3a8ae149a33bc94fdcf2d8e6d53d77bcbcab081677cf32f2aaccf2"
+  },
+  {
+    "id": "VBO:0201239",
+    "finding": "NEW-SYS11-N-0201239",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n82.json",
+    "pointer": "profiles[VBO:0201239].summary/shortDescription",
+    "disposition": "retain_type_population_evidence",
+    "rationale": "Animal SOS experienced rescue population observations, not just Ocean named example. Reviewed as type-level source scope; complete N adjudication remains N-B.",
+    "sourceURLs": [
+      "https://www.animalsosadoptions.com/to-adopt/breed-information-sinhala-hound",
+      "https://www.animalsosadoptions.com/to-adopt/adult-dogs/ocean",
+      "https://www.animalsosadoptions.com/to-adopt/adult-dogs"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Sinhala Hound",
+    "authoringFileSHA256": "741fa7a9f687f16abeef2e6ee38296437881cbf725594537ac2a1bd289e25876"
+  },
+  {
+    "id": "VBO:0200841",
+    "finding": "NEW-SYS11-N-0200841",
+    "baseline": "newly public N candidate; old audit hidden-template review does not clear it",
+    "authoringFile": "data/dogs/profile-refresh-n85.json",
+    "pointer": "profiles[VBO:0200841].summary/shortDescription",
+    "disposition": "rewrite_by_n_review_b",
+    "rationale": "Ragnar loyalty is an individual anecdote, but Donna Perry Hike Nov1998 p8 supplies historical freight-population evidence. N-B owns replacing full/short with work/history.",
+    "sourceURLs": [
+      "https://www.assa.dog/wp-content/uploads/2022/09/HIKE-11_1998.pdf",
+      "https://www.reddit.com/r/husky/comments/eaqq98/missing_out_of_santa_cruz_ca/"
+    ],
+    "verification": "Read current full/short/source scope; independent fresh type-program sources detailed in rationale. Shared actual N original-source rechecks supplied by N-B; retained current prose is not a medical or individual outcome guarantee.",
+    "displayName": "Mackenzie River Husky",
+    "authoringFileSHA256": "7ac4cd81cc368a1f3c92c474665e8e8cacd6ce7c26bb13e4095f2faf5b0c80ed"
+  }
+]

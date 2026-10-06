@@ -167,6 +167,10 @@ const run = async () => {
     return;
   }
   const artwork = JSON.parse(fs.readFileSync(path.join(root, "data/dogs/generated-artwork.json"), "utf8"));
+  const catalog = JSON.parse(fs.readFileSync(path.join(root, "data/dogs/dog-catalog.json"), "utf8"));
+  const profiles = JSON.parse(fs.readFileSync(path.join(root, "data/dogs/breed-profiles.json"), "utf8"));
+  const { completedDogCatalogIds } = await import("../lib/dogs-public-visibility.js");
+  const publicCatalogCount = completedDogCatalogIds({ entities: catalog.entities, profiles, artwork }).size;
   const batchCount = fs.readdirSync(path.join(root, "data/dogs")).filter((name) => /^generated-artwork-batch-[a-z0-9]+\.json$/.test(name)).length;
   const results = [];
   const browser = await openBrowser();
@@ -230,10 +234,10 @@ const run = async () => {
 
     await check("Dogs completed-pair catalog and portraits", "dogs", async () => {
       await browser.navigate(`${origin}/dogs?debug=1`);
-      await browser.waitFor(`document.querySelector('#dogs-catalog-status')?.dataset.ready === 'true' && Number(document.querySelector('#dogs-catalog-status')?.dataset.count) === ${artwork.assets.length}`, 30000);
+      await browser.waitFor(`document.querySelector('#dogs-catalog-status')?.dataset.ready === 'true' && Number(document.querySelector('#dogs-catalog-status')?.dataset.count) === ${publicCatalogCount}`, 30000);
       await browser.waitFor(`(() => { const imgs = [...document.querySelectorAll('img')].filter((img) => img.currentSrc.includes('/assets/dogs/generated/')); return imgs.length > 0 && imgs.every((img) => img.complete && img.naturalWidth > 0); })()`, 20000);
       const portraits = await browser.evaluate(`[...document.querySelectorAll('img')].filter((img) => img.currentSrc.includes('/assets/dogs/generated/')).length`);
-      return { catalogCount: artwork.assets.length, visiblePortraits: portraits, screenshot: await browser.screenshot("dogs.png") };
+      return { catalogCount: publicCatalogCount, visiblePortraits: portraits, screenshot: await browser.screenshot("dogs.png") };
     });
 
     await check("Dogs artwork review with every provenance batch", "dogs", async () => {

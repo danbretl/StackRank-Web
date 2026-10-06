@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-n02",
+  "cohortId": "dogs-portraits-n",
+  "selectionSha256": "4b4a29ac5aeeda7dfd2a554bb9223b0a6ba8eeff79a13d48b24e021d21d03bec",
+  "reviewedAt": "2026-10-05",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-canary-001.jpg",
+    "contactSheetSha256": "2c85ab857044a398a942ee1a8b2f1463dcb364f751bb8c56bcf51a6f1641ed0c",
+    "acceptedCount": 1,
+    "notes": "Root personally viewed whole3-image contact sheet after viewing each untouched1536x1024 original at original detail. American Cocker, long-haired Dachshund and Papillon have distinct exact identities, source-backed morphology and natural varied settings. All full bodies/four paws/full attached tails remain visible and safely framed. Full and short copy independently reviewed and root approved; text-only research grants preserved. Branch-only canary, no publication."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0200407",
+      "name": "Dachshund, Long-Haired",
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "0c88bca359e4f9a19a16a0649d7d28f6d1ec8ba643eb1fb669f522f7fd8ab440",
+        "imageInputs": [],
+        "sourcePage": "https://www.ckc.ca/en/Choosing-a-Dog/Choosing-a-Breed/Hounds/Dachshund-Standard-Long-haired"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-n/N-0200407-1.png",
+      "masterSha256": "2c7d3b5db6d6d475615a8fec810facc60635e58fb5e35b92ad02b6112a38ed28",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10ab8-069f-7cf2-9b37-fc0afda52d04/exec-b9cfeeaf-d517-4683-ab13-b0880332274d.png",
+      "originalOutputSha256": "2c7d3b5db6d6d475615a8fec810facc60635e58fb5e35b92ad02b6112a38ed28",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v11-cohort-n",
+      "attemptId": "N-VBO:0200407-1",
+      "startedAt": "2026-10-05T06:33:11+00:00",
+      "generatedAt": "2026-10-05T06:33:34+00:00",
+      "prompt": "Create a refined naturalistic editorial dog portrait, native output exactly 1536 x 1024 pixels, landscape 3:2. One mature adult Dachshund, Long-Haired, entirely visible in an original relaxed three-quarter standing pose at dog-eye level. Elongated low but sturdy muscular body; deep oval chest and prominent forechest; level back, slight tuck-up, four short articulated legs. Forefeet compact, broad and modestly larger than hindfeet; no extreme crookedness or knuckling. Tapered long head with slightly arched skull and very shallow stop; long strong muzzle, snug lips, dark almond eyes, black nose; moderate-length rounded pendant ears framing cheeks. Natural intact tail continues the spine without kink or tight curl. Real mature adult proportions, no giant head or stunted toy body. Warm red long-haired coat with understated darker shading on the ears, sleek body hair and natural feathering on ears, forechest, belly and backs of legs. Long feathered flag tail with clearly visible attached base and whole tip; do not make the trunk shaggy, curly or uniformly long-haired. Keep feet unobscured by long fur. All four separate coherent paws must contact clear flat ground, with visible toes, no grass concealing them; clearly show anatomically attached full tail from its base to tip. Dog fills the scene gracefully while ample natural margin surrounds all ears, nose, paws and tail. Setting: A broad sandy track beside sparse birches in mellow early-autumn light. Restrained lifelike fine fur texture, quiet field-guide elegance, believable soft daylight, crisp dog and softly receding backdrop. Original composition not based on any specific photograph. No people, other animals, collar, leash, equipment, text, logos, watermark, artificial plastic fur, extra limbs, malformed joints, floating feet, oversized head, clipped extremities or exaggerated dwarf conformation.\n",
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-10-05T06:36:24.174783+00:00",
+        "breedIdentity": "Mature red Long-haired Dachshund: long tapered shallow-stop head, dark almond eyes, closed tight lips, rounded feathered pendant ears; sleek body hair with correct localized chest/ear/leg/tail furnishings. Long low muscular body and forechest agree with DCA.",
+        "anatomy": "Whole untouched native personally inspected at original1536x1024. Four distinct weight-bearing paws, broad forefeet and smaller hindfeet; coherent short fore/hind legs and firm level back. Entire natural tail attached behind rump, long tapered course and silky flag to clear free endpoint.",
+        "crop": "Entire head, ears, four paws and tail inside native. Tail endpoint has modest but adequate right margin; no speculative retry for larger requested margin.",
+        "aesthetics": "Warm lifelike red coat, soft autumn birches and sandy path, coherent contact shadows and original composition. No people, gear, text or source-expression recreation.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-canary-001.jpg",
+        "contactSheetSha256": "2c85ab857044a398a942ee1a8b2f1463dcb364f751bb8c56bcf51a6f1641ed0c",
+        "contactSheetReviewedAt": "2026-10-05T06:38:14.774248+00:00",
+        "contactSheetNotes": "Root personally viewed whole3-image contact sheet after viewing each untouched1536x1024 original at original detail. American Cocker, long-haired Dachshund and Papillon have distinct exact identities, source-backed morphology and natural varied settings. All full bodies/four paws/full attached tails remain visible and safely framed. Full and short copy independently reviewed and root approved; text-only research grants preserved. Branch-only canary, no publication."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/run-authorization-001.json",
+          "sha256": "292924b03d5fb2b641dfdef0cd4667aafb98760b71edf9efc4d4ed26920f0b9f",
+          "bytes": 1626
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-b/0200407/morphology-dossier.json",
+          "sha256": "0c88bca359e4f9a19a16a0649d7d28f6d1ec8ba643eb1fb669f522f7fd8ab440",
+          "bytes": 4417
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "author": "B",
+        "reviewer": "C",
+        "summarySha256": "a64765113c4b2ac9383b157cf1d0e194ed09d122fe07cdadba7a04d63939afae",
+        "shortDescriptionSha256": "fd4ff4618153f27a43552f29171939648b0e48c66ac6b5b3da624540731a8a46",
+        "summary": "Long-haired Dachshunds tend to bring a bold, outgoing spirit to companionship, with the same persistence that made Dachshunds determined hunting dogs. Their keen noses serve tracking and flushing work as well as underground hunting, and the old urge to dig can still surface in a dog that spends most of its time as a companion.",
+        "shortDescription": "An outgoing companion with a persistent hunting spirit, the long-haired Dachshund can still be an enthusiastic digger.",
+        "interestingFact": "",
+        "reviewedAt": "2026-10-05",
+        "reviewStatus": "individually-written",
+        "sources": [
+          {
+            "title": "Canadian Kennel Club — Standard Long-haired Dachshund",
+            "url": "https://www.ckc.ca/en/Choosing-a-Dog/Choosing-a-Breed/Hounds/Dachshund-Standard-Long-haired",
+            "evidence": "CKC Temperament and Activity Level describe outgoing, affectionate and fearless companionship plus retained digging. CKC is standard-size scoped; DCA applies shared temperament and hunting persistence to both sizes/all three coats, avoiding claims that long coats are inherently calmer."
+          },
+          {
+            "title": "Dachshund Club of America — Official Standard",
+            "url": "https://www.dachshundclubofamerica.org/breed-standard/",
+            "evidence": "DCA Temperament, General Appearance and Special Characteristics establish persistence, scent ability and above/below-ground work across long-haired dogs."
+          },
+          {
+            "title": "Dachshund Club of America — Dachshund History",
+            "url": "https://www.dachshundclubofamerica.org/dachshund-history/",
+            "evidence": "DCA One of a Kind describes tracking, flushing, retrieving and going to ground across the breed. Only tracking/flushing/underground work retained in copy."
+          }
+        ]
+      },
+      "rootReview": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/root-review-0200407-1.json",
+        "sha256": "35aa3c13b3c2468f2c09b10178156af74b1a7d8b8f98d3fb3733b6d0be7ef875",
+        "bytes": 1771
+      },
+      "attemptReceipt": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-b/0200407/N-VBO-0200407-1-attempt.json",
+        "sha256": "2ad07e07dfd88600141bde313fc83feb1bd1331bbb3239a735c89252a4f0cbba",
+        "bytes": 5164
+      },
+      "scene": {
+        "description": "A broad sandy track beside sparse birches in mellow early-autumn light",
+        "rationale": "Credible restrained outdoor hunting-dog context; clear ground exposes anatomy. New scene is independent of CKC grass show/profile photos."
+      }
+    }
+  ]
+}

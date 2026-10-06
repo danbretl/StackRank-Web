@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "batchId": "dogs-generated-artwork-n07",
+  "cohortId": "dogs-portraits-n",
+  "selectionSha256": "38b2948bf8cd2773b59a9f2fcf7898e34d3df2c04f16bbfcdd24b71723a1e460",
+  "reviewedAt": "2026-10-05",
+  "review": {
+    "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-003.jpg",
+    "contactSheetSha256": "6d511d269db9fb487a33ea28ac06a6289e4d7ec96e1d0b090062b6eb3b693d6e",
+    "acceptedCount": 1,
+    "notes": "Root saw entire untouched originals and whole four-image contact sheet: Toy Manchester, Standard Dachshund, Mittel Spitz and Klein Spitz show mature exact-type anatomy, four coherent grounded paws and complete tails. Small ear margin in Toy remains intact; no speculative retry. Distinct controlled natural scenes and full/short approved copy retained."
+  },
+  "images": [
+    {
+      "catalogId": "VBO:0201363",
+      "name": "Toy Manchester Terrier",
+      "scene": {
+        "description": "Firm dry woodland path, muted tree trunks and diffuse morning light.",
+        "rationale": "Original natural setting suited to a nimble terrier with clear paws, different from source studio backdrop."
+      },
+      "reference": {
+        "mode": "text-only",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "researchDossierSha256": "8bf86e0258d60c239cfe999855cef5b01bed6dbff8475e6b227762d5a575811a",
+        "imageInputs": [],
+        "sourcePage": "https://www.canadamt.com/manchesters-as-pets.html"
+      },
+      "generatedPath": "assets/dogs/generated-masters/cohort-n/N-0201363-1.png",
+      "masterSha256": "cea89bad94cffa2bde204f67e5fd345837e6d50feb62c0a6e781368b5e6d0720",
+      "originalOutputPath": "/Users/danbretl/.codex/generated_images/01a10ab7-bf16-78e2-83c4-0f812ace7649/exec-5d152d3f-4fcd-430a-b8e3-ba8fb4915a28.png",
+      "originalOutputSha256": "cea89bad94cffa2bde204f67e5fd345837e6d50feb62c0a6e781368b5e6d0720",
+      "width": 1536,
+      "height": 1024,
+      "generator": "OpenAI built-in imagegen",
+      "agentModel": "gpt-6.1-sol",
+      "reasoningEffort": "high",
+      "imageModel": "undisclosed",
+      "promptTemplateVersion": "dogs-field-guide-v11-cohort-n",
+      "attemptId": "N-VBO:0201363-1",
+      "startedAt": "2026-10-05T06:48:25.164294+00:00",
+      "generatedAt": "2026-10-05T06:49:35.112406+00:00",
+      "prompt": "Create an original refined naturalistic field-guide portrait, actual native 1536x1024 landscape. One mature adult Toy Manchester Terrier, North American Toy variety no more than12lb, small slim athletic muscular proportions, relaxed side-biased three-quarter standing at dog-eye level on a firm dry woodland path with muted distant tree trunks and diffuse morning light. Long narrow nearlyflat wedge-shaped head tapering to black nose, tight lips, small dark oblong eyes; moderate thin narrow pointed naturally erect ears close atop the skull, never cropped, round or broad bat ears. Smooth short dense glossy jetblack coat with crisp rich mahogany tan small eyebrow spots, cheek and muzzle marks, throat V, tan forelegs including black thumb patches, black fine toe pencilling, tan inner lower hindlegs. Slim graceful neck blending sloping shoulders, deep brisket, moderately short strong body with slight loin arch and natural tuckup, straight coherent legs and compact well-arched feet. Entire natural moderately short tail visibly attached where the loin arch ends, thicker at root tapering to pointed tip, carried at or below back level without curl. Show whole body, all four grounded paws, complete ears and full attached tail tip with comfortable crop-safe margins. Subtle painterly realism and precise restrained fur detail. No people, other animals, collar, gear, text, logos or watermark; no Chihuahua apple head, cropped ears, docked tail, Doberman size or exaggerated hackney pose. New composition independent of research photograph expression.",
+      "qa": {
+        "verdict": "pass",
+        "reviewedAt": "2026-10-05T06:54:57.252684+00:00",
+        "breedIdentity": "Mature Toy Manchester narrow long wedge head and oblong dark eyes, naturally upright pointed thin ears, smooth black/mahogany pattern and slim athletic body. Ears prominent but consistent with natural Toy carriage; no cropping or apple skull.",
+        "anatomy": "Four coherent grounded paws, slight loin arch, deep brisket and full tapered tail carried below back with intact attachment.",
+        "crop": "Whole extremities contained; upper ear margin is close but intact, no speculative framing retry warranted.",
+        "aesthetics": "Natural glossy short coat and original quiet woodland path, no prohibited subjects or artifacts.",
+        "contactSheetPath": "reports/dogs-generated-artwork/cohort-n/contact-sheet-003.jpg",
+        "contactSheetSha256": "6d511d269db9fb487a33ea28ac06a6289e4d7ec96e1d0b090062b6eb3b693d6e",
+        "contactSheetReviewedAt": "2026-10-05T06:55:32.636497+00:00",
+        "contactSheetNotes": "Root saw entire untouched originals and whole four-image contact sheet: Toy Manchester, Standard Dachshund, Mittel Spitz and Klein Spitz show mature exact-type anatomy, four coherent grounded paws and complete tails. Small ear margin in Toy remains intact; no speculative retry. Distinct controlled natural scenes and full/short approved copy retained."
+      },
+      "referenceEvidence": {
+        "mode": "text-only",
+        "status": "approved",
+        "policyVersion": "dogs-reference-research-2026-10-03.1",
+        "sourcePolicyAuthorization": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/run-authorization-001.json",
+          "sha256": "292924b03d5fb2b641dfdef0cd4667aafb98760b71edf9efc4d4ed26920f0b9f",
+          "bytes": 1626
+        },
+        "researchDossier": {
+          "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-a/VBO-0201363-morphology.json",
+          "sha256": "8bf86e0258d60c239cfe999855cef5b01bed6dbff8475e6b227762d5a575811a",
+          "bytes": 3966
+        },
+        "imageInputs": [],
+        "rootMorphologyEvidenceRead": true,
+        "rootIdentityApproved": true,
+        "rootSourceUseApproved": true,
+        "purposes": {
+          "uiDisplayAllowed": false,
+          "publicSnapshotAllowed": false,
+          "rasterExportAllowed": false
+        }
+      },
+      "profileEvidence": {
+        "status": "approved",
+        "author": "A",
+        "reviewer": "B",
+        "summarySha256": "89ebbe60cb48bea484b133b09c7ccca2964e9cfdb8bba7f0dbf8907411cd164b",
+        "shortDescriptionSha256": "fb5b238c42160025f6a930b13d2f6e563426b145ffbd8abece8f00726fb32c28",
+        "summary": "Keenly observant and responsive to its people, the Toy Manchester Terrier often takes time to assess strangers with reserve. This athletic small terrier shares the Manchester enthusiasm for activities such as agility and scent work. Its quieter habits can be equally distinctive: seeking a close seat beside familiar people and burrowing beneath blankets.",
+        "shortDescription": "An observant, athletic terrier, the Toy Manchester often seeks close company and enjoys burrowing beneath blankets.",
+        "fact": "",
+        "reviewedAt": "2026-10-05",
+        "sources": [
+          {
+            "title": "Canadian Manchester Terrier Club: Manchesters as Pets",
+            "url": "https://www.canadamt.com/manchesters-as-pets.html",
+            "evidence": "Opening paragraph explicitly covers both varieties: close proximity to their people, athletic ability and enjoyment of dog sports. Following character paragraph describes keen observation, responsiveness and reserve toward strangers. Final habits paragraph documents renowned burrowing under blankets."
+          },
+          {
+            "title": "Canadian Manchester Terrier Club: CKC Toy Manchester Terrier standard",
+            "url": "https://www.canadamt.com/ckc-toy-manchester-terrier.html",
+            "evidence": "Toy standard explicitly limits weight to12lb/5.5kg and requires natural erect moderately narrow pointed ears, long narrow almostflat wedge head, black/tan short glossy coat, slight loin arch, compact feet, and complete moderately short tapering tail no higher than back."
+          },
+          {
+            "title": "American Kennel Club: Manchester Terrier (Toy)",
+            "url": "https://www.akc.org/dog-breeds/manchester-terrier-toy/",
+            "evidence": "About the Breed distinguishes Toy not exceeding12lb from Standard not exceeding22lb while stating same temperament and body type. Manchester is spirited, bright and athletic with ratting and rabbit-coursing roots; exercise section describes active swift athletic dogs. Exact Toy gallery item1 reviewed live."
+          }
+        ]
+      },
+      "rootReview": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/root-review-0201363-1.json",
+        "sha256": "bed80cbc85e274c91f5411c098d40baa6925865223af37e9da25eeab1aaab3e8",
+        "bytes": 1457
+      },
+      "attemptReceipt": {
+        "path": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-a/N-VBO-0201363-1-attempt.json",
+        "sha256": "71fd2ee0375ef642f77766c07b6ef9152a8781153f62b8994525cedd8b62c78c",
+        "bytes": 4142
+      }
+    }
+  ]
+}

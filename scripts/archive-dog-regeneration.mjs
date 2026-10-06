@@ -1,3 +1,4 @@
+import { collectNRegenerationFiles } from './dog-portrait-n-archive.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
@@ -56,9 +57,11 @@ export function collectRegenerationFiles(root, entry, packetPaths) {
   return [...files.values()].sort((a, b) => a.path.localeCompare(b.path));
 }
 
-export function createRegenerationArchive(root, wave) {
-  if (!/^(?:[jk](?:0[1-9]|10)|l(?:0[1-9]|[1-9]\d|100)|m(?:0[1-9]|[1-9]\d+))$/.test(wave)) throw Error('Expected J/K wave01–10, L wave01–100 or positive numbered M wave');
+export function createRegenerationArchive(root, wave, { revision = 1 } = {}) {
+  if (!/^(?:[jk](?:0[1-9]|10)|l(?:0[1-9]|[1-9]\d|100)|[mn](?:0[1-9]|[1-9]\d+))$/.test(wave)) throw Error('Expected J/K wave01–10, L wave01–100 or positive numbered M wave');
   const letter = wave[0];
+  if (!Number.isInteger(revision) || revision < 1 || (revision !== 1 && letter !== 'n')) throw Error('Archive revisions are N-only positive integers');
+  const archiveId = revision === 1 ? wave : `${wave}-r${String(revision).padStart(2,'0')}`;
   const ledgerPath = `data/dogs/portrait-cohort-${letter}.json`;
   const cohort = JSON.parse(fs.readFileSync(path.join(root, ledgerPath)));
   const batchPath = `data/dogs/generated-artwork-batch-${wave}.json`;
@@ -70,9 +73,16 @@ export function createRegenerationArchive(root, wave) {
   const files = new Map();
   for (const id of ids) {
     const entry = cohort.entries[id];
+    if (letter === 'n') {
+      const image = batch.images.find(row => row.catalogId === id);
+      if (!image.generatedPath.startsWith('assets/dogs/generated-masters/cohort-n/') || image.generatedPath.includes('..')) throw Error('N master must stay in N archive root');
+      const master = fs.readFileSync(path.join(root, image.generatedPath));
+      if (hash(master) !== image.masterSha256) throw Error('N archive master hash mismatch');
+      files.set(image.generatedPath, {path:image.generatedPath,sha256:hash(master),bytes:master.length});
+    }
     if (entry?.integration?.subwave !== wave || entry.qa.status !== 'approved' || entry.profile.status !== 'approved') throw Error(`Unapproved archive identity: ${id}`);
-    if (letter === 'l' || letter === 'm') {
-      for (const file of (letter === 'm' ? collectMRegenerationFiles : collectLRegenerationFiles)(root, entry)) files.set(file.path, file);
+    if (letter === 'l' || letter === 'm' || letter === 'n') {
+      for (const file of (letter === 'n' ? collectNRegenerationFiles : letter === 'm' ? collectMRegenerationFiles : collectLRegenerationFiles)(root, entry)) files.set(file.path, file);
       continue;
     }
     const packetDir = path.posix.dirname(entry.preparation.packetPath);
@@ -90,13 +100,13 @@ export function createRegenerationArchive(root, wave) {
   }
   const list = [...files.values()].sort((a, b) => a.path.localeCompare(b.path));
   const objects = [...new Map(list.map(file => [file.sha256, file])).values()];
-  const archivePath = `reports/dogs-generated-artwork/cohort-${letter}/regeneration-archives/${wave}.tar.gz`;
-  const manifestPath = `data/dogs/regeneration-manifest-${wave}.json`;
+  const archivePath = `reports/dogs-generated-artwork/cohort-${letter}/regeneration-archives/${archiveId}.tar.gz`;
+  const manifestPath = `data/dogs/regeneration-manifest-${archiveId}.json`;
   if (fs.existsSync(path.join(root, archivePath)) || fs.existsSync(path.join(root, manifestPath))) throw Error('Refusing to replace an existing regeneration archive');
   fs.mkdirSync(path.dirname(path.join(root, archivePath)), { recursive: true });
   const manifest = { schemaVersion: 1, cohortId: cohort.cohortId, wave, createdAt: new Date().toISOString(),
-    catalogIds: ids, selectionSha256: ['l', 'm'].includes(letter) ? release.trancheSha256 : cohort.selectionSha256,
-    ...(['l', 'm'].includes(letter) ? { trancheId: release.trancheId, trancheSha256: release.trancheSha256 } : {}),
+    catalogIds: ids, selectionSha256: ['l', 'm', 'n'].includes(letter) ? release.trancheSha256 : cohort.selectionSha256,
+    ...(['l', 'm', 'n'].includes(letter) ? { trancheId: release.trancheId, trancheSha256: release.trancheSha256 } : {}),
     storage: 'Local ignored archive; no off-machine backup is asserted',
     archivePath, archiveSha256: null, archiveBytes: null,
     fileCount: list.length, uniqueObjectCount: objects.length,

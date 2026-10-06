@@ -1,0 +1,224 @@
+[
+  {
+    "findingId": "F-0200271-1",
+    "proposalId": "PC-0200271-1",
+    "catalogId": "VBO:0200271",
+    "name": "Campeiro Bulldog",
+    "currentState": "current",
+    "reviewedAt": "2026-10-06T04:56:08.548904+00:00",
+    "authoringPointer": "data/dogs/generated-artwork.json#/assets/155 (catalogId VBO:0200271); displayed asset assets/dogs/generated/VBO-0200271-campeiro-bulldog-960.webp",
+    "compiledPointer": "data/dogs/breed-profiles.json#/profiles/VBO:0200271",
+    "decision": "accept_with_modification",
+    "confidence": "medium",
+    "independentEvidence": "CBKC 2025 standard calls for a robust medium-sized dog, head without excessive wrinkles/loose skin; however it explicitly allows thick hanging lips and requires a nonexcessive dewlap. Mastiff type itself is its FCI section, so that label is not a valid rejection reason.",
+    "actualVisualObservation": "The native head has several deep forehead folds and bulky pendulous cheek/neck skin. Body is robust and moderate enough; the skin excess is the supported concern, not body mass alone. Four paws/tail and crop are coherent.",
+    "recommendation": "Targeted regeneration is reasonable to reduce excess forehead folds and neck skin while retaining permitted lips and moderate dewlap; avoid claiming all jowls/dewlap are wrong. Lead should confirm subjectively excessive skin before call.",
+    "source": {
+      "url": "https://cbkc.org/application/views/docs/padroes/padrao-raca_8.pdf",
+      "locator": "Pages3-5, head/lips/neck/skin",
+      "access": "freshly opened and read with web tool 2026-10-06"
+    },
+    "imageReview": {
+      "displayed": {
+        "path": "baseline-repository:assets/dogs/generated/VBO-0200271-campeiro-bulldog-960.webp",
+        "sha256": "e72325b1d9d20d0fffb98318b5de883f39a0091191546f3830f4a139fe153382",
+        "matchesManifest": true,
+        "personallyViewed": true,
+        "size": "960x640"
+      },
+      "native": {
+        "path": "baseline-repository:assets/dogs/generated-masters/VBO-0200271-campeiro-bulldog.png",
+        "sha256": "34bd852b58d599cf4ac78d67c37ade9212cedb328ff30d0770c294a0de929842",
+        "matchesManifest": true,
+        "personallyViewed": true,
+        "size": "1536x1024"
+      }
+    },
+    "limitations": "Visual conformation judgment is evidence-based but not a veterinary/genetic finding. No image regeneration or source-rights reapproval performed."
+  },
+  {
+    "findingId": "F-0200724-1",
+    "proposalId": "PC-0200724-1",
+    "catalogId": "VBO:0200724",
+    "name": "Jack Russell Terrier",
+    "currentState": "current",
+    "reviewedAt": "2026-10-06T04:56:08.552170+00:00",
+    "authoringPointer": "data/dogs/generated-artwork.json#/assets/390 (catalogId VBO:0200724); displayed asset assets/dogs/generated/VBO-0200724-jack-russell-terrier-960.webp",
+    "compiledPointer": "data/dogs/breed-profiles.json#/profiles/VBO:0200724",
+    "decision": "reject",
+    "confidence": "medium",
+    "independentEvidence": "FCI345 distinguishes rectangular shorter Jack Russell from square taller Parson and calls for roughly equal body depth and elbow-to-ground height.",
+    "actualVisualObservation": "At native resolution the trunk is longer than tall after allowing for oblique camera angle; foreleg below elbow is not clearly longer than trunk depth. Four coherent paws, white broken coat, button ears and tail are correct. Pose does not establish a Parson identity.",
+    "recommendation": "Retain. A preferred lower/longer rendition would be aesthetic refinement; audit has not established an exact-identity defect from this oblique view.",
+    "source": {
+      "url": "https://www.fci.be/Nomenclature/Standards/345g03-en.pdf",
+      "locator": "Page2 history/proportions; pages3-4 body/coat",
+      "access": "freshly opened and read with web tool 2026-10-06"
+    },
+    "imageReview": {
+      "displayed": {
+        "path": "baseline-repository:assets/dogs/generated/VBO-0200724-jack-russell-terrier-960.webp",
+        "sha256": "c7345c1a0b542059ab8306beaebfafab4679d267041fd02160e50fbe152932c5",
+        "matchesManifest": true,
+        "personallyViewed": true,
+        "size": "960x640"
+      },
+      "native": {
+        "path": "baseline-repository:assets/dogs/generated-masters/VBO-0200724-jack-russell-terrier.png",
+        "sha256": "ab760e29ce16b26fb60eca32f27d81378d55d6f09fcb13ef71f1089f7bc03bfd",
+        "matchesManifest": true,
+        "personallyViewed": true,
+        "size": "1536x1024"
+      }
+    },
+    "limitations": "Visual conformation judgment is evidence-based but not a veterinary/genetic finding. No image regeneration or source-rights reapproval performed."
+  },
+  {
+    "findingId": "F-0201139-1",
+    "proposalId": "PC-0201139-1",
+    "catalogId": "VBO:0201139",
+    "name": "Romanian Bucovina Shepherd",
+    "currentState": "current",
+    "reviewedAt": "2026-10-06T04:56:08.554977+00:00",
+    "authoringPointer": "data/dogs/generated-artwork.json#/assets/632 (catalogId VBO:0201139); displayed asset assets/dogs/generated/VBO-0201139-f03-a-a2-960.webp",
+    "compiledPointer": "data/dogs/breed-profiles.json#/profiles/VBO:0201139",
+    "decision": "reject",
+    "confidence": "medium",
+    "independentEvidence": "FCI357 allows black patches with red-fawn reflections and requires black nose. Coat photographs/renderings cannot reliably establish pigment genetics.",
+    "actualVisualObservation": "Native image has very dark almost-black muzzle/nose, dark ears and brown-red lit surfaces on head and body patches. These can reasonably depict permitted black with red-fawn reflections. Large guardian structure, straight body hair, mane and full tail match.",
+    "recommendation": "Retain: brown/liver genotype and an excluded coat are not established by these pixels. Preserve nuance rather than treating every warm dark patch as chocolate.",
+    "source": {
+      "url": "https://www.fci.be/Nomenclature/Standards/357g02-en.pdf",
+      "locator": "Page3 nose; page5 coat/colour",
+      "access": "freshly opened and read with web tool 2026-10-06"
+    },
+    "imageReview": {
+      "displayed": {
+        "path": "baseline-repository:assets/dogs/generated/VBO-0201139-f03-a-a2-960.webp",
+        "sha256": "976af8b3e877b4b86e6cd7f9154cdebee8f0740b3c2ba52ec84539bcbce0fad1",
+        "matchesManifest": true,
+        "personallyViewed": true,
+        "size": "960x640"
+      },
+      "native": {
+        "path": "baseline-repository:assets/dogs/generated-masters/cohort-f/VBO-0201139-f03-a-a2.png",
+        "sha256": "69784e2376d0450e530a79cd51e0edd24be30223f100b92db5b33822b42c91ed",
+        "matchesManifest": true,
+        "personallyViewed": true,
+        "size": "1536x1024"
+      }
+    },
+    "limitations": "Visual conformation judgment is evidence-based but not a veterinary/genetic finding. No image regeneration or source-rights reapproval performed."
+  },
+  {
+    "findingId": "F-0200398-1",
+    "proposalId": "PC-0200398-1",
+    "catalogId": "VBO:0200398",
+    "name": "Cursinu",
+    "currentState": "current",
+    "reviewedAt": "2026-10-06T04:56:08.565083+00:00",
+    "authoringPointer": "data/dogs/generated-artwork.json#/assets/226 (catalogId VBO:0200398); displayed asset assets/dogs/generated/VBO-0200398-h01-a-a1-960.webp",
+    "compiledPointer": "data/dogs/breed-profiles.json#/profiles/VBO:0200398",
+    "decision": "reject",
+    "confidence": "medium",
+    "independentEvidence": "SCC standard explicitly allows short or medium well-furnished hair and some feathering; it does not require a sleek single coat.",
+    "actualVisualObservation": "Native image shows medium rather than long body hair, modest roughness at neck and limbs, visible clean leg contours, a furnished tail and fawn brindle. It does not have a long shaggy coat hiding anatomy.",
+    "recommendation": "Retain; evidence does not establish coat outside allowed medium/feathered range. Scope this as interpretive uncertainty, not verified error.",
+    "source": {
+      "url": "https://www.centrale-canine.fr/sites/default/files/inline-files/breed%20standard%20Chien%20corse%20Cursinu%20ENG.pdf",
+      "locator": "Page3 coat",
+      "access": "freshly opened and read with web tool 2026-10-06"
+    },
+    "imageReview": {
+      "displayed": {
+        "path": "baseline-repository:assets/dogs/generated/VBO-0200398-h01-a-a1-960.webp",
+        "sha256": "200b70107fb06033f77dcb0a09fe0c173b359b097bf3068a34d751ece7376705",
+        "matchesManifest": true,
+        "personallyViewed": true,
+        "size": "960x640"
+      },
+      "native": {
+        "path": "baseline-repository:assets/dogs/generated-masters/cohort-h/h01-a/VBO-0200398-h01-a-a1.png",
+        "sha256": "21d72e2252d3b079c6fd4afe9d999b970827127f93e72e15ef1514519af7edd5",
+        "matchesManifest": true,
+        "personallyViewed": true,
+        "size": "1536x1024"
+      }
+    },
+    "limitations": "Visual conformation judgment is evidence-based but not a veterinary/genetic finding. No image regeneration or source-rights reapproval performed."
+  },
+  {
+    "findingId": "F-0008017-1",
+    "proposalId": "PC-0008017-1",
+    "catalogId": "VBO:0008017",
+    "name": "Euskal Artzain Txakurra (variedad Gorbeiakoa)",
+    "currentState": "current",
+    "reviewedAt": "2026-10-06T04:56:08.568268+00:00",
+    "authoringPointer": "data/dogs/generated-artwork.json#/assets/10 (catalogId VBO:0008017); displayed asset assets/dogs/generated/VBO-0008017-native-01-960.webp",
+    "compiledPointer": "data/dogs/breed-profiles.json#/profiles/VBO:0008017",
+    "decision": "reject",
+    "confidence": "high",
+    "independentEvidence": "RSCE head section limits the very-short hair phrase to the head. The tail section permits long hair, and the coat section describes moderately long soft body hair, short smooth face/front legs and rear-leg fringes. The audit incorrectly treats a head clause as a whole-coat clause.",
+    "actualVisualObservation": "The native portrait has red soft body coat, short face and front legs, fringed rear legs and long-haired tail. Its visible silhouette is consistent with the actual scoped standard. No confirmed identity defect.",
+    "recommendation": "Retain portrait. Correct audit interpretation; do not regenerate to an incorrectly smooth whole-body coat.",
+    "source": {
+      "url": "https://www.rsce.es/razas-espanolas-pastor-vasco-gorbeiakoa/",
+      "locator": "Head, tail and coat sections",
+      "access": "freshly opened and read with web tool 2026-10-06"
+    },
+    "imageReview": {
+      "displayed": {
+        "path": "baseline-repository:assets/dogs/generated/VBO-0008017-native-01-960.webp",
+        "sha256": "91f41483919c930a995abf38bc0da910b503f6f417eb0b7118572cb483660a0d",
+        "matchesManifest": true,
+        "personallyViewed": true,
+        "size": "960x640"
+      },
+      "native": {
+        "path": "baseline-repository:assets/dogs/generated-masters/cohort-j/j01-b2/VBO-0008017-native-01.png",
+        "sha256": "8ffd7845a6725eddd75fae0116c39283a60e5d488dc1f57b8c4f9e74bbb9f91a",
+        "matchesManifest": true,
+        "personallyViewed": true,
+        "size": "1536x1024"
+      }
+    },
+    "limitations": "Visual conformation judgment is evidence-based but not a veterinary/genetic finding. No image regeneration or source-rights reapproval performed."
+  },
+  {
+    "findingId": "F-0200769-1",
+    "proposalId": "PC-0200769-1",
+    "catalogId": "VBO:0200769",
+    "name": "King Charles Spaniel, Tricolour",
+    "currentState": "current",
+    "reviewedAt": "2026-10-06T04:56:08.570957+00:00",
+    "authoringPointer": "data/dogs/generated-artwork.json#/assets/419 (catalogId VBO:0200769); displayed asset assets/dogs/generated/VBO-0200769-native-01-960.webp",
+    "compiledPointer": "data/dogs/breed-profiles.json#/profiles/VBO:0200769",
+    "decision": "accept_with_modification",
+    "confidence": "medium",
+    "independentEvidence": "FCI128 requires a well-domed skull full above eyes, a clearly defined stop and short upturned nose/muzzle.",
+    "actualVisualObservation": "Native portrait is compact with short legs and a relatively short broad muzzle, so calling it unequivocally a Cavalier overstates the evidence. Nevertheless the upper skull is relatively flat and the muzzle projects forward with weak upward turn; breed-defining domed head is underexpressed. Colour, four paws/tail and crop are coherent.",
+    "recommendation": "Targeted regeneration to a clearly domed skull and short broad upturned muzzle is supported as head-type correction. Preserve healthy visible nostrils, natural eyes and correct tricolour. Do not overstate existing dog as proven Cavalier.",
+    "source": {
+      "url": "https://fci.be/Nomenclature/Standards/128g09-en.pdf",
+      "locator": "Pages2-3 head/nose/muzzle",
+      "access": "freshly opened and read with web tool 2026-10-06"
+    },
+    "imageReview": {
+      "displayed": {
+        "path": "baseline-repository:assets/dogs/generated/VBO-0200769-native-01-960.webp",
+        "sha256": "04071f95f9ec24d1d8f44ee34736fdd55a2cb41209efefd7eb205082df6f7767",
+        "matchesManifest": true,
+        "personallyViewed": true,
+        "size": "960x640"
+      },
+      "native": {
+        "path": "baseline-repository:assets/dogs/generated-masters/cohort-l/worker-a/VBO-0200769-native-01.png",
+        "sha256": "c524181a8d91a46353606d932182ecdea8b2ad8ea6754d401a2f3e4db66e4982",
+        "matchesManifest": true,
+        "personallyViewed": true,
+        "size": "1536x1024"
+      }
+    },
+    "limitations": "Visual conformation judgment is evidence-based but not a veterinary/genetic finding. No image regeneration or source-rights reapproval performed."
+  }
+]

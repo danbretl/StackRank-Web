@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-06T05:23:58.433569+00:00",
+  "reviewer": "root independent integration reviewer; artwork implementation author (not independent of own artwork guard)",
+  "baseline": "c3ba4b030f7ad587e8a11cfc264c86b2543e5ab1",
+  "status": "passed-local-bounded-review; release verification remains lead-owned",
+  "fileHashes": {
+    "dogs.js": "9b253f91f938e12b9ac6387110a391fb204bf6d2292acc2529afff5986f00ea2",
+    "lib/dogs-public-visibility.js": "3f32e104555b6615274a9e5180221b33133ff3a6c63ce1c20f82bcb9b6e258c4",
+    "lib/categories/dogs.js": "f5d9839622e86d70c27f524732d1df52f5f637aac34c2897be2020e4dadea4ea",
+    "lib/dogs.js": "685497fa5df9d06ccdbcf6905dd41ad896bb0e87d017f783152d65326478db09",
+    "lib/catalog.js": "b7e7041e1defa573fdfab962777c8cfbe750493dd08394391ca0911b37c15ea8",
+    "scripts/dog-catalog-lib.mjs": "f776f59738d4e428b046e4ef44ff36c51564afb54751c31af9bfa43b2e6a117b",
+    "scripts/dog-profiles-lib.mjs": "b9de19f7e9aaaf201cc7c9b7e58799366e9020ced879c710fe5dd2b690a512b3",
+    "scripts/dog-artwork-corrections.mjs": "8cf7eb0aaa2c28f0d1aef7a773778ef73b80f07ae0666201aafa45690102cd33",
+    "scripts/build-generated-dog-artwork.mjs": "a2238d447e5a04faf1608d501305a6df689a3ced9e4bc383d7a0ea40174feffb",
+    "scripts/validate-generated-dog-artwork.mjs": "ed15f4df684c17896ac14688924e73527c1a62b26fc2f0edebe96799e23f86a6",
+    "data/dogs/dog-catalog.json": "435a1cb94384506c80d4ac94c4b863f1f0ff4d2d0e58744672c927ec5a1f4c22",
+    "data/dogs/breed-profiles.json": "1dffb093f601635a8de8b3d65c854d91878b071b1e28a7dbc08ab714616b5a28",
+    "data/dogs/generated-artwork.json": "658fad9598adc10d1934e105cc1fc60893810b21f7f43f10e44ac058bcb4569a",
+    "data/dogs/generated-artwork-corrections-2026-10-06.json": "c30972b68d8d399d0cafdf98b702c710e7d3d31629992c86c7c1b48b4adbc7e7"
+  },
+  "identityChecks": {
+    "catalogIdsUnchanged": 1239,
+    "sourceIdMappingsChanged": 0,
+    "selectableFlagsChanged": 0,
+    "automaticRemaps": 0,
+    "deduplications": 0
+  },
+  "visibilityChecks": {
+    "public": 806,
+    "completePairs": 902,
+    "suppressedComplete": 96,
+    "incomplete": 337,
+    "allEditorialHolds": 251,
+    "NReviewed": 100,
+    "NPublic": 60,
+    "NSuppressed": 40,
+    "wildCrossAndNamedGenericUmbrellasExcluded": true
+  },
+  "compatibilityFixtures": {
+    "full1239IdRankingCanonicalization": "pass",
+    "backupExportImportRetainsAll1239": "pass",
+    "isolatedAccountPayloadRetainsAll1239": "pass",
+    "suppressedCuriousAndNotForMeLists": "28-test focused suite pass",
+    "realUserAccountWrites": 0,
+    "reversePublicOrderPreservesAll433HiddenSlots": "pass",
+    "newTextOnlyShare806PublicItems": "pass",
+    "newJSONExport806PublicItems": "pass"
+  },
+  "codeInspection": [
+    "Discovery index/gallery/packs/candidate selection use completed public IDs; full maps retained for saved state.",
+    "Backup and account save paths receive full ranking/lists, not public projection.",
+    "New snapshot publication and normal exports receive public ranking; artwork remains purpose-denied. Existing previously published snapshots are historical payloads, not rewritten.",
+    "Deliberately empty profile origins remain empty through candidate/facet/Taste enrichment.",
+    "Display aliases and search synonyms are distinct without identity remapping.",
+    "Artwork correction guard rejects stale path/hash, duplicate identity, changed evidence, unsafe paths and incomplete QA; historical inputs remain unchanged."
+  ],
+  "tests": {
+    "focusedCompatibilityNodeTestsPassed": 28,
+    "artworkNodeTestsPassed": 6,
+    "artworkCoordinationPythonTestsPassed": 5,
+    "generatedArtworkValidator": "902 pass with allvariant SHA256 checks",
+    "generatedArtworkBuilderCheck": "902 current"
+  },
+  "preservation": {
+    "immutableAuditFilesRehashed": 5617,
+    "changedAuditFiles": 0,
+    "nativeOriginalsAndOriginalNCheckout": "retained",
+    "offMacBackup": "unverified"
+  },
+  "limitations": [
+    "This is bounded integration review, not a new full factual audit of all1239 identities.",
+    "Some fresh external sources were inaccessible; respective factual dispositions retain explicit evidence limits.",
+    "Exact-commit CI, staged browser flows and production receipts belong to lead final verification and are not asserted here."
+  ],
+  "materialOpenDefects": [],
+  "salvageFollowup": {
+    "reopenedAfterSupportedRewrite": [
+      "VBO:0200907",
+      "VBO:0201047",
+      "VBO:0201224",
+      "VBO:0200028",
+      "VBO:0200325",
+      "VBO:0201289",
+      "VBO:0201285"
+    ],
+    "baseline71Outcome": {
+      "rewritten": 16,
+      "remainingEvidenceHolds": 55
+    },
+    "completeHoldCategories": {
+      "remediableCrossSourceCopy": 70,
+      "broadNUmbrellas": 23,
+      "wildDomesticScope": 2,
+      "unresolvedLabradorHuskyIdentity": 1
+    },
+    "criteriaDocument": "holds-and-reopening.md",
+    "sameFull1239FixtureRerunAfterFinalData": true
+  }
+}

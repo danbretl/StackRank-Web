@@ -1,0 +1,15 @@
+# Cohort N validation after audit integration
+
+`npm run validate:dogs:n` validates the final combined catalog using committed inputs only. It runs in a clean checkout and does not open private source snapshots, authorization receipts, tranche freezes, image-generation receipts, or native masters.
+
+The check pins the semantic JSON commitments of the original N cohort and completion ledgers. It preserves the baseline's 1,239 canonical IDs, source-ID mappings and selectable flags, and requires exactly the original 100 accepted N identities and their accepted native-hash commitments in the runtime artwork manifest. Editorial suppression retains those identities and artwork records. Historical rejected N holds remain unaccepted and nonpublic.
+
+All 100 identities must have full/short/surfaced-field and actual-portrait review coverage. The reviewed display-portrait hashes must match the final manifest. The latest appended suppression decision must match authoring and compiled visibility; retained completed entries must remain public. Research images retain denied purposes; generated portraits retain their approved UI-only purpose.
+
+For N summaries and short descriptions, unchanged text must still match the original approved hashes. A changed field requires an explicit `applied-profile-fields.json` receipt naming its original value, new value, authoring file, decision and rationale. Both authoring and compiled copy must equal that final value; importing N's original copy again fails. Other receipted N field changes also match authoring and compiled output, except source rows and review dates, which remain authoring provenance rather than direct runtime fields.
+
+`npm run validate:dogs:n:private` preserves the original historical validator (`dog-portrait-cohort.mjs --cohort=n --check`). Run it only against the preserved N worktree and its private evidence. It verifies that historical candidate and expects its original approved copy, so it is intentionally not the final combined release gate. It can fail in a clean checkout lacking private evidence or against the corrected combined catalog; neither failure is silently treated as a pass.
+
+The release contract does **not** claim a new private source/native-byte or license clearance. Native-master byte verification and asset building remain separately recorded release work; ordinary artwork validators still verify public files. The new contract compares accepted native hashes to runtime commitments. Its tests cover absent identities, destructive source-ID changes, native-hash changes, purpose grants, unauthorized copy, overwritten corrections, missing coverage, visibility drift and changed frozen ledgers. A disposable checkout containing only the required tracked JSON inputs verifies that no private directory is required.
+
+Frozen commitments derive from N's preserved final hand-back at `7de19455`; the identity mapping commitment derives from main `c3ba4b03`. This change does not rewrite the original N ledgers or change the historical publication-withheld fields into release claims.

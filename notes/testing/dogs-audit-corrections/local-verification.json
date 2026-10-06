@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "command": "npm run verify",
+  "outcome": "passed",
+  "node": {
+    "tests": 609,
+    "suites": 0,
+    "pass": 609,
+    "fail": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0
+  },
+  "pythonTests": 58,
+  "denoTests": 24,
+  "stagedBrowser": {
+    "tests": 43,
+    "pass": 43,
+    "fail": 0
+  },
+  "nodeReport": "reports/runs/2026-10-06T052735Z",
+  "browserReport": "reports/e2e/runs/2026-10-06T052800Z",
+  "logSha256": "afad98a27e1c0fedf5f2f0d5241289910993677157737aa6097a838bcddd5030",
+  "deployment": {
+    "schemaVersion": 1,
+    "declaration": {
+      "path": "deploy/public-files.json",
+      "sha256": "e6ab5fc02106ac30c05e3bcd4e523e909c96acb071405b4498482c24f174cffa"
+    },
+    "inputMode": "git",
+    "contractDigest": "3177769aa4b6f81f5bc58e299d0dd11dc9344a95e43e3417baa0111c131f21ea",
+    "totals": {
+      "files": 2167,
+      "bytes": 173223053
+    },
+    "byProduct": {
+      "books": {
+        "files": 13,
+        "bytes": 87120
+      },
+      "dogs": {
+        "files": 2127,
+        "bytes": 171851337
+      },
+      "movies": {
+        "files": 40,
+        "bytes": 1547768
+      },
+      "site": {
+        "files": 11,
+        "bytes": 287952
+      }
+    },
+    "families": [
+      {
+        "id": "artwork-review-e-series-batches",
+        "type": "sequence",
+        "product": "dogs",
+        "files": 10
+      },
+      {
+        "id": "dogs-generated-portraits",
+        "type": "json-manifest",
+        "product": "dogs",
+        "files": 1804
+      }
+    ],
+    "classification": {
+      "status": "complete",
+      "included": 2167,
+      "excluded": 1089,
+      "unclassified": 0
+    }
+  },
+  "note": "Final corrected runtime tree. Sandbox-only localhost denial preceded successful approved elevated run; no real accounts touched."
+}

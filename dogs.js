@@ -79,13 +79,14 @@ import {
   buildDogTasteSignals,
   buildDogsBackup,
   dogProfileChips,
+  dogProfilePresentationLabel,
   dogProfileSourceLinks,
   dogsExportText,
   enrichDogCatalogEntity,
   normalizeDogProfile,
   parseDogNameImport,
   parseDogsBackup,
-} from "./lib/dogs.js?v=9";
+} from "./lib/dogs.js?v=10";
 import {
   completedDogCatalogIds,
   projectPublicDogRanking,
@@ -109,11 +110,11 @@ const ACTIVE_CATEGORY = resolveDocumentCategory(
 if (!ACTIVE_CATEGORY) throw new Error("Unknown or mismatched StackRank Dogs category");
 
 const STORAGE_KEYS = categoryStorageKeys(ACTIVE_CATEGORY);
-const CATALOG_URL = "data/dogs/dog-catalog.json?v=7";
-const PACKS_URL = "data/dogs/packs.json?v=3";
-const RIGHTS_URL = "data/dogs/image-rights.json?v=43";
+const CATALOG_URL = "data/dogs/dog-catalog.json?v=8";
+const PACKS_URL = "data/dogs/packs.json?v=4";
+const RIGHTS_URL = "data/dogs/image-rights.json?v=44";
 const RIGHTS_POLICY_URL = "data/dogs/artwork-license-policy.json?v=4";
-const PROFILES_URL = "data/dogs/breed-profiles.json?v=107";
+const PROFILES_URL = "data/dogs/breed-profiles.json?v=108";
 const GENERATED_ARTWORK_URL = "data/dogs/generated-artwork.json?v=108";
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl";
@@ -908,7 +909,7 @@ const candidateForCatalogId = (catalogId, role = "card") => {
   if (!entity || !publicCatalogIds.has(catalogId)) return null;
   const candidate = dogEntityToCandidate(entity, approvedImageForCatalogId(catalogId, role));
   const profile = profilesByCatalogId.get(catalogId);
-  const secondaryText = [(profile ? profile.originRegions : entity.originRegions)?.[0], profile?.typeLabel]
+  const secondaryText = [(profile ? profile.originRegions : entity.originRegions)?.[0], dogProfilePresentationLabel(profile)]
     .filter(Boolean)
     .join(" · ");
   return {
@@ -949,6 +950,7 @@ const createDogMedia = (item, role = "card") => {
   const shown = displayItem(item, role);
   const wrapper = document.createElement("span");
   wrapper.className = "dog-media is-missing";
+  const profile = profileForCatalogId(item?.entityRef?.id);
   const fallback = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   fallback.setAttribute("viewBox", "0 0 96 82");
   fallback.setAttribute("aria-hidden", "true");
@@ -959,12 +961,21 @@ const createDogMedia = (item, role = "card") => {
     const image = document.createElement("img");
     image.src = url;
     image.alt = shown.snapshot.image.alt || `${shown.snapshot.primaryText} dog`;
+    if (profile?.identityScope === "category") {
+      image.alt = `Illustrative example${profile.portraitExample ? `: ${profile.portraitExample}` : ` of ${shown.snapshot.primaryText}`}`;
+    }
     image.loading = role === "detail" ? "eager" : "lazy";
     image.fetchPriority = role === "detail" ? "high" : "auto";
     image.decoding = role === "detail" ? "sync" : "async";
     image.addEventListener("load", () => wrapper.classList.remove("is-missing"), { once: true });
     image.addEventListener("error", () => image.remove(), { once: true });
     wrapper.appendChild(image);
+  }
+  if (profile?.identityScope === "category") {
+    const caption = document.createElement("span");
+    caption.className = "dog-media__scope";
+    caption.textContent = `Group example${profile.portraitExample ? `: ${profile.portraitExample}` : ""}`;
+    wrapper.append(caption);
   }
   return wrapper;
 };
@@ -973,7 +984,10 @@ const appendArtworkCredit = (container, asset, displayName = "") => {
   const name = cleanText(displayName) || catalogById.get(asset?.catalogId)?.displayName || "Dog breed";
   if (asset?.sourceType === "ai-generated") {
     const disclosure = document.createElement("span");
-    disclosure.textContent = `AI-generated breed portrait for ${name}, art-directed for StackRank. Individual dogs vary.`;
+    const profile = profileForCatalogId(asset.catalogId);
+    disclosure.textContent = profile?.identityScope === "category"
+      ? `AI-generated illustrative example${profile.portraitExample ? `: ${profile.portraitExample}` : ` of ${name}`}. This category includes different breeds or types and appearances.`
+      : `AI-generated breed portrait for ${name}, art-directed for StackRank. Individual dogs vary.`;
     container.appendChild(disclosure);
     return;
   }
@@ -1155,7 +1169,7 @@ const explorer = createDogsExplorer({
       id,
       name: entity?.displayName || "",
       aliases: dogDisplayAliases(entity),
-      family: profile?.typeLabel || "",
+      family: dogProfilePresentationLabel(profile),
       origin: profile?.originRegions?.join(", ") || "",
       location: handledLocation(id),
     };
@@ -1310,6 +1324,13 @@ const renderRanking = () => {
     summary.textContent = profileForCatalogId(item.entityRef.id)?.shortDescription || "";
     summary.hidden = !summary.textContent;
     copy.append(name, context, summary, createProfileChips(item.entityRef.id));
+    const profile = profileForCatalogId(item.entityRef.id);
+    if (profile?.identityScope === "category") {
+      const scope = document.createElement("span");
+      scope.className = "ranking-row__scope";
+      scope.textContent = dogProfilePresentationLabel(profile);
+      copy.append(scope);
+    }
     if (alternateNames.length) {
       const aliases = document.createElement("span");
       aliases.className = "ranking-row__aliases";
@@ -1730,7 +1751,7 @@ function openDetail(catalogId) {
   const status = document.createElement("p");
   status.className = "detail-copy__status";
   const profile = profileForCatalogId(catalogId);
-  status.textContent = profile?.typeLabel || (entity ? dogStatusLabel(entity.status) : "Saved breed or type");
+  status.textContent = dogProfilePresentationLabel(profile) || (entity ? dogStatusLabel(entity.status) : "Saved breed or type");
   const summary = document.createElement("p");
   summary.className = "detail-copy__summary";
   summary.textContent = profile?.summary || "";
@@ -1750,7 +1771,7 @@ function openDetail(catalogId) {
     button.addEventListener("click", handler);
     actions.appendChild(button);
   };
-  addAction(location === "ranking" ? "Ranked" : "Rank this breed", () => {
+  addAction(location === "ranking" ? "Ranked" : profile?.identityScope === "category" ? "Rank this group" : "Rank this breed", () => {
     detailDialog.close();
     beginRanking(shown);
   }, location === "ranking", true);
@@ -1770,7 +1791,8 @@ function openDetail(catalogId) {
     facts.appendChild(fact);
   };
   addFact("Size", profile?.sizeLabel);
-  addFact(profile?.typeBasis === "registry" ? "Registry group" : profile?.typeBasis === "catalog" ? "Type" : "Dog family", profile?.typeLabel);
+  addFact(profile?.identityScope === "category" ? "Category" : profile?.typeBasis === "registry" ? "Registry group" : profile?.typeBasis === "catalog" ? "Type" : "Dog family", profile?.typeLabel);
+  if (profile?.identityScope === "category") addFact("Illustrative example", profile.portraitExample);
   addFact(profile?.originBasis === "registry" ? "Registry origin (FCI)" : "Origin", profile?.originRegions?.join(", "));
   addFact("Historical roots", profile?.historicalRoots);
   addFact("Breed group", profile?.registryGroups?.map((group) => `${group.label} · ${group.scheme}`).join(", "));
@@ -1804,7 +1826,8 @@ function openDetail(catalogId) {
   sourcesCopy.textContent = [
     "Breed identity: Vertebrate Breed Ontology (CC BY 4.0).",
     coverage ? `${coverage}.` : "",
-    profile?.reviewStatus === "editor-reviewed" ? "Individually written breed profile." : "Brief profile based on available name, classification, and origin records. A detailed breed profile has not yet been added.",
+    profile?.profileForm === "concise" ? "Concise factual profile; its scope follows the evidence linked below." : profile?.reviewStatus === "editor-reviewed" ? "Individually written breed profile." : "Brief profile based on available name, classification, and origin records. A detailed breed profile has not yet been added.",
+    profile?.evidenceNote || "",
   ].filter(Boolean).join(" ");
   sources.append(sourcesSummary, sourcesCopy);
   const profileReferences = dogProfileSourceLinks(profile, profileDocument?.sources);

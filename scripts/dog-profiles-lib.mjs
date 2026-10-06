@@ -245,6 +245,28 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, ref
     const fciRecord = fciById.get(entity.id);
     const pack = packById.get(entity.id) || { titles: [], families: [] };
     const override = writtenProfiles.get(entity.id) || null;
+    if (override?.profileForm !== undefined && override.profileForm !== "concise") {
+      throw new Error(`Invalid authored profile form: ${entity.id}`);
+    }
+    if (override?.identityScope !== undefined && override.identityScope !== "category") {
+      throw new Error(`Invalid authored identity scope: ${entity.id}`);
+    }
+    if (override?.evidenceNote !== undefined &&
+      (typeof override.evidenceNote !== "string" || cleanText(override.evidenceNote).length > 700)) {
+      throw new Error(`Invalid authored evidence note: ${entity.id}`);
+    }
+    if (override?.profileForm === "concise" &&
+      (!cleanText(override.summary) || !cleanText(override.shortDescription) || !override.sources?.length)) {
+      throw new Error(`Concise profile needs authored copy and evidence: ${entity.id}`);
+    }
+    if (override?.identityScope === "category" && !cleanText(override.typeLabel)) {
+      throw new Error(`Category profile needs an explicit type label: ${entity.id}`);
+    }
+    if (override?.portraitExample !== undefined &&
+      (override.identityScope !== "category" || typeof override.portraitExample !== "string" ||
+      !cleanText(override.portraitExample) || cleanText(override.portraitExample).length > 120)) {
+      throw new Error(`Invalid category portrait example: ${entity.id}`);
+    }
     if (override?.shortDescription !== undefined &&
       (typeof override.shortDescription !== "string" || cleanText(override.shortDescription).length > 180)) {
       throw new Error(`Invalid refreshed short description: ${entity.id}`);
@@ -290,15 +312,22 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, ref
     };
     const popularity = popularityById[entity.id];
     if (popularity) sourceIds.push("akc-us-registrations-2025");
-    const editorialFamilies = normalizeDogEditorialFamilies([...(override?.editorialFamilies || []), ...pack.families]).slice(0, 12);
+    const editorialFamilies = normalizeDogEditorialFamilies(override?.profileForm === "concise" &&
+      Array.isArray(override.editorialFamilies) ? override.editorialFamilies :
+      [...(override?.editorialFamilies || []), ...pack.families]).slice(0, 12);
     const type = override?.typeLabel
       ? { label: cleanText(override.typeLabel), basis: override.typeBasis === "catalog" ? "catalog" : "editorial" }
       : dogTypeLabel({ entity, fciRecord, editorialFamilies });
     if (type.label.length > 80) throw new Error(`Invalid authored type label: ${entity.id}`);
     profiles[entity.id] = {
       summary: cleanText(override?.summary || generated.summary),
+      ...(override?.profileForm ? { profileForm: override.profileForm } : {}),
+      ...(override?.identityScope ? { identityScope: override.identityScope } : {}),
+      ...(override?.portraitExample ? { portraitExample: cleanText(override.portraitExample) } : {}),
+      ...(cleanText(override?.evidenceNote) ? { evidenceNote: cleanText(override.evidenceNote) } : {}),
       ...(shortDescription ? { shortDescription } : {}),
-      interestingFact: cleanText(override?.interestingFact || generated.interestingFact),
+      interestingFact: cleanText(override && Object.hasOwn(override, "interestingFact")
+        ? override.interestingFact : generated.interestingFact),
       sizeBand: override?.sizeBand || "unknown",
       typeLabel: type.label,
       typeBasis: type.basis,
@@ -315,7 +344,7 @@ export function buildDogProfiles({ catalog, packs, wikidata, fci, overrides, ref
 
   return {
     schemaVersion: 1,
-    profileVersion: "dogs-field-guide-2026-10-06.1",
+    profileVersion: "dogs-field-guide-2026-10-06.2",
     sources: [
       { id: "vbo-2026-04-15", name: "Vertebrate Breed Ontology", url: catalog.source.artifactUrl, license: catalog.source.license, retrievedAt: `${catalog.source.retrievedAt}T00:00:00.000Z` },
       { id: "wikidata-dog-breeds-2026-09-21", name: "Wikidata structured dog-breed statements", url: wikidata.source.url, license: wikidata.source.license, retrievedAt: wikidata.retrievedAt },

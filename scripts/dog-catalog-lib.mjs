@@ -6,7 +6,7 @@ export const MIXED_BREED_ID = "VBO:0200902";
 export const CLASSIFICATION_SCHEMA_VERSION = 1;
 export const CATALOG_SCHEMA_VERSION = 1;
 export const CATALOG_ID = "stackrank-dogs";
-export const CATALOG_VERSION = "vbo-2026-04-15.3";
+export const CATALOG_VERSION = "vbo-2026-04-15.4";
 export const MAX_RUNTIME_BYTES = 2_000_000;
 export const MAX_RECORD_BYTES = 16_384;
 

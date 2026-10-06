@@ -28,7 +28,7 @@ test('release validation works with only tracked inputs and no private reports o
   const destination = fs.mkdtempSync(path.join(os.tmpdir(), 'dogs-release-contract-'));
   try {
     loadAuditReleaseInputs({ readJson(file) {
-      assert.match(file, /^(data\/dogs\/|notes\/testing\/dogs-audit-corrections\/)/);
+      assert.match(file, /^(data\/dogs\/|notes\/testing\/(?:dogs-audit-corrections|dogs-completed-holds-resolution)\/)/);
       const target = path.join(destination, file);
       fs.mkdirSync(path.dirname(target), { recursive: true });
       const raw = fs.readFileSync(path.join(root, file), 'utf8');

@@ -108,8 +108,8 @@ test("assigns exactly one explicit disposition to every source term", () => {
   assert.equal(coverage.unclassifiedTermCount, 0);
   assert.deepEqual(coverage.dispositionCounts, {
     alias: 294,
-    canonical: 869,
-    crossbreed: 141,
+    canonical: 870,
+    crossbreed: 140,
     excluded: 4,
     historical: 40,
     variety: 189,
@@ -294,7 +294,7 @@ test("publishes explicit review queues for every non-canonical and ambiguous dec
   assert.deepEqual(review.summary, {
     aliasDecisions: 294,
     varietyDecisions: 189,
-    crossbreedDecisions: 141,
+    crossbreedDecisions: 140,
     historicalDecisions: 40,
     excludedDecisions: 4,
     regionalLandraceCandidates: 20,
@@ -433,7 +433,10 @@ test("contemporary Molossus of Epirus remains distinct from ancient Molossus", (
 
 
 test("editorial selection holds preserve identities and remove only explicitly disproved search aliases", () => {
-  assert.equal(entitiesById.get("VBO:0200799").editorialVisibility, "suppressed");
+  assert.equal(entitiesById.get("VBO:0200799").editorialVisibility, undefined);
+  assert.equal(entitiesById.get("VBO:0200799").status, "canonical");
+  assert.deepEqual(entitiesById.get("VBO:0200799").aliases, ["Labrador Husky"]);
+  assert.equal(entitiesById.get("VBO:0200390").editorialVisibility, "suppressed");
   assert.equal(entitiesById.get("VBO:0200799").selectable, true);
   assert.deepEqual(entitiesById.get("VBO:0201329").sourceIds, ["VBO:0201329", "VBO:0201330"]);
   assert.ok(!entitiesById.get("VBO:0201329").aliases.includes("Tahltan (Kyrgyz Sighthound)"));

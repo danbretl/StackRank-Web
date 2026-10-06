@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createHash } from 'node:crypto';
 import { completedDogCatalogIds } from '../lib/dogs-public-visibility.js';
+import { validateCompletedHoldResolution } from './dogs-completed-holds-contract.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const NOTES = 'notes/testing/dogs-audit-corrections/';
@@ -29,8 +30,11 @@ export function loadAuditReleaseInputs({ root = ROOT, readJson = file => JSON.pa
     const file = `data/dogs/profile-refresh-${wave}.json`;
     authoring[file] ||= readJson(file);
   }
+  const holdFreeze = readJson('notes/testing/dogs-completed-holds-resolution/freeze.json');
+  const holdResolution = readJson('notes/testing/dogs-completed-holds-resolution/resolution-ledger.json');
+  for (const row of holdFreeze.entries) authoring[row.authoring.file] ||= readJson(row.authoring.file);
   return {
-    cohort, completion, authoring,
+    cohort, completion, authoring, holdFreeze, holdResolution,
     catalog: readJson('data/dogs/dog-catalog.json'),
     profiles: readJson('data/dogs/breed-profiles.json'),
     artwork: readJson('data/dogs/generated-artwork.json'),
@@ -47,6 +51,9 @@ export function validateDogsAuditRelease(input) {
   const { cohort, completion, catalog, profiles, artwork, authoring, overrides, applied, decisions, coverage, reviews } = input;
   const errors = [];
   const check = (ok, message) => { if (!ok) errors.push(message); };
+  const continuation = validateCompletedHoldResolution(input);
+  errors.push(...continuation.errors);
+  const followRows = new Map((input.holdResolution?.decisions || []).map(row => [row.catalogId, row]));
   check(jsonDigest(cohort) === commitment.cohort, 'Original N cohort frozen commitment changed');
   check(jsonDigest(completion) === commitment.completion, 'Original N completion frozen commitment changed');
   const identities = catalog.entities.map(({ id, sourceIds, selectable }) => ({ id, sourceIds, selectable })).sort((a, b) => a.id.localeCompare(b.id));
@@ -73,6 +80,8 @@ export function validateDogsAuditRelease(input) {
     const entity = byId.get(id), asset = assets.get(id), profile = profiles.profiles[id];
     const file = `data/dogs/profile-refresh-${entry?.integration?.subwave}.json`;
     const authored = authoring[file]?.profiles?.[id];
+    const follow = followRows.get(id);
+    const priorAuthored = follow?.beforeProfile || authored;
     check(!!entity && !!asset && !!profile && !!authored, `${id}: missing N identity, artwork, profile or authoring`);
     if (!entity || !asset || !profile || !authored) continue;
     const accepted = entry.generation.attempts.find(attempt => attempt.id === entry.generation.acceptedAttemptId);
@@ -88,15 +97,17 @@ export function validateDogsAuditRelease(input) {
       if (correction) {
         check(correction.disposition === 'applied' && correction.file === file && !!correction.decision && !!correction.rationale && digest(String(correction.oldValue)) === originalHash,
           `${id}: ${field} correction lacks exact original-copy receipt`);
-        check(same(authored[field], correction.newValue) && same(profile[field], correction.newValue), `${id}: approved ${field} correction overwritten in authoring or compiled output`);
+        check(same(priorAuthored[field], correction.newValue) &&
+          same(profile[field], follow ? follow.afterProfile[field] : correction.newValue), `${id}: approved ${field} correction overwritten in authoring or compiled output`);
       } else {
-        check(digest(String(authored[field])) === originalHash && digest(String(profile[field])) === originalHash, `${id}: unauthorized ${field} change without applied receipt`);
+        check(digest(String(priorAuthored[field])) === originalHash &&
+          (follow ? same(profile[field], follow.afterProfile[field]) : digest(String(profile[field])) === originalHash), `${id}: unauthorized ${field} change without applied receipt`);
       }
     }
     for (const row of correctionRows.filter(row => row.catalogId === id)) {
-      check(row.disposition === 'applied' && row.file === file && same(authored[row.field], row.newValue), `${id}: applied ${row.field} receipt differs from final authoring`);
+      check(row.disposition === 'applied' && row.file === file && same(priorAuthored[row.field], row.newValue), `${id}: applied ${row.field} receipt differs from prior authoring chain`);
       // Sources/review dates are authoring provenance, compiled into sourceIds instead.
-      if (!['sources', 'reviewedAt'].includes(row.field)) check(same(profile[row.field], row.newValue), `${id}: applied ${row.field} receipt differs from compiled profile`);
+      if (!['sources', 'reviewedAt'].includes(row.field)) check(same(profile[row.field], follow ? follow.afterProfile[row.field] : row.newValue), `${id}: applied ${row.field} receipt differs from compiled profile`);
     }
     check(profile.reviewStatus === 'editor-reviewed', `${id}: editorial suppression must not falsify profile approval`);
     const review = coverageRows.find(row => row.catalogId === id);
@@ -112,8 +123,9 @@ export function validateDogsAuditRelease(input) {
     const held = overrides.entities[id]?.editorialVisibility?.status === 'suppressed';
     const decision = decisions.decisions.filter(row => row.catalogId === id && row.field === 'editorialVisibility').at(-1);
     check((entity.editorialVisibility === 'suppressed') === held && publicIds.has(id) === !held, `${id}: final hold/retained visibility differs from authoring`);
-    if (held) check(decision?.after?.status === 'suppressed' && same(decision.after, overrides.entities[id].editorialVisibility), `${id}: suppression lacks exact lead decision`);
-    if (/^(suppress|editorial-suppress)/.test(review?.reviewRecommendation || '')) check(held, `${id}: reviewed N hold unexpectedly public`);
+    if (held) check(follow ? same(follow.afterVisibility, overrides.entities[id].editorialVisibility) :
+      decision?.after?.status === 'suppressed' && same(decision.after, overrides.entities[id].editorialVisibility), `${id}: suppression lacks exact lead decision`);
+    if (/^(suppress|editorial-suppress)/.test(review?.reviewRecommendation || '')) check(held || follow?.disposition === 'restored', `${id}: reviewed N hold unexpectedly public`);
   }
   for (const entry of Object.values(cohort.entries).filter(entry => entry.hold?.status === 'held')) {
     check(!assets.has(entry.catalogId) && !publicIds.has(entry.catalogId), `${entry.catalogId}: historical rejected N hold became accepted/public`);

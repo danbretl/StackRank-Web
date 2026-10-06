@@ -1,0 +1,1015 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "root",
+  "reviewDate": "2026-10-06",
+  "scope": "Independent source-scope/full-short-fact review and actual960px portrait view; not new native-generation QA. Every acceptance requires visible category and illustrative-member labels in all portrait surfaces.",
+  "reviews": [
+    {
+      "id": "VBO:0200127",
+      "name": "Basset Vendeen Griffon",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "4e7d30e80f55f027a5db1a989d16fa68965c6859259317d48dc90cc9cb592449",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "typeLabel": "Breed group · Basset Griffon Vendéens",
+        "typeBasis": "catalog",
+        "summary": "Basset Griffon Vendéens comprise the Grand and Petit, two French scent-hound breeds developed for hunting on foot. Their separate standards describe distinct proportions as well as different sizes.",
+        "shortDescription": "The Grand and Petit Basset Griffon Vendéens share a French tradition of scent hunting on foot.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "scent hound"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "Club Basset Griffon Vendéen — Our breeds",
+            "url": "https://www.cbgvev.de/rasse",
+            "evidence": "Read breed heading, history and comparative description: club explicitly covers Grand/Petit, selection for foot hunting and separate standards; differences extend beyond height."
+          }
+        ],
+        "portraitExample": "Grand Basset Griffon Vendéen"
+      },
+      "sourceUrls": [
+        "https://www.cbgvev.de/rasse"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0200127-2-960.webp",
+      "portraitSha256": "0f5359ceed8f314817b82a7fcb5a91c977c419d4cd16b338f4d2f0c3b7d8886d",
+      "rationale": "Actual club history supports Grand/Petit as separate French foot-hunting scent hounds with differing proportions. Actual rough tricolor long-eared basset portrait is a coherent Grand example.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "4e7d30e80f55f027a5db1a989d16fa68965c6859259317d48dc90cc9cb592449",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0200162",
+      "name": "Bichon",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "d66f194c457ae2a1c513dbd7a796f5e7160ad6c96c285a8e74925516305283f7",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "typeLabel": "Breed group · Bichons",
+        "typeBasis": "catalog",
+        "summary": "Bichon names a companion-dog family that includes the Bichon Frise, Maltese, Havanese and Bolognese. The FCI groups these four together, while placing the Coton de Tuléar and Little Lion Dog in neighboring subgroups.",
+        "shortDescription": "The Bichon family includes the Frise, Maltese, Havanese and Bolognese, each a distinct companion breed.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "companion"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "FCI — Companion and Toy Dogs",
+            "url": "https://www.fci.be/en/nomenclature/9-Companion-and-Toy-Dogs.html",
+            "evidence": "Read section1 and subgroups1.1–1.3: four named Bichons versus neighboring Coton and Little Lion; registry classification supports category only, no shared character."
+          }
+        ],
+        "portraitExample": "Bichon Frise"
+      },
+      "sourceUrls": [
+        "https://www.fci.be/en/nomenclature/9-Companion-and-Toy-Dogs.html"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0200162-1-960.webp",
+      "portraitSha256": "1464495eae5f96f43c91131ec4cb173f0b3e3eb42d95fe44ec5688f17e979689",
+      "rationale": "Actual FCI9 section1.1 lists Frise/Maltese/Havanese/Bolognese; Coton and Little Lion are neighboring subgroups. Actual white curled-coat portrait supports Frise example, not every member.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "d66f194c457ae2a1c513dbd7a796f5e7160ad6c96c285a8e74925516305283f7",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0200206",
+      "name": "Bouvier",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "2bfadccb6e2152133222f7e79335d60c71713203bd79e9c0bcd4653056ffe36e",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "typeLabel": "Breed group · Bouviers",
+        "typeBasis": "catalog",
+        "summary": "The Bouvier des Flandres and Bouvier des Ardennes are distinct cattle-dog breeds. This group brings together those named Bouviers; the Flandres breed also worked as a farm draught dog.",
+        "shortDescription": "The Flandres and Ardennes Bouviers are distinct cattle-dog breeds with working farm histories.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "herding"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "French Bouvier des Flandres and des Ardennes club",
+            "url": "https://bouvierdesflandresetdesardennes.club/",
+            "evidence": "Current official joint club homepage explicitly presents separate Flandres and Ardennes breed sections."
+          },
+          {
+            "title": "FCI — Sheepdogs and Cattledogs",
+            "url": "https://www.fci.be/en/nomenclature/1-Sheepdogs-and-Cattledogs-except-Swiss-Cattledogs.html",
+            "evidence": "Read section2: Ardennes171 and Flandres191 separately listed as cattle dogs alongside unrelated cattle-dog breeds; no expanded Bouvier synonym asserted."
+          },
+          {
+            "title": "FCI191 — Bouvier des Flandres",
+            "url": "https://www.fci.be/Nomenclature/Standards/191g01-en.pdf",
+            "evidence": "Read utilization/history pp2–3: herding, draught/churning farm work; draught claim restricted to Flandres."
+          }
+        ],
+        "portraitExample": "Bouvier des Flandres"
+      },
+      "sourceUrls": [
+        "https://bouvierdesflandresetdesardennes.club/",
+        "https://www.fci.be/en/nomenclature/1-Sheepdogs-and-Cattledogs-except-Swiss-Cattledogs.html",
+        "https://www.fci.be/Nomenclature/Standards/191g01-en.pdf"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0200206-1-960.webp",
+      "portraitSha256": "c4777659c71b0974165fe1674cef25deb55b26d4be428a9f603dd090ca830b2d",
+      "rationale": "Actual joint club names Flandres and Ardennes. FCI191 utilization/history directly supports Flandres farm draught work. Actual bearded rough dark portrait is a coherent Flandres example. Definition correctly removes earlier erroneous all-cattle-dog expansion.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "a419fd8f6c0893d54e65cbdfcb793c0cf3d56d1849c6d81c4da5c79abb278fb2",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0200218",
+      "name": "Braque",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "51d40890abd3a6c4330b98fb04ae3dd71f5e090e5d331a6a4bf9c1c2f637adc4",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "typeLabel": "Breed group · Braque-type pointing dogs",
+        "typeBasis": "catalog",
+        "summary": "Braque is a grouping of continental pointing dogs. In FCI classification it includes French braques, the Portuguese Pointer and other distinct breeds, alongside separate spaniel-type and griffon-type pointing groups.",
+        "shortDescription": "Braque-type dogs form one FCI grouping of continental pointers, including French and Portuguese breeds.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "pointing dog"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "FCI — Pointing Dogs",
+            "url": "https://www.fci.be/en/nomenclature/7-Pointing-Dogs.html",
+            "evidence": "Read sections1.1–1.3 and membership: Braque type includes French braques, Portuguese187, OldDanish281, German and other pointers; separate spaniel and griffon types. No shared temperament claim."
+          }
+        ],
+        "portraitExample": "Portuguese Pointer"
+      },
+      "sourceUrls": [
+        "https://www.fci.be/en/nomenclature/7-Pointing-Dogs.html"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0200218-1-960.webp",
+      "portraitSha256": "0342a90157a750c7c896ef7f8e1414bbe6ae59b4947b01f3719a3faf86d26620",
+      "rationale": "Actual FCI7 subsection1.1 lists Portuguese Pointer among Braque types, with spaniel and griffon types separate. Actual yellow short-coated broad-headed portrait is compatible with Portuguese representative.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "51d40890abd3a6c4330b98fb04ae3dd71f5e090e5d331a6a4bf9c1c2f637adc4",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0200372",
+      "name": "Cocker Spaniel",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "6cadad1d73c285b98adf921b24147c2c7297f6f169dd1c28bed4cb4fa3d9151f",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "typeLabel": "Breed group · Cocker spaniels",
+        "typeBasis": "catalog",
+        "summary": "English and American Cocker Spaniels share a history as compact sporting dogs used to hunt birds in cover. They developed into separate breeds; which one is called simply “Cocker Spaniel” depends on the country.",
+        "shortDescription": "English and American Cockers share sporting roots but are separate breeds with different naming traditions.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "spaniel"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "AKC — English Cocker Spaniel vs. Cocker Spaniel",
+            "url": "https://www.akc.org/expert-advice/lifestyle/cocker-spaniel-vs-english-cocker-spaniel/",
+            "evidence": "Read opening and development paragraphs: US/non-US naming distinction, two separately recognized breeds, shared land-spaniel origins and small cockers hunting woodcock/heavy cover; no suitability claims imported."
+          }
+        ],
+        "portraitExample": "English Cocker Spaniel"
+      },
+      "sourceUrls": [
+        "https://www.akc.org/expert-advice/lifestyle/cocker-spaniel-vs-english-cocker-spaniel/"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0200372-1-960.webp",
+      "portraitSha256": "b795922611bc034e3ed30603779cf144f2fdab5e1197672297cab324dd05e505",
+      "rationale": "Actual AKC comparison documents country-dependent Cocker naming, separate breeds and compact woodcock/deep-cover work. Actual golden spaniel has developed English muzzle and moderate coat, coherent English representative.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "d5292201cf1025f2817f2d8ce2ccf524dadea1f246cd5094f4f0a3ec64a600fa",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0200384",
+      "name": "Coonhound",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "6be620f2695904cebc8c43ae1b746e61320cff4b27b85b0e755b526348011d2c",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "typeLabel": "Working-dog category · Coonhounds",
+        "typeBasis": "catalog",
+        "summary": "Coonhounds are scent hounds developed for following raccoons to trees. The group includes distinct breeds such as the Redbone and Bluetick; UKC hunting events test trailing and treeing work separately from conformation shows.",
+        "shortDescription": "Coonhounds include several breeds developed for trailing raccoons and locating them in trees.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "scent hound"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "UKC — Coonhounds",
+            "url": "https://www.ukcdogs.com/coonhounds",
+            "evidence": "Read substantive introduction: distinct UKC coonhound breeds, American hunting tradition, trailing accuracy and speed."
+          },
+          {
+            "title": "UKC — About Coonhounds",
+            "url": "https://www.ukcdogs.com/coonhound-about",
+            "evidence": "Read paragraphs describing Nite Hunts following raccoon trails until game is treed, versus separate Bench Show structural evaluation."
+          }
+        ],
+        "portraitExample": "Redbone Coonhound"
+      },
+      "sourceUrls": [
+        "https://www.ukcdogs.com/coonhounds",
+        "https://www.ukcdogs.com/coonhound-about"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0200384-1-960.webp",
+      "portraitSha256": "0b9f7a82e5a99fd98ec5192654afc9365fcc5361047f0360755de8090e74e3ca",
+      "rationale": "UKC independently confirms separate coonhound breeds and raccoon trailing/treeing work. Actual solid-red Redbone illustration is coherent.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "6be620f2695904cebc8c43ae1b746e61320cff4b27b85b0e755b526348011d2c",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0200478",
+      "name": "Elkhound",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "eaf0f0c800dc5f237a5e82e90ba4d07ec93798f3b0e4091b8bc3cbc1dbbed88c",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "typeLabel": "Working-dog category · Elkhounds",
+        "typeBasis": "catalog",
+        "summary": "Elkhounds are a Nordic large-game hunting category. Norwegian kennel-club guidance includes the grey and black Norwegian Elkhounds, Jämthund and several Laikas, with different breeds used for tracking on a leash or working loose.",
+        "shortDescription": "Elkhounds include several Nordic hunting breeds used to track large game, on a leash or working loose.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "spitz"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "Norsk Kennel Klub — Elghund hunting and tracking",
+            "url": "https://www.nkk.no/prover-og-konkurranser/jakt-1/elghunder/elghundene-brukes-til-jakt-og-ettersok-av-skadet-storvilt",
+            "evidence": "Read all substantive paragraphs and nine-breed list: two working methods bandhund/løshund, recovery of wounded big game, named grey/black Norwegian, Jämthund and Laika members. Differences in preferred methods remain explicit."
+          }
+        ],
+        "portraitExample": "Norwegian Elkhound Black"
+      },
+      "sourceUrls": [
+        "https://www.nkk.no/prover-og-konkurranser/jakt-1/elghunder/elghundene-brukes-til-jakt-og-ettersok-av-skadet-storvilt"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0200478-1-960.webp",
+      "portraitSha256": "3dbf85957e0819e4a237402480f86b21bef636c8a86ac2e483106bb4cb21c0e2",
+      "rationale": "NKK actual hunting guidance distinguishes leash/loose methods and lists Norwegian/Swedish breeds and Laikas. Actual black erect-ear curled-tail portrait fits Black Norwegian Elkhound.",
+      "requiredChanges": [
+        "Clarify Nordic refers to hunting context, not origin of all member breeds including Russian Laikas: prefer In Nordic hunting, elkhounds form a large-game working category; mirror scope in short copy."
+      ],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "eaf0f0c800dc5f237a5e82e90ba4d07ec93798f3b0e4091b8bc3cbc1dbbed88c",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0200531",
+      "name": "Foxhound",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "a1d7712d200a3615219afff2951f489915be0b74f1932062565ba33dc9a3e199",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "typeLabel": "Working-dog category · Foxhounds",
+        "typeBasis": "catalog",
+        "summary": "Foxhounds form a family of pack-hunting scent hounds. North American working records distinguish American, English, Penn-Marydel and Crossbred lines, preserving separate breeding histories within the shared hunting tradition.",
+        "shortDescription": "Foxhounds share a pack-hunting tradition across American, English, Penn-Marydel and Crossbred lines.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "scent hound"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "MFHA — Foxhound Registration Rules and Definitions",
+            "url": "https://mfha.com/foxhound-registration-rules-definitions/",
+            "evidence": "Read rules(b)–(m), kennel-list and breeding sections: named American/English/Penn-Marydel/Crossbred categories, breeding and pack records. Harriers separately eligible but not silently recast as foxhounds."
+          }
+        ],
+        "portraitExample": "American Foxhound"
+      },
+      "sourceUrls": [
+        "https://mfha.com/foxhound-registration-rules-definitions/"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0200531-1-960.webp",
+      "portraitSha256": "acb1c1ff111952848c3e12f819eb8c9b233e0fafe1b94a9feaf587f80291423f",
+      "rationale": "MFHA actual registration rules distinguish American/English/Penn-Marydel/crossbred records in North American context. Actual lean tricolor long-legged portrait fits American Foxhound.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "a1d7712d200a3615219afff2951f489915be0b74f1932062565ba33dc9a3e199",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0200574",
+      "name": "German Pointer",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "53fee6ae8af0ce2c829ced0ad300fdade5260032cfcfd81f9e460c11c3a9b967",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "typeLabel": "Breed group · German pointers",
+        "typeBasis": "catalog",
+        "summary": "German pointers include the Shorthaired, Wirehaired, Longhaired and Roughhaired breeds, each with its own standard. These continental gundogs belong to a pointing tradition; the Shorthaired standard also describes development into a versatile hunting dog.",
+        "shortDescription": "German Shorthaired, Wirehaired, Longhaired and Roughhaired Pointers are distinct continental gundog breeds.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "pointing dog"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "FCI — Pointing Dogs",
+            "url": "https://www.fci.be/en/nomenclature/7-Pointing-Dogs.html",
+            "evidence": "Read continental sections1.1/1.2: Deutsch Stichelhaar232, Kurzhaar119, Drahthaar98 and Langhaar117 independently listed; taxonomy does not establish common personality."
+          },
+          {
+            "title": "FCI119 — German Shorthaired Pointing Dog",
+            "url": "https://www.fci.be/Nomenclature/Standards/119g07-en.pdf",
+            "evidence": "Read p2 utilization and history: pointing performance and transition to versatile hunting dog. Development claim restricted to Shorthaired."
+          }
+        ],
+        "portraitExample": "German Longhaired Pointer"
+      },
+      "sourceUrls": [
+        "https://www.fci.be/en/nomenclature/7-Pointing-Dogs.html",
+        "https://www.fci.be/Nomenclature/Standards/119g07-en.pdf"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0200574-1-960.webp",
+      "portraitSha256": "bc46b20e3afe1bec7e1489c405a7894d715cd70cc1dfae8d180cc5088931ac03",
+      "rationale": "FCI7 lists distinct Kurzhaar/Langhaar/Drahthaar/Stichelhaar breeds; FCI119 independently supports versatile hunting history. Actual brown-white feathered pointing dog supports Longhaired example.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "2e85f402b56847b28528b2b82805ceb4d10f14b987f7afedf64ff6b073558a62",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0200673",
+      "name": "Hound",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "f78421ca65b3b06ca7f54f4419cfe851efe9b469c541d06b4aa622499117add5",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "typeLabel": "Breed group · Hounds",
+        "typeBasis": "catalog",
+        "summary": "Hounds encompass diverse hunting breeds, including scent hounds that follow trails and sighthounds built for pursuit. Beagles and Whippets illustrate different branches of this group, whose hunting methods and character vary widely.",
+        "shortDescription": "Hounds include scent-trailing and sight-pursuit breeds, from Beagles to Whippets.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "hound"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "AKC — Hound Group",
+            "url": "https://www.akc.org/dog-breeds/hound/",
+            "evidence": "Read general introduction: hunting ancestry, scent-trailing and pursuit, explicit warning against group-wide generalizations; member list includes Beagle and Afghan."
+          },
+          {
+            "title": "FCI162 — Whippet",
+            "url": "https://www.fci.be/Nomenclature/Standards/162g10-en.pdf",
+            "evidence": "Freshly read p2 utilization/classification and pp2–3 structure: FCI10 sighthound, built for speed/work; Whippet illustrates sight-pursuit branch only."
+          }
+        ],
+        "portraitExample": "Whippet"
+      },
+      "sourceUrls": [
+        "https://www.akc.org/dog-breeds/hound/",
+        "https://www.fci.be/Nomenclature/Standards/162g10-en.pdf",
+        "https://www.fci.be/Nomenclature/Standards/162g10-en.pdf"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0200673-1-960.webp",
+      "portraitSha256": "9782f4dc4cba2e3705790a31dd8b8e9bf220216a2a7d05967e7db65449103828",
+      "rationale": "AKC Hound group explicitly diverse by work and character; FCI162 confirms Whippet sighthound identity. Actual fawn rose-eared deep-chested tucked-up dog supports Whippet example.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "3070eb1d8a94403d9b4f377d5e54a2661afdaad81f88fc6d4727573142414d79",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0200915",
+      "name": "Mountain Dog",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "acbaa0cfc44600041a3ffb5d47cc735a0e50353c6d439d542076e1cc4d9f5a33",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "portraitExample": "Pyrenean Mountain Dog",
+        "typeLabel": "Breed group · Mountain-type dogs",
+        "typeBasis": "catalog",
+        "summary": "Mountain-type dogs form a broad FCI grouping with varied working histories. It includes the Pyrenean Mountain Dog, a flock guardian, and the Newfoundland, whose standard describes hauling loads and working in water.",
+        "shortDescription": "Mountain-type dogs include distinct working breeds, from Pyrenean flock guardians to Newfoundlands.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "working"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "FCI137 — Pyrenean Mountain Dog",
+            "url": "https://www.fci.be/Nomenclature/Standards/137g02-en.pdf",
+            "evidence": "Read p2 utilization/classification: pastoral guardian in mountains; section2.2 mountain type. Read appearance/coat supports existing representative."
+          },
+          {
+            "title": "FCI50 — Newfoundland",
+            "url": "https://www.fci.be/Nomenclature/Standards/050g02-en.pdf",
+            "evidence": "Read p2 utilization/classification: heavy-load sledge/water dog in section2.2 mountain type. Distinct work intentionally member-scoped."
+          }
+        ]
+      },
+      "sourceUrls": [
+        "https://www.fci.be/Nomenclature/Standards/137g02-en.pdf",
+        "https://www.fci.be/Nomenclature/Standards/050g02-en.pdf"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0200915-1-960.webp",
+      "portraitSha256": "cb0c062964259da3bbe811763ba8f31a041fc1274073158a41773f3d3feaad3a",
+      "rationale": "FCI137/50 independently place Pyrenean and Newfoundland in mountain-type section2.2, with flock guardian versus haul/water work. Actual white substantial guardian portrait supports Pyrenean example.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "0ba7916c4c355fddf8d70e89ff882fc9ece568c536a0b7c20f39ac5cdcf84add",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0200928",
+      "name": "Munsterlander Pointer",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "010ac488910220013eae4a83aad1ec8afdd2d5d163ee07f6b08195d6c75bc961",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "portraitExample": "Small Münsterländer",
+        "typeLabel": "Breed group · Münsterländers",
+        "typeBasis": "catalog",
+        "summary": "The Large and Small Münsterländer are separate German pointing breeds, not two sizes of one breed. Both belong to the longhaired pointing-dog tradition, with different documented breeding histories.",
+        "shortDescription": "Large and Small Münsterländers are separate breeds within the German longhaired pointing tradition.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "pointing dog"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "Austrian Association for Large and Small Münsterländers — Our breeds",
+            "url": "https://www.dermuensterlaender.com/unsere-rassen",
+            "evidence": "Read separate Large/Small headings and substantive histories: longhaired German pointing family, distinct breeding histories and FCI standards linked separately."
+          },
+          {
+            "title": "FCI — Pointing Dogs",
+            "url": "https://www.fci.be/en/nomenclature/7-Pointing-Dogs.html",
+            "evidence": "Read separate102/118 listing under continental spaniel-type pointing dogs. No shared temperament inferred."
+          }
+        ]
+      },
+      "sourceUrls": [
+        "https://www.dermuensterlaender.com/unsere-rassen",
+        "https://www.fci.be/en/nomenclature/7-Pointing-Dogs.html"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0200928-1-960.webp",
+      "portraitSha256": "0f3fd099bd92dec2f685d1c2a883dd9eaa37dd93a9a806405f5e2b0e957d3d95",
+      "rationale": "Muensterlaender club actual histories distinguish Large/Small longhaired pointing breeds and their breeding foundations. Actual brown-roan feathered portrait supports Small example.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "010ac488910220013eae4a83aad1ec8afdd2d5d163ee07f6b08195d6c75bc961",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0201021",
+      "name": "Pinscher",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "86a23e85b2244f6a748478eead52c58bb27b21bf02eac0a8e14427e735288950",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "portraitExample": "German Pinscher",
+        "typeLabel": "Breed group · Pinschers",
+        "typeBasis": "catalog",
+        "summary": "Pinschers include distinct breeds such as the German Pinscher, Miniature Pinscher and Affenpinscher. Their standards describe watch and companion roles; the name does not imply that every member shares one size, coat or character.",
+        "shortDescription": "German, Miniature and Affenpinschers are distinct breeds with watch and companion-dog traditions.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "pinscher"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "FCI184 — German Pinscher",
+            "url": "https://www.fci.be/Nomenclature/Standards/184g02-en.pdf",
+            "evidence": "Read p2 utilization watch/companion and separate breed history."
+          },
+          {
+            "title": "FCI185 — Miniature Pinscher",
+            "url": "https://www.fci.be/Nomenclature/Standards/185g02-en.pdf",
+            "evidence": "Separate Miniature Pinscher standard establishes named breed; use scoped utilization only."
+          },
+          {
+            "title": "FCI186 — Affenpinscher",
+            "url": "https://www.fci.be/Nomenclature/Standards/186g02-en.pdf",
+            "evidence": "Read classification/utilization and history: distinct Affenpinscher companion role; no common pinscher temperament inferred."
+          }
+        ]
+      },
+      "sourceUrls": [
+        "https://www.fci.be/Nomenclature/Standards/184g02-en.pdf",
+        "https://www.fci.be/Nomenclature/Standards/185g02-en.pdf",
+        "https://www.fci.be/Nomenclature/Standards/186g02-en.pdf"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0201021-1-960.webp",
+      "portraitSha256": "8e004af3949c4b03516bb50330396fed7ca312020120d5f5454eacc0a4dbafe4",
+      "rationale": "FCI184/185/186 separately document German, Miniature and Affenpinscher; watch/house/companion utilization varies. Actual red smooth square dog fits German Pinscher example.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "964b8c40e3459f9275f5f682f1a36a88d9ad4d61e80407658c862ad6ed3ffd8b",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0201134",
+      "name": "Retriever",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "a454eadec03cbe52d2d70deb2ea240d9dfccdc27a1bfc988cd41a6e72b1c845a",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "portraitExample": "Labrador Retriever",
+        "typeLabel": "Working-dog category · Retrievers",
+        "typeBasis": "catalog",
+        "summary": "Retrievers were developed to find shot game and bring it back without damaging it, on land or in water. The category includes distinct breeds such as Labradors, Goldens and Curly-Coated Retrievers, with different histories and characters.",
+        "shortDescription": "Retrievers include distinct breeds developed to recover game and carry it back gently on land or from water.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "retriever"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "AKC — Get to Know the Retriever Breeds",
+            "url": "https://www.akc.org/expert-advice/dog-breeds/meet-retriever-breeds/",
+            "evidence": "Read introduction and member sections: retrieving game undamaged, gentle grip, land/water work, six AKC breeds; broad intelligence/personality generalizations deliberately excluded."
+          }
+        ]
+      },
+      "sourceUrls": [
+        "https://www.akc.org/expert-advice/dog-breeds/meet-retriever-breeds/"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0201134-1-960.webp",
+      "portraitSha256": "4b4b6f5492385739405b55960d56b7bb860ec0f0eec3d646a9672398508eb4d9",
+      "rationale": "AKC retriever article actual opening defines undamaged retrieval on rugged ground/water; individual breed sections confirm listed examples. Actual chocolate stocky broad-headed dog fits Labrador.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "6b36957631a362d1f086a18c689620942e9dba791a31bfec499eb2c644e80a65",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0201211",
+      "name": "Setter",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "ac48a93f45518e696548cbd0203b3e378f7d7eb2717db2d46fc16c0fd2528760",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "portraitExample": "English Setter",
+        "typeLabel": "Breed group · Setters",
+        "typeBasis": "catalog",
+        "summary": "English, Gordon, Irish and Irish Red and White Setters are distinct bird-hunting breeds. They locate game and indicate its position; their name recalls the low “set” used when hunters caught birds with nets.",
+        "shortDescription": "Four setter breeds share a bird-finding tradition, named for the low stance once used in net hunting.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "pointing dog"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "AKC — Get to Know the Setter Breeds",
+            "url": "https://www.akc.org/expert-advice/dog-breeds/meet-setter-breeds/",
+            "evidence": "Read introduction, four named members and setting/net history paragraphs. Avoid source blanket affectionate/intelligent claims."
+          },
+          {
+            "title": "FCI — Pointing Dogs",
+            "url": "https://www.fci.be/en/nomenclature/7-Pointing-Dogs.html",
+            "evidence": "Read section2.2 independently listing standards2,6,330,120."
+          }
+        ]
+      },
+      "sourceUrls": [
+        "https://www.akc.org/expert-advice/dog-breeds/meet-setter-breeds/",
+        "https://www.fci.be/en/nomenclature/7-Pointing-Dogs.html"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0201211-1-960.webp",
+      "portraitSha256": "ca0e3168142d6b1962a1a061a48da927426eb3396f76c74f5b018802ed53e5ef",
+      "rationale": "AKC setter article actual opening documents four breeds, indicating birds and historical crouching/net use. Actual orange-belton feathered portrait fits English Setter.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "8968ddc334c7539359afbcd2fdd38de7193bc43c9dcf026ee14419c9401a7074",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0201215",
+      "name": "Sheepdog",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "4d601557fbd2a4f53483bd7231275b077443b6e6d67ae612f68c80c248667910",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "portraitExample": "Border Collie",
+        "typeLabel": "Working-dog category · Sheepdogs",
+        "typeBasis": "catalog",
+        "summary": "Sheepdog covers breeds with different roles around flocks. Border Collies herd livestock, while the Abruzzes and Maremma Shepherd Dog chiefly protects sheep and property; both fall within the FCI sheepdog section.",
+        "shortDescription": "Sheepdogs include flock herders and guardians, whose traditional jobs call for different working methods.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "herding",
+          "livestock guardian"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "FCI — Sheepdogs and Cattledogs",
+            "url": "https://www.fci.be/en/nomenclature/1-Sheepdogs-and-Cattledogs-except-Swiss-Cattledogs.html",
+            "evidence": "Read section1 member listings: BorderCollie297 and Abruzzes/Maremma201 both included."
+          },
+          {
+            "title": "FCI201 — Abruzzes and Maremma Shepherd Dog",
+            "url": "https://www.fci.be/Nomenclature/Standards/201g01-en.pdf",
+            "evidence": "Read current p2 utilization/classification: chiefly flock/property protection, FCI1 sheepdogs. Does not herd the flock like a collie."
+          },
+          {
+            "title": "FCI297 — Border Collie",
+            "url": "https://www.fci.be/Nomenclature/Standards/297g01-en.pdf",
+            "evidence": "Exact member standard provides sheepdog/herding context; no character transferred to whole category."
+          }
+        ]
+      },
+      "sourceUrls": [
+        "https://www.fci.be/Nomenclature/Standards/201g01-en.pdf",
+        "https://www.fci.be/Nomenclature/Standards/297g01-en.pdf"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0201215-1-960.webp",
+      "portraitSha256": "2cbf462185ef2a3ef9347befdb7cfc4dd3657548bec22114b20aa6754d539bf6",
+      "rationale": "FCI201 and297 actual utilization/classification independently support sheepdog guardian versus herder distinction. Actual black-white semierect-eared collie portrait is coherent Border Collie.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "4d601557fbd2a4f53483bd7231275b077443b6e6d67ae612f68c80c248667910",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0201271",
+      "name": "Spaniel",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "26bd1a94385151055b35cd962f343a58e38259bfe3ce653d2903d7ff11ab8119",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "portraitExample": "Welsh Springer Spaniel",
+        "typeLabel": "Breed group · Spaniels",
+        "typeBasis": "catalog",
+        "summary": "Spaniels range from sporting breeds developed to find, flush and retrieve game to toy companions. Welsh Springers illustrate the flushing branch, while Cavaliers and English Toy Spaniels belong to companion branches.",
+        "shortDescription": "Spaniels span working bird dogs and toy companions, with distinct breeds and different traditional roles.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "spaniel"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "AKC — Get to Know the Spaniel Breeds",
+            "url": "https://www.akc.org/expert-advice/dog-breeds/meet-spaniel-breeds/",
+            "evidence": "Read introduction and WelshSpringer/Cavalier/EnglishToy entries: find/flush/fetch sporting origin; toy companion branches included. Uncertain geographic ancestry omitted."
+          },
+          {
+            "title": "FCI126 — Welsh Springer Spaniel",
+            "url": "https://www.fci.be/Nomenclature/Standards/126g08-en.pdf",
+            "evidence": "Read utilization: flushing dog; appearance confirms red-white and relatively small pendant ears for representative."
+          }
+        ]
+      },
+      "sourceUrls": [
+        "https://www.akc.org/expert-advice/dog-breeds/meet-spaniel-breeds/",
+        "https://www.fci.be/Nomenclature/Standards/126g08-en.pdf"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0201271-1-960.webp",
+      "portraitSha256": "5eb4ce15c13a04aa891795d932f494a3c811894c8b60b3e6b48306a4281e7154",
+      "rationale": "AKC actual spaniel article includes sporting and toy branches; FCI126 independently supports Welsh flushing role. Actual red-white sporting dog with small pendant ears fits Welsh Springer.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "26bd1a94385151055b35cd962f343a58e38259bfe3ce653d2903d7ff11ab8119",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0201282",
+      "name": "Spitz",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "d2c61d81a3fb0953539bb6ee834cdd83803c2d504ef04f702bf83afc16a05f26",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "portraitExample": "Samoyed",
+        "typeLabel": "Breed group · Spitz-type dogs",
+        "typeBasis": "catalog",
+        "summary": "Spitz is a broad dog type, often marked by upright ears and a dense coat. Its members have varied histories: Malamutes hauled heavy sled loads, Finnish Spitz located game birds, and Samoyeds worked with northern herders.",
+        "shortDescription": "Spitz-type breeds have varied hunting, herding and sled-working histories; they are not one breed.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "spitz"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "AKC — Get to Know the Spitz Breeds",
+            "url": "https://www.akc.org/expert-advice/dog-breeds/spitz-dog-breeds/",
+            "evidence": "Read introduction acknowledging no exact category definition and Malamute/FinnishSpitz/Samoyed sections: member-specific hauling, bird finding, herding roles. Shared loyalty/intelligence claims omitted."
+          }
+        ]
+      },
+      "sourceUrls": [
+        "https://www.akc.org/expert-advice/dog-breeds/spitz-dog-breeds/"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0201282-1-960.webp",
+      "portraitSha256": "fdc5b7ce8f2fbb3a4fd11dca92910ec0bdb5708e5e8fe7e05e661becac8eb2e3",
+      "rationale": "AKC actual spitz article admits fuzzy category boundary and documents member-specific Malamute hauling/Finnish Spitz bird work/Samoyed herding. Actual white dense-coated erect-ear dog fits Samoyed.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "d2c61d81a3fb0953539bb6ee834cdd83803c2d504ef04f702bf83afc16a05f26",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0201287",
+      "name": "Springer Spaniel",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "0c312a6d357f25ea573241a2ed30e5810bd6845dc9703e6e8d2d95e16594f019",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "portraitExample": "English Springer Spaniel",
+        "typeLabel": "Breed group · Springer spaniels",
+        "typeBasis": "catalog",
+        "summary": "English and Welsh Springer Spaniels are separate flushing-dog breeds. Both belong to the bird-hunting spaniel tradition; the English breed’s history includes springing game for nets, falcons and later guns.",
+        "shortDescription": "English and Welsh Springers are separate spaniel breeds with a shared game-flushing tradition.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "spaniel"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "FCI125 — English Springer Spaniel",
+            "url": "https://www.fci.be/Nomenclature/Standards/125g08-en.pdf",
+            "evidence": "Read p2 utilization/history: flushing/retrieving; finding/springing game for net/falcon/greyhound then gun. Historical claim explicitly English."
+          },
+          {
+            "title": "FCI126 — Welsh Springer Spaniel",
+            "url": "https://www.fci.be/Nomenclature/Standards/126g08-en.pdf",
+            "evidence": "Read p2: separate breed, flushing utilization. Do not infer same English historical narrative for Welsh."
+          }
+        ]
+      },
+      "sourceUrls": [
+        "https://www.fci.be/Nomenclature/Standards/125g08-en.pdf",
+        "https://www.fci.be/Nomenclature/Standards/126g08-en.pdf"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0201287-1-960.webp",
+      "portraitSha256": "c18cef3148b07b1c015536a6f6730a0f6a97a617741802aabf11f124455a810c",
+      "rationale": "FCI125 history explicitly supports English net/falcon/gun work; FCI126 separately supports Welsh flushing role. Actual black-white sporting spaniel fits English Springer.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "0c312a6d357f25ea573241a2ed30e5810bd6845dc9703e6e8d2d95e16594f019",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0201323",
+      "name": "Swiss Mountain Dog",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "2d6695c2da833ae2df4880fb570ec7106851d3804d9fff16db2f9274afc6e2ad",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "portraitExample": "Greater Swiss Mountain Dog",
+        "typeLabel": "Breed group · Swiss mountain dogs",
+        "typeBasis": "catalog",
+        "summary": "Swiss mountain dogs, or Sennenhunde, comprise the Bernese, Greater Swiss, Appenzeller and Entlebucher breeds. Their Swiss farm histories include cattle work, guarding and, especially in the larger breeds, pulling carts.",
+        "shortDescription": "The four Sennenhunde breeds share Swiss farm roots, with cattle, guarding and draught-working traditions.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "working"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "AKC — Get to Know the Sennenhunde Breeds",
+            "url": "https://www.akc.org/expert-advice/dog-breeds/sennenhunde-breeds/",
+            "evidence": "Read introduction four-breed definition and breed work sections: farm/cattle/guarding/cart work. Speculative Roman/SaintBernard ancestry and shared personality not imported."
+          },
+          {
+            "title": "FCI45 — Bernese Mountain Dog",
+            "url": "https://www.fci.be/Nomenclature/Standards/045g02-en.pdf",
+            "evidence": "Exact primary breed standard independently documents Swiss farm/draught context; used only for Bernese member work."
+          }
+        ]
+      },
+      "sourceUrls": [
+        "https://www.akc.org/expert-advice/dog-breeds/sennenhunde-breeds/",
+        "https://www.fci.be/Nomenclature/Standards/045g02-en.pdf"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0201323-1-960.webp",
+      "portraitSha256": "04ef600c82759daf23abbad2198325c2358bc2b7aa9cb9cc632659b642266245",
+      "rationale": "AKC actual Sennenhunde article defines four distinct breeds and their farm duties; FCI45 separately supports Bernese draught/cattle/guard work. Actual short-coated tricolor substantial dog fits Greater Swiss.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "2d6695c2da833ae2df4880fb570ec7106851d3804d9fff16db2f9274afc6e2ad",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0201343",
+      "name": "Terrier",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "d678975852b8c5f25ea3379720d417c886dadd945dc17d0ec665dcff4c23c938",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "portraitExample": "Border Terrier",
+        "typeLabel": "Breed group",
+        "typeBasis": "catalog",
+        "summary": "Terriers developed around vermin hunting and related farm or household work. The group ranges from small Cairn and Border Terriers to the much larger Airedale; its members have distinct breed histories and builds.",
+        "shortDescription": "A vermin-hunting breed group ranging from small Cairn and Border Terriers to the much larger Airedale.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "terrier"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "AKC: Terrier Group",
+            "url": "https://www.akc.org/dog-breeds/terrier/",
+            "evidence": "Group introduction describes vermin hunting and guarding home or barn; identifies smaller Cairn/Norfolk/West Highland White versus larger Airedale. Member list includes Border Terrier."
+          }
+        ]
+      },
+      "sourceUrls": [
+        "https://www.akc.org/dog-breeds/terrier/"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0201343-1-960.webp",
+      "portraitSha256": "f5c1521fc708fbb35ce6eb365e693a9b5f56169daa733832e2eb38719c373bab",
+      "rationale": "AKC actual terrier group introduction supports vermin and farm/house duties with differing sizes. Actual grizzled wiry small dropped-ear portrait fits Border Terrier.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "d678975852b8c5f25ea3379720d417c886dadd945dc17d0ec665dcff4c23c938",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0201396",
+      "name": "Water Dog",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "692657718da63366adace1dcdf386c82cb2167eb8116dd28f69a0beb478d6a11",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "portraitExample": "Lagotto Romagnolo",
+        "typeLabel": "Working-dog category",
+        "typeBasis": "catalog",
+        "summary": "Water Dog is a group name used by the FCI for breeds including the Barbet, Portuguese Water Dog and Lagotto Romagnolo. Their work differs: the Lagotto’s registry history traces a change from marsh retrieving to searching for truffles.",
+        "shortDescription": "An FCI group including Barbet, Portuguese Water Dog and Lagotto Romagnolo, whose work now includes truffle hunting.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "water dog"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "FCI: Group 8 nomenclature",
+            "url": "https://www.fci.be/en/nomenclature/8-Retrievers-Flushing-Dogs-Water-Dogs.html",
+            "evidence": "Section 3 names Barbet, Irish Water Spaniel, Lagotto Romagnolo, Portuguese Water Dog, Spanish Water Dog, Wetterhoun and American Water Spaniel."
+          },
+          {
+            "title": "FCI Standard 298: Lagotto Romagnolo",
+            "url": "https://www.fci.be/Nomenclature/Standards/298g08-en.pdf",
+            "evidence": "Current PDF dated 02.10.2026 with official valid standard 08.09.2026: page 2 classifies in Section 3 Water Dogs, gives truffle-dog utilisation, and describes earlier marsh retrieving around Comacchio/Ravenna followed by truffle work after marsh drainage. Scope and morphology sections read; no claim of comprehensive comparison with the previous standard."
+          }
+        ]
+      },
+      "sourceUrls": [
+        "https://www.fci.be/en/nomenclature/8-Retrievers-Flushing-Dogs-Water-Dogs.html",
+        "https://www.fci.be/Nomenclature/Standards/298g08-en.pdf"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0201396-1-960.webp",
+      "portraitSha256": "41c5b75531ec6170d9c3f8b2c81ac6822977babe40945e1a7925633002fd7cb2",
+      "rationale": "FCI8 section3 lists named water-dog breeds; updated actual FCI298 p2 supports Lagotto marsh-retriever to truffle-work history. Actual brown curly square dog fits Lagotto illustration.",
+      "requiredChanges": [
+        "Prefer FCI category or FCI section in short copy: water dogs are Section 3 of Group 8, not a standalone numbered FCI Group."
+      ],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "692657718da63366adace1dcdf386c82cb2167eb8116dd28f69a0beb478d6a11",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    },
+    {
+      "id": "VBO:0201397",
+      "name": "Water Spaniel",
+      "status": "accept-with-required-category-presentation",
+      "proposalSha256": "5af80dc65e7d6acf35028635e6773e55534f1dde3d5ab2fc27542a8b1fc80f65",
+      "reviewedFields": {
+        "identityScope": "category",
+        "profileForm": "concise",
+        "portraitExample": "Irish Water Spaniel",
+        "typeLabel": "Working-dog category",
+        "typeBasis": "catalog",
+        "summary": "Water spaniels include the distinct Irish and American Water Spaniel breeds. The Irish standard describes hunting and retrieving in heavy cover and a traditional wildfowling role; the American was developed to retrieve from small boats as well as work on land.",
+        "shortDescription": "A water-working spaniel category including the distinct Irish and American Water Spaniel breeds.",
+        "interestingFact": "",
+        "sizeBand": "varies",
+        "originRegions": [],
+        "editorialFamilies": [
+          "spaniel",
+          "water dog"
+        ],
+        "reviewedAt": "2026-10-06",
+        "sources": [
+          {
+            "title": "FCI Standard 124: Irish Water Spaniel",
+            "url": "https://www.fci.be/Nomenclature/Standards/124g08-en.pdf",
+            "evidence": "Page 2 utilisation describes hunting and retrieving from heavy cover and traditional choice of wildfowler; classified Group 8 Section 3 Water Dogs. Pages 3–5 describe smooth long muzzle, topknot, curled ears/body and smooth tapering tail."
+          },
+          {
+            "title": "FCI Standard 301: American Water Spaniel",
+            "url": "https://www.fci.be/Nomenclature/Standards/301g08-en.pdf",
+            "evidence": "Page 2 states development in the United States as an all-round hunting dog, retrieving from skiff/canoes and working on ground; classified Group 8 Section 3 Water Dogs."
+          }
+        ]
+      },
+      "sourceUrls": [
+        "https://www.fci.be/Nomenclature/Standards/124g08-en.pdf",
+        "https://www.fci.be/Nomenclature/Standards/301g08-en.pdf"
+      ],
+      "actualPortrait": "assets/dogs/generated/N-0201397-2-960.webp",
+      "portraitSha256": "87457a35e2f13697191293d6184822b48799cc6d4c8d4b54dbf72fa877c0c868",
+      "rationale": "FCI124/301 actual utilization separates Irish heavy-cover/wildfowl work from American small-boat retrieval and ground hunting. Actual curled liver dog with topknot, smooth muzzle and rat tail fits Irish example.",
+      "requiredChanges": [],
+      "presentationGate": "Show category scope and named illustrative member; no uniform temperament/appearance implications. Integration UI and compatibility checks remain pending.",
+      "finalProposalSha256": "5af80dc65e7d6acf35028635e6773e55534f1dde3d5ab2fc27542a8b1fc80f65",
+      "finalProposalRecheck": "All reviewed authored fields identical; later worker evidence metadata additions do not alter acceptance."
+    }
+  ],
+  "complete": true,
+  "reviewedCount": 23
+}

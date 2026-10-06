@@ -206,8 +206,8 @@ test("tracked discovery queue exactly matches the current versioned catalog, led
     },
   });
   assert.equal(queueText, stableJson(built));
-  assert.equal(built.sourceVersions.catalogVersion, "vbo-2026-04-15.3");
-  assert.equal(built.summary.currentCanonicalCount, 869);
+  assert.equal(built.sourceVersions.catalogVersion, "vbo-2026-04-15.4");
+  assert.equal(built.summary.currentCanonicalCount, 870);
   const ledgerIds = new Set(JSON.parse(ledgerText).assets.map((asset) => asset.catalogId));
   const missingCanonicalIds = JSON.parse(catalogText).entities
     .filter((entity) => entity.selectable && entity.status === "canonical" && !ledgerIds.has(entity.id))

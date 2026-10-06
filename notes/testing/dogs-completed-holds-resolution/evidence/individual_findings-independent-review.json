@@ -1,0 +1,523 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "n_review_b",
+  "source": "/tmp/stackrank-holds-individual_findings/decisions.json",
+  "sourceFileSHA256": "5d86feefe1d44d8941473715aea53d47d5fdfb37975d5717c5f78ec8213afdec",
+  "reviewedAt": "2026-10-06",
+  "reviewedCount": 18,
+  "reviews": [
+    {
+      "catalogId": "VBO:0200330",
+      "name": "Chi-Terrier",
+      "reviewer": "n_review_b",
+      "decision": "accepted",
+      "proposedFieldsSemanticSHA256": "b97252b9b9a488dfa022f51e48e0223871015a0e1c8e2c8c583a1df8c6e28423",
+      "semanticHashAlgorithm": "SHA256 of UTF-8 JSON(fields), recursively sorted object keys, compact separators, literal Unicode, arrays preserve order",
+      "independentlyReadEvidence": [
+        {
+          "url": "https://www.caninerescue.org/project/oreo/",
+          "method": "Actual primary/keeper/specialist source body read independently through web tool, not proposal metadata",
+          "passageLocation": "NCCR own adopted Oreo article, body and Breed(s) field",
+          "passageFinding": "Both actual body and structured field describe Oreo as Chihuahua/Terrier mix; no particular terrier appears. The type name is VBO/VeNom lexical evidence, not a claim the rescue used Chi-Terrier. Proposed broad-name qualification is necessary and sufficient."
+        }
+      ],
+      "identityScopeAndLimits": "Terrier unspecified; no pedigree or fixed type morphology.",
+      "ontologyCheck": "Exact VBO node in data/dogs/sources/vbo-2026-04-15.json independently read. VeNom lexical identity/synonyms only, not registry, pedigree or trait proof.",
+      "fieldsAssessment": "Concise parentage/naming only; summary and short agree. Empty history/origin/fact and unknown size avoid unsupported inherited metadata. Editorial crossbreed describes evidenced mixed parentage without behavior inference.",
+      "portraitScopeCheck": {
+        "actualPixelsViewed": true,
+        "method": "Actual960x640 display portrait viewed at600x400 in labeled contact sheet; all18 individually examined",
+        "path": "assets/dogs/generated/N-0200330-1-960.webp",
+        "sha256": "a40cf167b171c35f87bf5860ff72110db5a711436beb9906d67767e01560002a",
+        "observation": "White/black ticked adult, upright ears and complete curved tail; portrait does not identify a specific terrier parent.",
+        "limitation": "No fresh native/master/rights certification; does not establish genetic ancestry."
+      },
+      "requiredChanges": []
+    },
+    {
+      "catalogId": "VBO:0200348",
+      "name": "Chinese Crestepoo",
+      "reviewer": "n_review_b",
+      "decision": "accepted",
+      "proposedFieldsSemanticSHA256": "cfdf1872d322211e4028230589014af0fc3a00866843b72d579c081a7c04bbcc",
+      "semanticHashAlgorithm": "SHA256 of UTF-8 JSON(fields), recursively sorted object keys, compact separators, literal Unicode, arrays preserve order",
+      "independentlyReadEvidence": [
+        {
+          "url": "https://www.dogbreedinfo.com/chinesecrestepoo.htm",
+          "method": "Actual primary/keeper/specialist source body read independently through web tool, not proposal metadata",
+          "passageLocation": "Original keeper litter account near end of full page",
+          "passageFinding": "Vixen, Veela and Vernon keeper explicitly reports three Chinese Crested/Standard Poodle littermates; the page uses Chinese Crestepoo and shortened Crestepoo. This directly corroborates actual cross naming."
+        }
+      ],
+      "identityScopeAndLimits": "Do not generalize hair amount or use generic inherited-character paragraph.",
+      "ontologyCheck": "Exact VBO node in data/dogs/sources/vbo-2026-04-15.json independently read. VeNom lexical identity/synonyms only, not registry, pedigree or trait proof.",
+      "fieldsAssessment": "Concise parentage/naming only; summary and short agree. Empty history/origin/fact and unknown size avoid unsupported inherited metadata. Editorial crossbreed describes evidenced mixed parentage without behavior inference.",
+      "portraitScopeCheck": {
+        "actualPixelsViewed": true,
+        "method": "Actual960x640 display portrait viewed at600x400 in labeled contact sheet; all18 individually examined",
+        "path": "assets/dogs/generated/M-0200348-01-960.webp",
+        "sha256": "ee7e560b0aa5d14a357f2b1c0aa2b87a6de72d1220d25039c0e46289b695ac9a",
+        "observation": "White fully coated adult with pendant ears and full curved feathered tail; a powderpuff-style cross is possible, no requirement for hairlessness.",
+        "limitation": "No fresh native/master/rights certification; does not establish genetic ancestry."
+      },
+      "requiredChanges": []
+    },
+    {
+      "catalogId": "VBO:0200358",
+      "name": "Chonzer",
+      "reviewer": "n_review_b",
+      "decision": "accepted",
+      "proposedFieldsSemanticSHA256": "388765c87ae89945f5f0d351e1bed456ab710e9aa01ac657f0ca06422916c1ec",
+      "semanticHashAlgorithm": "SHA256 of UTF-8 JSON(fields), recursively sorted object keys, compact separators, literal Unicode, arrays preserve order",
+      "independentlyReadEvidence": [
+        {
+          "url": "https://dominoschnoodles.com/schnoodle-breed/bichon-frise-breeder-california/",
+          "method": "Actual primary/keeper/specialist source body read independently through web tool, not proposal metadata",
+          "passageLocation": "Own program What is a Chonzer section",
+          "passageFinding": "Actual program introduction defines Bichon Frise and Miniature Schnauzer. Parentage only survives; best-of-parent, allergy and hybrid-vigor marketing in adjacent paragraphs does not."
+        }
+      ],
+      "identityScopeAndLimits": "Miniature Schnauzer subtype is explicitly supported by program; no size band inherited.",
+      "ontologyCheck": "Exact VBO node in data/dogs/sources/vbo-2026-04-15.json independently read. VeNom lexical identity/synonyms only, not registry, pedigree or trait proof.",
+      "fieldsAssessment": "Concise parentage/naming only; summary and short agree. Empty history/origin/fact and unknown size avoid unsupported inherited metadata. Editorial crossbreed describes evidenced mixed parentage without behavior inference.",
+      "portraitScopeCheck": {
+        "actualPixelsViewed": true,
+        "method": "Actual960x640 display portrait viewed at600x400 in labeled contact sheet; all18 individually examined",
+        "path": "assets/dogs/generated/N-0200358-1-960.webp",
+        "sha256": "93c07fd4e34700c8a8b57ce0d7f56dad0f3c036ed85652cfedf590eeb55fede0",
+        "observation": "Cream wavy furnished adult, partly folded ears, beard and full tail; within existing Lexi-scoped form.",
+        "limitation": "No fresh native/master/rights certification; does not establish genetic ancestry."
+      },
+      "requiredChanges": []
+    },
+    {
+      "catalogId": "VBO:0200367",
+      "name": "Cockachon",
+      "reviewer": "n_review_b",
+      "decision": "accepted",
+      "proposedFieldsSemanticSHA256": "df651f98640b6f9ffe2b76ec7c6782c4303e92ae1ee2395ea458494d17be2079",
+      "semanticHashAlgorithm": "SHA256 of UTF-8 JSON(fields), recursively sorted object keys, compact separators, literal Unicode, arrays preserve order",
+      "independentlyReadEvidence": [
+        {
+          "url": "https://www.kellyskennels.co.uk/pups/coming-soon/cockachon/",
+          "method": "Actual primary/keeper/specialist source body read independently through web tool, not proposal metadata",
+          "passageLocation": "Own Cock-a-Chon litter description",
+          "passageFinding": "Actual litter paragraph identifies Bichon Frise/Cocker Spaniel mixed pups; next paragraph calls same litter Bichon Spaniel puppies. That supports parentage plus alias."
+        }
+      ],
+      "identityScopeAndLimits": "Cocker subtype remains broad; kennel country of breeding is not type origin.",
+      "ontologyCheck": "Exact VBO node in data/dogs/sources/vbo-2026-04-15.json independently read. VeNom lexical identity/synonyms only, not registry, pedigree or trait proof.",
+      "fieldsAssessment": "Concise parentage/naming only; summary and short agree. Empty history/origin/fact and unknown size avoid unsupported inherited metadata. Editorial crossbreed describes evidenced mixed parentage without behavior inference.",
+      "portraitScopeCheck": {
+        "actualPixelsViewed": true,
+        "method": "Actual960x640 display portrait viewed at600x400 in labeled contact sheet; all18 individually examined",
+        "path": "assets/dogs/generated/N-0200367-1-960.webp",
+        "sha256": "dc8540b3da49c15454207e7c76562fc5b3767aee42530516b58562aa59ce4474",
+        "observation": "Cream adult with tan long hanging ears and intact furnished tail; no particular Cocker subtype required.",
+        "limitation": "No fresh native/master/rights certification; does not establish genetic ancestry."
+      },
+      "requiredChanges": []
+    },
+    {
+      "catalogId": "VBO:0200368",
+      "name": "Cockador",
+      "reviewer": "n_review_b",
+      "decision": "accepted",
+      "proposedFieldsSemanticSHA256": "5ec826835ea022acd28152e574ba325ed977eccfd0d29842e8b49868bc32d1e7",
+      "semanticHashAlgorithm": "SHA256 of UTF-8 JSON(fields), recursively sorted object keys, compact separators, literal Unicode, arrays preserve order",
+      "independentlyReadEvidence": [
+        {
+          "url": "https://www.dogbreedinfo.com/spanador.htm",
+          "method": "Actual primary/keeper/specialist source body read independently through web tool, not proposal metadata",
+          "passageLocation": "Named actual cross submissions plus name section",
+          "passageFinding": "Actual page title identifies Labrador/Cocker; alternate-name list includes Cockador; direct Huck keeper states Lab/Cocker mix and Rocky adult caption agrees. Definition specifies American Cocker but actual submissions do not consistently specify subtype, so broad wording is appropriate."
+        }
+      ],
+      "identityScopeAndLimits": "No claim every cross uses American Cocker; no named-animal behavior generalized.",
+      "ontologyCheck": "Exact VBO node in data/dogs/sources/vbo-2026-04-15.json independently read. VeNom lexical identity/synonyms only, not registry, pedigree or trait proof.",
+      "fieldsAssessment": "Concise parentage/naming only; summary and short agree. Empty history/origin/fact and unknown size avoid unsupported inherited metadata. Editorial crossbreed describes evidenced mixed parentage without behavior inference.",
+      "portraitScopeCheck": {
+        "actualPixelsViewed": true,
+        "method": "Actual960x640 display portrait viewed at600x400 in labeled contact sheet; all18 individually examined",
+        "path": "assets/dogs/generated/M-0200368-01-960.webp",
+        "sha256": "3a77efff3c1f3d90ec1188a42ee2f895c627d4d1bd77fbe305b84f6eb0a3ef6c",
+        "observation": "White/chestnut short-coated adult with hanging ears and long tail, consistent with retained Amy form.",
+        "limitation": "No fresh native/master/rights certification; does not establish genetic ancestry."
+      },
+      "requiredChanges": []
+    },
+    {
+      "catalogId": "VBO:0200371",
+      "name": "Cockatzu",
+      "reviewer": "n_review_b",
+      "decision": "accepted",
+      "proposedFieldsSemanticSHA256": "c3e1f99fbb1c6f5d7eede896f6a71a0d6ddb69b5f60bf9b90705aa1302daa738",
+      "semanticHashAlgorithm": "SHA256 of UTF-8 JSON(fields), recursively sorted object keys, compact separators, literal Unicode, arrays preserve order",
+      "independentlyReadEvidence": [
+        {
+          "url": "https://dogbreedinfo.com/c/cockatzupictures.htm",
+          "method": "Actual primary/keeper/specialist source body read independently through web tool, not proposal metadata",
+          "passageLocation": "Original Mimi and Max parentage accounts",
+          "passageFinding": "Mimi keeper explicitly identifies Shih Tzu dam and Cocker Spaniel sire; Max keeper separately states same parental breeds. Cock-A-Tzu appears throughout their actual captions."
+        }
+      ],
+      "identityScopeAndLimits": "Owner pedigree registration claims are not independently certified; parentage nomenclature only.",
+      "ontologyCheck": "Exact VBO node in data/dogs/sources/vbo-2026-04-15.json independently read. VeNom lexical identity/synonyms only, not registry, pedigree or trait proof.",
+      "fieldsAssessment": "Concise parentage/naming only; summary and short agree. Empty history/origin/fact and unknown size avoid unsupported inherited metadata. Editorial crossbreed describes evidenced mixed parentage without behavior inference.",
+      "portraitScopeCheck": {
+        "actualPixelsViewed": true,
+        "method": "Actual960x640 display portrait viewed at600x400 in labeled contact sheet; all18 individually examined",
+        "path": "assets/dogs/generated/M-0200371-01-960.webp",
+        "sha256": "eb183b55d3d5d6cfc3f28334e967251f05e60587cb0e6d928b7295acc113c132",
+        "observation": "Black/white furnished adult with short projecting muzzle, hanging ears and plumed curved tail.",
+        "limitation": "No fresh native/master/rights certification; does not establish genetic ancestry."
+      },
+      "requiredChanges": []
+    },
+    {
+      "catalogId": "VBO:0200451",
+      "name": "Dorkie",
+      "reviewer": "n_review_b",
+      "decision": "accepted",
+      "proposedFieldsSemanticSHA256": "ccaabc8106d78d496c9225811a69042618972ceb14807bfeaee5ea76f840f053",
+      "semanticHashAlgorithm": "SHA256 of UTF-8 JSON(fields), recursively sorted object keys, compact separators, literal Unicode, arrays preserve order",
+      "independentlyReadEvidence": [
+        {
+          "url": "https://www.mypuprunnethover.com/products/dorkie-11-18-female",
+          "method": "Actual primary/keeper/specialist source body read independently through web tool, not proposal metadata",
+          "passageLocation": "Own litter body and Breed field",
+          "passageFinding": "Actual listing identifies Mini Dachshund dam and Yorkshire Terrier sire; Breed field repeats that cross. Proposed broader Dachshund wording follows actual parent breed, without fixed miniature size assertion."
+        }
+      ],
+      "identityScopeAndLimits": "Do not promote predicted litter size, great-with-kids statement, warranties or registration.",
+      "ontologyCheck": "Exact VBO node in data/dogs/sources/vbo-2026-04-15.json independently read. VeNom lexical identity/synonyms only, not registry, pedigree or trait proof.",
+      "fieldsAssessment": "Concise parentage/naming only; summary and short agree. Empty history/origin/fact and unknown size avoid unsupported inherited metadata. Editorial crossbreed describes evidenced mixed parentage without behavior inference.",
+      "portraitScopeCheck": {
+        "actualPixelsViewed": true,
+        "method": "Actual960x640 display portrait viewed at600x400 in labeled contact sheet; all18 individually examined",
+        "path": "assets/dogs/generated/N-0200451-1-960.webp",
+        "sha256": "76291a96f671ecdd6f481240f2fca9ee7399c6432daa28528661ea5285ead3b8",
+        "observation": "Long low furnished black/tan/white adult, one more folded ear and full curved tail.",
+        "limitation": "No fresh native/master/rights certification; does not establish genetic ancestry."
+      },
+      "requiredChanges": []
+    },
+    {
+      "catalogId": "VBO:0200684",
+      "name": "Huskamute",
+      "reviewer": "n_review_b",
+      "decision": "accepted",
+      "proposedFieldsSemanticSHA256": "6394bcf04d51725954c47b139e03ba24de3f7b41fce5a68924a165c4112df45e",
+      "semanticHashAlgorithm": "SHA256 of UTF-8 JSON(fields), recursively sorted object keys, compact separators, literal Unicode, arrays preserve order",
+      "independentlyReadEvidence": [
+        {
+          "url": "https://www.sleddogsocietyofwales.co.uk/crossd-breed---huskamute.html",
+          "method": "Actual primary/keeper/specialist source body read independently through web tool, not proposal metadata",
+          "passageLocation": "Specialist society substantive Huskamute section",
+          "passageFinding": "Actual heading says Husky crossed with Alaskan Malamute; following paragraph explicitly names Alaskan Malamute and Siberian Husky. All claims of gentle combined temperament, family suitability and blue eyes are excluded."
+        }
+      ],
+      "identityScopeAndLimits": "Not any unspecified Husky cross, no wolf ancestry or standardized size/color asserted.",
+      "ontologyCheck": "Exact VBO node in data/dogs/sources/vbo-2026-04-15.json independently read. VeNom lexical identity/synonyms only, not registry, pedigree or trait proof.",
+      "fieldsAssessment": "Concise parentage/naming only; summary and short agree. Empty history/origin/fact and unknown size avoid unsupported inherited metadata. Editorial crossbreed describes evidenced mixed parentage without behavior inference.",
+      "portraitScopeCheck": {
+        "actualPixelsViewed": true,
+        "method": "Actual960x640 display portrait viewed at600x400 in labeled contact sheet; all18 individually examined",
+        "path": "assets/dogs/generated/M-0200684-01-960.webp",
+        "sha256": "38f7f768ed4b0c3416c83fd95ff632f55316dc9c58ce8f8322f382b7138a6dfc",
+        "observation": "Gray/white northern spitz adult, upright ears and full sickle/plume tail.",
+        "limitation": "No fresh native/master/rights certification; does not establish genetic ancestry."
+      },
+      "requiredChanges": []
+    },
+    {
+      "catalogId": "VBO:0200725",
+      "name": "Jack-A-Poo",
+      "reviewer": "n_review_b",
+      "decision": "accepted",
+      "proposedFieldsSemanticSHA256": "f4afbb1079e0d5b9473dbccd59f5040af348156a415ecf42ad80981ae2ea4feb",
+      "semanticHashAlgorithm": "SHA256 of UTF-8 JSON(fields), recursively sorted object keys, compact separators, literal Unicode, arrays preserve order",
+      "independentlyReadEvidence": [
+        {
+          "url": "https://www.jackapoos.com/",
+          "method": "Actual primary/keeper/specialist source body read independently through web tool, not proposal metadata",
+          "passageLocation": "Own StarView breeding-program introduction",
+          "passageFinding": "Program explicitly allows Jack Russell, Parson Russell or Russell Terrier with Poodle; its own claimed breeding since2006 does not establish whole-cross origin. Proposed wording accurately communicates variable Russell parent rather than merging parent IDs."
+        }
+      ],
+      "identityScopeAndLimits": "Keep three Russell names distinct; reject calmness, hypoallergenic and inherited-intelligence inference.",
+      "ontologyCheck": "Exact VBO node in data/dogs/sources/vbo-2026-04-15.json independently read. VeNom lexical identity/synonyms only, not registry, pedigree or trait proof.",
+      "fieldsAssessment": "Concise parentage/naming only; summary and short agree. Empty history/origin/fact and unknown size avoid unsupported inherited metadata. Editorial crossbreed describes evidenced mixed parentage without behavior inference.",
+      "portraitScopeCheck": {
+        "actualPixelsViewed": true,
+        "method": "Actual960x640 display portrait viewed at600x400 in labeled contact sheet; all18 individually examined",
+        "path": "assets/dogs/generated/M-0200725-01-960.webp",
+        "sha256": "619353a5528c404911e51eff4af3835a3568b6f8bfc028bfc2d80a1bb8593765",
+        "observation": "Black/white shaggy adult with folded ears and full feathered tail.",
+        "limitation": "No fresh native/master/rights certification; does not establish genetic ancestry."
+      },
+      "requiredChanges": []
+    },
+    {
+      "catalogId": "VBO:0200728",
+      "name": "Jackador",
+      "reviewer": "n_review_b",
+      "decision": "accepted",
+      "proposedFieldsSemanticSHA256": "76299d425c17ecba789bc622d5c2352ed5c77037e9a9a35ca12d6f64e6b78144",
+      "semanticHashAlgorithm": "SHA256 of UTF-8 JSON(fields), recursively sorted object keys, compact separators, literal Unicode, arrays preserve order",
+      "independentlyReadEvidence": [
+        {
+          "url": "https://www.greenleafanimalrescue.org.uk/details/?id=I3X729",
+          "method": "Actual primary/keeper/specialist source body read independently through web tool, not proposal metadata",
+          "passageLocation": "Own Prince rescue heading and first paragraph; independent Reddit keeper comment",
+          "passageFinding": "Greenleaf actual heading and paragraph explicitly identify Labrador x Jack Russell. Separately read Reddit thread https://www.reddit.com/r/jackrussellterrier/comments/1iwq9yo/this_is_jackador_jack/: OP unsure Golden or Lab, but WiltshireFarmGirl explicitly calls own Jackador a rough Jack Russell dam/black Lab sire cross. Only the latter comment corroborates naming."
+        }
+      ],
+      "identityScopeAndLimits": "OP unsure-parentage dog is not genetic proof; named commenter and rescue support limited cross definition.",
+      "ontologyCheck": "Exact VBO node in data/dogs/sources/vbo-2026-04-15.json independently read. VeNom lexical identity/synonyms only, not registry, pedigree or trait proof.",
+      "fieldsAssessment": "Concise parentage/naming only; summary and short agree. Empty history/origin/fact and unknown size avoid unsupported inherited metadata. Editorial crossbreed describes evidenced mixed parentage without behavior inference.",
+      "portraitScopeCheck": {
+        "actualPixelsViewed": true,
+        "method": "Actual960x640 display portrait viewed at600x400 in labeled contact sheet; all18 individually examined",
+        "path": "assets/dogs/generated/VBO-0200728-attempt-01-960.webp",
+        "sha256": "6effc7b5677f1ce563512636d1c5db2234a77166e159a8510ad5e974561411fc",
+        "observation": "Black compact short-coated adult, partly folded ears, projecting muzzle and full upright-curved tail.",
+        "limitation": "No fresh native/master/rights certification; does not establish genetic ancestry."
+      },
+      "requiredChanges": []
+    },
+    {
+      "catalogId": "VBO:0200730",
+      "name": "Jack Tzu",
+      "reviewer": "n_review_b",
+      "decision": "accepted",
+      "proposedFieldsSemanticSHA256": "1153ae088e7163ba0fcae5d46e8da58882c0a46039b9b0405b74ffa692794e1b",
+      "semanticHashAlgorithm": "SHA256 of UTF-8 JSON(fields), recursively sorted object keys, compact separators, literal Unicode, arrays preserve order",
+      "independentlyReadEvidence": [
+        {
+          "url": "https://www.ridgewoodpuppies.com/puppies-for-sale/jack-tzu-puppies-for-sale/",
+          "method": "Actual primary/keeper/specialist source body read independently through web tool, not proposal metadata",
+          "passageLocation": "Own program Cross Between field",
+          "passageFinding": "Actual field explicitly states Jack Russell Terrier/Shih Tzu. Display Jack Tzu differs from retained VBO label Jackshit; same stableID and existing editorial naming must remain."
+        }
+      ],
+      "identityScopeAndLimits": "Do not import parental behavior, dominance, child suitability or health warranty.",
+      "ontologyCheck": "Exact VBO node in data/dogs/sources/vbo-2026-04-15.json independently read. VeNom lexical identity/synonyms only, not registry, pedigree or trait proof.",
+      "fieldsAssessment": "Concise parentage/naming only; summary and short agree. Empty history/origin/fact and unknown size avoid unsupported inherited metadata. Editorial crossbreed describes evidenced mixed parentage without behavior inference.",
+      "portraitScopeCheck": {
+        "actualPixelsViewed": true,
+        "method": "Actual960x640 display portrait viewed at600x400 in labeled contact sheet; all18 individually examined",
+        "path": "assets/dogs/generated/M-0200730-01-960.webp",
+        "sha256": "2c2292974debe038c677aa5c8a363dc09c1c7c9980c97c8a44d7f062e0b8dc11",
+        "observation": "Black/white scruffy adult with folded ears and full white-tipped upright tail.",
+        "limitation": "No fresh native/master/rights certification; does not establish genetic ancestry."
+      },
+      "requiredChanges": []
+    },
+    {
+      "catalogId": "VBO:0200731",
+      "name": "Jackshund",
+      "reviewer": "n_review_b",
+      "decision": "accepted",
+      "proposedFieldsSemanticSHA256": "d3b6a235b658ea5a45699ba755d12e4f935b97e9c5332c404149fd1495393107",
+      "semanticHashAlgorithm": "SHA256 of UTF-8 JSON(fields), recursively sorted object keys, compact separators, literal Unicode, arrays preserve order",
+      "independentlyReadEvidence": [
+        {
+          "url": "https://www.dogbreedinfo.com/j/jackshund.htm",
+          "method": "Actual primary/keeper/specialist source body read independently through web tool, not proposal metadata",
+          "passageLocation": "Actual Mia/Mico keeper and repeated parental caption",
+          "passageFinding": "Keeper explicitly identifies their mother as Jack Russell Terrier and father as Dachshund; repeated named captions agree. Ridgewood live request timed out once, not retried. DBI primary submissions suffice for this limited claim."
+        }
+      ],
+      "identityScopeAndLimits": "No fixed coat or Dachshund variety; wirehaired Rusty and other offspring show different forms.",
+      "ontologyCheck": "Exact VBO node in data/dogs/sources/vbo-2026-04-15.json independently read. VeNom lexical identity/synonyms only, not registry, pedigree or trait proof.",
+      "fieldsAssessment": "Concise parentage/naming only; summary and short agree. Empty history/origin/fact and unknown size avoid unsupported inherited metadata. Editorial crossbreed describes evidenced mixed parentage without behavior inference.",
+      "portraitScopeCheck": {
+        "actualPixelsViewed": true,
+        "method": "Actual960x640 display portrait viewed at600x400 in labeled contact sheet; all18 individually examined",
+        "path": "assets/dogs/generated/VBO-0200731-attempt-01-960.webp",
+        "sha256": "e10807c4db9ca7f36eb49ea5878d1c2a6d22de9c580f792a99214265512d450d",
+        "observation": "Long low smooth white/brown adult, folded ears and long upright tail.",
+        "limitation": "No fresh native/master/rights certification; does not establish genetic ancestry."
+      },
+      "requiredChanges": []
+    },
+    {
+      "catalogId": "VBO:0200796",
+      "name": "La-Chon",
+      "reviewer": "n_review_b",
+      "decision": "accepted",
+      "proposedFieldsSemanticSHA256": "4ff22a88eddcfea2dba9a18836a782ca0fd1472487f90160aa2452fe209c13e6",
+      "semanticHashAlgorithm": "SHA256 of UTF-8 JSON(fields), recursively sorted object keys, compact separators, literal Unicode, arrays preserve order",
+      "independentlyReadEvidence": [
+        {
+          "url": "https://www.dogbreedinfo.com/lachon.htm",
+          "method": "Actual primary/keeper/specialist source body read independently through web tool, not proposal metadata",
+          "passageLocation": "Actual Holly keeper parentage paragraph",
+          "passageFinding": "Holly keeper directly identifies Lhasa dam and Bichon sire; gallery labels same dog Bichon Frise/Lhasa Apso. Josh adult named captions agree with exact cross label."
+        }
+      ],
+      "identityScopeAndLimits": "No pedigree certainty or training/ear-health inference from submissions.",
+      "ontologyCheck": "Exact VBO node in data/dogs/sources/vbo-2026-04-15.json independently read. VeNom lexical identity/synonyms only, not registry, pedigree or trait proof.",
+      "fieldsAssessment": "Concise parentage/naming only; summary and short agree. Empty history/origin/fact and unknown size avoid unsupported inherited metadata. Editorial crossbreed describes evidenced mixed parentage without behavior inference.",
+      "portraitScopeCheck": {
+        "actualPixelsViewed": true,
+        "method": "Actual960x640 display portrait viewed at600x400 in labeled contact sheet; all18 individually examined",
+        "path": "assets/dogs/generated/M-0200796-01-960.webp",
+        "sha256": "2716291d58e3ad50fc886bd5a2216306fc7245b08072a1877c7afdc59d232e3b",
+        "observation": "Cream/white furnished adult with pendant ears and curled full plume tail.",
+        "limitation": "No fresh native/master/rights certification; does not establish genetic ancestry."
+      },
+      "requiredChanges": []
+    },
+    {
+      "catalogId": "VBO:0200797",
+      "name": "Lab-Pei",
+      "reviewer": "n_review_b",
+      "decision": "accepted",
+      "proposedFieldsSemanticSHA256": "1e9f8249d4e449838bda9fc35889f679978f56358def9bd3365d0a23ddd05b8f",
+      "semanticHashAlgorithm": "SHA256 of UTF-8 JSON(fields), recursively sorted object keys, compact separators, literal Unicode, arrays preserve order",
+      "independentlyReadEvidence": [
+        {
+          "url": "https://www.dogbreedinfo.com/l/labpei.htm",
+          "method": "Actual primary/keeper/specialist source body read independently through web tool, not proposal metadata",
+          "passageLocation": "Actual Brooklyn/Kazu/Wanda keeper accounts",
+          "passageFinding": "Brooklyn described explicitly Labrador Retriever/Chinese Shar Pei; keeper of Kazu/Wanda explicitly identifies own littermate sisters as Shar-Pei/Labrador Retriever. Named cross reports corroborate parentage usage only."
+        }
+      ],
+      "identityScopeAndLimits": "Rescue reported ancestry, no verified pedigree; reject claimed parental mellowing, protection and health risks.",
+      "ontologyCheck": "Exact VBO node in data/dogs/sources/vbo-2026-04-15.json independently read. VeNom lexical identity/synonyms only, not registry, pedigree or trait proof.",
+      "fieldsAssessment": "Concise parentage/naming only; summary and short agree. Empty history/origin/fact and unknown size avoid unsupported inherited metadata. Editorial crossbreed describes evidenced mixed parentage without behavior inference.",
+      "portraitScopeCheck": {
+        "actualPixelsViewed": true,
+        "method": "Actual960x640 display portrait viewed at600x400 in labeled contact sheet; all18 individually examined",
+        "path": "assets/dogs/generated/VBO-0200797-native-01-960.webp",
+        "sha256": "db24d17425c50b2dd6a6da3f354b81e3f5de8ea545fcc8f06daee1f71e39aee0",
+        "observation": "Tan short-coated adult with folded small ears, broad projecting muzzle and curved complete tail; no necessary extreme wrinkles.",
+        "limitation": "No fresh native/master/rights certification; does not establish genetic ancestry."
+      },
+      "requiredChanges": []
+    },
+    {
+      "catalogId": "VBO:0200801",
+      "name": "Labralas",
+      "reviewer": "n_review_b",
+      "decision": "accepted",
+      "proposedFieldsSemanticSHA256": "efa7b9f77cd92edc835e4bd3f440989e9f87d2979a97539d03de529cd0fbbb11",
+      "semanticHashAlgorithm": "SHA256 of UTF-8 JSON(fields), recursively sorted object keys, compact separators, literal Unicode, arrays preserve order",
+      "independentlyReadEvidence": [
+        {
+          "url": "https://www.dogbreedinfo.com/labralas.htm",
+          "method": "Actual primary/keeper/specialist source body read independently through web tool, not proposal metadata",
+          "passageLocation": "Actual Kipper caption, heading and alias section",
+          "passageFinding": "Actual Kipper two-year caption explicitly Labrador Retriever/Vizsla mix; alias list includes Vizslador, corroborated by retained exact VBO synonym. TSA fresh PDF request403, stopped; this source was not needed to infer working aptitude."
+        }
+      ],
+      "identityScopeAndLimits": "No general detection role, inheritance or fixed brown color; no TSA claim in proposed prose.",
+      "ontologyCheck": "Exact VBO node in data/dogs/sources/vbo-2026-04-15.json independently read. VeNom lexical identity/synonyms only, not registry, pedigree or trait proof.",
+      "fieldsAssessment": "Concise parentage/naming only; summary and short agree. Empty history/origin/fact and unknown size avoid unsupported inherited metadata. Editorial crossbreed describes evidenced mixed parentage without behavior inference.",
+      "portraitScopeCheck": {
+        "actualPixelsViewed": true,
+        "method": "Actual960x640 display portrait viewed at600x400 in labeled contact sheet; all18 individually examined",
+        "path": "assets/dogs/generated/VBO-0200801-native-01-960.webp",
+        "sha256": "502e2289d9bf29c988d94491bae8580c91947359d81f240c29b27e4f5e1ae71f",
+        "observation": "Brown short-coated developed adult, drop ears and full horizontal tail.",
+        "limitation": "No fresh native/master/rights certification; does not establish genetic ancestry."
+      },
+      "requiredChanges": []
+    },
+    {
+      "catalogId": "VBO:0200803",
+      "name": "Labstaff",
+      "reviewer": "n_review_b",
+      "decision": "needs-change",
+      "proposedFieldsSemanticSHA256": "729a2d464fcd782c219f682f64062846c21322bc7606abe9411601fd6048d0a5",
+      "semanticHashAlgorithm": "SHA256 of UTF-8 JSON(fields), recursively sorted object keys, compact separators, literal Unicode, arrays preserve order",
+      "independentlyReadEvidence": [
+        {
+          "url": "https://www.dogsblog.com/alex-18/",
+          "method": "Actual primary/keeper/specialist source body read independently through web tool, not proposal metadata",
+          "passageLocation": "Original Rescue Remedies Alex body/title read live; conflicting related-name definition independently read",
+          "passageFinding": "Actual title, opening and later body explicitly say Staffordshire Bull Terrier/Labrador; source does not call Alex Labstaff. Exact VBO node supplies Labstaff lexical label. Read https://www.dogbreedinfo.com/l/labrastaff.htm separately: Labrastaff definition instead American Staffordshire Terrier. Related names conflict, requiring explicit used-here qualification."
+        }
+      ],
+      "identityScopeAndLimits": "Preserve existing Alex-scoped identity and artwork, add no Labrastaff or Staffador alias, never infer ancestry from portrait.",
+      "ontologyCheck": "Exact VBO node in data/dogs/sources/vbo-2026-04-15.json independently read. VeNom lexical identity/synonyms only, not registry, pedigree or trait proof.",
+      "fieldsAssessment": "Concise parentage/naming only; summary and short agree. Empty history/origin/fact and unknown size avoid unsupported inherited metadata. Editorial crossbreed describes evidenced mixed parentage without behavior inference.",
+      "portraitScopeCheck": {
+        "actualPixelsViewed": true,
+        "method": "Actual960x640 display portrait viewed at600x400 in labeled contact sheet; all18 individually examined",
+        "path": "assets/dogs/generated/M-0200803-01-960.webp",
+        "sha256": "51d918f131deb555c635495ae00975c0f3ada926bfb7401f8aac27b3126eeaeb",
+        "observation": "Black muscular adult with white chest, broad projecting muzzle, folded ears and complete curved tail. Pixels cannot resolve Staffordshire Bull versus American Staffordshire ancestry.",
+        "limitation": "No fresh native/master/rights certification; does not establish genetic ancestry."
+      },
+      "requiredChanges": [
+        {
+          "fields": [
+            "summary",
+            "shortDescription"
+          ],
+          "replacement": "Labstaff is used here for a Labrador Retriever–Staffordshire Bull Terrier cross.",
+          "reason": "Explicitly scope ambiguous naming to existing stable identity rather than asserting an exclusive universal definition."
+        }
+      ]
+    },
+    {
+      "catalogId": "VBO:0200823",
+      "name": "Lha-Cocker",
+      "reviewer": "n_review_b",
+      "decision": "accepted",
+      "proposedFieldsSemanticSHA256": "ad6aca80edd35d6d5928757ea44a17450479e50bdf024dbd040e88d87b233864",
+      "semanticHashAlgorithm": "SHA256 of UTF-8 JSON(fields), recursively sorted object keys, compact separators, literal Unicode, arrays preserve order",
+      "independentlyReadEvidence": [
+        {
+          "url": "https://www.dogbreedinfo.com/lhacocker.htm",
+          "method": "Actual primary/keeper/specialist source body read independently through web tool, not proposal metadata",
+          "passageLocation": "Actual Ta-shi keeper parental description",
+          "passageFinding": "Ta-shi keeper explicitly supplies Lhasa Apso dam and Cocker Spaniel sire, with cross name Lha-Cocker. Later Jack/Jill actual captions corroborate label. Registered parents are keeper report, not independently inspected papers."
+        }
+      ],
+      "identityScopeAndLimits": "Cocker subtype not established; generic parental-character instructions excluded.",
+      "ontologyCheck": "Exact VBO node in data/dogs/sources/vbo-2026-04-15.json independently read. VeNom lexical identity/synonyms only, not registry, pedigree or trait proof.",
+      "fieldsAssessment": "Concise parentage/naming only; summary and short agree. Empty history/origin/fact and unknown size avoid unsupported inherited metadata. Editorial crossbreed describes evidenced mixed parentage without behavior inference.",
+      "portraitScopeCheck": {
+        "actualPixelsViewed": true,
+        "method": "Actual960x640 display portrait viewed at600x400 in labeled contact sheet; all18 individually examined",
+        "path": "assets/dogs/generated/M-0200823-01-960.webp",
+        "sha256": "25348237fbe76276a1c36e7d847cefd78d22947c63beaef17ae54499c49e7536",
+        "observation": "Cream/tan shaggy adult with long hanging ears and long full downward feathered tail.",
+        "limitation": "No fresh native/master/rights certification; does not establish genetic ancestry."
+      },
+      "requiredChanges": []
+    },
+    {
+      "catalogId": "VBO:0200825",
+      "name": "Lhasa-Poo",
+      "reviewer": "n_review_b",
+      "decision": "accepted",
+      "proposedFieldsSemanticSHA256": "f5fc364b29dfd5eac3375cb7c4aeac9f5c7a133b6f271c1b2895de44e2675718",
+      "semanticHashAlgorithm": "SHA256 of UTF-8 JSON(fields), recursively sorted object keys, compact separators, literal Unicode, arrays preserve order",
+      "independentlyReadEvidence": [
+        {
+          "url": "https://www.ridgewoodpuppies.com/puppies-for-sale/lhasapoo-puppies-for-sale/",
+          "method": "Actual primary/keeper/specialist source body read independently through web tool, not proposal metadata",
+          "passageLocation": "Own program Cross Between field",
+          "passageFinding": "Actual field explicitly Lhasa Apso and Toy Poodle; site describes its own first-generation litters. Proposed Poodle generalization does not force every breeder to use Toy or F1."
+        }
+      ],
+      "identityScopeAndLimits": "No first-generation health benefit, allergy, therapy aptitude or fixed size claim.",
+      "ontologyCheck": "Exact VBO node in data/dogs/sources/vbo-2026-04-15.json independently read. VeNom lexical identity/synonyms only, not registry, pedigree or trait proof.",
+      "fieldsAssessment": "Concise parentage/naming only; summary and short agree. Empty history/origin/fact and unknown size avoid unsupported inherited metadata. Editorial crossbreed describes evidenced mixed parentage without behavior inference.",
+      "portraitScopeCheck": {
+        "actualPixelsViewed": true,
+        "method": "Actual960x640 display portrait viewed at600x400 in labeled contact sheet; all18 individually examined",
+        "path": "assets/dogs/generated/M-0200825-02-960.webp",
+        "sha256": "47aa5881acf1f5b992da3e13b39e1075a0e3eac49d63ded6363387f196f97f67",
+        "observation": "Cream furnished adult with pendant ears and full downward tail.",
+        "limitation": "No fresh native/master/rights certification; does not establish genetic ancestry."
+      },
+      "requiredChanges": []
+    }
+  ]
+}

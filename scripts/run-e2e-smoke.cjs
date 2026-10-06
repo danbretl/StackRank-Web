@@ -1050,6 +1050,80 @@ const dogsVisibilityFixture = async () => {
   return { catalog, profiles, artwork, publicIds, suppressedCompletedIds };
 };
 
+const testDogsConciseCategoryPresentation = async ({ baseUrl }) => {
+  const { catalog, profiles, publicIds } = await dogsVisibilityFixture();
+  const ids = { group: 'VBO:0200162', concise: 'VBO:0200329', hidden: 'VBO:0200390', comparison: 'VBO:0201397' };
+  const byId = new Map(catalog.entities.map(entity => [entity.id, entity]));
+  const makeItem = id => ({ entityRef: { domain: 'dogs', type: 'breed', source: 'vbo', id },
+    snapshot: { primaryText: byId.get(id).displayName, secondaryText: 'Saved before restored publication', year: null,
+      image: { url: '', alt: '', assetId: '' } }, rankedAt: '2026-10-05T12:00:00.000Z', comparisons: 2 });
+  const saved = [ids.group, ids.hidden, ids.concise].map(makeItem);
+  const page = await openChromePage({ name: 'dogs-concise-categories', width: 1440, height: 900 });
+  const screenshots = [], surfaces = [];
+  // Actual rendered visibility, not merely DOM presence or an accessible image alt.
+  const visibleText = (selector, text) => `(() => { const node = document.querySelector(${JSON.stringify(selector)});
+    if (!node || !node.textContent.includes(${JSON.stringify(text)})) return false;
+    for (let el = node; el; el = el.parentElement) { const s = getComputedStyle(el); if (el.hidden || s.display === 'none' || s.visibility === 'hidden') return false; }
+    const rect = node.getBoundingClientRect(); return rect.width > 0 && rect.height > 0 && node.scrollHeight <= node.clientHeight + 2; })()`;
+  const input = (selector, value) => page.evaluate(`(() => { const el = document.querySelector(${JSON.stringify(selector)}); el.value = ${JSON.stringify(value)}; el.dispatchEvent(new Event('input', { bubbles: true })); return true; })()`);
+  const assertSurface = async (label, selector, member) => {
+    await waitFor(page, visibleText(selector, member), 5000);
+    surfaces.push({ label, member });
+  };
+  try {
+    await page.send('Page.addScriptToEvaluateOnNewDocument', { source: `(() => {
+      if (sessionStorage.getItem('concise-category-seeded')) return;
+      sessionStorage.setItem('concise-category-seeded', '1');
+      localStorage.setItem('stackrank:dogs:ranking:v1', JSON.stringify({ items: ${JSON.stringify(saved)}, updated_at: '2026-10-05T12:00:00.000Z' }));
+    })();` });
+    await page.send('Page.navigate', { url: `${baseUrl}/dogs?e2e=concise-category` });
+    await waitFor(page, `${dogsCatalogReady(publicIds.size)} && document.querySelectorAll('#dogs-ranking .ranking-row').length === 2`, 15000);
+    await page.evaluate(`document.querySelector('.dogs-nav [data-destination="ranking"]').click(); true;`);
+    for (const view of ['photos', 'compact']) {
+      await page.evaluate(`document.querySelector('[data-ranking-view="${view}"]').click(); true;`);
+      await assertSurface(view, '#dogs-ranking .ranking-row:first-child .ranking-row__scope', 'Bichon Frise');
+      screenshots.push(await page.screenshot(`dogs-category-${view}.png`));
+    }
+    await page.evaluate(`document.querySelector('#dogs-ranking .ranking-row:last-child [data-action="detail"]').click(); true;`);
+    await waitFor(page, `document.querySelector('#dogs-detail').open`, 3000);
+    const concise = await page.evaluate(`({ summary: document.querySelector('#dogs-detail .detail-copy__summary').textContent,
+      blankFactHidden: document.querySelector('#dogs-detail .detail-fact-callout').hidden,
+      sourceDisclosure: document.querySelector('#dogs-detail').textContent.includes('Concise factual profile') })`);
+    if (concise.summary !== profiles.profiles[ids.concise].summary || !concise.blankFactHidden || !concise.sourceDisclosure) throw new Error(`Concise profile regression: ${JSON.stringify(concise)}`);
+    await page.evaluate(`document.querySelector('#dogs-detail').close(); document.querySelector('.dogs-nav [data-destination="rank"]').click(); document.querySelector('[data-open-dog-gallery]').click(); true;`);
+    await input('#dogs-gallery-search', 'Bichon');
+    const groupCard = `#dogs-gallery-grid [data-dog-id="${ids.group}"]`;
+    await assertSurface('gallery', `${groupCard} .dog-media__scope`, 'Bichon Frise');
+    await page.evaluate(`document.querySelector(${JSON.stringify(groupCard)}).click(); true;`);
+    await waitFor(page, `document.querySelector('#dogs-detail').open && document.querySelector('#dogs-detail .dog-media img')?.naturalWidth > 0`, 5000);
+    await assertSurface('detail', '#dogs-detail .dog-media__scope', 'Bichon Frise');
+    screenshots.push(await page.screenshot('dogs-category-detail.png'));
+    await page.evaluate(`document.querySelector('#dogs-detail').close(); true;`);
+    await input('#dogs-gallery-search', 'Water Spaniel');
+    const comparisonCard = `#dogs-gallery-grid [data-dog-id="${ids.comparison}"]`;
+    await waitFor(page, `!!document.querySelector(${JSON.stringify(comparisonCard)})`, 5000);
+    await page.evaluate(`document.querySelector(${JSON.stringify(comparisonCard)}).click(); true;`);
+    const action = await page.evaluate(`document.querySelector('#dogs-detail .detail-actions button').textContent`);
+    if (action !== 'Rank this group') throw new Error(`Category ranking action is misleading: ${action}`);
+    await page.evaluate(`document.querySelector('#dogs-detail .detail-actions button').click(); true;`);
+    await waitFor(page, `!document.querySelector('#dogs-comparison').hidden`, 3000);
+    await assertSurface('comparison desktop', '#dogs-new-choice .dog-media__scope', 'Irish Water Spaniel');
+    await setDeviceProfile(page, { width: 390, height: 844, input: DEVICE_INPUT_PROFILE.coarseTouch });
+    await assertSurface('comparison phone', '#dogs-new-choice .dog-media__scope', 'Irish Water Spaniel');
+    await waitFor(page, `[...document.querySelectorAll('#dogs-comparison img')].every(img => img.complete && img.naturalWidth > 0)`, 5000);
+    screenshots.push(await page.screenshot('dogs-category-comparison-phone.png'));
+    await page.evaluate(`document.querySelector('#dogs-cancel-comparison').click(); true;`);
+    await page.send('Page.reload', { ignoreCache: true });
+    await waitFor(page, dogsCatalogReady(publicIds.size), 15000);
+    const after = await page.evaluate(`JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.map(item => ({ id: item.entityRef.id, rankedAt: item.rankedAt, comparisons: item.comparisons }))`);
+    const expected = saved.map(item => ({ id: item.entityRef.id, rankedAt: item.rankedAt, comparisons: item.comparisons }));
+    if (JSON.stringify(after) !== JSON.stringify(expected)) throw new Error(`Restored/hidden saved identity changed: ${JSON.stringify(after)}`);
+    const health = await pageHealth(page);
+    if (health.errors.length) throw new Error(`Category browser errors: ${JSON.stringify(health.errors)}`);
+    return { details: { publicCount: publicIds.size, surfaces, concise, savedIds: after.map(item => item.id) }, screenshots };
+  } finally { await page.close(); }
+};
+
 const testDogsLocalProduct = async ({ baseUrl }) => {
   const { publicIds: approvedIds } = await dogsVisibilityFixture();
   const publicPacks = JSON.parse(fs.readFileSync(path.join(rootDir, "data/dogs/packs.json"), "utf8")).packs.filter((pack) => pack.items.some((id) => approvedIds.has(id)));
@@ -12577,6 +12651,7 @@ const tests = [
   { name: "Books work-level ranking vertical slice", run: testBooksVerticalSlice },
   { name: "noindex family home preview", run: testFamilyHomePreview },
   { name: "Dogs completed-pair visibility", run: testDogsCompletedVisibility },
+  { name: "Dogs concise category presentation and restored identity", run: testDogsConciseCategoryPresentation },
   { name: "Dogs comprehensive local product", run: testDogsLocalProduct },
   { name: "Dogs discovery gallery and category switching", run: testDogsDiscoveryGallery },
   { name: "Dogs complete pack browsing and ranking return", run: testDogsPackDetails },

@@ -1556,6 +1556,11 @@
         "disposition": "crossbreed",
         "parentId": "VBO:0200902",
         "reasonCode": "source_explicit_cross_identity"
+      },
+      "VBO:0200799": {
+        "disposition": "canonical",
+        "selectable": true,
+        "reasonCode": "explicit_published_regional_labrador_sled_dog_scope"
       }
     }
   },
@@ -1804,12 +1809,16 @@
       ]
     },
     "VBO:0200799": {
-      "displayAliases": [],
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "VeNom cross identity (Huskador/Huskydor) conflicts with regional Labrador sled-dog profile/art. Preserve entire ID and evidence; do not silently repurpose, merge or delete.",
-        "reviewedAt": "2026-10-06"
-      }
+      "displayAliases": [
+        "Labrador Husky"
+      ],
+      "displayName": "Labrador Husky (Labrador sled-dog type)",
+      "removeAliases": [
+        "Huskador",
+        "Huskydor",
+        "Husky - Labrador",
+        "Husky - Labrador ( Huskador, Huskydor )"
+      ]
     },
     "VBO:0200819": {
       "displayAliases": []
@@ -1932,508 +1941,22 @@
       ]
     },
     "VBO:0200730": {
-      "displayName": "Jack Tzu",
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Frankie owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
+      "displayName": "Jack Tzu"
     },
     "VBO:0200052": {
-      "displayName": "American Lo-Sze Pugg",
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Pablo/MingMing keeper accounts. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
+      "displayName": "American Lo-Sze Pugg"
     },
     "VBO:0200907": {},
-    "VBO:0200801": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on EEbbers TSA working history. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201417": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Doctor Ted hospital visits. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200797": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Georgie/Maree rescue accounts. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200308": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Tasha flyball account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200731": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Danny school account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200728": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Prince and one field dog. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
     "VBO:0201285": {},
-    "VBO:0200993": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Willow/Morrie rescue cases. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201111": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Ziva farm and Nico school. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201228": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Annie Mae keeper account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201063": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Dash and Abigail accounts. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201227": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Patricia rescue case. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201091": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Murphy/Sammy keeper accounts. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200317": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Lulu rescue case. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200825": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Duffer newsletter profile. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201444": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Emma keeper account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201193": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Iggy/Scout submissions. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201098": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Jasmine/Maggie submissions. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200315": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Minton memorial. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201097": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Betsy magazine profile. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201040": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Titan owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200796": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Josh owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200128": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Billy rescue case. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200305": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Stanley keeper account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201100": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Polly rescue case. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200371": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Mimi owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200195": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Lizzy/Corky submissions. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200348": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Coco/Suki submissions. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200245": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Lucie/Bailey submissions. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200018": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Naomi owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200823": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Ta-shi seven-month puppy. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200684": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Dakota/Tikani account, original page inaccessible. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200991": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Kiba owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200368": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Amy owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200992": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Tilly travel account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200033": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Hector owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200870": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Racket owner account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201290": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Lenny/Dexter community accounts. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201292": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Bella senior rescue. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
     "VBO:0201224": {},
-    "VBO:0200803": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Alex rescue case. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
     "VBO:0201047": {},
-    "VBO:0201221": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Tinky ASPCA account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200861": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Bear rescue case. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201030": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Porter owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200329": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Tuffy/Oreo owner submissions. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201229": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Cisco owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200256": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Queenie rescue case. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200858": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Mocha rescue case. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200725": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Ralph rescue account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201445": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Chico owner submission. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201101": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Coal/Rudy owner submissions. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201232": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Angel rescue case. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
     "VBO:0201289": {},
-    "VBO:0200328": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Joy/Hope rescue sisters. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201039": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Levi memoir. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
     "VBO:0200325": {},
     "VBO:0200028": {},
-    "VBO:0200184": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "The retained profile relies on Sassy rescue account. Those observations may be accurate for the animals concerned, but do not establish a useful type-level character or work/history account for this selectable cross. Existing lexical parentage alone is insufficient for the current profile contract. Research bounded to retained originals and targeted public leads did not establish a replacement meeting that contract. This is a reversible evidence hold, not a finding that the cross or its named animals are fictitious.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201404": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Laika, an owner submission; no cross-wide observations",
-        "reviewedAt": "2026-10-06"
-      }
-    },
     "VBO:0200390": {
       "editorialVisibility": {
         "status": "suppressed",
-        "reason": "Coydog denotes domestic dog–coyote hybrids, not a distinct domestic breed or regional type. Current exact evidence is one sanctuary animal, which cannot establish population-level character or identity. Preserve ID/history; reopening requires an explicitly authorized broader product scope and defensible population evidence, not another individual anecdote.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200330": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Oreo, one terrier–Chihuahua rescue dog with unspecified terrier ancestry",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200451": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Sissy/Winston/Lana and other keeper anecdotes; Kellys independently opened page concerns its eight-week sale puppies, not mature type evidence",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201446": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Baxter adult submission plus commercial Yorkie Russell puppy litter descriptions; whole-cross adult claims exceed those scopes",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200826": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Belle one-year keeper submission and Lily Reddit appearance; generalized company/play exceeds one-dog observations",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200268": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Sasha memoir and Sadie Mae shelter bulletin; cross-wide activity and learning claims exceed named dogs",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201044": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Luna classified and Foxy memorial; generalized companion character exceeds those animals",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201283": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Chloe in one author’s successive accounts, not independent observations of the Sporgi population",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200318": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Louis travel blog, Charlie/Poppy Wag submissions and Pepper owner account; selected individuals cannot establish Cavestie tendencies",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200367": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Reggie Rover and Ginger/Toby submissions; generalized attachment and activity are anecdotes",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201090": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Brandi rescue, Taz daycare and Chico sitting account; parentage does not validate whole-cross character",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200213": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Baxter Reddit and Imgur DNA chart; chart reports additional mixed ancestry and does not establish two-parent cross-wide temperament",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200358": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Lexi rescue narrative (now unavailable) and Betsy Country Life caption; current inaccessibility is not proof false, but retained claims remain individual",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201398": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Elvis pet-shop origin story and Lola clinical case; behavior is not a Wauzer population description",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200254": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Scooby Greenleaf rescue only; specific retraining/personal history does not define Bull Mastweiler temperament",
+        "reason": "Current authorized catalog covers domestic breeds, varieties, regional/historical types and domestic crosses. This unspecified interspecies category is outside that chosen product scope. This is not a claim that hybrids do not exist or a behavior/safety judgment. A shorter accurate definition can repair historical hidden text, but does not turn the source node into a domestic breed.",
         "reviewedAt": "2026-10-06"
       }
     },
@@ -2490,13 +2013,6 @@
       "editorialVisibility": {
         "status": "suppressed",
         "reason": "Maltese Terrier is commonly a Maltese name but is currently classified as a cross in catalog metadata. Resolve that contradiction from exact source evidence rather than inventing parentage or merging. Preserve hidden ID and history; require exact population evidence before promotion. This is a reversible research hold, not a finding that the dog concept is false. Maltese Terrier upstream VeNom cross meaning conflicts with a possible Maltese synonym; preserve ID pending exact scope evidence.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200531": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "MFHA notebook pages98/102/104 confirms common working selection and four American/English/Penn-Marydel/Crossbred branches. Valid grouping but no independent morphology; specific breeds available. Suppress redundant broad ranking card; England-only origin unsuitable for combined scope.",
         "reviewedAt": "2026-10-06"
       }
     },
@@ -2808,13 +2324,6 @@
         "reviewedAt": "2026-10-06"
       }
     },
-    "VBO:0200162": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "FCI group9 section1.1 plus member standards support scoped Bolognese/Havanese/Frise/Maltese statements. Broad companion family is not an additional independently rankable identity, suppress.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
     "VBO:0200170": {
       "editorialVisibility": {
         "status": "suppressed",
@@ -2833,20 +2342,6 @@
       "editorialVisibility": {
         "status": "suppressed",
         "reason": "Source explicitly supplies Hound-Barak, delimiting this Bosnian Hound node. Recommend withholding a second independently selectable card while preserving both stable IDs. This is a source-identity/nomenclature assessment, not permission for alias remapping or deduplicating stored rankings. Exact public wording still needs the normal profile source gate.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200206": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "FCI French administrative cattle-dog section includes Corgis/ACD; English card Bouvier implies Belgian named types. This expansion conflates translated functional classification with identity. Suppress; no need to rewrite all member facts as false.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200218": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "FCI French TypeBraque administrative family and Portuguese/OldDanish standards support member facts. French generic pointing label cannot establish additional distinct rankable breed/type, suppress.",
         "reviewedAt": "2026-10-06"
       }
     },
@@ -2976,13 +2471,6 @@
         "reviewedAt": "2026-10-06"
       }
     },
-    "VBO:0200384": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "AKC/UKC group evidence establishes seven distinct coonhound breeds and variable characters. No separate eighth identity; suppress broad ranking card, preserve useful group text as historical authoring.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
     "VBO:0200403": {
       "editorialVisibility": {
         "status": "suppressed",
@@ -3015,13 +2503,6 @@
       "editorialVisibility": {
         "status": "suppressed",
         "reason": "Danish White Spitz could be synonymous Danish Spitz or an explicit colour subset. The node alone does not delimit that scope. Preserve hidden ID and history; require exact population evidence before promotion. This is a reversible research hold, not a finding that the dog concept is false.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200478": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "NKK elghund activity family explicitly nine breeds including Laikas; FCI black/grey standards differ. English generic singular also shorthand for Norwegian Grey. Suppress ambiguous multi-breed grouping.",
         "reviewedAt": "2026-10-06"
       }
     },
@@ -3081,13 +2562,6 @@
         "reviewedAt": "2026-10-06"
       }
     },
-    "VBO:0200574": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Four independent German pointer standards support member-scoped traits; generic German Pointer is also used for GSP shorthand. Ambiguous collection, suppress rather than choose a new identity.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
     "VBO:0200630": {
       "editorialVisibility": {
         "status": "suppressed",
@@ -3106,13 +2580,6 @@
       "editorialVisibility": {
         "status": "suppressed",
         "reason": "This node identifies a job or function, with unspecified scope in source synonyms, rather than one bounded population. Guarding, ratting or shepherding can describe multiple unrelated breeds. Preserve relationships and ID; no rankable phenotype or type-level temperament should be synthesized.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200673": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "AKC hound group explicitly warns generalizations limited; copy contrasts Beagle/Whippet correctly. Extremely broad collection overlapping specific entries, suppress.",
         "reviewedAt": "2026-10-06"
       }
     },
@@ -3256,24 +2723,10 @@
         "reviewedAt": "2026-10-06"
       }
     },
-    "VBO:0200915": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "FCI section2.2 spans diverse separate molossoid mountain-type breeds incl Newfoundland/Hovawart; Swiss family separately classified. Generic English identity underdetermined and redundant, suppress.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
     "VBO:0200917": {
       "editorialVisibility": {
         "status": "suppressed",
         "reason": "Mountain Stephens Stock Cur explicitly identifies Stephens Stock, not Mountain Cur generally. Recommend withholding a second independently selectable card while preserving both stable IDs. This is a source-identity/nomenclature assessment, not permission for alias remapping or deduplicating stored rankings. Exact public wording still needs the normal profile source gate.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200928": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "German Large breed club expressly denies Large being larger version of Small; Austrian joint regulations describe two breeds, not third identity. Summary correctly acknowledges this but broad shared name adds no distinct ranking object, suppress.",
         "reviewedAt": "2026-10-06"
       }
     },
@@ -3302,13 +2755,6 @@
       "editorialVisibility": {
         "status": "suppressed",
         "reason": "Ovtcharka (unspecified) is generic shepherd-dog wording, not exclusively Caucasian Shepherd. A single parent pointer or shared QID does not define an exact rankable identity. Preserve ID/relations; require evidence of genuinely useful bounded scope before promotion.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201021": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "FCI section1.1 and184/185/186 support member-scoped claims, but plain Pinscher often means German breed; additional broad card is ambiguous/redundant. Suppress.",
         "reviewedAt": "2026-10-06"
       }
     },
@@ -3361,13 +2807,6 @@
         "reviewedAt": "2026-10-06"
       }
     },
-    "VBO:0201134": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "AKC Retriever account supports biddability, soft carrying and distinct breeds including independent Curly. Correct synthesis but redundant collection with misleading single representative. Suppress.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
     "VBO:0201145": {
       "editorialVisibility": {
         "status": "suppressed",
@@ -3417,13 +2856,6 @@
         "reviewedAt": "2026-10-06"
       }
     },
-    "VBO:0201211": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "AKC Setter account explicitly four distinct breeds, bird scenting and historic crouch/net; correct summary but English portrait cannot represent a new fifth breed/type. Suppress redundant group.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
     "VBO:0201216": {
       "editorialVisibility": {
         "status": "suppressed",
@@ -3452,27 +2884,6 @@
         "reviewedAt": "2026-10-06"
       }
     },
-    "VBO:0201271": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "AKC broad family spans toy and sporting branches; copy correctly scopes work to flushing subset. Generic spaniel spans incompatible tasks/morphologies; suppress redundant broad card.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201282": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "AKC describes Spitz as imprecise broad category; FCI Samoyed permits full resting tail down. Not a portrait defect, but class cannot establish distinct identity. Suppress.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201287": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "FCI125/126 and AKC history support two distinct English/Welsh breeds; no independent third Springer. Suppress redundant umbrella; specific English/Welsh cards provide better exact identity.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
     "VBO:0201300": {
       "editorialVisibility": {
         "status": "suppressed",
@@ -3498,13 +2909,6 @@
       "editorialVisibility": {
         "status": "suppressed",
         "reason": "Source expressly says Vallhund. Recommend withholding a second independently selectable card while preserving both stable IDs. This is a source-identity/nomenclature assessment, not permission for alias remapping or deduplicating stored rankings. Exact public wording still needs the normal profile source gate.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201323": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "AKC Sennenhunde/four FCI standards show four separate breeds with differing characters. Existing member identities suffice; suppress generic group, do not equate it with Great Swiss only.",
         "reviewedAt": "2026-10-06"
       }
     },
@@ -3540,27 +2944,6 @@
       "editorialVisibility": {
         "status": "suppressed",
         "reason": "The node provides a miniature/teacup label but no independently delimited population, measurement range or stable standard that distinguishes it from its existing parent/size varieties. Lack of registry recognition is not the reason to suppress. Retain ID pending exact size-population evidence; do not manufacture a tiny version from marketing language.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201343": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "AKC/FCI broad terrier group supports general work history but exact Border is just one member. Broad group duplicates many cards and cannot be ranked consistently as one type. Suppress.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201396": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "FCI group8 section3 plus exact member standards support diverse water-work history and modern truffle specialization. Administrative collection does not establish new type, suppress.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201397": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "FCI124/301 support separate Irish/American characters and water retrieval, older land/water division genuine. New generic card adds no distinct type beyond leaf breeds, suppress.",
         "reviewedAt": "2026-10-06"
       }
     },
@@ -3620,31 +3003,10 @@
         "reviewedAt": "2026-10-06"
       }
     },
-    "VBO:0200127": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Unspecified Vendeen Griffon basset umbrella overlaps distinct Grand and Petit breeds; no additional bounded identity is established.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0200372": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Unqualified Cocker Spaniel overlaps distinct English and American Cocker identities; preserve sourced group history without a redundant selectable card.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
-    "VBO:0201215": {
-      "editorialVisibility": {
-        "status": "suppressed",
-        "reason": "Sheepdog is a broad functional group with many distinct herding breeds and regional types; not one coherent selectable population.",
-        "reviewedAt": "2026-10-06"
-      }
-    },
     "VBO:0201430": {
       "editorialVisibility": {
         "status": "suppressed",
-        "reason": "Broad Wolfdog label covers heterogeneous domestic/wild crosses and sanctuary populations, not a distinct domestic breed or regional type. Specific evidenced domestic breeds with historical wolf ancestry remain eligible.",
+        "reason": "Frozen ontology explicitly includes Wolfdog (unspecified). Exclude this unspecified ancestry category under the existing domestic-catalog scope while retaining named evidenced domestic populations such as Czechoslovakian Wolfdog and Saarloos Wolfhond. Do not present the policy as a universal biological/legal classification of every wolfdog.",
         "reviewedAt": "2026-10-06"
       }
     },

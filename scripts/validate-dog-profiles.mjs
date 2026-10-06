@@ -35,10 +35,17 @@ expected.forEach((id) => { if (!actual.has(id)) errors.push(`Missing profile: ${
 actual.forEach((id) => { if (!expected.has(id)) errors.push(`Unknown profile: ${id}`); });
 
 for (const [id, profile] of Object.entries(artifact.profiles || {})) {
-  if (typeof profile.summary !== "string" || profile.summary.length < 20 || profile.summary.length > 700) errors.push(`${id}: invalid summary length`);
-  if (profile.reviewStatus === "editor-reviewed" && profile.summary.length < 80) errors.push(`${id}: individually written summary is incomplete`);
+  const concise = profile.profileForm === "concise";
+  if (profile.profileForm !== undefined && !concise) errors.push(`${id}: invalid profileForm`);
+  if (profile.identityScope !== undefined && profile.identityScope !== "category") errors.push(`${id}: invalid identityScope`);
+  if (profile.portraitExample !== undefined && (profile.identityScope !== "category" ||
+    typeof profile.portraitExample !== "string" || !profile.portraitExample.trim() || profile.portraitExample.length > 120)) errors.push(`${id}: invalid portraitExample`);
+  if (profile.evidenceNote !== undefined && (typeof profile.evidenceNote !== "string" || profile.evidenceNote.length > 700)) errors.push(`${id}: invalid evidenceNote`);
+  if (concise && (profile.reviewStatus !== "editor-reviewed" || !(profile.sourceIds || []).some(sourceId => sourceId.startsWith("breed-profile-")))) errors.push(`${id}: concise profile needs reviewed factual sources`);
+  if (typeof profile.summary !== "string" || profile.summary.trim().length < (concise ? 1 : 20) || profile.summary.length > 700) errors.push(`${id}: invalid summary length`);
+  if (!concise && profile.reviewStatus === "editor-reviewed" && profile.summary.length < 80) errors.push(`${id}: individually written summary is incomplete`);
   if (profile.shortDescription !== undefined &&
-    (typeof profile.shortDescription !== "string" || profile.shortDescription.trim().length < 80 || profile.shortDescription.length > 180)) {
+    (typeof profile.shortDescription !== "string" || profile.shortDescription.trim().length < (concise ? 1 : 80) || profile.shortDescription.length > 180)) {
     errors.push(`${id}: invalid shortDescription length`);
   }
   if (illustratedIds.has(id) && profile.reviewStatus === "editor-reviewed" && !profile.shortDescription) {

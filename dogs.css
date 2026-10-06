@@ -331,6 +331,9 @@ textarea:focus-visible,
 .dog-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #eee; }
 .dog-media img:not([src]) { display: none; }
 .dog-media.is-missing { border-style: dashed; background: #fafafa; }
+.dog-media__scope { position: absolute; z-index: 1; inset: auto 0 0; padding: 5px 7px; color: #25231f; background: rgba(255,255,255,.94); font-size: .7rem; font-weight: 600; line-height: 1.25; text-align: left; overflow-wrap: anywhere; }
+.ranking-row .dog-media__scope, .recent-item .dog-media__scope, .secondary-item .dog-media__scope, .search-option .dog-media__scope { display: none; }
+.ranking-row__scope { display: none; color: var(--ink-soft); font-size: .72rem; line-height: 1.35; }
 .catalog-fallback { margin-top: 20px; padding: 28px; border: 1px dashed var(--border); text-align: center; }
 .catalog-fallback h3 { margin: 0 0 6px; }
 .catalog-fallback p { margin: 0 auto 16px; max-width: 650px; color: var(--ink-soft); }
@@ -435,8 +438,9 @@ body.is-move-mode .ranking-row__actions .move-handle { display: inline-grid; pla
 .dogs-ranking[data-ranking-view="photos"] .dog-media { grid-column: 1; grid-row: 1; width: 100%; }
 .dogs-ranking[data-ranking-view="photos"] .ranking-row__copy { grid-column: 1; grid-row: 2; }
 .dogs-ranking[data-ranking-view="photos"] .ranking-row__copy strong { font-size: 1rem; line-height: 1.2; }
-.dogs-ranking[data-ranking-view="photos"] .ranking-row__copy > :not(strong),
-.dogs-ranking[data-ranking-view="compact"] .ranking-row__copy > :not(strong) { display: none !important; }
+.dogs-ranking[data-ranking-view="photos"] .ranking-row__copy > :not(strong):not(.ranking-row__scope),
+.dogs-ranking[data-ranking-view="compact"] .ranking-row__copy > :not(strong):not(.ranking-row__scope) { display: none !important; }
+.dogs-ranking[data-ranking-view="photos"] .ranking-row__scope, .dogs-ranking[data-ranking-view="compact"] .ranking-row__scope { display: block; }
 .dogs-ranking[data-ranking-view="photos"] .ranking-row__actions { display: flex; position: absolute; z-index: 2; top: 4px; right: 4px; }
 .dogs-ranking[data-ranking-view="photos"] .ranking-row__actions button[data-action="detail"] { display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: transparent; font-size: 0; }
 .dogs-ranking[data-ranking-view="photos"] .ranking-row__actions button[data-action="detail"]::after { content: "i"; display: grid; place-items: center; width: 25px; height: 25px; border: 1px solid var(--border); border-radius: 50%; background: rgba(255,255,255,.94); color: var(--ink); font-size: .72rem; font-weight: 700; }

@@ -1,0 +1,608 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "n_review_a",
+  "subjectWorker": "n_review_b",
+  "proposalFile": "/tmp/stackrank-holds-n_review_b/decisions.json",
+  "proposalFileSha256": "046949dcc731a97ac3116d82b2128f6df950e35cbce658250e5272e600e4557a",
+  "reviewedAt": "2026-10-06",
+  "reviewedCount": 17,
+  "acceptedCount": 17,
+  "needsChangeCount": 0,
+  "complete": true,
+  "reviewMethod": "Independently read actual primary/keeper/veterinary source passages, retained originals for inaccessible sources, exact lexical VBO nodes and all17 actual displayed portrait derivatives. Source bodies not copied into ledger. No shared repository edits or own proposal changes.",
+  "specialScopeDecisions": {
+    "Shollie": "Border Collie scope is explicit and matches VBO/ASPCA; Rough Collie usage elsewhere does not invalidate scoped card.",
+    "Sporgi": "Springer/Corgi scope is explicit and supported by Chloe keeper; broader Spaniel/Corgi ontology and other Cocker use are not represented as universal Springer definition.",
+    "Sprockerpoo": "Three ancestral breeds expressly supported; no fixed fractions or two-parent pedigree asserted.",
+    "PuganesePuginese": "Neither appears among these17. No cross-ID alteration proposed."
+  },
+  "reviews": [
+    {
+      "catalogId": "VBO:0201101",
+      "name": "Pugland",
+      "reviewer": "n_review_a",
+      "disposition": "accepted",
+      "proposedFieldsSemanticSha256": "eb8d4564bb9827ac2d982dc754d94c2bc54c74703873cd2a9819cba8d10194e4",
+      "semanticHashMethod": "SHA-256 of UTF-8 JSON for patch.fields with recursively sorted object keys, compact separators comma/colon, ensure_ascii=false; array order preserved",
+      "proposedSummaryReviewed": "The Pugland is a Pug–West Highland White Terrier cross, also called a Pugland Terrier.",
+      "evidenceIndependentlyRead": [
+        {
+          "url": "https://www.harleyshounds.org/get-involved/animals/rudi/",
+          "access": "Fresh request inaccessible once, not retried; complete retained original text independently read",
+          "passageReadParaphrase": "About Rudi separates Yogi (Staffy/Lab) from Rudy, whose own rescue identifies Pug/Westie parentage. Only Rudy parentage supports this card.",
+          "retainedPath": "/Users/danbretl/Documents/Codex/2026-10-04/task-4/stackrank-dogs-readonly-audit-20261005T054407Z/cache/sources/96c7d9f8cfeb6747.txt",
+          "retainedSha256": "6f96b3e050504b16e9791e74c3ec48c137b7e7213750c7e019252210f373cd19"
+        },
+        {
+          "url": "https://purl.obolibrary.org/obo/VBO_0201101",
+          "access": "Actual pinned source JSON node independently read",
+          "sourcePath": "data/dogs/sources/vbo-2026-04-15.json",
+          "nodeLabel": "Pugland (Dog)",
+          "exactSynonymsRead": [
+            "Pugland",
+            "Pugland ( Pugland Terrier )",
+            "Pugland Terrier"
+          ],
+          "scope": "Lexical identity and alias mapping only; no temperament evidence."
+        }
+      ],
+      "scopeAndLimits": "Accepted only as concise parentage/name/ancestry identification. No pedigree certification for all individuals, numerical fractions, standardized phenotype, origin, predictable inherited behavior, medical or suitability claim. Empty unsupported facts and unknown size are appropriate.",
+      "requiredChanges": [],
+      "portraitReview": {
+        "actualPixelsViewed": true,
+        "method": "All three existing labeled contact sheets independently displayed; generated derivatives separately SHA-verified against exact paths. No new native-master certification.",
+        "path": "assets/dogs/generated/M-0201101-01-960.webp",
+        "sha256": "826cd8237ea5f27b2c58a0e2fd286a52ed4fbc5bf1c558dc6f8a29ea42ec6f2b",
+        "observation": "Cream rough adult, pendant ears and short projecting muzzle, complete upcurved tail; compatible representative Pug/Westie.",
+        "decision": "retain"
+      },
+      "reviewedAt": "2026-10-06"
+    },
+    {
+      "catalogId": "VBO:0201111",
+      "name": "Pyredoodle",
+      "reviewer": "n_review_a",
+      "disposition": "accepted",
+      "proposedFieldsSemanticSha256": "9b50875b72a03ba5bf307910bc198300242e8ccc7698eb92041d46d96c75aead",
+      "semanticHashMethod": "SHA-256 of UTF-8 JSON for patch.fields with recursively sorted object keys, compact separators comma/colon, ensure_ascii=false; array order preserved",
+      "proposedSummaryReviewed": "The Pyredoodle is a Great Pyrenees–Poodle cross.",
+      "evidenceIndependentlyRead": [
+        {
+          "url": "https://fortheloveofdoodlestn.com/new-page",
+          "access": "Fresh actual source body independently read",
+          "passageReadParaphrase": "Own Pyredoodle program introduction, line13, explicitly names Great Pyrenees and Standard Poodle. Later nanny-dog, child safety and health promotional claims are not used."
+        }
+      ],
+      "scopeAndLimits": "Accepted only as concise parentage/name/ancestry identification. No pedigree certification for all individuals, numerical fractions, standardized phenotype, origin, predictable inherited behavior, medical or suitability claim. Empty unsupported facts and unknown size are appropriate.",
+      "requiredChanges": [],
+      "portraitReview": {
+        "actualPixelsViewed": true,
+        "method": "All three existing labeled contact sheets independently displayed; generated derivatives separately SHA-verified against exact paths. No new native-master certification.",
+        "path": "assets/dogs/generated/M-0201111-01-960.webp",
+        "sha256": "500a556527fe20626705d76ae6ae6ad92524aa9daf14dd57c8b58614c2047b3f",
+        "observation": "Ivory furnished substantial developed adult, pendant ears and projecting muzzle, complete tail and feet; representative Pyrenees/Poodle form, no standardized size asserted.",
+        "decision": "retain"
+      },
+      "reviewedAt": "2026-10-06"
+    },
+    {
+      "catalogId": "VBO:0201193",
+      "name": "Scoodle",
+      "reviewer": "n_review_a",
+      "disposition": "accepted",
+      "proposedFieldsSemanticSha256": "55617b82da826b588bdf8026474ce035de0887f32a43312ebdecee517fc2b1d3",
+      "semanticHashMethod": "SHA-256 of UTF-8 JSON for patch.fields with recursively sorted object keys, compact separators comma/colon, ensure_ascii=false; array order preserved",
+      "proposedSummaryReviewed": "The Scoodle is a Scottish Terrier–Poodle cross, also known as a Scottish Shoodle.",
+      "evidenceIndependentlyRead": [
+        {
+          "url": "https://dogsdiscovered.com/poodle-mixes-from-a-z/scoodle",
+          "access": "Fresh actual source body independently read",
+          "passageReadParaphrase": "Andrew’s Scout submission dated2012 names Scottie dam and Poodle sire (line43); introduction line26 gives Scottish Shoodle alias. Behavioral inherited-trait text excluded."
+        },
+        {
+          "url": "https://purl.obolibrary.org/obo/VBO_0201193",
+          "access": "Actual pinned source JSON node independently read",
+          "sourcePath": "data/dogs/sources/vbo-2026-04-15.json",
+          "nodeLabel": "Scoodle (Dog)",
+          "exactSynonymsRead": [
+            "Scoodle",
+            "Scoodle ( Scottish Poo, Scottish Shoodle )",
+            "Scottish Poo",
+            "Scottish Shoodle"
+          ],
+          "scope": "Lexical identity and alias mapping only; no temperament evidence."
+        }
+      ],
+      "scopeAndLimits": "Accepted only as concise parentage/name/ancestry identification. No pedigree certification for all individuals, numerical fractions, standardized phenotype, origin, predictable inherited behavior, medical or suitability claim. Empty unsupported facts and unknown size are appropriate.",
+      "requiredChanges": [],
+      "portraitReview": {
+        "actualPixelsViewed": true,
+        "method": "All three existing labeled contact sheets independently displayed; generated derivatives separately SHA-verified against exact paths. No new native-master certification.",
+        "path": "assets/dogs/generated/M-0201193-01-960.webp",
+        "sha256": "6aa74a70ad567a0162cb04bc5b3909d4fa3da8c8280b695ba8291e0e37c0e2e2",
+        "observation": "Black furnished adult with pendant ears, projecting muzzle and complete long upward tail; no Scottish Terrier-only or Schnauzer requirement inferred.",
+        "decision": "retain"
+      },
+      "reviewedAt": "2026-10-06"
+    },
+    {
+      "catalogId": "VBO:0201221",
+      "name": "ShiChi",
+      "reviewer": "n_review_a",
+      "disposition": "accepted",
+      "proposedFieldsSemanticSha256": "f17e503d30665f4dde1a5f8eb65125ff39038e369e6d63199c6972fe543a73aa",
+      "semanticHashMethod": "SHA-256 of UTF-8 JSON for patch.fields with recursively sorted object keys, compact separators comma/colon, ensure_ascii=false; array order preserved",
+      "proposedSummaryReviewed": "The ShiChi is a Shih Tzu–Chihuahua cross, also called a Chi-Shi or Chi-Tzu.",
+      "evidenceIndependentlyRead": [
+        {
+          "url": "https://www.aspca.org/nyc/aspca-adoption-center/adoptable-dogs/tinky-a33430031",
+          "access": "Fresh actual source body independently read",
+          "passageReadParaphrase": "ASPCA own Tinky breed field at lines48–50 states Shih Tzu/Chihuahua. Individual behavior and automatic age excluded."
+        },
+        {
+          "url": "https://purl.obolibrary.org/obo/VBO_0201221",
+          "access": "Actual pinned source JSON node independently read",
+          "sourcePath": "data/dogs/sources/vbo-2026-04-15.json",
+          "nodeLabel": "ShiChi (Dog)",
+          "exactSynonymsRead": [
+            "Chi-Shi",
+            "Chi-Tzu",
+            "ShiChi",
+            "ShiChi ( Chi-Shi, Chi-Tzu )"
+          ],
+          "scope": "Lexical identity and alias mapping only; no temperament evidence."
+        }
+      ],
+      "scopeAndLimits": "Accepted only as concise parentage/name/ancestry identification. No pedigree certification for all individuals, numerical fractions, standardized phenotype, origin, predictable inherited behavior, medical or suitability claim. Empty unsupported facts and unknown size are appropriate.",
+      "requiredChanges": [],
+      "portraitReview": {
+        "actualPixelsViewed": true,
+        "method": "All three existing labeled contact sheets independently displayed; generated derivatives separately SHA-verified against exact paths. No new native-master certification.",
+        "path": "assets/dogs/generated/M-0201221-01-960.webp",
+        "sha256": "1094940cf75b6b35063d76b300d8c5b95b802573da04ab8139b284a384efad9f",
+        "observation": "Cream furnished adult with erect fringed ears, short muzzle and full plume tail; preserves one Shih Tzu/Chihuahua phenotype.",
+        "decision": "retain"
+      },
+      "reviewedAt": "2026-10-06"
+    },
+    {
+      "catalogId": "VBO:0201227",
+      "name": "Shinese",
+      "reviewer": "n_review_a",
+      "disposition": "accepted",
+      "proposedFieldsSemanticSha256": "b477d17c1981c72cf999c12e57e32cbddbed511444692e2d35c1c5cbfa5799f2",
+      "semanticHashMethod": "SHA-256 of UTF-8 JSON for patch.fields with recursively sorted object keys, compact separators comma/colon, ensure_ascii=false; array order preserved",
+      "proposedSummaryReviewed": "The Shinese is a Pekingese–Shih Tzu cross, also known as a Pekatzu or Peketzu.",
+      "evidenceIndependentlyRead": [
+        {
+          "url": "https://fetchwi.org/doggos/patricia",
+          "access": "Fresh actual source body independently read",
+          "passageReadParaphrase": "Rescue’s own Patricia heading line21 explicitly states Pekingese/Shih Tzu mix. The temperament and home-suitability paragraphs are not generalized."
+        },
+        {
+          "url": "https://purl.obolibrary.org/obo/VBO_0201227",
+          "access": "Actual pinned source JSON node independently read",
+          "sourcePath": "data/dogs/sources/vbo-2026-04-15.json",
+          "nodeLabel": "Shinese (Dog)",
+          "exactSynonymsRead": [
+            "Pekatzu",
+            "Peketzu",
+            "Shih-tze",
+            "Shinese",
+            "Shinese ( Peketzu, Pekatzu, Shih-tze )"
+          ],
+          "scope": "Lexical identity and alias mapping only; no temperament evidence."
+        }
+      ],
+      "scopeAndLimits": "Accepted only as concise parentage/name/ancestry identification. No pedigree certification for all individuals, numerical fractions, standardized phenotype, origin, predictable inherited behavior, medical or suitability claim. Empty unsupported facts and unknown size are appropriate.",
+      "requiredChanges": [],
+      "portraitReview": {
+        "actualPixelsViewed": true,
+        "method": "All three existing labeled contact sheets independently displayed; generated derivatives separately SHA-verified against exact paths. No new native-master certification.",
+        "path": "assets/dogs/generated/M-0201227-01-960.webp",
+        "sha256": "0d47e1bf51117b3970a67948a9eba10e1b0e75fc9d73c2f7c215012a36d018ee",
+        "observation": "Tan/white adult with pendant furnished ears and short muzzle, complete tail; preserves selected Pekingese/Shih Tzu scope.",
+        "decision": "retain"
+      },
+      "reviewedAt": "2026-10-06"
+    },
+    {
+      "catalogId": "VBO:0201228",
+      "name": "Shiranian",
+      "reviewer": "n_review_a",
+      "disposition": "accepted",
+      "proposedFieldsSemanticSha256": "41c010383a8119fbcca2ee18261ac3822e43dd4738589e0ccb75b886b253779f",
+      "semanticHashMethod": "SHA-256 of UTF-8 JSON for patch.fields with recursively sorted object keys, compact separators comma/colon, ensure_ascii=false; array order preserved",
+      "proposedSummaryReviewed": "The Shiranian is a Shih Tzu–Pomeranian cross; Pom-Shi, Pom-Tzu and Shi-Pom are other names for it.",
+      "evidenceIndependentlyRead": [
+        {
+          "url": "https://toolkit.rescuegroups.org/j/3/pet1_layout.php?toolkitIndex=0&toolkitKey=D5LxkY3N&animalID=21039027",
+          "access": "Fresh tool error once, not retried; complete retained original body independently read",
+          "passageReadParaphrase": "Actual primary rescue body distinguishes Dana (Pomeranian) from Annie Mae (Shih Tzu/Pomeranian mix). Only Annie Mae’s parentage supports cross claim.",
+          "retainedPath": "/Users/danbretl/Documents/Codex/2026-10-04/task-4/stackrank-dogs-readonly-audit-20261005T054407Z/cache/sources/08437ce8ab141e6b.txt",
+          "retainedSha256": "7003a32049d2b54f8d070e6128956dbb80936710cc4be198fa435d1bbec9a0f7"
+        },
+        {
+          "url": "https://purl.obolibrary.org/obo/VBO_0201228",
+          "access": "Actual pinned source JSON node independently read",
+          "sourcePath": "data/dogs/sources/vbo-2026-04-15.json",
+          "nodeLabel": "Shiranian (Dog)",
+          "exactSynonymsRead": [
+            "Pom-Shi",
+            "Pom-Tzu",
+            "Shi-Pom",
+            "Shiranian",
+            "Shiranian ( Pom-Shi, Pom-Tzu, Shi-Pom )"
+          ],
+          "scope": "Lexical identity and alias mapping only; no temperament evidence."
+        }
+      ],
+      "scopeAndLimits": "Accepted only as concise parentage/name/ancestry identification. No pedigree certification for all individuals, numerical fractions, standardized phenotype, origin, predictable inherited behavior, medical or suitability claim. Empty unsupported facts and unknown size are appropriate.",
+      "requiredChanges": [],
+      "portraitReview": {
+        "actualPixelsViewed": true,
+        "method": "All three existing labeled contact sheets independently displayed; generated derivatives separately SHA-verified against exact paths. No new native-master certification.",
+        "path": "assets/dogs/generated/M-0201228-01-960.webp",
+        "sha256": "1c08cda7925aab55b8b8b43dcab7e1b4e8a87057262a1f5141c6cba76d533de2",
+        "observation": "Tan/cream furnished adult with soft folded ears and full curled plume; coherent Shih Tzu/Pomeranian representative, no uniform phenotype claim.",
+        "decision": "retain"
+      },
+      "reviewedAt": "2026-10-06"
+    },
+    {
+      "catalogId": "VBO:0201229",
+      "name": "Shollie",
+      "reviewer": "n_review_a",
+      "disposition": "accepted",
+      "proposedFieldsSemanticSha256": "4bbfa27cb50f63811fdbf177abe5a5c76cc7327b415361e5f5046349a9d65a1b",
+      "semanticHashMethod": "SHA-256 of UTF-8 JSON for patch.fields with recursively sorted object keys, compact separators comma/colon, ensure_ascii=false; array order preserved",
+      "proposedSummaryReviewed": "The Shollie name is used here for a German Shepherd–Border Collie cross.",
+      "evidenceIndependentlyRead": [
+        {
+          "url": "https://www.aspca.org/nyc/aspca-adoption-center/adoptable-dogs/maxie-a41190739",
+          "access": "Fresh actual source body independently read",
+          "passageReadParaphrase": "ASPCA Maxie breed field lines49–51 explicitly German Shepherd/Border Collie. It does not prove all dogs called Shollie elsewhere have Border Collie ancestry."
+        },
+        {
+          "url": "https://dogbreedinfo.com/s/shollie.htm",
+          "access": "Actual substantive indexed primary keeper passage independently read; no retry/bypass",
+          "passageReadParaphrase": "Independent collision check: indexed original Sage keeper passage explicitly German Shepherd/Rough Collie, under Shollie heading. Confirms why the proposal must retain its scoped wording."
+        },
+        {
+          "url": "https://purl.obolibrary.org/obo/VBO_0201229",
+          "access": "Actual pinned source JSON node independently read",
+          "sourcePath": "data/dogs/sources/vbo-2026-04-15.json",
+          "nodeLabel": "Shollie (Dog)",
+          "exactSynonymsRead": [
+            "German Shepherd Border Collie mix",
+            "Shollie",
+            "Shollie ( German Shepherd Border Collie mix )"
+          ],
+          "scope": "Lexical identity and alias mapping only; no temperament evidence."
+        }
+      ],
+      "scopeAndLimits": "Accepted only as concise parentage/name/ancestry identification. No pedigree certification for all individuals, numerical fractions, standardized phenotype, origin, predictable inherited behavior, medical or suitability claim. Empty unsupported facts and unknown size are appropriate.",
+      "requiredChanges": [],
+      "portraitReview": {
+        "actualPixelsViewed": true,
+        "method": "All three existing labeled contact sheets independently displayed; generated derivatives separately SHA-verified against exact paths. No new native-master certification.",
+        "path": "assets/dogs/generated/M-0201229-01-960.webp",
+        "sha256": "f94a8a4bfd4b15fc07fedf50a19c5621be7b3ad4b5926745aca4aa87993d5df3",
+        "observation": "Black/tan/white adult with semi-folded ears, moderate muzzle and full feathered tail. Scoped German Shepherd/Border Collie copy remains compatible; Rough Collie example not substituted.",
+        "decision": "retain"
+      },
+      "reviewedAt": "2026-10-06"
+    },
+    {
+      "catalogId": "VBO:0201232",
+      "name": "Shug",
+      "reviewer": "n_review_a",
+      "disposition": "accepted",
+      "proposedFieldsSemanticSha256": "aa8955e353116ce3b5339c26d342ec0837c4e7a93c8060c36e9248d64011efa7",
+      "semanticHashMethod": "SHA-256 of UTF-8 JSON for patch.fields with recursively sorted object keys, compact separators comma/colon, ensure_ascii=false; array order preserved",
+      "proposedSummaryReviewed": "The Shug is a German Shepherd–Pug cross.",
+      "evidenceIndependentlyRead": [
+        {
+          "url": "https://www.secondavephotography.com/i-heart-faces-photo-challenge-pet-faces-august-2012/",
+          "access": "Fresh actual source body independently read",
+          "passageReadParaphrase": "Own Finn article line37 identifies German Shepherd/Pug parents and calls litter Shugs; states Pug was dam. Parentage only; no reproduction, behavior or health assertion imported."
+        },
+        {
+          "url": "https://purl.obolibrary.org/obo/VBO_0201232",
+          "access": "Actual pinned source JSON node independently read",
+          "sourcePath": "data/dogs/sources/vbo-2026-04-15.json",
+          "nodeLabel": "Shug (Dog)",
+          "exactSynonymsRead": [
+            "German Shepherd-Pug mix",
+            "Shug",
+            "Shug ( German Shepherd-Pug mix )"
+          ],
+          "scope": "Lexical identity and alias mapping only; no temperament evidence."
+        }
+      ],
+      "scopeAndLimits": "Accepted only as concise parentage/name/ancestry identification. No pedigree certification for all individuals, numerical fractions, standardized phenotype, origin, predictable inherited behavior, medical or suitability claim. Empty unsupported facts and unknown size are appropriate.",
+      "requiredChanges": [],
+      "portraitReview": {
+        "actualPixelsViewed": true,
+        "method": "All three existing labeled contact sheets independently displayed; generated derivatives separately SHA-verified against exact paths. No new native-master certification.",
+        "path": "assets/dogs/generated/M-0201232-01-960.webp",
+        "sha256": "58c44807b0da3555838605387ee0731c55fdbfbe590aecd549c3df6f1c0fe83b",
+        "observation": "Fawn adult, dark short projecting muzzle, folded ears, sturdy developed limbs and full upcurved tail; coherent retained Finn-like German Shepherd/Pug.",
+        "decision": "retain"
+      },
+      "reviewedAt": "2026-10-06"
+    },
+    {
+      "catalogId": "VBO:0201283",
+      "name": "Sporgi",
+      "reviewer": "n_review_a",
+      "disposition": "accepted",
+      "proposedFieldsSemanticSha256": "5ac18b908d991eb289249cac8d291dc221e402e5ad952283eeebe3aa87983d02",
+      "semanticHashMethod": "SHA-256 of UTF-8 JSON for patch.fields with recursively sorted object keys, compact separators comma/colon, ensure_ascii=false; array order preserved",
+      "proposedSummaryReviewed": "Sporgi is used here for a Springer Spaniel–Corgi cross.",
+      "evidenceIndependentlyRead": [
+        {
+          "url": "https://stringofdogs.com/tag/sporgis/",
+          "access": "Fresh actual source body independently read",
+          "passageReadParaphrase": "Own Chloe Sporgi Wisdom post line33 directly defines Sporgi using Corgi and Springer Spaniel. No exact Corgi variety is stated."
+        },
+        {
+          "url": "https://www.rover.com/members/margie-b-an-active-dog-lover-for-your-pet/",
+          "access": "Actual substantive indexed own-keeper bio independently read",
+          "passageReadParaphrase": "Independent own-keeper collision check names a rescued Sporgi as Cocker Spaniel/Corgi. Supports retaining the proposal’s used-here scope, not silently broadening its selected Springer phenotype."
+        },
+        {
+          "url": "https://purl.obolibrary.org/obo/VBO_0201283",
+          "access": "Actual pinned source JSON node independently read",
+          "sourcePath": "data/dogs/sources/vbo-2026-04-15.json",
+          "nodeLabel": "Sporgi (Dog)",
+          "exactSynonymsRead": [
+            "Spaniel-Corgi mix",
+            "Sporgi",
+            "Sporgi ( Spaniel-Corgi mix )"
+          ],
+          "scope": "Lexical identity and alias mapping only; no temperament evidence."
+        }
+      ],
+      "scopeAndLimits": "Accepted only as concise parentage/name/ancestry identification. No pedigree certification for all individuals, numerical fractions, standardized phenotype, origin, predictable inherited behavior, medical or suitability claim. Empty unsupported facts and unknown size are appropriate.",
+      "requiredChanges": [],
+      "portraitReview": {
+        "actualPixelsViewed": true,
+        "method": "All three existing labeled contact sheets independently displayed; generated derivatives separately SHA-verified against exact paths. No new native-master certification.",
+        "path": "assets/dogs/generated/N-0201283-1-960.webp",
+        "sha256": "5944fadc7351f26dced7ce57ddf5b6f4b512861cb6bbb36daae4c637ddd880d3",
+        "observation": "Low black/white adult with pendant ears, moderate muzzle and full feathered tail; selected Springer/Corgi scope remains compatible; no Corgi variety claimed.",
+        "decision": "retain"
+      },
+      "reviewedAt": "2026-10-06"
+    },
+    {
+      "catalogId": "VBO:0201290",
+      "name": "Sprockerpoo",
+      "reviewer": "n_review_a",
+      "disposition": "accepted",
+      "proposedFieldsSemanticSha256": "2c35d7751d3e0e54817b4ba22db758cc879f65d29aab9ad1bfd47d0dec42c92c",
+      "semanticHashMethod": "SHA-256 of UTF-8 JSON for patch.fields with recursively sorted object keys, compact separators comma/colon, ensure_ascii=false; array order preserved",
+      "proposedSummaryReviewed": "The Sprockerpoo combines Springer Spaniel, Cocker Spaniel and Poodle ancestry.",
+      "evidenceIndependentlyRead": [
+        {
+          "url": "https://fabricatingfiction.wordpress.com/2018/07/01/life-with-a-sprockerpoo-the-first-12-months/",
+          "access": "Fresh actual source body independently read",
+          "passageReadParaphrase": "Own Granger acquisition account line24 explicitly expands Sprockerpoo into Springer, Cocker and Poodle. This supports three ancestral breeds, not a fixed percentage, first-generation two-breed pairing or inherited traits."
+        }
+      ],
+      "scopeAndLimits": "Accepted only as concise parentage/name/ancestry identification. No pedigree certification for all individuals, numerical fractions, standardized phenotype, origin, predictable inherited behavior, medical or suitability claim. Empty unsupported facts and unknown size are appropriate.",
+      "requiredChanges": [],
+      "portraitReview": {
+        "actualPixelsViewed": true,
+        "method": "All three existing labeled contact sheets independently displayed; generated derivatives separately SHA-verified against exact paths. No new native-master certification.",
+        "path": "assets/dogs/generated/M-0201290-01-960.webp",
+        "sha256": "b9b9e0b6ab334fa4f2deb4327f232a7eedbd4aefe2fff54ee5ea2635a81753b7",
+        "observation": "Black curly furnished adult with pendant ears, moderate muzzle and full tail; three-breed ancestry does not demand uniform coat/size.",
+        "decision": "retain"
+      },
+      "reviewedAt": "2026-10-06"
+    },
+    {
+      "catalogId": "VBO:0201292",
+      "name": "Sprollie",
+      "reviewer": "n_review_a",
+      "disposition": "accepted",
+      "proposedFieldsSemanticSha256": "0f36dc960c157dc823e7f351b35bc65e5ab0f7130455e49d37e351f64fe06671",
+      "semanticHashMethod": "SHA-256 of UTF-8 JSON for patch.fields with recursively sorted object keys, compact separators comma/colon, ensure_ascii=false; array order preserved",
+      "proposedSummaryReviewed": "The Sprollie is a Springer Spaniel–Border Collie cross.",
+      "evidenceIndependentlyRead": [
+        {
+          "url": "https://ask.woodgreen.org.uk/pet-explorer/results/sprollie",
+          "access": "Fresh actual source body independently read",
+          "passageReadParaphrase": "Woodgreen own experts’ paragraph line57 explicitly defines Springer Spaniel/Border Collie. Additional generalized behavioral, medical and parent-trait claims are not used."
+        }
+      ],
+      "scopeAndLimits": "Accepted only as concise parentage/name/ancestry identification. No pedigree certification for all individuals, numerical fractions, standardized phenotype, origin, predictable inherited behavior, medical or suitability claim. Empty unsupported facts and unknown size are appropriate.",
+      "requiredChanges": [],
+      "portraitReview": {
+        "actualPixelsViewed": true,
+        "method": "All three existing labeled contact sheets independently displayed; generated derivatives separately SHA-verified against exact paths. No new native-master certification.",
+        "path": "assets/dogs/generated/M-0201292-01-960.webp",
+        "sha256": "70f4e5323d822614dffaeb5f9e1adc1c154c412f702aa2396536fbe9df382d7a",
+        "observation": "Brown/white adult with pendant ears, moderate muzzle and full feathered tail; broad Springer/Border pairing matches selected representative.",
+        "decision": "retain"
+      },
+      "reviewedAt": "2026-10-06"
+    },
+    {
+      "catalogId": "VBO:0201398",
+      "name": "Wauzer",
+      "reviewer": "n_review_a",
+      "disposition": "accepted",
+      "proposedFieldsSemanticSha256": "282d3029c8782e960cb28334b5a5abfd2d31a2087468499a3796f2eca7cb5687",
+      "semanticHashMethod": "SHA-256 of UTF-8 JSON for patch.fields with recursively sorted object keys, compact separators comma/colon, ensure_ascii=false; array order preserved",
+      "proposedSummaryReviewed": "The Wauzer is a West Highland White Terrier–Schnauzer cross.",
+      "evidenceIndependentlyRead": [
+        {
+          "url": "https://www.wear-referrals.co.uk/news/327-vets-perform-lifesaving-miracle-on-poisoned-dog",
+          "access": "Fresh URL inaccessible once, not retried; retained original primary case text independently read",
+          "passageReadParaphrase": "Opening dated16January2020 identifies its own patient Lola as Wauzer and Westie/Schnauzer cross. Clinical treatment content is irrelevant and omitted.",
+          "retainedPath": "/Users/danbretl/.codex/worktrees/dogs-cohort-n/stackrank/reports/dogs-generated-artwork/cohort-n/worker-b/0201398/sources/historical-lola.txt",
+          "retainedSha256": "5a0c7d4f4afd0ab28b4b04e0db1394447798ce94ee230fa7f9e0fa966f91e049"
+        }
+      ],
+      "scopeAndLimits": "Accepted only as concise parentage/name/ancestry identification. No pedigree certification for all individuals, numerical fractions, standardized phenotype, origin, predictable inherited behavior, medical or suitability claim. Empty unsupported facts and unknown size are appropriate.",
+      "requiredChanges": [],
+      "portraitReview": {
+        "actualPixelsViewed": true,
+        "method": "All three existing labeled contact sheets independently displayed; generated derivatives separately SHA-verified against exact paths. No new native-master certification.",
+        "path": "assets/dogs/generated/N-0201398-1-960.webp",
+        "sha256": "368aa723a13d87a75319e64bf53e4f18346f956b0995bee091d10f09a6ffb8c0",
+        "observation": "Gray furnished adult, beard/brows and folded-tip ears, complete short curved tail. Prior Elvis phenotype scope preserved; neither natural bobtail nor docking asserted.",
+        "decision": "retain"
+      },
+      "reviewedAt": "2026-10-06"
+    },
+    {
+      "catalogId": "VBO:0201404",
+      "name": "Weimardoodle",
+      "reviewer": "n_review_a",
+      "disposition": "accepted",
+      "proposedFieldsSemanticSha256": "810b87cda7cb6007ef58e2b08f6ed156aad8b1edbd08a99b311def91d5319f87",
+      "semanticHashMethod": "SHA-256 of UTF-8 JSON for patch.fields with recursively sorted object keys, compact separators comma/colon, ensure_ascii=false; array order preserved",
+      "proposedSummaryReviewed": "The Weimardoodle is a Weimaraner–Poodle cross.",
+      "evidenceIndependentlyRead": [
+        {
+          "url": "https://www.dogbreedinfo.com/weimardoodle.htm",
+          "access": "Fresh actual source body independently read",
+          "passageReadParaphrase": "Original Ramona captions lines57–64 explicitly Weimaraner/Standard Poodle; Hugo caption line67 is attributed to breeder Weimardoods and states Weimaraner/Poodle. Juvenile examples corroborate parentage only, not the adult portrait’s morphology."
+        }
+      ],
+      "scopeAndLimits": "Accepted only as concise parentage/name/ancestry identification. No pedigree certification for all individuals, numerical fractions, standardized phenotype, origin, predictable inherited behavior, medical or suitability claim. Empty unsupported facts and unknown size are appropriate.",
+      "requiredChanges": [],
+      "portraitReview": {
+        "actualPixelsViewed": true,
+        "method": "All three existing labeled contact sheets independently displayed; generated derivatives separately SHA-verified against exact paths. No new native-master certification.",
+        "path": "assets/dogs/generated/N-0201404-1-960.webp",
+        "sha256": "1040c04f42417a19bafa8f2869681170bf2ac65d5cc93b7918e4abb7b55faaec",
+        "observation": "Brown rough furnished mature adult with pendant ears, projecting muzzle and complete short tail; no juvenile caption transferred to adult proportions; retained Laika provenance remains controlling.",
+        "decision": "retain"
+      },
+      "reviewedAt": "2026-10-06"
+    },
+    {
+      "catalogId": "VBO:0201417",
+      "name": "Westiepoo",
+      "reviewer": "n_review_a",
+      "disposition": "accepted",
+      "proposedFieldsSemanticSha256": "345c6cd456625b87acf156f62a2e3085a3c0e9ece8ae602670c8c1c269b98143",
+      "semanticHashMethod": "SHA-256 of UTF-8 JSON for patch.fields with recursively sorted object keys, compact separators comma/colon, ensure_ascii=false; array order preserved",
+      "proposedSummaryReviewed": "The Westiepoo is a West Highland White Terrier–Poodle cross.",
+      "evidenceIndependentlyRead": [
+        {
+          "url": "https://www.gosh.nhs.uk/working-here/volunteering-us/meet-the-gosh-therapy-dogs/",
+          "access": "Fresh actual source body independently read",
+          "passageReadParaphrase": "Own Doctor Ted entry line329 explicitly Westiepoo with Poodle and West Highland White parentage. Phantom coat wording does not constitute another parent breed; no therapeutic aptitude or fixed fractions generalized."
+        }
+      ],
+      "scopeAndLimits": "Accepted only as concise parentage/name/ancestry identification. No pedigree certification for all individuals, numerical fractions, standardized phenotype, origin, predictable inherited behavior, medical or suitability claim. Empty unsupported facts and unknown size are appropriate.",
+      "requiredChanges": [],
+      "portraitReview": {
+        "actualPixelsViewed": true,
+        "method": "All three existing labeled contact sheets independently displayed; generated derivatives separately SHA-verified against exact paths. No new native-master certification.",
+        "path": "assets/dogs/generated/VBO-0201417-native-01-960.webp",
+        "sha256": "2d773d828df1c27da22730116f57121ad32e10f4ea82ef3222a15eb837331ba5",
+        "observation": "White rough adult, pendant ears, projecting muzzle and full raised tail; one Westie/Poodle form, no allergy guarantee.",
+        "decision": "retain"
+      },
+      "reviewedAt": "2026-10-06"
+    },
+    {
+      "catalogId": "VBO:0201444",
+      "name": "Yo-Chon",
+      "reviewer": "n_review_a",
+      "disposition": "accepted",
+      "proposedFieldsSemanticSha256": "9687ef6123b9eed1d1e27fb55538f42eb810f3747a372ab83644099b2073c9f5",
+      "semanticHashMethod": "SHA-256 of UTF-8 JSON for patch.fields with recursively sorted object keys, compact separators comma/colon, ensure_ascii=false; array order preserved",
+      "proposedSummaryReviewed": "The Yo-Chon is a Yorkshire Terrier–Bichon Frise cross, also called a Bichon Yorkie.",
+      "evidenceIndependentlyRead": [
+        {
+          "url": "https://www.dogzone.com/crossbreeds/yo-chon/",
+          "access": "Fresh actual source body independently read",
+          "passageReadParaphrase": "Dr Linda Simon’s entry line17 explicitly Yorkshire Terrier/Bichon Frise; line29 supplies Bichon Yorkie name. Only definition used; American development chronology and health/behavior assertions excluded."
+        },
+        {
+          "url": "https://www.dogbreedinfo.com/bichonyorkie.htm",
+          "access": "Fresh actual source body independently read",
+          "passageReadParaphrase": "Original Emma caption line30 explicitly identifies Bichon Yorkie also called Yo-Chon; header names Bichon Frise/Yorkshire. Other gallery puppies have Havanese ancestry and are explicitly excluded from this exact identity."
+        }
+      ],
+      "scopeAndLimits": "Accepted only as concise parentage/name/ancestry identification. No pedigree certification for all individuals, numerical fractions, standardized phenotype, origin, predictable inherited behavior, medical or suitability claim. Empty unsupported facts and unknown size are appropriate.",
+      "requiredChanges": [],
+      "portraitReview": {
+        "actualPixelsViewed": true,
+        "method": "All three existing labeled contact sheets independently displayed; generated derivatives separately SHA-verified against exact paths. No new native-master certification.",
+        "path": "assets/dogs/generated/M-0201444-01-960.webp",
+        "sha256": "dc14f50b7a77e772243ae2011f7e06c05b7ee46756ed6718dc113655e2ec701f",
+        "observation": "Cream furnished small developed adult, pendant ears, projecting muzzle and full curled tail; Emma phenotype preserved without Havanese substitution.",
+        "decision": "retain"
+      },
+      "reviewedAt": "2026-10-06"
+    },
+    {
+      "catalogId": "VBO:0201445",
+      "name": "Yoranian",
+      "reviewer": "n_review_a",
+      "disposition": "accepted",
+      "proposedFieldsSemanticSha256": "ae8663aede1e9aeac775d545c1a6da7c1ce01cd4c05861b29495262300d696f7",
+      "semanticHashMethod": "SHA-256 of UTF-8 JSON for patch.fields with recursively sorted object keys, compact separators comma/colon, ensure_ascii=false; array order preserved",
+      "proposedSummaryReviewed": "The Yoranian is a Yorkshire Terrier–Pomeranian cross, also called a Yorkie-Pom.",
+      "evidenceIndependentlyRead": [
+        {
+          "url": "https://www.dogbreedinfo.com/yoranian.htm",
+          "access": "Fresh actual source body independently read",
+          "passageReadParaphrase": "Original Mia Sofia/Piper Isabella keeper caption line69 names Pomeranian dam and Yorkie sire; Baxter lines72/75 separately names same parents; alias list includes Yorkie-Pom. Juvenile descriptions support parentage only."
+        }
+      ],
+      "scopeAndLimits": "Accepted only as concise parentage/name/ancestry identification. No pedigree certification for all individuals, numerical fractions, standardized phenotype, origin, predictable inherited behavior, medical or suitability claim. Empty unsupported facts and unknown size are appropriate.",
+      "requiredChanges": [],
+      "portraitReview": {
+        "actualPixelsViewed": true,
+        "method": "All three existing labeled contact sheets independently displayed; generated derivatives separately SHA-verified against exact paths. No new native-master certification.",
+        "path": "assets/dogs/generated/M-0201445-01-960.webp",
+        "sha256": "f8de4c92f9bcfd1590f2625a4de20ba1d528dd7473538f3853fe1eee0f4e6b47",
+        "observation": "Tan/cream furnished adult with erect ears, projecting muzzle and full plume tail; representative Yorkshire/Pomeranian.",
+        "decision": "retain"
+      },
+      "reviewedAt": "2026-10-06"
+    },
+    {
+      "catalogId": "VBO:0201446",
+      "name": "Yorkie Russell",
+      "reviewer": "n_review_a",
+      "disposition": "accepted",
+      "proposedFieldsSemanticSha256": "37e2c9381052bb962f1f9a7f4229ea6b541bcaf938878ca16e5ac503cc2d2b10",
+      "semanticHashMethod": "SHA-256 of UTF-8 JSON for patch.fields with recursively sorted object keys, compact separators comma/colon, ensure_ascii=false; array order preserved",
+      "proposedSummaryReviewed": "The Yorkie Russell is a Yorkshire Terrier–Jack Russell Terrier cross, also called a Jorky.",
+      "evidenceIndependentlyRead": [
+        {
+          "url": "https://www.twentypawsrescue.com/layla-pocket-jorky/",
+          "access": "Fresh actual source body independently read",
+          "passageReadParaphrase": "Own Layla intake line65 explicitly calls her Jorky and Yorkie/Jack Russell Terrier mix. Nursery age and traits omitted."
+        },
+        {
+          "url": "https://www.dogbreedinfo.com/yorkierussell.htm",
+          "access": "Fresh actual source body independently read",
+          "passageReadParaphrase": "Pippin litter caption line58 names Yorkie dam/Jack Russell sire; Squirt line75 reverses sexes but reports same pair. Jorky alias at line39 corroborates rescue terminology."
+        }
+      ],
+      "scopeAndLimits": "Accepted only as concise parentage/name/ancestry identification. No pedigree certification for all individuals, numerical fractions, standardized phenotype, origin, predictable inherited behavior, medical or suitability claim. Empty unsupported facts and unknown size are appropriate.",
+      "requiredChanges": [],
+      "portraitReview": {
+        "actualPixelsViewed": true,
+        "method": "All three existing labeled contact sheets independently displayed; generated derivatives separately SHA-verified against exact paths. No new native-master certification.",
+        "path": "assets/dogs/generated/N-0201446-1-960.webp",
+        "sha256": "203591139b4c19a3cfa25d774a10d12e83bf286ad783aca73e19801077068d23",
+        "observation": "White/tan-gray scruffy adult with one raised/one folded ear and full upward tail; selected Bo-type Yorkie/Jack Russell representative preserved.",
+        "decision": "retain"
+      },
+      "reviewedAt": "2026-10-06"
+    }
+  ]
+}

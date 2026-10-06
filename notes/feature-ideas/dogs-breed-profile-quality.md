@@ -15,6 +15,29 @@ reviewer use the refreshed profile artifact.
 
 ## Writing contract
 
+### October 6 completed-hold resolution amendment
+
+Dan authorized resolving all 96 completed editorial holds through additional research and honest
+short factual cards. For a sparse identity, supported parentage, terminology, status or documented
+context may be the entire useful profile. Set `profileForm: "concise"` for this representation.
+There is no minimum prose length or fixed number of facts, and full and short copy may coincide.
+Do not invent character, infer predictable temperament or health from parents, or add boilerplate
+to satisfy the usual length guidance below. Optional facts remain empty when nothing distinct is
+supported. Concise profiles still require individually reviewed exact-identity evidence and sources.
+
+Clearly defined domestic categories may be rankable alongside specific breeds. Use
+`identityScope: "category"`, an explicit group/category `typeLabel`, and a sourced
+`portraitExample` identifying the illustrated member or working type. Presentation must identify
+the picture as an illustrative example, not a uniform category standard. Do not repurpose IDs or
+silently merge groups and their members. Evidence limitations and upstream naming conflicts belong
+in the expandable source notes (`evidenceNote`); meaningful naming distinctions also belong in the
+public identity/copy. Existing generated artwork may remain when its actual scope still matches.
+
+This scoped amendment supersedes the normal character-first/length preferences for these evidence
+limited cards. It does not lower factual or identity standards or authorize an additional cohort.
+
+### Default developed profiles
+
 - Personality and character come first. Most readers will not know the breed and want to understand
   what it is like: sociability, independence, sensitivity, playfulness, watchfulness, persistence,
   attachment, learning style, vocal habits, and instincts, when the sources support them.

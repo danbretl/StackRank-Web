@@ -1,0 +1,505 @@
+{
+  "reviewer": "metadata_evidence",
+  "reviewDate": "2026-10-06",
+  "sourceFile": "/tmp/stackrank-holds-cross_evidence/decisions.json",
+  "sourceFileSHA256": "6b084ee48f51a0d936e957aad89e553265bc610994786f46b7ebfe61f4138a3b",
+  "completed": 18,
+  "accepted": 15,
+  "needsChange": 3,
+  "summary": "All18 identities support concise restoration. Three bounded changes: add explicit lexical mapping sources for Bassoodle and Chi-Poo; use examples rather than litters for Chi-Con. No identity suppression recommended.",
+  "reviews": [
+    {
+      "id": "VBO:0200018",
+      "name": "Alaskan Shepherd Dog",
+      "reviewer": "metadata_evidence",
+      "status": "accepted",
+      "proposedFieldsSemanticSHA256": "48ccecd542282b67e3ff72109654003967085499ca31fe2333ff132c05fc0e38",
+      "semanticHashMethod": "SHA256 UTF-8 JSON, recursive sorted object keys, ensure_ascii=false, compact separators, array order retained",
+      "independentlyConsulted": [
+        {
+          "url": "https://www.dogbreedinfo.com/a/alaskanshepherd.htm",
+          "passageLocator": "Naomi owner account",
+          "exactExcerpt": "Naomi is an Alaskan Shepherd or an Alaskan Malamute / German Shepherd cross.",
+          "interpretation": "Named keeper parentage and name usage support concise identity only.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        }
+      ],
+      "claimLimitations": "Evidence supports only the stated name/parentage or explicitly attributed description. No predictable temperament, suitability, shared size, registry endorsement, precise generation or geographic origin inferred.",
+      "requiredFieldChanges": {},
+      "artworkScopeCheck": {
+        "result": "No new scope conflict from narrower identity-only copy; cross_evidence portrait inspection retained.",
+        "independentlyViewed": false,
+        "limitation": "This independent pass does not claim to re-QA all 18 portraits/native masters."
+      }
+    },
+    {
+      "id": "VBO:0200033",
+      "name": "American Bullador",
+      "reviewer": "metadata_evidence",
+      "status": "accepted",
+      "proposedFieldsSemanticSHA256": "9d3b8e1bee0fa1a0cb25c75209626ba220641a36c753f8f2457b91ac9b956b9f",
+      "semanticHashMethod": "SHA256 UTF-8 JSON, recursive sorted object keys, ensure_ascii=false, compact separators, array order retained",
+      "independentlyConsulted": [
+        {
+          "url": "https://www.dogbreedinfo.com/a/americanbullador.htm",
+          "passageLocator": "Hector keeper account",
+          "exactExcerpt": "This is Hector, our American Bulldog / Black Labrador mix.",
+          "interpretation": "Specific American Bulldog parent, not generic Bulldog; Mylie and Hugo accounts separately name parents.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        }
+      ],
+      "claimLimitations": "Evidence supports only the stated name/parentage or explicitly attributed description. No predictable temperament, suitability, shared size, registry endorsement, precise generation or geographic origin inferred.",
+      "requiredFieldChanges": {},
+      "artworkScopeCheck": {
+        "result": "No new scope conflict from narrower identity-only copy; cross_evidence portrait inspection retained.",
+        "independentlyViewed": false,
+        "limitation": "This independent pass does not claim to re-QA all 18 portraits/native masters."
+      }
+    },
+    {
+      "id": "VBO:0200128",
+      "name": "Bassoodle",
+      "reviewer": "metadata_evidence",
+      "status": "needs-change",
+      "proposedFieldsSemanticSHA256": "4ebb6154f8385e11b609c10696373d6e17d261ac0dcd59e835f4332380c5893b",
+      "semanticHashMethod": "SHA256 UTF-8 JSON, recursive sorted object keys, ensure_ascii=false, compact separators, array order retained",
+      "independentlyConsulted": [
+        {
+          "url": "https://www.dogbreedinfo.com/bassetoodle.htm",
+          "passageLocator": "Ollie keeper account",
+          "exactExcerpt": "Ollie's mother was a tricolored Basset Hound and his father, an apricot toy Poodle.",
+          "interpretation": "Daisy account also explicitly names Miniature Poodle father and Basset Hound mother; supports documented size varieties without common-size claim.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        },
+        {
+          "url": "https://muttville.org/mutt/malone",
+          "passageLocator": "Original Malone record opening",
+          "exactExcerpt": "Malone is Muttville’s 1st Bassoodle-bassett poodle mix.",
+          "interpretation": "Rescue first-person published name explicitly bridges Bassoodle to the cross; Bassetoodle page separately documents same exact parent pair. This is substantive mapping, not inference from spelling.",
+          "access": "Primary page indexed full article text independently read from web search; direct open inaccessible, not retried."
+        }
+      ],
+      "claimLimitations": "Evidence supports only the stated name/parentage or explicitly attributed description. No predictable temperament, suitability, shared size, registry endorsement, precise generation or geographic origin inferred.",
+      "requiredFieldChanges": {
+        "sources": [
+          {
+            "title": "Dog Breed Info — Bassetoodle original parentage accounts",
+            "url": "https://www.dogbreedinfo.com/bassetoodle.htm",
+            "evidence": "Fresh read: Ollie’s keeper identifies Basset Hound mother and Toy Poodle father; Daisy’s keeper identifies Basset Hound mother and Miniature Poodle father. Retained Bassoodle ontology and rescue identity corroborate name mapping. These examples establish documented matings, not uniform size or temperament."
+          },
+          {
+            "title": "Muttville — original Malone rescue record",
+            "url": "https://muttville.org/mutt/malone",
+            "evidence": "Primary rescue record indexed text explicitly calls Malone a Bassoodle and explains the Basset/Poodle mix. Full indexed article text read independently 2026-10-06; direct open was inaccessible, not retried. Name/parentage only; no behavior/age/size extrapolation."
+          }
+        ]
+      },
+      "artworkScopeCheck": {
+        "result": "No new scope conflict from narrower identity-only copy; cross_evidence portrait inspection retained.",
+        "independentlyViewed": false,
+        "limitation": "This independent pass does not claim to re-QA all 18 portraits/native masters."
+      },
+      "reason": "Final sources currently omit any page using Bassoodle for the cross; frozen VBO node only supplies label and VeNom ID. Add original rescue name mapping for auditable source completeness. Public copy supported once this direct record is retained."
+    },
+    {
+      "id": "VBO:0200195",
+      "name": "Borgi",
+      "reviewer": "metadata_evidence",
+      "status": "accepted",
+      "proposedFieldsSemanticSHA256": "0e92668a6ceb4cff429efa0cb20699f3b85cdf807e5763de0868a64f70729b2a",
+      "semanticHashMethod": "SHA256 UTF-8 JSON, recursive sorted object keys, ensure_ascii=false, compact separators, array order retained",
+      "independentlyConsulted": [
+        {
+          "url": "https://www.dogbreedinfo.com/b/borgi.htm",
+          "passageLocator": "Lizzy keeper account",
+          "exactExcerpt": "our Borgi (Border Collie / Pembroke Corgi cross)",
+          "interpretation": "Explicit Pembroke parentage supports documented example. Broader Welsh Corgi term does not assert a proven Cardigan mating; page generic definition includes Cardigan but proposed copy carefully avoids that claim.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        }
+      ],
+      "claimLimitations": "Evidence supports only the stated name/parentage or explicitly attributed description. No predictable temperament, suitability, shared size, registry endorsement, precise generation or geographic origin inferred.",
+      "requiredFieldChanges": {},
+      "artworkScopeCheck": {
+        "result": "retain",
+        "independentlyViewed": true,
+        "path": "/Users/danbretl/src/stackrank-dogs-audit-release/assets/dogs/generated/M-0200195-01-960.webp",
+        "sha256": "8c68cdf35ab9327ad4321045238755bffbed2409b9d3150de9b8d8963028a14e",
+        "observations": "Actual960 portrait shows long low black/white adult with erect ears, full tail and four legs. Plausible Pembroke/Border Collie example; full tail does not establish Cardigan ancestry or contradict a Pembroke cross.",
+        "limitation": "960×640 displayed asset only; no native-master re-QA or genetic inference."
+      }
+    },
+    {
+      "id": "VBO:0200245",
+      "name": "Bug",
+      "reviewer": "metadata_evidence",
+      "status": "accepted",
+      "proposedFieldsSemanticSHA256": "f93847f24d2223850d47c47bb4e35dd0256550c80c04e1df2ec9dd22936a254e",
+      "semanticHashMethod": "SHA256 UTF-8 JSON, recursive sorted object keys, ensure_ascii=false, compact separators, array order retained",
+      "independentlyConsulted": [
+        {
+          "url": "https://www.cottagecanines.com/bugg.html",
+          "passageLocator": "Own dogs Gus & Bruno / Breed field",
+          "exactExcerpt": "Breed: Bugg (Boston Terrier x Pug)",
+          "interpretation": "Breeder identifies named dogs and cross. Single-g Bug is retained ontology spelling; no new registry claim.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        }
+      ],
+      "claimLimitations": "Evidence supports only the stated name/parentage or explicitly attributed description. No predictable temperament, suitability, shared size, registry endorsement, precise generation or geographic origin inferred.",
+      "requiredFieldChanges": {},
+      "artworkScopeCheck": {
+        "result": "No new scope conflict from narrower identity-only copy; cross_evidence portrait inspection retained.",
+        "independentlyViewed": false,
+        "limitation": "This independent pass does not claim to re-QA all 18 portraits/native masters."
+      }
+    },
+    {
+      "id": "VBO:0200305",
+      "name": "Cavachi",
+      "reviewer": "metadata_evidence",
+      "status": "accepted",
+      "proposedFieldsSemanticSHA256": "319238c3e79853d44205c5198ec8251d953656f58cc828ab42c63c20d56a2248",
+      "semanticHashMethod": "SHA256 UTF-8 JSON, recursive sorted object keys, ensure_ascii=false, compact separators, array order retained",
+      "independentlyConsulted": [
+        {
+          "url": "https://www.dogbreedinfo.com/c/chilier.htm",
+          "passageLocator": "Stanley keeper account",
+          "exactExcerpt": "His mother was a tricolor Cavalier and his father was a tan smooth-coat Chihuahua.",
+          "interpretation": "Heading identifies full Cavalier King Charles Spaniel name; other names explicitly includes Cavachi. Original keeper parentage supports cross.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        }
+      ],
+      "claimLimitations": "Evidence supports only the stated name/parentage or explicitly attributed description. No predictable temperament, suitability, shared size, registry endorsement, precise generation or geographic origin inferred.",
+      "requiredFieldChanges": {},
+      "artworkScopeCheck": {
+        "result": "No new scope conflict from narrower identity-only copy; cross_evidence portrait inspection retained.",
+        "independentlyViewed": false,
+        "limitation": "This independent pass does not claim to re-QA all 18 portraits/native masters."
+      }
+    },
+    {
+      "id": "VBO:0200315",
+      "name": "Cavapom",
+      "reviewer": "metadata_evidence",
+      "status": "accepted",
+      "proposedFieldsSemanticSHA256": "0a1a8cb43a41ef8d5043091c19d1a69dfedd8738428f81ba50198e5d789e13a6",
+      "semanticHashMethod": "SHA256 UTF-8 JSON, recursive sorted object keys, ensure_ascii=false, compact separators, array order retained",
+      "independentlyConsulted": [
+        {
+          "url": "https://www.dogbreedinfo.com/cavapom.htm",
+          "passageLocator": "Spumoni keeper account",
+          "exactExcerpt": "Cavapom (Cavalier King Charles Spaniel / Pomeranian mix)",
+          "interpretation": "Original named dog account supports identity; juvenile image is not used as adult morphology evidence in this review.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        }
+      ],
+      "claimLimitations": "Evidence supports only the stated name/parentage or explicitly attributed description. No predictable temperament, suitability, shared size, registry endorsement, precise generation or geographic origin inferred.",
+      "requiredFieldChanges": {},
+      "artworkScopeCheck": {
+        "result": "No new scope conflict from narrower identity-only copy; cross_evidence portrait inspection retained.",
+        "independentlyViewed": false,
+        "limitation": "This independent pass does not claim to re-QA all 18 portraits/native masters."
+      }
+    },
+    {
+      "id": "VBO:0200317",
+      "name": "Cavatzu",
+      "reviewer": "metadata_evidence",
+      "status": "accepted",
+      "proposedFieldsSemanticSHA256": "41f97b2ddec323c03de7b817763373c1c20db03dda2701768ee83fa50c5d24d1",
+      "semanticHashMethod": "SHA256 UTF-8 JSON, recursive sorted object keys, ensure_ascii=false, compact separators, array order retained",
+      "independentlyConsulted": [
+        {
+          "url": "https://www.cottagecanines.com/cava-tzu.html",
+          "passageLocator": "Breed field",
+          "exactExcerpt": "Breed: Cava Tzu (Cavalier King Charles Spaniel x Shih Tzu)",
+          "interpretation": "Direct breeder category usage supports identity; promotional temperament and universal family suitability ignored.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        }
+      ],
+      "claimLimitations": "Evidence supports only the stated name/parentage or explicitly attributed description. No predictable temperament, suitability, shared size, registry endorsement, precise generation or geographic origin inferred.",
+      "requiredFieldChanges": {},
+      "artworkScopeCheck": {
+        "result": "No new scope conflict from narrower identity-only copy; cross_evidence portrait inspection retained.",
+        "independentlyViewed": false,
+        "limitation": "This independent pass does not claim to re-QA all 18 portraits/native masters."
+      }
+    },
+    {
+      "id": "VBO:0200329",
+      "name": "Chi-Poo",
+      "reviewer": "metadata_evidence",
+      "status": "needs-change",
+      "proposedFieldsSemanticSHA256": "04a754eadf96fb3b69eac040c085b39ac9d84f62f1661235ebad2a406b4b8e43",
+      "semanticHashMethod": "SHA256 UTF-8 JSON, recursive sorted object keys, ensure_ascii=false, compact separators, array order retained",
+      "independentlyConsulted": [
+        {
+          "url": "https://www.cottagecanines.com/poochi.html",
+          "passageLocator": "Our Poochi Frankie / Breed field",
+          "exactExcerpt": "Breed: Poochi (Toy Poodle x Chihuahua)",
+          "interpretation": "Original breeder named-dog record supports Toy Poodle mating, but this page alone does not say Chi-Poo. Additional explicit lexical bridge below.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        },
+        {
+          "url": "https://www.dogbreedinfo.com/chipoophotos.htm",
+          "passageLocator": "Heading, Mavis parent caption and Other Names list",
+          "exactExcerpt": "Poochi",
+          "interpretation": "Exact cross heading plus original named parents and explicit Poochi alias resolve current single-source lexical omission.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        }
+      ],
+      "claimLimitations": "Evidence supports only the stated name/parentage or explicitly attributed description. No predictable temperament, suitability, shared size, registry endorsement, precise generation or geographic origin inferred.",
+      "requiredFieldChanges": {
+        "sources": [
+          {
+            "title": "Cottage Canines Australia — Poochi",
+            "url": "https://www.cottagecanines.com/poochi.html",
+            "evidence": "Fresh direct breeder page explicitly defines its Poochi as Toy Poodle x Chihuahua. This supports Toy Poodle use, not a claim that all Chi-Poos use Toy Poodles or share size/coat/behavior. Prior original Oreo parent declaration independently supports Chihuahua/Poodle identity."
+          },
+          {
+            "title": "Dog Breed Info — original Chi-Poo parentage captions and Poochi alias",
+            "url": "https://www.dogbreedinfo.com/chipoophotos.htm",
+            "evidence": "Fresh actual page read 2026-10-06: heading Chi-Poo / Chihuahua-Poodle; Mavis caption names Chihuahua mother and Poodle father, Vincent Drew keeper names Chihuahua mother and Miniature Poodle father. Other Names explicitly includes Poochi, linking Cottage Canines Frankie record. Parentage/lexical mapping only; no juvenile adult-morphology or temperament transfer."
+          }
+        ]
+      },
+      "artworkScopeCheck": {
+        "result": "No new scope conflict from narrower identity-only copy; cross_evidence portrait inspection retained.",
+        "independentlyViewed": false,
+        "limitation": "This independent pass does not claim to re-QA all 18 portraits/native masters."
+      },
+      "reason": "Cottage Canines alone calls the type Poochi. Add actual Chi-Poo page with explicit alias bridge and original parentage; no public summary change needed."
+    },
+    {
+      "id": "VBO:0200254",
+      "name": "Bull Mastweiler",
+      "reviewer": "metadata_evidence",
+      "status": "accepted",
+      "proposedFieldsSemanticSHA256": "4265a22ae2a9052add61febefec80637c0c26ad891a17fc04c52989fdc62a3db",
+      "semanticHashMethod": "SHA256 UTF-8 JSON, recursive sorted object keys, ensure_ascii=false, compact separators, array order retained",
+      "independentlyConsulted": [
+        {
+          "url": "https://www.dogbreedinfo.com/b/bullmastweiler.htm",
+          "passageLocator": "Ghana keeper account",
+          "exactExcerpt": "She is a Rottweiler and Bullmastiff mix (Bull Mastweiler).",
+          "interpretation": "Original Ghana and Carla records support named exact cross. No Mastiff/Bullmastiff substitution or inherited temperament adopted.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        }
+      ],
+      "claimLimitations": "Evidence supports only the stated name/parentage or explicitly attributed description. No predictable temperament, suitability, shared size, registry endorsement, precise generation or geographic origin inferred.",
+      "requiredFieldChanges": {},
+      "artworkScopeCheck": {
+        "result": "No new scope conflict from narrower identity-only copy; cross_evidence portrait inspection retained.",
+        "independentlyViewed": false,
+        "limitation": "This independent pass does not claim to re-QA all 18 portraits/native masters."
+      }
+    },
+    {
+      "id": "VBO:0200256",
+      "name": "Bull-Pei",
+      "reviewer": "metadata_evidence",
+      "status": "accepted",
+      "proposedFieldsSemanticSHA256": "f44fba392adb755e23a6725f3de2c5385d5a61559e5fb26a3985649872c4a598",
+      "semanticHashMethod": "SHA256 UTF-8 JSON, recursive sorted object keys, ensure_ascii=false, compact separators, array order retained",
+      "independentlyConsulted": [
+        {
+          "url": "https://www.dogbreedinfo.com/b/bullpei.htm",
+          "passageLocator": "Daisy keeper parent account",
+          "exactExcerpt": "Her daddy is a white English Bulldog and her mama is a brown Shar-pei.",
+          "interpretation": "Matilda account independently within page names same parents. English Bulldog specificity supported; no health benefit claims.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        }
+      ],
+      "claimLimitations": "Evidence supports only the stated name/parentage or explicitly attributed description. No predictable temperament, suitability, shared size, registry endorsement, precise generation or geographic origin inferred.",
+      "requiredFieldChanges": {},
+      "artworkScopeCheck": {
+        "result": "No new scope conflict from narrower identity-only copy; cross_evidence portrait inspection retained.",
+        "independentlyViewed": false,
+        "limitation": "This independent pass does not claim to re-QA all 18 portraits/native masters."
+      }
+    },
+    {
+      "id": "VBO:0200268",
+      "name": "Cairnoodle",
+      "reviewer": "metadata_evidence",
+      "status": "accepted",
+      "proposedFieldsSemanticSHA256": "1162defdcd163fccf17562b6b5e1b1064fb40708e78bbcff929236763824c101",
+      "semanticHashMethod": "SHA256 UTF-8 JSON, recursive sorted object keys, ensure_ascii=false, compact separators, array order retained",
+      "independentlyConsulted": [
+        {
+          "url": "https://content.govdelivery.com/accounts/KYLOUISVILLE/bulletins/2e780e6",
+          "passageLocator": "Clingy Pet Challenge / Sadie Mae paragraph",
+          "exactExcerpt": "Sadie is a three year old Cairnoodle. That's a Miniature Poodle and Cairn Terrier mix",
+          "interpretation": "Original named keeper newsletter account supports cross and documented Miniature parentage; municipal hosting is not a registry endorsement.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        }
+      ],
+      "claimLimitations": "Evidence supports only the stated name/parentage or explicitly attributed description. No predictable temperament, suitability, shared size, registry endorsement, precise generation or geographic origin inferred.",
+      "requiredFieldChanges": {},
+      "artworkScopeCheck": {
+        "result": "No new scope conflict from narrower identity-only copy; cross_evidence portrait inspection retained.",
+        "independentlyViewed": false,
+        "limitation": "This independent pass does not claim to re-QA all 18 portraits/native masters."
+      }
+    },
+    {
+      "id": "VBO:0200328",
+      "name": "Chi-Con",
+      "reviewer": "metadata_evidence",
+      "status": "needs-change",
+      "proposedFieldsSemanticSHA256": "71c3632f9c4a2e8ea71818cafc84fd01867fb02359e799ce950c2c2605e06fc7",
+      "semanticHashMethod": "SHA256 UTF-8 JSON, recursive sorted object keys, ensure_ascii=false, compact separators, array order retained",
+      "independentlyConsulted": [
+        {
+          "url": "https://www.dogbreedinfo.com/chichon.htm",
+          "passageLocator": "Sebastion keeper account",
+          "exactExcerpt": "His Chi-Chon mother came from a Chihuahua dam and a Bichon Frise stud. His mother was bred back to a Bichon Frise.",
+          "interpretation": "Named backcross individual plus Sid first-cross litter establish both generations. Proposed wording should call these examples, not imply backcross litter documentation.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        }
+      ],
+      "claimLimitations": "Evidence supports only the stated name/parentage or explicitly attributed description. No predictable temperament, suitability, shared size, registry endorsement, precise generation or geographic origin inferred.",
+      "requiredFieldChanges": {
+        "summary": "The Chi-Con, also called Chichon, is a Chihuahua–Bichon Frise cross. Documented examples include both first crosses and Bichon Frise backcrosses."
+      },
+      "artworkScopeCheck": {
+        "result": "No new scope conflict from narrower identity-only copy; cross_evidence portrait inspection retained.",
+        "independentlyViewed": false,
+        "limitation": "This independent pass does not claim to re-QA all 18 portraits/native masters."
+      },
+      "reason": "First-cross litter is directly documented; backcross is described for Sebastion individually. Examples is exactly proportionate and preserves useful generational information."
+    },
+    {
+      "id": "VBO:0200184",
+      "name": "Bochi",
+      "reviewer": "metadata_evidence",
+      "status": "accepted",
+      "proposedFieldsSemanticSHA256": "8d8bfde9997f2cdbf19bc11afe7129d4588d5d4bcf038bfd4c53d93a088e975c",
+      "semanticHashMethod": "SHA256 UTF-8 JSON, recursive sorted object keys, ensure_ascii=false, compact separators, array order retained",
+      "independentlyConsulted": [
+        {
+          "url": "https://www.dogbreedinfo.com/b/bostonhuahua.htm",
+          "passageLocator": "Darla keeper account",
+          "exactExcerpt": "Her mother was a 16-lb. Boston Bull Terrier and her father was a 7-lb. longhaired Chihuahua.",
+          "interpretation": "Original parent record and Bochi alias list support identity. Boston Bull Terrier contextual link denotes Boston Terrier, not English Bull Terrier.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        }
+      ],
+      "claimLimitations": "Evidence supports only the stated name/parentage or explicitly attributed description. No predictable temperament, suitability, shared size, registry endorsement, precise generation or geographic origin inferred.",
+      "requiredFieldChanges": {},
+      "artworkScopeCheck": {
+        "result": "No new scope conflict from narrower identity-only copy; cross_evidence portrait inspection retained.",
+        "independentlyViewed": false,
+        "limitation": "This independent pass does not claim to re-QA all 18 portraits/native masters."
+      }
+    },
+    {
+      "id": "VBO:0200213",
+      "name": "Boxerdoodle",
+      "reviewer": "metadata_evidence",
+      "status": "accepted",
+      "proposedFieldsSemanticSHA256": "183649fc5ae08007892839ebafecd13e7f5109889ffbe2e6a6bd52859cb1c5d2",
+      "semanticHashMethod": "SHA256 UTF-8 JSON, recursive sorted object keys, ensure_ascii=false, compact separators, array order retained",
+      "independentlyConsulted": [
+        {
+          "url": "https://www.dogbreedinfo.com/boxerdoodle.htm",
+          "passageLocator": "Gustav breeder caption",
+          "exactExcerpt": "Gustav, an adult Boxerdoodle, photo courtesy of Annielie at Debbie's Doodle Ranch",
+          "interpretation": "Breeder-attributed adult under Boxer/Poodle heading supports named type; exact first-generation mating not documented. Broad ancestry wording is correctly more cautious than claiming every dog has two purebred parents.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        }
+      ],
+      "claimLimitations": "Evidence supports only the stated name/parentage or explicitly attributed description. No predictable temperament, suitability, shared size, registry endorsement, precise generation or geographic origin inferred.",
+      "requiredFieldChanges": {},
+      "artworkScopeCheck": {
+        "result": "retain",
+        "independentlyViewed": true,
+        "path": "/Users/danbretl/src/stackrank-dogs-audit-release/assets/dogs/generated/N-0200213-1-960.webp",
+        "sha256": "a13ee55534d2aac41b8f489967b123fffd0958702282b00fc6b8414579be23ac",
+        "observations": "Actual960 portrait shows substantial tan/wavy furnished adult, drop ears, projecting muzzle, natural full tail and complete limbs. Compatible with broad Boxer/Poodle ancestry; appearance cannot prove exact generation or exclude additional ancestry.",
+        "limitation": "960×640 displayed asset only; no native-master re-QA or genetic inference."
+      }
+    },
+    {
+      "id": "VBO:0200308",
+      "name": "Cavajack",
+      "reviewer": "metadata_evidence",
+      "status": "accepted",
+      "proposedFieldsSemanticSHA256": "0894c9d7c6f87b468c1f676064c87a5fabed9e73707ec9d05d2289c215d92464",
+      "semanticHashMethod": "SHA256 UTF-8 JSON, recursive sorted object keys, ensure_ascii=false, compact separators, array order retained",
+      "independentlyConsulted": [
+        {
+          "url": "https://www.reddit.com/r/Dogowners/comments/1drz0rw/cavajack_grooming_never_stops_shedding/",
+          "passageLocator": "Original post opening",
+          "exactExcerpt": "We have a cavajack (cavalier king Charles/Jack Russell mix)",
+          "interpretation": "Actual keeper self-identification supports narrow cross identity. No grooming, coat or health generalization adopted. Flyball PDF open failed; no retry or reliance on unviewed PDF.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        }
+      ],
+      "claimLimitations": "Evidence supports only the stated name/parentage or explicitly attributed description. No predictable temperament, suitability, shared size, registry endorsement, precise generation or geographic origin inferred.",
+      "requiredFieldChanges": {},
+      "artworkScopeCheck": {
+        "result": "No new scope conflict from narrower identity-only copy; cross_evidence portrait inspection retained.",
+        "independentlyViewed": false,
+        "limitation": "This independent pass does not claim to re-QA all 18 portraits/native masters."
+      }
+    },
+    {
+      "id": "VBO:0200318",
+      "name": "Cavestie",
+      "reviewer": "metadata_evidence",
+      "status": "accepted",
+      "proposedFieldsSemanticSHA256": "f99d7c80fe366ec7cc75b652f2514156877b4ea6a3b8e7594b1366bf85d8e903",
+      "semanticHashMethod": "SHA256 UTF-8 JSON, recursive sorted object keys, ensure_ascii=false, compact separators, array order retained",
+      "independentlyConsulted": [
+        {
+          "url": "https://wagwalking.com/breed/cavestie",
+          "passageLocator": "Owner Experiences / Poppy age10",
+          "exactExcerpt": "She came from a KC reg Cav mum and KC reg Westie Dad.",
+          "interpretation": "Direct parent statement, article parent-name labels establish abbreviations. Parent registry claim not transferred to cross. Derivative general prose not used to infer temperament.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        }
+      ],
+      "claimLimitations": "Evidence supports only the stated name/parentage or explicitly attributed description. No predictable temperament, suitability, shared size, registry endorsement, precise generation or geographic origin inferred.",
+      "requiredFieldChanges": {},
+      "artworkScopeCheck": {
+        "result": "No new scope conflict from narrower identity-only copy; cross_evidence portrait inspection retained.",
+        "independentlyViewed": false,
+        "limitation": "This independent pass does not claim to re-QA all 18 portraits/native masters."
+      }
+    },
+    {
+      "id": "VBO:0200052",
+      "name": "American Lo-Sze Pugg",
+      "reviewer": "metadata_evidence",
+      "status": "accepted",
+      "proposedFieldsSemanticSHA256": "e65cd9c8617380c93eb56cd7c8e9c387bd0e2f1ec2858289fea6bebf472265bc",
+      "semanticHashMethod": "SHA256 UTF-8 JSON, recursive sorted object keys, ensure_ascii=false, compact separators, array order retained",
+      "independentlyConsulted": [
+        {
+          "url": "https://ipdba-registry.com/Article3.html",
+          "passageLocator": "Section 5a / A accepted breed list",
+          "exactExcerpt": "American Lo-Sze Pugg",
+          "interpretation": "Registry itself lists name among General Domestic Dog Registration entries; all generations accepted. Establishes named type usage, not ancient history, parentage, standardized reproduction or major-registry recognition.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        },
+        {
+          "url": "https://www.dogbreedinfo.com/americanloszepugg.htm",
+          "passageLocator": "Description paragraphs 1–3",
+          "exactExcerpt": "The muzzle is very short and broad.",
+          "interpretation": "Actual description specifies stocky elongated body, short forelegs and tail over back. Proposal attributes morphology to published description; does not pretend IPDBA supplies the morphology or endorse ancient origin story.",
+          "access": "Fresh actual source text opened and independently read with web tool 2026-10-06"
+        }
+      ],
+      "claimLimitations": "Evidence supports only the stated name/parentage or explicitly attributed description. No predictable temperament, suitability, shared size, registry endorsement, precise generation or geographic origin inferred.",
+      "requiredFieldChanges": {},
+      "artworkScopeCheck": {
+        "result": "retain",
+        "independentlyViewed": true,
+        "path": "/Users/danbretl/src/stackrank-dogs-audit-release/assets/dogs/generated/M-0200052-01-960.webp",
+        "sha256": "93fc263ec36866b64f90861c2f21b0341b60cdb5d18c642bccf13cb9ce33886b",
+        "observations": "Actual960 portrait shows low/long stocky cream/fawn piebald pug-type adult, short muzzle, hanging ears, curled tail over back and four visible feet. Consistent with explicitly attributed description; no ancient ancestry visible or inferred.",
+        "limitation": "960×640 displayed asset only; no native-master re-QA or genetic inference."
+      }
+    }
+  ]
+}

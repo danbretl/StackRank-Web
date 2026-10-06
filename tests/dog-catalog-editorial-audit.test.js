@@ -59,7 +59,7 @@ test("current classification counts include the independently adjudicated Octobe
   assert.deepEqual(review.summary, {
     aliasDecisions: 294,
     varietyDecisions: 189,
-    crossbreedDecisions: 141,
+    crossbreedDecisions: 140,
     historicalDecisions: 40,
     excludedDecisions: 4,
     regionalLandraceCandidates: 20,
@@ -67,8 +67,8 @@ test("current classification counts include the independently adjudicated Octobe
   });
   assert.deepEqual(coverage.dispositionCounts, {
     alias: 294,
-    canonical: 869,
-    crossbreed: 141,
+    canonical: 870,
+    crossbreed: 140,
     excluded: 4,
     historical: 40,
     variety: 189,

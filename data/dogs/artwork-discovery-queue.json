@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
   "queueId": "stackrank-dogs-artwork-discovery",
-  "queueVersion": "vbo-2026-04-15.3+2026-09-22.f01+2026-07-16.1+2026-10-01.3",
+  "queueVersion": "vbo-2026-04-15.4+2026-09-22.f01+2026-07-16.1+2026-10-01.3",
   "reviewOnly": true,
   "networkRequestsPerformed": false,
   "mutationsPerformed": false,
   "sourceVersions": {
-    "catalogVersion": "vbo-2026-04-15.3",
-    "catalogSha256": "435a1cb94384506c80d4ac94c4b863f1f0ff4d2d0e58744672c927ec5a1f4c22",
+    "catalogVersion": "vbo-2026-04-15.4",
+    "catalogSha256": "6845e9209a10fdc830f3e4d98c8e89ece1c1edda925d32612c9390e06cb0d3db",
     "ledgerVersion": "2026-09-22.f01",
-    "ledgerSha256": "40950eb115d2caa50923d6e7a3b12e7a045866b5731c052c2db93794690b95db",
+    "ledgerSha256": "b66f38d09e9d47d6e705b98ec7087a222dd1fb9eec62a54b2e38f66f4eb5f8ab",
     "packsEditorialVersion": "2026-07-16.1",
-    "packsSha256": "8d263bf2194246f6339e0b432172f81679a9a494fd5865cc26bc0abb3d3db89e",
+    "packsSha256": "305f5a5a29ebc9892102cafd84c95fcbd1f91e13d31c2160bdae8dd0e154ec3c",
     "policyVersion": "2026-10-01.3",
     "policySha256": "cbfc39daaac54be7e5c530c1162da7e9c303b00dad6bcbeb8332b6f7fa1e90e6"
   },
@@ -129,7 +129,7 @@
     "reminder": "Run at most one bounded discovery request at a time. Neither command edits image-rights.json or approves an asset."
   },
   "summary": {
-    "currentCanonicalCount": 869,
+    "currentCanonicalCount": 870,
     "catalogIdsWithLedgerRows": 616,
     "queuedMissingLedgerRows": 402,
     "promoted": 0,

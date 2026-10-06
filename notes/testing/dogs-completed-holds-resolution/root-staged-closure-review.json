@@ -1,0 +1,27 @@
+{
+  "reviewer": "root",
+  "at": "2026-10-06T06:19:16.580270+00:00",
+  "status": "passed",
+  "files": 2167,
+  "bytes": 173152426,
+  "inventorySha256": "92f17fe1b0a9175bcedd2952febf9b93415582a93f85aaaf3a317b5ad5b33ce3",
+  "checks": [
+    "Actual staged file set equals inventory exactly",
+    "Every staged file byte length and SHA256 matches inventory",
+    "Every staged file equals current source byte-for-byte",
+    "No symlink paths",
+    "No notes/reports/tests/scripts/source caches/native images/authoring overrides/cohort ledgers staged",
+    "Vercel output remains dist/public",
+    "No GitHub Pages deployment/upload workflow present"
+  ],
+  "limitations": "Filesystem closure verification only; lead staged browser suite exercises actual serving routes and withheld404 behavior.",
+  "archivePreservation": {
+    "checkedAt": "2026-10-06T06:19:49.918225+00:00",
+    "auditFilesUnchanged": 5617,
+    "auditSnapshotDigest": "50281d790a42a4d6bf8d4b66555f521cf308d1d72ece797b96542ee16ba3eb7c",
+    "NHead": "7de19455d6a0383bc01c92e62ebb5957ded78043",
+    "generatedArtworkManifestUnchangedFrom": "8621d9b3692a4d8070a7a849f455a204fe94ec58",
+    "unchangedManifestObjects": 902,
+    "limitation": "Original source caches/native masters/reject archives preserved in place; no new off-machine backup verified."
+  }
+}

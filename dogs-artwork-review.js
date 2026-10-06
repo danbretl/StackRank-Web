@@ -13,12 +13,12 @@ import {
   preferredArtworkVariant,
   setArtworkReview,
 } from "/lib/dogs-artwork-review.js?v=2";
-import { dogProfileSourceLinks } from "/lib/dogs.js?v=9";
+import { dogProfileSourceLinks } from "/lib/dogs.js?v=10";
 
 const DATA_URLS = {
   manifest: "/data/dogs/generated-artwork.json?v=108",
-  catalog: "/data/dogs/dog-catalog.json?v=7",
-  profiles: "/data/dogs/breed-profiles.json?v=107",
+  catalog: "/data/dogs/dog-catalog.json?v=8",
+  profiles: "/data/dogs/breed-profiles.json?v=108",
 };
 
 // Filled from actual finite L batch files by prepare-dog-portrait-l.mjs.
@@ -538,14 +538,16 @@ function renderProfile(asset) {
   dom.dialogProfile.textContent = profile?.summary || "No field-guide summary is available for this catalog entry.";
   const tags = [];
   if (profile?.typeLabel) tags.push(profile.typeLabel);
+  if (profile?.identityScope === "category") tags.push(`Illustrative example${profile.portraitExample ? `: ${profile.portraitExample}` : ""}`);
   if (profile?.sizeBand && profile.sizeBand !== "unknown") tags.push(`${profile.sizeBand} size`);
   if (Array.isArray(profile?.originRegions)) tags.push(...profile.originRegions);
   dom.dialogProfileTags.replaceChildren(...tags.map((tag) => make("span", null, tag)));
   dom.dialogProfileSources.replaceChildren();
-  const coverage = profile?.reviewStatus === "editor-reviewed"
+  const coverage = profile?.profileForm === "concise" ? "Concise factual profile; its scope follows the evidence linked below." : profile?.reviewStatus === "editor-reviewed"
     ? "Individually written breed profile."
     : "Brief profile based on available name, classification, and origin records. A detailed breed profile has not yet been added.";
   dom.dialogProfileSources.append(make("summary", null, "Profile sources & notes"), make("p", "muted", coverage));
+  if (profile?.evidenceNote) dom.dialogProfileSources.append(make("p", "muted", profile.evidenceNote));
   for (const source of asset.profileSources) {
     const row = make("p");
     const link = make("a", null, source.title);

@@ -1,0 +1,81 @@
+{
+  "reviewer": "Astra release reviewer",
+  "reviewedAt": "2026-10-07T06:24:52.289Z",
+  "productSha": "d1809a43d71098987461e1367fdbc5fc129bcaf8",
+  "status": "passed",
+  "report": "reports/data-safety/production-review/runs/2026-10-07T06-23-49-060Z/summary.json",
+  "views": [
+    {
+      "app": "movies",
+      "viewport": "desktop",
+      "width": 1280,
+      "height": 900,
+      "recoveryHidden": true,
+      "rankedCount": 0,
+      "catalogCount": null,
+      "navigationPassed": true,
+      "horizontalOverflow": false,
+      "authTokenPresent": false,
+      "cookiesPresent": false,
+      "screenshot": "movies-desktop.png",
+      "sha256": "9cd22baa577465b8e9ba60e2ce57c3891f9e7eb675699088a46d1b4ecee03e8c"
+    },
+    {
+      "app": "dogs",
+      "viewport": "desktop",
+      "width": 1280,
+      "height": 900,
+      "recoveryHidden": true,
+      "rankedCount": 0,
+      "catalogCount": "900",
+      "navigationPassed": true,
+      "horizontalOverflow": false,
+      "authTokenPresent": false,
+      "cookiesPresent": false,
+      "screenshot": "dogs-desktop.png",
+      "sha256": "560eb55b83ca472962a95ccb7b0d144d9f445b65a033376765de84d1181379eb"
+    },
+    {
+      "app": "movies",
+      "viewport": "phone",
+      "width": 390,
+      "height": 844,
+      "recoveryHidden": true,
+      "rankedCount": 0,
+      "catalogCount": null,
+      "navigationPassed": true,
+      "horizontalOverflow": false,
+      "authTokenPresent": false,
+      "cookiesPresent": false,
+      "screenshot": "movies-phone.png",
+      "sha256": "5711df6ea856b6ff1d38e55ef6fb89a95f156f2d9546f072a53771cfbe3c7b54"
+    },
+    {
+      "app": "dogs",
+      "viewport": "phone",
+      "width": 390,
+      "height": 844,
+      "recoveryHidden": true,
+      "rankedCount": 0,
+      "catalogCount": "900",
+      "navigationPassed": true,
+      "horizontalOverflow": false,
+      "authTokenPresent": false,
+      "cookiesPresent": false,
+      "screenshot": "dogs-phone.png",
+      "sha256": "7741028aea3467f73c9dbe59076b533227b7a62836d1c86d42eedd010f494d14"
+    }
+  ],
+  "actualScreenshotsViewed": 4,
+  "uncaughtExceptions": 0,
+  "consoleErrors": 0,
+  "liveMutationRequests": 0,
+  "externalRequestsBlocked": 40,
+  "mitigationChallenges": 0,
+  "visualAssessment": "All four actual screenshots viewed. Desktop and phone navigation, controls and text fit without page overflow. Dogs discovery portraits decoded and900catalog loaded. Recovery controls correctly absent for fresh empty anonymous state. Movies external posters show broken-image placeholders and suggestions unavailable because backend/image-provider requests were deliberately blocked; this run does not prove live Movies provider behavior. Phone card shelves intentionally scroll horizontally within the page.",
+  "limits": [
+    "Fresh empty signed-out profile only; no customer data/authentication or persistence writes exercised.",
+    "All backend, external font and telemetry requests are blocked; unavailable-data/fallback-font behavior is expected and recorded.",
+    "Exact deployment metadata and live hashes are verified separately by root; this script asserts rendering only."
+  ]
+}

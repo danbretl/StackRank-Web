@@ -1,0 +1,17 @@
+{
+  "checkedAt": "2026-10-07T06:26:23.399452+00:00",
+  "sha": "d1809a43d71098987461e1367fdbc5fc129bcaf8",
+  "smokeChecks": 49,
+  "smokePassed": true,
+  "smokeLog": "reports/data-safety/production-smoke.log",
+  "smokeLogSha256": "6bc25b3f92be4773e97aa5b0e3153aac413b27af152a04e9cf7744d872c347dc",
+  "liveFileHashes": 26,
+  "excluded404Checks": 8,
+  "liveFileReceipt": "product-live-files.json",
+  "renderedViews": 4,
+  "renderedReceipt": "product-rendered-review.json",
+  "rateLimit": "At most two scripted fetches/second; ordinary browser static loading separately, no broad crawl",
+  "mitigationChallenges": 0,
+  "backendMutationRequests": 0,
+  "backendRenderBoundary": "Production static frontend rendered; Supabase/TMDB/fonts/telemetry blocked. Not a live provider-health or signed-in production probe."
+}

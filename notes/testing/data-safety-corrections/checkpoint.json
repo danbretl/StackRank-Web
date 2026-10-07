@@ -1,5 +1,5 @@
 {
-  "phase": "local-verification-passed-ready-to-commit",
+  "phase": "product-released-and-verified; documentation-follow-through",
   "baseline": "033a397e3ea0d7121358fe5910b7acccf4f9f566",
   "branch": "fix/data-safety-20261007",
   "integrationRoot": "/Users/danbretl/src/stackrank-data-safety-release",
@@ -13,15 +13,17 @@
     "scripts/run-e2e-smoke.cjs": "frozen; root owns release"
   },
   "next": [
-    "Confirm complete npm verify with staged44 product and45 safety flows",
-    "Commit isolated product then fast-forward main and push",
-    "Verify exact SHA GitHub CI and Vercel READY plus paced production smoke/render/hash exclusions",
-    "Commit documentation follow-through and verify its exact SHA"
+    "Commit documentation follow-through",
+    "Verify documentation exact SHA CI and Vercel READY",
+    "Return concise final hand-back"
   ],
   "limits": [
     "Old cached clients still have unconditional writes; no fleetwide guarantee withoutserverguard",
     "No real customer probes",
     "Entireauditarchiveimmutable"
   ],
-  "finalVerificationLog": "/tmp/stackrank-data-safety-verify-frozen.log"
+  "finalVerificationLog": "/tmp/stackrank-data-safety-verify-frozen.log",
+  "productSha": "d1809a43d71098987461e1367fdbc5fc129bcaf8",
+  "productCi": "https://github.com/danbretl/StackRank-Web/actions/runs/37581202697",
+  "productDeployment": "dpl_4zEUPfm9GnGdVficTG52NLAhdGNo"
 }

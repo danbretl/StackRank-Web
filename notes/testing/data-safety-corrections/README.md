@@ -1,6 +1,6 @@
 # Movies and Dogs data-safety corrections
 
-Active execution record for the October 7 audit takeover. Start with `ASSESSMENT.md`, `checkpoint.json`, and `dispositions.json`. The final committed `HANDBACK.md` will identify the released SHA and exact CI/deployment verification. This directory does not yet assert a completed release.
+October 7 audit corrections and release evidence. Start with `HANDBACK.md` for the outcome, exact revisions and verification limits; `dispositions.json` contains all 30 audit decisions. `ASSESSMENT.md` preserves the pre-implementation assessment.
 
 - Baseline: `033a397e3ea0d7121358fe5910b7acccf4f9f566`.
 - Immutable audit: `/Users/danbretl/src/stackrank-data-safety-audit-20261007T043458Z/`.

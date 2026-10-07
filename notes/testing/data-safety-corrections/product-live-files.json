@@ -1,0 +1,261 @@
+{
+  "startedAt": "2026-10-07T06:24:22.289Z",
+  "sha": "d1809a43d71098987461e1367fdbc5fc129bcaf8",
+  "contractDigest": "80975a4505249456567097cd283ea304355e363d1ed1aa2e033e94fd2e1dc572",
+  "ratePerSecond": 2,
+  "files": [
+    {
+      "path": "app.js",
+      "urlPath": "app.js?v=193",
+      "status": 200,
+      "bytes": 454744,
+      "sha256": "213068e19a3959b74c1cba7926862098c047dffdabf101dcffe2b0243dcb0e93",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/breed-profiles.json",
+      "urlPath": "data/dogs/breed-profiles.json?v=108",
+      "status": 200,
+      "bytes": 1593083,
+      "sha256": "b86c620e0f401fcd7d680c44de29ab8c500824f70390e5993aa8add433bae28d",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/dog-catalog.json",
+      "urlPath": "data/dogs/dog-catalog.json?v=8",
+      "status": 200,
+      "bytes": 707308,
+      "sha256": "6845e9209a10fdc830f3e4d98c8e89ece1c1edda925d32612c9390e06cb0d3db",
+      "matches": true
+    },
+    {
+      "path": "data/dogs/generated-artwork.json",
+      "urlPath": "data/dogs/generated-artwork.json?v=108",
+      "status": 200,
+      "bytes": 2068612,
+      "sha256": "658fad9598adc10d1934e105cc1fc60893810b21f7f43f10e44ac058bcb4569a",
+      "matches": true
+    },
+    {
+      "path": "dogs-artwork-review.html",
+      "urlPath": "dogs-artwork-review.html",
+      "status": 200,
+      "bytes": 6948,
+      "sha256": "2c5bbe90be6a5554dc5ac25fb1196a2b81681456f024d202f0dabf47600b1d34",
+      "matches": true
+    },
+    {
+      "path": "dogs-artwork-review.js",
+      "urlPath": "dogs-artwork-review.js?v=114",
+      "status": 200,
+      "bytes": 39523,
+      "sha256": "26f226fae6a80c2ec6fc9c2b2e3cd79c6c6d3f92e5976332ae7e0e802680ea4e",
+      "matches": true
+    },
+    {
+      "path": "dogs-shared.html",
+      "urlPath": "dogs-shared.html",
+      "status": 200,
+      "bytes": 1953,
+      "sha256": "4a7e2142d0c9ed08efb2a92404e3b2beb811f6becd26d76f6592f5a879a85475",
+      "matches": true
+    },
+    {
+      "path": "dogs-shared.js",
+      "urlPath": "dogs-shared.js?v=9",
+      "status": 200,
+      "bytes": 3602,
+      "sha256": "77a69b77a400d875148f2f0cb7656f5666366eda5810cf1c6ae9222bd5a4d963",
+      "matches": true
+    },
+    {
+      "path": "dogs.css",
+      "urlPath": "dogs.css?v=12",
+      "status": 200,
+      "bytes": 44771,
+      "sha256": "f5ac74067cc234fae3948234efda17db8222ffd8ba6b78de7c7189abda716a09",
+      "matches": true
+    },
+    {
+      "path": "dogs.html",
+      "urlPath": "dogs.html",
+      "status": 200,
+      "bytes": 24844,
+      "sha256": "732f6a3011409393dd589f78f9c18b4faf8a554ccc8d94c64cb03ac00f561cdf",
+      "matches": true
+    },
+    {
+      "path": "dogs.js",
+      "urlPath": "dogs.js?v=160",
+      "status": 200,
+      "bytes": 133699,
+      "sha256": "d636e7f9f38b0c5ac56979e69139190b0a7d6ee08955fdd66d033217a0690b6e",
+      "matches": true
+    },
+    {
+      "path": "home.html",
+      "urlPath": "home.html",
+      "status": 200,
+      "bytes": 4272,
+      "sha256": "175527caefcbc40194aa3f0205390d92e515102fa593f6b99b0b520060fdc631",
+      "matches": true
+    },
+    {
+      "path": "home.js",
+      "urlPath": "home.js?v=2",
+      "status": 200,
+      "bytes": 1046,
+      "sha256": "a6a1caa9769b196e6cc7801ab376c2b6db4731216f48b61a98567a28dee0c701",
+      "matches": true
+    },
+    {
+      "path": "index.html",
+      "urlPath": "index.html",
+      "status": 200,
+      "bytes": 70936,
+      "sha256": "e7f7e02965c7f8ac15a8a0b1cc2085be0e4318798f367681743c53cb2bc80f47",
+      "matches": true
+    },
+    {
+      "path": "lib/auth.js",
+      "urlPath": "lib/auth.js?v=5",
+      "status": 200,
+      "bytes": 2921,
+      "sha256": "39f1ae3e99e6bf9a6debbc9d85939bb21e6efd62f75f930b67fe421630267b82",
+      "matches": true
+    },
+    {
+      "path": "lib/backup.js",
+      "urlPath": "lib/backup.js?v=4",
+      "status": 200,
+      "bytes": 11543,
+      "sha256": "dfdaa6d2bb6441eb0f3e83634505658546498e5a99b622800316817aed08c291",
+      "matches": true
+    },
+    {
+      "path": "lib/category-remote-persistence.js",
+      "urlPath": "lib/category-remote-persistence.js?v=5",
+      "status": 200,
+      "bytes": 15948,
+      "sha256": "7e9ff340be1e596a6b22bb2397b7da07d47eb115ea44558429f4e3bd61acd2f6",
+      "matches": true
+    },
+    {
+      "path": "lib/data-safety.js",
+      "urlPath": "lib/data-safety.js?v=1",
+      "status": 200,
+      "bytes": 20894,
+      "sha256": "26edc239e72165427aa1322ffc5f7bd654e50a5f7d0e6fcc80ed19ed7b0c51e6",
+      "matches": true
+    },
+    {
+      "path": "lib/dogs.js",
+      "urlPath": "lib/dogs.js?v=11",
+      "status": 200,
+      "bytes": 15193,
+      "sha256": "63332edc5f7f3126b0ad77f7d9f6bd71dd021a70d7d9b5ae2096db24037d38cf",
+      "matches": true
+    },
+    {
+      "path": "lib/home-progress.js",
+      "urlPath": "lib/home-progress.js?v=1",
+      "status": 200,
+      "bytes": 778,
+      "sha256": "609ec0d28116fca7d79d2d26ce7a555c8a788b5be2b137b06af253dc9ecb0f14",
+      "matches": true
+    },
+    {
+      "path": "lib/json-size.js",
+      "urlPath": "lib/json-size.js?v=1",
+      "status": 200,
+      "bytes": 1835,
+      "sha256": "6c874bbc778a6761fce03043aa56fd4af0d09a622d318a4ac9050977a5ac5dd6",
+      "matches": true
+    },
+    {
+      "path": "lib/movies-data-safety.js",
+      "urlPath": "lib/movies-data-safety.js?v=1",
+      "status": 200,
+      "bytes": 1838,
+      "sha256": "2fc0f6e469bdfc6a69a53ab5c6a8b6d3dc42d016af13baa539f3f1eeb0c1b303",
+      "matches": true
+    },
+    {
+      "path": "lib/persistence.js",
+      "urlPath": "lib/persistence.js?v=5",
+      "status": 200,
+      "bytes": 4793,
+      "sha256": "a6cb07c645a834fe917d47250016ee45d45bb2a255cc597e5b18101039a51fc3",
+      "matches": true
+    },
+    {
+      "path": "privacy.html",
+      "urlPath": "privacy.html",
+      "status": 200,
+      "bytes": 12530,
+      "sha256": "4383d4967c1830af848dfa71b3b44f53c8db91cef0b64cac183586cd13f9a941",
+      "matches": true
+    },
+    {
+      "path": "shared.html",
+      "urlPath": "shared.html",
+      "status": 200,
+      "bytes": 4093,
+      "sha256": "748edbb4841ea477c3b6dcbc5c42df3437669db97ad4baa4c3ee4ed7900cd4b3",
+      "matches": true
+    },
+    {
+      "path": "styles.css",
+      "urlPath": "styles.css?v=162",
+      "status": 200,
+      "bytes": 242589,
+      "sha256": "7d4d5ecc33c93e5194f5f1d65d62b07a7ddedd686e33ab4864ec6504e63b6baf",
+      "matches": true
+    }
+  ],
+  "excluded": [
+    {
+      "path": "notes/testing/data-safety-corrections/HANDBACK.md",
+      "status": 404,
+      "matches": true
+    },
+    {
+      "path": "scripts/test-data-safety-browser.cjs",
+      "status": 404,
+      "matches": true
+    },
+    {
+      "path": "scripts/testing/data-safety-fixtures.cjs",
+      "status": 404,
+      "matches": true
+    },
+    {
+      "path": "tests/data-safety.test.js",
+      "status": 404,
+      "matches": true
+    },
+    {
+      "path": "reports/data-safety/results.json",
+      "status": 404,
+      "matches": true
+    },
+    {
+      "path": "package.json",
+      "status": 404,
+      "matches": true
+    },
+    {
+      "path": "deploy/public-files.json",
+      "status": 404,
+      "matches": true
+    },
+    {
+      "path": ".git/config",
+      "status": 404,
+      "matches": true
+    }
+  ],
+  "blocked": false,
+  "finishedAt": "2026-10-07T06:24:41.174Z",
+  "passed": true
+}

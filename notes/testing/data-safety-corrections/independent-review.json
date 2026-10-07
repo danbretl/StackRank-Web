@@ -164,6 +164,14 @@
       "status": "fixed-visual-and-browser-verified",
       "fix": "Dedicated in-flow recovery class with contained select/buttons; Movies select also constrained and its labels made readable.",
       "evidence": "reports/data-safety/2026-10-07T06-10-01-592Z: desktop/phone screenshots and viewport/overlap assertions"
+    },
+    {
+      "id": "IR-019",
+      "impact": "low",
+      "title": "Expected stale-tab safety conflict escaped as an uncaught initial-load promise rejection",
+      "status": "fixed-browser-verified",
+      "fix": "Catch only the already-reported DataSafetyError conflict at the Movies operation boundary; unexpected errors still propagate. The permanent runner now fails on uncaught exceptions.",
+      "evidence": "Final staged45/45 with strict exception gate; local-verification.json"
     }
   ],
   "passedReview": {
@@ -182,7 +190,7 @@
   "reviewBoundary": "Source restamped after the Movies immediate-local-flush and fresh-per-surface durability gate changes. Shared primitive code remains frozen; no app source was edited by this reviewer. Audit archive/customer data/schema/permissions remain untouched.",
   "rootFollowupReviewedAt": "2026-10-07T06:15:12.234022+00:00",
   "finalCandidateHashes": {
-    "app.js": "5525610ebdb3ae3744311ebc8247e290377399ac879080c72fab3a9971723764",
+    "app.js": "213068e19a3959b74c1cba7926862098c047dffdabf101dcffe2b0243dcb0e93",
     "dogs.js": "d636e7f9f38b0c5ac56979e69139190b0a7d6ee08955fdd66d033217a0690b6e",
     "lib/data-safety.js": "26edc239e72165427aa1322ffc5f7bd654e50a5f7d0e6fcc80ed19ed7b0c51e6",
     "dogs.css": "f5ac74067cc234fae3948234efda17db8222ffd8ba6b78de7c7189abda716a09",

@@ -34,7 +34,7 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="dogs.css?v=11" />
+    <link rel="stylesheet" href="dogs.css?v=12" />
     <link rel="stylesheet" href="dogs-explore.css?v=4" />
     <link rel="stylesheet" href="dogs-comparison.css?v=5" />
     <link rel="stylesheet" href="category-switcher.css?v=1" />
@@ -90,6 +90,19 @@
     </header>
 
     <main class="dogs-app">
+      <section id="dogs-data-safety" class="dogs-data-safety" aria-label="Saved Dogs copies" hidden>
+        <p id="dogs-data-safety-message" role="status"></p>
+        <button id="dogs-sync-retry" type="button" hidden>Retry sync</button>
+        <button id="dogs-reload-saved" type="button" hidden>Reload saved device copy</button>
+        <button id="dogs-use-account-copy" type="button" hidden>Use account copy</button>
+        <div id="dogs-recovery-controls" hidden>
+          <label for="dogs-recovery-list">Saved copies</label>
+          <select id="dogs-recovery-list"></select>
+          <button id="dogs-recovery-download" type="button">Download saved copy</button>
+          <button id="dogs-recovery-add" type="button">Add saved copy</button>
+          <button id="dogs-recovery-dismiss" type="button">Remove saved copy</button>
+        </div>
+      </section>
       <section id="dogs-view-rank" class="dogs-view" data-view="rank">
         <section class="rank-panel" aria-labelledby="dogs-rank-heading">
           <h1 id="dogs-rank-heading">Find your kind of dog.</h1>
@@ -446,6 +459,6 @@
     </footer>
 
     <script type="module" src="category-switcher.js?v=1"></script>
-    <script type="module" src="dogs.js?v=159"></script>
+    <script type="module" src="dogs.js?v=160"></script>
   </body>
 </html>

@@ -1,0 +1,193 @@
+{
+  "reviewedAt": "2026-10-07T06:08:05.200015+00:00",
+  "reviewer": "independent architecture/safety lead",
+  "status": "source-review-passed",
+  "scope": [
+    "shared data-safety controller",
+    "Movies integration",
+    "Dogs integration",
+    "home count-only owner isolation",
+    "privacy copy",
+    "read-only deployed CAS schema receipt"
+  ],
+  "sourceHashes": {
+    "lib/data-safety.js": "26edc239e72165427aa1322ffc5f7bd654e50a5f7d0e6fcc80ed19ed7b0c51e6",
+    "tests/data-safety.test.js": "04a5bb5a516ead64eebe16f3f63251f58b814c94b1f69acb6fbf944b4078fb63",
+    "app.js": "5525610ebdb3ae3744311ebc8247e290377399ac879080c72fab3a9971723764",
+    "dogs.js": "30f336b761f8905963505f52b476aae39064785fe1bd1387abbef3a1f0f0b744",
+    "lib/movies-data-safety.js": "2fc0f6e469bdfc6a69a53ab5c6a8b6d3dc42d016af13baa539f3f1eeb0c1b303",
+    "home.js": "a6a1caa9769b196e6cc7801ab376c2b6db4731216f48b61a98567a28dee0c701",
+    "lib/home-progress.js": "609ec0d28116fca7d79d2d26ce7a555c8a788b5be2b137b06af253dc9ecb0f14",
+    "privacy.html": "4383d4967c1830af848dfa71b3b44f53c8db91cef0b64cac183586cd13f9a941"
+  },
+  "findings": [
+    {
+      "id": "IR-001",
+      "impact": "high",
+      "title": "Overlapping store activations could allow an older requested owner to become active",
+      "status": "fixed-unit-verified",
+      "fix": "Capture incremented generation before first await; stale activation returns owner-changed.",
+      "evidence": "tests/data-safety.test.js overlapping activations test"
+    },
+    {
+      "id": "IR-002",
+      "impact": "medium",
+      "title": "Observed repeated PATCH after committed connection loss can return zero rows and falsely conflict",
+      "status": "fixed-unit-and-browser-verified",
+      "fix": "Read back exact attempted token and payload after zero-row response.",
+      "evidence": [
+        "tests/data-safety.test.js implicit retry test",
+        "reports/data-safety/2026-10-07T05-54-59-865Z/results.json"
+      ],
+      "mechanismQualification": "Browser evidence establishes a repeated mutation after the committed response connection was closed. It does not establish whether Chromium/transport or another client layer repeated it. The vendored SDK explicit retry policy applies only to GET/HEAD/OPTIONS; do not attribute mutation retry to that SDK policy."
+    },
+    {
+      "id": "IR-003",
+      "impact": "high",
+      "title": "Movies Use account continuation could clear another owner dirty flags",
+      "status": "fixed-source-verified",
+      "fix": "Recheck owner generation after preserve and flush before clearing metadata."
+    },
+    {
+      "id": "IR-004",
+      "impact": "medium",
+      "title": "Movies delayed read could replace a newer locally acknowledged save",
+      "status": "fixed-source-verified",
+      "fix": "Serialize account reads/reconciliation and writes through movieOperationChain."
+    },
+    {
+      "id": "IR-005",
+      "impact": "medium",
+      "title": "Dogs explicit account replacement could discard edits made after its preserved snapshot",
+      "status": "fixed-source-verified",
+      "fix": "replacementLocked prevents new mutations through preserve/read/adoption; guarded internal reconciliation saves."
+    },
+    {
+      "id": "IR-006",
+      "impact": "medium",
+      "title": "Restore/recovery success could be announced after persistence failure",
+      "status": "fixed-source-verified",
+      "fix": "Movies Restore reports localSaved; Dogs recovery checks saveAll outcome."
+    },
+    {
+      "id": "IR-007",
+      "impact": "medium",
+      "title": "Throwing localStorage getter could crash shared-store construction",
+      "status": "fixed-unit-verified",
+      "fix": "Lazy storage access evaluated inside protected read/write operations."
+    },
+    {
+      "id": "IR-008",
+      "impact": "low",
+      "title": "Unchanged reconciliation writes made otherwise current tabs stale",
+      "status": "fixed-unit-verified",
+      "fix": "Raw, metadata and acknowledgement no-op detection avoids revision bumps."
+    },
+    {
+      "id": "IR-009",
+      "impact": "medium",
+      "title": "Movies local validation accepts unsupported syntactically valid payloads",
+      "status": "fixed-source-verified",
+      "schedule": "Owner raw ranking {movies:\"broken\"} or [null] passes JSON.parse; normalization treats it as empty or invalid items before later replacement.",
+      "requestedFix": "Validate supported raw shapes and item arrays before mutable load.",
+      "fix": "validMovieStoredPayload validates supported per-key shapes and movie arrays; invalid raw remains preserved with editing blocked."
+    },
+    {
+      "id": "IR-010",
+      "impact": "medium",
+      "title": "Auth subscription starts after initial session read and owner activation",
+      "status": "fixed-source-verified",
+      "schedule": "Initial A session resolves; cross-tab signout occurs while local activation awaits; no app listener yet; stale A may render before subsequently emitted INITIAL_SESSION corrects.",
+      "requestedFix": "Subscribe before initialization and guard late getSession results by auth transition generation, or disprove schedule.",
+      "fix": "Both apps subscribe before getSession. Movies uses bootstrap event precedence; Dogs uses observed-event fencing plus owner activation generations."
+    },
+    {
+      "id": "IR-011",
+      "impact": "low",
+      "title": "Remaining Movies conflict notification continuations need owner guard",
+      "status": "fixed-source-verified",
+      "schedule": "Account changes while preserve awaits; subsequent conflict copy/status should not alter new owner UI.",
+      "fix": "Movies conflict continuations recheck owner token after preservation before updating current UI."
+    },
+    {
+      "id": "IR-012",
+      "impact": "low",
+      "title": "Dogs background reconcile can update comparison ranking while a session is active",
+      "status": "fixed-source-verified",
+      "requestedFix": "Defer background reconciliation until active rank/review completes, or invalidate/reset before applying changed ranking.",
+      "fix": "Dogs invalidates comparison/review/undo/import transient work before adopting changed remote placement."
+    },
+    {
+      "id": "IR-013",
+      "impact": "medium",
+      "title": "Delayed sign-out completion could clear a newer signed-in owner UI",
+      "status": "fixed-source-verified",
+      "fix": "Both apps reject stale successful sign-out continuations; current auth callback owns the resulting transition."
+    },
+    {
+      "id": "IR-014",
+      "impact": "medium",
+      "title": "Resolved recoveries consumed bounded capacity without an accessible reclaim path",
+      "status": "fixed-source-and-unit-verified",
+      "fix": "Both apps include resolved entries; explicit dismiss is available. Source receipts prevent dismissed original snapshots from being re-offered.",
+      "evidence": "tests/data-safety.test.js resolved recovery capacity reclaim test"
+    },
+    {
+      "id": "IR-015",
+      "impact": "medium",
+      "title": "Memory-only departure recovery needed an explicit non-durable warning",
+      "status": "fixed-source-verified",
+      "fix": "Both apps label session-only entries and show prior-owner departure warnings without exposing foreign recovery contents."
+    },
+    {
+      "id": "IR-016",
+      "impact": "medium",
+      "title": "A queued Movies save could read newer mutable state after awaiting only an earlier local flush",
+      "status": "fixed-source-verified",
+      "schedule": "queueMovieSync captures a localSave promise immediately, then waits for the remote operation chain. A newer edit can change raw/metadata while its own local flush is still queued or Web-Lock-blocked. Reading current raw/spec after awaiting the old localSave does not prove that newer state has passed local revision validation.",
+      "requestedFix": "Retain immediate local flush and also await a fresh flush inside each remote surface iteration before capturing current baseline/spec; recheck owner/conflict after that await.",
+      "fix": "Immediate localSave remains outside the network queue. Each remote surface now awaits a fresh flushMovieDevice result, rechecks owner/conflict, and synchronously captures baseline/spec before dispatch.",
+      "evidence": "app.js queueMovieSync re-reviewed; node --check app.js passes. Targeted held-write/local-lock browser verification is owned by the browser reviewer."
+    },
+    {
+      "id": "IR-017",
+      "impact": "medium",
+      "title": "Dogs initial account loading could finish against a superseded owner and leave the latest owner pending",
+      "status": "fixed-source-and-browser-verified",
+      "fix": "Register every owner activation; complete initialization only after a stable latest activation and generation survive catalog/local/account reconciliation. Refuse owner-null or mismatched account reads.",
+      "evidence": "reports/data-safety/2026-10-07T06-13-02-844Z/results.json: delayed A read and A to B to A sharing both pass"
+    },
+    {
+      "id": "IR-018",
+      "impact": "medium",
+      "title": "Dogs recovery controls inherited floating settings layout and overlapped phone content",
+      "status": "fixed-visual-and-browser-verified",
+      "fix": "Dedicated in-flow recovery class with contained select/buttons; Movies select also constrained and its labels made readable.",
+      "evidence": "reports/data-safety/2026-10-07T06-10-01-592Z: desktop/phone screenshots and viewport/overlap assertions"
+    }
+  ],
+  "passedReview": {
+    "home": "Reads only current unexpired-session owner or explicit anonymous owner in new safety document; no legacy fallback.",
+    "privacy": "Accurately describes account-isolated local records, preserved recovery, explicit ownership choice, and old-client limitation.",
+    "schema": "deployed-schema-readonly.json confirms existing columns/grants/RLS needed for conditional per-row operations; no permission or schema changes needed.",
+    "recoveries": "Known foreign-owner recovery data inaccessible through listing/read/recover; unknown legacy requires explicit choice; no automatic eviction.",
+    "sharedTests": "node --test tests/data-safety.test.js: 26 passed; node --check lib/data-safety.js passes."
+  },
+  "limits": [
+    "Old clients can still unconditional-upsert; corrected-client protections cannot enforce a fleet-wide version barrier.",
+    "Ranking, queues and progress are separate rows: partial commit must remain visible/recoverable.",
+    "Full browser/CI/production validation is owned by root and browser reviewer; this source review does not substitute for those gates."
+  ],
+  "releaseRecommendation": "No remaining blocking finding in the reviewed source, including IR-016. Rerun affected full verification on the final candidate; earlier runtime results against preceding source are not evidence for the changed ordering gate.",
+  "reviewBoundary": "Source restamped after the Movies immediate-local-flush and fresh-per-surface durability gate changes. Shared primitive code remains frozen; no app source was edited by this reviewer. Audit archive/customer data/schema/permissions remain untouched.",
+  "rootFollowupReviewedAt": "2026-10-07T06:15:12.234022+00:00",
+  "finalCandidateHashes": {
+    "app.js": "5525610ebdb3ae3744311ebc8247e290377399ac879080c72fab3a9971723764",
+    "dogs.js": "d636e7f9f38b0c5ac56979e69139190b0a7d6ee08955fdd66d033217a0690b6e",
+    "lib/data-safety.js": "26edc239e72165427aa1322ffc5f7bd654e50a5f7d0e6fcc80ed19ed7b0c51e6",
+    "dogs.css": "f5ac74067cc234fae3948234efda17db8222ffd8ba6b78de7c7189abda716a09",
+    "styles.css": "7d4d5ecc33c93e5194f5f1d65d62b07a7ddedd686e33ab4864ec6504e63b6baf",
+    "dogs.html": "732f6a3011409393dd589f78f9c18b4faf8a554ccc8d94c64cb03ac00f561cdf",
+    "index.html": "e7f7e02965c7f8ac15a8a0b1cc2085be0e4318798f367681743c53cb2bc80f47"
+  }
+}

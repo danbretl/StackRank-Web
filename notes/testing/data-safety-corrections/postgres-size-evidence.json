@@ -1,0 +1,25 @@
+{
+  "results": [
+    {
+      "surface": "movies",
+      "entries": 3500,
+      "compactBytes": 1010391,
+      "postgresJsonbBytes": 1087390,
+      "limit": 1048576,
+      "clientAccepts": true,
+      "databaseCheckAccepts": false
+    },
+    {
+      "surface": "dogsProgress",
+      "entries": 115,
+      "compactBytes": 7711,
+      "postgresJsonbBytes": 8285,
+      "limit": 8192,
+      "clientAccepts": true,
+      "databaseCheckAccepts": false
+    }
+  ],
+  "postgresVersion": "postgres (PostgreSQL) 17.11 (Homebrew)",
+  "isolation": "New disposable local PostgreSQL cluster; Unix socket only, listen_addresses empty; no existing database touched. Stopped after query.",
+  "productionAccess": false
+}

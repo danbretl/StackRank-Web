@@ -1,0 +1,275 @@
+{
+  "baseline": "033a397e3ea0d7121358fe5910b7acccf4f9f566",
+  "reviewedAt": "2026-10-07T05:57:04.767342+00:00",
+  "auditFindingsSha256": "21976dc4d494f461fe9f9bdd720aea26bdc7db5cd8eb5acd89fe104791f3c687",
+  "scope": "Dogs findings and shared payload byte-size hypothesis; root ledger owns other findings and final release results.",
+  "archiveModified": false,
+  "sourceLocationsNote": "Line numbers captured before final combined-tree formatting; symbols are authoritative.",
+  "decisions": [
+    {
+      "id": "DS-008",
+      "decision": "accepted_and_fixed",
+      "rationale": "Present malformed rows and absent rows returned the same null; successful reads then wrote all surfaces. Checked-in SQL permits inner malformed item schema, though current browser writer cannot generate that fixture. Reconciliation now fails closed before changing local or remote state when any present row is unreadable; valid empty rows remain valid.",
+      "locations": [
+        {
+          "path": "dogs.js",
+          "line": 609,
+          "symbol": "const payloadsFromRemoteRows"
+        },
+        {
+          "path": "dogs.js",
+          "line": 655,
+          "symbol": "const performRemoteStateLoad"
+        }
+      ],
+      "verification": [
+        "Independent helper reproduction: malformed/missing conflation, valid empty distinction, valid siblings lost in merge; 10 focused assertions total.",
+        "scripts/test-data-safety-browser.cjs: malformed-row and rejected-initial-read cases (browser worker runs)."
+      ],
+      "limitations": [
+        "No production rows inspected."
+      ]
+    },
+    {
+      "id": "DS-011",
+      "decision": "accepted_and_fixed",
+      "rationale": "Thirty-second held-write evidence supports stalled queue and false backup status, not infinite network behavior. Sync now has bounded reads, conditional versioned writes with bounded readback, truthful pending/error/conflict states and retry. Late commits cannot overwrite a newer conditional version in updated clients.",
+      "locations": [
+        {
+          "path": "dogs.js",
+          "line": 702,
+          "symbol": "const syncRemoteSnapshot"
+        },
+        {
+          "path": "dogs.js",
+          "line": 594,
+          "symbol": "const readRemoteStateRows"
+        },
+        {
+          "path": "dogs.js",
+          "line": 2172,
+          "symbol": "const updateAccountUi"
+        }
+      ],
+      "verification": [
+        "scripts/test-data-safety-browser.cjs: real 10-second hung-write timeout, later edit and reload."
+      ],
+      "limitations": [
+        "Abort is not server rollback; legacy clients still need rollout handling."
+      ]
+    },
+    {
+      "id": "DS-012",
+      "decision": "accepted_and_fixed",
+      "rationale": "Dogs boot overwrite was conditional on another surface needing catalog canonicalization. Owner store retains original legacy bytes in explicit recovery, and malformed owned payloads are preserved and block edits before persistence.",
+      "locations": [
+        {
+          "path": "dogs.js",
+          "line": 438,
+          "symbol": "const loadState"
+        },
+        {
+          "path": "dogs.js",
+          "line": 244,
+          "symbol": "const safetyStore"
+        }
+      ],
+      "verification": [
+        "New malformed local payload guard; JSON/schema errors distinguished from missing values.",
+        "Shared store recovery tests and browser corruption cases."
+      ],
+      "limitations": [
+        "Fragments are preserved, not automatically repaired."
+      ]
+    },
+    {
+      "id": "DS-014",
+      "decision": "accepted_and_fixed_dogs",
+      "rationale": "Unknown progress fields are accepted by remote state/SQL but former strict exporter discarded all entries. Export now normalizes independently, keeps supported fields/entries, and includes explicit warning counts plus visible download warning. Strict restore validation is unchanged.",
+      "locations": [
+        {
+          "path": "lib/dogs.js",
+          "line": 228,
+          "symbol": "export function dogPackProgressForBackup"
+        },
+        {
+          "path": "dogs.js",
+          "line": 2058,
+          "symbol": "const downloadBackup"
+        }
+      ],
+      "verification": [
+        "tests/dogs-backup-safety.test.js",
+        "tests/dogs.test.js"
+      ],
+      "limitations": [
+        "Unknown fields/invalid entries are omitted with explicit warning, not silently retained as trusted app state."
+      ]
+    },
+    {
+      "id": "DS-015",
+      "decision": "promoted_verified_and_fixed",
+      "rationale": "Actual PostgreSQL 17.11 confirms compact JSON accepts payloads jsonb::text rejects. 3500 Movies: 1,010,391 compact versus 1,087,390 database bytes; 115 Dogs progress entries: 7,711 versus 8,285. New separate PostgreSQL byte estimator accounts for separators, UTF-8 and expanded numeric exponents; wire/backup measures remain exact and separate.",
+      "locations": [
+        {
+          "path": "lib/json-size.js",
+          "line": 5,
+          "symbol": "export function postgresJsonByteLength"
+        },
+        {
+          "path": "lib/persistence.js",
+          "line": 5,
+          "symbol": "export function isRemoteJsonPayloadWithinByteLimit"
+        },
+        {
+          "path": "lib/category-remote-persistence.js",
+          "line": 283,
+          "symbol": "return postgresJsonByteLength(state)"
+        }
+      ],
+      "verification": [
+        "notes/testing/data-safety-corrections/postgres-size-evidence.json",
+        "tests/json-size.test.js"
+      ],
+      "limitations": [
+        "Synthetic local database, not production."
+      ]
+    },
+    {
+      "id": "DS-018",
+      "decision": "accepted_historical_limitation",
+      "rationale": "Old merge ordering used client clocks. Dogs normal sync now adopts clean remote snapshots or conditionally writes a known exact baseline, avoiding timestamp-order competitions. Version timestamps remain client-created monotonic tokens, not trusted wall-clock event ordering.",
+      "locations": [
+        {
+          "path": "dogs.js",
+          "line": 655,
+          "symbol": "const performRemoteStateLoad"
+        }
+      ],
+      "verification": [
+        "Shared data-safety reconciliation and CAS tests."
+      ],
+      "limitations": []
+    },
+    {
+      "id": "DS-019",
+      "decision": "accepted_historical_limitation_mitigated",
+      "rationale": "Historical same-row LWW was documented. Updated Dogs clients now detect baseline conflicts and preserve device changes for explicit recovery; do not promise legacy unconditional writers obey CAS.",
+      "locations": [
+        {
+          "path": "dogs.js",
+          "line": 643,
+          "symbol": "const markRemoteConflict"
+        },
+        {
+          "path": "dogs.js",
+          "line": 702,
+          "symbol": "const syncRemoteSnapshot"
+        }
+      ],
+      "verification": [
+        "Independent-device browser clear/remove/restore and conflict cases."
+      ],
+      "limitations": [
+        "Legacy-client rollout guard is release-lead scope."
+      ]
+    },
+    {
+      "id": "DS-R01",
+      "decision": "rejection_upheld",
+      "rationale": "Dogs preexisting initial-read gate prevented writes on failed read; retained as rejected, strengthened by fail-closed reconciliation.",
+      "locations": [],
+      "verification": [
+        "Original immutable audit evidence plus reviewed source; focused hidden-slot/backup tests where applicable."
+      ],
+      "limitations": []
+    },
+    {
+      "id": "DS-R03",
+      "decision": "rejection_upheld",
+      "rationale": "Public snapshots contain only public ranking fields; hidden IDs/private lists/denied artwork are excluded. No evidence of claimed disclosure in existing source/control.",
+      "locations": [],
+      "verification": [
+        "Original immutable audit evidence plus reviewed source; focused hidden-slot/backup tests where applicable."
+      ],
+      "limitations": []
+    },
+    {
+      "id": "DS-R04",
+      "decision": "rejection_upheld",
+      "rationale": "Revoked readers reject snapshots; owner-browser reader uses nonpersisted anonymous session. Production RLS not independently read here.",
+      "locations": [],
+      "verification": [
+        "Original immutable audit evidence plus reviewed source; focused hidden-slot/backup tests where applicable."
+      ],
+      "limitations": []
+    },
+    {
+      "id": "DS-R05",
+      "decision": "rejection_upheld",
+      "rationale": "Hidden identities/slots and backup round-trip preserved; independent helper assertions retain Coydog and Japanese Akitainu in exact slots. No changes to catalog IDs or canonicalization rules.",
+      "locations": [],
+      "verification": [
+        "Original immutable audit evidence plus reviewed source; focused hidden-slot/backup tests where applicable."
+      ],
+      "limitations": []
+    },
+    {
+      "id": "DS-R08",
+      "decision": "rejection_upheld",
+      "rationale": "Normal successful Dogs writes were serialized; reversed-completion claim rejected. Timeout case is separately accepted DS-011.",
+      "locations": [],
+      "verification": [
+        "Original immutable audit evidence plus reviewed source; focused hidden-slot/backup tests where applicable."
+      ],
+      "limitations": []
+    },
+    {
+      "id": "DS-R09",
+      "decision": "rejection_upheld",
+      "rationale": "Strict category/version and known-field restore boundaries remain enforced.",
+      "locations": [],
+      "verification": [
+        "Original immutable audit evidence plus reviewed source; focused hidden-slot/backup tests where applicable."
+      ],
+      "limitations": []
+    },
+    {
+      "id": "DS-R10",
+      "decision": "rejection_upheld",
+      "rationale": "Dogs comparison retains Curious origin until settle; reload does not lose pending item.",
+      "locations": [],
+      "verification": [
+        "Original immutable audit evidence plus reviewed source; focused hidden-slot/backup tests where applicable."
+      ],
+      "limitations": []
+    },
+    {
+      "id": "DS-R11",
+      "decision": "rejection_upheld",
+      "rationale": "Books namespaced state is separate; reviewed source and audit static evidence, no new Books runtime testing by this worker.",
+      "locations": [],
+      "verification": [
+        "Original immutable audit evidence plus reviewed source; focused hidden-slot/backup tests where applicable."
+      ],
+      "limitations": []
+    }
+  ],
+  "focusedVerification": {
+    "command": "node --test tests/dogs.test.js tests/dogs-public-visibility.test.js tests/category-remote-persistence.test.js tests/dogs-remote-static.test.js tests/dogs-backup-safety.test.js tests/json-size.test.js",
+    "tests": 41,
+    "passed": 41,
+    "failed": 0
+  },
+  "browserVerificationNote": "Browser worker owns durable runs and exact final combined-tree receipts; do not treat this report as final release verification.",
+  "independentReviewCorrections": [
+    "Explicit account replacement pauses mutations before preservation and read; checks preservation/activation outcomes before replacement.",
+    "All account transition and after-await UI updates use owner-generation guards, including successful sign-out completion.",
+    "Auth subscription is installed before the initial session read; observed events supersede an older read result.",
+    "Background remote placement adoption cancels comparison/review/Undo/import transients to prevent stale indices.",
+    "Resolved recovery copies remain accessible; explicit confirmed removal frees bounded capacity, never automatic eviction.",
+    "Session-only recovery copies warn before leaving; failed prior-owner departure persistence produces a sticky generic warning across later account transitions without exposing prior-owner contents.",
+    "Expanded browser suite found magic-link INITIAL_SESSION/SIGNED_IN activation overlap: awaiting the older transition let boot issue a read before owner activation, then discard it and stay empty/pending. Auth initialization now drains the latest transition until stable and remote reads require activated matching owner. Real vendored-Supabase A\u2192B\u2192A browser case passed in reports/data-safety/2026-10-07T06-08-38-064Z/results.json.",
+    "Follow-up browser coverage found an owner switch during the initial remote read could still leave the original tab empty/pending. Startup now loops the complete latest-owner activation/read/flush lifecycle, verifies the same generation and latest activation promise at each asynchronous boundary, and only then marks persistence ready. Both delayed-account-A read and A\u2192B\u2192A sharing regressions passed in reports/data-safety/2026-10-07T06-13-02-844Z/results.json."
+  ]
+}

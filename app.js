@@ -1,3 +1,5 @@
+import { createDataSafetyStore, compareAndSwapRow, planReconciliation } from "./lib/data-safety.js?v=1";
+import { durableMovieLists, appendRecoveredMovies, validRemoteMovies, validMovieStoredPayload } from "./lib/movies-data-safety.js?v=1";
 import { createClient } from "./vendor/supabase-js-2.108.2.js?v=1";
 import {
   categoryStorageKeys,
@@ -7,8 +9,8 @@ import {
 import { MOVIES_CATEGORY } from "./lib/categories/movies.js?v=2";
 import { createStoredZipBlob } from "./lib/zip.js?v=1";
 import {
-  isJsonPayloadWithinByteLimit,
-  jsonByteLength,
+  isRemoteJsonPayloadWithinByteLimit,
+  postgresJsonByteLength,
   mergeQueuePayloads,
   mergeRankingPayloads,
   mergeRankingPayloadsWithMetadata,
@@ -17,7 +19,7 @@ import {
   parseRankingPayload,
   REMOTE_LIST_PAYLOAD_LIMIT_BYTES,
   REMOTE_PACK_PROGRESS_STATE_LIMIT_BYTES,
-} from "./lib/persistence.js?v=4";
+} from "./lib/persistence.js?v=5";
 import {
   mergePackProgressPayloads,
   normalizePackProgressEntry,
@@ -95,7 +97,7 @@ import {
   chooseAutomaticTmdbMatch,
   parseRankedTitleList,
   parseStackRankBackup,
-} from "./lib/backup.js?v=3";
+} from "./lib/backup.js?v=4";
 import {
   buildSuggestionReason,
   buildSuggestionSectionSubtitle,
@@ -148,7 +150,7 @@ import {
   signInRedirectUrl,
   isLikelyEmail,
   normalizeAuthEmail,
-} from "./lib/auth.js?v=4";
+} from "./lib/auth.js?v=5";
 import {
   APP_DESTINATION_MEMORY_TTL_MS,
   createAppDestinationMemory,
@@ -2712,13 +2714,267 @@ youRankCtas.forEach((button) => {
   });
 });
 
+// Account data is an atomic, owner-scoped device document. Legacy mirrors are
+// recovery candidates only: their contents never silently become account data.
+const MOVIE_SAFETY_KEY = 'stackrank:movies:safety:v1';
+let movieSafetyStore = null;
+let movieSafetyOwner = null;
+let movieSafetyGeneration = 0;
+let movieWriteChain = Promise.resolve();
+let movieOperationChain = Promise.resolve();
+const movieReadControllers = new Set();
+const movieReadReady = new Set();
+const movieOperation = (run) => {
+  const result = movieOperationChain.catch(() => undefined).then(run).catch((error) => {
+    // Another tab can win between awaited reconciliation steps. The store has
+    // already preserved our copy and exposed the reload guard; that expected
+    // refusal must not become an unhandled boot rejection. Unexpected errors
+    // remain visible to the caller.
+    if (error?.name === 'DataSafetyError' && error.code === 'conflict' && movieLocalConflict && movieSyncBlocked) return undefined;
+    throw error;
+  });
+  movieOperationChain = result;
+  return result;
+};
+let movieSyncBlocked = false;
+let movieLocalConflict = false;
+let movieSafetyMessage = '';
+let movieDepartureWarning = '';
+let movieRecoveryPreviewId = null;
+const movieSyncPhases = new Map();
+const moviePackSurfaces = new Set();
+const movieOwner = () => currentUser?.id ? `user:${currentUser.id}` : 'anonymous';
+const movieCanEdit = () => Boolean(movieSafetyStore && movieSafetyOwner === movieOwner() && !movieSyncBlocked && !movieLocalConflict && !movieCorruptKeys.size);
+const movieSafeControl = (target) => target?.closest?.('#movies-data-safety, #download-backup, #settings-sign-out, #auth-sign-in, #settings-sign-in, #signin-overlay, [data-app-destination-target], #ranking-settings-toggle, #ranking-settings-close');
+for (const eventName of ['click', 'submit', 'pointerdown', 'keydown']) document.addEventListener(eventName, (event) => {
+  if (movieCanEdit() || movieSafeControl(event.target)) return;
+  if (!event.target?.closest?.('button, form, .ranking__item, .queue-list__item, #new-card, #existing-card')) return;
+  if (eventName === 'keydown' && !['Enter', ' ', 'ArrowUp', 'ArrowDown'].includes(event.key)) return;
+  event.preventDefault(); event.stopImmediatePropagation();
+}, true);
+
+const movieSafetyToken = () => ({ generation: movieSafetyGeneration, owner: movieOwner() });
+const currentMovieSafetyToken = (token) => token.generation === movieSafetyGeneration && token.owner === movieOwner();
+const durableLists = () => durableMovieLists({ ranking, watchList, notInterestedList, pendingOrigin });
+const movieCorruptKeys = new Set();
+const movieRaw = (key) => movieSafetyStore?.getItem(key) ?? null;
+const movieStage = (key, value) => {
+  if (movieCorruptKeys.has(key)) throw new Error('Unreadable saved bytes have been preserved. Download recovery before replacing them.');
+  return movieSafetyStore?.setItem(key, JSON.stringify(value));
+};
+const validateMovieRaw = (key) => {
+  const raw = movieRaw(key);
+  try {
+    if (raw !== null) {
+      const kind = key === STORAGE_KEY ? 'ranking' : key === QUEUE_STORAGE_KEY ? 'queues' : 'packs';
+      if (!validMovieStoredPayload(kind, JSON.parse(raw))) throw new Error('Unsupported saved-data structure');
+    }
+  } catch (error) {
+    movieCorruptKeys.add(key); movieSyncBlocked = true;
+    movieSafetyMessage = 'Some saved device data is unreadable. Its original bytes are preserved; download a recovery copy before continuing.';
+    void movieSafetyStore.preserve('Unreadable device data');
+    throw error;
+  }
+  return raw;
+};
+const movieSurfaceNames = () => ['ranking', 'watch', 'notInterested', ...moviePackSurfaces];
+const movieSurfaceSpec = (name) => {
+  const listId = getListId();
+  if (name === 'ranking') return { table: 'rankings', identity: { list_id: listId }, field: 'movies', value: parseRankingPayload(movieRaw(STORAGE_KEY)).movies };
+  if (name === 'watch' || name === 'notInterested') {
+    const queues = parseQueuePayload(movieRaw(QUEUE_STORAGE_KEY));
+    return { table: 'movie_lists', identity: { list_id: listId, list_type: name === 'watch' ? WATCH_LIST_TYPE : NOT_INTERESTED_LIST_TYPE }, field: 'movies', value: name === 'watch' ? queues.watchList : queues.notInterestedList };
+  }
+  const slug = name.slice(5);
+  const progress = parsePackProgressPayload(movieRaw(PACK_PROGRESS_STORAGE_KEY)).progress;
+  return { table: 'pack_progress', identity: { list_id: listId, pack_slug: slug }, field: 'state', value: progress[slug] ? stripPackProgressMetadata(progress[slug]) : {} };
+};
+const movieSetPhase = (name, phase) => { movieSyncPhases.set(name, phase); updateMovieSafetyUi(); };
+function updateMovieSafetyUi() {
+  const panel = document.getElementById('movies-data-safety');
+  if (!panel) return;
+  const recoveries = movieSafetyStore?.listRecoveries({ includeResolved: true }) || [];
+  const choices = document.getElementById('movies-recovery-choice');
+  const previous = choices.value;
+  choices.replaceChildren(...recoveries.map((r) => {
+    const option = document.createElement('option');
+    option.value = r.id;
+    const label = r.owner === null ? 'Earlier device copy (owner unknown)' : r.owner === 'anonymous' ? 'Signed-out copy' : 'Saved account copy';
+    const created = Date.parse(r.createdAt);
+    option.textContent = `${r.memoryOnly ? 'Session only — download before leaving: ' : ''}${r.resolved ? 'Previously reviewed: ' : ''}${label} (${Number.isFinite(created) ? new Date(created).toLocaleString() : 'earlier'})`;
+    return option;
+  }));
+  if ([...choices.options].some((option) => option.value === previous)) choices.value = previous;
+  const unsynced = [...movieSyncPhases.values()].some((phase) => phase !== 'synced');
+  remoteSyncUnavailable = Boolean(currentUser && (unsynced || movieSyncBlocked));
+  const recoveryMessage = recoveries.some((r) => r.memoryOnly) ? 'A recovery exists only in this open session. Download it before reloading or closing this tab.' : recoveries.length ? 'Previous device copies are available. Review before adding entries, or download and dismiss copies you no longer need.' : '';
+  const currentMessage = movieSafetyMessage || (remoteSyncUnavailable ? 'Account sync is pending. Your current device copy is retained; retry or use the account copy after reviewing a backup.' : recoveryMessage);
+  document.getElementById('movies-data-safety-message').textContent = [movieDepartureWarning, currentMessage].filter(Boolean).join(' ');
+  document.getElementById('movies-recovery-controls').hidden = !choices.options.length;
+  document.getElementById('movies-sync-retry').hidden = !currentUser || !remoteSyncUnavailable || movieLocalConflict;
+  document.getElementById('movies-use-account').hidden = !currentUser || !remoteSyncUnavailable || movieLocalConflict;
+  document.getElementById('movies-reload-tab').hidden = !movieLocalConflict;
+  document.getElementById('movies-recovery-add').disabled = !movieRecoveryPreviewId || movieRecoveryPreviewId !== choices.value || movieSyncBlocked || remoteSyncUnavailable;
+  panel.hidden = !recoveryMessage && !movieSafetyMessage && !movieDepartureWarning && !remoteSyncUnavailable;
+  updateStatus();
+}
+function movieStorage() { try { return storageEnabled ? localStorage : null; } catch (_) { return null; } }
+async function activateMovieSafety(owner) {
+  if (!movieSafetyStore) {
+    const storage = movieStorage();
+    const legacyKeys = [STORAGE_KEY, QUEUE_STORAGE_KEY, PACK_PROGRESS_STORAGE_KEY];
+    if (storage) for (let i = 0; i < storage.length; i += 1) {
+      const key = storage.key(i);
+      for (const base of [QUEUE_STORAGE_KEY, PACK_PROGRESS_STORAGE_KEY]) {
+        if (key?.startsWith(`${base}:user:`)) legacyKeys.push({ key, owner: key.slice(base.length + 1), rawKey: base });
+      }
+    }
+    movieSafetyStore = createDataSafetyStore({ storage, key: MOVIE_SAFETY_KEY, legacyKeys,
+      onConflict: () => { invalidateMovieTransientState(); movieLocalConflict = true; movieSyncBlocked = true; movieSafetyMessage = 'Another tab changed this list. Your unsaved copy is retained for recovery. Download it before reloading this tab.'; updateMovieSafetyUi(); },
+      onError: () => { setLocalPersistenceAvailability(false, 'safety'); movieSyncBlocked = true; movieSafetyMessage = 'Could not persist your device copy. Download a backup before leaving.'; updateMovieSafetyUi(); },
+    });
+  }
+  const activated = await movieSafetyStore.activate(owner);
+  if (!activated.ok) { movieSyncBlocked = true; movieSafetyMessage = activated.error?.message || "Saved data is unavailable. Download a backup before editing."; return; }
+  movieSafetyOwner = owner;
+  movieSyncBlocked = false;
+  movieLocalConflict = false;
+  if (activated.warning) movieDepartureWarning = 'Changes could not be saved during an earlier account switch. Keep this tab open until you have returned to that account and downloaded or dismissed its session-only recovery.';
+  movieSafetyMessage = '';
+  movieRecoveryPreviewId = null;
+  movieReadReady.clear();
+  movieSyncPhases.clear();
+  moviePackSurfaces.clear();
+  movieCorruptKeys.clear();
+  if (owner?.startsWith('user:')) for (const name of ['ranking', 'watch', 'notInterested', 'packs']) movieSyncPhases.set(name, 'pending');
+  updateMovieSafetyUi();
+}
+async function flushMovieDevice() {
+  const token = movieSafetyToken();
+  if (!movieSafetyStore || movieSafetyOwner !== movieOwner()) return false;
+  const result = await movieSafetyStore.flush();
+  if (!currentMovieSafetyToken(token) || !result.ok) return false;
+  setLocalPersistenceAvailability(true, 'safety');
+  updateMovieSafetyUi();
+  return true;
+}
+function markMovieSurfaceDirty(name) {
+  try { movieSafetyStore?.markDirty(name); } catch (error) { movieSyncBlocked = true; movieSafetyMessage = error.message; updateMovieSafetyUi(); return; }
+  if (currentUser) movieSetPhase(name, 'pending');
+}
+function queueMovieSync() {
+  const token = movieSafetyToken();
+  // Device durability must never wait for a network request. The store has its
+  // own short local transaction queue; only remote reconciliation is serialized
+  // below. A reload during a hung write therefore retains subsequent edits.
+  const localSave = flushMovieDevice();
+  const run = async () => {
+    if (!currentMovieSafetyToken(token) || !(await localSave)) return false;
+    if (!currentUser || !supabaseEnabled || !supabase) return true;
+    if (movieSyncBlocked) return false;
+    for (const name of movieSurfaceNames()) {
+      if (!currentMovieSafetyToken(token) || movieSyncBlocked) return false;
+      // A newer edit may have staged while an earlier network operation ran.
+      // Validate and persist that exact current state under the local lock
+      // before taking the immutable per-surface request snapshot below.
+      if (!(await flushMovieDevice()) || !currentMovieSafetyToken(token) || movieSyncBlocked) return false;
+      const baseline = movieSafetyStore.getRemote(name);
+      if (!baseline.dirty) continue;
+      if (!baseline.known || !movieReadReady.has(name)) { movieSetPhase(name, 'pending'); continue; }
+      const spec = movieSurfaceSpec(name);
+      const limit = spec.field === 'state' ? REMOTE_PACK_PROGRESS_STATE_LIMIT_BYTES : REMOTE_LIST_PAYLOAD_LIMIT_BYTES;
+      if (!canSyncJsonPayload(spec.field === 'state' ? 'Pack progress' : 'Movies', spec.value, limit)) { movieSetPhase(name, 'error'); continue; }
+      const stamp = new Date(Math.max(Date.now(), (Date.parse(baseline.updatedAt) || 0) + 1)).toISOString();
+      movieSetPhase(name, 'pending');
+      const result = await compareAndSwapRow({ client: supabase, table: spec.table, identity: spec.identity, baseline,
+        values: { [spec.field]: spec.value, updated_at: stamp }, timeoutMs: 10000 });
+      if (!currentMovieSafetyToken(token)) return false;
+      if (result.status === 'synced') {
+        movieSafetyStore.acknowledge(name, { revision: baseline.revision, baseline: { known: true, exists: true, updatedAt: result.row?.updated_at || stamp } });
+        movieSetPhase(name, movieSafetyStore.getRemote(name).dirty ? 'pending' : 'synced');
+      } else {
+        movieSetPhase(name, result.status === 'conflict' ? 'conflict' : 'error');
+        if (result.status === 'conflict') {
+          movieSyncBlocked = true;
+          await movieSafetyStore.preserve('Account changed before this device saved');
+          if (!currentMovieSafetyToken(token)) return false;
+          movieSafetyMessage = 'The account copy changed on another device. Your changes are retained here. Download a backup, then use the account copy or retry to review the conflict.';
+        }
+      }
+      if (!(await flushMovieDevice())) return false;
+    }
+    updateMovieSafetyUi();
+    return ![...movieSyncPhases.values()].some((phase) => phase !== 'synced');
+  };
+  movieWriteChain = movieWriteChain.catch(() => false).then(() => movieOperation(run)).catch((error) => {
+    console.warn('Could not save Movies account state', error);
+    if (currentMovieSafetyToken(token)) { movieSetPhase('ranking', 'error'); }
+    return false;
+  });
+  return movieWriteChain;
+}
+async function reconcileMovieSurface(name, row, token) {
+  if (!currentMovieSafetyToken(token)) return false;
+  const baseline = movieSafetyStore.getRemote(name);
+  const spec = movieSurfaceSpec(name);
+  if (row && ((spec.field === 'movies' && !validRemoteMovies(row.movies)) ||
+      (spec.field === 'state' && (!row.state || typeof row.state !== 'object' || Array.isArray(row.state))) || !Number.isFinite(Date.parse(row.updated_at)))) {
+    movieSetPhase(name, 'error');
+    movieSafetyMessage = 'An account row could not be read safely. Its contents have not been replaced. Your device copy remains available.';
+    updateMovieSafetyUi();
+    return false;
+  }
+  const remoteValue = row?.[spec.field] ?? (spec.field === 'movies' ? [] : {});
+  const decision = planReconciliation({ baseline, dirty: baseline.dirty, localValue: spec.value, remoteValue, remoteVersion: row?.updated_at || null, remoteExists: Boolean(row) });
+  if (decision === 'conflict') {
+    movieSyncBlocked = true;
+    movieSetPhase(name, 'conflict');
+    await movieSafetyStore.preserve('Device edits differ from the account copy');
+    if (!currentMovieSafetyToken(token)) return false;
+    movieSafetyMessage = 'This device and your account both changed. Your device copy is retained. Download it before choosing Use account copy; you can then review and add its entries.';
+    updateMovieSafetyUi();
+    return false;
+  }
+  if (decision === 'adopt-remote') {
+    if (name === 'ranking') { ranking = [...remoteValue]; rankingUpdatedAt = row?.updated_at || null; saveLocalPayload(ranking, rankingUpdatedAt); }
+    else if (name === 'watch' || name === 'notInterested') {
+      if (name === 'watch') watchList = [...remoteValue]; else notInterestedList = [...remoteValue];
+      saveLocalQueuePayload(row?.updated_at || null);
+    } else {
+      const slug = name.slice(5);
+      if (row && Object.keys(remoteValue).length) packProgress[slug] = normalizePackProgressEntry(remoteValue, row.updated_at);
+      else delete packProgress[slug];
+      saveLocalPackProgressPayload();
+    }
+  }
+  movieReadReady.add(name);
+  movieSafetyStore.setRemote(name, { ...baseline, known: true, exists: Boolean(row), updatedAt: row?.updated_at || null, dirty: decision === 'write-local' });
+  movieSetPhase(name, decision === 'write-local' ? 'pending' : 'synced');
+  return true;
+}
+async function readMovieRows(table, columns, token) {
+  const controller = new AbortController();
+  movieReadControllers.add(controller);
+  const timer = window.setTimeout(() => controller.abort(), 10000);
+  try {
+    const request = supabase.from(table).select(columns).eq('list_id', token.owner).abortSignal(controller.signal);
+    const result = await request;
+    if (!currentMovieSafetyToken(token)) return null;
+    if (result.error || !Array.isArray(result.data)) throw result.error || new Error('Unreadable account response');
+    return result.data;
+  } catch (error) {
+    if (currentMovieSafetyToken(token)) console.warn(`Could not read ${table}`, error);
+    return null;
+  } finally { window.clearTimeout(timer); movieReadControllers.delete(controller); }
+}
+
 const getLocalPayload = () => {
   if (!storageEnabled) {
     setLocalPersistenceAvailability(false, "ranking");
     return { movies: [], updated_at: null };
   }
   try {
-    const payload = parseRankingPayload(localStorage.getItem(STORAGE_KEY));
+    const payload = parseRankingPayload(validateMovieRaw(STORAGE_KEY));
     setLocalPersistenceAvailability(true, "ranking");
     return payload;
   } catch (_error) {
@@ -2733,7 +2989,7 @@ const saveLocalPayload = (movies, updatedAt) => {
     return false;
   }
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ movies, updated_at: updatedAt }));
+    movieStage(STORAGE_KEY, { movies, updated_at: updatedAt });
     setLocalPersistenceAvailability(true, "ranking");
     return true;
   } catch (error) {
@@ -2743,7 +2999,7 @@ const saveLocalPayload = (movies, updatedAt) => {
 };
 
 const getQueueStorageKeys = () => {
-  return userScopedStorageCandidates(QUEUE_STORAGE_KEY, currentUser?.id);
+  return [QUEUE_STORAGE_KEY];
 };
 
 const getQueuePayload = (key) => {
@@ -2752,7 +3008,7 @@ const getQueuePayload = (key) => {
     return { watchList: [], notInterestedList: [], updated_at: null };
   }
   try {
-    const payload = parseQueuePayload(localStorage.getItem(key));
+    const payload = parseQueuePayload(validateMovieRaw(key));
     setLocalPersistenceAvailability(true, "queues");
     return payload;
   } catch (_error) {
@@ -2768,14 +3024,8 @@ const saveLocalQueuePayload = (updatedAt) => {
   }
   const [primaryKey] = getQueueStorageKeys();
   try {
-    localStorage.setItem(
-      primaryKey,
-      JSON.stringify({
-        watchList,
-        notInterestedList,
-        updated_at: updatedAt,
-      }),
-    );
+    const durable = durableLists();
+    movieStage(primaryKey, { watchList: durable.watchList, notInterestedList: durable.notInterestedList, updated_at: updatedAt });
     setLocalPersistenceAvailability(true, "queues");
     return true;
   } catch (error) {
@@ -2812,45 +3062,15 @@ const warnRemotePayloadTooLarge = (label, byteLength, limitBytes) => {
 };
 
 const canSyncJsonPayload = (label, value, limitBytes) => {
-  if (isJsonPayloadWithinByteLimit(value, limitBytes)) return true;
-  warnRemotePayloadTooLarge(label, jsonByteLength(value), limitBytes);
+  if (isRemoteJsonPayloadWithinByteLimit(value, limitBytes)) return true;
+  warnRemotePayloadTooLarge(label, postgresJsonByteLength(value), limitBytes);
   return false;
 };
 
 const saveSuggestionQueues = async () => {
-  const updatedAt = new Date().toISOString();
-  saveLocalQueuePayload(updatedAt);
-
-  const listId = getListId();
-  if (supabaseEnabled && supabase && listId) {
-    if (
-      !canSyncJsonPayload("Watch next", watchList, REMOTE_LIST_PAYLOAD_LIMIT_BYTES) ||
-      !canSyncJsonPayload("Not for me", notInterestedList, REMOTE_LIST_PAYLOAD_LIMIT_BYTES)
-    ) {
-      return;
-    }
-
-    await runSupabaseRequest(
-      supabase.from("movie_lists").upsert(
-        [
-          {
-            list_id: listId,
-            list_type: WATCH_LIST_TYPE,
-            movies: watchList,
-            updated_at: updatedAt,
-          },
-          {
-            list_id: listId,
-            list_type: NOT_INTERESTED_LIST_TYPE,
-            movies: notInterestedList,
-            updated_at: updatedAt,
-          },
-        ],
-        { onConflict: "list_id,list_type" },
-      ),
-      "Could not sync suggestion queues",
-    );
-  }
+  saveLocalQueuePayload(new Date().toISOString());
+  markMovieSurfaceDirty('watch'); markMovieSurfaceDirty('notInterested');
+  return queueMovieSync();
 };
 
 const removeMovieFromList = (list, movie) => {
@@ -2858,43 +3078,25 @@ const removeMovieFromList = (list, movie) => {
   return list.filter((item) => movieKey(item) !== key);
 };
 
-const loadSuggestionQueues = async () => {
-  const payloads = storageEnabled ? getQueueStorageKeys().map(getQueuePayload) : [];
-  const listId = getListId();
+const loadSuggestionQueuesRead = async () => {
+  movieReadReady.delete('watch'); movieReadReady.delete('notInterested');
+  const local = getQueuePayload(QUEUE_STORAGE_KEY);
+  watchList = local.watchList; notInterestedList = local.notInterestedList;
+  const token = movieSafetyToken();
+  if (currentUser && supabaseEnabled && supabase) {
+    const rows = await readMovieRows('movie_lists', 'list_type,movies,updated_at', token);
+    if (!currentMovieSafetyToken(token)) return;
+    if (rows === null) { movieSetPhase('watch', 'error'); movieSetPhase('notInterested', 'error'); return; }
+    await reconcileMovieSurface('watch', rows.find((r) => r.list_type === WATCH_LIST_TYPE) || null, token);
+    await reconcileMovieSurface('notInterested', rows.find((r) => r.list_type === NOT_INTERESTED_LIST_TYPE) || null, token);
+    await flushMovieDevice();
 
-  if (supabaseEnabled && supabase && listId) {
-    const { data, error } = await runSupabaseRequest(
-      supabase
-        .from("movie_lists")
-        .select("list_type, movies, updated_at")
-        .eq("list_id", listId)
-        .in("list_type", [WATCH_LIST_TYPE, NOT_INTERESTED_LIST_TYPE]),
-      "Could not load synced suggestion queues",
-    );
-    if (!error && Array.isArray(data)) {
-      const watchRow = data.find((row) => row.list_type === WATCH_LIST_TYPE);
-      const notInterestedRow = data.find((row) => row.list_type === NOT_INTERESTED_LIST_TYPE);
-      const updatedAts = data
-        .map((row) => row.updated_at)
-        .filter(Boolean)
-        .sort();
-      payloads.unshift({
-        watchList: Array.isArray(watchRow?.movies) ? watchRow.movies : [],
-        notInterestedList: Array.isArray(notInterestedRow?.movies) ? notInterestedRow.movies : [],
-        updated_at: updatedAts[updatedAts.length - 1] || null,
-      });
-    }
   }
-
-  const merged = mergeQueuePayloads(payloads);
-  watchList = merged.watchList;
-  notInterestedList = merged.notInterestedList;
-  normalizeSuggestionQueues();
-  await saveSuggestionQueues();
 };
+const loadSuggestionQueues = async () => { const token = movieSafetyToken(); await movieOperation(() => currentMovieSafetyToken(token) ? loadSuggestionQueuesRead() : undefined); if (currentMovieSafetyToken(token)) await queueMovieSync(); };
 
 const getPackProgressStorageKeys = () => {
-  return userScopedStorageCandidates(PACK_PROGRESS_STORAGE_KEY, currentUser?.id);
+  return [PACK_PROGRESS_STORAGE_KEY];
 };
 
 const getPackProgressPayload = (key) => {
@@ -2903,7 +3105,7 @@ const getPackProgressPayload = (key) => {
     return { progress: {} };
   }
   try {
-    const raw = localStorage.getItem(key);
+    const raw = validateMovieRaw(key);
     if (!raw) {
       setLocalPersistenceAvailability(true, "packs");
       return { progress: {} };
@@ -2924,7 +3126,7 @@ const saveLocalPackProgressPayload = () => {
   }
   const [primaryKey] = getPackProgressStorageKeys();
   try {
-    localStorage.setItem(primaryKey, JSON.stringify({ progress: packProgress }));
+    movieStage(primaryKey, { progress: packProgress });
     setLocalPersistenceAvailability(true, "packs");
     return true;
   } catch (error) {
@@ -2936,100 +3138,46 @@ const saveLocalPackProgressPayload = () => {
 const savePackProgress = async (slug) => {
   const entry = packProgress[slug];
   if (!entry) return;
-  const updatedAt = new Date().toISOString();
-  packProgress = {
-    ...packProgress,
-    [slug]: { ...normalizePackProgressEntry(entry), updated_at: updatedAt },
-  };
+  packProgress = { ...packProgress, [slug]: { ...normalizePackProgressEntry(entry), updated_at: new Date().toISOString() } };
   saveLocalPackProgressPayload();
-
-  const listId = getListId();
-  if (supabaseEnabled && supabase && listId) {
-    const state = stripPackProgressMetadata(packProgress[slug]);
-    if (!canSyncJsonPayload("Pack progress", state, REMOTE_PACK_PROGRESS_STATE_LIMIT_BYTES)) {
-      return;
-    }
-
-    await runSupabaseRequest(
-      supabase.from("pack_progress").upsert(
-        {
-          list_id: listId,
-          pack_slug: slug,
-          state,
-          updated_at: updatedAt,
-        },
-        { onConflict: "list_id,pack_slug" },
-      ),
-      "Could not sync pack progress",
-    );
+  if (suggestionPacks.some((pack) => pack.slug === slug)) {
+    moviePackSurfaces.add(`pack:${slug}`); markMovieSurfaceDirty(`pack:${slug}`);
   }
+  return queueMovieSync();
 };
 
 const savePackProgressSnapshot = async () => {
   saveLocalPackProgressPayload();
-  const listId = getListId();
-  if (!supabaseEnabled || !supabase || !listId) return;
-
-  const knownSlugs = new Set(suggestionPacks.map((pack) => pack.slug));
-  const rows = Object.entries(packProgress)
-    .filter(([slug]) => knownSlugs.has(slug))
-    .map(([slug, entry]) => ({
-      list_id: listId,
-      pack_slug: slug,
-      state: stripPackProgressMetadata(entry),
-      updated_at: entry.updated_at || new Date().toISOString(),
-    }));
-  const oversizedRow = rows.find(
-    ({ state }) => !isJsonPayloadWithinByteLimit(state, REMOTE_PACK_PROGRESS_STATE_LIMIT_BYTES),
-  );
-  if (oversizedRow) {
-    warnRemotePayloadTooLarge(
-      "Pack progress",
-      jsonByteLength(oversizedRow.state),
-      REMOTE_PACK_PROGRESS_STATE_LIMIT_BYTES,
-    );
-    return;
+  const known = new Set(suggestionPacks.map((pack) => pack.slug));
+  for (const slug of Object.keys(packProgress)) if (known.has(slug)) moviePackSurfaces.add(`pack:${slug}`);
+  // An empty state replaces removed progress under the same CAS as an update.
+  // Never delete the account snapshot before replacement writes have succeeded.
+  for (const name of moviePackSurfaces) {
+    if (packProgress[name.slice(5)] || movieSafetyStore.getRemote(name).exists) markMovieSurfaceDirty(name);
   }
-
-  const { error: deleteError } = await runSupabaseRequest(
-    supabase.from("pack_progress").delete().eq("list_id", listId),
-    "Could not replace synced pack progress",
-  );
-  if (deleteError) {
-    return;
-  }
-
-  if (!rows.length) return;
-  await runSupabaseRequest(
-    supabase.from("pack_progress").upsert(rows, { onConflict: "list_id,pack_slug" }),
-    "Could not restore synced pack progress",
-  );
+  return queueMovieSync();
 };
 
-const loadPackProgress = async () => {
-  const payloads = storageEnabled ? getPackProgressStorageKeys().map(getPackProgressPayload) : [];
-  const listId = getListId();
-
-  if (supabaseEnabled && supabase && listId) {
-    const { data, error } = await runSupabaseRequest(
-      supabase
-        .from("pack_progress")
-        .select("pack_slug, state, updated_at")
-        .eq("list_id", listId),
-      "Could not load pack progress",
-    );
-    if (!error && Array.isArray(data)) {
-      const progress = {};
-      data.forEach((row) => {
-        progress[row.pack_slug] = normalizePackProgressEntry(row.state || {}, row.updated_at);
-      });
-      payloads.unshift({ progress });
+const loadPackProgressRead = async () => {
+  for (const name of moviePackSurfaces) movieReadReady.delete(name);
+  packProgress = getPackProgressPayload(PACK_PROGRESS_STORAGE_KEY).progress;
+  const token = movieSafetyToken();
+  if (currentUser && supabaseEnabled && supabase) {
+    const rows = await readMovieRows('pack_progress', 'pack_slug,state,updated_at', token);
+    if (!currentMovieSafetyToken(token)) return;
+    if (rows === null) { movieSetPhase('packs', 'error'); return; }
+    const known = new Set(suggestionPacks.map((pack) => pack.slug));
+    const slugs = new Set([...rows.map((r) => r.pack_slug), ...Object.keys(packProgress).filter((slug) => known.has(slug)), ...suggestionPacks.map((pack) => pack.slug)]);
+    for (const slug of slugs) {
+      const name = `pack:${slug}`; moviePackSurfaces.add(name);
+      await reconcileMovieSurface(name, rows.find((r) => r.pack_slug === slug) || null, token);
+      if (!currentMovieSafetyToken(token)) return;
     }
+    movieSetPhase('packs', 'synced');
+    await flushMovieDevice();
   }
-
-  packProgress = mergePackProgressPayloads(payloads);
-  saveLocalPackProgressPayload();
 };
+const loadPackProgress = async () => { const token = movieSafetyToken(); await movieOperation(() => currentMovieSafetyToken(token) ? loadPackProgressRead() : undefined); if (currentMovieSafetyToken(token)) await queueMovieSync(); };
 
 const normalizePackMovie = (movie) => ({
   title: movie.title,
@@ -3126,66 +3274,25 @@ const showMergedPlacementNotice = (appendedMovies = []) => {
 };
 
 const saveRanking = async () => {
-  const listId = getListId();
-  const updatedAt = new Date().toISOString();
-  rankingUpdatedAt = updatedAt;
-  // Keep the local snapshot current even when the remote write succeeds.
-  // Exact replacement flows (clear/import/restore) must not leave an older
-  // local list behind for merge-on-load to resurrect.
-  saveLocalPayload(ranking, updatedAt);
-  if (supabaseEnabled && supabase && listId) {
-    if (!canSyncJsonPayload("Ranking", ranking, REMOTE_LIST_PAYLOAD_LIMIT_BYTES)) {
-      return;
-    }
-
-    const payload = {
-      list_id: listId,
-      movies: ranking,
-      updated_at: updatedAt,
-    };
-    await runSupabaseRequest(
-      supabase.from("rankings").upsert(payload, { onConflict: "list_id" }),
-      "Could not sync ranking",
-    );
-  }
+  rankingUpdatedAt = new Date().toISOString();
+  saveLocalPayload(durableLists().ranking, rankingUpdatedAt);
+  markMovieSurfaceDirty('ranking');
+  return queueMovieSync();
 };
 
-const loadRanking = async () => {
-  const listId = getListId();
-  if (supabaseEnabled && supabase && listId) {
-    const { data, error } = await runSupabaseRequest(
-      supabase
-        .from("rankings")
-        .select("movies, updated_at")
-        .eq("list_id", listId)
-        .maybeSingle(),
-      "Could not load synced ranking",
-    );
-    if (!error && data && Array.isArray(data.movies)) {
-      const local = getLocalPayload();
-      const merged = mergeRankingPayloadsWithMetadata([
-        { movies: data.movies, updated_at: data.updated_at || null },
-        local,
-      ]);
-      ranking = merged.movies;
-      rankingUpdatedAt = merged.updated_at;
-      await saveRanking();
-      showMergedPlacementNotice(merged.appendedMovies);
-      return;
-    }
-  }
-
-  if (!storageEnabled) return;
-  try {
-    const local = getLocalPayload();
-    if (Array.isArray(local.movies)) {
-      ranking = local.movies;
-      rankingUpdatedAt = local.updated_at || null;
-    }
-  } catch (error) {
-    // Ignore corrupt storage and continue with an empty list.
+const loadRankingRead = async () => {
+  movieReadReady.delete('ranking');
+  const local = getLocalPayload(); ranking = local.movies; rankingUpdatedAt = local.updated_at;
+  const token = movieSafetyToken();
+  if (currentUser && supabaseEnabled && supabase) {
+    const rows = await readMovieRows('rankings', 'movies,updated_at', token);
+    if (!currentMovieSafetyToken(token)) return;
+    if (rows === null || rows.length > 1) { movieSetPhase('ranking', 'error'); return; }
+    await reconcileMovieSurface('ranking', rows[0] || null, token);
+    await flushMovieDevice();
   }
 };
+const loadRanking = async () => { const token = movieSafetyToken(); await movieOperation(() => currentMovieSafetyToken(token) ? loadRankingRead() : undefined); if (currentMovieSafetyToken(token)) await queueMovieSync(); };
 
 const setComparisonMode = (active) => {
   document.body.classList.toggle("is-comparing", active);
@@ -3314,6 +3421,7 @@ const startComparison = () => {
     pendingOrigin = null;
     pendingTelemetry = null;
     saveRanking();
+    persistSuggestionQueues();
     setComparisonMode(false);
     compareSection.classList.add("panel--hidden");
     form.reset();
@@ -3446,6 +3554,7 @@ const handleDecision = (isNewBetter, midIndex) => {
     pendingTelemetry = null;
     searchRange = null;
     saveRanking();
+    persistSuggestionQueues();
     setComparisonMode(false);
     compareSection.classList.add("panel--hidden");
     form.reset();
@@ -3800,6 +3909,7 @@ const setStoredShareOptions = (options) => {
 };
 
 const applyExactDataSnapshot = async (snapshot) => {
+  const ownerToken = movieSafetyToken();
   ranking = snapshot.ranking.map((movie) => ({ ...movie }));
   watchList = snapshot.watchList.map((movie) => ({ ...movie }));
   notInterestedList = snapshot.notInterestedList.map((movie) => ({ ...movie }));
@@ -3817,17 +3927,20 @@ const applyExactDataSnapshot = async (snapshot) => {
   compareSection.classList.add("panel--hidden");
   form.reset();
 
-  await Promise.all([
+  const saveResults = await Promise.all([
     saveRanking(),
     saveSuggestionQueues(),
     savePackProgressSnapshot(),
   ]);
+  if (!currentMovieSafetyToken(ownerToken)) return { localSaved: false, accountSynced: false };
+  const localSaved = !localPersistenceUnavailable && !movieLocalConflict;
   renderRanking();
   renderSuggestionQueues();
   renderPackSurfaces();
   updateSuggestions();
   updateDebugPanel();
   titleInput.blur();
+  return { localSaved, accountSynced: saveResults.every(Boolean) && !remoteSyncUnavailable };
 };
 
 const downloadStackRankBackup = () => {
@@ -3934,27 +4047,31 @@ function scheduleSignedOutBackupNudge({ delay = 1200 } = {}) {
 }
 
 const restoreStackRankBackup = async (file) => {
+  const ownerToken = movieSafetyToken();
   backupStatus.textContent = "Reading backup…";
   try {
     const restored = parseStackRankBackup(await file.text());
+    if (!currentMovieSafetyToken(ownerToken) || !movieCanEdit()) return;
     const summary = [
       `${restored.ranking.length} ranked`,
       `${restored.watchList.length} saved`,
       `${restored.notInterestedList.length} hidden`,
     ].join(", ");
     const confirmed = window.confirm(
-      `Restore this StackRank backup (${summary})?\n\nThis replaces your current ranking, queues, pack progress, and Share Studio settings.`,
+      `Restore this StackRank backup (${summary})?\n\nThis replaces your current ranking, queues, pack progress, and Share Studio settings.${restored.warnings?.length ? "\n\n" + restored.warnings.join("\n") : ""}`,
     );
     if (!confirmed) {
       backupStatus.textContent = "Restore canceled.";
       return;
     }
     const beforeRestore = snapshotAllData();
-    await applyExactDataSnapshot(restored);
+    const result = await applyExactDataSnapshot(restored);
+    if (!currentMovieSafetyToken(ownerToken)) return;
+    if (!result?.localSaved) { backupStatus.textContent = "Restore could not be saved. Keep the original backup and resolve the saved-data warning before retrying."; return; }
     closeRankingSettings({ restoreFocus: false });
     backupStatus.textContent = "";
     setUndoableFeedback(
-      `Backup restored: ${restored.ranking.length} ranked movie${restored.ranking.length === 1 ? "" : "s"}.`,
+      `Backup restored on this device: ${restored.ranking.length} ranked movie${restored.ranking.length === 1 ? "" : "s"}.${currentUser && remoteSyncUnavailable ? " Account sync is pending; check the saved-data notice." : ""}`,
       () => {
         void applyExactDataSnapshot(beforeRestore).then(() => {
           setAddFeedback("Backup restore undone.", 2200);
@@ -4376,6 +4493,8 @@ const beginTitleImportMatching = async () => {
 };
 
 const applyTitleImport = async () => {
+  if (!movieCanEdit()) return;
+  const ownerToken = movieSafetyToken();
   updateTitleImportApplyState();
   if (titleImportApply.disabled) return;
   const importedRanking = buildImportedRanking(titleImportRows);
@@ -4393,6 +4512,7 @@ const applyTitleImport = async () => {
   titleImportApply.disabled = true;
   titleImportApply.textContent = "Importing…";
   await Promise.all([saveRanking(), saveSuggestionQueues()]);
+  if (!currentMovieSafetyToken(ownerToken)) return;
   setComparisonMode(false);
   compareSection.classList.add("panel--hidden");
   form.reset();
@@ -4404,7 +4524,7 @@ const applyTitleImport = async () => {
   titleInput.blur();
   closeTitleImport({ restoreFocus: false, reset: true });
   setUndoableFeedback(
-    `Imported ${ranking.length} ranked movie${ranking.length === 1 ? "" : "s"}.`,
+    `Imported ${ranking.length} ranked movie${ranking.length === 1 ? "" : "s"} on this device.${currentUser && remoteSyncUnavailable ? " Account sync is pending." : ""}`,
     () => restoreListsTo(beforeImport),
     7000,
   );
@@ -4843,7 +4963,6 @@ const beginRankingRestack = (index, { fromFullscreen = false } = {}) => {
   pendingOrigin = { type: "ranking", movie: { ...movie }, index };
   pending = { ...movie, comparisons: 0 };
   if (fromFullscreen) closeFullscreenRanking({ restoreFocus: false });
-  saveRanking();
   renderRanking();
   startComparison();
   return true;
@@ -5262,6 +5381,7 @@ const setLocalPersistenceAvailability = (available, surface = "browser") => {
 };
 
 const setRemoteSyncAvailability = (available) => {
+  if (movieSafetyStore) return;
   const nextUnavailable = !available;
   if (remoteSyncUnavailable === nextUnavailable) return;
   remoteSyncUnavailable = nextUnavailable;
@@ -5275,7 +5395,7 @@ const updateStatus = () => {
   }
 
   if (currentUser && remoteSyncUnavailable) {
-    apiStatus.textContent = "Sync is temporarily unavailable. Changes are saved on this device.";
+    apiStatus.textContent = "Account sync is pending. Check the saved-data notice below; download a backup before leaving if browser storage is unavailable.";
     return;
   }
 
@@ -5384,7 +5504,9 @@ const UNDO_TOAST_MS = 5000;
 
 // Show a toast whose "Undo" button reverses the action via `restore`.
 const setUndoableFeedback = (message, restore, duration = UNDO_TOAST_MS, extraActions = []) => {
-  const token = undoController.set({ label: message, restore, ttlMs: duration });
+  const ownerToken = movieSafetyToken();
+  const restoreForOwner = () => { if (currentMovieSafetyToken(ownerToken) && movieCanEdit()) restore(); };
+  const token = undoController.set({ label: message, restore: restoreForOwner, ttlMs: duration });
   setAddFeedback(message, duration, [
     {
       label: "Undo",
@@ -8767,6 +8889,7 @@ const sharedSnapshotPayload = () =>
   });
 
 const loadShareLinkState = async ({ force = false } = {}) => {
+  const ownerToken = movieSafetyToken();
   if (!currentUser || !supabaseEnabled || !supabase) {
     resetShareLinkState();
     updateShareLinkUi();
@@ -8792,6 +8915,7 @@ const loadShareLinkState = async ({ force = false } = {}) => {
     "Could not load shared list link",
     { affectsSync: false },
   );
+  if (!currentMovieSafetyToken(ownerToken)) return;
   if (!error && data?.slug) {
     shareLinkState = {
       loaded: true,
@@ -8809,8 +8933,10 @@ const loadShareLinkState = async ({ force = false } = {}) => {
 };
 
 const publishNewShareLink = async ({ listId, payload, updatedAt }) => {
+  const ownerToken = movieSafetyToken();
   let lastError = null;
   for (let attempt = 0; attempt < 4; attempt += 1) {
+    if (!currentMovieSafetyToken(ownerToken)) return { error: new Error('Account changed.') };
     const slug = generateShareSlug();
     const { data, error } = await runSupabaseRequest(
       supabase
@@ -8827,6 +8953,7 @@ const publishNewShareLink = async ({ listId, payload, updatedAt }) => {
       "Could not publish shared list link",
       { affectsSync: false },
     );
+    if (!currentMovieSafetyToken(ownerToken)) return { error: new Error('Account changed.') };
     if (!error && data?.slug) return { data, error: null };
     lastError = error;
     if (!String(error?.code || error?.message || "").includes("23505")) break;
@@ -8835,6 +8962,7 @@ const publishNewShareLink = async ({ listId, payload, updatedAt }) => {
 };
 
 const upsertShareLinkSnapshot = async ({ updateExisting = false } = {}) => {
+  const ownerToken = movieSafetyToken();
   if (!currentUser || !supabaseEnabled || !supabase) {
     openSignIn({ trigger: shareLinkSignIn || shareButton });
     return;
@@ -8843,7 +8971,7 @@ const upsertShareLinkSnapshot = async ({ updateExisting = false } = {}) => {
   if (!listId || !ranking.length) return;
   const payload = sharedSnapshotPayload();
   if (!payload.movies.length) return;
-  if (!isJsonPayloadWithinByteLimit(payload, REMOTE_LIST_PAYLOAD_LIMIT_BYTES)) {
+  if (!isRemoteJsonPayloadWithinByteLimit(payload, REMOTE_LIST_PAYLOAD_LIMIT_BYTES)) {
     const limitLabel = formatPayloadSizeLimit(REMOTE_LIST_PAYLOAD_LIMIT_BYTES);
     setShareLinkStatus(
       `This snapshot is too large to publish (${limitLabel} limit). Try sharing an image export instead.`,
@@ -8872,6 +9000,7 @@ const upsertShareLinkSnapshot = async ({ updateExisting = false } = {}) => {
     result = await publishNewShareLink({ listId, payload, updatedAt });
   }
 
+  if (!currentMovieSafetyToken(ownerToken)) return;
   if (result?.error || !result?.data?.slug) {
     shareLinkState = { ...shareLinkState, busy: false };
     setShareLinkStatus("Could not publish this link. Try again in a moment.");
@@ -8911,6 +9040,7 @@ const copyShareLink = async () => {
 };
 
 const revokeShareLink = async () => {
+  const ownerToken = movieSafetyToken();
   if (!currentUser || !supabaseEnabled || !supabase || !shareLinkState.slug) return;
   if (!window.confirm("Revoke this shared link? Visitors will no longer be able to open it.")) {
     return;
@@ -8930,6 +9060,7 @@ const revokeShareLink = async () => {
     "Could not revoke shared list link",
     { affectsSync: false },
   );
+  if (!currentMovieSafetyToken(ownerToken)) return;
   if (error || !data?.slug) {
     shareLinkState = { ...shareLinkState, busy: false };
     setShareLinkStatus("Could not revoke this link. Try again in a moment.");
@@ -10221,6 +10352,7 @@ const resolveTmdbMatch = async (movie) => {
 };
 
 const migrateRanking = async () => {
+  const ownerToken = movieSafetyToken();
   const missing = ranking.filter((movie) => !movie.tmdbId);
   migrationStats = { missing: missing.length, updated: 0, skipped: 0 };
   if (!missing.length) return;
@@ -10228,6 +10360,7 @@ const migrateRanking = async () => {
   let updated = false;
   for (const movie of missing) {
     const match = await resolveTmdbMatch(movie);
+    if (!currentMovieSafetyToken(ownerToken)) return;
     if (match && match.tmdbId) {
       movie.tmdbId = match.tmdbId;
       if (!movie.posterPath) movie.posterPath = match.posterPath;
@@ -10402,91 +10535,205 @@ const handleOAuthSignIn = async (provider) => {
   }
 };
 
-const handleSignOut = async () => {
-  if (!supabaseEnabled || !supabase) return;
-  if (!window.confirm(SIGN_OUT_LOCAL_DATA_MESSAGE)) return;
-  authNotice = "";
-  let error = null;
+let movieActivation = Promise.resolve();
+function invalidateMovieTransientState() {
+  undoController.clear();
+  hideAddFeedback({ immediate: true });
+  pending = null; pendingOrigin = null; pendingPackContext = null;
+  pendingTelemetry = null; pendingRankingSnapshot = null; searchRange = null;
+  compareHistory = []; comparisonChoiceLocked = false;
+  reviewQueue = null; reviewPairIndex = null; reviewSnapshot = null; reviewStats = null;
+  document.body.classList.remove('is-reviewing');
+  setComparisonMode(false); compareSection.classList.add('panel--hidden');
+  closeTitleImport({ restoreFocus: false, reset: true });
+  autoPackSession = null;
+  resetShareLinkState(); closeShareStudio({ restoreFocus: false });
+  suggestionsRequestId += 1;
+  titleImportRequestId += 1;
+  shareOptions = { ...shareOptions, displayName: '' };
+  updateShareOptionControls();
+}
+function activateMovieUser(user, { locked = false } = {}) {
+  const nextOwner = locked ? null : user?.id ? `user:${user.id}` : 'anonymous';
+  if (movieSafetyOwner === nextOwner && currentUser?.id === user?.id) { currentUser = user; return movieActivation; }
+  currentUser = user;
+  movieSafetyGeneration += 1;
+  for (const controller of movieReadControllers) controller.abort();
+  const token = movieSafetyToken();
+  movieSafetyOwner = null;
+  delete document.documentElement.dataset.moviesPersistenceReady;
+  invalidateMovieTransientState();
+  ranking = []; watchList = []; notInterestedList = []; packProgress = {};
+  renderRanking(); renderSuggestionQueues(); renderPackSurfaces();
+  movieActivation = movieActivation.catch(() => undefined).then(async () => {
+    if (!currentMovieSafetyToken(token)) return;
+    await activateMovieSafety(nextOwner);
+    if (!currentMovieSafetyToken(token)) return;
+    const local = getLocalPayload(); ranking = local.movies; rankingUpdatedAt = local.updated_at;
+    const queues = getQueuePayload(QUEUE_STORAGE_KEY); watchList = queues.watchList; notInterestedList = queues.notInterestedList;
+    packProgress = getPackProgressPayload(PACK_PROGRESS_STORAGE_KEY).progress;
+    setAuthUI(); updateMovieSafetyUi();
+  });
+  return movieActivation;
+}
+async function refreshMovieAccount({ useAccount = false } = {}) {
+  if (pending || isReviewing()) { movieSafetyMessage = 'Finish or cancel the comparison before reconciling saved data.'; updateMovieSafetyUi(); return; }
+  const token = movieSafetyToken();
+  await movieWriteChain;
+  if (!currentMovieSafetyToken(token)) return;
+  if (useAccount) {
+    const saved = await movieSafetyStore.preserve('Device copy before choosing account state');
+    if (!saved.ok || !currentMovieSafetyToken(token)) return;
+    for (const name of movieSurfaceNames()) movieSafetyStore.setRemote(name, { ...movieSafetyStore.getRemote(name), dirty: false });
+    if (!(await flushMovieDevice()) || !currentMovieSafetyToken(token)) return;
+  }
+  if (!currentMovieSafetyToken(token)) return;
+  movieSyncBlocked = false; movieSafetyMessage = '';
+  await loadRanking(); if (!currentMovieSafetyToken(token)) return;
+  await loadSuggestionQueues(); if (!currentMovieSafetyToken(token)) return;
+  await loadPackProgress(); if (!currentMovieSafetyToken(token)) return;
+  renderRanking(); renderSuggestionQueues(); renderPackSurfaces(); updateMovieSafetyUi();
+}
+function selectedMovieRecovery() {
+  const id = document.getElementById('movies-recovery-choice').value;
+  return id ? movieSafetyStore.readRecovery(id) : null;
+}
+function moviesFromRecovery(entry) {
+  const raw = entry?.raw || {};
+  // The user explicitly selects and previews a recovery before any content is
+  // parsed. Queue rows from legacy account-scoped keys stay separate until now.
+  let recoveredRanking = []; let recoveredWatch = []; let recoveredHidden = []; let recoveredPacks = {};
+  for (const [key, value] of Object.entries(raw)) {
+    const parsed = JSON.parse(value); // Never silently treat corrupt recovery bytes as empty.
+    const kind = key === STORAGE_KEY ? 'ranking' : key.startsWith(QUEUE_STORAGE_KEY) ? 'queues' : key.startsWith(PACK_PROGRESS_STORAGE_KEY) ? 'packs' : null;
+    if (kind && !validMovieStoredPayload(kind, parsed)) throw new Error('This copy has unsupported entries. Download its original bytes before continuing.');
+    if (key === STORAGE_KEY) recoveredRanking = appendRecoveredMovies(recoveredRanking, parseRankingPayload(value).movies);
+    if (key === QUEUE_STORAGE_KEY || key.startsWith(`${QUEUE_STORAGE_KEY}:user:`)) {
+      const queue = parseQueuePayload(value);
+      recoveredWatch = appendRecoveredMovies(recoveredWatch, queue.watchList);
+      recoveredHidden = appendRecoveredMovies(recoveredHidden, queue.notInterestedList);
+    }
+    if (key === PACK_PROGRESS_STORAGE_KEY || key.startsWith(`${PACK_PROGRESS_STORAGE_KEY}:user:`)) recoveredPacks = { ...parsePackProgressPayload(value).progress, ...recoveredPacks };
+  }
+  if (!validRemoteMovies(recoveredRanking) || !validRemoteMovies(recoveredWatch) || !validRemoteMovies(recoveredHidden)) throw new Error('Some recovered items are unreadable. Download the original copy to retain every field.');
+  return { ranking: recoveredRanking, watchList: recoveredWatch, notInterestedList: recoveredHidden, packProgress: recoveredPacks };
+}
+document.getElementById('movies-sync-retry').addEventListener('click', () => void refreshMovieAccount());
+document.getElementById('movies-use-account').addEventListener('click', () => {
+  if (window.confirm('Use the current account copy? Your device copy will be kept in recovery for review and download.')) void refreshMovieAccount({ useAccount: true });
+});
+document.getElementById('movies-reload-tab').addEventListener('click', () => window.location.reload());
+document.getElementById('movies-recovery-choice').addEventListener('change', () => { movieRecoveryPreviewId = null; document.getElementById('movies-recovery-preview').textContent = ''; updateMovieSafetyUi(); });
+document.getElementById('movies-recovery-preview-button').addEventListener('click', () => {
   try {
-    ({ error } = await supabase.auth.signOut());
-  } catch (caughtError) {
-    error = caughtError;
-  }
-  if (error) {
-    authStatus.textContent = `Sign-out failed: ${error?.message || "Could not reach the sign-in service."}`;
-    return;
-  }
-  currentUser = null;
-  setAuthUI();
-  updateStatus();
-  ranking = [];
-  pending = null;
-  pendingOrigin = null;
-  pendingTelemetry = null;
-  searchRange = null;
-  await saveRanking();
-  setComparisonMode(false);
-  renderRanking();
-  await loadSuggestionQueues();
-  await loadPackProgress();
-  renderSuggestionQueues();
-  renderPackSurfaces();
-  updateSuggestions();
-  authStatus.textContent = "Signed out.";
-  closeRankingSettings({ restoreFocus: false });
+    const entry = selectedMovieRecovery(); if (!entry) return;
+    const recovered = moviesFromRecovery(entry);
+    document.getElementById('movies-recovery-preview').textContent = `${entry.memoryOnly ? "SESSION ONLY: download before closing or reloading. " : ""}${recovered.ranking.length} ranked, ${recovered.watchList.length} saved, ${recovered.notInterestedList.length} hidden. ${[...recovered.ranking, ...recovered.watchList, ...recovered.notInterestedList].slice(0, 30).map((m) => m.title).join(' · ')}`;
+    movieRecoveryPreviewId = entry.id;
+  } catch (error) { document.getElementById('movies-recovery-preview').textContent = error.message; }
+  updateMovieSafetyUi();
+});
+document.getElementById('movies-recovery-download').addEventListener('click', () => {
+  const entry = selectedMovieRecovery(); if (!entry) return;
+  downloadBlob(new Blob([JSON.stringify({ kind: 'stackrank-device-recovery', version: 1, category: 'movies', recovery: entry }, null, 2)], { type: 'application/json' }), 'stackrank-movies-device-recovery.json');
+});
+document.getElementById('movies-recovery-dismiss').addEventListener('click', async () => {
+  const entry = selectedMovieRecovery(); if (!entry || !window.confirm('Dismiss this saved recovery copy? Download it first if you may need it.')) return;
+  await movieSafetyStore.dismissRecovery(entry.id); movieRecoveryPreviewId = null; updateMovieSafetyUi();
+});
+document.getElementById('movies-recovery-add').addEventListener('click', async () => {
+  const token = movieSafetyToken();
+  try {
+    const entry = selectedMovieRecovery();
+    if (!entry || entry.id !== movieRecoveryPreviewId || movieSyncBlocked || remoteSyncUnavailable || pending) return;
+    if (!window.confirm('Add these reviewed entries to your current list? Existing order wins; new ranked entries go at the bottom. Only continue if this is your data.')) return;
+    const recovered = moviesFromRecovery(entry);
+    const saved = await movieSafetyStore.preserve('Before adding reviewed device entries');
+    if (!saved.ok || !currentMovieSafetyToken(token)) return;
+    ranking = appendRecoveredMovies(ranking, recovered.ranking);
+    watchList = appendRecoveredMovies(watchList, recovered.watchList);
+    notInterestedList = appendRecoveredMovies(notInterestedList, recovered.notInterestedList);
+    packProgress = { ...recovered.packProgress, ...packProgress };
+    normalizeSuggestionQueues();
+    await Promise.all([saveRanking(), saveSuggestionQueues(), savePackProgressSnapshot()]);
+    if (!currentMovieSafetyToken(token)) return;
+    movieRecoveryPreviewId = null;
+    movieSafetyMessage = 'Reviewed device entries added. The original recovery remains available to download or dismiss.';
+    renderRanking(); renderSuggestionQueues(); renderPackSurfaces(); updateMovieSafetyUi();
+  } catch (error) { movieSafetyMessage = error.message; updateMovieSafetyUi(); }
+});
+window.addEventListener('online', () => { if (currentUser && !movieSyncBlocked) void refreshMovieAccount(); });
+window.addEventListener('storage', (event) => {
+  if (event.key !== MOVIE_SAFETY_KEY || !movieSafetyStore || !movieSafetyOwner) return;
+  // A persisted revision change is checked under the same Web Lock at flush.
+  // Inform an idle reader immediately; the stale writer's attempted changes
+  // are preserved separately if it edits before reloading.
+  movieSafetyMessage = 'Another tab updated saved data. Reload this tab before editing; any attempted changes will be kept separately for recovery.';
+  updateMovieSafetyUi();
+});
+const handleSignOut = async () => {
+  if (!supabaseEnabled || !supabase || !window.confirm(SIGN_OUT_LOCAL_DATA_MESSAGE)) return;
+  const ownerToken = movieSafetyToken();
+  try {
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
+    if (!currentMovieSafetyToken(ownerToken)) return;
+    await activateMovieUser(null);
+    if (currentUser) return;
+    renderRanking(); renderSuggestionQueues(); renderPackSurfaces(); updateSuggestions();
+    authStatus.textContent = 'Signed out.';
+    closeRankingSettings({ restoreFocus: false });
+  } catch (error) { if (currentMovieSafetyToken(ownerToken)) authStatus.textContent = `Sign-out failed: ${error.message || 'Could not reach the sign-in service.'}`; }
 };
 
 const initAuth = async () => {
-  if (!supabaseEnabled || !supabase) return;
-  try {
-    const { data } = await withTimeout(
-      supabase.auth.getSession(),
-      AUTH_INIT_TIMEOUT_MS,
-      "Supabase auth initialization timed out.",
-    );
-    currentUser = data.session ? data.session.user : null;
-    authNotice = "";
-  } catch (error) {
-    currentUser = null;
-    authNotice = "Could not reach Supabase. Showing local list.";
-    console.warn("Could not initialize Supabase auth", error);
-  }
-  setAuthUI();
-  updateStatus();
-
+  if (!supabaseEnabled || !supabase) { await activateMovieUser(null); return; }
+  let bootstrapResolved = false;
+  let bootstrapEvent = null;
+  let identityResolved = false;
   supabase.auth.onAuthStateChange((event, session) => {
-    // getSession() above already resolves and renders the initial state.
-    // Supabase then emits INITIAL_SESSION when this listener is registered;
-    // reloading on that event duplicates ranking/queue reads and suggestion
-    // requests during every boot.
-    if (event === "INITIAL_SESSION") return;
-    currentUser = session ? session.user : null;
-    authNotice = "";
-    setAuthUI();
-    updateStatus();
-    loadRanking()
-      .then(loadSuggestionQueues)
-      .then(loadPackProgress)
-      .then(migrateRanking)
-      .then(() => {
-        renderRanking();
-        renderSuggestionQueues();
-        renderPackSurfaces();
-        updateDebugPanel();
-        updateSuggestions();
-      })
-      .catch((error) => {
-        authNotice = "Could not sync with Supabase. Showing local list.";
-        setAuthUI();
-        console.warn("Could not refresh synced list", error);
-      });
+    const user = session?.user || null;
+    if (!bootstrapResolved) { if (event === 'SIGNED_IN' || event === 'SIGNED_OUT') bootstrapEvent = { user }; return; }
+    if (event === 'INITIAL_SESSION' && currentUser?.id === user?.id) return;
+    identityResolved = true; authNotice = '';
+    if (currentUser?.id === user?.id && movieSafetyOwner === (user ? `user:${user.id}` : 'anonymous')) { currentUser = user; return; }
+    // Do not await Supabase work in its auth callback; invalidate synchronously,
+    // then reconcile outside the callback's auth lock.
+    const activation = activateMovieUser(user);
+    const token = movieSafetyToken();
+    void activation.then(async () => {
+      if (!currentMovieSafetyToken(token)) return;
+      await loadRanking(); if (!currentMovieSafetyToken(token)) return;
+      await loadSuggestionQueues(); if (!currentMovieSafetyToken(token)) return;
+      await loadPackProgress(); if (!currentMovieSafetyToken(token)) return;
+      renderRanking(); renderSuggestionQueues(); renderPackSurfaces(); updateSuggestions();
+      document.documentElement.dataset.moviesPersistenceReady = 'true';
+    }).catch((error) => { if (currentMovieSafetyToken(token)) { movieSafetyMessage = error.message; updateMovieSafetyUi(); } });
   });
-
-  // The header "Sign in" opens the dedicated sign-in view (OAuth + magic link).
-  authSignInButton.addEventListener("click", (event) => {
-    event.stopPropagation();
-    openSignIn({ trigger: authSignInButton });
-  });
+  let initialUser = null;
+  const initialSession = supabase.auth.getSession();
+  try {
+    const { data, error } = await withTimeout(initialSession, AUTH_INIT_TIMEOUT_MS, 'Supabase auth initialization timed out.');
+    if (error) throw error;
+    identityResolved = true;
+    initialUser = data.session?.user || null;
+    authNotice = '';
+  } catch (error) { authNotice = 'Could not identify the account. Previous account copies remain protected.'; }
+  if (bootstrapEvent) { initialUser = bootstrapEvent.user; identityResolved = true; }
+  bootstrapResolved = true;
+  await activateMovieUser(initialUser, { locked: !identityResolved });
+  if (!identityResolved) { movieSyncBlocked = true; movieSafetyMessage = authNotice + " Reload to retry account identification."; }
+  if (!identityResolved) {
+    const lateToken = movieSafetyToken();
+    void initialSession.then(async ({ data, error }) => {
+      if (error || !currentMovieSafetyToken(lateToken) || movieSafetyOwner !== null) return;
+      identityResolved = true; authNotice = '';
+      await activateMovieUser(data.session?.user || null);
+      await refreshMovieAccount();
+    }).catch(() => { /* Identity stays locked; reload retries explicitly. */ });
+  }
+  setAuthUI(); updateStatus();
+  authSignInButton.addEventListener('click', (event) => { event.stopPropagation(); openSignIn({ trigger: authSignInButton }); });
 };
 
 // Sign-in view controls.
@@ -10621,7 +10868,7 @@ const startRankingMovie = (movie, context = null, { scrollToPlacement } = {}) =>
   });
   pendingPackContext = context;
   removeMovieFromSuggestionQueues(movie);
-  persistSuggestionQueues();
+  renderSuggestionQueues();
   pending = {
     ...movie,
     title: movie.title,
@@ -11329,7 +11576,7 @@ const init = async () => {
   updateShareOptionControls();
   updateStatus();
   setAuthUI();
-  const localBootPayload = getLocalPayload();
+  const localBootPayload = { movies: [] };
   renderFirstRunExperience(localBootPayload.movies.length);
   renderBootSkeleton({ hasLocalRanking: localBootPayload.movies.length > 0 });
   try {
@@ -11340,6 +11587,7 @@ const init = async () => {
     await loadPackProgress();
     await migrateRanking();
   } finally {
+    document.documentElement.dataset.moviesPersistenceReady = 'true';
     // Always swap the skeletons for real content, even if a load step failed.
     renderRanking();
     renderSuggestionQueues();

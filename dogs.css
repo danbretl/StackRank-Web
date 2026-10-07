@@ -858,3 +858,16 @@ body.is-move-mode .dogs-ranking[data-ranking-view="photos"] .ranking-row__action
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
 }
+
+/* Recovery is part of the page flow, not the floating settings menu. */
+.dogs-data-safety {
+  margin: 0 0 24px;
+  padding: 20px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  background: var(--panel);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.dogs-data-safety select { display: block; width: 100%; min-width: 0; margin: 6px 0 12px; padding: 10px; font: inherit; }
+.dogs-data-safety button { min-height: 44px; margin: 4px 4px 0 0; padding: 9px 13px; border: 1px solid var(--border-soft); border-radius: 9px; background: #fff; font: inherit; cursor: pointer; }

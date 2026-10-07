@@ -1,0 +1,41 @@
+{
+  "generatedAt": "2026-10-07T05:40:41.009106+00:00",
+  "auditRoot": "/Users/danbretl/src/stackrank-data-safety-audit-20261007T043458Z",
+  "baseline": "033a397e3ea0d7121358fe5910b7acccf4f9f566",
+  "archiveFileCount": 10044,
+  "archiveAggregateSha256": "73597ef1d5eb81d58cd9d769a34b0b973b310e27f0e63259a935799d86d6153e",
+  "mainStatus": "?? generated_images/\n?? logo-design-brief/\n?? notes/claude-data-safety-audit-prompt.md\n?? notes/dogs-review-handback-prompt.md\n?? notes/feature-ideas/dogs-overnight-next-100-kickoff-prompt-2026-10-04.md\n?? notes/testing/dogs-cohort-l-final-analysis-2026-10-04.md\n",
+  "archiveManifestLocalPath": "/Users/danbretl/src/stackrank-data-safety-release/reports/data-safety/input-preservation-full.json",
+  "archiveManifestSha256": "33a195eb3c8b6b811598090bad7b650336d7910703cc9b9dba6c98b82b816095",
+  "snapshotFileCount": 3295,
+  "criticalInputs": {
+    "HANDBACK.md": {
+      "sha256": "7622a997ea13d273acea6200503277c8efac96bb78ef2d40595660b859dc3148",
+      "bytes": 5932
+    },
+    "findings.json": {
+      "sha256": "21976dc4d494f461fe9f9bdd720aea26bdc7db5cd8eb5acd89fe104791f3c687",
+      "bytes": 55217
+    },
+    "FINDINGS.md": {
+      "sha256": "f8907ac07b5cbe4638b6dcd798a7b6ff53a4a0651a57e4a6fbfcf48b93dad8f8",
+      "bytes": 40786
+    },
+    "CORRECTION-PLAN.md": {
+      "sha256": "6b37055fbb779321f3b14d13f29435f14baae23068ab507a2a46ffedf63cd37b",
+      "bytes": 10008
+    },
+    "coverage.json": {
+      "sha256": "b6c4ed2e282891738faea98a03e0fd15c222840a94af9ec5a3c31cf2c538dcdb",
+      "bytes": 31407
+    },
+    "baseline.json": {
+      "sha256": "dd28d41bc27fa80af629a1d0e3318d02887976e0fe25e995dba746be4bd9b723",
+      "bytes": 410944
+    },
+    "final-preservation.json": {
+      "sha256": "7c0679c28ad0565f66ca974f6b84c905a1d3f2462c885149f015499802f14e96",
+      "bytes": 1724
+    }
+  }
+}

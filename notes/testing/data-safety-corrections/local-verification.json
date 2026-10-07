@@ -1,0 +1,62 @@
+{
+  "checkedAt": "2026-10-07T06:22:50.403746+00:00",
+  "command": "npm run verify",
+  "exitCode": 0,
+  "log": "/tmp/stackrank-data-safety-verify-frozen.log",
+  "node": {
+    "tests": 656,
+    "report": "/Users/danbretl/src/stackrank-data-safety-release/reports/runs/2026-10-07T061825Z/summary.json"
+  },
+  "python": {
+    "tests": 58,
+    "suites": [
+      27,
+      5,
+      6,
+      7,
+      9,
+      4
+    ]
+  },
+  "deno": {
+    "tests": 24
+  },
+  "existingStagedBrowser": {
+    "tests": 44,
+    "report": "/Users/danbretl/src/stackrank-data-safety-release/reports/e2e/runs/2026-10-07T061854Z/summary.json"
+  },
+  "safetyStagedBrowser": {
+    "tests": 45,
+    "report": "reports/data-safety/2026-10-07T06-20-49-762Z/results.json",
+    "sourceChangedDuringRun": false,
+    "uncaughtExceptions": 0
+  },
+  "deployment": {
+    "files": 2171,
+    "bytes": 173226483,
+    "digest": "80975a4505249456567097cd283ea304355e363d1ed1aa2e033e94fd2e1dc572",
+    "publicOnly": true
+  },
+  "catalog": {
+    "public": 900,
+    "hidden": 339,
+    "complete": 902,
+    "retainedIds": 1239,
+    "unchanged": true
+  },
+  "limits": [
+    "Synthetic accounts only; no production customer-data writes",
+    "Read-only production schema metadata checked separately",
+    "Per-row CAS, not a multi-row transaction",
+    "Old cached clients retain their previous unconditional writes"
+  ],
+  "runtimeHashes": {
+    "app.js": "213068e19a3959b74c1cba7926862098c047dffdabf101dcffe2b0243dcb0e93",
+    "dogs.js": "d636e7f9f38b0c5ac56979e69139190b0a7d6ee08955fdd66d033217a0690b6e",
+    "lib/data-safety.js": "26edc239e72165427aa1322ffc5f7bd654e50a5f7d0e6fcc80ed19ed7b0c51e6",
+    "styles.css": "7d4d5ecc33c93e5194f5f1d65d62b07a7ddedd686e33ab4864ec6504e63b6baf",
+    "dogs.css": "f5ac74067cc234fae3948234efda17db8222ffd8ba6b78de7c7189abda716a09",
+    "index.html": "e7f7e02965c7f8ac15a8a0b1cc2085be0e4318798f367681743c53cb2bc80f47",
+    "dogs.html": "732f6a3011409393dd589f78f9c18b4faf8a554ccc8d94c64cb03ac00f561cdf"
+  }
+}

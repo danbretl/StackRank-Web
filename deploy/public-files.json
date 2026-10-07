@@ -85,6 +85,11 @@
   ],
   "acknowledgedConstructions": [
     {
+      "file": "dogs.js",
+      "literal": "stackrank-dogs-saved-copy-${id}.json",
+      "reason": "Browser-created recovery JSON download filename, never a site request."
+    },
+    {
       "file": "dogs-artwork-review.js",
       "literal": "/${value.replace(/^\\.\\//, \"\")}",
       "reason": "rootUrl() root-anchors manifest variant and source URLs; the local ones are the dogs-generated-portraits family."
@@ -146,6 +151,11 @@
     }
   ],
   "nonFileLiterals": [
+    {
+      "file": "app.js",
+      "literal": "stackrank-movies-device-recovery.json",
+      "reason": "Browser-created recovery JSON download filename, never a site request."
+    },
     {
       "file": "app.js",
       "literal": "stackrank-movies.png",

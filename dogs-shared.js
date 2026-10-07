@@ -2,7 +2,7 @@ import { createClient } from "./vendor/supabase-js-2.108.2.js?v=1";
 import {
   categorySharedPayloadFromPublicRow,
   categorySharedSlugFromPath,
-} from "./lib/category-remote-persistence.js?v=4";
+} from "./lib/category-remote-persistence.js?v=5";
 import { dogPublicSnapshotArtworkUrl } from "./lib/categories/dogs.js?v=15";
 
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";

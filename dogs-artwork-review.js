@@ -13,7 +13,7 @@ import {
   preferredArtworkVariant,
   setArtworkReview,
 } from "/lib/dogs-artwork-review.js?v=2";
-import { dogProfileSourceLinks } from "/lib/dogs.js?v=10";
+import { dogProfileSourceLinks } from "/lib/dogs.js?v=11";
 
 const DATA_URLS = {
   manifest: "/data/dogs/generated-artwork.json?v=108",

@@ -316,6 +316,70 @@ const openChromePage = async ({ width = 1280, height = 900, name, launchAttempt 
     }
   };
 
+  // Explicit fixture helpers model owner-scoped persistence without changing Storage.
+  // Only test setup/assertions call these; product code uses its real storage adapter.
+  await send("Page.addScriptToEvaluateOnNewDocument", { source: `(() => {
+    // Specific synthetic mocks wrap this guard; an omitted write handler must
+    // never fall through to the live project (including anonymous telemetry).
+    const nativeFetch = window.fetch.bind(window);
+    window.__e2eDeniedLiveWrites = [];
+    window.fetch = (input, options = {}) => {
+      const url = input instanceof Request ? input.url : String(input);
+      const method = String(options.method || (input instanceof Request ? input.method : 'GET')).toUpperCase();
+      if (url.startsWith('https://hrfhakrxsllrqmscxxpb.supabase.co/') && !['GET', 'HEAD', 'OPTIONS'].includes(method)) {
+        window.__e2eDeniedLiveWrites.push({ url, method });
+        return Promise.reject(new TypeError('Unmocked external write blocked by E2E'));
+      }
+      return nativeFetch(input, options);
+    };
+    const owner = () => {
+      try { const session = JSON.parse(localStorage.getItem('sb-hrfhakrxsllrqmscxxpb-auth-token') || 'null');
+        return session?.user?.id ? 'user:' + session.user.id : 'anonymous'; } catch (_) { return 'anonymous'; }
+    };
+    const resolve = (rawKey) => {
+      const split = rawKey.indexOf(':user:');
+      return { rawKey: split < 0 ? rawKey : rawKey.slice(0, split),
+        owner: split < 0 ? owner() : rawKey.slice(split + 1),
+        key: rawKey.startsWith('stackrank:dogs:') ? 'stackrank:dogs:safety:v1' : 'stackrank:movies:safety:v1' };
+    };
+    window.__e2eCasResponse = (request, body, rows) => {
+      const params = new URL(request.url).searchParams;
+      const matches = (row) => [...params].every(([key, value]) => !value.startsWith('eq.') || String(row[key]) === value.slice(3));
+      const method = request.method;
+      let result;
+      if (method === 'GET') result = rows.filter(matches);
+      else if (method === 'PATCH') {
+        result = rows.filter(matches);
+        const update = JSON.parse(body);
+        result.forEach((row) => Object.assign(row, update));
+      } else if (method === 'POST') {
+        const value = JSON.parse(body);
+        const incoming = Array.isArray(value) ? value : [value];
+        const keys = ['list_id', 'category', 'list_type', 'pack_slug'].filter((key) => incoming[0][key] !== undefined);
+        if (incoming.some((row) => rows.some((old) => keys.every((key) => old[key] === row[key])))) {
+          return new Response(JSON.stringify({ code: '23505', message: 'duplicate key' }), { status: 409, headers: { 'Content-Type': 'application/json' } });
+        }
+        rows.push(...incoming); result = incoming;
+      } else throw new Error('Unexpected fixture method ' + method);
+      const object = (request.headers.get('accept') || '').includes('object+json');
+      return new Response(JSON.stringify(object ? result[0] || null : result), {
+        status: method === 'POST' ? 201 : 200,
+        headers: { 'Content-Type': 'application/json', 'Content-Range': result.length ? '0-' + (result.length - 1) + '/' + result.length : '*/0' }
+      });
+    };
+    window.__e2eOwnedGet = (rawKey) => {
+      const entry = resolve(rawKey);
+      return JSON.parse(localStorage.getItem(entry.key) || 'null')?.owners?.[entry.owner]?.raw?.[entry.rawKey] ?? null;
+    };
+    window.__e2eOwnedSet = (rawKey, value, ownerOverride) => {
+      const entry = resolve(rawKey);
+      if (ownerOverride) entry.owner = ownerOverride;
+      const doc = JSON.parse(localStorage.getItem(entry.key) || 'null') || { version: 1, revision: 0, owners: {}, recoveries: [], legacyCaptured: true };
+      doc.owners[entry.owner] ||= { revision: 0, raw: {}, remote: {} };
+      doc.owners[entry.owner].raw[entry.rawKey] = String(value);
+      localStorage.setItem(entry.key, JSON.stringify(doc));
+    };
+  })();` });
   await send("Page.enable");
   await send("DOM.enable");
   await send("Runtime.enable");
@@ -642,23 +706,22 @@ const seedPage = async (
     ...shareOptions,
   };
 
-  await page.send("Page.navigate", { url: `${baseUrl}/?e2e=${encodeURIComponent(name)}` });
+  await page.send("Page.navigate", { url: `${baseUrl}/missing-e2e-seed` });
   await waitFor(page, "document.readyState === 'complete' || document.readyState === 'interactive'", 10000);
   await page.evaluate(`
     localStorage.clear();
-    localStorage.setItem('stackrank:movies:v1', ${JSON.stringify(JSON.stringify(rankingPayload))});
-    localStorage.setItem('stackrank:suggestion-queues:v1', ${JSON.stringify(JSON.stringify(queuesPayload))});
-    localStorage.setItem(
+    window.__e2eOwnedSet('stackrank:movies:v1', ${JSON.stringify(JSON.stringify(rankingPayload))});
+    window.__e2eOwnedSet('stackrank:suggestion-queues:v1', ${JSON.stringify(JSON.stringify(queuesPayload))});
+    window.__e2eOwnedSet(
       'stackrank:pack-progress:v1',
       ${JSON.stringify(JSON.stringify({ progress: packProgress }))}
     );
     localStorage.setItem('stackrank:share-options:v1', ${JSON.stringify(JSON.stringify(optionsPayload))});
     true;
   `);
-  // Reload as a separate CDP command. Triggering location.reload() from inside
-  // Runtime.evaluate can destroy the inspected execution context before the
-  // evaluate response arrives, producing a nondeterministic harness failure.
-  await page.send("Page.reload", { ignoreCache: true });
+  // Seed on an inert same-origin document; no running app can race the fixture.
+  page.events.length = 0;
+  await page.send("Page.navigate", { url: `${baseUrl}/?e2e=${encodeURIComponent(name)}` });
   await waitFor(
     page,
     `(() => document.querySelectorAll('#ranking .ranking__item').length === ${ranking.length})()`,
@@ -775,7 +838,7 @@ const testBooksVerticalSlice = async ({ baseUrl }) => {
       tiles: document.querySelectorAll('.book-tile').length,
       localNote: document.querySelector('.local-note')?.textContent.trim(),
       booksStorage: localStorage.getItem('stackrank:books:ranking:v1'),
-      movieStorage: localStorage.getItem('stackrank:movies:v1'),
+      movieStorage: window.__e2eOwnedGet('stackrank:movies:v1'),
       overflow: document.documentElement.scrollWidth > innerWidth
     }))()`);
     if (
@@ -860,7 +923,7 @@ const testBooksVerticalSlice = async ({ baseUrl }) => {
     const ranked = await page.evaluate(`(() => ({
       titles: [...document.querySelectorAll('#books-ranking .ranking-row__copy strong')].map((node) => node.textContent.trim()),
       refs: JSON.parse(localStorage.getItem('stackrank:books:ranking:v1')).items.map((item) => item.entityRef),
-      movieStorage: localStorage.getItem('stackrank:movies:v1'),
+      movieStorage: window.__e2eOwnedGet('stackrank:movies:v1'),
       syncCopyPresent: /sign in|synced/i.test(document.body.innerText)
     }))()`);
     if (
@@ -943,11 +1006,11 @@ const testFamilyHomePreview = async ({ baseUrl }) => {
   try {
     await page.send("Page.addScriptToEvaluateOnNewDocument", {
       source: `
-        localStorage.setItem('stackrank:movies:v1', JSON.stringify({
+        window.__e2eOwnedSet('stackrank:movies:v1', JSON.stringify({
           movies: [{ title: 'PRIVATE MOVIE ONE' }, { title: 'PRIVATE MOVIE TWO' }],
           updated_at: '2026-07-16T08:00:00.000Z'
         }));
-        localStorage.setItem('stackrank:dogs:ranking:v1', JSON.stringify({
+        window.__e2eOwnedSet('stackrank:dogs:ranking:v1', JSON.stringify({
           items: [
             { snapshot: { primaryText: 'PRIVATE DOG ONE' } },
             { snapshot: { primaryText: 'PRIVATE DOG TWO' } },
@@ -987,7 +1050,7 @@ const testFamilyHomePreview = async ({ baseUrl }) => {
       desktop.moviesProgress !== "2 movies ranked on this device" ||
       desktop.dogsProgress !== "3 breeds or types ranked on this device" ||
       desktop.leaksItemNames ||
-      desktop.scriptSources.join("|") !== "home.js?v=1" ||
+      !/^home\.js\?v=\d+$/.test(desktop.scriptSources.join("|")) ||
       desktop.overflow
     ) {
       throw new Error(`Family home preview is wrong: ${JSON.stringify(desktop)}`);
@@ -1074,7 +1137,7 @@ const testDogsConciseCategoryPresentation = async ({ baseUrl }) => {
     await page.send('Page.addScriptToEvaluateOnNewDocument', { source: `(() => {
       if (sessionStorage.getItem('concise-category-seeded')) return;
       sessionStorage.setItem('concise-category-seeded', '1');
-      localStorage.setItem('stackrank:dogs:ranking:v1', JSON.stringify({ items: ${JSON.stringify(saved)}, updated_at: '2026-10-05T12:00:00.000Z' }));
+      window.__e2eOwnedSet('stackrank:dogs:ranking:v1', JSON.stringify({ items: ${JSON.stringify(saved)}, updated_at: '2026-10-05T12:00:00.000Z' }));
     })();` });
     await page.send('Page.navigate', { url: `${baseUrl}/dogs?e2e=concise-category` });
     await waitFor(page, `${dogsCatalogReady(publicIds.size)} && document.querySelectorAll('#dogs-ranking .ranking-row').length === 2`, 15000);
@@ -1115,7 +1178,7 @@ const testDogsConciseCategoryPresentation = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('#dogs-cancel-comparison').click(); true;`);
     await page.send('Page.reload', { ignoreCache: true });
     await waitFor(page, dogsCatalogReady(publicIds.size), 15000);
-    const after = await page.evaluate(`JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.map(item => ({ id: item.entityRef.id, rankedAt: item.rankedAt, comparisons: item.comparisons }))`);
+    const after = await page.evaluate(`JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1')).items.map(item => ({ id: item.entityRef.id, rankedAt: item.rankedAt, comparisons: item.comparisons }))`);
     const expected = saved.map(item => ({ id: item.entityRef.id, rankedAt: item.rankedAt, comparisons: item.comparisons }));
     if (JSON.stringify(after) !== JSON.stringify(expected)) throw new Error(`Restored/hidden saved identity changed: ${JSON.stringify(after)}`);
     const health = await pageHealth(page);
@@ -1161,8 +1224,8 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       catalogStatusHidden: document.querySelector('#dogs-catalog-status')?.hidden,
       featuredTitles: [...document.querySelectorAll('.featured-pack h3')].map((node) => node.textContent.trim()),
       tileCount: document.querySelectorAll('.featured-pack .breed-tile').length,
-      dogsStorage: localStorage.getItem('stackrank:dogs:ranking:v1'),
-      movieStorage: localStorage.getItem('stackrank:movies:v1'),
+      dogsStorage: window.__e2eOwnedGet('stackrank:dogs:ranking:v1'),
+      movieStorage: window.__e2eOwnedGet('stackrank:movies:v1'),
       booksStorage: localStorage.getItem('stackrank:books:ranking:v1'),
       overflow: document.documentElement.scrollWidth > innerWidth
     }))()`);
@@ -1272,11 +1335,11 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     })); true;`);
     await waitFor(
       page,
-      `JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1') || '{"items":[]}').items.length === 1`,
+      `JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1') || '{"items":[]}').items.length === 1`,
       5000,
     );
     const aliasStored = await page.evaluate(`(() => {
-      const [item] = JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items;
+      const [item] = JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1')).items;
       return { ref: item.entityRef, name: item.snapshot.primaryText };
     })()`);
     if (
@@ -1318,7 +1381,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
       actionsHidden: document.querySelector('#dogs-detail .detail-actions')?.hidden,
       progress: document.querySelector('#dogs-comparison-progress')?.textContent.trim(),
       comparisonVisible: !document.querySelector('#dogs-comparison')?.hidden,
-      rankingCount: JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.length
+      rankingCount: JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1')).items.length
     }))()`);
     if (comparisonDetail.title !== comparisonBeforeDetail.names[0] ||
       comparisonDetail.summary !== comparisonBeforeDetail.summary || !comparisonDetail.actionsHidden ||
@@ -1331,7 +1394,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     await clickCenter(page, '#dogs-new-choice .dog-media');
     await waitFor(
       page,
-      `document.querySelector('#dogs-comparison')?.hidden && JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.length === 2`,
+      `document.querySelector('#dogs-comparison')?.hidden && JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1')).items.length === 2`,
       5000,
     );
 
@@ -1357,7 +1420,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('#dogs-existing-choice .comparison-card__pick')?.click(); true;`);
     await waitFor(
       page,
-      `document.querySelector('#dogs-comparison')?.hidden && JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.length === 3`,
+      `document.querySelector('#dogs-comparison')?.hidden && JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1')).items.length === 3`,
       5000,
     );
 
@@ -1365,7 +1428,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     await waitFor(page, `!document.querySelector('#dogs-comparison')?.hidden`, 5000);
     await page.evaluate(`document.querySelector('#dogs-cancel-comparison')?.click(); true;`);
     await waitFor(page, `document.querySelector('#dogs-comparison')?.hidden`, 5000);
-    const cancelCount = await page.evaluate(`JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.length`);
+    const cancelCount = await page.evaluate(`JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1')).items.length`);
     if (cancelCount !== 3) throw new Error(`Dogs cancel changed the ranking: ${cancelCount}`);
 
     await page.evaluate(`document.querySelector('.dogs-nav [data-destination="ranking"]')?.click(); true;`);
@@ -1490,7 +1553,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('[data-ranking-view="detailed"]')?.click(); true;`);
 
     const shortCopy = await page.evaluate(`(() => {
-      const items = JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items;
+      const items = JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1')).items;
       return [...document.querySelectorAll('#dogs-ranking .ranking-row')].map((row, index) => {
         const summary = row.querySelector('.ranking-row__summary');
         return { id: items[index].entityRef.id, text: summary.textContent,
@@ -1553,7 +1616,7 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     const filtered = await page.evaluate(`(() => ({
       visibleRows: document.querySelectorAll('#dogs-ranking .ranking-row').length,
       visibleRowsWithImages: document.querySelectorAll('#dogs-ranking .ranking-row .dog-media img').length,
-      storedCount: JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.length,
+      storedCount: JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1')).items.length,
       note: document.querySelector('#dogs-filter-note')?.textContent.trim()
     }))()`);
     if (
@@ -1609,19 +1672,19 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     }
     const detailShot = await page.screenshot("dogs-detail-desktop.png");
     await page.evaluate(`document.querySelector('#dogs-detail .detail-actions button:nth-child(2)')?.click(); true;`);
-    await waitFor(page, `JSON.parse(localStorage.getItem('stackrank:dogs:queues:v1')).curious.length === 1`, 3000);
+    await waitFor(page, `JSON.parse(window.__e2eOwnedGet('stackrank:dogs:queues:v1')).curious.length === 1`, 3000);
 
     await page.evaluate(`document.querySelector('.dogs-nav [data-destination="you"]')?.click(); true;`);
     await waitFor(page, `document.querySelectorAll('#dogs-curious-list .secondary-item').length === 1`, 3000);
     await page.evaluate(`document.querySelector('#dogs-curious-list .secondary-item__actions button:nth-child(2)')?.click(); true;`);
-    await waitFor(page, `JSON.parse(localStorage.getItem('stackrank:dogs:queues:v1')).not_for_me.length === 1`, 3000);
+    await waitFor(page, `JSON.parse(window.__e2eOwnedGet('stackrank:dogs:queues:v1')).not_for_me.length === 1`, 3000);
     const lists = await page.evaluate(`(() => {
-      const payload = JSON.parse(localStorage.getItem('stackrank:dogs:queues:v1'));
+      const payload = JSON.parse(window.__e2eOwnedGet('stackrank:dogs:queues:v1'));
       return {
-        ranking: JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.length,
+        ranking: JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1')).items.length,
         curious: payload.curious.length,
         hidden: payload.not_for_me.length,
-        movieStorage: localStorage.getItem('stackrank:movies:v1'),
+        movieStorage: window.__e2eOwnedGet('stackrank:movies:v1'),
         booksStorage: localStorage.getItem('stackrank:books:ranking:v1')
       };
     })()`);
@@ -1676,9 +1739,9 @@ const testDogsLocalProduct = async ({ baseUrl }) => {
     })()`);
     await waitFor(page, `document.querySelector('#dogs-toast-message')?.textContent.includes('Restored 2 ranked breeds')`, 5000);
     const restored = await page.evaluate(`(() => ({
-      ranking: JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.map((item) => item.snapshot.primaryText),
-      hidden: JSON.parse(localStorage.getItem('stackrank:dogs:queues:v1')).not_for_me.map((item) => item.snapshot.primaryText),
-      movieStorage: localStorage.getItem('stackrank:movies:v1'),
+      ranking: JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1')).items.map((item) => item.snapshot.primaryText),
+      hidden: JSON.parse(window.__e2eOwnedGet('stackrank:dogs:queues:v1')).not_for_me.map((item) => item.snapshot.primaryText),
+      movieStorage: window.__e2eOwnedGet('stackrank:movies:v1'),
       booksStorage: localStorage.getItem('stackrank:books:ranking:v1')
     }))()`);
     const expectedRestored = {
@@ -1965,10 +2028,10 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
   const page = await openChromePage({ name: "dogs-completed-visibility", width: 1440, height: 900 });
   const screenshots = [];
   const storageState = () => `(() => ({
-    ranking: JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1') || '{"items":[]}').items,
-    queues: JSON.parse(localStorage.getItem('stackrank:dogs:queues:v1') || '{}'),
-    packProgress: JSON.parse(localStorage.getItem('stackrank:dogs:pack-progress:v1') || '{}').state,
-    movies: localStorage.getItem('stackrank:movies:v1'),
+    ranking: JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1') || '{"items":[]}').items,
+    queues: JSON.parse(window.__e2eOwnedGet('stackrank:dogs:queues:v1') || '{}'),
+    packProgress: JSON.parse(window.__e2eOwnedGet('stackrank:dogs:pack-progress:v1') || '{}').state,
+    movies: window.__e2eOwnedGet('stackrank:movies:v1'),
     books: localStorage.getItem('stackrank:books:ranking:v1')
   }))()`;
   // Catalog refresh can update display context without changing saved identity or ranking metadata.
@@ -2001,10 +2064,10 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
       Math.random = () => 0.5;
       if (sessionStorage.getItem('dogs-completed-visibility-seeded')) return;
       sessionStorage.setItem('dogs-completed-visibility-seeded', '1');
-      localStorage.setItem('stackrank:dogs:ranking:v1', JSON.stringify({ items: ${JSON.stringify(seededRanking)}, updated_at: '2026-09-20T12:00:00.000Z' }));
-      localStorage.setItem('stackrank:dogs:queues:v1', JSON.stringify({ curious: [${JSON.stringify(seededCurious)}], not_for_me: [${JSON.stringify(seededHidden)}], updated_at: '2026-09-20T12:00:00.000Z' }));
-      localStorage.setItem('stackrank:dogs:pack-progress:v1', ${JSON.stringify(seededPackProgress)});
-      localStorage.setItem('stackrank:movies:v1', ${JSON.stringify(moviesSentinel)});
+      window.__e2eOwnedSet('stackrank:dogs:ranking:v1', JSON.stringify({ items: ${JSON.stringify(seededRanking)}, updated_at: '2026-09-20T12:00:00.000Z' }));
+      window.__e2eOwnedSet('stackrank:dogs:queues:v1', JSON.stringify({ curious: [${JSON.stringify(seededCurious)}], not_for_me: [${JSON.stringify(seededHidden)}], updated_at: '2026-09-20T12:00:00.000Z' }));
+      window.__e2eOwnedSet('stackrank:dogs:pack-progress:v1', ${JSON.stringify(seededPackProgress)});
+      window.__e2eOwnedSet('stackrank:movies:v1', ${JSON.stringify(moviesSentinel)});
       localStorage.setItem('stackrank:books:ranking:v1', ${JSON.stringify(booksSentinel)});
     })();` });
     await page.send("Page.navigate", { url: `${baseUrl}/dogs?e2e=dogs-completed-visibility` });
@@ -2100,9 +2163,9 @@ const testDogsCompletedVisibility = async ({ baseUrl }) => {
     screenshots.push(await page.screenshot("dogs-newPortrait-ranking-phone.png"));
     await setDeviceProfile(page, { width: 1440, height: 900 });
 
-    const beforeMove = await page.evaluate(`JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.map((item) => item.entityRef.id)`);
+    const beforeMove = await page.evaluate(`JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1')).items.map((item) => item.entityRef.id)`);
     await page.evaluate(`document.querySelector('#dogs-ranking [data-action="down"]:not(:disabled)')?.click(); true;`);
-    await waitFor(page, `JSON.stringify(JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.map((item) => item.entityRef.id)) !== ${JSON.stringify(JSON.stringify(beforeMove))}`, 3000);
+    await waitFor(page, `JSON.stringify(JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1')).items.map((item) => item.entityRef.id)) !== ${JSON.stringify(JSON.stringify(beforeMove))}`, 3000);
     const afterMove = await page.evaluate(storageState());
     assertPreserved(afterMove, "visible move", 3);
     if (afterMove.ranking[beforeMove.indexOf(ids.nonpublic)]?.entityRef.id !== ids.nonpublic) throw new Error("Visible move displaced the nonpublic raw slot");
@@ -2204,7 +2267,7 @@ const testDogsPhoneViewport = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('.featured-pack .breed-tile:not(:disabled)')?.click(); true;`);
     await waitFor(
       page,
-      `JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1') || '{"items":[]}').items.length === 1`,
+      `JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1') || '{"items":[]}').items.length === 1`,
       3000,
     );
     await page.evaluate(`document.querySelector('.featured-pack .breed-tile:not(:disabled)')?.click(); true;`);
@@ -2465,7 +2528,7 @@ const testDogsFailureRecovery = async ({ baseUrl }) => {
     await page.send("Page.addScriptToEvaluateOnNewDocument", {
       source: `
         Math.random = () => 0.5;
-        localStorage.setItem('stackrank:dogs:ranking:v1', ${JSON.stringify(JSON.stringify({
+        window.__e2eOwnedSet('stackrank:dogs:ranking:v1', ${JSON.stringify(JSON.stringify({
           items: [seed],
           updated_at: "2026-07-16T08:00:00.000Z",
         }))});
@@ -2485,7 +2548,7 @@ const testDogsFailureRecovery = async ({ baseUrl }) => {
     const failedCatalog = await page.evaluate(`(() => ({
       status: document.querySelector('#dogs-catalog-status')?.textContent.trim(),
       rows: document.querySelectorAll('#dogs-ranking .ranking-row').length,
-      storedName: JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items[0]?.snapshot.primaryText,
+      storedName: JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1')).items[0]?.snapshot.primaryText,
       fallbackVisible: !document.querySelector('#dogs-discovery-fallback')?.hidden,
       renderedImages: document.querySelectorAll('#dogs-ranking .dog-media img').length
     }))()`);
@@ -2536,9 +2599,9 @@ const testDogsFailureRecovery = async ({ baseUrl }) => {
     await page.evaluate(`document.querySelector('.dogs-nav [data-destination="ranking"]')?.click(); true;`);
     const storageFailure = await page.evaluate(`(() => ({
       visibleRows: document.querySelectorAll('#dogs-ranking .ranking-row').length,
-      storedRows: JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.length,
+      storedRows: JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1')).items.length,
       warning: document.querySelector('#dogs-toast-message')?.textContent.trim(),
-      movieStorage: localStorage.getItem('stackrank:movies:v1')
+      movieStorage: window.__e2eOwnedGet('stackrank:movies:v1')
     }))()`);
     if (
       storageFailure.visibleRows !== 2 ||
@@ -2623,7 +2686,7 @@ const testPrivacyAndCredits = async ({ baseUrl }) => {
       !desktop.dogsPrivacy ||
       !desktop.dogsCredit ||
       desktop.deletionContact !== "stackrank@danbretl.com" ||
-      desktop.cssHref !== "styles.css?v=161" ||
+      desktop.cssHref !== "styles.css?v=162" ||
       desktop.scrollWidth > desktop.innerWidth
     ) {
       throw new Error(`Privacy and credits page is wrong: ${JSON.stringify(desktop)}`);
@@ -2725,12 +2788,9 @@ const testBootLayoutStability = async ({ baseUrl }) => {
       `,
     });
     await page.send("Page.navigate", { url: `${baseUrl}/?e2e=boot-layout-stability` });
-    await waitFor(page, "document.readyState === 'complete' || document.readyState === 'interactive'", 10000);
-    await page.evaluate(`localStorage.clear(); true;`);
-    await page.send("Page.reload", { ignoreCache: true });
     await waitFor(
       page,
-      `document.querySelectorAll('#pack-row .pack-card--loading').length === 3 &&
+      `document.querySelectorAll('#pack-row .pack-card').length === 3 &&
         document.querySelectorAll('.suggest-card--loading').length === 6`,
       5000,
     );
@@ -5216,8 +5276,8 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=192" ||
-      empty.cssHref !== "styles.css?v=161" ||
+      empty.moduleSrc !== "app.js?v=193" ||
+      empty.cssHref !== "styles.css?v=162" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
       empty.h1Text !== "StackRank" ||
@@ -5704,7 +5764,7 @@ const testStorageFailureWarning = async ({ baseUrl }) => {
     );
     const state = await page.evaluate(`(() => ({
       rankingCount: document.querySelectorAll('#ranking .ranking__item').length,
-      storedCount: JSON.parse(localStorage.getItem('stackrank:movies:v1') || '{}').movies?.length || 0,
+      storedCount: JSON.parse(window.__e2eOwnedGet('stackrank:movies:v1') || '{}').movies?.length || 0,
       status: document.querySelector('#api-status')?.textContent.trim(),
       backupEnabled: !document.querySelector('#download-backup')?.disabled,
       feedback: document.querySelector('#add-feedback')?.textContent.trim() || '',
@@ -6274,7 +6334,7 @@ const testRankingReviewSession = async ({ baseUrl }) => {
       rankingTitles: [...document.querySelectorAll('#ranking .ranking__title')].map((el) =>
         el.textContent.replace(/^\\d+\\.\\s*/, '').trim()
       ),
-      storedTitles: JSON.parse(localStorage.getItem('stackrank:movies:v1') || '{}').movies?.map((entry) => entry.title) || [],
+      storedTitles: JSON.parse(window.__e2eOwnedGet('stackrank:movies:v1') || '{}').movies?.map((entry) => entry.title) || [],
       feedback: document.querySelector('#add-feedback')?.textContent.trim() || '',
       comparing: document.body.classList.contains('is-comparing')
     }))()`);
@@ -6300,7 +6360,7 @@ const testRankingReviewSession = async ({ baseUrl }) => {
       rankingTitles: [...document.querySelectorAll('#ranking .ranking__title')].map((el) =>
         el.textContent.replace(/^\\d+\\.\\s*/, '').trim()
       ),
-      storedTitles: JSON.parse(localStorage.getItem('stackrank:movies:v1') || '{}').movies?.map((entry) => entry.title) || []
+      storedTitles: JSON.parse(window.__e2eOwnedGet('stackrank:movies:v1') || '{}').movies?.map((entry) => entry.title) || []
     }))()`);
     if (
       undone.rankingTitles.join("|") !== originalTitles.join("|") ||
@@ -7113,7 +7173,7 @@ const testBackupAndImport = async ({ baseUrl }) => {
     const imported = await page.evaluate(`(() => ({
       rankingTitles: [...document.querySelectorAll('#ranking .ranking__title')].map((el) => el.textContent.trim()),
       watchTitles: [...document.querySelectorAll('#watch-list .queue-list__title')].map((el) => el.textContent.trim()),
-      storedTitles: JSON.parse(localStorage.getItem('stackrank:movies:v1') || '{}').movies?.map((movie) => movie.title) || []
+      storedTitles: JSON.parse(window.__e2eOwnedGet('stackrank:movies:v1') || '{}').movies?.map((movie) => movie.title) || []
     }))()`);
     if (imported.rankingTitles.join("|") !== "The Godfather|Heat|Spirited Away") {
       throw new Error(`Imported ranking order is wrong: ${imported.rankingTitles.join(", ")}`);
@@ -7376,6 +7436,9 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
           const realFetch = window.fetch.bind(window);
           window.__e2eSupabaseRequests = [];
           window.__e2eRejectRemoteWrites = false;
+          const rankingRows = [{ list_id: 'user:${userId}', movies: ${JSON.stringify(remoteRanking)}, updated_at: '2026-06-21T14:00:00.000Z' }];
+          const queueRows = [];
+          const progressRows = [{ list_id: 'user:${userId}', pack_slug: 'director-wes-anderson', state: ${JSON.stringify(remotePackProgress)}, updated_at: '2026-06-21T14:00:00.000Z' }];
           const jsonResponse = (value, status = 200, extraHeaders = {}) =>
             new Response(JSON.stringify(value), {
               status,
@@ -7413,38 +7476,10 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
             }
             if (url.includes('/auth/v1/user')) return jsonResponse(${JSON.stringify(user)});
             if (url.includes('/auth/v1/token')) return jsonResponse(${JSON.stringify(authSession)});
-            if (url.includes('/rest/v1/rankings')) {
-              if (method === 'GET') {
-                const row = {
-                  movies: ${JSON.stringify(remoteRanking)},
-                  updated_at: '2026-06-21T14:00:00.000Z'
-                };
-                const accept = request.headers.get('accept') || '';
-                return jsonResponse(accept.includes('object+json') ? row : [row], 200, {
-                  'Content-Range': '0-0/1'
-                });
-              }
-              return new Response(null, { status: 201 });
-            }
-            if (url.includes('/rest/v1/pack_progress')) {
-              if (method === 'GET') {
-                return jsonResponse([{
-                  pack_slug: 'director-wes-anderson',
-                  state: ${JSON.stringify(remotePackProgress)},
-                  updated_at: '2026-06-21T14:00:00.000Z'
-                }], 200, { 'Content-Range': '0-0/1' });
-              }
-              return new Response(null, { status: 201 });
-            }
-            if (
-              url.includes('/rest/v1/movie_lists') ||
-              url.includes('/rest/v1/suggestion_packs')
-            ) {
-              if (method === 'GET') {
-                return jsonResponse([], 200, { 'Content-Range': '*/0' });
-              }
-              return new Response(null, { status: 201 });
-            }
+            if (url.includes('/rest/v1/rankings')) return window.__e2eCasResponse(request, body, rankingRows);
+            if (url.includes('/rest/v1/movie_lists')) return window.__e2eCasResponse(request, body, queueRows);
+            if (url.includes('/rest/v1/pack_progress')) return window.__e2eCasResponse(request, body, progressRows);
+            if (url.includes('/rest/v1/suggestion_packs')) return jsonResponse([]);
             if (url.includes('/functions/v1/tmdb-suggest')) {
               return jsonResponse({ results: [] });
             }
@@ -7464,16 +7499,16 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
         'sb-hrfhakrxsllrqmscxxpb-auth-token',
         ${JSON.stringify(JSON.stringify(authSession))}
       );
-      localStorage.setItem(
+      window.__e2eOwnedSet(
         'stackrank:movies:v1',
         ${JSON.stringify(
           JSON.stringify({
             movies: localRanking,
             updated_at: "2026-06-20T14:00:00.000Z",
           }),
-        )}
+        )}, 'anonymous'
       );
-      localStorage.setItem(
+      window.__e2eOwnedSet(
         'stackrank:suggestion-queues:v1',
         ${JSON.stringify(
           JSON.stringify({
@@ -7481,16 +7516,26 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
             notInterestedList: [],
             updated_at: "2026-06-20T14:00:00.000Z",
           }),
-        )}
+        )}, 'anonymous'
       );
-      localStorage.setItem(
-        'stackrank:pack-progress:v1:user:${userId}',
-        ${JSON.stringify(JSON.stringify({ progress: localPackProgress }))}
+      window.__e2eOwnedSet(
+        'stackrank:pack-progress:v1',
+        ${JSON.stringify(JSON.stringify({ progress: localPackProgress }))}, 'anonymous'
       );
       true;
     `);
     page.events.length = 0;
     await page.send("Page.navigate", { url: `${baseUrl}/?e2e=supabase-merge-save` });
+    await waitFor(page, `document.querySelectorAll('#ranking .ranking__item').length === 2 && document.querySelector('#api-status')?.textContent.includes('Syncing enabled')`, 12000);
+    const beforeRecovery = await page.evaluate(`({
+      titles: [...document.querySelectorAll('#ranking .ranking__title')].map((el) => el.textContent.trim()),
+      writes: window.__e2eSupabaseRequests.filter((request) => ['POST', 'PATCH'].includes(request.method) && request.url.includes('/rest/v1/rankings')).length,
+      addDisabled: document.querySelector('#movies-recovery-add')?.disabled
+    })`);
+    if (beforeRecovery.titles.join('|') !== 'Remote First|Shared' || beforeRecovery.writes !== 0 || !beforeRecovery.addDisabled) throw new Error('Account boot silently imported device data: ' + JSON.stringify(beforeRecovery));
+    await page.evaluate(`document.querySelector('#movies-recovery-preview-button')?.click(); true;`);
+    await waitFor(page, `!document.querySelector('#movies-recovery-add')?.disabled`, 3000);
+    await page.evaluate(`window.confirm = () => true; document.querySelector('#movies-recovery-add')?.click(); true;`);
     await waitFor(
       page,
       `(() => {
@@ -7503,13 +7548,13 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
     await waitFor(
       page,
       `window.__e2eSupabaseRequests?.some((request) =>
-        request.method === 'POST' && request.url.includes('/rest/v1/rankings')
+        ['POST', 'PATCH'].includes(request.method) && request.url.includes('/rest/v1/rankings')
       )`,
       5000,
     );
     const state = await page.evaluate(`(() => {
       const rankingWrites = (window.__e2eSupabaseRequests || [])
-        .filter((request) => request.method === 'POST' && request.url.includes('/rest/v1/rankings'))
+        .filter((request) => ['POST', 'PATCH'].includes(request.method) && request.url.includes('/rest/v1/rankings'))
         .map((request) => ({
           ...request,
           parsedBody: request.body ? JSON.parse(request.body) : null
@@ -7520,7 +7565,7 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
         rankingTitles: [...document.querySelectorAll('#ranking .ranking__title')].map((el) =>
           el.textContent.replace(/^\\d+\\.\\s*/, '').trim()
         ),
-        storedTitles: JSON.parse(localStorage.getItem('stackrank:movies:v1') || '{}').movies?.map((entry) => entry.title) || [],
+        storedTitles: JSON.parse(window.__e2eOwnedGet('stackrank:movies:v1') || '{}').movies?.map((entry) => entry.title) || [],
         authState: document.querySelector('#settings-auth-state')?.textContent.trim(),
         rankingGetCount: (window.__e2eSupabaseRequests || []).filter((request) =>
           request.method === 'GET' && request.url.includes('/rest/v1/rankings')
@@ -7533,7 +7578,7 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
         mergeNoticeActions: [...document.querySelectorAll('#add-feedback button')].map((button) =>
           button.textContent.trim()
         ),
-        packProgress: JSON.parse(localStorage.getItem(
+        packProgress: JSON.parse(window.__e2eOwnedGet(
           'stackrank:pack-progress:v1:user:${userId}'
         ) || '{}').progress || {},
         packProgressGetCount: (window.__e2eSupabaseRequests || []).filter((request) =>
@@ -7550,38 +7595,12 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
       state.writeListId !== `user:${userId}` ||
       state.writeTitles.join("|") !== expectedTitles ||
       !state.writeAuthorized ||
-      !state.mergeNotice.includes("1 movie merged from another device was added to the bottom.") ||
-      state.mergeNoticeActions.join("|") !== "Review order" ||
       state.packProgressGetCount < 1 ||
       state.packProgress["director-wes-anderson"]?.lastIndex !== 4 ||
       state.packProgress["year-1999"]?.lastIndex !== 1
     ) {
-      throw new Error(`Signed-in merge/save adapter failed: ${JSON.stringify(state)}`);
+      throw new Error(`Signed-in explicit recovery/save adapter failed: ${JSON.stringify(state)}`);
     }
-
-    await page.evaluate(`document.querySelector('#add-feedback button')?.click(); true;`);
-    await waitFor(
-      page,
-      `document.body.classList.contains('is-reviewing') &&
-        document.querySelector('#compare-sub')?.textContent.includes('Pair 1 of')`,
-      3000,
-    );
-    const reviewStart = await page.evaluate(`(() => ({
-      isReviewing: document.body.classList.contains('is-reviewing'),
-      subtitle: document.querySelector('#compare-sub')?.textContent.trim() || '',
-      firstLabel: document.querySelector('#new-card .card__label')?.textContent.trim() || '',
-      secondLabel: document.querySelector('#existing-card .card__label')?.textContent.trim() || ''
-    }))()`);
-    if (
-      !reviewStart.isReviewing ||
-      !reviewStart.subtitle.includes('Still prefer #2 over #3?') ||
-      reviewStart.firstLabel !== 'Currently #2' ||
-      reviewStart.secondLabel !== 'Currently #3'
-    ) {
-      throw new Error(`Merge review action did not focus appended placement: ${JSON.stringify(reviewStart)}`);
-    }
-    await page.evaluate(`document.querySelector('#review-end')?.click(); true;`);
-    await waitFor(page, `!document.body.classList.contains('is-reviewing')`, 3000);
 
     await page.evaluate(`(() => {
       Math.random = () => 0.5;
@@ -7608,13 +7627,13 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
     await waitFor(
       page,
       `window.__e2eSupabaseRequests?.some((request) =>
-        request.method === 'POST' && request.url.includes('/rest/v1/pack_progress')
+        ['POST', 'PATCH'].includes(request.method) && request.url.includes('/rest/v1/pack_progress')
       )`,
       3000,
     );
     const packWrite = await page.evaluate(`(() => {
       const writes = (window.__e2eSupabaseRequests || []).filter((request) =>
-        request.method === 'POST' && request.url.includes('/rest/v1/pack_progress')
+        ['POST', 'PATCH'].includes(request.method) && request.url.includes('/rest/v1/pack_progress')
       );
       const last = writes.at(-1) || null;
       const parsed = last?.body ? JSON.parse(last.body) : null;
@@ -7647,17 +7666,17 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
     await waitFor(
       page,
       `(() => {
-        const payload = JSON.parse(localStorage.getItem(
+        const payload = JSON.parse(window.__e2eOwnedGet(
           'stackrank:suggestion-queues:v1:user:${userId}'
         ) || '{}');
         return payload.watchList?.length === 0 &&
           payload.notInterestedList?.[0]?.title === 'Remote Retry' &&
-          document.querySelector('#api-status')?.textContent.includes('Sync is temporarily unavailable');
+          document.querySelector('#api-status')?.textContent.includes('Account sync is pending');
       })()`,
       5000,
     );
     const offlineWrite = await page.evaluate(`(() => {
-      const payload = JSON.parse(localStorage.getItem(
+      const payload = JSON.parse(window.__e2eOwnedGet(
         'stackrank:suggestion-queues:v1:user:${userId}'
       ) || '{}');
       return {
@@ -7688,7 +7707,7 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
       offlineWrite.watchTitles.length ||
       offlineWrite.hiddenTitles.join("|") !== "Remote Retry" ||
       offlineWrite.hiddenRows !== 1 ||
-      !offlineWrite.status.includes("saved on this device") ||
+      !offlineWrite.status.includes("Account sync is pending") ||
       recoveredWrite.watchRows !== 1 ||
       recoveredWrite.hiddenRows !== 0 ||
       !recoveredWrite.status.includes("Syncing enabled")
@@ -7721,7 +7740,7 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
     }))()`);
     if (
       cancelledSignOut.confirmCalls.join("|") !==
-        "Sign out? Your list stays in your account; this device will show an empty list." ||
+        "Sign out? Your account copy stays in your account. This device will show only work saved while signed out." ||
       cancelledSignOut.rankingRows !== 3 ||
       !cancelledSignOut.authTokenPresent ||
       cancelledSignOut.logoutCount !== 0
@@ -7737,40 +7756,42 @@ const testSignedInSupabaseMergeAndSave = async ({ baseUrl }) => {
     await waitFor(
       page,
       `(() => {
-        const stored = JSON.parse(localStorage.getItem('stackrank:movies:v1') || '{}');
-        return document.querySelectorAll('#ranking .ranking__item').length === 0 &&
-          (stored.movies || []).length === 0 &&
+        const stored = JSON.parse(window.__e2eOwnedGet('stackrank:movies:v1') || '{}');
+        return document.querySelectorAll('#ranking .ranking__item').length === 2 &&
+          (stored.movies || []).length === 2 &&
           !localStorage.getItem('sb-hrfhakrxsllrqmscxxpb-auth-token');
       })()`,
       5000,
     );
     const signedOutState = await page.evaluate(`(() => ({
       confirmCalls: window.__e2eConfirmCalls || [],
+      retainedAccountTitles: JSON.parse(window.__e2eOwnedGet('stackrank:movies:v1:user:${userId}') || '{}').movies?.map((entry) => entry.title) || [],
       authState: document.querySelector('#settings-auth-state')?.textContent.trim(),
       authSignInVisible: !document.querySelector('#auth-sign-in')?.hidden,
       rankingRows: document.querySelectorAll('#ranking .ranking__item').length,
-      storedTitles: JSON.parse(localStorage.getItem('stackrank:movies:v1') || '{}').movies?.map((entry) => entry.title) || [],
+      storedTitles: JSON.parse(window.__e2eOwnedGet('stackrank:movies:v1') || '{}').movies?.map((entry) => entry.title) || [],
       logoutCount: (window.__e2eSupabaseRequests || []).filter((request) =>
         request.url.includes('/auth/v1/logout')
       ).length,
       rankingWriteCount: (window.__e2eSupabaseRequests || []).filter((request) =>
-        request.method === 'POST' && request.url.includes('/rest/v1/rankings')
+        ['POST', 'PATCH'].includes(request.method) && request.url.includes('/rest/v1/rankings')
       ).length
     }))()`);
     if (
       signedOutState.confirmCalls.length !== 2 ||
       signedOutState.confirmCalls.some(
         (message) =>
-          message !== "Sign out? Your list stays in your account; this device will show an empty list.",
+          message !== "Sign out? Your account copy stays in your account. This device will show only work saved while signed out.",
       ) ||
       !signedOutState.authState.includes("Not signed in") ||
       !signedOutState.authSignInVisible ||
-      signedOutState.rankingRows !== 0 ||
-      signedOutState.storedTitles.length !== 0 ||
+      signedOutState.rankingRows !== 2 ||
+      signedOutState.storedTitles.join("|") !== "Shared|Local Only" ||
+      signedOutState.retainedAccountTitles.join("|") !== "Remote First|Shared|Local Only" ||
       signedOutState.logoutCount !== 1 ||
       signedOutState.rankingWriteCount !== state.rankingWriteCount
     ) {
-      throw new Error(`Confirmed sign-out did not clear only the device-local state: ${JSON.stringify(signedOutState)}`);
+      throw new Error(`Confirmed sign-out did not restore the independent anonymous copy: ${JSON.stringify(signedOutState)}`);
     }
 
     const health = await pageHealth(page);
@@ -7845,6 +7866,9 @@ const testPublicShareLink = async ({ baseUrl }) => {
           }
           const realFetch = window.fetch.bind(window);
           window.__e2eSupabaseRequests = [];
+          const rankingRows = [{ list_id: 'user:${userId}', movies: ${JSON.stringify(ranking)}, updated_at: '2026-07-08T10:00:00.000Z' }];
+          const queueRows = [];
+          const progressRows = [];
           const jsonResponse = (value, status = 200, extraHeaders = {}) =>
             new Response(JSON.stringify(value), {
               status,
@@ -7874,19 +7898,9 @@ const testPublicShareLink = async ({ baseUrl }) => {
             window.__e2eSupabaseRequests.push({ url, method, body });
             if (url.includes('/auth/v1/user')) return jsonResponse(${JSON.stringify(user)});
             if (url.includes('/auth/v1/token')) return jsonResponse(${JSON.stringify(authSession)});
-            if (url.includes('/rest/v1/rankings')) {
-              if (method === 'GET') {
-                const row = {
-                  movies: ${JSON.stringify(ranking)},
-                  updated_at: '2026-07-08T10:00:00.000Z'
-                };
-                const accept = request.headers.get('accept') || '';
-                return jsonResponse(accept.includes('object+json') ? row : [row], 200, {
-                  'Content-Range': '0-0/1'
-                });
-              }
-              return new Response(null, { status: 201 });
-            }
+            if (url.includes('/rest/v1/rankings')) return window.__e2eCasResponse(request, body, rankingRows);
+            if (url.includes('/rest/v1/movie_lists')) return window.__e2eCasResponse(request, body, queueRows);
+            if (url.includes('/rest/v1/pack_progress')) return window.__e2eCasResponse(request, body, progressRows);
             if (url.includes('/rest/v1/shared_lists')) {
               const parsedUrl = new URL(url);
               const params = parsedUrl.searchParams;
@@ -8017,7 +8031,7 @@ const testPublicShareLink = async ({ baseUrl }) => {
         document.querySelector('#share-link-meta')?.textContent.trim() === 'No link yet'`,
       8000,
     );
-    await page.evaluate(`document.querySelector('#share-link-publish')?.click(); true;`);
+    await page.evaluate(`const name = document.querySelector('#share-display-name'); name.value = 'E2E Link'; name.dispatchEvent(new Event('input', { bubbles: true })); document.querySelector('#share-link-publish')?.click(); true;`);
     await waitFor(
       page,
       `document.querySelector('#share-link-status')?.textContent.includes('published') &&
@@ -10572,8 +10586,8 @@ const testPackBrowserAndActions = async ({ baseUrl }) => {
       3000,
     );
     const actions = await page.evaluate(`(() => {
-      const queues = JSON.parse(localStorage.getItem('stackrank:suggestion-queues:v1') || '{}');
-      const progress = JSON.parse(localStorage.getItem('stackrank:pack-progress:v1') || '{}').progress || {};
+      const queues = JSON.parse(window.__e2eOwnedGet('stackrank:suggestion-queues:v1') || '{}');
+      const progress = JSON.parse(window.__e2eOwnedGet('stackrank:pack-progress:v1') || '{}').progress || {};
       return {
         status: document.querySelector('#pack-detail-status')?.textContent.trim(),
         watch: queues.watchList?.map((entry) => entry.title) || [],
@@ -10710,7 +10724,7 @@ const testPackRankAllResumeAndCompletion = async ({ baseUrl }) => {
       3000,
     );
     const canceled = await page.evaluate(`(() => {
-      const progress = JSON.parse(localStorage.getItem('stackrank:pack-progress:v1') || '{}').progress || {};
+      const progress = JSON.parse(window.__e2eOwnedGet('stackrank:pack-progress:v1') || '{}').progress || {};
       return {
         status: document.querySelector('#pack-detail-status')?.textContent.trim(),
         ranking: [...document.querySelectorAll('#ranking .ranking__title')].map((el) => el.textContent.trim()),
@@ -10767,7 +10781,7 @@ const testPackRankAllResumeAndCompletion = async ({ baseUrl }) => {
       5000,
     );
     const completed = await page.evaluate(`(() => {
-      const progress = JSON.parse(localStorage.getItem('stackrank:pack-progress:v1') || '{}').progress || {};
+      const progress = JSON.parse(window.__e2eOwnedGet('stackrank:pack-progress:v1') || '{}').progress || {};
       return {
         status: document.querySelector('#pack-detail-status')?.textContent.trim(),
         ranking: [...document.querySelectorAll('#ranking .ranking__title')].map((el) => el.textContent.trim()),
@@ -11705,8 +11719,8 @@ const testDogsRemoteSyncAndShare = async ({ baseUrl }) => {
           const authKey = 'sb-hrfhakrxsllrqmscxxpb-auth-token';
           const session = ${JSON.stringify(session)};
           if (!localStorage.getItem(authKey)) localStorage.setItem(authKey, JSON.stringify(session));
-          if (!localStorage.getItem('stackrank:dogs:ranking:v1')) {
-            localStorage.setItem('stackrank:dogs:ranking:v1', JSON.stringify({
+          if (!window.__e2eOwnedGet('stackrank:dogs:ranking:v1')) {
+            window.__e2eOwnedSet('stackrank:dogs:ranking:v1', JSON.stringify({
               items: [
                 ${JSON.stringify(ranked("VBO:0200010", "Akita"))},
                 ${JSON.stringify(ranked("VBO:0000661", "Broholmer"))}
@@ -11720,6 +11734,14 @@ const testDogsRemoteSyncAndShare = async ({ baseUrl }) => {
           });
           const nativeFetch = window.fetch.bind(window);
           window.__e2eDogsRequests = [];
+          const rankingRows = JSON.parse(localStorage.getItem('__e2eDogsRemoteRanking') || 'null') || [{
+            list_id: 'user:${userId}', category: 'dogs',
+            items: [${JSON.stringify(ranked("VBO:0000661", "Broholmer"))}, ${JSON.stringify(ranked("VBO:0200010", "Akita"))}, ${JSON.stringify(ranked("VBO:0201171", "Saluki"))}],
+            updated_at: '2026-07-20T10:00:00.000Z'
+          }];
+          const queueRows = [];
+          const progressRows = [];
+
           const json = (value, status = 200, headers = {}) => new Response(JSON.stringify(value), {
             status,
             headers: { 'Content-Type': 'application/json', ...headers }
@@ -11740,24 +11762,18 @@ const testDogsRemoteSyncAndShare = async ({ baseUrl }) => {
             if (request.url.includes('/auth/v1/token')) return json(session);
             if (request.url.includes('/auth/v1/settings')) return json({ external: {} });
             if (request.url.includes('/rest/v1/category_rankings')) {
-              if (method === 'GET') return new Promise((resolve) => {
-                window.__e2eReleaseDogsRanking = () => resolve(json({
-                  list_id: 'user:${userId}',
-                  category: 'dogs',
-                  items: [${JSON.stringify(ranked("VBO:0201171", "Saluki"))}],
-                  updated_at: '2026-07-20T10:00:00.000Z'
-                }, 200, { 'Content-Range': '0-0/1' }));
+              if (method === 'GET' && !localStorage.getItem('__e2eDogsReadReleased')) return new Promise((resolve) => {
+                window.__e2eReleaseDogsRanking = () => {
+                  localStorage.setItem('__e2eDogsReadReleased', 'true');
+                  resolve(window.__e2eCasResponse(request, body, rankingRows));
+                };
               });
-              return new Response(null, { status: 201 });
+              const response = window.__e2eCasResponse(request, body, rankingRows);
+              localStorage.setItem('__e2eDogsRemoteRanking', JSON.stringify(rankingRows));
+              return response;
             }
-            if (request.url.includes('/rest/v1/category_lists')) {
-              if (method === 'GET') return json([], 200, { 'Content-Range': '*/0' });
-              return new Response(null, { status: 201 });
-            }
-            if (request.url.includes('/rest/v1/category_pack_progress')) {
-              if (method === 'GET') return json(null, 200, { 'Content-Range': '*/0' });
-              return new Response(null, { status: 201 });
-            }
+            if (request.url.includes('/rest/v1/category_lists')) return window.__e2eCasResponse(request, body, queueRows);
+            if (request.url.includes('/rest/v1/category_pack_progress')) return window.__e2eCasResponse(request, body, progressRows);
             if (request.url.includes('/rest/v1/category_shared_lists')) {
               const params = new URL(request.url).searchParams;
               const stored = JSON.parse(localStorage.getItem('__e2eDogSharedRow') || 'null');
@@ -11802,17 +11818,15 @@ const testDogsRemoteSyncAndShare = async ({ baseUrl }) => {
       10000,
     );
     const preMergeSave = await page.evaluate(`(() => {
-      const handle = document.querySelector('#dogs-ranking .move-handle');
-      handle?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
-      const ranking = JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1') || '{}');
+      const ranking = JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1') || '{}');
       return {
         order: (ranking.items || []).map((item) => item.snapshot.primaryText),
         writesBeforeRelease: window.__e2eDogsRequests.filter((request) =>
-          /category_(rankings|lists|pack_progress)/.test(request.url) && request.method === 'POST'
+          /category_(rankings|lists|pack_progress)/.test(request.url) && ['POST', 'PATCH'].includes(request.method)
         ).length
       };
     })()`);
-    if (preMergeSave.order.join("|") !== "Broholmer|Akita" || preMergeSave.writesBeforeRelease !== 0) {
+    if (preMergeSave.order.join("|") !== "Akita|Broholmer" || preMergeSave.writesBeforeRelease !== 0) {
       throw new Error(`Dogs initial-load write gate failed: ${JSON.stringify(preMergeSave)}`);
     }
     await page.evaluate(`window.__e2eReleaseDogsRanking(); true;`);
@@ -11823,8 +11837,8 @@ const testDogsRemoteSyncAndShare = async ({ baseUrl }) => {
       15000,
     );
     const merged = await page.evaluate(`(() => ({
-      order: JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1')).items.map((item) => item.snapshot.primaryText),
-      syncRequests: window.__e2eDogsRequests.filter((request) => /category_(rankings|lists|pack_progress)/.test(request.url) && request.method === 'POST').length,
+      order: JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1')).items.map((item) => item.snapshot.primaryText),
+      syncRequests: window.__e2eDogsRequests.filter((request) => /category_(rankings|lists|pack_progress)/.test(request.url) && ['POST', 'PATCH'].includes(request.method)).length,
       movieWrites: window.__e2eDogsRequests.filter((request) => /rest\\/v1\\/(rankings|movie_lists|pack_progress)(\\?|$)/.test(request.url)).length
     }))()`);
     const categoryFilters = await page.evaluate(`window.__e2eDogsRequests
@@ -11833,13 +11847,13 @@ const testDogsRemoteSyncAndShare = async ({ baseUrl }) => {
     const writesByTable = await page.evaluate(`Object.fromEntries(
       ['category_rankings', 'category_lists', 'category_pack_progress'].map((table) => [table,
         window.__e2eDogsRequests.filter((request) =>
-          request.method === 'POST' && request.url.includes('/rest/v1/' + table)
+          ['POST', 'PATCH'].includes(request.method) && request.url.includes('/rest/v1/' + table)
         ).length
       ])
     )`);
     const finalRankingWrite = await page.evaluate(`(() => {
       const writes = window.__e2eDogsRequests.filter((request) =>
-        request.method === 'POST' && request.url.includes('/rest/v1/category_rankings')
+        ['POST', 'PATCH'].includes(request.method) && request.url.includes('/rest/v1/category_rankings')
       );
       const body = JSON.parse(writes.at(-1)?.body || '{}');
       const row = Array.isArray(body) ? body[0] : body;
@@ -11847,11 +11861,11 @@ const testDogsRemoteSyncAndShare = async ({ baseUrl }) => {
     })()`);
     if (
       merged.order.join("|") !== "Broholmer|Akita|Saluki" ||
-      finalRankingWrite.join("|") !== "Broholmer|Akita|Saluki" ||
-      merged.syncRequests !== 4 ||
-      writesByTable.category_rankings !== 2 ||
-      writesByTable.category_lists !== 1 ||
-      writesByTable.category_pack_progress !== 1 ||
+      finalRankingWrite.length !== 0 ||
+      merged.syncRequests !== 0 ||
+      writesByTable.category_rankings !== 0 ||
+      writesByTable.category_lists !== 0 ||
+      writesByTable.category_pack_progress !== 0 ||
       merged.movieWrites !== 0 ||
       !categoryFilters
     ) {
@@ -11861,18 +11875,20 @@ const testDogsRemoteSyncAndShare = async ({ baseUrl }) => {
     await page.evaluate(`(() => {
       const handle = document.querySelector('#dogs-ranking .move-handle');
       handle?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
-      document.querySelector('#dogs-toast-action')?.click();
       return true;
     })()`);
+    await waitFor(page, `window.__e2eDogsRequests.slice(${undoWriteStart}).some((request) => request.method === 'PATCH' && request.url.includes('/category_rankings'))`, 5000);
+    await wait(100);
+    await page.evaluate(`document.querySelector('#dogs-toast-action')?.click(); true;`);
     await waitFor(
       page,
       `window.__e2eDogsRequests.slice(${undoWriteStart}).filter((request) =>
-        request.method === 'POST' && request.url.includes('/rest/v1/category_')
+        ['POST', 'PATCH'].includes(request.method) && request.url.includes('/rest/v1/category_')
       ).length >= 2`,
       5000,
     );
     const undoWrites = await page.evaluate(`window.__e2eDogsRequests.slice(${undoWriteStart})
-      .filter((request) => request.method === 'POST' && request.url.includes('/rest/v1/category_'))
+      .filter((request) => ['POST', 'PATCH'].includes(request.method) && request.url.includes('/rest/v1/category_'))
       .map((request) => new URL(request.url).pathname)`);
     if (
       undoWrites.length !== 2 ||
@@ -11954,7 +11970,7 @@ const testDogsArtworkReview = async ({ baseUrl }) => {
       `document.querySelectorAll('#artwork-gallery .artwork-card').length === 24 && document.querySelector('#asset-count')?.textContent === ${JSON.stringify(String(expectedArtworkCount))}`,
       15000,
     );
-    await page.evaluate(`localStorage.setItem('stackrank:dogs:ranking:v1', ${JSON.stringify(rankingSentinel)}); true;`);
+    await page.evaluate(`window.__e2eOwnedSet('stackrank:dogs:ranking:v1', ${JSON.stringify(rankingSentinel)}); true;`);
 
     const desktopInitial = await page.evaluate(`(() => ({
       pathname: location.pathname,
@@ -12164,7 +12180,7 @@ const testDogsArtworkReview = async ({ baseUrl }) => {
     );
     const focusAfterEscape = await page.evaluate(`(() => ({
       assetId: document.activeElement?.dataset.assetId || document.activeElement?.dataset.reviewAssetId || '',
-      ranking: localStorage.getItem('stackrank:dogs:ranking:v1')
+      ranking: window.__e2eOwnedGet('stackrank:dogs:ranking:v1')
     }))()`);
     if (focusAfterEscape.assetId !== "dogs:generated:vbo-0000661:v1" || focusAfterEscape.ranking !== rankingSentinel) {
       throw new Error(`Artwork dialog focus or ranking-key isolation failed: ${JSON.stringify(focusAfterEscape)}`);
@@ -12184,7 +12200,7 @@ const testDogsArtworkReview = async ({ baseUrl }) => {
     const persisted = await page.evaluate(`(() => ({
       note: document.querySelector('#concern-note')?.value || '',
       anatomy: document.querySelector('#concern-options input[value="anatomy"]')?.checked || false,
-      ranking: localStorage.getItem('stackrank:dogs:ranking:v1'),
+      ranking: window.__e2eOwnedGet('stackrank:dogs:ranking:v1'),
       flagged: document.querySelector('#flagged-count')?.textContent || ''
     }))()`);
     if (persisted.note !== reviewNote || !persisted.anatomy || persisted.ranking !== rankingSentinel || persisted.flagged !== "1") {
@@ -12269,7 +12285,7 @@ const testDogsPackDetails = async ({ baseUrl }) => {
     .filter(pack => pack.items.some(id => approvedIds.has(id)));
   const firstPackIds = packs[0].items.filter(id => approvedIds.has(id));
   const page = await openChromePage({ name: 'dogs-full-pack-details', width: 1440, height: 900 });
-  const ranked = `JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1') || '{"items":[]}').items`;
+  const ranked = `JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1') || '{"items":[]}').items`;
   const detailOpen = `document.querySelector('#dogs-packs-dialog').open && !document.querySelector('#dogs-pack-detail').hidden`;
   try {
     await page.send('Page.navigate', { url: `${baseUrl}/dogs?e2e=dogs-full-pack-details` });
@@ -12370,7 +12386,7 @@ const testDogsDiscoveryGallery = async ({ baseUrl }) => {
       await page.send('Input.dispatchKeyEvent', { type, key: name, code: name, windowsVirtualKeyCode: code });
     }
   };
-  const rankingIds = () => `JSON.parse(localStorage.getItem('stackrank:dogs:ranking:v1') || '{"items":[]}').items.map(item => item.entityRef.id)`;
+  const rankingIds = () => `JSON.parse(window.__e2eOwnedGet('stackrank:dogs:ranking:v1') || '{"items":[]}').items.map(item => item.entityRef.id)`;
   const countCards = () => `document.querySelectorAll('#dogs-gallery-grid .explore-dog').length`;
   const setInput = (selector, value, type = 'input') => page.evaluate(`(() => {
     const input = document.querySelector(${JSON.stringify(selector)});
@@ -12499,7 +12515,7 @@ const testDogsDiscoveryGallery = async ({ baseUrl }) => {
       throw new Error(`Cancel ranking did not restore gallery context: ${JSON.stringify(afterCancel)}`);
     }
 
-    const dogsStorage = await page.evaluate(`localStorage.getItem('stackrank:dogs:ranking:v1')`);
+    const dogsStorage = await page.evaluate(`window.__e2eOwnedGet('stackrank:dogs:ranking:v1')`);
     await page.evaluate(`document.querySelector('.category-switcher__trigger').click(); true;`);
     await key('Escape', 27);
     if (await page.evaluate(`document.querySelector('.category-switcher__trigger').getAttribute('aria-expanded')`) !== 'false') {
@@ -12511,12 +12527,12 @@ const testDogsDiscoveryGallery = async ({ baseUrl }) => {
     }
     await page.evaluate(`document.querySelector('.category-switcher__trigger').click(); document.querySelector('.category-switcher__menu a[href="/movies"]').click(); true;`);
     await waitFor(page, `location.pathname === '/movies' && document.querySelector('.category-switcher__trigger')`, 15000);
-    const movies = await page.evaluate(`({ dogs: localStorage.getItem('stackrank:dogs:ranking:v1'),
+    const movies = await page.evaluate(`({ dogs: window.__e2eOwnedGet('stackrank:dogs:ranking:v1'),
       category: document.querySelector('.category-switcher__trigger')?.textContent.trim() })`);
     if (movies.dogs !== dogsStorage || !/^movies$/i.test(movies.category)) throw new Error(`Dogs data changed on Movies route: ${JSON.stringify(movies)}`);
     await page.evaluate(`document.querySelector('.category-switcher__trigger').click(); document.querySelector('.category-switcher__menu a[href="/dogs"]').click(); true;`);
     await waitFor(page, `location.pathname === '/dogs' && ${dogsCatalogReady(approvedIds.length)}`, 15000);
-    const dogsAfterSwitch = await page.evaluate(`localStorage.getItem('stackrank:dogs:ranking:v1')`);
+    const dogsAfterSwitch = await page.evaluate(`window.__e2eOwnedGet('stackrank:dogs:ranking:v1')`);
     const rankSignature = (payload) => JSON.parse(payload).items.map((item) => [item.entityRef.id, item.rankedAt, item.comparisons]);
     if (JSON.stringify(rankSignature(dogsAfterSwitch)) !== JSON.stringify(rankSignature(dogsStorage))) {
       throw new Error(`Dogs ranking changed after Movies → Dogs switch: ${JSON.stringify({ before: dogsStorage, after: dogsAfterSwitch })}`);

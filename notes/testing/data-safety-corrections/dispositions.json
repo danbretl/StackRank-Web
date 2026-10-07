@@ -1,0 +1,1148 @@
+{
+  "baseline": "033a397e3ea0d7121358fe5910b7acccf4f9f566",
+  "auditRoot": "/Users/danbretl/src/stackrank-data-safety-audit-20261007T043458Z",
+  "findings": [
+    {
+      "id": "DS-001",
+      "auditStatus": "verified_defect",
+      "title": "Previous account's data survives sign-out paths other than same-app Sign out and is uploaded into the next account that signs in",
+      "disposition": "verified-corrected",
+      "authoringLocations": [
+        {
+          "path": "app.js",
+          "line": 2730,
+          "symbol": "saveLocalPayload (unscoped stackrank:movies:v1)"
+        },
+        {
+          "path": "app.js",
+          "line": 10457,
+          "symbol": "onAuthStateChange (no clear on SIGNED_OUT)"
+        },
+        {
+          "path": "app.js",
+          "line": 3153,
+          "symbol": "loadRanking (merges base key into any account)"
+        },
+        {
+          "path": "dogs.js",
+          "line": 468,
+          "symbol": "saveAll (unscoped Dogs keys)"
+        },
+        {
+          "path": "dogs.js",
+          "line": 2300,
+          "symbol": "onAuthStateChange (clears only if wasSignedIn in this tab)"
+        },
+        {
+          "path": "dogs.js",
+          "line": 551,
+          "symbol": "payloadsFromRemoteRows (merges local into any account)"
+        },
+        {
+          "path": "lib/auth.js",
+          "line": 14,
+          "symbol": "SIGN_OUT_LOCAL_DATA_MESSAGE"
+        }
+      ],
+      "auditEvidence": [
+        "evidence/probes/x-auth.json (cases expired-session-then-B, signout-movies-then-dogs-B, signout-dogs-then-movies-B, cross-tab-signout-in-dogs-movies-open; control control-signout-same-app-B)",
+        "logs/probe-x-auth-run2.log"
+      ],
+      "implementation": [
+        "lib/data-safety.js:createDataSafetyStore",
+        "app.js:activateMovieSafety",
+        "dogs.js:safetyStore"
+      ],
+      "verification": [
+        "tests/data-safety.test.js",
+        "scripts/test-data-safety-browser.cjs",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Owner-bound atomic envelopes separate accounts and anonymous work; unowned legacy values remain explicit recovery. Existing access JWTs remain valid until expiry in the corrected mock.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": []
+    },
+    {
+      "id": "DS-002",
+      "auditStatus": "verified_defect",
+      "title": "Movies Re-rank and Rank-from-queue persist the removal before the comparison finishes; reload, tab discard or close loses the movie",
+      "disposition": "verified-corrected",
+      "authoringLocations": [
+        {
+          "path": "app.js",
+          "line": 4825,
+          "symbol": "beginRankingRestack"
+        },
+        {
+          "path": "app.js",
+          "line": 10587,
+          "symbol": "startRankingMovie"
+        },
+        {
+          "path": "app.js",
+          "line": 10593,
+          "symbol": "removeMovieFromSuggestionQueues + persistSuggestionQueues"
+        },
+        {
+          "path": "app.js",
+          "line": 3490,
+          "symbol": "restorePendingOrigin (only on Cancel)"
+        }
+      ],
+      "auditEvidence": [
+        "evidence/probes/m-interrupt.json",
+        "evidence/probes/m-sync.json (case movies-signed-in-rerank-reload)",
+        "evidence/probes/d-interrupt.json (Dogs control)"
+      ],
+      "implementation": [
+        "app.js:beginRankingRestack",
+        "app.js:startRankingMovie",
+        "app.js:saveRanking",
+        "lib/movies-data-safety.js:durableMovieLists"
+      ],
+      "verification": [
+        "tests/movies-data-safety.test.js",
+        "scripts/test-data-safety-browser.cjs:Movies rerank interruption",
+        "scripts/test-data-safety-browser.cjs:Movies queue interruption",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Draft origin was saved away before completion. Fresh browser interruption and Cancel controls reproduce; durableMovieLists retains origin in any incidental write and draft start no longer persists removal. Queue departure commits on settle.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "movies-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-003",
+      "auditStatus": "verified_defect",
+      "title": "Movies: after a failed initial account read, the next save overwrites the account copy and deletes remote-only entries",
+      "disposition": "verified-corrected",
+      "authoringLocations": [
+        {
+          "path": "app.js",
+          "line": 3153,
+          "symbol": "loadRanking (falls back to local without blocking writes)"
+        },
+        {
+          "path": "app.js",
+          "line": 3128,
+          "symbol": "saveRanking (unconditional upsert)"
+        },
+        {
+          "path": "app.js",
+          "line": 2861,
+          "symbol": "loadSuggestionQueues (saves immediately after fallback)"
+        },
+        {
+          "path": "app.js",
+          "line": 1492,
+          "symbol": "runSupabaseRequest"
+        }
+      ],
+      "auditEvidence": [
+        "evidence/probes/m-sync.json (movies-ranking-read-500-then-edit, movies-queue-read-fails-at-boot, controls)",
+        "evidence/probes/m-offline.json"
+      ],
+      "implementation": [
+        "app.js:loadRankingRead",
+        "app.js:loadSuggestionQueuesRead",
+        "app.js:queueMovieSync"
+      ],
+      "verification": [
+        "scripts/test-data-safety-browser.cjs:movies rejected initial read prevents blind overwrite",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Vendored REST retries GET network failures and 503/520 up to3 times, not500. Sustained/non-retried read failure is supported; persisted CAS baseline alone does not authorize writes after a failed current-session read. Per-surface readReady now gates writes; uncertain dirty state conflicts and preserves recovery.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "movies-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-004",
+      "auditStatus": "verified_defect",
+      "title": "Two open tabs: a stale tab's next save overwrites edits made in the other tab (no cross-tab refresh)",
+      "disposition": "verified-corrected",
+      "authoringLocations": [
+        {
+          "path": "app.js",
+          "line": 2730,
+          "symbol": "saveLocalPayload writes in-memory list"
+        },
+        {
+          "path": "dogs.js",
+          "line": 468,
+          "symbol": "saveAll writes all four keys from memory"
+        }
+      ],
+      "auditEvidence": [
+        "evidence/probes/m-multi.json (two-tab cases + controls)",
+        "evidence/probes/m-multi-signed.json"
+      ],
+      "implementation": [
+        "lib/data-safety.js:commit",
+        "app.js:updateMovieSafetyUi",
+        "dogs.js:saveAll"
+      ],
+      "verification": [
+        "tests/data-safety.test.js",
+        "scripts/test-data-safety-browser.cjs",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Web Locks and owner revisions prevent stale-tab overwrites. The first attempted stale edit is retained in bounded recovery; subsequent edits stop until resolution. Failed preservation blocks replacement.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": []
+    },
+    {
+      "id": "DS-005",
+      "auditStatus": "verified_defect",
+      "title": "Union merge has no deletion memory: Clear, Restore and removals are undone by any older copy (other device, stale or late remote write)",
+      "disposition": "verified-corrected-with-legacy-client-limit",
+      "authoringLocations": [
+        {
+          "path": "lib/persistence.js",
+          "line": 84,
+          "symbol": "mergeRankingPayloadsWithMetadata"
+        },
+        {
+          "path": "lib/persistence.js",
+          "line": 113,
+          "symbol": "mergeQueuePayloads"
+        },
+        {
+          "path": "lib/ranked-list.js",
+          "line": 34,
+          "symbol": "mergeRankedListPayloads"
+        },
+        {
+          "path": "lib/category-remote-persistence.js",
+          "line": 228,
+          "symbol": "mergeCategoryPlacementPayloads"
+        },
+        {
+          "path": "app.js",
+          "line": 4418,
+          "symbol": "Clear ranking"
+        },
+        {
+          "path": "dogs.js",
+          "line": 2568,
+          "symbol": "clearAllDogsData"
+        },
+        {
+          "path": "app.js",
+          "line": 3936,
+          "symbol": "restoreStackRankBackup"
+        }
+      ],
+      "auditEvidence": [
+        "evidence/probes/m-multi.json (movies-two-devices-clear, dogs-two-devices-clear, movies-two-devices-restore)",
+        "evidence/probes/m-sync.json (dogs-read-fails-then-edit)",
+        "evidence/probes/m-reorder.json",
+        "evidence/probes/d-hang.json"
+      ],
+      "implementation": [
+        "lib/data-safety.js:planReconciliation",
+        "lib/data-safety.js:compareAndSwapRow",
+        "app.js:loadRankingRead",
+        "dogs.js:performRemoteStateLoad"
+      ],
+      "verification": [
+        "tests/data-safety.test.js",
+        "scripts/test-data-safety-browser.cjs",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Clean mirrors adopt remote state exactly; dirty mirrors require the same observed server version or explicit recovery. Intentional remote removals survive reload. Old cached unconditional writers remain outside this client-only guarantee.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": []
+    },
+    {
+      "id": "DS-006",
+      "auditStatus": "verified_defect",
+      "title": "Movies merges the anonymous Watch next / Not for me key into the signed-in account on every load, undoing removals and hides",
+      "disposition": "verified-corrected",
+      "authoringLocations": [
+        {
+          "path": "app.js",
+          "line": 2745,
+          "symbol": "getQueueStorageKeys"
+        },
+        {
+          "path": "lib/category.js",
+          "line": 64,
+          "symbol": "userScopedStorageCandidates"
+        },
+        {
+          "path": "app.js",
+          "line": 2861,
+          "symbol": "loadSuggestionQueues"
+        },
+        {
+          "path": "lib/persistence.js",
+          "line": 141,
+          "symbol": "normalizeSuggestionQueueLists (Watch next wins conflicts)"
+        }
+      ],
+      "auditEvidence": [
+        "evidence/probes/m-sync.json (movies-anonymous-queue-key-resurrects, control-movies-user-queue-key-only)"
+      ],
+      "implementation": [
+        "app.js:activateMovieSafety",
+        "app.js:moviesFromRecovery",
+        "app.js:loadSuggestionQueuesRead"
+      ],
+      "verification": [
+        "scripts/test-data-safety-browser.cjs:Movies explicit anonymous recovery keeps account order and does not resurrect removed Watch next",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Base anonymous queue was a merge candidate on every authenticated reload. Owned aggregate data and explicit one-time anonymous recovery replace implicit merge; original bytes remain.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "movies-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-007",
+      "auditStatus": "verified_defect",
+      "title": "Undo pressed after sign-out restores the previous account's list into the signed-out device copy",
+      "disposition": "verified-corrected",
+      "authoringLocations": [
+        {
+          "path": "app.js",
+          "line": 5386,
+          "symbol": "setUndoableFeedback"
+        },
+        {
+          "path": "app.js",
+          "line": 5416,
+          "symbol": "restoreRankingTo"
+        },
+        {
+          "path": "app.js",
+          "line": 10405,
+          "symbol": "handleSignOut (does not clear undo)"
+        },
+        {
+          "path": "dogs.js",
+          "line": 331,
+          "symbol": "showToast undo restore"
+        },
+        {
+          "path": "dogs.js",
+          "line": 2251,
+          "symbol": "clearDeviceStateAfterSignOut (does not clear undo)"
+        }
+      ],
+      "auditEvidence": [
+        "evidence/probes/m-misc.json (movies-undo-after-signout, dogs-undo-after-signout)"
+      ],
+      "implementation": [
+        "app.js:activateMovieSafety",
+        "dogs.js:loadState",
+        "lib/data-safety.js:activate"
+      ],
+      "verification": [
+        "tests/data-safety.test.js",
+        "scripts/test-data-safety-browser.cjs",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Owner activation resets comparisons, review, undo and pending imports. Generation checks reject delayed results, including same-owner A to B to A transitions.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": []
+    },
+    {
+      "id": "DS-008",
+      "auditStatus": "verified_defect",
+      "title": "Dogs treats a remote row containing one invalid item as absent and overwrites the whole account row with the local copy",
+      "disposition": "verified-corrected",
+      "authoringLocations": [
+        {
+          "path": "lib/category-remote-persistence.js",
+          "line": 122,
+          "symbol": "validateCategoryItems (all-or-nothing)"
+        },
+        {
+          "path": "lib/category-remote-persistence.js",
+          "line": 196,
+          "symbol": "categoryItemPayloadFromRow"
+        },
+        {
+          "path": "dogs.js",
+          "line": 750,
+          "symbol": "performRemoteStateLoad \u2192 initialReconciliation writes all surfaces"
+        }
+      ],
+      "auditEvidence": [
+        "evidence/probes/m-misc.json (dogs-remote-row-one-malformed-item, control-dogs-remote-row-valid)"
+      ],
+      "implementation": [
+        {
+          "path": "dogs.js",
+          "line": 608,
+          "symbol": "const payloadsFromRemoteRows"
+        },
+        {
+          "path": "dogs.js",
+          "line": 654,
+          "symbol": "const performRemoteStateLoad"
+        }
+      ],
+      "verification": [
+        "Independent helper reproduction: malformed/missing conflation, valid empty distinction, valid siblings lost in merge; 10 focused assertions total.",
+        "scripts/test-data-safety-browser.cjs: malformed-row and rejected-initial-read cases (browser worker runs).",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Present malformed rows and absent rows returned the same null; successful reads then wrote all surfaces. Checked-in SQL permits inner malformed item schema, though current browser writer cannot generate that fixture. Reconciliation now fails closed before changing local or remote state when any present row is unreadable; valid empty rows remain valid.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [
+        "No production rows inspected."
+      ],
+      "supportingReviews": [
+        "dogs-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-009",
+      "auditStatus": "verified_defect",
+      "title": "Movies sync status is one global flag reset by any later success; partial failures (including Restore) report success",
+      "disposition": "verified-corrected",
+      "authoringLocations": [
+        {
+          "path": "app.js",
+          "line": 1492,
+          "symbol": "runSupabaseRequest"
+        },
+        {
+          "path": "app.js",
+          "line": 5264,
+          "symbol": "setRemoteSyncAvailability"
+        },
+        {
+          "path": "app.js",
+          "line": 3802,
+          "symbol": "applyExactDataSnapshot (Promise.all of three saves)"
+        }
+      ],
+      "auditEvidence": [
+        "evidence/probes/m-misc.json (movies-restore-partial-remote-failure)",
+        "evidence/probes/m-sync.json (movies-ranking-read-500-then-edit status)"
+      ],
+      "implementation": [
+        "app.js:updateMovieSafetyUi",
+        "app.js:applyExactDataSnapshot",
+        "app.js:restoreStackRankBackup"
+      ],
+      "verification": [
+        "scripts/test-data-safety-browser.cjs:movies partial restore",
+        "scripts/test-data-safety-browser.cjs:movies http-error mutation",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Global success flag and swallowed results overstated durability. Each ranking/queue/pack row has pending/error/conflict state; restore distinguishes device-save outcome from remote sync. Unknown outcomes use CAS readback.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "movies-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-010",
+      "auditStatus": "verified_defect",
+      "title": "Movies account writes are not serialized; reversed completion leaves an older list in the account",
+      "disposition": "verified-corrected",
+      "authoringLocations": [
+        {
+          "path": "app.js",
+          "line": 3128,
+          "symbol": "saveRanking (fire-and-forget upserts)"
+        }
+      ],
+      "auditEvidence": [
+        "evidence/probes/m-reorder.json"
+      ],
+      "implementation": [
+        "app.js:queueMovieSync",
+        "app.js:movieOperation",
+        "lib/data-safety.js:compareAndSwapRow"
+      ],
+      "verification": [
+        "scripts/test-data-safety-browser.cjs:movies hung write",
+        "scripts/test-data-safety-browser.cjs:movies network-after-commit mutation",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Concurrent ordinary full-row saves can commit out of order. Browser request response delay alone is not proof of reversed DB commit, but audit gate correctly delayed mock commit itself; CAS and serialized read/write operations now prevent stale commits.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "movies-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-011",
+      "auditStatus": "verified_defect",
+      "title": "A Dogs write that never completes stalls all later syncs while the UI says the ranking is backed up",
+      "disposition": "verified-corrected",
+      "authoringLocations": [
+        {
+          "path": "dogs.js",
+          "line": 705,
+          "symbol": "queueRemoteSave (serialized chain, no timeout)"
+        },
+        {
+          "path": "dogs.js",
+          "line": 2136,
+          "symbol": "updateAccountUi 'backed up' copy"
+        }
+      ],
+      "auditEvidence": [
+        "evidence/probes/d-hang.json"
+      ],
+      "implementation": [
+        {
+          "path": "dogs.js",
+          "line": 701,
+          "symbol": "const syncRemoteSnapshot"
+        },
+        {
+          "path": "dogs.js",
+          "line": 593,
+          "symbol": "const readRemoteStateRows"
+        },
+        {
+          "path": "dogs.js",
+          "line": 2167,
+          "symbol": "const updateAccountUi"
+        }
+      ],
+      "verification": [
+        "scripts/test-data-safety-browser.cjs: real 10-second hung-write timeout, later edit and reload.",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Thirty-second held-write evidence supports stalled queue and false backup status, not infinite network behavior. Sync now has bounded reads, conditional versioned writes with bounded readback, truthful pending/error/conflict states and retry. Late commits cannot overwrite a newer conditional version in updated clients.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [
+        "Abort is not server rollback; legacy clients still need rollout handling."
+      ],
+      "supportingReviews": [
+        "dogs-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-012",
+      "auditStatus": "verified_defect",
+      "title": "Unreadable local data is shown as an empty list and later overwritten (Dogs overwrites at boot)",
+      "disposition": "verified-corrected",
+      "authoringLocations": [
+        {
+          "path": "lib/persistence.js",
+          "line": 43,
+          "symbol": "parseRankingPayload"
+        },
+        {
+          "path": "lib/ranked-list.js",
+          "line": 10,
+          "symbol": "parseRankedListPayload"
+        },
+        {
+          "path": "dogs.js",
+          "line": 740,
+          "symbol": "canonicalizeCurrentCatalogState persists all keys"
+        }
+      ],
+      "auditEvidence": [
+        "evidence/probes/m-misc.json (movies-corrupt-local-ranking, dogs-corrupt-local-ranking)"
+      ],
+      "implementation": [
+        {
+          "path": "dogs.js",
+          "line": 437,
+          "symbol": "const loadState"
+        },
+        {
+          "path": "dogs.js",
+          "line": 243,
+          "symbol": "const safetyStore"
+        }
+      ],
+      "verification": [
+        "New malformed local payload guard; JSON/schema errors distinguished from missing values.",
+        "Shared store recovery tests and browser corruption cases.",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Dogs boot overwrite was conditional on another surface needing catalog canonicalization. Owner store retains original legacy bytes in explicit recovery, and malformed owned payloads are preserved and block edits before persistence.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [
+        "Fragments are preserved, not automatically repaired."
+      ],
+      "supportingReviews": [
+        "dogs-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-013",
+      "auditStatus": "verified_defect",
+      "title": "Signing back in after anonymous use puts the anonymous picks above the whole account list and calls the account list 'merged from another device'",
+      "disposition": "verified-corrected",
+      "authoringLocations": [
+        {
+          "path": "app.js",
+          "line": 3153,
+          "symbol": "loadRanking"
+        },
+        {
+          "path": "app.js",
+          "line": 3108,
+          "symbol": "showMergedPlacementNotice"
+        }
+      ],
+      "auditEvidence": [
+        "evidence/probes/m-misc.json (movies-signout-then-signin-same-account)"
+      ],
+      "implementation": [
+        "app.js:movies-recovery-add handler",
+        "lib/movies-data-safety.js:appendRecoveredMovies"
+      ],
+      "verification": [
+        "tests/movies-data-safety.test.js",
+        "scripts/test-data-safety-browser.cjs:Movies explicit anonymous recovery",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "New anonymous timestamp used to outrank account snapshot and distort order; explicit reviewed additions now append with account order authoritative. Generic cross-device merge toast no longer used by load.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "movies-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-014",
+      "auditStatus": "verified_defect",
+      "title": "Backup fidelity edges: Dogs exports no pack progress if any entry has an unknown key; Movies drops out-of-range years, long titles and non-allowlisted fields",
+      "disposition": "verified-scope-narrowed-and-corrected",
+      "authoringLocations": [
+        {
+          "path": "lib/dogs.js",
+          "line": 227,
+          "symbol": "buildDogsBackup (normalizeDogPackProgress || {})"
+        },
+        {
+          "path": "lib/backup.js",
+          "line": 155,
+          "symbol": "normalizeBackupMovie"
+        }
+      ],
+      "auditEvidence": [
+        "evidence/probes/helpers.json (moviesBackupRoundTrip, dogsBackupRoundTrip, dogsBackupPackProgressUnknownKey)"
+      ],
+      "implementation": [
+        "lib/backup.js:parseStackRankBackup",
+        "notes/feature-ideas/backup-and-import.md:Data-integrity decisions",
+        {
+          "path": "lib/dogs.js",
+          "line": 228,
+          "symbol": "export function dogPackProgressForBackup"
+        },
+        {
+          "path": "dogs.js",
+          "line": 2053,
+          "symbol": "const downloadBackup"
+        }
+      ],
+      "verification": [
+        "tests/movies-data-safety.test.js:backup identity normalization",
+        "tests/dogs-backup-safety.test.js",
+        "tests/dogs.test.js",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Movies backup documentation expressly validates years and permits known fields only. Reject proposal to blindly preserve arbitrary fields; synthetic1865/320-character title do not establish ordinary valid-catalog data loss. Nevertheless identity-changing normalization was silent, so restore now explicitly warns before confirmation about title truncation, unsupported years and invalid entries. Dogs component separately adjudicated. Unknown progress fields are accepted by remote state/SQL but former strict exporter discarded all entries. Export now normalizes independently, keeps supported fields/entries, and includes explicit warning counts plus visible download warning. Strict restore validation is unchanged.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [
+        "Unknown fields/invalid entries are omitted with explicit warning, not silently retained as trusted app state."
+      ],
+      "supportingReviews": [
+        "movies-adjudication.json",
+        "dogs-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-015",
+      "auditStatus": "hypothesis",
+      "title": "Movies size pre-check accepts payloads the database CHECK rejects (JSON.stringify vs jsonb::text bytes)",
+      "disposition": "hypothesis-promoted-verified-corrected",
+      "authoringLocations": [
+        {
+          "path": "lib/persistence.js",
+          "line": 14,
+          "symbol": "jsonByteLength"
+        },
+        {
+          "path": "app.js",
+          "line": 2814,
+          "symbol": "canSyncJsonPayload"
+        },
+        {
+          "path": "supabase/migrations/20260708063341_bound_user_json_payload_sizes.sql",
+          "line": 11,
+          "symbol": "octet_length(movies::text) <= 1048576"
+        }
+      ],
+      "auditEvidence": [
+        "evidence/probes/helpers.json (moviesPayloadLimitMismatch, dogsPayloadAtFullCatalog: Dogs far below limit)"
+      ],
+      "implementation": [
+        {
+          "path": "lib/json-size.js",
+          "line": 5,
+          "symbol": "export function postgresJsonByteLength"
+        },
+        {
+          "path": "lib/persistence.js",
+          "line": 5,
+          "symbol": "export function isRemoteJsonPayloadWithinByteLimit"
+        },
+        {
+          "path": "lib/category-remote-persistence.js",
+          "line": 283,
+          "symbol": "return postgresJsonByteLength(state)"
+        }
+      ],
+      "verification": [
+        "notes/testing/data-safety-corrections/postgres-size-evidence.json",
+        "tests/json-size.test.js",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Actual PostgreSQL 17.11 confirms compact JSON accepts payloads jsonb::text rejects. 3500 Movies: 1,010,391 compact versus 1,087,390 database bytes; 115 Dogs progress entries: 7,711 versus 8,285. New separate PostgreSQL byte estimator accounts for separators, UTF-8 and expanded numeric exponents; wire/backup measures remain exact and separate.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [
+        "Synthetic local database, not production."
+      ],
+      "supportingReviews": [
+        "dogs-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-016",
+      "auditStatus": "hypothesis",
+      "title": "Movies pack-progress snapshot deletes all account rows before upserting; a failed upsert leaves the account empty",
+      "disposition": "hypothesis-promoted-verified-corrected",
+      "authoringLocations": [
+        {
+          "path": "app.js",
+          "line": 2968,
+          "symbol": "savePackProgressSnapshot"
+        }
+      ],
+      "auditEvidence": [
+        "Static review of app.js:2968-3004"
+      ],
+      "implementation": [
+        "app.js:savePackProgressSnapshot",
+        "app.js:movieSurfaceSpec"
+      ],
+      "verification": [
+        "/tmp/stackrank-movies-independent-review/evidence/probes/m-hypotheses.json:DS016 failure/control",
+        "scripts/test-data-safety-browser.cjs:partial restore no pack DELETE assertion",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Independent actual file-input restore with nonempty known pack: DELETE204 then POST500 erased all remote pack progress while UI said Backup restored; success control retained it. Removed delete-before-upsert entirely: existing removed pack rows CAS-update to empty state, absent empty rows are not inserted.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "movies-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-017",
+      "auditStatus": "hypothesis",
+      "title": "Movies owner share-link responses are not checked against the current account after awaits",
+      "disposition": "hypothesis-promoted-verified-corrected",
+      "authoringLocations": [
+        {
+          "path": "app.js",
+          "line": 8769,
+          "symbol": "loadShareLinkState"
+        },
+        {
+          "path": "app.js",
+          "line": 8837,
+          "symbol": "upsertShareLinkSnapshot"
+        }
+      ],
+      "auditEvidence": [
+        "Static comparison with dogs.js loadShareLinkState/saveSharedSnapshot"
+      ],
+      "implementation": [
+        "app.js:loadShareLinkState",
+        "app.js:publishNewShareLink",
+        "app.js:upsertShareLinkSnapshot",
+        "app.js:revokeShareLink"
+      ],
+      "verification": [
+        "/tmp/stackrank-movies-independent-review/evidence/probes/m-hypotheses.json:DS017-share-load-after-owner-switch",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Held A share lookup, switched to B using actual vendored auth.setSession in another tab, then released A response: B saw A unlisted URL. Mock JWT encoding was corrected before accepting this result. Full auth-generation checks now suppress stale load/publish/revoke results, including A\u2192B\u2192A.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "movies-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-018",
+      "auditStatus": "accepted_limitation",
+      "title": "Client clocks order merges; a device with a fast clock keeps winning order/placement",
+      "disposition": "accepted-historical-limit-mitigated",
+      "authoringLocations": [
+        {
+          "path": "lib/persistence.js",
+          "line": 84,
+          "symbol": "mergeRankingPayloadsWithMetadata"
+        },
+        {
+          "path": "lib/category-remote-persistence.js",
+          "line": 228,
+          "symbol": "mergeCategoryPlacementPayloads"
+        }
+      ],
+      "auditEvidence": [
+        "evidence/probes/helpers.json (clockSkewMovies, clockSkewDogsPlacement)"
+      ],
+      "implementation": [
+        {
+          "path": "dogs.js",
+          "line": 654,
+          "symbol": "const performRemoteStateLoad"
+        }
+      ],
+      "verification": [
+        "Shared data-safety reconciliation and CAS tests.",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Old merge ordering used client clocks. Dogs normal sync now adopts clean remote snapshots or conditionally writes a known exact baseline, avoiding timestamp-order competitions. Version timestamps remain client-created monotonic tokens, not trusted wall-clock event ordering.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "dogs-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-019",
+      "auditStatus": "accepted_limitation",
+      "title": "Concurrent edits to the same row from two devices are last-writer-wins (additions recovered by union; reorders/removals not)",
+      "disposition": "accepted-historical-limit-mitigated",
+      "authoringLocations": [
+        {
+          "path": "dogs.js",
+          "line": 603,
+          "symbol": "syncRemoteSnapshot (mergeRemote:false for normal saves)"
+        },
+        {
+          "path": "app.js",
+          "line": 3128,
+          "symbol": "saveRanking"
+        }
+      ],
+      "auditEvidence": [
+        "evidence/probes/m-multi.json",
+        "evidence/probes/m-reorder.json"
+      ],
+      "implementation": [
+        {
+          "path": "dogs.js",
+          "line": 642,
+          "symbol": "const markRemoteConflict"
+        },
+        {
+          "path": "dogs.js",
+          "line": 701,
+          "symbol": "const syncRemoteSnapshot"
+        }
+      ],
+      "verification": [
+        "Independent-device browser clear/remove/restore and conflict cases.",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Historical same-row LWW was documented. Updated Dogs clients now detect baseline conflicts and preserve device changes for explicit recovery; do not promise legacy unconditional writers obey CAS.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [
+        "Legacy-client rollout guard is release-lead scope."
+      ],
+      "supportingReviews": [
+        "dogs-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-R01",
+      "auditStatus": "rejected",
+      "title": "Dogs overwrites the account after a failed initial read",
+      "disposition": "rejected-lead-upheld",
+      "authoringLocations": [],
+      "auditEvidence": [
+        "evidence/probes/m-sync.json"
+      ],
+      "implementation": [],
+      "verification": [
+        "Original immutable audit evidence plus reviewed source; focused hidden-slot/backup tests where applicable.",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Dogs preexisting initial-read gate prevented writes on failed read; retained as rejected, strengthened by fail-closed reconciliation.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "dogs-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-R02",
+      "auditStatus": "rejected",
+      "title": "A single transient network error on the boot read triggers DS-003",
+      "disposition": "rejected-lead-upheld",
+      "authoringLocations": [],
+      "auditEvidence": [
+        "evidence/probes/m-sync.json (first run in logs/probe-m-sync.log)",
+        "vendor/supabase-js-2.108.2.js retry logic"
+      ],
+      "implementation": [],
+      "verification": [
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Confirmed: only safe REST methods GET/HEAD/OPTIONS retry network failure or503/520;500 not retried. Auth refresh has a different wider retryable-status set. Distinguish REST vs Auth.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "movies-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-R03",
+      "auditStatus": "rejected",
+      "title": "Public snapshots disclose private queues, suppressed breeds, artwork or owner fields",
+      "disposition": "rejected-lead-upheld",
+      "authoringLocations": [],
+      "auditEvidence": [
+        "evidence/probes/m-share.json"
+      ],
+      "implementation": [],
+      "verification": [
+        "Original immutable audit evidence plus reviewed source; focused hidden-slot/backup tests where applicable.",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Public payload builders allowlist public display fields; browser mock cannot prove deployed RLS. No expansion of private snapshot payload. Public snapshots contain only public ranking fields; hidden IDs/private lists/denied artwork are excluded. No evidence of claimed disclosure in existing source/control.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "movies-adjudication.json",
+        "dogs-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-R04",
+      "auditStatus": "rejected",
+      "title": "Revoked snapshots remain readable (owner session or anonymous)",
+      "disposition": "rejected-lead-upheld",
+      "authoringLocations": [],
+      "auditEvidence": [
+        "evidence/probes/m-share.json"
+      ],
+      "implementation": [],
+      "verification": [
+        "Original immutable audit evidence plus reviewed source; focused hidden-slot/backup tests where applicable.",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Public reader filters revoked snapshots; tested mocks and source support rejection, deployed RLS untouched. Revoked readers reject snapshots; owner-browser reader uses nonpersisted anonymous session. Production RLS not independently read here.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "movies-adjudication.json",
+        "dogs-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-R05",
+      "auditStatus": "rejected",
+      "title": "Hidden/suppressed identities are erased by reorder, insertion, canonicalization or backup",
+      "disposition": "rejected-lead-upheld",
+      "authoringLocations": [],
+      "auditEvidence": [
+        "evidence/probes/helpers.json",
+        "logs/e2e-existing-summary.txt"
+      ],
+      "implementation": [],
+      "verification": [
+        "Original immutable audit evidence plus reviewed source; focused hidden-slot/backup tests where applicable.",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Hidden identities/slots and backup round-trip preserved; independent helper assertions retain Coydog and Japanese Akitainu in exact slots. No changes to catalog IDs or canonicalization rules.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "dogs-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-R06",
+      "auditStatus": "rejected",
+      "title": "Same-app Sign out followed by another account leaks data",
+      "disposition": "rejected-lead-upheld",
+      "authoringLocations": [],
+      "auditEvidence": [
+        "evidence/probes/x-auth.json"
+      ],
+      "implementation": [],
+      "verification": [
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Same-app signout control was clean absent preexisting anonymous data; not evidence against cross-tab/sibling leakage.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "movies-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-R07",
+      "auditStatus": "rejected",
+      "title": "Cancel during Re-rank or Rank-from-queue loses the movie",
+      "disposition": "rejected-lead-upheld",
+      "authoringLocations": [],
+      "auditEvidence": [
+        "evidence/probes/m-interrupt.json"
+      ],
+      "implementation": [],
+      "verification": [
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Fresh browser Cancel controls restore exact ranking position and queue metadata; issue concerns interruption only.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "movies-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-R08",
+      "auditStatus": "rejected",
+      "title": "Dogs reversed write completion leaves an older account row",
+      "disposition": "rejected-lead-upheld",
+      "authoringLocations": [],
+      "auditEvidence": [
+        "evidence/probes/m-reorder.json"
+      ],
+      "implementation": [],
+      "verification": [
+        "Original immutable audit evidence plus reviewed source; focused hidden-slot/backup tests where applicable.",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Normal successful Dogs writes were serialized; reversed-completion claim rejected. Timeout case is separately accepted DS-011.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "dogs-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-R09",
+      "auditStatus": "rejected",
+      "title": "Backups can be restored into the wrong category or from unsupported versions",
+      "disposition": "rejected-lead-upheld",
+      "authoringLocations": [],
+      "auditEvidence": [
+        "evidence/probes/cross-backup.json"
+      ],
+      "implementation": [],
+      "verification": [
+        "Original immutable audit evidence plus reviewed source; focused hidden-slot/backup tests where applicable.",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Category/version rejection remains in backup parsers and current focused tests. Strict category/version and known-field restore boundaries remain enforced.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "movies-adjudication.json",
+        "dogs-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-R10",
+      "auditStatus": "rejected",
+      "title": "Interrupting a Dogs comparison loses the Curious item",
+      "disposition": "rejected-lead-upheld",
+      "authoringLocations": [],
+      "auditEvidence": [
+        "evidence/probes/d-interrupt.json"
+      ],
+      "implementation": [],
+      "verification": [
+        "Original immutable audit evidence plus reviewed source; focused hidden-slot/backup tests where applicable.",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Dogs comparison retains Curious origin until settle; reload does not lose pending item.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "dogs-adjudication.json"
+      ]
+    },
+    {
+      "id": "DS-R11",
+      "auditStatus": "rejected",
+      "title": "Books shares or overwrites Movies/Dogs storage",
+      "disposition": "rejected-lead-upheld",
+      "authoringLocations": [],
+      "auditEvidence": [
+        "snapshot/books.js:38,122,471-488",
+        "snapshot/lib/category-backup.js"
+      ],
+      "implementation": [],
+      "verification": [
+        "Original immutable audit evidence plus reviewed source; focused hidden-slot/backup tests where applicable.",
+        "reports/data-safety/2026-10-07T06-14-14-038Z/results.json (45/45 source; unchanged before/after source hashes)",
+        "notes/testing/data-safety-corrections/local-verification.json"
+      ],
+      "rationale": "Books uses categoryStorageKeys(books), category-bound backups and no account writes. Static namespace isolation supports rejection. Books namespaced state is separate; reviewed source and audit static evidence, no new Books runtime testing by this worker.",
+      "reviewStatus": "independent-adjudication-complete; final combined local verification passed",
+      "limitations": [],
+      "supportingReviews": [
+        "movies-adjudication.json",
+        "dogs-adjudication.json"
+      ]
+    }
+  ],
+  "verificationBoundary": "Final npm run verify passed, including 44 existing staged browser flows and 45 strict safety flows. Exact CI/production receipts are in the release hand-back."
+}

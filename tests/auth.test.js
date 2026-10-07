@@ -21,7 +21,7 @@ test("AUTH_PROVIDERS offers Google and Apple with literal Supabase ids", () => {
 test("SIGN_OUT_LOCAL_DATA_MESSAGE is explicit about the account copy and device state", () => {
   assert.equal(
     SIGN_OUT_LOCAL_DATA_MESSAGE,
-    "Sign out? Your list stays in your account; this device will show an empty list.",
+    "Sign out? Your account copy stays in your account. This device will show only work saved while signed out.",
   );
 });
 

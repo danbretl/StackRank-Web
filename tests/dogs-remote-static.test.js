@@ -35,18 +35,15 @@ test("Dogs sync uses only additive category tables and bounded row builders", ()
   assert.match(dogsSource, /buildCategoryRankingRow/);
   assert.match(dogsSource, /buildCategoryListRow/);
   assert.match(dogsSource, /buildCategoryPackProgressRow/);
-  assert.match(dogsSource, /saveAll\(\{ syncRemote: false \}\)/);
-  assert.match(dogsSource, /syncRemoteSnapshot\(snapshot, expectedListId, options\)/);
-  assert.match(dogsSource, /categoryUserListId\(currentUser\?\.id\) !== expectedListId/);
-  assert.match(dogsSource, /categoryUserListId\(currentUser\?\.id\) !== listId/);
-  assert.match(
-    dogsSource,
-    /previousListId\s*&&\s*nextListId\s*&&\s*previousListId\s*!==\s*nextListId/,
-  );
-  assert.match(dogsSource, /if \(switchedAccounts\) clearDeviceStateAfterSignOut\(\)/);
+  // Runtime race coverage is in test-data-safety-browser.cjs; these checks enforce
+  // the integration boundary rather than requiring the former unsafe merge flow.
+  assert.match(dogsSource, /createDataSafetyStore/);
+  assert.match(dogsSource, /compareAndSwapRow/);
+  assert.doesNotMatch(dogsSource, /localStorage\.setItem\(STORAGE_KEYS/);
+  assert.match(dogsSource, /safetyStore\.isCurrent/);
   assert.match(dogsSource, /changedPersistedSurfaces\(beforeUndo, undoSnapshot\)/);
   assert.match(dogsSource, /list_updated_at:\s*stateUpdatedAt\.lists/);
-  assert.match(dogsSource, /initialReconciliation:\s*true/);
+
 });
 
 test("Dogs public snapshots deliberately use a non-persistent anonymous client", () => {

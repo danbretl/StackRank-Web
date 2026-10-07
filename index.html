@@ -58,7 +58,7 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="styles.css?v=161" />
+    <link rel="stylesheet" href="styles.css?v=162" />
     <link rel="stylesheet" href="category-switcher.css?v=1" />
   </head>
   <body>
@@ -1396,6 +1396,21 @@
         </div>
       </div>
 
+      <section id="movies-data-safety" class="panel" aria-label="Saved data and recovery" hidden>
+        <p id="movies-data-safety-message" role="status"></p>
+        <button type="button" class="detail-action" id="movies-sync-retry">Retry sync</button>
+        <button type="button" class="detail-action" id="movies-use-account">Use account copy</button>
+        <button type="button" class="detail-action" id="movies-reload-tab" hidden>Reload this tab</button>
+        <div id="movies-recovery-controls" hidden>
+          <label for="movies-recovery-choice">Saved device copies</label>
+          <select id="movies-recovery-choice"></select>
+          <button type="button" class="detail-action" id="movies-recovery-preview-button">Review selected copy</button>
+          <button type="button" class="detail-action" id="movies-recovery-download">Download original copy</button>
+          <p id="movies-recovery-preview"></p>
+          <button type="button" class="detail-action" id="movies-recovery-add" disabled>Add reviewed entries</button>
+          <button type="button" class="detail-action" id="movies-recovery-dismiss">Dismiss copy</button>
+        </div>
+      </section>
       <footer class="footnote">
         <span class="panel__sub" id="api-status">Connects to TMDB for search.</span>
         <nav class="footnote__links" aria-label="Site information">
@@ -1428,6 +1443,6 @@
     <div class="panel__feedback" id="add-feedback" role="status" aria-live="polite"></div>
 
     <script type="module" src="category-switcher.js?v=1"></script>
-    <script type="module" src="app.js?v=192"></script>
+    <script type="module" src="app.js?v=193"></script>
   </body>
 </html>

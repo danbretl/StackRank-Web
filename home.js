@@ -1,11 +1,14 @@
+import { localRankingCount } from "./lib/home-progress.js?v=1";
+
 const countRanking = (storageKey, field = "items") => {
   try {
-    const raw = localStorage.getItem(storageKey);
-    if (!raw) return 0;
-    const parsed = JSON.parse(raw);
-    if (Array.isArray(parsed)) return parsed.length;
-    if (Array.isArray(parsed?.[field])) return parsed[field].length;
-    if (field === "movies" && Array.isArray(parsed?.items)) return parsed.items.length;
+    const category = field === "movies" ? "movies" : "dogs";
+    return localRankingCount({
+      safetyRaw: localStorage.getItem(`stackrank:${category}:safety:v1`),
+      authRaw: localStorage.getItem("sb-hrfhakrxsllrqmscxxpb-auth-token"),
+      rawKey: storageKey,
+      field,
+    });
   } catch (_error) {
     // The family home is informational; corrupt category data stays isolated.
   }

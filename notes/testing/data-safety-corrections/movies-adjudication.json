@@ -1,0 +1,201 @@
+{
+  "baseline": "033a397e3ea0d7121358fe5910b7acccf4f9f566",
+  "reviewer": "movies_review",
+  "scope": "Movies findings and implementation; shared ownership/CAS primitives reviewed and owned separately",
+  "immutable_audit": "/Users/danbretl/src/stackrank-data-safety-audit-20261007T043458Z",
+  "independent_probe_directory": "/tmp/stackrank-movies-independent-review",
+  "findings": [
+    {
+      "id": "DS-002",
+      "decision": "verified_fixed",
+      "rationale": "Draft origin was saved away before completion. Fresh browser interruption and Cancel controls reproduce; durableMovieLists retains origin in any incidental write and draft start no longer persists removal. Queue departure commits on settle.",
+      "source": [
+        "app.js:beginRankingRestack",
+        "app.js:startRankingMovie",
+        "app.js:saveRanking",
+        "lib/movies-data-safety.js:durableMovieLists"
+      ],
+      "verification": [
+        "tests/movies-data-safety.test.js",
+        "scripts/test-data-safety-browser.cjs:Movies rerank interruption",
+        "scripts/test-data-safety-browser.cjs:Movies queue interruption"
+      ]
+    },
+    {
+      "id": "DS-003",
+      "decision": "verified_fixed",
+      "rationale": "Vendored REST retries GET network failures and 503/520 up to3 times, not500. Sustained/non-retried read failure is supported; persisted CAS baseline alone does not authorize writes after a failed current-session read. Per-surface readReady now gates writes; uncertain dirty state conflicts and preserves recovery.",
+      "source": [
+        "app.js:loadRankingRead",
+        "app.js:loadSuggestionQueuesRead",
+        "app.js:queueMovieSync"
+      ],
+      "verification": [
+        "scripts/test-data-safety-browser.cjs:movies rejected initial read prevents blind overwrite"
+      ]
+    },
+    {
+      "id": "DS-006",
+      "decision": "verified_fixed",
+      "rationale": "Base anonymous queue was a merge candidate on every authenticated reload. Owned aggregate data and explicit one-time anonymous recovery replace implicit merge; original bytes remain.",
+      "source": [
+        "app.js:activateMovieSafety",
+        "app.js:moviesFromRecovery",
+        "app.js:loadSuggestionQueuesRead"
+      ],
+      "verification": [
+        "scripts/test-data-safety-browser.cjs:Movies explicit anonymous recovery keeps account order and does not resurrect removed Watch next"
+      ]
+    },
+    {
+      "id": "DS-009",
+      "decision": "verified_fixed",
+      "rationale": "Global success flag and swallowed results overstated durability. Each ranking/queue/pack row has pending/error/conflict state; restore distinguishes device-save outcome from remote sync. Unknown outcomes use CAS readback.",
+      "source": [
+        "app.js:updateMovieSafetyUi",
+        "app.js:applyExactDataSnapshot",
+        "app.js:restoreStackRankBackup"
+      ],
+      "verification": [
+        "scripts/test-data-safety-browser.cjs:movies partial restore",
+        "scripts/test-data-safety-browser.cjs:movies http-error mutation"
+      ]
+    },
+    {
+      "id": "DS-010",
+      "decision": "verified_fixed",
+      "rationale": "Concurrent ordinary full-row saves can commit out of order. Browser request response delay alone is not proof of reversed DB commit, but audit gate correctly delayed mock commit itself; CAS and serialized read/write operations now prevent stale commits.",
+      "source": [
+        "app.js:queueMovieSync",
+        "app.js:movieOperation",
+        "lib/data-safety.js:compareAndSwapRow"
+      ],
+      "verification": [
+        "scripts/test-data-safety-browser.cjs:movies hung write",
+        "scripts/test-data-safety-browser.cjs:movies network-after-commit mutation"
+      ]
+    },
+    {
+      "id": "DS-013",
+      "decision": "verified_fixed",
+      "rationale": "New anonymous timestamp used to outrank account snapshot and distort order; explicit reviewed additions now append with account order authoritative. Generic cross-device merge toast no longer used by load.",
+      "source": [
+        "app.js:movies-recovery-add handler",
+        "lib/movies-data-safety.js:appendRecoveredMovies"
+      ],
+      "verification": [
+        "tests/movies-data-safety.test.js",
+        "scripts/test-data-safety-browser.cjs:Movies explicit anonymous recovery"
+      ]
+    },
+    {
+      "id": "DS-014",
+      "decision": "narrowed_fixed_and_rejected",
+      "rationale": "Movies backup documentation expressly validates years and permits known fields only. Reject proposal to blindly preserve arbitrary fields; synthetic1865/320-character title do not establish ordinary valid-catalog data loss. Nevertheless identity-changing normalization was silent, so restore now explicitly warns before confirmation about title truncation, unsupported years and invalid entries. Dogs component separately adjudicated.",
+      "source": [
+        "lib/backup.js:parseStackRankBackup",
+        "notes/feature-ideas/backup-and-import.md:Data-integrity decisions"
+      ],
+      "verification": [
+        "tests/movies-data-safety.test.js:backup identity normalization"
+      ]
+    },
+    {
+      "id": "DS-016",
+      "decision": "hypothesis_promoted_verified_fixed",
+      "rationale": "Independent actual file-input restore with nonempty known pack: DELETE204 then POST500 erased all remote pack progress while UI said Backup restored; success control retained it. Removed delete-before-upsert entirely: existing removed pack rows CAS-update to empty state, absent empty rows are not inserted.",
+      "source": [
+        "app.js:savePackProgressSnapshot",
+        "app.js:movieSurfaceSpec"
+      ],
+      "verification": [
+        "/tmp/stackrank-movies-independent-review/evidence/probes/m-hypotheses.json:DS016 failure/control",
+        "scripts/test-data-safety-browser.cjs:partial restore no pack DELETE assertion"
+      ]
+    },
+    {
+      "id": "DS-017",
+      "decision": "hypothesis_promoted_verified_fixed",
+      "rationale": "Held A share lookup, switched to B using actual vendored auth.setSession in another tab, then released A response: B saw A unlisted URL. Mock JWT encoding was corrected before accepting this result. Full auth-generation checks now suppress stale load/publish/revoke results, including A\u2192B\u2192A.",
+      "source": [
+        "app.js:loadShareLinkState",
+        "app.js:publishNewShareLink",
+        "app.js:upsertShareLinkSnapshot",
+        "app.js:revokeShareLink"
+      ],
+      "verification": [
+        "/tmp/stackrank-movies-independent-review/evidence/probes/m-hypotheses.json:DS017-share-load-after-owner-switch"
+      ]
+    },
+    {
+      "id": "DS-R02",
+      "decision": "rejected_lead_upheld",
+      "rationale": "Confirmed: only safe REST methods GET/HEAD/OPTIONS retry network failure or503/520;500 not retried. Auth refresh has a different wider retryable-status set. Distinguish REST vs Auth.",
+      "source": [],
+      "verification": []
+    },
+    {
+      "id": "DS-R03",
+      "decision": "rejected_lead_upheld",
+      "rationale": "Public payload builders allowlist public display fields; browser mock cannot prove deployed RLS. No expansion of private snapshot payload.",
+      "source": [],
+      "verification": []
+    },
+    {
+      "id": "DS-R04",
+      "decision": "rejected_lead_upheld",
+      "rationale": "Public reader filters revoked snapshots; tested mocks and source support rejection, deployed RLS untouched.",
+      "source": [],
+      "verification": []
+    },
+    {
+      "id": "DS-R06",
+      "decision": "rejected_lead_upheld",
+      "rationale": "Same-app signout control was clean absent preexisting anonymous data; not evidence against cross-tab/sibling leakage.",
+      "source": [],
+      "verification": []
+    },
+    {
+      "id": "DS-R07",
+      "decision": "rejected_lead_upheld",
+      "rationale": "Fresh browser Cancel controls restore exact ranking position and queue metadata; issue concerns interruption only.",
+      "source": [],
+      "verification": []
+    },
+    {
+      "id": "DS-R09",
+      "decision": "rejected_lead_upheld",
+      "rationale": "Category/version rejection remains in backup parsers and current focused tests.",
+      "source": [],
+      "verification": []
+    },
+    {
+      "id": "DS-R11",
+      "decision": "rejected_lead_upheld",
+      "rationale": "Books uses categoryStorageKeys(books), category-bound backups and no account writes. Static namespace isolation supports rejection.",
+      "source": [],
+      "verification": []
+    }
+  ],
+  "additional_shared_fixes": [
+    "DS001 owner-bound aggregate and known-owner legacy queue/progress descriptors; unowned and anonymous work only imported by explicit reviewed choice",
+    "DS004 first stale attempted edit preserved separately; subsequent editing blocked, download/reload recovery usable",
+    "DS005 clean mirrors adopt remote exact, dirty mirrors use exact-token CAS and safe conflict recovery rather than union resurrection",
+    "DS007 auth generation invalidates undo, comparison, review, import, delayed share; no stale-owner continuation",
+    "DS012 unreadable new-owner raw values block replacement and preserve bytes; old legacy corrupt bytes remain explicit recovery",
+    "DS015 remote validators use shared postgresJsonByteLength"
+  ],
+  "limitations": [
+    "No real account or production database writes",
+    "Older cached clients can still make legacy unconditional writes until reloaded; CAS coordinates corrected clients and does not retrofit server protection",
+    "CAS is per row; ranking/queues/pack state changes are not one database transaction. Partial outcomes remain explicit and retryable",
+    "Original source/audit snapshots and private caches were not modified",
+    "Vendor module is minified on a single source line; symbols/substrings are more useful than vendor line numbers"
+  ],
+  "evidence_notes": [
+    "Original audit probe harness reviewed before copy; loopback-only mock, host-resolution denial and fetch interception prevent live writes. Only unique /tmp files changed during independent adjudication.",
+    "Fresh DS002 reproduction with Cancel controls passed. DS016+017 novel probes used actual browser UI and real vendored auth client; actual production constraints/security not asserted.",
+    "20 focused Movies backup/helper tests pass. Browser run05-54-41 passed15journeys; solepartialrestore barrierfailure corrected in harness and focused partialrestore05-56-56 passed. Final combined browser receipts owned by root/safety_browser_tests supersede intermediate runs.",
+    "Independent correction review found and closed a local-durability gap: second edits behind a held remote write now flush the owner aggregate immediately, outside remote serialization. The held-write browser regression asserts local durability within2seconds before awaiting the10second network timeout."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-10-09T05:37:41.379253+00:00",
+  "status": "passed",
+  "command": "npm run verify",
+  "nodeTests": 660,
+  "pythonTests": 58,
+  "denoTests": 27,
+  "denoHandlerSteps": 12,
+  "stagedBrowserFlows": 44,
+  "dataSafetyBrowserCases": 45,
+  "securityBrowserCases": 24,
+  "nativeDatabaseAssertions": 212,
+  "fullVerifySha256": "7c899f6e15963ca85b1e5e2c3a02f669365b75afac1bf0997f3545d513dd59d5",
+  "logs": "reports/security-audit-corrections/final-verify.log",
+  "securityBrowserReport": "reports/security-browser/2026-10-09T05-37-04-914Z/results.json",
+  "deploymentPublicFiles": 2172,
+  "productionDatabaseApplied": false,
+  "notes": [
+    "First full attempts exposed two stale test expectations: anonymous settings moved to helper and app cache193 became194. Both test expectations corrected; failed logs retained.",
+    "Runtime/SQL hashes match independent-release-review.json.",
+    "Existing Movies/Dogs persistence and all catalog validators remain green."
+  ]
+}

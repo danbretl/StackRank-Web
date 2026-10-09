@@ -1,0 +1,82 @@
+{
+  "functions": [
+    {
+      "id": "9539e69b-06f4-4d1a-ad6f-08a2fd59c2c0",
+      "slug": "tmdb-search",
+      "name": "tmdb-search",
+      "status": "ACTIVE",
+      "version": 10,
+      "created_at": 1766568667205,
+      "updated_at": 1783491915164,
+      "verify_jwt": false,
+      "import_map": false,
+      "entrypoint_path": "file:///tmp/user_fn_hrfhakrxsllrqmscxxpb_9539e69b-06f4-4d1a-ad6f-08a2fd59c2c0_8/source/supabase/functions/tmdb-search/index.ts",
+      "ezbr_sha256": "8e194ee005dc98a161ff8e89d7d82dc6f43518dfb73c712f8efd53835345a6e6"
+    },
+    {
+      "id": "1f467657-8296-4d7d-8e22-03fcee9b5c09",
+      "slug": "tmdb-suggest",
+      "name": "tmdb-suggest",
+      "status": "ACTIVE",
+      "version": 13,
+      "created_at": 1766742891114,
+      "updated_at": 1783491915848,
+      "verify_jwt": false,
+      "import_map": false,
+      "entrypoint_path": "file:///tmp/user_fn_hrfhakrxsllrqmscxxpb_1f467657-8296-4d7d-8e22-03fcee9b5c09_11/source/supabase/functions/tmdb-suggest/index.ts",
+      "ezbr_sha256": "743dfcfcc32398386e6d4580cb5e9e5e1a3866f6561aa094e87e29db0b4726c5"
+    },
+    {
+      "id": "16e75f1e-a2ac-42b9-8f68-5346e5d753c5",
+      "slug": "tmdb-detail",
+      "name": "tmdb-detail",
+      "status": "ACTIVE",
+      "version": 6,
+      "created_at": 1782021881054,
+      "updated_at": 1783491916726,
+      "verify_jwt": false,
+      "import_map": false,
+      "entrypoint_path": "file:///tmp/user_fn_hrfhakrxsllrqmscxxpb_16e75f1e-a2ac-42b9-8f68-5346e5d753c5_4/source/supabase/functions/tmdb-detail/index.ts",
+      "ezbr_sha256": "ff0c713e51b748157be11c2849155868b64c98f3f608e039a9be5591aea5d889"
+    },
+    {
+      "id": "c6ea3273-914c-4dac-a5f0-e9393bdbd3ec",
+      "slug": "tmdb-image",
+      "name": "tmdb-image",
+      "status": "ACTIVE",
+      "version": 6,
+      "created_at": 1782224734377,
+      "updated_at": 1783491917499,
+      "verify_jwt": false,
+      "import_map": false,
+      "entrypoint_path": "file:///tmp/user_fn_hrfhakrxsllrqmscxxpb_c6ea3273-914c-4dac-a5f0-e9393bdbd3ec_4/source/supabase/functions/tmdb-image/index.ts",
+      "ezbr_sha256": "016db29edfb6a2ef1de38f98a54d8cdb0ca8dbbd5b4f463292d7fa3c23260d58"
+    },
+    {
+      "id": "d4cc3e7d-219a-4a9e-9356-e74886b91a54",
+      "slug": "tonight-pick",
+      "name": "tonight-pick",
+      "status": "ACTIVE",
+      "version": 3,
+      "created_at": 1783572679823,
+      "updated_at": 1783572679823,
+      "verify_jwt": false,
+      "import_map": false,
+      "entrypoint_path": "file:///tmp/user_fn_hrfhakrxsllrqmscxxpb_d4cc3e7d-219a-4a9e-9356-e74886b91a54_1/source/supabase/functions/tonight-pick/index.ts",
+      "ezbr_sha256": "55124cbb77bb89baeffd3d493338dcf8139fc56bb711b412f79879a43c2508fc"
+    },
+    {
+      "id": "e72ae4ff-2b46-4699-a1c1-b7f3ce0b8b42",
+      "slug": "books-search",
+      "name": "books-search",
+      "status": "ACTIVE",
+      "version": 3,
+      "created_at": 1783929913122,
+      "updated_at": 1783929913122,
+      "verify_jwt": false,
+      "import_map": false,
+      "entrypoint_path": "file:///tmp/user_fn_hrfhakrxsllrqmscxxpb_e72ae4ff-2b46-4699-a1c1-b7f3ce0b8b42_1/source/supabase/functions/books-search/index.ts",
+      "ezbr_sha256": "5e37a74156a26200a75186f5e56d9c24c945d93be592db62e40eec556be74a31"
+    }
+  ]
+}

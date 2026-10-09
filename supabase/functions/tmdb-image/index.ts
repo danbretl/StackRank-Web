@@ -3,17 +3,16 @@ import {
   preflightResponse,
   PUBLIC_CORS_HEADERS,
 } from "../_shared/http.ts";
-import {
-  clientRateLimitKey,
-  takeRateLimitToken,
-} from "../_shared/rate-limit.ts";
+import { createRequestRateLimiter } from "../_shared/rate-limit.ts";
 
 const allowedSizes = new Set(["w92", "w154", "w185", "w342", "w500"]);
 const POSTER_CACHE_CONTROL =
   "public, max-age=604800, s-maxage=2592000, immutable";
-const POSTER_RATE_LIMIT = 300;
-const POSTER_RATE_LIMIT_WINDOW_MS = 5 * 60 * 1000;
-const posterRateLimitBuckets = new Map();
+const takeRequestToken = createRequestRateLimiter({
+  limit: 300,
+  instanceLimit: 3000,
+  windowMs: 5 * 60 * 1000,
+});
 
 const errorResponse = (message: string, status = 400) =>
   jsonResponse({ error: message }, status, PUBLIC_CORS_HEADERS);
@@ -23,14 +22,7 @@ Deno.serve(async (req) => {
     return preflightResponse(PUBLIC_CORS_HEADERS);
   }
 
-  const rateLimit = takeRateLimitToken(
-    posterRateLimitBuckets,
-    clientRateLimitKey(req),
-    {
-      limit: POSTER_RATE_LIMIT,
-      windowMs: POSTER_RATE_LIMIT_WINDOW_MS,
-    },
-  );
+  const rateLimit = takeRequestToken(req);
   if (!rateLimit.allowed) {
     return jsonResponse(
       { error: "Too many poster requests" },

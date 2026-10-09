@@ -5,6 +5,13 @@ import {
   stackRankPreflightResponse,
 } from "../_shared/http.ts";
 import { hasValidPublishableKey } from "../_shared/publishable-key.ts";
+import { createRequestRateLimiter } from "../_shared/rate-limit.ts";
+
+const takeRequestToken = createRequestRateLimiter({
+  limit: 120,
+  instanceLimit: 1200,
+  windowMs: 5 * 60 * 1000,
+});
 
 const genreNames: Record<number, string> = {
   12: "Adventure",
@@ -48,16 +55,25 @@ Deno.serve(async (req) => {
     );
   }
 
+  const token = takeRequestToken(req);
+  if (!token.allowed) {
+    corsHeaders.set("Retry-After", String(token.retryAfterSeconds));
+    return jsonResponse({ error: "Too many requests" }, 429, corsHeaders);
+  }
+
   const url = new URL(req.url);
   const type = url.searchParams.get("type") || "popular";
   const seed = url.searchParams.get("seed");
+  if (type === "recommendations" && (!seed || !/^\d{1,10}$/.test(seed))) {
+    return jsonResponse({ error: "Valid movie seed required" }, 400, corsHeaders);
+  }
   const tmdbKey = Deno.env.get("TMDB_API_KEY");
   if (!tmdbKey) {
     return jsonResponse({ error: "TMDB_API_KEY missing" }, 500, corsHeaders);
   }
 
   let tmdbUrl = "";
-  if (type === "recommendations" && seed) {
+  if (type === "recommendations") {
     tmdbUrl =
       `https://api.themoviedb.org/3/movie/${seed}/recommendations?api_key=${tmdbKey}`;
   } else if (type === "trending") {

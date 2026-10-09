@@ -14,11 +14,7 @@ import {
   stackRankPreflightResponse,
 } from "../_shared/http.ts";
 import { hasValidPublishableKey } from "../_shared/publishable-key.ts";
-import {
-  clientRateLimitKey,
-  type RateLimitStore,
-  takeRateLimitToken,
-} from "../_shared/rate-limit.ts";
+import { createRequestRateLimiter } from "../_shared/rate-limit.ts";
 import { interpretMood, scoreMoodMatch } from "../_shared/mood.ts";
 
 const MAX_CANDIDATES = 80;
@@ -43,10 +39,13 @@ type CandidateFacts = {
 };
 const factCache = new Map<number, { facts: CandidateFacts | null; expiresAt: number }>();
 
-// Coarse per-IP brake: each request fans out to up to MAX_CANDIDATES TMDB
-// calls, so keep the request budget tighter than the JSON proxies.
-const rateLimitStore: RateLimitStore = new Map();
-const RATE_LIMIT = { limit: 60, windowMs: 5 * 60 * 1000 };
+// Each request fans out to up to MAX_CANDIDATES calls. Keep the client-hint
+// budget tighter than the JSON proxies, with a separate instance-wide brake.
+const takeRequestToken = createRequestRateLimiter({
+  limit: 60,
+  instanceLimit: 600,
+  windowMs: 5 * 60 * 1000,
+});
 
 const pruneFactCache = () => {
   if (factCache.size <= FACT_CACHE_MAX) return;
@@ -148,11 +147,7 @@ Deno.serve(async (req) => {
     );
   }
 
-  const rateToken = takeRateLimitToken(
-    rateLimitStore,
-    clientRateLimitKey(req),
-    RATE_LIMIT,
-  );
+  const rateToken = takeRequestToken(req);
   if (!rateToken.allowed) {
     corsHeaders.set("Retry-After", String(rateToken.retryAfterSeconds));
     return jsonResponse({ error: "Too many requests" }, 429, corsHeaders);

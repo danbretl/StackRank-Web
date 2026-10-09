@@ -12,10 +12,14 @@ type RateLimitOptions = {
   maxBuckets?: number;
 };
 
+// These headers are only coarse client hints, not authenticated IP addresses.
+// No hosted ingress overwrite guarantee has been established. Movies proxies
+// also enforce a separate instance budget that never depends on this value.
 export const clientRateLimitKey = (req: Request) => {
   const forwarded = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-  return forwarded || req.headers.get("cf-connecting-ip") ||
+  const hint = forwarded || req.headers.get("cf-connecting-ip") ||
     req.headers.get("x-real-ip") || "unknown";
+  return hint.length <= 128 ? hint : "unknown";
 };
 
 const pruneRateLimitBuckets = (
@@ -35,8 +39,17 @@ export const takeRateLimitToken = (
   key: string,
   { limit, windowMs, now = Date.now(), maxBuckets = 5000 }: RateLimitOptions,
 ) => {
-  if (store.size > maxBuckets) {
+  if (!store.has(key) && store.size >= maxBuckets) {
     pruneRateLimitBuckets(store, now, windowMs);
+    // Do not evict live buckets: rotating hints must not reset existing limits.
+    // Reject new hints until space expires, keeping memory strictly bounded.
+    if (store.size >= maxBuckets) {
+      return {
+        allowed: false,
+        remaining: 0,
+        retryAfterSeconds: Math.max(1, Math.ceil(windowMs * 2 / 1000)),
+      };
+    }
   }
 
   const refillPerMs = limit / windowMs;
@@ -64,5 +77,28 @@ export const takeRateLimitToken = (
     allowed: true,
     remaining: Math.floor(remaining),
     retryAfterSeconds: 0,
+  };
+};
+
+// Both budgets are ephemeral and local to one function instance. The aggregate
+// brake bounds header rotation in that instance; it is not a fleet-wide quota.
+export const createRequestRateLimiter = (
+  options: Omit<RateLimitOptions, "now"> & { instanceLimit: number },
+) => {
+  const hints: RateLimitStore = new Map();
+  const instance: RateLimitStore = new Map();
+  return (req: Request) => {
+    const now = Date.now();
+    const hintToken = takeRateLimitToken(hints, clientRateLimitKey(req), {
+      ...options,
+      now,
+    });
+    if (!hintToken.allowed) return hintToken;
+    return takeRateLimitToken(instance, "instance", {
+      limit: options.instanceLimit,
+      windowMs: options.windowMs,
+      now,
+      maxBuckets: 1,
+    });
   };
 };

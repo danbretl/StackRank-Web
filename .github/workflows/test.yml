@@ -27,6 +27,9 @@ jobs:
       - name: Run project verification
         run: npm run verify
 
+      - name: Verify database security with isolated synthetic records
+        run: npm run test:security:database
+
       - name: Upload test report
         if: always()
         uses: actions/upload-artifact@v4
@@ -40,6 +43,8 @@ jobs:
             reports/e2e/latest
             reports/e2e/latest.txt
             reports/data-safety/**
+            reports/security-audit-corrections/*/result.json
+            reports/security-browser/**
             reports/deployment-contract/**
             dist/contract/**
             dist/build-info.json

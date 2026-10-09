@@ -1,0 +1,137 @@
+{
+  "scope": "Read-only deployed function source compared to baseline Git; original files retained privately for rollback. No secrets retrieved.",
+  "rows": [
+    {
+      "function": "tmdb-search",
+      "path": "supabase/functions/tmdb-search/index.ts",
+      "baselineMatch": true,
+      "liveSha256": "72f5ac694d6192d5976b290104fa8610de6c3c34a8ec0a7c8f0d5daaafa3164a"
+    },
+    {
+      "function": "tmdb-search",
+      "path": "supabase/functions/_shared/http.ts",
+      "baselineMatch": true,
+      "liveSha256": "942d5de2b06ca98b20a7be20420f302e21621b63e3f1f22fbc1466b536e6c096"
+    },
+    {
+      "function": "tmdb-search",
+      "path": "supabase/functions/_shared/publishable-key.ts",
+      "baselineMatch": true,
+      "liveSha256": "fb6f62aa55d0377526f2b1ae07903196a58d6b8a367eb6142b487431101e02cb"
+    },
+    {
+      "function": "tmdb-detail",
+      "path": "supabase/functions/tmdb-detail/index.ts",
+      "baselineMatch": true,
+      "liveSha256": "e2323ee3d2535187dd95975f7dc97c152fc96518451ddb5ecfd29c854b711b73"
+    },
+    {
+      "function": "tmdb-detail",
+      "path": "supabase/functions/_shared/http.ts",
+      "baselineMatch": true,
+      "liveSha256": "942d5de2b06ca98b20a7be20420f302e21621b63e3f1f22fbc1466b536e6c096"
+    },
+    {
+      "function": "tmdb-detail",
+      "path": "supabase/functions/_shared/publishable-key.ts",
+      "baselineMatch": true,
+      "liveSha256": "fb6f62aa55d0377526f2b1ae07903196a58d6b8a367eb6142b487431101e02cb"
+    },
+    {
+      "function": "tmdb-suggest",
+      "path": "supabase/functions/tmdb-suggest/index.ts",
+      "baselineMatch": true,
+      "liveSha256": "5ad6a0e768a8fc9c1dbea2b373ad6957c7df88a48f6d0645a15890b6606efb80"
+    },
+    {
+      "function": "tmdb-suggest",
+      "path": "supabase/functions/_shared/http.ts",
+      "baselineMatch": true,
+      "liveSha256": "942d5de2b06ca98b20a7be20420f302e21621b63e3f1f22fbc1466b536e6c096"
+    },
+    {
+      "function": "tmdb-suggest",
+      "path": "supabase/functions/_shared/publishable-key.ts",
+      "baselineMatch": true,
+      "liveSha256": "fb6f62aa55d0377526f2b1ae07903196a58d6b8a367eb6142b487431101e02cb"
+    },
+    {
+      "function": "tmdb-image",
+      "path": "supabase/functions/tmdb-image/index.ts",
+      "baselineMatch": true,
+      "liveSha256": "3b399791a7b883c9fa6baa743d09b762f15bd92c7ba5557b69bc815471d897d4"
+    },
+    {
+      "function": "tmdb-image",
+      "path": "supabase/functions/_shared/http.ts",
+      "baselineMatch": true,
+      "liveSha256": "942d5de2b06ca98b20a7be20420f302e21621b63e3f1f22fbc1466b536e6c096"
+    },
+    {
+      "function": "tmdb-image",
+      "path": "supabase/functions/_shared/rate-limit.ts",
+      "baselineMatch": true,
+      "liveSha256": "69aba8706c132390c1fa28dd3a58b4fb907fb183501ca975b2bd84803d47eb0a"
+    },
+    {
+      "function": "tonight-pick",
+      "path": "supabase/functions/tonight-pick/index.ts",
+      "baselineMatch": true,
+      "liveSha256": "1b4adb34913326db76a14f37ec8881291d045758abf74f4787f4fa6d976fe610"
+    },
+    {
+      "function": "tonight-pick",
+      "path": "supabase/functions/_shared/http.ts",
+      "baselineMatch": true,
+      "liveSha256": "942d5de2b06ca98b20a7be20420f302e21621b63e3f1f22fbc1466b536e6c096"
+    },
+    {
+      "function": "tonight-pick",
+      "path": "supabase/functions/_shared/publishable-key.ts",
+      "baselineMatch": true,
+      "liveSha256": "fb6f62aa55d0377526f2b1ae07903196a58d6b8a367eb6142b487431101e02cb"
+    },
+    {
+      "function": "tonight-pick",
+      "path": "supabase/functions/_shared/rate-limit.ts",
+      "baselineMatch": true,
+      "liveSha256": "69aba8706c132390c1fa28dd3a58b4fb907fb183501ca975b2bd84803d47eb0a"
+    },
+    {
+      "function": "tonight-pick",
+      "path": "supabase/functions/_shared/mood.ts",
+      "baselineMatch": true,
+      "liveSha256": "e752b2bde8d2e6d35690fdd1ad15033490a982851974c1af949314f89121b3eb"
+    },
+    {
+      "function": "books-search",
+      "path": "supabase/functions/books-search/index.ts",
+      "baselineMatch": true,
+      "liveSha256": "79c58e37f4a51fbcd654fd7f7d67cabb5d10b0c52db2f2ed8cd71b8ec8ba5917"
+    },
+    {
+      "function": "books-search",
+      "path": "supabase/functions/_shared/http.ts",
+      "baselineMatch": true,
+      "liveSha256": "942d5de2b06ca98b20a7be20420f302e21621b63e3f1f22fbc1466b536e6c096"
+    },
+    {
+      "function": "books-search",
+      "path": "supabase/functions/_shared/publishable-key.ts",
+      "baselineMatch": true,
+      "liveSha256": "fb6f62aa55d0377526f2b1ae07903196a58d6b8a367eb6142b487431101e02cb"
+    },
+    {
+      "function": "books-search",
+      "path": "supabase/functions/_shared/rate-limit.ts",
+      "baselineMatch": true,
+      "liveSha256": "69aba8706c132390c1fa28dd3a58b4fb907fb183501ca975b2bd84803d47eb0a"
+    },
+    {
+      "function": "books-search",
+      "path": "supabase/functions/_shared/books.ts",
+      "baselineMatch": true,
+      "liveSha256": "bf74aa83f8fb110c45b6411ff16a64d6e653043c4699600504a616d51078a28a"
+    }
+  ]
+}

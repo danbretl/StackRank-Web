@@ -9,6 +9,7 @@ import {
   shouldCollectProductTelemetry,
 } from "./lib/telemetry.js?v=6";
 import { formatRuntime } from "./lib/format.js?v=1";
+import { PUBLIC_SHARE_AUTH_OPTIONS, readPublicShare } from "./lib/public-share-reader.js?v=1";
 
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl";
@@ -44,7 +45,9 @@ const detailCast = document.getElementById("shared-detail-cast");
 const detailStatus = document.getElementById("shared-detail-status");
 const detailCta = document.getElementById("shared-detail-cta");
 
-const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+  auth: PUBLIC_SHARE_AUTH_OPTIONS,
+});
 const debugEnabled = new URLSearchParams(window.location.search).get("debug") === "1";
 const detailCache = new Map();
 const detailRequests = new Map();
@@ -331,12 +334,7 @@ const loadSharedList = async () => {
   }
 
   try {
-    const { data, error } = await supabase
-      .from("shared_lists")
-      .select("payload, updated_at")
-      .eq("slug", slug)
-      .eq("revoked", false)
-      .maybeSingle();
+    const { data, error } = await readPublicShare(supabase, { category: "movies", slug });
     if (error) throw error;
     const payload = normalizeSharedListPayload(data?.payload);
     if (!data || !payload.movies.length) {

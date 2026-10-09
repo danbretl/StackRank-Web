@@ -1,0 +1,1268 @@
+{
+  "checkedAt": "2026-10-09T05:24:27.187Z",
+  "project": "hrfhakrxsllrqmscxxpb",
+  "scope": "Read-only schema/ACL metadata only; no customer rows, counts, credentials or settings changes",
+  "grants": [
+    {
+      "table_name": "category_shared_lists",
+      "grantee": "authenticated",
+      "privilege_type": "DELETE"
+    },
+    {
+      "table_name": "category_shared_lists",
+      "grantee": "authenticated",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "category_shared_lists",
+      "grantee": "authenticated",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "category_shared_lists",
+      "grantee": "authenticated",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "movie_lists",
+      "grantee": "anon",
+      "privilege_type": "DELETE"
+    },
+    {
+      "table_name": "movie_lists",
+      "grantee": "anon",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "movie_lists",
+      "grantee": "anon",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "movie_lists",
+      "grantee": "anon",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "movie_lists",
+      "grantee": "anon",
+      "privilege_type": "TRIGGER"
+    },
+    {
+      "table_name": "movie_lists",
+      "grantee": "anon",
+      "privilege_type": "TRUNCATE"
+    },
+    {
+      "table_name": "movie_lists",
+      "grantee": "anon",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "movie_lists",
+      "grantee": "authenticated",
+      "privilege_type": "DELETE"
+    },
+    {
+      "table_name": "movie_lists",
+      "grantee": "authenticated",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "movie_lists",
+      "grantee": "authenticated",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "movie_lists",
+      "grantee": "authenticated",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "movie_lists",
+      "grantee": "authenticated",
+      "privilege_type": "TRIGGER"
+    },
+    {
+      "table_name": "movie_lists",
+      "grantee": "authenticated",
+      "privilege_type": "TRUNCATE"
+    },
+    {
+      "table_name": "movie_lists",
+      "grantee": "authenticated",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "pack_progress",
+      "grantee": "anon",
+      "privilege_type": "DELETE"
+    },
+    {
+      "table_name": "pack_progress",
+      "grantee": "anon",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "pack_progress",
+      "grantee": "anon",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "pack_progress",
+      "grantee": "anon",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "pack_progress",
+      "grantee": "anon",
+      "privilege_type": "TRIGGER"
+    },
+    {
+      "table_name": "pack_progress",
+      "grantee": "anon",
+      "privilege_type": "TRUNCATE"
+    },
+    {
+      "table_name": "pack_progress",
+      "grantee": "anon",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "pack_progress",
+      "grantee": "authenticated",
+      "privilege_type": "DELETE"
+    },
+    {
+      "table_name": "pack_progress",
+      "grantee": "authenticated",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "pack_progress",
+      "grantee": "authenticated",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "pack_progress",
+      "grantee": "authenticated",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "pack_progress",
+      "grantee": "authenticated",
+      "privilege_type": "TRIGGER"
+    },
+    {
+      "table_name": "pack_progress",
+      "grantee": "authenticated",
+      "privilege_type": "TRUNCATE"
+    },
+    {
+      "table_name": "pack_progress",
+      "grantee": "authenticated",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "product_events",
+      "grantee": "anon",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "product_events",
+      "grantee": "anon",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "product_events",
+      "grantee": "anon",
+      "privilege_type": "TRIGGER"
+    },
+    {
+      "table_name": "product_events",
+      "grantee": "anon",
+      "privilege_type": "TRUNCATE"
+    },
+    {
+      "table_name": "product_events",
+      "grantee": "authenticated",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "product_events",
+      "grantee": "authenticated",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "product_events",
+      "grantee": "authenticated",
+      "privilege_type": "TRIGGER"
+    },
+    {
+      "table_name": "product_events",
+      "grantee": "authenticated",
+      "privilege_type": "TRUNCATE"
+    },
+    {
+      "table_name": "rankings",
+      "grantee": "anon",
+      "privilege_type": "DELETE"
+    },
+    {
+      "table_name": "rankings",
+      "grantee": "anon",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "rankings",
+      "grantee": "anon",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "rankings",
+      "grantee": "anon",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "rankings",
+      "grantee": "anon",
+      "privilege_type": "TRIGGER"
+    },
+    {
+      "table_name": "rankings",
+      "grantee": "anon",
+      "privilege_type": "TRUNCATE"
+    },
+    {
+      "table_name": "rankings",
+      "grantee": "anon",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "rankings",
+      "grantee": "authenticated",
+      "privilege_type": "DELETE"
+    },
+    {
+      "table_name": "rankings",
+      "grantee": "authenticated",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "rankings",
+      "grantee": "authenticated",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "rankings",
+      "grantee": "authenticated",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "rankings",
+      "grantee": "authenticated",
+      "privilege_type": "TRIGGER"
+    },
+    {
+      "table_name": "rankings",
+      "grantee": "authenticated",
+      "privilege_type": "TRUNCATE"
+    },
+    {
+      "table_name": "rankings",
+      "grantee": "authenticated",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "shared_lists",
+      "grantee": "anon",
+      "privilege_type": "DELETE"
+    },
+    {
+      "table_name": "shared_lists",
+      "grantee": "anon",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "shared_lists",
+      "grantee": "anon",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "shared_lists",
+      "grantee": "anon",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "shared_lists",
+      "grantee": "anon",
+      "privilege_type": "TRIGGER"
+    },
+    {
+      "table_name": "shared_lists",
+      "grantee": "anon",
+      "privilege_type": "TRUNCATE"
+    },
+    {
+      "table_name": "shared_lists",
+      "grantee": "anon",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "shared_lists",
+      "grantee": "authenticated",
+      "privilege_type": "DELETE"
+    },
+    {
+      "table_name": "shared_lists",
+      "grantee": "authenticated",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "shared_lists",
+      "grantee": "authenticated",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "shared_lists",
+      "grantee": "authenticated",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "shared_lists",
+      "grantee": "authenticated",
+      "privilege_type": "TRIGGER"
+    },
+    {
+      "table_name": "shared_lists",
+      "grantee": "authenticated",
+      "privilege_type": "TRUNCATE"
+    },
+    {
+      "table_name": "shared_lists",
+      "grantee": "authenticated",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "suggestion_packs",
+      "grantee": "anon",
+      "privilege_type": "DELETE"
+    },
+    {
+      "table_name": "suggestion_packs",
+      "grantee": "anon",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "suggestion_packs",
+      "grantee": "anon",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "suggestion_packs",
+      "grantee": "anon",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "suggestion_packs",
+      "grantee": "anon",
+      "privilege_type": "TRIGGER"
+    },
+    {
+      "table_name": "suggestion_packs",
+      "grantee": "anon",
+      "privilege_type": "TRUNCATE"
+    },
+    {
+      "table_name": "suggestion_packs",
+      "grantee": "anon",
+      "privilege_type": "UPDATE"
+    },
+    {
+      "table_name": "suggestion_packs",
+      "grantee": "authenticated",
+      "privilege_type": "DELETE"
+    },
+    {
+      "table_name": "suggestion_packs",
+      "grantee": "authenticated",
+      "privilege_type": "INSERT"
+    },
+    {
+      "table_name": "suggestion_packs",
+      "grantee": "authenticated",
+      "privilege_type": "REFERENCES"
+    },
+    {
+      "table_name": "suggestion_packs",
+      "grantee": "authenticated",
+      "privilege_type": "SELECT"
+    },
+    {
+      "table_name": "suggestion_packs",
+      "grantee": "authenticated",
+      "privilege_type": "TRIGGER"
+    },
+    {
+      "table_name": "suggestion_packs",
+      "grantee": "authenticated",
+      "privilege_type": "TRUNCATE"
+    },
+    {
+      "table_name": "suggestion_packs",
+      "grantee": "authenticated",
+      "privilege_type": "UPDATE"
+    }
+  ],
+  "metadata": [
+    {
+      "metadata": {
+        "policies": [
+          {
+            "tablename": "category_shared_lists",
+            "policyname": "Anyone can read active category shared lists",
+            "roles": [
+              "anon"
+            ],
+            "cmd": "SELECT",
+            "qual": "(revoked_at IS NULL)",
+            "with_check": null
+          },
+          {
+            "tablename": "category_shared_lists",
+            "policyname": "User delete own category shared lists",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "DELETE",
+            "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+            "with_check": null
+          },
+          {
+            "tablename": "category_shared_lists",
+            "policyname": "User insert own category shared lists",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "INSERT",
+            "qual": null,
+            "with_check": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))"
+          },
+          {
+            "tablename": "category_shared_lists",
+            "policyname": "User read own category shared lists",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "SELECT",
+            "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+            "with_check": null
+          },
+          {
+            "tablename": "category_shared_lists",
+            "policyname": "User update own category shared lists",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "UPDATE",
+            "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+            "with_check": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))"
+          },
+          {
+            "tablename": "movie_lists",
+            "policyname": "User delete own movie lists",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "DELETE",
+            "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+            "with_check": null
+          },
+          {
+            "tablename": "movie_lists",
+            "policyname": "User insert own movie lists",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "INSERT",
+            "qual": null,
+            "with_check": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))"
+          },
+          {
+            "tablename": "movie_lists",
+            "policyname": "User read own movie lists",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "SELECT",
+            "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+            "with_check": null
+          },
+          {
+            "tablename": "movie_lists",
+            "policyname": "User update own movie lists",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "UPDATE",
+            "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+            "with_check": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))"
+          },
+          {
+            "tablename": "pack_progress",
+            "policyname": "User delete own pack progress",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "DELETE",
+            "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+            "with_check": null
+          },
+          {
+            "tablename": "pack_progress",
+            "policyname": "User insert own pack progress",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "INSERT",
+            "qual": null,
+            "with_check": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))"
+          },
+          {
+            "tablename": "pack_progress",
+            "policyname": "User read own pack progress",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "SELECT",
+            "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+            "with_check": null
+          },
+          {
+            "tablename": "pack_progress",
+            "policyname": "User update own pack progress",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "UPDATE",
+            "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+            "with_check": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))"
+          },
+          {
+            "tablename": "product_events",
+            "policyname": "Collect bounded anonymous product events",
+            "roles": [
+              "anon",
+              "authenticated"
+            ],
+            "cmd": "INSERT",
+            "qual": null,
+            "with_check": "((event_name = ANY (ARRAY['session_started'::text, 'ranking_started'::text, 'ranking_completed'::text, 'ranking_canceled'::text, 'review_started'::text, 'review_completed'::text, 'pack_opened'::text, 'pack_browser_opened'::text, 'pack_rank_all_started'::text, 'pack_rank_all_stopped'::text, 'share_opened'::text, 'share_exported'::text, 'share_link_published'::text, 'shared_list_viewed'::text, 'import_opened'::text, 'import_completed'::text, 'quick_start_shown'::text, 'quick_start_pack_opened'::text, 'quick_start_import_opened'::text, 'taste_explorer_opened'::text, 'taste_lens_opened'::text, 'tonight_opened'::text, 'tonight_picked'::text])) AND (jsonb_typeof(properties) = 'object'::text) AND (octet_length((properties)::text) <= 512) AND ((properties - ARRAY['source'::text, 'list_size'::text, 'count'::text, 'format'::text, 'outcome'::text, 'signed_in'::text]) = '{}'::jsonb) AND ((NOT (properties ? 'source'::text)) OR ((properties ->> 'source'::text) = ANY (ARRAY['empty'::text, 'returning'::text, 'search'::text, 'restack'::text, 'fullscreen_restack'::text, 'watch_queue'::text, 'hidden_queue'::text, 'suggestion_related'::text, 'suggestion_essentials'::text, 'suggestion_popular'::text, 'suggestion_unknown'::text, 'pack_auto'::text, 'pack_browse'::text, 'settings'::text, 'home'::text, 'pack_card'::text, 'discovery'::text, 'quick_start'::text, 'taste'::text, 'tonight'::text, 'tonight_mood'::text, 'tonight_no_mood'::text, 'unknown'::text]))) AND ((NOT (properties ? 'list_size'::text)) OR ((properties ->> 'list_size'::text) = ANY (ARRAY['0'::text, '1'::text, '2_4'::text, '5_9'::text, '10_24'::text, '25_49'::text, '50_99'::text, '100_plus'::text]))) AND ((NOT (properties ? 'count'::text)) OR ((properties ->> 'count'::text) = ANY (ARRAY['0'::text, '1'::text, '2_4'::text, '5_9'::text, '10_24'::text, '25_49'::text, '50_99'::text, '100_plus'::text]))) AND ((NOT (properties ? 'format'::text)) OR ((properties ->> 'format'::text) = ANY (ARRAY['single'::text, 'set'::text, 'svg'::text, 'svg_single'::text, 'svg_zip'::text, 'png'::text, 'png_page'::text, 'png_single'::text, 'png_zip'::text, 'native_single'::text, 'native_set'::text, 'markdown'::text, 'json'::text, 'text'::text]))) AND ((NOT (properties ? 'outcome'::text)) OR ((properties ->> 'outcome'::text) = ANY (ARRAY['completed'::text, 'ended'::text, 'canceled'::text, 'failed'::text]))) AND ((NOT (properties ? 'signed_in'::text)) OR (jsonb_typeof((properties -> 'signed_in'::text)) = 'boolean'::text)))"
+          },
+          {
+            "tablename": "rankings",
+            "policyname": "User insert own list",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "INSERT",
+            "qual": null,
+            "with_check": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))"
+          },
+          {
+            "tablename": "rankings",
+            "policyname": "User read own list",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "SELECT",
+            "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+            "with_check": null
+          },
+          {
+            "tablename": "rankings",
+            "policyname": "User update own list",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "UPDATE",
+            "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+            "with_check": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))"
+          },
+          {
+            "tablename": "shared_lists",
+            "policyname": "Anyone can read active shared lists",
+            "roles": [
+              "anon",
+              "authenticated"
+            ],
+            "cmd": "SELECT",
+            "qual": "(revoked = false)",
+            "with_check": null
+          },
+          {
+            "tablename": "shared_lists",
+            "policyname": "User delete own shared lists",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "DELETE",
+            "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+            "with_check": null
+          },
+          {
+            "tablename": "shared_lists",
+            "policyname": "User insert own shared lists",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "INSERT",
+            "qual": null,
+            "with_check": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))"
+          },
+          {
+            "tablename": "shared_lists",
+            "policyname": "User read own shared lists",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "SELECT",
+            "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+            "with_check": null
+          },
+          {
+            "tablename": "shared_lists",
+            "policyname": "User update own shared lists",
+            "roles": [
+              "authenticated"
+            ],
+            "cmd": "UPDATE",
+            "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+            "with_check": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))"
+          },
+          {
+            "tablename": "suggestion_packs",
+            "policyname": "Anyone can read active suggestion packs",
+            "roles": [
+              "anon",
+              "authenticated"
+            ],
+            "cmd": "SELECT",
+            "qual": "(active = true)",
+            "with_check": null
+          }
+        ],
+        "columns": [
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "category",
+            "grantee": "anon",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "created_at",
+            "grantee": "anon",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "payload",
+            "grantee": "anon",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "slug",
+            "grantee": "anon",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "updated_at",
+            "grantee": "anon",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "category",
+            "grantee": "authenticated",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "category",
+            "grantee": "authenticated",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "category",
+            "grantee": "authenticated",
+            "privilege_type": "UPDATE"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "created_at",
+            "grantee": "authenticated",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "created_at",
+            "grantee": "authenticated",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "created_at",
+            "grantee": "authenticated",
+            "privilege_type": "UPDATE"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "list_id",
+            "grantee": "authenticated",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "list_id",
+            "grantee": "authenticated",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "list_id",
+            "grantee": "authenticated",
+            "privilege_type": "UPDATE"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "payload",
+            "grantee": "authenticated",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "payload",
+            "grantee": "authenticated",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "payload",
+            "grantee": "authenticated",
+            "privilege_type": "UPDATE"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "revoked_at",
+            "grantee": "authenticated",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "revoked_at",
+            "grantee": "authenticated",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "revoked_at",
+            "grantee": "authenticated",
+            "privilege_type": "UPDATE"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "slug",
+            "grantee": "authenticated",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "slug",
+            "grantee": "authenticated",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "slug",
+            "grantee": "authenticated",
+            "privilege_type": "UPDATE"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "updated_at",
+            "grantee": "authenticated",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "updated_at",
+            "grantee": "authenticated",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "category_shared_lists",
+            "column_name": "updated_at",
+            "grantee": "authenticated",
+            "privilege_type": "UPDATE"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "created_at",
+            "grantee": "anon",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "created_at",
+            "grantee": "anon",
+            "privilege_type": "REFERENCES"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "created_at",
+            "grantee": "anon",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "created_at",
+            "grantee": "anon",
+            "privilege_type": "UPDATE"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "list_id",
+            "grantee": "anon",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "list_id",
+            "grantee": "anon",
+            "privilege_type": "REFERENCES"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "list_id",
+            "grantee": "anon",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "list_id",
+            "grantee": "anon",
+            "privilege_type": "UPDATE"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "payload",
+            "grantee": "anon",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "payload",
+            "grantee": "anon",
+            "privilege_type": "REFERENCES"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "payload",
+            "grantee": "anon",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "payload",
+            "grantee": "anon",
+            "privilege_type": "UPDATE"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "revoked",
+            "grantee": "anon",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "revoked",
+            "grantee": "anon",
+            "privilege_type": "REFERENCES"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "revoked",
+            "grantee": "anon",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "revoked",
+            "grantee": "anon",
+            "privilege_type": "UPDATE"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "slug",
+            "grantee": "anon",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "slug",
+            "grantee": "anon",
+            "privilege_type": "REFERENCES"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "slug",
+            "grantee": "anon",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "slug",
+            "grantee": "anon",
+            "privilege_type": "UPDATE"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "updated_at",
+            "grantee": "anon",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "updated_at",
+            "grantee": "anon",
+            "privilege_type": "REFERENCES"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "updated_at",
+            "grantee": "anon",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "updated_at",
+            "grantee": "anon",
+            "privilege_type": "UPDATE"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "created_at",
+            "grantee": "authenticated",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "created_at",
+            "grantee": "authenticated",
+            "privilege_type": "REFERENCES"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "created_at",
+            "grantee": "authenticated",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "created_at",
+            "grantee": "authenticated",
+            "privilege_type": "UPDATE"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "list_id",
+            "grantee": "authenticated",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "list_id",
+            "grantee": "authenticated",
+            "privilege_type": "REFERENCES"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "list_id",
+            "grantee": "authenticated",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "list_id",
+            "grantee": "authenticated",
+            "privilege_type": "UPDATE"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "payload",
+            "grantee": "authenticated",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "payload",
+            "grantee": "authenticated",
+            "privilege_type": "REFERENCES"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "payload",
+            "grantee": "authenticated",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "payload",
+            "grantee": "authenticated",
+            "privilege_type": "UPDATE"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "revoked",
+            "grantee": "authenticated",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "revoked",
+            "grantee": "authenticated",
+            "privilege_type": "REFERENCES"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "revoked",
+            "grantee": "authenticated",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "revoked",
+            "grantee": "authenticated",
+            "privilege_type": "UPDATE"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "slug",
+            "grantee": "authenticated",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "slug",
+            "grantee": "authenticated",
+            "privilege_type": "REFERENCES"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "slug",
+            "grantee": "authenticated",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "slug",
+            "grantee": "authenticated",
+            "privilege_type": "UPDATE"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "updated_at",
+            "grantee": "authenticated",
+            "privilege_type": "INSERT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "updated_at",
+            "grantee": "authenticated",
+            "privilege_type": "REFERENCES"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "updated_at",
+            "grantee": "authenticated",
+            "privilege_type": "SELECT"
+          },
+          {
+            "table_name": "shared_lists",
+            "column_name": "updated_at",
+            "grantee": "authenticated",
+            "privilege_type": "UPDATE"
+          }
+        ],
+        "default_acls": [
+          {
+            "owner": "postgres",
+            "schema": "public",
+            "defaclobjtype": "r",
+            "defaclacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+          },
+          {
+            "owner": "postgres",
+            "schema": "public",
+            "defaclobjtype": "f",
+            "defaclacl": "{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+          },
+          {
+            "owner": "postgres",
+            "schema": "public",
+            "defaclobjtype": "S",
+            "defaclacl": "{postgres=rwU/postgres,anon=rwU/postgres,authenticated=rwU/postgres,service_role=rwU/postgres}"
+          },
+          {
+            "owner": "supabase_admin",
+            "schema": "public",
+            "defaclobjtype": "S",
+            "defaclacl": "{postgres=rwU/supabase_admin,anon=rwU/supabase_admin,authenticated=rwU/supabase_admin,service_role=rwU/supabase_admin}"
+          },
+          {
+            "owner": "supabase_admin",
+            "schema": "public",
+            "defaclobjtype": "r",
+            "defaclacl": "{postgres=arwdDxtm/supabase_admin,anon=arwdDxtm/supabase_admin,authenticated=arwdDxtm/supabase_admin,service_role=arwdDxtm/supabase_admin}"
+          },
+          {
+            "owner": "supabase_admin",
+            "schema": "public",
+            "defaclobjtype": "f",
+            "defaclacl": "{postgres=X/supabase_admin,anon=X/supabase_admin,authenticated=X/supabase_admin,service_role=X/supabase_admin}"
+          },
+          {
+            "owner": "postgres",
+            "schema": "storage",
+            "defaclobjtype": "r",
+            "defaclacl": "{postgres=arwdDxtm/postgres,anon=arwdDxtm/postgres,authenticated=arwdDxtm/postgres,service_role=arwdDxtm/postgres}"
+          },
+          {
+            "owner": "postgres",
+            "schema": "storage",
+            "defaclobjtype": "f",
+            "defaclacl": "{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+          },
+          {
+            "owner": "postgres",
+            "schema": "storage",
+            "defaclobjtype": "S",
+            "defaclacl": "{postgres=rwU/postgres,anon=rwU/postgres,authenticated=rwU/postgres,service_role=rwU/postgres}"
+          },
+          {
+            "owner": "supabase_auth_admin",
+            "schema": "auth",
+            "defaclobjtype": "r",
+            "defaclacl": "{postgres=arwdDxtm/supabase_auth_admin,dashboard_user=arwdDxtm/supabase_auth_admin}"
+          },
+          {
+            "owner": "supabase_auth_admin",
+            "schema": "auth",
+            "defaclobjtype": "S",
+            "defaclacl": "{postgres=rwU/supabase_auth_admin,dashboard_user=rwU/supabase_auth_admin}"
+          },
+          {
+            "owner": "supabase_auth_admin",
+            "schema": "auth",
+            "defaclobjtype": "f",
+            "defaclacl": "{postgres=X/supabase_auth_admin,dashboard_user=X/supabase_auth_admin}"
+          },
+          {
+            "owner": "supabase_admin",
+            "schema": "realtime",
+            "defaclobjtype": "r",
+            "defaclacl": "{postgres=arwdDxtm/supabase_admin,dashboard_user=arwdDxtm/supabase_admin}"
+          },
+          {
+            "owner": "supabase_admin",
+            "schema": "realtime",
+            "defaclobjtype": "S",
+            "defaclacl": "{postgres=rwU/supabase_admin,dashboard_user=rwU/supabase_admin}"
+          },
+          {
+            "owner": "supabase_admin",
+            "schema": "realtime",
+            "defaclobjtype": "f",
+            "defaclacl": "{postgres=X/supabase_admin,dashboard_user=X/supabase_admin}"
+          },
+          {
+            "owner": "supabase_admin",
+            "schema": "graphql_public",
+            "defaclobjtype": "S",
+            "defaclacl": "{postgres=rwU/supabase_admin,anon=rwU/supabase_admin,authenticated=rwU/supabase_admin,service_role=rwU/supabase_admin}"
+          },
+          {
+            "owner": "supabase_admin",
+            "schema": "graphql_public",
+            "defaclobjtype": "r",
+            "defaclacl": "{postgres=arwdDxtm/supabase_admin,anon=arwdDxtm/supabase_admin,authenticated=arwdDxtm/supabase_admin,service_role=arwdDxtm/supabase_admin}"
+          },
+          {
+            "owner": "supabase_admin",
+            "schema": "graphql_public",
+            "defaclobjtype": "f",
+            "defaclacl": "{postgres=X/supabase_admin,anon=X/supabase_admin,authenticated=X/supabase_admin,service_role=X/supabase_admin}"
+          },
+          {
+            "owner": "supabase_admin",
+            "schema": "extensions",
+            "defaclobjtype": "r",
+            "defaclacl": "{postgres=a*r*w*d*D*x*t*m*/supabase_admin}"
+          },
+          {
+            "owner": "supabase_admin",
+            "schema": "extensions",
+            "defaclobjtype": "f",
+            "defaclacl": "{postgres=X*/supabase_admin}"
+          },
+          {
+            "owner": "supabase_admin",
+            "schema": "extensions",
+            "defaclobjtype": "S",
+            "defaclacl": "{postgres=r*w*U*/supabase_admin}"
+          },
+          {
+            "owner": "supabase_admin",
+            "schema": "graphql",
+            "defaclobjtype": "r",
+            "defaclacl": "{postgres=arwdDxtm/supabase_admin,anon=arwdDxtm/supabase_admin,authenticated=arwdDxtm/supabase_admin,service_role=arwdDxtm/supabase_admin}"
+          },
+          {
+            "owner": "supabase_admin",
+            "schema": "graphql",
+            "defaclobjtype": "f",
+            "defaclacl": "{postgres=X/supabase_admin,anon=X/supabase_admin,authenticated=X/supabase_admin,service_role=X/supabase_admin}"
+          },
+          {
+            "owner": "supabase_admin",
+            "schema": "graphql",
+            "defaclobjtype": "S",
+            "defaclacl": "{postgres=rwU/supabase_admin,anon=rwU/supabase_admin,authenticated=rwU/supabase_admin,service_role=rwU/supabase_admin}"
+          },
+          {
+            "owner": "supabase_admin",
+            "schema": "cron",
+            "defaclobjtype": "S",
+            "defaclacl": "{postgres=r*w*U*/supabase_admin}"
+          },
+          {
+            "owner": "supabase_admin",
+            "schema": "cron",
+            "defaclobjtype": "r",
+            "defaclacl": "{postgres=a*r*w*d*D*x*t*m*/supabase_admin}"
+          },
+          {
+            "owner": "supabase_admin",
+            "schema": "cron",
+            "defaclobjtype": "f",
+            "defaclacl": "{postgres=X*/supabase_admin}"
+          }
+        ]
+      }
+    }
+  ]
+}

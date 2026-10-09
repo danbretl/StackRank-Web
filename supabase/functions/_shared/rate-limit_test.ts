@@ -92,3 +92,20 @@ Deno.test("takeRateLimitToken refills over time up to the configured limit", () 
     );
   }
 });
+
+Deno.test("rate limit memory stays bounded under fresh rotating hints without evicting live clients", () => {
+  const store = new Map();
+  const options = { limit: 1, windowMs: 1000, now: 0, maxBuckets: 2 };
+  if (!takeRateLimitToken(store, "first", options).allowed || !takeRateLimitToken(store, "second", options).allowed) throw new Error("Initial clients blocked");
+  for (let i = 0; i < 100; i++) {
+    if (takeRateLimitToken(store, `rotating-${i}`, options).allowed || store.size !== 2) throw new Error("Fresh hint grew store or bypassed memory cap");
+  }
+  if (takeRateLimitToken(store, "first", options).allowed) throw new Error("Rotation reset a live client's limit");
+  if (!takeRateLimitToken(store, "new-after-expiry", { ...options, now: 2001 }).allowed || store.size !== 1) throw new Error("Expired capacity was not reclaimed");
+});
+
+Deno.test("oversized client hints share the fallback bucket", () => {
+  for (const header of ["x-forwarded-for", "cf-connecting-ip", "x-real-ip"]) {
+    if (clientRateLimitKey(new Request("https://example.test", { headers: { [header]: "a".repeat(129) } })) !== "unknown") throw new Error("Oversized hint retained");
+  }
+});

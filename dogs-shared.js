@@ -4,16 +4,13 @@ import {
   categorySharedSlugFromPath,
 } from "./lib/category-remote-persistence.js?v=5";
 import { dogPublicSnapshotArtworkUrl } from "./lib/categories/dogs.js?v=15";
+import { PUBLIC_SHARE_AUTH_OPTIONS, readPublicShare } from "./lib/public-share-reader.js?v=1";
 
 const SUPABASE_URL = "https://hrfhakrxsllrqmscxxpb.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_7GOGG6iSHMfax2YpOtqVqg_JIvcrBwl";
 const CATEGORY = "dogs";
 const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
-  auth: {
-    persistSession: false,
-    autoRefreshToken: false,
-    detectSessionInUrl: false,
-  },
+  auth: PUBLIC_SHARE_AUTH_OPTIONS,
 });
 
 const page = document.querySelector(".dog-share");
@@ -78,12 +75,7 @@ const load = async () => {
     return;
   }
   try {
-    const { data, error } = await supabase
-      .from("category_shared_lists")
-      .select("slug,category,payload,created_at,updated_at")
-      .eq("slug", slug)
-      .eq("category", CATEGORY)
-      .maybeSingle();
+    const { data, error } = await readPublicShare(supabase, { category: CATEGORY, slug });
     if (error) throw error;
     const row = categorySharedPayloadFromPublicRow(data, { category: CATEGORY });
     if (!row?.payload?.items?.length) {

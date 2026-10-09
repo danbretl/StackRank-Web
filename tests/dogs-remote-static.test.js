@@ -47,10 +47,10 @@ test("Dogs sync uses only additive category tables and bounded row builders", ()
 });
 
 test("Dogs public snapshots deliberately use a non-persistent anonymous client", () => {
-  assert.match(sharedSource, /persistSession:\s*false/);
-  assert.match(sharedSource, /autoRefreshToken:\s*false/);
-  assert.match(sharedSource, /detectSessionInUrl:\s*false/);
-  assert.match(sharedSource, /select\("slug,category,payload,created_at,updated_at"\)/);
+  // The shared helper's options/read behavior are exercised by its unit tests
+  // and both actual-client security browser flows.
+  assert.match(sharedSource, /auth:\s*PUBLIC_SHARE_AUTH_OPTIONS/);
+  assert.match(sharedSource, /readPublicShare\(supabase, \{ category: CATEGORY, slug \}\)/);
   assert.doesNotMatch(sharedSource, /list_id|revoked_at|auth\./);
 });
 

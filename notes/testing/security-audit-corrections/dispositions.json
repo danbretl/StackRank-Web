@@ -1,0 +1,90 @@
+{
+  "baseline": "c236ef0faf1733eb1ede8730e2cf665e42a7ccb5",
+  "findings": [
+    {
+      "id": "SR-01",
+      "adjudication": "confirmed",
+      "status": "corrected locally; live migration pending",
+      "decision": "Movies owner account IDs were publicly selectable. Anonymous RPC viewers and exact-slug public projections remove owner identifiers; owner table CRUD remains under RLS.",
+      "evidence": "share-auth-architecture.md"
+    },
+    {
+      "id": "SR-02",
+      "adjudication": "confirmed and expanded by fresh metadata",
+      "status": "corrected locally; live migration pending",
+      "decision": "TRUNCATE/TRIGGER/REFERENCES granted on six legacy tables. Revoke those privileges only. No reachable HTTP TRUNCATE exploit demonstrated.",
+      "evidence": "deployed-schema-readonly.json"
+    },
+    {
+      "id": "SR-03",
+      "adjudication": "confirmed",
+      "status": "partial hardening locally; live migration pending",
+      "decision": "20-row statement cap stops one rotated-session burst, preserving 500/session cap. Repeated small requests remain possible; no global ingestion quota claimed.",
+      "evidence": "database-review.md"
+    },
+    {
+      "id": "SR-04",
+      "adjudication": "confirmed; audit policy interpretation corrected",
+      "status": "corrected locally; live migration pending",
+      "decision": "Project brief establishes unlisted intent. Exact-slug RPCs replace anonymous table reads; links and anonymous viewing preserved. Old cached viewers require reload. Previously collected links/copies cannot be retracted.",
+      "evidence": "share-auth-architecture.md"
+    },
+    {
+      "id": "SR-05",
+      "adjudication": "confirmed",
+      "status": "fixed locally; Edge deployment pending",
+      "decision": "Recommendations require 1\u201310 decimal digits before upstream work; authority was always fixed TMDB, so this is not demonstrated SSRF or credential exfiltration.",
+      "evidence": "edge-review.md"
+    },
+    {
+      "id": "SR-06",
+      "adjudication": "conditional hosted header trust; missing limits confirmed",
+      "status": "partial hardening locally; Edge deployment pending",
+      "decision": "Added absent proxy limits and header-independent per-instance budgets. Header hints remain untrusted, instances ephemeral, no distributed quota.",
+      "evidence": "edge-review.md"
+    },
+    {
+      "id": "SR-07",
+      "adjudication": "conditional hardening; no takeover demonstrated",
+      "status": "retained with explicit limitation",
+      "decision": "No hostile admitted host or hosted allowlist proof. No Auth setting or flow change: narrowing impacts existing preview/local sign-in; PKCE changes cross-device email completion. Requires separately reviewed live configuration and compatibility evidence.",
+      "evidence": "share-auth-architecture.md"
+    },
+    {
+      "id": "SR-08",
+      "adjudication": "confirmed hardening",
+      "status": "corrected locally; live migration pending",
+      "decision": "Payload-write trigger rejects unsupported top-level keys; existing malformed rows remain revocable. RPC public projection omits historical extra keys without inspecting or rewriting customer data.",
+      "evidence": "database-review.md"
+    },
+    {
+      "id": "EDGE-01",
+      "adjudication": "new independent confirmed finding",
+      "status": "fixed locally; Edge deployment pending",
+      "decision": "Fresh untrusted keys could grow the rate-limit Map beyond maxBuckets. Bound capacity without evicting active clients; new clients may be rejected at capacity.",
+      "evidence": "edge-review.md"
+    }
+  ],
+  "auditHypotheses": {
+    "rejectedOrNotReproduced": [
+      "DOM/XSS on exercised share/import paths",
+      "external-host poster URL injection",
+      "Dogs public-row owner-column acceptance",
+      "open redirect via helper",
+      "direct callable privileged trigger exploit",
+      "private-table cross-owner read/write/transfer in exercised controls"
+    ],
+    "newlyConfirmedByMetadata": [
+      "product_events and suggestion_packs unnecessary TRUNCATE/TRIGGER/REFERENCES grants"
+    ],
+    "informationalRetained": [
+      "rankings lacks DELETE policy (replacement uses UPDATE)",
+      "inactive pack foreign-key and slug collision existence signals",
+      "JWT verification belongs to gateway, not auth.uid fixture",
+      "same-origin browser data readable by same-origin JavaScript",
+      "category owner namespaces accept well-formed categories",
+      "direct image fetch CSP observation is not new security vulnerability"
+    ]
+  },
+  "liveCustomerAccess": "None; metadata only. All row probes local synthetic."
+}

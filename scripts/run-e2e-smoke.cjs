@@ -5276,7 +5276,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=193" ||
+      empty.moduleSrc !== "app.js?v=194" ||
       empty.cssHref !== "styles.css?v=162" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
@@ -7901,6 +7901,13 @@ const testPublicShareLink = async ({ baseUrl }) => {
             if (url.includes('/rest/v1/rankings')) return window.__e2eCasResponse(request, body, rankingRows);
             if (url.includes('/rest/v1/movie_lists')) return window.__e2eCasResponse(request, body, queueRows);
             if (url.includes('/rest/v1/pack_progress')) return window.__e2eCasResponse(request, body, progressRows);
+            if (url.includes('/rest/v1/rpc/read_movie_share')) {
+              const slug = JSON.parse(body || '{}').share_slug;
+              const row = readRows()[slug];
+              return jsonResponse(row && !row.revoked ? {
+                slug: row.slug, payload: row.payload, updated_at: row.updated_at
+              } : null);
+            }
             if (url.includes('/rest/v1/shared_lists')) {
               const parsedUrl = new URL(url);
               const params = parsedUrl.searchParams;
@@ -11774,6 +11781,14 @@ const testDogsRemoteSyncAndShare = async ({ baseUrl }) => {
             }
             if (request.url.includes('/rest/v1/category_lists')) return window.__e2eCasResponse(request, body, queueRows);
             if (request.url.includes('/rest/v1/category_pack_progress')) return window.__e2eCasResponse(request, body, progressRows);
+            if (request.url.includes('/rest/v1/rpc/read_dog_share')) {
+              const slug = JSON.parse(body || '{}').share_slug;
+              const row = JSON.parse(localStorage.getItem('__e2eDogSharedRow') || 'null');
+              return json(row && row.slug === slug && !row.revoked_at ? {
+                slug: row.slug, category: row.category, payload: row.payload,
+                created_at: row.created_at, updated_at: row.updated_at
+              } : null);
+            }
             if (request.url.includes('/rest/v1/category_shared_lists')) {
               const params = new URL(request.url).searchParams;
               const stored = JSON.parse(localStorage.getItem('__e2eDogSharedRow') || 'null');

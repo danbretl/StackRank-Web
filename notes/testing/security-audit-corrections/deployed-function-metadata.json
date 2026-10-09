@@ -1,0 +1,60 @@
+{
+  "checkedAt": "2026-10-09T05:27:29.176Z",
+  "project": "hrfhakrxsllrqmscxxpb",
+  "scope": "Metadata only; no customer rows",
+  "result": [
+    {
+      "metadata": {
+        "functions": [
+          {
+            "proname": "enforce_product_events_session_insert_limit",
+            "arguments": "",
+            "prosecdef": true,
+            "proconfig": [
+              "search_path=public, pg_temp"
+            ],
+            "proacl": "{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+            "owner": "postgres"
+          }
+        ],
+        "role_membership": [
+          {
+            "member": "authenticator",
+            "inherits": "anon",
+            "rolinherit": false
+          },
+          {
+            "member": "authenticator",
+            "inherits": "authenticated",
+            "rolinherit": false
+          },
+          {
+            "member": "authenticator",
+            "inherits": "service_role",
+            "rolinherit": false
+          }
+        ],
+        "tables": [
+          {
+            "relname": "category_shared_lists",
+            "relrowsecurity": true,
+            "relforcerowsecurity": false,
+            "owner": "postgres"
+          },
+          {
+            "relname": "product_events",
+            "relrowsecurity": true,
+            "relforcerowsecurity": false,
+            "owner": "postgres"
+          },
+          {
+            "relname": "shared_lists",
+            "relrowsecurity": true,
+            "relforcerowsecurity": false,
+            "owner": "postgres"
+          }
+        ]
+      }
+    }
+  ]
+}

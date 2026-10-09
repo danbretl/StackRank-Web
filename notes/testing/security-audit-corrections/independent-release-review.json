@@ -1,0 +1,60 @@
+{
+  "reviewedAt": "2026-10-09T05:29:08.173352+00:00",
+  "baseline": "c236ef0faf1733eb1ede8730e2cf665e42a7ccb5",
+  "reviewer": "astra_release_lead",
+  "roleBoundary": "Independent review of other agents runtime/SQL and evidence; author of exact-slug share migration, independently executed by security_database worker. Not a claim of an independent author reviewing their own SQL.",
+  "status": "no material code blocker in reviewed candidate; live approval and final release verification remain separate",
+  "sourceSha256": {
+    "lib/public-share-reader.js": "0d30dbf0296fe339b415733c8eba86ee5a3f548f17483b75cc9f54b6ed8fffc6",
+    "shared.js": "3d7a3f625317924997f07f8bd2a43ed894379f1213fd44282720df5e9b162843",
+    "dogs-shared.js": "0b155b6e7541e39fda64d84af28594e5fd38d14143be07462289bef8e2804a54",
+    "app.js": "46d2a62a540268a94a8e7a6a817ea6690bb97eba9f44a10cd1f4d0f36f5c5a91",
+    "privacy.html": "da3a13d95b78a925ce0d73fcdadeaf2ccfa4825d7af87239f00bc8b3623238ec",
+    "index.html": "19d8ad0dc252098c142589d016b8e578264951e67e8981fc2a8a65d8c7397a1b",
+    "dogs.html": "b2ba8e9d0cca372e3f48c8b9805a8b5e30e01754d9686ecb93a3006d04647001",
+    "shared.html": "258a8bf36d38bd6719f0b487fd6851f0f1cabcd7e2d9462e9a008549c1557e55",
+    "dogs-shared.html": "03324d455c8d67743b100209b6d13c720b3e1be894f89282bd724279e7e4807e",
+    "supabase/functions/_shared/rate-limit.ts": "c739fc8719e728b8d2c6bff28f7650b2613e67cecfd3af43becc1d8e92f61354",
+    "supabase/functions/tmdb-search/index.ts": "edf14e4a8558f46252093a32c034ebb7356db3d4252bddaf280f537cc8f387a2",
+    "supabase/functions/tmdb-detail/index.ts": "8176d878218dafb911dbb028cf60311ffbefc644b596d9b00829b855ff130ff6",
+    "supabase/functions/tmdb-suggest/index.ts": "7766f4df98fedc7c9abb336bbdae0a43beb2e04e36a06d49adb9edfc10e65a37",
+    "supabase/functions/tmdb-image/index.ts": "eafd77336aa8ab4448cc935c0c14b42f1db5570cf685cce6208a1a59a7659cb0",
+    "supabase/functions/tonight-pick/index.ts": "0fc1b5aeff1041085b1d44427491cce27292fffb98c7261e7a766e5f493a98b9",
+    "supabase/migrations/20261009052409_harden_legacy_privileges_and_payload_writes.sql": "ea07a9f75f188826fbae4ef18a8168d1a3ac52d713837f51d4f65b7265d3efe7",
+    "supabase/migrations/20261009052514_restrict_public_shares_to_exact_slug.sql": "a096c9a23952eed5d1398be08f6d3ddf655e31762a20d4d60a65b56ea67bb7d7"
+  },
+  "checks": {
+    "publicReader": "Exact category/slug RPC; anonymous session isolation; PGRST202-only pre-migration fallback; rejects unexpected top-level fields/owner columns and mismatched slug/category. Existing routes/owner CRUD retained.",
+    "sharingMigration": "Exact active slug, fixed Dogs category, public output projection, definer empty search_path, explicit execute grants, table and column SELECT revoked for anon/PUBLIC, owner policies unchanged.",
+    "legacySQL": "Six-table maintenance privilege removal preserves owner DML/RLS; 20-row telemetry statement cap is bounded mitigation; write-only payload trigger permits unchanged legacy revocation.",
+    "edge": "Recommendation seed ASCII numeric bound before upstream fetch; untrusted client hint explicitly untrusted; hint plus instance budgets reject before fetch; memory cap refuses fresh buckets without evicting live ones. No fleet-wide/IP-auth guarantee.",
+    "Auth": "Configuration and implicit flow remain unchanged; SR07 conditional hardening with verified same-device PKCE compatibility concern, no takeover proof.",
+    "copy": "Movies dynamic overwrite issue corrected in all3 app.js strings; no login required to view; optional display name and revocation-copy limitations disclosed."
+  },
+  "evidence": {
+    "native": {
+      "path": "reports/security-audit-corrections/database-i4g0n9n2/result.json",
+      "passed": true,
+      "assertions": 212,
+      "rollbackTested": true,
+      "clusterStopped": true,
+      "bothMigrationHashesMatched": true
+    },
+    "browser": {
+      "path": "reports/security-browser/2026-10-09T05-27-42-422Z/results.json",
+      "passed": 24,
+      "failed": 0,
+      "sourceChangedDuringRun": false,
+      "scope": "Synthetic backend transport;22 cases without CSP plus2 viewer cases with production directives adapted only for local transport origin"
+    },
+    "independentlyRunNode": "17 public-share-reader and auth tests passed"
+  },
+  "residualLimits": [
+    "New viewers remain on legacy enumerable endpoints until explicitly approved SQL cutover.",
+    "Old cached direct-table viewers need reload after cutover; unchanged URLs do not imply indefinite obsolete-client compatibility.",
+    "Telemetry repeated small statements/concurrency and Edge multiple instances/regions remain abuse limits, not solved quotas.",
+    "Fresh grant metadata is not hosted GoTrue/JWT/PostgREST/proxy-header proof.",
+    "No live changes/customer rows/credentials accessed by this reviewer; full verify, staged final closure, CI and production not certified by this receipt."
+  ],
+  "mustFix": []
+}

@@ -8855,7 +8855,7 @@ function updateShareLinkUi() {
     shareLinkMeta.textContent = "Sign in required";
     if (shareLinkCopy) {
       shareLinkCopy.textContent =
-        "Sign in to publish a read-only snapshot link. Future ranking edits stay private until you update it.";
+        "Sign in to publish a snapshot. Anyone with its link can view and forward it; later edits stay private until you update it.";
     }
     setShareLinkStatus(supabaseEnabled ? "" : "Sign-in is not configured on this build.");
     return;
@@ -8871,8 +8871,8 @@ function updateShareLinkUi() {
 
   if (shareLinkCopy) {
     shareLinkCopy.textContent = hasLink
-      ? "This link is a snapshot. Update it when you want visitors to see your latest ranking."
-      : "Publish a read-only snapshot link. Future ranking edits stay private until you update it.";
+      ? "Anyone with this link can view and forward the snapshot. Update it when you want visitors to see your latest ranking."
+      : "Anyone with this link can view and forward the snapshot. Future ranking edits stay private until you update it.";
   }
   if (hasLink) {
     shareLinkUrl.href = shareLinkState.url;

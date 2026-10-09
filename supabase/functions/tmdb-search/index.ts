@@ -5,6 +5,13 @@ import {
   stackRankPreflightResponse,
 } from "../_shared/http.ts";
 import { hasValidPublishableKey } from "../_shared/publishable-key.ts";
+import { createRequestRateLimiter } from "../_shared/rate-limit.ts";
+
+const takeRequestToken = createRequestRateLimiter({
+  limit: 120,
+  instanceLimit: 1200,
+  windowMs: 5 * 60 * 1000,
+});
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
@@ -24,6 +31,12 @@ Deno.serve(async (req) => {
       401,
       corsHeaders,
     );
+  }
+
+  const token = takeRequestToken(req);
+  if (!token.allowed) {
+    corsHeaders.set("Retry-After", String(token.retryAfterSeconds));
+    return jsonResponse({ error: "Too many requests" }, 429, corsHeaders);
   }
 
   const url = new URL(req.url);

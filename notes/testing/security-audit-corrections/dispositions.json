@@ -4,28 +4,28 @@
     {
       "id": "SR-01",
       "adjudication": "confirmed",
-      "status": "corrected locally; live migration pending",
+      "status": "fixed; approved SQL applied and live metadata/anonymous HTTP verified",
       "decision": "Movies owner account IDs were publicly selectable. Anonymous RPC viewers and exact-slug public projections remove owner identifiers; owner table CRUD remains under RLS.",
       "evidence": "share-auth-architecture.md"
     },
     {
       "id": "SR-02",
       "adjudication": "confirmed and expanded by fresh metadata",
-      "status": "corrected locally; live migration pending",
+      "status": "fixed; approved SQL applied and live metadata/anonymous HTTP verified",
       "decision": "TRUNCATE/TRIGGER/REFERENCES granted on six legacy tables. Revoke those privileges only. No reachable HTTP TRUNCATE exploit demonstrated.",
       "evidence": "deployed-schema-readonly.json"
     },
     {
       "id": "SR-03",
       "adjudication": "confirmed",
-      "status": "partial hardening locally; live migration pending",
+      "status": "partial hardening applied; live function verified and synthetic 20/500 boundary regressions pass",
       "decision": "20-row statement cap stops one rotated-session burst, preserving 500/session cap. Repeated small requests remain possible; no global ingestion quota claimed.",
       "evidence": "database-review.md"
     },
     {
       "id": "SR-04",
       "adjudication": "confirmed; audit policy interpretation corrected",
-      "status": "corrected locally; live migration pending",
+      "status": "fixed; approved SQL applied and live metadata/anonymous HTTP verified",
       "decision": "Project brief establishes unlisted intent. Exact-slug RPCs replace anonymous table reads; links and anonymous viewing preserved. Old cached viewers require reload. Previously collected links/copies cannot be retracted.",
       "evidence": "share-auth-architecture.md"
     },
@@ -53,7 +53,7 @@
     {
       "id": "SR-08",
       "adjudication": "confirmed hardening",
-      "status": "corrected locally; live migration pending",
+      "status": "fixed; approved SQL applied and live metadata/anonymous HTTP verified",
       "decision": "Payload-write trigger rejects unsupported top-level keys; existing malformed rows remain revocable. RPC public projection omits historical extra keys without inspecting or rewriting customer data.",
       "evidence": "database-review.md"
     },
@@ -86,5 +86,5 @@
       "direct image fetch CSP observation is not new security vulnerability"
     ]
   },
-  "liveCustomerAccess": "None; metadata only. All row probes local synthetic."
+  "liveCustomerAccess": "None; live metadata and anonymous malformed-slug/limit=0 requests only. All row mutations local synthetic."
 }

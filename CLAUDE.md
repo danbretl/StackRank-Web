@@ -5,11 +5,11 @@
 Product `eb9a2b07` deploys anonymous RPC-capable share viewers, stricter recommendation
 inputs and bounded proxy rate-limit storage/instance budgets. Exact CI and Vercel production
 are verified; all six Edge consumers are deployed with matching source. Database migrations
-`20261009052409` and `20261009052514` are locally tested and explicitly approved, but the CLI is blocked
-initializing its login role; a connected-tool migration-version adjustment is pending.
-Until applied, the old share-table exposure remains;
-do not claim server protection from the client release. Read
-`notes/testing/security-audit-corrections/HANDBACK.md` and `LIVE-MIGRATION-APPROVAL.md` there.
+were explicitly approved and applied as `20261009060218` and `20261009070637` with
+unchanged approved SQL hashes. Live metadata/anonymous zero-row probes and212 synthetic
+native assertions verify the cutover; share tables no longer permit anonymous listing.
+Read `notes/testing/security-audit-corrections/HANDBACK.md` for history mapping,
+verification limits and exact receipts. Original approval IDs remain historical.
 No customer-data access or Auth-flow/configuration change is authorized by this release.
 Telemetry statement and Edge instance limits remain bounded mitigations, not global quotas.
 

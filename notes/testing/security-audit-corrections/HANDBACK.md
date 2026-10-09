@@ -16,7 +16,7 @@ EDGE-01. Independent Astra assessment and final code review are in
   existing project brief's unlisted-link intent. URLs/slugs and anonymous viewing remain;
   owners retain their authenticated publish/update/revoke operations. Viewer clients do
   not adopt stored sessions or URL tokens. Before the SQL cutover only missing-RPC errors
-  permit legacy reads; this compatibility phase still has the original database exposure.
+  permit legacy reads; the verified SQL cutover now removes that exposure.
   Already-loaded old viewers need reload after cutover. Known links and saved copies
   cannot be revoked retroactively by this change.
 - **SR-02:** fresh hosted metadata confirms unnecessary maintenance privileges on six
@@ -42,7 +42,7 @@ EDGE-01. Independent Astra assessment and final code review are in
   or rewriting customer records. Nested published item content is not newly redefined.
 
 The fresh advisory report also identifies direct EXECUTE grants on the telemetry trigger
-function; the prepared migration removes those unnecessary grants. A trigger-only function
+function; the applied migration removes those unnecessary grants. A trigger-only function
 is not thereby a demonstrated callable privilege exploit. Its remaining password-policy
 advisory is outside this passwordless client correction; no Auth setting was changed.
 
@@ -80,24 +80,39 @@ No production load tests, forged-header attacks or customer records were used. S
 `edge-deployed-source-check.json`, `production-smoke.json`, `production-byte-checks.json`,
 `edge-live-smoke.json` and `production-rendered.json`.
 
-**Exact live SQL was approved at 05:56 UTC on October 9, but remains unapplied.**
-Both approved hashes match. The CLI failed during login-role initialization before
-any migration (HTTP400 / SQL42501, insufficient permission to alter its temporary
-login role). No credentials or roles were modified by the agent. Fresh metadata
-confirms the original grants and absence of both migrations. See
-`live-migration-attempt.json` for a sanitized receipt. Existing share exposure remains.
+**Both approved migrations are applied and verified in production.** Dan approved the
+exact SQL at 05:56 UTC; the parent also authorized the identical-SQL connected-tool
+execution after CLI login-role initialization failed. No login role or credentials were
+altered. The first applied as `20261009060218`, the second as `20261009070637`.
+Repository filenames now match hosted history; SQL bytes retain their approved hashes.
+The approval packet retains original versions20261009052409 /20261009052514 as historical
+identifiers. No migration-history repair, SQL replay or rollback was performed.
+Two second-migration requests expired; metadata confirmed absence before the successful
+post-reconnect request. See `live-migration-receipt.json`.
 
-The connected migration tool can submit identical SQL but assigns new history
-versions. Independent review accepts preserving the exact bytes and recording a
-version mapping as an execution adjustment; parent clarification is pending because
-it was requested before that assessment. No retry, role repair, SQL broadening or
-weaker-access rollback was attempted. The approved SQL remains in
-`LIVE-MIGRATION-APPROVAL.md` under versions20261009052409 and20261009052514.
+Live metadata verifies grants, public-column access, public projections, owner policies,
+function configuration and triggers. Six bounded anonymous HTTP probes passed: both
+exact-slug RPCs accept anonymous malformed-slug requests with empty results; both share
+tables deny zero-row slug and owner-ID selection. All212 native database assertions
+passed again against the renamed exact SQL. Populated link viewing, revocation,
+normal owner operations and telemetry20/500 boundaries use local synthetic fixtures;
+no live customer accounts, payloads or telemetry bursts were exercised. Readback plus
+these fixtures establishes the intended database behavior without claiming a live
+populated-account end-to-end test. See `live-database-review.md`,
+`live-database-verification.json`, `live-cutover-http.json` and `post-cutover-native.json`.
+
+The advisor now flags the two intentionally public SECURITY DEFINER RPCs for anon and
+authenticated execution. Their exact-slug/active filters, fixed SQL, empty search_path
+and public-only projection implement the approved guest viewing boundary; removing
+execution would break it. The unrelated leaked-password-protection advisory remains.
+[RPC advisory guidance](https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable)
+and [password advisory guidance](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection).
+No Auth configuration was changed. See `post-cutover-advisors.json`.
 
 ## Preservation and rollback
 
 No customer records were queried or changed. Hosted inspection is ACL/policy/function
-metadata only; every row mutation test uses the disposable local engine. Existing ranking,
+metadata plus malformed-slug/zero-row anonymous HTTP only; every row mutation test uses the disposable local engine. Existing ranking,
 backup/recovery, account-isolation and catalog behavior remain under the full regression
 suite. Main's unrelated untracked files and all prior worktrees/archives remain in place.
 Off-Mac archive backup remains unverified; nothing was deleted or relocated.

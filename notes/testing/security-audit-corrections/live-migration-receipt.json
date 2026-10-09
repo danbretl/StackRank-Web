@@ -1,0 +1,105 @@
+{
+  "at": "2026-10-09T07:07:16.773Z",
+  "project": "hrfhakrxsllrqmscxxpb",
+  "approval": {
+    "at": "2026-10-09T05:56:00Z",
+    "message": "Sentinel_d26069f7677081918f3d9337d4f8933f",
+    "alternatePath": "Parent explicitly authorized connected migration tool with assigned timestamps; exact SQL and project unchanged."
+  },
+  "mapping": [
+    {
+      "approvedVersion": "20261009052409",
+      "appliedVersion": "20261009060218",
+      "name": "harden_legacy_privileges_and_payload_writes",
+      "sha256": "ea07a9f75f188826fbae4ef18a8168d1a3ac52d713837f51d4f65b7265d3efe7"
+    },
+    {
+      "approvedVersion": "20261009052514",
+      "appliedVersion": "20261009070637",
+      "name": "restrict_public_shares_to_exact_slug",
+      "sha256": "a096c9a23952eed5d1398be08f6d3ddf655e31762a20d4d60a65b56ea67bb7d7"
+    }
+  ],
+  "firstResult": {
+    "success": true
+  },
+  "secondResult": {
+    "success": true
+  },
+  "expiredRequests": {
+    "count": 2,
+    "outcome": "Invalid or expired requestState; fresh history and function metadata confirmed no second-migration effects before resubmission after reconnect."
+  },
+  "history": [
+    {
+      "version": "20260620184700",
+      "name": "add_movie_lists"
+    },
+    {
+      "version": "20260620184959",
+      "name": "optimize_list_rls_policies"
+    },
+    {
+      "version": "20260625071336",
+      "name": "add_suggestion_packs"
+    },
+    {
+      "version": "20260628170018",
+      "name": "harden_ranking_rls_and_pack_index"
+    },
+    {
+      "version": "20260628171913",
+      "name": "add_product_events"
+    },
+    {
+      "version": "20260628180105",
+      "name": "bound_product_event_values"
+    },
+    {
+      "version": "20260628225636",
+      "name": "add_quick_start_events"
+    },
+    {
+      "version": "20260629012754",
+      "name": "add_taste_explorer_events"
+    },
+    {
+      "version": "20260708063341",
+      "name": "bound_user_json_payload_sizes"
+    },
+    {
+      "version": "20260708064357",
+      "name": "product_events_retention_and_flood_limit"
+    },
+    {
+      "version": "20260708104134",
+      "name": "20260708101029_add_shared_lists"
+    },
+    {
+      "version": "20260708160447",
+      "name": "allow_owner_read_shared_lists"
+    },
+    {
+      "version": "20260709001734",
+      "name": "add_tonight_events"
+    },
+    {
+      "version": "20260716090037",
+      "name": "add_category_data_tables"
+    },
+    {
+      "version": "20260716090038",
+      "name": "add_dog_artwork_storage"
+    },
+    {
+      "version": "20261009060218",
+      "name": "harden_legacy_privileges_and_payload_writes"
+    },
+    {
+      "version": "20261009070637",
+      "name": "restrict_public_shares_to_exact_slug"
+    }
+  ],
+  "customerData": "No customer rows queried or changed; no Auth settings, credentials or role changes.",
+  "rollback": "Not run; weakening rollback requires separate approval."
+}

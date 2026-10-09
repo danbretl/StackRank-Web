@@ -58,10 +58,33 @@ production-CSP conditions. Hosted transport/JWT/Auth delivery are separate bound
 Full final-tree verification passed: 660 Node, 58 Python, 27 Deno tests plus 12
 handler steps, 44 staged application flows, 45 data-safety cases and 24 security
 browser cases. Deployment classification/determinism passes with 2,172 public files.
-See `local-verification.json`. Exact commit CI, Vercel/Edge deployment and live SQL
-approval are being completed. **No candidate database protection is claimed live at this checkpoint.**
-The exact SQL, hashes, target/access changes and compatibility risks are in
-`LIVE-MIGRATION-APPROVAL.md`; application requires separate action-time confirmation.
+See `local-verification.json`. Initial validation runs retained two stale test
+expectations (inline anonymous options and app cache193); both were updated and the
+entire final tree passed. Runtime/SQL hashes still match independent review.
+
+Product **`eb9a2b0735f18d1308d450be6bf504721c36c39a`** is on remote main.
+[Exact CI run37889517069](https://github.com/danbretl/StackRank-Web/actions/runs/37889517069)
+succeeded, including the new native database suite. Vercel production deployment
+`dpl_8MWoqFoEftK83RaSDawBLRWRByNh` is READY at that exact SHA with the www/apex aliases.
+All six Edge consumers are ACTIVE with unchanged JWT settings; retrieved deployed
+source matches the tested tree. Original deployed source matched baseline before
+replacement and remains in the ignored local rollback archive.
+
+Production passed 49 paced smoke checks, 11 exact file-byte comparisons, six excluded
+private-path checks and seven ordinary Edge input calls. Four fresh signed-out renders
+cover desktop/phone Movies and Dogs and navigation. Those renders intentionally block
+backend/provider/font/telemetry traffic, so Movies' unavailable-provider display is
+expected; normal provider operation is separately checked by the ordinary Edge smoke.
+No production load tests, forged-header attacks or customer records were used. See
+`product-ci.json`, `product-vercel.json`, `edge-deployment.json`,
+`edge-deployed-source-check.json`, `production-smoke.json`, `production-byte-checks.json`,
+`edge-live-smoke.json` and `production-rendered.json`.
+
+**Live database cutover is awaiting exact-action confirmation.** The SQL is tested and
+committed but unapplied: database owner-ID exposure and table enumeration remain until
+that approval and verified application. Prepared SQL is not hosted protection. Exact
+SQL, hashes, target/access changes and compatibility risks are in
+`LIVE-MIGRATION-APPROVAL.md`. The two migration versions are20261009052409 and20261009052514.
 
 ## Preservation and rollback
 

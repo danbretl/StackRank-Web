@@ -32,14 +32,14 @@
     {
       "id": "SR-05",
       "adjudication": "confirmed",
-      "status": "fixed locally; Edge deployment pending",
+      "status": "fixed and Edge deployment source verified at eb9a2b07",
       "decision": "Recommendations require 1\u201310 decimal digits before upstream work; authority was always fixed TMDB, so this is not demonstrated SSRF or credential exfiltration.",
       "evidence": "edge-review.md"
     },
     {
       "id": "SR-06",
       "adjudication": "conditional hosted header trust; missing limits confirmed",
-      "status": "partial hardening locally; Edge deployment pending",
+      "status": "partial hardening deployed and source verified at eb9a2b07",
       "decision": "Added absent proxy limits and header-independent per-instance budgets. Header hints remain untrusted, instances ephemeral, no distributed quota.",
       "evidence": "edge-review.md"
     },
@@ -60,7 +60,7 @@
     {
       "id": "EDGE-01",
       "adjudication": "new independent confirmed finding",
-      "status": "fixed locally; Edge deployment pending",
+      "status": "fixed and Edge deployment source verified at eb9a2b07",
       "decision": "Fresh untrusted keys could grow the rate-limit Map beyond maxBuckets. Bound capacity without evicting active clients; new clients may be rejected at capacity.",
       "evidence": "edge-review.md"
     }

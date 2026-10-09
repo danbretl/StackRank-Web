@@ -1,5 +1,17 @@
 # StackRank
 
+## October 9 security corrections
+
+Product `eb9a2b07` deploys anonymous RPC-capable share viewers, stricter recommendation
+inputs and bounded proxy rate-limit storage/instance budgets. Exact CI and Vercel production
+are verified; all six Edge consumers are deployed with matching source. Database migrations
+`20261009052409` and `20261009052514` are locally tested but await the separately required
+live security-settings confirmation. Until applied, the old share-table exposure remains;
+do not claim server protection from the client release. Read
+`notes/testing/security-audit-corrections/HANDBACK.md` and `LIVE-MIGRATION-APPROVAL.md` there.
+No customer-data access or Auth-flow/configuration change is authorized by this release.
+Telemetry statement and Edge instance limits remain bounded mitigations, not global quotas.
+
 ## Current October 6 completed-holds resolution
 
 The continuation after the full audit restores 94 of 96 completed held entries: 70 concise sourced cross/type cards, 23 explicitly labeled useful categories with named illustrative portraits, and the regional Labrador Husky. Coydog and the broad Wolfdog ancestry category are definitively outside the domestic-dog selection scope; their IDs and saved data remain intact. Verified product `61e72ef6` is Vercel READY. Current catalog: **900 public / 339 hidden / 902 complete / 1,239 retained identities**. Historical cohort counts below describe their original releases. The scoped concise-profile exception is documented in `notes/feature-ideas/dogs-breed-profile-quality.md`; every final decision and publication receipt is in `notes/testing/dogs-completed-holds-resolution/HANDBACK.md` and its per-ID ledger. No manual user review backlog remains for these 96.

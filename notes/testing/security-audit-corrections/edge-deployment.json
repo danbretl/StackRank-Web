@@ -1,0 +1,84 @@
+{
+  "commit": "eb9a2b0735f18d1308d450be6bf504721c36c39a",
+  "project": "hrfhakrxsllrqmscxxpb",
+  "deployments": [
+    {
+      "name": "tmdb-search",
+      "id": "9539e69b-06f4-4d1a-ad6f-08a2fd59c2c0",
+      "slug": "tmdb-search",
+      "status": "ACTIVE",
+      "version": 11,
+      "created_at": 1766568667205,
+      "updated_at": 1791524301383,
+      "verify_jwt": false,
+      "import_map": false,
+      "entrypoint_path": "file:///tmp/user_fn_hrfhakrxsllrqmscxxpb_9539e69b-06f4-4d1a-ad6f-08a2fd59c2c0_11/source/tmdb-search/index.ts",
+      "ezbr_sha256": "1016dca916bfa6e8f4defe9e6abcc680a2a9bb74648abde75d449ef37de6eabd"
+    },
+    {
+      "name": "tmdb-detail",
+      "id": "16e75f1e-a2ac-42b9-8f68-5346e5d753c5",
+      "slug": "tmdb-detail",
+      "status": "ACTIVE",
+      "version": 7,
+      "created_at": 1782021881054,
+      "updated_at": 1791524306217,
+      "verify_jwt": false,
+      "import_map": false,
+      "entrypoint_path": "file:///tmp/user_fn_hrfhakrxsllrqmscxxpb_16e75f1e-a2ac-42b9-8f68-5346e5d753c5_7/source/tmdb-detail/index.ts",
+      "ezbr_sha256": "96b8155b1d71ef474aa835add8ad4445fd8862b18a0f8346b776f5f3adfdca47"
+    },
+    {
+      "name": "tmdb-suggest",
+      "id": "1f467657-8296-4d7d-8e22-03fcee9b5c09",
+      "slug": "tmdb-suggest",
+      "status": "ACTIVE",
+      "version": 14,
+      "created_at": 1766742891114,
+      "updated_at": 1791524310417,
+      "verify_jwt": false,
+      "import_map": false,
+      "entrypoint_path": "file:///tmp/user_fn_hrfhakrxsllrqmscxxpb_1f467657-8296-4d7d-8e22-03fcee9b5c09_14/source/tmdb-suggest/index.ts",
+      "ezbr_sha256": "b7db851db13d7d3ed7ffe7fadbac966e44fed19afb73e8c36bb8226bdbc8988f"
+    },
+    {
+      "name": "tmdb-image",
+      "id": "c6ea3273-914c-4dac-a5f0-e9393bdbd3ec",
+      "slug": "tmdb-image",
+      "status": "ACTIVE",
+      "version": 7,
+      "created_at": 1782224734377,
+      "updated_at": 1791524315368,
+      "verify_jwt": false,
+      "import_map": false,
+      "entrypoint_path": "file:///tmp/user_fn_hrfhakrxsllrqmscxxpb_c6ea3273-914c-4dac-a5f0-e9393bdbd3ec_7/source/tmdb-image/index.ts",
+      "ezbr_sha256": "44af6611d60b5a8e240bca36f0ccb908aa6a15f6d2e4bad2b74d39871bbe02f9"
+    },
+    {
+      "name": "tonight-pick",
+      "id": "d4cc3e7d-219a-4a9e-9356-e74886b91a54",
+      "slug": "tonight-pick",
+      "status": "ACTIVE",
+      "version": 4,
+      "created_at": 1783572679823,
+      "updated_at": 1791524319784,
+      "verify_jwt": false,
+      "import_map": false,
+      "entrypoint_path": "file:///tmp/user_fn_hrfhakrxsllrqmscxxpb_d4cc3e7d-219a-4a9e-9356-e74886b91a54_4/source/tonight-pick/index.ts",
+      "ezbr_sha256": "3045dba056d1dbcb2e27588ea5616ce8bb6a87326fdcf619c1e37d268b2a9586"
+    },
+    {
+      "name": "books-search",
+      "id": "e72ae4ff-2b46-4699-a1c1-b7f3ce0b8b42",
+      "slug": "books-search",
+      "status": "ACTIVE",
+      "version": 4,
+      "created_at": 1783929913122,
+      "updated_at": 1791524324894,
+      "verify_jwt": false,
+      "import_map": false,
+      "entrypoint_path": "file:///tmp/user_fn_hrfhakrxsllrqmscxxpb_e72ae4ff-2b46-4699-a1c1-b7f3ce0b8b42_4/source/books-search/index.ts",
+      "ezbr_sha256": "529fb2624c9961cc0be4f21e0496d035e54564308cbb7cefafcac45092eb9496"
+    }
+  ]
+}

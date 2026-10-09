@@ -1,0 +1,48 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "function": "tmdb-search",
+      "query": "q=",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "function": "tmdb-detail",
+      "query": "id=",
+      "status": 400,
+      "expected": 400
+    },
+    {
+      "function": "tmdb-suggest",
+      "query": "type=recommendations&seed=abc",
+      "status": 400,
+      "expected": 400
+    },
+    {
+      "function": "tmdb-image",
+      "query": "path=",
+      "status": 400,
+      "expected": 400
+    },
+    {
+      "function": "tonight-pick",
+      "query": "ids=",
+      "status": 400,
+      "expected": 400
+    },
+    {
+      "function": "books-search",
+      "query": "q=",
+      "status": 200,
+      "expected": 200
+    },
+    {
+      "function": "tmdb-suggest",
+      "query": "type=popular",
+      "status": 200,
+      "expected": 200
+    }
+  ],
+  "limits": "Seven paced ordinary input/empty-input validation calls. No quota exhaustion or spoofed-header attacks; no customer records."
+}

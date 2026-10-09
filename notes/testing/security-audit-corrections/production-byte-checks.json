@@ -1,0 +1,103 @@
+{
+  "checkedAt": "2026-10-09T05:42:07.167499+00:00",
+  "commit": "eb9a2b0735f18d1308d450be6bf504721c36c39a",
+  "status": "passed",
+  "rows": [
+    {
+      "path": "shared.js",
+      "status": 200,
+      "exactMatch": true,
+      "sha256": "3d7a3f625317924997f07f8bd2a43ed894379f1213fd44282720df5e9b162843"
+    },
+    {
+      "path": "dogs-shared.js",
+      "status": 200,
+      "exactMatch": true,
+      "sha256": "0b155b6e7541e39fda64d84af28594e5fd38d14143be07462289bef8e2804a54"
+    },
+    {
+      "path": "lib/public-share-reader.js",
+      "status": 200,
+      "exactMatch": true,
+      "sha256": "0d30dbf0296fe339b415733c8eba86ee5a3f548f17483b75cc9f54b6ed8fffc6"
+    },
+    {
+      "path": "app.js",
+      "status": 200,
+      "exactMatch": true,
+      "sha256": "46d2a62a540268a94a8e7a6a817ea6690bb97eba9f44a10cd1f4d0f36f5c5a91"
+    },
+    {
+      "path": "index.html",
+      "status": 200,
+      "exactMatch": true,
+      "sha256": "19d8ad0dc252098c142589d016b8e578264951e67e8981fc2a8a65d8c7397a1b"
+    },
+    {
+      "path": "dogs.html",
+      "status": 200,
+      "exactMatch": true,
+      "sha256": "b2ba8e9d0cca372e3f48c8b9805a8b5e30e01754d9686ecb93a3006d04647001"
+    },
+    {
+      "path": "privacy.html",
+      "status": 200,
+      "exactMatch": true,
+      "sha256": "da3a13d95b78a925ce0d73fcdadeaf2ccfa4825d7af87239f00bc8b3623238ec"
+    },
+    {
+      "path": "shared.html",
+      "status": 200,
+      "exactMatch": true,
+      "sha256": "258a8bf36d38bd6719f0b487fd6851f0f1cabcd7e2d9462e9a008549c1557e55"
+    },
+    {
+      "path": "dogs-shared.html",
+      "status": 200,
+      "exactMatch": true,
+      "sha256": "03324d455c8d67743b100209b6d13c720b3e1be894f89282bd724279e7e4807e"
+    },
+    {
+      "path": "data/dogs/dog-catalog.json",
+      "status": 200,
+      "exactMatch": true,
+      "sha256": "6845e9209a10fdc830f3e4d98c8e89ece1c1edda925d32612c9390e06cb0d3db"
+    },
+    {
+      "path": "data/dogs/generated-artwork.json",
+      "status": 200,
+      "exactMatch": true,
+      "sha256": "658fad9598adc10d1934e105cc1fc60893810b21f7f43f10e44ac058bcb4569a"
+    },
+    {
+      "path": "notes/testing/security-audit-corrections/HANDBACK.md",
+      "status": 404,
+      "excluded": true
+    },
+    {
+      "path": "supabase/migrations/20261009052514_restrict_public_shares_to_exact_slug.sql",
+      "status": 404,
+      "excluded": true
+    },
+    {
+      "path": "scripts/test-security-database.py",
+      "status": 404,
+      "excluded": true
+    },
+    {
+      "path": "tests/public-share-reader.test.js",
+      "status": 404,
+      "excluded": true
+    },
+    {
+      "path": "data/asset-versions.json",
+      "status": 404,
+      "excluded": true
+    },
+    {
+      "path": "reports/security-audit-corrections/edge-original-source.json",
+      "status": 404,
+      "excluded": true
+    }
+  ]
+}

@@ -365,11 +365,11 @@
       <p id="dogs-hidden-empty">Nothing hidden.</p>
     </dialog>
 
-    <dialog id="dogs-backup-dialog" class="dogs-dialog utility-dialog">
+    <dialog aria-labelledby="dogs-backup-title" id="dogs-backup-dialog" class="dogs-dialog utility-dialog">
       <form method="dialog" class="dialog-close-form"><button aria-label="Close backup and import">×</button></form>
       <div class="dialog-heading">
         <p class="section-label">Keep your ranking safe</p>
-        <h1>Backup &amp; import</h1>
+        <h1 id="dogs-backup-title">Backup &amp; import</h1>
         <p>Dogs backups are category-bound and cannot overwrite Movies or Books data.</p>
       </div>
       <div class="utility-actions">
@@ -386,11 +386,11 @@
       <div id="dogs-import-review" class="import-review" hidden></div>
     </dialog>
 
-    <dialog id="dogs-export-dialog" class="dogs-dialog utility-dialog">
+    <dialog aria-labelledby="dogs-export-title" id="dogs-export-dialog" class="dogs-dialog utility-dialog">
       <form method="dialog" class="dialog-close-form"><button aria-label="Close ranking export">×</button></form>
       <div class="dialog-heading">
         <p class="section-label">Share without artwork</p>
-        <h1>Export ranking</h1>
+        <h1 id="dogs-export-title">Export ranking</h1>
         <p>Text, Markdown, and JSON are always available. Public links appear when account persistence is enabled; photography and raster exports keep separate rights gates.</p>
       </div>
       <div class="utility-actions">
@@ -418,11 +418,11 @@
       <pre id="dogs-export-preview" tabindex="0"></pre>
     </dialog>
 
-    <dialog id="dogs-signin-dialog" class="dogs-dialog utility-dialog dogs-signin-dialog">
+    <dialog aria-labelledby="dogs-signin-title" id="dogs-signin-dialog" class="dogs-dialog utility-dialog dogs-signin-dialog">
       <form method="dialog" class="dialog-close-form"><button aria-label="Close sign in">×</button></form>
       <div class="dialog-heading">
         <p class="section-label">One StackRank account</p>
-        <h1>Sign in to sync Dogs</h1>
+        <h1 id="dogs-signin-title">Sign in to sync Dogs</h1>
         <p>Your Dogs ranking stays separate from Movies while using the same account session.</p>
       </div>
       <div id="dogs-signin-providers" class="dogs-signin-providers" hidden>
@@ -459,6 +459,6 @@
     </footer>
 
     <script type="module" src="category-switcher.js?v=1"></script>
-    <script type="module" src="dogs.js?v=160"></script>
+    <script type="module" src="dogs.js?v=161"></script>
   </body>
 </html>

@@ -754,15 +754,37 @@ const canonicalizeCurrentCatalogState = ({ announceUpgrade = false, persistUpgra
   return upgraded;
 };
 
-const closeSettings = () => {
+const canRestoreFocus = (element) => element instanceof HTMLElement
+  && element !== document.body && element !== document.documentElement
+  && element.isConnected && !element.disabled && !element.closest("[hidden]")
+  && element.getClientRects().length > 0;
+
+const closeSettings = ({ restoreFocus = false } = {}) => {
   settings.hidden = true;
   settingsToggle.setAttribute("aria-expanded", "false");
+  if (restoreFocus && canRestoreFocus(settingsToggle)) settingsToggle.focus({ preventScroll: true });
 };
 
-const showDialog = (dialog) => {
+// Utility dialogs need an explicit return target because Settings hides their
+// opener. Pack and comparison-detail dialogs keep their specialized restoration.
+const utilityDialogOpeners = new Map();
+const utilityDialogs = [signInDialog, backupDialog, exportDialog];
+const showDialog = (dialog, { opener = document.activeElement } = {}) => {
+  if (utilityDialogs.includes(dialog) && !dialog.open) {
+    utilityDialogOpeners.set(dialog, settings.contains(opener) ? settingsToggle : opener);
+  }
   closeSettings();
   if (typeof dialog?.showModal === "function" && !dialog.open) dialog.showModal();
 };
+
+utilityDialogs.forEach((dialog) => dialog.addEventListener("close", () => {
+  if (dialog.open) return;
+  const opener = utilityDialogOpeners.get(dialog);
+  utilityDialogOpeners.delete(dialog);
+  if ($("dialog[open]")) return;
+  const target = canRestoreFocus(opener) ? opener : settingsToggle;
+  if (canRestoreFocus(target)) target.focus({ preventScroll: true });
+}));
 
 const activeDestination = () => $(".dogs-view:not([hidden])")?.dataset.view || "rank";
 
@@ -1315,7 +1337,9 @@ const createSecondaryItem = (item, listType) => {
   const rankButton = document.createElement("button");
   rankButton.type = "button";
   rankButton.textContent = "Rank";
-  rankButton.addEventListener("click", () => beginRanking(shown));
+  rankButton.dataset.rankDogId = shown.entityRef.id;
+  rankButton.dataset.rankListType = listType;
+  rankButton.addEventListener("click", () => beginRanking(shown, { trigger: rankButton }));
   const otherButton = document.createElement("button");
   otherButton.type = "button";
   otherButton.textContent = listType === "curious" ? "Not for me" : "Curious";
@@ -1534,7 +1558,7 @@ const settleRanking = (session) => {
   restorePackAfterRanking();
 };
 
-function beginRanking(item) {
+function beginRanking(item, { trigger = document.activeElement } = {}) {
   if (!canEditDogs()) return;
   const candidate = candidateForCatalogId(item?.entityRef?.id);
   if (!candidate) return;
@@ -1545,10 +1569,15 @@ function beginRanking(item) {
     showDestination("ranking");
     return;
   }
+  // Capture the initiating control before results are removed or input blurred.
+  rankOrigin = {
+    destination: activeDestination(), scrollY: window.scrollY, trigger,
+    queueId: trigger?.dataset?.rankDogId || "",
+    queueListType: trigger?.dataset?.rankListType || "",
+  };
   dismissToast();
   closeSearchResults();
   searchInput.blur();
-  rankOrigin = { destination: activeDestination(), scrollY: window.scrollY };
   rankHistory = [];
   rankSession = createRankSession({ item: normalized, rankingLength: publicRanking().length });
   if (rankSession.status === "settled") settleRanking(rankSession);
@@ -1573,6 +1602,7 @@ const undoLastChoice = () => {
 
 function cancelRanking() {
   const origin = rankOrigin;
+  const ownerToken = safetyStore.capture();
   rankSession = null;
   rankHistory = [];
   rankOrigin = null;
@@ -1581,9 +1611,24 @@ function cancelRanking() {
   searchInput.blur();
   if (origin) {
     showDestination(origin.destination, { restoreScroll: false });
-    requestAnimationFrame(() => window.scrollTo({ top: origin.scrollY, behavior: "instant" }));
+    requestAnimationFrame(() => {
+      if (safetyStore.isCurrent(ownerToken) && !rankSession && activeDestination() === origin.destination) {
+        window.scrollTo({ top: origin.scrollY, behavior: "instant" });
+      }
+    });
   }
   restorePackAfterRanking();
+  if (origin?.queueId) requestAnimationFrame(() => {
+    // A remote refresh can rebuild list controls while comparison is open.
+    // Resolve by stable identity, never by a row index or displayed breed name.
+    if (!safetyStore.isCurrent(ownerToken) || rankSession || activeDestination() !== origin.destination) return;
+    const replacement = $$('button[data-rank-dog-id]').find((button) =>
+      button.dataset.rankDogId === origin.queueId && button.dataset.rankListType === origin.queueListType);
+    const target = canRestoreFocus(origin.trigger) ? origin.trigger : replacement;
+    const openDialog = $("dialog[open]");
+    if (openDialog && !openDialog.contains(target)) return;
+    if (canRestoreFocus(target)) target.focus({ preventScroll: true });
+  });
   showToast("Ranking canceled. Your lists were not changed.");
 }
 
@@ -2229,11 +2274,11 @@ const loadSignInProviderAvailability = async () => {
   return signInProviderPromise;
 };
 
-const openSignIn = () => {
+const openSignIn = (event) => {
   if (!supabase) return;
   setSignInBusy(false);
   setSignInStatus("");
-  showDialog(signInDialog);
+  showDialog(signInDialog, { opener: event?.currentTarget || document.activeElement });
   signInEmail.focus({ preventScroll: true });
   void loadSignInProviderAvailability();
 };
@@ -2442,6 +2487,11 @@ const updateShareLinkUi = () => {
   const available = publicSnapshotsEnabled && Boolean(currentUser && supabase);
   const active = available && Boolean(shareLinkState.slug && !shareLinkState.revoked);
   const busy = shareLinkState.loading || shareLinkState.busy;
+  // Move focus before a busy action becomes disabled. Close stays enabled, and
+  // async completion never takes focus back from the user's next destination.
+  if (busy && exportDialog.open && [sharePublish, shareUpdate, shareCopy, shareRevoke].includes(document.activeElement)) {
+    exportDialog.querySelector(".dialog-close-form button")?.focus({ preventScroll: true });
+  }
   sharePublish.hidden = !available || active;
   shareUpdate.hidden = !active;
   shareCopy.hidden = !active;
@@ -2469,6 +2519,8 @@ const updateShareLinkUi = () => {
   } else {
     shareStatus.textContent = "Publish a read-only snapshot. Later ranking changes stay private.";
   }
+  // Account/sync UI refreshes must not erase an in-flight or failed operation.
+  if (shareLinkState.message) shareStatus.textContent = shareLinkState.message;
 };
 
 const loadShareLinkState = async ({ force = false } = {}) => {
@@ -2511,8 +2563,10 @@ const saveSharedSnapshot = async ({ updateExisting = false } = {}) => {
   const listId = categoryUserListId(currentUser?.id);
   const payload = sharedSnapshotPayload();
   if (!publicSnapshotsEnabled || !supabase || !listId || !payload?.items?.length) return;
-  shareLinkState = { ...shareLinkState, busy: true };
-  shareStatus.textContent = updateExisting ? "Updating snapshot…" : "Publishing snapshot…";
+  shareLinkState = {
+    ...shareLinkState, busy: true,
+    message: updateExisting ? "Updating snapshot…" : "Publishing snapshot…",
+  };
   updateShareLinkUi();
   const now = new Date().toISOString();
   let result = null;
@@ -2568,8 +2622,7 @@ const saveSharedSnapshot = async ({ updateExisting = false } = {}) => {
   const error = result?.error || lastError;
   if (!safetyStore.isCurrent(ownerToken) || categoryUserListId(currentUser?.id) !== listId) return;
   if (error || !result?.data?.slug) {
-    shareLinkState = { ...shareLinkState, busy: false };
-    shareStatus.textContent = "Could not save this public snapshot. Try again in a moment.";
+    shareLinkState = { ...shareLinkState, busy: false, message: "Could not save this public snapshot. Try again in a moment." };
     console.warn("Could not save Dogs public snapshot", error);
     updateShareLinkUi();
     return;
@@ -2607,7 +2660,7 @@ const revokeShareLink = async () => {
   const listId = categoryUserListId(currentUser?.id);
   if (!supabase || !listId || !shareLinkState.slug) return;
   const revokedAt = new Date().toISOString();
-  shareLinkState = { ...shareLinkState, busy: true };
+  shareLinkState = { ...shareLinkState, busy: true, message: "Revoking snapshot…" };
   updateShareLinkUi();
   const { data, error } = await supabase
     .from("category_shared_lists")
@@ -2619,23 +2672,22 @@ const revokeShareLink = async () => {
     .maybeSingle();
   if (!safetyStore.isCurrent(ownerToken) || categoryUserListId(currentUser?.id) !== listId) return;
   if (error || !data?.slug) {
-    shareLinkState = { ...shareLinkState, busy: false };
-    shareStatus.textContent = "Could not revoke this link. Try again in a moment.";
+    shareLinkState = { ...shareLinkState, busy: false, message: "Could not revoke this link. Try again in a moment." };
     updateShareLinkUi();
     return;
   }
-  shareLinkState = { ...shareLinkState, busy: false, revoked: true };
+  shareLinkState = { ...shareLinkState, busy: false, revoked: true, message: "" };
   updateShareLinkUi();
   showToast("Public Dogs link revoked.");
 };
 
-const openExport = () => {
+const openExport = (event) => {
   if (!canProviderPurpose(DOGS_CATEGORY, PROVIDER_PURPOSES.TEXT_EXPORT)) {
     showToast("Text export is disabled by category policy.");
     return;
   }
   $("#dogs-export-preview").textContent = dogsExportText(publicRanking(), catalogDocument?.catalogVersion, "text");
-  showDialog(exportDialog);
+  showDialog(exportDialog, { opener: event?.currentTarget || document.activeElement });
   void loadShareLinkState();
 };
 
@@ -3015,7 +3067,7 @@ window.addEventListener("storage", (event) => {
   updateRecoveryUi();
 });
 
-$("#dogs-open-backup").addEventListener("click", () => showDialog(backupDialog));
+$("#dogs-open-backup").addEventListener("click", (event) => showDialog(backupDialog, { opener: event.currentTarget }));
 $("#dogs-open-export").addEventListener("click", openExport);
 signInButton.addEventListener("click", openSignIn);
 signOutButton.addEventListener("click", () => void handleSignOut());
@@ -3062,7 +3114,10 @@ document.addEventListener("keydown", (event) => {
   } else if (cancelRankingDrag()) event.preventDefault();
   else if (!comparisonEl.hidden) cancelRanking();
   else if (!reviewEl.hidden) endReview();
-  else if (!settings.hidden) closeSettings();
+  else if (!settings.hidden) {
+    event.preventDefault();
+    closeSettings({ restoreFocus: true });
+  }
 });
 
 const init = async () => {

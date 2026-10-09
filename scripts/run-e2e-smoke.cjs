@@ -5276,7 +5276,7 @@ const testFirstRunQuickStart = async ({ baseUrl }) => {
       empty.importHidden ||
       empty.packTitle !== "Start with a movie pack" ||
       empty.starterSlugs.join("|") !== expectedStarterSlugs.join("|") ||
-      empty.moduleSrc !== "app.js?v=194" ||
+      empty.moduleSrc !== "app.js?v=195" ||
       empty.cssHref !== "styles.css?v=162" ||
       empty.suggestRequests?.popular !== 1 ||
       empty.suggestRequests?.essentials !== 1 ||
@@ -11479,6 +11479,12 @@ const testApprovedAppShellNavigation = async ({ baseUrl }) => {
     if (expiredDestination.destination !== "rank" || expiredDestination.currentMobileNav !== "Rank") {
       throw new Error(`Expired destination memory did not return to Rank: ${JSON.stringify(expiredDestination)}`);
     }
+
+    // Destination restoration precedes async owner activation and pack loading.
+    // Measure the populated shelf, not the intermediate empty boot shell.
+    await waitFor(page, `document.documentElement.dataset.moviesPersistenceReady === 'true' &&
+      document.querySelector('#ranking-total')?.textContent.trim() === '6 movies' &&
+      document.querySelectorAll('#pack-row .pack-card:not(.pack-card--loading)').length === 6`, 10000);
 
     await setDeviceProfile(page, {
       width: 844,

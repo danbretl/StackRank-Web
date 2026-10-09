@@ -109,6 +109,11 @@ execution would break it. The unrelated leaked-password-protection advisory rema
 and [password advisory guidance](https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection).
 No Auth configuration was changed. See `post-cutover-advisors.json`.
 
+Cutover evidence commit `d4eb829631065d6d070475d569e1ec1aebb43a1d` is on remote main.
+[Exact CI37897518567](https://github.com/danbretl/StackRank-Web/actions/runs/37897518567)
+passed; Vercel `dpl_DX3kPZnfMpjeYSpxfRo7tAJNy77D` is READY at the same SHA with
+production aliases. See `cutover-ci.json` and `cutover-vercel.json`.
+
 ## Preservation and rollback
 
 No customer records were queried or changed. Hosted inspection is ACL/policy/function

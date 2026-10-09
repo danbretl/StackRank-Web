@@ -1,5 +1,16 @@
 # StackRank
 
+## October 9 accessibility corrections
+
+Movies and Dogs preserve keyboard focus through supported dialog, cancellation and
+busy publishing/export flows. Dogs Settings utility dialogs have accessible names and
+return focus to their trigger; queue cancellation resolves its Rank button by stable ID
+with an owner-generation guard. Async share completion never restores a stale opener.
+The scoped audit dispositions, independent review, exact verification/release receipts
+and remaining screen-reader/device limits live in
+`notes/testing/accessibility-audit-corrections/HANDBACK.md`. Account persistence,
+security policies and the Dogs catalog are unchanged by this follow-on.
+
 ## October 9 security corrections
 
 Product `eb9a2b07` deploys anonymous RPC-capable share viewers, stricter recommendation

@@ -1,0 +1,36 @@
+{
+  "baseline": "d4eb829631065d6d070475d569e1ec1aebb43a1d",
+  "attempts": [
+    {
+      "log": "reports/accessibility-audit-corrections/pre-freeze-verify.log",
+      "result": "Stopped at one existing E2E phone-landscape fixture sampled before application readiness",
+      "action": "Wait for persistence-ready, six fixture movies and six loaded packs before layout assertions. No assertion weakened. Subsequent full44 passed."
+    },
+    {
+      "log": "reports/accessibility-audit-corrections/final-verify.log",
+      "result": "Non-browser validation and44 E2E passed; data-safety44/45",
+      "failedCase": "Movies remote queue cannot send a newer edit before its local Web Lock save",
+      "observation": "Final account-row observation timed out. Latest [900003] remained durably saved locally with dirty baseline and visible sync pending. No newer payload sent before local save. Cause unisolated; ERR_ABORTED events lacked URL association.",
+      "reruns": [
+        "reports/data-safety/2026-10-09T07-31-57-219Z/results.json",
+        "reports/data-safety/lock-diagnostic/results.json"
+      ],
+      "rerunResult": "Both unchanged focused cases passed, second with network diagnostics. No speculative runtime or test edit."
+    }
+  ],
+  "independentSecurity": {
+    "report": "reports/security-browser/2026-10-09T07-31-45-411Z/results.json",
+    "passed": 24,
+    "failed": 0
+  },
+  "nativeKeyboardInvestigation": {
+    "failedReport": "reports/accessibility-cdp/2026-10-09T07-32-04-353Z/results.json",
+    "soloReproduction": "reports/accessibility-cdp/2026-10-09T07-36-51-666Z/results.json",
+    "observation": "Three second-close cases failed while document.visibilityState was hidden. Native submit closed dialog but its close event did not dispatch within2.5s. Page.bringToFront before input restores visibility and native event delivery in diagnostic. Reason target became hidden unproven; do not attribute to concurrent test contention.",
+    "status": "Harness-only Page.bringToFront + visible-target prerequisite before each real key; no focus assertion weakened or product edit.",
+    "passedReport": "reports/accessibility-cdp/2026-10-09T07-40-02-328Z/results.json",
+    "passed": 9,
+    "failed": 0,
+    "browser": "Chrome155.0.8059.40"
+  }
+}

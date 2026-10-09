@@ -1,0 +1,71 @@
+{
+  "auditBaseline": "849fb5b924d4c66255fd66c326959f7c7f35861d",
+  "implementationBaseline": "d4eb829631065d6d070475d569e1ec1aebb43a1d",
+  "findings": [
+    {
+      "id": "A11Y-DOGS-01",
+      "adjudication": "confirmed",
+      "decision": "Capture utility-dialog opener before hiding Settings; restore usable opener or toggle on close. Specialized pack/detail handling retained."
+    },
+    {
+      "id": "A11Y-DOGS-02",
+      "adjudication": "confirmed",
+      "decision": "Capture queue initiating control before blur; restore connected control or matching stable ID/list after cancellation. Guard deferred focus and scroll by owner generation."
+    },
+    {
+      "id": "A11Y-DOGS-03",
+      "adjudication": "confirmed by independent keyboard probe",
+      "decision": "Settings Escape explicitly restores its toggle."
+    },
+    {
+      "id": "A11Y-BOTH-04",
+      "adjudication": "confirmed busy-state loss; completion evidence qualified",
+      "decision": "Synchronous enabled Close handoff before hiding/disabling focused publish/export controls. Completion never restores a stale initiating control; synchronous preview replacement preserves the user\u2019s current control. Separate publish/PNG browser checks; original audit final measurement followed a download."
+    },
+    {
+      "id": "A11Y-BOTH-05",
+      "adjudication": "retained low-priority limitation",
+      "decision": "Completion announces placement in existing status regions. No general completion-focus change: audit did not isolate origin-specific intended focus and search intentionally avoids keyboard reopening; scope keeps completion navigation unchanged."
+    },
+    {
+      "id": "A11Y-MOV-06",
+      "adjudication": "retained documented product intent",
+      "decision": "Search-origin cancel deliberately does not focus the text input, avoiding mobile keyboard reopening. Existing behavior preserved."
+    },
+    {
+      "id": "A11Y-DOGS-07",
+      "adjudication": "confirmed semantic defect",
+      "decision": "Associate all three visible headings with their native dialogs using aria-labelledby; actual screen-reader speech remains untested."
+    }
+  ],
+  "rejectedAlerts": {
+    "RFP-01": "Native-dialog BODY/browser-chrome Tab step alone is not background-page escape. Preserve native controls.",
+    "RFP-02": "Movies Settings is nonmodal.",
+    "RFP-03": "WebKit default Tab configuration; use Option-Tab.",
+    "RFP-04": "Narrow-layout anomaly not reproducible in fresh controls; no redesign.",
+    "RFP-05": "Transient contrast explanation remains inference; no blanket contrast claim.",
+    "RFP-06": "Original reorder selector error; existing keyboard reorder positive control.",
+    "RFP-07": "Dogs Move mode required.",
+    "RFP-08": "Unrendered handles are not measured targets.",
+    "RFP-09": "Axe heading best-practice alerts do not alone establish WCAG failure."
+  },
+  "additionalFindings": [
+    {
+      "id": "A11Y-NEW-01",
+      "decision": "Bind deferred Dogs cancellation focus/scroll to captured owner generation; avoids stale UI focus after account switch."
+    },
+    {
+      "id": "A11Y-NEW-02",
+      "decision": "Preserve the user-selected semantic preview control across synchronous Movies image-set preview replacement after export/enrichment; reproduced with held rendering in browser."
+    },
+    {
+      "id": "A11Y-NEW-03",
+      "decision": "Store Dogs publishing/revoking progress and error messages in shareLinkState so generic account refreshes cannot immediately overwrite their status text. No write semantics changed."
+    }
+  ],
+  "limits": [
+    "No WCAG certification",
+    "Real Safari, VoiceOver/NVDA speech, physical devices and OS accessibility configuration untested",
+    "Synthetic account/share responses; no customer access or emails"
+  ]
+}

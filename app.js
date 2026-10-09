@@ -8830,6 +8830,17 @@ const formatShareLinkTimestamp = (value) => {
   }).format(date);
 };
 
+// Keep a keyboard user's place when their action is about to become unavailable.
+// This handoff is synchronous; async completion never pulls focus back into a dialog.
+function focusShareCloseBeforeDisabling(controls) {
+  const active = document.activeElement;
+  if (!controls.includes(active)) return;
+  const close = shareLightbox.contains(active) ? shareLightboxClose : shareClose;
+  if (close?.isConnected && !close.disabled && close.getClientRects().length) {
+    close.focus({ preventScroll: true });
+  }
+}
+
 function updateShareLinkUi() {
   if (!shareLinkMeta || !shareLinkPublish || !shareLinkUpdate || !shareLinkCopyButton || !shareLinkRevoke) {
     return;
@@ -8838,6 +8849,12 @@ function updateShareLinkUi() {
   const busy = Boolean(shareLinkState.busy || shareLinkState.loading);
   const hasLink = signedIn && Boolean(shareLinkState.slug && shareLinkState.url);
 
+  focusShareCloseBeforeDisabling([
+    ...(!signedIn || hasLink || busy || !ranking.length ? [shareLinkPublish] : []),
+    ...(!hasLink || busy || !ranking.length ? [shareLinkUpdate] : []),
+    ...(!hasLink || busy ? [shareLinkCopyButton, shareLinkRevoke] : []),
+    ...(signedIn || busy || !supabaseEnabled || !supabase ? [shareLinkSignIn] : []),
+  ]);
   shareLinkSignIn.hidden = signedIn;
   shareLinkPublish.hidden = !signedIn || hasLink;
   shareLinkUpdate.hidden = !hasLink;
@@ -9224,6 +9241,16 @@ function setShareSetPage(index) {
 }
 
 function updateShareStudio() {
+  // Async enrichment/export can replace the preview while the user is browsing
+  // it. Preserve their current semantic control during this synchronous render.
+  const focusedPreviewControl = document.activeElement;
+  const previewFocusSelector = [
+    ".share-preview-single", ".share-preview-deck__viewport",
+    "[data-share-page-download]", "[data-share-page-share]",
+    ...[...sharePreview.querySelectorAll("[data-page-index]")].map((element) =>
+      `[data-page-index="${element.dataset.pageIndex}"]`),
+    '[data-share-page-step="-1"]', '[data-share-page-step="1"]',
+  ].find((selector) => sharePreview.querySelector(selector) === focusedPreviewControl);
   const images = buildShareImages();
   if (images.mode === "set") {
     const total = images.cards.length;
@@ -9312,6 +9339,12 @@ function updateShareStudio() {
     shareDownloadSvg.textContent = "SVG";
   }
   updateShareExportControls();
+  if (previewFocusSelector && !focusedPreviewControl.isConnected && !shareStudio.hidden) {
+    const replacement = sharePreview.querySelector(previewFocusSelector);
+    const target = replacement && !replacement.disabled && replacement.getClientRects().length
+      ? replacement : shareClose;
+    if (target.getClientRects().length) target.focus({ preventScroll: true });
+  }
 }
 
 function lockShareScroll() {
@@ -10170,6 +10203,7 @@ async function renderShareSetPagePngBlob(index, { preparePosters = true } = {}) 
 
 async function downloadCurrentShareSetPage() {
   if (!ranking.length || shareOptions.format !== "set") return;
+  preserveShareExportFocus();
   sharePngPreparing = true;
   updateShareStudio();
   try {
@@ -10191,6 +10225,7 @@ async function downloadCurrentShareSetPage() {
 
 async function shareNativePng({ currentPageOnly = false } = {}) {
   if (!ranking.length || !navigator.share) return;
+  preserveShareExportFocus();
   sharePngPreparing = true;
   updateShareStudio();
   try {
@@ -10230,8 +10265,16 @@ async function shareNativePng({ currentPageOnly = false } = {}) {
   }
 }
 
+function preserveShareExportFocus() {
+  focusShareCloseBeforeDisabling([
+    shareDownloadPng, shareNativeShare, shareLightboxDownload, shareLightboxShare,
+    ...sharePreview.querySelectorAll("[data-share-page-download], [data-share-page-share]"),
+  ]);
+}
+
 async function downloadSharePng() {
   if (!ranking.length) return;
+  preserveShareExportFocus();
   sharePngPreparing = true;
   updateShareStudio();
   try {

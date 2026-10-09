@@ -1,0 +1,172 @@
+{
+  "reviewedAt": "2026-10-09T07:27:06.153345+00:00",
+  "reviewer": "astra_release_lead",
+  "auditBaseline": "849fb5b924d4c66255fd66c326959f7c7f35861d",
+  "implementationBaseline": "d4eb829631065d6d070475d569e1ec1aebb43a1d",
+  "verdict": "no material remaining source defect found in the frozen scoped correction",
+  "runtimeEditedByReviewer": false,
+  "sourceSha256": {
+    "app.js": "333a83e6f3d69ab1080811e0cf3578758d3120f64ce6fb5a2f1cb9fa9d18ffd5",
+    "dogs.js": "af3598d2373117628b4f5e7d852492c86bb57039dea08b2826071c4f84faa42d",
+    "index.html": "ee7f018680d2a0584d21ada8c3aa695d2c5961cab8e4b28b2ac57b18da50c1c6",
+    "dogs.html": "d6eaa492738747aa6c80fb63f858d2e815a909721087135392e806d020e085a2",
+    "data/asset-versions.json": "87464ea4bcc8b52a1dc9048b61ccc582d7e2217497a3537963e75caa24b087c6",
+    "scripts/run-e2e-smoke.cjs": "7b08340d7b8249308c485ad4e64289bce427beb7cf1985c2239cec0657108ef3"
+  },
+  "findings": [
+    {
+      "id": "A11Y-DOGS-01",
+      "reviewVerdict": "accepted_fix",
+      "rationale": "Capture utility-dialog opener before hiding Settings; restore usable opener or toggle on close. Specialized pack/detail handling retained."
+    },
+    {
+      "id": "A11Y-DOGS-02",
+      "reviewVerdict": "accepted_fix",
+      "rationale": "Capture queue initiating control before blur; restore connected control or matching stable ID/list after cancellation. Guard deferred focus and scroll by owner generation."
+    },
+    {
+      "id": "A11Y-DOGS-03",
+      "reviewVerdict": "accepted_fix",
+      "rationale": "Settings Escape explicitly restores its toggle."
+    },
+    {
+      "id": "A11Y-BOTH-04",
+      "reviewVerdict": "accepted_fix",
+      "rationale": "Synchronous enabled Close handoff before hiding/disabling focused publish/export controls. Completion never restores a stale initiating control; synchronous preview replacement preserves the user’s current control. Separate publish/PNG browser checks; original audit final measurement followed a download."
+    },
+    {
+      "id": "A11Y-BOTH-05",
+      "reviewVerdict": "accepted_explicit_unchanged_disposition",
+      "rationale": "Completion announces placement in existing status regions. No general completion-focus change: audit did not isolate origin-specific intended focus and search intentionally avoids keyboard reopening; scope keeps completion navigation unchanged."
+    },
+    {
+      "id": "A11Y-MOV-06",
+      "reviewVerdict": "accepted_explicit_unchanged_disposition",
+      "rationale": "Search-origin cancel deliberately does not focus the text input, avoiding mobile keyboard reopening. Existing behavior preserved."
+    },
+    {
+      "id": "A11Y-DOGS-07",
+      "reviewVerdict": "accepted_fix",
+      "rationale": "Associate all three visible headings with their native dialogs using aria-labelledby; actual screen-reader speech remains untested."
+    }
+  ],
+  "additionalFindings": [
+    {
+      "id": "A11Y-NEW-01",
+      "verdict": "accepted_fix",
+      "rationale": "Canceled queue focus and scroll callbacks capture owner generation and require current owner, same destination and no replacement ranking. Existing modal scope guard retained."
+    },
+    {
+      "id": "A11Y-NEW-02",
+      "verdict": "accepted_fix",
+      "rationale": "Before each synchronous preview render, captures actual current semantic control. Restores a visible enabled matching replacement or Close only if the original node was disconnected and Share Studio remains open. Does not capture an initiating control across an await."
+    },
+    {
+      "id": "A11Y-NEW-03",
+      "verdict": "accepted_fix",
+      "rationale": "Publishing/updating/revoking progress and save/revoke errors are owned by shareLinkState.message and reapplied by UI render; success/reset clears them. Existing owner token checks and write semantics remain unchanged."
+    }
+  ],
+  "reviewChecks": {
+    "DogsDialogs": "Three native utility dialogs receive heading IDs/names and scoped close handlers. Settings opener mapped to visible toggle. Existing comparison-detail and pack restoration remain separate.",
+    "DogsQueue": "Captures trigger before blur/removal, resolves rerendered controls by exact stable dog ID and list type, owner-checks rAF. Search mobile behavior unchanged.",
+    "MoviesBusy": "Synchronous handoff targets currently affected controls only, respects lightbox Close versus parent Share Close; no delayed old-action refocus.",
+    "DogsBusy": "Busy control hands off to enabled export Close before disable; completion respects current user location. State message survives ordinary same-owner refresh.",
+    "PersistenceAndSecurity": "No changes to account write conditions, identity ownership, stored data, share API/RLS or catalog. New deferred-focus owner guard adds UI isolation.",
+    "TestHarnessWait": "Phone landscape test now waits for existing moviesPersistenceReady plus exactly6 fixture movies and6 non-loading packs before measuring populated layout; preserves assertions rather than accepting empty shell."
+  },
+  "independentlyExecutedChecks": [
+    "node --check app.js passed",
+    "node --check dogs.js passed",
+    "git diff --check passed",
+    "Original immutable evidence assertion executed read-only during adjudication and passed; this confirms baseline evidence, not remediation."
+  ],
+  "reviewedBrowserEvidence": [
+    {
+      "path": "reports/accessibility/2026-10-09T07-24-28-187Z/results.json",
+      "sha256": "4a05eadf028c511842a660089d30d62b4f6b39be82571d137c091f4f6936cc68",
+      "passed": 4,
+      "failed": 0,
+      "sourceChangedDuringRun": false,
+      "root": "/Users/danbretl/src/stackrank-accessibility-release",
+      "currentRuntimeHashMatches": true,
+      "reviewBoundary": "Read measured browser evidence; browser execution performed by coordinating worker, not independently rerun by this reviewer."
+    },
+    {
+      "path": "reports/accessibility/2026-10-09T07-24-52-191Z/results.json",
+      "sha256": "7886ed78133c88369b165f39bc6b3b7c5b1ffe7a6c0cfd31d6e99096cee76981",
+      "passed": 68,
+      "failed": 0,
+      "sourceChangedDuringRun": false,
+      "root": "/Users/danbretl/src/stackrank-accessibility-release/dist/public",
+      "currentRuntimeHashMatches": true,
+      "reviewBoundary": "Read measured browser evidence; browser execution performed by coordinating worker, not independently rerun by this reviewer."
+    }
+  ],
+  "rejectedAlerts": {
+    "RFP-01": "Native-dialog BODY/browser-chrome Tab step alone is not background-page escape. Preserve native controls.",
+    "RFP-02": "Movies Settings is nonmodal.",
+    "RFP-03": "WebKit default Tab configuration; use Option-Tab.",
+    "RFP-04": "Narrow-layout anomaly not reproducible in fresh controls; no redesign.",
+    "RFP-05": "Transient contrast explanation remains inference; no blanket contrast claim.",
+    "RFP-06": "Original reorder selector error; existing keyboard reorder positive control.",
+    "RFP-07": "Dogs Move mode required.",
+    "RFP-08": "Unrendered handles are not measured targets.",
+    "RFP-09": "Axe heading best-practice alerts do not alone establish WCAG failure."
+  },
+  "limits": [
+    "No WCAG compliance certification or claim of exhaustive accessibility coverage.",
+    "Actual VoiceOver/NVDA/JAWS speech, real Safari, physical devices/touch, OS zoom, forced-colors and OS accessibility settings remain untested.",
+    "Playwright Chromium/WebKit are synthetic browser fixtures with mocked account/share transport, blocked external fonts/provider images; not hosted Auth or customer-data evidence.",
+    "Original busy-flow final measurement followed a download, so publish-completion impact was not isolated there; new regressions separate publish and actual PNG completion.",
+    "Source review and reviewed68-case staged evidence do not themselves attest final npm verify, CI, exact production deployment or production rendering."
+  ],
+  "mustFix": [],
+  "nativeCdpHarnessReview": {
+    "reviewedAt": "2026-10-09T07:42:09.896346+00:00",
+    "verdict": "accepted harness precondition correction; assertions retained",
+    "script": "scripts/test-accessibility-cdp.cjs",
+    "scriptSha256": "88c62f8c68924ddfa11843484ed1121a9f63ae868f1554415d3179c0b0737426",
+    "comparisonArtifact": "reports/accessibility-audit-corrections/cdp-close-diagnostic.cjs",
+    "comparisonArtifactSha256": "2d5664921a4a017114826ad010b697499de23907c5bbe196296e98144949b9b0",
+    "comparisonLimit": "Preserved diagnostic copy retains pre-adjustment key implementation/test bodies plus passive diagnostics and absolute local requires; no original pre-adjustment script hash was recorded.",
+    "changes": "Page.bringToFront before each key, strict visible-document wait/assertion, visibility/native-close/browser-version logging. No DOM focus calls added to tested actions; existing focus initialization remains fixture-only.",
+    "unchangedAssertions": [
+      "Same real Input.dispatchKeyEvent keyboard input and test bodies",
+      "Same expected focus selectors and2.5-second restoration timeout",
+      "Same modal names, reverse-Tab containment and disabled-state checks",
+      "Same queue/ranking preservation and async no-focus-theft checks",
+      "Same console/network failure rejection"
+    ],
+    "observedEvidence": "Unchanged solo suite6pass/3fail. Passive diagnostic saw Enter click and method=dialog submit remove open while visibilityState hidden, then no close event during restoration timeout. Per-key foreground run observed both native close events and passed3focused/9full cases.",
+    "unknown": "Reason the native headless target became hidden is not established; neither OS fault nor parallel contention is asserted.",
+    "diagnosticInterruption": "First foreground diagnostic demonstrated close delivery but failed on its own passive logger calling getAttribute on a non-element visibility event target. Preserved; final element-guarded close logger does not produce that error.",
+    "browser": "Chrome/155.0.8059.40",
+    "finalPassed": 9,
+    "finalFailed": 0,
+    "runtimeHashesUnchanged": true,
+    "evidence": [
+      {
+        "path": "reports/accessibility-cdp/2026-10-09T07-36-51-666Z/results.json",
+        "sha256": "775895f3efb6e5e9329f9a36846d6a2373ef5735542ce4a3afa882173f2f6c4d"
+      },
+      {
+        "path": "reports/accessibility-cdp/2026-10-09T07-37-55-062Z/results.json",
+        "sha256": "fcfd6ed315bd528cc0106a9169038c1522236b8d6e7d47015d12c54b3ed5b9b5"
+      },
+      {
+        "path": "reports/accessibility-cdp/2026-10-09T07-38-38-123Z/results.json",
+        "sha256": "76fce8a88b0c18e6d21ed6d38c523b622967fd115ea4eb6ec29282bd4b5e56ac"
+      },
+      {
+        "path": "reports/accessibility-cdp/2026-10-09T07-39-12-821Z/results.json",
+        "sha256": "61d89b0ce3ad3a0e04810c4c4aa75962e5b877ceb7a3780c42af6681d35a5dd9"
+      },
+      {
+        "path": "reports/accessibility-cdp/2026-10-09T07-40-02-328Z/results.json",
+        "sha256": "966e7180a6fdbdc257d768a761026610b4783f32a1d76cb5b016dc9d088e223d"
+      }
+    ],
+    "executionBoundary": "Evidence read only; reviewer did not rerun browsers or modify runtime. Root final aggregate is separate."
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "finishedAt": "2026-10-09T07:45:56.168071+00:00",
+  "command": "npm run verify",
+  "exitCode": 0,
+  "log": "reports/accessibility-audit-corrections/verified-aggregate.log",
+  "logSha256": "ca3a04b96ffa6c57b6abb337b2b816235ab2855dbc3aedd9d726f73acacfbd7d",
+  "counts": {
+    "node": 660,
+    "python": 58,
+    "deno": 27,
+    "denoSteps": 12,
+    "stagedSmoke": 44,
+    "dataSafety": 45,
+    "securityBrowser": 24,
+    "nativeKeyboard": 9,
+    "additionalPlaywright": 68
+  },
+  "reportPaths": [
+    "reports/runs/2026-10-09T074049Z",
+    "reports/deployment-contract/runs/2026-10-09T074110Z",
+    "reports/e2e/runs/2026-10-09T074116Z",
+    "reports/data-safety/2026-10-09T07-43-16-475Z/results.json",
+    "reports/security-browser/2026-10-09T07-44-48-822Z/results.json",
+    "reports/accessibility-cdp/2026-10-09T07-45-07-565Z/results.json"
+  ],
+  "runtimeSha256": {
+    "app.js": "333a83e6f3d69ab1080811e0cf3578758d3120f64ce6fb5a2f1cb9fa9d18ffd5",
+    "dogs.js": "af3598d2373117628b4f5e7d852492c86bb57039dea08b2826071c4f84faa42d",
+    "dogs.html": "d6eaa492738747aa6c80fb63f858d2e815a909721087135392e806d020e085a2",
+    "index.html": "ee7f018680d2a0584d21ada8c3aa695d2c5961cab8e4b28b2ac57b18da50c1c6",
+    "data/asset-versions.json": "87464ea4bcc8b52a1dc9048b61ccc582d7e2217497a3537963e75caa24b087c6"
+  },
+  "deployment": {
+    "schemaVersion": 1,
+    "declaration": {
+      "path": "deploy/public-files.json",
+      "sha256": "83ca3546402748fdd44817d1410b74c5b9e89cd48ac19af7879f9b00bb1c6549"
+    },
+    "inputMode": "git",
+    "contractDigest": "5451756742d072c9340bde5bdb0a88c2e19fdb57d7637ee2d758be5406143adc",
+    "totals": {
+      "files": 2172,
+      "bytes": 173234357
+    },
+    "byProduct": {
+      "books": {
+        "files": 13,
+        "bytes": 87120
+      },
+      "dogs": {
+        "files": 2130,
+        "bytes": 171827170
+      },
+      "movies": {
+        "files": 44,
+        "bytes": 1605731
+      },
+      "site": {
+        "files": 12,
+        "bytes": 290202
+      }
+    },
+    "families": [
+      {
+        "id": "artwork-review-e-series-batches",
+        "type": "sequence",
+        "product": "dogs",
+        "files": 10
+      },
+      {
+        "id": "dogs-generated-portraits",
+        "type": "json-manifest",
+        "product": "dogs",
+        "files": 1804
+      }
+    ],
+    "classification": {
+      "status": "complete",
+      "included": 2172,
+      "excluded": 1204,
+      "unclassified": 0
+    }
+  },
+  "githubPagesEnabled": false,
+  "priorFailures": "See aggregate-attempts.json; preserved, not represented as passing first attempts.",
+  "stagedNewFileClassification": {
+    "exitCode": 0,
+    "log": "reports/accessibility-audit-corrections/staged-classification.log",
+    "sha256": "4f64268a69185ce5b3a399ab56a25434da851f92c5b64b1fd5fcceddd843d941",
+    "evidence": "reports/deployment-contract/runs/2026-10-09T074556Z/check-evidence.json",
+    "classificationLines": [
+      "inputs: git (requested git); classification complete (2172 included, 1220 excluded, 0 unclassified)",
+      "inputs: git (requested git); classification complete (2172 included, 1220 excluded, 0 unclassified)"
+    ]
+  }
+}

@@ -1,0 +1,507 @@
+{
+  "kind": "stackrank-accessibility-browser-receipt",
+  "scope": "Synthetic keyboard regression, not screen-reader speech or live account tests",
+  "baseline": {
+    "root": "/Users/danbretl/Documents/Codex/2026-10-07/task/stackrank-accessibility-audit/audit/app",
+    "report": "reports/accessibility/2026-10-09T07-20-06-654Z/results.json",
+    "positiveControlsPassed": 4,
+    "expectedDefectsReproduced": 14,
+    "sourceChangedDuringRun": false
+  },
+  "final": {
+    "startedAt": "2026-10-09T07:24:52.192Z",
+    "finishedAt": "2026-10-09T07:25:39.260Z",
+    "root": "/Users/danbretl/src/stackrank-accessibility-release/dist/public",
+    "chromiumVersion": "151.0.7922.34",
+    "webkitVersion": "26.5",
+    "passed": 68,
+    "failed": 0,
+    "sourceChangedDuringRun": false,
+    "sourceHashes": {
+      "app.js": "333a83e6f3d69ab1080811e0cf3578758d3120f64ce6fb5a2f1cb9fa9d18ffd5",
+      "dogs.js": "af3598d2373117628b4f5e7d852492c86bb57039dea08b2826071c4f84faa42d",
+      "index.html": "ee7f018680d2a0584d21ada8c3aa695d2c5961cab8e4b28b2ac57b18da50c1c6",
+      "dogs.html": "d6eaa492738747aa6c80fb63f858d2e815a909721087135392e806d020e085a2"
+    }
+  },
+  "playwrightVersion": "1.62.1",
+  "report": "reports/accessibility/2026-10-09T07-24-52-191Z/results.json",
+  "reportSha256": "7886ed78133c88369b165f39bc6b3b7c5b1ffe7a6c0cfd31d6e99096cee76981",
+  "cases": [
+    {
+      "engine": "chromium",
+      "app": "movies",
+      "name": "phone-settings-dialog",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "movies",
+      "name": "settings-escape",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "movies",
+      "name": "settings-dialog-signin",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "movies",
+      "name": "queue-cancel-Escape",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "movies",
+      "name": "queue-cancel-Cancel",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "movies",
+      "name": "publish-success-rest",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "movies",
+      "name": "publish-success-navigate",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "movies",
+      "name": "publish-success-close",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "movies",
+      "name": "publish-failure-rest",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "movies",
+      "name": "publish-failure-navigate",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "movies",
+      "name": "publish-failure-close",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "phone-settings-dialog",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "settings-escape",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "settings-dialog-signin",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "settings-dialog-backup",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "settings-dialog-export",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "queue-cancel-Escape",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "queue-cancel-Cancel",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "publish-success-rest",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "publish-success-navigate",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "publish-success-close",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "publish-failure-rest",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "publish-failure-navigate",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "publish-failure-close",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "native-dialog-tab-cycle",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "publish-status-refresh-success",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "publish-status-refresh-failure",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "nested-about-queue",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "nested-pack-cancel",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "movies",
+      "name": "nested-share-preview",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "movies",
+      "name": "png-download-completes",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "movies",
+      "name": "png-set-preserves-preview-focus",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "dogs",
+      "name": "queue-cancel-owner-race",
+      "status": "passed"
+    },
+    {
+      "engine": "chromium",
+      "app": "plain-native",
+      "name": "native-dialog-control",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "movies",
+      "name": "phone-settings-dialog",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "movies",
+      "name": "settings-escape",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "movies",
+      "name": "settings-dialog-signin",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "movies",
+      "name": "queue-cancel-Escape",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "movies",
+      "name": "queue-cancel-Cancel",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "movies",
+      "name": "publish-success-rest",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "movies",
+      "name": "publish-success-navigate",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "movies",
+      "name": "publish-success-close",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "movies",
+      "name": "publish-failure-rest",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "movies",
+      "name": "publish-failure-navigate",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "movies",
+      "name": "publish-failure-close",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "phone-settings-dialog",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "settings-escape",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "settings-dialog-signin",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "settings-dialog-backup",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "settings-dialog-export",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "queue-cancel-Escape",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "queue-cancel-Cancel",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "publish-success-rest",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "publish-success-navigate",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "publish-success-close",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "publish-failure-rest",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "publish-failure-navigate",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "publish-failure-close",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "native-dialog-tab-cycle",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "publish-status-refresh-success",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "publish-status-refresh-failure",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "nested-about-queue",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "nested-pack-cancel",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "movies",
+      "name": "nested-share-preview",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "movies",
+      "name": "png-download-completes",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "movies",
+      "name": "png-set-preserves-preview-focus",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "dogs",
+      "name": "queue-cancel-owner-race",
+      "status": "passed"
+    },
+    {
+      "engine": "webkit",
+      "app": "plain-native",
+      "name": "native-dialog-control",
+      "status": "passed"
+    }
+  ],
+  "completedDownloads": [
+    {
+      "engine": "chromium",
+      "case": "png-download-completes",
+      "downloads": [
+        {
+          "name": "stackrank-movies.png",
+          "failure": null,
+          "bytes": 444324,
+          "sha256": "18181f7513925b08b5f9bf6121e8de44a29a0f3baf5760deee78b49fbfd19d1a"
+        }
+      ]
+    },
+    {
+      "engine": "chromium",
+      "case": "png-set-preserves-preview-focus",
+      "downloads": [
+        {
+          "name": "stackrank-share-images.zip",
+          "bytes": 664825,
+          "sha256": "00b43d9d6613d70cb11c836c6fc7cc05c06763e2e7bbe38a095b62d86cf79cf8"
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "case": "png-download-completes",
+      "downloads": [
+        {
+          "name": "stackrank-movies.png",
+          "failure": null,
+          "bytes": 396013,
+          "sha256": "695898a6223b3cfec7a76d6a8416eb1a363b1c95c7cb687911b353f8f4f95222"
+        }
+      ]
+    },
+    {
+      "engine": "webkit",
+      "case": "png-set-preserves-preview-focus",
+      "downloads": [
+        {
+          "name": "stackrank-share-images.zip",
+          "bytes": 596197,
+          "sha256": "5e0f72293924226c41c10c726ca35bef78785c0fe500cfed1e59d7f964cc4860"
+        }
+      ]
+    }
+  ],
+  "runtimeMatchesWorkingTree": true,
+  "nativeCdpFollowup": {
+    "report": "reports/accessibility-cdp/2026-10-09T07-40-02-328Z/results.json",
+    "reportSha256": "966e7180a6fdbdc257d768a761026610b4783f32a1d76cb5b016dc9d088e223d",
+    "passed": 9,
+    "failed": 0,
+    "sourceChangedDuringRun": false,
+    "browserVersion": {
+      "protocolVersion": "1.3",
+      "product": "Chrome/155.0.8059.40",
+      "revision": "@cfaadc5a132d78e1828635aa8405a499f3e14864",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+      "jsVersion": "15.5.35.20"
+    },
+    "unchangedSoloFailure": "reports/accessibility-cdp/2026-10-09T07-36-51-666Z/results.json",
+    "passiveEventDiagnostic": "reports/accessibility-cdp/2026-10-09T07-37-55-062Z/results.json",
+    "strictVisibleDiagnostic": "reports/accessibility-cdp/2026-10-09T07-39-12-821Z/results.json",
+    "change": "Harness only: Page.bringToFront and strict visible-document prerequisite before each real key event; native close-event/visibility/version receipts. No product change."
+  }
+}

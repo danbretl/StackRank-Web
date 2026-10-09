@@ -1,0 +1,1337 @@
+{
+  "checkedAt": "2026-10-09T05:59:47.093Z",
+  "project": "hrfhakrxsllrqmscxxpb",
+  "scope": "Metadata only; no customer rows",
+  "approval": {
+    "message": "Sentinel_d26069f7677081918f3d9337d4f8933f",
+    "replyTo": "Sentinel_200ea06a7a688191a0a03a230a3d657e",
+    "at": "2026-10-09T05:56:00Z"
+  },
+  "migrationHistory": [
+    {
+      "version": "20260620184700",
+      "name": "add_movie_lists"
+    },
+    {
+      "version": "20260620184959",
+      "name": "optimize_list_rls_policies"
+    },
+    {
+      "version": "20260625071336",
+      "name": "add_suggestion_packs"
+    },
+    {
+      "version": "20260628170018",
+      "name": "harden_ranking_rls_and_pack_index"
+    },
+    {
+      "version": "20260628171913",
+      "name": "add_product_events"
+    },
+    {
+      "version": "20260628180105",
+      "name": "bound_product_event_values"
+    },
+    {
+      "version": "20260628225636",
+      "name": "add_quick_start_events"
+    },
+    {
+      "version": "20260629012754",
+      "name": "add_taste_explorer_events"
+    },
+    {
+      "version": "20260708063341",
+      "name": "bound_user_json_payload_sizes"
+    },
+    {
+      "version": "20260708064357",
+      "name": "product_events_retention_and_flood_limit"
+    },
+    {
+      "version": "20260708104134",
+      "name": "20260708101029_add_shared_lists"
+    },
+    {
+      "version": "20260708160447",
+      "name": "allow_owner_read_shared_lists"
+    },
+    {
+      "version": "20260709001734",
+      "name": "add_tonight_events"
+    },
+    {
+      "version": "20260716090037",
+      "name": "add_category_data_tables"
+    },
+    {
+      "version": "20260716090038",
+      "name": "add_dog_artwork_storage"
+    }
+  ],
+  "metadata": {
+    "grants": [
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "rankings",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "rankings",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT",
+        "with_hierarchy": "YES"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "rankings",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "UPDATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "rankings",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "DELETE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "rankings",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRUNCATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "rankings",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "REFERENCES",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "rankings",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRIGGER",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "rankings",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "rankings",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT",
+        "with_hierarchy": "YES"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "rankings",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "UPDATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "rankings",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "DELETE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "rankings",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRUNCATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "rankings",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "REFERENCES",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "rankings",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRIGGER",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "product_events",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "product_events",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRUNCATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "product_events",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "REFERENCES",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "product_events",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRIGGER",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "product_events",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "product_events",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRUNCATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "product_events",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "REFERENCES",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "product_events",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRIGGER",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "movie_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "movie_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT",
+        "with_hierarchy": "YES"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "movie_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "UPDATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "movie_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "DELETE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "movie_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRUNCATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "movie_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "REFERENCES",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "movie_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRIGGER",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "movie_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "movie_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT",
+        "with_hierarchy": "YES"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "movie_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "UPDATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "movie_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "DELETE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "movie_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRUNCATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "movie_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "REFERENCES",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "movie_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRIGGER",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "suggestion_packs",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "suggestion_packs",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT",
+        "with_hierarchy": "YES"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "suggestion_packs",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "UPDATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "suggestion_packs",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "DELETE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "suggestion_packs",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRUNCATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "suggestion_packs",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "REFERENCES",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "suggestion_packs",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRIGGER",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "suggestion_packs",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "suggestion_packs",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT",
+        "with_hierarchy": "YES"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "suggestion_packs",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "UPDATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "suggestion_packs",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "DELETE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "suggestion_packs",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRUNCATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "suggestion_packs",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "REFERENCES",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "suggestion_packs",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRIGGER",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "pack_progress",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "pack_progress",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT",
+        "with_hierarchy": "YES"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "pack_progress",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "UPDATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "pack_progress",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "DELETE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "pack_progress",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRUNCATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "pack_progress",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "REFERENCES",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "pack_progress",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRIGGER",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "pack_progress",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "pack_progress",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT",
+        "with_hierarchy": "YES"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "pack_progress",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "UPDATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "pack_progress",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "DELETE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "pack_progress",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRUNCATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "pack_progress",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "REFERENCES",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "pack_progress",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRIGGER",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT",
+        "with_hierarchy": "YES"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "UPDATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "DELETE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRUNCATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "REFERENCES",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRIGGER",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT",
+        "with_hierarchy": "YES"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "UPDATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "DELETE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRUNCATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "REFERENCES",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "TRIGGER",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "category_shared_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "category_shared_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT",
+        "with_hierarchy": "YES"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "category_shared_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "UPDATE",
+        "with_hierarchy": "NO"
+      },
+      {
+        "grantee": "authenticated",
+        "grantor": "postgres",
+        "table_name": "category_shared_lists",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "DELETE",
+        "with_hierarchy": "NO"
+      }
+    ],
+    "columns": [
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "category_shared_lists",
+        "column_name": "category",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "category_shared_lists",
+        "column_name": "created_at",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "created_at",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "created_at",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "REFERENCES"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "created_at",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "created_at",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "list_id",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "list_id",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "REFERENCES"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "list_id",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "list_id",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "category_shared_lists",
+        "column_name": "payload",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "payload",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "payload",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "REFERENCES"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "payload",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "payload",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "revoked",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "revoked",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "REFERENCES"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "revoked",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "revoked",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "category_shared_lists",
+        "column_name": "slug",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "slug",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "slug",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "REFERENCES"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "slug",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "slug",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "UPDATE"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "category_shared_lists",
+        "column_name": "updated_at",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "updated_at",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "INSERT"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "updated_at",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "REFERENCES"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "updated_at",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "SELECT"
+      },
+      {
+        "grantee": "anon",
+        "grantor": "postgres",
+        "table_name": "shared_lists",
+        "column_name": "updated_at",
+        "is_grantable": "NO",
+        "table_schema": "public",
+        "table_catalog": "postgres",
+        "privilege_type": "UPDATE"
+      }
+    ],
+    "policies": [
+      {
+        "cmd": "SELECT",
+        "qual": "(revoked_at IS NULL)",
+        "roles": [
+          "anon"
+        ],
+        "tablename": "category_shared_lists",
+        "permissive": "PERMISSIVE",
+        "policyname": "Anyone can read active category shared lists",
+        "schemaname": "public",
+        "with_check": null
+      },
+      {
+        "cmd": "DELETE",
+        "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+        "roles": [
+          "authenticated"
+        ],
+        "tablename": "category_shared_lists",
+        "permissive": "PERMISSIVE",
+        "policyname": "User delete own category shared lists",
+        "schemaname": "public",
+        "with_check": null
+      },
+      {
+        "cmd": "INSERT",
+        "qual": null,
+        "roles": [
+          "authenticated"
+        ],
+        "tablename": "category_shared_lists",
+        "permissive": "PERMISSIVE",
+        "policyname": "User insert own category shared lists",
+        "schemaname": "public",
+        "with_check": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))"
+      },
+      {
+        "cmd": "SELECT",
+        "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+        "roles": [
+          "authenticated"
+        ],
+        "tablename": "category_shared_lists",
+        "permissive": "PERMISSIVE",
+        "policyname": "User read own category shared lists",
+        "schemaname": "public",
+        "with_check": null
+      },
+      {
+        "cmd": "UPDATE",
+        "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+        "roles": [
+          "authenticated"
+        ],
+        "tablename": "category_shared_lists",
+        "permissive": "PERMISSIVE",
+        "policyname": "User update own category shared lists",
+        "schemaname": "public",
+        "with_check": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))"
+      },
+      {
+        "cmd": "SELECT",
+        "qual": "(revoked = false)",
+        "roles": [
+          "anon",
+          "authenticated"
+        ],
+        "tablename": "shared_lists",
+        "permissive": "PERMISSIVE",
+        "policyname": "Anyone can read active shared lists",
+        "schemaname": "public",
+        "with_check": null
+      },
+      {
+        "cmd": "DELETE",
+        "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+        "roles": [
+          "authenticated"
+        ],
+        "tablename": "shared_lists",
+        "permissive": "PERMISSIVE",
+        "policyname": "User delete own shared lists",
+        "schemaname": "public",
+        "with_check": null
+      },
+      {
+        "cmd": "INSERT",
+        "qual": null,
+        "roles": [
+          "authenticated"
+        ],
+        "tablename": "shared_lists",
+        "permissive": "PERMISSIVE",
+        "policyname": "User insert own shared lists",
+        "schemaname": "public",
+        "with_check": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))"
+      },
+      {
+        "cmd": "SELECT",
+        "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+        "roles": [
+          "authenticated"
+        ],
+        "tablename": "shared_lists",
+        "permissive": "PERMISSIVE",
+        "policyname": "User read own shared lists",
+        "schemaname": "public",
+        "with_check": null
+      },
+      {
+        "cmd": "UPDATE",
+        "qual": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))",
+        "roles": [
+          "authenticated"
+        ],
+        "tablename": "shared_lists",
+        "permissive": "PERMISSIVE",
+        "policyname": "User update own shared lists",
+        "schemaname": "public",
+        "with_check": "(list_id = ('user:'::text || (( SELECT auth.uid() AS uid))::text))"
+      }
+    ],
+    "functions": [
+      {
+        "acl": "{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+        "name": "enforce_product_events_session_insert_limit",
+        "owner": "postgres",
+        "definition": "CREATE OR REPLACE FUNCTION public.enforce_product_events_session_insert_limit()\n RETURNS trigger\n LANGUAGE plpgsql\n SECURITY DEFINER\n SET search_path TO 'public', 'pg_temp'\nAS $function$\nbegin\n  if exists (\n    select 1\n    from (select distinct session_id from new_rows) as inserted_sessions\n    where (\n      select count(*)\n      from public.product_events\n      where session_id = inserted_sessions.session_id\n    ) > 500\n  ) then\n    raise exception 'product event session insert limit exceeded'\n      using errcode = '23514';\n  end if;\n\n  return null;\nend;\n$function$\n"
+      }
+    ]
+  },
+  "cliAttempt": {
+    "command": "supabase migration list --linked",
+    "exitCode": 1,
+    "stage": "Initialising login role",
+    "error": "LegacyDbConfigLoginRoleStatusError; HTTP400; SQL42501 permission denied to alter role cli_login_postgres. Requires CREATEROLE and ADMIN option. Server diagnostic password verifier omitted.",
+    "mutationsApplied": false,
+    "roleChangesAttemptedByAgent": false
+  },
+  "compatibilityChecks": {
+    "legacyTableGrantsMatchPreapprovalMetadata": true,
+    "baselineMigrationCount": 15,
+    "newFunctionsAbsent": true,
+    "sharePolicyCount": 10,
+    "approvedHashes": {
+      "20261009052409": "ea07a9f75f188826fbae4ef18a8168d1a3ac52d713837f51d4f65b7265d3efe7",
+      "20261009052514": "a096c9a23952eed5d1398be08f6d3ddf655e31762a20d4d60a65b56ea67bb7d7"
+    }
+  }
+}

@@ -17,19 +17,23 @@ input checks and 4 read-only desktop/phone renders passed. Render harness blocks
 backend/font/telemetry traffic; expected Movies unavailable-provider state is documented.
 Audit/source originals rehashed: all17,407 entries unchanged. Main unrelated files intact.
 
-NO LIVE DATABASE MIGRATION OR AUTH SETTING CHANGE. Exact SQL, hashes, risks and rollback:
-LIVE-MIGRATION-APPROVAL.md. Exact-action confirmation has been requested; await Dan/parent response
-before application for ONLY the two named migrations on hrfhakrxsllrqmscxxpb. Do not infer
-approval from code/deploy authorization. Local files are not hosted protection.
+Dan approved the exact two migrations at 05:56 UTC on October 9 (message
+`Sentinel_d26069f7677081918f3d9337d4f8933f`). Both SQL hashes still match the approved
+packet. No live migration has yet run: `supabase migration list --linked` failed
+while initializing `cli_login_postgres` (HTTP400 / SQL42501; insufficient platform
+role permissions). Do not retry or change credentials/roles. Fresh metadata matches
+the approved baseline grants and confirms both migrations absent. Sanitized receipt:
+`live-migration-attempt.json`.
 
-If approved, use main's existing link and normal CLI credential handling:
-`supabase migration list --linked`; `supabase db push --linked --dry-run`.
-Proceed only if precisely versions20261009052409 and20261009052514 are pending.
-Then `supabase db push --linked`, followed by metadata/history and bounded invalid-slug/
-zero-row API checks. No secrets/customer rows; stop if credentials inaccessible.
-Avoid timestamp-generating MCP migration application, --include-all, history repair,
-seed/role flags or blanket default-ACL changes. Old cached viewers need reload after
-cutover; links/slugs and authenticated owner management remain unchanged.
+The connected MCP migration tool is an available alternative, but assigns its own
+migration timestamps. Independent database review considers exact-SQL application
+and byte-preserving local filename reconciliation within existing approval; the
+prior CLI recommendation was to avoid history drift, not a separate approval rule.
+A clarification was nevertheless sent to the parent before that assessment arrived;
+await its response before taking that proposed alternative. Preserve the original
+approved filenames/hashes in evidence; never manually edit hosted migration history.
+After application verify metadata/history and bounded invalid-slug/zero-row HTTP
+checks. No customer rows, role changes or weaker-access rollback.
 
 Finish exact receipts, disposition statuses, HAND BACK and CLAUDE update in a committed
 follow-up. Do not claim global telemetry/Edge rate protection; SR03/SR06 remain bounded

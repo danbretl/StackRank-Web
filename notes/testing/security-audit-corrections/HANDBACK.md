@@ -80,11 +80,19 @@ No production load tests, forged-header attacks or customer records were used. S
 `edge-deployed-source-check.json`, `production-smoke.json`, `production-byte-checks.json`,
 `edge-live-smoke.json` and `production-rendered.json`.
 
-**Live database cutover is awaiting exact-action confirmation.** The SQL is tested and
-committed but unapplied: database owner-ID exposure and table enumeration remain until
-that approval and verified application. Prepared SQL is not hosted protection. Exact
-SQL, hashes, target/access changes and compatibility risks are in
-`LIVE-MIGRATION-APPROVAL.md`. The two migration versions are20261009052409 and20261009052514.
+**Exact live SQL was approved at 05:56 UTC on October 9, but remains unapplied.**
+Both approved hashes match. The CLI failed during login-role initialization before
+any migration (HTTP400 / SQL42501, insufficient permission to alter its temporary
+login role). No credentials or roles were modified by the agent. Fresh metadata
+confirms the original grants and absence of both migrations. See
+`live-migration-attempt.json` for a sanitized receipt. Existing share exposure remains.
+
+The connected migration tool can submit identical SQL but assigns new history
+versions. Independent review accepts preserving the exact bytes and recording a
+version mapping as an execution adjustment; parent clarification is pending because
+it was requested before that assessment. No retry, role repair, SQL broadening or
+weaker-access rollback was attempted. The approved SQL remains in
+`LIVE-MIGRATION-APPROVAL.md` under versions20261009052409 and20261009052514.
 
 ## Preservation and rollback
 

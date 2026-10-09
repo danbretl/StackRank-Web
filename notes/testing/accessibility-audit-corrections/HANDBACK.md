@@ -1,5 +1,6 @@
 # Movies and Dogs accessibility corrections
 
+Status: **COMPLETE — product `45af9dc0` is deployed and verified.**
 The supported focus and naming defects are corrected without visual redesign.
 Baseline: `d4eb829631065d6d070475d569e1ec1aebb43a1d`; original accessibility audit:
 `849fb5b924d4c66255fd66c326959f7c7f35861d`. Security cutover completed first: both
@@ -51,7 +52,7 @@ Final `npm run verify` passed with exit 0: **660 Node, 58 Python, 27 Deno plus
 12 steps, 44 staged smoke flows, 45 data-safety, 24 security-browser and 9 native
 keyboard cases**. All validators, cache checks and deterministic deployment checks
 passed. See `local-verification.json`; the 2,172-file staged site contains 173,234,357
-bytes. Commit/CI/production receipts are pending publication. An earlier frozen-tree aggregate
+bytes. Exact CI and production receipts are recorded below. An earlier frozen-tree aggregate
 run passed all 44 smoke cases but one of 45 data-safety cases timed out awaiting its
 second account PATCH. The latest `[900003]` device state remained durable, sync stayed
 visibly pending, and no newer payload was sent before local saving. Two unchanged focused
@@ -71,6 +72,32 @@ probe setup issues (canonical fixture labels and browser-local blob routing) are
 recorded separately from product defects. Independent review found no remaining
 material source blocker; see `independent-review.md` and its exact hashes.
 
+## Production release
+
+Product revision: `45af9dc01ba67535ed2f30f81a6054ee23037718`, pushed to `main`.
+Vercel deployment `dpl_4kFR26xZ7qi4eT3edXjrJzLmN4Fj` is READY and serves both
+`www.stackrankapp.com` and `stackrankapp.com`. Hosted build logs confirm explicit
+Git inputs, `dist/public`, 2,172 included / 1,220 excluded / zero unclassified files,
+and digest `5451756742d072c9340bde5bdb0a88c2e19fdb57d7637ee2d758be5406143adc`.
+See `product-vercel.json` and `product-build.json`.
+
+Read-only production checks passed: **49 smoke checks, seven exact live file hashes,
+seven private-path 404 exclusions, and Movies/Dogs at desktop and phone widths**.
+Each rendered view used actual keyboard input, verified named dialogs and restored focus,
+and had no uncaught app error or horizontal overflow. Fonts/providers/Auth/telemetry were
+blocked; these checks do not verify email delivery or live account mutation. No firewall
+challenge occurred. The first rendering probe closed its own context with an image request
+pending; its three passing views are retained, teardown was corrected, and only the
+unexecuted Dogs phone view was run afterward. The asset-version manifest is intentionally
+excluded; a local preflight assumption was corrected to expect404. All original probe
+receipts remain preserved; `production-verification.json` binds the final evidence.
+
+Exact product [CI37900960645](https://github.com/danbretl/StackRank-Web/actions/runs/37900960645)
+passed, including aggregate verification and isolated synthetic database checks; see
+`product-ci.json`. This follow-up documentation commit changes no runtime input. Its
+exact CI and Vercel deployment are checked after push; the final delivery records
+that revision without creating an endless sequence of receipt-only commits.
+
 ## Limits, preservation and rollback
 
 No real accounts, emails, customer records or production writes are used by browser
@@ -84,6 +111,6 @@ prior worktrees and unrelated main untracked files remain in place; off-Mac back
 unverified. Reports/screenshots/native browser profiles stay outside public output.
 Vercel continues to deploy `dist/public`; GitHub Pages remains disabled.
 
-Rollback of these UI changes can revert the accessibility product commit while preserving
+Rollback of these UI changes can revert accessibility product commit `45af9dc0` while preserving
 the security cutover and its RPC-capable viewers. No schema or data rollback is required
 or authorized. Never apply the earlier weakening SQL rollback without separate approval.

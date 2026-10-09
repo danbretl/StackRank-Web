@@ -1,0 +1,373 @@
+{
+  "at": "2026-10-09T07:50:41.569145+00:00",
+  "sha": "45af9dc01ba67535ed2f30f81a6054ee23037718",
+  "smoke": {
+    "passed": 49,
+    "log": "reports/accessibility-audit-corrections/production-smoke.log",
+    "sha256": "a57ee133e1860f53778bd917be3648a38d2555563c54722629f257ca5578f205"
+  },
+  "liveBytesAndExclusions": {
+    "at": "2026-10-09T07:48:32.586Z",
+    "expectedSha": "45af9dc01ba67535ed2f30f81a6054ee23037718",
+    "checks": [
+      {
+        "file": "index.html",
+        "url": "/movies",
+        "status": 200,
+        "bytes": 70958,
+        "expected": "ee7f018680d2a0584d21ada8c3aa695d2c5961cab8e4b28b2ac57b18da50c1c6",
+        "actual": "ee7f018680d2a0584d21ada8c3aa695d2c5961cab8e4b28b2ac57b18da50c1c6"
+      },
+      {
+        "file": "dogs.html",
+        "url": "/dogs",
+        "status": 200,
+        "bytes": 25056,
+        "expected": "d6eaa492738747aa6c80fb63f858d2e815a909721087135392e806d020e085a2",
+        "actual": "d6eaa492738747aa6c80fb63f858d2e815a909721087135392e806d020e085a2"
+      },
+      {
+        "file": "app.js",
+        "url": "/app.js?v=195",
+        "status": 200,
+        "bytes": 457079,
+        "expected": "333a83e6f3d69ab1080811e0cf3578758d3120f64ce6fb5a2f1cb9fa9d18ffd5",
+        "actual": "333a83e6f3d69ab1080811e0cf3578758d3120f64ce6fb5a2f1cb9fa9d18ffd5"
+      },
+      {
+        "file": "dogs.js",
+        "url": "/dogs.js?v=161",
+        "status": 200,
+        "bytes": 136998,
+        "expected": "af3598d2373117628b4f5e7d852492c86bb57039dea08b2826071c4f84faa42d",
+        "actual": "af3598d2373117628b4f5e7d852492c86bb57039dea08b2826071c4f84faa42d"
+      },
+      {
+        "file": "shared.js",
+        "url": "/shared.js",
+        "status": 200,
+        "bytes": 13674,
+        "expected": "3d7a3f625317924997f07f8bd2a43ed894379f1213fd44282720df5e9b162843",
+        "actual": "3d7a3f625317924997f07f8bd2a43ed894379f1213fd44282720df5e9b162843"
+      },
+      {
+        "file": "dogs-shared.js",
+        "url": "/dogs-shared.js",
+        "status": 200,
+        "bytes": 3502,
+        "expected": "0b155b6e7541e39fda64d84af28594e5fd38d14143be07462289bef8e2804a54",
+        "actual": "0b155b6e7541e39fda64d84af28594e5fd38d14143be07462289bef8e2804a54"
+      },
+      {
+        "file": "data/dogs/generated-artwork.json",
+        "url": "/data/dogs/generated-artwork.json",
+        "status": 200,
+        "bytes": 2068612,
+        "expected": "658fad9598adc10d1934e105cc1fc60893810b21f7f43f10e44ac058bcb4569a",
+        "actual": "658fad9598adc10d1934e105cc1fc60893810b21f7f43f10e44ac058bcb4569a"
+      },
+      {
+        "url": "/data/asset-versions.json",
+        "status": 404,
+        "expected": 404
+      },
+      {
+        "url": "/AGENTS.md",
+        "status": 404,
+        "expected": 404
+      },
+      {
+        "url": "/package.json",
+        "status": 404,
+        "expected": 404
+      },
+      {
+        "url": "/scripts/test-accessibility-cdp.cjs",
+        "status": 404,
+        "expected": 404
+      },
+      {
+        "url": "/notes/testing/accessibility-audit-corrections/HANDBACK.md",
+        "status": 404,
+        "expected": 404
+      },
+      {
+        "url": "/supabase/migrations/20261009060218_harden_legacy_privileges_and_payload_writes.sql",
+        "status": 404,
+        "expected": 404
+      },
+      {
+        "url": "/data/dogs/portrait-cohort-n-completion.json",
+        "status": 404,
+        "expected": 404
+      }
+    ],
+    "policy": "Sequential GETs, 500ms spacing, no retries; stop on mitigation or rate limit.",
+    "passed": true,
+    "finishedAt": "2026-10-09T07:48:41.757Z"
+  },
+  "render": {
+    "passedViews": [
+      {
+        "app": "movies",
+        "viewport": "desktop",
+        "status": "passed",
+        "dialogs": [
+          {
+            "type": "signin",
+            "aria": "- dialog \"Sign in to sync your ranking\":",
+            "initial": {
+              "tag": "BUTTON",
+              "id": "signin-close",
+              "text": "Close sign in",
+              "visible": true,
+              "disabled": false,
+              "focusVisible": true
+            },
+            "restored": {
+              "tag": "BUTTON",
+              "id": "ranking-settings-toggle",
+              "text": "Settings",
+              "visible": true,
+              "disabled": false,
+              "focusVisible": true
+            }
+          }
+        ],
+        "errors": []
+      },
+      {
+        "app": "movies",
+        "viewport": "phone",
+        "status": "passed",
+        "dialogs": [
+          {
+            "type": "signin",
+            "aria": "- dialog \"Sign in to sync your ranking\":",
+            "initial": {
+              "tag": "BUTTON",
+              "id": "signin-close",
+              "text": "Close sign in",
+              "visible": true,
+              "disabled": false,
+              "focusVisible": true
+            },
+            "restored": {
+              "tag": "BUTTON",
+              "id": "ranking-settings-toggle",
+              "text": "Settings",
+              "visible": true,
+              "disabled": false,
+              "focusVisible": true
+            }
+          }
+        ],
+        "errors": []
+      },
+      {
+        "app": "dogs",
+        "viewport": "desktop",
+        "status": "passed",
+        "dialogs": [
+          {
+            "type": "signin",
+            "aria": "- dialog \"Sign in to sync Dogs\":",
+            "initial": {
+              "tag": "INPUT",
+              "id": "dogs-signin-email",
+              "text": "",
+              "visible": true,
+              "disabled": false,
+              "focusVisible": true
+            },
+            "restored": {
+              "tag": "BUTTON",
+              "id": "dogs-settings-toggle",
+              "text": "Open Dogs settings",
+              "visible": true,
+              "disabled": false,
+              "focusVisible": true
+            }
+          },
+          {
+            "type": "backup",
+            "aria": "- dialog \"Backup & import\":",
+            "initial": {
+              "tag": "BUTTON",
+              "id": "",
+              "text": "Close backup and import",
+              "visible": true,
+              "disabled": false,
+              "focusVisible": true
+            },
+            "restored": {
+              "tag": "BUTTON",
+              "id": "dogs-settings-toggle",
+              "text": "Open Dogs settings",
+              "visible": true,
+              "disabled": false,
+              "focusVisible": true
+            }
+          },
+          {
+            "type": "export",
+            "aria": "- dialog \"Export ranking\":",
+            "initial": {
+              "tag": "BUTTON",
+              "id": "",
+              "text": "Close ranking export",
+              "visible": true,
+              "disabled": false,
+              "focusVisible": true
+            },
+            "restored": {
+              "tag": "BUTTON",
+              "id": "dogs-settings-toggle",
+              "text": "Open Dogs settings",
+              "visible": true,
+              "disabled": false,
+              "focusVisible": true
+            }
+          }
+        ],
+        "errors": []
+      },
+      {
+        "app": "dogs",
+        "viewport": "phone",
+        "status": "passed",
+        "dialogs": [
+          {
+            "type": "signin",
+            "aria": "- dialog \"Sign in to sync Dogs\":",
+            "initial": {
+              "tag": "INPUT",
+              "id": "dogs-signin-email",
+              "text": "",
+              "visible": true,
+              "disabled": false,
+              "focusVisible": true
+            },
+            "restored": {
+              "tag": "BUTTON",
+              "id": "dogs-settings-toggle",
+              "text": "Open Dogs settings",
+              "visible": true,
+              "disabled": false,
+              "focusVisible": true
+            }
+          },
+          {
+            "type": "backup",
+            "aria": "- dialog \"Backup & import\":",
+            "initial": {
+              "tag": "BUTTON",
+              "id": "",
+              "text": "Close backup and import",
+              "visible": true,
+              "disabled": false,
+              "focusVisible": true
+            },
+            "restored": {
+              "tag": "BUTTON",
+              "id": "dogs-settings-toggle",
+              "text": "Open Dogs settings",
+              "visible": true,
+              "disabled": false,
+              "focusVisible": true
+            }
+          },
+          {
+            "type": "export",
+            "aria": "- dialog \"Export ranking\":",
+            "initial": {
+              "tag": "BUTTON",
+              "id": "",
+              "text": "Close ranking export",
+              "visible": true,
+              "disabled": false,
+              "focusVisible": true
+            },
+            "restored": {
+              "tag": "BUTTON",
+              "id": "dogs-settings-toggle",
+              "text": "Open Dogs settings",
+              "visible": true,
+              "disabled": false,
+              "focusVisible": true
+            }
+          }
+        ],
+        "errors": []
+      }
+    ],
+    "reports": [
+      {
+        "path": "reports/accessibility-audit-corrections/production-render-2026-10-09T07-48-42-025Z/results.json",
+        "sha256": "9be8941fbae019c96aeb05f8f4e7e9909ee6f15ec744c85eca92552404481180"
+      },
+      {
+        "path": "reports/accessibility-audit-corrections/production-render-2026-10-09T07-49-52-549Z/results.json",
+        "sha256": "af514b9e4e94fb6d82cc145bd7ac7874f5296364b6a9a97c3864944a39e208d7"
+      }
+    ],
+    "screenshots": [
+      {
+        "path": "reports/accessibility-audit-corrections/production-render-2026-10-09T07-48-42-025Z/movies-desktop-signin.png",
+        "sha256": "823bebf889407b112b225f56b89bd67a671a7286018d015c2bafde79501d818c"
+      },
+      {
+        "path": "reports/accessibility-audit-corrections/production-render-2026-10-09T07-48-42-025Z/dogs-desktop-export.png",
+        "sha256": "cd8fed77f19b881ed02dd3412eacf6fccb4122554fa9588cf2932d1223a6755e"
+      },
+      {
+        "path": "reports/accessibility-audit-corrections/production-render-2026-10-09T07-48-42-025Z/movies-desktop-page.png",
+        "sha256": "7812840222324e3d43356b5ff61b7d90ee4d3aebd35610d7290a5d39458dfd9a"
+      },
+      {
+        "path": "reports/accessibility-audit-corrections/production-render-2026-10-09T07-48-42-025Z/dogs-desktop-backup.png",
+        "sha256": "65471a879350c869f0a026d264277031b0179e8d5d9fea74ed8c7d8a073b4345"
+      },
+      {
+        "path": "reports/accessibility-audit-corrections/production-render-2026-10-09T07-48-42-025Z/dogs-desktop-page.png",
+        "sha256": "7b2b86823ee1b1367baa4139f42b11850acd0ba8044f0ea15f595914146d3c16"
+      },
+      {
+        "path": "reports/accessibility-audit-corrections/production-render-2026-10-09T07-48-42-025Z/movies-phone-page.png",
+        "sha256": "5711df6ea856b6ff1d38e55ef6fb89a95f156f2d9546f072a53771cfbe3c7b54"
+      },
+      {
+        "path": "reports/accessibility-audit-corrections/production-render-2026-10-09T07-48-42-025Z/dogs-desktop-signin.png",
+        "sha256": "7d4f593398c5c42cb0e6224245a68b25b516d713fa5ca7281e5ce721a57ad6c6"
+      },
+      {
+        "path": "reports/accessibility-audit-corrections/production-render-2026-10-09T07-48-42-025Z/movies-phone-signin.png",
+        "sha256": "6a1aaa14f23a1aaf7c3e3e3f35a4cf2b3a82d6fdc066e1e135eea5a4574eba2a"
+      },
+      {
+        "path": "reports/accessibility-audit-corrections/production-render-2026-10-09T07-49-52-549Z/dogs-phone-signin.png",
+        "sha256": "0e6c4a10672c679f4921d128926c7e4811d6dd81b9236aa7c7ce4e11eee1c4af"
+      },
+      {
+        "path": "reports/accessibility-audit-corrections/production-render-2026-10-09T07-49-52-549Z/dogs-phone-backup.png",
+        "sha256": "1a87544d745ad09f8af29bfc05a7f8fff35f789fdeafac483ecd9ab5ab9d14fa"
+      },
+      {
+        "path": "reports/accessibility-audit-corrections/production-render-2026-10-09T07-49-52-549Z/dogs-phone-export.png",
+        "sha256": "3b2831b7afde80dad30e947657ac37af25ca53495e71752eba0784ba922ac159"
+      },
+      {
+        "path": "reports/accessibility-audit-corrections/production-render-2026-10-09T07-49-52-549Z/dogs-phone-page.png",
+        "sha256": "8cd887bd5e89a3b7cba8e15cb1e1f1d83cf12f996194b9834a14c76335c06e5b"
+      }
+    ],
+    "noMitigation": true,
+    "readOnly": "Fresh empty contexts; same-origin GET/HEAD only; all backend/auth/telemetry/font/external requests blocked; no account writes. 150ms serial request spacing.",
+    "failedAttempt": "First run passed3views then its own context teardown disposed a pending image request, stopping next navigation locally. No network challenge. Harness teardown fixed; only unexecuted Dogsphone run completed.",
+    "manualScreenshotReview": [
+      "movies-desktop-signin.png",
+      "dogs-phone-backup.png"
+    ]
+  },
+  "probeCorrection": "asset-versions.json is intentionally excluded by deployment contract; initial local-preflight assumption corrected and 404 verified. Original failed receipt retained."
+}

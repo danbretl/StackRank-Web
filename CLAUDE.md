@@ -2,7 +2,7 @@
 
 ## October 9 accessibility corrections
 
-Movies and Dogs preserve keyboard focus through supported dialog, cancellation and
+Verified product `45af9dc0` preserves Movies and Dogs keyboard focus through dialog, cancellation and
 busy publishing/export flows. Dogs Settings utility dialogs have accessible names and
 return focus to their trigger; queue cancellation resolves its Rank button by stable ID
 with an owner-generation guard. Async share completion never restores a stale opener.
